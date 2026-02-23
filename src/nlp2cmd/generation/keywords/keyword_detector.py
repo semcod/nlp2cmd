@@ -160,6 +160,7 @@ class DetectionResult:
     confidence: float
     entities: dict[str, str] = None
     metadata: dict[str, any] = None
+    matched: bool = True  # Whether detection was successful
     
     def __post_init__(self):
         if self.entities is None:
@@ -207,7 +208,7 @@ class KeywordIntentDetector:
             DetectionResult with detected domain, intent, and confidence
         """
         if not text or not text.strip():
-            return DetectionResult(domain="", intent="", confidence=0.0)
+            return DetectionResult(domain="", intent="", confidence=0.0, matched=False)
         
         text_lower = text.lower()
         
@@ -232,7 +233,12 @@ class KeywordIntentDetector:
             return semantic_result
         
         # Traditional keyword matching
-        return self._keyword_detection(text, text_lower)
+        result = self._keyword_detection(text, text_lower)
+        
+        # Set matched based on confidence threshold
+        result.matched = result.confidence >= self.confidence_threshold
+        
+        return result
     
     def detect_all(self, text: str) -> list[DetectionResult]:
         """
@@ -411,7 +417,7 @@ class KeywordIntentDetector:
     
     def _keyword_detection(self, text: str, text_lower: str) -> DetectionResult:
         """Traditional keyword-based detection."""
-        best_match = DetectionResult(domain="", intent="", confidence=0.0)
+        best_match = DetectionResult(domain="", intent="", confidence=0.0, matched=False)
         
         # Check priority intents first
         for domain in self.patterns.list_domains():
