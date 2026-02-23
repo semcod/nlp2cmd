@@ -327,6 +327,5 @@ def create_pipeline(
     
     return RuleBasedPipeline(
         confidence_threshold=confidence_threshold,
-        patterns=patterns,
         **kwargs
     )

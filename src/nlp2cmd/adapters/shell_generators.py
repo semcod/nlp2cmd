@@ -121,11 +121,12 @@ class ProcessManagementGenerator:
             return f"kill -9 {pid}"
         
         # Handle service management (systemctl)
-        if process_name and action in ["start", "uruchom", "status", "stop", "zatrzymaj", "restart"]:
+        if process_name and action in ["start", "uruchom", "status", "stop", "zatrzymaj", "restart", "status usługi"]:
             systemctl_actions = {
                 "start": "start",
                 "uruchom": "start", 
                 "status": "status",
+                "status usługi": "status",
                 "stop": "stop",
                 "zatrzymaj": "stop",
                 "restart": "restart"

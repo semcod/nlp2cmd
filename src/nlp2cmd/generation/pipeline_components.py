@@ -135,6 +135,17 @@ class PipelineMetrics:
             "error_counts": self.error_counts,
         }
 
+    def generate_report(self) -> dict[str, Any]:
+        """Generate metrics report (alias for get_summary with legacy field names)."""
+        summary = self.get_summary()
+        # Add legacy field names for backward compatibility
+        report = summary.copy()
+        report['avg_latency'] = report['average_latency_ms']
+        # Convert success_rate from percentage to decimal for legacy compatibility
+        if isinstance(report['success_rate'], (int, float)) and report['success_rate'] > 1:
+            report['success_rate'] = report['success_rate'] / 100.0
+        return report
+
 
 # Enhanced context detector is imported lazily (it can pull heavy deps like torch).
 ENHANCED_CONTEXT_AVAILABLE: bool | None = None

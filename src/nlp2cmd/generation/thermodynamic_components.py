@@ -63,6 +63,35 @@ class OptimizationProblem:
     objective_field: Optional[str] = None
     bounds: Optional[dict[str, tuple[float, float]]] = None
     
+    # Legacy parameters for backward compatibility
+    n_tasks: Optional[int] = None
+    n_slots: Optional[int] = None
+    n_resources: Optional[int] = None
+    n_cities: Optional[int] = None
+    
+    def __post_init__(self):
+        """Extract legacy parameters from variables if not provided."""
+        if self.n_tasks is None or self.n_slots is None:
+            # Extract numbers from variables
+            import re
+            for var in self.variables:
+                if 'task' in var.lower() and self.n_tasks is None:
+                    match = re.search(r'(\d+)', var)
+                    if match:
+                        self.n_tasks = int(match.group())
+                elif 'slot' in var.lower() and self.n_slots is None:
+                    match = re.search(r'(\d+)', var)
+                    if match:
+                        self.n_slots = int(match.group())
+                elif 'resource' in var.lower() and self.n_resources is None:
+                    match = re.search(r'(\d+)', var)
+                    if match:
+                        self.n_resources = int(match.group())
+                elif 'city' in var.lower() and self.n_cities is None:
+                    match = re.search(r'(\d+)', var)
+                    if match:
+                        self.n_cities = int(match.group())
+    
     def to_condition(self) -> dict[str, Any]:
         """Convert to condition dictionary for energy models."""
         return {
@@ -90,6 +119,11 @@ class ThermodynamicResult:
     warnings: list[str] = field(default_factory=list)
     problem: Optional["OptimizationProblem"] = None
     solution: Optional[Any] = None
+    
+    @property
+    def energy(self) -> float:
+        """Backward compatibility property."""
+        return self.energy_estimate
 
 
 class ThermodynamicProblemDetector:

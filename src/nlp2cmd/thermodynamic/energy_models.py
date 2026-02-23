@@ -66,11 +66,14 @@ class SchedulingEnergy(EnergyModel):
         lambda_deadline: float = 5.0,
         lambda_precedence: float = 10.0,
         lambda_makespan: float = 1.0,
+        n_tasks: Optional[int] = None,
+        **kwargs
     ):
         self.lambda_overlap = lambda_overlap
         self.lambda_deadline = lambda_deadline
         self.lambda_precedence = lambda_precedence
         self.lambda_makespan = lambda_makespan
+        self.n_tasks = n_tasks  # Store for backward compatibility
     
     def energy(self, z: np.ndarray, condition: Dict[str, Any]) -> float:
         """
@@ -231,11 +234,14 @@ class AllocationEnergy(EnergyModel):
         lambda_demand: float = 5.0,
         lambda_balance: float = 1.0,
         lambda_cost: float = 1.0,
+        n_resources: Optional[int] = None,
+        **kwargs
     ):
         self.lambda_capacity = lambda_capacity
         self.lambda_demand = lambda_demand
         self.lambda_balance = lambda_balance
         self.lambda_cost = lambda_cost
+        self.n_resources = n_resources  # Store for backward compatibility
     
     def energy(self, z: np.ndarray, condition: Dict[str, Any]) -> float:
         """
@@ -320,10 +326,13 @@ class RoutingEnergy(EnergyModel):
         lambda_row: float = 10.0,
         lambda_col: float = 10.0,
         lambda_entropy: float = 0.1,
+        n_cities: Optional[int] = None,
+        **kwargs
     ):
         self.lambda_row = lambda_row
         self.lambda_col = lambda_col
         self.lambda_entropy = lambda_entropy
+        self.n_cities = n_cities  # Store for backward compatibility
     
     def energy(self, z: np.ndarray, condition: Dict[str, Any]) -> float:
         """

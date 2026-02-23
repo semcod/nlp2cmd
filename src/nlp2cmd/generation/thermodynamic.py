@@ -31,6 +31,16 @@ import time
 from pathlib import Path
 from typing import Any, Optional
 
+try:
+    import numpy as np
+except Exception:  # pragma: no cover
+    class _NumpyStub:
+        def __getattr__(self, name):
+            raise ImportError(
+                "numpy is not installed. Install it to use thermodynamic optimization features."
+            )
+    np = _NumpyStub()
+
 from nlp2cmd.thermodynamic import (
     LangevinConfig,
     LangevinSampler,
@@ -71,6 +81,8 @@ class ThermodynamicGenerator:
         step_size: Optional[float] = None,
         convergence_threshold: Optional[float] = None,
         max_iterations: Optional[int] = None,
+        adaptive_steps: Optional[bool] = None,
+        parallel_sampling: Optional[bool] = None,
         **kwargs
     ):
         self.llm_client = llm_client
@@ -87,6 +99,12 @@ class ThermodynamicGenerator:
             )
         
         self.config = config
+        
+        # Store additional attributes for backward compatibility
+        self.n_samples = config.n_samples
+        self.adaptive_steps = adaptive_steps if adaptive_steps is not None else kwargs.get('adaptive_steps', True)
+        self.parallel_sampling = parallel_sampling if parallel_sampling is not None else kwargs.get('parallel_sampling', False)
+        self.max_workers = kwargs.get('max_workers', 4)
         
         # Initialize components
         self.problem_detector = ThermodynamicProblemDetector()
@@ -171,12 +189,28 @@ class ThermodynamicGenerator:
             decoded_output = self._decode_result(sampler_result, problem)
             
             # Calculate metrics
-            energy_estimate = sampler_result.energy  # Use the energy from sampler result directly
+            if hasattr(sampler_result, 'energy'):
+                energy_estimate = sampler_result.energy
+            else:
+                energy_estimate = 0.0
+            
             entropy_production = self._calculate_entropy_production(sampler_result)
+            
+            # Use EnergyEstimator for detailed breakdown if available
+            try:
+                energy_breakdown = self.energy_estimator.estimate(
+                    llm_input_tokens=50,  # Estimate
+                    llm_output_tokens_classic=100,  # Estimate
+                    llm_output_tokens_hybrid=30,  # Estimate
+                    langevin_steps=config.n_steps
+                )
+            except Exception:
+                # Fallback to simple energy estimate
+                energy_breakdown = energy_estimate
             
             return ThermodynamicResult(
                 decoded_output=decoded_output,
-                energy_estimate=energy_estimate,
+                energy_estimate=energy_breakdown,
                 converged=sampler_result.converged,
                 n_samples=config.n_samples,
                 entropy_production=entropy_production,
@@ -270,6 +304,32 @@ class ThermodynamicGenerator:
     def _calculate_entropy_production(self, sampler_result: SamplerResult) -> float:
         """Calculate entropy production from sampling."""
         return sampler_result.entropy_production
+    
+    def validate_solution(self, solution: Any, problem: OptimizationProblem, best_energy: float) -> Optional[float]:
+        """Validate solution and return quality score (backward compatibility)."""
+        # Simple validation based on energy
+        try:
+            if hasattr(solution, 'sample') and solution.sample is not None:
+                # Use the energy from the solution if available
+                if hasattr(solution, 'energy'):
+                    return 1.0 / (1.0 + solution.energy)  # Convert energy to quality score
+                else:
+                    # Default quality based on convergence
+                    if hasattr(solution, 'converged') and solution.converged:
+                        return 0.8  # Good quality for converged solutions
+                    else:
+                        return 0.5  # Medium quality for non-converged
+        except Exception:
+            pass
+        return None
+    
+    def _rule_based_parse(self, text: str) -> Optional[OptimizationProblem]:
+        """Parse text using rule-based approach (backward compatibility)."""
+        return self.problem_detector.detect_problem(text)
+    
+    def _format_output(self, result: ThermodynamicResult, problem: OptimizationProblem) -> str:
+        """Format output for specific problem type (backward compatibility)."""
+        return result.decoded_output
 
 
 class HybridThermodynamicGenerator:
@@ -384,4 +444,9 @@ def create_thermodynamic_generator(
         max_iterations=kwargs.get('max_iterations', 1000)
     )
     
-    return ThermodynamicGenerator(config=config)
+    return ThermodynamicGenerator(
+        config=config,
+        adaptive_steps=adaptive_steps,
+        parallel_sampling=parallel_sampling,
+        **kwargs
+    )

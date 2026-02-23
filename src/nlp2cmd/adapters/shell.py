@@ -344,6 +344,13 @@ class ShellAdapter(BaseDSLAdapter):
             if re.search(pattern, command):
                 issues.append(f"Dangerous pattern detected: {pattern}")
         
+        # Basic syntax validation - check for balanced quotes
+        single_quotes = command.count("'")
+        double_quotes = command.count('"')
+        
+        if single_quotes % 2 != 0 or double_quotes % 2 != 0:
+            issues.append("Unbalanced quotes detected")
+        
         return {
             "valid": len(issues) == 0,
             "issues": issues,
@@ -369,4 +376,48 @@ class ShellAdapter(BaseDSLAdapter):
             "process_name": entities.get("process_name", ""),
             "action": entities.get("action", ""),
             "direct_ps": entities.get("action") in ["pokaż", "show", "lista", "list"],
+        }
+
+    def check_safety(self, command: str) -> dict[str, Any]:
+        """
+        Check if a command passes safety policy.
+        
+        Overrides base method to handle both blocked_commands and blocked_patterns.
+        """
+        policy = self.config.safety_policy
+
+        if not policy.enabled:
+            return {"allowed": True}
+
+        command_lower = command.lower()
+        
+        # Check blocked_patterns (from base class)
+        for pattern in policy.blocked_patterns:
+            if pattern.lower() in command_lower:
+                return {
+                    "allowed": False,
+                    "reason": f"Command contains blocked pattern: {pattern}",
+                    "alternatives": [],
+                }
+        
+        # Check blocked_commands (from ShellSafetyPolicy)
+        blocked_commands = getattr(policy, 'blocked_commands', [])
+        for blocked in blocked_commands:
+            if blocked.lower() in command_lower:
+                return {
+                    "allowed": False,
+                    "reason": f"Command contains blocked command: {blocked}",
+                    "alternatives": [],
+                }
+
+        # Check confirmation requirements
+        requires_confirmation = False
+        for pattern in policy.require_confirmation_for:
+            if pattern.lower() in command_lower:
+                requires_confirmation = True
+                break
+
+        return {
+            "allowed": True,
+            "requires_confirmation": requires_confirmation,
         }
