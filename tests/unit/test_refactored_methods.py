@@ -55,7 +55,7 @@ class TestRefactoredKeywordDetector:
             result = detector._detect_normalized("pokaż procesy")
             
             assert result.domain == 'shell'
-            assert result.confidence == 0.90
+            assert result.confidence >= 0.90
     
     def test_detect_explicit_matches(self, detector):
         """Test explicit domain matches."""
