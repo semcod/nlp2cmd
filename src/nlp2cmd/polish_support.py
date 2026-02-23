@@ -87,27 +87,29 @@ class PolishLanguageSupport:
     def _load_patterns(self):
         """Load Polish language patterns"""
         try:
+            from nlp2cmd.utils.data_files import find_data_file
+
             # Load Polish shell patterns
-            patterns_file = Path("polish_shell_patterns.json")
-            if patterns_file.exists():
+            patterns_file = find_data_file(explicit_path=None, default_filename="polish_shell_patterns.json")
+            if patterns_file:
                 with open(patterns_file, 'r', encoding='utf-8') as f:
                     self.patterns = json.load(f)
             
             # Load Polish intent mappings
-            intent_file = Path("polish_intent_mappings.json")
-            if intent_file.exists():
+            intent_file = find_data_file(explicit_path=None, default_filename="polish_intent_mappings.json")
+            if intent_file:
                 with open(intent_file, 'r', encoding='utf-8') as f:
                     self.intent_mappings = json.load(f)
             
             # Load Polish table mappings
-            table_file = Path("polish_table_mappings.json")
-            if table_file.exists():
+            table_file = find_data_file(explicit_path=None, default_filename="polish_table_mappings.json")
+            if table_file:
                 with open(table_file, 'r', encoding='utf-8') as f:
                     self.table_mappings = json.load(f)
             
             # Load domain weights
-            weights_file = Path("domain_weights.json")
-            if weights_file.exists():
+            weights_file = find_data_file(explicit_path=None, default_filename="domain_weights.json")
+            if weights_file:
                 with open(weights_file, 'r', encoding='utf-8') as f:
                     self.domain_weights = json.load(f)
                     

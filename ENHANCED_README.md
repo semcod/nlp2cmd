@@ -1,197 +1,200 @@
-# Enhanced NLP2CMD - Dynamic Schema Implementation
+# NLP2CMD — Stan projektu i architektura
 
-[![GitHub stars](https://img.shields.io/github/stars/wronai/nlp2cmd?style=social)](https://github.com/wronai/nlp2cmd/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/wronai/nlp2cmd?style=social)](https://github.com/wronai/nlp2cmd/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/wronai/nlp2cmd)](https://github.com/wronai/nlp2cmd/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/wronai/nlp2cmd)](https://github.com/wronai/nlp2cmd/pulls)
-[![Tests](https://img.shields.io/github/actions/workflow/status/wronai/nlp2cmd/test.yml?label=tests)](https://github.com/wronai/nlp2cmd/actions)
+> **Wersja:** 1.0.69 | **Data diagnozy:** 2026-02-23 | **Python:** ≥3.10
+>
+> Źródło: analiza `project.functions.toon` (256KB, 125 modułów, ~1400+ funkcji)
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Type checking: mypy](https://img.shields.io/badge/type%20checking-mypy-blue.svg)](http://mypy-lang.org/)
-[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)](https://github.com/wronai/nlp2cmd)
-[![Dependencies](https://img.shields.io/badge/dependencies-playwright%20%7C%20openapi-blue)](https://github.com/wronai/nlp2cmd)
+[![PyPI Version](https://img.shields.io/pypi/v/nlp2cmd.svg)](https://pypi.org/project/nlp2cmd/)
 
-This implementation replaces hardcoded keywords with dynamic schema extraction from multiple sources.
+---
 
-## Overview
+## Przegląd modułów (z project.functions.toon)
 
-The enhanced NLP2CMD system dynamically extracts command patterns, parameters, and metadata from:
+### Core (rdzeń transformacji)
 
-- **OpenAPI/Swagger specifications** - Parse API docs and generate curl commands
-- **Shell command help** - Extract parameters from `--help` output and man pages  
-- **Python source code** - Introspect Click apps and decorated functions
-- **Shell-gpt integration** - Use AI for intelligent command generation
+| Moduł | Funkcje | Opis |
+|-------|---------|------|
+| `core.py` | 53 | Główna klasa `NLP2CMD` — transform, normalize, entity extraction |
+| `pipeline_runner.py` | 12 | Executor: shell, DOM/DQL, multi-action browser |
+| `schema_driven.py` | 8 | `SchemaDrivenNLP2CMD` — transformacja na bazie AppSpec |
+| `ir.py` | 1 | `ActionIR` — intermediate representation |
+| `appspec_runtime.py` | 2 | Ładowanie i parsowanie AppSpec |
 
-## Key Improvements
+### Generation (generowanie komend)
 
-### 1. Dynamic Schema Extraction
+| Moduł | Funkcje | Opis |
+|-------|---------|------|
+| `generation/templates.py` | 94 | Generatory szablonów per-domain (shell, sql, docker, k8s, browser) |
+| `generation/keywords.py` | 46 | `KeywordIntentDetector` — 11-warstwowy pipeline detekcji |
+| `generation/pipeline.py` | 32 | `RuleBasedPipeline` — orchestrator procesowania |
+| `generation/thermodynamic.py` | 31 | `ThermodynamicGenerator` — optymalizacja Langevin |
+| `generation/semantic_matcher_optimized.py` | 31 | Semantic matching z FP16, cache, Polish model |
+| `generation/data_loader.py` | 28 | `PhraseDatabase` — JSON/msgpack/pickle loader |
+| `generation/fuzzy_schema_matcher.py` | 23 | Fuzzy matching: Levenshtein, Jaro-Winkler, n-gram |
+| `generation/llm_simple.py` | 19 | LLM fallback (Claude/GPT) |
+| `generation/ml_intent_classifier.py` | 15 | ML classifier (sklearn + spaCy) |
+| `generation/hybrid.py` | 15 | `HybridThermodynamicGenerator` |
+| `generation/semantic_matcher.py` | 14 | Bazowy semantic matcher |
+| `generation/enhanced_context.py` | 14 | Enhanced context detection |
+| `generation/regex.py` | 11 | `RegexEntityExtractor` |
+
+### Adaptery DSL
+
+| Moduł | Funkcje | Domeny |
+|-------|---------|--------|
+| `adapters/shell.py` | 120 | Bash, Zsh, Fish, PowerShell |
+| `adapters/kubernetes.py` | 23 | kubectl |
+| `adapters/docker.py` | 19 | Docker CLI, Compose |
+| `adapters/sql.py` | 15 | PostgreSQL, MySQL, SQLite, MSSQL |
+| `adapters/dql.py` | 13 | Doctrine Query Language |
+| `adapters/dynamic.py` | 21 | Dynamiczne adaptery z extracted schemas |
+| `adapters/browser.py` | 10 | Playwright browser automation |
+
+### Schemas & Validation
+
+| Moduł | Funkcje | Opis |
+|-------|---------|------|
+| `schemas/__init__.py` | 43 | `SchemaRegistry` — 11 formatów plików |
+| `validators/__init__.py` | 25 | Walidacja komend i schematów |
+| `schema_extraction/__init__.py` | 45 | Dynamic schema extraction |
+
+### NLP & Polish
+
+| Moduł | Funkcje | Opis |
+|-------|---------|------|
+| `polish_support.py` | 13 | Normalizacja, STT errors, fuzzy matching |
+| `nlp_enhanced/__init__.py` | 14 | `HybridNLPBackend` |
+| `nlp_light/semantic_shell.py` | 14 | Lightweight semantic backend |
+
+### Web & Browser
+
+| Moduł | Funkcje | Opis |
+|-------|---------|------|
+| `web_schema/form_data_loader.py` | 38 | Ładowanie danych formularzy |
+| `web_schema/history.py` | 15 | Historia interakcji web |
+| `web_schema/extractor.py` | 10 | Ekstrakcja elementów DOM |
+| `web_schema/form_handler.py` | 9 | Obsługa formularzy |
+| `execution/browser.py` | 10 | Browser execution |
+
+### Inne kluczowe moduły
+
+| Moduł | Funkcje | Opis |
+|-------|---------|------|
+| `concepts/virtual_objects.py` | 20 | Wirtualne obiekty konceptualne |
+| `concepts/dependency_resolver.py` | 18 | Resolver zależności |
+| `concepts/environment.py` | 16 | Kontekst środowiskowy |
+| `feedback/__init__.py` | 21 | Analiza feedbacku i auto-korekta |
+| `registry/__init__.py` | 22 | Rejestr akcji (19+ typed actions) |
+| `parsing/toon_parser.py` | 22 | Parser formatu TOON |
+| `history/tracker.py` | 18 | Śledzenie historii transformacji |
+
+---
+
+## Architektura — Pipeline
+
+```text
+User Query (PL/EN)
+    │
+    ▼
+┌──────────────────────┐
+│ Text Normalization    │ → polish_support.py (STT fix, diacritics, lemmatization)
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ Intent Detection      │ → keywords.py (11 warstw: fast path → ML → semantic → fuzzy)
+│ (KeywordIntentDetector)│
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ Entity Extraction     │ → regex.py + semantic_entities.py
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ Template Generation   │ → templates.py (94 fn, per-domain)
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ Command Validation    │ → validators/, schemas/
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ Execution             │ → pipeline_runner.py (shell/browser/DQL)
+└──────────────────────┘
+```
+
+### Detection Pipeline (11 warstw w keywords.py)
+
+1. Text Normalization — Polish diacritics, typo corrections
+2. Fast Path — Quick browser/search detection
+3. SQL Context — SQL keyword identification
+4. SQL DROP — High-priority dangerous ops
+5. Docker Detection — Explicit Docker commands
+6. Kubernetes Detection — K8s-specific commands
+7. Service Restart — Service management priority
+8. Priority Intents — Configured high-priority patterns
+9. General Pattern Matching — Full keyword matching
+10. Fuzzy Matching — rapidfuzz (85% threshold)
+11. Final Fallback — Always returns `unknown/unknown`
+
+---
+
+## Dynamic Schema Extraction
+
 ```python
 from nlp2cmd.schema_extraction import DynamicSchemaRegistry
 
-# Extract from OpenAPI spec
 registry = DynamicSchemaRegistry()
-schema = registry.register_openapi_schema("htt ps://api.example.com/openapi.json")
 
-# Extract from shell help
+# Z OpenAPI
+schema = registry.register_openapi_schema("https://api.example.com/openapi.json")
+
+# Z shell --help
 schema = registry.register_shell_help("find")
 
-# Extract from Python code
-schema = registry.register_python_code("my_cli_app.py")
+# Z kodu Python (Click)
+schema = registry.register_python_code("my_cli.py")
 ```
 
-### 2. Enhanced NLP Backend
 ```python
-from nlp2cmd.nlp_enhanced import HybridNLPBackend
+from nlp2cmd.enhanced import EnhancedNLP2CMD
 
-# Uses shell-gpt, LLM, and rule-based fallbacks
-backend = HybridNLPBackend(schema_registry=registry)
-plan = backend.generate_plan("find all Python files larger than 1MB")
-```
-
-### 3. Dynamic Adapter
-```python
-from nlp2cmd.adapters.dynamic import DynamicAdapter
-
-# No hardcoded patterns - uses extracted schemas
-adapter = DynamicAdapter(schema_registry=registry)
-command = adapter.generate(plan)
-```
-
-## Usage Examples
-
-### Basic Usage
-```python
-from nlp2cmd.enhanced import create_enhanced_nlp2cmd
-
-# Create enhanced instance with dynamic schemas
-nlp2cmd = create_enhanced_nlp2cmd(
-    schemas=["find", "git", "docker"],  # Shell commands
-    nlp_backend="hybrid"  # shell-gpt + fallbacks
-)
-
-# Transform natural language
+nlp2cmd = EnhancedNLP2CMD()
 result = nlp2cmd.transform("find all Python files in current directory")
 print(result.command)  # find . -name "*.py" -type f
 ```
 
-### OpenAPI Integration
-```python
-# Register API specification
-nlp2cmd.register_schema_source(
-    "https://petstore.swagger.io/v2/swagger.json",
-    source_type="openapi",
-    category="petstore_api"
-)
+---
 
-# Generate API calls
-result = nlp2cmd.transform("list all available pets")
-print(result.command)  # curl -X GET https://petstore.swagger.io/v2/pets
-```
-
-### Python Click Integration
-```python
-# Register Python CLI application
-nlp2cmd.register_schema_source(
-    "my_cli.py",
-    source_type="python", 
-    category="custom_tools"
-)
-
-# Generate CLI commands
-result = nlp2cmd.transform("export data as JSON to output.json")
-print(result.command)  # python my_cli.py export --format json --output output.json
-```
-
-## Architecture
-
-### Schema Extraction Pipeline
-1. **OpenAPI Extractor** - Parses specs, extracts endpoints/parameters
-2. **Shell Help Extractor** - Runs `command --help`, parses output
-3. **Python Code Extractor** - Uses AST to find Click decorators and functions
-4. **Dynamic Registry** - Manages all extracted schemas
-
-### NLP Processing Pipeline
-1. **Shell-gpt Backend** - Primary AI-powered extraction
-2. **LLM Backend** - Fallback to OpenAI/Claude APIs  
-3. **Rule-based Backend** - Final fallback with regex patterns
-
-### Command Generation Pipeline
-1. **Schema Matching** - Find relevant commands by intent/entities
-2. **Parameter Mapping** - Map extracted entities to command parameters
-3. **Command Formatting** - Generate appropriate command syntax
-
-## Installation
+## Instalacja
 
 ```bash
-# Install enhanced requirements
-pip install -r requirements-enhanced.txt
+pip install nlp2cmd[all]        # Pełna instalacja
+pip install nlp2cmd[nlp,browser] # NLP + browser automation
+```
 
-# Install shell-gpt for AI-powered commands
-pip install shell-gpt
-
-# Set up API keys (optional)
-export OPENAI_API_KEY="your-key"
+```bash
+# Opcjonalne: API keys dla LLM fallback
 export ANTHROPIC_API_KEY="your-key"
+export OPENAI_API_KEY="your-key"
 ```
 
-## Testing
+## Testowanie
 
 ```bash
-# Run basic tests
-python tools/manual_tests/test_enhanced.py
-
-# Run full test suite
-python -m pytest tools/manual_tests/test_enhanced.py -v
-
-# Run demo
-python -c "from nlp2cmd.enhanced import demo_dynamic_extraction; demo_dynamic_extraction()"
+pytest tests/ -v                # Pełny test suite
+nlp2cmd --version               # Weryfikacja wersji
+nlp2cmd "pokaż procesy"         # Szybki test
 ```
 
-## Migration from Original
+---
 
-The enhanced version is backward compatible. Simply replace:
+## Znane problemy techniczne (do rozwiązania)
 
-```python
-# Old way
-from nlp2cmd import NLP2CMD, ShellAdapter
-nlp2cmd = NLP2CMD(adapter=ShellAdapter())
+- **10 plików backup/patched** — `core_backup.py`, `core_patched.py`, 8 adapter copies
+- **Monolityczne moduły** — `templates.py` (94fn), `keywords.py` (46fn), `core.py` (53fn)
+- **Circular imports** — cli ↔ execution ↔ service (workaround: importy wewnątrz funkcji)
+- **Python 3.13** — `_posixsubprocess` / `_opcode` missing → użyj Python 3.12
 
-# New way  
-from nlp2cmd.enhanced import EnhancedNLP2CMD
-nlp2cmd = EnhancedNLP2CMD()
-```
-
-The enhanced version automatically extracts schemas and provides much more flexibility without hardcoded patterns.
-
-## Benefits
-
-- **No Hardcoded Keywords** - All patterns extracted dynamically
-- **Multi-source Support** - OpenAPI, shell help, Python code, etc.
-- **AI-powered** - shell-gpt integration for intelligent understanding
-- **Extensible** - Easy to add new schema extractors
-- **Backward Compatible** - Drop-in replacement for original
-- **Better Accuracy** - Schema-aware command generation
-- **Real-time Updates** - Schemas extracted when needed
-
-## Configuration
-
-```python
-config = {
-    "nlp_config": {
-        "shell_gpt_path": "/usr/local/bin/sgpt",
-        "fallback_enabled": True,
-    },
-    "adapter_config": {
-        "safety_policy": "dynamic",
-    },
-    "initial_schemas": [
-        "find", "grep", "git", "docker",  # Shell commands
-        "https://api.example.com/openapi.json",  # API specs
-        "my_cli.py",  # Python apps
-    ]
-}
-
-nlp2cmd = EnhancedNLP2CMD(config=config)
-```
-
-This enhanced implementation provides a robust, flexible foundation for natural language to command transformation that adapts to your specific tools and APIs rather than relying on static patterns.
+Szczegóły w [TODO.md](TODO.md) — sekcja "Diagnoza stanu projektu".

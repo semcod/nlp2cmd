@@ -1,316 +1,243 @@
 # TODO - NLP2CMD Project
 
-## ✅ Recently Completed (2026-01-27)
-
-### Performance & Benchmarking
-- [x] **Performance Benchmarking Suite**: Complete benchmark tool with thermodynamic analysis
-- [x] **Markdown Report Generation**: Detailed performance reports with bottleneck analysis
-- [x] **Sequential vs Single Testing**: Measure batch processing efficiency gains
-- [x] **Project Structure Reorganization**: Scripts categorized into logical directories
-- [x] **Makefile Enhancement**: New targets for benchmarking and script management
-
-### Code Quality
-- [x] **Template Refactoring**: Simplified conditional logic in template generation
-- [x] **Import Path Fixes**: Updated all scripts for proper module imports
-- [x] **Documentation Updates**: Added PROJECT_STRUCTURE.md guide
-
-## 🚀 High Priority
-
-### Enhanced NLP Integration
-- [x] **Semantic Similarity**: sentence-transformers integration completed
-- [x] **Multi-layer Pipeline**: Enhanced context detection with fallbacks
-- [ ] **Performance Optimization**: Reduce memory usage for enhanced NLP
-- [ ] **Custom Models**: Domain-specific fine-tuning for specialized vocabularies
-- [ ] **Real-time Learning**: User feedback integration for model improvement
-
-### Shell Emulation Enhancement
-- [x] **Interactive Mode**: Full REPL with persistent session
-- [x] **User Directory Recognition**: Smart "usera" → "~" mapping
-- [ ] **Command History**: Persistent command history and favorites
-- [ ] **Auto-completion**: Tab completion for commands and paths
-- [x] **Script Execution**: Batch processing of shell commands (via benchmark suite)
-
-### Browser DSL Development
-- [x] **URL Navigation**: Basic URL detection and opening
-- [x] **Search Integration**: Google, GitHub, Amazon search templates
-- [ ] **Form Automation**: Advanced form filling with field mapping
-- [ ] **Multi-tab Management**: Browser tab handling and switching
-- [ ] **Screenshot Integration**: Visual feedback for browser actions
-
-### Web Schema Engine
-- [x] **Schema Extraction**: Basic element extraction completed
-- [x] **Cache Integration**: Playwright browser caching implemented
-- [ ] **Form Auto-filling**: Complete natural language to form field mapping
-- [ ] **Multi-step Workflows**: Support for complex multi-page forms
-- [ ] **CAPTCHA Handling**: Integration with CAPTCHA solving services
-
-### Performance & Optimization
-- [x] **Benchmarking Tool**: Comprehensive performance analysis implemented
-- [ ] **Parallel Processing**: Multi-threaded intent detection for batch queries
-- [ ] **Memory Optimization**: Reduce memory footprint for large-scale processing
-- [x] **Cache Warming**: Pre-warm caches for common domains and patterns
-- [x] **Lazy Loading**: On-demand loading of NLP models and dependencies (partial)
-
-## 🎯 Medium Priority
-
-### CLI & User Experience
-- [x] **Benchmark Reporting**: Markdown reports with performance analysis
-- [ ] **Interactive Mode Enhancement**: Rich interactive mode with auto-completion
-- [ ] **Progress Indicators**: Better progress bars for long-running operations
-- [ ] **Configuration Wizard**: Guided setup for new users
-- [ ] **Plugin System**: Support for third-party plugins and extensions
-
-### Thermodynamic Optimization
-- [ ] **Energy Monitoring**: Real-time energy consumption tracking
-- [ ] **Adaptive Scheduling**: Dynamic resource allocation based on load
-- [ ] **Predictive Pre-loading**: ML-based prediction of command patterns
-- [ ] **Free Energy Optimization**: Balance between speed and energy efficiency
-- [ ] **Thermal Equilibrium Maintenance**: Keep system in optimal warm state
-
-### Performance Monitoring
-- [ ] **Real-time Metrics**: Live performance dashboard
-- [ ] **Historical Tracking**: Performance trend analysis over time
-- [ ] **Alert System**: Notifications for performance degradation
-- [ ] **Profiling Integration**: Python profiler integration for deep analysis
-- [ ] **Benchmark Automation**: CI/CD integration for automated benchmarks
-
-### Integration & Ecosystem
-- [ ] **API Server**: REST API for programmatic access
-- [ ] **Web Interface**: Web-based UI for nlp2cmd functionality
-- [ ] **IDE Extensions**: VS Code, JetBrains IDE extensions
-- [ ] **CI/CD Integration**: GitHub Actions, GitLab CI templates
-
-### Testing & Quality
-- [ ] **E2E Test Suite**: Comprehensive end-to-end testing
-- [ ] **Performance Benchmarks**: Automated performance regression testing
-- [ ] **Security Audit**: Security assessment and hardening
-- [ ] **Accessibility**: Screen reader and keyboard navigation support
-
-## 🔧 Low Priority
-
-### Advanced Features
-- [ ] **Voice Input**: Speech-to-text integration for voice commands
-- [ ] **Multi-language Support**: Beyond Polish (English, German, French)
-- [ ] **Custom DSL Creation**: Tools for creating new domain-specific languages
-- [ ] **Template Marketplace**: Community-driven template sharing
-
-### Documentation & Examples
-- [ ] **Video Tutorials**: Screen-cast tutorials for common workflows
-- [ ] **Community Examples**: User-contributed examples and use cases
-- [ ] **API Documentation**: Comprehensive API reference with examples
-- [ ] **Troubleshooting Guide**: Advanced troubleshooting and debugging
-
-### Infrastructure & DevOps
-- [ ] **Docker Images**: Official Docker images for easy deployment
-- [ ] **Kubernetes Charts**: Helm charts for production deployment
-- [ ] **Monitoring Integration**: Prometheus/Grafana metrics
-- [ ] **Log Aggregation**: ELK stack integration for centralized logging
-
-## 🐛 Known Issues
-
-### Polish NLP
-- [ ] **Issue**: Some Polish diacritics not properly normalized in edge cases
-- [ ] **Impact**: Medium - affects accuracy for some Polish inputs
-- [ ] **Workaround**: Use fuzzy matching as fallback
-
-### Web Schema
-- [ ] **Issue**: Dynamic content (JavaScript-heavy sites) may not be fully captured
-- [ ] **Impact**: Medium - affects some modern web applications
-- [ ] **Workaround**: Use explicit waits and retry mechanisms
-
-### Cache Management
-- [ ] **Issue**: Cache size calculation may be inaccurate on some systems
-- [ **Impact**: Low - cosmetic issue in cache reporting
-- [ ] **Workaround**: Manual cache size verification
-
-## 🔄 Backlog
-
-### Research & Experimentation
-- [ ] **LLM Integration**: Research GPT-4/Claude integration for complex queries
-- [ ] **Graph-based Planning**: Knowledge graph for complex multi-step planning
-- [ ] **Reinforcement Learning**: Self-improvement through user feedback
-- [ ] **Federated Learning**: Privacy-preserving model improvements
-
-### Legacy Support
-- [ ] **Python 3.9 Support**: Extend support to Python 3.9
-- [ ] **Windows Compatibility**: Full Windows support including PowerShell
-- [ ] **ARM64 Support**: Apple Silicon and ARM64 optimization
-- [ ] **Mobile Support**: iOS/Android app development
+> **Diagnostyka:** 2026-02-23 | **Wersja:** 1.0.69 | **Moduły:** 125 | **Indeks funkcji:** ~1400+
+>
+> Źródło analizy: `project.functions.toon` (256KB, 2026-02-23T19:33)
 
 ---
 
-## 📊 Progress Tracking
+## 🔴 DIAGNOZA STANU PROJEKTU (2026-02-23)
 
-### Completed in v1.0.20
-- ✅ Web Schema Engine - Basic implementation
-- ✅ Smart Cache Manager - External dependencies caching
-- ✅ Polish NLP Enhancement - Lemmatization and fuzzy matching
-- ✅ CLI Cache Commands - Full cache management suite
+### Krytyczny dług techniczny
 
-### In Progress
-- 🔄 Form Auto-filling - Natural language to form mapping
-- 🔄 Performance Optimization - Memory and speed improvements
-- 🔄 Testing Suite - Comprehensive test coverage
+| Problem | Skala | Wpływ |
+|---------|-------|-------|
+| 10 plików `*_backup.py` / `*_patched.py` w `src/` | core + 4 adaptery × 2 | Duplikacja kodu, ryzyko rozbieżności |
+| 19 plików tymczasowych w root | JSON wyniki testów, logi, CSV | Bałagan w katalogu głównym |
+| Monolityczne pliki | templates.py=94fn, keywords.py=46fn, core.py=53fn | Trudność utrzymania |
+| Rozproszona konfiguracja | 5 plików JSON w root (polish_*, domain_weights) | Powinny być w `data/` |
+| Circular imports | cli ↔ execution ↔ service | Workaround: importy wewnątrz funkcji |
+| Klasyfikator PyPI = "Alpha" | `pyproject.toml` vs "production ready" w README | Niespójność |
+| README.md = 1031 linii | + ENHANCED_README.md + nakładające się docs | Redundancja |
+| `termo2/` + `experiments/` | Puste/nieużywane katalogi | Martwy kod |
 
-### Next Release (v1.0.21)
-- 🎯 Target: Enhanced web automation with form filling
-- 🎯 Target: Performance improvements and memory optimization
-- 🎯 Target: Expanded Polish language support
+### Statystyki z project.functions.toon
 
----
-
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
-
-### How to Claim a Task
-1. Open an issue describing the task you want to work on
-2. Wait for maintainer approval
-3. Create a feature branch from `main`
-4. Implement the changes with tests
-5. Submit a pull request with detailed description
-
-### Task Priority Guidelines
-- **High Priority**: Core functionality, security, performance
-- **Medium Priority**: User experience, integrations, quality
-- **Low Priority**: Nice-to-have features, documentation, infrastructure
-
----
-
-## 📚 Documentation
-
-### API Documentation
-- [ ] **Concepts Module** - Complete API documentation for virtual objects
-- [ ] **Environment Context** - Environment-aware API documentation
-- [ ] **Dependency Resolution** - Dependency resolver API documentation
-- [ ] **Semantic Objects** - Semantic object factory documentation
-
-### User Guides
-- [ ] **Advanced Usage** - Advanced features and customization guide
-- [ ] **Troubleshooting** - Common issues and solutions guide
-- [ ] **Best Practices** - Recommended usage patterns and tips
-- [ ] **Migration Guide** - Migration from previous versions
-
-### Developer Documentation
-- [ ] **Architecture Guide** - System architecture and design decisions
-- [ ] **Contributing Guide** - Contribution guidelines and standards
-- [ ] **Plugin Development** - Plugin development guide
-- [ ] **Performance Tuning** - Performance optimization guide
-
-## 🎨 Features Wishlist
-
-### AI/ML Enhancements
-- [ ] **Custom Model Training** - Train domain-specific models
-- [ ] **Few-Shot Learning** - Learn from few examples per user
-- [ ] **Transfer Learning** - Leverage pre-trained models for new domains
-- [ ] **Explainable AI** - Provide reasoning for command suggestions
-
-### Domain Expansion
-- [ ] **Database DSL** - SQL, NoSQL database command generation
-- [ ] **Monitoring DSL** - System monitoring and alerting commands
-- [ ] **Security DSL** - Security scanning and hardening commands
-- [ ] **Analytics DSL** - Data analysis and visualization commands
-
-### Integration Features
-- [ ] **Shell Integration** - Native shell integration with aliases
-- [ ] **Editor Plugins** - Editor plugins for seamless integration
-- [ ] **Web Interface** - Web-based interface for command generation
-- [ ] **Mobile App** - Mobile application for on-the-go usage
-
-## 🔄 Maintenance Tasks
-
-### Regular Maintenance
-- [ ] **Dependency Updates** - Regular dependency security updates
-- [ ] **Model Updates** - Update ML models with newer versions
-- [ ] **Performance Monitoring** - Monitor and optimize performance metrics
-- [ ] **User Feedback** - Collect and analyze user feedback
-
-### Security
-- [ ] **Security Audit** - Regular security audits and penetration testing
-- [ ] **Dependency Scanning** - Automated vulnerability scanning
-- [ ] **Input Validation** - Comprehensive input validation and sanitization
-- [ ] **Access Control** - Role-based access control for enterprise features
+- **125 modułów** Python w `src/`
+- **Największe moduły** (po liczbie funkcji):
+  - `generation/templates.py` — 94 funkcje (CC do 31)
+  - `core.py` — 53 funkcje (CC do 64 w `_normalize_entities`)
+  - `generation/keywords.py` — 46 funkcje (CC do 47)
+  - `schemas/__init__.py` — 43 funkcje
+  - `core_patched.py` — 33 fn (≈kopia core.py)
+  - `core_backup.py` — 33 fn (≈kopia core.py)
+- **Pliki backup/patched do usunięcia:**
+  - `core_backup.py`, `core_patched.py`
+  - `adapters/shell_backup.py`, `adapters/shell_patched.py`
+  - `adapters/docker_backup.py`, `adapters/docker_patched.py`
+  - `adapters/sql_backup.py`, `adapters/sql_patched.py`
+  - `adapters/kubernetes_backup.py`, `adapters/kubernetes_patched.py`
+- **Pliki tymczasowe w root do przeniesienia/usunięcia:**
+  - `benchmark_report.json`, `benchmark_results.csv`, `sequential_benchmark_results.json` → `artifacts/`
+  - `ci_test_results.json`, `comprehensive_test_results.json`, `test_results.log` → `artifacts/`
+  - `enhanced_context_test_results.json`, `multi_site_test_results.json`, `web_schema_test_results.json` → `artifacts/`
+  - `nlp2cmd_monitoring_log.json`, `nlp2cmd_test.log` → `artifacts/`
+  - `domain_weights.json`, `enhanced_domain_patterns.json`, `enhanced_intents.json` → `data/`
+  - `polish_intent_mappings.json`, `polish_shell_patterns.json`, `polish_table_mappings.json` → `data/`
 
 ---
 
-## 📊 Progress Tracking
+## 🔥 NATYCHMIASTOWE DZIAŁANIA (Sprint 1 — ten tydzień)
 
-### Version 1.0.31 (Current - 2026-01-27)
-- **Target**: Performance benchmarking and project structure reorganization
-- **Status**: ✅ Complete
-- **Key Features**:
-  - Performance benchmarking suite with thermodynamic analysis
-  - Markdown report generation
-  - Project structure reorganization
-  - Makefile enhancements
+### 1. Oczyszczenie katalogu głównego
+- [ ] Przenieś 6 plików wynikowych testów/benchmarków do `artifacts/`
+- [ ] Przenieś 6 plików konfiguracyjnych (polish_*, domain_*, enhanced_*) do `data/`
+- [ ] Zaktualizuj importy/ścieżki w kodzie po przeniesieniu
+- [ ] Usuń puste katalogi: `termo2/`, `experiments/`, `publish-env/`
 
-### Version 1.1.0 (Next Release)
-- **Target**: Enhanced virtual objects and environment integration
-- **Status**: 70% complete
-- **ETA**: 2 weeks
+### 2. Eliminacja plików backup/patched
+- [ ] Porównaj `core.py` vs `core_patched.py` vs `core_backup.py` — zachowaj tylko `core.py`
+- [ ] Porównaj adaptery (shell, docker, sql, kubernetes) — zachowaj tylko główne wersje
+- [ ] Usuń 10 zbędnych plików po weryfikacji
+- [ ] Uruchom testy po usunięciu — potwierdź brak regresji
 
-### Version 1.2.0 (Future)
-- **Target**: Advanced semantic understanding and performance optimization
-- **Status**: Planning phase
-- **ETA**: 1 month
+### 3. Napraw klasyfikator PyPI
+- [ ] Zmień `Development Status :: 3 - Alpha` na `4 - Beta` w `pyproject.toml`
 
-### Version 2.0.0 (Long-term)
-- **Target**: Full AI/ML integration with custom models
-- **Status**: Research phase
-- **ETA**: 3-6 months
+### 4. Uruchom i zweryfikuj testy
+- [ ] `pytest tests/ -v` — ustal aktualny baseline
+- [ ] Napraw ewentualne broken testy
+- [ ] Dodaj do CI (jeśli brak)
 
-## 🏗️ Architecture Improvements (Next Phase)
+---
 
-### CQRS & Event Sourcing
-- [ ] **Command Query Responsibility Segregation**: Separate read/write models
-- [ ] **Event Store**: Immutable log of all system events
-- [ ] **Event Sourcing**: Rebuild state from event stream
-- [ ] **Snapshot Strategy**: Periodic state snapshots for performance
+## 🚀 High Priority (Sprint 2)
+
+### Rozwiązanie circular imports (właściwe)
+- [ ] Zidentyfikuj pełny graf zależności: cli → execution → service → cli
+- [ ] Wydziel interfejsy/protokoły do `nlp2cmd/interfaces/`
+- [ ] Usuń workaround-owe importy wewnątrz funkcji
+- [ ] Przetestuj poprawność po refactorze
+
+### Konsolidacja konfiguracji do formatu TOON
+- [ ] Zdefiniuj schemat `project.unified.toon` z kategoriami: schema, data, config
+- [ ] Przenieś zawartość JSON/YAML do zunifikowanego pliku TOON
+- [ ] Zaimplementuj loader współdzielony (`parsing/toon_parser.py` — już istnieje, 22 fn)
+- [ ] Testy parsera TOON z nowymi danymi
+
+### Rozbicie monolitycznych plików
+- [ ] `generation/templates.py` (94 fn) → wydziel per-domain: `templates_shell.py`, `templates_docker.py`, `templates_sql.py`, `templates_k8s.py`
+- [ ] `generation/keywords.py` (46 fn) → wydziel `keywords_detection.py` (logika detect) i `keywords_patterns.py` (wzorce)
+- [ ] `core.py` (53 fn) → wydziel `core/normalize.py` (entity normalization) i `core/transform.py`
+
+### Konsolidacja dokumentacji
+- [ ] Połącz `README.md` (1031 ln) i `ENHANCED_README.md` w jeden spójny dokument
+- [ ] Przenieś szczegóły techniczne do `docs/`
+- [ ] Zachowaj README < 300 linii (quick start + linki do docs)
+
+---
+
+## ✅ Ukończone (historia)
+
+### v1.0.31 (2026-01-27) — Performance & Benchmarking
+- [x] **Performance Benchmarking Suite**: Benchmark tool z analizą termodynamiczną
+- [x] **Markdown Report Generation**: Raporty wydajności
+- [x] **Sequential vs Single Testing**: Efektywność batch processing
+- [x] **Project Structure Reorganization**: Skrypty w logicznych katalogach
+- [x] **Makefile Enhancement**: Nowe targety
+- [x] **Template Refactoring**: Uproszczona logika conditional
+- [x] **Import Path Fixes**: Poprawione importy
+- [x] **Documentation Updates**: PROJECT_STRUCTURE.md
+
+### v1.0.21 (2026-01-24) — Enhanced NLP
+- [x] **Semantic Similarity**: sentence-transformers
+- [x] **Multi-layer Pipeline**: Enhanced context detection
+- [x] **Interactive Mode**: Full REPL z persistent session
+- [x] **User Directory Recognition**: "usera" → "~"
+- [x] **URL Navigation**: Detekcja URL i otwieranie
+- [x] **Search Integration**: Google, GitHub, Amazon
+
+### v1.0.20 (2026-01-24) — Web Schema
+- [x] **Schema Extraction**: Ekstrakcja elementów
+- [x] **Cache Integration**: Playwright browser caching
+- [x] **Benchmarking Tool**: Analiza wydajności
+- [x] **Cache Warming**: Pre-warm dla common domains
+- [x] **Lazy Loading**: On-demand loading modeli NLP
+
+## 🎯 Medium Priority (Sprint 3+)
+
+### Nowe funkcjonalności NLP
+- [ ] **Performance Optimization**: Zmniejsz zużycie pamięci enhanced NLP
+- [ ] **Custom Models**: Fine-tuning dla specjalistycznych domen
+- [ ] **Real-time Learning**: Integracja feedbacku użytkowników
+
+### Shell & Browser
+- [ ] **Command History**: Persistent historia komend i ulubione
+- [ ] **Auto-completion**: Tab completion dla komend i ścieżek
+- [ ] **Form Automation**: Zaawansowane wypełnianie formularzy (form_handler.py — 9 fn)
+- [ ] **Multi-tab Management**: Zarządzanie zakładkami przeglądarki
+- [ ] **Multi-step Workflows**: Kompleksowe formularze wielostronicowe
+
+### CLI & UX
+- [ ] **Interactive Mode Enhancement**: Rich interactive z auto-completion
+- [ ] **Configuration Wizard**: Guided setup dla nowych użytkowników
+- [ ] **Plugin System**: System wtyczek
+
+### Performance & Monitoring
+- [ ] **Parallel Processing**: Multi-threaded intent detection
+- [ ] **Memory Optimization**: Zmniejszenie footprintu pamięci
+- [ ] **Benchmark Automation**: CI/CD integration
+
+---
+
+## 🔧 Low Priority (Backlog)
+
+### Zaawansowane funkcje
+- [ ] **Voice Input**: Integracja STT (powiązanie z projektem stts)
+- [ ] **Multi-language**: Wsparcie English, German, French
+- [ ] **Custom DSL Creation**: Narzędzia do tworzenia nowych DSL
+
+### Infrastruktura
+- [ ] **Docker Images**: Oficjalne obrazy Docker
+- [ ] **CI/CD Pipeline**: GitHub Actions + automated tests
+- [ ] **Monitoring Integration**: Prometheus/Grafana
+
+### Dokumentacja
+- [ ] **API Documentation**: Pełne API reference z przykładami
+- [ ] **Architecture Guide**: Decyzje architektoniczne
+- [ ] **Troubleshooting Guide**: Rozwiązywanie problemów
+
+---
+
+## 🐛 Znane problemy
+
+| Problem | Wpływ | Workaround |
+|---------|-------|------------|
+| Polskie diakrytyki — edge cases w normalizacji | Średni | Fuzzy matching jako fallback |
+| Dynamic JS content — niekompletna ekstrakcja | Średni | Explicit waits + retry |
+| Cache size — niedokładna kalkulacja na niektórych systemach | Niski | Manualna weryfikacja |
+| Circular imports (cli ↔ execution ↔ service) | Wysoki | Importy wewnątrz funkcji (tymczasowe) |
+| Python 3.13 — brak `_posixsubprocess`, `_opcode` | Wysoki | Użyj Python 3.12 |
+
+---
+
+## 🏗️ Architektura — Roadmap
+
+### Faza 1: Cleanup (v1.1.0) ← **TERAZ**
+- Eliminacja backup/patched, porządek w root, konsolidacja docs
+- **Status**: Zdiagnozowane, gotowe do wykonania
+
+### Faza 2: Refactor (v1.2.0)
+- Rozbicie monolitów (templates, keywords, core)
+- Właściwe rozwiązanie circular imports
+- Konsolidacja TOON format
+
+### Faza 3: CQRS & Event Sourcing (v2.0.0)
+- [ ] **CQRS**: Separacja modeli read/write
+- [ ] **Event Store**: Immutable log zdarzeń systemowych
+- [ ] **Event Sourcing**: Odbudowa stanu z event stream
 
 ### Unified TOON Format
-- [ ] **Schema Consolidation**: Merge JSON/YAML into unified TOON format
-- [ ] **Deep Context Encoding**: Parentheses-based structure for LLM optimization
-- [ ] **Category-based Organization**: Separate schema, data, and metadata
-- [ ] **Shared Access Patterns**: Efficient concurrent access to TOON data
+- [ ] **Schema Consolidation**: Merge JSON/YAML → TOON
+- [ ] **Deep Context Encoding**: Optymalna struktura dla LLM
+- [ ] **Category-based Organization**: schema, data, metadata osobno
+- [ ] **Shared Access Patterns**: Współdzielony dostęp do danych
 
-### Command Generation & Discovery
-- [ ] **API Structure Analysis**: Generate schemas from command testing
-- [ ] **Complete Command Inventory**: Comprehensive list of all possible commands
-- [ ] **Dynamic Schema Updates**: Real-time schema updates from usage patterns
+### Command Discovery & Schema Generation
+- [ ] **API Structure Analysis**: Generowanie schematów z testowania komend
+- [ ] **Complete Command Inventory**: Lista wszystkich komend w systemie
+- [ ] **Dynamic Schema Updates**: Real-time aktualizacje schematów
+
+---
+
+## 📊 Progress Tracking
+
+### v1.0.69 (Aktualny — 2026-02-23)
+- **Status**: Stabilny, wymaga cleanup
+- **125 modułów**, ~1400+ funkcji zaindeksowanych
+- **Kluczowy dług**: 10 backup files, 19 temp files, monolityczne moduły
+
+### v1.1.0 (Następny release)
+- **Target**: Cleanup + konsolidacja + eliminacja długu technicznego
+- **Status**: Zaplanowany (ten sprint)
+
+### v1.2.0 (Planowany)
+- **Target**: Refactor monolitów + circular imports + TOON consolidation
+- **ETA**: 2-3 tygodnie po v1.1.0
+
+### v2.0.0 (Długoterminowy)
+- **Target**: CQRS, Event Sourcing, pełna integracja AI/ML
+- **ETA**: 2-3 miesiące
 
 ---
 
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to this project.
+Patrz [CONTRIBUTING.md](CONTRIBUTING.md).
 
-### Quick Start for Contributors
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
-
-### Areas Needing Help
-- **Documentation**: Help improve documentation and user guides
-- **Testing**: Expand test coverage and add integration tests
-- **Performance**: Optimize performance and reduce memory usage
-- **Internationalization**: Add support for more languages
-- **Plugin Development**: Create plugins for new domains
-
-### Task Priority Guidelines
-- **High Priority**: Core functionality, security, performance
-- **Medium Priority**: User experience, integrations, quality
-- **Low Priority**: Nice-to-have features, documentation, infrastructure
-
-
-
-
-użyj architektury  CQRS i event sourcing dla projektu, aby ułatwić procesowanie 
-
-użyj schematycznego zapisu z głebią w postaci prostego do zrozumienia przez LLM z nawiasami jak w template i prostym DSL z toon, jak w project.functions.toon, aby jak najwiecej kontekstu opakowac w optymalnej formie w jednym pliku,
-wszystko przenies do jendnego pliku toon co aktualnie jest w json i yamltylko podziel osobno schema i data oraz inne kategoria danych,
-aby ładowanie i parsowanie i dostep do danych był wspoldzielony na kategoria a wpisy były dostepne dla wszystkich w jednym pliku
-
-W celu uwtorzenia listy wszystkich mozliwych komend w systemie, 
-jak generowac schema dokaldniej na podstawie testowania samej komendy, w celu zapoznnia jej calego api struktury
+### Obszary wymagające pomocy
+- **Cleanup**: Usuwanie backup/patched, porządkowanie root
+- **Testing**: Rozszerzenie pokrycia testami
+- **Performance**: Optymalizacja pamięci i szybkości
+- **Documentation**: Konsolidacja i ulepszenie docs
+- **Internationalization**: Wsparcie dla nowych języków
