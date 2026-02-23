@@ -73,8 +73,27 @@ class PipelineMetrics:
         self.intent_counts: dict[str, int] = {}
         self.error_counts: dict[str, int] = {}
     
-    def record_result(self, result: PipelineResult) -> None:
-        """Record a pipeline result."""
+    def record_result(self, result_or_success, latency_ms=0.0) -> None:
+        """Record a pipeline result.
+        
+        Can accept either a PipelineResult object or legacy parameters (success, latency_ms).
+        """
+        # Handle legacy call signature: record_result(success, latency_ms)
+        if isinstance(result_or_success, bool):
+            # Create a dummy PipelineResult from legacy parameters
+            from nlp2cmd.generation.pipeline import PipelineResult
+            result = PipelineResult(
+                success=result_or_success,
+                latency_ms=latency_ms,
+                domain="unknown",
+                intent="unknown",
+                command="",
+                entities={},
+                errors=[] if result_or_success else ["Unknown error"]
+            )
+        else:
+            result = result_or_success
+        
         self.total_processed += 1
         self.total_latency_ms += result.latency_ms
         

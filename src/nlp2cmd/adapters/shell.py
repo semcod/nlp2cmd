@@ -169,9 +169,17 @@ class ShellAdapter(BaseDSLAdapter):
         },
     }
 
-    def __init__(self, config: Optional[AdapterConfig] = None, environment_context: Optional[EnvironmentContext] = None):
+    def __init__(self, config: Optional[AdapterConfig] = None, environment_context: Optional[EnvironmentContext] = None, safety_policy: Optional[SafetyPolicy] = None, shell_type: Optional[str] = None):
+        # Handle legacy safety_policy parameter
+        if safety_policy is not None and config is None:
+            config = AdapterConfig(safety_policy=safety_policy)
+        
         super().__init__(config)
         self.environment_context = environment_context or EnvironmentContext()
+        
+        # Override shell type if provided
+        if shell_type:
+            self.environment_context.shell = shell_type
         
         # Initialize generators
         self.file_generator = FileOperationGenerator()
@@ -203,6 +211,11 @@ class ShellAdapter(BaseDSLAdapter):
             command=command,
         )
 
+    def generate_command(self, intent: str, entities: dict[str, Any]) -> str:
+        """Generate shell command from intent and entities (legacy interface)."""
+        plan = {"intent": intent, "entities": entities}
+        return self.generate(plan)
+
     def generate(self, plan: dict[str, Any]) -> str:
         """Generate shell command from execution plan."""
         intent = plan.get("intent", "")
@@ -213,8 +226,12 @@ class ShellAdapter(BaseDSLAdapter):
             return self.file_generator.generate_file_search(entities)
         elif intent == "file_operation":
             return self.file_generator.generate_file_operation(entities)
-        elif intent == "process_management":
-            return self.process_generator.generate_process_management(entities)
+        elif intent == "process_management" or intent == "process_monitoring":
+            # Check if this is monitoring or management
+            if entities.get("metric") or intent == "process_monitoring":
+                return self.process_generator.generate_process_monitoring(entities)
+            else:
+                return self.process_generator.generate_process_management(entities)
         elif intent == "network":
             return self.network_generator.generate_network(entities)
         elif intent == "system_maintenance":
@@ -308,8 +325,11 @@ class ShellAdapter(BaseDSLAdapter):
         """Validate shell command for safety."""
         issues = []
         
-        # Check for blocked commands
-        for blocked in self.config.safety_policy.blocked_commands:
+        # Check for blocked commands - handle both blocked_commands and blocked_patterns
+        blocked_commands = getattr(self.config.safety_policy, 'blocked_commands', [])
+        blocked_patterns = getattr(self.config.safety_policy, 'blocked_patterns', [])
+        
+        for blocked in blocked_commands + blocked_patterns:
             if blocked in command:
                 issues.append(f"Blocked command detected: {blocked}")
         

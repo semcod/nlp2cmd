@@ -8,7 +8,7 @@ from nlp2cmd.adapters import DockerAdapter, DQLAdapter, KubernetesAdapter, Shell
     ("adapter", "text", "assert_contains"),
     [
         (SQLAdapter(dialect="postgresql"), "Pokaż dane z tabeli users", "FROM users"),
-        (ShellAdapter(shell_type="bash"), "Znajdź *.py w katalogu /tmp", "find"),
+        (ShellAdapter(), "Znajdź *.py w katalogu /tmp", "find"),
         (DockerAdapter(), "Pokaż logi kontenera myapp --tail 50", "docker logs"),
         (KubernetesAdapter(), "Pokaż pody w namespace default", "kubectl get"),
         (DQLAdapter(), "Pobierz encję User", "createQueryBuilder"),

@@ -62,6 +62,17 @@ class OptimizationProblem:
     objective: Optional[str] = None  # minimize, maximize
     objective_field: Optional[str] = None
     bounds: Optional[dict[str, tuple[float, float]]] = None
+    
+    def to_condition(self) -> dict[str, Any]:
+        """Convert to condition dictionary for energy models."""
+        return {
+            "problem_type": self.problem_type,
+            "variables": self.variables,
+            "constraints": self.constraints,
+            "objective": self.objective,
+            "objective_field": self.objective_field,
+            "bounds": self.bounds,
+        }
 
 
 @dataclass
@@ -77,6 +88,8 @@ class ThermodynamicResult:
     latency_ms: float = 0.0
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    problem: Optional["OptimizationProblem"] = None
+    solution: Optional[Any] = None
 
 
 class ThermodynamicProblemDetector:
@@ -113,8 +126,8 @@ class ThermodynamicProblemDetector:
             problem_type=problem_type,
             variables=variables,
             constraints=constraints,
-            objective=objective.get("type"),
-            objective_field=objective.get("field"),
+            objective=objective.get("type") if objective else None,
+            objective_field=objective.get("field") if objective else None,
         )
     
     def _is_optimization_problem(self, text: str) -> bool:
@@ -140,24 +153,32 @@ class ThermodynamicProblemDetector:
     
     def _extract_variables(self, text: str) -> list[str]:
         """Extract variables from text."""
-        # Simple heuristic - look for nouns that could be variables
-        # This could be enhanced with NLP
         import re
+        
+        variables = []
+        
+        # Extract numbers and their associated items
+        # Pattern: "X zadania" (X tasks), "Y slotach" (Y slots)
+        task_matches = re.findall(r'(\d+)\s+(?:zadanie|zadania|zadań|task|tasks)', text.lower())
+        slot_matches = re.findall(r'(\d+)\s+(?:slot|slotach|slots)', text.lower())
+        
+        for match in task_matches:
+            variables.append(f"{match} tasks")
+        for match in slot_matches:
+            variables.append(f"{match} slots")
         
         # Look for patterns like "X do Y", "X dla Y", etc.
         patterns = [
             r'(\w+)\s+(?:do|dla|na)\s+(\w+)',
             r'(\w+)\s+(?:to|for)\s+(\w+)',
-            r'(\w+)\s+(?:z|with)\s+(\w+)',
         ]
         
-        variables = set()
         for pattern in patterns:
             matches = re.findall(pattern, text.lower())
             for match in matches:
-                variables.update(match)
+                variables.extend(list(match))
         
-        return list(variables)
+        return variables
     
     def _extract_constraints(self, text: str) -> list[dict[str, Any]]:
         """Extract constraints from text."""

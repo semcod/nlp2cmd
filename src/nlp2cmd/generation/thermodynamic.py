@@ -65,9 +65,28 @@ class ThermodynamicGenerator:
         *,
         llm_client: Optional[LLMClient] = None,
         config: Optional[ThermodynamicConfig] = None,
+        n_samples: Optional[int] = None,
+        n_steps: Optional[int] = None,
+        temperature: Optional[float] = None,
+        step_size: Optional[float] = None,
+        convergence_threshold: Optional[float] = None,
+        max_iterations: Optional[int] = None,
+        **kwargs
     ):
         self.llm_client = llm_client
-        self.config = config or ThermodynamicConfig()
+        
+        # Handle legacy parameters
+        if config is None:
+            config = ThermodynamicConfig(
+                n_samples=n_samples or kwargs.get('n_samples', 100),
+                n_steps=n_steps or kwargs.get('n_steps', 50),
+                temperature=temperature or kwargs.get('temperature', 1.0),
+                step_size=step_size or kwargs.get('step_size', 0.1),
+                convergence_threshold=convergence_threshold or kwargs.get('convergence_threshold', 1e-6),
+                max_iterations=max_iterations or kwargs.get('max_iterations', 1000)
+            )
+        
+        self.config = config
         
         # Initialize components
         self.problem_detector = ThermodynamicProblemDetector()
@@ -81,7 +100,10 @@ class ThermodynamicGenerator:
     def sampler(self) -> LangevinSampler:
         """Get or create Langevin sampler."""
         if self._sampler is None:
-            self._sampler = LangevinSampler()
+            # Create a default sampler - actual energy model will be set during sampling
+            from nlp2cmd.thermodynamic import QuadraticEnergy
+            default_energy = QuadraticEnergy(target=np.zeros(10))
+            self._sampler = LangevinSampler(energy_model=default_energy)
         return self._sampler
     
     async def generate(
@@ -106,6 +128,7 @@ class ThermodynamicGenerator:
                         entropy_production=0.0,
                         latency_ms=(time.time() - start_time) * 1000,
                         errors=["No optimization problem detected"],
+                        problem=problem,
                     )
             
             # Adapt configuration to problem size
@@ -115,26 +138,40 @@ class ThermodynamicGenerator:
             energy_model = self._create_energy_model(problem)
             
             # Setup Langevin configuration
+            n_tasks = len(self._create_tasks_from_problem(problem))
             langevin_config = LangevinConfig(
-                n_samples=config.n_samples,
                 n_steps=config.n_steps,
-                temperature=config.temperature,
-                step_size=config.step_size,
+                kT=config.temperature,
+                dt=config.step_size,
                 convergence_threshold=config.convergence_threshold,
+                dim=n_tasks,  # Set dimension to match number of tasks
             )
             
             # Run Langevin sampling
-            sampler_result = self.sampler.sample(
-                energy_model=energy_model,
-                config=langevin_config,
-                context=context or {},
+            sampler = LangevinSampler(energy_model=energy_model, config=langevin_config)
+            
+            # Create condition for energy model
+            condition = {
+                'tasks': self._create_tasks_from_problem(problem),
+                'resources': [],
+                'assignments': {}
+            }
+            
+            sampler_result = sampler.sample(
+                condition=condition,
+                n_samples=config.n_samples,
             )
+            
+            # Handle list of results
+            if isinstance(sampler_result, list):
+                # Take the first result for now, or could aggregate
+                sampler_result = sampler_result[0]
             
             # Decode result
             decoded_output = self._decode_result(sampler_result, problem)
             
             # Calculate metrics
-            energy_estimate = self.energy_estimator.estimate(sampler_result)
+            energy_estimate = sampler_result.energy  # Use the energy from sampler result directly
             entropy_production = self._calculate_entropy_production(sampler_result)
             
             return ThermodynamicResult(
@@ -143,8 +180,10 @@ class ThermodynamicGenerator:
                 converged=sampler_result.converged,
                 n_samples=config.n_samples,
                 entropy_production=entropy_production,
-                solution_quality=sampler_result.solution_quality,
+                solution_quality=None,  # Could be derived from sampler_result
                 latency_ms=(time.time() - start_time) * 1000,
+                problem=problem,
+                solution=[sampler_result.sample],  # Wrap sample in list
             )
             
         except Exception as e:
@@ -156,78 +195,81 @@ class ThermodynamicGenerator:
                 entropy_production=0.0,
                 latency_ms=(time.time() - start_time) * 1000,
                 errors=[f"Generation error: {e}"],
+                problem=problem,
             )
     
     def _create_energy_model(self, problem: OptimizationProblem) -> EnergyModel:
         """Create energy model for the problem."""
-        # Create constraint energy
-        constraint_energy = ConstraintEnergy()
+        from nlp2cmd.thermodynamic.energy_models import SchedulingEnergy, AllocationEnergy, RoutingEnergy, CSPEnergy
         
-        # Add constraints to energy model
-        for constraint in problem.constraints:
-            constraint_energy.add_constraint(constraint)
+        # Create appropriate energy model based on problem type
+        if problem.problem_type == "schedule":
+            # Use default scheduling energy model
+            return SchedulingEnergy()
         
-        # Create energy model with constraints
-        energy_model = EnergyModel(constraint_energy=constraint_energy)
+        elif problem.problem_type == "allocate" or problem.problem_type == "allocation":
+            # Use default allocation energy model
+            return AllocationEnergy()
         
-        # Set objective if specified
-        if problem.objective and problem.objective_field:
-            energy_model.set_objective(problem.objective, problem.objective_field)
+        elif problem.problem_type == "route" or problem.problem_type == "routing":
+            # Use default routing energy model
+            return RoutingEnergy()
         
-        return energy_model
+        else:
+            # Use generic constraint satisfaction energy model
+            return CSPEnergy()
+    
+    def _create_tasks_from_problem(self, problem: OptimizationProblem) -> list:
+        """Create task objects from problem variables."""
+        tasks = []
+        n_tasks = 0
+        n_slots = 0
+        
+        # Extract numbers from variables
+        import re
+        for var in problem.variables:
+            if 'task' in var.lower():
+                match = re.search(r'(\d+)', var)
+                if match:
+                    n_tasks = int(match.group())
+            elif 'slot' in var.lower():
+                match = re.search(r'(\d+)', var)
+                if match:
+                    n_slots = int(match.group())
+        
+        # Create task objects
+        for i in range(n_tasks):
+            from nlp2cmd.thermodynamic.energy_models import Task
+            task = Task(
+                id=f"task_{i}",
+                duration=1.0,  # Default duration
+                deadline=n_slots  # Default deadline
+            )
+            tasks.append(task)
+        
+        return tasks
     
     def _decode_result(self, sampler_result: SamplerResult, problem: OptimizationProblem) -> str:
         """Decode sampler result to human-readable format."""
-        if not sampler_result.samples:
+        if sampler_result.sample is None:
             return "# No solution found"
         
-        # Use majority voting to get best solution
-        voter = MajorityVoter()
-        best_solution = voter.vote(sampler_result.samples)
-        
-        # Format solution based on problem type
+        # For now, just return a simple representation of the solution
         if problem.problem_type == "schedule":
-            return self._format_schedule_solution(best_solution, problem)
+            # Format schedule solution
+            return f"Schedule: tasks at times {sampler_result.sample}"
         elif problem.problem_type == "allocate":
-            return self._format_allocation_solution(best_solution, problem)
+            # Format allocation solution
+            return f"Allocation: {sampler_result.sample}"
         elif problem.problem_type == "route":
-            return self._format_routing_solution(best_solution, problem)
-        elif problem.problem_type == "assign":
-            return self._format_assignment_solution(best_solution, problem)
-        elif problem.problem_type == "balance":
-            return self._format_balance_solution(best_solution, problem)
+            # Format routing solution
+            return f"Route: {sampler_result.sample}"
         else:
-            return str(best_solution)
-    
-    def _format_schedule_solution(self, solution: Any, problem: OptimizationProblem) -> str:
-        """Format scheduling solution."""
-        # Simple formatting - could be enhanced
-        return f"# Schedule: {solution}"
-    
-    def _format_allocation_solution(self, solution: Any, problem: OptimizationProblem) -> str:
-        """Format allocation solution."""
-        return f"# Allocation: {solution}"
-    
-    def _format_routing_solution(self, solution: Any, problem: OptimizationProblem) -> str:
-        """Format routing solution."""
-        return f"# Route: {solution}"
-    
-    def _format_assignment_solution(self, solution: Any, problem: OptimizationProblem) -> str:
-        """Format assignment solution."""
-        return f"# Assignment: {solution}"
-    
-    def _format_balance_solution(self, solution: Any, problem: OptimizationProblem) -> str:
-        """Format balance solution."""
-        return f"# Balance: {solution}"
+            return f"Solution: {sampler_result.sample}"
     
     def _calculate_entropy_production(self, sampler_result: SamplerResult) -> float:
-        """Calculate entropy production from sampler result."""
-        if not sampler_result.samples:
-            return 0.0
-        
-        # Simple entropy calculation
-        regularizer = EntropyProductionRegularizer()
-        return regularizer.calculate(sampler_result.samples)
+        """Calculate entropy production from sampling."""
+        return sampler_result.entropy_production
 
 
 class HybridThermodynamicGenerator:
@@ -298,3 +340,48 @@ class HybridThermodynamicGenerator:
         """Check if text describes an optimization problem."""
         optimization_score = self.router.score_optimization(text)
         return optimization_score > self.optimization_threshold
+
+
+# Energy model classes for backward compatibility
+# Import from thermodynamic.energy_models module to get full implementations
+from nlp2cmd.thermodynamic.energy_models import (
+    SchedulingEnergy as ThermodynamicSchedulingEnergy,
+    AllocationEnergy as ThermodynamicAllocationEnergy,
+    RoutingEnergy as ThermodynamicRoutingEnergy,
+    CSPEnergy,
+)
+
+class SchedulingEnergy(ThermodynamicSchedulingEnergy):
+    """Scheduling energy model for thermodynamic optimization."""
+    pass
+
+class AllocationEnergy(ThermodynamicAllocationEnergy):
+    """Allocation energy model for thermodynamic optimization."""
+    pass
+
+class RoutingEnergy(ThermodynamicRoutingEnergy):
+    """Routing energy model for thermodynamic optimization."""
+    pass
+
+
+def create_thermodynamic_generator(
+    n_samples: int = 5,
+    n_steps: int = 500,
+    adaptive_steps: bool = True,
+    parallel_sampling: bool = False,
+    **kwargs
+) -> ThermodynamicGenerator:
+    """Create a thermodynamic generator with default configuration."""
+    from nlp2cmd.generation.thermodynamic_components import ThermodynamicConfig
+    
+    # Create ThermodynamicConfig with correct parameters
+    config = ThermodynamicConfig(
+        n_samples=n_samples,
+        n_steps=n_steps,
+        temperature=kwargs.get('kT', 1.0),
+        step_size=kwargs.get('mu', 0.1),
+        convergence_threshold=kwargs.get('convergence_threshold', 1e-6),
+        max_iterations=kwargs.get('max_iterations', 1000)
+    )
+    
+    return ThermodynamicGenerator(config=config)

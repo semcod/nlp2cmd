@@ -27,18 +27,43 @@ class FileOperationGenerator:
             else:
                 cmd_parts.extend(["-name", f"*{target}*"])
         
-        # Add size filters
+        # Handle structured filters
         for filter_item in filters:
-            if "większe niż" in str(filter_item) or "larger than" in str(filter_item):
-                size = self._extract_size(filter_item)
-                if size:
-                    cmd_parts.extend(["-size", f"+{size}"])
-            elif "mniejsze niż" in str(filter_item) or "smaller than" in str(filter_item):
-                size = self._extract_size(filter_item)
-                if size:
-                    cmd_parts.extend(["-size", f"-{size}"])
+            if isinstance(filter_item, dict):
+                attribute = filter_item.get("attribute", "")
+                operator = filter_item.get("operator", "")
+                value = filter_item.get("value", "")
+                
+                if attribute == "size" and operator == ">" and value:
+                    # Convert "100M" to "100M"
+                    size_value = str(value).replace(" ", "")
+                    cmd_parts.extend(["-size", f"+{size_value}"])
+                elif attribute == "size" and operator == "<" and value:
+                    size_value = str(value).replace(" ", "")
+                    cmd_parts.extend(["-size", f"-{size_value}"])
+                elif attribute == "mtime" and value:
+                    # Handle time filters like "7_days"
+                    if "days" in str(value):
+                        days = str(value).replace("_days", "").replace("days", "")
+                        cmd_parts.extend(["-mtime", f"-{days}"])
+            else:
+                # Handle legacy string filters
+                if "większe niż" in str(filter_item) or "larger than" in str(filter_item):
+                    size = self._extract_size(filter_item)
+                    if size:
+                        cmd_parts.extend(["-size", f"+{size}"])
+                elif "mniejsze niż" in str(filter_item) or "smaller than" in str(filter_item):
+                    size = self._extract_size(filter_item)
+                    if size:
+                        cmd_parts.extend(["-size", f"-{size}"])
         
         cmd_parts.extend(["-type", "f"])
+        
+        # Add print format and sorting for structured queries
+        if any(isinstance(f, dict) for f in filters):
+            cmd_parts.extend(["-printf", "%s %p\\n"])
+            cmd_parts.extend(["|", "sort", "-nr"])
+        
         return " ".join(cmd_parts)
     
     def generate_file_operation(self, entities: dict[str, Any]) -> str:
@@ -89,6 +114,11 @@ class ProcessManagementGenerator:
         """Generate process management command."""
         action = entities.get("action", "")
         process_name = entities.get("process_name", "")
+        pid = entities.get("pid", "")
+        
+        # Handle PID-based operations
+        if pid and action in ["kill", "zabij"]:
+            return f"kill -9 {pid}"
         
         actions = {
             "zabij": f"pkill -f {shlex.quote(process_name)}" if process_name else "pkill -f process_name",

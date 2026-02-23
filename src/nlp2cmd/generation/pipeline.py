@@ -41,6 +41,7 @@ class RuleBasedPipeline:
         use_enhanced_context: Optional[bool] = None,
         persist_results: bool = False,
         metrics: Optional[PipelineMetrics] = None,
+        confidence_threshold: Optional[float] = None,
     ):
         self.use_enhanced_context = (
             use_enhanced_context if use_enhanced_context is not None 
@@ -48,6 +49,7 @@ class RuleBasedPipeline:
         )
         self.persist_results = persist_results
         self.metrics = metrics or PipelineMetrics()
+        self.confidence_threshold = confidence_threshold
         
         # Initialize components
         self.detector = KeywordIntentDetector()
@@ -311,3 +313,20 @@ Respond with only the corrected command, no explanation.
     def reset_metrics(self) -> None:
         """Reset pipeline metrics."""
         self.metrics = PipelineMetrics()
+
+
+def create_pipeline(
+    confidence_threshold: float = 0.5,
+    custom_patterns: Optional[dict] = None,
+    **kwargs
+) -> RuleBasedPipeline:
+    """Create a RuleBasedPipeline with default configuration."""
+    from nlp2cmd.generation.keywords.keyword_patterns import KeywordPatterns
+    
+    patterns = custom_patterns if custom_patterns else None
+    
+    return RuleBasedPipeline(
+        confidence_threshold=confidence_threshold,
+        patterns=patterns,
+        **kwargs
+    )

@@ -15,7 +15,13 @@ command patterns, parameters, and metadata from various sources.
 from __future__ import annotations
 
 from .registry import SchemaRegistry
-from .extractors import CommandParameter, CommandSchema, ExtractedSchema
+from .extractors import (
+    CommandParameter, 
+    CommandSchema, 
+    ExtractedSchema,
+    OpenAPISchemaExtractor,
+    ShellHelpExtractor
+)
 from .python_extractors import PythonCodeExtractor, ClickExtractor
 from .script_extractors import ShellScriptExtractor, MakefileExtractor
 
@@ -25,6 +31,8 @@ __all__ = [
     "CommandParameter", 
     "CommandSchema",
     "ExtractedSchema",
+    "OpenAPISchemaExtractor",
+    "ShellHelpExtractor",
     "PythonCodeExtractor",
     "ClickExtractor", 
     "ShellScriptExtractor",
