@@ -55,6 +55,8 @@ class NLP2CMD:
         self.feedback_analyzer = feedback_analyzer
         self.validation_mode = validation_mode
         self.auto_fix = auto_fix
+        self._context: dict[str, Any] = {}
+        self._history: list[dict[str, Any]] = []
         
         # Initialize backend if not provided
         if nlp_backend is None:
@@ -190,12 +192,35 @@ class NLP2CMD:
                 errors=[f"Transformation error: {e}"],
             )
 
-    def _normalize_entities(self, plan: ExecutionPlan) -> None:
-        """Normalize entities based on domain and intent."""
+    def _normalize_entities(self, intent_or_plan, entities: Optional[dict] = None, context: Optional[dict] = None) -> Optional[dict]:
+        """Normalize entities based on domain and intent.
+        
+        Supports two call signatures:
+        - _normalize_entities(plan: ExecutionPlan) -> None  (internal use)
+        - _normalize_entities(intent: str, entities: dict, context: dict) -> dict  (test/external use)
+        """
+        if isinstance(intent_or_plan, str):
+            # Called as (intent, entities, context) — return normalized dict
+            intent = intent_or_plan
+            ents = dict(entities or {})
+            ctx = context or {}
+            domain = self.adapter.DSL_NAME
+            if domain == "shell":
+                return self._normalize_entities_shell(intent, ents, ctx)
+            elif domain == "docker":
+                return self._normalize_entities_docker(intent, ents, ctx)
+            elif domain == "kubernetes":
+                return self._normalize_entities_kubernetes(intent, ents, ctx)
+            elif domain == "sql":
+                return self._normalize_entities_sql(intent, ents, ctx)
+            elif domain == "dql":
+                return self._normalize_entities_dql(intent, ents, ctx)
+            return ents
+
+        # Called as (plan: ExecutionPlan) — mutate in place
+        plan = intent_or_plan
         domain = plan.domain or self.adapter.DSL_NAME
         intent = plan.intent
-        
-        # Domain-specific normalization
         if domain == "shell":
             self._normalize_shell_entities(intent, plan.entities, plan.text)
         elif domain == "docker":
@@ -204,6 +229,75 @@ class NLP2CMD:
             self._normalize_kubernetes_entities(intent, plan.entities)
         elif domain == "sql":
             self._normalize_sql_entities(intent, plan.entities)
+        return None
+
+    def _normalize_entities_sql(self, intent: str, entities: dict, context: dict) -> dict:
+        """Return normalized SQL entities dict (for external callers)."""
+        result = dict(entities)
+        if "table" not in result and "default_table" in context:
+            result["table"] = context["default_table"]
+        filters = []
+        if "where_field" in result and "where_value" in result:
+            filters.append({"field": result.pop("where_field"), "value": result.pop("where_value"), "operator": "="})
+        if filters:
+            result["filters"] = filters
+        ordering = []
+        if "order_by" in result:
+            ordering.append({"field": result.pop("order_by"), "direction": "ASC"})
+        if ordering:
+            result["ordering"] = ordering
+        return result
+
+    def _normalize_entities_shell(self, intent: str, entities: dict, context: dict) -> dict:
+        """Return normalized shell entities dict (for external callers)."""
+        result = dict(entities)
+        result.setdefault("scope", ".")
+        result.setdefault("target", "files")
+        filters = []
+        if "file_pattern" in result or "extension" in result:
+            ext = result.get("file_pattern") or result.get("extension", "")
+            filters.append({"attribute": "extension", "operator": "=", "value": ext})
+        if "size" in result:
+            filters.append({"attribute": "size", "operator": ">", "value": result["size"]})
+        if "filename" in result:
+            filters.append({"attribute": "name", "operator": "=", "value": result["filename"]})
+        if filters:
+            result["filters"] = filters
+        return result
+
+    def _normalize_entities_docker(self, intent: str, entities: dict, context: dict) -> dict:
+        """Return normalized docker entities dict (for external callers)."""
+        result = dict(entities)
+        if "port" in result:
+            result["ports"] = [result.pop("port")]
+        if "tail_lines" in result:
+            try:
+                result["tail"] = int(result.pop("tail_lines"))
+            except (ValueError, TypeError):
+                result.pop("tail_lines", None)
+        if "env_var" in result:
+            ev = result.pop("env_var")
+            if isinstance(ev, dict):
+                result["environment"] = {ev.get("name", ""): ev.get("value", "")}
+        result.setdefault("detach", True)
+        return result
+
+    def _normalize_entities_kubernetes(self, intent: str, entities: dict, context: dict) -> dict:
+        """Return normalized kubernetes entities dict (for external callers)."""
+        result = dict(entities)
+        if "replica_count" in result:
+            try:
+                result["replica_count"] = int(result["replica_count"])
+            except (ValueError, TypeError):
+                pass
+        return result
+
+    def _normalize_entities_dql(self, intent: str, entities: dict, context: dict) -> dict:
+        """Return normalized DQL entities dict (for external callers)."""
+        result = dict(entities)
+        if "entity" not in result and "default_entity" in context:
+            result["entity"] = context["default_entity"]
+        return result
 
     def _normalize_shell_entities(self, intent: str, normalized: dict[str, Any], full_text: str) -> None:
         """Normalize shell command entities."""
@@ -377,3 +471,24 @@ class NLP2CMD:
             "supported_intents": self.get_supported_intents(),
             "backend_type": type(self.nlp_backend).__name__,
         }
+
+    @property
+    def dsl_name(self) -> str:
+        """Return the DSL name of the current adapter."""
+        return self.adapter.DSL_NAME
+
+    def set_context(self, key: str, value: Any) -> None:
+        """Set a context value."""
+        self._context[key] = value
+
+    def clear_context(self) -> None:
+        """Clear all context."""
+        self._context.clear()
+
+    def get_history(self) -> list[dict[str, Any]]:
+        """Return transformation history."""
+        return list(self._history)
+
+    def clear_history(self) -> None:
+        """Clear transformation history."""
+        self._history.clear()

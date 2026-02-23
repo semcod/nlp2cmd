@@ -161,6 +161,7 @@ class DetectionResult:
     entities: dict[str, str] = None
     metadata: dict[str, any] = None
     matched: bool = True  # Whether detection was successful
+    matched_keyword: str = ""  # The keyword that triggered this detection
     
     def __post_init__(self):
         if self.entities is None:
@@ -186,6 +187,7 @@ class KeywordIntentDetector:
         self,
         patterns: Optional[KeywordPatterns] = None,
         confidence_threshold: float = 0.5,
+        custom_patterns: Optional[dict] = None,
     ):
         """
         Initialize keyword detector.
@@ -193,9 +195,18 @@ class KeywordIntentDetector:
         Args:
             patterns: KeywordPatterns instance or None to create default
             confidence_threshold: Minimum confidence to return a match
+            custom_patterns: Optional dict of {domain: {intent: [patterns]}} to add
         """
         self.patterns = patterns or KeywordPatterns()
         self.confidence_threshold = confidence_threshold
+        if custom_patterns:
+            for domain, intents in custom_patterns.items():
+                for intent, pats in intents.items():
+                    self.patterns.add_pattern(domain, intent, pats)
+
+    def add_pattern(self, domain: str, intent: str, patterns: list) -> None:
+        """Add custom patterns for a domain/intent pair."""
+        self.patterns.add_pattern(domain, intent, patterns)
     
     def detect(self, text: str) -> DetectionResult:
         """
@@ -282,6 +293,233 @@ class KeywordIntentDetector:
     
     def _fast_path_detection(self, text_lower: str) -> Optional[DetectionResult]:
         """Fast path detection for common patterns."""
+        # Explicit overrides — highest priority, very specific patterns
+        _EXPLICIT_OVERRIDES = [
+            # IP address / network
+            ("adres ip", "shell", "network", "adres ip"),
+            ("ip address", "shell", "network", "ip address"),
+            ("show my ip", "shell", "network", "show my ip"),
+            ("pokaż ip", "shell", "network", "pokaż ip"),
+            # JSON / jq
+            ("parsuj json", "shell", "json_jq", "parsuj json"),
+            ("parse json", "shell", "json_jq", "parse json"),
+            ("json z pliku", "shell", "json_jq", "json z pliku"),
+            ("użyj jq", "utility", "jq", "użyj jq"),
+            ("jq do", "utility", "jq", "jq do"),
+            # File content (cat)
+            ("zawartość pliku", "shell", "text_cat", "file content"),
+            ("zawartosc pliku", "shell", "text_cat", "file content"),
+            ("pokaż plik", "shell", "text_cat", "file content"),
+            ("show file content", "shell", "text_cat", "file content"),
+            # Logs — docker context (application logs)
+            ("logi aplikacji", "docker", "logs", "logi aplikacji"),
+            ("application logs", "docker", "logs", "application logs"),
+            ("app logs", "docker", "logs", "app logs"),
+        ]
+        for kw, domain, intent, matched_kw in _EXPLICIT_OVERRIDES:
+            if kw in text_lower:
+                return DetectionResult(domain=domain, intent=intent, confidence=0.95, matched_keyword=matched_kw)
+
+        # SQL keyword fast-path (highest priority — explicit SQL syntax)
+        _SQL_EXACT = {
+            "select ": "select", "insert into": "insert", "update ": "update",
+            "delete from": "delete", "delete ": "delete",
+            "create table": "create_table", "drop table": "drop_table",
+            "alter table": "alter_table", "truncate ": "truncate",
+            "create index": "create_index", "create view": "create_view",
+            "create database": "create_database",
+        }
+        for kw, intent in _SQL_EXACT.items():
+            if kw in text_lower:
+                return DetectionResult(domain="sql", intent=intent, confidence=0.95)
+
+        # Docker fast-path — explicit docker/container terms (ordered: specific first)
+        _DOCKER_TERMS = [
+            ("docker compose", "compose_up"), ("docker-compose", "compose_up"),
+            ("compose up", "compose_up"), ("uruchom docker compose", "compose_up"),
+            ("docker ps", "list"), ("docker run", "run"), ("docker stop", "stop"),
+            ("docker start", "start"), ("docker rm", "remove"), ("docker rmi", "remove_image"),
+            ("docker pull", "pull"), ("docker push", "push"), ("docker build", "build"),
+            ("docker exec", "exec"), ("docker logs", "logs"), ("docker image", "images"),
+            ("docker volume", "volume"), ("docker network", "network"),
+            ("docker ", "list"),
+        ]
+        for kw, intent in _DOCKER_TERMS:
+            if kw in text_lower:
+                return DetectionResult(domain="docker", intent=intent, confidence=0.9)
+
+        # Docker container-specific terms (with action context)
+        _DOCKER_CONTAINER_ACTIONS = [
+            ("uruchom kontener", "run"), ("run container", "run"), ("start container", "start"),
+            ("zatrzymaj kontener", "stop"), ("stop container", "stop"),
+            ("uruchom zatrzymany kontener", "start"),
+            ("usuń kontener", "remove"), ("remove container", "remove"), ("delete container", "remove"),
+            ("wykonaj komendę w kontenerze", "exec"), ("wykonaj polecenie w kontenerze", "exec"),
+            ("exec in container", "exec"), ("wejdź do kontenera", "exec"), ("shell kontenera", "exec"),
+            ("pokaż logi kontenera", "logs"), ("container logs", "logs"),
+            ("pobierz obraz", "pull"), ("pull image", "pull"), ("ściągnij obraz", "pull"),
+            ("wypchnij obraz", "push"), ("wyślij obraz", "push"), ("push image", "push"),
+            ("opublikuj obraz", "push"), ("wypchnij", "push"),
+            ("zbuduj obraz", "build"), ("build image", "build"),
+            ("list containers", "list"), ("pokaż kontenery", "list"),
+            ("kontenery docker", "list"), ("docker containers", "list"),
+            ("kontener", "list"), ("container", "list"),
+        ]
+        for kw, intent in _DOCKER_CONTAINER_ACTIONS:
+            if kw in text_lower:
+                return DetectionResult(domain="docker", intent=intent, confidence=0.88)
+
+        # Kubernetes fast-path — explicit k8s terms (ordered: specific first)
+        _K8S_TERMS = [
+            ("kubectl ", "get"), ("kubernetes", "get"), ("k8s", "get"),
+            ("opisz deployment", "describe"), ("opisz pod", "describe"),
+            ("describe deployment", "describe"), ("describe pod", "describe"),
+            ("skaluj deployment", "scale"), ("scale deployment", "scale"),
+            ("stwórz serwis", "create_service"), ("create service", "create_service"),
+            ("utwórz serwis", "create_service"),
+            ("stwórz configmap", "create_configmap"), ("create configmap", "create_configmap"),
+            ("utwórz configmap", "create_configmap"),
+            ("stwórz secret", "create_secret"), ("create secret", "create_secret"),
+            ("utwórz secret", "create_secret"),
+            ("stwórz ingress", "create_ingress"), ("create ingress", "create_ingress"),
+            ("utwórz ingress", "create_ingress"),
+            ("stwórz deployment", "create"), ("create deployment", "create"),
+            ("utwórz deployment", "create"), ("stwórz zasób", "create"),
+            ("utwórz namespace", "create"), ("create namespace", "create"),
+            ("pokaż logi poda", "logs"), ("pod logs", "logs"),
+            ("pody w klastrze", "get"), ("pods in cluster", "get"),
+            ("pokaż pody", "get"), ("show pods", "get"), ("get pods", "get"),
+            (" pods", "get"), ("pod ", "get"), (" pod ", "get"),
+            ("deployment", "get"), ("namespace", "get"),
+            ("klaster", "get"), ("cluster", "get"),
+            ("ingress", "get"), ("configmap", "get"), ("secret", "get"),
+            ("service mesh", "get"), ("helm ", "get"),
+        ]
+        for kw, intent in _K8S_TERMS:
+            if kw in text_lower:
+                # For namespace detection, extract namespace value into entities
+                if intent == "get" and "namespace" in text_lower:
+                    import re as _re
+                    ns_match = _re.search(r'namespace\s+(\S+)', text_lower)
+                    entities = {"namespace": ns_match.group(1)} if ns_match else {}
+                    return DetectionResult(domain="kubernetes", intent=intent, confidence=0.9, entities=entities)
+                return DetectionResult(domain="kubernetes", intent=intent, confidence=0.9)
+
+        # Shell fast-path — file/process/system terms (only when no docker/k8s context)
+        _SHELL_TERMS = {
+            "configuration files": "find", "config files": "find",
+            "find files": "find", "find file": "find",
+            "search files": "find", "search for files": "find",
+            "pliki konfiguracyjne": "find",
+            "znajdź pliki": "find", "znajdź plik": "find",
+            "zawartość katalogu": "list", "zawartość folderu": "list",
+            "directory contents": "list", "folder contents": "list",
+            "list files": "list", "list directory": "list",
+            "uruchomione procesy": "list_processes", "running processes": "list_processes",
+            "pokaż procesy": "list_processes", "show processes": "list_processes",
+            "miejsce na dysku": "disk_usage", "disk space": "disk_usage",
+            "disk usage": "disk_usage", "wolne miejsce": "disk_usage",
+            "sprawdź dysk": "disk_usage",
+            "grep ": "search", "szukaj w pliku": "search", "search in file": "search",
+            "znajdź słowo": "search", "szukaj w logach": "search",
+            "skopiuj plik": "copy", "copy file": "copy", "skopiuj ": "copy",
+            "przenieś plik": "move", "move file": "move", "przenieś ": "move",
+            "usuń plik": "delete", "delete file": "delete", "usuń stary": "delete",
+            "zmień uprawnienia": "chmod", "uprawnienia pliku": "chmod",
+            "change permissions": "chmod",
+            "spakuj folder": "compress", "spakuj ": "compress",
+            "compress folder": "compress", "skompresuj": "compress",
+        }
+        for kw, intent in _SHELL_TERMS.items():
+            if kw in text_lower:
+                entities = {}
+                # Extract file patterns for find operations
+                if intent == "find" and ("*" in text_lower or ".py" in text_lower or ".txt" in text_lower or ".json" in text_lower):
+                    import re as _re
+                    # Look for file patterns like *.py, *.txt, etc.
+                    file_pattern_match = _re.search(r'(\*\\\?[a-zA-Z0-9]+|\*[a-zA-Z0-9]+)', text_lower)
+                    if file_pattern_match:
+                        entities["pattern"] = file_pattern_match.group(1)
+                    elif ".py" in text_lower:
+                        entities["pattern"] = "*.py"
+                    elif ".txt" in text_lower:
+                        entities["pattern"] = "*.txt"
+                    elif ".json" in text_lower:
+                        entities["pattern"] = "*.json"
+                
+                return DetectionResult(domain="shell", intent=intent, confidence=0.88, entities=entities)
+
+        # SQL natural language fast-path (after docker/k8s/shell)
+        # Ordered list — more specific first to avoid false matches
+        _SQL_NL = [
+            # DDL — table creation/deletion (highest priority)
+            ("stwórz tabelę", "create_table"), ("utwórz tabelę", "create_table"),
+            ("create table", "create_table"), ("nowa tabela", "create_table"),
+            ("usuń tabelę", "drop_table"), ("skasuj tabelę", "drop_table"),
+            ("drop table", "drop_table"), ("zniszcz tabelę", "drop_table"),
+            # DML — insert/update/delete
+            ("dodaj nowy rekord", "insert"), ("dodaj rekord", "insert"),
+            ("add new record", "insert"), ("add record", "insert"),
+            ("wstaw rekord", "insert"), ("insert record", "insert"),
+            ("zaktualizuj status", "update"), ("zaktualizuj rekord", "update"),
+            ("update record", "update"), ("zmień wartość", "update"),
+            ("usuń rekord", "delete"), ("delete record", "delete"),
+            ("skasuj rekord", "delete"),
+            ("usuń stare dane", "delete"), ("usuń dane", "delete"),
+            ("delete old data", "delete"), ("remove old data", "delete"),
+            # Aggregates
+            ("policz liczbę", "aggregate"), ("policz rekordy", "aggregate"),
+            ("count(", "aggregate"), ("sum(", "aggregate"), ("avg(", "aggregate"),
+            ("zsumuj", "aggregate"), ("count records", "aggregate"),
+            # Joins
+            ("inner join", "join"), ("left join", "join"), ("right join", "join"),
+            ("join tables", "join"), ("połącz tabele", "join"), ("złącz tabele", "join"),
+            # Select
+            ("from the table", "select"), ("from table", "select"),
+            ("z tabeli", "select"), ("wyświetl dane", "select"),
+            ("pokaż rekordy", "select"), ("show records", "select"),
+            ("all users", "select"), ("all records", "select"),
+            ("wszystkich użytkowników", "select"), ("wszystkie rekordy", "select"),
+            ("pokaż użytkowników", "select"), ("show users", "select"),
+            ("lista użytkowników", "select"), ("list users", "select"),
+            ("pokaż dane", "select"), ("show data", "select"),
+            ("wyświetl dane", "select"), ("display data", "select"),
+            (" tabeli ", "select"), (" table ", "select"),
+        ]
+        for kw, intent in _SQL_NL:
+            if kw in text_lower:
+                entities = {}
+                # Extract table name for common patterns
+                if kw in ["z tabeli", "from table", "from the table"]:
+                    import re as _re
+                    # Look for table name after the pattern
+                    table_match = _re.search(rf'{re.escape(kw)}\s+(\w+)', text_lower)
+                    if table_match:
+                        entities["table"] = table_match.group(1)
+                elif " tabeli " in text_lower or " table " in text_lower:
+                    import re as _re
+                    # Look for table name around "tabeli" or "table"
+                    table_match = _re.search(r'(\w+)\s+tabeli|tabeli\s+(\w+)|(\w+)\s+table|table\s+(\w+)', text_lower)
+                    if table_match:
+                        # Find the non-None group
+                        table_name = next((group for group in table_match.groups() if group), None)
+                        if table_name:
+                            entities["table"] = table_name
+                elif kw in ["pokaż użytkowników", "show users", "lista użytkowników", "list users"]:
+                    import re as _re
+                    # Extract table name from user-related patterns
+                    entities["table"] = "users"
+                
+                # Extract WHERE conditions for patterns containing "gdzie", "where"
+                if "gdzie" in text_lower or "where" in text_lower:
+                    import re as _re
+                    # Look for WHERE condition
+                    where_match = _re.search(r'(?:gdzie|where)\s+([^,.!?]+)', text_lower)
+                    if where_match:
+                        entities["where"] = where_match.group(1).strip()
+                
+                return DetectionResult(domain="sql", intent=intent, confidence=0.85, entities=entities)
+
         # URL detection
         # IMPORTANT:
         # - Prefer explicit URLs (https?://...) over bare domain matches.

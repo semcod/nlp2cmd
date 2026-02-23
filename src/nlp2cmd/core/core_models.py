@@ -103,8 +103,11 @@ class Intent(BaseModel):
     """Represents a detected intent from natural language input."""
 
     name: str = Field(..., description="Intent name")
-    confidence: float = Field(..., description="Confidence score (0-1)")
+    confidence: float = Field(default=0.0, description="Confidence score (0-1)")
     domain: Optional[str] = Field(default=None, description="Domain of the intent")
+    patterns: list[str] = Field(default_factory=list, description="Keyword patterns for this intent")
+    required_entities: list[str] = Field(default_factory=list, description="Required entity names")
+    confidence_threshold: float = Field(default=0.7, description="Minimum confidence to accept")
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
 
 
@@ -115,6 +118,8 @@ class Entity(BaseModel):
     value: Any = Field(..., description="Entity value")
     type: Optional[str] = Field(default=None, description="Entity type")
     confidence: float = Field(default=1.0, description="Extraction confidence")
+    start: Optional[int] = Field(default=None, description="Start position in text")
+    end: Optional[int] = Field(default=None, description="End position in text")
 
 
 class ExecutionPlan(BaseModel):

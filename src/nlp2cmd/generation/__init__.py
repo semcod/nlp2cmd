@@ -25,6 +25,7 @@ from nlp2cmd.generation.pipeline import (
     RuleBasedPipeline,
     PipelineResult,
     PipelineMetrics,
+    create_pipeline,
 )
 
 import importlib
@@ -41,6 +42,7 @@ __all__ = [
     "RuleBasedPipeline",
     "PipelineResult",
     "PipelineMetrics",
+    "create_pipeline",
     # Multi-command detection
     "MultiCommandDetector",
     "MultiCommandResult",

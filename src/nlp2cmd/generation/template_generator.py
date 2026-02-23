@@ -34,6 +34,7 @@ class TemplateResult:
     entities_used: dict[str, Any]
     missing_entities: list[str]
     success: bool
+    confidence: Optional[float] = None  # Backward compatibility
 
 
 class TemplateGenerator:
@@ -171,6 +172,7 @@ class TemplateGenerator:
                 entities_used={},
                 missing_entities=[],
                 success=False,
+                confidence=0.0,
             )
         
         # Prepare entities based on domain
@@ -191,6 +193,7 @@ class TemplateGenerator:
             entities_used=prepared_entities,
             missing_entities=missing,
             success=bool(command.strip()),
+            confidence=1.0 if bool(command.strip()) else 0.0,
         )
     
     def _find_alternative_template(

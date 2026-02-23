@@ -42,6 +42,7 @@ class RuleBasedPipeline:
         persist_results: bool = False,
         metrics: Optional[PipelineMetrics] = None,
         confidence_threshold: Optional[float] = None,
+        patterns: Optional[dict] = None,
     ):
         self.use_enhanced_context = (
             use_enhanced_context if use_enhanced_context is not None 
@@ -50,6 +51,7 @@ class RuleBasedPipeline:
         self.persist_results = persist_results
         self.metrics = metrics or PipelineMetrics()
         self.confidence_threshold = confidence_threshold
+        self.patterns = patterns  # Store for backward compatibility
         
         # Initialize components
         self.detector = KeywordIntentDetector(confidence_threshold=self.confidence_threshold)
@@ -116,6 +118,9 @@ class RuleBasedPipeline:
             if extraction:
                 result.entities = extraction.entities
                 result.metadata.update(extraction.metadata or {})
+            else:
+                # Fallback: use entities from detection if extraction fails
+                result.entities = detection.entities or {}
             
             # Step 4: Template generation
             template_result = self.template_generator.generate(
