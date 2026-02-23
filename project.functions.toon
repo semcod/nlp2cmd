@@ -1,15 +1,13 @@
 project: src
-generated: "2026-02-23T19:33:48.443039"
-modules[125]{path,lang,items}:
+generated: "2026-02-23T20:35:04.721966"
+modules[129]{path,lang,items}:
   nlp2cmd/pipeline_runner.py,python,12
   nlp2cmd/schema_driven.py,python,8
   nlp2cmd/polish_support.py,python,13
   nlp2cmd/__init__.py,python,0
   nlp2cmd/__main__.py,python,0
   nlp2cmd/appspec_runtime.py,python,2
-  nlp2cmd/core_patched.py,python,33
-  nlp2cmd/core_backup.py,python,33
-  nlp2cmd/core.py,python,53
+  nlp2cmd/core_old.py,python,53
   nlp2cmd/ir.py,python,1
   app2schema/cli.py,python,1
   app2schema/extract.py,python,15
@@ -23,7 +21,6 @@ modules[125]{path,lang,items}:
   nlp2cmd/generation/train_model.py,python,7
   nlp2cmd/generation/regex.py,python,11
   nlp2cmd/generation/fuzzy_schema_matcher.py,python,23
-  nlp2cmd/generation/keywords.py,python,46
   nlp2cmd/generation/thermodynamic.py,python,31
   nlp2cmd/generation/ml_intent_classifier.py,python,15
   nlp2cmd/generation/multi_command.py,python,9
@@ -32,17 +29,22 @@ modules[125]{path,lang,items}:
   nlp2cmd/generation/semantic_matcher.py,python,14
   nlp2cmd/generation/semantic_entities.py,python,8
   nlp2cmd/generation/data_loader.py,python,28
-  nlp2cmd/generation/templates.py,python,94
+  nlp2cmd/generation/template_generator.py,python,38
   nlp2cmd/generation/pipeline.py,python,32
   nlp2cmd/generation/llm_multi.py,python,11
   nlp2cmd/generation/validating.py,python,9
   nlp2cmd/generation/hybrid.py,python,15
   nlp2cmd/generation/llm_simple.py,python,19
+  nlp2cmd/generation/keywords_old.py,python,46
   nlp2cmd/generation/structured.py,python,7
   nlp2cmd/validators/__init__.py,python,25
   nlp2cmd/service/cli.py,python,1
   nlp2cmd/service/__init__.py,python,11
   nlp2cmd/planner/__init__.py,python,7
+  nlp2cmd/core/core_models.py,python,13
+  nlp2cmd/core/__init__.py,python,0
+  nlp2cmd/core/core_transform.py,python,12
+  nlp2cmd/core/core_backends.py,python,14
   nlp2cmd/core/toon_integration.py,python,32
   nlp2cmd/nlp/intent_classifier.py,python,2
   nlp2cmd/nlp/__init__.py,python,0
@@ -57,7 +59,7 @@ modules[125]{path,lang,items}:
   nlp2cmd/cli/syntax_cache.py,python,8
   nlp2cmd/cli/markdown_output.py,python,13
   nlp2cmd/cli/history.py,python,6
-  nlp2cmd/cli/main.py,python,30
+  nlp2cmd/cli/main.py,python,32
   nlp2cmd/cli/cache.py,python,7
   nlp2cmd/web_schema/form_data_loader.py,python,38
   nlp2cmd/web_schema/__init__.py,python,0
@@ -79,21 +81,13 @@ modules[125]{path,lang,items}:
   nlp2cmd/interfaces/sampler.py,python,2
   nlp2cmd/interfaces/energy_model.py,python,3
   nlp2cmd/executor/__init__.py,python,18
-  nlp2cmd/adapters/sql_patched.py,python,0
   nlp2cmd/adapters/dynamic.py,python,21
-  nlp2cmd/adapters/kubernetes_backup.py,python,23
   nlp2cmd/adapters/dql.py,python,13
   nlp2cmd/adapters/base.py,python,12
-  nlp2cmd/adapters/docker_patched.py,python,19
   nlp2cmd/adapters/docker.py,python,19
-  nlp2cmd/adapters/sql_backup.py,python,15
   nlp2cmd/adapters/browser.py,python,10
-  nlp2cmd/adapters/kubernetes_patched.py,python,23
   nlp2cmd/adapters/__init__.py,python,0
   nlp2cmd/adapters/kubernetes.py,python,23
-  nlp2cmd/adapters/shell_backup.py,python,24
-  nlp2cmd/adapters/docker_backup.py,python,19
-  nlp2cmd/adapters/shell_patched.py,python,20
   nlp2cmd/adapters/sql.py,python,15
   nlp2cmd/adapters/shell.py,python,120
   nlp2cmd/adapters/appspec.py,python,6
@@ -126,6 +120,16 @@ modules[125]{path,lang,items}:
   nlp2cmd/intelligent/dynamic_generator.py,python,6
   nlp2cmd/intelligent/command_detector.py,python,5
   nlp2cmd/intelligent/version_aware_generator.py,python,11
+  nlp2cmd/generation/templates/kubernetes_templates.py,python,0
+  nlp2cmd/generation/templates/shell_templates.py,python,0
+  nlp2cmd/generation/templates/__init__.py,python,0
+  nlp2cmd/generation/templates/git_templates.py,python,0
+  nlp2cmd/generation/templates/sql_templates.py,python,0
+  nlp2cmd/generation/templates/docker_templates.py,python,0
+  nlp2cmd/generation/templates/browser_templates.py,python,0
+  nlp2cmd/generation/keywords/keyword_patterns.py,python,14
+  nlp2cmd/generation/keywords/keyword_detector.py,python,18
+  nlp2cmd/generation/keywords/__init__.py,python,0
 
 function_details:
   nlp2cmd/pipeline_runner.py:
@@ -154,94 +158,24 @@ function_details:
       SchemaDrivenNLP2CMD._render_shell,method,"(action:AppAction, params:dict[str,Any], text:str) -> str",229-276,false,48,25,formats shell
   nlp2cmd/polish_support.py:
     functions[13]{name,kind,sig,loc,async,lines,cc,does}:
-      get_polish_support,function,(),314-316,false,3,1,Get Polish language support instance
+      get_polish_support,function,(),316-318,false,3,1,Get Polish language support instance
       PolishLanguageSupport.__init__,method,(),80-85,false,6,1,creates
-      PolishLanguageSupport._load_patterns,method,(),87-115,false,29,6,Load Polish language patterns
-      PolishLanguageSupport.normalize_polish_text,method,(text),117-133,false,17,2,Normalize Polish text for better matching
-      PolishLanguageSupport.normalize_stt_errors,method,(text),135-217,false,83,20,Fix common STT word boundary errors.
-      PolishLanguageSupport._find_best_phrase_match,method,"(text, threshold=0.85)",219-232,false,14,4,Find best matching known phrase using fuzzy matching.
-      PolishLanguageSupport._similar,method,"(a, b, threshold=None)",234-239,false,6,2,Calculate similarity ratio between two strings.
-      PolishLanguageSupport.match_polish_patterns,method,"(text, domain)",241-261,false,21,6,Match Polish patterns for given domain
-      PolishLanguageSupport.translate_polish_intent,method,(text),263-271,false,9,3,Translate Polish intent to English
-      PolishLanguageSupport.translate_polish_table,method,(text),273-284,false,12,4,Translate Polish table name to English
-      PolishLanguageSupport.get_domain_weight,method,(domain),286-288,false,3,1,Get domain weight for Polish text
-      PolishLanguageSupport.enhance_domain_detection,method,"(text, base_domain)",290-299,false,10,3,Enhance domain detection with Polish patterns
-      PolishLanguageSupport.enhance_intent_detection,method,"(text, base_intent)",301-309,false,9,2,Enhance intent detection with Polish mappings
+      PolishLanguageSupport._load_patterns,method,(),87-117,false,31,6,Load Polish language patterns
+      PolishLanguageSupport.normalize_polish_text,method,(text),119-135,false,17,2,Normalize Polish text for better matching
+      PolishLanguageSupport.normalize_stt_errors,method,(text),137-219,false,83,20,Fix common STT word boundary errors.
+      PolishLanguageSupport._find_best_phrase_match,method,"(text, threshold=0.85)",221-234,false,14,4,Find best matching known phrase using fuzzy matching.
+      PolishLanguageSupport._similar,method,"(a, b, threshold=None)",236-241,false,6,2,Calculate similarity ratio between two strings.
+      PolishLanguageSupport.match_polish_patterns,method,"(text, domain)",243-263,false,21,6,Match Polish patterns for given domain
+      PolishLanguageSupport.translate_polish_intent,method,(text),265-273,false,9,3,Translate Polish intent to English
+      PolishLanguageSupport.translate_polish_table,method,(text),275-286,false,12,4,Translate Polish table name to English
+      PolishLanguageSupport.get_domain_weight,method,(domain),288-290,false,3,1,Get domain weight for Polish text
+      PolishLanguageSupport.enhance_domain_detection,method,"(text, base_domain)",292-301,false,10,3,Enhance domain detection with Polish patterns
+      PolishLanguageSupport.enhance_intent_detection,method,"(text, base_intent)",303-311,false,9,2,Enhance intent detection with Polish mappings
   nlp2cmd/appspec_runtime.py:
     functions[2]{name,kind,sig,loc,async,lines,cc,does}:
       load_appspec,function,"(path:Any) -> AppSpec",33-56,false,24,10,retrieves appspec
       AppSpec.get_action,method,"(action_id:str) -> Optional[AppAction]",26-30,false,5,3,retrieves action
-  nlp2cmd/core_patched.py:
-    functions[33]{name,kind,sig,loc,async,lines,cc,does}:
-      enhanced_domain_detection,function,"(query, base_domain)",884-890,false,7,2,Enhanced domain detection with Polish language support
-      enhanced_intent_detection,function,"(query, base_intent)",893-945,false,53,1,Enhanced intent detection with Polish language support
-      ExecutionPlan.with_confidence,method,"(confidence:float) -> \"ExecutionPlan\"",149-151,false,3,1,Create a copy with updated confidence.
-      ExecutionPlan.with_entities,method,"(entities:dict[str,Any]) -> \"ExecutionPlan\"",153-156,false,4,1,Create a copy with updated entities (merged with existing).
-      ExecutionPlan.with_metadata,method,"(metadata:dict[str,Any]) -> \"ExecutionPlan\"",158-160,false,3,1,Create a copy with updated metadata.
-      ExecutionPlan.with_context,method,"(context:dict[str,Any]) -> \"ExecutionPlan\"",162-164,false,3,1,Create a copy with updated context.
-      ExecutionPlan.with_errors,method,"(errors:list[str]) -> \"ExecutionPlan\"",166-168,false,3,1,Create a copy with error information in metadata.
-      ExecutionPlan.with_security,method,"(security_context:dict[str,Any]) -> \"ExecutionPlan\"",170-172,false,3,1,Create a copy with security context.
-      ExecutionPlan.with_performance,method,"(performance_data:dict[str,Any]) -> \"ExecutionPlan\"",174-176,false,3,1,Create a copy with performance data.
-      ExecutionPlan.is_valid,method,() -> bool,178-184,false,7,3,Check if execution plan is valid.
-      TransformResult.is_success,method,() -> bool,203-205,false,3,1,Check if transformation was successful.
-      TransformResult.is_blocked,method,() -> bool,208-210,false,3,1,Check if transformation was blocked by security policy.
-      TransformResult.to_dict,method,"() -> dict[str, Any]",212-225,false,14,1,Convert result to dictionary.
-      TransformResult.copy,method,"() -> \"TransformResult\"",227-240,false,14,1,Create a copy of the transform result.
-      TransformResult.is_valid,method,() -> bool,242-249,false,8,4,Check if result is valid (no errors and successful status).
-      NLPBackend.__init__,method,"(config:Optional[dict[str,Any]]=None)",255-256,false,2,2,creates
-      NLPBackend.extract_intent,method,"(text:str) -> tuple[str, float]",258-260,false,3,1,Extract intent from text.
-      NLPBackend.extract_entities,method,"(text:str) -> list[Entity]",262-264,false,3,1,Extract entities from text.
-      NLPBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",266-268,false,3,1,Generate execution plan from text.
-      SpaCyBackend.__init__,method,"(model:str='en_core_web_sm', config:Optional[dict]=None)",274-277,false,4,1,creates
-      SpaCyBackend.nlp,method,(),280-289,false,10,3,Lazy-load spaCy model.
-      SpaCyBackend.extract_entities,method,"(text:str) -> list[Entity]",291-305,false,15,2,Extract named entities using spaCy.
-      LLMBackend.__init__,method,"(model:str='claude-sonnet-4-20250514', api_key:Optional[str]=None, system_prompt:Optional[str]=None, config:Optional[dict]=None)",311-322,false,12,2,creates
-      LLMBackend._default_system_prompt,method,() -> str,324-332,false,9,1,default system prompt
-      LLMBackend.client,method,(),335-356,false,22,5,Lazy-load API client.
-      LLMBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",358-393,false,36,4,Generate execution plan using LLM.
-      RuleBasedBackend.__init__,method,"(rules:Optional[dict[str,list[str]]]=None, config:Optional[dict]=None)",399-401,false,3,2,creates
-      RuleBasedBackend.extract_entities,method,"(text:str) -> list[Entity]",403-452,false,50,13,Extract entities using simple pattern matching.
-      RuleBasedBackend.extract_intent,method,"(text:str) -> tuple[str, float]",454-478,false,25,9,Extract intent using pattern matching.
-      NLP2CMD.__init__,method,"(adapter:BaseDSLAdapter, nlp_backend:Optional[NLPBackend]=None, validator:Optional[BaseValidator]=None, feedback_analyzer:Optional[FeedbackAnalyzer]=None, validation_mode:str='normal', auto_fix:bool=False)",489-577,false,89,13,Initialize NLP2CMD instance.
-      NLP2CMD.dsl_name,method,() -> str,580-582,false,3,1,Get the name of the current DSL adapter.
-      NLP2CMD._normalize_entities,method,"(intent:str, entities:dict[str,Any], context:dict[str,Any]) -> dict[str, Any]",584-737,false,154,64,normalize entities
-      NLP2CMD.transform,method,"(text:str) -> TransformResult",739-872,false,134,1,Transform natural language text into a DSL command.
-  nlp2cmd/core_backup.py:
-    functions[33]{name,kind,sig,loc,async,lines,cc,does}:
-      enhanced_domain_detection,function,"(query, base_domain)",898-904,false,7,2,Enhanced domain detection with Polish language support
-      enhanced_intent_detection,function,"(query, base_intent)",907-959,false,53,1,Enhanced intent detection with Polish language support
-      ExecutionPlan.with_confidence,method,"(confidence:float) -> \"ExecutionPlan\"",149-151,false,3,1,Create a copy with updated confidence.
-      ExecutionPlan.with_entities,method,"(entities:dict[str,Any]) -> \"ExecutionPlan\"",153-156,false,4,1,Create a copy with updated entities (merged with existing).
-      ExecutionPlan.with_metadata,method,"(metadata:dict[str,Any]) -> \"ExecutionPlan\"",158-160,false,3,1,Create a copy with updated metadata.
-      ExecutionPlan.with_context,method,"(context:dict[str,Any]) -> \"ExecutionPlan\"",162-164,false,3,1,Create a copy with updated context.
-      ExecutionPlan.with_errors,method,"(errors:list[str]) -> \"ExecutionPlan\"",166-168,false,3,1,Create a copy with error information in metadata.
-      ExecutionPlan.with_security,method,"(security_context:dict[str,Any]) -> \"ExecutionPlan\"",170-172,false,3,1,Create a copy with security context.
-      ExecutionPlan.with_performance,method,"(performance_data:dict[str,Any]) -> \"ExecutionPlan\"",174-176,false,3,1,Create a copy with performance data.
-      ExecutionPlan.is_valid,method,() -> bool,178-184,false,7,3,Check if execution plan is valid.
-      TransformResult.is_success,method,() -> bool,203-205,false,3,1,Check if transformation was successful.
-      TransformResult.is_blocked,method,() -> bool,208-210,false,3,1,Check if transformation was blocked by security policy.
-      TransformResult.to_dict,method,"() -> dict[str, Any]",212-225,false,14,1,Convert result to dictionary.
-      TransformResult.copy,method,"() -> \"TransformResult\"",227-240,false,14,1,Create a copy of the transform result.
-      TransformResult.is_valid,method,() -> bool,242-249,false,8,4,Check if result is valid (no errors and successful status).
-      NLPBackend.__init__,method,"(config:Optional[dict[str,Any]]=None)",255-256,false,2,2,creates
-      NLPBackend.extract_intent,method,"(text:str) -> tuple[str, float]",258-260,false,3,1,Extract intent from text.
-      NLPBackend.extract_entities,method,"(text:str) -> list[Entity]",262-264,false,3,1,Extract entities from text.
-      NLPBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",266-268,false,3,1,Generate execution plan from text.
-      SpaCyBackend.__init__,method,"(model:str='en_core_web_sm', config:Optional[dict]=None)",274-277,false,4,1,creates
-      SpaCyBackend.nlp,method,(),280-289,false,10,3,Lazy-load spaCy model.
-      SpaCyBackend.extract_entities,method,"(text:str) -> list[Entity]",291-305,false,15,2,Extract named entities using spaCy.
-      LLMBackend.__init__,method,"(model:str='claude-sonnet-4-20250514', api_key:Optional[str]=None, system_prompt:Optional[str]=None, config:Optional[dict]=None)",311-322,false,12,2,creates
-      LLMBackend._default_system_prompt,method,() -> str,324-332,false,9,1,default system prompt
-      LLMBackend.client,method,(),335-356,false,22,5,Lazy-load API client.
-      LLMBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",358-393,false,36,4,Generate execution plan using LLM.
-      RuleBasedBackend.__init__,method,"(rules:Optional[dict[str,list[str]]]=None, config:Optional[dict]=None)",399-401,false,3,2,creates
-      RuleBasedBackend.extract_entities,method,"(text:str) -> list[Entity]",403-452,false,50,13,Extract entities using simple pattern matching.
-      RuleBasedBackend.extract_intent,method,"(text:str) -> tuple[str, float]",454-478,false,25,9,Extract intent using pattern matching.
-      NLP2CMD.__init__,method,"(adapter:BaseDSLAdapter, nlp_backend:Optional[NLPBackend]=None, validator:Optional[BaseValidator]=None, feedback_analyzer:Optional[FeedbackAnalyzer]=None, validation_mode:str='normal', auto_fix:bool=False)",489-577,false,89,13,Initialize NLP2CMD instance.
-      NLP2CMD.dsl_name,method,() -> str,580-582,false,3,1,Get the name of the current DSL adapter.
-      NLP2CMD._normalize_entities,method,"(intent:str, entities:dict[str,Any], context:dict[str,Any]) -> dict[str, Any]",584-737,false,154,64,normalize entities
-      NLP2CMD.transform,method,"(text:str, context:Optional[dict[str,Any]]=None, dry_run:bool=False) -> TransformResult",739-886,false,148,14,Transform natural language text into a DSL command.
-  nlp2cmd/core.py:
+  nlp2cmd/core_old.py:
     functions[53]{name,kind,sig,loc,async,lines,cc,does}:
       enhanced_domain_detection,function,"(query, base_domain)",1009-1015,false,7,2,Enhanced domain detection with Polish language support
       enhanced_intent_detection,function,"(query, base_intent)",1018-1024,false,7,2,Enhanced intent detection with Polish language support
@@ -469,54 +403,6 @@ function_details:
       FuzzySchemaMatcher.match_all,method,"(input_text:str, top_k:int=5) -> list[MatchResult]",409-459,false,51,6,Get top K matches for input text.
       FuzzySchemaMatcher.suggest_correction,method,"(input_text:str) -> Optional[str]",461-470,false,10,3,Suggest corrected phrase for input with STT errors.
       FuzzySchemaMatcher.export_schema,method,"(path:Path) -> None",472-491,false,20,2,Export current phrases to JSON schema.
-  nlp2cmd/generation/keywords.py:
-    functions[46]{name,kind,sig,loc,async,lines,cc,does}:
-      _get_polish_support,function,(),24-33,false,10,4,Lazy load Polish support to avoid circular imports.
-      _get_fuzzy_schema_matcher,function,(),38-67,false,30,7,Lazy load FuzzySchemaMatcher with multilingual phrases.
-      _get_ml_classifier,function,(),78-91,false,14,6,Lazy load ML intent classifier for high-accuracy predictions.
-      _get_semantic_matcher,function,(),102-123,false,22,8,Lazy load optimized semantic matcher for embedding-based similarity.
-      _normalize_polish_text,function,"(text:str) -> str",126-137,false,12,1,Normalize Polish diacritics to handle typos.
-      _get_spacy_model,function,(),158-184,false,27,6,retrieves spacy model
-      KeywordIntentDetector.__init__,method,"(patterns:Optional[dict[str,dict[str,list[str]]]]=None, custom_patterns:Optional[dict[str,dict[str,list[str]]]]=None, confidence_threshold:float=0.5)",216-272,false,57,10,Initialize keyword detector.
-      KeywordIntentDetector._load_detector_config_from_json,method,() -> None,274-360,false,87,47,retrieves detector config from json
-      KeywordIntentDetector._load_patterns_from_json,method,() -> None,362-417,false,56,24,Load patterns from external JSON file with fallback to embedded PATTERNS.
-      KeywordIntentDetector._match_keyword,method,"(text_lower:str, kw:str) -> bool",423-439,false,17,9,filters keyword
-      KeywordIntentDetector._normalize_text_lower,method,"(text_lower:str) -> str",442-469,false,28,3,normalize text lower
-      KeywordIntentDetector._maybe_lemmatize_text_lower,method,"(text_lower:str) -> str",472-502,false,31,12,maybe lemmatize text lower
-      KeywordIntentDetector._normalize_intent,method,"(domain:str, intent:str, text_lower:str) -> str",505-554,false,50,31,normalize intent
-      KeywordIntentDetector._has_shell_file_context,method,"(text_lower:str) -> bool",557-578,false,22,13,checks shell file context
-      KeywordIntentDetector._detect_fast_path,method,"(text_lower:str) -> Optional[DetectionResult]",580-711,false,132,37,detect fast path
-      KeywordIntentDetector._detect_fast_path_docker_run_detached,method,"(text_lower:str) -> Optional[DetectionResult]",713-729,false,17,6,detect fast path docker run detached
-      KeywordIntentDetector._compute_sql_context,method,"(text_lower:str) -> tuple[bool, bool]",731-753,false,23,8,processes sql context
-      KeywordIntentDetector._detect_sql_drop_table,method,"(text_lower:str) -> Optional[DetectionResult]",755-782,false,28,6,detect sql drop table
-      KeywordIntentDetector._detect_explicit_docker,method,"(text_lower:str) -> Optional[DetectionResult]",784-887,false,104,31,detect explicit docker
-      KeywordIntentDetector._detect_explicit_kubernetes,method,"(text_lower:str) -> Optional[DetectionResult]",889-1008,false,120,26,detect explicit kubernetes
-      KeywordIntentDetector._domain_scan_allowed,method,"(text_lower:str, domain:str) -> bool",1010-1055,false,46,17,domain scan allowed
-      KeywordIntentDetector._detect_best_from_priority_intents,method,"(text_lower:str) -> Optional[DetectionResult]",1057-1126,false,70,23,detect best from priority intents
-      KeywordIntentDetector._detect_explicit_system_reboot,method,"(text_lower:str) -> Optional[DetectionResult]",1128-1152,false,25,3,Explicit detection for system reboot commands.
-      KeywordIntentDetector._detect_explicit_service_restart,method,"(text_lower:str) -> Optional[DetectionResult]",1154-1175,false,22,3,Explicit detection for service restart commands.
-      KeywordIntentDetector._detect_best_from_patterns,method,"(text_lower:str) -> Optional[DetectionResult]",1177-1235,false,59,18,detect best from patterns
-      KeywordIntentDetector.detect,method,"(text:str) -> DetectionResult",1237-1265,false,29,5,Detect domain and intent from text.
-      KeywordIntentDetector._prepare_text,method,"(text:str) -> tuple[str, str]",1267-1276,false,10,2,prepare text
-      KeywordIntentDetector._detect_explicit_overrides,method,"(text_lower:str) -> Optional[DetectionResult]",1278-1294,false,17,4,detect explicit overrides
-      KeywordIntentDetector._detect_file_context_overrides,method,"(text_lower:str) -> Optional[DetectionResult]",1296-1314,false,19,4,detect file context overrides
-      KeywordIntentDetector._normalize_detection_result,method,"(result:DetectionResult, text_lower:str) -> DetectionResult",1316-1321,false,6,2,normalize detection result
-      KeywordIntentDetector._detect_with_lemmatization,method,"(raw_lower:str, baseline:DetectionResult) -> DetectionResult",1323-1336,false,14,4,detect with lemmatization
-      KeywordIntentDetector._detect_ml_classifier,method,"(text_lower:str) -> Optional[DetectionResult]",1338-1355,false,18,4,"Try ML classifier for high-confidence matches (fastest, <1ms)."
-      KeywordIntentDetector._detect_ml_medium_confidence,method,"() -> Optional[DetectionResult]",1357-1367,false,11,3,ML classifier fallback for medium confidence (still useful).
-      KeywordIntentDetector._detect_schema_matcher,method,"(text_lower:str) -> Optional[DetectionResult]",1369-1396,false,28,11,Try multilingual schema matching for high-confidence matches.
-      KeywordIntentDetector._detect_schema_fallback,method,"(text_lower:str) -> Optional[DetectionResult]",1398-1415,false,18,8,"Fallback: Try multilingual fuzzy schema matching."
-      KeywordIntentDetector._detect_semantic_fallback,method,"(text_lower:str) -> Optional[DetectionResult]",1417-1432,false,16,5,Semantic matching fallback for typos and paraphrases (slower).
-      KeywordIntentDetector._detect_fuzzy_match,method,"(text_lower:str) -> Optional[DetectionResult]",1434-1438,false,5,3,Try fuzzy matching if available.
-      KeywordIntentDetector._detect_explicit_matches,method,"(text_lower:str) -> Optional[DetectionResult]",1440-1472,false,33,6,Detect explicit domain-specific matches.
-      KeywordIntentDetector._detect_pattern_matches,method,"(text_lower:str) -> Optional[DetectionResult]",1474-1498,false,25,3,Detect matches from priority intents and general patterns.
-      KeywordIntentDetector._detect_normalized,method,"(text_lower:str) -> DetectionResult",1500-1557,false,58,11,detect normalized
-      KeywordIntentDetector._calculate_domain_boost,method,"(text:str, domain:str) -> float",1559-1564,false,6,3,Calculate confidence boost based on domain-specific keywords.
-      KeywordIntentDetector.detect_all,method,"(text:str) -> list[DetectionResult]",1566-1602,false,37,9,Detect all matching domains and intents.
-      KeywordIntentDetector.add_pattern,method,"(domain:str, intent:str, keywords:list[str]) -> None",1604-1617,false,14,3,Add custom patterns.
-      KeywordIntentDetector.get_supported_domains,method,"() -> list[str]",1619-1621,false,3,1,Get list of supported domains.
-      KeywordIntentDetector.get_supported_intents,method,"(domain:str) -> list[str]",1623-1625,false,3,1,Get list of supported intents for a domain.
-      KeywordIntentDetector._detect_best_from_fuzzy,method,"(text_lower:str) -> Optional[DetectionResult]",1627-1715,false,89,22,Fuzzy matching fallback using rapidfuzz.
   nlp2cmd/generation/thermodynamic.py:
     functions[31]{name,kind,sig,loc,async,lines,cc,does}:
       create_thermodynamic_generator,function,"(llm_client:Optional[LLMClient]=None, n_samples:int=5, n_steps:int=500, adaptive_steps:bool=True, parallel_sampling:bool=False, max_workers:int=4) -> ThermodynamicGenerator",1028-1071,false,44,1,Factory function for thermodynamic generator.
@@ -654,102 +540,46 @@ function_details:
       DataLoader.convert_format,method,"(input_path:Path, output_path:Path)",243-249,false,7,2,Convert between formats based on file extensions.
       DataLoader.get_cached_path,method,"(original_path:Path, format:str='pkl') -> Path",251-256,false,6,1,Get path for cached version of a file.
       DataLoader.load_with_cache,method,"(path:Path, cache_format:str='pkl') -> PhraseDatabase",258-280,false,23,5,Load with automatic caching for faster subsequent loads.
-  nlp2cmd/generation/templates.py:
-    functions[94]{name,kind,sig,loc,async,lines,cc,does}:
-      TemplateGenerator.__init__,method,"(custom_templates:Optional[dict[str,dict[str,str]]]=None)",528-576,false,49,8,Initialize template generator.
-      TemplateGenerator._load_defaults_from_json,method,() -> None,578-589,false,12,4,retrieves defaults from json
-      TemplateGenerator._load_templates_from_json,method,() -> None,591-615,false,25,13,retrieves templates from json
-      TemplateGenerator._get_default,method,"(key:str, fallback:Any) -> Any",617-621,false,5,4,retrieves default
-      TemplateGenerator.generate,method,"(domain:str, intent:str, entities:dict[str,Any]) -> TemplateResult",623-720,false,98,18,Generate DSL command from template.
-      TemplateGenerator._find_alternative_template,method,"(domain:str, intent:str, entities:dict[str,Any]) -> Optional[str]",722-786,false,65,22,Find alternative template based on intent mapping and context.
-      TemplateGenerator._prepare_entities,method,"(domain:str, intent:str, entities:dict[str,Any]) -> dict[str, Any]",788-806,false,19,5,Prepare entities with defaults and formatting.
-      TemplateGenerator._prepare_sql_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",808-911,false,104,31,Prepare SQL entities.
-      TemplateGenerator._get_user_home_dir,method,"(username:str) -> str",913-925,false,13,4,retrieves user home dir
-      TemplateGenerator._apply_shell_path_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",927-946,false,20,10,apply shell path defaults
-      TemplateGenerator._apply_shell_pattern_defaults,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",948-960,false,13,5,apply shell pattern defaults
-      TemplateGenerator._apply_shell_find_flags,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",962-968,false,7,1,apply shell find flags
-      TemplateGenerator._infer_shell_find_target,method,"(intent:str, entities:dict[str,Any]) -> str",970-978,false,9,9,infer shell find target
-      TemplateGenerator._build_shell_find_type_flag,method,"(target:str) -> str",980-985,false,6,3,creates shell find type flag
-      TemplateGenerator._build_shell_find_name_flag,method,"(pattern:str) -> str",987-988,false,2,3,creates shell find name flag
-      TemplateGenerator._build_shell_find_exec_flag,method,"(intent:str, entities:dict[str,Any]) -> str",990-996,false,7,5,creates shell find exec flag
-      TemplateGenerator._build_shell_find_size_flag,method,"(entities:dict[str,Any]) -> str",998-1017,false,20,18,creates shell find size flag
-      TemplateGenerator._build_shell_find_time_flag,method,"(entities:dict[str,Any]) -> str",1019-1030,false,12,9,creates shell find time flag
-      TemplateGenerator._apply_shell_common_defaults,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1032-1043,false,12,1,apply shell common defaults
-      TemplateGenerator._apply_shell_text_processing_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",1045-1049,false,5,1,apply shell text processing defaults
-      TemplateGenerator._apply_shell_file_default,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1051-1059,false,9,5,apply shell file default
-      TemplateGenerator._apply_shell_text_tail_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",1061-1074,false,14,7,apply shell text tail defaults
-      TemplateGenerator._apply_shell_text_cat_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",1076-1079,false,4,2,apply shell text cat defaults
-      TemplateGenerator._apply_shell_json_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",1081-1086,false,6,3,apply shell json defaults
-      TemplateGenerator._apply_shell_text_wc_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",1088-1107,false,20,11,apply shell text wc defaults
-      TemplateGenerator._shell_intent_file_search,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1109-1111,false,3,1,shell intent file search
-      TemplateGenerator._shell_intent_file_content,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1113-1114,false,2,1,shell intent file content
-      TemplateGenerator._shell_intent_file_tail,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1116-1118,false,3,1,shell intent file tail
-      TemplateGenerator._shell_intent_file_size,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1120-1121,false,2,1,shell intent file size
-      TemplateGenerator._shell_intent_file_rename,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1123-1125,false,3,1,shell intent file rename
-      TemplateGenerator._shell_intent_file_delete_all,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1127-1128,false,2,1,shell intent file delete all
-      TemplateGenerator._shell_intent_dir_create,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1130-1131,false,2,1,shell intent dir create
-      TemplateGenerator._shell_intent_remove_all,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1133-1134,false,2,1,shell intent remove all
-      TemplateGenerator._shell_intent_file_operation,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1136-1151,false,16,3,shell intent file operation
-      TemplateGenerator._shell_file_op_is_all,method,"(text_lower:str) -> bool",1153-1154,false,2,2,shell file op is all
-      TemplateGenerator._shell_file_op_is_directory,method,"(text_lower:str) -> bool",1156-1157,false,2,3,shell file op is directory
-      TemplateGenerator._shell_file_op_is_rename,method,"(text_lower:str) -> bool",1159-1160,false,2,2,shell file op is rename
-      TemplateGenerator._shell_file_op_is_size,method,"(text_lower:str) -> bool",1162-1163,false,2,2,shell file op is size
-      TemplateGenerator._shell_file_op_is_copy,method,"(text_lower:str) -> bool",1165-1166,false,2,2,shell file op is copy
-      TemplateGenerator._shell_file_op_is_move,method,"(text_lower:str) -> bool",1168-1169,false,2,2,shell file op is move
-      TemplateGenerator._shell_file_op_is_delete,method,"(text_lower:str) -> bool",1171-1172,false,2,3,shell file op is delete
-      TemplateGenerator._shell_file_op_all,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1174-1175,false,2,1,shell file op all
-      TemplateGenerator._shell_file_op_directory,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1177-1178,false,2,1,shell file op directory
-      TemplateGenerator._shell_file_op_rename,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1180-1182,false,3,1,shell file op rename
-      TemplateGenerator._shell_file_op_size,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1184-1185,false,2,1,shell file op size
-      TemplateGenerator._shell_file_op_copy,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1187-1189,false,3,1,shell file op copy
-      TemplateGenerator._shell_file_op_move,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1191-1193,false,3,1,shell file op move
-      TemplateGenerator._shell_file_op_delete,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1195-1196,false,2,1,shell file op delete
-      TemplateGenerator._shell_file_op_default,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1198-1199,false,2,1,shell file op default
-      TemplateGenerator._shell_intent_process_user,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1201-1202,false,2,2,shell intent process user
-      TemplateGenerator._shell_intent_network_ping,method,"(result:dict[str,Any]) -> None",1204-1205,false,2,2,shell intent network ping
-      TemplateGenerator._shell_intent_network_lsof,method,"(result:dict[str,Any]) -> None",1207-1208,false,2,2,shell intent network lsof
-      TemplateGenerator._shell_intent_network_scan,method,"(result:dict[str,Any]) -> None",1210-1211,false,2,2,shell intent network scan
-      TemplateGenerator._shell_intent_network_speed,method,"(result:dict[str,Any]) -> None",1213-1214,false,2,2,shell intent network speed
-      TemplateGenerator._shell_intent_disk_device,method,"(result:dict[str,Any]) -> None",1216-1217,false,2,2,shell intent disk device
-      TemplateGenerator._shell_intent_backup_create,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1219-1220,false,2,1,shell intent backup create
-      TemplateGenerator._shell_intent_backup_copy,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1222-1224,false,3,1,shell intent backup copy
-      TemplateGenerator._shell_intent_backup_restore,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1226-1227,false,2,1,shell intent backup restore
-      TemplateGenerator._shell_intent_backup_integrity,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1229-1236,false,8,2,shell intent backup integrity
-      TemplateGenerator._shell_intent_backup_path,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1238-1239,false,2,2,shell intent backup path
-      TemplateGenerator._shell_intent_backup_size,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1241-1248,false,8,2,shell intent backup size
-      TemplateGenerator._shell_intent_system_logs,method,"(result:dict[str,Any]) -> None",1250-1251,false,2,2,shell intent system logs
-      TemplateGenerator._shell_intent_dev_lint,method,"(result:dict[str,Any]) -> None",1253-1254,false,2,1,shell intent dev lint
-      TemplateGenerator._shell_intent_dev_logs,method,"(result:dict[str,Any]) -> None",1256-1257,false,2,2,shell intent dev logs
-      TemplateGenerator._shell_intent_dev_debug,method,"(result:dict[str,Any]) -> None",1259-1260,false,2,2,shell intent dev debug
-      TemplateGenerator._shell_intent_dev_docs,method,"(result:dict[str,Any]) -> None",1262-1263,false,2,1,shell intent dev docs
-      TemplateGenerator._shell_intent_security_permissions,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1265-1266,false,2,1,shell intent security permissions
-      TemplateGenerator._shell_intent_process_kill,method,"(result:dict[str,Any]) -> None",1268-1269,false,2,1,shell intent process kill
-      TemplateGenerator._shell_intent_process_background,method,"(result:dict[str,Any]) -> None",1271-1272,false,2,1,shell intent process background
-      TemplateGenerator._shell_intent_process_script,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1274-1275,false,2,1,shell intent process script
-      TemplateGenerator._shell_intent_service,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1277-1278,false,2,2,shell intent service
-      TemplateGenerator._shell_intent_text_search_errors,method,"(result:dict[str,Any]) -> None",1280-1281,false,2,2,shell intent text search errors
-      TemplateGenerator._shell_intent_open_url,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1283-1287,false,5,5,shell intent open url
-      TemplateGenerator._shell_intent_search_web,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",1289-1296,false,8,4,shell intent search web
-      TemplateGenerator._apply_shell_backup_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1298-1313,false,16,2,apply shell backup defaults
-      TemplateGenerator._apply_shell_system_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1315-1324,false,10,2,apply shell system defaults
-      TemplateGenerator._apply_shell_dev_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1326-1338,false,13,2,apply shell dev defaults
-      TemplateGenerator._apply_shell_security_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1340-1349,false,10,2,apply shell security defaults
-      TemplateGenerator._apply_shell_text_search_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1351-1360,false,10,2,apply shell text search defaults
-      TemplateGenerator._apply_shell_network_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1362-1374,false,13,2,apply shell network defaults
-      TemplateGenerator._apply_shell_disk_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1376-1386,false,11,2,apply shell disk defaults
-      TemplateGenerator._apply_shell_process_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1388-1400,false,13,2,apply shell process defaults
-      TemplateGenerator._apply_shell_service_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1402-1414,false,13,2,apply shell service defaults
-      TemplateGenerator._apply_shell_browser_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> bool",1416-1429,false,14,3,apply shell browser defaults
-      TemplateGenerator._apply_shell_intent_specific_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",1431-1464,false,34,4,apply shell intent specific defaults
-      TemplateGenerator._prepare_shell_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",1466-1477,false,12,1,Prepare shell entities.
-      TemplateGenerator._prepare_docker_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",1479-1538,false,60,12,Prepare Docker entities.
-      TemplateGenerator._prepare_kubernetes_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",1540-1602,false,63,17,Prepare Kubernetes entities.
-      TemplateGenerator._fill_template,method,"(template:str, entities:dict[str,Any]) -> str",1604-1613,false,10,4,Fill template with entities.
-      TemplateGenerator._clean_command,method,"(command:str) -> str",1615-1632,false,18,1,Clean up generated command.
-      TemplateGenerator._find_missing,method,"(template:str, entities:dict[str,Any]) -> list[str]",1634-1638,false,5,4,Find missing entities in template.
-      TemplateGenerator.add_template,method,"(domain:str, intent:str, template:str) -> None",1640-1651,false,12,2,Add custom template.
-      TemplateGenerator.get_template,method,"(domain:str, intent:str) -> Optional[str]",1653-1655,false,3,1,Get template for domain/intent.
-      TemplateGenerator.list_templates,method,"(domain:Optional[str]=None)",1657-1666,false,10,3,List available templates.
+  nlp2cmd/generation/template_generator.py:
+    functions[38]{name,kind,sig,loc,async,lines,cc,does}:
+      TemplateGenerator.__init__,method,"(custom_templates:Optional[dict[str,dict[str,str]]]=None)",56-86,false,31,4,Initialize template generator.
+      TemplateGenerator._load_defaults_from_json,method,() -> None,88-101,false,14,4,retrieves defaults from json
+      TemplateGenerator._load_templates_from_json,method,() -> None,103-127,false,25,12,retrieves templates from json
+      TemplateGenerator._get_default,method,"(key:str, fallback:Any) -> Any",129-133,false,5,4,retrieves default
+      TemplateGenerator.generate,method,"(domain:str, intent:str, entities:dict[str,Any], context:Optional[dict[str,Any]]=None) -> TemplateResult",135-194,false,60,7,Generate DSL command from template.
+      TemplateGenerator._find_alternative_template,method,"(domain:str, intent:str, entities:dict[str,Any], context:dict[str,Any]) -> Optional[str]",196-218,false,23,9,Find alternative template based on entities and context.
+      TemplateGenerator._get_intent_aliases,method,"() -> Optional[dict[str, dict[str, str]]]",220-222,false,3,1,Get intent aliases from defaults.
+      TemplateGenerator._prepare_entities,method,"(domain:str, intent:str, entities:dict[str,Any], context:dict[str,Any]) -> dict[str, Any]",224-246,false,23,6,Prepare entities for template filling.
+      TemplateGenerator._prepare_sql_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",248-299,false,52,18,Prepare SQL entities.
+      TemplateGenerator._prepare_shell_entities,method,"(intent:str, entities:dict[str,Any], context:dict[str,Any]) -> dict[str, Any]",301-327,false,27,5,Prepare shell entities.
+      TemplateGenerator._get_user_home_dir,method,"(username:str) -> str",329-338,false,10,3,retrieves user home dir
+      TemplateGenerator._apply_shell_path_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",340-350,false,11,6,apply shell path defaults
+      TemplateGenerator._apply_shell_pattern_defaults,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",352-360,false,9,3,apply shell pattern defaults
+      TemplateGenerator._apply_shell_find_flags,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",362-368,false,7,1,apply shell find flags
+      TemplateGenerator._infer_shell_find_target,method,"(intent:str, entities:dict[str,Any]) -> str",370-378,false,9,9,infer shell find target
+      TemplateGenerator._build_shell_find_type_flag,method,"(target:str) -> str",380-385,false,6,3,creates shell find type flag
+      TemplateGenerator._build_shell_find_name_flag,method,"(pattern:str) -> str",387-388,false,2,3,creates shell find name flag
+      TemplateGenerator._build_shell_find_exec_flag,method,"(intent:str, entities:dict[str,Any]) -> str",390-396,false,7,5,creates shell find exec flag
+      TemplateGenerator._build_shell_find_size_flag,method,"(entities:dict[str,Any]) -> str",398-417,false,20,10,creates shell find size flag
+      TemplateGenerator._build_shell_find_time_flag,method,"(entities:dict[str,Any]) -> str",419-426,false,8,3,creates shell find time flag
+      TemplateGenerator._apply_shell_common_defaults,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",428-437,false,10,1,apply shell common defaults
+      TemplateGenerator._apply_shell_text_processing_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",439-443,false,5,1,apply shell text processing defaults
+      TemplateGenerator._apply_shell_file_default,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",445-453,false,9,5,apply shell file default
+      TemplateGenerator._apply_shell_text_tail_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",455-465,false,11,3,apply shell text tail defaults
+      TemplateGenerator._apply_shell_text_cat_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",467-470,false,4,2,apply shell text cat defaults
+      TemplateGenerator._apply_shell_json_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",472-477,false,6,3,apply shell json defaults
+      TemplateGenerator._apply_shell_text_wc_defaults,method,"(intent:str, entities:dict[str,Any], result:dict[str,Any]) -> None",479-495,false,17,8,apply shell text wc defaults
+      TemplateGenerator._shell_intent_file_search,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",497-499,false,3,1,shell intent file search
+      TemplateGenerator._shell_intent_file_content,method,"(entities:dict[str,Any], result:dict[str,Any]) -> None",501-502,false,2,1,shell intent file content
+      TemplateGenerator._prepare_docker_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",504-521,false,18,1,Prepare Docker entities.
+      TemplateGenerator._prepare_kubernetes_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",523-563,false,41,1,Prepare Kubernetes entities.
+      TemplateGenerator._prepare_git_entities,method,"(intent:str, entities:dict[str,Any]) -> dict[str, Any]",565-597,false,33,1,Prepare Git entities.
+      TemplateGenerator._fill_template,method,"(template:str, entities:dict[str,Any]) -> str",599-608,false,10,4,Fill template with entities.
+      TemplateGenerator._clean_command,method,"(command:str) -> str",610-627,false,18,1,Clean up generated command.
+      TemplateGenerator._find_missing,method,"(template:str, entities:dict[str,Any]) -> list[str]",629-633,false,5,4,Find missing entities in template.
+      TemplateGenerator.add_template,method,"(domain:str, intent:str, template:str) -> None",635-646,false,12,2,Add custom template.
+      TemplateGenerator.get_template,method,"(domain:str, intent:str) -> Optional[str]",648-650,false,3,1,Get template for domain/intent.
+      TemplateGenerator.list_templates,method,"(domain:Optional[str]=None)",652-661,false,10,3,List available templates.
   nlp2cmd/generation/pipeline.py:
     functions[32]{name,kind,sig,loc,async,lines,cc,does}:
       _should_use_semantic_extractor,function,() -> bool,47-51,false,5,2,checks use semantic extractor
@@ -846,6 +676,54 @@ function_details:
       SimpleLLMKubernetesGenerator.extract_command,method,"(response:str) -> str",368-377,false,10,3,Extract kubectl command from response.
       MockLLMClient.__init__,method,"(responses:Optional[dict[str,str]]=None)",384-387,false,4,2,creates
       MockLLMClient.complete,method,"(user:str, system:Optional[str]=None, max_tokens:int=500, temperature:float=0.1) -> str",389-420,true,32,13,Return mock response.
+  nlp2cmd/generation/keywords_old.py:
+    functions[46]{name,kind,sig,loc,async,lines,cc,does}:
+      _get_polish_support,function,(),24-33,false,10,4,Lazy load Polish support to avoid circular imports.
+      _get_fuzzy_schema_matcher,function,(),38-67,false,30,7,Lazy load FuzzySchemaMatcher with multilingual phrases.
+      _get_ml_classifier,function,(),78-91,false,14,6,Lazy load ML intent classifier for high-accuracy predictions.
+      _get_semantic_matcher,function,(),102-123,false,22,8,Lazy load optimized semantic matcher for embedding-based similarity.
+      _normalize_polish_text,function,"(text:str) -> str",126-137,false,12,1,Normalize Polish diacritics to handle typos.
+      _get_spacy_model,function,(),158-184,false,27,6,retrieves spacy model
+      KeywordIntentDetector.__init__,method,"(patterns:Optional[dict[str,dict[str,list[str]]]]=None, custom_patterns:Optional[dict[str,dict[str,list[str]]]]=None, confidence_threshold:float=0.5)",216-272,false,57,10,Initialize keyword detector.
+      KeywordIntentDetector._load_detector_config_from_json,method,() -> None,274-360,false,87,47,retrieves detector config from json
+      KeywordIntentDetector._load_patterns_from_json,method,() -> None,362-417,false,56,24,Load patterns from external JSON file with fallback to embedded PATTERNS.
+      KeywordIntentDetector._match_keyword,method,"(text_lower:str, kw:str) -> bool",423-439,false,17,9,filters keyword
+      KeywordIntentDetector._normalize_text_lower,method,"(text_lower:str) -> str",442-469,false,28,3,normalize text lower
+      KeywordIntentDetector._maybe_lemmatize_text_lower,method,"(text_lower:str) -> str",472-502,false,31,12,maybe lemmatize text lower
+      KeywordIntentDetector._normalize_intent,method,"(domain:str, intent:str, text_lower:str) -> str",505-554,false,50,31,normalize intent
+      KeywordIntentDetector._has_shell_file_context,method,"(text_lower:str) -> bool",557-578,false,22,13,checks shell file context
+      KeywordIntentDetector._detect_fast_path,method,"(text_lower:str) -> Optional[DetectionResult]",580-711,false,132,37,detect fast path
+      KeywordIntentDetector._detect_fast_path_docker_run_detached,method,"(text_lower:str) -> Optional[DetectionResult]",713-729,false,17,6,detect fast path docker run detached
+      KeywordIntentDetector._compute_sql_context,method,"(text_lower:str) -> tuple[bool, bool]",731-753,false,23,8,processes sql context
+      KeywordIntentDetector._detect_sql_drop_table,method,"(text_lower:str) -> Optional[DetectionResult]",755-782,false,28,6,detect sql drop table
+      KeywordIntentDetector._detect_explicit_docker,method,"(text_lower:str) -> Optional[DetectionResult]",784-887,false,104,31,detect explicit docker
+      KeywordIntentDetector._detect_explicit_kubernetes,method,"(text_lower:str) -> Optional[DetectionResult]",889-1008,false,120,26,detect explicit kubernetes
+      KeywordIntentDetector._domain_scan_allowed,method,"(text_lower:str, domain:str) -> bool",1010-1055,false,46,17,domain scan allowed
+      KeywordIntentDetector._detect_best_from_priority_intents,method,"(text_lower:str) -> Optional[DetectionResult]",1057-1126,false,70,23,detect best from priority intents
+      KeywordIntentDetector._detect_explicit_system_reboot,method,"(text_lower:str) -> Optional[DetectionResult]",1128-1152,false,25,3,Explicit detection for system reboot commands.
+      KeywordIntentDetector._detect_explicit_service_restart,method,"(text_lower:str) -> Optional[DetectionResult]",1154-1175,false,22,3,Explicit detection for service restart commands.
+      KeywordIntentDetector._detect_best_from_patterns,method,"(text_lower:str) -> Optional[DetectionResult]",1177-1235,false,59,18,detect best from patterns
+      KeywordIntentDetector.detect,method,"(text:str) -> DetectionResult",1237-1265,false,29,5,Detect domain and intent from text.
+      KeywordIntentDetector._prepare_text,method,"(text:str) -> tuple[str, str]",1267-1276,false,10,2,prepare text
+      KeywordIntentDetector._detect_explicit_overrides,method,"(text_lower:str) -> Optional[DetectionResult]",1278-1294,false,17,4,detect explicit overrides
+      KeywordIntentDetector._detect_file_context_overrides,method,"(text_lower:str) -> Optional[DetectionResult]",1296-1314,false,19,4,detect file context overrides
+      KeywordIntentDetector._normalize_detection_result,method,"(result:DetectionResult, text_lower:str) -> DetectionResult",1316-1321,false,6,2,normalize detection result
+      KeywordIntentDetector._detect_with_lemmatization,method,"(raw_lower:str, baseline:DetectionResult) -> DetectionResult",1323-1336,false,14,4,detect with lemmatization
+      KeywordIntentDetector._detect_ml_classifier,method,"(text_lower:str) -> Optional[DetectionResult]",1338-1355,false,18,4,"Try ML classifier for high-confidence matches (fastest, <1ms)."
+      KeywordIntentDetector._detect_ml_medium_confidence,method,"() -> Optional[DetectionResult]",1357-1367,false,11,3,ML classifier fallback for medium confidence (still useful).
+      KeywordIntentDetector._detect_schema_matcher,method,"(text_lower:str) -> Optional[DetectionResult]",1369-1396,false,28,11,Try multilingual schema matching for high-confidence matches.
+      KeywordIntentDetector._detect_schema_fallback,method,"(text_lower:str) -> Optional[DetectionResult]",1398-1415,false,18,8,"Fallback: Try multilingual fuzzy schema matching."
+      KeywordIntentDetector._detect_semantic_fallback,method,"(text_lower:str) -> Optional[DetectionResult]",1417-1432,false,16,5,Semantic matching fallback for typos and paraphrases (slower).
+      KeywordIntentDetector._detect_fuzzy_match,method,"(text_lower:str) -> Optional[DetectionResult]",1434-1438,false,5,3,Try fuzzy matching if available.
+      KeywordIntentDetector._detect_explicit_matches,method,"(text_lower:str) -> Optional[DetectionResult]",1440-1472,false,33,6,Detect explicit domain-specific matches.
+      KeywordIntentDetector._detect_pattern_matches,method,"(text_lower:str) -> Optional[DetectionResult]",1474-1498,false,25,3,Detect matches from priority intents and general patterns.
+      KeywordIntentDetector._detect_normalized,method,"(text_lower:str) -> DetectionResult",1500-1557,false,58,11,detect normalized
+      KeywordIntentDetector._calculate_domain_boost,method,"(text:str, domain:str) -> float",1559-1564,false,6,3,Calculate confidence boost based on domain-specific keywords.
+      KeywordIntentDetector.detect_all,method,"(text:str) -> list[DetectionResult]",1566-1602,false,37,9,Detect all matching domains and intents.
+      KeywordIntentDetector.add_pattern,method,"(domain:str, intent:str, keywords:list[str]) -> None",1604-1617,false,14,3,Add custom patterns.
+      KeywordIntentDetector.get_supported_domains,method,"() -> list[str]",1619-1621,false,3,1,Get list of supported domains.
+      KeywordIntentDetector.get_supported_intents,method,"(domain:str) -> list[str]",1623-1625,false,3,1,Get list of supported intents for a domain.
+      KeywordIntentDetector._detect_best_from_fuzzy,method,"(text_lower:str) -> Optional[DetectionResult]",1627-1715,false,89,22,Fuzzy matching fallback using rapidfuzz.
   nlp2cmd/generation/structured.py:
     functions[7]{name,kind,sig,loc,async,lines,cc,does}:
       StructuredPlan.to_adapter_plan,method,"() -> dict[str, Any]",76-82,false,7,1,Convert to adapter-compatible plan format.
@@ -907,6 +785,51 @@ function_details:
       LLMPlanner._parse_response,method,"(response:str) -> Optional[dict[str, Any]]",338-365,false,28,6,Parse LLM response as JSON.
       LLMPlanner._rule_based_plan,method,"(intent:str, entities:dict[str,Any], domain:Optional[str]) -> str",367-408,false,42,3,Generate plan using rule-based logic (fallback).
       LLMPlanner.get_action_catalog,method,"(domain:Optional[str]=None) -> str",410-412,false,3,1,Get the action catalog for reference.
+  nlp2cmd/core/core_models.py:
+    functions[13]{name,kind,sig,loc,async,lines,cc,does}:
+      ExecutionPlan.with_confidence,method,"(confidence:float) -> \"ExecutionPlan\"",130-132,false,3,1,Create a copy with updated confidence.
+      ExecutionPlan.with_entities,method,"(entities:dict[str,Any]) -> \"ExecutionPlan\"",134-137,false,4,1,Create a copy with updated entities (merged with existing).
+      ExecutionPlan.with_metadata,method,"(metadata:dict[str,Any]) -> \"ExecutionPlan\"",139-141,false,3,1,Create a copy with updated metadata.
+      ExecutionPlan.with_context,method,"(context:dict[str,Any]) -> \"ExecutionPlan\"",143-145,false,3,1,Create a copy with updated context.
+      ExecutionPlan.with_errors,method,"(errors:list[str]) -> \"ExecutionPlan\"",147-149,false,3,1,Create a copy with error information in metadata.
+      ExecutionPlan.with_security,method,"(security_context:dict[str,Any]) -> \"ExecutionPlan\"",151-153,false,3,1,Create a copy with security context.
+      ExecutionPlan.with_performance,method,"(performance_data:dict[str,Any]) -> \"ExecutionPlan\"",155-157,false,3,1,Create a copy with performance data.
+      ExecutionPlan.is_valid,method,() -> bool,159-165,false,7,3,Check if execution plan is valid.
+      TransformResult.is_success,method,() -> bool,183-185,false,3,1,Check if transformation was successful.
+      TransformResult.is_blocked,method,() -> bool,188-190,false,3,1,Check if transformation was blocked by security policy.
+      TransformResult.to_dict,method,"() -> dict[str, Any]",192-204,false,13,2,Convert result to dictionary.
+      TransformResult.copy,method,"() -> \"TransformResult\"",206-218,false,13,2,Create a copy of the transform result.
+      TransformResult.is_valid,method,() -> bool,220-227,false,8,4,Check if result is valid (no errors and successful status).
+  nlp2cmd/core/core_transform.py:
+    functions[12]{name,kind,sig,loc,async,lines,cc,does}:
+      NLP2CMD.__init__,method,"(adapter:BaseDSLAdapter, nlp_backend:Optional[NLPBackend]=None, validator:Optional[BaseValidator]=None, feedback_analyzer:Optional[FeedbackAnalyzer]=None, validation_mode:str='normal', auto_fix:bool=False)",33-116,false,84,15,Initialize NLP2CMD instance.
+      NLP2CMD.transform,method,"(text:str, context:Optional[dict]=None) -> TransformResult",118-191,false,74,13,Transform natural language text into a domain-specific command.
+      NLP2CMD._normalize_entities,method,"(plan:ExecutionPlan) -> None",193-206,false,14,6,Normalize entities based on domain and intent.
+      NLP2CMD._normalize_shell_entities,method,"(intent:str, normalized:dict[str,Any], full_text:str) -> None",208-241,false,34,9,Normalize shell command entities.
+      NLP2CMD._extract_shell_extension_value,method,"(normalized:dict[str,Any]) -> Optional[str]",243-257,false,15,7,Extract file extension from entities.
+      NLP2CMD._build_shell_size_filter,method,"(normalized:dict[str,Any], full_text:str) -> Optional[dict[str, Any]]",259-290,false,32,11,Build size filter for shell commands.
+      NLP2CMD._build_shell_age_filter,method,"(normalized:dict[str,Any], full_text:str) -> Optional[dict[str, Any]]",292-312,false,21,8,Build age filter for shell commands.
+      NLP2CMD._normalize_docker_entities,method,"(intent:str, normalized:dict[str,Any]) -> None",314-335,false,22,14,Normalize Docker command entities.
+      NLP2CMD._normalize_kubernetes_entities,method,"(intent:str, normalized:dict[str,Any]) -> None",337-347,false,11,6,Normalize Kubernetes command entities.
+      NLP2CMD._normalize_sql_entities,method,"(intent:str, normalized:dict[str,Any]) -> None",349-366,false,18,7,Normalize SQL command entities.
+      NLP2CMD.get_supported_intents,method,"() -> list[str]",368-370,false,3,1,Get list of supported intents from the adapter.
+      NLP2CMD.get_adapter_info,method,"() -> dict[str, Any]",372-379,false,8,1,Get information about the current adapter.
+  nlp2cmd/core/core_backends.py:
+    functions[14]{name,kind,sig,loc,async,lines,cc,does}:
+      NLPBackend.__init__,method,"(config:Optional[dict[str,Any]]=None)",23-24,false,2,2,creates
+      NLPBackend.extract_intent,method,"(text:str) -> tuple[str, float]",26-28,false,3,1,Extract intent from text.
+      NLPBackend.extract_entities,method,"(text:str) -> list[Entity]",30-32,false,3,1,Extract entities from text.
+      NLPBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",34-36,false,3,1,Generate execution plan from text.
+      SpaCyBackend.__init__,method,"(model:str='en_core_web_sm', config:Optional[dict]=None)",42-45,false,4,1,creates
+      SpaCyBackend.nlp,method,(),48-58,false,11,4,Lazy-load spaCy model.
+      SpaCyBackend.extract_entities,method,"(text:str) -> list[Entity]",60-74,false,15,2,Extract named entities using spaCy.
+      LLMBackend.__init__,method,"(model:str='claude-3-sonnet-20240229', api_key:Optional[str]=None, config:Optional[dict]=None)",80-89,false,10,1,creates
+      LLMBackend.client,method,(),92-109,false,18,6,Lazy-load API client.
+      LLMBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",111-155,false,45,3,Generate execution plan using LLM.
+      RuleBasedBackend.__init__,method,"(rules:Optional[dict[str,list[str]]]=None, config:Optional[dict]=None)",161-164,false,4,2,creates
+      RuleBasedBackend.extract_entities,method,"(text:str) -> list[Entity]",166-200,false,35,5,Extract entities using simple pattern matching.
+      RuleBasedBackend.extract_intent,method,"(text:str) -> tuple[str, float]",202-238,false,37,12,Extract intent using rule-based pattern matching.
+      RuleBasedBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",240-255,false,16,2,Generate execution plan using rule-based approach.
   nlp2cmd/core/toon_integration.py:
     functions[32]{name,kind,sig,loc,async,lines,cc,does}:
       get_data_manager,function,"(toon_file:Optional[str]=None) -> ToonDataManager",195-200,false,6,3,Get or create data manager instance
@@ -1040,37 +963,39 @@ function_details:
       export_analytics,function,"(output:Path)",235-245,false,11,1,Export detailed analytics to JSON.
       clear_history,function,"(confirm:bool)",254-267,false,14,3,Clear command history.
   nlp2cmd/cli/main.py:
-    functions[30]{name,kind,sig,loc,async,lines,cc,does}:
-      _register_subcommands_for_args,function,"(argv:list[str]) -> None",155-202,false,48,17,Register Click subcommands lazily based on argv.
-      _system_beep,function,() -> None,205-210,false,6,2,system beep
-      _timed_default_yes,function,"(timed_prompt:str, full_prompt:str) -> str",213-243,false,31,8,timed default yes
-      _shell_env_context,function,"(context:dict[str,Any]) -> dict[str, Any]",246-263,false,18,5,shell env context
-      get_adapter,function,"(dsl:str, context:dict[str,Any])",266-296,false,31,3,Get the appropriate adapter for the DSL type.
-      _looks_like_log_input,function,"(text:str) -> bool",784-812,false,29,13,looks like log input
-      _interactive_followup,function,"(session:InteractiveSession, feedback:FeedbackResult) -> FeedbackResult",815-833,false,19,7,interactive followup
-      _handle_run_query,function,"(query:str, dsl:str, appspec:Optional[Path], auto_confirm:bool, execute_web:bool, auto_install:bool, auto_repair:bool, only_output:bool=False)",836-1547,false,712,186,"Handle --run option: generate and execute command with error recovery."
-      _suggest_next_steps,function,"(original_query:str, command:str, result, runner:ExecutionRunner)",1550-1603,false,54,16,Suggest next steps based on error context.
-      _is_playwright_error,function,"(msg:str) -> bool",1606-1618,false,13,9,checks playwright error
-      _maybe_install_playwright,function,"(msg:str, runner:ExecutionRunner) -> bool",1621-1647,false,27,9,maybe install playwright
-      _fallback_open_url,function,(ir) -> None,1650-1669,false,20,8,fallback open url
-      _fallback_open_url_from_query,function,"(query:str) -> None",1672-1683,false,12,5,fallback open url from query
-      repair,function,(),1687-1688,false,2,1,repair
-      validate,function,(),1690-1691,false,2,1,validates
-      analyze_env,function,(),1693-1694,false,2,1,processes env
-      version,function,(),1696-1697,false,2,1,version
-      main,function,"(ctx, interactive:bool, dsl:str, appspec:Optional[Path], query:Optional[str], stdin_mode:bool, stdout_only:bool, only_output:bool)",1749-1972,false,224,54,NLP2CMD - Natural Language to Domain-Specific Commands.
-      repair,function,"(ctx, file:str, backup:bool)",1991-2040,false,50,11,Repair a configuration file.
-      validate,function,"(ctx, file:str)",2046-2072,false,27,7,Validate a configuration file.
-      analyze_env,function,"(ctx, output:Optional[str])",2078-2147,false,70,12,Analyze system environment.
-      cli_entry_point,function,(),2150-2206,false,57,19,Entry point that handles natural language queries before Click.
-      InteractiveSession.__init__,method,"(dsl:str='auto', auto_repair:bool=False, appspec:Optional[str]=None)",302-326,false,25,1,creates
-      InteractiveSession._analyze_environment,method,(),328-342,false,15,3,Analyze current environment.
-      InteractiveSession.process,method,"(user_input:str) -> FeedbackResult",344-510,false,167,13,Process user input and return feedback.
-      InteractiveSession.display_feedback,method,"(feedback:FeedbackResult, include_explanation:bool=False)",512-592,false,81,17,Display feedback result with formatting.
-      InteractiveSession.run,method,(),594-643,false,50,10,Run interactive REPL.
-      InteractiveSession._show_help,method,(),645-661,false,17,1,Display help information.
-      InteractiveSession._handle_command,method,"(cmd:str)",663-718,false,56,14,Handle special commands.
-      InteractiveSession._correction_loop,method,"(feedback:FeedbackResult)",720-781,false,62,24,Interactive correction loop.
+    functions[32]{name,kind,sig,loc,async,lines,cc,does}:
+      _register_subcommands_for_args,function,"(argv:list[str]) -> None",157-204,false,48,17,Register Click subcommands lazily based on argv.
+      _system_beep,function,() -> None,207-212,false,6,2,system beep
+      _timed_default_yes,function,"(timed_prompt:str, full_prompt:str) -> str",215-245,false,31,8,timed default yes
+      _shell_env_context,function,"(context:dict[str,Any]) -> dict[str, Any]",248-265,false,18,5,shell env context
+      get_adapter,function,"(dsl:str, context:dict[str,Any])",268-298,false,31,3,Get the appropriate adapter for the DSL type.
+      _looks_like_log_input,function,"(text:str) -> bool",786-814,false,29,13,looks like log input
+      _interactive_followup,function,"(session:InteractiveSession, feedback:FeedbackResult) -> FeedbackResult",817-835,false,19,7,interactive followup
+      handle_run_mode,function,"(query:str, dsl:str, appspec:Optional[Path], auto_confirm:bool, execute_web:bool, auto_install:bool, auto_repair:bool, only_output:bool=False)",838-1031,false,194,34,"Handle --run option: generate and execute command with error recovery."
+      _handle_run_query,function,"(query:str) -> None",1034-1055,false,22,1,handles run query
+      _suggest_next_steps,function,"(original_query:str, command:str, result, runner:ExecutionRunner)",1058-1066,false,9,1,Suggest next steps based on error context.
+      _suggest_next_steps,function,"(original_query:str, command:str, result, runner:ExecutionRunner)",1068-1121,false,54,16,Suggest next steps based on error context.
+      _is_playwright_error,function,"(msg:str) -> bool",1124-1136,false,13,9,checks playwright error
+      _maybe_install_playwright,function,"(msg:str, runner:ExecutionRunner) -> bool",1139-1165,false,27,9,maybe install playwright
+      _fallback_open_url,function,(ir) -> None,1168-1187,false,20,8,fallback open url
+      _fallback_open_url_from_query,function,"(query:str) -> None",1190-1201,false,12,5,fallback open url from query
+      repair,function,(),1205-1206,false,2,1,repair
+      validate,function,(),1208-1209,false,2,1,validates
+      analyze_env,function,(),1211-1212,false,2,1,processes env
+      version,function,(),1214-1215,false,2,1,version
+      main,function,"(ctx, interactive:bool, dsl:str, appspec:Optional[Path], query:Optional[str], stdin_mode:bool, stdout_only:bool, only_output:bool)",1271-1494,false,224,54,NLP2CMD - Natural Language to Domain-Specific Commands.
+      repair,function,"(ctx, file:str, backup:bool)",1513-1562,false,50,11,Repair a configuration file.
+      validate,function,"(ctx, file:str)",1568-1594,false,27,7,Validate a configuration file.
+      analyze_env,function,"(ctx, output:Optional[str])",1600-1669,false,70,12,Analyze system environment.
+      cli_entry_point,function,(),1672-1728,false,57,19,Entry point that handles natural language queries before Click.
+      InteractiveSession.__init__,method,"(dsl:str='auto', auto_repair:bool=False, appspec:Optional[str]=None)",304-328,false,25,1,creates
+      InteractiveSession._analyze_environment,method,(),330-344,false,15,3,Analyze current environment.
+      InteractiveSession.process,method,"(user_input:str) -> FeedbackResult",346-512,false,167,13,Process user input and return feedback.
+      InteractiveSession.display_feedback,method,"(feedback:FeedbackResult, include_explanation:bool=False)",514-594,false,81,17,Display feedback result with formatting.
+      InteractiveSession.run,method,(),596-645,false,50,10,Run interactive REPL.
+      InteractiveSession._show_help,method,(),647-663,false,17,1,Display help information.
+      InteractiveSession._handle_command,method,"(cmd:str)",665-720,false,56,14,Handle special commands.
+      InteractiveSession._correction_loop,method,"(feedback:FeedbackResult)",722-783,false,62,24,Interactive correction loop.
   nlp2cmd/cli/cache.py:
     functions[7]{name,kind,sig,loc,async,lines,cc,does}:
       cache_group,function,(),86-88,false,3,1,External dependencies cache management.
@@ -1199,36 +1124,36 @@ function_details:
       ResultAggregator.to_llm_context,method,"(aggregated:AggregatedResult, max_tokens:int=1000) -> str",342-376,false,35,5,Prepare aggregated result for LLM context.
   nlp2cmd/nlp_enhanced/__init__.py:
     functions[14]{name,kind,sig,loc,async,lines,cc,does}:
-      ShellGPTBackend.__init__,method,"(schema_registry:Optional[DynamicSchemaRegistry]=None, shell_gpt_path:Optional[str]=None, config:Optional[Dict[str,Any]]=None)",28-42,false,15,4,Initialize shell-gpt backend.
-      ShellGPTBackend._find_shell_gpt,method,"() -> Optional[str]",44-73,false,30,6,Find shell-gpt executable in PATH.
-      ShellGPTBackend.extract_entities,method,"(text:str) -> List[Entity]",75-142,false,68,7,Extract entities using shell-gpt with schema context.
-      ShellGPTBackend.extract_intent,method,"(text:str) -> Tuple[str, float]",144-189,false,46,5,Extract intent using shell-gpt with schema context.
-      ShellGPTBackend.generate_plan,method,"(text:str, context:Optional[Dict]=None) -> ExecutionPlan",191-251,false,61,6,Generate execution plan using shell-gpt with dynamic schemas.
-      ShellGPTBackend._build_shell_gpt_context,method,"(commands:List[CommandSchema]) -> str",253-277,false,25,7,Build context string for shell-gpt from command schemas.
-      ShellGPTBackend._infer_entity_type,method,"(value:Any) -> str",279-304,false,26,12,Infer entity type from value.
-      ShellGPTBackend._fallback_entity_extraction,method,"(text:str) -> List[Entity]",306-358,false,53,5,Fallback entity extraction using regex patterns.
-      ShellGPTBackend._fallback_intent_extraction,method,"(text:str) -> Tuple[str, float]",360-375,false,16,4,Fallback intent extraction using schema registry search.
-      ShellGPTBackend._fallback_plan_generation,method,"(text:str, context:Optional[Dict]=None) -> ExecutionPlan",377-396,false,20,3,Fallback plan generation using simple heuristics.
-      HybridNLPBackend.__init__,method,"(schema_registry:Optional[DynamicSchemaRegistry]=None, config:Optional[Dict[str,Any]]=None)",407-434,false,28,7,Initialize hybrid backend.
-      HybridNLPBackend.extract_entities,method,"(text:str) -> List[Entity]",436-453,false,18,5,Extract entities using hybrid approach.
-      HybridNLPBackend.extract_intent,method,"(text:str) -> Tuple[str, float]",455-472,false,18,7,Extract intent using hybrid approach.
-      HybridNLPBackend.generate_plan,method,"(text:str, context:Optional[Dict]=None) -> ExecutionPlan",474-508,false,35,9,Generate plan using hybrid approach.
+      ShellGPTBackend.__init__,method,"(schema_registry:Optional[DynamicSchemaRegistry]=None, shell_gpt_path:Optional[str]=None, config:Optional[Dict[str,Any]]=None)",29-43,false,15,4,Initialize shell-gpt backend.
+      ShellGPTBackend._find_shell_gpt,method,"() -> Optional[str]",45-74,false,30,6,Find shell-gpt executable in PATH.
+      ShellGPTBackend.extract_entities,method,"(text:str) -> List[Entity]",76-143,false,68,7,Extract entities using shell-gpt with schema context.
+      ShellGPTBackend.extract_intent,method,"(text:str) -> Tuple[str, float]",145-190,false,46,5,Extract intent using shell-gpt with schema context.
+      ShellGPTBackend.generate_plan,method,"(text:str, context:Optional[Dict]=None) -> ExecutionPlan",192-252,false,61,6,Generate execution plan using shell-gpt with dynamic schemas.
+      ShellGPTBackend._build_shell_gpt_context,method,"(commands:List[CommandSchema]) -> str",254-278,false,25,7,Build context string for shell-gpt from command schemas.
+      ShellGPTBackend._infer_entity_type,method,"(value:Any) -> str",280-305,false,26,12,Infer entity type from value.
+      ShellGPTBackend._fallback_entity_extraction,method,"(text:str) -> List[Entity]",307-359,false,53,5,Fallback entity extraction using regex patterns.
+      ShellGPTBackend._fallback_intent_extraction,method,"(text:str) -> Tuple[str, float]",361-376,false,16,4,Fallback intent extraction using schema registry search.
+      ShellGPTBackend._fallback_plan_generation,method,"(text:str, context:Optional[Dict]=None) -> ExecutionPlan",378-397,false,20,3,Fallback plan generation using simple heuristics.
+      HybridNLPBackend.__init__,method,"(schema_registry:Optional[DynamicSchemaRegistry]=None, config:Optional[Dict[str,Any]]=None)",408-435,false,28,7,Initialize hybrid backend.
+      HybridNLPBackend.extract_entities,method,"(text:str) -> List[Entity]",437-454,false,18,5,Extract entities using hybrid approach.
+      HybridNLPBackend.extract_intent,method,"(text:str) -> Tuple[str, float]",456-473,false,18,7,Extract intent using hybrid approach.
+      HybridNLPBackend.generate_plan,method,"(text:str, context:Optional[Dict]=None) -> ExecutionPlan",475-509,false,35,9,Generate plan using hybrid approach.
   nlp2cmd/nlp_light/semantic_shell.py:
     functions[14]{name,kind,sig,loc,async,lines,cc,does}:
-      SemanticShellBackend.__init__,method,"(config:Optional[dict[str,Any]]=None)",18-21,false,4,2,creates
-      SemanticShellBackend._maybe_warm_spacy,method,() -> None,23-41,false,19,6,maybe warm spacy
-      SemanticShellBackend.extract_intent,method,"(text:str) -> tuple[str, float]",43-81,false,39,32,parses intent
-      SemanticShellBackend.extract_entities,method,"(text:str) -> list[Any]",83-84,false,2,1,parses entities
-      SemanticShellBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",86-170,false,85,18,creates plan
-      SemanticShellBackend._infer_target,method,"(text_lower:str) -> str",173-176,false,4,3,infer target
-      SemanticShellBackend._extract_scope,method,"(text:str) -> str",179-187,false,9,3,parses scope
-      SemanticShellBackend._extract_extension,method,"(text:str) -> Optional[str]",190-206,false,17,6,parses extension
-      SemanticShellBackend._extract_size_filter,method,"(text_lower:str) -> Optional[dict[str, Any]]",209-217,false,9,2,parses size filter
-      SemanticShellBackend._infer_size_operator,method,"(text_lower:str) -> str",220-231,false,12,10,infer size operator
-      SemanticShellBackend._extract_age_filter,method,"(text_lower:str) -> Optional[dict[str, Any]]",234-252,false,19,4,parses age filter
-      SemanticShellBackend._extract_first_size,method,"(text_lower:str) -> Optional[_ParsedSize]",255-267,false,13,3,parses first size
-      SemanticShellBackend._format_size_for_find,method,"(size:_ParsedSize) -> str",270-287,false,18,8,formats size for find
-      SemanticShellBackend._extract_username_with_nlp,method,"(text:str) -> Optional[str]",289-368,false,80,29,Extract username using intelligent patterns (fallback when spaCy not available).
+      SemanticShellBackend.__init__,method,"(config:Optional[dict[str,Any]]=None)",19-22,false,4,2,creates
+      SemanticShellBackend._maybe_warm_spacy,method,() -> None,24-42,false,19,6,maybe warm spacy
+      SemanticShellBackend.extract_intent,method,"(text:str) -> tuple[str, float]",44-82,false,39,32,parses intent
+      SemanticShellBackend.extract_entities,method,"(text:str) -> list[Any]",84-85,false,2,1,parses entities
+      SemanticShellBackend.generate_plan,method,"(text:str, context:Optional[dict]=None) -> ExecutionPlan",87-171,false,85,18,creates plan
+      SemanticShellBackend._infer_target,method,"(text_lower:str) -> str",174-177,false,4,3,infer target
+      SemanticShellBackend._extract_scope,method,"(text:str) -> str",180-188,false,9,3,parses scope
+      SemanticShellBackend._extract_extension,method,"(text:str) -> Optional[str]",191-207,false,17,6,parses extension
+      SemanticShellBackend._extract_size_filter,method,"(text_lower:str) -> Optional[dict[str, Any]]",210-218,false,9,2,parses size filter
+      SemanticShellBackend._infer_size_operator,method,"(text_lower:str) -> str",221-232,false,12,10,infer size operator
+      SemanticShellBackend._extract_age_filter,method,"(text_lower:str) -> Optional[dict[str, Any]]",235-253,false,19,4,parses age filter
+      SemanticShellBackend._extract_first_size,method,"(text_lower:str) -> Optional[_ParsedSize]",256-268,false,13,3,parses first size
+      SemanticShellBackend._format_size_for_find,method,"(size:_ParsedSize) -> str",271-288,false,18,8,formats size for find
+      SemanticShellBackend._extract_username_with_nlp,method,"(text:str) -> Optional[str]",290-369,false,80,29,Extract username using intelligent patterns (fallback when spaCy not available).
   nlp2cmd/registry/__init__.py:
     functions[22]{name,kind,sig,loc,async,lines,cc,does}:
       get_registry,function,() -> ActionRegistry,626-631,false,6,2,Get the global action registry instance.
@@ -1355,31 +1280,6 @@ function_details:
       DynamicAdapter.search_commands,method,"(query:str, limit:int=10) -> List[CommandSchema]",597-599,false,3,1,Search for commands matching the query.
       DynamicAdapter.validate_syntax,method,"(command:str) -> Dict[str, Any]",601-623,false,23,5,Validate command syntax.
       DynamicAdapter.get_command_help,method,"(command_name:str) -> Optional[str]",625-650,false,26,8,Get help text for a specific command.
-  nlp2cmd/adapters/kubernetes_backup.py:
-    functions[23]{name,kind,sig,loc,async,lines,cc,does}:
-      KubernetesSafetyPolicy.check_command,method,"(command:str, context:Optional[dict[str,Any]]=None) -> dict[str, Any]",32-76,false,45,12,Check kubectl command against safety policy.
-      KubernetesAdapter.__init__,method,"(cluster_context:Optional[dict[str,Any]]=None, safety_policy:Optional[KubernetesSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",181-196,false,16,3,Initialize Kubernetes adapter.
-      KubernetesAdapter._parse_cluster_context,method,"(ctx:dict[str,Any]) -> ClusterContext",198-204,false,7,1,Parse cluster context.
-      KubernetesAdapter._normalize_resource,method,"(resource:str) -> str",206-208,false,3,1,Normalize resource type name.
-      KubernetesAdapter.generate,method,"(plan:dict[str,Any]) -> str",210-232,false,23,2,Generate kubectl command from execution plan.
-      KubernetesAdapter._generate_get,method,"(entities:dict[str,Any]) -> str",234-263,false,30,7,Generate kubectl get command.
-      KubernetesAdapter._generate_describe,method,"(entities:dict[str,Any]) -> str",265-276,false,12,2,Generate kubectl describe command.
-      KubernetesAdapter._generate_apply,method,"(entities:dict[str,Any]) -> str",278-296,false,19,4,Generate kubectl apply command.
-      KubernetesAdapter._generate_delete,method,"(entities:dict[str,Any]) -> str",298-324,false,27,6,Generate kubectl delete command.
-      KubernetesAdapter._generate_scale,method,"(entities:dict[str,Any]) -> str",326-341,false,16,3,Generate kubectl scale command.
-      KubernetesAdapter._generate_logs,method,"(entities:dict[str,Any]) -> str",343-373,false,31,7,Generate kubectl logs command.
-      KubernetesAdapter._generate_exec,method,"(entities:dict[str,Any]) -> str",375-399,false,25,4,Generate kubectl exec command.
-      KubernetesAdapter._generate_port_forward,method,"(entities:dict[str,Any]) -> str",401-416,false,16,3,Generate kubectl port-forward command.
-      KubernetesAdapter._generate_rollout,method,"(entities:dict[str,Any]) -> str",418-432,false,15,3,Generate kubectl rollout command.
-      KubernetesAdapter._generate_create,method,"(entities:dict[str,Any]) -> str",434-457,false,24,7,Generate kubectl create command.
-      KubernetesAdapter.generate_manifest,method,"(spec:dict[str,Any]) -> str",459-481,false,23,2,Generate Kubernetes YAML manifest.
-      KubernetesAdapter._generate_deployment_manifest,method,"(spec:dict[str,Any]) -> dict",483-530,false,48,3,Generate Deployment manifest.
-      KubernetesAdapter._generate_service_manifest,method,"(spec:dict[str,Any]) -> dict",532-559,false,28,1,Generate Service manifest.
-      KubernetesAdapter._generate_configmap_manifest,method,"(spec:dict[str,Any]) -> dict",561-575,false,15,1,Generate ConfigMap manifest.
-      KubernetesAdapter._generate_secret_manifest,method,"(spec:dict[str,Any]) -> dict",577-603,false,27,3,Generate Secret manifest.
-      KubernetesAdapter._generate_ingress_manifest,method,"(spec:dict[str,Any]) -> dict",605-652,false,48,2,Generate Ingress manifest.
-      KubernetesAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",654-690,false,37,10,Validate kubectl command syntax.
-      KubernetesAdapter.check_safety,method,"(command:str) -> dict[str, Any]",692-731,false,40,12,Check kubectl command against safety policy.
   nlp2cmd/adapters/dql.py:
     functions[13]{name,kind,sig,loc,async,lines,cc,does}:
       DQLAdapter.__init__,method,"(entity_context:Optional[dict[str,Any]]=None, safety_policy:Optional[DQLSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",65-80,false,16,3,Initialize DQL adapter.
@@ -1409,27 +1309,6 @@ function_details:
       BaseDSLAdapter._pretty_format,method,"(command:str) -> str",205-207,false,3,1,Apply pretty formatting to command.
       BaseDSLAdapter.get_schema_context,method,"() -> dict[str, Any]",209-211,false,3,1,Get schema context for validation.
       BaseDSLAdapter.__repr__,method,() -> str,213-214,false,2,1,repr
-  nlp2cmd/adapters/docker_patched.py:
-    functions[19]{name,kind,sig,loc,async,lines,cc,does}:
-      DockerSafetyPolicy.check_command,method,"(command:str, context:Optional[dict[str,Any]]=None) -> dict[str, Any]",41-89,false,49,11,Check Docker command against safety policy.
-      DockerAdapter.__init__,method,"(compose_context:Optional[dict[str,Any]]=None, safety_policy:Optional[DockerSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",163-178,false,16,3,Initialize Docker adapter.
-      DockerAdapter._parse_compose_context,method,"(ctx:dict[str,Any]) -> ComposeContext",180-187,false,8,1,Parse compose context.
-      DockerAdapter.generate,method,"(plan:dict[str,Any]) -> str",189-213,false,25,2,Generate Docker command from execution plan.
-      DockerAdapter._generate_run,method,"(entities:dict[str,Any]) -> str",215-267,false,53,14,Generate docker run command.
-      DockerAdapter._generate_stop,method,"(entities:dict[str,Any]) -> str",269-278,false,10,2,Generate docker stop command.
-      DockerAdapter._generate_remove,method,"(entities:dict[str,Any]) -> str",280-293,false,14,3,Generate docker rm command.
-      DockerAdapter._generate_build,method,"(entities:dict[str,Any]) -> str",295-318,false,24,4,Generate docker build command.
-      DockerAdapter._generate_pull,method,"(entities:dict[str,Any]) -> str",320-328,false,9,3,Generate docker pull command.
-      DockerAdapter._generate_compose_up,method,"(entities:dict[str,Any]) -> str",330-353,false,24,5,Generate docker-compose up command.
-      DockerAdapter._generate_compose_down,method,"(entities:dict[str,Any]) -> str",355-374,false,20,4,Generate docker-compose down command.
-      DockerAdapter._generate_logs,method,"(entities:dict[str,Any]) -> str",376-394,false,19,3,Generate docker logs command.
-      DockerAdapter._generate_exec,method,"(entities:dict[str,Any]) -> str",396-418,false,23,4,Generate docker exec command.
-      DockerAdapter._generate_list,method,"(entities:dict[str,Any]) -> str",420-445,false,26,8,Generate docker list command.
-      DockerAdapter._generate_prune,method,"(entities:dict[str,Any]) -> str",447-469,false,23,4,Generate docker prune command.
-      DockerAdapter._generate_container_management,method,"(entities:dict[str,Any]) -> str",471-524,false,54,7,Generate complex container management script.
-      DockerAdapter.generate_compose_file,method,"(spec:dict[str,Any]) -> str",526-567,false,42,13,Generate docker-compose.yml content.
-      DockerAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",569-601,false,33,14,Validate Docker command syntax.
-      DockerAdapter.check_safety,method,"(command:str) -> dict[str, Any]",603-645,false,43,11,Check Docker command against safety policy.
   nlp2cmd/adapters/docker.py:
     functions[19]{name,kind,sig,loc,async,lines,cc,does}:
       DockerSafetyPolicy.check_command,method,"(command:str, context:Optional[dict[str,Any]]=None) -> dict[str, Any]",31-79,false,49,11,Check Docker command against safety policy.
@@ -1451,23 +1330,6 @@ function_details:
       DockerAdapter.generate_compose_file,method,"(spec:dict[str,Any]) -> str",516-557,false,42,13,Generate docker-compose.yml content.
       DockerAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",559-591,false,33,14,Validate Docker command syntax.
       DockerAdapter.check_safety,method,"(command:str) -> dict[str, Any]",593-635,false,43,11,Check Docker command against safety policy.
-  nlp2cmd/adapters/sql_backup.py:
-    functions[15]{name,kind,sig,loc,async,lines,cc,does}:
-      SQLAdapter.__init__,method,"(dialect:str='postgresql', schema_context:Optional[dict[str,Any]]=None, safety_policy:Optional[SQLSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",97-119,false,23,4,Initialize SQL adapter.
-      SQLAdapter._parse_schema_context,method,"(ctx:dict[str,Any]) -> SchemaContext",121-129,false,9,1,Parse schema context dictionary into SchemaContext object.
-      SQLAdapter.generate,method,"(plan:dict[str,Any]) -> str",131-147,false,17,1,Generate SQL command from execution plan.
-      SQLAdapter._generate_select,method,"(entities:dict[str,Any]) -> str",149-198,false,50,9,Generate SELECT statement.
-      SQLAdapter._generate_insert,method,"(entities:dict[str,Any]) -> str",200-214,false,15,3,Generate INSERT statement.
-      SQLAdapter._generate_update,method,"(entities:dict[str,Any]) -> str",216-237,false,22,5,Generate UPDATE statement.
-      SQLAdapter._generate_delete,method,"(entities:dict[str,Any]) -> str",239-255,false,17,3,Generate DELETE statement.
-      SQLAdapter._generate_aggregate,method,"(entities:dict[str,Any]) -> str",257-316,false,60,11,Generate aggregate query with GROUP BY.
-      SQLAdapter._format_value,method,"(value:Any) -> str",318-335,false,18,8,Format a value for SQL.
-      SQLAdapter._interval_expr,method,"(interval:str) -> str",337-346,false,10,4,Generate dialect-specific interval expression.
-      SQLAdapter._year_start_expr,method,() -> str,348-357,false,10,4,Generate dialect-specific year start expression.
-      SQLAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",359-396,false,38,11,Validate SQL syntax.
-      SQLAdapter.check_safety,method,"(command:str) -> dict[str, Any]",398-456,false,59,15,Check SQL command against safety policy.
-      SQLAdapter._pretty_format,method,"(command:str) -> str",458-470,false,13,2,Pretty format SQL command.
-      SQLAdapter.get_schema_context,method,"() -> dict[str, Any]",472-478,false,7,1,Get schema context.
   nlp2cmd/adapters/browser.py:
     functions[10]{name,kind,sig,loc,async,lines,cc,does}:
       BrowserAdapter.__init__,method,"(config:Optional[AdapterConfig]=None, safety_policy:Optional[SafetyPolicy]=None)",41-47,false,7,2,creates
@@ -1480,31 +1342,6 @@ function_details:
       BrowserAdapter._has_submit_action,method,"(text:str) -> bool",116-120,false,5,2,Check if text contains form submission intent.
       BrowserAdapter.generate,method,"(plan:dict[str,Any]) -> str",122-195,false,74,18,creates
       BrowserAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",197-241,false,45,26,validates syntax
-  nlp2cmd/adapters/kubernetes_patched.py:
-    functions[23]{name,kind,sig,loc,async,lines,cc,does}:
-      KubernetesSafetyPolicy.check_command,method,"(command:str, context:Optional[dict[str,Any]]=None) -> dict[str, Any]",32-76,false,45,12,Check kubectl command against safety policy.
-      KubernetesAdapter.__init__,method,"(cluster_context:Optional[dict[str,Any]]=None, safety_policy:Optional[KubernetesSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",181-196,false,16,3,Initialize Kubernetes adapter.
-      KubernetesAdapter._parse_cluster_context,method,"(ctx:dict[str,Any]) -> ClusterContext",198-204,false,7,1,Parse cluster context.
-      KubernetesAdapter._normalize_resource,method,"(resource:str) -> str",206-208,false,3,1,Normalize resource type name.
-      KubernetesAdapter.generate,method,"(plan:dict[str,Any]) -> str",210-232,false,23,2,Generate kubectl command from execution plan.
-      KubernetesAdapter._generate_get,method,"(entities:dict[str,Any]) -> str",234-263,false,30,7,Generate kubectl get command.
-      KubernetesAdapter._generate_describe,method,"(entities:dict[str,Any]) -> str",265-276,false,12,2,Generate kubectl describe command.
-      KubernetesAdapter._generate_apply,method,"(entities:dict[str,Any]) -> str",278-296,false,19,4,Generate kubectl apply command.
-      KubernetesAdapter._generate_delete,method,"(entities:dict[str,Any]) -> str",298-324,false,27,6,Generate kubectl delete command.
-      KubernetesAdapter._generate_scale,method,"(entities:dict[str,Any]) -> str",326-341,false,16,3,Generate kubectl scale command.
-      KubernetesAdapter._generate_logs,method,"(entities:dict[str,Any]) -> str",343-373,false,31,7,Generate kubectl logs command.
-      KubernetesAdapter._generate_exec,method,"(entities:dict[str,Any]) -> str",375-399,false,25,4,Generate kubectl exec command.
-      KubernetesAdapter._generate_port_forward,method,"(entities:dict[str,Any]) -> str",401-416,false,16,3,Generate kubectl port-forward command.
-      KubernetesAdapter._generate_rollout,method,"(entities:dict[str,Any]) -> str",418-432,false,15,3,Generate kubectl rollout command.
-      KubernetesAdapter._generate_create,method,"(entities:dict[str,Any]) -> str",434-457,false,24,7,Generate kubectl create command.
-      KubernetesAdapter.generate_manifest,method,"(spec:dict[str,Any]) -> str",459-481,false,23,2,Generate Kubernetes YAML manifest.
-      KubernetesAdapter._generate_deployment_manifest,method,"(spec:dict[str,Any]) -> dict",483-530,false,48,3,Generate Deployment manifest.
-      KubernetesAdapter._generate_service_manifest,method,"(spec:dict[str,Any]) -> dict",532-559,false,28,1,Generate Service manifest.
-      KubernetesAdapter._generate_configmap_manifest,method,"(spec:dict[str,Any]) -> dict",561-575,false,15,1,Generate ConfigMap manifest.
-      KubernetesAdapter._generate_secret_manifest,method,"(spec:dict[str,Any]) -> dict",577-603,false,27,3,Generate Secret manifest.
-      KubernetesAdapter._generate_ingress_manifest,method,"(spec:dict[str,Any]) -> dict",605-652,false,48,2,Generate Ingress manifest.
-      KubernetesAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",654-690,false,37,10,Validate kubectl command syntax.
-      KubernetesAdapter.check_safety,method,"(command:str) -> dict[str, Any]",692-720,false,29,10,Check kubectl command against safety policy.
   nlp2cmd/adapters/kubernetes.py:
     functions[23]{name,kind,sig,loc,async,lines,cc,does}:
       KubernetesSafetyPolicy.check_command,method,"(command:str, context:Optional[dict[str,Any]]=None) -> dict[str, Any]",32-76,false,45,12,Check kubectl command against safety policy.
@@ -1530,75 +1367,6 @@ function_details:
       KubernetesAdapter._generate_ingress_manifest,method,"(spec:dict[str,Any]) -> dict",605-652,false,48,2,Generate Ingress manifest.
       KubernetesAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",654-690,false,37,10,Validate kubectl command syntax.
       KubernetesAdapter.check_safety,method,"(command:str) -> dict[str, Any]",692-731,false,40,12,Check kubectl command against safety policy.
-  nlp2cmd/adapters/shell_backup.py:
-    functions[24]{name,kind,sig,loc,async,lines,cc,does}:
-      ShellAdapter.__init__,method,"(shell_type:str='bash', environment_context:Optional[dict[str,Any]]=None, safety_policy:Optional[ShellSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",204-226,false,23,4,Initialize Shell adapter.
-      ShellAdapter._parse_environment_context,method,"(ctx:dict[str,Any]) -> EnvironmentContext",228-236,false,9,1,Parse environment context.
-      ShellAdapter.generate,method,"(plan:dict[str,Any]) -> str",238-293,false,56,18,Generate shell command from execution plan.
-      ShellAdapter._generate_file_search,method,"(entities:dict[str,Any]) -> str",295-413,false,119,58,Generate find command.
-      ShellAdapter._generate_find,method,"(entities:dict[str,Any]) -> str",415-517,false,103,52,Generate find command using entities.
-      ShellAdapter._normalize_find_size_value,method,"(value:Any) -> str",520-544,false,25,10,Normalize values like '10KB'/'1MB' into GNU find -size suffixes (k/M/G/T/c).
-      ShellAdapter._generate_file_operation,method,"(entities:dict[str,Any]) -> str",546-614,false,69,39,Generate file operation command.
-      ShellAdapter._generate_process_management,method,"(entities:dict[str,Any]) -> str",616-722,false,107,54,Generate process management command.
-      ShellAdapter._generate_process_monitoring,method,"(entities:dict[str,Any]) -> str",724-768,false,45,22,Generate process monitoring command.
-      ShellAdapter._generate_network,method,"(entities:dict[str,Any]) -> str",770-811,false,42,24,Generate network command.
-      ShellAdapter._generate_disk,method,"(entities:dict[str,Any]) -> str",813-833,false,21,11,Generate disk command.
-      ShellAdapter._generate_archive,method,"(entities:dict[str,Any]) -> str",835-879,false,45,30,Generate archive command.
-      ShellAdapter._generate_text_processing,method,"(entities:dict[str,Any]) -> str",881-895,false,15,6,Generate text processing command.
-      ShellAdapter._generate_git,method,"(entities:dict[str,Any]) -> str",897-917,false,21,5,Generate git command.
-      ShellAdapter._generate_system_maintenance,method,"(entities:dict[str,Any]) -> str",919-962,false,44,26,Generate system maintenance command.
-      ShellAdapter._generate_development,method,"(entities:dict[str,Any]) -> str",964-1021,false,58,25,Generate development command.
-      ShellAdapter._generate_security,method,"(entities:dict[str,Any]) -> str",1023-1048,false,26,12,Generate security command.
-      ShellAdapter._generate_docker,method,"(entities:dict[str,Any]) -> str",1050-1080,false,31,4,Generate docker command.
-      ShellAdapter._generate_docker_script,method,"(actions:list[str], entities:dict[str,Any]) -> str",1082-1123,false,42,5,Generate multi-step docker script.
-      ShellAdapter._generate_list,method,"(entities:dict[str,Any]) -> str",1125-1145,false,21,5,Generate list command.
-      ShellAdapter._generate_generic,method,"(entities:dict[str,Any]) -> str",1147-1198,false,52,33,Generate generic command from entities.
-      ShellAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",1200-1235,false,36,8,Validate shell command syntax.
-      ShellAdapter.check_safety,method,"(command:str) -> dict[str, Any]",1237-1303,false,67,18,Check shell command against safety policy.
-      ShellAdapter.check_tool_availability,method,"(command:str) -> dict[str, Any]",1305-1318,false,14,2,Check if required tools are available.
-  nlp2cmd/adapters/docker_backup.py:
-    functions[19]{name,kind,sig,loc,async,lines,cc,does}:
-      DockerSafetyPolicy.check_command,method,"(command:str, context:Optional[dict[str,Any]]=None) -> dict[str, Any]",31-79,false,49,11,Check Docker command against safety policy.
-      DockerAdapter.__init__,method,"(compose_context:Optional[dict[str,Any]]=None, safety_policy:Optional[DockerSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",153-168,false,16,3,Initialize Docker adapter.
-      DockerAdapter._parse_compose_context,method,"(ctx:dict[str,Any]) -> ComposeContext",170-177,false,8,1,Parse compose context.
-      DockerAdapter.generate,method,"(plan:dict[str,Any]) -> str",179-203,false,25,2,Generate Docker command from execution plan.
-      DockerAdapter._generate_run,method,"(entities:dict[str,Any]) -> str",205-257,false,53,14,Generate docker run command.
-      DockerAdapter._generate_stop,method,"(entities:dict[str,Any]) -> str",259-268,false,10,2,Generate docker stop command.
-      DockerAdapter._generate_remove,method,"(entities:dict[str,Any]) -> str",270-283,false,14,3,Generate docker rm command.
-      DockerAdapter._generate_build,method,"(entities:dict[str,Any]) -> str",285-308,false,24,4,Generate docker build command.
-      DockerAdapter._generate_pull,method,"(entities:dict[str,Any]) -> str",310-318,false,9,3,Generate docker pull command.
-      DockerAdapter._generate_compose_up,method,"(entities:dict[str,Any]) -> str",320-343,false,24,5,Generate docker-compose up command.
-      DockerAdapter._generate_compose_down,method,"(entities:dict[str,Any]) -> str",345-364,false,20,4,Generate docker-compose down command.
-      DockerAdapter._generate_logs,method,"(entities:dict[str,Any]) -> str",366-384,false,19,3,Generate docker logs command.
-      DockerAdapter._generate_exec,method,"(entities:dict[str,Any]) -> str",386-408,false,23,4,Generate docker exec command.
-      DockerAdapter._generate_list,method,"(entities:dict[str,Any]) -> str",410-435,false,26,8,Generate docker list command.
-      DockerAdapter._generate_prune,method,"(entities:dict[str,Any]) -> str",437-459,false,23,4,Generate docker prune command.
-      DockerAdapter._generate_container_management,method,"(entities:dict[str,Any]) -> str",461-514,false,54,7,Generate complex container management script.
-      DockerAdapter.generate_compose_file,method,"(spec:dict[str,Any]) -> str",516-557,false,42,13,Generate docker-compose.yml content.
-      DockerAdapter.validate_syntax,method,"(command:str) -> dict[str, Any]",559-591,false,33,14,Validate Docker command syntax.
-      DockerAdapter.check_safety,method,"(command:str) -> dict[str, Any]",593-635,false,43,11,Check Docker command against safety policy.
-  nlp2cmd/adapters/shell_patched.py:
-    functions[20]{name,kind,sig,loc,async,lines,cc,does}:
-      ShellAdapter.__init__,method,"(shell_type:str='bash', environment_context:Optional[dict[str,Any]]=None, safety_policy:Optional[ShellSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",204-226,false,23,4,Initialize Shell adapter.
-      ShellAdapter._parse_environment_context,method,"(ctx:dict[str,Any]) -> EnvironmentContext",228-236,false,9,1,Parse environment context.
-      ShellAdapter.generate,method,"(plan:dict[str,Any]) -> str",238-293,false,56,18,Generate shell command from execution plan.
-      ShellAdapter._generate_file_search,method,"(entities:dict[str,Any]) -> str",295-413,false,119,58,Generate find command.
-      ShellAdapter._generate_find,method,"(entities:dict[str,Any]) -> str",415-517,false,103,52,Generate find command using entities.
-      ShellAdapter._normalize_find_size_value,method,"(value:Any) -> str",520-544,false,25,10,Normalize values like '10KB'/'1MB' into GNU find -size suffixes (k/M/G/T/c).
-      ShellAdapter._generate_file_operation,method,"(entities:dict[str,Any]) -> str",546-614,false,69,39,Generate file operation command.
-      ShellAdapter._generate_process_management,method,"(entities:dict[str,Any]) -> str",616-722,false,107,54,Generate process management command.
-      ShellAdapter._generate_process_monitoring,method,"(entities:dict[str,Any]) -> str",724-768,false,45,22,Generate process monitoring command.
-      ShellAdapter._generate_network,method,"(entities:dict[str,Any]) -> str",770-811,false,42,24,Generate network command.
-      ShellAdapter._generate_disk,method,"(entities:dict[str,Any]) -> str",813-833,false,21,11,Generate disk command.
-      ShellAdapter._generate_archive,method,"(entities:dict[str,Any]) -> str",835-879,false,45,30,Generate archive command.
-      ShellAdapter._generate_text_processing,method,"(entities:dict[str,Any]) -> str",881-895,false,15,6,Generate text processing command.
-      ShellAdapter._generate_git,method,"(entities:dict[str,Any]) -> str",897-917,false,21,5,Generate git command.
-      ShellAdapter._generate_system_maintenance,method,"(entities:dict[str,Any]) -> str",919-962,false,44,26,Generate system maintenance command.
-      ShellAdapter._generate_development,method,"(entities:dict[str,Any]) -> str",964-1021,false,58,25,Generate development command.
-      ShellAdapter._generate_security,method,"(entities:dict[str,Any]) -> str",1023-1048,false,26,12,Generate security command.
-      ShellAdapter._generate_docker,method,"(entities:dict[str,Any]) -> str",1050-1080,false,31,4,Generate docker command.
-      ShellAdapter._generate_docker_script,method,"(actions:list[str], entities:dict[str,Any]) -> str",1082-1123,false,42,5,Generate multi-step docker script.
-      ShellAdapter._generate_list,method,"(entities:dict[str,Any]) -> str",1125-1138,false,14,4,Generate list command.
   nlp2cmd/adapters/sql.py:
     functions[15]{name,kind,sig,loc,async,lines,cc,does}:
       SQLAdapter.__init__,method,"(dialect:str='postgresql', schema_context:Optional[dict[str,Any]]=None, safety_policy:Optional[SQLSafetyPolicy]=None, config:Optional[AdapterConfig]=None)",97-119,false,23,4,Initialize SQL adapter.
@@ -1805,17 +1573,17 @@ function_details:
       contracts_dir,function,() -> Path,6-7,false,2,1,contracts dir
   nlp2cmd/enhanced/__init__.py:
     functions[11]{name,kind,sig,loc,async,lines,cc,does}:
-      create_enhanced_nlp2cmd,function,"(appspec_path:Optional[str]=None, nlp_backend:Optional[NLPBackend]=None, config:Optional[Dict[str,Any]]=None) -> EnhancedNLP2CMD",138-143,false,6,1,creates enhanced nlp2cmd
-      EnhancedNLP2CMD.__init__,method,"(appspec_path:Optional[str]=None, nlp_backend:Optional[NLPBackend]=None, config:Optional[Dict[str,Any]]=None)",28-57,false,30,2,Initialize enhanced NLP2CMD.
-      EnhancedNLP2CMD.load_appspec,method,"(path:str) -> None",59-60,false,2,1,retrieves appspec
-      EnhancedNLP2CMD.get_available_commands,method,"(category:Optional[str]=None) -> List[str]",62-66,false,5,3,retrieves available commands
-      EnhancedNLP2CMD.get_command_categories,method,"() -> List[str]",68-69,false,2,1,retrieves command categories
-      EnhancedNLP2CMD.search_commands,method,"(query:str, limit:int=10) -> List[Dict[str, Any]]",71-84,false,14,9,filters commands
-      EnhancedNLP2CMD.get_command_help,method,"(command_name:str) -> Optional[str]",86-87,false,2,1,retrieves command help
-      EnhancedNLP2CMD.transform_with_explanation,method,"(text:str, context:Optional[Dict[str,Any]]=None, dry_run:bool=False) -> TransformResult",89-107,false,19,4,Transform natural language with detailed explanation.
-      EnhancedNLP2CMD.export_schemas,method,"(format:str='json') -> str",109-110,false,2,1,export schemas
-      EnhancedNLP2CMD.transform_ir,method,"(text:str, context:Optional[Dict[str,Any]]=None, dry_run:bool=False) -> ActionIR",112-118,false,7,1,converts ir
-      EnhancedNLP2CMD.analyze_query,method,"(text:str) -> Dict[str, Any]",120-135,false,16,2,Analyze a natural language query without generating a command.
+      create_enhanced_nlp2cmd,function,"(appspec_path:Optional[str]=None, nlp_backend:Optional[NLPBackend]=None, config:Optional[Dict[str,Any]]=None) -> EnhancedNLP2CMD",140-145,false,6,1,creates enhanced nlp2cmd
+      EnhancedNLP2CMD.__init__,method,"(appspec_path:Optional[str]=None, nlp_backend:Optional[NLPBackend]=None, config:Optional[Dict[str,Any]]=None)",30-59,false,30,2,Initialize enhanced NLP2CMD.
+      EnhancedNLP2CMD.load_appspec,method,"(path:str) -> None",61-62,false,2,1,retrieves appspec
+      EnhancedNLP2CMD.get_available_commands,method,"(category:Optional[str]=None) -> List[str]",64-68,false,5,3,retrieves available commands
+      EnhancedNLP2CMD.get_command_categories,method,"() -> List[str]",70-71,false,2,1,retrieves command categories
+      EnhancedNLP2CMD.search_commands,method,"(query:str, limit:int=10) -> List[Dict[str, Any]]",73-86,false,14,9,filters commands
+      EnhancedNLP2CMD.get_command_help,method,"(command_name:str) -> Optional[str]",88-89,false,2,1,retrieves command help
+      EnhancedNLP2CMD.transform_with_explanation,method,"(text:str, context:Optional[Dict[str,Any]]=None, dry_run:bool=False) -> TransformResult",91-109,false,19,4,Transform natural language with detailed explanation.
+      EnhancedNLP2CMD.export_schemas,method,"(format:str='json') -> str",111-112,false,2,1,export schemas
+      EnhancedNLP2CMD.transform_ir,method,"(text:str, context:Optional[Dict[str,Any]]=None, dry_run:bool=False) -> ActionIR",114-120,false,7,1,converts ir
+      EnhancedNLP2CMD.analyze_query,method,"(text:str) -> Dict[str, Any]",122-137,false,16,2,Analyze a natural language query without generating a command.
   nlp2cmd/parsing/toon_parser.py:
     functions[22]{name,kind,sig,loc,async,lines,cc,does}:
       get_parser,function,"(file_path:Optional[str]=None) -> ToonParser",404-411,false,8,5,Get or create parser instance
@@ -2104,3 +1872,39 @@ function_details:
       VersionAwareCommandGenerator._post_process_command,method,"(command:str, base_cmd:str, version:str) -> str",237-278,false,42,17,Post-process command based on detected version.
       VersionAwareCommandGenerator._get_adaptations,method,"(command:str, version:str) -> List[str]",280-296,false,17,7,Get list of adaptations made for the version.
       VersionAwareCommandGenerator.clear_version_cache,method,(),298-300,false,3,1,Clear the version detection cache.
+  nlp2cmd/generation/keywords/keyword_patterns.py:
+    functions[14]{name,kind,sig,loc,async,lines,cc,does}:
+      _normalize_polish_text,function,"(text:str) -> str",21-24,false,4,1,Normalize Polish text for pattern matching.
+      _dedupe_case_insensitive,function,"(items:List[str]) -> List[str]",27-36,false,10,3,Deduplicate items case-insensitively while preserving order.
+      KeywordPatterns.__init__,method,"(custom_patterns_file:Optional[str]=None)",42-57,false,16,1,Initialize keyword patterns.
+      KeywordPatterns._load_patterns_from_json,method,"(custom_patterns_file:Optional[str]=None) -> None",59-112,false,54,19,Load patterns from external JSON file.
+      KeywordPatterns._load_detector_config_from_json,method,() -> None,114-171,false,58,33,Load detector configuration from JSON files.
+      KeywordPatterns.get_domain_patterns,method,"(domain:str) -> Dict[str, List[str]]",173-175,false,3,1,Get all patterns for a domain.
+      KeywordPatterns.get_intent_patterns,method,"(domain:str, intent:str) -> List[str]",177-179,false,3,1,Get patterns for a specific domain/intent combination.
+      KeywordPatterns.has_domain,method,"(domain:str) -> bool",181-183,false,3,1,Check if patterns exist for a domain.
+      KeywordPatterns.has_intent,method,"(domain:str, intent:str) -> bool",185-187,false,3,1,Check if patterns exist for a domain/intent combination.
+      KeywordPatterns.list_domains,method,"() -> List[str]",189-191,false,3,1,List all available domains.
+      KeywordPatterns.list_intents,method,"(domain:str) -> List[str]",193-195,false,3,1,List all available intents for a domain.
+      KeywordPatterns.add_pattern,method,"(domain:str, intent:str, keywords:List[str]) -> None",197-205,false,9,6,Add patterns for a domain/intent combination.
+      KeywordPatterns.get_domain_boosters,method,"(domain:str) -> List[str]",207-209,false,3,1,Get booster keywords for a domain.
+      KeywordPatterns.get_priority_intents,method,"(domain:str) -> List[str]",211-213,false,3,1,Get priority intents for a domain.
+  nlp2cmd/generation/keywords/keyword_detector.py:
+    functions[18]{name,kind,sig,loc,async,lines,cc,does}:
+      _get_polish_support,function,(),30-39,false,10,4,Lazy load Polish support to avoid circular imports.
+      _get_fuzzy_schema_matcher,function,(),42-69,false,28,7,Lazy load FuzzySchemaMatcher with multilingual phrases.
+      _get_ml_classifier,function,(),72-92,false,21,8,Lazy load ML intent classifier for high-accuracy predictions.
+      _get_semantic_matcher,function,(),95-113,false,19,7,Lazy load semantic matcher for high-accuracy predictions.
+      _get_spacy_model,function,(),116-151,false,36,8,Lazy load spaCy model for lemmatization.
+      DetectionResult.__post_init__,method,(),164-168,false,5,3,creates init
+      KeywordIntentDetector.__init__,method,"(patterns:Optional[KeywordPatterns]=None, confidence_threshold:float=0.5)",184-197,false,14,2,Initialize keyword detector.
+      KeywordIntentDetector.detect,method,"(text:str) -> DetectionResult",199-235,false,37,10,Detect domain and intent from text.
+      KeywordIntentDetector.detect_all,method,"(text:str) -> list[DetectionResult]",237-271,false,35,8,Detect all matching domains and intents.
+      KeywordIntentDetector._match_keyword,method,"(text_lower:str, keyword:str) -> bool",273-275,false,3,1,Simple keyword matching.
+      KeywordIntentDetector._fast_path_detection,method,"(text_lower:str) -> Optional[DetectionResult]",277-350,false,74,8,Fast path detection for common patterns.
+      KeywordIntentDetector._fuzzy_detection,method,"(text:str) -> Optional[DetectionResult]",352-370,false,19,6,Detection using fuzzy schema matching.
+      KeywordIntentDetector._ml_detection,method,"(text:str) -> Optional[DetectionResult]",372-390,false,19,6,ML-based detection using trained classifier.
+      KeywordIntentDetector._semantic_detection,method,"(text:str) -> Optional[DetectionResult]",392-410,false,19,6,Semantic detection using sentence embeddings.
+      KeywordIntentDetector._keyword_detection,method,"(text:str, text_lower:str) -> DetectionResult",412-455,false,44,11,Traditional keyword-based detection.
+      KeywordIntentDetector._calculate_keyword_confidence,method,"(text:str, keywords:list[str]) -> float",457-483,false,27,6,Calculate confidence based on keyword matches.
+      KeywordIntentDetector._tokenize_text,method,"(text:str) -> list[str]",485-519,false,35,11,Tokenize text using available tools.
+      KeywordIntentDetector._keyword_matches,method,"(keyword:str, text:str, tokens:set[str]) -> bool",521-537,false,17,5,Check if a keyword matches the text.
