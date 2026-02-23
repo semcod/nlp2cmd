@@ -122,8 +122,9 @@ class ExecutionPlan(BaseModel):
 
     intent: str = Field(..., description="Detected intent")
     entities: dict[str, Any] = Field(default_factory=dict, description="Extracted entities")
-    confidence: float = Field(..., description="Overall confidence")
+    confidence: float = Field(default=0.0, description="Overall confidence")
     domain: Optional[str] = Field(default=None, description="Target domain")
+    requires_confirmation: bool = Field(default=False, description="Whether plan requires user confirmation")
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
     text: str = Field(default="", description="Original input text")
     
@@ -170,14 +171,23 @@ class TransformResult:
     """Result of a natural language to command transformation."""
 
     status: TransformStatus
-    command: Optional[str]
-    intent: Optional[str]
+    command: Optional[str] = None
+    intent: Optional[str] = None
     entities: dict[str, Any] = field(default_factory=dict)
     confidence: float = 0.0
     execution_plan: Optional[ExecutionPlan] = None
+    plan: Optional[ExecutionPlan] = None  # alias for execution_plan
+    dsl_type: Optional[str] = None
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self):
+        # Unify plan/execution_plan aliases
+        if self.plan is not None and self.execution_plan is None:
+            self.execution_plan = self.plan
+        elif self.execution_plan is not None and self.plan is None:
+            self.plan = self.execution_plan
 
     @property
     def is_success(self) -> bool:
@@ -212,6 +222,7 @@ class TransformResult:
             entities=self.entities.copy(),
             confidence=self.confidence,
             execution_plan=self.execution_plan.model_copy() if self.execution_plan else None,
+            dsl_type=self.dsl_type,
             errors=self.errors.copy(),
             warnings=self.warnings.copy(),
             metadata=self.metadata.copy(),
@@ -223,5 +234,6 @@ class TransformResult:
             self.status == TransformStatus.SUCCESS and 
             len(self.errors) == 0 and
             self.command is not None and
-            len(self.command.strip()) > 0
+            len(self.command.strip()) > 0 and
+            0.0 <= self.confidence <= 1.0
         )

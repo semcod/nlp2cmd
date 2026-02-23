@@ -14,7 +14,7 @@ from .environment import EnvironmentContext
 from .virtual_objects import VirtualObject, ObjectType, VirtualObjectManager
 from .semantic_objects import SemanticObjectFactory
 from .dependency_resolver import DependencyResolver, DependencyResult
-from ..generation.templates import TemplateGenerator
+from ..generation.template_generator import TemplateGenerator
 
 
 @dataclass

@@ -659,3 +659,351 @@ class TemplateGenerator:
         if domain is None:
             return {d: list(intents.keys()) for d, intents in self.templates.items()}
         return list(self.templates.get(domain, {}).keys())
+
+    # ── Shell intent-specific default methods ──────────────────────────
+
+    def _shell_intent_file_search(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('extension', entities.get('file_pattern', entities.get('extension', 'py')))
+        result.setdefault('path', '.')
+
+    def _shell_intent_file_content(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('file_path', entities.get('target', ''))
+
+    def _shell_intent_file_tail(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('lines', '10')
+        result.setdefault('file_path', entities.get('target', ''))
+
+    def _shell_intent_file_size(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('file_path', entities.get('target', ''))
+
+    def _shell_intent_file_rename(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('old_name', entities.get('old_name', ''))
+        result.setdefault('new_name', entities.get('new_name', ''))
+
+    def _shell_intent_file_delete_all(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('extension', entities.get('file_pattern', entities.get('extension', 'tmp')))
+
+    def _shell_intent_dir_create(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('directory', entities.get('target', ''))
+
+    def _shell_intent_remove_all(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('extension', entities.get('file_pattern', entities.get('extension', 'tmp')))
+
+    def _shell_intent_file_operation(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        text_lower = str(entities.get('text', '')).lower()
+        handlers = (
+            (self._shell_file_op_is_all, self._shell_file_op_all),
+            (self._shell_file_op_is_directory, self._shell_file_op_directory),
+            (self._shell_file_op_is_rename, self._shell_file_op_rename),
+            (self._shell_file_op_is_size, self._shell_file_op_size),
+            (self._shell_file_op_is_copy, self._shell_file_op_copy),
+            (self._shell_file_op_is_move, self._shell_file_op_move),
+            (self._shell_file_op_is_delete, self._shell_file_op_delete),
+        )
+        for predicate, handler in handlers:
+            if predicate(text_lower):
+                handler(entities, result)
+                return
+        self._shell_file_op_default(entities, result)
+
+    def _shell_file_op_is_all(self, text_lower: str) -> bool:
+        return 'wszystkie' in text_lower or 'all' in text_lower
+
+    def _shell_file_op_is_directory(self, text_lower: str) -> bool:
+        return 'katalog' in text_lower or 'directory' in text_lower or 'utwórz' in text_lower
+
+    def _shell_file_op_is_rename(self, text_lower: str) -> bool:
+        return 'zmień nazwę' in text_lower or 'rename' in text_lower
+
+    def _shell_file_op_is_size(self, text_lower: str) -> bool:
+        return 'rozmiar' in text_lower or 'size' in text_lower
+
+    def _shell_file_op_is_copy(self, text_lower: str) -> bool:
+        return 'skopiuj' in text_lower or 'copy' in text_lower
+
+    def _shell_file_op_is_move(self, text_lower: str) -> bool:
+        return 'przenieś' in text_lower or 'move' in text_lower
+
+    def _shell_file_op_is_delete(self, text_lower: str) -> bool:
+        return 'usuń' in text_lower or 'delete' in text_lower or 'remove' in text_lower
+
+    def _shell_file_op_all(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('extension', entities.get('file_pattern', entities.get('extension', 'tmp')))
+
+    def _shell_file_op_directory(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('directory', entities.get('target', ''))
+
+    def _shell_file_op_rename(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('old_name', entities.get('old_name', ''))
+        result.setdefault('new_name', entities.get('new_name', ''))
+
+    def _shell_file_op_size(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('file_path', entities.get('target', ''))
+
+    def _shell_file_op_copy(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('source', entities.get('source', '.'))
+        result.setdefault('destination', entities.get('destination', '.'))
+
+    def _shell_file_op_move(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('source', entities.get('source', '.'))
+        result.setdefault('destination', entities.get('destination', '.'))
+
+    def _shell_file_op_delete(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('target', entities.get('target', ''))
+
+    def _shell_file_op_default(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('target', entities.get('target', ''))
+
+    def _shell_intent_process_user(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('user', self._get_default('shell.user', os.environ.get('USER') or getpass.getuser()))
+
+    def _shell_intent_network_ping(self, result: dict[str, Any]) -> None:
+        result.setdefault('host', self._get_default('shell.ping_host', os.environ.get('NLP2CMD_DEFAULT_PING_HOST') or 'google.com'))
+
+    def _shell_intent_network_lsof(self, result: dict[str, Any]) -> None:
+        result.setdefault('port', self._get_default('shell.default_port', os.environ.get('NLP2CMD_DEFAULT_PORT') or '8080'))
+
+    def _shell_intent_network_scan(self, result: dict[str, Any]) -> None:
+        result.setdefault('cidr', self._get_default('shell.scan_cidr', os.environ.get('NLP2CMD_DEFAULT_SCAN_CIDR') or '192.168.1.0/24'))
+
+    def _shell_intent_network_speed(self, result: dict[str, Any]) -> None:
+        result.setdefault('url', self._get_default('shell.speedtest_url', os.environ.get('NLP2CMD_DEFAULT_SPEEDTEST_URL') or 'http://speedtest.net'))
+
+    def _shell_intent_disk_device(self, result: dict[str, Any]) -> None:
+        result.setdefault('device', self._get_default('shell.disk_device', os.environ.get('NLP2CMD_DEFAULT_DISK_DEVICE') or '/dev/sda1'))
+
+    def _shell_intent_backup_create(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('source', entities.get('target', '.'))
+
+    def _shell_intent_backup_copy(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('source', entities.get('source', '.'))
+        result.setdefault('destination', entities.get('destination', '.'))
+
+    def _shell_intent_backup_restore(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('file', entities.get('target', ''))
+
+    def _shell_intent_backup_integrity(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault(
+            'file',
+            entities.get(
+                'target',
+                self._get_default('shell.backup_archive', os.environ.get('NLP2CMD_DEFAULT_BACKUP_ARCHIVE') or 'backup.tar.gz'),
+            ),
+        )
+
+    def _shell_intent_backup_path(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('path', entities.get('path', self._get_default('shell.backup_path', os.environ.get('NLP2CMD_DEFAULT_BACKUP_PATH') or './backup')))
+
+    def _shell_intent_backup_size(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault(
+            'file',
+            entities.get(
+                'target',
+                self._get_default('shell.backup_archive', os.environ.get('NLP2CMD_DEFAULT_BACKUP_ARCHIVE') or 'backup.tar.gz'),
+            ),
+        )
+
+    def _shell_intent_system_logs(self, result: dict[str, Any]) -> None:
+        result.setdefault('file', self._get_default('shell.system_log_file', os.environ.get('NLP2CMD_DEFAULT_SYSTEM_LOG_FILE') or '/var/log/syslog'))
+
+    def _shell_intent_dev_lint(self, result: dict[str, Any]) -> None:
+        result.setdefault('path', 'src')
+
+    def _shell_intent_dev_logs(self, result: dict[str, Any]) -> None:
+        result.setdefault('file', self._get_default('shell.dev_log_file', os.environ.get('NLP2CMD_DEFAULT_DEV_LOG_FILE') or 'app.log'))
+
+    def _shell_intent_dev_debug(self, result: dict[str, Any]) -> None:
+        result.setdefault('script', self._get_default('shell.debug_script', os.environ.get('NLP2CMD_DEFAULT_DEBUG_SCRIPT') or 'script.py'))
+
+    def _shell_intent_dev_docs(self, result: dict[str, Any]) -> None:
+        result.setdefault('path', 'docs')
+
+    def _shell_intent_security_permissions(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('file_path', entities.get('file_path', 'config.conf'))
+
+    def _shell_intent_process_kill(self, result: dict[str, Any]) -> None:
+        result.setdefault('pid', 'PID')
+
+    def _shell_intent_process_background(self, result: dict[str, Any]) -> None:
+        result.setdefault('command', 'python script.py')
+
+    def _shell_intent_process_script(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('script', entities.get('target', 'script.sh'))
+
+    def _shell_intent_service(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result.setdefault('service', entities.get('service', self._get_default('shell.default_service', os.environ.get('NLP2CMD_DEFAULT_SERVICE') or 'nginx')))
+
+    def _shell_intent_text_search_errors(self, result: dict[str, Any]) -> None:
+        result.setdefault('file', self._get_default('shell.system_log_file', os.environ.get('NLP2CMD_DEFAULT_SYSTEM_LOG_FILE') or '/var/log/syslog'))
+
+    def _shell_intent_open_url(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        url = entities.get('url', '')
+        if url and not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
+        result['url'] = url or self._get_default('shell.default_url', os.environ.get('NLP2CMD_DEFAULT_URL') or 'https://google.com')
+
+    def _shell_intent_search_web(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        query = entities.get('query', '')
+        if not query:
+            text = entities.get('text', '')
+            match = re.search(r'(?:wyszukaj|search|szukaj|google)\s+(.+?)(?:\s+w\s+|\s*$)', text, re.IGNORECASE)
+            if match:
+                query = match.group(1).strip()
+        result['query'] = query or 'nlp2cmd'
+
+    # ── Shell category dispatch methods ────────────────────────────────
+
+    def _apply_shell_backup_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        backup_handlers = {
+            'backup_create': self._shell_intent_backup_create,
+            'backup_copy': self._shell_intent_backup_copy,
+            'backup_restore': self._shell_intent_backup_restore,
+            'backup_integrity': self._shell_intent_backup_integrity,
+            'backup_status': self._shell_intent_backup_path,
+            'backup_cleanup': self._shell_intent_backup_path,
+            'backup_size': self._shell_intent_backup_size,
+        }
+        handler = backup_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_system_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        system_handlers = {
+            'system_logs': lambda e, r: self._shell_intent_system_logs(r),
+        }
+        handler = system_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_dev_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        dev_handlers = {
+            'dev_lint': lambda e, r: self._shell_intent_dev_lint(r),
+            'dev_logs': lambda e, r: self._shell_intent_dev_logs(r),
+            'dev_debug': lambda e, r: self._shell_intent_dev_debug(r),
+            'dev_docs': lambda e, r: self._shell_intent_dev_docs(r),
+        }
+        handler = dev_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_security_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        security_handlers = {
+            'security_permissions': self._shell_intent_security_permissions,
+        }
+        handler = security_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_text_search_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        text_handlers = {
+            'text_search_errors': lambda e, r: self._shell_intent_text_search_errors(r),
+        }
+        handler = text_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_network_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        network_handlers = {
+            'network_ping': lambda e, r: self._shell_intent_network_ping(r),
+            'network_lsof': lambda e, r: self._shell_intent_network_lsof(r),
+            'network_scan': lambda e, r: self._shell_intent_network_scan(r),
+            'network_speed': lambda e, r: self._shell_intent_network_speed(r),
+        }
+        handler = network_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_disk_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        disk_handlers = {
+            'disk_health': lambda e, r: self._shell_intent_disk_device(r),
+            'disk_defrag': lambda e, r: self._shell_intent_disk_device(r),
+        }
+        handler = disk_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_process_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        process_handlers = {
+            'process_user': self._shell_intent_process_user,
+            'process_kill': lambda e, r: self._shell_intent_process_kill(r),
+            'process_background': lambda e, r: self._shell_intent_process_background(r),
+            'process_script': self._shell_intent_process_script,
+        }
+        handler = process_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_service_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        service_intents = {
+            'service_start': self._shell_intent_service,
+            'service_stop': self._shell_intent_service,
+            'service_restart': self._shell_intent_service,
+            'service_status': self._shell_intent_service,
+        }
+        handler = service_intents.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_browser_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> bool:
+        if intent in ('open_url', 'open_browser', 'browse'):
+            self._shell_intent_open_url(entities, result)
+            return True
+        browser_handlers = {
+            'search_web': self._shell_intent_search_web,
+        }
+        handler = browser_handlers.get(intent)
+        if handler is None:
+            return False
+        handler(entities, result)
+        return True
+
+    def _apply_shell_intent_specific_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        file_handlers: dict[str, Any] = {
+            'file_search': self._shell_intent_file_search,
+            'file_content': self._shell_intent_file_content,
+            'file_tail': self._shell_intent_file_tail,
+            'file_size': self._shell_intent_file_size,
+            'file_rename': self._shell_intent_file_rename,
+            'file_delete_all': self._shell_intent_file_delete_all,
+            'dir_create': self._shell_intent_dir_create,
+            'remove_all': self._shell_intent_remove_all,
+            'file_operation': self._shell_intent_file_operation,
+        }
+        handler = file_handlers.get(intent)
+        if handler is not None:
+            handler(entities, result)
+            return
+
+        category_handlers = (
+            self._apply_shell_backup_defaults,
+            self._apply_shell_system_defaults,
+            self._apply_shell_dev_defaults,
+            self._apply_shell_security_defaults,
+            self._apply_shell_text_search_defaults,
+            self._apply_shell_network_defaults,
+            self._apply_shell_disk_defaults,
+            self._apply_shell_process_defaults,
+            self._apply_shell_service_defaults,
+            self._apply_shell_browser_defaults,
+        )
+        for handler_func in category_handlers:
+            if handler_func(intent, entities, result):
+                return
