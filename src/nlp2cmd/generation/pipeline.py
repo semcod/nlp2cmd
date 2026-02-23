@@ -99,6 +99,9 @@ class RuleBasedPipeline:
             # Step 1: Intent detection
             detection = self.detector.detect(text)
             if not detection.matched:
+                # Fallback for completely unknown input
+                result.command = "echo 'Unknown command - could not parse intent'"
+                result.success = False
                 result.errors.append("No intent detected")
                 return result
             
@@ -141,8 +144,13 @@ class RuleBasedPipeline:
                 result.success = True
                 result.confidence = min(detection.confidence, template_result.confidence)
             else:
-                result.errors.extend(template_result.errors)
-                result.warnings.extend(template_result.warnings)
+                # Fallback for unknown intents - provide a basic response
+                if result.domain == "unknown" or result.intent == "unknown":
+                    result.command = "echo 'Unknown command - could not parse intent'"
+                    result.success = False
+                else:
+                    result.errors.extend(template_result.errors)
+                    result.warnings.extend(template_result.warnings)
             
         except Exception as e:
             result.errors.append(f"Pipeline error: {e}")
@@ -204,14 +212,17 @@ class RuleBasedPipeline:
                 extractor = self.extractor
             domain = detection.domain if hasattr(detection, "domain") else str(detection)
             result = extractor.extract(text, domain)
-            # Attach shadow metadata if present on extractor
+            # Attach shadow metadata from extractor attributes
             mode = _os.environ.get("NLP2CMD_ENTITY_EXTRACTOR_MODE", "").strip().lower()
-            if mode in ("shadow", "semantic") and hasattr(result, "metadata"):
-                if not result.metadata.get("entity_extractor_mode"):
-                    result.metadata["entity_extractor_mode"] = mode
+            if mode in ("shadow", "semantic"):
+                meta = result.metadata if hasattr(result, "metadata") and result.metadata is not None else {}
+                if not meta.get("entity_extractor_mode"):
+                    meta["entity_extractor_mode"] = mode
                 sem_entities = getattr(extractor, "last_semantic_entities", None)
-                if sem_entities is not None and mode in ("shadow", "semantic"):
-                    result.metadata["shadow_entities"] = sem_entities
+                if sem_entities is not None:
+                    meta["shadow_entities"] = sem_entities
+                if hasattr(result, "metadata"):
+                    result.metadata = meta
             return result
         except Exception as e:
             # Log error but don't fail the pipeline

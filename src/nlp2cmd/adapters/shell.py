@@ -173,6 +173,9 @@ class ShellAdapter(BaseDSLAdapter):
         # Handle legacy safety_policy parameter
         if safety_policy is not None and config is None:
             config = AdapterConfig(safety_policy=safety_policy)
+        # Use ShellSafetyPolicy as default if no config provided
+        if config is None:
+            config = AdapterConfig(safety_policy=ShellSafetyPolicy())
         
         super().__init__(config)
         self.environment_context = environment_context or EnvironmentContext()

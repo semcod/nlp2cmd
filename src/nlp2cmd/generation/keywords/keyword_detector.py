@@ -219,7 +219,7 @@ class KeywordIntentDetector:
             DetectionResult with detected domain, intent, and confidence
         """
         if not text or not text.strip():
-            return DetectionResult(domain="", intent="", confidence=0.0, matched=False)
+            return DetectionResult(domain="unknown", intent="unknown", confidence=0.0, matched=False)
         
         text_lower = text.lower()
 
@@ -308,13 +308,150 @@ class KeywordIntentDetector:
             ("json z pliku", "shell", "json_jq", "json z pliku"),
             ("użyj jq", "utility", "jq", "użyj jq"),
             ("jq do", "utility", "jq", "jq do"),
+            # Short exact shell commands — checked by substring so 'ps' must be word-bounded below
+            ("ps aux", "shell", "list_processes", "ps aux"),
+            ("ls -la", "shell", "list", "ls -la"),
+            # Kubernetes — specific patterns (before docker to avoid conflicts)
+            ("logi poda", "kubernetes", "logs", "logi poda"),
+            ("logi pod", "kubernetes", "logs", "logi pod"),
+            ("kubectl logs", "kubernetes", "logs", "kubectl logs"),
+            ("pokaż logi poda", "kubernetes", "logs", "pokaż logi poda"),
+            ("pokaz logi poda", "kubernetes", "logs", "pokaz logi poda"),
+            ("wszystkie pody", "kubernetes", "get", "wszystkie pody"),
+            ("pokaż pody", "kubernetes", "get", "pokaż pody"),
+            ("pokaz pody", "kubernetes", "get", "pokaz pody"),
+            ("pody w namespace", "kubernetes", "get", "pody w namespace"),
+            # Docker — specific intents (most specific first)
+            ("docker exec", "docker", "exec", "docker exec"),
+            ("docker compose restart", "docker", "restart", "docker compose restart"),
+            ("docker-compose restart", "docker", "restart", "docker-compose restart"),
+            ("docker compose", "docker", "compose_up", "docker compose"),
+            ("docker-compose", "docker", "compose_up", "docker-compose"),
+            ("docker images", "docker", "images", "docker images"),
+            ("docker logs", "docker", "logs", "docker logs"),
+            ("docker build", "docker", "build", "docker build"),
+            ("docker stop", "docker", "stop", "docker stop"),
+            ("docker run", "docker", "run", "docker run"),
+            ("docker ps", "docker", "list", "docker ps"),
+            ("docker pull", "docker", "pull", "docker pull"),
+            ("docker push", "docker", "push", "docker push"),
+            # Docker Polish verbs
+            ("wyłącz kontener", "docker", "stop", "wyłącz kontener"),
+            ("wylacz kontener", "docker", "stop", "wylacz kontener"),
+            ("kill kontener", "docker", "stop", "kill kontener"),
+            ("zatrzymaj kontener", "docker", "stop", "zatrzymaj kontener"),
+            ("zatrzymaj container", "docker", "stop", "zatrzymaj container"),
+            ("stop container", "docker", "stop", "stop container"),
+            ("odpal kontener", "docker", "run", "odpal kontener"),
+            ("wystartuj kontener", "docker", "run", "wystartuj kontener"),
+            ("uruchom kontener", "docker", "run", "uruchom kontener"),
+            ("uruchom container", "docker", "run", "uruchom container"),
+            ("run container", "docker", "run", "run container"),
+            ("restartuj kontener", "docker", "restart", "restartuj kontener"),
+            ("wejdź do kontenera", "docker", "exec", "wejdź do kontenera"),
+            ("wejdz do kontenera", "docker", "exec", "wejdz do kontenera"),
+            ("terminal kontenera", "docker", "exec", "terminal kontenera"),
+            ("connect to container", "docker", "exec", "connect to container"),
+            ("shell kontenera", "docker", "exec", "shell kontenera"),
+            ("pokaż logi", "docker", "logs", "pokaż logi"),
+            ("pokaz logi", "docker", "logs", "pokaz logi"),
+            ("show logs", "docker", "logs", "show logs"),
+            ("logi kontenera", "docker", "logs", "logi kontenera"),
+            ("wyświetl logi", "docker", "logs", "wyświetl logi"),
+            ("śledź logi", "docker", "logs", "śledź logi"),
+            ("sledz logi", "docker", "logs", "sledz logi"),
+            ("lista obrazów", "docker", "images", "lista obrazów"),
+            ("lista obrazow", "docker", "images", "lista obrazow"),
+            ("pokaż obrazy", "docker", "images", "pokaż obrazy"),
+            ("pokaz obrazy", "docker", "images", "pokaz obrazy"),
+            ("list images", "docker", "images", "list images"),
+            ("zbuduj obraz", "docker", "build", "zbuduj obraz"),
+            ("zbuduj image", "docker", "build", "zbuduj image"),
+            ("build image", "docker", "build", "build image"),
+            ("stwórz obraz", "docker", "build", "stwórz obraz"),
+            ("stworz obraz", "docker", "build", "stworz obraz"),
+            # Docker typo variants — after specific docker patterns
+            ("doker images", "docker", "images", "doker images"),
+            ("dokcer images", "docker", "images", "dokcer images"),
+            ("doker run", "docker", "run", "doker run"),
+            ("dokcer run", "docker", "run", "dokcer run"),
+            ("doker stop", "docker", "stop", "doker stop"),
+            ("dokcer stop", "docker", "stop", "dokcer stop"),
+            ("doker ps", "docker", "list", "doker ps"),
+            ("dokcer ps", "docker", "list", "dokcer ps"),
+            ("doker kontenery", "docker", "list", "doker kontenery"),
+            ("dokcer kontenery", "docker", "list", "dokcer kontenery"),
+            ("doker", "docker", "list", "doker"),
+            ("dokcer", "docker", "list", "dokcer"),
+            # Service management — shell (before system_control)
+            ("restartuj usług", "shell", "service_restart", "restartuj usługę"),
+            ("restartuj uslug", "shell", "service_restart", "restartuj usluge"),
+            ("zatrzymaj usług", "shell", "service_stop", "zatrzymaj usługę"),
+            ("zatrzymaj uslug", "shell", "service_stop", "zatrzymaj usluge"),
+            ("uruchom usług", "shell", "service_start", "uruchom usługę"),
+            ("uruchom uslug", "shell", "service_start", "uruchom usluge"),
+            ("status usług", "shell", "service_status", "status usługi"),
+            ("status uslug", "shell", "service_status", "status uslugi"),
+            # Docker uruchom (Polish run) — before generic reboot
+            ("docker uruchom", "docker", "run", "docker uruchom"),
+            ("docker run", "docker", "run", "docker run"),
+            # System reboot — shell
+            ("startuj system", "shell", "reboot", "startuj system"),
+            ("startuj sistem", "shell", "reboot", "startuj sistem"),
+            ("system uruchom", "shell", "reboot", "system uruchom"),
+            ("system startuj", "shell", "reboot", "system startuj"),
+            ("komputer zrestartuj", "shell", "reboot", "komputer zrestartuj"),
+            ("uruchom system", "shell", "reboot", "uruchom system"),
+            ("uruchom sistem", "shell", "reboot", "uruchom sistem"),
+            ("restartuj system", "shell", "reboot", "restartuj system"),
+            ("restartuj sistem", "shell", "reboot", "restartuj sistem"),
+            ("zrestartuj komputer", "shell", "reboot", "zrestartuj komputer"),
+            ("zrestartuj system", "shell", "reboot", "zrestartuj system"),
+            # File operations — shell
+            ("usuwanie pliku", "shell", "delete", "usuwanie pliku"),
+            ("usuwanie plik", "shell", "delete", "usuwanie pliku"),
+            ("tworzenie katalogu", "shell", "create", "tworzenie katalogu"),
+            ("uruchomienie usługi", "shell", "service_start", "uruchomienie usługi"),
+            ("restartowanie systemu", "shell", "reboot", "restartowanie systemu"),
+            ("plik znajdź", "shell", "find", "plik znajdź"),
+            ("znajdź plik", "shell", "find", "znajdź plik"),
+            ("znajdz plik", "shell", "find", "znajdz plik"),
+            ("skopiuj plik", "shell", "copy", "skopiuj plik"),
+            ("kopiuj plik", "shell", "copy", "kopiuj plik"),
+            ("plik skopiuj", "shell", "copy", "plik skopiuj"),
+            ("usuń plik", "shell", "delete", "usuń plik"),
+            ("usun plik", "shell", "delete", "usun plik"),
+            ("plik usuń", "shell", "delete", "plik usuń"),
+            # Shell list processes
+            ("lista procesów", "shell", "list_processes", "lista procesów"),
+            ("lista procesow", "shell", "list_processes", "lista procesow"),
+            ("pokaż procesy", "shell", "list_processes", "pokaż procesy"),
+            ("pokaz procesy", "shell", "list_processes", "pokaz procesy"),
+            ("procesy systemowe", "shell", "list_processes", "procesy systemowe"),
+            # Shell list files
+            ("lista plików", "shell", "list", "lista plików"),
+            ("lista plikow", "shell", "list", "lista plikow"),
+            ("lista plik", "shell", "list", "lista plik"),
+            ("pokaż pliki", "shell", "list", "pokaż pliki"),
+            ("pokaz pliki", "shell", "list", "pokaz pliki"),
+            ("show files", "shell", "list", "show files"),
+            ("list files", "shell", "list", "list files"),
+            # List dirs — shell
+            ("pokaż foldery", "shell", "list_dirs", "pokaż foldery"),
+            ("pokaz foldery", "shell", "list_dirs", "pokaz foldery"),
+            ("foldery pokaż", "shell", "list_dirs", "foldery pokaż"),
             # Directory/folder listing — must come before generic file content
+            ("folderze usera", "shell", "list_dirs", "folderze usera"),
+            ("folderze użytkownika", "shell", "list_dirs", "folderze użytkownika"),
+            ("folderow w folderze", "shell", "list_dirs", "folderow w folderze"),
             ("zawartość katalogu", "shell", "list", "directory contents"),
             ("zawartość folderu", "shell", "list", "directory contents"),
             ("lista folder", "shell", "list", "directory contents"),
             ("list folder", "shell", "list", "directory contents"),
             # Shell user management
             ("użytkowników systemu", "shell", "user_list", "user_list"),
+            ("userów systemu", "shell", "user_list", "userów systemu"),
+            ("userow systemu", "shell", "user_list", "userow systemu"),
             ("system users", "shell", "user_list", "user_list"),
             # File content (cat) — after directory listing
             ("zawartość pliku", "shell", "text_cat", "file content"),
@@ -326,9 +463,25 @@ class KeywordIntentDetector:
             ("application logs", "docker", "logs", "application logs"),
             ("app logs", "docker", "logs", "app logs"),
         ]
+        # Normalize whitespace for substring matching
+        text_normalized = " ".join(text_lower.split())
         for kw, domain, intent, matched_kw in _EXPLICIT_OVERRIDES:
-            if kw in text_lower:
+            if kw in text_normalized:
                 return DetectionResult(domain=domain, intent=intent, confidence=0.95, matched_keyword=matched_kw)
+
+        # Exact single-word / short command matches
+        _EXACT_COMMANDS = {
+            "ps": ("shell", "list_processes"),
+            "ls": ("shell", "list"),
+            "top": ("shell", "list_processes"),
+            "df": ("shell", "disk_usage"),
+            "du": ("shell", "disk_usage"),
+            "pwd": ("shell", "list"),
+        }
+        stripped = text_lower.strip()
+        if stripped in _EXACT_COMMANDS:
+            domain, intent = _EXACT_COMMANDS[stripped]
+            return DetectionResult(domain=domain, intent=intent, confidence=0.95, matched_keyword=stripped)
 
         # Domain-specific fast-path rules — only when patterns data is loaded
         if not domain_rules:
@@ -397,6 +550,7 @@ class KeywordIntentDetector:
             ("opisz deployment", "describe"), ("opisz pod", "describe"),
             ("describe deployment", "describe"), ("describe pod", "describe"),
             ("skaluj deployment", "scale"), ("scale deployment", "scale"),
+            ("skaluj do", "scale"), ("scale to", "scale"),
             ("stwórz serwis", "create_service"), ("create service", "create_service"),
             ("utwórz serwis", "create_service"),
             ("stwórz configmap", "create_configmap"), ("create configmap", "create_configmap"),
@@ -425,6 +579,13 @@ class KeywordIntentDetector:
                     ns_match = _re.search(r'namespace\s+(\S+)', text_lower)
                     entities = {"namespace": ns_match.group(1)} if ns_match else {}
                     return DetectionResult(domain="kubernetes", intent=intent, confidence=0.9, entities=entities)
+                # For scale operations, extract replica count
+                elif intent == "scale" and ("replik" in text_lower or "replica" in text_lower):
+                    import re as _re
+                    replica_match = _re.search(r'(\d+)\s+(?:replik|repliki|replicas)', text_lower)
+                    if replica_match:
+                        entities = {"replicas": replica_match.group(1)}
+                        return DetectionResult(domain="kubernetes", intent=intent, confidence=0.9, entities=entities)
                 return DetectionResult(domain="kubernetes", intent=intent, confidence=0.9)
 
         # Shell fast-path — file/process/system terms (only when no docker/k8s context)
@@ -511,6 +672,9 @@ class KeywordIntentDetector:
             ("pokaż dane", "select"), ("show data", "select"),
             ("wyświetl dane", "select"), ("display data", "select"),
             (" tabeli ", "select"), (" table ", "select"),
+            # Record counting with numbers
+            ("rekordów", "select"), ("rekordow", "select"), ("records", "select"),
+            ("wierszy", "select"), ("rows", "select"),
         ]
         for kw, intent in _SQL_NL:
             if kw in text_lower:
@@ -543,6 +707,14 @@ class KeywordIntentDetector:
                     where_match = _re.search(r'(?:gdzie|where)\s+([^,.!?]+)', text_lower)
                     if where_match:
                         entities["where"] = where_match.group(1).strip()
+                
+                # Extract LIMIT numbers for record counting patterns
+                if kw in ["rekordów", "rekordow", "records", "wierszy", "rows"]:
+                    import re as _re
+                    # Look for numbers before the pattern
+                    limit_match = _re.search(r'(\d+)\s+(?:rekordów|rekordow|records|wierszy|rows)', text_lower)
+                    if limit_match:
+                        entities["limit"] = limit_match.group(1)
                 
                 return DetectionResult(domain="sql", intent=intent, confidence=0.85, entities=entities)
 
@@ -681,7 +853,7 @@ class KeywordIntentDetector:
     
     def _keyword_detection(self, text: str, text_lower: str) -> DetectionResult:
         """Traditional keyword-based detection."""
-        best_match = DetectionResult(domain="unknown", intent="", confidence=0.0, matched=False)
+        best_match = DetectionResult(domain="unknown", intent="unknown", confidence=0.0, matched=False)
         
         # Check priority intents first
         for domain in self.patterns.list_domains():

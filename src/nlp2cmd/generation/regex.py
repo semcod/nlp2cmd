@@ -173,9 +173,15 @@ class RegexEntityExtractor:
         ],
         'service': [
             # Service name after systemctl commands
-            r'(?:systemctl|sudo systemctl)\s+(?:start|stop|restart|reload|enable|disable)\s+([a-zA-Z0-9_-]+)',
-            r'(?:uruchom|zatrzymaj|zrestartuj|włącz|wyłącz)\s+(?:usługę|serwis|service)\s+([a-zA-Z0-9_-]+)',
-            r'(?:start|stop|restart)\s+(?:service|usługę)\s+([a-zA-Z0-9_-]+)',
+            r'(?:systemctl|sudo systemctl)\s+(?:start|stop|restart|reload|enable|disable|uruchom|zatrzymaj|zrestartuj)\s+([a-zA-Z0-9_-]+)',
+            r'(?:uruchom|zatrzymaj|zrestartuj|restartuj|włącz|wyłącz)\s+(?:usługę|uslugę|usluge|serwis|service)\s+([a-zA-Z0-9_-]+)',
+            r'(?:start|stop|restart)\s+(?:service|usługę|uslugę)\s+([a-zA-Z0-9_-]+)',
+            r'(?:status)\s+(?:usługi|uslugi|uslug[ię]|serwisu|service)\s+([a-zA-Z0-9_-]+)',
+            # Service name before verb (reversed word order): "nginx uruchom usługę"
+            r'([a-zA-Z0-9_-]+)\s+(?:uruchom|zatrzymaj|zrestartuj|restartuj)\s+(?:usługę|uslugę|usluge|serwis)',
+            r'(?:usługę|uslugę|usluge|usługi|uslugi|serwis|service)\s+([a-zA-Z0-9_-]+)',
+            # Direct: "uruchom <service>" without usługę keyword
+            r'(?:uruchom|zatrzymaj|zrestartuj|restartuj)\s+([a-zA-Z0-9_-]+)(?:\s+\d+)?$',
         ],
         'container': [
             # Docker container name
@@ -459,30 +465,10 @@ class RegexEntityExtractor:
         # Post-processing: build structured entities
         entities = self._post_process(entities, domain, text.lower())
         
-        result_metadata: dict[str, Any] = {}
-
-        # Shadow / semantic entity extraction mode
-        import os as _os
-        mode = _os.environ.get("NLP2CMD_ENTITY_EXTRACTOR_MODE", "").strip().lower()
-        if mode in ("semantic", "shadow"):
-            try:
-                from nlp2cmd.generation import semantic_entities as sem_mod
-                sem_extractor = sem_mod.SemanticEntityExtractor()
-                sem_extractor.extract(text, domain)
-                # Prefer last_semantic_entities attribute (set by fake/real extractors)
-                sem_entities_dict: dict = getattr(sem_extractor, "last_semantic_entities", None) or {}
-                result_metadata["entity_extractor_mode"] = mode
-                result_metadata["shadow_entities"] = sem_entities_dict
-                if mode == "semantic":
-                    entities = sem_entities_dict
-            except Exception:
-                result_metadata["entity_extractor_mode"] = mode
-
         return ExtractionResult(
             entities=entities,
             extracted=extracted,
             raw_text=text,
-            metadata=result_metadata,
         )
     
     def _process_match(self, entity_type: str, match: re.Match) -> Any:

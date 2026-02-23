@@ -177,7 +177,14 @@ class TemplateGenerator:
         
         # Prepare entities based on domain
         prepared_entities = self._prepare_entities(effective_domain, intent, entities, context or {})
-        
+
+        # Allow entity preparation to override the template (e.g. file_operation routing)
+        override_intent = prepared_entities.pop('_override_template', None)
+        if override_intent:
+            override_tpl = domain_templates.get(override_intent)
+            if override_tpl:
+                template = override_tpl
+
         # Fill template
         filled_template = self._fill_template(template, prepared_entities)
         
@@ -373,7 +380,9 @@ class TemplateGenerator:
             self._shell_intent_file_search(entities, result)
         elif intent == 'file_content':
             self._shell_intent_file_content(entities, result)
-        
+        elif intent == 'file_operation':
+            self._shell_intent_file_operation(entities, result)
+
         return result
     
     def _get_user_home_dir(self, username: str) -> str:
@@ -387,11 +396,19 @@ class TemplateGenerator:
         except Exception:
             return f"/home/{username}"
 
+    _GENERIC_USER_ALIASES = frozenset({
+        'usera', 'user', 'użytkownika', 'uzytkownika', 'current', 'me', 'mnie',
+    })
+
     def _apply_shell_path_defaults(self, intent: str, entities: dict[str, Any], result: dict[str, Any]) -> None:
         if 'user' in entities and entities['user'] == 'current':
-            result.setdefault('path', '~')
+            result['path'] = '~'
         elif 'username' in entities:
-            result.setdefault('path', self._get_user_home_dir(entities['username']))
+            username = entities['username']
+            if username.lower() in self._GENERIC_USER_ALIASES:
+                result['path'] = '~'
+            else:
+                result['path'] = self._get_user_home_dir(username)
         elif 'path' not in result:
             # Default to current directory for most operations
             if intent in ['list', 'list_dirs', 'find', 'file_search']:
@@ -471,7 +488,13 @@ class TemplateGenerator:
         if age and isinstance(age, dict):
             val = age.get('value', 0)
             unit = age.get('unit', 'd')
-            time_operator = age.get('operator', '+')
+            # Infer operator from text if not explicit: "last N days" / "ostatnich N dni" → recent → '-'
+            if 'operator' in age:
+                time_operator = age['operator']
+            else:
+                text_lower = str(entities.get('text', '')).lower()
+                recent_words = ('ostatni', 'ostatnich', 'recent', 'last', 'nowe', 'new', 'młodsze', 'younger')
+                time_operator = '-' if any(w in text_lower for w in recent_words) else '+'
             return f"-mtime {time_operator}{val}"
         return ''
 
@@ -550,7 +573,7 @@ class TemplateGenerator:
 
     def _shell_intent_file_content(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
         result.setdefault('file_path', entities.get('target', ''))
-    
+
     def _prepare_docker_entities(self, intent: str, entities: dict[str, Any]) -> dict[str, Any]:
         """Prepare Docker entities."""
         result = entities.copy()
@@ -570,7 +593,14 @@ class TemplateGenerator:
         
         # Map port to ports for template compatibility
         if 'port' in result and 'ports' not in result:
-            result['ports'] = result['port']
+            port = result['port']
+            if isinstance(port, dict):
+                host = port.get('host', port.get('host_port', ''))
+                container = port.get('container', port.get('container_port', ''))
+                result['ports'] = f"-p {host}:{container}" if host and container else ''
+            else:
+                result['ports'] = str(port) if port else ''
+        result.setdefault('ports', '')
         
         # Map tail_lines to flags for logs command
         if intent == 'logs' and 'tail_lines' in result:
@@ -620,24 +650,35 @@ class TemplateGenerator:
         result.setdefault('verb', 'get')
         result.setdefault('command', '')
         
-        # Map resource_type to resource for template compatibility
-        if 'resource_type' in result and 'resource' not in result:
+        # Map resource_type to resource for template compatibility (before setdefault)
+        if 'resource_type' in result:
             result['resource'] = result['resource_type']
-        
+
         # Map replica_count to replicas for template compatibility
-        if 'replica_count' in result and 'replicas' not in result:
+        if 'replica_count' in result:
             result['replicas'] = result['replica_count']
-        
-        # Map name to pod for logs template
-        if intent == 'logs' and 'name' in result and 'pod' not in result:
+
+        # Map name to pod for logs template (override empty default)
+        if intent == 'logs' and result.get('name'):
             result['pod'] = result['name']
-        
-        # Map tail_lines to follow and tail for logs template
+
+        # Map tail_lines to tail for logs template
         if intent == 'logs':
             if 'tail_lines' in result:
-                result['tail'] = f"--tail={result['tail_lines']}"
-            result.setdefault('follow', '-f' if result.get('follow') else '')
-        
+                result['tail'] = str(result['tail_lines'])
+            result.setdefault('tail', '100')
+            result.setdefault('follow', '')
+
+        # Handle create intent with resource_type/name/image (imperative create)
+        if intent == 'create' and 'resource_type' in result and 'name' in result:
+            rtype = result.get('resource', result.get('resource_type', 'deployment'))
+            name = result.get('name', '')
+            image = result.get('image', '')
+            if image:
+                result['file'] = f"deployment {name} --image={image}"
+            else:
+                result['file'] = f"{rtype} {name}"
+
         return result
     
     def _prepare_git_entities(self, intent: str, entities: dict[str, Any]) -> dict[str, Any]:
@@ -806,12 +847,15 @@ class TemplateGenerator:
         return 'usuń' in text_lower or 'delete' in text_lower or 'remove' in text_lower
 
     def _shell_file_op_all(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result['_override_template'] = 'remove_all'
         result.setdefault('extension', entities.get('file_pattern', entities.get('extension', 'tmp')))
 
     def _shell_file_op_directory(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result['_override_template'] = 'create_dir'
         result.setdefault('directory', entities.get('target', ''))
 
     def _shell_file_op_rename(self, entities: dict[str, Any], result: dict[str, Any]) -> None:
+        result['_override_template'] = 'rename'
         result.setdefault('old_name', entities.get('old_name', ''))
         result.setdefault('new_name', entities.get('new_name', ''))
 
