@@ -20,7 +20,8 @@ __author__ = "NLP2CMD Team"
 
 # Import core classes with fallback
 try:
-    from nlp2cmd.core import NLP2CMD, TransformResult
+    from nlp2cmd.core.core_transform import NLP2CMD
+    from nlp2cmd.core.core_models import TransformResult
 except ImportError:
     # Fallback if TOON integration causes import issues
     NLP2CMD = None

@@ -5,7 +5,8 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from nlp2cmd.core import NLPBackend, ExecutionPlan
+from nlp2cmd.core.core_backends import NLPBackend
+from nlp2cmd.core.core_models import ExecutionPlan
 
 
 @dataclass

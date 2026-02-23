@@ -1,243 +1,200 @@
 # TODO - NLP2CMD Project
 
-> **Diagnostyka:** 2026-02-23 | **Wersja:** 1.0.69 | **Moduły:** 125 | **Indeks funkcji:** ~1400+
+> **Diagnostyka:** 2026-02-23 | **Wersja:** 1.1.0-dev | **Moduły:** 129 | **Indeks funkcji:** ~1400+
 >
-> Źródło analizy: `project.functions.toon` (256KB, 2026-02-23T19:33)
+> Źródło analizy: `project.functions.toon` (2026-02-23T20:35)
 
 ---
 
-## 🔴 DIAGNOZA STANU PROJEKTU (2026-02-23)
+## 🔴 OCENA ARCHITEKTURY `generation/` (2026-02-23)
 
-### Krytyczny dług techniczny
+### Czy `generation/` to poprawna ścieżka?
 
-| Problem | Skala | Wpływ |
-|---------|-------|-------|
-| 10 plików `*_backup.py` / `*_patched.py` w `src/` | core + 4 adaptery × 2 | Duplikacja kodu, ryzyko rozbieżności |
-| 19 plików tymczasowych w root | JSON wyniki testów, logi, CSV | Bałagan w katalogu głównym |
-| Monolityczne pliki | templates.py=94fn, keywords.py=46fn, core.py=53fn | Trudność utrzymania |
-| Rozproszona konfiguracja | 5 plików JSON w root (polish_*, domain_weights) | Powinny być w `data/` |
-| Circular imports | cli ↔ execution ↔ service | Workaround: importy wewnątrz funkcji |
-| Klasyfikator PyPI = "Alpha" | `pyproject.toml` vs "production ready" w README | Niespójność |
-| README.md = 1031 linii | + ENHANCED_README.md + nakładające się docs | Redundancja |
-| `termo2/` + `experiments/` | Puste/nieużywane katalogi | Martwy kod |
+**TAK** — pod warunkiem przejścia na **Schema-First Pipeline**.
 
-### Statystyki z project.functions.toon
+Obecna architektura `generation/` (20 plików, ~12K linii) to multi-layer pipeline:
 
-- **125 modułów** Python w `src/`
-- **Największe moduły** (po liczbie funkcji):
-  - `generation/templates.py` — 94 funkcje (CC do 31)
-  - `core.py` — 53 funkcje (CC do 64 w `_normalize_entities`)
-  - `generation/keywords.py` — 46 funkcje (CC do 47)
-  - `schemas/__init__.py` — 43 funkcje
-  - `core_patched.py` — 33 fn (≈kopia core.py)
-  - `core_backup.py` — 33 fn (≈kopia core.py)
-- **Pliki backup/patched do usunięcia:**
-  - `core_backup.py`, `core_patched.py`
-  - `adapters/shell_backup.py`, `adapters/shell_patched.py`
-  - `adapters/docker_backup.py`, `adapters/docker_patched.py`
-  - `adapters/sql_backup.py`, `adapters/sql_patched.py`
-  - `adapters/kubernetes_backup.py`, `adapters/kubernetes_patched.py`
-- **Pliki tymczasowe w root do przeniesienia/usunięcia:**
-  - `benchmark_report.json`, `benchmark_results.csv`, `sequential_benchmark_results.json` → `artifacts/`
-  - `ci_test_results.json`, `comprehensive_test_results.json`, `test_results.log` → `artifacts/`
-  - `enhanced_context_test_results.json`, `multi_site_test_results.json`, `web_schema_test_results.json` → `artifacts/`
-  - `nlp2cmd_monitoring_log.json`, `nlp2cmd_test.log` → `artifacts/`
-  - `domain_weights.json`, `enhanced_domain_patterns.json`, `enhanced_intents.json` → `data/`
-  - `polish_intent_mappings.json`, `polish_shell_patterns.json`, `polish_table_mappings.json` → `data/`
+```
+Detection → Extraction → Generation → Validation
+(keywords/)  (regex.py)   (template_generator.py)  (validating.py)
+    ↓            ↓              ↓
+ fuzzy_schema  semantic     llm_simple/llm_multi
+ ml_classifier  entities    thermodynamic
+ semantic_matcher             hybrid
+```
+
+**Problem**: schemat jest "fallback chain" zamiast "schema-first". Inteligentna
+analiza wymaga odwrócenia priorytetów:
+
+| Obecnie | Docelowo |
+|---------|----------|
+| Keyword match → regex → template → LLM fallback | Schema match → Context build → Intelligent generation → Rule fallback |
+| `generation/` jest zamknięte na siebie | `schema_based/` + `schema_extraction/` + `intelligent/` zintegrowane |
+| `concepts/` (1759 ln) odłączone od pipeline | Koncepty jako warstwa kontekstu w pipeline |
+
+### Nieużywane/redundantne moduły
+
+| Moduł | Status | Akcja |
+|-------|--------|-------|
+| `semantic_matcher.py` (379 ln) | Nadpisany przez `semantic_matcher_optimized.py` (750 ln) | Usunąć |
+| `concepts/` (5 plików, 1759 ln) | Zero importów w reszcie projektu | Zintegrować lub usunąć |
+| `keywords_old.py` (1715 ln) | Zastąpiony przez `keywords/` pakiet | Usunąć |
+| `core_old.py` (1025 ln) | Zastąpiony przez `core/` pakiet | Usunąć |
 
 ---
 
-## 🔥 NATYCHMIASTOWE DZIAŁANIA (Sprint 1 — ten tydzień)
+## ✅ Ukończone — Sprint 2 (2026-02-23)
 
-### 1. Oczyszczenie katalogu głównego
-- [ ] Przenieś 6 plików wynikowych testów/benchmarków do `artifacts/`
-- [ ] Przenieś 6 plików konfiguracyjnych (polish_*, domain_*, enhanced_*) do `data/`
-- [ ] Zaktualizuj importy/ścieżki w kodzie po przeniesieniu
-- [ ] Usuń puste katalogi: `termo2/`, `experiments/`, `publish-env/`
+### Rozbicie monolitów (DONE)
+- [x] `generation/templates.py` (94 fn) → pakiet `templates/` (6 plików per-domain + `template_generator.py`)
+- [x] `generation/keywords.py` (46 fn) → pakiet `keywords/` (`keyword_detector.py` + `keyword_patterns.py`)
+- [x] `core.py` (53 fn) → pakiet `core/` (`core_models.py` + `core_backends.py` + `core_transform.py`)
+- [x] Zaktualizowano wszystkie importy w 15+ plikach (generation, cli, nlp_enhanced, nlp_light, tests)
 
-### 2. Eliminacja plików backup/patched
-- [ ] Porównaj `core.py` vs `core_patched.py` vs `core_backup.py` — zachowaj tylko `core.py`
-- [ ] Porównaj adaptery (shell, docker, sql, kubernetes) — zachowaj tylko główne wersje
-- [ ] Usuń 10 zbędnych plików po weryfikacji
-- [ ] Uruchom testy po usunięciu — potwierdź brak regresji
+### Naprawy CLI (DONE)
+- [x] **Browser navigate URL fix**: fast-path zachowuje pełny URL z `https://` i ścieżką
+- [x] **History disambiguation w --run**: wybór `dom_dql.v1` z historii odpala Playwright zamiast regenerować `navigate`
+- [x] **Auto-confirm (-ac) + disambiguation**: `-ac` auto-wybiera komendę z historii jeśli similarity ≥ 0.95
+- [x] **Confirm dla submit/press_enter**: retry z `confirm=True` gdy PipelineRunner blokuje akcję
+- [x] **Playwright auto-install**: `ensure_playwright_installed()` w ścieżce historii dom_dql.v1
+- [x] **`--auto-install` domyślnie ON**: `--auto-install/--no-auto-install` z `default=True`
+- [x] **Fix `_handle_run_query` NameError**: dodany wrapper delegujący do `handle_run_mode()`
 
-### 3. Napraw klasyfikator PyPI
-- [ ] Zmień `Development Status :: 3 - Alpha` na `4 - Beta` w `pyproject.toml`
-
-### 4. Uruchom i zweryfikuj testy
-- [ ] `pytest tests/ -v` — ustal aktualny baseline
-- [ ] Napraw ewentualne broken testy
-- [ ] Dodaj do CI (jeśli brak)
-
----
-
-## 🚀 High Priority (Sprint 2)
-
-### Rozwiązanie circular imports (właściwe)
-- [ ] Zidentyfikuj pełny graf zależności: cli → execution → service → cli
-- [ ] Wydziel interfejsy/protokoły do `nlp2cmd/interfaces/`
-- [ ] Usuń workaround-owe importy wewnątrz funkcji
-- [ ] Przetestuj poprawność po refactorze
-
-### Konsolidacja konfiguracji do formatu TOON
-- [ ] Zdefiniuj schemat `project.unified.toon` z kategoriami: schema, data, config
-- [ ] Przenieś zawartość JSON/YAML do zunifikowanego pliku TOON
-- [ ] Zaimplementuj loader współdzielony (`parsing/toon_parser.py` — już istnieje, 22 fn)
-- [ ] Testy parsera TOON z nowymi danymi
-
-### Rozbicie monolitycznych plików
-- [ ] `generation/templates.py` (94 fn) → wydziel per-domain: `templates_shell.py`, `templates_docker.py`, `templates_sql.py`, `templates_k8s.py`
-- [ ] `generation/keywords.py` (46 fn) → wydziel `keywords_detection.py` (logika detect) i `keywords_patterns.py` (wzorce)
-- [ ] `core.py` (53 fn) → wydziel `core/normalize.py` (entity normalization) i `core/transform.py`
-
-### Konsolidacja dokumentacji
-- [ ] Połącz `README.md` (1031 ln) i `ENHANCED_README.md` w jeden spójny dokument
-- [ ] Przenieś szczegóły techniczne do `docs/`
-- [ ] Zachowaj README < 300 linii (quick start + linki do docs)
+### Wcześniej ukończone (Sprint 1)
+- [x] Zmiana klasyfikatora PyPI z Alpha na Beta
+- [x] Przeniesienie JSON config do `data/`
+- [x] Fix circular imports (lazy imports w cli, execution, service)
 
 ---
 
-## ✅ Ukończone (historia)
+## 🔥 NATYCHMIASTOWE (Sprint 3 — teraz)
 
-### v1.0.31 (2026-01-27) — Performance & Benchmarking
-- [x] **Performance Benchmarking Suite**: Benchmark tool z analizą termodynamiczną
-- [x] **Markdown Report Generation**: Raporty wydajności
-- [x] **Sequential vs Single Testing**: Efektywność batch processing
-- [x] **Project Structure Reorganization**: Skrypty w logicznych katalogach
-- [x] **Makefile Enhancement**: Nowe targety
-- [x] **Template Refactoring**: Uproszczona logika conditional
-- [x] **Import Path Fixes**: Poprawione importy
-- [x] **Documentation Updates**: PROJECT_STRUCTURE.md
+### 1. Cleanup plików _old
+- [ ] Usuń `core_old.py`, `keywords_old.py`
+- [ ] Zweryfikuj `py_compile` i testy po usunięciu
 
-### v1.0.21 (2026-01-24) — Enhanced NLP
-- [x] **Semantic Similarity**: sentence-transformers
-- [x] **Multi-layer Pipeline**: Enhanced context detection
-- [x] **Interactive Mode**: Full REPL z persistent session
-- [x] **User Directory Recognition**: "usera" → "~"
-- [x] **URL Navigation**: Detekcja URL i otwieranie
-- [x] **Search Integration**: Google, GitHub, Amazon
+### 2. Usuń redundantny `semantic_matcher.py`
+- [ ] Zamień importy na `semantic_matcher_optimized`
+- [ ] Usuń `generation/semantic_matcher.py` (379 ln)
 
-### v1.0.20 (2026-01-24) — Web Schema
-- [x] **Schema Extraction**: Ekstrakcja elementów
-- [x] **Cache Integration**: Playwright browser caching
-- [x] **Benchmarking Tool**: Analiza wydajności
-- [x] **Cache Warming**: Pre-warm dla common domains
-- [x] **Lazy Loading**: On-demand loading modeli NLP
+### 3. Konsolidacja README
+- [ ] Połącz `README.md` + `ENHANCED_README.md` → jeden dokument < 400 ln
+- [ ] Przenieś szczegóły do `docs/architecture.md`
 
-## 🎯 Medium Priority (Sprint 3+)
+### 4. Konsolidacja JSON/YAML → TOON
+- [ ] Zdefiniuj `project.unified.toon` z sekcjami: patterns, templates, config
+- [ ] Przenieś `patterns.json`, `keyword_intent_detector_config.json`, `template_defaults.json`
+- [ ] Użyj istniejącego `parsing/toon_parser.py` (22 fn) do ładowania
 
-### Nowe funkcjonalności NLP
-- [ ] **Performance Optimization**: Zmniejsz zużycie pamięci enhanced NLP
-- [ ] **Custom Models**: Fine-tuning dla specjalistycznych domen
-- [ ] **Real-time Learning**: Integracja feedbacku użytkowników
+---
 
-### Shell & Browser
-- [ ] **Command History**: Persistent historia komend i ulubione
-- [ ] **Auto-completion**: Tab completion dla komend i ścieżek
-- [ ] **Form Automation**: Zaawansowane wypełnianie formularzy (form_handler.py — 9 fn)
-- [ ] **Multi-tab Management**: Zarządzanie zakładkami przeglądarki
+## 🚀 High Priority (Sprint 4) — Schema-First Pipeline
+
+### Architektura docelowa
+
+```
+User Query
+    ↓
+[1] Schema Registry Lookup (schema_extraction/ + schema_based/)
+    → Czy query pasuje do znanego schematu komendy?
+    → Jeśli TAK: generuj bezpośrednio z schematu (wysoka pewność)
+    ↓ jeśli NIE
+[2] Intelligent Context Builder (concepts/ + intelligent/)
+    → Buduj kontekst: co user chce, jaki obiekt, jakie parametry
+    → Semantic similarity do znanych wzorców
+    ↓
+[3] Generation Pipeline (generation/)
+    → Keywords detection → Entity extraction → Template fill
+    → LLM repair jeśli confidence < threshold
+    ↓
+[4] Validation + History
+    → Walidacja wygenerowanej komendy
+    → Zapis do historii dla przyszłego schema-match
+```
+
+### Zadania
+- [ ] Przenieś `schema_based/` do `generation/schema/` (bliskość z pipeline)
+- [ ] Zintegruj `intelligent/` z pipeline jako pre-processing
+- [ ] Dodaj `SchemaRegistry.match(query)` jako pierwszy krok w `RuleBasedPipeline.process()`
+- [ ] `concepts/` — zintegruj `semantic_objects` i `dependency_resolver` jako context layer
+- [ ] Usuń lub zarchiwizuj nieużywane: `concepts/virtual_objects.py`, `concepts/environment.py`
+
+### Unifikacja matcherów
+- [ ] Jedno API: `IntentMatcher.match(text) → MatchResult`
+- [ ] Implementacje: `KeywordMatcher`, `SchemaMatcher`, `SemanticMatcher`, `FuzzyMatcher`
+- [ ] Pipeline decyduje o kolejności na podstawie dostępności i kosztu
+
+---
+
+## 🎯 Medium Priority (Sprint 5+)
+
+### Browser & Form Automation
+- [ ] **Form Automation**: Inteligentne wypełnianie formularzy z `.env` + `data/`
 - [ ] **Multi-step Workflows**: Kompleksowe formularze wielostronicowe
+- [ ] **Auto-detect form schema**: Ekstrakcja schematu formularza z DOM
+
+### NLP & Learning
+- [ ] **Real-time Learning**: Zapis sukces/porażka → auto-patch schematów
+- [ ] **Custom Models**: Fine-tuning intent classifier per-user
+- [ ] **Memory Optimization**: Lazy-unload modeli semantic po timeout
 
 ### CLI & UX
-- [ ] **Interactive Mode Enhancement**: Rich interactive z auto-completion
-- [ ] **Configuration Wizard**: Guided setup dla nowych użytkowników
-- [ ] **Plugin System**: System wtyczek
-
-### Performance & Monitoring
-- [ ] **Parallel Processing**: Multi-threaded intent detection
-- [ ] **Memory Optimization**: Zmniejszenie footprintu pamięci
-- [ ] **Benchmark Automation**: CI/CD integration
+- [ ] **Tab completion**: Auto-completion dla komend i ścieżek
+- [ ] **Plugin System**: Rozszerzenia per-domain
 
 ---
 
-## 🔧 Low Priority (Backlog)
+## 🔧 Backlog
 
-### Zaawansowane funkcje
 - [ ] **Voice Input**: Integracja STT (powiązanie z projektem stts)
-- [ ] **Multi-language**: Wsparcie English, German, French
-- [ ] **Custom DSL Creation**: Narzędzia do tworzenia nowych DSL
-
-### Infrastruktura
-- [ ] **Docker Images**: Oficjalne obrazy Docker
-- [ ] **CI/CD Pipeline**: GitHub Actions + automated tests
-- [ ] **Monitoring Integration**: Prometheus/Grafana
-
-### Dokumentacja
-- [ ] **API Documentation**: Pełne API reference z przykładami
-- [ ] **Architecture Guide**: Decyzje architektoniczne
-- [ ] **Troubleshooting Guide**: Rozwiązywanie problemów
+- [ ] **Multi-language**: Wsparcie EN, DE, FR (poza PL/EN)
+- [ ] **Docker Images**: Oficjalne obrazy
+- [ ] **CI/CD Pipeline**: GitHub Actions
+- [ ] **API Documentation**: Pełne API reference
 
 ---
 
 ## 🐛 Znane problemy
 
-| Problem | Wpływ | Workaround |
-|---------|-------|------------|
-| Polskie diakrytyki — edge cases w normalizacji | Średni | Fuzzy matching jako fallback |
+| Problem | Wpływ | Status |
+|---------|-------|--------|
+| Polskie diakrytyki — edge cases | Średni | Fuzzy matching jako fallback |
+| `cli/main.py` ~1700 linii po cleanup | Średni | Dalszy refactor w Sprint 4 |
 | Dynamic JS content — niekompletna ekstrakcja | Średni | Explicit waits + retry |
-| Cache size — niedokładna kalkulacja na niektórych systemach | Niski | Manualna weryfikacja |
-| Circular imports (cli ↔ execution ↔ service) | Wysoki | Importy wewnątrz funkcji (tymczasowe) |
-| Python 3.13 — brak `_posixsubprocess`, `_opcode` | Wysoki | Użyj Python 3.12 |
+| Python 3.13 — brak `_posixsubprocess` | Wysoki | Użyj Python 3.12 |
 
 ---
 
-## 🏗️ Architektura — Roadmap
+## 🏗️ Roadmap
 
-### Faza 1: Cleanup (v1.1.0) ← **TERAZ**
-- Eliminacja backup/patched, porządek w root, konsolidacja docs
-- **Status**: Zdiagnozowane, gotowe do wykonania
+### v1.1.0 ← **TERAZ** (cleanup + refactor monolitów)
+- [x] Rozbicie templates.py, keywords.py, core.py
+- [x] Naprawy CLI (browser, history, auto-install)
+- [ ] Usunięcie _old.py, redundantnych matcherów
+- [ ] Konsolidacja README
+- [ ] Konsolidacja JSON → TOON
 
-### Faza 2: Refactor (v1.2.0)
-- Rozbicie monolitów (templates, keywords, core)
-- Właściwe rozwiązanie circular imports
-- Konsolidacja TOON format
+### v1.2.0 (Schema-First Pipeline)
+- [ ] Integracja schema_based/ + intelligent/ z generation/
+- [ ] Unified IntentMatcher API
+- [ ] Rewrite pipeline.py do schema-first flow
+- **ETA**: 2-3 tygodnie
 
-### Faza 3: CQRS & Event Sourcing (v2.0.0)
-- [ ] **CQRS**: Separacja modeli read/write
-- [ ] **Event Store**: Immutable log zdarzeń systemowych
-- [ ] **Event Sourcing**: Odbudowa stanu z event stream
-
-### Unified TOON Format
-- [ ] **Schema Consolidation**: Merge JSON/YAML → TOON
-- [ ] **Deep Context Encoding**: Optymalna struktura dla LLM
-- [ ] **Category-based Organization**: schema, data, metadata osobno
-- [ ] **Shared Access Patterns**: Współdzielony dostęp do danych
-
-### Command Discovery & Schema Generation
-- [ ] **API Structure Analysis**: Generowanie schematów z testowania komend
-- [ ] **Complete Command Inventory**: Lista wszystkich komend w systemie
-- [ ] **Dynamic Schema Updates**: Real-time aktualizacje schematów
-
----
-
-## 📊 Progress Tracking
-
-### v1.0.69 (Aktualny — 2026-02-23)
-- **Status**: Stabilny, wymaga cleanup
-- **125 modułów**, ~1400+ funkcji zaindeksowanych
-- **Kluczowy dług**: 10 backup files, 19 temp files, monolityczne moduły
-
-### v1.1.0 (Następny release)
-- **Target**: Cleanup + konsolidacja + eliminacja długu technicznego
-- **Status**: Zaplanowany (ten sprint)
-
-### v1.2.0 (Planowany)
-- **Target**: Refactor monolitów + circular imports + TOON consolidation
-- **ETA**: 2-3 tygodnie po v1.1.0
-
-### v2.0.0 (Długoterminowy)
-- **Target**: CQRS, Event Sourcing, pełna integracja AI/ML
+### v2.0.0 (AI-Driven)
+- [ ] Real-time learning z historii
+- [ ] CQRS + Event Sourcing
+- [ ] Full Playwright automation
 - **ETA**: 2-3 miesiące
 
 ---
 
-## 🤝 Contributing
+## 📊 Statystyki projektu (2026-02-23)
 
-Patrz [CONTRIBUTING.md](CONTRIBUTING.md).
-
-### Obszary wymagające pomocy
-- **Cleanup**: Usuwanie backup/patched, porządkowanie root
-- **Testing**: Rozszerzenie pokrycia testami
-- **Performance**: Optymalizacja pamięci i szybkości
-- **Documentation**: Konsolidacja i ulepszenie docs
-- **Internationalization**: Wsparcie dla nowych języków
+- **129 modułów** Python w `src/`
+- **~12,300 linii** w `generation/` (20 plików)
+- **~7,800 linii** w schema/intelligent/concepts (odłączone)
+- **Kluczowe metryki**:
+  - `pipeline.py`: 32 fn, CC do 34
+  - `template_generator.py`: 38 fn
+  - `keyword_detector.py`: 18 fn (po split z 46)
+  - `adapters/shell.py`: 120 fn (2311 ln) — kandydat do split w v1.2.0

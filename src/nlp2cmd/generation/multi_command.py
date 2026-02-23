@@ -11,7 +11,7 @@ import re
 from typing import List, Tuple, Optional
 from dataclasses import dataclass
 
-from nlp2cmd.generation.keywords import KeywordIntentDetector, DetectionResult
+from nlp2cmd.generation.keywords.keyword_detector import KeywordIntentDetector, DetectionResult
 
 
 @dataclass

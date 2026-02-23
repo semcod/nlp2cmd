@@ -7,7 +7,7 @@ container management, image operations, and Docker Compose.
 
 import pytest
 
-from nlp2cmd.generation.templates import TemplateGenerator, TemplateResult
+from nlp2cmd.generation.template_generator import TemplateGenerator, TemplateResult
 
 
 class TestDockerTemplates:

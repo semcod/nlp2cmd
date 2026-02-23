@@ -7,7 +7,7 @@ SELECT, INSERT, UPDATE, DELETE operations with various entities.
 
 import pytest
 
-from nlp2cmd.generation.templates import TemplateGenerator, TemplateResult
+from nlp2cmd.generation.template_generator import TemplateGenerator, TemplateResult
 
 
 class TestSQLTemplates:

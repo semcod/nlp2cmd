@@ -1,3 +1,43 @@
+## [1.1.0-dev] - 2026-02-23
+
+### Summary
+
+refactor: Split monolithic modules + fix browser automation pipeline
+
+### Architecture (Sprint 2 — Module Splitting)
+
+- **templates.py → templates/ package**: Split 94-function monolith into 6 per-domain files
+  (`sql_templates.py`, `shell_templates.py`, `docker_templates.py`, `kubernetes_templates.py`,
+  `browser_templates.py`, `git_templates.py`) + `template_generator.py` orchestrator
+- **keywords.py → keywords/ package**: Split 46-function monolith into
+  `keyword_detector.py` (detection logic) + `keyword_patterns.py` (pattern loading)
+- **core.py → core/ package**: Split 53-function monolith into
+  `core_models.py` (data models) + `core_backends.py` (NLP backends) + `core_transform.py` (transformation)
+- Updated imports in 15+ files across generation/, cli/, nlp_enhanced/, nlp_light/, tests/
+
+### CLI Fixes
+
+- **Browser navigate URL**: Fast-path now preserves full URL with `https://` scheme and path
+  (fixes `xdg-open 'prototypowanie.pl'` → `xdg-open 'https://www.prototypowanie.pl/kontakt/'`)
+- **History disambiguation in --run**: Selecting `dom_dql.v1` from history now executes via
+  Playwright instead of regenerating a simple `navigate` command
+- **Auto-confirm + disambiguation**: `-ac` flag auto-selects history command if similarity ≥ 0.95
+- **Submit confirmation**: Retry with `confirm=True` when PipelineRunner blocks submit/press_enter
+- **Playwright auto-install**: `ensure_playwright_installed()` check before history dom_dql.v1 execution
+- **`--auto-install` default ON**: Changed from opt-in flag to `--auto-install/--no-auto-install` with `default=True`
+- **Fix `_handle_run_query` NameError**: Added wrapper function delegating to `handle_run_mode()`
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update project.functions.toon
+- scripts: update project.sh
+- update project.toon
+
+
 ## [1.0.69] - 2026-02-23
 
 ### Summary

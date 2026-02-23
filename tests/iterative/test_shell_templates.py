@@ -7,7 +7,7 @@ file operations, process management, and system commands.
 
 import pytest
 
-from nlp2cmd.generation.templates import TemplateGenerator, TemplateResult
+from nlp2cmd.generation.template_generator import TemplateGenerator, TemplateResult
 
 
 class TestShellTemplates:

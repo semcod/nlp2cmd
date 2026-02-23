@@ -10,7 +10,9 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional, Union
 
 from nlp2cmd.adapters.appspec import AppSpecAdapter
-from nlp2cmd.core import NLP2CMD, NLPBackend, TransformResult
+from nlp2cmd.core.core_transform import NLP2CMD
+from nlp2cmd.core.core_backends import NLPBackend
+from nlp2cmd.core.core_models import TransformResult
 from nlp2cmd.ir import ActionIR
 
 

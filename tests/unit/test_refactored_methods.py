@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import Mock, patch
 
 from nlp2cmd.generation.keywords import KeywordIntentDetector, DetectionResult
-from nlp2cmd.generation.templates import TemplateGenerator
+from nlp2cmd.generation.template_generator import TemplateGenerator
 
 
 class TestRefactoredKeywordDetector:

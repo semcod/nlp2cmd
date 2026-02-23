@@ -10,7 +10,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from nlp2cmd.generation.templates import TemplateGenerator
+from nlp2cmd.generation.template_generator import TemplateGenerator
 
 def test_user_directory():
     """Test user directory command generation."""

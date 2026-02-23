@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-from nlp2cmd.generation.keywords import KeywordIntentDetector
+from nlp2cmd.generation.keywords.keyword_detector import KeywordIntentDetector
 
 
 @dataclass

@@ -12,7 +12,8 @@ import re
 import subprocess
 from typing import Any, Dict, List, Optional, Tuple
 
-from nlp2cmd.core import NLPBackend, Entity, ExecutionPlan
+from nlp2cmd.core.core_backends import NLPBackend
+from nlp2cmd.core.core_models import Entity, ExecutionPlan
 from nlp2cmd.schema_extraction import DynamicSchemaRegistry, CommandSchema
 
 
@@ -422,7 +423,7 @@ class HybridNLPBackend(NLPBackend):
         self.llm_backend = None
         if self.config.get("openai_api_key") or self.config.get("anthropic_api_key"):
             try:
-                from nlp2cmd.core import LLMBackend
+                from nlp2cmd.core.core_backends import LLMBackend
                 model = self.config.get("llm_model", "gpt-3.5-turbo")
                 api_key = self.config.get("openai_api_key") or self.config.get("anthropic_api_key")
                 self.llm_backend = LLMBackend(model=model, api_key=api_key, config=config)
@@ -430,7 +431,7 @@ class HybridNLPBackend(NLPBackend):
                 pass
         
         # Always have rule-based fallback
-        from nlp2cmd.core import RuleBasedBackend
+        from nlp2cmd.core.core_backends import RuleBasedBackend
         self.rule_backend = RuleBasedBackend(config=config)
     
     def extract_entities(self, text: str) -> List[Entity]:

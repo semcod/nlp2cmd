@@ -134,6 +134,8 @@ except ImportError:
 
 from nlp2cmd.cli.display import display_command_result
 from nlp2cmd.cli.syntax_cache import get_cached_syntax
+from nlp2cmd.generation.pipeline import RuleBasedPipeline
+from nlp2cmd.web_schema.form_data_loader import FormDataLoader
 
 try:
     from nlp2cmd.cli.markdown_output import print_yaml_block
@@ -427,7 +429,7 @@ class InteractiveSession:
             
             if pipeline_result.success and pipeline_result.command and not pipeline_result.command.startswith('#'):
                 # Create ExecutionPlan from PipelineResult
-                from nlp2cmd.core import ExecutionPlan
+                from nlp2cmd.core.core_models import ExecutionPlan
                 
                 # Create a simple plan
                 plan = ExecutionPlan(
@@ -833,7 +835,7 @@ def _interactive_followup(session: InteractiveSession, feedback: FeedbackResult)
     return session.process(f"{feedback.original_input}. {combined}")
 
 
-def _handle_run_query(
+def handle_run_mode(
     query: str,
     dsl: str,
     appspec: Optional[Path],
@@ -867,6 +869,8 @@ def _handle_run_query(
     from nlp2cmd import NLP2CMD, AppSpecAdapter, BrowserAdapter
     from nlp2cmd.web_schema.form_data_loader import FormDataLoader
 
+    history_selected_command: str | None = None
+
     if not only_output:
         print(f"```bash")
         # Use cached syntax highlighting for better performance
@@ -876,26 +880,141 @@ def _handle_run_query(
         print()
     
     # Step 0: Check for similar queries in history (disambiguation)
-    if not auto_confirm:
+    # - interactive mode: ask user to pick an option
+    # - auto-confirm mode: auto-select only if similarity is very high
+    try:
+        from nlp2cmd.context.disambiguator import CommandDisambiguator
+
+        disambiguator = CommandDisambiguator(console=console)
+        result = disambiguator.disambiguate(query, auto_select=auto_confirm)
+
+        if result.from_history and result.selected_command:
+            if not only_output:
+                print_yaml_block(
+                    {
+                        "status": "using_previous_command_from_history",
+                        "selected_query": result.selected_query,
+                    },
+                    console=console,
+                )
+            query = result.selected_query
+            history_selected_command = result.selected_command
+    except Exception:
+        pass
+
+    # If the user selected a previous command from history, execute it directly.
+    # This avoids regenerating a simpler command (e.g., browser/navigate) and losing
+    # multi-step dom_dql.v1 sequences (fill_form/submit/etc.).
+    if history_selected_command:
+        cmd = history_selected_command.strip()
+
+        # If it's dom_dql.v1 JSON, prefer executing via Playwright PipelineRunner.
         try:
-            from nlp2cmd.context.disambiguator import CommandDisambiguator
-            
-            disambiguator = CommandDisambiguator(console=console)
-            result = disambiguator.disambiguate(query, auto_select=False)
-            
-            if result.from_history and result.selected_command:
-                if not only_output:
-                    print_yaml_block(
-                        {
-                            "status": "using_previous_command_from_history",
-                            "selected_query": result.selected_query,
-                        },
-                        console=console,
-                    )
-                query = result.selected_query
-                # Could directly use result.selected_command here
+            import json
+
+            payload = json.loads(cmd)
         except Exception:
-            pass
+            payload = None
+
+        if isinstance(payload, dict) and payload.get("dsl") == "dom_dql.v1":
+            requires_web_execution = True
+
+            confirmed_for_web = bool(auto_confirm or execute_web)
+
+            if requires_web_execution and not execute_web and not auto_confirm:
+                console.print(
+                    "\n[yellow]Selected history command is dom_dql.v1 and requires browser automation (Playwright).[/yellow]"
+                )
+                resp = console.input("[yellow]Execute via Playwright now? [Y/n]: [/yellow]").strip().lower()
+                if resp in {"n", "no", "nie"}:
+                    console.print("[yellow]Cancelled by user[/yellow]")
+                    return
+                confirmed_for_web = True
+
+            if not only_output:
+                print(f"```bash")
+                syntax = get_cached_syntax("# Using command from history\n " + cmd, "bash", theme="monokai", line_numbers=False)
+                console.print(syntax)
+                print(f"```")
+                print()
+
+            try:
+                from nlp2cmd.ir import ActionIR
+                from nlp2cmd.pipeline_runner import PipelineRunner
+
+                # Ensure Playwright (and browsers) are installed.
+                from nlp2cmd.utils.playwright_installer import ensure_playwright_installed
+
+                if not ensure_playwright_installed(console=console, auto_install=auto_install):
+                    if not only_output:
+                        print_yaml_block(
+                            {
+                                "status": "browser_automation_skipped",
+                                "reason": "playwright_not_available",
+                            },
+                            console=console,
+                        )
+                    _fallback_open_url_from_query(query)
+                    return
+
+                ir = ActionIR(
+                    action_id=str(payload.get("action") or payload.get("actions") or "history.dom"),
+                    dsl=cmd,
+                    dsl_kind="dom",  # type: ignore[arg-type]
+                    params={},
+                    output_format="raw",  # type: ignore[arg-type]
+                    confidence=1.0,
+                    explanation="history command: dom_dql.v1",
+                    metadata={},
+                )
+
+                runner = PipelineRunner(headless=False)
+                res = runner.run(ir, dry_run=False, confirm=confirmed_for_web)
+                if res.success:
+                    if not only_output:
+                        console.print(f"\n✅ Executed history web action in {res.duration_ms:.1f}ms")
+                    return
+
+                # Retry with explicit confirmation if required.
+                if (not res.success) and isinstance(res.data, dict) and res.data.get("requires_confirmation"):
+                    res2 = runner.run(ir, dry_run=False, confirm=True)
+                    if res2.success:
+                        if not only_output:
+                            console.print(f"\n✅ Executed history web action in {res2.duration_ms:.1f}ms")
+                        return
+                    res = res2
+
+                if not only_output:
+                    console.print(f"\n[red]✗ Failed to execute history command: {res.error}[/red]")
+                return
+            except Exception as e:
+                if not only_output:
+                    console.print(f"\n[red]✗ Failed to execute history command: {e}[/red]")
+                return
+
+        # Otherwise treat it as a shell command and execute via existing runner.
+        if cmd:
+            if not only_output:
+                print(f"```bash")
+                syntax = get_cached_syntax("# Using command from history\n " + cmd, "bash", theme="monokai", line_numbers=False)
+                console.print(syntax)
+                print(f"```")
+                print()
+
+            if ExecutionRunner is None:
+                from nlp2cmd.execution import ExecutionRunner as _ExecutionRunner
+                runner_cls = _ExecutionRunner
+            else:
+                runner_cls = ExecutionRunner
+
+            runner = runner_cls(
+                console=console,
+                auto_confirm=auto_confirm,
+                max_retries=3,
+                plain_output=only_output,
+            )
+            runner.run_with_recovery(cmd, query)
+            return
     
     # Step 1: Generate command
     if not only_output:
@@ -910,642 +1029,41 @@ def _handle_run_query(
         "appspec": lambda: AppSpecAdapter(appspec_path=str(appspec) if appspec else None),
         "browser": lambda: BrowserAdapter(),
     }
-    
-    if dsl == "auto":
-        pipeline = RuleBasedPipeline()
-        used_generated_command = False
-        result = pipeline.process(query)
 
-        if (not _looks_like_log_input(query)) and (not result.success) and auto_repair:
-            try:
-                from nlp2cmd.generation.llm_simple import LiteLLMClient
 
-                llm = LiteLLMClient()
-                result = pipeline.process_with_llm_repair(
-                    query,
-                    llm_client=llm,
-                    persist=True,
-                    max_repairs=1,
-                )
-            except Exception:
-                pass
-
-        if not _looks_like_log_input(query):
-            steps = pipeline.process_steps(query)
-            if len(steps) > 1:
-                if not only_output:
-                    plan_steps: list[dict[str, Any]] = []
-                executable_indices: list[int] = []
-                for i, step in enumerate(steps, 1):
-                    cmd = (step.command or "").strip()
-                    ok = bool(cmd) and not cmd.startswith("#") and step.domain != "sql"
-                    if ok:
-                        executable_indices.append(i)
-                    if not only_output:
-                        plan_steps.append(
-                            {
-                                "step": i,
-                                "domain": step.domain,
-                                "intent": step.intent,
-                                "command": cmd,
-                                "executable": bool(ok),
-                            }
-                        )
-
-                if not only_output:
-                    print_yaml_block(
-                        {
-                            "status": "multi_step_plan_detected",
-                            "steps_total": len(steps),
-                            "steps": plan_steps,
-                            "executable_steps": executable_indices,
-                        },
-                        console=console,
-                    )
-
-                if not executable_indices:
-                    if any(s.domain == "sql" for s in steps):
-                        if not only_output:
-                            console.print(
-                                "[yellow]Only SQL steps were generated. Run Mode executes shell commands and will not execute SQL.[/yellow]"
-                            )
-                    else:
-                        if not only_output:
-                            console.print("[red]✗ No executable steps could be derived[/red]")
-                    return
-
-                selected: list[int] = []
-                if auto_confirm:
-                    selected = list(executable_indices)
-                else:
-                    resp = console.input(
-                        "[yellow]Execute steps? [s(elect)/a(ll)/n]: [/yellow]"
-                    ).strip().lower()
-                    if resp in {"n", "no", "nie"}:
-                        console.print("[yellow]Cancelled by user[/yellow]")
-                        return
-                    if resp in {"a", "all"}:
-                        selected = list(executable_indices)
-                    else:
-                        raw = console.input(
-                            "[yellow]Enter step numbers (e.g. 1,3) or press Enter for 1st step: [/yellow]"
-                        ).strip()
-                        if not raw:
-                            selected = [executable_indices[0]]
-                        else:
-                            parts = [p.strip() for p in raw.split(",") if p.strip()]
-                            for p in parts:
-                                if p.isdigit():
-                                    n = int(p)
-                                    if n in executable_indices and n not in selected:
-                                        selected.append(n)
-
-                if not selected:
-                    if not only_output:
-                        console.print("[yellow]No steps selected[/yellow]")
-                    return
-
-                if ExecutionRunner is None:
-                    from nlp2cmd.execution import ExecutionRunner as _ExecutionRunner
-                    runner_cls = _ExecutionRunner
-                else:
-                    runner_cls = ExecutionRunner
-
-                runner = runner_cls(
-                    console=console,
-                    auto_confirm=auto_confirm,
-                    max_retries=3,
-                    plain_output=only_output,
-                )
-
-                for n in selected:
-                    step = steps[n - 1]
-                    cmd = (step.command or "").strip()
-                    if not cmd or cmd.startswith("#"):
-                        continue
-                    if not only_output:
-                        print(f"```bash")
-                        # Use cached syntax highlighting for better performance
-                        syntax = get_cached_syntax(f"# Step {n}/{len(steps)}: {step.domain}/{step.intent}\n {cmd}", "bash", theme="monokai", line_numbers=False)
-                        console.print(syntax)
-                        print(f"```")
-                        print()
-                    exec_result = runner.run_with_recovery(cmd, query)
-                    if not exec_result.success and not auto_confirm:
-                        cont = console.input("[yellow]Continue to next step? [y/N]: [/yellow]").strip().lower()
-                        if cont not in {"y", "yes", "tak"}:
-                            return
-
-                return
-
-        if _looks_like_log_input(query):
-            if only_output:
-                sys.stderr.write("nlp2cmd: could not generate executable command\n")
-                raise SystemExit(1)
-            console.print("[yellow]Detected log-like input. Falling back to interactive nlp2cmd analysis.[/yellow]")
-            session = InteractiveSession(dsl="shell", auto_repair=False)
-            feedback = session.process(query)
-            session.display_feedback(feedback)
-            feedback = _interactive_followup(session, feedback)
-            session.display_feedback(feedback)
-
-            cmd = (feedback.generated_output or "").strip()
-            if cmd and not cmd.startswith("#"):
-                command = cmd
-                detected_domain = "shell"
-                detected_intent = "log_fallback"
-                used_generated_command = True
-            else:
-                if only_output:
-                    sys.stderr.write("nlp2cmd: could not generate executable command\n")
-                    raise SystemExit(1)
-                console.print("[red]✗ Could not derive an executable command from logs[/red]")
-                return
-        elif not result.success:
-            if not only_output:
-                console.print(f"[red]✗ Could not generate command with rule-based pipeline: {result.command}[/red]")
-            
-            # Try different fallback strategies
-            fallback_success = False
-            
-            # Strategy 1: Try LiteLLM with Ollama
-            if not only_output:
-                console.print("[yellow]Attempting LLM fallback via LiteLLM...[/yellow]")
-            try:
-                from nlp2cmd.generation.llm_simple import LiteLLMClient
-                import asyncio
-
-                llm = LiteLLMClient()
-
-                system_prompt = """You are a command-line expert. Convert the user's natural language request into a valid shell command.
-
-Rules:
-- Respond ONLY with the command, no explanation
-- Use standard shell commands
-- For "uruchom docker" or similar requests, use appropriate docker commands
-- Keep commands simple and executable"""
-
-                async def get_llm_response():
-                    return await llm.complete(
-                        user=query,
-                        system=system_prompt,
-                        max_tokens=200,
-                        temperature=0.1
-                    )
-
-                response = asyncio.run(get_llm_response())
-                command = response.strip()
-                
-                # Strip markdown code blocks if present
-                if command.startswith('```'):
-                    lines = command.split('\n')
-                    # Remove first line (```sh or ```) and last line (```)
-                    if len(lines) > 2:
-                        command = '\n'.join(lines[1:-1]).strip()
-                    else:
-                        # Fallback: remove ``` from start and end
-                        command = command.strip('`').strip()
-                    # Remove language identifier if present
-                    if command.startswith('sh') or command.startswith('bash'):
-                        command = command[2:].strip()
-
-                if command and not command.startswith("#") and not command.lower().startswith(("i'm sorry", "sorry", "i cannot", "cannot")):
-                    detected_domain = "shell"
-                    detected_intent = "llm_fallback"
-                    if not only_output:
-                        console.print(f"[green]✓ LLM fallback succeeded[/green]")
-                    fallback_success = True
-                    used_generated_command = True
-            except ImportError as e:
-                if "litellm" in str(e):
-                    if not only_output:
-                        console.print("[yellow]LiteLLM not installed. Attempting auto-install...[/yellow]")
-                    if auto_install:
-                        try:
-                            import subprocess
-                            if not only_output:
-                                console.print("[dim]Installing litellm...[/dim]")
-                            subprocess.run(
-                                [sys.executable, "-m", "pip", "install", "litellm"],
-                                check=True,
-                                capture_output=True,
-                            )
-                            if not only_output:
-                                console.print("[green]✓ litellm installed successfully. Retrying LLM fallback...[/green]")
-                            # Retry after installation
-                            from nlp2cmd.generation.llm_simple import LiteLLMClient
-                            import asyncio
-                            
-                            llm = LiteLLMClient()
-                            system_prompt = """You are a command-line expert. Convert the user's natural language request into a valid shell command.
-                            
-Rules:
-- Respond ONLY with the command, no explanation
-- Use standard shell commands
-- For "uruchom docker" or similar requests, use appropriate docker commands
-- Keep commands simple and executable"""
-                            
-                            async def get_llm_response():
-                                return await llm.complete(
-                                    user=query,
-                                    system=system_prompt,
-                                    max_tokens=200,
-                                    temperature=0.1
-                                )
-                            
-                            response = asyncio.run(get_llm_response())
-                            command = response.strip()
-                            
-                            # Strip markdown code blocks if present
-                            if command.startswith('```'):
-                                lines = command.split('\n')
-                                # Remove first line (```sh or ```) and last line (```)
-                                if len(lines) > 2:
-                                    command = '\n'.join(lines[1:-1]).strip()
-                                else:
-                                    # Fallback: remove ``` from start and end
-                                    command = command.strip('`').strip()
-                                # Remove language identifier if present
-                                if command.startswith('sh') or command.startswith('bash'):
-                                    command = command[2:].strip()
-                            
-                            if command and not command.startswith("#") and not command.lower().startswith(("i'm sorry", "sorry", "i cannot", "cannot")):
-                                detected_domain = "shell"
-                                detected_intent = "llm_fallback"
-                                if not only_output:
-                                    console.print(f"[green]✓ LLM fallback succeeded after auto-install[/green]")
-                                fallback_success = True
-                                used_generated_command = True
-                        except Exception as install_error:
-                            if not only_output:
-                                console.print(f"[red]✗ Auto-install failed: {str(install_error)}[/red]")
-                    else:
-                        if not only_output:
-                            console.print("[yellow]Use --auto-install to automatically install missing dependencies[/yellow]")
-                else:
-                    if not only_output:
-                        console.print(f"[red]✗ Import error: {str(e)}[/red]")
-            except Exception as e:
-                error_msg = str(e)
-                if "connection" in error_msg.lower() or "refused" in error_msg.lower():
-                    if not only_output:
-                        console.print("[yellow]Could not connect to Ollama. Attempting to start Ollama...[/yellow]")
-                    if auto_install:
-                        try:
-                            import subprocess
-                            if not only_output:
-                                console.print("[dim]Starting Ollama with Docker...[/dim]")
-                            subprocess.run(["docker", "run", "-d", "-p", "11434:11434", "ollama/ollama"], check=True, capture_output=True)
-                            if not only_output:
-                                console.print("[green]✓ Ollama started. Retrying LLM fallback...[/green]")
-                            # Give it a moment to start
-                            import time
-                            time.sleep(3)
-                            
-                            # Retry the LLM call
-                            from nlp2cmd.generation.llm_simple import LiteLLMClient
-                            import asyncio
-                            
-                            llm = LiteLLMClient()
-                            system_prompt = """You are a command-line expert. Convert the user's natural language request into a valid shell command.
-                            
-Rules:
-- Respond ONLY with the command, no explanation
-- Use standard shell commands
-- For "uruchom docker" or similar requests, use appropriate docker commands
-- Keep commands simple and executable"""
-                            
-                            async def get_llm_response():
-                                return await llm.complete(
-                                    user=query,
-                                    system=system_prompt,
-                                    max_tokens=200,
-                                    temperature=0.1
-                                )
-                            
-                            response = asyncio.run(get_llm_response())
-                            command = response.strip()
-                            
-                            # Strip markdown code blocks if present
-                            if command.startswith('```'):
-                                lines = command.split('\n')
-                                # Remove first line (```sh or ```) and last line (```)
-                                if len(lines) > 2:
-                                    command = '\n'.join(lines[1:-1]).strip()
-                                else:
-                                    # Fallback: remove ``` from start and end
-                                    command = command.strip('`').strip()
-                                # Remove language identifier if present
-                                if command.startswith('sh') or command.startswith('bash'):
-                                    command = command[2:].strip()
-                            
-                            if command and not command.startswith("#") and not command.lower().startswith(("i'm sorry", "sorry", "i cannot", "cannot")):
-                                detected_domain = "shell"
-                                detected_intent = "llm_fallback"
-                                if not only_output:
-                                    console.print(f"[green]✓ LLM fallback succeeded after starting Ollama[/green]")
-                                fallback_success = True
-                                used_generated_command = True
-                        except Exception as docker_error:
-                            if not only_output:
-                                console.print(f"[red]✗ Failed to start Ollama: {str(docker_error)}[/red]")
-                    else:
-                        if not only_output:
-                            console.print("[yellow]Use --auto-install to automatically start Ollama[/yellow]")
-                else:
-                    if not only_output:
-                        console.print(f"[red]✗ LLM fallback failed with error: {str(e)}[/red]")
-            
-            # Strategy 2: Simple pattern matching as last resort
-            if not fallback_success:
-                if not only_output:
-                    console.print("[yellow]Attempting pattern-based fallback...[/yellow]")
-                query_lower = query.lower()
-                
-                # Simple pattern matching for common commands
-                if "docker" in query_lower:
-                    if any(word in query_lower for word in ["uruchom", "start", "run", "uruchomić"]):
-                        command = "docker run -it ubuntu bash"
-                        detected_domain = "docker"
-                        detected_intent = "pattern_fallback"
-                        if not only_output:
-                            console.print("[green]✓ Pattern fallback succeeded[/green]")
-                        fallback_success = True
-                        used_generated_command = True
-                elif "git" in query_lower:
-                    if any(word in query_lower for word in ["klonuj", "clone"]):
-                        command = "git clone <repository_url>"
-                        detected_domain = "shell"
-                        detected_intent = "pattern_fallback"
-                        if not only_output:
-                            console.print("[green]✓ Pattern fallback succeeded[/green]")
-                        fallback_success = True
-                        used_generated_command = True
-            
-            if not fallback_success:
-                if only_output:
-                    sys.stderr.write("nlp2cmd: could not generate executable command\n")
-                    raise SystemExit(1)
-                console.print("[red]✗ All fallback strategies failed[/red]")
-                return
-
-        if (not used_generated_command) and result.success:
-            command = result.command
-            detected_domain = result.domain
-            detected_intent = result.intent
-        
-        if not only_output:
-            print_yaml_block(
-                {
-                    "status": "detected",
-                    "domain": detected_domain,
-                    "intent": detected_intent,
-                },
-                console=console,
-            )
-    else:
-        adapter = adapter_map.get(dsl, lambda: ShellAdapter())()
-        nlp = NLP2CMD(adapter=adapter)
-        transform_result = nlp.transform(query)
-        command = transform_result.command
-
-        detected_domain = dsl
-        detected_intent = getattr(getattr(transform_result, "plan", None), "intent", "unknown")
-        if not only_output:
-            print_yaml_block(
-                {
-                    "status": "detected",
-                    "domain": detected_domain,
-                    "intent": detected_intent,
-                },
-                console=console,
-            )
-
-    if detected_domain == "sql":
-        if only_output:
-            sql_text = (command or "").rstrip() + "\n"
-            if sql_text.strip():
-                sys.stdout.write(sql_text)
-            sys.stderr.write(
-                "Run Mode executes shell commands; SQL is not executed automatically. Use --dsl sql without --run.\n"
-            )
-        else:
-            print(f"```sql")
-            # Use cached syntax highlighting for better performance
-            syntax = get_cached_syntax(command, "sql", theme="monokai", line_numbers=False)
-            console.print(syntax)
-            print(f"```")
-            print()
-            console.print(
-                "[yellow]Run Mode executes shell commands; SQL is not executed automatically. Run this query in your database client (psql/mysql/sqlite3) or use --dsl sql without --run.[/yellow]"
-            )
-        return
-    
-    # Step 2: Check if it's a browser command and detect typing actions
-    is_browser_command = False
-    detected_has_typing = False
-    
-    # Check if query contains typing/clicking/form actions
-    loader = FormDataLoader()
-    typing_keywords = loader.get_nlp_keywords("typing")
-    clicking_keywords = loader.get_nlp_keywords("clicking")
-    form_keywords = FormDataLoader.dedupe_selectors([
-        *loader.get_nlp_keywords("form"),
-        *loader.get_nlp_keywords("submit"),
-        *loader.get_nlp_keywords("fill_form_phrases"),
-        *loader.get_nlp_keywords("press_enter"),
-    ])
-    
-    query_lower = query.lower()
-    has_typing = any(kw in query_lower for kw in typing_keywords)
-    has_clicking = any(kw in query_lower for kw in clicking_keywords)
-    has_form = any(kw in query_lower for kw in form_keywords)
-    
-    if dsl == "auto":
-        if detected_domain == "shell" and detected_intent in ("open_url", "search_web"):
-            is_browser_command = True
-            detected_has_typing = has_typing or has_clicking or has_form
-            
-            # Auto-enable execute_web if typing/clicking detected
-            if detected_has_typing and not execute_web:
-                if not only_output:
-                    print_yaml_block(
-                        {
-                            "status": "browser_automation_auto_enabled",
-                            "reason": "detected_typing_clicking_or_form_action",
-                            "detected_has_typing": bool(detected_has_typing),
-                        },
-                        console=console,
-                    )
-                execute_web = True
-    elif dsl == "browser":
-        is_browser_command = True
-        detected_has_typing = True
-        if not execute_web:
-            execute_web = True
-    
-    # Step 3: Execute with recovery
-    if ExecutionRunner is None:
-        from nlp2cmd.execution import ExecutionRunner as _ExecutionRunner
-        runner_cls = _ExecutionRunner
-    else:
-        runner_cls = ExecutionRunner
-
-    runner = runner_cls(
-        console=console,
+def _handle_run_query(
+    query: str,
+    *,
+    dsl: str,
+    appspec: Optional[Path],
+    auto_confirm: bool,
+    execute_web: bool,
+    auto_install: bool,
+    auto_repair: bool,
+    only_output: bool = False,
+) -> None:
+    handle_run_mode(
+        query,
+        dsl=dsl,
+        appspec=appspec,
         auto_confirm=auto_confirm,
-        max_retries=3,
-        plain_output=only_output,
+        execute_web=execute_web,
+        auto_install=auto_install,
+        auto_repair=auto_repair,
+        only_output=only_output,
     )
-    
-    if is_browser_command and execute_web and detected_has_typing:
-        # Use PipelineRunner for complex browser automation (typing, clicking, etc.)
-        if not only_output:
-            console.print("\n[cyan]Using Playwright for browser automation...[/cyan]")
-        
-        # Check and install Playwright if needed
-        from nlp2cmd.utils.playwright_installer import ensure_playwright_installed
-        
-        if not ensure_playwright_installed(console=console, auto_install=auto_install):
-            if not only_output:
-                print_yaml_block(
-                    {
-                        "status": "browser_automation_skipped",
-                        "reason": "playwright_not_available",
-                    },
-                    console=console,
-                )
-            _fallback_open_url_from_query(query)
-            return
-        
-        try:
-            # Generate ActionIR using BrowserAdapter for multi-step actions
-            browser_adapter = BrowserAdapter()
-            nlp_browser = NLP2CMD(adapter=browser_adapter)
-            ir = nlp_browser.transform_ir(query)
+    return
 
-            if not only_output:
-                payload: dict[str, Any] = {
-                    "status": "actions",
-                    "action_id": getattr(ir, "action_id", ""),
-                    "dsl_kind": getattr(ir, "dsl_kind", ""),
-                    "confidence": getattr(ir, "confidence", 0.0),
-                    "explanation": getattr(ir, "explanation", ""),
-                }
-                try:
-                    if isinstance(getattr(ir, "metadata", None), dict):
-                        payload["metadata"] = ir.metadata
-                except Exception:
-                    pass
-                try:
-                    dsl_payload = json.loads(getattr(ir, "dsl", "") or "")
-                    if isinstance(dsl_payload, dict):
-                        if isinstance(dsl_payload.get("url"), str) and dsl_payload.get("url"):
-                            payload["url"] = dsl_payload.get("url")
-                        actions = dsl_payload.get("actions")
-                        if isinstance(actions, list):
-                            payload["actions_count"] = len(actions)
-                            payload["actions"] = [
-                                a.get("action") for a in actions if isinstance(a, dict) and isinstance(a.get("action"), str)
-                            ]
-                except Exception:
-                    pass
-                print_yaml_block(payload, console=console)
-            
-            # Execute with PipelineRunner
-            from nlp2cmd.pipeline_runner import PipelineRunner
-            pw_runner = PipelineRunner(headless=False)
-            result = pw_runner.run(ir, dry_run=False, confirm=auto_confirm)
 
-            if (not result.success) and isinstance(result.data, dict) and result.data.get("requires_confirmation"):
-                reason = str(result.data.get("confirmation_reason") or "unknown")
-                url_for_confirm = str(result.data.get("url") or "")
-                loader_for_confirm = FormDataLoader(site=url_for_confirm) if url_for_confirm else FormDataLoader()
-
-                approved = False
-                if reason in {"submit", "press_enter"}:
-                    approved = loader_for_confirm.get_site_approval(reason)
-
-                if not approved and not auto_confirm:
-                    if reason == "submit":
-                        timed_prompt = "\n[yellow]This action will submit a form. Proceed? (auto-Y in 1s; Enter=choose):[/yellow] "
-                        full_prompt = "\n[yellow]This action will submit a form. Proceed? [[y/N/a(always for this site)]]:[/yellow] "
-                        resp = _timed_default_yes(timed_prompt=timed_prompt, full_prompt=full_prompt)
-                    elif reason == "press_enter":
-                        timed_prompt = "\n[yellow]This action will press Enter (may submit a form). Proceed? (auto-Y in 1s; Enter=choose):[/yellow] "
-                        full_prompt = "\n[yellow]This action will press Enter (may submit a form). Proceed? [[y/N/a(always for this site)]]:[/yellow] "
-                        resp = _timed_default_yes(timed_prompt=timed_prompt, full_prompt=full_prompt)
-                    else:
-                        prompt = "\n[yellow]This action requires confirmation. Proceed? [[y/N]]:[/yellow] "
-                        console.print(prompt, end="")
-                        resp = console.input().strip().lower()
-
-                    if resp in {"a", "always"} and reason in {"submit", "press_enter"}:
-                        loader_for_confirm.set_site_approval(reason, True)
-                        approved = True
-                    elif resp in {"y", "yes", "tak"}:
-                        approved = True
-
-                if not approved and not auto_confirm:
-                    if not only_output:
-                        console.print("[yellow]Cancelled by user[/yellow]")
-                    return
-
-                result = pw_runner.run(ir, dry_run=False, confirm=True)
-
-            if result.success:
-                if not only_output:
-                    print_yaml_block(
-                        {
-                            "status": "browser_automation_completed",
-                            "success": True,
-                            "actions_executed": (result.data or {}).get("actions_executed", 0) if isinstance(result.data, dict) else 0,
-                            "duration_ms": float(result.duration_ms),
-                        },
-                        console=console,
-                    )
-                return
-
-            if not only_output:
-                print_yaml_block(
-                    {
-                        "status": "browser_automation_failed",
-                        "success": False,
-                        "error": str(result.error or ""),
-                    },
-                    console=console,
-                )
-            _fallback_open_url(ir)
-            return
-        except Exception as e:
-            if not only_output:
-                print_yaml_block(
-                    {
-                        "status": "playwright_error",
-                        "success": False,
-                        "error": str(e),
-                    },
-                    console=console,
-                )
-            _fallback_open_url_from_query(query)
-            return
-    else:
-        # Execute shell command with recovery
-        exec_result = runner.run_with_recovery(command, query)
-        
-        if not exec_result.success:
-            if (exec_result.error_context == "User cancelled") or (getattr(exec_result, "exit_code", None) == 0):
-                if not only_output:
-                    console.print("\n[yellow]Cancelled by user[/yellow]")
-                return
-
-            if exec_result.error_context:
-                if not only_output:
-                    console.print("\n[yellow]Command failed. Analyzing error...[/yellow]")
-                
-                # Try to suggest next steps based on error
-                _suggest_next_steps(query, command, exec_result, runner)
-
+def _suggest_next_steps(
+    original_query: str,
+    command: str,
+    result,
+    runner: ExecutionRunner,
+):
+    """Suggest next steps based on error context."""
+    # TODO: Implement this function properly
+    pass
 
 def _suggest_next_steps(
     original_query: str,
@@ -1743,7 +1261,11 @@ if not hasattr(click, 'Group'):
 @click.option("--explain", is_flag=True, help="Explain how the result was produced")
 @click.option("--execute-web", is_flag=True, help="Execute dom_dql.v1 actions via Playwright (requires playwright)")
 @click.option("-ac", "--auto-confirm", is_flag=True, help="Skip confirmation prompts when using --run")
-@click.option("--auto-install", is_flag=True, help="Auto-install missing Python deps/tools when using --run (e.g. playwright)")
+@click.option(
+    "--auto-install/--no-auto-install",
+    default=True,
+    help="Auto-install missing Python deps/tools when using --run (e.g. playwright)",
+)
 @click.option("-v", "--version", is_flag=True, help="Show version information")
 @click.pass_context
 def main(

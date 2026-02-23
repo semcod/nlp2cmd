@@ -8,7 +8,7 @@ and performance metrics for template-based generation.
 import pytest
 import time
 
-from nlp2cmd.generation.templates import TemplateGenerator, TemplateResult
+from nlp2cmd.generation.template_generator import TemplateGenerator, TemplateResult
 from nlp2cmd.generation.pipeline import (
     RuleBasedPipeline,
     PipelineResult,

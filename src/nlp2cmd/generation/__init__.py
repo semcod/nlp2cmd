@@ -12,9 +12,9 @@ This module provides iterative text-to-DSL generation capabilities:
 """
 
 # Iteration 1-3: Rule-based components
-from nlp2cmd.generation.keywords import KeywordIntentDetector, DetectionResult
+from nlp2cmd.generation.keywords.keyword_detector import KeywordIntentDetector, DetectionResult
 from nlp2cmd.generation.regex import RegexEntityExtractor, ExtractionResult
-from nlp2cmd.generation.templates import TemplateGenerator, TemplateResult
+from nlp2cmd.generation.template_generator import TemplateGenerator, TemplateResult
 from nlp2cmd.generation.multi_command import (
     MultiCommandDetector,
     MultiCommandResult,
