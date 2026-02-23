@@ -264,11 +264,34 @@ class TemplateGenerator:
         else:
             result['columns'] = '*'
         
-        # Handle WHERE clause
-        where_conditions = []
+        # Normalize alternate entity key names
+        if 'filters' in result and 'where' not in result:
+            result['where'] = result.pop('filters')
+        if 'ordering' in result and 'order' not in result:
+            result['order'] = result.pop('ordering')
+
+        # Initialize clauses
+        where_clause = ''
+        order_clause = ''
+        limit_clause = ''
+
+        # Handle WHERE clause (supports dict, list of filter dicts, or string)
         if 'where' in result:
             where = result['where']
-            if isinstance(where, dict):
+            if isinstance(where, list):
+                conditions = []
+                for f in where:
+                    if isinstance(f, dict):
+                        field = f.get('field', '')
+                        op = f.get('operator', '=')
+                        val = f.get('value', '')
+                        if isinstance(val, str):
+                            conditions.append(f"{field} {op} '{val}'")
+                        else:
+                            conditions.append(f"{field} {op} {val}")
+                if conditions:
+                    where_clause = f" WHERE {' AND '.join(conditions)}"
+            elif isinstance(where, dict):
                 conditions = []
                 for field, value in where.items():
                     if isinstance(value, str):
@@ -276,29 +299,53 @@ class TemplateGenerator:
                     else:
                         conditions.append(f"{field} = {value}")
                 if conditions:
-                    where_conditions.append(f" WHERE {' AND '.join(conditions)}")
+                    where_clause = f" WHERE {' AND '.join(conditions)}"
             elif isinstance(where, str) and where.strip():
-                where_conditions.append(f" WHERE {where}")
-        
-        # Handle ORDER BY
+                where_clause = f" WHERE {where}"
+
+        # Handle ORDER BY (supports list of ordering dicts, dict, or string)
         if 'order' in result:
             order = result['order']
-            if isinstance(order, dict):
-                order_clause = f" ORDER BY {order.get('column', 'id')} {order.get('direction', 'ASC')}"
-                where_conditions.append(order_clause)
+            if isinstance(order, list):
+                order_items = []
+                for item in order:
+                    if isinstance(item, dict):
+                        direction = item.get('direction', 'ASC').upper()
+                        order_items.append(f"{item.get('field', 'id')} {direction}")
+                    else:
+                        order_items.append(str(item))
+                if order_items:
+                    order_clause = f" ORDER BY {', '.join(order_items)}"
+            elif isinstance(order, dict):
+                order_clause = f" ORDER BY {order.get('column', 'id')} {order.get('direction', 'ASC').upper()}"
             elif isinstance(order, str) and order.strip():
-                where_conditions.append(f" ORDER BY {order}")
-        
+                order_clause = f" ORDER BY {order}"
+
         # Handle LIMIT
         if 'limit' in result:
             limit = result['limit']
             if isinstance(limit, (int, str)) and str(limit).isdigit():
-                where_conditions.append(f" LIMIT {limit}")
-        
-        result['where'] = ''.join(where_conditions)
-        result['order'] = ''
-        result['limit'] = ''
-        
+                limit_clause = f" LIMIT {limit}"
+
+        # Handle aggregation on select intent — redirect to COUNT/SUM/etc template
+        if intent == 'select' and 'aggregation' in result:
+            agg_map = {
+                'count': 'COUNT', 'policz': 'COUNT',
+                'sum': 'SUM', 'zsumuj': 'SUM',
+                'avg': 'AVG', 'średnia': 'AVG',
+                'min': 'MIN', 'max': 'MAX',
+            }
+            agg_fn = agg_map.get(str(result['aggregation']).lower(), 'COUNT')
+            cols = result.get('columns', '*')
+            if isinstance(cols, list):
+                cols = ', '.join(cols)
+            result['columns'] = f"{agg_fn}({cols})"
+
+        # Set final clauses
+        result['where'] = where_clause
+        result['order'] = order_clause
+        result['limit'] = limit_clause
+
         return result
     
     def _prepare_shell_entities(self, intent: str, entities: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
@@ -521,6 +568,16 @@ class TemplateGenerator:
         result.setdefault('network', '')
         result.setdefault('service', '')
         
+        # Map port to ports for template compatibility
+        if 'port' in result and 'ports' not in result:
+            result['ports'] = result['port']
+        
+        # Map tail_lines to flags for logs command
+        if intent == 'logs' and 'tail_lines' in result:
+            tail_lines = result['tail_lines']
+            if tail_lines and str(tail_lines).isdigit():
+                result['flags'] = f"--tail {tail_lines}"
+        
         return result
     
     def _prepare_kubernetes_entities(self, intent: str, entities: dict[str, Any]) -> dict[str, Any]:
@@ -562,6 +619,24 @@ class TemplateGenerator:
         result.setdefault('destination', '')
         result.setdefault('verb', 'get')
         result.setdefault('command', '')
+        
+        # Map resource_type to resource for template compatibility
+        if 'resource_type' in result and 'resource' not in result:
+            result['resource'] = result['resource_type']
+        
+        # Map replica_count to replicas for template compatibility
+        if 'replica_count' in result and 'replicas' not in result:
+            result['replicas'] = result['replica_count']
+        
+        # Map name to pod for logs template
+        if intent == 'logs' and 'name' in result and 'pod' not in result:
+            result['pod'] = result['name']
+        
+        # Map tail_lines to follow and tail for logs template
+        if intent == 'logs':
+            if 'tail_lines' in result:
+                result['tail'] = f"--tail={result['tail_lines']}"
+            result.setdefault('follow', '-f' if result.get('follow') else '')
         
         return result
     

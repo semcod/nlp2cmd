@@ -7,9 +7,11 @@ split into modular patterns and detection logic.
 
 from .keyword_patterns import KeywordPatterns
 from .keyword_detector import KeywordIntentDetector, DetectionResult
+from nlp2cmd.utils.data_files import find_data_files
 
 __all__ = [
     'KeywordPatterns',
-    'KeywordIntentDetector', 
+    'KeywordIntentDetector',
     'DetectionResult',
+    'find_data_files',
 ]

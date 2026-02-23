@@ -50,7 +50,7 @@ class RuleBasedPipeline:
         )
         self.persist_results = persist_results
         self.metrics = metrics or PipelineMetrics()
-        self.confidence_threshold = confidence_threshold
+        self.confidence_threshold = confidence_threshold if confidence_threshold is not None else 0.3
         self.patterns = patterns  # Store for backward compatibility
         
         # Initialize components
@@ -123,10 +123,16 @@ class RuleBasedPipeline:
                 result.entities = detection.entities or {}
             
             # Step 4: Template generation
+            # Map unsupported domains to shell for basic functionality
+            effective_domain = result.domain
+            if effective_domain not in self.template_generator.templates:
+                effective_domain = 'shell'
+                result.warnings.append(f"Mapped unsupported domain '{result.domain}' to 'shell'")
+            
             template_result = self.template_generator.generate(
                 intent=result.intent,
                 entities=result.entities,
-                domain=result.domain,
+                domain=effective_domain,
             )
             
             if template_result.success:
@@ -188,7 +194,25 @@ class RuleBasedPipeline:
     ) -> Optional[ExtractionResult]:
         """Process entity extraction with detection context."""
         try:
-            return self.extractor.extract(text, detection)
+            import os as _os
+            from nlp2cmd.generation.pipeline_components import _should_use_semantic_extractor
+            # Re-check extractor mode at call time (env var may be set after __init__)
+            if _should_use_semantic_extractor():
+                from nlp2cmd.generation.semantic_entities import SemanticEntityExtractor
+                extractor = SemanticEntityExtractor()
+            else:
+                extractor = self.extractor
+            domain = detection.domain if hasattr(detection, "domain") else str(detection)
+            result = extractor.extract(text, domain)
+            # Attach shadow metadata if present on extractor
+            mode = _os.environ.get("NLP2CMD_ENTITY_EXTRACTOR_MODE", "").strip().lower()
+            if mode in ("shadow", "semantic") and hasattr(result, "metadata"):
+                if not result.metadata.get("entity_extractor_mode"):
+                    result.metadata["entity_extractor_mode"] = mode
+                sem_entities = getattr(extractor, "last_semantic_entities", None)
+                if sem_entities is not None and mode in ("shadow", "semantic"):
+                    result.metadata["shadow_entities"] = sem_entities
+            return result
         except Exception as e:
             # Log error but don't fail the pipeline
             return None

@@ -32,6 +32,11 @@ class ExtractionResult:
     entities: dict[str, Any]
     extracted: list[ExtractedEntity]
     raw_text: str
+    metadata: dict[str, Any] = None
+
+    def __post_init__(self):
+        if self.metadata is None:
+            self.metadata = {}
 
 
 class RegexEntityExtractor:
@@ -454,10 +459,30 @@ class RegexEntityExtractor:
         # Post-processing: build structured entities
         entities = self._post_process(entities, domain, text.lower())
         
+        result_metadata: dict[str, Any] = {}
+
+        # Shadow / semantic entity extraction mode
+        import os as _os
+        mode = _os.environ.get("NLP2CMD_ENTITY_EXTRACTOR_MODE", "").strip().lower()
+        if mode in ("semantic", "shadow"):
+            try:
+                from nlp2cmd.generation import semantic_entities as sem_mod
+                sem_extractor = sem_mod.SemanticEntityExtractor()
+                sem_extractor.extract(text, domain)
+                # Prefer last_semantic_entities attribute (set by fake/real extractors)
+                sem_entities_dict: dict = getattr(sem_extractor, "last_semantic_entities", None) or {}
+                result_metadata["entity_extractor_mode"] = mode
+                result_metadata["shadow_entities"] = sem_entities_dict
+                if mode == "semantic":
+                    entities = sem_entities_dict
+            except Exception:
+                result_metadata["entity_extractor_mode"] = mode
+
         return ExtractionResult(
             entities=entities,
             extracted=extracted,
             raw_text=text,
+            metadata=result_metadata,
         )
     
     def _process_match(self, entity_type: str, match: re.Match) -> Any:

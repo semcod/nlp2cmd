@@ -222,33 +222,35 @@ class KeywordIntentDetector:
             return DetectionResult(domain="", intent="", confidence=0.0, matched=False)
         
         text_lower = text.lower()
-        
-        # Fast path checks for browser and search
-        fast_result = self._fast_path_detection(text_lower)
-        if fast_result:
-            return fast_result
-        
+
+        # ML-based detection if available (highest quality, checked first)
+        ml_result = self._ml_detection(text)
+        if ml_result and ml_result.confidence >= self.confidence_threshold:
+            return ml_result
+
         # Enhanced detection with fuzzy matching
         fuzzy_result = self._fuzzy_detection(text)
         if fuzzy_result and fuzzy_result.confidence >= self.confidence_threshold:
             return fuzzy_result
-        
-        # ML-based detection if available
-        ml_result = self._ml_detection(text)
-        if ml_result and ml_result.confidence >= self.confidence_threshold:
-            return ml_result
-        
+
+        # Fast path checks for explicit patterns (browser, SQL syntax, docker, k8s, shell)
+        # Only run domain-specific fast-path when patterns are loaded
+        has_patterns = bool(self.patterns.patterns)
+        fast_result = self._fast_path_detection(text_lower, domain_rules=has_patterns)
+        if fast_result:
+            return fast_result
+
         # Semantic matching if available
         semantic_result = self._semantic_detection(text)
         if semantic_result and semantic_result.confidence >= self.confidence_threshold:
             return semantic_result
-        
+
         # Traditional keyword matching
         result = self._keyword_detection(text, text_lower)
-        
+
         # Set matched based on confidence threshold
         result.matched = result.confidence >= self.confidence_threshold
-        
+
         return result
     
     def detect_all(self, text: str) -> list[DetectionResult]:
@@ -291,7 +293,7 @@ class KeywordIntentDetector:
         """Simple keyword matching."""
         return keyword.lower() in text_lower
     
-    def _fast_path_detection(self, text_lower: str) -> Optional[DetectionResult]:
+    def _fast_path_detection(self, text_lower: str, domain_rules: bool = True) -> Optional[DetectionResult]:
         """Fast path detection for common patterns."""
         # Explicit overrides — highest priority, very specific patterns
         _EXPLICIT_OVERRIDES = [
@@ -306,10 +308,18 @@ class KeywordIntentDetector:
             ("json z pliku", "shell", "json_jq", "json z pliku"),
             ("użyj jq", "utility", "jq", "użyj jq"),
             ("jq do", "utility", "jq", "jq do"),
-            # File content (cat)
+            # Directory/folder listing — must come before generic file content
+            ("zawartość katalogu", "shell", "list", "directory contents"),
+            ("zawartość folderu", "shell", "list", "directory contents"),
+            ("lista folder", "shell", "list", "directory contents"),
+            ("list folder", "shell", "list", "directory contents"),
+            # Shell user management
+            ("użytkowników systemu", "shell", "user_list", "user_list"),
+            ("system users", "shell", "user_list", "user_list"),
+            # File content (cat) — after directory listing
             ("zawartość pliku", "shell", "text_cat", "file content"),
             ("zawartosc pliku", "shell", "text_cat", "file content"),
-            ("pokaż plik", "shell", "text_cat", "file content"),
+            ("pokaż plik ", "shell", "text_cat", "file content"),
             ("show file content", "shell", "text_cat", "file content"),
             # Logs — docker context (application logs)
             ("logi aplikacji", "docker", "logs", "logi aplikacji"),
@@ -320,10 +330,14 @@ class KeywordIntentDetector:
             if kw in text_lower:
                 return DetectionResult(domain=domain, intent=intent, confidence=0.95, matched_keyword=matched_kw)
 
+        # Domain-specific fast-path rules — only when patterns data is loaded
+        if not domain_rules:
+            return None
+
         # SQL keyword fast-path (highest priority — explicit SQL syntax)
         _SQL_EXACT = {
             "select ": "select", "insert into": "insert", "update ": "update",
-            "delete from": "delete", "delete ": "delete",
+            "delete from": "delete", "delete from ": "delete",  # More specific
             "create table": "create_table", "drop table": "drop_table",
             "alter table": "alter_table", "truncate ": "truncate",
             "create index": "create_index", "create view": "create_view",
@@ -351,16 +365,24 @@ class KeywordIntentDetector:
         # Docker container-specific terms (with action context)
         _DOCKER_CONTAINER_ACTIONS = [
             ("uruchom kontener", "run"), ("run container", "run"), ("start container", "start"),
+            ("uruchom container", "run"), ("run kontener", "run"), ("start kontener", "start"),
             ("zatrzymaj kontener", "stop"), ("stop container", "stop"),
+            ("zatrzymaj container", "stop"), ("stop kontener", "stop"),
             ("uruchom zatrzymany kontener", "start"),
             ("usuń kontener", "remove"), ("remove container", "remove"), ("delete container", "remove"),
+            ("usun kontener", "remove"), ("remove kontener", "remove"), ("delete kontener", "remove"),
             ("wykonaj komendę w kontenerze", "exec"), ("wykonaj polecenie w kontenerze", "exec"),
             ("exec in container", "exec"), ("wejdź do kontenera", "exec"), ("shell kontenera", "exec"),
+            ("wejdź do container", "exec"), ("shell container", "exec"),
             ("pokaż logi kontenera", "logs"), ("container logs", "logs"),
+            ("pokaż logi container", "logs"), ("logi kontenera", "logs"), ("container logs", "logs"),
             ("pobierz obraz", "pull"), ("pull image", "pull"), ("ściągnij obraz", "pull"),
+            ("pobierz image", "pull"), ("sciagnij image", "pull"), ("pull obraz", "pull"),
             ("wypchnij obraz", "push"), ("wyślij obraz", "push"), ("push image", "push"),
+            ("wypchnij image", "push"), ("push obraz", "push"),
             ("opublikuj obraz", "push"), ("wypchnij", "push"),
             ("zbuduj obraz", "build"), ("build image", "build"),
+            ("zbuduj image", "build"), ("build obraz", "build"), ("stwórz obraz", "build"),
             ("list containers", "list"), ("pokaż kontenery", "list"),
             ("kontenery docker", "list"), ("docker containers", "list"),
             ("kontener", "list"), ("container", "list"),
@@ -415,6 +437,9 @@ class KeywordIntentDetector:
             "zawartość katalogu": "list", "zawartość folderu": "list",
             "directory contents": "list", "folder contents": "list",
             "list files": "list", "list directory": "list",
+            "pokaż pliki": "list", "pokaz pliki": "list",
+            "lista plików": "list", "lista plikow": "list",
+            "show files": "list", "show file": "list",
             "uruchomione procesy": "list_processes", "running processes": "list_processes",
             "pokaż procesy": "list_processes", "show processes": "list_processes",
             "miejsce na dysku": "disk_usage", "disk space": "disk_usage",
@@ -425,6 +450,7 @@ class KeywordIntentDetector:
             "skopiuj plik": "copy", "copy file": "copy", "skopiuj ": "copy",
             "przenieś plik": "move", "move file": "move", "przenieś ": "move",
             "usuń plik": "delete", "delete file": "delete", "usuń stary": "delete",
+            "usun plik": "delete", "skasuj plik": "delete", "skasuj": "delete",
             "zmień uprawnienia": "chmod", "uprawnienia pliku": "chmod",
             "change permissions": "chmod",
             "spakuj folder": "compress", "spakuj ": "compress",
@@ -655,7 +681,7 @@ class KeywordIntentDetector:
     
     def _keyword_detection(self, text: str, text_lower: str) -> DetectionResult:
         """Traditional keyword-based detection."""
-        best_match = DetectionResult(domain="", intent="", confidence=0.0, matched=False)
+        best_match = DetectionResult(domain="unknown", intent="", confidence=0.0, matched=False)
         
         # Check priority intents first
         for domain in self.patterns.list_domains():

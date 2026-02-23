@@ -164,40 +164,93 @@ class RuleBasedBackend(NLPBackend):
         self.last_entity_extraction_meta: dict[str, Any] = {}
 
     def extract_entities(self, text: str) -> list[Entity]:
-        """Extract entities using simple pattern matching."""
-        entities = []
+        """Extract entities using simple pattern matching.
+
+        Respects NLP2CMD_ENTITY_EXTRACTOR_MODE:
+          - "semantic": use SemanticEntityExtractor exclusively
+          - "shadow":   run regex first, then SemanticEntityExtractor in the
+                        background and store results in last_entity_extraction_meta
+          - (default):  regex only
+        """
+        import os as _os
+        mode = _os.environ.get("NLP2CMD_ENTITY_EXTRACTOR_MODE", "").strip().lower()
+        dsl = (self.config or {}).get("dsl", "shell")
+
+        # --- regex extraction (always run unless pure semantic mode) ---
+        regex_entities: list[Entity] = []
         self.last_entity_extraction_meta = {"text": text, "matches": []}
-        
-        # Extract common patterns
-        patterns = {
-            "file_path": r'\b[/\\]?[\w\-./\\]+\.[\w]+\b',
-            "number": r'\b\d+\b',
-            "email": r'\b[\w\.-]+@[\w\.-]+\.\w+\b',
-            "url": r'\bhttps?://[^\s]+\b',
-            "port": r':(\d{1,5})\b',
-            "size": r'\b(\d+[KMGT]?B?)\b',
-        }
-        
-        for entity_type, pattern in patterns.items():
-            matches = re.findall(pattern, text, re.IGNORECASE)
-            for match in matches:
-                if isinstance(match, tuple):
-                    match = match[0] if match[0] else match[1]
-                
-                entity = Entity(
-                    name=entity_type,
-                    value=match,
-                    type=entity_type,
-                    confidence=0.8
-                )
-                entities.append(entity)
-                self.last_entity_extraction_meta["matches"].append({
-                    "type": entity_type,
-                    "value": match,
-                    "pattern": pattern
-                })
-        
-        return entities
+
+        if mode != "semantic":
+            _patterns = {
+                "file_path": r'\b[/\\]?[\w\-./\\]+\.[\w]+\b',
+                "number": r'\b\d+\b',
+                "email": r'\b[\w\.-]+@[\w\.-]+\.\w+\b',
+                "url": r'\bhttps?://[^\s]+\b',
+                "port": r':(\d{1,5})\b',
+                "size": r'\b(\d+[KMGT]?B?)\b',
+            }
+            
+            # Add SQL table extraction for SQL DSL
+            if dsl == "sql":
+                # Extract table names from patterns like "z tabeli users", "from table users", "from users"
+                table_patterns = [
+                    r'(?:z tabeli|from table|from)\s+(\w+)',
+                    r'(?:tabeli|table)\s+(\w+)',
+                    r'(?:z|from)\s+(\w+)\s+tabeli',
+                ]
+                _patterns["table"] = table_patterns
+            
+            for entity_type, pattern in _patterns.items():
+                if isinstance(pattern, list):
+                    # Handle multiple patterns for table extraction
+                    for p in pattern:
+                        matches = re.findall(p, text, re.IGNORECASE)
+                        for match in matches:
+                            if isinstance(match, tuple):
+                                match = match[0] if match[0] else match[1]
+                            entity = Entity(name=entity_type, value=match, type=entity_type, confidence=0.8)
+                            regex_entities.append(entity)
+                            self.last_entity_extraction_meta["matches"].append(
+                                {"type": entity_type, "value": match, "pattern": p}
+                            )
+                else:
+                    # Handle single pattern
+                    matches = re.findall(pattern, text, re.IGNORECASE)
+                    for match in matches:
+                        if isinstance(match, tuple):
+                            match = match[0] if match[0] else match[1]
+                        entity = Entity(name=entity_type, value=match, type=entity_type, confidence=0.8)
+                        regex_entities.append(entity)
+                        self.last_entity_extraction_meta["matches"].append(
+                            {"type": entity_type, "value": match, "pattern": pattern}
+                        )
+
+        # --- semantic / shadow extraction ---
+        if mode in ("semantic", "shadow"):
+            try:
+                from nlp2cmd.generation import semantic_entities as sem_mod
+                sem_extractor = sem_mod.SemanticEntityExtractor()
+                sem_extractor.extract(text, dsl)
+                # Prefer last_semantic_entities attribute (set by fake/real extractors)
+                sem_entities_dict: dict = getattr(sem_extractor, "last_semantic_entities", None) or {}
+
+                if mode == "semantic":
+                    # Replace regex results with semantic results
+                    self.last_entity_extraction_meta["entity_extractor_mode"] = "semantic"
+                    self.last_entity_extraction_meta["semantic_entities"] = sem_entities_dict
+                    return [
+                        Entity(name=k, value=v, type="semantic", confidence=0.9)
+                        for k, v in sem_entities_dict.items()
+                    ]
+                else:  # shadow
+                    self.last_entity_extraction_meta["entity_extractor_mode"] = "shadow"
+                    self.last_entity_extraction_meta["shadow_entities"] = sem_entities_dict
+            except Exception as _e:
+                logger.debug(f"Semantic entity extraction failed: {_e}")
+                if mode == "shadow":
+                    self.last_entity_extraction_meta["entity_extractor_mode"] = "shadow"
+
+        return regex_entities
 
     def extract_intent(self, text: str) -> tuple[str, float]:
         """Extract intent using rule-based pattern matching."""

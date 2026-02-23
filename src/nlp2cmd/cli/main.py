@@ -38,7 +38,7 @@ try:
     from rich.console import Console
     console = Console()
 except ImportError:
-    console = get_console()
+    console = None  # type: ignore
 
 # Import environment loading
 try:
@@ -46,24 +46,31 @@ try:
 except Exception:
     load_dotenv = None
 
-# Import CLI modules
-from nlp2cmd.cli.interactive_session import InteractiveSession
-from nlp2cmd.cli.run_handlers import handle_run_mode, _handle_run_query
-from nlp2cmd.cli.commands import repair_command, validate_command, analyze_env_command
-from nlp2cmd.cli.utils import (
-    _register_subcommands_for_args,
-    get_adapter,
-    get_console,
-    get_measure_context,
-    _interactive_followup,
-    _is_playwright_error,
-    _maybe_install_playwright,
-    _fallback_open_url,
-)
-from nlp2cmd.cli.display import display_command_result
-from nlp2cmd.cli.syntax_cache import get_cached_syntax
-from nlp2cmd.generation.pipeline import RuleBasedPipeline
-from nlp2cmd.web_schema.form_data_loader import FormDataLoader
+try:
+    from nlp2cmd.generation.pipeline import RuleBasedPipeline
+except Exception:  # pragma: no cover
+    RuleBasedPipeline = None  # type: ignore
+
+try:
+    from nlp2cmd.web_schema.form_data_loader import FormDataLoader
+except Exception:  # pragma: no cover
+    FormDataLoader = None  # type: ignore
+
+try:
+    from nlp2cmd.cli.syntax_cache import get_cached_syntax
+except Exception:  # pragma: no cover
+    def get_cached_syntax(code: str, lexer: str, theme: str = "monokai", line_numbers: bool = False):  # type: ignore
+        try:
+            from rich.syntax import Syntax
+            return Syntax(code, lexer, theme=theme, line_numbers=line_numbers)
+        except Exception:
+            return code
+
+try:
+    from nlp2cmd.cli.display import display_command_result
+except Exception:  # pragma: no cover
+    def display_command_result(command: str, metadata=None, metrics_str=None, show_yaml=True, title=None) -> None:  # type: ignore
+        print(command)
 
 try:
     from nlp2cmd.cli.markdown_output import print_yaml_block

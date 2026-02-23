@@ -21,6 +21,7 @@ SHELL_TEMPLATES = {
     'list_processes': "ps aux",
     'process_list': "ps aux | grep {process_name}",
     'process_top': "ps aux --sort=-%{metric} | head -n {limit}",
+    'w': "cat /etc/passwd",  # Show system users
     'disk_usage': "df -h {path}",
     'dir_size': "du -sh {path}",
     'copy': "cp {flags} {source} {destination}",

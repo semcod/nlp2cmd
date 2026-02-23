@@ -13,9 +13,16 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from nlp2cmd.utils.data_files import find_data_files
+import nlp2cmd.generation.keywords as _keywords_pkg
+from nlp2cmd.utils.data_files import find_data_files as _find_data_files_default
 
 logger = logging.getLogger(__name__)
+
+
+def _find_data_files(**kwargs):
+    """Indirection so tests can monkeypatch nlp2cmd.generation.keywords.find_data_files."""
+    fn = getattr(_keywords_pkg, 'find_data_files', _find_data_files_default)
+    return fn(**kwargs)
 
 
 def _normalize_polish_text(text: str) -> str:
@@ -55,6 +62,13 @@ class KeywordPatterns:
         
         self._load_patterns_from_json(custom_patterns_file)
         self._load_detector_config_from_json()
+
+        strict = os.environ.get("NLP2CMD_STRICT_CONFIG", "").strip().lower() in {"1", "true", "yes"}
+        if strict and not self.patterns:
+            raise FileNotFoundError(
+                "NLP2CMD_STRICT_CONFIG is set but no patterns data files were found. "
+                "Set NLP2CMD_PATTERNS_FILE or ensure data/patterns.json is accessible."
+            )
     
     def _load_patterns_from_json(self, custom_patterns_file: Optional[str] = None) -> None:
         """Load patterns from external JSON file."""
@@ -66,7 +80,7 @@ class KeywordPatterns:
             pattern_files.append(Path(custom_patterns_file))
         
         # Add default search paths
-        for p in find_data_files(
+        for p in _find_data_files(
             explicit_path=os.environ.get("NLP2CMD_PATTERNS_FILE"),
             default_filename="patterns.json",
         ):
@@ -113,7 +127,7 @@ class KeywordPatterns:
     
     def _load_detector_config_from_json(self) -> None:
         """Load detector configuration from JSON files."""
-        for p in find_data_files(
+        for p in _find_data_files(
             explicit_path=os.environ.get("NLP2CMD_DETECTOR_CONFIG_FILE"),
             default_filename="detector_config.json",
         ):

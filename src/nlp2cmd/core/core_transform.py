@@ -131,12 +131,21 @@ class NLP2CMD:
         try:
             # Generate execution plan
             plan = self.nlp_backend.generate_plan(text, context)
-            
+
+            # Propagate shadow/semantic entity extraction metadata into plan
+            entity_meta = getattr(self.nlp_backend, "last_entity_extraction_meta", {})
+            if entity_meta.get("entity_extractor_mode"):
+                plan.metadata["entity_extractor_mode"] = entity_meta["entity_extractor_mode"]
+                if "shadow_entities" in entity_meta:
+                    plan.metadata["shadow_entities"] = entity_meta["shadow_entities"]
+                if "semantic_entities" in entity_meta:
+                    plan.metadata["semantic_entities"] = entity_meta["semantic_entities"]
+
             # Normalize entities based on domain
             self._normalize_entities(plan)
-            
+
             # Generate command using adapter
-            command = self.adapter.generate_command(plan.intent, plan.entities)
+            command = self.adapter.generate({"text": text, "intent": plan.intent, "entities": plan.entities})
             
             # Validate command if validator is available
             validation_errors = []
@@ -166,6 +175,19 @@ class NLP2CMD:
             else:
                 status = TransformStatus.SUCCESS
             
+            result_metadata: dict[str, Any] = {
+                "domain": plan.domain,
+                "validation_mode": self.validation_mode,
+                "auto_fix_applied": self.auto_fix and bool(validation_errors),
+            }
+            # Propagate shadow/semantic metadata into result too
+            if entity_meta.get("entity_extractor_mode"):
+                result_metadata["entity_extractor_mode"] = entity_meta["entity_extractor_mode"]
+                if "shadow_entities" in entity_meta:
+                    result_metadata["shadow_entities"] = entity_meta["shadow_entities"]
+                if "semantic_entities" in entity_meta:
+                    result_metadata["semantic_entities"] = entity_meta["semantic_entities"]
+
             return TransformResult(
                 status=status,
                 command=command,
@@ -175,11 +197,7 @@ class NLP2CMD:
                 execution_plan=plan,
                 errors=validation_errors,
                 warnings=validation_warnings,
-                metadata={
-                    "domain": plan.domain,
-                    "validation_mode": self.validation_mode,
-                    "auto_fix_applied": self.auto_fix and bool(validation_errors),
-                }
+                metadata=result_metadata,
             )
             
         except Exception as e:
@@ -191,6 +209,54 @@ class NLP2CMD:
                 confidence=0.0,
                 errors=[f"Transformation error: {e}"],
             )
+
+    def transform_ir(self, text: str, context: Optional[dict] = None) -> ActionIR:
+        """
+        Transform natural language text into ActionIR (Intermediate Representation).
+        
+        Args:
+            text: Natural language input text
+            context: Additional context for transformation
+            
+        Returns:
+            ActionIR object with action_id, dsl, and metadata
+        """
+        from ..ir import ActionIR
+        
+        # Use the existing transform method to get the result
+        result = self.transform(text, context)
+        
+        if result.status == TransformStatus.ERROR or not result.command:
+            # Return error IR
+            return ActionIR(
+                action_id="error",
+                dsl="",
+                dsl_kind="shell",
+                confidence=0.0,
+                explanation="Transformation failed",
+                metadata={"errors": result.errors or []}
+            )
+        
+        # Determine DSL kind based on adapter
+        dsl_kind = getattr(self.adapter, 'DSL_NAME', 'shell').lower()
+        if dsl_kind not in ['sql', 'graphql', 'dom', 'shell', 'http', 'python', 'gui']:
+            dsl_kind = 'shell'
+        
+        return ActionIR(
+            action_id=result.intent or "unknown",
+            dsl=result.command,
+            dsl_kind=dsl_kind,
+            params=result.entities or {},
+            confidence=result.confidence,
+            explanation=result.command or "Generated command",
+            metadata={
+                "status": result.status.value,
+                "warnings": result.warnings or [],
+                "errors": result.errors or [],
+                "domain": result.metadata.get("domain", "unknown"),
+                **result.metadata
+            }
+        )
 
     def _normalize_entities(self, intent_or_plan, entities: Optional[dict] = None, context: Optional[dict] = None) -> Optional[dict]:
         """Normalize entities based on domain and intent.
