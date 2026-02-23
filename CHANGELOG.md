@@ -1,3 +1,15 @@
+## [1.0.70] - 2026-02-23
+
+### Summary
+
+feat(docs): deep code analysis engine with 3 supporting modules
+
+### Core
+
+- update src/nlp2cmd/generation/pipeline_components.py
+- update src/nlp2cmd/thermodynamic/energy_models.py
+
+
 ## [1.1.0-dev] - 2026-02-23
 
 ### Summary

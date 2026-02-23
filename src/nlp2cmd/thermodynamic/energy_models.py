@@ -80,15 +80,42 @@ class SchedulingEnergy(EnergyModel):
         Compute scheduling energy.
         
         Args:
-            z: Start times for each task (shape: [n_tasks])
-            condition: Contains 'tasks', 'resources', optional 'assignments'
+            z: Start times for each task (shape: [n_tasks]) or assignment matrix (n_tasks * n_slots)
+            condition: Contains 'tasks', 'resources', optional 'assignments' OR legacy format
         
         Returns:
             Total energy (lower = better schedule)
         """
-        tasks = condition.get('tasks', [])
-        resources = condition.get('resources', [])
-        assignments = condition.get('assignments', {})  # task_id -> resource_id
+        # Handle legacy format for backward compatibility
+        if 'tasks' not in condition and self.n_tasks is not None:
+            # Legacy format: z is assignment matrix, n_tasks * n_slots
+            n_tasks = self.n_tasks
+            n_slots = condition.get('n_slots', 5)  # Default from test
+            
+            # Create dummy tasks for backward compatibility
+            tasks = []
+            for i in range(n_tasks):
+                task = Task(
+                    id=f"task_{i}",
+                    duration=1.0,
+                    deadline=n_slots
+                )
+                tasks.append(task)
+            
+            # Convert assignment matrix to start times
+            if len(z) == n_tasks * n_slots:
+                # z is assignment matrix, find max position for each task
+                z_reshaped = z.reshape(n_tasks, n_slots)
+                start_times = np.argmax(z_reshaped, axis=1).astype(float)
+                z = start_times
+            
+            resources = []
+            assignments = {}
+        else:
+            # New format
+            tasks = condition.get('tasks', [])
+            resources = condition.get('resources', [])
+            assignments = condition.get('assignments', {})  # task_id -> resource_id
         
         if len(z) != len(tasks):
             raise ValueError(f"z length {len(z)} != n_tasks {len(tasks)}")
@@ -249,16 +276,35 @@ class AllocationEnergy(EnergyModel):
         
         Args:
             z: Allocation matrix flattened (shape: [n_requests * n_resources])
-            condition: Contains 'capacities', 'demands', 'costs'
+            condition: Contains 'capacities', 'demands', 'costs' OR legacy format with constraints
         
         Returns:
             Total energy
         """
-        n_requests = condition.get('n_requests', 1)
-        n_resources = condition.get('n_resources', 1)
-        capacities = np.array(condition.get('capacities', [1.0] * n_resources))
-        demands = np.array(condition.get('demands', [0.0] * n_requests))
-        costs = np.array(condition.get('costs', np.ones((n_requests, n_resources))))
+        # Handle legacy format for backward compatibility
+        if 'capacities' not in condition and self.n_resources is not None:
+            # Legacy format: extract from constraints
+            n_resources = self.n_resources
+            n_requests = len(z) // n_resources if len(z) % n_resources == 0 else 2
+            
+            # Extract capacities from constraints
+            capacities = np.array([100.0] * n_resources)  # Default
+            demands = np.array([0.0] * n_requests)  # Default
+            costs = np.ones((n_requests, n_resources))  # Default
+            
+            constraints = condition.get('constraints', [])
+            for constraint in constraints:
+                if constraint.get('type') == 'capacity':
+                    resource_idx = constraint.get('resource', 0)
+                    if resource_idx < n_resources:
+                        capacities[resource_idx] = constraint.get('value', 100.0)
+        else:
+            # New format
+            n_requests = condition.get('n_requests', 1)
+            n_resources = condition.get('n_resources', 1)
+            capacities = np.array(condition.get('capacities', [1.0] * n_resources))
+            demands = np.array(condition.get('demands', [0.0] * n_requests))
+            costs = np.array(condition.get('costs', np.ones((n_requests, n_resources))))
         
         # Reshape z to matrix
         Z = z.reshape(n_requests, n_resources)

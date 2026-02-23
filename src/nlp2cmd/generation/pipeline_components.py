@@ -69,6 +69,8 @@ class PipelineMetrics:
         self.successful = 0
         self.failed = 0
         self.total_latency_ms = 0.0
+        self.min_latency_ms = float('inf')
+        self.max_latency_ms = 0.0
         self.domain_counts: dict[str, int] = {}
         self.intent_counts: dict[str, int] = {}
         self.error_counts: dict[str, int] = {}
@@ -96,6 +98,12 @@ class PipelineMetrics:
         
         self.total_processed += 1
         self.total_latency_ms += result.latency_ms
+        
+        # Update min/max latency
+        if result.latency_ms < self.min_latency_ms:
+            self.min_latency_ms = result.latency_ms
+        if result.latency_ms > self.max_latency_ms:
+            self.max_latency_ms = result.latency_ms
         
         if result.success:
             self.successful += 1
@@ -130,6 +138,8 @@ class PipelineMetrics:
             "failed": self.failed,
             "success_rate": self.get_success_rate(),
             "average_latency_ms": self.get_average_latency(),
+            "min_latency_ms": self.min_latency_ms if self.min_latency_ms != float('inf') else 0.0,
+            "max_latency_ms": self.max_latency_ms,
             "domain_counts": self.domain_counts,
             "intent_counts": self.intent_counts,
             "error_counts": self.error_counts,
@@ -141,6 +151,8 @@ class PipelineMetrics:
         # Add legacy field names for backward compatibility
         report = summary.copy()
         report['avg_latency'] = report['average_latency_ms']
+        report['min_latency'] = report['min_latency_ms']
+        report['max_latency'] = report['max_latency_ms']
         # Convert success_rate from percentage to decimal for legacy compatibility
         if isinstance(report['success_rate'], (int, float)) and report['success_rate'] > 1:
             report['success_rate'] = report['success_rate'] / 100.0
