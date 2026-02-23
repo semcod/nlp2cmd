@@ -1,3 +1,20 @@
+## [1.0.69] - 2026-02-23
+
+### Summary
+
+refactor(goal): configuration management system
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update project.functions.toon
+- scripts: update project.sh
+- update project.toon
+
+
 ## [1.0.68] - 2026-02-23
 
 ### Summary
