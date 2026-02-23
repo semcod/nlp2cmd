@@ -406,6 +406,7 @@ class RuleBasedBackend(NLPBackend):
     def __init__(self, rules: Optional[dict[str, list[str]]] = None, config: Optional[dict] = None):
         super().__init__(config)
         self.rules = rules or {}
+        self.last_entity_extraction_meta: dict[str, Any] = {}
 
     def extract_entities(self, text: str) -> list[Entity]:
         """Extract entities using simple pattern matching."""
@@ -435,11 +436,17 @@ class RuleBasedBackend(NLPBackend):
             from nlp2cmd.generation.semantic_entities import SemanticEntityExtractor
 
             extractor = SemanticEntityExtractor()
-            return extractor.extract(text, dsl)
+            result = extractor.extract(text, dsl)
+            meta: dict[str, Any] = {"entity_extractor_mode": extractor.last_mode}
+            if extractor.last_mode == "shadow":
+                meta["shadow_entities"] = extractor.last_semantic_entities
+            self.last_entity_extraction_meta = meta
+            return result
 
         from nlp2cmd.generation.regex import RegexEntityExtractor
 
         extractor = RegexEntityExtractor()
+        self.last_entity_extraction_meta = {}
         return extractor.extract(text, dsl)
 
     def _extract_regex_entities(self, text: str, dsl: str) -> list[Entity]:
@@ -833,10 +840,15 @@ class NLP2CMD:
                 entities = self.nlp_backend.extract_entities(text)
                 entity_dict = {e.name: e.value for e in entities}
                 entity_dict = self._normalize_entities(intent, entity_dict, full_context)
+                meta: dict[str, Any] = {}
+                backend_meta = getattr(self.nlp_backend, "last_entity_extraction_meta", None)
+                if isinstance(backend_meta, dict) and backend_meta:
+                    meta.update(backend_meta)
                 plan = ExecutionPlan(
                     intent=intent,
                     entities=entity_dict,
                     confidence=confidence,
+                    metadata=meta,
                     text=text,
                 )
         except Exception as e:
@@ -927,6 +939,10 @@ class NLP2CMD:
 
         if isinstance(action_ir, ActionIR):
             result.metadata["action_ir"] = action_ir.to_dict()
+
+        if plan.metadata.get("entity_extractor_mode") == "shadow":
+            result.metadata["entity_extractor_mode"] = plan.metadata.get("entity_extractor_mode")
+            result.metadata["shadow_entities"] = plan.metadata.get("shadow_entities")
 
         # Store in history
         self._history.append(result)

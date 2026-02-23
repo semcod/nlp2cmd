@@ -85,6 +85,7 @@ class PipelineResult:
     latency_ms: float = 0.0
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.confidence == 0.0 and self.detection_confidence != 0.0:
@@ -256,6 +257,13 @@ class RuleBasedPipeline:
         
         # Step 2: Extract entities
         extraction = self.extractor.extract(text, detection.domain)
+
+        extractor_meta: dict[str, Any] = {}
+        last_mode = getattr(self.extractor, "last_mode", None)
+        if isinstance(last_mode, str) and last_mode:
+            extractor_meta["entity_extractor_mode"] = last_mode
+            if last_mode == "shadow":
+                extractor_meta["shadow_entities"] = getattr(self.extractor, "last_semantic_entities", None)
         
         if not extraction.entities:
             warnings.append("No entities extracted from text")
@@ -338,6 +346,7 @@ class RuleBasedPipeline:
             latency_ms=latency,
             errors=errors,
             warnings=warnings,
+            metadata=extractor_meta,
         )
 
     def _infer_domain_from_markers(self, text_lower: str) -> Optional[str]:

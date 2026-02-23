@@ -35,6 +35,7 @@ class HybridResult:
     estimated_cost: float = 0.0
     
     errors: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -196,6 +197,7 @@ class HybridGenerator:
                 rule_result=rule_result,
                 llm_calls=0,
                 estimated_cost=0.0,
+                metadata=dict(getattr(rule_result, "metadata", {}) or {}),
             )
         
         # Fallback to LLM
@@ -213,6 +215,7 @@ class HybridGenerator:
                 success=rule_result.success,
                 rule_result=rule_result,
                 errors=["LLM fallback not available"],
+                metadata=dict(getattr(rule_result, "metadata", {}) or {}),
             )
         
         return await self._generate_with_llm(text, context, start_time, rule_result)
@@ -266,6 +269,7 @@ class HybridGenerator:
             llm_calls=1,
             estimated_cost=self.COST_PER_LLM_CALL,
             errors=[llm_result.error] if llm_result.error else [],
+            metadata=dict(getattr(rule_result, "metadata", {}) or {}),
         )
     
     async def generate_batch(

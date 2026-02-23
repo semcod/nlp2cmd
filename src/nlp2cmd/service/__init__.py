@@ -152,6 +152,7 @@ class QueryResponse(BaseModel):
     domain: Optional[str] = None
     intent: Optional[str] = None
     entities: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = None
     errors: Optional[list] = None
     warnings: Optional[list] = None
     execution_result: Optional[Dict[str, Any]] = None
@@ -234,6 +235,7 @@ class NLP2CMDService:
                     "domain": result.domain,
                     "intent": result.intent,
                     "entities": result.entities,
+                    "metadata": result.metadata,
                     "errors": result.errors if not result.success else None,
                     "warnings": []
                 }

@@ -32,7 +32,7 @@ inteligentna reakcja na nie działająca w danym kontekscie polecenie i propzycj
 # NLP2CMD
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Production Ready](https://img.shields.io/badge/production%20ready-brightgreen.svg)](https://github.com/wronai/nlp2cmd)
 [![85%+ Success Rate](https://img.shields.io/badge/success%20rate-85%25%2B-brightgreen.svg)](https://github.com/wronai/nlp2cmd)
@@ -1020,3 +1020,11 @@ Apache License - see [LICENSE](LICENSE) for details.
 - [spaCy](https://spacy.io/) - NLP processing
 - [Anthropic Claude](https://anthropic.com/) - LLM integration
 - [Rich](https://rich.readthedocs.io/) - Terminal formatting
+
+## License
+
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
+
+## Author
+
+Created by **Tom Sapletta** - [tom@sapletta.com](mailto:tom@sapletta.com)

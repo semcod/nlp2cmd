@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nlp2cmd"
-version = "1.0.67"
-description = "Natural Language to Domain-Specific Commands with Thermodynamic Optimization - Transform natural language into SQL, Shell, Docker, Kubernetes and solve optimization problems using Langevin dynamics"
+version = "1.0.68"
+description = "NLP2CMD - Transforms natural language into domain-specific commands (SQL, Shell, Docker, Kubernetes) using a multi-layered detection pipeline and thermodynamic optimization."
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
 authors = [
-    { name = "NLP2CMD Team", email = "team@nlp2cmd.dev" }
+    { name = "NLP2CMD Team", email = "tom@sapletta.com" }
 ]
 keywords = [
     "nlp",
@@ -30,11 +30,8 @@ keywords = [
     "constraint-satisfaction",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Environment :: Console",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "Intended Audience :: System Administrators",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",

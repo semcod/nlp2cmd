@@ -1,5 +1,16 @@
 # Enhanced NLP2CMD - Dynamic Schema Implementation
 
+[![GitHub stars](https://img.shields.io/github/stars/wronai/nlp2cmd?style=social)](https://github.com/wronai/nlp2cmd/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/wronai/nlp2cmd?style=social)](https://github.com/wronai/nlp2cmd/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/wronai/nlp2cmd)](https://github.com/wronai/nlp2cmd/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/wronai/nlp2cmd)](https://github.com/wronai/nlp2cmd/pulls)
+[![Tests](https://img.shields.io/github/actions/workflow/status/wronai/nlp2cmd/test.yml?label=tests)](https://github.com/wronai/nlp2cmd/actions)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Type checking: mypy](https://img.shields.io/badge/type%20checking-mypy-blue.svg)](http://mypy-lang.org/)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)](https://github.com/wronai/nlp2cmd)
+[![Dependencies](https://img.shields.io/badge/dependencies-playwright%20%7C%20openapi-blue)](https://github.com/wronai/nlp2cmd)
+
 This implementation replaces hardcoded keywords with dynamic schema extraction from multiple sources.
 
 ## Overview
@@ -19,7 +30,7 @@ from nlp2cmd.schema_extraction import DynamicSchemaRegistry
 
 # Extract from OpenAPI spec
 registry = DynamicSchemaRegistry()
-schema = registry.register_openapi_schema("https://api.example.com/openapi.json")
+schema = registry.register_openapi_schema("htt ps://api.example.com/openapi.json")
 
 # Extract from shell help
 schema = registry.register_shell_help("find")

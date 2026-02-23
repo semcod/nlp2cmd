@@ -1,3 +1,37 @@
+## [1.0.68] - 2026-02-23
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/cli/main.py
+- update src/nlp2cmd/core.py
+- update src/nlp2cmd/generation/hybrid.py
+- update src/nlp2cmd/generation/pipeline.py
+- update src/nlp2cmd/service/__init__.py
+
+### Docs
+
+- docs: update ENHANCED_README.md
+
+### Test
+
+- update tests/unit/test_hybrid_generator_shadow_metadata.py
+- update tests/unit/test_rule_based_pipeline_shadow_metadata.py
+- update tests/unit/test_service_query_shadow_metadata.py
+- update tests/unit/test_shadow_entity_metadata_capture.py
+
+### Build
+
+- update pyproject.toml
+
+### Config
+
+- config: update goal.yaml
+
+
 # Changelog
 
 All notable changes to NLP2CMD will be documented in this file.
