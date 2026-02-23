@@ -120,6 +120,19 @@ class ProcessManagementGenerator:
         if pid and action in ["kill", "zabij"]:
             return f"kill -9 {pid}"
         
+        # Handle service management (systemctl)
+        if process_name and action in ["start", "uruchom", "status", "stop", "zatrzymaj", "restart"]:
+            systemctl_actions = {
+                "start": "start",
+                "uruchom": "start", 
+                "status": "status",
+                "stop": "stop",
+                "zatrzymaj": "stop",
+                "restart": "restart"
+            }
+            systemctl_action = systemctl_actions.get(action, "status")
+            return f"systemctl {systemctl_action} {process_name}"
+        
         actions = {
             "zabij": f"pkill -f {shlex.quote(process_name)}" if process_name else "pkill -f process_name",
             "kill": f"pkill -f {shlex.quote(process_name)}" if process_name else "pkill -f process_name",
