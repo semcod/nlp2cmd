@@ -145,12 +145,22 @@ Odpowiedz TYLKO komendą shell."""
         user_prompt = f"Wyszukaj pliki PDF: {query}"
         
         # Generuj odpowiedź
+        full_prompt = f"""<system>
+{system_prompt}
+</system>
+
+<user>
+{user_prompt}
+</user>
+
+<assistant>
+"""
+        
         response = self.llm(
-            user_prompt,
-            system_prompt=system_prompt,
+            full_prompt,
             max_tokens=200,
             temperature=0.2,
-            stop=["\n\n", "```", "#"],
+            stop=["\n\n", "```", "#", "</assistant>"],
             echo=False
         )
         
