@@ -122,27 +122,30 @@ class PolishPDFSearchLLM:
         """Generuj komendę używając lokalnego modelu LLaMA."""
         
         # System prompt dla polskiego LLM
-        system_prompt = """Jesteś ekspertem od komend Linux/Unix. Użytkownik opisuje, jakie pliki PDF chce znaleźć, a ty generujesz odpowiednią komendę.
+        system_prompt = """Jesteś ekspertem od komend Linux/Unix. Użytkownik opisuje, jakie pliki chce znaleźć, a ty generujesz odpowiednią komendę.
 
 Zasady:
 1. Odpowiadaj TYLKO komendą shell, bez wyjaśnień
 2. Używaj find do wyszukiwania plików
 3. Dodawaj filtry odpowiednie dla zapytania
-4. Używaj -name "*.pdf" dla plików PDF
+4. Dla wielu typów plików, używaj -o (OR) lub wielokrotnych -name
 5. Dla zapytań o datę, używaj -mtime lub -newer
 6. Dla rozmiaru, używaj -size
 7. Sortuj wyniki jeśli potrzebne (| sort, | head)
 
 Przykłady:
 - "znajdź wszystkie PDF" → find . -name "*.pdf"
-- "PDF większe niż 1MB" → find . -name "*.pdf" -size +1M
-- "PDF z ostatniego tygodnia" → find . -name "*.pdf" -mtime -7
-- "PDF z 2024 roku" → find . -name "*.pdf" -newer 2024-01-01 ! -newer 2025-01-01
+- "znajdź PDF i TXT" → find . -name "*.pdf" -o -name "*.txt"
+- "znajdź obrazy" → find . -name "*.jpg" -o -name "*.png" -o -name "*.gif"
+- "pliki większe niż 1MB" → find . -size +1M
+- "pliki z ostatniego tygodnia" → find . -mtime -7
+- "znajdź dokumenty" → find . -name "*.pdf" -o -name "*.doc" -o -name "*.docx"
+- "wszystkie pliki" → find . -type f
 
 Odpowiedz TYLKO komendą shell."""
 
         # User prompt
-        user_prompt = f"Wyszukaj pliki PDF: {query}"
+        user_prompt = f"Wyszukaj pliki: {query}"
         
         # Generuj odpowiedź
         full_prompt = f"""<system>
