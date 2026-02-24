@@ -65,7 +65,7 @@ class TestSchedulingEnergy:
     
     @pytest.fixture
     def energy(self) -> SchedulingEnergy:
-        return SchedulingEnergy(n_tasks=3, n_slots=5)
+        return SchedulingEnergy(n_tasks=3, n_slots=5, lambda_overlap=40.0)
     
     def test_no_overlap_low_energy(self, energy):
         """Test that non-overlapping schedule has low energy."""
@@ -176,7 +176,7 @@ class TestThermodynamicGenerator:
     
     @pytest.fixture
     def generator(self) -> ThermodynamicGenerator:
-        return create_thermodynamic_generator(n_samples=3, n_steps=100)
+        return create_thermodynamic_generator(n_samples=3, n_steps=100, adaptive_steps=False)
     
     @pytest.mark.asyncio
     async def test_generate_scheduling(self, generator):

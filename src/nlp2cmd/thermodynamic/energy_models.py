@@ -67,6 +67,7 @@ class SchedulingEnergy(EnergyModel):
         lambda_precedence: float = 10.0,
         lambda_makespan: float = 1.0,
         n_tasks: Optional[int] = None,
+        n_slots: Optional[int] = None,
         **kwargs
     ):
         self.lambda_overlap = lambda_overlap
@@ -74,6 +75,7 @@ class SchedulingEnergy(EnergyModel):
         self.lambda_precedence = lambda_precedence
         self.lambda_makespan = lambda_makespan
         self.n_tasks = n_tasks  # Store for backward compatibility
+        self.n_slots = n_slots  # Store for backward compatibility
     
     def energy(self, z: np.ndarray, condition: Dict[str, Any]) -> float:
         """
@@ -90,7 +92,7 @@ class SchedulingEnergy(EnergyModel):
         if 'tasks' not in condition and self.n_tasks is not None:
             # Legacy format: z is assignment matrix, n_tasks * n_slots
             n_tasks = self.n_tasks
-            n_slots = condition.get('n_slots', 5)  # Default from test
+            n_slots = self.n_slots or condition.get('n_slots', 5)  # Use constructor value or default
             
             # Create dummy tasks for backward compatibility
             tasks = []
@@ -199,7 +201,10 @@ class SchedulingEnergy(EnergyModel):
                 res_i = assignments.get(task_i.id)
                 res_j = assignments.get(task_j.id)
                 
-                if res_i is not None and res_i == res_j:
+                # For legacy format with no assignments, assume all tasks share same resource
+                same_resource = (res_i is not None and res_i == res_j) or (not assignments and len(tasks) > 1)
+                
+                if same_resource:
                     # Check overlap
                     start_i, end_i = z[i], z[i] + task_i.duration
                     start_j, end_j = z[j], z[j] + task_j.duration

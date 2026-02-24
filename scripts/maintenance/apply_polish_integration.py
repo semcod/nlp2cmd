@@ -98,8 +98,7 @@ def main():
     # Verify integration
     verification_success = verify_integration()
     
-    print("
-" + "=" * 60)
+    print("\n" + "=" * 60)
     print("🎯 INTEGRATION RESULTS")
     print("=" * 60)
     
@@ -108,17 +107,14 @@ def main():
     print(f"Verification: {'✅ Passed' if verification_success else '❌ Failed'}")
     
     if core_success and adapters_success and verification_success:
-        print("
-🎉 Integration successful!")
+        print("\n🎉 Integration successful!")
         print("Polish language support is now enabled in NLP2CMD")
-        print("
-Next steps:")
+        print("\nNext steps:")
         print("1. Test Polish commands")
         print("2. Run comprehensive test suite")
         print("3. Monitor performance improvements")
     else:
-        print("
-⚠️  Integration incomplete")
+        print("\n⚠️  Integration incomplete")
         print("Please check the errors above and retry")
     
     return core_success and adapters_success and verification_success
