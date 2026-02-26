@@ -1,3 +1,19 @@
+## [1.0.78] - 2026-02-26
+
+### Summary
+
+feat(examples): configuration management system
+
+### Core
+
+- update src/nlp2cmd/generation/evolutionary_cache.py
+
+### Other
+
+- update examples/benchmark_learning.py
+- update examples/benchmark_nlp2cmd.py
+
+
 ## [1.0.77] - 2026-02-26
 
 ### Summary

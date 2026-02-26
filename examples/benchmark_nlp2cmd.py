@@ -7,7 +7,7 @@ Models tested:
   2. qwen2.5:3b   (multilingual 3B)
   3. gemma2:2b     (Google 2B)
   4. phi:latest    (Microsoft Phi, ~1.6GB, ~8-12 t/s)
-  5. deepseek-r1:1.5b (DeepSeek R1, ~1.1GB, ~12-18 t/s)
+  5. deepseek-coder:1.3b (DeepSeek Coder, ~?GB, ~? t/s)
 
 Domains (all 16 nlp2cmd template domains):
   shell, docker, sql, kubernetes, browser, git,
@@ -116,8 +116,19 @@ Odpowiadaj TYLKO komendą shell/sql/kubectl/docker/git. Nie dodawaj komentarzy a
         return False
 
 
-def ollama_generate(model: str, prompt: str, system: str = "", max_tokens: int = 200) -> tuple[str, float]:
+def ollama_generate(
+    model: str, prompt: str, system: str = "",
+    max_tokens: int = 200, thinking: bool = False,
+) -> tuple[str, float]:
     """Call ollama /api/generate, return (text, duration_sec)."""
+    # Thinking models (DeepSeek-R1) emit <think>...</think> blocks before the
+    # actual command.  We must NOT use \n\n as a stop token for them because
+    # the reasoning section contains many double-newlines.
+    if thinking:
+        stop = ["</assistant>", "<user>"]
+    else:
+        stop = ["\n\n", "```", "</assistant>", "<user>"]
+
     payload: dict[str, Any] = {
         "model": model,
         "prompt": prompt,
@@ -125,14 +136,7 @@ def ollama_generate(model: str, prompt: str, system: str = "", max_tokens: int =
         "options": {
             "temperature": 0.2,
             "num_predict": max_tokens,
-            "stop": [
-                "\n\n",
-                "```",
-                "</assistant>",
-                "<user>",
-                "<think>",
-                "</think>",
-            ],
+            "stop": stop,
         },
     }
     if system:
@@ -344,8 +348,11 @@ MODELS = [
     {"name": "qwen2.5:3b", "display": "Qwen2.5-3B", "params": "3B"},
     {"name": "gemma2:2b", "display": "Gemma2-2B", "params": "2B"},
     {"name": "phi:latest", "display": "Phi (latest)", "params": "1.6GB"},
-    {"name": "deepseek-r1:1.5b", "display": "DeepSeek-R1-1.5B", "params": "1.1GB"},
+    {"name": "deepseek-r1:1.5b", "display": "DeepSeek-R1-1.5B", "params": "1.5B", "thinking": True},
 ]
+
+# Thinking models need more tokens for internal reasoning
+THINKING_MODELS = {m["name"] for m in MODELS if m.get("thinking")}
 
 
 # ---------------------------------------------------------------------------
@@ -382,9 +389,19 @@ def clean_command(raw: str) -> str:
     """Extract clean command from LLM response."""
     text = raw.strip()
 
-    # Remove <think> blocks (some models emit hidden reasoning)
+    # Remove <think>...</think> blocks (DeepSeek-R1 reasoning)
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
-    text = re.sub(r"^<think>.*$", "", text, flags=re.IGNORECASE).strip()
+    # Handle unclosed <think> — remove everything from <think> to end
+    if "<think>" in text.lower():
+        idx = text.lower().find("<think>")
+        # If there's content AFTER the think block, keep it
+        think_end = text.lower().find("</think>", idx)
+        if think_end >= 0:
+            text = text[:idx] + text[think_end + 8:]
+        else:
+            # Unclosed <think> — everything after it is reasoning, discard
+            text = text[:idx]
+        text = text.strip()
 
     # Remove markdown code blocks
     m = re.search(r"```(?:bash|shell|sql|sh)?\s*(.*?)\s*```", text, re.DOTALL)
@@ -512,8 +529,11 @@ def run_benchmark() -> BenchmarkResults:
                 )
 
                 try:
+                    is_thinking = model_name in THINKING_MODELS
+                    tokens = 1024 if is_thinking else 200
                     raw, elapsed = ollama_generate(
-                        model_name, q["query"], system=system_prompt, max_tokens=200
+                        model_name, q["query"], system=system_prompt,
+                        max_tokens=tokens, thinking=is_thinking,
                     )
                     qr.raw_response = raw
                     qr.cleaned_command = clean_command(raw)

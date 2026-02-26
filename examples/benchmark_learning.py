@@ -135,7 +135,7 @@ def _teacher_models() -> list[str]:
     return [
         os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b"),
         "phi:latest",
-        "deepseek-r1:1.5b",
+        "deepseek-coder:1.3b",
     ]
 
 

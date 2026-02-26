@@ -316,8 +316,8 @@ class EvolutionaryCache:
             "stream": False,
             "options": {
                 "temperature": 0.1,
-                "num_predict": 200,
-                "stop": ["\n\n", "```", "</assistant>", "<user>"],
+                "num_predict": 512,
+                "stop": ["\n\n"],
             },
         }
         r = requests.post(
@@ -329,13 +329,29 @@ class EvolutionaryCache:
 
     @staticmethod
     def _clean(raw: str) -> str:
-        """Strip markdown fences and comment lines."""
+        """Strip <think> blocks, markdown fences, NL lines, and comments."""
+        # Remove <think>...</think> blocks (DeepSeek-R1 reasoning)
+        raw = re.sub(r'<think>.*?</think>', '', raw, flags=re.DOTALL | re.IGNORECASE).strip()
+        raw = re.sub(r'^<think>.*$', '', raw, flags=re.IGNORECASE).strip()
+        # Extract from markdown code blocks
         m = re.search(r'```(?:\w+)?\s*(.*?)\s*```', raw, re.DOTALL)
         if m:
             raw = m.group(1).strip()
-        lines = [l.strip() for l in raw.split('\n')
-                 if l.strip() and not l.strip().startswith('#')]
-        return ' '.join(lines) if lines else raw
+        skip_prefixes = (
+            '#', '//', 'sure', 'ok', 'okay', "i'm sorry", 'im sorry',
+            'i cannot', "i can't", 'as an ai', "here's", 'here is',
+        )
+        lines = []
+        for l in raw.split('\n'):
+            l = l.strip()
+            if not l:
+                continue
+            if l.lower().startswith(skip_prefixes):
+                continue
+            if len(l.split()) > 12 and not l.startswith(('find ', 'docker ', 'kubectl ', 'git ', 'curl ', 'ffmpeg ', 'ssh ', 'rsync ', 'apt ', 'pip ', 'npm ')):
+                continue
+            lines.append(l)
+        return lines[0] if lines else raw
 
     # -- stats --------------------------------------------------------------
     def get_stats(self) -> dict:
