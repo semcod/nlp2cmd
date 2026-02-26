@@ -1,17 +1,6 @@
-# nlp2cmd | 374f 104885L | python:374/sql:1
+# nlp2cmd | 376f 106165L | python:375/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[374]:
-  src/nlp2cmd/generation/templates/api_templates.py,48
-  src/nlp2cmd/generation/templates/data_templates.py,62
-  src/nlp2cmd/generation/templates/devops_templates.py,66
-  src/nlp2cmd/generation/templates/ffmpeg_templates.py,54
-  src/nlp2cmd/generation/templates/iot_templates.py,54
-  src/nlp2cmd/generation/templates/media_templates.py,50
-  src/nlp2cmd/generation/templates/package_mgmt_templates.py,91
-  src/nlp2cmd/generation/templates/presentation_templates.py,49
-  src/nlp2cmd/generation/templates/rag_templates.py,35
-  src/nlp2cmd/generation/templates/remote_templates.py,54
-  test_ollama_speed.py,0
+M[376]:
   benchmarks/thermodynamic_benchmark.py,318
   demos/demo_enhanced.py,95
   demos/demo_intelligent_nlp2cmd.py,200
@@ -84,7 +73,8 @@ M[374]:
   examples/05_advanced_features/thermodynamic_computing/example.py,197
   examples/06_tools_and_utilities/migration_tools/guide.py,240
   examples/_example_helpers.py,20
-  examples/benchmark_nlp2cmd.py,752
+  examples/benchmark_learning.py,522
+  examples/benchmark_nlp2cmd.py,834
   scripts/bump_version.py,45
   scripts/maintenance/apply_complexity_refactors.py,38
   scripts/maintenance/apply_nlp2cmd_fixes.py,67
@@ -176,6 +166,7 @@ M[374]:
   src/nlp2cmd/generation/__init__.py,137
   src/nlp2cmd/generation/data_loader.py,287
   src/nlp2cmd/generation/enhanced_context.py,418
+  src/nlp2cmd/generation/evolutionary_cache.py,288
   src/nlp2cmd/generation/fuzzy_schema_matcher.py,433
   src/nlp2cmd/generation/hybrid.py,296
   src/nlp2cmd/generation/keywords/__init__.py,14
@@ -187,16 +178,26 @@ M[374]:
   src/nlp2cmd/generation/multi_command.py,132
   src/nlp2cmd/generation/pipeline.py,284
   src/nlp2cmd/generation/pipeline_components.py,138
-  src/nlp2cmd/generation/regex.py,583
+  src/nlp2cmd/generation/regex.py,795
   src/nlp2cmd/generation/semantic_entities.py,77
   src/nlp2cmd/generation/semantic_matcher_optimized.py,565
   src/nlp2cmd/generation/structured.py,297
   src/nlp2cmd/generation/template_generator.py,927
   src/nlp2cmd/generation/templates/__init__.py,38
+  src/nlp2cmd/generation/templates/api_templates.py,48
   src/nlp2cmd/generation/templates/browser_templates.py,60
+  src/nlp2cmd/generation/templates/data_templates.py,62
+  src/nlp2cmd/generation/templates/devops_templates.py,66
   src/nlp2cmd/generation/templates/docker_templates.py,76
+  src/nlp2cmd/generation/templates/ffmpeg_templates.py,54
   src/nlp2cmd/generation/templates/git_templates.py,113
+  src/nlp2cmd/generation/templates/iot_templates.py,54
   src/nlp2cmd/generation/templates/kubernetes_templates.py,74
+  src/nlp2cmd/generation/templates/media_templates.py,50
+  src/nlp2cmd/generation/templates/package_mgmt_templates.py,91
+  src/nlp2cmd/generation/templates/presentation_templates.py,49
+  src/nlp2cmd/generation/templates/rag_templates.py,35
+  src/nlp2cmd/generation/templates/remote_templates.py,54
   src/nlp2cmd/generation/templates/shell_templates.py,95
   src/nlp2cmd/generation/templates/sql_templates.py,53
   src/nlp2cmd/generation/thermodynamic.py,477
@@ -259,6 +260,7 @@ M[374]:
   src/nlp2cmd/web_schema/form_data_loader.py,554
   src/nlp2cmd/web_schema/form_handler.py,462
   src/nlp2cmd/web_schema/history.py,288
+  test_ollama_speed.py,0
   tests/__init__.py,1
   tests/base/test_base_adapter.py,273
   tests/conftest.py,260
@@ -870,6 +872,15 @@ D:
     e: print_separator,print_rule
     print_separator(title:str)->None
     print_rule()->None
+  examples/benchmark_learning.py:
+    i: json,logging,os,random,sys,time,datetime,nlp2cmd.generation.evolutionary_cache.EvolutionaryCache,pathlib.Path,typing.Any
+    e: PROJECT_ROOT,RESULTS_DIR,RESULTS_JSON,RESULTS_HTML,LOG_FILE,CACHE_DIR,QUERIES,NUM_ROUNDS
+    _teacher_models()->list[str]
+    run_learning_benchmark(teacher_model:str;cache_dir:Path)->dict[str, Any]
+    _generate_single_teacher_fragment(results:dict)->str
+    generate_html(results:dict)->str
+    print_summary(results:dict)
+    main()
   examples/benchmark_nlp2cmd.py:
     i: json,logging,os,re,subprocess,sys,time,dataclasses.{asdict,dataclass,field}
     e: PROJECT_ROOT,RESULTS_DIR,RESULTS_JSON,RESULTS_HTML,LOG_FILE,OLLAMA_BASE,ollama_available,ollama_model_exists
@@ -1414,6 +1425,15 @@ D:
     ContextualMatch:   # Enhanced match with semantic similarity.
     EnhancedContextDetector: __init__(0),_initialize_nlp(0),_load_schemas_and_templates(0),_build_semantic_index(0),_preprocess_text(1)  # Enhanced context detection using mult...
     get_enhanced_detector()->EnhancedContextDetector
+  src/nlp2cmd/generation/evolutionary_cache.py:
+    i: hashlib,json,logging,os,re,time,datetime,dataclasses.{asdict,dataclass,field}
+    e: CACHE_DIR,CACHE_FILE,OLLAMA_BASE,TEACHER_MODEL,DOMAIN_KEYWORDS,TEACHER_PROMPTS,CacheEntry,LookupResult
+    CacheEntry: touch(0)
+    LookupResult: 
+    EvolutionaryCache: __init__(4),_ensure_dir(0),_load(0),save(0),lookup(2)  # Manages the .nlp2cmd/ learned schema...
+    fingerprint(text:str)->str
+    fuzzy_fingerprint(text:str)->str
+    detect_domain(text:str)->str
   src/nlp2cmd/generation/fuzzy_schema_matcher.py:
     i: json,re,unicodedata,dataclasses.{dataclass,field},pathlib.Path,typing.{Any,Optional}
     e: MatchResult,PhraseSchema,FuzzySchemaMatcherConfig,FuzzySchemaMatcher,create_multilingual_matcher

@@ -125,7 +125,14 @@ def ollama_generate(model: str, prompt: str, system: str = "", max_tokens: int =
         "options": {
             "temperature": 0.2,
             "num_predict": max_tokens,
-            "stop": ["\n\n", "```", "</assistant>", "<user>"],
+            "stop": [
+                "\n\n",
+                "```",
+                "</assistant>",
+                "<user>",
+                "<think>",
+                "</think>",
+            ],
         },
     }
     if system:
@@ -375,6 +382,10 @@ def clean_command(raw: str) -> str:
     """Extract clean command from LLM response."""
     text = raw.strip()
 
+    # Remove <think> blocks (some models emit hidden reasoning)
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
+    text = re.sub(r"^<think>.*$", "", text, flags=re.IGNORECASE).strip()
+
     # Remove markdown code blocks
     m = re.search(r"```(?:bash|shell|sql|sh)?\s*(.*?)\s*```", text, re.DOTALL)
     if m:
@@ -386,6 +397,19 @@ def clean_command(raw: str) -> str:
     for line in lines:
         line = line.strip()
         if not line:
+            continue
+        if line.lower().startswith((
+            "sure",
+            "ok",
+            "okay",
+            "i'm sorry",
+            "im sorry",
+            "i cannot",
+            "i can't",
+            "as an ai",
+            "here's",
+            "here is",
+        )):
             continue
         if line.startswith("#") or line.startswith("//"):
             continue

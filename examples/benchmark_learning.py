@@ -127,23 +127,35 @@ QUERIES: dict[str, list[str]] = {
 NUM_ROUNDS = 3  # How many times each query is repeated
 
 
+def _teacher_models() -> list[str]:
+    raw = os.environ.get("NLP2CMD_TEACHER_MODELS", "").strip()
+    if raw:
+        models = [m.strip() for m in raw.split(",") if m.strip()]
+        return models
+    return [
+        os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b"),
+        "phi:latest",
+        "deepseek-r1:1.5b",
+    ]
+
+
 # ---------------------------------------------------------------------------
 # Benchmark runner
 # ---------------------------------------------------------------------------
-def run_learning_benchmark() -> dict[str, Any]:
+def run_learning_benchmark(*, teacher_model: str, cache_dir: Path) -> dict[str, Any]:
     log.info("=" * 70)
     log.info("NLP2CMD Learning-Mode Benchmark")
     log.info("=" * 70)
 
     # Use isolated cache directory for reproducible results
-    if CACHE_DIR.exists():
+    if cache_dir.exists():
         import shutil
-        shutil.rmtree(CACHE_DIR)
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        shutil.rmtree(cache_dir)
+    cache_dir.mkdir(parents=True, exist_ok=True)
 
     cache = EvolutionaryCache(
-        cache_dir=CACHE_DIR,
-        teacher_model=os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b"),
+        cache_dir=cache_dir,
+        teacher_model=teacher_model,
         enable_llm=True,
     )
 
@@ -164,6 +176,7 @@ def run_learning_benchmark() -> dict[str, Any]:
             "rounds": NUM_ROUNDS,
             "total_queries": len(all_queries) * NUM_ROUNDS,
             "teacher_model": cache.teacher_model,
+            "cache_dir": str(cache_dir),
         },
         "rounds": [],
         "per_query": [],
@@ -257,7 +270,7 @@ def run_learning_benchmark() -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # HTML report
 # ---------------------------------------------------------------------------
-def generate_html(results: dict) -> str:
+def _generate_single_teacher_fragment(results: dict, *, chart_id_prefix: str) -> str:
     summary = results.get("summary", {})
     rounds = results.get("rounds", [])
 
@@ -283,43 +296,7 @@ def generate_html(results: dict) -> str:
             "backgroundColor": colors[i % len(colors)],
         })
 
-    html = f"""<!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NLP2CMD Learning Benchmark</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-<style>
-  * {{ margin:0; padding:0; box-sizing:border-box; }}
-  body {{ font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }}
-  .container {{ max-width:1200px; margin:0 auto; padding:2rem; }}
-  h1 {{ font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }}
-  h2 {{ font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }}
-  .subtitle {{ color:#94a3b8; margin-bottom:2rem; }}
-  .cards {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }}
-  .card {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }}
-  .card .label {{ color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }}
-  .card .value {{ font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }}
-  .card .detail {{ color:#64748b; font-size:.85rem; }}
-  .card.green .value {{ color:#22c55e; }}
-  .card.yellow .value {{ color:#f59e0b; }}
-  .chart-container {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }}
-  .chart-row {{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }}
-  @media (max-width:768px) {{ .chart-row {{ grid-template-columns:1fr; }} }}
-  canvas {{ max-height:350px; }}
-  .algo {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }}
-  .algo .step {{ margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }}
-  .algo .step.fast {{ border-color:#22c55e; }}
-  .algo .step.slow {{ border-color:#ef4444; }}
-  .footer {{ margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }}
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>🧠 NLP2CMD Learning Benchmark</h1>
-  <p class="subtitle">Evolutionary cache: cold → warm → hot • {results.get('config',{}).get('total_queries',0)} zapytań • {results.get('timestamp','')[:19]}</p>
-
+    html = f"""
   <div class="cards">
     <div class="card green">
       <div class="label">Przyspieszenie</div>
@@ -354,17 +331,17 @@ def generate_html(results: dict) -> str:
   <div class="chart-row">
     <div class="chart-container">
       <h2 style="margin-top:0">⏱ Średni czas per round</h2>
-      <canvas id="chartAvgTime"></canvas>
+      <canvas id="{chart_id_prefix}_chartAvgTime"></canvas>
     </div>
     <div class="chart-container">
       <h2 style="margin-top:0">📊 Cache hits vs LLM calls</h2>
-      <canvas id="chartHitsVsLLM"></canvas>
+      <canvas id="{chart_id_prefix}_chartHitsVsLLM"></canvas>
     </div>
   </div>
 
   <div class="chart-container">
     <h2 style="margin-top:0">📂 Czas per domena per round</h2>
-    <canvas id="chartDomainTime"></canvas>
+    <canvas id="{chart_id_prefix}_chartDomainTime"></canvas>
   </div>
 
   <div class="footer">
@@ -373,7 +350,7 @@ def generate_html(results: dict) -> str:
 </div>
 
 <script>
-new Chart(document.getElementById('chartAvgTime'), {{
+new Chart(document.getElementById('{chart_id_prefix}_chartAvgTime'), {{
   type: 'bar',
   data: {{
     labels: {round_labels},
@@ -394,7 +371,7 @@ new Chart(document.getElementById('chartAvgTime'), {{
   }}
 }});
 
-new Chart(document.getElementById('chartHitsVsLLM'), {{
+new Chart(document.getElementById('{chart_id_prefix}_chartHitsVsLLM'), {{
   type: 'bar',
   data: {{
     labels: {round_labels},
@@ -413,7 +390,7 @@ new Chart(document.getElementById('chartHitsVsLLM'), {{
   }}
 }});
 
-new Chart(document.getElementById('chartDomainTime'), {{
+new Chart(document.getElementById('{chart_id_prefix}_chartDomainTime'), {{
   type: 'bar',
   data: {{
     labels: {json.dumps(domains)},
@@ -429,9 +406,114 @@ new Chart(document.getElementById('chartDomainTime'), {{
   }}
 }});
 </script>
-</body>
-</html>"""
+"""
     return html
+
+
+def generate_html(results: dict) -> str:
+    if "teachers" in results:
+        teachers = results.get("teachers", {})
+        teacher_sections = []
+        for idx, (teacher_model, teacher_result) in enumerate(teachers.items()):
+            chart_id_prefix = f"t{idx}"
+            teacher_sections.append(
+                "<details open>"
+                f"<summary>Teacher: {teacher_model}</summary>"
+                + _generate_single_teacher_fragment(teacher_result, chart_id_prefix=chart_id_prefix)
+                + "</details>"
+            )
+
+        return """<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLP2CMD Learning Benchmark (multi-teacher)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
+  .container { max-width:1200px; margin:0 auto; padding:2rem; }
+  h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
+  h2 { font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }
+  .subtitle { color:#94a3b8; margin-bottom:2rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .card { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }
+  .card .label { color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }
+  .card .value { font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }
+  .card .detail { color:#64748b; font-size:.85rem; }
+  .card.green .value { color:#22c55e; }
+  .card.yellow .value { color:#f59e0b; }
+  .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
+  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media (max-width:768px) { .chart-row { grid-template-columns:1fr; } }
+  canvas { max-height:350px; }
+  .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
+  .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }
+  .algo .step.fast { border-color:#22c55e; }
+  .algo .step.slow { border-color:#ef4444; }
+  .footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }
+  details { background:#0b1220; border:1px solid #334155; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem; }
+  summary { cursor:pointer; color:#7dd3fc; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧠 NLP2CMD Learning Benchmark</h1>
+  <p class="subtitle">Multi-teacher • %d modele • %s</p>
+  %s
+</div>
+</body>
+</html>""" % (
+            len(teachers),
+            results.get("timestamp", "")[:19],
+            "\n".join(teacher_sections),
+        )
+
+    return """<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLP2CMD Learning Benchmark</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
+  .container { max-width:1200px; margin:0 auto; padding:2rem; }
+  h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
+  h2 { font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }
+  .subtitle { color:#94a3b8; margin-bottom:2rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .card { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }
+  .card .label { color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }
+  .card .value { font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }
+  .card .detail { color:#64748b; font-size:.85rem; }
+  .card.green .value { color:#22c55e; }
+  .card.yellow .value { color:#f59e0b; }
+  .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
+  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media (max-width:768px) { .chart-row { grid-template-columns:1fr; } }
+  canvas { max-height:350px; }
+  .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
+  .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }
+  .algo .step.fast { border-color:#22c55e; }
+  .algo .step.slow { border-color:#ef4444; }
+  .footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧠 NLP2CMD Learning Benchmark</h1>
+  <p class="subtitle">Evolutionary cache: cold → warm → hot • %d zapytań • %s</p>
+  %s
+</div>
+</body>
+</html>""" % (
+        results.get("config", {}).get("total_queries", 0),
+        results.get("timestamp", "")[:19],
+        _generate_single_teacher_fragment(results, chart_id_prefix="single"),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -467,20 +549,42 @@ def print_summary(results: dict):
 # main
 # ---------------------------------------------------------------------------
 def main():
-    results = run_learning_benchmark()
+    teachers = _teacher_models()
+
+    combined: dict[str, Any] = {
+        "timestamp": datetime.now().isoformat(),
+        "config": {
+            "teacher_models": teachers,
+            "domains": len(QUERIES),
+            "queries_per_domain": 2,
+            "rounds": NUM_ROUNDS,
+        },
+        "teachers": {},
+    }
+
+    for teacher_model in teachers:
+        safe_name = teacher_model.replace(":", "_").replace("/", "_")
+        cache_dir = CACHE_DIR / safe_name
+        log.info("Teacher model: %s", teacher_model)
+        res = run_learning_benchmark(teacher_model=teacher_model, cache_dir=cache_dir)
+        combined["teachers"][teacher_model] = res
 
     # Save JSON
     with open(RESULTS_JSON, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
+        json.dump(combined, f, indent=2, ensure_ascii=False)
     log.info("JSON: %s", RESULTS_JSON)
 
     # Save HTML
-    html = generate_html(results)
+    html = generate_html(combined)
     with open(RESULTS_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     log.info("HTML: %s", RESULTS_HTML)
 
-    print_summary(results)
+    for teacher_model, res in combined.get("teachers", {}).items():
+        print("\n" + "-" * 65)
+        print(f"Teacher: {teacher_model}")
+        print("-" * 65)
+        print_summary(res)
 
 
 if __name__ == "__main__":

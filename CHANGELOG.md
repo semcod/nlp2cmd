@@ -1,3 +1,16 @@
+## [1.0.77] - 2026-02-26
+
+### Summary
+
+feat(examples): configuration management system
+
+### Other
+
+- update examples/benchmark_learning.py
+- update examples/benchmark_nlp2cmd.py
+- update project.toon
+
+
 ## [1.0.76] - 2026-02-26
 
 ### Summary
