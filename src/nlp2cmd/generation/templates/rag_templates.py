@@ -42,4 +42,29 @@ RAG_TEMPLATES = {
     # Pipeline
     'langchain_qa': "python3 -c \"from langchain.chains import RetrievalQA; from langchain.llms import Ollama; print('LangChain QA pipeline ready')\"",
     'llamaindex_query': "python3 -c \"from llama_index import VectorStoreIndex, SimpleDirectoryReader; docs = SimpleDirectoryReader('{directory}').load_data(); index = VectorStoreIndex.from_documents(docs); print(index.as_query_engine().query('{query}'))\"",
+    # FAISS
+    'faiss_create': "python3 -c \"import faiss; import numpy as np; idx = faiss.IndexFlatL2({dim}); print('FAISS index created, dim={dim}')\"",
+    'faiss_search': "python3 -c \"import faiss, numpy as np; idx = faiss.read_index('{index_file}'); D, I = idx.search(np.random.rand(1,{dim}).astype('float32'), {k}); print('Results:', I)\"",
+    'faiss_save': "python3 -c \"import faiss; idx = faiss.read_index('{index_file}'); faiss.write_index(idx, '{output_file}'); print('Saved')\"",
+    # Weaviate
+    'weaviate_query': "curl -s '{url}/v1/graphql' -H 'Content-Type: application/json' -d '{{\"query\": \"{{Get{{{class_name}(nearText:{{concepts:[\\\"{query}\\\"]}}limit:{limit}){{_additional{{distance}}}}}}}}\"}}'",
+    'weaviate_schema': "curl -s '{url}/v1/schema'",
+    # pgvector
+    'pgvector_search': "psql -c \"SELECT id, content, embedding <-> '{vector}' AS distance FROM {table} ORDER BY distance LIMIT {limit};\" {database}",
+    'pgvector_create': "psql -c \"CREATE EXTENSION IF NOT EXISTS vector; CREATE TABLE {table} (id serial PRIMARY KEY, content text, embedding vector({dim}));\" {database}",
+    # Pinecone
+    'pinecone_upsert': "python3 -c \"import pinecone; pinecone.init(api_key='{api_key}'); idx = pinecone.Index('{index}'); idx.upsert(vectors={vectors}); print('Upserted')\"",
+    'pinecone_query': "python3 -c \"import pinecone; pinecone.init(api_key='{api_key}'); idx = pinecone.Index('{index}'); r = idx.query(vector={vector}, top_k={k}); print(r)\"",
+    # Document loaders
+    'unstructured_load': "python3 -c \"from unstructured.partition.auto import partition; elements = partition(filename='{file}'); print(len(elements), 'elements')\"",
+    'csv_to_docs': "python3 -c \"from langchain.document_loaders.csv_loader import CSVLoader; docs = CSVLoader('{file}').load(); print(len(docs), 'documents')\"",
+    'web_scrape_docs': "python3 -c \"from langchain.document_loaders import WebBaseLoader; docs = WebBaseLoader('{url}').load(); print(len(docs), 'pages loaded')\"",
+    'text_splitter': "python3 -c \"from langchain.text_splitter import CharacterTextSplitter; s = CharacterTextSplitter(chunk_size={size}, chunk_overlap={overlap}); chunks = s.split_text(open('{file}').read()); print(len(chunks), 'chunks')\"",
+    # Ollama embeddings (v2 API)
+    'ollama_embed_v2': "curl -s {ollama_url}/api/embed -d '{{\"model\": \"{model}\", \"input\": \"{text}\"}}'",
+    'ollama_embed_batch': "curl -s {ollama_url}/api/embed -d '{{\"model\": \"{model}\", \"input\": {texts}}}'",
+    # RAG pipeline helpers
+    'similarity_search': "python3 -c \"from langchain.vectorstores import Chroma; from langchain.embeddings import OllamaEmbeddings; db = Chroma(persist_directory='{db_path}', embedding_function=OllamaEmbeddings(model='{model}')); print(db.similarity_search('{query}', k={k}))\"",
+    'rag_chain': "python3 -c \"from langchain.chains import RetrievalQA; from langchain.llms import Ollama; from langchain.vectorstores import Chroma; from langchain.embeddings import OllamaEmbeddings; db = Chroma(persist_directory='{db_path}', embedding_function=OllamaEmbeddings()); qa = RetrievalQA.from_chain_type(Ollama(model='{model}'), retriever=db.as_retriever()); print(qa.run('{query}'))\"",
+    'index_directory': "python3 -c \"from langchain.document_loaders import DirectoryLoader; from langchain.text_splitter import RecursiveCharacterTextSplitter; docs = DirectoryLoader('{directory}', glob='**/*.{ext}').load(); chunks = RecursiveCharacterTextSplitter(chunk_size=1000).split_documents(docs); print(len(chunks), 'chunks indexed')\"",
 }

@@ -135,7 +135,7 @@ def _teacher_models() -> list[str]:
     return [
         os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b"),
         "phi:latest",
-        "deepseek-r1:1.5b",
+        "gemma2:2b",
     ]
 
 
@@ -434,29 +434,29 @@ def generate_html(results: dict) -> str:
 <script src="{chart_cdn}"></script>
 <style>
   * {{ margin:0; padding:0; box-sizing:border-box; }}
-  body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
-  .container { max-width:1200px; margin:0 auto; padding:2rem; }
-  h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
-  h2 { font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }
-  .subtitle { color:#94a3b8; margin-bottom:2rem; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }
-  .card { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }
-  .card .label { color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }
-  .card .value { font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }
-  .card .detail { color:#64748b; font-size:.85rem; }
-  .card.green .value { color:#22c55e; }
-  .card.yellow .value { color:#f59e0b; }
-  .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
-  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  body {{ font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }}
+  .container {{ max-width:1200px; margin:0 auto; padding:2rem; }}
+  h1 {{ font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }}
+  h2 {{ font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }}
+  .subtitle {{ color:#94a3b8; margin-bottom:2rem; }}
+  .cards {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }}
+  .card {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }}
+  .card .label {{ color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }}
+  .card .value {{ font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }}
+  .card .detail {{ color:#64748b; font-size:.85rem; }}
+  .card.green .value {{ color:#22c55e; }}
+  .card.yellow .value {{ color:#f59e0b; }}
+  .chart-container {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }}
+  .chart-row {{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }}
   @media (max-width:768px) {{ .chart-row {{ grid-template-columns:1fr; }} }}
-  canvas { max-height:350px; }
-  .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
-  .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }
-  .algo .step.fast { border-color:#22c55e; }
-  .algo .step.slow { border-color:#ef4444; }
-  .footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }
-  details { background:#0b1220; border:1px solid #334155; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem; max-width:1200px; margin-left:auto; margin-right:auto; }
-  summary { cursor:pointer; color:#7dd3fc; font-weight:600; }
+  canvas {{ max-height:350px; }}
+  .algo {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }}
+  .algo .step {{ margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }}
+  .algo .step.fast {{ border-color:#22c55e; }}
+  .algo .step.slow {{ border-color:#ef4444; }}
+  .footer {{ margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }}
+  details {{ background:#0b1220; border:1px solid #334155; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem; max-width:1200px; margin-left:auto; margin-right:auto; }}
+  summary {{ cursor:pointer; color:#7dd3fc; font-weight:600; }}
 </style>
 </head>
 <body>
@@ -481,27 +481,27 @@ def generate_html(results: dict) -> str:
 <script src="{chart_cdn}"></script>
 <style>
   * {{ margin:0; padding:0; box-sizing:border-box; }}
-  body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
-  .container { max-width:1200px; margin:0 auto; padding:2rem; }
-  h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
-  h2 { font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }
-  .subtitle { color:#94a3b8; margin-bottom:2rem; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }
-  .card { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }
-  .card .label { color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }
-  .card .value { font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }
-  .card .detail { color:#64748b; font-size:.85rem; }
-  .card.green .value { color:#22c55e; }
-  .card.yellow .value { color:#f59e0b; }
-  .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
-  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  body {{ font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }}
+  .container {{ max-width:1200px; margin:0 auto; padding:2rem; }}
+  h1 {{ font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }}
+  h2 {{ font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }}
+  .subtitle {{ color:#94a3b8; margin-bottom:2rem; }}
+  .cards {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }}
+  .card {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }}
+  .card .label {{ color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }}
+  .card .value {{ font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }}
+  .card .detail {{ color:#64748b; font-size:.85rem; }}
+  .card.green .value {{ color:#22c55e; }}
+  .card.yellow .value {{ color:#f59e0b; }}
+  .chart-container {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }}
+  .chart-row {{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }}
   @media (max-width:768px) {{ .chart-row {{ grid-template-columns:1fr; }} }}
-  canvas { max-height:350px; }
-  .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
-  .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }
-  .algo .step.fast { border-color:#22c55e; }
-  .algo .step.slow { border-color:#ef4444; }
-  .footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }
+  canvas {{ max-height:350px; }}
+  .algo {{ background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }}
+  .algo .step {{ margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }}
+  .algo .step.fast {{ border-color:#22c55e; }}
+  .algo .step.slow {{ border-color:#ef4444; }}
+  .footer {{ margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }}
 </style>
 </head>
 <body>

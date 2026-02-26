@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 """
-NLP2CMD LLM Benchmark — 5 local models (≤3B) across all 6 nlp2cmd domains.
+NLP2CMD LLM Benchmark — 3 local models (≤3B) across all 6 nlp2cmd domains.
 
 Models tested:
   1. Bielik-1.5B  (Polish, via ollama from GGUF)
   2. qwen2.5:3b   (multilingual 3B)
   3. gemma2:2b     (Google 2B)
-  4. phi:latest    (Microsoft Phi, ~1.6GB, ~8-12 t/s)
-  5. deepseek-coder:1.3b (DeepSeek Coder, ~?GB, ~? t/s)
 
 Domains (all 16 nlp2cmd template domains):
   shell, docker, sql, kubernetes, browser, git,
@@ -357,11 +355,8 @@ MODELS = [
     {"name": "bielik-1.5b", "display": "Bielik-1.5B (PL)", "params": "1.5B"},
     {"name": "qwen2.5:3b", "display": "Qwen2.5-3B", "params": "3B"},
     {"name": "gemma2:2b", "display": "Gemma2-2B", "params": "2B"},
-    {"name": "phi:latest", "display": "Phi (latest)", "params": "1.6GB"},
 ]
 
-# Thinking models need more tokens for internal reasoning
-THINKING_MODELS = {m["name"] for m in MODELS if m.get("thinking")}
 
 
 # ---------------------------------------------------------------------------
@@ -538,11 +533,9 @@ def run_benchmark() -> BenchmarkResults:
                 )
 
                 try:
-                    is_thinking = model_name in THINKING_MODELS
-                    tokens = 1024 if is_thinking else 200
                     raw, elapsed = ollama_generate(
                         model_name, q["query"], system=system_prompt,
-                        max_tokens=tokens, thinking=is_thinking,
+                        max_tokens=200,
                     )
                     qr.raw_response = raw
                     qr.cleaned_command = clean_command(raw)

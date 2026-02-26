@@ -7,8 +7,8 @@
       "command": "pip install requests",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:17.079342",
-      "last_used": "2026-02-26T20:41:25.773287"
+      "created": "2026-02-26T20:44:10.547094",
+      "last_used": "2026-02-26T20:44:19.075330"
     },
     "2e52b7ff1c82f76c": {
       "query": "wyszukaj w ChromaDB dokumenty o machine learning",
@@ -16,26 +16,26 @@
       "command": "```python",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:17.263312",
-      "last_used": "2026-02-26T20:41:25.764537"
+      "created": "2026-02-26T20:44:10.725567",
+      "last_used": "2026-02-26T20:44:19.056778"
     },
     "4e642f4ec7d0ee27": {
       "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
       "domain": "sql",
       "command": "CREATE TABLE produkty (id INT, nazwa VARCHAR, cena DECIMAL);",
       "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:17.503989",
-      "last_used": "2026-02-26T20:41:25.765324"
+      "hits": 9,
+      "created": "2026-02-26T20:44:10.967661",
+      "last_used": "2026-02-26T20:44:19.071391"
     },
     "436fc14b3af375c8": {
       "query": "przeskaluj deployment webapp do 5 replik",
       "domain": "kubernetes",
       "command": "kubectl scale deployment webapp --replicas=5",
       "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:17.668786",
-      "last_used": "2026-02-26T20:41:25.766031"
+      "hits": 6,
+      "created": "2026-02-26T20:44:11.130513",
+      "last_used": "2026-02-26T20:44:19.062799"
     },
     "d11d442a213a276c": {
       "query": "zsynchronizuj /var/www na zdalny serwer",
@@ -43,17 +43,17 @@
       "command": "rsync -avz /var/www user@remote_server:/path/to/destination/",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:17.982061",
-      "last_used": "2026-02-26T20:41:25.770486"
+      "created": "2026-02-26T20:44:11.439227",
+      "last_used": "2026-02-26T20:44:19.072289"
     },
     "ac8ace4c1248294a": {
       "query": "sprawdź status usługi nginx",
       "domain": "devops",
       "command": "systemctl status nginx",
       "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:18.076448",
-      "last_used": "2026-02-26T20:41:25.769319"
+      "hits": 6,
+      "created": "2026-02-26T20:44:11.534449",
+      "last_used": "2026-02-26T20:44:19.080098"
     },
     "7657ad106796353d": {
       "query": "pokaż historię ostatnich 10 commitów",
@@ -61,8 +61,8 @@
       "command": "git log -10 --pretty=oneline",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:18.243698",
-      "last_used": "2026-02-26T20:41:25.774182"
+      "created": "2026-02-26T20:44:11.697193",
+      "last_used": "2026-02-26T20:44:19.076049"
     },
     "a86175f79fd49513": {
       "query": "pokaż procesy zużywające najwięcej pamięci",
@@ -70,8 +70,8 @@
       "command": "ps -eo pid,comm,%mem --sort=-%mem | head -n 10",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:18.551798",
-      "last_used": "2026-02-26T20:41:25.770819"
+      "created": "2026-02-26T20:44:11.980487",
+      "last_used": "2026-02-26T20:44:19.072690"
     },
     "7f9a3b7e355df08c": {
       "query": "zmień rozmiar photo.jpg na 800x600",
@@ -79,17 +79,17 @@
       "command": "convert -resize 800x600\\> photo.jpg",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:18.786953",
-      "last_used": "2026-02-26T20:41:25.768193"
+      "created": "2026-02-26T20:44:12.209606",
+      "last_used": "2026-02-26T20:44:19.063915"
     },
     "4fa837fc5fc905e5": {
       "query": "wyrenderuj diagram Mermaid do PNG",
       "domain": "presentation",
-      "command": "matteo --atext --pipe - | pandoc -f mermaid -t png -o output.png -",
+      "command": "matteo --at-xmargin 2 --at-ymargin 2 | docker run -i -t --rm adm/mate2svg > diagram.svg && convert diagram.svg diagram.png",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:19.186711",
-      "last_used": "2026-02-26T20:41:25.766404"
+      "created": "2026-02-26T20:44:12.801460",
+      "last_used": "2026-02-26T20:44:19.058546"
     },
     "9412e34aa816dc7f": {
       "query": "pokaż statystyki pliku CSV dane.csv",
@@ -97,8 +97,8 @@
       "command": "csvstat dane.csv",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:19.281617",
-      "last_used": "2026-02-26T20:41:25.771469"
+      "created": "2026-02-26T20:44:12.895006",
+      "last_used": "2026-02-26T20:44:19.073514"
     },
     "ecb09c19aa92b868": {
       "query": "pokaż pody w namespace production",
@@ -106,8 +106,8 @@
       "command": "kubectl get pods -n production",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:19.392580",
-      "last_used": "2026-02-26T20:41:25.767806"
+      "created": "2026-02-26T20:44:13.010442",
+      "last_used": "2026-02-26T20:44:19.063577"
     },
     "7b84535ca19a9b50": {
       "query": "otwórz stronę https://github.com",
@@ -115,26 +115,17 @@
       "command": "curl -I https://github.com",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:19.520668",
-      "last_used": "2026-02-26T20:41:25.775302"
+      "created": "2026-02-26T20:44:13.141595",
+      "last_used": "2026-02-26T20:44:19.077104"
     },
     "4929e9e2b56a8e78": {
       "query": "wyodrębnij audio z film.mkv do mp3",
       "domain": "ffmpeg",
-      "command": "ffmpeg -i film.mkv -q:a 0 -map a out.mp3",
+      "command": "ffmpeg -i film.mkv -q:a 0 -acodec aac audio.mp3",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:19.762399",
-      "last_used": "2026-02-26T20:41:25.776387"
-    },
-    "39bfebe9ac650a28": {
-      "query": "konwertuj README.md do PDF",
-      "domain": "presentation",
-      "command": "pandoc -f markdown -t pdf README.md -o output.pdf",
-      "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:19.991827",
-      "last_used": "2026-02-26T20:41:25.766985"
+      "created": "2026-02-26T20:44:13.422838",
+      "last_used": "2026-02-26T20:44:19.080986"
     },
     "b69276e4b5c4b715": {
       "query": "wykryj urządzenia I2C na magistrali 1",
@@ -142,8 +133,8 @@
       "command": "i2cdetect -y 1",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:20.135508",
-      "last_used": "2026-02-26T20:41:25.764893"
+      "created": "2026-02-26T20:44:13.579063",
+      "last_used": "2026-02-26T20:44:19.057180"
     },
     "4b49e2d37d4f9d54": {
       "query": "uruchom playbook Ansible deploy.yml",
@@ -151,8 +142,8 @@
       "command": "ansible-playbook -i inventory deploy.yml",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:20.271576",
-      "last_used": "2026-02-26T20:41:25.776047"
+      "created": "2026-02-26T20:44:13.727917",
+      "last_used": "2026-02-26T20:44:19.080600"
     },
     "fa5d944a6693e0bf": {
       "query": "konwertuj video.mp4 do webm",
@@ -160,8 +151,8 @@
       "command": "ffmpeg -i video.mp4 output.webm",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:20.421653",
-      "last_used": "2026-02-26T20:41:25.767436"
+      "created": "2026-02-26T20:44:13.878504",
+      "last_used": "2026-02-26T20:44:19.063225"
     },
     "d3ee8264a8dd697a": {
       "query": "znajdź wszystkie pliki PDF większe niż 10MB",
@@ -169,35 +160,26 @@
       "command": "find / -type f \\( -name \"*.pdf\" \\) -size +10M -exec ls -lh {} \\;",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:20.790922",
-      "last_used": "2026-02-26T20:41:25.773676"
-    },
-    "763b872a528d8002": {
-      "query": "sprawdź kod HTTP serwera https://example.com",
-      "domain": "api",
-      "command": "curl -Is https://example.com",
-      "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:20.916688",
-      "last_used": "2026-02-26T20:41:25.775678"
+      "created": "2026-02-26T20:44:14.251857",
+      "last_used": "2026-02-26T20:44:19.075678"
     },
     "cfb589ef063b8c88": {
       "query": "utwórz miniaturkę 150x150 z header.png",
       "domain": "media",
-      "command": "convert -resize 150x150 -extent 150x150 header.png miniature_header.png",
+      "command": "convert -resize 150x150 -gravity center -extent 150x150 header.png miniature_header.png",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:21.284264",
-      "last_used": "2026-02-26T20:41:25.771141"
+      "created": "2026-02-26T20:44:14.661584",
+      "last_used": "2026-02-26T20:44:19.073111"
     },
     "953bbb4fe18b28bf": {
       "query": "zainstaluj nodejs przez apt",
       "domain": "package_mgmt",
-      "command": "Instalacja Node.js przez apt nie jest poprawna, ponieważ apt jest narzędziem do zarządzania pakietami dla systemu Linux (np. Ubuntu), a Node.js to JavaScript runtime bezwzględnie związany z npm (npm - narzędzie do zarządzania pakietami JavaScript). Poprawną metodą instalacji Node.js na systemie Linux jest korzystanie z apt, aby zainstalować pakiet `nodejs` i `npm`, a następnie pobrać najnowszy wersję Node.js za pomocą npm.",
+      "command": "Instalacja Node.js przez apt nie jest poprawna, ponieważ apt używany jest dla systemów Linux z bazami pakietowymi APT (typu Debian/Ubuntu), a Node.js to JavaScript runtime który można zainstalować za pomocą npm (Node Package Manager) w systemach opartych na Unix. Jeśli jednak chcesz zainstalować Node.js i npm, możesz użyć polecenia: `sudo apt-get install nodejs npm` dla systemów Ubuntu/Debian.",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:22.806795",
-      "last_used": "2026-02-26T20:41:25.771850"
+      "created": "2026-02-26T20:44:16.015363",
+      "last_used": "2026-02-26T20:44:19.073833"
     },
     "5f786aad1db5d55d": {
       "query": "zbuduj obraz Docker z tagiem myapp:latest",
@@ -205,8 +187,8 @@
       "command": "docker build -t myapp:latest .",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:22.967823",
-      "last_used": "2026-02-26T20:41:25.772217"
+      "created": "2026-02-26T20:44:16.174436",
+      "last_used": "2026-02-26T20:44:19.074157"
     },
     "751bbb294997e501": {
       "query": "wygeneruj embeddingi przez Ollama",
@@ -214,8 +196,8 @@
       "command": "curl -X POST \"https://api.ollama.com/v1/embeddings\" \\",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:23.492287",
-      "last_used": "2026-02-26T20:41:25.772908"
+      "created": "2026-02-26T20:44:16.703716",
+      "last_used": "2026-02-26T20:44:19.074959"
     },
     "56f38306a4c59756": {
       "query": "przefiltruj JSON users.json po age > 30",
@@ -223,17 +205,8 @@
       "command": "jq '.[] | select(.age > 30)[]' users.json",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:23.802915",
-      "last_used": "2026-02-26T20:41:25.765649"
-    },
-    "d1945a82cc360177": {
-      "query": "utwórz branch feature/login",
-      "domain": "git",
-      "command": "git checkout -b feature/login",
-      "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:23.921668",
-      "last_used": "2026-02-26T20:41:25.768964"
+      "created": "2026-02-26T20:44:17.011605",
+      "last_used": "2026-02-26T20:44:19.057875"
     },
     "994e11b00204c308": {
       "query": "wyślij GET na https://api.example.com/users",
@@ -241,17 +214,8 @@
       "command": "curl -X GET \"https://api.example.com/users\" -H \"Accept: application/json\"",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:24.210268",
-      "last_used": "2026-02-26T20:41:25.768597"
-    },
-    "70aa7788a0591ae0": {
-      "query": "pokaż użytkowników z Warszawy",
-      "domain": "sql",
-      "command": "SELECT * FROM users WHERE city = 'Warsaw';",
-      "model": "qwen2.5:3b",
-      "hits": 3,
-      "created": "2026-02-26T20:41:24.386187",
-      "last_used": "2026-02-26T20:41:25.769792"
+      "created": "2026-02-26T20:44:17.310109",
+      "last_used": "2026-02-26T20:44:19.064300"
     },
     "07daf343e8b9eb1b": {
       "query": "odczytaj temperaturę z Raspberry Pi",
@@ -259,8 +223,8 @@
       "command": "sudo apt-get install rpi-eeprom-utils -y",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:25.312665",
-      "last_used": "2026-02-26T20:41:25.772573"
+      "created": "2026-02-26T20:44:18.548335",
+      "last_used": "2026-02-26T20:44:19.074609"
     },
     "9b980913ae2aebb3": {
       "query": "połącz SSH do 192.168.1.100 jako admin",
@@ -268,8 +232,8 @@
       "command": "ssh admin@192.168.1.100",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:25.549813",
-      "last_used": "2026-02-26T20:41:25.770145"
+      "created": "2026-02-26T20:44:18.798194",
+      "last_used": "2026-02-26T20:44:19.071841"
     },
     "ba544063737bff7a": {
       "query": "wyszukaj w Google 'python tutorial'",
@@ -277,8 +241,8 @@
       "command": "google-chrome \"python tutorial\"",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:25.680672",
-      "last_used": "2026-02-26T20:41:25.774602"
+      "created": "2026-02-26T20:44:18.934491",
+      "last_used": "2026-02-26T20:44:19.076410"
     },
     "77f3cc8fb4d9049d": {
       "query": "pokaż wszystkie uruchomione kontenery Docker",
@@ -286,16 +250,17 @@
       "command": "docker ps",
       "model": "qwen2.5:3b",
       "hits": 3,
-      "created": "2026-02-26T20:41:25.750924",
-      "last_used": "2026-02-26T20:41:25.774953"
+      "created": "2026-02-26T20:44:19.022133",
+      "last_used": "2026-02-26T20:44:19.076750"
     }
   },
   "stats": {
     "total_queries": 96,
-    "cache_hits": 64,
-    "llm_calls": 32,
+    "cache_hits": 68,
+    "llm_calls": 28,
     "template_hits": 0,
+    "similarity_hits": 12,
     "total_saved_ms": 0.0
   },
-  "updated": "2026-02-26T20:41:25.776391"
+  "updated": "2026-02-26T20:44:19.080990"
 }

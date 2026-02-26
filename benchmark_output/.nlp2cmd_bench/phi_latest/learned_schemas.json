@@ -4,110 +4,110 @@
     "dbbe489f47fc63f6": {
       "query": "zainstaluj requests przez pip",
       "domain": "package_mgmt",
-      "command": "I'm sorry, as an AI language model, I cannot install packages using pip. However, you can use the command \"pip install <package-name>\" to install a package in your virtual environment. For example, if you want to install the requests library, you would type \"pip install requests\" in your terminal or command prompt.",
+      "command": "I'm sorry, but as an AI language model, I cannot install or use any software or tools like pip. However, you can follow these steps to install a package using pip:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:28.488983",
-      "last_used": "2026-02-26T20:41:41.428052"
+      "created": "2026-02-26T20:44:21.526999",
+      "last_used": "2026-02-26T20:44:31.189041"
     },
     "2e52b7ff1c82f76c": {
       "query": "wyszukaj w ChromaDB dokumenty o machine learning",
       "domain": "rag",
-      "command": "I can suggest some ways to use chroma database for machine learning:",
+      "command": "I can suggest that you use chroma-db, which is a database for machine learning and artificial intelligence research. it provides access to large datasets in various formats such as csv, txt, json, and more. you can search for specific data using keywords or tags and download the dataset to your local machine.",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:28.657524",
-      "last_used": "2026-02-26T20:41:41.418602"
+      "created": "2026-02-26T20:44:22.156768",
+      "last_used": "2026-02-26T20:44:31.167842"
     },
     "4e642f4ec7d0ee27": {
       "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
       "domain": "sql",
-      "command": "Sure! Here's an example of how you can create a table in SQL to store product information:",
+      "command": "Sure! Here's an example of how you can create a table in SQL to store product information with columns for ID, name, and price:",
       "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:28.885679",
-      "last_used": "2026-02-26T20:41:41.419411"
+      "hits": 9,
+      "created": "2026-02-26T20:44:22.467881",
+      "last_used": "2026-02-26T20:44:31.182978"
     },
     "436fc14b3af375c8": {
       "query": "przeskaluj deployment webapp do 5 replik",
       "domain": "kubernetes",
-      "command": "Sure, here's the command to deploy a web application to 5 replicas using Kubernetes:",
+      "command": "Sure, here's a command to deploy your web application to 5 replicas using the Kubernetes API:",
       "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:29.118729",
-      "last_used": "2026-02-26T20:41:41.420112"
+      "hits": 6,
+      "created": "2026-02-26T20:44:22.721680",
+      "last_used": "2026-02-26T20:44:31.173548"
     },
     "d11d442a213a276c": {
       "query": "zsynchronizuj /var/www na zdalny serwer",
       "domain": "remote",
-      "command": "Sorry, I cannot perform this task as it requires access to your computer's system and permissions to make changes to the file system. Please consult with a professional for assistance in synchronizing files on your server.",
+      "command": "Sorry, as an AI language model, I don't have the ability to execute commands or access files on a computer system. However, you can try using the following command in your terminal or command prompt to synchronize the directory /var/www with the remote server:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:29.532568",
-      "last_used": "2026-02-26T20:41:41.424737"
+      "created": "2026-02-26T20:44:23.262946",
+      "last_used": "2026-02-26T20:44:31.183984"
     },
     "ac8ace4c1248294a": {
       "query": "sprawdź status usługi nginx",
       "domain": "devops",
-      "command": "$ ansible-playbook terraform.yml --template=nginx.yaml --file=nginx.yaml --user=user --group=group --system=system --status=status",
+      "command": "$ ansible-playbook terraform.yml --template=nginx.yaml --file=nginx.yaml --output=status.txt",
       "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:29.983798",
-      "last_used": "2026-02-26T20:41:41.423504"
+      "hits": 6,
+      "created": "2026-02-26T20:44:23.612165",
+      "last_used": "2026-02-26T20:44:31.195917"
     },
     "7657ad106796353d": {
       "query": "pokaż historię ostatnich 10 commitów",
       "domain": "git",
-      "command": "I'm sorry, as an AI language model, I don't have access to your computer or the ability to check for changes in a git repository. However, you can try using a command line tool like \"git log\" to see if there are any commits made after October 10th.",
+      "command": "I'm sorry, as an AI language model, I don't have access to the specific information about your project or team's history of commits. However, you can try searching for the number of commits made by your team on a version control system like GitLab or GitHub. You can also check with your team lead or project manager for more information.",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:30.559709",
-      "last_used": "2026-02-26T20:41:41.428836"
+      "created": "2026-02-26T20:44:24.286708",
+      "last_used": "2026-02-26T20:44:31.191054"
     },
     "a86175f79fd49513": {
       "query": "pokaż procesy zużywające najwięcej pamięci",
       "domain": "shell",
-      "command": "I'm sorry, as an AI language model, I don't have the ability to perform any process or task. However, you can try searching for \"how to run a command in Linux\" on Google or other search engines to find step-by-step instructions.",
+      "command": "I'm sorry, as an AI language model, I don't have the ability to perform any specific task or process on a computer system. However, you can try following these steps to create a new user account in Linux:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:31.098424",
-      "last_used": "2026-02-26T20:41:41.425143"
+      "created": "2026-02-26T20:44:24.741986",
+      "last_used": "2026-02-26T20:44:31.184524"
     },
     "7f9a3b7e355df08c": {
       "query": "zmień rozmiar photo.jpg na 800x600",
       "domain": "media",
-      "command": "Sure, here's a command to resize the image \"photo.jpg\" to 800x600 using ImageMagick/sox:",
+      "command": "Sure, here's a command to resize the image \"photo.jpg\" to 800x600 pixels using ImageMagick/sox:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:31.389777",
-      "last_used": "2026-02-26T20:41:41.422288"
+      "created": "2026-02-26T20:44:25.043615",
+      "last_used": "2026-02-26T20:44:31.174648"
     },
     "4fa837fc5fc905e5": {
       "query": "wyrenderuj diagram Mermaid do PNG",
       "domain": "presentation",
-      "command": "Sure, here's how you can render the Mermaid diagram in PNG format using Python and matplotlib:",
+      "command": "Sure, here's how you can render the Mermaid diagram as a PNG file using Python and matplotlib:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:31.628121",
-      "last_used": "2026-02-26T20:41:41.420646"
+      "created": "2026-02-26T20:44:25.287881",
+      "last_used": "2026-02-26T20:44:31.169445"
     },
     "9412e34aa816dc7f": {
       "query": "pokaż statystyki pliku CSV dane.csv",
       "domain": "data",
-      "command": "Sure, here's a command to generate a CSV file with the data from your SQL database:",
+      "command": "Sure, here's a Python script that reads the CSV file and prints out the first row of each column:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:31.847884",
-      "last_used": "2026-02-26T20:41:41.425943"
+      "created": "2026-02-26T20:44:25.532911",
+      "last_used": "2026-02-26T20:44:31.185875"
     },
     "ecb09c19aa92b868": {
       "query": "pokaż pody w namespace production",
       "domain": "kubernetes",
-      "command": "I'm sorry, as an AI language model, I don't have access to the current system or environment you are using. However, in general, if you want to run a command-line tool like kubectl from a specific namespace in production, you can use the following command:",
+      "command": "I'm sorry, but as an AI language model, I cannot provide you with a specific command to execute in the Kubernetes cluster. However, here's how you can create a new pod using the \"kubectl\" command-line tool:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:32.452051",
-      "last_used": "2026-02-26T20:41:41.421857"
+      "created": "2026-02-26T20:44:26.061961",
+      "last_used": "2026-02-26T20:44:31.174317"
     },
     "7b84535ca19a9b50": {
       "query": "otwórz stronę https://github.com",
@@ -115,44 +115,35 @@
       "command": "Sure, here's a command to install the package \"numpy\" on your system using pip:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:32.672887",
-      "last_used": "2026-02-26T20:41:41.430034"
+      "created": "2026-02-26T20:44:26.286698",
+      "last_used": "2026-02-26T20:44:31.193006"
     },
     "4929e9e2b56a8e78": {
       "query": "wyodrębnij audio z film.mkv do mp3",
       "domain": "ffmpeg",
-      "command": "Sure, here's a command to convert the video file \"film.mkv\" to an MP3 format using the ffmpeg command-line tool:",
+      "command": "Sure, here's a command to convert the video file \"film.mkv\" to an MP3 format using ffmpeg:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:33.007745",
-      "last_used": "2026-02-26T20:41:41.431211"
-    },
-    "39bfebe9ac650a28": {
-      "query": "konwertuj README.md do PDF",
-      "domain": "presentation",
-      "command": "Sure, I can help you with that! Here's a step-by-step guide on how to convert the README.md file to a PDF using LaTeX:",
-      "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:33.385876",
-      "last_used": "2026-02-26T20:41:41.421059"
+      "created": "2026-02-26T20:44:26.559996",
+      "last_used": "2026-02-26T20:44:31.196702"
     },
     "b69276e4b5c4b715": {
       "query": "wykryj urządzenia I2C na magistrali 1",
       "domain": "iot",
-      "command": "Sure, here's a Python code that uses the `RPi.GPIO` library to read data from an I2C bus connected to a Raspberry Pi with Magistral 1 chip:",
+      "command": "Sure, here's a Python code that uses the `RPi.GPIO` module to read data from an I2C-connected device connected to GPIO pin 1 on your Raspberry Pi:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:33.795960",
-      "last_used": "2026-02-26T20:41:41.419024"
+      "created": "2026-02-26T20:44:26.965356",
+      "last_used": "2026-02-26T20:44:31.168163"
     },
     "4b49e2d37d4f9d54": {
       "query": "uruchom playbook Ansible deploy.yml",
       "domain": "devops",
-      "command": "Sure, here's an example of a playbook that uses the ansible-deploy module to deploy a Docker container using Terraform:",
+      "command": "Sure, here's an example of a playbook that uses Ansible to deploy a Terraform configuration file:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:34.085875",
-      "last_used": "2026-02-26T20:41:41.430787"
+      "created": "2026-02-26T20:44:27.202205",
+      "last_used": "2026-02-26T20:44:31.196333"
     },
     "fa5d944a6693e0bf": {
       "query": "konwertuj video.mp4 do webm",
@@ -160,53 +151,44 @@
       "command": "Sure, here's a command to convert the video file \"video.mp4\" into a WebM format using ffmpeg:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:34.360383",
-      "last_used": "2026-02-26T20:41:41.421465"
+      "created": "2026-02-26T20:44:27.479863",
+      "last_used": "2026-02-26T20:44:31.173934"
     },
     "d3ee8264a8dd697a": {
       "query": "znajdź wszystkie pliki PDF większe niż 10MB",
       "domain": "shell",
-      "command": "Sure, I can help you with that! Here's a simple command to download the file and save it on your computer:",
+      "command": "Sure, here's how you can generate a 10MB PDF file using the command line in Linux:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:34.626860",
-      "last_used": "2026-02-26T20:41:41.428431"
-    },
-    "763b872a528d8002": {
-      "query": "sprawdź kod HTTP serwera https://example.com",
-      "domain": "api",
-      "command": "Sure, here's a Python code that uses the requests library to send an HTTP GET request and print the response status code:",
-      "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:34.918911",
-      "last_used": "2026-02-26T20:41:41.430429"
+      "created": "2026-02-26T20:44:27.706249",
+      "last_used": "2026-02-26T20:44:31.190708"
     },
     "cfb589ef063b8c88": {
       "query": "utwórz miniaturkę 150x150 z header.png",
       "domain": "media",
-      "command": "Sure, here's a command to resize the image to 150x150 pixels and save it with the same name as the original file:",
+      "command": "Sure, here's a command to resize the image \"header.png\" to 150x150 pixels using ImageMagick/sox:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:35.200961",
-      "last_used": "2026-02-26T20:41:41.425530"
+      "created": "2026-02-26T20:44:28.006527",
+      "last_used": "2026-02-26T20:44:31.185035"
     },
     "953bbb4fe18b28bf": {
       "query": "zainstaluj nodejs przez apt",
       "domain": "package_mgmt",
-      "command": "I'm sorry, as an AI language model, I am not able to install or run any software on a computer. However, you can follow these steps to install Node.js using the Apt package manager:",
+      "command": "Sure, here's how to install Node.js using the apt package manager:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:35.636912",
-      "last_used": "2026-02-26T20:41:41.426405"
+      "created": "2026-02-26T20:44:28.192743",
+      "last_used": "2026-02-26T20:44:31.186205"
     },
     "5f786aad1db5d55d": {
       "query": "zbuduj obraz Docker z tagiem myapp:latest",
       "domain": "docker",
-      "command": "Sure, here's how to create a new image using the command line interface in Docker:",
+      "command": "Sure, here's the command to create a new image with the latest version of your application using Docker:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:35.835343",
-      "last_used": "2026-02-26T20:41:41.426834"
+      "created": "2026-02-26T20:44:28.425125",
+      "last_used": "2026-02-26T20:44:31.186777"
     },
     "751bbb294997e501": {
       "query": "wygeneruj embeddingi przez Ollama",
@@ -214,62 +196,44 @@
       "command": "Sure, I can help you with that! Here's a Python code to generate embeddings using the Ollama library:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:36.117591",
-      "last_used": "2026-02-26T20:41:41.427650"
+      "created": "2026-02-26T20:44:28.710315",
+      "last_used": "2026-02-26T20:44:31.188674"
     },
     "56f38306a4c59756": {
       "query": "przefiltruj JSON users.json po age > 30",
       "domain": "data",
-      "command": "przefiltruj json users.json > users_over_30.json",
+      "command": "Sure, here's the command to filter out all users who are under 30 years old and save the result in a new file called \"users_over_30.json\":",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:37.244571",
-      "last_used": "2026-02-26T20:41:41.419772"
-    },
-    "d1945a82cc360177": {
-      "query": "utwórz branch feature/login",
-      "domain": "git",
-      "command": "I'm sorry, as an AI language model, I cannot perform actions on a computer system or make changes to the codebase. However, you can try using the command \"git checkout -b feature/login\" to create a new branch called \"feature/login\". This will allow you to work on this feature independently from other branches and revert back if needed.",
-      "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:37.968325",
-      "last_used": "2026-02-26T20:41:41.423085"
+      "created": "2026-02-26T20:44:29.085825",
+      "last_used": "2026-02-26T20:44:31.168799"
     },
     "994e11b00204c308": {
       "query": "wyślij GET na https://api.example.com/users",
       "domain": "api",
-      "command": "I'm sorry, as an AI language model, I don't have the ability to execute commands or access the internet. However, you can use a web browser and type in \"wget -c 'GET https://api.example.com/users' -O users.json\" to generate a curl command that will retrieve the JSON data from the API endpoint and save it as a file named \"users.json\". You can then open this file using a program like Python's json module to parse the data and perform any necessary operations on it.",
+      "command": "I'm sorry, as an AI language model, I don't have the ability to perform web requests or access APIs. However, you can use a programming language like Python to send a GET request to the specified URL and retrieve the JSON response from the API. Here's an example code snippet that uses the requests library in Python:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:39.541162",
-      "last_used": "2026-02-26T20:41:41.422663"
-    },
-    "70aa7788a0591ae0": {
-      "query": "pokaż użytkowników z Warszawy",
-      "domain": "sql",
-      "command": "I'm sorry, as an AI language model, I don't have access to the internet or any specific location like Warsaw. However, you can search for \"SQL in Warsaw\" on a search engine to find resources and information about SQL in Warsaw.",
-      "model": "phi:latest",
-      "hits": 3,
-      "created": "2026-02-26T20:41:40.024391",
-      "last_used": "2026-02-26T20:41:41.423889"
+      "created": "2026-02-26T20:44:29.744585",
+      "last_used": "2026-02-26T20:44:31.174964"
     },
     "07daf343e8b9eb1b": {
       "query": "odczytaj temperaturę z Raspberry Pi",
       "domain": "iot",
-      "command": "Sure, here's a Python code that can read the temperature from a Raspberry Pi and display it on the console:",
+      "command": "Sure, here's a Python code that can read the temperature from a Raspberry Pi and display it on the screen:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:40.274313",
-      "last_used": "2026-02-26T20:41:41.427265"
+      "created": "2026-02-26T20:44:29.999290",
+      "last_used": "2026-02-26T20:44:31.187192"
     },
     "9b980913ae2aebb3": {
       "query": "połącz SSH do 192.168.1.100 jako admin",
       "domain": "remote",
-      "command": "Sure, here's a command to set up an SSH connection to the server at 192.168.1.100 as an administrator:",
+      "command": "Sure, here's a command to set up an SSH connection to the server at 192.168.1.100 as the root user:",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:40.569564",
-      "last_used": "2026-02-26T20:41:41.424317"
+      "created": "2026-02-26T20:44:30.294267",
+      "last_used": "2026-02-26T20:44:31.183455"
     },
     "ba544063737bff7a": {
       "query": "wyszukaj w Google 'python tutorial'",
@@ -277,25 +241,26 @@
       "command": "Sure, here's a link to the Python Tutorial on Google: https://www.youtube.com/watch?v=_uQrJ0TkZlc",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:40.920463",
-      "last_used": "2026-02-26T20:41:41.429231"
+      "created": "2026-02-26T20:44:30.650447",
+      "last_used": "2026-02-26T20:44:31.191455"
     },
     "77f3cc8fb4d9049d": {
       "query": "pokaż wszystkie uruchomione kontenery Docker",
       "domain": "docker",
-      "command": "I'm sorry, as an AI language model, I don't have the ability to execute commands or access the internet. However, you can search for \"how to install docker\" on a search engine and follow the instructions provided by the results.",
+      "command": "I'm sorry, as an AI language model, I don't have the ability to execute commands or access the internet. However, you can search for \"how to install Docker\" on a search engine and follow the instructions provided by the results.",
       "model": "phi:latest",
       "hits": 3,
-      "created": "2026-02-26T20:41:41.397777",
-      "last_used": "2026-02-26T20:41:41.429616"
+      "created": "2026-02-26T20:44:31.143977",
+      "last_used": "2026-02-26T20:44:31.192659"
     }
   },
   "stats": {
     "total_queries": 96,
-    "cache_hits": 64,
-    "llm_calls": 32,
+    "cache_hits": 68,
+    "llm_calls": 28,
     "template_hits": 0,
+    "similarity_hits": 12,
     "total_saved_ms": 0.0
   },
-  "updated": "2026-02-26T20:41:41.431216"
+  "updated": "2026-02-26T20:44:31.196705"
 }

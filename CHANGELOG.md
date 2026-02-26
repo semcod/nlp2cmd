@@ -1,3 +1,31 @@
+## [1.0.80] - 2026-02-26
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/generation/evolutionary_cache.py
+- update src/nlp2cmd/generation/templates/rag_templates.py
+- update src/nlp2cmd/generation/templates/sql_templates.py
+
+### Test
+
+- update tests/unit/test_similarity_cache.py
+
+### Other
+
+- update .env.example
+- update benchmark_output/.nlp2cmd_bench/deepseek-r1_1.5b/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/phi_latest/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/qwen2.5_3b/learned_schemas.json
+- update benchmark_output/learning_benchmark.html
+- update benchmark_output/learning_benchmark.json
+- update examples/benchmark_learning.py
+- update examples/benchmark_nlp2cmd.py
+
+
 ## [1.0.79] - 2026-02-26
 
 ### Summary

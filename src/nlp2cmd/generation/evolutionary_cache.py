@@ -43,7 +43,14 @@ from typing import Any, Optional
 
 import requests
 
+try:
+    from rapidfuzz import fuzz as _rfuzz
+except ImportError:
+    _rfuzz = None
+
 log = logging.getLogger("nlp2cmd.cache")
+
+SIMILARITY_THRESHOLD = float(os.environ.get("NLP2CMD_SIMILARITY_THRESHOLD", "78"))
 
 # ---------------------------------------------------------------------------
 # Config
@@ -205,17 +212,19 @@ class EvolutionaryCache:
         teacher_model: Optional[str] = None,
         ollama_base: Optional[str] = None,
         enable_llm: bool = True,
+        similarity_threshold: Optional[float] = None,
     ):
         self.cache_dir = cache_dir or CACHE_DIR
         self.cache_file = self.cache_dir / "learned_schemas.json"
         self.teacher_model = teacher_model or TEACHER_MODEL
         self.ollama_base = ollama_base or OLLAMA_BASE
         self.enable_llm = enable_llm
+        self.similarity_threshold = similarity_threshold if similarity_threshold is not None else SIMILARITY_THRESHOLD
 
         self.entries: dict[str, dict] = {}
         self.fuzzy_index: dict[str, str] = {}  # fuzzy_fp → exact_fp
         self.stats = {"total_queries": 0, "cache_hits": 0, "llm_calls": 0,
-                      "template_hits": 0, "total_saved_ms": 0.0}
+                      "template_hits": 0, "similarity_hits": 0, "total_saved_ms": 0.0}
 
         self._ensure_dir()
         self._load()
@@ -287,6 +296,22 @@ class EvolutionaryCache:
                     command=entry["command"], domain=entry.get("domain", "shell"),
                     source="cache_fuzzy", elapsed_ms=round(elapsed, 3), cached=True,
                 )
+
+        # Tier 1c: SIMILARITY cache hit (rapidfuzz)
+        sim_result = self._find_similar_cached(query)
+        if sim_result:
+            entry, score = sim_result
+            entry["hits"] = entry.get("hits", 0) + 1
+            entry["last_used"] = datetime.now().isoformat()
+            elapsed = (time.perf_counter() - t0) * 1000
+            self.stats["cache_hits"] = self.stats.get("cache_hits", 0) + 1
+            self.stats["similarity_hits"] = self.stats.get("similarity_hits", 0) + 1
+            self.save()
+            return LookupResult(
+                command=entry["command"], domain=entry.get("domain", "shell"),
+                source="cache_similar", elapsed_ms=round(elapsed, 3),
+                cached=True, confidence=round(score / 100, 3),
+            )
 
         # Detect domain
         if not domain:
@@ -376,6 +401,34 @@ class EvolutionaryCache:
                 continue
             lines.append(l)
         return lines[0] if lines else raw
+
+    # -- similarity search ---------------------------------------------------
+    def _find_similar_cached(self, query: str) -> Optional[tuple[dict, float]]:
+        """Find the most similar cached query using rapidfuzz.
+
+        Returns (entry_dict, similarity_score) if score >= threshold, else None.
+        Uses rapidfuzz.fuzz.WRatio which combines multiple fuzzy algorithms:
+        - Simple ratio (Levenshtein)
+        - Partial ratio (substring matching)
+        - Token sort ratio (word-order independent)
+        - Token set ratio (handles extra/missing words)
+        """
+        if _rfuzz is None or not self.entries:
+            return None
+        q_lower = query.lower().strip()
+        best_score = 0.0
+        best_entry = None
+        for _fp, entry in self.entries.items():
+            cached_q = entry.get("query", "").lower().strip()
+            if not cached_q:
+                continue
+            score = _rfuzz.WRatio(q_lower, cached_q, score_cutoff=self.similarity_threshold)
+            if score > best_score:
+                best_score = score
+                best_entry = entry
+        if best_entry and best_score >= self.similarity_threshold:
+            return best_entry, best_score
+        return None
 
     # -- stats --------------------------------------------------------------
     def get_stats(self) -> dict:

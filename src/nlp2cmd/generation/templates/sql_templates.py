@@ -61,4 +61,54 @@ SQL_TEMPLATES = {
     'show_databases': "SHOW DATABASES;",
     'use_database': "USE {database};",
     'explain': "EXPLAIN {query};",
+    'explain_analyze': "EXPLAIN ANALYZE {query};",
+    # GROUP BY + HAVING
+    'group_having': "SELECT {columns}, COUNT(*) AS cnt FROM {table}{where} GROUP BY {group_columns} HAVING COUNT(*) {operator} {value};",
+    'group_sum': "SELECT {group_column}, SUM({column}) AS total FROM {table}{where} GROUP BY {group_column}{order};",
+    'group_avg': "SELECT {group_column}, AVG({column}) AS avg_val FROM {table}{where} GROUP BY {group_column}{order};",
+    # CASE
+    'case_when': "SELECT {columns}, CASE WHEN {condition1} THEN {result1} WHEN {condition2} THEN {result2} ELSE {default} END AS {alias} FROM {table};",
+    # UNION
+    'union': "SELECT {columns} FROM {table1}{where1} UNION SELECT {columns} FROM {table2}{where2};",
+    'union_all': "SELECT {columns} FROM {table1}{where1} UNION ALL SELECT {columns} FROM {table2}{where2};",
+    # Date functions
+    'date_range': "SELECT {columns} FROM {table} WHERE {date_column} BETWEEN '{start_date}' AND '{end_date}';",
+    'date_extract': "SELECT EXTRACT({part} FROM {date_column}) AS {alias} FROM {table};",
+    'date_diff': "SELECT DATEDIFF({date1}, {date2}) AS diff FROM {table};",
+    'now': "SELECT NOW();",
+    'current_date': "SELECT CURRENT_DATE;",
+    # String functions
+    'concat': "SELECT CONCAT({col1}, ' ', {col2}) AS {alias} FROM {table};",
+    'like': "SELECT {columns} FROM {table} WHERE {column} LIKE '{pattern}';",
+    'ilike': "SELECT {columns} FROM {table} WHERE {column} ILIKE '{pattern}';",
+    'upper': "SELECT UPPER({column}) FROM {table};",
+    'lower': "SELECT LOWER({column}) FROM {table};",
+    'trim': "SELECT TRIM({column}) FROM {table};",
+    'substring': "SELECT SUBSTRING({column}, {start}, {length}) FROM {table};",
+    # Permissions
+    'grant': "GRANT {privileges} ON {table} TO {user};",
+    'revoke': "REVOKE {privileges} ON {table} FROM {user};",
+    'create_user': "CREATE USER {username} WITH PASSWORD '{password}';",
+    'drop_user': "DROP USER {username};",
+    # Insert from select
+    'insert_select': "INSERT INTO {target_table} ({columns}) SELECT {columns} FROM {source_table}{where};",
+    # Upsert
+    'upsert_pg': "INSERT INTO {table} ({columns}) VALUES ({values}) ON CONFLICT ({conflict_column}) DO UPDATE SET {set_clause};",
+    'upsert_mysql': "INSERT INTO {table} ({columns}) VALUES ({values}) ON DUPLICATE KEY UPDATE {set_clause};",
+    # Backup / Restore
+    'pg_dump': "pg_dump -U {user} -d {database} -f {output_file}",
+    'pg_restore': "psql -U {user} -d {database} -f {input_file}",
+    'mysql_dump': "mysqldump -u {user} -p {database} > {output_file}",
+    'mysql_restore': "mysql -u {user} -p {database} < {input_file}",
+    # PostgreSQL specific
+    'pg_size': "SELECT pg_size_pretty(pg_database_size('{database}'));",
+    'pg_tables': "SELECT tablename FROM pg_tables WHERE schemaname = 'public';",
+    'pg_columns': "SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '{table}';",
+    'pg_connections': "SELECT * FROM pg_stat_activity;",
+    'pg_locks': "SELECT * FROM pg_locks;",
+    # SQLite specific
+    'sqlite_tables': ".tables",
+    'sqlite_schema': ".schema {table}",
+    'sqlite_import_csv': ".import {file} {table}",
+    'sqlite_export_csv': ".mode csv\n.output {file}\nSELECT * FROM {table};",
 }
