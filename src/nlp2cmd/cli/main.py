@@ -1038,16 +1038,18 @@ def handle_run_mode(
         *loader.get_nlp_keywords("fill_form_phrases"),
         *loader.get_nlp_keywords("press_enter"),
     ])
+    extract_article_keywords = loader.get_nlp_keywords("extract_article")
 
     query_lower = query.lower()
     has_typing = any(kw in query_lower for kw in typing_keywords)
     has_clicking = any(kw in query_lower for kw in clicking_keywords)
     has_form = any(kw in query_lower for kw in form_keywords)
+    has_extract_article = any(kw in query_lower for kw in extract_article_keywords)
 
     if dsl == "auto":
         if detected_domain == "shell" and detected_intent in ("open_url", "search_web"):
             is_browser_command = True
-            detected_has_typing = has_typing or has_clicking or has_form
+            detected_has_typing = has_typing or has_clicking or has_form or has_extract_article
             if detected_has_typing and not execute_web:
                 if not only_output:
                     print_yaml_block(
@@ -1057,13 +1059,21 @@ def handle_run_mode(
                 execute_web = True
         elif detected_domain == "browser":
             is_browser_command = True
-            detected_has_typing = has_typing or has_clicking or has_form
-            if detected_has_typing and not execute_web:
+            detected_has_typing = has_typing or has_clicking or has_form or has_extract_article
+            # Enable browser automation for ANY browser domain command when in run mode
+            # This allows simple navigation (open URL) to use Playwright, not just xdg-open
+            if not execute_web:
                 if not only_output:
-                    print_yaml_block(
-                        {"status": "browser_automation_auto_enabled", "reason": "detected_browser_domain_and_form_or_typing_or_clicking"},
-                        console=console,
-                    )
+                    if detected_has_typing:
+                        print_yaml_block(
+                            {"status": "browser_automation_auto_enabled", "reason": "detected_browser_domain_and_form_or_typing_or_clicking"},
+                            console=console,
+                        )
+                    else:
+                        print_yaml_block(
+                            {"status": "browser_automation_auto_enabled", "reason": "detected_browser_domain_in_run_mode"},
+                            console=console,
+                        )
                 execute_web = True
     elif dsl == "browser":
         is_browser_command = True
@@ -1085,7 +1095,7 @@ def handle_run_mode(
         plain_output=only_output,
     )
 
-    if is_browser_command and execute_web and detected_has_typing:
+    if is_browser_command and execute_web:
         if not only_output:
             console.print("\n[cyan]Using Playwright for browser automation...[/cyan]")
 
@@ -1125,7 +1135,7 @@ def handle_run_mode(
                 print_yaml_block(payload_info, console=console)
 
             from nlp2cmd.pipeline_runner import PipelineRunner
-            pw_runner = PipelineRunner(headless=False)
+            pw_runner = PipelineRunner(headless=bool(has_extract_article is True))
             pw_result = pw_runner.run(ir, dry_run=False, confirm=auto_confirm)
 
             if (not pw_result.success) and isinstance(pw_result.data, dict) and pw_result.data.get("requires_confirmation"):

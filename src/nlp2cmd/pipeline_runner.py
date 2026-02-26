@@ -467,9 +467,19 @@ class PipelineRunner:
                             form_handler = FormHandler(console=console, use_markdown=True)
                             data_loader = schema_loader
                             
-                            # Wait for page to be fully loaded
+                            # Wait for page to be fully loaded.
+                            # Try networkidle first (best for static sites), but fall back
+                            # to domcontentloaded for sites with persistent network activity
+                            # (analytics, chat widgets, websockets) that prevent networkidle.
                             console_wrapper.print("⏳ Waiting for page to load...", language="text")
-                            page.wait_for_load_state("networkidle", timeout=10000)
+                            try:
+                                page.wait_for_load_state("networkidle", timeout=5000)
+                            except Exception:
+                                # networkidle timed out — page has persistent connections
+                                try:
+                                    page.wait_for_load_state("domcontentloaded", timeout=10000)
+                                except Exception:
+                                    pass  # proceed anyway, DOM is likely ready
                             page.wait_for_timeout(1500)
                             
                             # Detect form fields
@@ -639,6 +649,113 @@ class PipelineRunner:
                             console_wrapper.print("Form submitted via Enter key", language="text")
                         
                         page.wait_for_timeout(2000)
+                    
+                    elif action == "extract_article":
+                        # Extract article content from the page
+                        try:
+                            # Wait for page to be fully loaded
+                            page.wait_for_load_state("domcontentloaded", timeout=5000)
+                            page.wait_for_timeout(1000)
+                            
+                            # Try to find article links and select the best match
+                            article_selectors = [
+                                "article a[href]",
+                                "a[href*='artykul']",
+                                "a[href*='article']",
+                                ".article-link",
+                                ".news-link",
+                                "h2 a[href]",
+                                "h3 a[href]",
+                                ".headline a[href]",
+                                "a[class*='title']",
+                                "a[class*='headline']",
+                            ]
+                            
+                            article_link = None
+                            for selector in article_selectors:
+                                try:
+                                    links = page.locator(selector).all()
+                                    if links:
+                                        # Get the first visible link
+                                        article_link = links[0]
+                                        break
+                                except Exception:
+                                    continue
+                            
+                            if not article_link:
+                                console_wrapper.print("⚠️  No article links found on page", language="text")
+                                return RunnerResult(success=False, kind="dom", error="No article links found")
+                            
+                            # Get article URL and title
+                            article_url = article_link.get_attribute("href")
+                            article_title = article_link.inner_text().strip()
+                            
+                            # Make URL absolute if needed
+                            if article_url and not article_url.startswith("http"):
+                                from urllib.parse import urljoin
+                                article_url = urljoin(url, article_url)
+
+                            if console_wrapper.enable_markdown:
+                                console.print("\n## Browser automation: found article", markup=False)
+                            console_wrapper.print(f"Title: {article_title}", language="text")
+                            console_wrapper.print(f"URL: {article_url}", language="text")
+                            
+                            # Navigate to article
+                            page.goto(article_url, wait_until="domcontentloaded")
+                            page.wait_for_timeout(1500)
+                            
+                            # Dismiss popups on article page
+                            self._dismiss_popups(page, schema_loader)
+                            
+                            # Extract article content
+                            content_selectors = [
+                                "article",
+                                "[role='article']",
+                                ".article-content",
+                                ".article-body",
+                                ".post-content",
+                                ".entry-content",
+                                "main article",
+                                ".content article",
+                            ]
+                            
+                            article_content = None
+                            for selector in content_selectors:
+                                try:
+                                    article_element = page.locator(selector).first
+                                    if article_element:
+                                        article_content = article_element.inner_text()
+                                        if article_content and len(article_content.strip()) > 100:
+                                            break
+                                except Exception:
+                                    continue
+                            
+                            if not article_content:
+                                # Fallback: try to get main content
+                                try:
+                                    article_content = page.locator("main").first.inner_text()
+                                except Exception:
+                                    article_content = None
+                            
+                            if article_content:
+                                # Clean up the content
+                                lines = [line.strip() for line in article_content.split("\n") if line.strip()]
+                                cleaned_content = "\n".join(lines)
+
+                                if console_wrapper.enable_markdown:
+                                    console.print("\n## Browser automation: article content", markup=False)
+                                console_wrapper.print(cleaned_content[:2000], language="text")  # Limit to 2000 chars
+                                if len(cleaned_content) > 2000:
+                                    console_wrapper.print(
+                                        f"... (truncated, {len(cleaned_content)} total characters)",
+                                        language="text",
+                                    )
+                            else:
+                                console_wrapper.print("⚠️  Could not extract article content", language="text")
+                                return RunnerResult(success=False, kind="dom", error="Could not extract article content")
+                            
+                        except Exception as e:
+                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Article extraction failed: {e}")
                     
                     else:
                         return RunnerResult(success=False, kind="dom", error=f"Action {i}: Unsupported action: {action}")

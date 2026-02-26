@@ -1,3 +1,53 @@
+## [1.0.83] - 2026-02-26
+
+### Summary
+
+feat(docs): deep code analysis engine with 5 supporting modules
+
+### Core
+
+- update src/nlp2cmd/adapters/browser.py
+- update src/nlp2cmd/cli/main.py
+- update src/nlp2cmd/pipeline_runner.py
+
+### Test
+
+- update tests/unit/test_browser_automation.py
+
+### Other
+
+- update data/form_schema.json
+- update src/nlp2cmd/data/form_schema.json
+
+
+## [Unreleased]
+
+### Summary
+
+feat(browser): add article extraction capability
+
+### Features
+
+- **Article Extraction**: Browser adapter now supports extracting and displaying article content from news websites
+  - New `extract_article` action in browser automation pipeline
+  - Detects Polish keywords: "wyświetl artykuł", "pokaż artykuł"
+  - Detects English keywords: "show article", "display article", "extract article", "read article"
+  - Automatically finds article links on homepage using multiple selectors
+  - Extracts article content using semantic HTML selectors (article, main, etc.)
+  - Prints formatted article text to terminal (up to 2000 chars with truncation notice)
+  - Example: `nlp2cmd -r "otwórz https://wp.pl i wyświetl artykuł"`
+
+### Core
+
+- update src/nlp2cmd/adapters/browser.py: add `_has_extract_article_action()` method and action generation
+- update src/nlp2cmd/pipeline_runner.py: add `extract_article` handler in `_run_dom_multi_action()`
+- update data/form_schema.json: add `extract_article` keywords
+
+### Tests
+
+- add tests/unit/test_browser_automation.py: 6 new tests for article extraction (Polish/English queries, validation, metadata)
+
+
 ## [1.0.82] - 2026-02-26
 
 ### Summary
@@ -79,11 +129,13 @@ refactor(docs): configuration management system
 
 fix(browser): browser automation failed with '[Errno 2] No such file or directory' — DSL JSON was executed as shell command
 
-### Bug Fix
+### Bug Fixes
 
 - fix(core): `transform_ir()` now prefers adapter's pre-built `ActionIR` (e.g. `BrowserAdapter.last_action_ir`) over constructing a new one
 - fix(core): map `BrowserAdapter.DSL_NAME='browser'` → `dsl_kind='dom'` in `_DSL_KIND_MAP`
 - Root cause: `'browser'` was not in the `dsl_kind` whitelist, falling back to `'shell'`, causing `PipelineRunner` to execute dom_dql.v1 JSON via `subprocess.run()`
+- fix(pipeline_runner): `fill_form` action — replace hard `networkidle` timeout with fallback: try `networkidle` (5s) → fall back to `domcontentloaded` (10s). Fixes timeout on sites with persistent network activity (analytics, chat widgets, websockets)
+- fix(form_schema): add English `fill_form_phrases` variants: "fill the form", "fill out the form", "fill in the form" — EN queries now correctly trigger form filling
 
 ### Cleanup (Sprint 3)
 
@@ -97,8 +149,16 @@ fix(browser): browser automation failed with '[Errno 2] No such file or director
 
 ### Test
 
-- add: `TestBrowserAdapterTransformIR` — 2 regression tests for browser `transform_ir` (dsl_kind='dom' verification)
-- result: 1072 passed, 0 failed, 385 deselected
+- add: `tests/unit/test_browser_automation.py` — **41 tests** covering:
+  - Simple navigation (PL + EN): 8 tests
+  - Fill form + submit (PL + EN): 6 tests
+  - URL extraction edge cases: 4 tests
+  - ActionIR structure/metadata: 5 tests
+  - Real-world sites parametrized: 12 tests (prototypowanie.pl, softreck.com, github.com, stackoverflow, wikipedia, reddit, gitlab, hn)
+  - Validate syntax: 4 tests
+  - PipelineRunner dry-run: 2 tests
+- add: `TestBrowserAdapterTransformIR` in test_adapters.py — 2 regression tests
+- result: **1112 passed**, 0 failed, 385 deselected
 
 ---
 

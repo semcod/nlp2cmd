@@ -119,6 +119,13 @@ class BrowserAdapter(BaseDSLAdapter):
         tl = text.lower()
         return any(kw in tl for kw in submit_keywords)
     
+    @staticmethod
+    def _has_extract_article_action(text: str) -> bool:
+        """Check if text contains article extraction intent."""
+        extract_keywords = FormDataLoader().get_nlp_keywords("extract_article")
+        tl = text.lower()
+        return any(kw in tl for kw in extract_keywords)
+    
     def generate(self, plan: dict[str, Any]) -> str:
         text = str(plan.get("text") or plan.get("query") or "")
         entities = plan.get("entities") if isinstance(plan.get("entities"), dict) else {}
@@ -166,6 +173,12 @@ class BrowserAdapter(BaseDSLAdapter):
             params["submit"] = True
             action_id = f"{action_id}_and_submit"
             explanation = f"{explanation} and submit"
+        
+        if self._has_extract_article_action(text):
+            actions.append({"action": "extract_article"})
+            params["extract_article"] = True
+            action_id = f"{action_id}_and_extract_article"
+            explanation = f"{explanation} and extract article"
 
         if len(actions) == 1:
             payload = {
@@ -218,7 +231,7 @@ class BrowserAdapter(BaseDSLAdapter):
                 act = str(a.get("action") or "")
                 if act in {"goto", "navigate"}:
                     continue
-                if act in {"fill_form", "submit"}:
+                if act in {"fill_form", "submit", "extract_article"}:
                     continue
                 if act in {"type", "click", "press", "select"}:
                     if act in {"type", "click", "select"} and not str(a.get("selector") or ""):
