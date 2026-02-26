@@ -22,6 +22,16 @@ from nlp2cmd.generation.templates import (
     KUBERNETES_TEMPLATES,
     BROWSER_TEMPLATES,
     GIT_TEMPLATES,
+    DEVOPS_TEMPLATES,
+    API_TEMPLATES,
+    FFMPEG_TEMPLATES,
+    MEDIA_TEMPLATES,
+    DATA_TEMPLATES,
+    REMOTE_TEMPLATES,
+    IOT_TEMPLATES,
+    PACKAGE_MGMT_TEMPLATES,
+    RAG_TEMPLATES,
+    PRESENTATION_TEMPLATES,
 )
 
 
@@ -71,6 +81,16 @@ class TemplateGenerator:
             'kubernetes': KUBERNETES_TEMPLATES.copy(),
             'browser': BROWSER_TEMPLATES.copy(),
             'git': GIT_TEMPLATES.copy(),
+            'devops': DEVOPS_TEMPLATES.copy(),
+            'api': API_TEMPLATES.copy(),
+            'ffmpeg': FFMPEG_TEMPLATES.copy(),
+            'media': MEDIA_TEMPLATES.copy(),
+            'data': DATA_TEMPLATES.copy(),
+            'remote': REMOTE_TEMPLATES.copy(),
+            'iot': IOT_TEMPLATES.copy(),
+            'package_mgmt': PACKAGE_MGMT_TEMPLATES.copy(),
+            'rag': RAG_TEMPLATES.copy(),
+            'presentation': PRESENTATION_TEMPLATES.copy(),
         }
 
         self.defaults: dict[str, Any] = {}

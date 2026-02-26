@@ -372,6 +372,218 @@ class RegexEntityExtractor:
                     r'(?:wypełnij|fill)\s+(?:formularz|form)\s+(?:danymi|with)\s+[`"\']?(.+?)[`"\']?',
                 ],
             },
+            'devops': {
+                'service': [
+                    r'(?:usług[ęi]|serwis|service)\s+[`"\']?(\w[\w\-]*)[`"\']?',
+                    r'(?:systemctl|sudo\s+systemctl)\s+\w+\s+(\w[\w\-]*)',
+                    r'(?:uruchom|zatrzymaj|zrestartuj|restart|start|stop|enable|disable)\s+(\w[\w\-]*)',
+                ],
+                'playbook': [
+                    r'(?:playbook|playbooka)\s+[`"\']?([\w\-/.]+\.ya?ml)[`"\']?',
+                ],
+                'hosts': [
+                    r'(?:host[sy]?|serwer[ay]?|maszyn[ay]?)\s+[`"\']?([\w\-.,]+)[`"\']?',
+                    r'(?:na|on)\s+[`"\']?([\w\-.,]+)[`"\']?',
+                ],
+                'resource': [
+                    r'(?:zasób|resource)\s+[`"\']?([\w\-.]+)[`"\']?',
+                ],
+                'domain': [
+                    r'(?:domen[ęay]|domain)\s+[`"\']?([\w\-.]+)[`"\']?',
+                ],
+                'port': [
+                    r'(?:port[u]?|porcie)\s+(\d+)',
+                ],
+            },
+            'api': {
+                'url': [
+                    r'(https?://[^\s\'"]+)',
+                    r'(?:endpoint|url|adres)\s+[`"\']?(https?://[^\s\'"]+)[`"\']?',
+                ],
+                'method': [
+                    r'\b(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\b',
+                ],
+                'token': [
+                    r'(?:token|klucz|key)\s+[`"\']?([^\s\'"]+)[`"\']?',
+                ],
+                'data': [
+                    r'(?:dane|data|body|payload)\s+[`"\']?(\{.+?\})[`"\']?',
+                ],
+                'header': [
+                    r'(?:nagłówek|header)\s+[`"\']?([^\s\'"]+:\s*[^\s\'"]+)[`"\']?',
+                ],
+            },
+            'ffmpeg': {
+                'input': [
+                    r'(?:plik|file|wideo|video|audio|film)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                    r'[`"\']?([\w\-/]+\.(?:mp4|avi|mkv|mov|wmv|flv|webm|mp3|wav|ogg|flac|aac))[`"\']?',
+                ],
+                'output': [
+                    r'(?:do|to|na|output|wynik)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                    r'(?:jako|as)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                ],
+                'resolution': [
+                    r'(\d{3,4})[xX×](\d{3,4})',
+                    r'\b(720p|1080p|4[kK]|2160p|480p|360p)\b',
+                ],
+                'time': [
+                    r'(?:od|from|start)\s+(\d{1,2}:\d{2}(?::\d{2})?)',
+                    r'(?:do|to|end)\s+(\d{1,2}:\d{2}(?::\d{2})?)',
+                ],
+                'codec': [
+                    r'(?:kodek|codec)\s+(\w+)',
+                    r'\b(h264|h265|hevc|vp9|av1|libx264|libx265|libvpx)\b',
+                ],
+                'bitrate': [
+                    r'(?:bitrate|bitrejt)\s+(\d+[kKmM])',
+                ],
+            },
+            'media': {
+                'input': [
+                    r'(?:obraz|image|zdjęcie|foto|plik)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                    r'[`"\']?([\w\-/]+\.(?:jpg|jpeg|png|gif|bmp|tiff|webp|svg|pdf))[`"\']?',
+                ],
+                'output': [
+                    r'(?:do|to|na|output|wynik|zapisz)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                ],
+                'width': [
+                    r'(?:szerokość|width)\s+(\d+)',
+                    r'(\d+)\s*[xX×]\s*\d+',
+                ],
+                'height': [
+                    r'(?:wysokość|height)\s+(\d+)',
+                    r'\d+\s*[xX×]\s*(\d+)',
+                ],
+                'quality': [
+                    r'(?:jakość|quality)\s+(\d+)',
+                ],
+                'format': [
+                    r'(?:format|typ)\s+(jpg|jpeg|png|gif|bmp|tiff|webp|svg|pdf)',
+                ],
+            },
+            'data': {
+                'file': [
+                    r'[`"\']?([\w\-/]+\.(?:json|csv|tsv|xml|yaml|yml|parquet|sqlite|db))[`"\']?',
+                    r'(?:plik|file)\s+[`"\']?([\w\-/.]+)[`"\']?',
+                ],
+                'field': [
+                    r'(?:pole|field|kolumn[ęay]|column)\s+[`"\']?(\w+)[`"\']?',
+                ],
+                'filter': [
+                    r'(?:filtr|filter|warunek|condition)\s+[`"\']?(.+?)[`"\']?',
+                ],
+                'pattern': [
+                    r'(?:wzorzec|pattern)\s+[`"\']?(.+?)[`"\']?',
+                ],
+                'delimiter': [
+                    r'(?:separator|delimiter|sep)\s+[`"\']?(.)[`"\']?',
+                ],
+                'query': [
+                    r'(?:zapytanie|query)\s+[`"\']?(.+?)[`"\']?',
+                ],
+            },
+            'remote': {
+                'host': [
+                    r'(?:host|serwer|server|maszyn[ęay]|machine)\s+[`"\']?([\w\-.:]+)[`"\']?',
+                    r'(\w+)@([\w\-.:]+)',
+                ],
+                'user': [
+                    r'(?:użytkownik|user|jako|as)\s+[`"\']?(\w+)[`"\']?',
+                    r'(\w+)@[\w\-.:]+',
+                ],
+                'port': [
+                    r'(?:port[u]?)\s+(\d+)',
+                    r'-p\s+(\d+)',
+                ],
+                'key': [
+                    r'(?:klucz|key)\s+[`"\']?([\w\-/.]+)[`"\']?',
+                    r'-i\s+[`"\']?([\w\-/.]+)[`"\']?',
+                ],
+                'command': [
+                    r'(?:komend[ęay]|command|wykonaj|execute)\s+[`"\']?(.+?)[`"\']?',
+                ],
+                'source': [
+                    r'(?:z|from|source|źródło)\s+[`"\']?([\w\-/.]+)[`"\']?',
+                ],
+                'destination': [
+                    r'(?:do|to|dest|cel)\s+[`"\']?([\w\-/.@:]+)[`"\']?',
+                ],
+            },
+            'iot': {
+                'pin': [
+                    r'(?:pin|gpio|nóżk[ęay])\s+(\d+)',
+                    r'GPIO\s*(\d+)',
+                ],
+                'bus': [
+                    r'(?:bus|magistral[ęay]|szyn[ęay])\s+(\d+)',
+                    r'i2c[- ]?(\d+)',
+                ],
+                'address': [
+                    r'(?:adres|address)\s+(0x[0-9a-fA-F]+|\d+)',
+                ],
+                'device': [
+                    r'(?:urządzeni[eu]|device)\s+[`"\']?([\w\-/.]+)[`"\']?',
+                    r'/dev/([\w]+)',
+                ],
+                'topic': [
+                    r'(?:topic|temat)\s+[`"\']?([\w\-/]+)[`"\']?',
+                ],
+                'sensor': [
+                    r'(?:czujnik|sensor)\s+[`"\']?(\w+)[`"\']?',
+                    r'\b(DHT\d+|BME\d+|BMP\d+|DS18B20|MQ\d+)\b',
+                ],
+                'baudrate': [
+                    r'(?:baudrate|prędkość)\s+(\d+)',
+                    r'\b(9600|115200|57600|38400|19200)\b',
+                ],
+            },
+            'package_mgmt': {
+                'package': [
+                    r'(?:pakiet|package|bibliotek[ęay]|library|moduł|module)\s+[`"\']?([\w\-@/.]+)[`"\']?',
+                    r'(?:zainstaluj|install|dodaj|add)\s+[`"\']?([\w\-@/.]+)[`"\']?',
+                ],
+                'version': [
+                    r'(?:wersj[ęai]|version)\s+[`"\']?([\d.]+)[`"\']?',
+                    r'==\s*([\d.]+)',
+                    r'@([\d.]+)',
+                ],
+                'manager': [
+                    r'\b(apt|yum|dnf|pip|npm|yarn|snap|flatpak|brew|cargo|go)\b',
+                ],
+            },
+            'rag': {
+                'collection': [
+                    r'(?:kolekcj[ęai]|collection|indeks|index)\s+[`"\']?([\w\-]+)[`"\']?',
+                ],
+                'model': [
+                    r'(?:model[u]?|model)\s+[`"\']?([\w\-/:]+)[`"\']?',
+                ],
+                'query': [
+                    r'(?:zapytanie|query|pytanie|question|szukaj|search)\s+[`"\']?(.+?)[`"\']?',
+                ],
+                'db_path': [
+                    r'(?:baz[ęay]|database|db)\s+[`"\']?([\w\-/.]+)[`"\']?',
+                ],
+                'file': [
+                    r'(?:dokument|document|plik|file)\s+[`"\']?([\w\-/.]+)[`"\']?',
+                ],
+            },
+            'presentation': {
+                'input': [
+                    r'(?:plik|file|dokument|document)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                    r'[`"\']?([\w\-/]+\.(?:md|tex|rst|adoc|ipynb|html|csv|json))[`"\']?',
+                ],
+                'output': [
+                    r'(?:do|to|na|output|wynik|zapisz)\s+[`"\']?([\w\-/.]+\.\w+)[`"\']?',
+                ],
+                'format': [
+                    r'(?:format|typ)\s+(html|pdf|docx|pptx|png|svg|epub)',
+                    r'\.(html|pdf|docx|pptx|png|svg|epub)\b',
+                ],
+                'title': [
+                    r'(?:tytuł|title)\s+[`"\']?(.+?)[`"\']?',
+                ],
+            },
         }
 
         self._custom_patterns_provided = custom_patterns is not None

@@ -1,3 +1,38 @@
+## [1.0.75] - 2026-02-26
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/generation/regex.py
+- update src/nlp2cmd/generation/template_generator.py
+- update src/nlp2cmd/generation/templates/__init__.py
+- update src/nlp2cmd/generation/templates/api_templates.py
+- update src/nlp2cmd/generation/templates/data_templates.py
+- update src/nlp2cmd/generation/templates/devops_templates.py
+- update src/nlp2cmd/generation/templates/ffmpeg_templates.py
+- update src/nlp2cmd/generation/templates/iot_templates.py
+- update src/nlp2cmd/generation/templates/media_templates.py
+- update src/nlp2cmd/generation/templates/package_mgmt_templates.py
+- ... and 3 more
+
+### Test
+
+- update test_ollama_speed.py
+
+### Other
+
+- update .gitignore
+- build: update Makefile
+- update TICKET
+- update examples/04_domain_specific/polish_llm_integration/test_bielik_simple.py
+- update examples/benchmark_nlp2cmd.py
+- scripts: update project.sh
+- update project.toon
+
+
 ## [1.0.70] - 2026-02-23
 
 ### Summary

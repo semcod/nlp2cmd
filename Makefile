@@ -409,55 +409,49 @@ info: ## Show project info
 # Benchmarking and Reporting
 # =============================================================================
 
-report: ## Generate performance benchmark report
-	@echo "$(BLUE)Running NLP2CMD performance benchmark...$(NC)"
-	@echo "$(YELLOW)This will test single vs sequential command processing speed.$(NC)"
+report: benchmark ## Alias for benchmark target
+
+benchmark: ## Run LLM benchmark (3 models ≤3B, all 6 nlp2cmd domains)
+	@echo "$(BLUE)Running NLP2CMD LLM Benchmark...$(NC)"
+	@echo "$(YELLOW)Testing 3 local models (≤3B) across shell, docker, sql, kubernetes, browser, git$(NC)"
+	@echo "$(YELLOW)Requires: ollama running locally$(NC)"
 	PYTHONPATH=src $(PYTHON) examples/benchmark_nlp2cmd.py
 	@echo ""
 	@echo "$(GREEN)✓ Benchmark complete!$(NC)"
-	@echo "$(BLUE)Reports generated:$(NC)"
-	@echo "  - benchmark_report.json (detailed JSON report)"
-	@echo "  - benchmark_report.md (Markdown report with analysis)"
-	@echo "  - benchmark_results.csv (CSV for plotting)"
+	@echo "$(BLUE)Reports in benchmark_output/:$(NC)"
+	@echo "  - benchmark_results.json  (detailed JSON)"
+	@echo "  - benchmark_results.html  (interactive charts)"
+	@echo "  - refactoring_plan.md     (refactoring recommendations)"
+	@echo "  - benchmark.log           (execution log)"
 	@echo ""
-	@echo "$(YELLOW)To view the Markdown report:$(NC)"
-	@echo "  cat benchmark_report.md | head -50"
-	@echo ""
-	@echo "$(YELLOW)Key findings:$(NC)"
-	@if [ -f benchmark_report.json ]; then \
-		TIME_SAVED=$$(cat benchmark_report.json | jq -r '.markdown_report' | grep -A1 "Total Time Saved" | tail -1 | sed 's/.*\*\*\([0-9.]*\)ms.*/\1/'); \
-		EFFICIENCY=$$(cat benchmark_report.json | jq -r '.markdown_report' | grep "Total Time Saved" | sed 's/.*(\([0-9.]*\)% efficiency gain.*/\1/'); \
-		echo "  • Time saved (10 commands): $${TIME_SAVED}ms"; \
-		echo "  • Efficiency gain: $${EFFICIENCY}%"; \
-	fi
+	@echo "$(YELLOW)Open HTML report:$(NC)"
+	@echo "  xdg-open benchmark_output/benchmark_results.html"
 
-benchmark: report ## Alias for report target
-
-benchmark-view: ## View the last benchmark report
-	@if [ -f benchmark_report.json ]; then \
-		echo "$(BLUE)Last Benchmark Report Summary:$(NC)"; \
-		cat benchmark_report.json | jq '.summary'; \
-		echo ""; \
-		echo "$(BLUE)Key Metrics from Markdown Report:$(NC)"; \
-		if [ -f benchmark_report.md ]; then \
-			echo "Time saved: $$(grep 'Total Time Saved' benchmark_report.md | grep -o '\*\*[0-9.]*ms\*\*' | sed 's/\*\*//g')"; \
-			echo "Efficiency: $$(grep 'Total Time Saved' benchmark_report.md | grep -o '([0-9.]*% efficiency gain)' | sed 's/[() ]//g')"; \
-		fi; \
+benchmark-view: ## View the last benchmark summary JSON
+	@if [ -f benchmark_output/benchmark_results.json ]; then \
+		echo "$(BLUE)Last Benchmark Summary:$(NC)"; \
+		cat benchmark_output/benchmark_results.json | jq '.summary'; \
 	else \
-		echo "$(YELLOW)No benchmark report found. Run 'make report' first.$(NC)"; \
+		echo "$(YELLOW)No benchmark results found. Run 'make benchmark' first.$(NC)"; \
 	fi
 
-benchmark-md: ## View the full markdown report
-	@if [ -f benchmark_report.md ]; then \
-		echo "$(BLUE)Full Markdown Benchmark Report:$(NC)"; \
-		cat benchmark_report.md; \
+benchmark-html: ## Open benchmark HTML report in browser
+	@if [ -f benchmark_output/benchmark_results.html ]; then \
+		xdg-open benchmark_output/benchmark_results.html; \
 	else \
-		echo "$(YELLOW)No markdown report found. Run 'make report' first.$(NC)"; \
+		echo "$(YELLOW)No HTML report found. Run 'make benchmark' first.$(NC)"; \
 	fi
 
-benchmark-clean: ## Clean benchmark reports
-	rm -f benchmark_report.json benchmark_report.md benchmark_results.csv
-	@echo "$(GREEN)✓ Benchmark reports cleaned!$(NC)"
+benchmark-plan: ## View refactoring plan from benchmark
+	@if [ -f benchmark_output/refactoring_plan.md ]; then \
+		cat benchmark_output/refactoring_plan.md; \
+	else \
+		echo "$(YELLOW)No refactoring plan found. Run 'make benchmark' first.$(NC)"; \
+	fi
+
+benchmark-clean: ## Clean benchmark output
+	rm -rf benchmark_output/
+	@echo "$(GREEN)✓ Benchmark output cleaned!$(NC)"
 
 # =============================================================================
 # Scripts Organization
