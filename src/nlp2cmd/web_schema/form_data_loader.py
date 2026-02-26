@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 from typing import Any, Optional
 
+from nlp2cmd.utils.data_files import find_data_file
+
 
 class FormDataLoader:
     """
@@ -34,6 +36,7 @@ class FormDataLoader:
         self.data_dir = Path(data_dir)
         self.env_file = Path(env_file)
         self.schema_file = self.data_dir / schema_file
+        self._schema_file_name = schema_file
 
         # Backwards/forwards compatibility:
         # - `site` can be a full URL or domain
@@ -164,9 +167,13 @@ class FormDataLoader:
     def _load_schema(self) -> None:
         """Load form configuration from schema file."""
         base: dict[str, Any] = {}
-        if self.schema_file.exists():
+
+        resolved = find_data_file(explicit_path=None, default_filename=self._schema_file_name)
+        schema_path = resolved or self.schema_file
+
+        if schema_path.exists():
             try:
-                with open(self.schema_file) as f:
+                with open(schema_path) as f:
                     payload = json.load(f)
                     if isinstance(payload, dict):
                         base = payload

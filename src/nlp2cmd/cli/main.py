@@ -1055,6 +1055,16 @@ def handle_run_mode(
                         console=console,
                     )
                 execute_web = True
+        elif detected_domain == "browser":
+            is_browser_command = True
+            detected_has_typing = has_typing or has_clicking or has_form
+            if detected_has_typing and not execute_web:
+                if not only_output:
+                    print_yaml_block(
+                        {"status": "browser_automation_auto_enabled", "reason": "detected_browser_domain_and_form_or_typing_or_clicking"},
+                        console=console,
+                    )
+                execute_web = True
     elif dsl == "browser":
         is_browser_command = True
         detected_has_typing = True

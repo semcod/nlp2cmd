@@ -92,24 +92,27 @@ find $HOME -type f -size +50GB
 
 ### 🧠 Evolutionary Cache — Self-Learning ([docs](docs/EVOLUTIONARY_CACHE.md))
 
-nlp2cmd uczy się z każdego zapytania. Przyspieszenie: **do 302 803×** (DeepSeek-R1).
+nlp2cmd uczy się z każdego zapytania. **100% accuracy** (Qwen-Coder-3B), **24 355× speedup**, template pipeline + pre-warm cache eliminują 31% zapytań bez LLM.
 
-| Teacher | Cold start | Hot cache | Speedup |
-|---------|-----------|-----------|---------|
-| Qwen2.5-3B (83% accuracy) | 406ms | 0.017ms | 23 904× |
-| DeepSeek-R1-1.5B (40%) | 4239ms | 0.014ms | 302 803× |
+| Model | Accuracy | Cold | Hot | Speedup |
+|-------|----------|------|-----|---------|
+| Qwen2.5-Coder-3B | **100.0%** | 314ms | 0.014ms | 22 461× |
+| Qwen2.5-3B | **97.9%** | 317ms | 0.013ms | 24 355× |
+| Bielik-1.5B (PL) | 61.7% | — | — | — |
+| Gemma2-2B | 55.3% | — | — | — |
 
 ```
-Zapytanie → CACHE EXACT (0.01ms) → CACHE FUZZY (0.02ms) → DOMAIN DETECT → LLM TEACHER → AUTO-CACHE
+Zapytanie → CACHE → SIMILAR (rapidfuzz) → TEMPLATE (1615) → LLM TEACHER → AUTO-CACHE
 ```
 
 ```python
 from nlp2cmd.generation.evolutionary_cache import EvolutionaryCache
 cache = EvolutionaryCache()
-r = cache.lookup("znajdź pliki PDF większe niż 10MB")  # 1st: ~300ms, 2nd: ~0.014ms
+r = cache.lookup("znajdź pliki PDF większe niż 10MB")  # template: ~15ms, cached: ~0.015ms
+r = cache.lookup("znajdz pliki PDF wieksze niz 10MB")  # typo → similarity hit!
 ```
 
-### 🌐 16 Domen (1558 szablonów)
+### 🌐 16 Domen (1615 szablonów)
 - **Shell** - find, ls, grep, ps, du, df, tar, chmod
 - **Docker** - container, image, compose, volume, network
 - **SQL** - SELECT, INSERT, CREATE, JOIN, window functions

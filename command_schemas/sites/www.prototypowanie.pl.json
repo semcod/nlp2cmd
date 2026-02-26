@@ -1,0 +1,375 @@
+{
+  "app_name": "www.prototypowanie.pl",
+  "app_version": "1.0",
+  "description": "Web interface for www.prototypowanie.pl",
+  "actions": [
+    {
+      "id": "type_name-1",
+      "name": "name-1",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w name-1",
+        "type text in name-1"
+      ],
+      "metadata": {
+        "selector": "#forminator-field-name-1_699495269b21f",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_email-1",
+      "name": "email-1",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w email-1",
+        "type text in email-1"
+      ],
+      "metadata": {
+        "selector": "#forminator-field-email-1_699495269b21f",
+        "element_type": "input",
+        "input_type": "email"
+      }
+    },
+    {
+      "id": "type_phone-1",
+      "name": "phone-1",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w phone-1",
+        "type text in phone-1"
+      ],
+      "metadata": {
+        "selector": "#forminator-field-phone-1_699495269b21f",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_textarea-1",
+      "name": "textarea-1",
+      "description": "Type text into textarea field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w textarea-1",
+        "type text in textarea-1"
+      ],
+      "metadata": {
+        "selector": "#forminator-field-textarea-1_699495269b21f",
+        "element_type": "textarea",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_moove_gdpr_strict_cookies",
+      "name": "Ściśle niezbędne ciasteczka",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w Ściśle niezbędne ciasteczka",
+        "type text in Ściśle niezbędne ciasteczka"
+      ],
+      "metadata": {
+        "selector": "#moove_gdpr_strict_cookies",
+        "element_type": "input",
+        "input_type": "checkbox"
+      }
+    },
+    {
+      "id": "type_sl",
+      "name": "sl",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w sl",
+        "type text in sl"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-votingInputSrcLang",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_tl",
+      "name": "tl",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w tl",
+        "type text in tl"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-votingInputTrgLang",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_query",
+      "name": "query",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w query",
+        "type text in query"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-votingInputSrcText",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_gtrans",
+      "name": "gtrans",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w gtrans",
+        "type text in gtrans"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-votingInputTrgText",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "type_vote",
+      "name": "vote",
+      "description": "Type text into input field",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "Text to type",
+          "required": true
+        }
+      ],
+      "examples": [
+        "wpisz tekst w vote",
+        "type text in vote"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-votingInputVote",
+        "element_type": "input",
+        "input_type": "text"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "WYŚLIJ",
+      "description": "Click WYŚLIJ",
+      "parameters": [],
+      "examples": [
+        "kliknij WYŚLIJ",
+        "click WYŚLIJ"
+      ],
+      "metadata": {
+        "selector": "button:has-text('WYŚLIJ'), [role='button']:has-text('WYŚLIJ')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "ustawieniach",
+      "description": "Click ustawieniach",
+      "parameters": [],
+      "examples": [
+        "kliknij ustawieniach",
+        "click ustawieniach"
+      ],
+      "metadata": {
+        "selector": "button:has-text('ustawieniach'), [role='button']:has-text('ustawieniach')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "Akceptuj",
+      "description": "Click Akceptuj",
+      "parameters": [],
+      "examples": [
+        "kliknij Akceptuj",
+        "click Akceptuj"
+      ],
+      "metadata": {
+        "selector": "button:has-text('Akceptuj'), [role='button']:has-text('Akceptuj')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "Zamknij ustawienia ciasteczek RODO",
+      "description": "Click Zamknij ustawienia ciasteczek RODO",
+      "parameters": [],
+      "examples": [
+        "kliknij Zamknij ustawienia ciasteczek RODO",
+        "click Zamknij ustawienia ciasteczek RODO"
+      ],
+      "metadata": {
+        "selector": "button:has-text('Zamknij ustawienia ciasteczek RODO'), [role='button']:has-text('Zamknij ustawienia ciasteczek RODO')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "Przegląd prywatności",
+      "description": "Click Przegląd prywatności",
+      "parameters": [],
+      "examples": [
+        "kliknij Przegląd prywatności",
+        "click Przegląd prywatności"
+      ],
+      "metadata": {
+        "selector": "button:has-text('Przegląd prywatności'), [role='button']:has-text('Przegląd prywatności')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "Ściśle niezbędne ciasteczka",
+      "description": "Click Ściśle niezbędne ciasteczka",
+      "parameters": [],
+      "examples": [
+        "kliknij Ściśle niezbędne ciasteczka",
+        "click Ściśle niezbędne ciasteczka"
+      ],
+      "metadata": {
+        "selector": "button:has-text('Ściśle niezbędne ciasteczka'), [role='button']:has-text('Ściśle niezbędne ciasteczka')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "Włącz wszystkie",
+      "description": "Click Włącz wszystkie",
+      "parameters": [],
+      "examples": [
+        "kliknij Włącz wszystkie",
+        "click Włącz wszystkie"
+      ],
+      "metadata": {
+        "selector": "button:has-text('Włącz wszystkie'), [role='button']:has-text('Włącz wszystkie')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_button",
+      "name": "Zapisz ustawienia",
+      "description": "Click Zapisz ustawienia",
+      "parameters": [],
+      "examples": [
+        "kliknij Zapisz ustawienia",
+        "click Zapisz ustawienia"
+      ],
+      "metadata": {
+        "selector": "button:has-text('Zapisz ustawienia'), [role='button']:has-text('Zapisz ustawienia')",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_goog-gt-thumbUpButton",
+      "name": "Dobre tłumaczenie",
+      "description": "Click button",
+      "parameters": [],
+      "examples": [
+        "kliknij None",
+        "click None"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-thumbUpButton",
+        "element_type": "button"
+      }
+    },
+    {
+      "id": "click_goog-gt-thumbDownButton",
+      "name": "Słabe tłumaczenie",
+      "description": "Click button",
+      "parameters": [],
+      "examples": [
+        "kliknij None",
+        "click None"
+      ],
+      "metadata": {
+        "selector": "#goog-gt-thumbDownButton",
+        "element_type": "button"
+      }
+    }
+  ],
+  "metadata": {
+    "url": "https://www.prototypowanie.pl/kontakt/",
+    "title": "Kontakt • prototypowanie.pl",
+    "extracted_at": "2026-02-26T21:36:27.637414",
+    "total_inputs": 10,
+    "total_buttons": 10,
+    "total_links": 7
+  }
+}

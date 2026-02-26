@@ -225,6 +225,12 @@ class NLP2CMD:
         
         # Use the existing transform method to get the result
         result = self.transform(text, context)
+
+        # If the adapter already built a proper ActionIR (e.g. BrowserAdapter),
+        # prefer it over constructing a new one from TransformResult.
+        adapter_ir = getattr(self.adapter, 'last_action_ir', None)
+        if isinstance(adapter_ir, ActionIR) and adapter_ir.dsl:
+            return adapter_ir
         
         if result.status == TransformStatus.ERROR or not result.command:
             # Return error IR
@@ -238,7 +244,9 @@ class NLP2CMD:
             )
         
         # Determine DSL kind based on adapter
+        _DSL_KIND_MAP = {'browser': 'dom'}
         dsl_kind = getattr(self.adapter, 'DSL_NAME', 'shell').lower()
+        dsl_kind = _DSL_KIND_MAP.get(dsl_kind, dsl_kind)
         if dsl_kind not in ['sql', 'graphql', 'dom', 'shell', 'http', 'python', 'gui']:
             dsl_kind = 'shell'
         

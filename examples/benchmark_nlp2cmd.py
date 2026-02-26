@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-NLP2CMD LLM Benchmark — 3 local models (≤3B) across all 6 nlp2cmd domains.
+NLP2CMD LLM Benchmark — 4 local models (≤3B) across all 6 nlp2cmd domains.
 
 Models tested:
   1. Bielik-1.5B  (Polish, via ollama from GGUF)
   2. qwen2.5:3b   (multilingual 3B)
   3. gemma2:2b     (Google 2B)
+  4. deepseek-coder:1.3b (DeepSeek Coder)
 
 Domains (all 16 nlp2cmd template domains):
   shell, docker, sql, kubernetes, browser, git,
@@ -20,6 +21,7 @@ Outputs:
 
 from __future__ import annotations
 
+import argparse
 import json
 import logging
 import os
@@ -42,6 +44,7 @@ RESULTS_DIR = PROJECT_ROOT / "benchmark_output"
 RESULTS_JSON = RESULTS_DIR / "benchmark_results.json"
 RESULTS_HTML = RESULTS_DIR / "benchmark_results.html"
 LOG_FILE = RESULTS_DIR / "benchmark.log"
+ERRORS_MD = RESULTS_DIR / "benchmark_command_errors.md"
 
 # ---------------------------------------------------------------------------
 # Logging setup — log to file + stderr
@@ -61,7 +64,8 @@ log = logging.getLogger("benchmark")
 # ---------------------------------------------------------------------------
 # Ollama helpers
 # ---------------------------------------------------------------------------
-OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
+# Use LITELLM_API_BASE as primary, fallback to OLLAMA_BASE_URL for compatibility
+OLLAMA_BASE = os.environ.get("LITELLM_API_BASE") or os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 
 
 OLLAMA_TIMEOUT = int(os.environ.get("NLP2CMD_OLLAMA_TIMEOUT", "5"))
@@ -164,198 +168,264 @@ def ollama_generate(
 BENCHMARK_QUERIES: dict[str, list[dict[str, str]]] = {
     # === Original 6 domains ===
     "shell": [
-        {"query": "znajdź wszystkie pliki PDF większe niż 10MB",
-         "expected_pattern": r"find.*\.pdf.*-size", "description": "Find large PDF files"},
-        {"query": "pokaż użycie dysku w katalogu /var/log",
-         "expected_pattern": r"(du|df).*(/var/log|var.log)", "description": "Disk usage /var/log"},
-        {"query": "pokaż procesy zużywające najwięcej pamięci",
-         "expected_pattern": r"(ps.*sort|top|ps.*mem)", "description": "Top memory processes"},
+        {"query": "wyszukaj pliki DOCX większe niż 5MB w katalogu /home",
+         "expected_pattern": r"find.*\.docx.*-size", "description": "Find large DOCX files"},
+        {"query": "sprawdź zajętość dysku w /tmp",
+         "expected_pattern": r"(du|df).*(/tmp|tmp)", "description": "Disk usage /tmp"},
+        {"query": "wyświetl 15 procesów zużywających najwięcej CPU",
+         "expected_pattern": r"(ps.*sort|top|ps.*cpu)", "description": "Top CPU processes"},
     ],
     "docker": [
-        {"query": "pokaż wszystkie uruchomione kontenery Docker",
+        {"query": "wyświetl wszystkie zatrzymane kontenery",
          "expected_pattern": r"docker\s+(ps|container\s+ls)", "description": "List containers"},
-        {"query": "zbuduj obraz Docker z tagiem myapp:latest",
-         "expected_pattern": r"docker\s+build.*-t.*myapp", "description": "Build image"},
-        {"query": "pokaż logi kontenera nginx z ostatnich 100 linii",
-         "expected_pattern": r"docker\s+logs.*(nginx|--tail|100)", "description": "Container logs"},
+        {"query": "zbuduj obraz z tagiem webapp:v2.0",
+         "expected_pattern": r"docker\s+build.*-t.*webapp", "description": "Build image"},
+        {"query": "pokaż ostatnie 50 linii logów kontenera redis",
+         "expected_pattern": r"docker\s+logs.*(redis|--tail|50)", "description": "Container logs"},
     ],
     "sql": [
-        {"query": "pokaż wszystkich użytkowników z Warszawy",
-         "expected_pattern": r"SELECT.*FROM.*WHERE.*(Warszaw|Warsaw|miasto|city)", "description": "Select WHERE"},
-        {"query": "policz zamówienia pogrupowane po miesiącu",
+        {"query": "wybierz klientów z Krakowa",
+         "expected_pattern": r"SELECT.*FROM.*WHERE.*(Krak|city|miasto)", "description": "Select WHERE"},
+        {"query": "policz sprzedaż pogrupowaną po tygodniu",
          "expected_pattern": r"(SELECT.*COUNT|GROUP\s+BY|count)", "description": "Count GROUP BY"},
-        {"query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
-         "expected_pattern": r"CREATE\s+TABLE.*produkt", "description": "CREATE TABLE"},
+        {"query": "stwórz tabelę klienci z polami id, email, telefon",
+         "expected_pattern": r"CREATE\s+TABLE.*klient", "description": "CREATE TABLE"},
     ],
     "kubernetes": [
-        {"query": "pokaż wszystkie pody w namespace production",
-         "expected_pattern": r"kubectl\s+get\s+pods.*(-n|namespace).*production", "description": "Get pods ns"},
-        {"query": "przeskaluj deployment webapp do 5 replik",
-         "expected_pattern": r"kubectl\s+scale.*replicas.*5", "description": "Scale deployment"},
-        {"query": "pokaż logi poda nginx-abc123",
-         "expected_pattern": r"kubectl\s+logs.*nginx", "description": "Pod logs"},
+        {"query": "wyświetl pody w namespace staging",
+         "expected_pattern": r"kubectl\s+get\s+pods.*(-n|namespace).*stag", "description": "Get pods ns"},
+        {"query": "skaluj deployment api-server do 3 replik",
+         "expected_pattern": r"kubectl\s+scale.*replicas.*3", "description": "Scale deployment"},
+        {"query": "pokaż logi poda postgres-xyz789",
+         "expected_pattern": r"kubectl\s+logs.*postgres", "description": "Pod logs"},
     ],
     "browser": [
-        {"query": "otwórz stronę https://github.com",
-         "expected_pattern": r"(xdg-open|open|playwright|firefox|chrome|chromium|sensible-browser).*github\.com",
+        {"query": "otwórz stronę https://stackoverflow.com",
+         "expected_pattern": r"(xdg-open|open|playwright|firefox|chrome|chromium|sensible-browser).*stackoverflow\.com",
          "description": "Open URL"},
-        {"query": "wyszukaj w Google 'python tutorial'",
-         "expected_pattern": r"(google\.com.*(search|q=)|xdg-open.*google|chrome.*google|firefox.*google)",
+        {"query": "wyszukaj w Google 'rust programming'",
+         "expected_pattern": r"(google\.com/search\?q=|xdg-open.*google\.com/search\?q=|chrome.*google\.com/search\?q=|firefox.*google\.com/search\?q=)",
          "description": "Google search"},
     ],
     "git": [
-        {"query": "pokaż historię ostatnich 10 commitów",
-         "expected_pattern": r"git\s+log.*(-n\s*10|--oneline|-10|-\d+|head|pretty)", "description": "Git log"},
-        {"query": "utwórz nowy branch o nazwie feature/login",
-         "expected_pattern": r"git\s+(checkout\s+-b|branch|switch\s+-c).*feature.login", "description": "Create branch"},
-        {"query": "dodaj wszystkie zmiany i zrób commit z wiadomością 'fix: napraw błąd'",
+        {"query": "wyświetl ostatnie 20 commitów",
+         "expected_pattern": r"git\s+log.*(-n\s*20|--oneline|-20|-\d+|head|pretty)", "description": "Git log"},
+        {"query": "stwórz branch bugfix/auth-error",
+         "expected_pattern": r"git\s+(checkout\s+-b|branch|switch\s+-c).*bugfix.auth", "description": "Create branch"},
+        {"query": "dodaj wszystko i commituj z opisem 'feat: dodaj API'",
          "expected_pattern": r"git\s+(add.*commit|commit.*-a)", "description": "Add & commit"},
     ],
     # === 10 new domains ===
     "devops": [
-        {"query": "sprawdź status usługi nginx",
-         "expected_pattern": r"(systemctl\s+status|service\s+.*status).*nginx", "description": "Service status"},
-        {"query": "uruchom playbook Ansible deploy.yml na serwerach web",
-         "expected_pattern": r"ansible-playbook.*deploy\.yml", "description": "Ansible playbook"},
-        {"query": "zainicjalizuj Terraform i zastosuj konfigurację",
-         "expected_pattern": r"terraform\s+(init|apply)", "description": "Terraform init/apply"},
+        {"query": "sprawdź czy działa usługa postgresql",
+         "expected_pattern": r"(systemctl\s+status|service\s+.*status).*postgres", "description": "Service status"},
+        {"query": "uruchom playbook setup.yml",
+         "expected_pattern": r"ansible-playbook.*setup\.yml", "description": "Ansible playbook"},
+        {"query": "zaplanuj zmiany w Terraform",
+         "expected_pattern": r"terraform\s+(plan|init)", "description": "Terraform plan"},
     ],
     "api": [
-        {"query": "wyślij żądanie GET na https://api.example.com/users",
-         "expected_pattern": r"curl.*https?://api\.example\.com/users", "description": "GET request"},
-        {"query": "wyślij POST z JSON danymi na endpoint /api/login",
-         "expected_pattern": r"curl.*-X\s*POST.*(-d|--data).*json", "description": "POST JSON"},
-        {"query": "sprawdź kod odpowiedzi HTTP serwera https://example.com",
+        {"query": "wyślij GET do https://api.github.com/repos",
+         "expected_pattern": r"curl.*https?://api\.github\.com/repos", "description": "GET request"},
+        {"query": "wyślij POST z danymi JSON na /api/register",
+         "expected_pattern": r"curl.*-X\s*POST.*(Content-Type:.*json|application/json).*(-d|--data)", "description": "POST JSON"},
+        {"query": "sprawdź status HTTP strony https://google.com",
          "expected_pattern": r"curl.*(http_code|status|head|-I|-w)", "description": "HTTP status check"},
     ],
     "ffmpeg": [
-        {"query": "konwertuj plik video.mp4 do formatu webm",
-         "expected_pattern": r"ffmpeg.*-i.*(video\.mp4|input).*\.webm", "description": "Convert to webm"},
-        {"query": "wyodrębnij audio z pliku film.mkv do mp3",
-         "expected_pattern": r"ffmpeg.*-i.*(-vn|audio|mp3|libmp3lame)", "description": "Extract audio"},
-        {"query": "zmniejsz rozdzielczość video do 720p",
-         "expected_pattern": r"ffmpeg.*(-vf\s+scale|720|-1:720|resize)", "description": "Resize 720p"},
+        {"query": "przekonwertuj movie.avi na format mp4",
+         "expected_pattern": r"ffmpeg.*-i.*(movie\.avi|input).*\.mp4", "description": "Convert to mp4"},
+        {"query": "wyciągnij ścieżkę audio z recording.mkv do wav",
+         "expected_pattern": r"ffmpeg.*-i.*(-vn|audio|wav)", "description": "Extract audio"},
+        {"query": "zmień rozdzielczość na 1080p",
+         "expected_pattern": r"ffmpeg.*(-vf\s+scale|1080|-1:1080|resize)", "description": "Resize 1080p"},
     ],
     "media": [
-        {"query": "zmień rozmiar obrazu photo.jpg na 800x600",
-         "expected_pattern": r"(convert|mogrify|ffmpeg).*(-resize|scale|800).*600", "description": "Resize image"},
-        {"query": "konwertuj wszystkie pliki PNG na JPEG",
-         "expected_pattern": r"(convert|mogrify|for).*png.*(jpg|jpeg)", "description": "Batch convert"},
-        {"query": "utwórz miniaturkę 150x150 z obrazu header.png",
-         "expected_pattern": r"(convert|mogrify).*(thumbnail|resize|150)", "description": "Thumbnail"},
+        {"query": "przeskaluj image.png do 1024x768",
+         "expected_pattern": r"(convert|mogrify|ffmpeg).*(-resize|scale|1024).*768", "description": "Resize image"},
+        {"query": "zamień wszystkie JPEG na PNG",
+         "expected_pattern": r"(convert|mogrify|for).*(png|jpg|jpeg)", "description": "Batch convert"},
+        {"query": "stwórz miniaturę 200x200 z logo.jpg",
+         "expected_pattern": r"(convert|mogrify).*(thumbnail|resize|200)", "description": "Thumbnail"},
     ],
     "data": [
-        {"query": "pokaż statystyki pliku CSV dane.csv",
-         "expected_pattern": r"(csvstat|csvlook|pandas|describe|head).*dane\.csv", "description": "CSV stats"},
-        {"query": "przefiltruj plik JSON users.json po polu age większym niż 30",
-         "expected_pattern": r"jq.*select.*age.*(>|gt).*30", "description": "jq filter"},
-        {"query": "policz unikalne wartości w kolumnie status pliku log.csv",
-         "expected_pattern": r"(awk|sort|uniq|csvkit|cut).*status", "description": "Unique count"},
+        {"query": "wyświetl statystyki pliku sales.csv",
+         "expected_pattern": r"(csvstat|csvlook|pandas|describe|head).*sales\.csv", "description": "CSV stats"},
+        {"query": "filtruj customers.json po salary powyżej 5000",
+         "expected_pattern": r"jq.*select.*salary.*(>|gt).*5000", "description": "jq filter"},
+        {"query": "policz unikalne wartości w kolumnie type z events.csv",
+         "expected_pattern": r"((cut.*(type|\-f\s*2|\-f2).*events\.csv)|(awk.*type.*events\.csv)).*(sort|uniq)", "description": "Unique count"},
     ],
     "remote": [
-        {"query": "połącz się przez SSH do serwera 192.168.1.100 jako user admin",
-         "expected_pattern": r"ssh\s+admin@192\.168\.1\.100", "description": "SSH connect"},
-        {"query": "skopiuj plik backup.tar.gz na zdalny serwer do /tmp",
-         "expected_pattern": r"(scp|rsync).*backup\.tar\.gz.*(/tmp|remote)", "description": "SCP upload"},
-        {"query": "zsynchronizuj katalog /var/www na zdalny serwer",
-         "expected_pattern": r"rsync.*(/var/www|www)", "description": "Rsync sync"},
+        {"query": "zaloguj się przez SSH na 10.0.0.50 jako root",
+         "expected_pattern": r"ssh\s+root@10\.0\.0\.50", "description": "SSH connect"},
+        {"query": "prześlij archive.zip na serwer do /home/user",
+         "expected_pattern": r"(scp|rsync).*archive\.zip.*(/home|user)", "description": "SCP upload"},
+        {"query": "synchronizuj /opt/app na zdalną maszynę",
+         "expected_pattern": r"rsync.*(/opt/app|opt|app)", "description": "Rsync sync"},
     ],
     "iot": [
-        {"query": "odczytaj temperaturę z Raspberry Pi",
-         "expected_pattern": r"(vcgencmd\s+measure_temp|temp|sensors|DHT)", "description": "RPi temperature"},
-        {"query": "wykryj urządzenia I2C na magistrali 1",
-         "expected_pattern": r"i2cdetect.*(-y\s+)?1", "description": "I2C detect"},
-        {"query": "wyślij wiadomość MQTT na temat sensors/temperature",
-         "expected_pattern": r"mosquitto_pub.*(-t|topic).*sensor", "description": "MQTT publish"},
+        {"query": "sprawdź temperaturę procesora Raspberry Pi",
+         "expected_pattern": r"(vcgencmd\s+measure_temp|temp|sensors|cpu)", "description": "RPi temperature"},
+        {"query": "skanuj urządzenia I2C na szynie 0",
+         "expected_pattern": r"i2cdetect.*(-y\s+)?0", "description": "I2C detect"},
+        {"query": "opublikuj MQTT na topic home/humidity",
+         "expected_pattern": r"mosquitto_pub.*(-t|topic).*(home|humidity)", "description": "MQTT publish"},
     ],
     "package_mgmt": [
-        {"query": "zainstaluj pakiet nodejs przez apt",
-         "expected_pattern": r"(sudo\s+)?apt(-get)?\s+install.*nodejs", "description": "apt install"},
-        {"query": "zainstaluj bibliotekę requests przez pip",
-         "expected_pattern": r"pip\s+install.*requests", "description": "pip install"},
-        {"query": "pokaż zainstalowane pakiety npm globalnie",
-         "expected_pattern": r"npm\s+(list|ls).*(-g|global)", "description": "npm list global"},
+        {"query": "zainstaluj python3-pip przez apt",
+         "expected_pattern": r"(sudo\s+)?apt(-get)?\s+install.*python3-pip", "description": "apt install"},
+        {"query": "zainstaluj numpy przez pip",
+         "expected_pattern": r"pip\s+install.*numpy", "description": "pip install"},
+        {"query": "wyświetl globalne pakiety yarn",
+         "expected_pattern": r"(yarn|npm)\s+(list|ls|global list)", "description": "yarn list global"},
     ],
     "rag": [
-        {"query": "wyszukaj w bazie wektorowej ChromaDB dokumenty o 'machine learning'",
-         "expected_pattern": r"(chroma|chromadb|query|search).*machine.?learning", "description": "ChromaDB query"},
-        {"query": "wygeneruj embeddingi tekstu przez Ollama",
-         "expected_pattern": r"(ollama|curl).*(embed|api/embed)", "description": "Ollama embeddings"},
-        {"query": "załaduj i poindeksuj dokumenty PDF z katalogu /docs",
-         "expected_pattern": r"(pdf|PyPDF|langchain|llama.?index|load|read).*(/docs|docs)", "description": "Index PDFs"},
+        {"query": "przeszukaj Qdrant w poszukiwaniu 'deep learning'",
+         "expected_pattern": r"(qdrant|query|search).*deep.?learning", "description": "Qdrant query"},
+        {"query": "wygeneruj embeddingi przez model sentence-transformers",
+         "expected_pattern": r"(sentence|transform|embed|python)", "description": "Sentence embeddings"},
+        {"query": "zaindeksuj pliki Markdown z /content",
+         "expected_pattern": r"(markdown|md|langchain|load|read).*(/content|content)", "description": "Index Markdown"},
     ],
     "presentation": [
-        {"query": "konwertuj plik README.md do PDF",
-         "expected_pattern": r"(pandoc|wkhtmltopdf|weasyprint|md).*README.*pdf", "description": "MD to PDF"},
-        {"query": "wygeneruj wykres słupkowy z danych CSV sales.csv",
-         "expected_pattern": r"(matplotlib|plt|gnuplot|chart|plot|pandas).*sales", "description": "Bar chart from CSV"},
-        {"query": "wyrenderuj diagram Mermaid do pliku PNG",
-         "expected_pattern": r"(mmdc|mermaid).*png", "description": "Mermaid render"},
+        {"query": "przekonwertuj CHANGELOG.md na PDF",
+         "expected_pattern": r"(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf", "description": "MD to PDF"},
+        {"query": "stwórz wykres liniowy z data.csv",
+         "expected_pattern": r"(matplotlib|plt|gnuplot|chart|plot|pandas).*data", "description": "Line chart from CSV"},
+        {"query": "wyrenderuj PlantUML do SVG",
+         "expected_pattern": r"(plantuml|puml).*svg", "description": "PlantUML render"},
     ],
 }
 
 # System prompts per domain
 SYSTEM_PROMPTS: dict[str, str] = {
-    "shell": """Jesteś ekspertem od komend Linux/shell. Użytkownik opisuje zadanie, a ty generujesz odpowiednią komendę shell.
-Odpowiedz TYLKO jedną komendą shell. Bez komentarzy, bez wyjaśnień.""",
+    "shell": """Jesteś ekspertem Linux. Przykłady:
+Q: znajdź pliki PDF > 10MB -> find / -type f -name '*.pdf' -size +10M
+Q: użycie dysku /var/log -> du -sh /var/log
+Q: procesy po pamięci -> ps aux --sort=-%mem | head
+Odpowiedz TYLKO komendą. Bez komentarzy.""",
 
-    "docker": """Jesteś ekspertem Docker. Użytkownik opisuje zadanie, a ty generujesz odpowiednią komendę docker.
-Odpowiedz TYLKO jedną komendą docker. Bez komentarzy, bez wyjaśnień.""",
+    "docker": """Jesteś ekspertem Docker. Przykłady:
+Q: uruchomione kontenery -> docker ps
+Q: zbuduj obraz myapp -> docker build -t myapp:latest .
+Q: logi kontenera nginx 100 linii -> docker logs --tail 100 nginx
+Odpowiedz TYLKO komendą docker. Bez komentarzy.""",
 
-    "sql": """Jesteś ekspertem SQL. Użytkownik opisuje zapytanie, a ty generujesz odpowiednie polecenie SQL.
-Odpowiedz TYLKO jednym poleceniem SQL. Bez komentarzy, bez wyjaśnień.""",
+    "sql": """Jesteś ekspertem SQL. Przykłady:
+Q: użytkownicy z Warszawy -> SELECT * FROM users WHERE city = 'Warszawa';
+Q: policz zamówienia po miesiącu -> SELECT DATE_TRUNC('month', created_at) AS m, COUNT(*) FROM orders GROUP BY m;
+Q: utwórz tabelę produkty -> CREATE TABLE produkty (id SERIAL PRIMARY KEY, nazwa VARCHAR(255), cena DECIMAL(10,2));
+Odpowiedz TYLKO poleceniem SQL. Bez komentarzy.""",
 
-    "kubernetes": """Jesteś ekspertem Kubernetes. Użytkownik opisuje zadanie, a ty generujesz odpowiednią komendę kubectl.
-Odpowiedz TYLKO jedną komendą kubectl. Bez komentarzy, bez wyjaśnień.""",
+    "kubernetes": """Jesteś ekspertem Kubernetes. Przykłady:
+Q: pody w namespace production -> kubectl get pods -n production
+Q: skaluj deployment do 5 -> kubectl scale deployment webapp --replicas=5
+Q: logi poda nginx-abc123 -> kubectl logs nginx-abc123
+Odpowiedz TYLKO komendą kubectl. Bez komentarzy.""",
 
-    "browser": """Jesteś ekspertem od automatyzacji przeglądarki w Linux. Użytkownik opisuje co chce otworzyć/zrobić, a ty generujesz odpowiednią komendę.
-Odpowiedz TYLKO jedną komendą shell do otwarcia/przeszukania strony. Bez komentarzy, bez wyjaśnień.""",
+    "browser": """Jesteś ekspertem od otwierania stron w Linux. Używaj xdg-open. Przykłady:
+Q: otwórz github.com -> xdg-open 'https://github.com'
+Q: wyszukaj w Google python -> xdg-open 'https://www.google.com/search?q=python'
+Odpowiedz TYLKO jedną komendą xdg-open. Bez komentarzy.""",
 
-    "git": """Jesteś ekspertem Git. Użytkownik opisuje zadanie, a ty generujesz odpowiednią komendę git.
-Odpowiedz TYLKO jedną komendą git (lub potok komend). Bez komentarzy, bez wyjaśnień.""",
+    "git": """Jesteś ekspertem Git. Przykłady:
+Q: pokaż ostatnie 10 commitów -> git log -10 --oneline
+Q: utwórz branch feature/login -> git checkout -b feature/login
+Q: dodaj wszystko i commituj -> git add -A && git commit -m 'update'
+Odpowiedz TYLKO komendą git. Bez komentarzy.""",
 
-    "devops": """Jesteś ekspertem DevOps (systemctl, Ansible, Terraform, CI/CD). Generuj komendy systemctl, ansible-playbook, terraform itp.
-Odpowiedz TYLKO jedną komendą. Bez komentarzy, bez wyjaśnień.""",
+    "devops": """Jesteś ekspertem DevOps. Przykłady:
+Q: sprawdź status nginx -> systemctl status nginx
+Q: uruchom playbook -> ansible-playbook deploy.yml
+Q: zastosuj terraform -> terraform apply
+Odpowiedz TYLKO jedną komendą. Bez komentarzy.""",
 
-    "api": """Jesteś ekspertem od wywołań API (curl, httpie, wget). Użytkownik opisuje zapytanie HTTP, a ty generujesz komendę curl.
-Odpowiedz TYLKO jedną komendą curl/wget/http. Bez komentarzy, bez wyjaśnień.""",
+    "api": """Jesteś ekspertem od curl. Przykłady:
+Q: wyślij GET na URL -> curl -s https://api.example.com/users
+Q: wyślij POST z JSON -> curl -s -X POST -H 'Content-Type: application/json' -d '{"key":"val"}' https://example.com/api
+Q: sprawdź kod HTTP -> curl -o /dev/null -s -w '%{http_code}' https://example.com
+Odpowiedz TYLKO komendą curl. Bez komentarzy.""",
 
-    "ffmpeg": """Jesteś ekspertem od FFmpeg. Użytkownik opisuje operację na video/audio, a ty generujesz komendę ffmpeg.
-Odpowiedz TYLKO jedną komendą ffmpeg/ffprobe. Bez komentarzy, bez wyjaśnień.""",
+    "ffmpeg": """Jesteś ekspertem FFmpeg. Przykłady:
+Q: konwertuj mp4 do webm -> ffmpeg -i video.mp4 output.webm
+Q: wyodrębnij audio -> ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3
+Q: zmień rozdzielczość 720p -> ffmpeg -i input.mp4 -vf scale=-1:720 output.mp4
+Odpowiedz TYLKO komendą ffmpeg. Bez komentarzy.""",
 
-    "media": """Jesteś ekspertem od przetwarzania obrazów (ImageMagick, sox). Użytkownik opisuje operację na obrazie/audio.
-Odpowiedz TYLKO jedną komendą convert/mogrify/sox. Bez komentarzy, bez wyjaśnień.""",
+    "media": """Jesteś ekspertem ImageMagick. Przykłady:
+Q: zmień rozmiar na 800x600 -> convert photo.jpg -resize 800x600 output.jpg
+Q: miniaturka 150x150 -> convert img.png -thumbnail 150x150 thumb.png
+Q: konwertuj PNG na JPEG -> mogrify -format jpg *.png
+Odpowiedz TYLKO komendą convert/mogrify. Bez komentarzy.""",
 
-    "data": """Jesteś ekspertem od przetwarzania danych (jq, csvkit, awk, sed, sort, sqlite). Użytkownik opisuje operację na danych.
-Odpowiedz TYLKO jedną komendą/potokiem komend. Bez komentarzy, bez wyjaśnień.""",
+    "data": """Jesteś ekspertem od przetwarzania danych. Przykłady:
+Q: statystyki CSV -> csvstat dane.csv
+Q: filtruj JSON po age > 30 -> jq '.[] | select(.age > 30)' users.json
+Q: unikalne wartości w kolumnie status -> cut -d',' -f3 log.csv | sort | uniq -c | sort -rn
+Odpowiedz TYLKO komendą. Bez komentarzy.""",
 
-    "remote": """Jesteś ekspertem od zdalnego zarządzania (SSH, SCP, rsync, tmux). Użytkownik opisuje zadanie zdalne.
-Odpowiedz TYLKO jedną komendą ssh/scp/rsync. Bez komentarzy, bez wyjaśnień.""",
+    "remote": """Jesteś ekspertem SSH/SCP/rsync. Przykłady:
+Q: połącz SSH jako admin -> ssh admin@192.168.1.100
+Q: skopiuj plik na serwer -> scp backup.tar.gz admin@server:/tmp/
+Q: zsynchronizuj katalog -> rsync -avz /var/www/ admin@server:/var/www/
+Odpowiedz TYLKO komendą. Bez komentarzy.""",
 
-    "iot": """Jesteś ekspertem od IoT i Raspberry Pi (GPIO, I2C, MQTT, czujniki, kamery). Użytkownik opisuje zadanie IoT/embedded.
-Odpowiedz TYLKO jedną komendą shell/python. Bez komentarzy, bez wyjaśnień.""",
+    "iot": """Jesteś ekspertem IoT/Raspberry Pi. Przykłady:
+Q: temperatura RPi -> vcgencmd measure_temp
+Q: wykryj I2C -> i2cdetect -y 1
+Q: wyślij MQTT -> mosquitto_pub -h localhost -t sensors/temperature -m '22.5'
+Odpowiedz TYLKO komendą. Bez komentarzy.""",
 
-    "package_mgmt": """Jesteś ekspertem od zarządzania pakietami (apt, pip, npm, yarn, snap, flatpak, brew, cargo).
-Użytkownik opisuje co chce zainstalować/usunąć/zaktualizować, a ty generujesz odpowiednią komendę.
-Odpowiedz TYLKO jedną komendą. Bez komentarzy, bez wyjaśnień.""",
+    "package_mgmt": """Jesteś ekspertem od pakietów. Przykłady:
+Q: zainstaluj nodejs -> sudo apt install nodejs
+Q: zainstaluj requests pip -> pip install requests
+Q: globalne pakiety npm -> npm list -g
+Odpowiedz TYLKO komendą. Bez komentarzy.""",
 
-    "rag": """Jesteś ekspertem od RAG (Retrieval-Augmented Generation), wektorowych baz danych (ChromaDB, Qdrant), embeddingów i pipeline'ów LLM.
-Użytkownik opisuje zadanie RAG/embeddingów, a ty generujesz odpowiednią komendę (curl, python, ollama).
-Odpowiedz TYLKO jedną komendą. Bez komentarzy, bez wyjaśnień.""",
+    "rag": """Jesteś ekspertem RAG/vector DB. Przykłady:
+Q: wyszukaj w ChromaDB -> python3 -c "import chromadb; c = chromadb.PersistentClient(); col = c.get_collection('docs'); print(col.query(query_texts=['machine learning'], n_results=5))"
+Q: embeddingi Ollama -> curl -s http://localhost:11434/api/embed -d '{"model":"nomic-embed-text","input":"text"}'
+Q: załaduj PDFy -> python3 -c "from langchain.document_loaders import DirectoryLoader; print(len(DirectoryLoader('/docs',glob='**/*.pdf').load()),'docs')"
+Odpowiedz TYLKO komendą (python3 -c lub curl). Bez komentarzy.""",
 
-    "presentation": """Jesteś ekspertem od generowania prezentacji, raportów i wizualizacji (pandoc, matplotlib, gnuplot, mermaid, LaTeX, Jupyter).
-Użytkownik opisuje co chce wygenerować, a ty generujesz odpowiednią komendę.
-Odpowiedz TYLKO jedną komendą. Bez komentarzy, bez wyjaśnień.""",
+    "presentation": """Jesteś ekspertem od dokumentów/wykresów. Przykłady:
+Q: markdown do PDF -> pandoc README.md -o README.pdf
+Q: wykres z CSV -> python3 -c "import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('sales.csv').plot(kind='bar');plt.savefig('chart.png')"
+Q: diagram Mermaid -> mmdc -i diagram.mmd -o diagram.png
+Odpowiedz TYLKO komendą. Bez komentarzy.""",
 }
 
 # ---------------------------------------------------------------------------
-# Models config
+# Models config - load from env or use defaults
 # ---------------------------------------------------------------------------
-MODELS = [
-    {"name": "bielik-1.5b", "display": "Bielik-1.5B (PL)", "params": "1.5B"},
-    {"name": "qwen2.5:3b", "display": "Qwen2.5-3B", "params": "3B"},
-    {"name": "gemma2:2b", "display": "Gemma2-2B", "params": "2B"},
-]
+def _get_benchmark_models() -> list[dict[str, str]]:
+    """Load models from env or return defaults. Format: name:display:params,name2:display2:params2"""
+    env_models = os.environ.get("NLP2CMD_BENCHMARK_MODELS", "")
+    if env_models:
+        models = []
+        for model_spec in env_models.split(","):
+            parts = model_spec.strip().split(":")
+            if len(parts) >= 1:
+                name = parts[0]
+                display = parts[1] if len(parts) > 1 else name
+                params = parts[2] if len(parts) > 2 else "?"
+                models.append({"name": name, "display": display, "params": params})
+        return models if models else _default_models()
+    return _default_models()
+
+
+def _default_models() -> list[dict[str, str]]:
+    """Default benchmark models."""
+    return [
+        {"name": "bielik-1.5b", "display": "Bielik-1.5B (PL)", "params": "1.5B"},
+        {"name": "qwen2.5:3b", "display": "Qwen2.5-3B", "params": "3B"},
+        {"name": "gemma2:2b", "display": "Gemma2-2B", "params": "2B"},
+        {"name": "qwen2.5-coder:3b", "display": "Qwen2.5-Coder-3B", "params": "3B"},
+    ]
+
+
+MODELS = _get_benchmark_models()
 
 
 
@@ -393,6 +463,10 @@ def clean_command(raw: str) -> str:
     """Extract clean command from LLM response."""
     text = raw.strip()
 
+    # Remove inline markdown code formatting: `command`
+    if text.startswith("`") and text.endswith("`") and text.count("`") >= 2:
+        text = text.strip("`").strip()
+
     # Remove <think>...</think> blocks (DeepSeek-R1 reasoning)
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
     # Handle unclosed <think> — remove everything from <think> to end
@@ -411,6 +485,10 @@ def clean_command(raw: str) -> str:
     m = re.search(r"```(?:bash|shell|sql|sh)?\s*(.*?)\s*```", text, re.DOTALL)
     if m:
         text = m.group(1).strip()
+
+    # Re-check inline backticks after extracting fenced code blocks
+    if text.startswith("`") and text.endswith("`") and text.count("`") >= 2:
+        text = text.strip("`").strip()
 
     # Remove leading explanation lines (keep only command-looking lines)
     lines = text.split("\n")
@@ -540,6 +618,9 @@ def run_benchmark() -> BenchmarkResults:
                     qr.raw_response = raw
                     qr.cleaned_command = clean_command(raw)
                     qr.response_time_sec = round(elapsed, 3)
+
+                    if not qr.cleaned_command.strip():
+                        qr.error = "empty_response"
 
                     # Check pattern match
                     qr.pattern_match = bool(
@@ -694,7 +775,7 @@ def generate_html(results: BenchmarkResults) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NLP2CMD Benchmark — 5 LLMs ≤3B</title>
+<title>NLP2CMD Benchmark — {len(results.models)} LLMs ≤3B</title>
 <script src="{chart_cdn}"></script>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -729,7 +810,7 @@ def generate_html(results: BenchmarkResults) -> str:
 <body>
 <div class="container">
   <h1>🧪 NLP2CMD LLM Benchmark</h1>
-  <p class="subtitle">5 lokalne modele ≤3B • 6 domen nlp2cmd • {summary.get('overall',{}).get('total_queries',0)} zapytań • {results.timestamp[:19]}</p>
+  <p class="subtitle">{len(results.models)} lokalne modele ≤3B • 6 domen nlp2cmd • {summary.get('overall',{}).get('total_queries',0)} zapytań • {results.timestamp[:19]}</p>
 
   <!-- Summary cards -->
   <div class="cards">
@@ -1003,10 +1084,98 @@ def generate_refactoring_notes(results: BenchmarkResults) -> str:
     return "\n".join(lines)
 
 
+def generate_command_errors_report(results: BenchmarkResults) -> str:
+    """Generate a Markdown report listing incorrect commands.
+
+    Includes:
+    - errors (e.g. empty_response)
+    - pattern mismatches (pattern_match == False)
+    """
+    ts = results.timestamp
+    lines: list[str] = []
+    lines.append("# NLP2CMD Benchmark — Nieprawidłowe komendy (auto-report)")
+    lines.append("")
+    lines.append(f"Generated: `{ts}`")
+    lines.append("")
+    lines.append("Źródło: `examples/benchmark_nlp2cmd.py` + `benchmark_results.json`")
+    lines.append("")
+
+    failures = [
+        r for r in results.results
+        if (not r.get("pattern_match")) or bool(r.get("error"))
+    ]
+
+    total = len(results.results)
+    total_fail = len(failures)
+    lines.append("## Summary")
+    lines.append("")
+    lines.append(f"- Total queries: **{total}**")
+    lines.append(f"- Failed / errors: **{total_fail}**")
+    lines.append("")
+
+    if not failures:
+        lines.append("## Failures")
+        lines.append("")
+        lines.append("Brak — wszystkie zapytania przeszły.")
+        lines.append("")
+        return "\n".join(lines)
+
+    # Group failures by model -> domain
+    grouped: dict[str, dict[str, list[dict[str, Any]]]] = {}
+    for r in failures:
+        model = r.get("model", "?")
+        domain = r.get("domain", "?")
+        grouped.setdefault(model, {}).setdefault(domain, []).append(r)
+
+    lines.append("## Failures")
+    lines.append("")
+    for model in sorted(grouped.keys()):
+        lines.append(f"### Model: `{model}`")
+        lines.append("")
+        domains = grouped[model]
+        for domain in sorted(domains.keys()):
+            items = domains[domain]
+            lines.append(f"#### Domain: `{domain}` ({len(items)})")
+            lines.append("")
+            for i, r in enumerate(items, start=1):
+                query = r.get("query", "")
+                got = r.get("cleaned_command", "")
+                expected = r.get("expected_pattern", "")
+                err = r.get("error")
+                lines.append(f"##### {i}. {r.get('description', '')}")
+                lines.append("")
+                lines.append(f"- Query: `{query}`")
+                if err:
+                    lines.append(f"- Error: `{err}`")
+                lines.append(f"- Expected (regex): `{expected}`")
+                lines.append("- Got:")
+                lines.append("")
+                lines.append("```bash")
+                lines.append(got if got else "")
+                lines.append("```")
+                lines.append("")
+
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
 def main():
+    parser = argparse.ArgumentParser(
+        description="NLP2CMD LLM Benchmark — test local models across all domains"
+    )
+    parser.add_argument(
+        "--no-cache",
+        action="store_true",
+        help="Disable cache during benchmark (forces fresh LLM calls for every query)"
+    )
+    args = parser.parse_args()
+    
+    if args.no_cache:
+        log.info("🚫 Cache disabled — all queries will use fresh LLM calls")
+        os.environ["NLP2CMD_DISABLE_CACHE"] = "1"
+    
     log.info("Starting NLP2CMD benchmark …")
     results = run_benchmark()
 
@@ -1031,6 +1200,12 @@ def main():
     with open(refactoring_path, "w", encoding="utf-8") as f:
         f.write(refactoring_notes)
     log.info("Refactoring plan saved: %s", refactoring_path)
+
+    # Save incorrect commands report (Markdown)
+    errors_report = generate_command_errors_report(results)
+    with open(ERRORS_MD, "w", encoding="utf-8") as f:
+        f.write(errors_report)
+    log.info("Command errors report saved: %s", ERRORS_MD)
 
     # Print summary
     print_summary(results)

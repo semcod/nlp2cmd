@@ -134,7 +134,7 @@ def _teacher_models() -> list[str]:
         return models
     return [
         os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b"),
-        "phi:latest",
+        "qwen2.5-coder:3b",
         "gemma2:2b",
     ]
 

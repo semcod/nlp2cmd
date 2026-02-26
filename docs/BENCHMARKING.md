@@ -81,6 +81,12 @@ Here's a sample benchmark output:
 2. **benchmark_results.csv**: CSV file suitable for plotting in Excel or other tools
 3. **sequential_benchmark_results.json**: Results from the sequential commands example
 
+When using the LLM benchmark (`examples/benchmark_nlp2cmd.py`), additional files are generated in `benchmark_output/`:
+
+1. **benchmark_results.json**: Raw per-query results + aggregated accuracy stats
+2. **benchmark_results.html**: Interactive charts
+3. **benchmark_command_errors.md**: Auto-generated list of incorrect commands (`pattern_match=false` or `error`), grouped by model and domain
+
 ## Use Cases
 
 ### Performance Regression Testing

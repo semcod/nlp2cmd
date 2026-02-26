@@ -405,3 +405,46 @@ class TestAdapterIntegration:
 
         safety = adapter.check_safety(command)
         assert safety["allowed"]
+
+
+class TestBrowserAdapterTransformIR:
+    """Regression tests for BrowserAdapter + transform_ir integration."""
+
+    def test_transform_ir_dsl_kind_is_dom(self):
+        """BrowserAdapter.transform_ir must produce dsl_kind='dom', not 'shell'.
+
+        Regression: BrowserAdapter.DSL_NAME='browser' was not mapped to 'dom'
+        in core_transform.py, causing JSON DSL to be executed as a shell command.
+        """
+        from nlp2cmd.adapters.browser import BrowserAdapter
+        from nlp2cmd.core.core_transform import NLP2CMD
+
+        adapter = BrowserAdapter()
+        nlp = NLP2CMD(adapter=adapter)
+        ir = nlp.transform_ir("otwórz https://example.com/contact i wypełnij formularz i wyślij")
+
+        assert ir.dsl_kind == "dom", f"Expected dsl_kind='dom', got '{ir.dsl_kind}'"
+        assert ir.confidence > 0, "Confidence should be positive"
+
+        import json
+        payload = json.loads(ir.dsl)
+        assert payload.get("dsl") == "dom_dql.v1"
+        actions = [a.get("action") for a in payload.get("actions", [])]
+        assert "goto" in actions
+        assert "fill_form" in actions
+        assert "submit" in actions
+
+    def test_transform_ir_simple_navigate(self):
+        """Simple navigation should also produce dsl_kind='dom'."""
+        from nlp2cmd.adapters.browser import BrowserAdapter
+        from nlp2cmd.core.core_transform import NLP2CMD
+
+        adapter = BrowserAdapter()
+        nlp = NLP2CMD(adapter=adapter)
+        ir = nlp.transform_ir("otwórz https://google.com")
+
+        assert ir.dsl_kind == "dom"
+        import json
+        payload = json.loads(ir.dsl)
+        assert payload.get("dsl") == "dom_dql.v1"
+        assert "google.com" in payload.get("url", "")

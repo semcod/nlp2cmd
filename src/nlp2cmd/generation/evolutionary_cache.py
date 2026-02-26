@@ -50,7 +50,7 @@ except ImportError:
 
 log = logging.getLogger("nlp2cmd.cache")
 
-SIMILARITY_THRESHOLD = float(os.environ.get("NLP2CMD_SIMILARITY_THRESHOLD", "78"))
+SIMILARITY_THRESHOLD = float(os.environ.get("NLP2CMD_SIMILARITY_THRESHOLD", "88"))
 
 # ---------------------------------------------------------------------------
 # Config
@@ -95,24 +95,100 @@ DOMAIN_KEYWORDS: dict[str, list[str]] = {
                      "prezentacja", "raport", "report", "jupyter", "slides"],
 }
 
-# System prompts per domain (compact)
+# System prompts per domain — few-shot examples for weak domains
 TEACHER_PROMPTS: dict[str, str] = {
-    "shell": "Generuj komendę Linux shell. Odpowiedz TYLKO komendą.",
-    "docker": "Generuj komendę Docker. Odpowiedz TYLKO komendą.",
-    "sql": "Generuj polecenie SQL. Odpowiedz TYLKO poleceniem SQL.",
-    "kubernetes": "Generuj komendę kubectl. Odpowiedz TYLKO komendą.",
-    "browser": "Generuj komendę do otwarcia/przeszukania strony w Linux. Odpowiedz TYLKO komendą.",
-    "git": "Generuj komendę git. Odpowiedz TYLKO komendą.",
-    "devops": "Generuj komendę DevOps (systemctl/ansible/terraform). Odpowiedz TYLKO komendą.",
-    "api": "Generuj komendę curl/wget do wywołania API. Odpowiedz TYLKO komendą.",
-    "ffmpeg": "Generuj komendę ffmpeg. Odpowiedz TYLKO komendą.",
-    "media": "Generuj komendę ImageMagick/sox do przetwarzania mediów. Odpowiedz TYLKO komendą.",
-    "data": "Generuj komendę do przetwarzania danych (jq/awk/csvkit/sqlite). Odpowiedz TYLKO komendą.",
-    "remote": "Generuj komendę ssh/scp/rsync. Odpowiedz TYLKO komendą.",
-    "iot": "Generuj komendę IoT/Raspberry Pi (GPIO/I2C/MQTT). Odpowiedz TYLKO komendą.",
-    "package_mgmt": "Generuj komendę instalacji pakietu (apt/pip/npm). Odpowiedz TYLKO komendą.",
-    "rag": "Generuj komendę RAG/embeddings/vector DB (python/curl/ollama). Odpowiedz TYLKO komendą.",
-    "presentation": "Generuj komendę do generowania prezentacji/wykresu (pandoc/matplotlib/mermaid). Odpowiedz TYLKO komendą.",
+    "shell": """Generuj komendę Linux shell. Przykłady:
+Q: znajdź pliki PDF większe niż 10MB -> find / -type f -name '*.pdf' -size +10M
+Q: pokaż użycie dysku /var/log -> du -sh /var/log
+Odpowiedz TYLKO komendą.""",
+
+    "docker": """Generuj komendę Docker. Przykłady:
+Q: pokaż uruchomione kontenery -> docker ps
+Q: zbuduj obraz z tagiem myapp -> docker build -t myapp:latest .
+Odpowiedz TYLKO komendą.""",
+
+    "sql": """Generuj polecenie SQL. Przykłady:
+Q: pokaż użytkowników z Warszawy -> SELECT * FROM users WHERE city = 'Warszawa';
+Q: policz zamówienia po miesiącu -> SELECT EXTRACT(MONTH FROM created_at) AS month, COUNT(*) FROM orders GROUP BY month;
+Q: utwórz tabelę produkty -> CREATE TABLE produkty (id SERIAL PRIMARY KEY, nazwa VARCHAR(255), cena DECIMAL(10,2));
+Odpowiedz TYLKO poleceniem SQL.""",
+
+    "kubernetes": """Generuj komendę kubectl. Przykłady:
+Q: pokaż pody w namespace production -> kubectl get pods -n production
+Q: przeskaluj deployment do 5 replik -> kubectl scale deployment webapp --replicas=5
+Odpowiedz TYLKO komendą.""",
+
+    "browser": """Generuj komendę do otwarcia strony w Linux (xdg-open). Przykłady:
+Q: otwórz stronę github.com -> xdg-open 'https://github.com'
+Q: wyszukaj w Google python tutorial -> xdg-open 'https://www.google.com/search?q=python+tutorial'
+Q: otwórz YouTube -> xdg-open 'https://youtube.com'
+Odpowiedz TYLKO komendą z xdg-open.""",
+
+    "git": """Generuj komendę git. Przykłady:
+Q: pokaż ostatnie 10 commitów -> git log -10 --oneline
+Q: utwórz branch feature/login -> git checkout -b feature/login
+Odpowiedz TYLKO komendą.""",
+
+    "devops": """Generuj komendę DevOps. Przykłady:
+Q: sprawdź status nginx -> systemctl status nginx
+Q: uruchom playbook deploy.yml -> ansible-playbook deploy.yml
+Q: zastosuj konfigurację terraform -> terraform apply
+Odpowiedz TYLKO komendą.""",
+
+    "api": """Generuj komendę curl do wywołania API. Przykłady:
+Q: wyślij GET na https://api.example.com/users -> curl -s https://api.example.com/users
+Q: wyślij POST z JSON na /api/login -> curl -s -X POST -H 'Content-Type: application/json' -d '{"user":"admin","pass":"secret"}' https://example.com/api/login
+Q: sprawdź kod HTTP serwera -> curl -o /dev/null -s -w '%{http_code}' https://example.com
+Odpowiedz TYLKO komendą curl.""",
+
+    "ffmpeg": """Generuj komendę ffmpeg. Przykłady:
+Q: konwertuj video.mp4 do webm -> ffmpeg -i video.mp4 output.webm
+Q: wyodrębnij audio do mp3 -> ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3
+Q: zmień rozdzielczość do 720p -> ffmpeg -i input.mp4 -vf scale=-1:720 output.mp4
+Odpowiedz TYLKO komendą ffmpeg.""",
+
+    "media": """Generuj komendę ImageMagick/sox. Przykłady:
+Q: zmień rozmiar obrazu na 800x600 -> convert photo.jpg -resize 800x600 output.jpg
+Q: utwórz miniaturkę 150x150 -> convert header.png -thumbnail 150x150 thumb.png
+Q: konwertuj PNG na JPEG -> mogrify -format jpg *.png
+Odpowiedz TYLKO komendą.""",
+
+    "data": """Generuj komendę do przetwarzania danych. Przykłady:
+Q: pokaż statystyki CSV -> csvstat dane.csv
+Q: filtruj JSON po age > 30 -> jq '.[] | select(.age > 30)' users.json
+Q: policz unikalne wartości w kolumnie -> cut -d',' -f3 log.csv | sort | uniq -c | sort -rn
+Q: pokaż pierwsze 5 wierszy CSV -> head -5 dane.csv
+Odpowiedz TYLKO komendą.""",
+
+    "remote": """Generuj komendę SSH/SCP/rsync. Przykłady:
+Q: połącz SSH do serwera jako admin -> ssh admin@192.168.1.100
+Q: skopiuj plik na serwer do /tmp -> scp backup.tar.gz admin@server:/tmp/
+Q: zsynchronizuj katalog na serwer -> rsync -avz /var/www/ admin@server:/var/www/
+Odpowiedz TYLKO komendą.""",
+
+    "iot": """Generuj komendę IoT/Raspberry Pi. Przykłady:
+Q: odczytaj temperaturę RPi -> vcgencmd measure_temp
+Q: wykryj urządzenia I2C -> i2cdetect -y 1
+Q: wyślij MQTT na temat sensors -> mosquitto_pub -h localhost -t sensors/temperature -m '22.5'
+Odpowiedz TYLKO komendą.""",
+
+    "package_mgmt": """Generuj komendę instalacji pakietu. Przykłady:
+Q: zainstaluj nodejs przez apt -> sudo apt install nodejs
+Q: zainstaluj requests przez pip -> pip install requests
+Q: pokaż globalne pakiety npm -> npm list -g
+Odpowiedz TYLKO komendą.""",
+
+    "rag": """Generuj komendę RAG/embeddings/vector DB. Przykłady:
+Q: wyszukaj w ChromaDB o machine learning -> python3 -c "import chromadb; c = chromadb.PersistentClient(); col = c.get_collection('docs'); print(col.query(query_texts=['machine learning'], n_results=5))"
+Q: wygeneruj embeddingi przez Ollama -> curl -s http://localhost:11434/api/embed -d '{"model": "nomic-embed-text", "input": "machine learning"}'
+Q: załaduj PDF z katalogu -> python3 -c "from langchain.document_loaders import DirectoryLoader; docs = DirectoryLoader('/docs', glob='**/*.pdf').load(); print(len(docs), 'documents loaded')"
+Odpowiedz TYLKO komendą (python3 -c lub curl).""",
+
+    "presentation": """Generuj komendę do generowania dokumentów/wykresów. Przykłady:
+Q: konwertuj README.md do PDF -> pandoc README.md -o README.pdf
+Q: wygeneruj wykres z CSV -> python3 -c "import pandas as pd, matplotlib.pyplot as plt; df = pd.read_csv('sales.csv'); df.plot(kind='bar'); plt.savefig('chart.png')"
+Q: wyrenderuj diagram Mermaid do PNG -> mmdc -i diagram.mmd -o diagram.png
+Odpowiedz TYLKO komendą.""",
 }
 
 
@@ -317,7 +393,26 @@ class EvolutionaryCache:
         if not domain:
             domain = detect_domain(query)
 
-        # Tier 4: LLM teacher (generates + caches)
+        # Tier 2: TEMPLATE pipeline (1615 patterns, ~1-5ms)
+        tpl_cmd = self._try_template_pipeline(query)
+        if tpl_cmd:
+            elapsed = (time.perf_counter() - t0) * 1000
+            self.stats["template_hits"] = self.stats.get("template_hits", 0) + 1
+            # Cache template result for future instant lookup
+            now = datetime.now().isoformat()
+            self.entries[fp] = {
+                "query": query, "domain": domain, "command": tpl_cmd,
+                "model": "template", "hits": 1,
+                "created": now, "last_used": now,
+            }
+            self.fuzzy_index[ffp] = fp
+            self.save()
+            return LookupResult(
+                command=tpl_cmd, domain=domain, source="template",
+                elapsed_ms=round(elapsed, 3), cached=False, confidence=0.9,
+            )
+
+        # Tier 3: LLM teacher (generates + caches)
         if self.enable_llm:
             try:
                 command = self._ask_teacher(query, domain)
@@ -354,10 +449,20 @@ class EvolutionaryCache:
         """Call teacher model via Ollama to generate a command."""
         system = TEACHER_PROMPTS.get(domain, TEACHER_PROMPTS["shell"])
         is_thinking = any(t in self.teacher_model for t in ("deepseek-r1",))
-        temperature = float(os.environ.get("NLP2CMD_LLM_TEMPERATURE", "0.1"))
+        # Use LITELLM_* as primary, fallback to NLP2CMD_LLM_*, then defaults
+        temperature = float(
+            os.environ.get("LITELLM_TEMPERATURE")
+            or os.environ.get("NLP2CMD_LLM_TEMPERATURE", "0.1")
+        )
         default_max_tokens = 1024 if is_thinking else 512
-        max_tokens = int(os.environ.get("NLP2CMD_LLM_MAX_TOKENS", str(default_max_tokens)))
-        timeout = int(os.environ.get("NLP2CMD_LLM_TIMEOUT", "30"))
+        max_tokens = int(
+            os.environ.get("LITELLM_MAX_TOKENS")
+            or os.environ.get("NLP2CMD_LLM_MAX_TOKENS", str(default_max_tokens))
+        )
+        timeout = int(
+            os.environ.get("LITELLM_TIMEOUT")
+            or os.environ.get("NLP2CMD_LLM_TIMEOUT", "30")
+        )
         payload = {
             "model": self.teacher_model,
             "prompt": query,
@@ -402,6 +507,267 @@ class EvolutionaryCache:
             lines.append(l)
         return lines[0] if lines else raw
 
+    # -- template pipeline ---------------------------------------------------
+    _pipeline = None
+    _tpl_generator = None
+
+    # Polish intent keywords → template intent mapping (keys match TemplateGenerator)
+    _PL_INTENT_MAP: dict[str, list[tuple[str, str]]] = {
+        "shell": [
+            ("znajd", "find"), ("szukaj", "find"), ("wyszukaj", "find"),
+            ("pokaż", "list"), ("wyświetl", "list"), ("lista", "list"),
+            ("skompresuj", "compress"), ("rozpakuj", "decompress"),
+            ("zmień uprawnienia", "chmod"), ("chmod", "chmod"),
+            ("policz", "count_files"), ("grep", "grep"), ("użycie dysku", "disk_usage"),
+            ("wolne miejsce", "disk_usage"), ("procesy", "process_list"),
+            ("największ", "dir_size"),
+        ],
+        "docker": [
+            ("uruchomione", "list"), ("kontenery", "list"),
+            ("zbuduj", "build"), ("obraz", "build"),
+            ("logi", "logs"), ("zatrzymaj", "stop"), ("usuń", "remove"),
+            ("pull", "pull"), ("uruchom", "run"),
+        ],
+        "git": [
+            ("commit", "log"), ("historia", "log"), ("log", "log"),
+            ("branch", "branch"), ("status", "status"),
+            ("cofnij", "reset"), ("różnice", "diff"),
+            ("dodaj", "add_all"), ("push", "push"), ("pull", "pull"),
+        ],
+        "kubernetes": [
+            ("pody", "get_pods"), ("pod", "get_pods"), ("serwisy", "get_services"),
+            ("skaluj", "scale"), ("logi", "logs"),
+        ],
+        "sql": [
+            ("pokaż", "select_all"), ("wybierz", "select"), ("znajdź", "select"),
+            ("policz", "count"), ("grupuj", "aggregate"), ("pogrupowane", "aggregate"),
+            ("utwórz tabelę", "create_table"),
+        ],
+        "browser": [
+            ("otwórz", "navigate"), ("wyszukaj", "search_google"),
+            ("google", "search_google"), ("youtube", "open_youtube"),
+            ("github", "open_github"),
+        ],
+        "api": [
+            ("get", "navigate"), ("post", "navigate"),
+            ("wyślij", "navigate"), ("sprawdź", "navigate"),
+        ],
+        "ffmpeg": [
+            ("konwertuj", "convert"), ("wyodrębnij", "extract_audio"),
+            ("rozdzielczość", "resize_720p"), ("720", "resize_720p"),
+            ("audio", "extract_audio_mp3"),
+        ],
+        "media": [
+            ("rozmiar", "img_resize"), ("miniaturk", "img_thumbnail"),
+            ("konwertuj", "img_batch_convert"),
+        ],
+        "data": [
+            ("statystyk", "csv_info"), ("filtruj", "jq_filter"),
+            ("policz", "awk_count"), ("json", "jq_pretty"),
+        ],
+        "remote": [
+            ("ssh", "ssh_connect"), ("skopiuj", "scp_upload"),
+            ("zsynchronizuj", "rsync_sync"), ("rsync", "rsync_sync"),
+        ],
+        "iot": [
+            ("temperatur", "rpi_temp"), ("i2c", "i2c_detect"),
+            ("mqtt", "mqtt_publish"), ("gpio", "gpio_read"),
+            ("kamera", "camera_photo"),
+        ],
+        "package_mgmt": [
+            ("zainstaluj", "apt_install"), ("install", "apt_install"),
+            ("pokaż", "apt_list_installed"), ("usuń", "apt_remove"),
+            ("aktualizuj", "apt_upgrade"), ("pip", "pip_install"),
+            ("npm", "npm_install"),
+        ],
+        "rag": [
+            ("embedding", "embed_ollama"), ("wyszukaj", "chroma_query"),
+            ("chroma", "chroma_query"), ("załaduj", "pdf_extract"),
+            ("ollama", "ollama_generate"),
+        ],
+        "presentation": [
+            ("pdf", "md_to_pdf"), ("konwertuj", "md_to_pdf"),
+            ("wykres", "chart_bar"), ("diagram", "mermaid_render"),
+            ("html", "md_to_html"), ("latex", "latex_compile"),
+        ],
+        "devops": [
+            ("status", "service_status"), ("playbook", "ansible_playbook"),
+            ("terraform", "terraform_apply"), ("nginx", "service_status"),
+            ("cron", "cron_list"),
+        ],
+    }
+
+    def _try_template_pipeline(self, query: str) -> Optional[str]:
+        """Try to match query against built-in templates (1615 patterns).
+
+        Two-phase approach:
+        1. RuleBasedPipeline (English keyword detection + regex + templates)
+        2. Fallback: Polish domain detection + heuristic intent → TemplateGenerator
+
+        Returns command string or None.
+        """
+        cmd = self._try_english_pipeline(query)
+        if cmd:
+            return cmd
+        return self._try_polish_template(query)
+
+    def _try_english_pipeline(self, query: str) -> Optional[str]:
+        """Phase 1: Use RuleBasedPipeline (English keywords)."""
+        try:
+            if EvolutionaryCache._pipeline is None:
+                from nlp2cmd.generation.pipeline import RuleBasedPipeline
+                EvolutionaryCache._pipeline = RuleBasedPipeline(
+                    confidence_threshold=0.4
+                )
+            result = EvolutionaryCache._pipeline.process(query)
+            if result.success and result.command:
+                cmd = result.command.strip()
+                if cmd.startswith("echo ") or cmd.startswith("# "):
+                    return None
+                if "{" in cmd and "}" in cmd:
+                    return None
+                return cmd
+        except Exception as exc:
+            log.debug("English pipeline failed: %s", exc)
+        return None
+
+    def _try_polish_template(self, query: str) -> Optional[str]:
+        """Phase 2: Polish domain detection + heuristic intent → TemplateGenerator."""
+        try:
+            domain = detect_domain(query)
+            if domain == "shell" and not any(
+                kw in query.lower() for kw in (
+                    "znajd", "plik", "katalog", "dysk", "proces", "uprawni",
+                    "grep", "policz", "skompresuj", "rozpakuj", "wolne",
+                )
+            ):
+                return None  # Weak shell detection fallback
+
+            if EvolutionaryCache._tpl_generator is None:
+                from nlp2cmd.generation.template_generator import TemplateGenerator
+                EvolutionaryCache._tpl_generator = TemplateGenerator()
+
+            tpl = EvolutionaryCache._tpl_generator
+            if domain not in tpl.templates:
+                return None
+
+            # Map Polish keywords to intent
+            q_lower = query.lower()
+            intent = None
+            for kw, mapped_intent in self._PL_INTENT_MAP.get(domain, []):
+                if kw in q_lower:
+                    intent = mapped_intent
+                    break
+
+            if not intent:
+                return None
+
+            # Extract basic entities from query
+            entities = self._extract_basic_entities(query)
+            result = tpl.generate(intent=intent, entities=entities, domain=domain)
+            if result.success and result.command:
+                cmd = result.command.strip()
+                if cmd.startswith("echo ") or cmd.startswith("# "):
+                    return None
+                if "{" in cmd and "}" in cmd:
+                    return None
+                return cmd
+        except Exception as exc:
+            log.debug("Polish template failed: %s", exc)
+        return None
+
+    @staticmethod
+    def _extract_basic_entities(query: str) -> dict:
+        """Extract entities from query text for template placeholder filling.
+
+        Provides keys expected by TemplateGenerator templates:
+        input, output, file, host, user, url, tag, width, height,
+        limit, count, path, package, query, etc.
+        """
+        import re
+        entities: dict = {}
+        q = query
+
+        # Files (input/output)
+        files = re.findall(r'(\S+\.\w{1,5})', q)
+        if files:
+            entities["file"] = files[0]
+            entities["filename"] = files[0]
+            entities["input"] = files[0]
+            if len(files) > 1:
+                entities["output"] = files[1]
+            else:
+                # Generate output name
+                base, ext = files[0].rsplit('.', 1)
+                entities["output"] = f"{base}_out.{ext}"
+
+        # IP addresses → host
+        m = re.search(r'(\d{1,3}(?:\.\d{1,3}){3})', q)
+        if m:
+            entities["host"] = m.group(1)
+
+        # URLs
+        m = re.search(r'(https?://\S+)', q)
+        if m:
+            entities["url"] = m.group(1)
+
+        # Dimensions (WxH)
+        m = re.search(r'(\d{2,4})\s*[xX×]\s*(\d{2,4})', q)
+        if m:
+            entities["width"] = m.group(1)
+            entities["height"] = m.group(2)
+
+        # Numbers → limit, count, number
+        nums = re.findall(r'(\d+)', q)
+        if nums:
+            entities["count"] = nums[0]
+            entities["number"] = nums[0]
+            entities["limit"] = nums[0]
+            entities["n"] = nums[0]
+
+        # Paths
+        m = re.search(r'(/[\w/.-]+)', q)
+        if m:
+            entities["path"] = m.group(1)
+            entities["directory"] = m.group(1)
+
+        # User (jako/as user)
+        m = re.search(r'(?:jako|as)\s+(?:user\s+)?(\w+)', q, re.I)
+        if m:
+            entities["user"] = m.group(1)
+        elif "admin" in q.lower():
+            entities["user"] = "admin"
+        elif "root" in q.lower():
+            entities["user"] = "root"
+        else:
+            entities["user"] = "user"
+
+        # Tag (z tagiem / tag)
+        m = re.search(r'(?:tagiem|tag)\s+(\S+)', q, re.I)
+        if m:
+            entities["tag"] = m.group(1)
+        else:
+            entities["tag"] = "latest"
+            entities["context"] = "."
+
+        # Package name (zainstaluj X / install X)
+        m = re.search(r'(?:zainstaluj|install|zainstalować)\s+(\w[\w.-]*)', q, re.I)
+        if m:
+            entities["package"] = m.group(1)
+
+        # Search query (for browser/rag)
+        m = re.search(r"(?:wyszukaj|szukaj|search|query|o )['\"]?([^'\"]+)", q, re.I)
+        if m:
+            entities["query"] = m.group(1).strip()
+
+        # Defaults for common template placeholders
+        entities.setdefault("db_path", "./chroma_db")
+        entities.setdefault("collection", "docs")
+        entities.setdefault("query", "search query")
+        entities.setdefault("n", "5")
+
+        return entities
+
     # -- similarity search ---------------------------------------------------
     def _find_similar_cached(self, query: str) -> Optional[tuple[dict, float]]:
         """Find the most similar cached query using rapidfuzz.
@@ -429,6 +795,96 @@ class EvolutionaryCache:
         if best_entry and best_score >= self.similarity_threshold:
             return best_entry, best_score
         return None
+
+    # -- pre-warm cache ------------------------------------------------------
+    #: Top-50 queries across all domains for instant cold start
+    PREWARM_QUERIES: list[tuple[str, str, str]] = [
+        # shell (10)
+        ("znajdź pliki PDF większe niż 10MB", "shell", "find / -type f -name '*.pdf' -size +10M"),
+        ("pokaż użycie dysku w katalogu /var/log", "shell", "du -sh /var/log"),
+        ("pokaż procesy zużywające najwięcej pamięci", "shell", "ps aux --sort=-%mem | head"),
+        ("pokaż wolne miejsce na dyskach", "shell", "df -h"),
+        ("znajdź pliki zmienione w ostatnich 24h", "shell", "find . -type f -mtime -1"),
+        ("skompresuj katalog /var/log do archiwum", "shell", "tar -czf log_backup.tar.gz /var/log"),
+        ("pokaż 20 największych plików w katalogu", "shell", "du -ah . | sort -rh | head -20"),
+        ("zmień uprawnienia pliku na 755", "shell", "chmod 755 script.sh"),
+        ("znajdź tekst 'error' w plikach logów", "shell", "grep -rn 'error' /var/log/"),
+        ("policz pliki w bieżącym katalogu rekurencyjnie", "shell", "find . -type f | wc -l"),
+        # docker (5)
+        ("pokaż uruchomione kontenery docker", "docker", "docker ps"),
+        ("zbuduj obraz docker z tagiem myapp", "docker", "docker build -t myapp:latest ."),
+        ("pokaż logi kontenera nginx", "docker", "docker logs --tail 100 nginx"),
+        ("zatrzymaj wszystkie kontenery", "docker", "docker stop $(docker ps -q)"),
+        ("usuń nieużywane obrazy docker", "docker", "docker image prune -f"),
+        # git (5)
+        ("pokaż ostatnie 10 commitów", "git", "git log -10 --oneline"),
+        ("utwórz branch feature/login", "git", "git checkout -b feature/login"),
+        ("pokaż status repozytorium", "git", "git status"),
+        ("cofnij ostatni commit", "git", "git reset --soft HEAD~1"),
+        ("pokaż różnice między branchami", "git", "git diff main..develop"),
+        # kubernetes (4)
+        ("pokaż pody w namespace production", "kubernetes", "kubectl get pods -n production"),
+        ("przeskaluj deployment do 5 replik", "kubernetes", "kubectl scale deployment webapp --replicas=5"),
+        ("pokaż logi poda", "kubernetes", "kubectl logs -f nginx-abc123"),
+        ("pokaż wszystkie serwisy", "kubernetes", "kubectl get svc --all-namespaces"),
+        # sql (4)
+        ("pokaż użytkowników z Warszawy", "sql", "SELECT * FROM users WHERE city = 'Warszawa';"),
+        ("policz zamówienia po miesiącu", "sql", "SELECT DATE_TRUNC('month', created_at) AS m, COUNT(*) FROM orders GROUP BY m;"),
+        ("utwórz tabelę produkty", "sql", "CREATE TABLE produkty (id SERIAL PRIMARY KEY, nazwa VARCHAR(255), cena DECIMAL(10,2));"),
+        ("pokaż top 10 klientów po wartości zamówień", "sql", "SELECT customer_id, SUM(total) AS s FROM orders GROUP BY customer_id ORDER BY s DESC LIMIT 10;"),
+        # api (3)
+        ("wyślij GET na api", "api", "curl -s https://api.example.com/users"),
+        ("wyślij POST z JSON", "api", "curl -s -X POST -H 'Content-Type: application/json' -d '{\"key\":\"val\"}' https://example.com/api"),
+        ("sprawdź kod HTTP serwera", "api", "curl -o /dev/null -s -w '%{http_code}' https://example.com"),
+        # browser (2)
+        ("otwórz stronę github.com", "browser", "xdg-open 'https://github.com'"),
+        ("wyszukaj w google python tutorial", "browser", "xdg-open 'https://www.google.com/search?q=python+tutorial'"),
+        # ffmpeg (3)
+        ("konwertuj video.mp4 do webm", "ffmpeg", "ffmpeg -i video.mp4 output.webm"),
+        ("wyodrębnij audio z pliku do mp3", "ffmpeg", "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3"),
+        ("zmień rozdzielczość video do 720p", "ffmpeg", "ffmpeg -i input.mp4 -vf scale=-1:720 output.mp4"),
+        # media (2)
+        ("zmień rozmiar obrazu na 800x600", "media", "convert photo.jpg -resize 800x600 output.jpg"),
+        ("konwertuj PNG na JPEG", "media", "mogrify -format jpg *.png"),
+        # data (3)
+        ("pokaż statystyki CSV", "data", "csvstat dane.csv"),
+        ("filtruj JSON po polu age", "data", "jq '.[] | select(.age > 30)' users.json"),
+        ("policz unikalne wartości w kolumnie", "data", "cut -d',' -f3 data.csv | sort | uniq -c | sort -rn"),
+        # remote (2)
+        ("połącz SSH do serwera", "remote", "ssh admin@192.168.1.100"),
+        ("zsynchronizuj katalog na serwer", "remote", "rsync -avz /var/www/ admin@server:/var/www/"),
+        # devops (2)
+        ("sprawdź status nginx", "devops", "systemctl status nginx"),
+        ("uruchom playbook ansible", "devops", "ansible-playbook deploy.yml"),
+        # package_mgmt (2)
+        ("zainstaluj nodejs", "package_mgmt", "sudo apt install nodejs"),
+        ("zainstaluj requests przez pip", "package_mgmt", "pip install requests"),
+        # rag (2)
+        ("wygeneruj embeddingi przez ollama", "rag", "curl -s http://localhost:11434/api/embed -d '{\"model\":\"nomic-embed-text\",\"input\":\"text\"}'"),
+        ("wyszukaj w chromadb", "rag", "python3 -c \"import chromadb; c = chromadb.PersistentClient(); col = c.get_collection('docs'); print(col.query(query_texts=['query'], n_results=5))\""),
+        # presentation (1)
+        ("konwertuj markdown do PDF", "presentation", "pandoc README.md -o README.pdf"),
+    ]
+
+    def prewarm(self) -> int:
+        """Seed cache with top-50 popular queries. Returns count of new entries added."""
+        added = 0
+        for query, domain, command in self.PREWARM_QUERIES:
+            fp = fingerprint(query)
+            if fp not in self.entries:
+                now = datetime.now().isoformat()
+                self.entries[fp] = {
+                    "query": query, "domain": domain, "command": command,
+                    "model": "prewarm", "hits": 0,
+                    "created": now, "last_used": now,
+                }
+                ffp = fuzzy_fingerprint(query)
+                self.fuzzy_index[ffp] = fp
+                added += 1
+        if added:
+            self.save()
+            log.info("Pre-warmed cache with %d entries (total: %d)", added, len(self.entries))
+        return added
 
     # -- stats --------------------------------------------------------------
     def get_stats(self) -> dict:

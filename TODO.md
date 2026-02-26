@@ -198,3 +198,7 @@ User Query
   - `template_generator.py`: 38 fn
   - `keyword_detector.py`: 18 fn (po split z 46)
   - `adapters/shell.py`: 120 fn (2311 ln) — kandydat do split w v1.2.0
+
+
+nlp2cmd -r "otwórz https://www.prototypowanie.pl/kontakt/ i wypełnij formularz i wyślij"
+nlp2cmd -r "otwórz https://softreck.com/contact/ i wypełnij formularz i wyślij"

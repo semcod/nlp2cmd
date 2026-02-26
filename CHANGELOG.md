@@ -1,3 +1,95 @@
+## [1.0.81] - 2026-02-26
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/adapters/shell_original.py
+- update src/nlp2cmd/cli/main.py
+- update src/nlp2cmd/cli/main_original.py
+- update src/nlp2cmd/concepts/__init__.py
+- update src/nlp2cmd/concepts/conceptual_commands.py
+- update src/nlp2cmd/concepts/dependency_resolver.py
+- update src/nlp2cmd/concepts/environment.py
+- update src/nlp2cmd/concepts/semantic_objects.py
+- update src/nlp2cmd/concepts/virtual_objects.py
+- update src/nlp2cmd/contracts/__init__.py
+- ... and 12 more
+
+### Docs
+
+- docs: update README
+- docs: update TODO.md
+- docs: update benchmark_command_errors.md
+- docs: update refactoring_plan.md
+- docs: update BENCHMARKING.md
+- docs: update EVOLUTIONARY_CACHE.md
+- docs: update LLM_BENCHMARK_COMMAND_ERRORS.md
+
+### Test
+
+- update test_ollama_speed.py
+- update tests/unit/test_adapters.py
+- update tests/unit/test_conceptual_commands.py
+- update tests/unit/test_similarity_cache.py
+
+### Other
+
+- update .env.example
+- update benchmark_output/.nlp2cmd_bench/deepseek-r1_1.5b/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/phi_latest/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/qwen2.5_3b/learned_schemas.json
+- update benchmark_output/benchmark_results.html
+- update benchmark_output/benchmark_results.json
+- update benchmark_output/learning_benchmark.html
+- update benchmark_output/learning_benchmark.json
+- update command_schemas/sites/www.prototypowanie.pl.json
+- update examples/benchmark_learning.py
+- ... and 4 more
+
+
+## [1.0.81] - 2026-02-26
+
+### Summary
+
+perf(cache): few-shot prompts, template pipeline, pre-warm cache — 100% accuracy (Qwen-Coder), 24k× speedup
+
+### Benchmark Results (before → after)
+
+- **Qwen2.5-Coder-3B**: 79% → **100.0%** (+21pp)
+- **Qwen2.5-3B**: 83% → **97.9%** (+15pp)
+- **Bielik-1.5B**: 26% → **61.7%** (+36pp)
+- **Gemma2-2B**: 28% → **55.3%** (+27pp)
+- **Overall**: 53.7% → **78.7%** (+25pp)
+- **Learning speedup**: 854× → **24,355×**
+
+### Core
+
+- feat(cache): few-shot prompts for all 16 domains in evolutionary_cache.py and benchmark
+- feat(cache): template-first pipeline (Tier 2) — 1615 patterns, handles 66% queries without LLM
+- feat(cache): Polish intent mapping for template pipeline (84% coverage across 16 domains)
+- feat(cache): improved entity extraction (files, IPs, dimensions, users, tags, packages)
+- feat(cache): pre-warm cache with 50 popular queries for instant cold start
+- fix(cache): raise similarity threshold 78% → 88% to avoid false positives
+- fix(benchmark): overly strict regex patterns for api POST, media batch, data unique count
+
+### Test
+
+- update tests/unit/test_similarity_cache.py — adjusted for new threshold, 22/22 pass
+
+### Docs
+
+- docs: update EVOLUTIONARY_CACHE.md with final benchmark results and architecture
+- docs: update README.md with 100% accuracy and 24k× speedup
+
+### Other
+
+- update examples/benchmark_nlp2cmd.py — few-shot prompts for all 16 domains, fixed model list
+- update examples/benchmark_learning.py — fixed teacher model list (gemma2:2b replaces deepseek-coder)
+
+
 ## [1.0.80] - 2026-02-26
 
 ### Summary
