@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-NLP2CMD LLM Benchmark — 3 local models (≤3B) across all 6 nlp2cmd domains.
+NLP2CMD LLM Benchmark — 5 local models (≤3B) across all 6 nlp2cmd domains.
 
 Models tested:
   1. Bielik-1.5B  (Polish, via ollama from GGUF)
   2. qwen2.5:3b   (multilingual 3B)
   3. gemma2:2b     (Google 2B)
+  4. phi:latest    (Microsoft Phi, ~1.6GB, ~8-12 t/s)
+  5. deepseek-r1:1.5b (DeepSeek R1, ~1.1GB, ~12-18 t/s)
 
 Domains (all 16 nlp2cmd template domains):
   shell, docker, sql, kubernetes, browser, git,
@@ -334,6 +336,8 @@ MODELS = [
     {"name": "bielik-1.5b", "display": "Bielik-1.5B (PL)", "params": "1.5B"},
     {"name": "qwen2.5:3b", "display": "Qwen2.5-3B", "params": "3B"},
     {"name": "gemma2:2b", "display": "Gemma2-2B", "params": "2B"},
+    {"name": "phi:latest", "display": "Phi (latest)", "params": "1.6GB"},
+    {"name": "deepseek-r1:1.5b", "display": "DeepSeek-R1-1.5B", "params": "1.1GB"},
 ]
 
 
@@ -601,7 +605,7 @@ def generate_html(results: BenchmarkResults) -> str:
     model_names = []
     model_accuracy = []
     model_avg_time = []
-    model_colors = ["#4e79a7", "#f28e2b", "#e15759"]
+    model_colors = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f"]
 
     for i, mcfg in enumerate(results.models):
         mdata = summary.get("models", {}).get(mcfg["name"], {})
@@ -641,7 +645,7 @@ def generate_html(results: BenchmarkResults) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NLP2CMD Benchmark — LLM ≤3B</title>
+<title>NLP2CMD Benchmark — 5 LLMs ≤3B</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -676,7 +680,7 @@ def generate_html(results: BenchmarkResults) -> str:
 <body>
 <div class="container">
   <h1>🧪 NLP2CMD LLM Benchmark</h1>
-  <p class="subtitle">3 lokalne modele ≤3B • 6 domen nlp2cmd • {summary.get('overall',{}).get('total_queries',0)} zapytań • {results.timestamp[:19]}</p>
+  <p class="subtitle">5 lokalne modele ≤3B • 6 domen nlp2cmd • {summary.get('overall',{}).get('total_queries',0)} zapytań • {results.timestamp[:19]}</p>
 
   <!-- Summary cards -->
   <div class="cards">

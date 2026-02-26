@@ -411,9 +411,9 @@ info: ## Show project info
 
 report: benchmark ## Alias for benchmark target
 
-benchmark: ## Run LLM benchmark (3 models ≤3B, all 6 nlp2cmd domains)
+benchmark: ## Run LLM benchmark (5 models ≤3B, all 6 nlp2cmd domains)
 	@echo "$(BLUE)Running NLP2CMD LLM Benchmark...$(NC)"
-	@echo "$(YELLOW)Testing 3 local models (≤3B) across shell, docker, sql, kubernetes, browser, git$(NC)"
+	@echo "$(YELLOW)Testing 5 local models (≤3B) across shell, docker, sql, kubernetes, browser, git$(NC)"
 	@echo "$(YELLOW)Requires: ollama running locally$(NC)"
 	PYTHONPATH=src $(PYTHON) examples/benchmark_nlp2cmd.py
 	@echo ""
@@ -448,6 +448,19 @@ benchmark-plan: ## View refactoring plan from benchmark
 	else \
 		echo "$(YELLOW)No refactoring plan found. Run 'make benchmark' first.$(NC)"; \
 	fi
+
+benchmark-learn: ## Run learning-mode benchmark (evolutionary cache, 3 rounds)
+	@echo "$(BLUE)Running NLP2CMD Learning Benchmark...$(NC)"
+	@echo "$(YELLOW)Tests evolutionary cache: cold → warm → hot across 16 domains$(NC)"
+	PYTHONPATH=src $(PYTHON) examples/benchmark_learning.py
+	@echo ""
+	@echo "$(GREEN)✓ Learning benchmark complete!$(NC)"
+	@echo "$(BLUE)Reports in benchmark_output/:$(NC)"
+	@echo "  - learning_benchmark.json  (detailed results)"
+	@echo "  - learning_benchmark.html  (interactive charts)"
+	@echo ""
+	@echo "$(YELLOW)Open HTML report:$(NC)"
+	@echo "  xdg-open benchmark_output/learning_benchmark.html"
 
 benchmark-clean: ## Clean benchmark output
 	rm -rf benchmark_output/

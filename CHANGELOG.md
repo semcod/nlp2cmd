@@ -1,3 +1,26 @@
+## [1.0.76] - 2026-02-26
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/generation/evolutionary_cache.py
+
+### Docs
+
+- docs: update README
+- docs: update EVOLUTIONARY_CACHE.md
+
+### Other
+
+- update .gitignore
+- build: update Makefile
+- update examples/benchmark_learning.py
+- update examples/benchmark_nlp2cmd.py
+
+
 ## [1.0.75] - 2026-02-26
 
 ### Summary

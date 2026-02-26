@@ -90,13 +90,37 @@ find $HOME -type f -size +50GB
 
 ## 🎯 Key Features
 
-### 🌐 Multi-Domain Support
-- **SQL** - Natural language to SQL queries
-- **Shell** - System commands and file operations  
-- **Docker** - Container management
-- **Kubernetes** - K8s orchestration
-- **Browser** - Web automation and search (Google, GitHub, Amazon)
-- **DQL** - Domain Query Language
+### 🧠 Evolutionary Cache — Self-Learning ([docs](docs/EVOLUTIONARY_CACHE.md))
+
+nlp2cmd uczy się z każdego zapytania. Pierwsze wywołanie: LLM teacher (~300ms), każde kolejne: **cache instant (~0.01ms)**. Przyspieszenie: **37×**.
+
+```
+Zapytanie → CACHE EXACT (0.01ms) → CACHE FUZZY (0.02ms) → DOMAIN DETECT → LLM TEACHER → AUTO-CACHE
+```
+
+```python
+from nlp2cmd.generation.evolutionary_cache import EvolutionaryCache
+cache = EvolutionaryCache()
+r = cache.lookup("znajdź pliki PDF większe niż 10MB")  # 1st: ~300ms, 2nd: ~0.01ms
+```
+
+### 🌐 16 Domen (1558 szablonów)
+- **Shell** - find, ls, grep, ps, du, df, tar, chmod
+- **Docker** - container, image, compose, volume, network
+- **SQL** - SELECT, INSERT, CREATE, JOIN, window functions
+- **Kubernetes** - kubectl, pods, deployments, services, helm
+- **Browser** - xdg-open, Playwright, Google/GitHub search
+- **Git** - commit, branch, merge, rebase, stash, tag
+- **DevOps** - systemctl, Ansible, Terraform, CI/CD, nginx, cron, SSL
+- **API** - curl, httpie, wget, REST, GraphQL, WebSocket
+- **FFmpeg** - video/audio conversion, streaming, screen recording
+- **Media** - ImageMagick, sox, PDF, exiftool, batch processing
+- **Data** - jq, csvkit, awk, sed, xsv, sqlite, pandas
+- **Remote** - SSH, SCP, rsync, tmux, VPN (WireGuard, OpenVPN)
+- **IoT** - Raspberry Pi GPIO, I2C, MQTT, sensors, cameras
+- **Package Mgmt** - apt, pip, npm, yarn, snap, flatpak, brew, cargo
+- **RAG** - ChromaDB, Qdrant, embeddings, LangChain, LlamaIndex
+- **Presentation** - pandoc, matplotlib, Mermaid, Graphviz, LaTeX, Jupyter
 
 ### 🧠 Advanced NLP
 - **Polish Language Support** - Native Polish NLP with spaCy (87%+ accuracy)
