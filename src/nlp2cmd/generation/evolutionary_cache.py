@@ -48,7 +48,9 @@ log = logging.getLogger("nlp2cmd.cache")
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
-CACHE_DIR = Path.home() / ".nlp2cmd"
+default_cache_dir = Path.home() / ".nlp2cmd"
+env_cache_dir = os.environ.get("NLP2CMD_CACHE_DIR", "")
+CACHE_DIR = Path(env_cache_dir).expanduser() if env_cache_dir else default_cache_dir
 CACHE_FILE = CACHE_DIR / "learned_schemas.json"
 OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 TEACHER_MODEL = os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b")
@@ -160,6 +162,20 @@ def fuzzy_fingerprint(text: str) -> str:
 def detect_domain(text: str) -> str:
     """Detect domain from keywords. Returns best match or 'shell' as default."""
     text_lower = text.lower()
+    # High-priority: if the query starts with a known tool name, return immediately
+    _PREFIX_MAP = {
+        "docker": "docker", "kubectl": "kubernetes", "git ": "git",
+        "ffmpeg": "ffmpeg", "ffprobe": "ffmpeg", "curl": "api",
+        "ssh ": "remote", "scp ": "remote", "rsync": "remote",
+        "ansible": "devops", "terraform": "devops", "systemctl": "devops",
+        "apt ": "package_mgmt", "pip ": "package_mgmt", "npm ": "package_mgmt",
+        "convert ": "media", "mogrify": "media", "pandoc": "presentation",
+        "jq ": "data", "mosquitto": "iot", "i2cdetect": "iot",
+    }
+    for prefix, domain in _PREFIX_MAP.items():
+        if text_lower.startswith(prefix) or f" {prefix}" in text_lower:
+            return domain
+    # Fallback: keyword scoring
     scores: dict[str, int] = {}
     for domain, keywords in DOMAIN_KEYWORDS.items():
         score = sum(1 for kw in keywords if kw in text_lower)
@@ -306,22 +322,30 @@ class EvolutionaryCache:
         )
 
     # -- LLM teacher --------------------------------------------------------
+    # Models that emit <think>...</think> reasoning blocks
+    THINKING_MODELS = {"deepseek-r1", "deepseek-r1:1.5b", "deepseek-r1:8b", "deepseek-r1:14b"}
+
     def _ask_teacher(self, query: str, domain: str) -> str:
-        """Call Qwen2.5-3B via Ollama to generate a command."""
+        """Call teacher model via Ollama to generate a command."""
         system = TEACHER_PROMPTS.get(domain, TEACHER_PROMPTS["shell"])
+        is_thinking = any(t in self.teacher_model for t in ("deepseek-r1",))
+        temperature = float(os.environ.get("NLP2CMD_LLM_TEMPERATURE", "0.1"))
+        default_max_tokens = 1024 if is_thinking else 512
+        max_tokens = int(os.environ.get("NLP2CMD_LLM_MAX_TOKENS", str(default_max_tokens)))
+        timeout = int(os.environ.get("NLP2CMD_LLM_TIMEOUT", "30"))
         payload = {
             "model": self.teacher_model,
             "prompt": query,
             "system": system,
             "stream": False,
             "options": {
-                "temperature": 0.1,
-                "num_predict": 512,
-                "stop": ["\n\n"],
+                "temperature": temperature,
+                "num_predict": max_tokens,
+                "stop": [] if is_thinking else ["\n\n"],
             },
         }
         r = requests.post(
-            f"{self.ollama_base}/api/generate", json=payload, timeout=30
+            f"{self.ollama_base}/api/generate", json=payload, timeout=timeout
         )
         r.raise_for_status()
         raw = r.json().get("response", "").strip()

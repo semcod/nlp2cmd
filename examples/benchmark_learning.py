@@ -124,7 +124,7 @@ QUERIES: dict[str, list[str]] = {
     ],
 }
 
-NUM_ROUNDS = 3  # How many times each query is repeated
+NUM_ROUNDS = int(os.environ.get("NLP2CMD_BENCHMARK_ROUNDS", "3"))  # How many times each query is repeated
 
 
 def _teacher_models() -> list[str]:
@@ -135,7 +135,7 @@ def _teacher_models() -> list[str]:
     return [
         os.environ.get("NLP2CMD_TEACHER_MODEL", "qwen2.5:3b"),
         "phi:latest",
-        "deepseek-coder:1.3b",
+        "deepseek-r1:1.5b",
     ]
 
 
@@ -191,7 +191,7 @@ def run_learning_benchmark(*, teacher_model: str, cache_dir: Path) -> dict[str, 
 
         # Shuffle queries for pseudo-random order
         shuffled = list(all_queries)
-        random.seed(42 + round_num)  # Deterministic but different per round
+        random.seed(int(os.environ.get("NLP2CMD_BENCHMARK_SEED", "42")) + round_num)  # Deterministic but different per round
         random.shuffle(shuffled)
 
         round_results = {
@@ -283,7 +283,8 @@ def _generate_single_teacher_fragment(results: dict, *, chart_id_prefix: str) ->
     # Per-domain avg time per round
     domains = list(QUERIES.keys())
     domain_datasets_time = []
-    colors = ["#ef4444", "#f59e0b", "#22c55e"]
+    colors_env = os.environ.get("NLP2CMD_BENCHMARK_COLORS", "#ef4444,#f59e0b,#22c55e")
+    colors = colors_env.split(",")
     for i, rd in enumerate(rounds):
         data = []
         for d in domains:
@@ -357,7 +358,7 @@ new Chart(document.getElementById('{chart_id_prefix}_chartAvgTime'), {{
     datasets: [{{
       label: 'Avg time (ms)',
       data: {round_avg_times},
-      backgroundColor: ['#ef4444','#f59e0b','#22c55e'],
+      backgroundColor: {json.dumps(colors_env.split(','))},
       borderRadius: 6,
     }}]
   }},
@@ -411,6 +412,7 @@ new Chart(document.getElementById('{chart_id_prefix}_chartDomainTime'), {{
 
 
 def generate_html(results: dict) -> str:
+    chart_cdn = os.environ.get("NLP2CMD_CHART_CDN_URL", "https://cdn.jsdelivr.net/npm/chart.js@4")
     if "teachers" in results:
         teachers = results.get("teachers", {})
         teacher_sections = []
@@ -423,15 +425,15 @@ def generate_html(results: dict) -> str:
                 + "</details>"
             )
 
-        return """<!DOCTYPE html>
+        return f"""<!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NLP2CMD Learning Benchmark (multi-teacher)</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{chart_cdn}"></script>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+  * {{ margin:0; padding:0; box-sizing:border-box; }}
   body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
   .container { max-width:1200px; margin:0 auto; padding:2rem; }
   h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
@@ -446,14 +448,14 @@ def generate_html(results: dict) -> str:
   .card.yellow .value { color:#f59e0b; }
   .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
   .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
-  @media (max-width:768px) { .chart-row { grid-template-columns:1fr; } }
+  @media (max-width:768px) {{ .chart-row {{ grid-template-columns:1fr; }} }}
   canvas { max-height:350px; }
   .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
   .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }
   .algo .step.fast { border-color:#22c55e; }
   .algo .step.slow { border-color:#ef4444; }
   .footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }
-  details { background:#0b1220; border:1px solid #334155; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem; }
+  details { background:#0b1220; border:1px solid #334155; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem; max-width:1200px; margin-left:auto; margin-right:auto; }
   summary { cursor:pointer; color:#7dd3fc; font-weight:600; }
 </style>
 </head>
@@ -470,15 +472,15 @@ def generate_html(results: dict) -> str:
             "\n".join(teacher_sections),
         )
 
-    return """<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NLP2CMD Learning Benchmark</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{chart_cdn}"></script>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+  * {{ margin:0; padding:0; box-sizing:border-box; }}
   body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
   .container { max-width:1200px; margin:0 auto; padding:2rem; }
   h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
@@ -493,7 +495,7 @@ def generate_html(results: dict) -> str:
   .card.yellow .value { color:#f59e0b; }
   .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
   .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
-  @media (max-width:768px) { .chart-row { grid-template-columns:1fr; } }
+  @media (max-width:768px) {{ .chart-row {{ grid-template-columns:1fr; }} }}
   canvas { max-height:350px; }
   .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
   .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }

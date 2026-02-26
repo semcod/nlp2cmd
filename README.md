@@ -92,7 +92,12 @@ find $HOME -type f -size +50GB
 
 ### 🧠 Evolutionary Cache — Self-Learning ([docs](docs/EVOLUTIONARY_CACHE.md))
 
-nlp2cmd uczy się z każdego zapytania. Pierwsze wywołanie: LLM teacher (~300ms), każde kolejne: **cache instant (~0.01ms)**. Przyspieszenie: **37×**.
+nlp2cmd uczy się z każdego zapytania. Przyspieszenie: **do 302 803×** (DeepSeek-R1).
+
+| Teacher | Cold start | Hot cache | Speedup |
+|---------|-----------|-----------|---------|
+| Qwen2.5-3B (83% accuracy) | 406ms | 0.017ms | 23 904× |
+| DeepSeek-R1-1.5B (40%) | 4239ms | 0.014ms | 302 803× |
 
 ```
 Zapytanie → CACHE EXACT (0.01ms) → CACHE FUZZY (0.02ms) → DOMAIN DETECT → LLM TEACHER → AUTO-CACHE
@@ -101,7 +106,7 @@ Zapytanie → CACHE EXACT (0.01ms) → CACHE FUZZY (0.02ms) → DOMAIN DETECT �
 ```python
 from nlp2cmd.generation.evolutionary_cache import EvolutionaryCache
 cache = EvolutionaryCache()
-r = cache.lookup("znajdź pliki PDF większe niż 10MB")  # 1st: ~300ms, 2nd: ~0.01ms
+r = cache.lookup("znajdź pliki PDF większe niż 10MB")  # 1st: ~300ms, 2nd: ~0.014ms
 ```
 
 ### 🌐 16 Domen (1558 szablonów)

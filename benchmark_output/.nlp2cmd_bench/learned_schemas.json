@@ -1,0 +1,256 @@
+{
+  "version": 2,
+  "entries": {
+    "dbbe489f47fc63f6": {
+      "query": "zainstaluj requests przez pip",
+      "domain": "package_mgmt",
+      "command": "pip install requests",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:24.971744",
+      "last_used": "2026-02-26T20:10:33.048771"
+    },
+    "4e642f4ec7d0ee27": {
+      "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
+      "domain": "sql",
+      "command": "CREATE TABLE produkty (id INT, nazwa VARCHAR, cena DECIMAL)",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:25.284897",
+      "last_used": "2026-02-26T20:10:32.860606"
+    },
+    "436fc14b3af375c8": {
+      "query": "przeskaluj deployment webapp do 5 replik",
+      "domain": "kubernetes",
+      "command": "kubectl scale deployment webapp --replicas=5",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:25.457642",
+      "last_used": "2026-02-26T20:10:32.907378"
+    },
+    "ac8ace4c1248294a": {
+      "query": "sprawdź status usługi nginx",
+      "domain": "devops",
+      "command": "systemctl status nginx",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:25.600930",
+      "last_used": "2026-02-26T20:10:32.956531"
+    },
+    "7657ad106796353d": {
+      "query": "pokaż historię ostatnich 10 commitów",
+      "domain": "git",
+      "command": "git log -10 --pretty=oneline",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:25.771561",
+      "last_used": "2026-02-26T20:10:33.050711"
+    },
+    "a86175f79fd49513": {
+      "query": "pokaż procesy zużywające najwięcej pamięci",
+      "domain": "shell",
+      "command": "ps -eo pid,comm,%mem --sort=-%mem | head -n 10",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:26.076008",
+      "last_used": "2026-02-26T20:10:33.002648"
+    },
+    "7f9a3b7e355df08c": {
+      "query": "zmień rozmiar photo.jpg na 800x600",
+      "domain": "media",
+      "command": "convert -resize 800x600\\> photo.jpg",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:26.324271",
+      "last_used": "2026-02-26T20:10:32.955397"
+    },
+    "9412e34aa816dc7f": {
+      "query": "pokaż statystyki pliku CSV dane.csv",
+      "domain": "data",
+      "command": "csvstat dane.csv",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:26.468583",
+      "last_used": "2026-02-26T20:10:33.003587"
+    },
+    "ecb09c19aa92b868": {
+      "query": "pokaż pody w namespace production",
+      "domain": "kubernetes",
+      "command": "kubectl get pods -n production",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:26.588473",
+      "last_used": "2026-02-26T20:10:32.955021"
+    },
+    "7b84535ca19a9b50": {
+      "query": "otwórz stronę https://github.com",
+      "domain": "browser",
+      "command": "curl -I https://github.com",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:26.721123",
+      "last_used": "2026-02-26T20:10:33.051776"
+    },
+    "4929e9e2b56a8e78": {
+      "query": "wyodrębnij audio z film.mkv do mp3",
+      "domain": "ffmpeg",
+      "command": "ffmpeg -i film.mkv -q:a 0 -map a out.mp3",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:26.978614",
+      "last_used": "2026-02-26T20:10:33.052843"
+    },
+    "39bfebe9ac650a28": {
+      "query": "konwertuj README.md do PDF",
+      "domain": "presentation",
+      "command": "pandoc -f markdown -t pdf README.md -o output.pdf",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:27.231653",
+      "last_used": "2026-02-26T20:10:32.953182"
+    },
+    "b69276e4b5c4b715": {
+      "query": "wykryj urządzenia I2C na magistrali 1",
+      "domain": "iot",
+      "command": "i2cdetect -y 1",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:27.402536",
+      "last_used": "2026-02-26T20:10:32.860127"
+    },
+    "4b49e2d37d4f9d54": {
+      "query": "uruchom playbook Ansible deploy.yml",
+      "domain": "devops",
+      "command": "ansible-playbook -i inventory deploy.yml",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:27.543807",
+      "last_used": "2026-02-26T20:10:33.052532"
+    },
+    "fa5d944a6693e0bf": {
+      "query": "konwertuj video.mp4 do webm",
+      "domain": "ffmpeg",
+      "command": "ffmpeg -i video.mp4 output.webm",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:27.689867",
+      "last_used": "2026-02-26T20:10:32.953667"
+    },
+    "d3ee8264a8dd697a": {
+      "query": "znajdź wszystkie pliki PDF większe niż 10MB",
+      "domain": "shell",
+      "command": "find / -type f \\( -name \"*.pdf\" \\) -size +10M -exec ls -lh {} \\;",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:28.086967",
+      "last_used": "2026-02-26T20:10:33.050280"
+    },
+    "763b872a528d8002": {
+      "query": "sprawdź kod HTTP serwera https://example.com",
+      "domain": "api",
+      "command": "curl -Is https://example.com",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:28.232075",
+      "last_used": "2026-02-26T20:10:33.052211"
+    },
+    "cfb589ef063b8c88": {
+      "query": "utwórz miniaturkę 150x150 z header.png",
+      "domain": "media",
+      "command": "convert -resize 150x150 -extent 150x150 header.png miniature_header.png",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:28.639030",
+      "last_used": "2026-02-26T20:10:33.003175"
+    },
+    "953bbb4fe18b28bf": {
+      "query": "zainstaluj nodejs przez apt",
+      "domain": "package_mgmt",
+      "command": "Instalacja Node.js przez apt nie jest poprawna, ponieważ apt jest narzędziem systemowym do zarządzania pakietami dla systemów operacyjnych bazujących na Debianu (np. Ubuntu), a Node.js to platforma JavaScript i HTML/CSS wykorzystywana w środowiskach webowych. Instalacja Node.js wymaga zamiast tego narzędzia takiego jak npm (npm istnieje jako część pakietu nodejs) lub przez bezpośrednio od strony GitHub'a, np. `sudo apt-get install software-properties-common && sudo add-apt-repository universe && sudo apt-get update && sudo apt-get install nodejs` dla Ubuntu 18.04 i powyżej.",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:30.759987",
+      "last_used": "2026-02-26T20:10:33.004042"
+    },
+    "5f786aad1db5d55d": {
+      "query": "zbuduj obraz Docker z tagiem myapp:latest",
+      "domain": "docker",
+      "command": "docker build -t myapp:latest .",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:30.933933",
+      "last_used": "2026-02-26T20:10:33.004572"
+    },
+    "751bbb294997e501": {
+      "query": "wygeneruj embeddingi przez Ollama",
+      "domain": "rag",
+      "command": "curl -X POST \"https://api.ollama.com/v1/embeddings\" \\ -H \"Content-Type: application/json\" \\ -d '{\"text\": \"Twoje tekst tutaj\"}'",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:31.504411",
+      "last_used": "2026-02-26T20:10:33.048298"
+    },
+    "d1945a82cc360177": {
+      "query": "utwórz branch feature/login",
+      "domain": "git",
+      "command": "git checkout -b feature/login",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:31.695831",
+      "last_used": "2026-02-26T20:10:32.956048"
+    },
+    "994e11b00204c308": {
+      "query": "wyślij GET na https://api.example.com/users",
+      "domain": "api",
+      "command": "curl -X GET https://api.example.com/users",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:31.868732",
+      "last_used": "2026-02-26T20:10:32.955737"
+    },
+    "70aa7788a0591ae0": {
+      "query": "pokaż użytkowników z Warszawy",
+      "domain": "sql",
+      "command": "SELECT * FROM users WHERE city = 'Warsaw';",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:32.063162",
+      "last_used": "2026-02-26T20:10:32.956834"
+    },
+    "9b980913ae2aebb3": {
+      "query": "połącz SSH do 192.168.1.100 jako admin",
+      "domain": "remote",
+      "command": "ssh admin@192.168.1.100",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:32.360335",
+      "last_used": "2026-02-26T20:10:32.957133"
+    },
+    "ba544063737bff7a": {
+      "query": "wyszukaj w Google 'python tutorial'",
+      "domain": "browser",
+      "command": "google-chrome \"python tutorial\"",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:32.499893",
+      "last_used": "2026-02-26T20:10:33.051051"
+    },
+    "77f3cc8fb4d9049d": {
+      "query": "pokaż wszystkie uruchomione kontenery Docker",
+      "domain": "docker",
+      "command": "docker ps",
+      "model": "qwen2.5:3b",
+      "hits": 3,
+      "created": "2026-02-26T20:10:32.570660",
+      "last_used": "2026-02-26T20:10:33.051400"
+    }
+  },
+  "stats": {
+    "total_queries": 96,
+    "cache_hits": 54,
+    "llm_calls": 27,
+    "template_hits": 0,
+    "total_saved_ms": 0.0
+  },
+  "updated": "2026-02-26T20:10:33.052848"
+}

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLP2CMD Learning Benchmark (multi-teacher)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f172a; color:#e2e8f0; line-height:1.6; }
+  .container { max-width:1200px; margin:0 auto; padding:2rem; }
+  h1 { font-size:2rem; color:#38bdf8; margin-bottom:.5rem; }
+  h2 { font-size:1.3rem; color:#7dd3fc; margin:2rem 0 1rem; border-bottom:1px solid #334155; padding-bottom:.5rem; }
+  .subtitle { color:#94a3b8; margin-bottom:2rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .card { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; }
+  .card .label { color:#94a3b8; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em; }
+  .card .value { font-size:2rem; font-weight:700; color:#38bdf8; margin:.25rem 0; }
+  .card .detail { color:#64748b; font-size:.85rem; }
+  .card.green .value { color:#22c55e; }
+  .card.yellow .value { color:#f59e0b; }
+  .chart-container { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; }
+  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media (max-width:768px) { .chart-row { grid-template-columns:1fr; } }
+  canvas { max-height:350px; }
+  .algo { background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid #334155; margin-bottom:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.85rem; }
+  .algo .step { margin:.5rem 0; padding:.5rem 1rem; border-left:3px solid #334155; }
+  .algo .step.fast { border-color:#22c55e; }
+  .algo .step.slow { border-color:#ef4444; }
+  .footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #334155; color:#64748b; font-size:.8rem; text-align:center; }
+  details { background:#0b1220; border:1px solid #334155; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1rem; }
+  summary { cursor:pointer; color:#7dd3fc; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧠 NLP2CMD Learning Benchmark</h1>
+  <p class="subtitle">Multi-teacher • 3 modele • 2026-02-26T20:33:39</p>
+  <details open><summary>Teacher: qwen2.5:3b</summary>
+  <div class="cards">
+    <div class="card green">
+      <div class="label">Przyspieszenie</div>
+      <div class="value">16979.8×</div>
+      <div class="detail">Round 1 vs Round 3</div>
+    </div>
+    <div class="card">
+      <div class="label">Śr. czas Round 1 (cold)</div>
+      <div class="value">339.6ms</div>
+      <div class="detail">LLM teacher generuje</div>
+    </div>
+    <div class="card green">
+      <div class="label">Śr. czas Round 3 (hot)</div>
+      <div class="value">0.020ms</div>
+      <div class="detail">Cache instant lookup</div>
+    </div>
+    <div class="card yellow">
+      <div class="label">Zaoszczędzony czas</div>
+      <div class="value">10866ms</div>
+      <div class="detail">Cache hit rate: 66.7%</div>
+    </div>
+  </div>
+
+  <h2>📐 Algorytm: 4-Tier Evolutionary Lookup</h2>
+  <div class="algo">
+    <div class="step fast">1. <b>CACHE EXACT</b> — MD5 fingerprint → instant lookup (~0.01ms) ⚡</div>
+    <div class="step fast">2. <b>CACHE FUZZY</b> — normalized word-bag fingerprint → similar query match (~0.02ms) ⚡</div>
+    <div class="step">3. <b>DOMAIN DETECT</b> — keyword scoring → identify domain (shell/docker/k8s/...) (~0.1ms)</div>
+    <div class="step slow">4. <b>LLM TEACHER</b> — Qwen2.5-3B generates command → auto-cached for future (~200ms) 🤖</div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-container">
+      <h2 style="margin-top:0">⏱ Średni czas per round</h2>
+      <canvas id="t0_chartAvgTime"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2 style="margin-top:0">📊 Cache hits vs LLM calls</h2>
+      <canvas id="t0_chartHitsVsLLM"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h2 style="margin-top:0">📂 Czas per domena per round</h2>
+    <canvas id="t0_chartDomainTime"></canvas>
+  </div>
+
+  <div class="footer">
+    NLP2CMD Learning Benchmark · 2026-02-26T20:33:39 · Teacher: qwen2.5:3b
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('t0_chartAvgTime'), {
+  type: 'bar',
+  data: {
+    labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
+    datasets: [{
+      label: 'Avg time (ms)',
+      data: [339.596, 0.023, 0.02],
+      backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'ms', color:'#94a3b8' }, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8' }, grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('t0_chartHitsVsLLM'), {
+  type: 'bar',
+  data: {
+    labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
+    datasets: [
+      { label: 'Cache hits', data: [0, 32, 32], backgroundColor: '#22c55e', borderRadius: 6 },
+      { label: 'LLM calls', data: [32, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color:'#94a3b8' } } },
+    scales: {
+      y: { beginAtZero: true, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8' }, grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('t0_chartDomainTime'), {
+  type: 'bar',
+  data: {
+    labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
+    datasets: [{"label": "COLD (LLM teacher)", "data": [354.31, 126.24, 225.08, 152.36, 142.62, 143.37, 122.91, 222.74, 280.61, 316.58, 279.04, 288.81, 419.27, 1656.03, 379.38, 324.18], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.03, 0.02, 0.02, 0.02, 0.02, 0.03, 0.02, 0.03, 0.02, 0.02, 0.03, 0.02, 0.02, 0.02, 0.02, 0.03], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02], "backgroundColor": "#22c55e"}]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color:'#94a3b8' } } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'ms', color:'#94a3b8' }, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8', maxRotation: 45 }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</details>
+<details open><summary>Teacher: phi:latest</summary>
+  <div class="cards">
+    <div class="card green">
+      <div class="label">Przyspieszenie</div>
+      <div class="value">18042.0×</div>
+      <div class="detail">Round 1 vs Round 3</div>
+    </div>
+    <div class="card">
+      <div class="label">Śr. czas Round 1 (cold)</div>
+      <div class="value">360.8ms</div>
+      <div class="detail">LLM teacher generuje</div>
+    </div>
+    <div class="card green">
+      <div class="label">Śr. czas Round 3 (hot)</div>
+      <div class="value">0.020ms</div>
+      <div class="detail">Cache instant lookup</div>
+    </div>
+    <div class="card yellow">
+      <div class="label">Zaoszczędzony czas</div>
+      <div class="value">11546ms</div>
+      <div class="detail">Cache hit rate: 66.7%</div>
+    </div>
+  </div>
+
+  <h2>📐 Algorytm: 4-Tier Evolutionary Lookup</h2>
+  <div class="algo">
+    <div class="step fast">1. <b>CACHE EXACT</b> — MD5 fingerprint → instant lookup (~0.01ms) ⚡</div>
+    <div class="step fast">2. <b>CACHE FUZZY</b> — normalized word-bag fingerprint → similar query match (~0.02ms) ⚡</div>
+    <div class="step">3. <b>DOMAIN DETECT</b> — keyword scoring → identify domain (shell/docker/k8s/...) (~0.1ms)</div>
+    <div class="step slow">4. <b>LLM TEACHER</b> — Qwen2.5-3B generates command → auto-cached for future (~200ms) 🤖</div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-container">
+      <h2 style="margin-top:0">⏱ Średni czas per round</h2>
+      <canvas id="t1_chartAvgTime"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2 style="margin-top:0">📊 Cache hits vs LLM calls</h2>
+      <canvas id="t1_chartHitsVsLLM"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h2 style="margin-top:0">📂 Czas per domena per round</h2>
+    <canvas id="t1_chartDomainTime"></canvas>
+  </div>
+
+  <div class="footer">
+    NLP2CMD Learning Benchmark · 2026-02-26T20:33:50 · Teacher: phi:latest
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('t1_chartAvgTime'), {
+  type: 'bar',
+  data: {
+    labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
+    datasets: [{
+      label: 'Avg time (ms)',
+      data: [360.839, 0.027, 0.02],
+      backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'ms', color:'#94a3b8' }, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8' }, grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('t1_chartHitsVsLLM'), {
+  type: 'bar',
+  data: {
+    labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
+    datasets: [
+      { label: 'Cache hits', data: [0, 32, 32], backgroundColor: '#22c55e', borderRadius: 6 },
+      { label: 'LLM calls', data: [32, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color:'#94a3b8' } } },
+    scales: {
+      y: { beginAtZero: true, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8' }, grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('t1_chartDomainTime'), {
+  type: 'bar',
+  data: {
+    labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
+    datasets: [{"label": "COLD (LLM teacher)", "data": [457.03, 359.43, 385.2, 393.39, 325.79, 567.65, 210.41, 465.62, 294.08, 308.51, 342.92, 366.07, 347.37, 287.16, 239.38, 423.42], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.04, 0.03, 0.02, 0.02, 0.02, 0.03, 0.03, 0.05, 0.02, 0.02, 0.02, 0.03, 0.02, 0.02, 0.03, 0.03], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02], "backgroundColor": "#22c55e"}]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color:'#94a3b8' } } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'ms', color:'#94a3b8' }, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8', maxRotation: 45 }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</details>
+<details open><summary>Teacher: deepseek-r1:1.5b</summary>
+  <div class="cards">
+    <div class="card green">
+      <div class="label">Przyspieszenie</div>
+      <div class="value">302803.1×</div>
+      <div class="detail">Round 1 vs Round 3</div>
+    </div>
+    <div class="card">
+      <div class="label">Śr. czas Round 1 (cold)</div>
+      <div class="value">4239.2ms</div>
+      <div class="detail">LLM teacher generuje</div>
+    </div>
+    <div class="card green">
+      <div class="label">Śr. czas Round 3 (hot)</div>
+      <div class="value">0.014ms</div>
+      <div class="detail">Cache instant lookup</div>
+    </div>
+    <div class="card yellow">
+      <div class="label">Zaoszczędzony czas</div>
+      <div class="value">135655ms</div>
+      <div class="detail">Cache hit rate: 66.7%</div>
+    </div>
+  </div>
+
+  <h2>📐 Algorytm: 4-Tier Evolutionary Lookup</h2>
+  <div class="algo">
+    <div class="step fast">1. <b>CACHE EXACT</b> — MD5 fingerprint → instant lookup (~0.01ms) ⚡</div>
+    <div class="step fast">2. <b>CACHE FUZZY</b> — normalized word-bag fingerprint → similar query match (~0.02ms) ⚡</div>
+    <div class="step">3. <b>DOMAIN DETECT</b> — keyword scoring → identify domain (shell/docker/k8s/...) (~0.1ms)</div>
+    <div class="step slow">4. <b>LLM TEACHER</b> — Qwen2.5-3B generates command → auto-cached for future (~200ms) 🤖</div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-container">
+      <h2 style="margin-top:0">⏱ Średni czas per round</h2>
+      <canvas id="t2_chartAvgTime"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2 style="margin-top:0">📊 Cache hits vs LLM calls</h2>
+      <canvas id="t2_chartHitsVsLLM"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h2 style="margin-top:0">📂 Czas per domena per round</h2>
+    <canvas id="t2_chartDomainTime"></canvas>
+  </div>
+
+  <div class="footer">
+    NLP2CMD Learning Benchmark · 2026-02-26T20:34:01 · Teacher: deepseek-r1:1.5b
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('t2_chartAvgTime'), {
+  type: 'bar',
+  data: {
+    labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
+    datasets: [{
+      label: 'Avg time (ms)',
+      data: [4239.244, 0.014, 0.014],
+      backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'ms', color:'#94a3b8' }, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8' }, grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('t2_chartHitsVsLLM'), {
+  type: 'bar',
+  data: {
+    labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
+    datasets: [
+      { label: 'Cache hits', data: [0, 32, 32], backgroundColor: '#22c55e', borderRadius: 6 },
+      { label: 'LLM calls', data: [32, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color:'#94a3b8' } } },
+    scales: {
+      y: { beginAtZero: true, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8' }, grid: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('t2_chartDomainTime'), {
+  type: 'bar',
+  data: {
+    labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
+    datasets: [{"label": "COLD (LLM teacher)", "data": [4753.66, 2426.22, 2645.89, 6907.16, 6307.36, 2160.85, 4123.61, 3175.93, 5416.76, 2774.34, 4371.26, 4246.24, 3833.0, 7514.09, 4280.13, 2891.39], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.01, 0.01, 0.02, 0.01, 0.02, 0.01, 0.01, 0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01], "backgroundColor": "#22c55e"}]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color:'#94a3b8' } } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'ms', color:'#94a3b8' }, ticks: { color:'#94a3b8' }, grid: { color:'#334155' } },
+      x: { ticks: { color:'#94a3b8', maxRotation: 45 }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</details>
+</div>
+</body>
+</html>

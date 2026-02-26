@@ -66,9 +66,15 @@ log = logging.getLogger("benchmark")
 OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 
 
+OLLAMA_TIMEOUT = int(os.environ.get("NLP2CMD_OLLAMA_TIMEOUT", "5"))
+OLLAMA_GENERATE_TIMEOUT = int(os.environ.get("NLP2CMD_OLLAMA_GENERATE_TIMEOUT", "120"))
+OLLAMA_PULL_TIMEOUT = int(os.environ.get("NLP2CMD_OLLAMA_PULL_TIMEOUT", "300"))
+OLLAMA_CREATE_TIMEOUT = int(os.environ.get("NLP2CMD_OLLAMA_CREATE_TIMEOUT", "120"))
+
+
 def ollama_available() -> bool:
     try:
-        r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=5)
+        r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=OLLAMA_TIMEOUT)
         return r.status_code == 200
     except Exception:
         return False
@@ -76,7 +82,7 @@ def ollama_available() -> bool:
 
 def ollama_model_exists(name: str) -> bool:
     try:
-        r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=5)
+        r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=OLLAMA_TIMEOUT)
         models = [m["name"] for m in r.json().get("models", [])]
         # match both "name" and "name:latest"
         return any(name in m for m in models)
@@ -86,14 +92,18 @@ def ollama_model_exists(name: str) -> bool:
 
 def ollama_create_bielik() -> bool:
     """Create ollama model from local Bielik GGUF if not already present."""
-    gguf_path = Path.home() / ".cache" / "bielik" / "bielik-1.5b.gguf"
+    default_gguf_path = Path.home() / ".cache" / "bielik" / "bielik-1.5b.gguf"
+    gguf_path = Path(os.environ.get("NLP2CMD_BIELIK_GGUF_PATH", default_gguf_path)).expanduser()
     if not gguf_path.exists():
         log.warning("Bielik GGUF not found at %s — skipping", gguf_path)
         return False
 
+    bielik_temp = float(os.environ.get("NLP2CMD_BIELIK_TEMPERATURE", "0.2"))
+    bielik_ctx = int(os.environ.get("NLP2CMD_BIELIK_NUM_CTX", "2048"))
+
     modelfile_content = f"""FROM {gguf_path}
-PARAMETER temperature 0.2
-PARAMETER num_ctx 2048
+PARAMETER temperature {bielik_temp}
+PARAMETER num_ctx {bielik_ctx}
 SYSTEM \"\"\"Jesteś ekspertem od komend Linux, Docker, Kubernetes, SQL, Git i automatyzacji przeglądarki.
 Odpowiadaj TYLKO komendą shell/sql/kubectl/docker/git. Nie dodawaj komentarzy ani wyjaśnień.\"\"\"
 """
@@ -107,7 +117,7 @@ Odpowiadaj TYLKO komendą shell/sql/kubectl/docker/git. Nie dodawaj komentarzy a
             check=True,
             capture_output=True,
             text=True,
-            timeout=120,
+            timeout=OLLAMA_CREATE_TIMEOUT,
         )
         log.info("✅ bielik-1.5b created in ollama")
         return True
@@ -143,7 +153,7 @@ def ollama_generate(
         payload["system"] = system
 
     t0 = time.perf_counter()
-    r = requests.post(f"{OLLAMA_BASE}/api/generate", json=payload, timeout=120)
+    r = requests.post(f"{OLLAMA_BASE}/api/generate", json=payload, timeout=OLLAMA_GENERATE_TIMEOUT)
     elapsed = time.perf_counter() - t0
     r.raise_for_status()
     text = r.json().get("response", "").strip()
@@ -348,7 +358,6 @@ MODELS = [
     {"name": "qwen2.5:3b", "display": "Qwen2.5-3B", "params": "3B"},
     {"name": "gemma2:2b", "display": "Gemma2-2B", "params": "2B"},
     {"name": "phi:latest", "display": "Phi (latest)", "params": "1.6GB"},
-    {"name": "deepseek-r1:1.5b", "display": "DeepSeek-R1-1.5B", "params": "1.5B", "thinking": True},
 ]
 
 # Thinking models need more tokens for internal reasoning
@@ -466,7 +475,7 @@ def run_benchmark() -> BenchmarkResults:
             try:
                 subprocess.run(
                     ["ollama", "pull", model_cfg["name"]],
-                    check=True, capture_output=True, text=True, timeout=300,
+                    check=True, capture_output=True, text=True, timeout=OLLAMA_PULL_TIMEOUT,
                 )
                 log.info("✅ Pulled %s", model_cfg["name"])
             except Exception as exc:
@@ -649,7 +658,8 @@ def generate_html(results: BenchmarkResults) -> str:
     model_names = []
     model_accuracy = []
     model_avg_time = []
-    model_colors = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f"]
+    default_colors = "#4e79a7,#f28e2b,#e15759,#76b7b2,#59a14f"
+    model_colors = os.environ.get("NLP2CMD_BENCHMARK_COLORS", default_colors).split(",")
 
     for i, mcfg in enumerate(results.models):
         mdata = summary.get("models", {}).get(mcfg["name"], {})
@@ -684,13 +694,15 @@ def generate_html(results: BenchmarkResults) -> str:
             "backgroundColor": model_colors[i % len(model_colors)],
         })
 
+    chart_cdn = os.environ.get("NLP2CMD_CHART_CDN_URL", "https://cdn.jsdelivr.net/npm/chart.js@4")
+
     html = f"""<!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NLP2CMD Benchmark — 5 LLMs ≤3B</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{chart_cdn}"></script>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
   body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }}

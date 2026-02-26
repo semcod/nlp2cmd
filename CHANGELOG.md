@@ -1,3 +1,34 @@
+## [1.0.79] - 2026-02-26
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/generation/evolutionary_cache.py
+
+### Docs
+
+- docs: update README
+- docs: update refactoring_plan.md
+- docs: update EVOLUTIONARY_CACHE.md
+
+### Other
+
+- update .env.example
+- update .gitignore
+- update benchmark_output/.nlp2cmd_bench/deepseek-r1_1.5b/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/phi_latest/learned_schemas.json
+- update benchmark_output/.nlp2cmd_bench/qwen2.5_3b/learned_schemas.json
+- update benchmark_output/Modelfile.bielik
+- update benchmark_output/benchmark_results.html
+- update benchmark_output/benchmark_results.json
+- update benchmark_output/learning_benchmark.html
+- ... and 3 more
+
+
 ## [1.0.78] - 2026-02-26
 
 ### Summary

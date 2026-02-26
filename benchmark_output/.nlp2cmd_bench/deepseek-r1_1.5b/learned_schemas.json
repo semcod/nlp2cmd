@@ -1,0 +1,175 @@
+{
+  "version": 2,
+  "entries": {
+    "dbbe489f47fc63f6": {
+      "query": "zainstaluj requests przez pip",
+      "domain": "package_mgmt",
+      "command": "pip install package_name",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:41:43.796638",
+      "last_used": "2026-02-26T20:41:43.796638"
+    },
+    "2e52b7ff1c82f76c": {
+      "query": "wyszukaj w ChromaDB dokumenty o machine learning",
+      "domain": "rag",
+      "command": "**wyszuki w ChromaDB dokumenty o machine learning**",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:41:46.691738",
+      "last_used": "2026-02-26T20:41:46.691738"
+    },
+    "4e642f4ec7d0ee27": {
+      "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
+      "domain": "sql",
+      "command": "CREATE TABLE produt (",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:41:51.825659",
+      "last_used": "2026-02-26T20:41:51.825659"
+    },
+    "436fc14b3af375c8": {
+      "query": "przeskaluj deployment webapp do 5 replik",
+      "domain": "kubernetes",
+      "command": "deploy -p [parameters] --prescale 5 --replik 5",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:41:59.794189",
+      "last_used": "2026-02-26T20:41:59.794189"
+    },
+    "d11d442a213a276c": {
+      "query": "zsynchronizuj /var/www na zdalny serwer",
+      "domain": "remote",
+      "command": "ssh -i /var/ssh/keys/ssh-123456789",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:05.778842",
+      "last_used": "2026-02-26T20:42:05.778842"
+    },
+    "ac8ace4c1248294a": {
+      "query": "sprawdź status usługi nginx",
+      "domain": "devops",
+      "command": "systemctl list status nginx",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:09.017267",
+      "last_used": "2026-02-26T20:42:09.017267"
+    },
+    "7657ad106796353d": {
+      "query": "pokaż historię ostatnich 10 commitów",
+      "domain": "git",
+      "command": "git commands history --last=10",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:12.600894",
+      "last_used": "2026-02-26T20:42:12.600894"
+    },
+    "a86175f79fd49513": {
+      "query": "pokaż procesy zużywające najwięcej pamięci",
+      "domain": "shell",
+      "command": "komendę: `ls -l | tail -n 5`",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:14.236807",
+      "last_used": "2026-02-26T20:42:14.236807"
+    },
+    "7f9a3b7e355df08c": {
+      "query": "zmień rozmiar photo.jpg na 800x600",
+      "domain": "media",
+      "command": "`imageroot -size 800x600 photo.jpg`",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:16.568083",
+      "last_used": "2026-02-26T20:42:16.568083"
+    },
+    "4fa837fc5fc905e5": {
+      "query": "wyrenderuj diagram Mermaid do PNG",
+      "domain": "presentation",
+      "command": "import matplotlib.pyplot as plt",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:20.280933",
+      "last_used": "2026-02-26T20:42:20.280933"
+    },
+    "9412e34aa816dc7f": {
+      "query": "pokaż statystyki pliku CSV dane.csv",
+      "domain": "data",
+      "command": "if exists /path/to/data/ then",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:24.193366",
+      "last_used": "2026-02-26T20:42:24.193366"
+    },
+    "ecb09c19aa92b868": {
+      "query": "pokaż pody w namespace production",
+      "domain": "kubernetes",
+      "command": "Każdy user zwraca komendę w formacie: `<verb> <object> <context>`, gdzie:",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:29.050741",
+      "last_used": "2026-02-26T20:42:29.050741"
+    },
+    "7b84535ca19a9b50": {
+      "query": "otwórz stronę https://github.com",
+      "domain": "browser",
+      "command": "url https://github.com ls",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:31.306903",
+      "last_used": "2026-02-26T20:42:31.306903"
+    },
+    "4929e9e2b56a8e78": {
+      "query": "wyodrębnij audio z film.mkv do mp3",
+      "domain": "ffmpeg",
+      "command": "m4a mkvfile.mp3 quality=100",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:34.250358",
+      "last_used": "2026-02-26T20:42:34.250358"
+    },
+    "39bfebe9ac650a28": {
+      "query": "konwertuj README.md do PDF",
+      "domain": "presentation",
+      "command": "pandoc -o README.md pdf",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:35.788842",
+      "last_used": "2026-02-26T20:42:35.788842"
+    },
+    "b69276e4b5c4b715": {
+      "query": "wykryj urządzenia I2C na magistrali 1",
+      "domain": "iot",
+      "command": "`I2C 1 9`",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:39.534376",
+      "last_used": "2026-02-26T20:42:39.534376"
+    },
+    "4b49e2d37d4f9d54": {
+      "query": "uruchom playbook Ansible deploy.yml",
+      "domain": "devops",
+      "command": "devops run playbook ansible deploy yml",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:41.891979",
+      "last_used": "2026-02-26T20:42:41.891979"
+    },
+    "fa5d944a6693e0bf": {
+      "query": "konwertuj video.mp4 do webm",
+      "domain": "ffmpeg",
+      "command": "url.mp4 -f url -of mpeg -c v webm -b param 0.5 -s http://example.com",
+      "model": "deepseek-r1:1.5b",
+      "hits": 1,
+      "created": "2026-02-26T20:42:48.825124",
+      "last_used": "2026-02-26T20:42:48.825124"
+    }
+  },
+  "stats": {
+    "total_queries": 18,
+    "cache_hits": 0,
+    "llm_calls": 18,
+    "template_hits": 0,
+    "total_saved_ms": 0.0
+  },
+  "updated": "2026-02-26T20:42:48.825132"
+}
