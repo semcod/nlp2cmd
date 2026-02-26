@@ -342,10 +342,13 @@ class EvolutionaryCache:
         """
         t0 = time.perf_counter()
         self.stats["total_queries"] = self.stats.get("total_queries", 0) + 1
+        
+        # Check if cache is disabled (for benchmarking)
+        cache_disabled = os.environ.get("NLP2CMD_DISABLE_CACHE", "").lower() in ("1", "true", "yes")
 
         # Tier 1: EXACT cache hit
         fp = fingerprint(query)
-        if fp in self.entries:
+        if not cache_disabled and fp in self.entries:
             entry = self.entries[fp]
             entry["hits"] = entry.get("hits", 0) + 1
             entry["last_used"] = datetime.now().isoformat()
@@ -359,7 +362,7 @@ class EvolutionaryCache:
 
         # Tier 1b: FUZZY cache hit
         ffp = fuzzy_fingerprint(query)
-        if ffp in self.fuzzy_index:
+        if not cache_disabled and ffp in self.fuzzy_index:
             exact_fp = self.fuzzy_index[ffp]
             if exact_fp in self.entries:
                 entry = self.entries[exact_fp]
@@ -374,7 +377,7 @@ class EvolutionaryCache:
                 )
 
         # Tier 1c: SIMILARITY cache hit (rapidfuzz)
-        sim_result = self._find_similar_cached(query)
+        sim_result = self._find_similar_cached(query) if not cache_disabled else None
         if sim_result:
             entry, score = sim_result
             entry["hits"] = entry.get("hits", 0) + 1
@@ -394,7 +397,7 @@ class EvolutionaryCache:
             domain = detect_domain(query)
 
         # Tier 2: TEMPLATE pipeline (1615 patterns, ~1-5ms)
-        tpl_cmd = self._try_template_pipeline(query)
+        tpl_cmd = self._try_template_pipeline(query) if not cache_disabled else None
         if tpl_cmd:
             elapsed = (time.perf_counter() - t0) * 1000
             self.stats["template_hits"] = self.stats.get("template_hits", 0) + 1

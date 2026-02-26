@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from pathlib import Path
 from typing import Optional
 
 from rich.console import Console
@@ -32,11 +33,22 @@ def is_playwright_installed() -> bool:
 
 
 def is_playwright_browsers_installed() -> bool:
-    """Check if Playwright browsers are installed."""
+    """Check if Playwright browsers are installed by looking for the executable."""
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
-            # Try to launch chromium to check if it's installed
+            # Check if browser executable exists on disk rather than trying to launch it
+            # This avoids false negatives when browser is installed but can't launch
+            # (e.g., missing system dependencies, sandbox issues)
+            try:
+                # Get the browser executable path without launching
+                browser_path = p.chromium.executable_path
+                if browser_path and Path(browser_path).exists():
+                    return True
+            except Exception:
+                pass
+            
+            # Fallback: try to launch chromium to verify it works
             try:
                 browser = p.chromium.launch(headless=True)
                 browser.close()

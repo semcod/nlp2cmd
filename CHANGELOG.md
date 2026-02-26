@@ -1,3 +1,26 @@
+## [1.0.82] - 2026-02-26
+
+### Summary
+
+refactor(docs): configuration management system
+
+### Core
+
+- update src/nlp2cmd/generation/evolutionary_cache.py
+- update src/nlp2cmd/utils/playwright_installer.py
+
+### Docs
+
+- docs: update TODO.md
+- docs: update benchmark_command_errors.md
+- docs: update refactoring_plan.md
+
+### Other
+
+- update benchmark_output/benchmark_results.html
+- update benchmark_output/benchmark_results.json
+
+
 ## [1.0.81] - 2026-02-26
 
 ### Summary
@@ -49,6 +72,35 @@ refactor(docs): configuration management system
 - update examples/benchmark_learning.py
 - ... and 4 more
 
+
+## [1.0.82] - 2026-02-26
+
+### Summary
+
+fix(browser): browser automation failed with '[Errno 2] No such file or directory' — DSL JSON was executed as shell command
+
+### Bug Fix
+
+- fix(core): `transform_ir()` now prefers adapter's pre-built `ActionIR` (e.g. `BrowserAdapter.last_action_ir`) over constructing a new one
+- fix(core): map `BrowserAdapter.DSL_NAME='browser'` → `dsl_kind='dom'` in `_DSL_KIND_MAP`
+- Root cause: `'browser'` was not in the `dsl_kind` whitelist, falling back to `'shell'`, causing `PipelineRunner` to execute dom_dql.v1 JSON via `subprocess.run()`
+
+### Cleanup (Sprint 3)
+
+- remove: `adapters/shell_original.py` (1926 lines), `cli/main_original.py` (1037 lines), `schema_extraction/__init___original.py` (1595 lines) — dead backup files
+- remove: `concepts/` module (5 files, 1759 lines) — zero imports in project
+- remove: `contracts/` module (1 file, 10 lines) — zero imports in project
+- remove: `nlp/` module (4 files, 145 lines) — stub interfaces, zero imports
+- remove: `interfaces/` module (4 files, 71 lines) — zero imports in project
+- remove: `test_ollama_speed.py` (empty file), `tests/unit/test_conceptual_commands.py` (orphaned test)
+- **Total removed: ~4,543 lines of dead code**
+
+### Test
+
+- add: `TestBrowserAdapterTransformIR` — 2 regression tests for browser `transform_ir` (dsl_kind='dom' verification)
+- result: 1072 passed, 0 failed, 385 deselected
+
+---
 
 ## [1.0.81] - 2026-02-26
 

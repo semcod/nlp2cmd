@@ -1,17 +1,30 @@
 # NLP2CMD Benchmark — Nieprawidłowe komendy (auto-report)
 
-Generated: `2026-02-26T21:45:35.674952`
+Generated: `2026-02-26T21:50:06.822250`
 
 Źródło: `examples/benchmark_nlp2cmd.py` + `benchmark_results.json`
 
 ## Summary
 
 - Total queries: **188**
-- Failed / errors: **45**
+- Failed / errors: **47**
 
 ## Failures
 
 ### Model: `bielik-1.5b`
+
+#### Domain: `api` (1)
+
+##### 1. POST JSON
+
+- Query: `wyślij POST z danymi JSON na /api/register`
+- Error: `empty_response`
+- Expected (regex): `curl.*-X\s*POST.*(Content-Type:.*json|application/json).*(-d|--data)`
+- Got:
+
+```bash
+
+```
 
 #### Domain: `data` (3)
 
@@ -29,11 +42,12 @@ Generated: `2026-02-26T21:45:35.674952`
 ##### 2. jq filter
 
 - Query: `filtruj customers.json po salary powyżej 5000`
+- Error: `empty_response`
 - Expected (regex): `jq.*select.*salary.*(>|gt).*5000`
 - Got:
 
 ```bash
-cut -d ',' -f3 customers.json | sort | uniq -c | sort -nr
+
 ```
 
 ##### 3. Unique count
@@ -70,16 +84,26 @@ cut -d',' -f3 events.csv | sort | uniq -c | sort -rn
 
 ```
 
-#### Domain: `docker` (1)
+#### Domain: `docker` (2)
 
-##### 1. Container logs
+##### 1. Build image
+
+- Query: `zbuduj obraz z tagiem webapp:v2.0`
+- Expected (regex): `docker\s+build.*-t.*webapp`
+- Got:
+
+```bash
+docker build -t myapp:latest .
+```
+
+##### 2. Container logs
 
 - Query: `pokaż ostatnie 50 linii logów kontenera redis`
 - Expected (regex): `docker\s+logs.*(redis|--tail|50)`
 - Got:
 
 ```bash
-<tool_call> {"name": "docker_logs", "arguments": {"container_id": "redis:1234567890abcdefghijklmnopqrstuvwxyz", "timestamps": true, "size": 50}}</tool_call>
+<tool_call> {"name": "docker_logs", "arguments": {"container_id": "redis:latest", "size": 50}}</tool_call>
 ```
 
 #### Domain: `git` (1)
@@ -218,11 +242,12 @@ i2cdetect -y 1
 ##### 1. Find large DOCX files
 
 - Query: `wyszukaj pliki DOCX większe niż 5MB w katalogu /home`
+- Error: `empty_response`
 - Expected (regex): `find.*\.docx.*-size`
 - Got:
 
 ```bash
-/home -type f -name '*.docx' -size +5M
+
 ```
 
 ##### 2. Disk usage /tmp
@@ -256,7 +281,7 @@ i2cdetect -y 1
 - Got:
 
 ```bash
-CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255) UNIQUE NOT NULL, telefon VARCHAR(20));
+CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255), telefon VARCHAR(20));
 ```
 
 ### Model: `gemma2:2b`
@@ -296,7 +321,7 @@ cut -d',' -f3 events.csv | sort | uniq -c | sort -rn
 pg_ctl -d status
 ```
 
-#### Domain: `docker` (2)
+#### Domain: `docker` (3)
 
 ##### 1. List containers
 
@@ -309,7 +334,18 @@ pg_ctl -d status
 
 ```
 
-##### 2. Container logs
+##### 2. Build image
+
+- Query: `zbuduj obraz z tagiem webapp:v2.0`
+- Error: `empty_response`
+- Expected (regex): `docker\s+build.*-t.*webapp`
+- Got:
+
+```bash
+
+```
+
+##### 3. Container logs
 
 - Query: `pokaż ostatnie 50 linii logów kontenera redis`
 - Error: `empty_response`
@@ -320,9 +356,20 @@ pg_ctl -d status
 
 ```
 
-#### Domain: `ffmpeg` (2)
+#### Domain: `ffmpeg` (3)
 
-##### 1. Extract audio
+##### 1. Convert to mp4
+
+- Query: `przekonwertuj movie.avi na format mp4`
+- Error: `empty_response`
+- Expected (regex): `ffmpeg.*-i.*(movie\.avi|input).*\.mp4`
+- Got:
+
+```bash
+
+```
+
+##### 2. Extract audio
 
 - Query: `wyciągnij ścieżkę audio z recording.mkv do wav`
 - Error: `empty_response`
@@ -333,7 +380,7 @@ pg_ctl -d status
 
 ```
 
-##### 2. Resize 1080p
+##### 3. Resize 1080p
 
 - Query: `zmień rozdzielczość na 1080p`
 - Error: `empty_response`
@@ -357,13 +404,13 @@ pg_ctl -d status
 
 ```
 
-#### Domain: `presentation` (1)
+#### Domain: `kubernetes` (1)
 
-##### 1. MD to PDF
+##### 1. Scale deployment
 
-- Query: `przekonwertuj CHANGELOG.md na PDF`
+- Query: `skaluj deployment api-server do 3 replik`
 - Error: `empty_response`
-- Expected (regex): `(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf`
+- Expected (regex): `kubectl\s+scale.*replicas.*3`
 - Got:
 
 ```bash
@@ -467,18 +514,6 @@ pg_ctl -d status
 cut -d',' -f4 events.csv | sort | uniq -c | sort -rn
 ```
 
-#### Domain: `package_mgmt` (1)
-
-##### 1. yarn list global
-
-- Query: `wyświetl globalne pakiety yarn`
-- Expected (regex): `(yarn|npm)\s+(list|ls|global list)`
-- Got:
-
-```bash
-yarn global ls
-```
-
 #### Domain: `rag` (1)
 
 ##### 1. Qdrant query
@@ -488,7 +523,7 @@ yarn global ls
 - Got:
 
 ```bash
-python3 -c "import qdrant_client; client = qdrant_client.QdrantClient('http://localhost:6333'); collection_name = 'docs'; results = client.search(collection_name, query_vector=[0.1, 0.2, 0.3], limit=5); print(results)"
+python3 -c "import qdrant_client; client = qdrant_client.QdrantClient('http://localhost:6333'); res = client.search(collection_name='docs', query_vector=[0.1, 0.2, 0.3], limit=5); print(res)"
 ```
 
 #### Domain: `sql` (1)
@@ -527,18 +562,6 @@ cut -d',' -f4 events.csv | sort | uniq -c | sort -nr
 
 ```bash
 yarn global:list
-```
-
-#### Domain: `presentation` (1)
-
-##### 1. MD to PDF
-
-- Query: `przekonwertuj CHANGELOG.md na PDF`
-- Expected (regex): `(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf`
-- Got:
-
-```bash
-markdown -f pdf --output CHANGELOG.pdf CHANGELOG.md
 ```
 
 #### Domain: `sql` (1)

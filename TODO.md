@@ -1,8 +1,8 @@
 # TODO - NLP2CMD Project
 
-> **Diagnostyka:** 2026-02-23 | **Wersja:** 1.1.0-dev | **Moduły:** 129 | **Indeks funkcji:** ~1400+
+> **Diagnostyka:** 2026-02-26 | **Wersja:** 1.0.82 | **Moduły:** ~115 | **Indeks funkcji:** ~1400+
 >
-> Źródło analizy: `project.functions.toon` (2026-02-23T20:35)
+> Źródło analizy: `project.toon` (2026-02-26)
 
 ---
 
@@ -30,16 +30,21 @@ analiza wymaga odwrócenia priorytetów:
 |---------|----------|
 | Keyword match → regex → template → LLM fallback | Schema match → Context build → Intelligent generation → Rule fallback |
 | `generation/` jest zamknięte na siebie | `schema_based/` + `schema_extraction/` + `intelligent/` zintegrowane |
-| `concepts/` (1759 ln) odłączone od pipeline | Koncepty jako warstwa kontekstu w pipeline |
 
 ### Nieużywane/redundantne moduły
 
 | Moduł | Status | Akcja |
 |-------|--------|-------|
-| `semantic_matcher.py` (379 ln) | Nadpisany przez `semantic_matcher_optimized.py` (750 ln) | Usunąć |
-| `concepts/` (5 plików, 1759 ln) | Zero importów w reszcie projektu | Zintegrować lub usunąć |
-| `keywords_old.py` (1715 ln) | Zastąpiony przez `keywords/` pakiet | Usunąć |
-| `core_old.py` (1025 ln) | Zastąpiony przez `core/` pakiet | Usunąć |
+| ~~`semantic_matcher.py`~~ | ✅ Usunięty (Sprint 2) | — |
+| ~~`concepts/`~~ (5 plików, 1759 ln) | ✅ Usunięty (Sprint 3) | — |
+| ~~`contracts/`~~ | ✅ Usunięty (Sprint 3) | — |
+| ~~`nlp/`~~ (stub interfaces) | ✅ Usunięty (Sprint 3) | — |
+| ~~`interfaces/`~~ | ✅ Usunięty (Sprint 3) | — |
+| ~~`keywords_old.py`~~ | ✅ Usunięty (Sprint 2) | — |
+| ~~`core_old.py`~~ | ✅ Usunięty (Sprint 2) | — |
+| ~~`shell_original.py`~~ (1926 ln) | ✅ Usunięty (Sprint 3) | — |
+| ~~`main_original.py`~~ (1037 ln) | ✅ Usunięty (Sprint 3) | — |
+| ~~`__init___original.py`~~ (1595 ln) | ✅ Usunięty (Sprint 3) | — |
 
 ---
 
@@ -67,24 +72,26 @@ analiza wymaga odwrócenia priorytetów:
 
 ---
 
-## 🔥 NATYCHMIASTOWE (Sprint 3 — teraz)
+## ✅ Ukończone — Sprint 3 (2026-02-26)
 
-### 1. Cleanup plików _old
-- [ ] Usuń `core_old.py`, `keywords_old.py`
-- [ ] Zweryfikuj `py_compile` i testy po usunięciu
+### Bug Fix: Browser Automation
+- [x] **Fix `transform_ir()` dsl_kind mapping**: `BrowserAdapter.DSL_NAME='browser'` → `dsl_kind='dom'`
+- [x] **Prefer adapter's pre-built ActionIR**: `BrowserAdapter.last_action_ir` used directly in `transform_ir()`
+- [x] **Root cause**: JSON DSL was executed as shell command via `subprocess.run()`, causing `[Errno 2]`
+- [x] **Regression tests**: 2 tests in `TestBrowserAdapterTransformIR`
 
-### 2. Usuń redundantny `semantic_matcher.py`
-- [ ] Zamień importy na `semantic_matcher_optimized`
-- [ ] Usuń `generation/semantic_matcher.py` (379 ln)
+### Dead Code Cleanup (~4,543 lines removed)
+- [x] Usuń `shell_original.py` (1926 ln), `main_original.py` (1037 ln), `__init___original.py` (1595 ln)
+- [x] Usuń `concepts/` (5 plików, 1759 ln) — zero importów
+- [x] Usuń `contracts/` (1 plik, 10 ln) — zero importów
+- [x] Usuń `nlp/` (4 pliki, 145 ln) — stub interfaces, zero importów
+- [x] Usuń `interfaces/` (4 pliki, 71 ln) — zero importów
+- [x] Usuń `test_ollama_speed.py` (pusty), `test_conceptual_commands.py` (osierocony test)
+- [x] Testy: 1072 passed, 0 failed
 
-### 3. Konsolidacja README
-- [ ] Połącz `README.md` + `ENHANCED_README.md` → jeden dokument < 400 ln
-- [ ] Przenieś szczegóły do `docs/architecture.md`
-
-### 4. Konsolidacja JSON/YAML → TOON
-- [ ] Zdefiniuj `project.unified.toon` z sekcjami: patterns, templates, config
-- [ ] Przenieś `patterns.json`, `keyword_intent_detector_config.json`, `template_defaults.json`
-- [ ] Użyj istniejącego `parsing/toon_parser.py` (22 fn) do ładowania
+### Remaining Sprint 3 items
+- [ ] Konsolidacja README (`README.md` + `ENHANCED_README.md` → jeden dokument)
+- [ ] Konsolidacja JSON/YAML → TOON
 
 ---
 
@@ -99,7 +106,7 @@ User Query
     → Czy query pasuje do znanego schematu komendy?
     → Jeśli TAK: generuj bezpośrednio z schematu (wysoka pewność)
     ↓ jeśli NIE
-[2] Intelligent Context Builder (concepts/ + intelligent/)
+[2] Intelligent Context Builder (intelligent/)
     → Buduj kontekst: co user chce, jaki obiekt, jakie parametry
     → Semantic similarity do znanych wzorców
     ↓
@@ -116,8 +123,7 @@ User Query
 - [ ] Przenieś `schema_based/` do `generation/schema/` (bliskość z pipeline)
 - [ ] Zintegruj `intelligent/` z pipeline jako pre-processing
 - [ ] Dodaj `SchemaRegistry.match(query)` jako pierwszy krok w `RuleBasedPipeline.process()`
-- [ ] `concepts/` — zintegruj `semantic_objects` i `dependency_resolver` jako context layer
-- [ ] Usuń lub zarchiwizuj nieużywane: `concepts/virtual_objects.py`, `concepts/environment.py`
+- [ ] Split `cli/main.py` (~1900 ln) → modularny pakiet cli/
 
 ### Unifikacja matcherów
 - [ ] Jedno API: `IntentMatcher.match(text) → MatchResult`
@@ -170,7 +176,9 @@ User Query
 ### v1.1.0 ← **TERAZ** (cleanup + refactor monolitów)
 - [x] Rozbicie templates.py, keywords.py, core.py
 - [x] Naprawy CLI (browser, history, auto-install)
-- [ ] Usunięcie _old.py, redundantnych matcherów
+- [x] Usunięcie _old.py, _original.py, redundantnych matcherów
+- [x] Usunięcie dead code: concepts/, contracts/, nlp/, interfaces/ (~4.5K ln)
+- [x] Fix browser automation (transform_ir dsl_kind mapping)
 - [ ] Konsolidacja README
 - [ ] Konsolidacja JSON → TOON
 
@@ -188,17 +196,15 @@ User Query
 
 ---
 
-## 📊 Statystyki projektu (2026-02-23)
+## 📊 Statystyki projektu (2026-02-26)
 
-- **129 modułów** Python w `src/`
+- **~115 modułów** Python w `src/` (było 129, usunięto 14 dead files)
 - **~12,300 linii** w `generation/` (20 plików)
-- **~7,800 linii** w schema/intelligent/concepts (odłączone)
+- **~4,543 linii** dead code usunięte w Sprint 3
 - **Kluczowe metryki**:
+  - `cli/main.py`: ~1900 ln — kandydat do split w Sprint 4
   - `pipeline.py`: 32 fn, CC do 34
   - `template_generator.py`: 38 fn
   - `keyword_detector.py`: 18 fn (po split z 46)
-  - `adapters/shell.py`: 120 fn (2311 ln) — kandydat do split w v1.2.0
-
-
-nlp2cmd -r "otwórz https://www.prototypowanie.pl/kontakt/ i wypełnij formularz i wyślij"
-nlp2cmd -r "otwórz https://softreck.com/contact/ i wypełnij formularz i wyślij"
+  - `adapters/shell.py`: 345 ln (po split z 2311 ln w Sprint 2)
+- **Testy**: 1072 passed, 0 failed, 385 deselected

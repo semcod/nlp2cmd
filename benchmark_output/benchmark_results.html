@@ -38,7 +38,7 @@
 <body>
 <div class="container">
   <h1>🧪 NLP2CMD LLM Benchmark</h1>
-  <p class="subtitle">4 lokalne modele ≤3B • 6 domen nlp2cmd • 188 zapytań • 2026-02-26T21:45:35</p>
+  <p class="subtitle">4 lokalne modele ≤3B • 6 domen nlp2cmd • 188 zapytań • 2026-02-26T21:50:06</p>
 
   <!-- Summary cards -->
   <div class="cards">
@@ -49,13 +49,13 @@
     </div>
     <div class="card">
       <div class="label">Trafność ogólna</div>
-      <div class="value">76.1%</div>
-      <div class="detail">143 / 188 trafień wzorca</div>
+      <div class="value">75.0%</div>
+      <div class="detail">141 / 188 trafień wzorca</div>
     </div>
     <div class="card">
       <div class="label">Średni czas odpowiedzi</div>
-      <div class="value">0.248s</div>
-      <div class="detail">Łączny czas: 39.8s</div>
+      <div class="value">0.244s</div>
+      <div class="detail">Łączny czas: 37.8s</div>
     </div>
   </div>
 
@@ -64,23 +64,23 @@
   <div class="cards">
     <div class="card">
       <div class="label">Bielik-1.5B (PL) (1.5B)</div>
-      <div class="value">55.3%</div>
-      <div class="detail">Śr. czas: 0.282s · Min: 0.062s · Max: 0.78s</div>
+      <div class="value">51.1%</div>
+      <div class="detail">Śr. czas: 0.271s · Min: 0.088s · Max: 0.61s</div>
     </div>
     <div class="card">
       <div class="label">Qwen2.5-3B (3B)</div>
-      <div class="value">91.5%</div>
-      <div class="detail">Śr. czas: 0.248s · Min: 0.065s · Max: 0.641s</div>
+      <div class="value">93.6%</div>
+      <div class="detail">Śr. czas: 0.25s · Min: 0.066s · Max: 0.822s</div>
     </div>
     <div class="card">
       <div class="label">Gemma2-2B (2B)</div>
-      <div class="value">66.0%</div>
-      <div class="detail">Śr. czas: 0.235s · Min: 0.093s · Max: 0.667s</div>
+      <div class="value">61.7%</div>
+      <div class="detail">Śr. czas: 0.22s · Min: 0.092s · Max: 0.612s</div>
     </div>
     <div class="card">
       <div class="label">Qwen2.5-Coder-3B (3B)</div>
-      <div class="value">91.5%</div>
-      <div class="detail">Śr. czas: 0.235s · Min: 0.081s · Max: 0.888s</div>
+      <div class="value">93.6%</div>
+      <div class="detail">Śr. czas: 0.237s · Min: 0.083s · Max: 0.804s</div>
     </div>
   </div>
 
@@ -115,194 +115,194 @@
       <tr><th>Model</th><th>Domena</th><th>Zapytanie</th><th>Komenda</th><th>Trafność</th><th>Czas (s)</th></tr>
     </thead>
     <tbody>
-      <tr><td>Bielik-1.5B (PL)</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">/home -type f -name '*.docx' -size +5M</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.286</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.056</td></tr>
       <tr><td>Bielik-1.5B (PL)</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.044</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.043</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd">docker ps -a</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.077</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t webapp:v2.0 .</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.19</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd"><tool_call> {"name": "docker_logs", "arguments": {"container_id": "redis:1234567…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.78</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd">SELECT * FROM customers WHERE city = 'Kraków';</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.256</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd">SELECT DATE_TRUNC('week', created_at) AS week, COUNT(*) FROM orders GROUP BY wee…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.418</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd">CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255) UNIQ…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.622</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.142</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.239</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.159</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.221</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open "https://www.google.com/search?q=rust+programming"</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.319</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log --oneline --since=1 day</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.184</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout bugfix/auth-error</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.178</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m 'update feat: dodaj API'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.276</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.048</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.042</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.062</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s "https://api.github.com/repos"</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.273</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H 'Content-Type: application/json' -d '{"username": "example", "pa…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.69</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -o /dev/null -s -w '%{http_code}' https://google.com</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.34</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi -vf scale=-1:720 output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.307</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd">ffmpeg -i recording.mkv -vn -acodec libmp3lamé output.wav</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.336</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd">ffmpeg -i input.mp4 -vf scale=-1:1920 output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.306</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert img.png -resize 1024x768 output.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.297</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">convert photo.jpg -format png output.png</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.219</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -thumbnail 200x200 output.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.289</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.054</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd">cut -d ',' -f3 customers.json | sort | uniq -c | sort -nr</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.335</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f3 events.csv | sort | uniq -c | sort -rn</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.298</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.053</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.043</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.044</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.05</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd">i2cdetect -y 1</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.12</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humiditiesensor/temperature -m '22.5'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.36</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.152</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.09</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd">docker ps -a</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.088</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t myapp:latest .</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.174</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd"><tool_call> {"name": "docker_logs", "arguments": {"container_id": "redis:latest"…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.458</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd">SELECT * FROM customers WHERE city = 'Kraków';</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.261</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd">SELECT DATE_TRUNC('week', created_at) AS week, COUNT(*) FROM sales GROUP BY week…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.42</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd">CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255), tel…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.525</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.144</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.241</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.173</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.227</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open "https://www.google.com/search?q=rus t programming"</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.328</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log --oneline --since=1 day</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.196</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout bugfix/auth-error</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.185</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m 'update feat: dodaj API'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.29</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.05</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.045</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform init terraform plan terraform apply</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.192</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s "https://api.github.com/repos"</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.303</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.047</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -o /dev/null -s -w '%{http_code}' https://google.com</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.368</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi -vf scale=-1:720 output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.31</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd">ffmpeg -i recording.mkv -vn -acodec libmp3lamé output.wav</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.338</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd">ffmpeg -i input.mp4 -vf scale=-1:1080 output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.313</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert img.png -resize 1024x768 output.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.306</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">convert photo1.jpeg photo1.png convert photo2.jpeg photo2.png ... i tak dalej dl…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.61</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -thumbnail 200x200 output.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.291</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.056</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f3 events.csv | sort | uniq -c | sort -rn</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.301</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.056</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.047</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.055</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd">i2cdetect -y 1</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.121</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humiditiesensor/temperature -m '22.5'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.357</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.158</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.091</td></tr>
       <tr><td>Bielik-1.5B (PL)</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.043</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.075</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.044</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.044</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">markdown to pdf -> pandoc CHANGELOG.md -o CHANGELOG.pdf</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.336</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.045</td></tr>
-      <tr><td>Bielik-1.5B (PL)</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -o plantuml.svg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.154</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">find /home -type f -name '*.docx' -size +5M</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.268</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd">df -h /tmp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.1</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd">ps aux --sort=-%cpu | head -n 15</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.213</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd">docker ps -a --filter="status=exited" --format "table {{.ID}}\t{{.Image}}\t{{.Co…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.511</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t webapp:v2.0 .</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.177</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd">docker logs --tail 50 redis</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.133</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd">SELECT * FROM users WHERE city = 'Krakow';</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.207</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd">SELECT DATE_TRUNC('week', created_at) AS w, COUNT(*) FROM orders GROUP BY w;</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.288</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd">CREATE TABLE klienci (id SERIAL PRIMARY KEY, email VARCHAR(255), telefon VARCHAR…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.341</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.125</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.163</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.074</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.045</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">pandoc CHANGELOG.md -o CHANGELOG.pdf</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.259</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Bielik-1.5B (PL)</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml2svg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.096</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">find /home -type f -name '*.docx' -size +5M</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.263</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd">du -sh /tmp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.104</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd">ps aux --sort=-%cpu | head -n 15</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.216</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd">docker ps -a --filter="status=exited" --format "table {{.ID}}\t{{.Image}}\t{{.Co…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.513</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t webapp:v2.0 .</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.175</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd">docker logs --tail 50 redis</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.136</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd">SELECT * FROM users WHERE city = 'Krakow';</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.216</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd">SELECT DATE_TRUNC('week', created_at) AS w, COUNT(*) FROM orders GROUP BY w;</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.287</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd">CREATE TABLE klienci (id SERIAL PRIMARY KEY, email VARCHAR(255), telefon VARCHAR…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.338</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.128</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.167</td></tr>
       <tr><td>Qwen2.5-3B</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789 -n production</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.173</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.165</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.164</td></tr>
       <tr><td>Qwen2.5-3B</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open 'https://www.google.com/search?q=rust+programming'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.236</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log -20 --oneline</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.151</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout -b bugfix/auth-error</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.144</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m 'feat: dodaj API'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.25</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log -20 --oneline</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.157</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout -b bugfix/auth-error</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.139</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m 'feat: dodaj API'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.242</td></tr>
       <tr><td>Qwen2.5-3B</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd">systemctl status postgresql</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.112</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd">ansible-playbook -i inventory setup.yml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.136</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.065</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s https://api.github.com/repos</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.176</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H 'Content-Type: application/json' -d '{"username":"user123", "ema…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.569</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -o /dev/null -s -w "%{http_code}" https://google.com</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.269</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi -c:v libx264 -crf 23 -c:a aac output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.398</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd">ffmpeg -i recording.mkv -vn -acodec pcm_s16le out.wav</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.282</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd">ffmpeg -i input.mp4 -vf "scale=1920:1080" output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.331</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert image.png -resize 1024x768\> image_resized.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.318</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">mogrify -format png *.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.138</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -thumbnail 200x200 logo_miniature.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.251</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd">python pandas_sales_statistics.py sales.csv</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.149</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd">jq '.[] | select(.salary > 5000)' customers.json</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.242</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f4 events.csv | sort | uniq -c | sort -nr</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.272</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd">ssh root@10.0.0.50</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.203</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd">rsync -avz archive.zip admin@server:/home/user/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.211</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd">rsync -avz /opt/app admin@192.168.1.100:/opt/app</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.357</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd">temp sensor 0</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.118</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd">i2cdetect -y 0</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.138</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humidity -m '45'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.275</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.158</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.092</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd">yarn global:list</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.107</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd">curl -X POST http://localhost:6338/vectors/ -H "Content-Type: application/json" …</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.503</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd">curl -s http://localhost:11434/api/embed -d '{"model":"sentence-transformers/all…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.527</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd">python3 -c "from langchain.document_loaders import UnstructuredMarkdownLoader; p…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.508</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">markdown -f pdf --output CHANGELOG.pdf CHANGELOG.md</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.23</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd">python3 -c "import pandas as pd,matplotlib.pyplot as plt;df = pd.read_csv('data.…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.641</td></tr>
-      <tr><td>Qwen2.5-3B</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -p -tsvg input.pu > output.svg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.22</td></tr>
-      <tr><td>Gemma2-2B</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">find /home -type f -name "*.docx" -size +5M</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.29</td></tr>
-      <tr><td>Gemma2-2B</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd">df -h /tmp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.143</td></tr>
-      <tr><td>Gemma2-2B</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.064</td></tr>
-      <tr><td>Gemma2-2B</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.053</td></tr>
-      <tr><td>Gemma2-2B</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t webapp:v2.0 .</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.21</td></tr>
-      <tr><td>Gemma2-2B</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.045</td></tr>
-      <tr><td>Gemma2-2B</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.059</td></tr>
-      <tr><td>Gemma2-2B</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.047</td></tr>
-      <tr><td>Gemma2-2B</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.047</td></tr>
-      <tr><td>Gemma2-2B</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.143</td></tr>
-      <tr><td>Gemma2-2B</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.185</td></tr>
-      <tr><td>Gemma2-2B</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.164</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd">ansible-playbook -i inventory setup.yml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.139</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.066</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s https://api.github.com/repos</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.173</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H 'Content-Type: application/json' -d '{"username":"user123", "ema…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.57</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -o /dev/null -s -w "%{http_code}" https://google.com</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.275</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi -c:v libx264 -crf 23 -c:a aac output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.394</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd">ffmpeg -i recording.mkv -vn -acodec pcm_s16le out.wav</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.277</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd">ffmpeg -i input.mp4 -vf "scale=-1:1080" output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.297</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert image.png -resize 1024x768\> image_resized.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.308</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">mogrify -format png *.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.14</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -thumbnail 200x200 logo_miniature.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.252</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd">python pandas sales.csv stats = sales.csv | python -m pandas.stats.descriptive</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.256</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd">jq '.[] | select(.salary > 5000)' customers.json</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.235</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f4 events.csv | sort | uniq -c | sort -nr</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.271</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd">ssh root@10.0.0.50</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.206</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd">rsync -avz archive.zip admin@server:/home/user/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.206</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd">rsync -avz /opt/app admin@192.168.1.100:/opt/app</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.356</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd">temp sensor 0</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.103</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd">i2cdetect -y 0</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.14</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humidity -m '45.6'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.287</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.136</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.084</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd">yarn global:list</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.092</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd">curl -X POST "http://localhost:6338/query" -H "Content-Type: application/json" -…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.822</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd">curl -s http://localhost:11434/api/embed -d '{"model":"sentence-transformers/all…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.476</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd">python3 -c "from langchain.document_loaders import UnstructuredMarkdownLoader; p…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.457</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">pandoc CHANGELOG.md -o CHANGELOG.pdf</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.19</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd">python3 -c "import pandas as pd,matplotlib.pyplot as plt;df = pd.read_csv('data.…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.596</td></tr>
+      <tr><td>Qwen2.5-3B</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -p -tsvg inputFile.pu outputFile.svg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.192</td></tr>
+      <tr><td>Gemma2-2B</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">find /home -type f -name "*.docx" -size +5M</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.275</td></tr>
+      <tr><td>Gemma2-2B</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd">df -h /tmp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.131</td></tr>
+      <tr><td>Gemma2-2B</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Gemma2-2B</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.055</td></tr>
+      <tr><td>Gemma2-2B</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.045</td></tr>
+      <tr><td>Gemma2-2B</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.049</td></tr>
+      <tr><td>Gemma2-2B</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.055</td></tr>
+      <tr><td>Gemma2-2B</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.049</td></tr>
+      <tr><td>Gemma2-2B</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Gemma2-2B</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.151</td></tr>
+      <tr><td>Gemma2-2B</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.044</td></tr>
+      <tr><td>Gemma2-2B</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.165</td></tr>
       <tr><td>Gemma2-2B</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.204</td></tr>
-      <tr><td>Gemma2-2B</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open 'https://www.google.com/search?q=rust+programming'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.31</td></tr>
-      <tr><td>Gemma2-2B</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log -n 20</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.161</td></tr>
-      <tr><td>Gemma2-2B</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout -b bugfix/auth-error</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.186</td></tr>
-      <tr><td>Gemma2-2B</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m "feat: dodaj API"</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.257</td></tr>
-      <tr><td>Gemma2-2B</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd">pg_ctl -d status</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.143</td></tr>
-      <tr><td>Gemma2-2B</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd">ansible-playbook setup.yml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.148</td></tr>
-      <tr><td>Gemma2-2B</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.093</td></tr>
-      <tr><td>Gemma2-2B</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s https://api.github.com/repos</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.228</td></tr>
-      <tr><td>Gemma2-2B</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H "Content-Type: application/json" -d '{"name": "John Doe", "email…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.667</td></tr>
-      <tr><td>Gemma2-2B</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -s https://google.com | head -c 1 | awk '{print $2}'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.35</td></tr>
-      <tr><td>Gemma2-2B</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.273</td></tr>
-      <tr><td>Gemma2-2B</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
-      <tr><td>Gemma2-2B</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.043</td></tr>
-      <tr><td>Gemma2-2B</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert image.png -resize 1024x768 output.png</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.292</td></tr>
-      <tr><td>Gemma2-2B</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">convert *.jpg png</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.116</td></tr>
-      <tr><td>Gemma2-2B</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -resize 200x200 thumbnail.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.265</td></tr>
-      <tr><td>Gemma2-2B</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd">csvstat sales.csv</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.148</td></tr>
-      <tr><td>Gemma2-2B</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.047</td></tr>
-      <tr><td>Gemma2-2B</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f3 events.csv | sort | uniq -c | sort -rn</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.292</td></tr>
-      <tr><td>Gemma2-2B</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd">ssh root@10.0.0.50</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.209</td></tr>
-      <tr><td>Gemma2-2B</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd">scp archive.zip admin@server:/home/user/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.214</td></tr>
-      <tr><td>Gemma2-2B</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd">rsync -avz /opt/app admin@server:/opt/app/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.263</td></tr>
-      <tr><td>Gemma2-2B</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd">vcgencmd measure_temp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.147</td></tr>
-      <tr><td>Gemma2-2B</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.07</td></tr>
-      <tr><td>Gemma2-2B</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humidity -m '70'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.326</td></tr>
-      <tr><td>Gemma2-2B</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.189</td></tr>
-      <tr><td>Gemma2-2B</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.14</td></tr>
-      <tr><td>Gemma2-2B</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd">npm list -g yarn</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.166</td></tr>
-      <tr><td>Gemma2-2B</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.089</td></tr>
-      <tr><td>Gemma2-2B</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.068</td></tr>
-      <tr><td>Gemma2-2B</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.067</td></tr>
-      <tr><td>Gemma2-2B</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.085</td></tr>
-      <tr><td>Gemma2-2B</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd">python3 -c "import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('data.csv')…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.587</td></tr>
-      <tr><td>Gemma2-2B</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -t svg plantuml_diagram.puml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.236</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">find /home -type f -name "*.docx" -size +5M</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.295</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd">df -h /tmp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.122</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd">ps aux --sort=-%cpu | head -n 16</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.249</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd">docker ps -a</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.123</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t webapp:v2.0 .</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.18</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd">docker logs --tail 50 redis</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.144</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd">SELECT * FROM customers WHERE city = 'Kraków'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.234</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd">SELECT DATE_TRUNC('week', created_at) AS w, SUM(amount * price) AS total_sales F…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.372</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd">CREATE TABLE klienci (id SERIAL PRIMARY KEY, email VARCHAR(255), telefon VARCHAR…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.345</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.14</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.167</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.146</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.164</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open 'https://www.google.com/search?q=rust+programming'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.25</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log --oneline -20</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.148</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout -b bugfix/auth-error</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.138</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m 'feat: dodaj API'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.235</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd">systemctl status postgresql</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.112</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd">ansible-playbook setup.yml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.101</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan -out=plan.out</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.129</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s https://api.github.com/repos</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.171</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H 'Content-Type: application/json' -d '{"username":"john_doe","pas…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.453</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -o /dev/null -s -w '%{http_code}' https://google.com</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.28</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.173</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd">ffmpeg -i recording.mkv -vn -acodec pcm_s16le -ar 44100 output.wav</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.366</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd">ffmpeg -i input.mp4 -vf scale=-1:1080 output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.27</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert image.png -resize 1024x768 output.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.264</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">mogrify -format png *.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.139</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -thumbnail 200x200 thumb_logo.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.238</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd">csvstat sales.csv</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.105</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd">jq '.[] | select(.salary > 5000)' customers.json</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.234</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f4 events.csv | sort | uniq -c | sort -rn</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.274</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd">ssh root@10.0.0.50</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.201</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd">scp archive.zip user@192.168.1.100:/home/user/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.302</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd">rsync -avz /opt/app user@remote_host:/path/to/destination/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.255</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd">vcgencmd measure_temp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.126</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd">i2cdetect -y 0</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.143</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humidity -m '45'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.26</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.134</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.081</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd">yarn global ls</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.091</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd">python3 -c "import qdrant_client; client = qdrant_client.QdrantClient('http://lo…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.888</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd">python3 -c "from sentence_transformers import SentenceTransformer; model = Sente…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.563</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd">python3 -c "from langchain.document_loaders import DirectoryLoader; print(len(Di…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.45</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">pandoc CHANGELOG.md -o CHANGELOG.pdf</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.193</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd">python3 -c "import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('data.csv')…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.419</td></tr>
-      <tr><td>Qwen2.5-Coder-3B</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -tsvg diagram.puml -o diagram.svg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.188</td></tr>
+      <tr><td>Gemma2-2B</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open 'https://www.google.com/search?q=rust+programming'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.311</td></tr>
+      <tr><td>Gemma2-2B</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log -n 20</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.16</td></tr>
+      <tr><td>Gemma2-2B</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout -b bugfix/auth-error</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.185</td></tr>
+      <tr><td>Gemma2-2B</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m "feat: dodaj API"</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.252</td></tr>
+      <tr><td>Gemma2-2B</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd">pg_ctl -d status</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.14</td></tr>
+      <tr><td>Gemma2-2B</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd">ansible-playbook setup.yml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.15</td></tr>
+      <tr><td>Gemma2-2B</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.092</td></tr>
+      <tr><td>Gemma2-2B</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s https://api.github.com/repos</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.223</td></tr>
+      <tr><td>Gemma2-2B</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H "Content-Type: application/json" -d '{"name": "John Doe", "email…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.612</td></tr>
+      <tr><td>Gemma2-2B</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -s https://google.com | head</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.184</td></tr>
+      <tr><td>Gemma2-2B</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.06</td></tr>
+      <tr><td>Gemma2-2B</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.045</td></tr>
+      <tr><td>Gemma2-2B</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Gemma2-2B</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert image.png -resize 1024x768 output.png</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.295</td></tr>
+      <tr><td>Gemma2-2B</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">convert *.jpg png</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.119</td></tr>
+      <tr><td>Gemma2-2B</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -thumbnail 200x200 mini_logo.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.287</td></tr>
+      <tr><td>Gemma2-2B</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd">csvstat sales.csv</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.136</td></tr>
+      <tr><td>Gemma2-2B</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.046</td></tr>
+      <tr><td>Gemma2-2B</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f3 events.csv | sort | uniq -c | sort -rn</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.297</td></tr>
+      <tr><td>Gemma2-2B</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd">ssh root@10.0.0.50</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.222</td></tr>
+      <tr><td>Gemma2-2B</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd">scp archive.zip admin@server:/home/user/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.207</td></tr>
+      <tr><td>Gemma2-2B</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd">rsync -avz /opt/app admin@server:/opt/app/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.257</td></tr>
+      <tr><td>Gemma2-2B</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd">vcgencmd measure_temp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.145</td></tr>
+      <tr><td>Gemma2-2B</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.047</td></tr>
+      <tr><td>Gemma2-2B</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humidity -m '70.2'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.316</td></tr>
+      <tr><td>Gemma2-2B</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.155</td></tr>
+      <tr><td>Gemma2-2B</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.103</td></tr>
+      <tr><td>Gemma2-2B</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd">npm list -g yarn</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.125</td></tr>
+      <tr><td>Gemma2-2B</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.068</td></tr>
+      <tr><td>Gemma2-2B</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.048</td></tr>
+      <tr><td>Gemma2-2B</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd"></span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.048</td></tr>
+      <tr><td>Gemma2-2B</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">pandoc CHANGELOG.md -o changelog.pdf</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.222</td></tr>
+      <tr><td>Gemma2-2B</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd">python3 -c "import pandas as pd;pd.read_csv('data.csv').plot(kind='line');plt.sa…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.475</td></tr>
+      <tr><td>Gemma2-2B</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -t svg plantuml_diagram.puml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.212</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>shell</td><td>wyszukaj pliki DOCX większe niż 5MB w katalogu /ho</td><td><span class="cmd">find /home -type f -name '*.docx' -size +5M</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.253</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>shell</td><td>sprawdź zajętość dysku w /tmp</td><td><span class="cmd">df -h /tmp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.099</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>shell</td><td>wyświetl 15 procesów zużywających najwięcej CPU</td><td><span class="cmd">ps aux --sort=-%cpu | head -n 16</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.202</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>docker</td><td>wyświetl wszystkie zatrzymane kontenery</td><td><span class="cmd">docker ps -a</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.099</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>docker</td><td>zbuduj obraz z tagiem webapp:v2.0</td><td><span class="cmd">docker build -t webapp:v2.0 .</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.165</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>docker</td><td>pokaż ostatnie 50 linii logów kontenera redis</td><td><span class="cmd">docker logs --tail 50 redis</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.136</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>sql</td><td>wybierz klientów z Krakowa</td><td><span class="cmd">SELECT * FROM customers WHERE city = 'Kraków'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.199</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>sql</td><td>policz sprzedaż pogrupowaną po tygodniu</td><td><span class="cmd">SELECT DATE_TRUNC('week', created_at) AS w, SUM(amount * price) AS total_sales F…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.33</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>sql</td><td>stwórz tabelę klienci z polami id, email, telefon</td><td><span class="cmd">CREATE TABLE klienci (id SERIAL PRIMARY KEY, email VARCHAR(255), telefon VARCHAR…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.319</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>kubernetes</td><td>wyświetl pody w namespace staging</td><td><span class="cmd">kubectl get pods -n staging</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.126</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>kubernetes</td><td>skaluj deployment api-server do 3 replik</td><td><span class="cmd">kubectl scale deployment api-server --replicas=3</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.152</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>kubernetes</td><td>pokaż logi poda postgres-xyz789</td><td><span class="cmd">kubectl logs postgres-xyz789</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.131</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>browser</td><td>otwórz stronę https://stackoverflow.com</td><td><span class="cmd">xdg-open 'https://stackoverflow.com'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.156</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>browser</td><td>wyszukaj w Google 'rust programming'</td><td><span class="cmd">xdg-open 'https://www.google.com/search?q=rust+programming'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.225</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>git</td><td>wyświetl ostatnie 20 commitów</td><td><span class="cmd">git log --oneline -20</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.144</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>git</td><td>stwórz branch bugfix/auth-error</td><td><span class="cmd">git checkout -b bugfix/auth-error</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.135</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>git</td><td>dodaj wszystko i commituj z opisem 'feat: dodaj AP</td><td><span class="cmd">git add -A && git commit -m 'feat: dodaj API'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.23</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>devops</td><td>sprawdź czy działa usługa postgresql</td><td><span class="cmd">systemctl status postgresql</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.108</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>devops</td><td>uruchom playbook setup.yml</td><td><span class="cmd">ansible-playbook setup.yml</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.099</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>devops</td><td>zaplanuj zmiany w Terraform</td><td><span class="cmd">terraform plan -out=tfplan</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.109</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>api</td><td>wyślij GET do https://api.github.com/repos</td><td><span class="cmd">curl -s https://api.github.com/repos</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.172</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>api</td><td>wyślij POST z danymi JSON na /api/register</td><td><span class="cmd">curl -X POST -H 'Content-Type: application/json' -d '{"username":"john_doe", "pa…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.485</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>api</td><td>sprawdź status HTTP strony https://google.com</td><td><span class="cmd">curl -o /dev/null -s -w '%{http_code}' https://google.com</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.275</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>ffmpeg</td><td>przekonwertuj movie.avi na format mp4</td><td><span class="cmd">ffmpeg -i movie.avi output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.181</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>ffmpeg</td><td>wyciągnij ścieżkę audio z recording.mkv do wav</td><td><span class="cmd">ffmpeg -i recording.mkv -vn -acodec pcm_s16le -ar 44100 output.wav</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.403</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>ffmpeg</td><td>zmień rozdzielczość na 1080p</td><td><span class="cmd">ffmpeg -i input.mp4 -vf scale=-1:1080 output.mp4</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.292</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>media</td><td>przeskaluj image.png do 1024x768</td><td><span class="cmd">convert image.png -resize 1024x768 output.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.279</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>media</td><td>zamień wszystkie JPEG na PNG</td><td><span class="cmd">mogrify -format png *.jpg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.133</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>media</td><td>stwórz miniaturę 200x200 z logo.jpg</td><td><span class="cmd">convert logo.jpg -resize 200x200 thumb.png</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.23</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>data</td><td>wyświetl statystyki pliku sales.csv</td><td><span class="cmd">csvstat sales.csv</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.123</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>data</td><td>filtruj customers.json po salary powyżej 5000</td><td><span class="cmd">jq '.[] | select(.salary > 5000)' customers.json</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.251</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>data</td><td>policz unikalne wartości w kolumnie type z events.</td><td><span class="cmd">cut -d',' -f4 events.csv | sort | uniq -c | sort -rn</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.294</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>remote</td><td>zaloguj się przez SSH na 10.0.0.50 jako root</td><td><span class="cmd">ssh root@10.0.0.50</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.221</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>remote</td><td>prześlij archive.zip na serwer do /home/user</td><td><span class="cmd">scp archive.zip user@192.168.1.100:/home/user/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.33</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>remote</td><td>synchronizuj /opt/app na zdalną maszynę</td><td><span class="cmd">rsync -avz /opt/app user@remote_host:/path/to/destination/</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.271</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>iot</td><td>sprawdź temperaturę procesora Raspberry Pi</td><td><span class="cmd">vcgencmd measure_temp</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.125</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>iot</td><td>skanuj urządzenia I2C na szynie 0</td><td><span class="cmd">i2cdetect -y 0</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.147</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>iot</td><td>opublikuj MQTT na topic home/humidity</td><td><span class="cmd">mosquitto_pub -h localhost -t home/humidity -m '45'</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.273</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>package_mgmt</td><td>zainstaluj python3-pip przez apt</td><td><span class="cmd">sudo apt-get update && sudo apt-get install python3-pip</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.201</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>package_mgmt</td><td>zainstaluj numpy przez pip</td><td><span class="cmd">pip install numpy</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.083</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>package_mgmt</td><td>wyświetl globalne pakiety yarn</td><td><span class="cmd">yarn global list</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.088</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>rag</td><td>przeszukaj Qdrant w poszukiwaniu 'deep learning'</td><td><span class="cmd">python3 -c "import qdrant_client; client = qdrant_client.QdrantClient('http://lo…</span></td><td><span class="badge badge-fail">❌ NIE</span></td><td>0.804</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>rag</td><td>wygeneruj embeddingi przez model sentence-transfor</td><td><span class="cmd">curl -s https://api-inference.huggingface.co/models/sentence-transformers/all-Mi…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.552</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>rag</td><td>zaindeksuj pliki Markdown z /content</td><td><span class="cmd">python3 -c "from langchain.document_loaders import DirectoryLoader; from langcha…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.694</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>presentation</td><td>przekonwertuj CHANGELOG.md na PDF</td><td><span class="cmd">pandoc CHANGELOG.md -o CHANGELOG.pdf</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.189</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>presentation</td><td>stwórz wykres liniowy z data.csv</td><td><span class="cmd">python3 -c "import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('data.csv')…</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.417</td></tr>
+      <tr><td>Qwen2.5-Coder-3B</td><td>presentation</td><td>wyrenderuj PlantUML do SVG</td><td><span class="cmd">plantuml -tsvg diagram.puml -o diagram.svg</span></td><td><span class="badge badge-ok">✅ TAK</span></td><td>0.187</td></tr>
     </tbody>
   </table>
   </div>
@@ -317,45 +317,45 @@
         "display": "Bielik-1.5B (PL)",
         "params": "1.5B",
         "total": 47,
-        "matched": 26,
-        "accuracy_pct": 55.3,
-        "errors": 14,
-        "avg_response_sec": 0.282,
-        "min_response_sec": 0.062,
-        "max_response_sec": 0.78
+        "matched": 24,
+        "accuracy_pct": 51.1,
+        "errors": 17,
+        "avg_response_sec": 0.271,
+        "min_response_sec": 0.088,
+        "max_response_sec": 0.61
       },
       "qwen2.5:3b": {
         "display": "Qwen2.5-3B",
         "params": "3B",
         "total": 47,
-        "matched": 43,
-        "accuracy_pct": 91.5,
+        "matched": 44,
+        "accuracy_pct": 93.6,
         "errors": 0,
-        "avg_response_sec": 0.248,
-        "min_response_sec": 0.065,
-        "max_response_sec": 0.641
+        "avg_response_sec": 0.25,
+        "min_response_sec": 0.066,
+        "max_response_sec": 0.822
       },
       "gemma2:2b": {
         "display": "Gemma2-2B",
         "params": "2B",
         "total": 47,
-        "matched": 31,
-        "accuracy_pct": 66.0,
-        "errors": 14,
-        "avg_response_sec": 0.235,
-        "min_response_sec": 0.093,
-        "max_response_sec": 0.667
+        "matched": 29,
+        "accuracy_pct": 61.7,
+        "errors": 16,
+        "avg_response_sec": 0.22,
+        "min_response_sec": 0.092,
+        "max_response_sec": 0.612
       },
       "qwen2.5-coder:3b": {
         "display": "Qwen2.5-Coder-3B",
         "params": "3B",
         "total": 47,
-        "matched": 43,
-        "accuracy_pct": 91.5,
+        "matched": 44,
+        "accuracy_pct": 93.6,
         "errors": 0,
-        "avg_response_sec": 0.235,
-        "min_response_sec": 0.081,
-        "max_response_sec": 0.888
+        "avg_response_sec": 0.237,
+        "min_response_sec": 0.083,
+        "max_response_sec": 0.804
       }
     },
     "domains": {
@@ -363,13 +363,13 @@
         "total": 12,
         "matched": 8,
         "accuracy_pct": 66.7,
-        "avg_response_sec": 0.218,
+        "avg_response_sec": 0.193,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
             "total": 3,
             "accuracy_pct": 0.0,
-            "avg_time": 0.286
+            "avg_time": 0
           },
           "qwen2.5:3b": {
             "matched": 3,
@@ -381,45 +381,45 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.216
+            "avg_time": 0.203
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.222
+            "avg_time": 0.185
           }
         }
       },
       "docker": {
         "total": 12,
-        "matched": 9,
-        "accuracy_pct": 75.0,
-        "avg_response_sec": 0.253,
+        "matched": 7,
+        "accuracy_pct": 58.3,
+        "avg_response_sec": 0.216,
         "per_model": {
           "bielik-1.5b": {
-            "matched": 2,
+            "matched": 1,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.349
+            "accuracy_pct": 33.3,
+            "avg_time": 0.24
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.274
+            "avg_time": 0.275
           },
           "gemma2:2b": {
-            "matched": 1,
+            "matched": 0,
             "total": 3,
-            "accuracy_pct": 33.3,
-            "avg_time": 0.21
+            "accuracy_pct": 0.0,
+            "avg_time": 0
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.149
+            "avg_time": 0.133
           }
         }
       },
@@ -427,19 +427,19 @@
         "total": 12,
         "matched": 6,
         "accuracy_pct": 50.0,
-        "avg_response_sec": 0.343,
+        "avg_response_sec": 0.322,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.432
+            "avg_time": 0.402
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.279
+            "avg_time": 0.28
           },
           "gemma2:2b": {
             "matched": 0,
@@ -451,39 +451,39 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.317
+            "avg_time": 0.283
           }
         }
       },
       "kubernetes": {
         "total": 12,
-        "matched": 12,
-        "accuracy_pct": 100.0,
-        "avg_response_sec": 0.162,
+        "matched": 11,
+        "accuracy_pct": 91.7,
+        "avg_response_sec": 0.159,
         "per_model": {
           "bielik-1.5b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.18
+            "avg_time": 0.186
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.154
+            "avg_time": 0.156
           },
           "gemma2:2b": {
-            "matched": 3,
+            "matched": 2,
             "total": 3,
-            "accuracy_pct": 100.0,
-            "avg_time": 0.164
+            "accuracy_pct": 66.7,
+            "avg_time": 0.158
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.151
+            "avg_time": 0.136
           }
         }
       },
@@ -491,31 +491,31 @@
         "total": 8,
         "matched": 8,
         "accuracy_pct": 100.0,
-        "avg_response_sec": 0.234,
+        "avg_response_sec": 0.231,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.27
+            "avg_time": 0.278
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.201
+            "avg_time": 0.2
           },
           "gemma2:2b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.257
+            "avg_time": 0.258
           },
           "qwen2.5-coder:3b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.207
+            "avg_time": 0.191
           }
         }
       },
@@ -523,31 +523,31 @@
         "total": 12,
         "matched": 11,
         "accuracy_pct": 91.7,
-        "avg_response_sec": 0.192,
+        "avg_response_sec": 0.193,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.213
+            "avg_time": 0.224
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.182
+            "avg_time": 0.179
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.201
+            "avg_time": 0.199
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.174
+            "avg_time": 0.17
           }
         }
       },
@@ -555,95 +555,95 @@
         "total": 12,
         "matched": 9,
         "accuracy_pct": 75.0,
-        "avg_response_sec": 0.11,
+        "avg_response_sec": 0.121,
         "per_model": {
           "bielik-1.5b": {
             "matched": 1,
             "total": 3,
             "accuracy_pct": 33.3,
-            "avg_time": 0.062
+            "avg_time": 0.192
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.104
+            "avg_time": 0.106
           },
           "gemma2:2b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.128
+            "avg_time": 0.127
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.114
+            "avg_time": 0.105
           }
         }
       },
       "api": {
         "total": 12,
-        "matched": 12,
-        "accuracy_pct": 100.0,
-        "avg_response_sec": 0.372,
+        "matched": 11,
+        "accuracy_pct": 91.7,
+        "avg_response_sec": 0.331,
         "per_model": {
           "bielik-1.5b": {
-            "matched": 3,
+            "matched": 2,
             "total": 3,
-            "accuracy_pct": 100.0,
-            "avg_time": 0.434
+            "accuracy_pct": 66.7,
+            "avg_time": 0.336
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.338
+            "avg_time": 0.339
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.415
+            "avg_time": 0.34
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.301
+            "avg_time": 0.311
           }
         }
       },
       "ffmpeg": {
         "total": 12,
-        "matched": 10,
-        "accuracy_pct": 83.3,
-        "avg_response_sec": 0.304,
+        "matched": 9,
+        "accuracy_pct": 75.0,
+        "avg_response_sec": 0.312,
         "per_model": {
           "bielik-1.5b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.316
+            "avg_time": 0.32
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.337
+            "avg_time": 0.323
           },
           "gemma2:2b": {
-            "matched": 1,
+            "matched": 0,
             "total": 3,
-            "accuracy_pct": 33.3,
-            "avg_time": 0.273
+            "accuracy_pct": 0.0,
+            "avg_time": 0
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.27
+            "avg_time": 0.292
           }
         }
       },
@@ -651,25 +651,25 @@
         "total": 12,
         "matched": 12,
         "accuracy_pct": 100.0,
-        "avg_response_sec": 0.236,
+        "avg_response_sec": 0.271,
         "per_model": {
           "bielik-1.5b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.268
+            "avg_time": 0.402
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.236
+            "avg_time": 0.233
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.224
+            "avg_time": 0.234
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
@@ -683,31 +683,31 @@
         "total": 12,
         "matched": 5,
         "accuracy_pct": 41.7,
-        "avg_response_sec": 0.235,
+        "avg_response_sec": 0.24,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
             "total": 3,
             "accuracy_pct": 0.0,
-            "avg_time": 0.317
+            "avg_time": 0.301
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.221
+            "avg_time": 0.254
           },
           "gemma2:2b": {
             "matched": 1,
             "total": 3,
             "accuracy_pct": 33.3,
-            "avg_time": 0.22
+            "avg_time": 0.216
           },
           "qwen2.5-coder:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.204
+            "avg_time": 0.223
           }
         }
       },
@@ -715,7 +715,7 @@
         "total": 12,
         "matched": 9,
         "accuracy_pct": 75.0,
-        "avg_response_sec": 0.246,
+        "avg_response_sec": 0.253,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
@@ -727,7 +727,7 @@
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.257
+            "avg_time": 0.256
           },
           "gemma2:2b": {
             "matched": 3,
@@ -739,7 +739,7 @@
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.253
+            "avg_time": 0.274
           }
         }
       },
@@ -753,7 +753,7 @@
             "matched": 1,
             "total": 3,
             "accuracy_pct": 33.3,
-            "avg_time": 0.24
+            "avg_time": 0.239
           },
           "qwen2.5:3b": {
             "matched": 3,
@@ -765,45 +765,45 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.236
+            "avg_time": 0.23
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.176
+            "avg_time": 0.182
           }
         }
       },
       "package_mgmt": {
         "total": 12,
-        "matched": 9,
-        "accuracy_pct": 75.0,
-        "avg_response_sec": 0.127,
+        "matched": 10,
+        "accuracy_pct": 83.3,
+        "avg_response_sec": 0.12,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.121
+            "avg_time": 0.124
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.119
+            "avg_time": 0.104
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.165
+            "avg_time": 0.128
           },
           "qwen2.5-coder:3b": {
-            "matched": 2,
+            "matched": 3,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.102
+            "accuracy_pct": 100.0,
+            "avg_time": 0.124
           }
         }
       },
@@ -811,7 +811,7 @@
         "total": 12,
         "matched": 5,
         "accuracy_pct": 41.7,
-        "avg_response_sec": 0.573,
+        "avg_response_sec": 0.634,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
@@ -823,7 +823,7 @@
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.513
+            "avg_time": 0.585
           },
           "gemma2:2b": {
             "matched": 0,
@@ -835,49 +835,49 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.634
+            "avg_time": 0.683
           }
         }
       },
       "presentation": {
         "total": 12,
-        "matched": 9,
-        "accuracy_pct": 75.0,
-        "avg_response_sec": 0.32,
+        "matched": 11,
+        "accuracy_pct": 91.7,
+        "avg_response_sec": 0.276,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.245
+            "avg_time": 0.177
           },
           "qwen2.5:3b": {
-            "matched": 2,
+            "matched": 3,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.364
+            "accuracy_pct": 100.0,
+            "avg_time": 0.326
           },
           "gemma2:2b": {
-            "matched": 2,
+            "matched": 3,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.411
+            "accuracy_pct": 100.0,
+            "avg_time": 0.303
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.267
+            "avg_time": 0.264
           }
         }
       }
     },
     "overall": {
       "total_queries": 188,
-      "total_matched": 143,
-      "accuracy_pct": 76.1,
-      "avg_response_sec": 0.248,
-      "total_time_sec": 39.8
+      "total_matched": 141,
+      "accuracy_pct": 75.0,
+      "avg_response_sec": 0.244,
+      "total_time_sec": 37.8
     }
   },
   "results_count": 188
@@ -885,7 +885,7 @@
   </details>
 
   <div class="footer">
-    NLP2CMD Benchmark · wygenerowany 2026-02-26T21:45:35 · Python 3.12.7
+    NLP2CMD Benchmark · wygenerowany 2026-02-26T21:50:06 · Python 3.12.7
   </div>
 </div>
 
@@ -899,7 +899,7 @@ new Chart(document.getElementById('chartAccuracy'), {
     labels: ["Bielik-1.5B (PL)", "Qwen2.5-3B", "Gemma2-2B", "Qwen2.5-Coder-3B"],
     datasets: [{
       label: 'Trafność (%)',
-      data: [55.3, 91.5, 66.0, 91.5],
+      data: [51.1, 93.6, 61.7, 93.6],
       backgroundColor: chartColors,
       borderRadius: 6,
     }]
@@ -921,7 +921,7 @@ new Chart(document.getElementById('chartTime'), {
     labels: ["Bielik-1.5B (PL)", "Qwen2.5-3B", "Gemma2-2B", "Qwen2.5-Coder-3B"],
     datasets: [{
       label: 'Czas (s)',
-      data: [0.282, 0.248, 0.235, 0.235],
+      data: [0.271, 0.25, 0.22, 0.237],
       backgroundColor: chartColors,
       borderRadius: 6,
     }]
@@ -941,7 +941,7 @@ new Chart(document.getElementById('chartDomainAccuracy'), {
   type: 'bar',
   data: {
     labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
-    datasets: [{"label": "Bielik-1.5B (PL)", "data": [0.0, 66.7, 66.7, 100.0, 100.0, 66.7, 33.3, 100.0, 100.0, 100.0, 0.0, 0.0, 33.3, 66.7, 0.0, 66.7], "backgroundColor": "#4e79a7"}, {"label": "Qwen2.5-3B", "data": [100.0, 100.0, 66.7, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 66.7, 100.0, 100.0, 66.7, 100.0, 66.7], "backgroundColor": "#f28e2b"}, {"label": "Gemma2-2B", "data": [66.7, 33.3, 0.0, 100.0, 100.0, 100.0, 66.7, 100.0, 33.3, 100.0, 33.3, 100.0, 66.7, 100.0, 0.0, 66.7], "backgroundColor": "#e15759"}, {"label": "Qwen2.5-Coder-3B", "data": [100.0, 100.0, 66.7, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 66.7, 100.0, 100.0, 66.7, 66.7, 100.0], "backgroundColor": "#76b7b2"}]
+    datasets: [{"label": "Bielik-1.5B (PL)", "data": [0.0, 33.3, 66.7, 100.0, 100.0, 66.7, 33.3, 66.7, 100.0, 100.0, 0.0, 0.0, 33.3, 66.7, 0.0, 66.7], "backgroundColor": "#4e79a7"}, {"label": "Qwen2.5-3B", "data": [100.0, 100.0, 66.7, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 66.7, 100.0, 100.0, 66.7, 100.0, 100.0], "backgroundColor": "#f28e2b"}, {"label": "Gemma2-2B", "data": [66.7, 0.0, 0.0, 66.7, 100.0, 100.0, 66.7, 100.0, 0.0, 100.0, 33.3, 100.0, 66.7, 100.0, 0.0, 100.0], "backgroundColor": "#e15759"}, {"label": "Qwen2.5-Coder-3B", "data": [100.0, 100.0, 66.7, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 66.7, 100.0, 100.0, 100.0, 66.7, 100.0], "backgroundColor": "#76b7b2"}]
   },
   options: {
     responsive: true,
@@ -958,7 +958,7 @@ new Chart(document.getElementById('chartDomainTime'), {
   type: 'bar',
   data: {
     labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
-    datasets: [{"label": "Bielik-1.5B (PL)", "data": [0.286, 0.349, 0.432, 0.18, 0.27, 0.213, 0.062, 0.434, 0.316, 0.268, 0.317, 0, 0.24, 0.121, 0, 0.245], "backgroundColor": "#4e79a7"}, {"label": "Qwen2.5-3B", "data": [0.194, 0.274, 0.279, 0.154, 0.201, 0.182, 0.104, 0.338, 0.337, 0.236, 0.221, 0.257, 0.177, 0.119, 0.513, 0.364], "backgroundColor": "#f28e2b"}, {"label": "Gemma2-2B", "data": [0.216, 0.21, 0, 0.164, 0.257, 0.201, 0.128, 0.415, 0.273, 0.224, 0.22, 0.229, 0.236, 0.165, 0, 0.411], "backgroundColor": "#e15759"}, {"label": "Qwen2.5-Coder-3B", "data": [0.222, 0.149, 0.317, 0.151, 0.207, 0.174, 0.114, 0.301, 0.27, 0.214, 0.204, 0.253, 0.176, 0.102, 0.634, 0.267], "backgroundColor": "#76b7b2"}]
+    datasets: [{"label": "Bielik-1.5B (PL)", "data": [0, 0.24, 0.402, 0.186, 0.278, 0.224, 0.192, 0.336, 0.32, 0.402, 0.301, 0, 0.239, 0.124, 0, 0.177], "backgroundColor": "#4e79a7"}, {"label": "Qwen2.5-3B", "data": [0.194, 0.275, 0.28, 0.156, 0.2, 0.179, 0.106, 0.339, 0.323, 0.233, 0.254, 0.256, 0.177, 0.104, 0.585, 0.326], "backgroundColor": "#f28e2b"}, {"label": "Gemma2-2B", "data": [0.203, 0, 0, 0.158, 0.258, 0.199, 0.127, 0.34, 0, 0.234, 0.216, 0.229, 0.23, 0.128, 0, 0.303], "backgroundColor": "#e15759"}, {"label": "Qwen2.5-Coder-3B", "data": [0.185, 0.133, 0.283, 0.136, 0.191, 0.17, 0.105, 0.311, 0.292, 0.214, 0.223, 0.274, 0.182, 0.124, 0.683, 0.264], "backgroundColor": "#76b7b2"}]
   },
   options: {
     responsive: true,

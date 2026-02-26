@@ -5,45 +5,45 @@
         "display": "Bielik-1.5B (PL)",
         "params": "1.5B",
         "total": 47,
-        "matched": 26,
-        "accuracy_pct": 55.3,
-        "errors": 14,
-        "avg_response_sec": 0.282,
-        "min_response_sec": 0.062,
-        "max_response_sec": 0.78
+        "matched": 24,
+        "accuracy_pct": 51.1,
+        "errors": 17,
+        "avg_response_sec": 0.271,
+        "min_response_sec": 0.088,
+        "max_response_sec": 0.61
       },
       "qwen2.5:3b": {
         "display": "Qwen2.5-3B",
         "params": "3B",
         "total": 47,
-        "matched": 43,
-        "accuracy_pct": 91.5,
+        "matched": 44,
+        "accuracy_pct": 93.6,
         "errors": 0,
-        "avg_response_sec": 0.248,
-        "min_response_sec": 0.065,
-        "max_response_sec": 0.641
+        "avg_response_sec": 0.25,
+        "min_response_sec": 0.066,
+        "max_response_sec": 0.822
       },
       "gemma2:2b": {
         "display": "Gemma2-2B",
         "params": "2B",
         "total": 47,
-        "matched": 31,
-        "accuracy_pct": 66.0,
-        "errors": 14,
-        "avg_response_sec": 0.235,
-        "min_response_sec": 0.093,
-        "max_response_sec": 0.667
+        "matched": 29,
+        "accuracy_pct": 61.7,
+        "errors": 16,
+        "avg_response_sec": 0.22,
+        "min_response_sec": 0.092,
+        "max_response_sec": 0.612
       },
       "qwen2.5-coder:3b": {
         "display": "Qwen2.5-Coder-3B",
         "params": "3B",
         "total": 47,
-        "matched": 43,
-        "accuracy_pct": 91.5,
+        "matched": 44,
+        "accuracy_pct": 93.6,
         "errors": 0,
-        "avg_response_sec": 0.235,
-        "min_response_sec": 0.081,
-        "max_response_sec": 0.888
+        "avg_response_sec": 0.237,
+        "min_response_sec": 0.083,
+        "max_response_sec": 0.804
       }
     },
     "domains": {
@@ -51,13 +51,13 @@
         "total": 12,
         "matched": 8,
         "accuracy_pct": 66.7,
-        "avg_response_sec": 0.218,
+        "avg_response_sec": 0.193,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
             "total": 3,
             "accuracy_pct": 0.0,
-            "avg_time": 0.286
+            "avg_time": 0
           },
           "qwen2.5:3b": {
             "matched": 3,
@@ -69,45 +69,45 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.216
+            "avg_time": 0.203
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.222
+            "avg_time": 0.185
           }
         }
       },
       "docker": {
         "total": 12,
-        "matched": 9,
-        "accuracy_pct": 75.0,
-        "avg_response_sec": 0.253,
+        "matched": 7,
+        "accuracy_pct": 58.3,
+        "avg_response_sec": 0.216,
         "per_model": {
           "bielik-1.5b": {
-            "matched": 2,
+            "matched": 1,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.349
+            "accuracy_pct": 33.3,
+            "avg_time": 0.24
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.274
+            "avg_time": 0.275
           },
           "gemma2:2b": {
-            "matched": 1,
+            "matched": 0,
             "total": 3,
-            "accuracy_pct": 33.3,
-            "avg_time": 0.21
+            "accuracy_pct": 0.0,
+            "avg_time": 0
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.149
+            "avg_time": 0.133
           }
         }
       },
@@ -115,19 +115,19 @@
         "total": 12,
         "matched": 6,
         "accuracy_pct": 50.0,
-        "avg_response_sec": 0.343,
+        "avg_response_sec": 0.322,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.432
+            "avg_time": 0.402
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.279
+            "avg_time": 0.28
           },
           "gemma2:2b": {
             "matched": 0,
@@ -139,39 +139,39 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.317
+            "avg_time": 0.283
           }
         }
       },
       "kubernetes": {
         "total": 12,
-        "matched": 12,
-        "accuracy_pct": 100.0,
-        "avg_response_sec": 0.162,
+        "matched": 11,
+        "accuracy_pct": 91.7,
+        "avg_response_sec": 0.159,
         "per_model": {
           "bielik-1.5b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.18
+            "avg_time": 0.186
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.154
+            "avg_time": 0.156
           },
           "gemma2:2b": {
-            "matched": 3,
+            "matched": 2,
             "total": 3,
-            "accuracy_pct": 100.0,
-            "avg_time": 0.164
+            "accuracy_pct": 66.7,
+            "avg_time": 0.158
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.151
+            "avg_time": 0.136
           }
         }
       },
@@ -179,31 +179,31 @@
         "total": 8,
         "matched": 8,
         "accuracy_pct": 100.0,
-        "avg_response_sec": 0.234,
+        "avg_response_sec": 0.231,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.27
+            "avg_time": 0.278
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.201
+            "avg_time": 0.2
           },
           "gemma2:2b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.257
+            "avg_time": 0.258
           },
           "qwen2.5-coder:3b": {
             "matched": 2,
             "total": 2,
             "accuracy_pct": 100.0,
-            "avg_time": 0.207
+            "avg_time": 0.191
           }
         }
       },
@@ -211,31 +211,31 @@
         "total": 12,
         "matched": 11,
         "accuracy_pct": 91.7,
-        "avg_response_sec": 0.192,
+        "avg_response_sec": 0.193,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.213
+            "avg_time": 0.224
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.182
+            "avg_time": 0.179
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.201
+            "avg_time": 0.199
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.174
+            "avg_time": 0.17
           }
         }
       },
@@ -243,95 +243,95 @@
         "total": 12,
         "matched": 9,
         "accuracy_pct": 75.0,
-        "avg_response_sec": 0.11,
+        "avg_response_sec": 0.121,
         "per_model": {
           "bielik-1.5b": {
             "matched": 1,
             "total": 3,
             "accuracy_pct": 33.3,
-            "avg_time": 0.062
+            "avg_time": 0.192
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.104
+            "avg_time": 0.106
           },
           "gemma2:2b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.128
+            "avg_time": 0.127
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.114
+            "avg_time": 0.105
           }
         }
       },
       "api": {
         "total": 12,
-        "matched": 12,
-        "accuracy_pct": 100.0,
-        "avg_response_sec": 0.372,
+        "matched": 11,
+        "accuracy_pct": 91.7,
+        "avg_response_sec": 0.331,
         "per_model": {
           "bielik-1.5b": {
-            "matched": 3,
+            "matched": 2,
             "total": 3,
-            "accuracy_pct": 100.0,
-            "avg_time": 0.434
+            "accuracy_pct": 66.7,
+            "avg_time": 0.336
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.338
+            "avg_time": 0.339
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.415
+            "avg_time": 0.34
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.301
+            "avg_time": 0.311
           }
         }
       },
       "ffmpeg": {
         "total": 12,
-        "matched": 10,
-        "accuracy_pct": 83.3,
-        "avg_response_sec": 0.304,
+        "matched": 9,
+        "accuracy_pct": 75.0,
+        "avg_response_sec": 0.312,
         "per_model": {
           "bielik-1.5b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.316
+            "avg_time": 0.32
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.337
+            "avg_time": 0.323
           },
           "gemma2:2b": {
-            "matched": 1,
+            "matched": 0,
             "total": 3,
-            "accuracy_pct": 33.3,
-            "avg_time": 0.273
+            "accuracy_pct": 0.0,
+            "avg_time": 0
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.27
+            "avg_time": 0.292
           }
         }
       },
@@ -339,25 +339,25 @@
         "total": 12,
         "matched": 12,
         "accuracy_pct": 100.0,
-        "avg_response_sec": 0.236,
+        "avg_response_sec": 0.271,
         "per_model": {
           "bielik-1.5b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.268
+            "avg_time": 0.402
           },
           "qwen2.5:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.236
+            "avg_time": 0.233
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.224
+            "avg_time": 0.234
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
@@ -371,31 +371,31 @@
         "total": 12,
         "matched": 5,
         "accuracy_pct": 41.7,
-        "avg_response_sec": 0.235,
+        "avg_response_sec": 0.24,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
             "total": 3,
             "accuracy_pct": 0.0,
-            "avg_time": 0.317
+            "avg_time": 0.301
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.221
+            "avg_time": 0.254
           },
           "gemma2:2b": {
             "matched": 1,
             "total": 3,
             "accuracy_pct": 33.3,
-            "avg_time": 0.22
+            "avg_time": 0.216
           },
           "qwen2.5-coder:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.204
+            "avg_time": 0.223
           }
         }
       },
@@ -403,7 +403,7 @@
         "total": 12,
         "matched": 9,
         "accuracy_pct": 75.0,
-        "avg_response_sec": 0.246,
+        "avg_response_sec": 0.253,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
@@ -415,7 +415,7 @@
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.257
+            "avg_time": 0.256
           },
           "gemma2:2b": {
             "matched": 3,
@@ -427,7 +427,7 @@
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.253
+            "avg_time": 0.274
           }
         }
       },
@@ -441,7 +441,7 @@
             "matched": 1,
             "total": 3,
             "accuracy_pct": 33.3,
-            "avg_time": 0.24
+            "avg_time": 0.239
           },
           "qwen2.5:3b": {
             "matched": 3,
@@ -453,45 +453,45 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.236
+            "avg_time": 0.23
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.176
+            "avg_time": 0.182
           }
         }
       },
       "package_mgmt": {
         "total": 12,
-        "matched": 9,
-        "accuracy_pct": 75.0,
-        "avg_response_sec": 0.127,
+        "matched": 10,
+        "accuracy_pct": 83.3,
+        "avg_response_sec": 0.12,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.121
+            "avg_time": 0.124
           },
           "qwen2.5:3b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.119
+            "avg_time": 0.104
           },
           "gemma2:2b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.165
+            "avg_time": 0.128
           },
           "qwen2.5-coder:3b": {
-            "matched": 2,
+            "matched": 3,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.102
+            "accuracy_pct": 100.0,
+            "avg_time": 0.124
           }
         }
       },
@@ -499,7 +499,7 @@
         "total": 12,
         "matched": 5,
         "accuracy_pct": 41.7,
-        "avg_response_sec": 0.573,
+        "avg_response_sec": 0.634,
         "per_model": {
           "bielik-1.5b": {
             "matched": 0,
@@ -511,7 +511,7 @@
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.513
+            "avg_time": 0.585
           },
           "gemma2:2b": {
             "matched": 0,
@@ -523,49 +523,49 @@
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.634
+            "avg_time": 0.683
           }
         }
       },
       "presentation": {
         "total": 12,
-        "matched": 9,
-        "accuracy_pct": 75.0,
-        "avg_response_sec": 0.32,
+        "matched": 11,
+        "accuracy_pct": 91.7,
+        "avg_response_sec": 0.276,
         "per_model": {
           "bielik-1.5b": {
             "matched": 2,
             "total": 3,
             "accuracy_pct": 66.7,
-            "avg_time": 0.245
+            "avg_time": 0.177
           },
           "qwen2.5:3b": {
-            "matched": 2,
+            "matched": 3,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.364
+            "accuracy_pct": 100.0,
+            "avg_time": 0.326
           },
           "gemma2:2b": {
-            "matched": 2,
+            "matched": 3,
             "total": 3,
-            "accuracy_pct": 66.7,
-            "avg_time": 0.411
+            "accuracy_pct": 100.0,
+            "avg_time": 0.303
           },
           "qwen2.5-coder:3b": {
             "matched": 3,
             "total": 3,
             "accuracy_pct": 100.0,
-            "avg_time": 0.267
+            "avg_time": 0.264
           }
         }
       }
     },
     "overall": {
       "total_queries": 188,
-      "total_matched": 143,
-      "accuracy_pct": 76.1,
-      "avg_response_sec": 0.248,
-      "total_time_sec": 39.8
+      "total_matched": 141,
+      "accuracy_pct": 75.0,
+      "avg_response_sec": 0.244,
+      "total_time_sec": 37.8
     }
   },
   "results": [
@@ -574,12 +574,12 @@
       "domain": "shell",
       "query": "wyszukaj pliki DOCX większe niż 5MB w katalogu /home",
       "description": "Find large DOCX files",
-      "raw_response": "`/home -type f -name '*.docx' -size +5M`",
-      "cleaned_command": "/home -type f -name '*.docx' -size +5M",
+      "raw_response": "",
+      "cleaned_command": "",
       "expected_pattern": "find.*\\.docx.*-size",
       "pattern_match": false,
-      "response_time_sec": 0.286,
-      "error": null
+      "response_time_sec": 0.056,
+      "error": "empty_response"
     },
     {
       "model": "bielik-1.5b",
@@ -602,7 +602,7 @@
       "cleaned_command": "",
       "expected_pattern": "(ps.*sort|top|ps.*cpu)",
       "pattern_match": false,
-      "response_time_sec": 0.043,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -614,7 +614,7 @@
       "cleaned_command": "docker ps -a",
       "expected_pattern": "docker\\s+(ps|container\\s+ls)",
       "pattern_match": true,
-      "response_time_sec": 0.077,
+      "response_time_sec": 0.088,
       "error": null
     },
     {
@@ -622,11 +622,11 @@
       "domain": "docker",
       "query": "zbuduj obraz z tagiem webapp:v2.0",
       "description": "Build image",
-      "raw_response": "`docker build -t webapp:v2.0 .`",
-      "cleaned_command": "docker build -t webapp:v2.0 .",
+      "raw_response": "`docker build -t myapp:latest .`",
+      "cleaned_command": "docker build -t myapp:latest .",
       "expected_pattern": "docker\\s+build.*-t.*webapp",
-      "pattern_match": true,
-      "response_time_sec": 0.19,
+      "pattern_match": false,
+      "response_time_sec": 0.174,
       "error": null
     },
     {
@@ -634,11 +634,11 @@
       "domain": "docker",
       "query": "pokaż ostatnie 50 linii logów kontenera redis",
       "description": "Container logs",
-      "raw_response": "<tool_call> {\"name\": \"docker_logs\", \"arguments\": {\"container_id\": \"redis:1234567890abcdefghijklmnopqrstuvwxyz\", \"timestamps\": true, \"size\": 50}}</tool_call>",
-      "cleaned_command": "<tool_call> {\"name\": \"docker_logs\", \"arguments\": {\"container_id\": \"redis:1234567890abcdefghijklmnopqrstuvwxyz\", \"timestamps\": true, \"size\": 50}}</tool_call>",
+      "raw_response": "<tool_call> {\"name\": \"docker_logs\", \"arguments\": {\"container_id\": \"redis:latest\", \"size\": 50}}</tool_call>",
+      "cleaned_command": "<tool_call> {\"name\": \"docker_logs\", \"arguments\": {\"container_id\": \"redis:latest\", \"size\": 50}}</tool_call>",
       "expected_pattern": "docker\\s+logs.*(redis|--tail|50)",
       "pattern_match": false,
-      "response_time_sec": 0.78,
+      "response_time_sec": 0.458,
       "error": null
     },
     {
@@ -650,7 +650,7 @@
       "cleaned_command": "SELECT * FROM customers WHERE city = 'Kraków';",
       "expected_pattern": "SELECT.*FROM.*WHERE.*(Krak|city|miasto)",
       "pattern_match": true,
-      "response_time_sec": 0.256,
+      "response_time_sec": 0.261,
       "error": null
     },
     {
@@ -658,11 +658,11 @@
       "domain": "sql",
       "query": "policz sprzedaż pogrupowaną po tygodniu",
       "description": "Count GROUP BY",
-      "raw_response": "SELECT DATE_TRUNC('week', created_at) AS week, COUNT(*) FROM orders GROUP BY week;",
-      "cleaned_command": "SELECT DATE_TRUNC('week', created_at) AS week, COUNT(*) FROM orders GROUP BY week;",
+      "raw_response": "SELECT DATE_TRUNC('week', created_at) AS week, COUNT(*) FROM sales GROUP BY week;",
+      "cleaned_command": "SELECT DATE_TRUNC('week', created_at) AS week, COUNT(*) FROM sales GROUP BY week;",
       "expected_pattern": "(SELECT.*COUNT|GROUP\\s+BY|count)",
       "pattern_match": true,
-      "response_time_sec": 0.418,
+      "response_time_sec": 0.42,
       "error": null
     },
     {
@@ -670,11 +670,11 @@
       "domain": "sql",
       "query": "stwórz tabelę klienci z polami id, email, telefon",
       "description": "CREATE TABLE",
-      "raw_response": "CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255) UNIQUE NOT NULL, telefon VARCHAR(20));",
-      "cleaned_command": "CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255) UNIQUE NOT NULL, telefon VARCHAR(20));",
+      "raw_response": "CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255), telefon VARCHAR(20));",
+      "cleaned_command": "CREATE TABLE klienci (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255), telefon VARCHAR(20));",
       "expected_pattern": "CREATE\\s+TABLE.*klient",
       "pattern_match": false,
-      "response_time_sec": 0.622,
+      "response_time_sec": 0.525,
       "error": null
     },
     {
@@ -686,7 +686,7 @@
       "cleaned_command": "kubectl get pods -n staging",
       "expected_pattern": "kubectl\\s+get\\s+pods.*(-n|namespace).*stag",
       "pattern_match": true,
-      "response_time_sec": 0.142,
+      "response_time_sec": 0.144,
       "error": null
     },
     {
@@ -698,7 +698,7 @@
       "cleaned_command": "kubectl scale deployment api-server --replicas=3",
       "expected_pattern": "kubectl\\s+scale.*replicas.*3",
       "pattern_match": true,
-      "response_time_sec": 0.239,
+      "response_time_sec": 0.241,
       "error": null
     },
     {
@@ -710,7 +710,7 @@
       "cleaned_command": "kubectl logs postgres-xyz789",
       "expected_pattern": "kubectl\\s+logs.*postgres",
       "pattern_match": true,
-      "response_time_sec": 0.159,
+      "response_time_sec": 0.173,
       "error": null
     },
     {
@@ -722,7 +722,7 @@
       "cleaned_command": "xdg-open 'https://stackoverflow.com'",
       "expected_pattern": "(xdg-open|open|playwright|firefox|chrome|chromium|sensible-browser).*stackoverflow\\.com",
       "pattern_match": true,
-      "response_time_sec": 0.221,
+      "response_time_sec": 0.227,
       "error": null
     },
     {
@@ -730,11 +730,11 @@
       "domain": "browser",
       "query": "wyszukaj w Google 'rust programming'",
       "description": "Google search",
-      "raw_response": "xdg-open \"https://www.google.com/search?q=rust+programming\"",
-      "cleaned_command": "xdg-open \"https://www.google.com/search?q=rust+programming\"",
+      "raw_response": "xdg-open \"https://www.google.com/search?q=rus t programming\"",
+      "cleaned_command": "xdg-open \"https://www.google.com/search?q=rus t programming\"",
       "expected_pattern": "(google\\.com/search\\?q=|xdg-open.*google\\.com/search\\?q=|chrome.*google\\.com/search\\?q=|firefox.*google\\.com/search\\?q=)",
       "pattern_match": true,
-      "response_time_sec": 0.319,
+      "response_time_sec": 0.328,
       "error": null
     },
     {
@@ -746,7 +746,7 @@
       "cleaned_command": "git log --oneline --since=1 day",
       "expected_pattern": "git\\s+log.*(-n\\s*20|--oneline|-20|-\\d+|head|pretty)",
       "pattern_match": true,
-      "response_time_sec": 0.184,
+      "response_time_sec": 0.196,
       "error": null
     },
     {
@@ -758,7 +758,7 @@
       "cleaned_command": "git checkout bugfix/auth-error",
       "expected_pattern": "git\\s+(checkout\\s+-b|branch|switch\\s+-c).*bugfix.auth",
       "pattern_match": false,
-      "response_time_sec": 0.178,
+      "response_time_sec": 0.185,
       "error": null
     },
     {
@@ -770,7 +770,7 @@
       "cleaned_command": "git add -A && git commit -m 'update feat: dodaj API'",
       "expected_pattern": "git\\s+(add.*commit|commit.*-a)",
       "pattern_match": true,
-      "response_time_sec": 0.276,
+      "response_time_sec": 0.29,
       "error": null
     },
     {
@@ -782,7 +782,7 @@
       "cleaned_command": "",
       "expected_pattern": "(systemctl\\s+status|service\\s+.*status).*postgres",
       "pattern_match": false,
-      "response_time_sec": 0.048,
+      "response_time_sec": 0.05,
       "error": "empty_response"
     },
     {
@@ -794,7 +794,7 @@
       "cleaned_command": "",
       "expected_pattern": "ansible-playbook.*setup\\.yml",
       "pattern_match": false,
-      "response_time_sec": 0.042,
+      "response_time_sec": 0.045,
       "error": "empty_response"
     },
     {
@@ -802,11 +802,11 @@
       "domain": "devops",
       "query": "zaplanuj zmiany w Terraform",
       "description": "Terraform plan",
-      "raw_response": "terraform plan",
-      "cleaned_command": "terraform plan",
+      "raw_response": "terraform init\nterraform plan\nterraform apply",
+      "cleaned_command": "terraform init terraform plan terraform apply",
       "expected_pattern": "terraform\\s+(plan|init)",
       "pattern_match": true,
-      "response_time_sec": 0.062,
+      "response_time_sec": 0.192,
       "error": null
     },
     {
@@ -818,7 +818,7 @@
       "cleaned_command": "curl -s \"https://api.github.com/repos\"",
       "expected_pattern": "curl.*https?://api\\.github\\.com/repos",
       "pattern_match": true,
-      "response_time_sec": 0.273,
+      "response_time_sec": 0.303,
       "error": null
     },
     {
@@ -826,12 +826,12 @@
       "domain": "api",
       "query": "wyślij POST z danymi JSON na /api/register",
       "description": "POST JSON",
-      "raw_response": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\": \"example\", \"password\": \"secret123\"}' https://example.com/api/register",
-      "cleaned_command": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\": \"example\", \"password\": \"secret123\"}' https://example.com/api/register",
+      "raw_response": "",
+      "cleaned_command": "",
       "expected_pattern": "curl.*-X\\s*POST.*(Content-Type:.*json|application/json).*(-d|--data)",
-      "pattern_match": true,
-      "response_time_sec": 0.69,
-      "error": null
+      "pattern_match": false,
+      "response_time_sec": 0.047,
+      "error": "empty_response"
     },
     {
       "model": "bielik-1.5b",
@@ -842,7 +842,7 @@
       "cleaned_command": "curl -o /dev/null -s -w '%{http_code}' https://google.com",
       "expected_pattern": "curl.*(http_code|status|head|-I|-w)",
       "pattern_match": true,
-      "response_time_sec": 0.34,
+      "response_time_sec": 0.368,
       "error": null
     },
     {
@@ -854,7 +854,7 @@
       "cleaned_command": "ffmpeg -i movie.avi -vf scale=-1:720 output.mp4",
       "expected_pattern": "ffmpeg.*-i.*(movie\\.avi|input).*\\.mp4",
       "pattern_match": true,
-      "response_time_sec": 0.307,
+      "response_time_sec": 0.31,
       "error": null
     },
     {
@@ -866,7 +866,7 @@
       "cleaned_command": "ffmpeg -i recording.mkv -vn -acodec libmp3lamé output.wav",
       "expected_pattern": "ffmpeg.*-i.*(-vn|audio|wav)",
       "pattern_match": true,
-      "response_time_sec": 0.336,
+      "response_time_sec": 0.338,
       "error": null
     },
     {
@@ -874,11 +874,11 @@
       "domain": "ffmpeg",
       "query": "zmień rozdzielczość na 1080p",
       "description": "Resize 1080p",
-      "raw_response": "ffmpeg -i input.mp4 -vf scale=-1:1920 output.mp4",
-      "cleaned_command": "ffmpeg -i input.mp4 -vf scale=-1:1920 output.mp4",
+      "raw_response": "ffmpeg -i input.mp4 -vf scale=-1:1080 output.mp4",
+      "cleaned_command": "ffmpeg -i input.mp4 -vf scale=-1:1080 output.mp4",
       "expected_pattern": "ffmpeg.*(-vf\\s+scale|1080|-1:1080|resize)",
       "pattern_match": true,
-      "response_time_sec": 0.306,
+      "response_time_sec": 0.313,
       "error": null
     },
     {
@@ -890,7 +890,7 @@
       "cleaned_command": "convert img.png -resize 1024x768 output.jpg",
       "expected_pattern": "(convert|mogrify|ffmpeg).*(-resize|scale|1024).*768",
       "pattern_match": true,
-      "response_time_sec": 0.297,
+      "response_time_sec": 0.306,
       "error": null
     },
     {
@@ -898,11 +898,11 @@
       "domain": "media",
       "query": "zamień wszystkie JPEG na PNG",
       "description": "Batch convert",
-      "raw_response": "convert photo.jpg -format png output.png",
-      "cleaned_command": "convert photo.jpg -format png output.png",
+      "raw_response": "convert photo1.jpeg photo1.png\nconvert photo2.jpeg photo2.png\n... i tak dalej dla wszystkich plików JPEG, które chcesz przekonwertować na PNG.",
+      "cleaned_command": "convert photo1.jpeg photo1.png convert photo2.jpeg photo2.png ... i tak dalej dla wszystkich plików JPEG, które chcesz przekonwertować na PNG.",
       "expected_pattern": "(convert|mogrify|for).*(png|jpg|jpeg)",
       "pattern_match": true,
-      "response_time_sec": 0.219,
+      "response_time_sec": 0.61,
       "error": null
     },
     {
@@ -914,7 +914,7 @@
       "cleaned_command": "convert logo.jpg -thumbnail 200x200 output.jpg",
       "expected_pattern": "(convert|mogrify).*(thumbnail|resize|200)",
       "pattern_match": true,
-      "response_time_sec": 0.289,
+      "response_time_sec": 0.291,
       "error": null
     },
     {
@@ -926,7 +926,7 @@
       "cleaned_command": "",
       "expected_pattern": "(csvstat|csvlook|pandas|describe|head).*sales\\.csv",
       "pattern_match": false,
-      "response_time_sec": 0.054,
+      "response_time_sec": 0.056,
       "error": "empty_response"
     },
     {
@@ -934,12 +934,12 @@
       "domain": "data",
       "query": "filtruj customers.json po salary powyżej 5000",
       "description": "jq filter",
-      "raw_response": "`cut -d ',' -f3 customers.json | sort | uniq -c | sort -nr`",
-      "cleaned_command": "cut -d ',' -f3 customers.json | sort | uniq -c | sort -nr",
+      "raw_response": "",
+      "cleaned_command": "",
       "expected_pattern": "jq.*select.*salary.*(>|gt).*5000",
       "pattern_match": false,
-      "response_time_sec": 0.335,
-      "error": null
+      "response_time_sec": 0.046,
+      "error": "empty_response"
     },
     {
       "model": "bielik-1.5b",
@@ -950,7 +950,7 @@
       "cleaned_command": "cut -d',' -f3 events.csv | sort | uniq -c | sort -rn",
       "expected_pattern": "((cut.*(type|\\-f\\s*2|\\-f2).*events\\.csv)|(awk.*type.*events\\.csv)).*(sort|uniq)",
       "pattern_match": false,
-      "response_time_sec": 0.298,
+      "response_time_sec": 0.301,
       "error": null
     },
     {
@@ -962,7 +962,7 @@
       "cleaned_command": "",
       "expected_pattern": "ssh\\s+root@10\\.0\\.0\\.50",
       "pattern_match": false,
-      "response_time_sec": 0.053,
+      "response_time_sec": 0.056,
       "error": "empty_response"
     },
     {
@@ -974,7 +974,7 @@
       "cleaned_command": "",
       "expected_pattern": "(scp|rsync).*archive\\.zip.*(/home|user)",
       "pattern_match": false,
-      "response_time_sec": 0.043,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -986,7 +986,7 @@
       "cleaned_command": "",
       "expected_pattern": "rsync.*(/opt/app|opt|app)",
       "pattern_match": false,
-      "response_time_sec": 0.044,
+      "response_time_sec": 0.047,
       "error": "empty_response"
     },
     {
@@ -998,7 +998,7 @@
       "cleaned_command": "",
       "expected_pattern": "(vcgencmd\\s+measure_temp|temp|sensors|cpu)",
       "pattern_match": false,
-      "response_time_sec": 0.05,
+      "response_time_sec": 0.055,
       "error": "empty_response"
     },
     {
@@ -1010,7 +1010,7 @@
       "cleaned_command": "i2cdetect -y 1",
       "expected_pattern": "i2cdetect.*(-y\\s+)?0",
       "pattern_match": false,
-      "response_time_sec": 0.12,
+      "response_time_sec": 0.121,
       "error": null
     },
     {
@@ -1022,7 +1022,7 @@
       "cleaned_command": "mosquitto_pub -h localhost -t home/humiditiesensor/temperature -m '22.5'",
       "expected_pattern": "mosquitto_pub.*(-t|topic).*(home|humidity)",
       "pattern_match": true,
-      "response_time_sec": 0.36,
+      "response_time_sec": 0.357,
       "error": null
     },
     {
@@ -1034,7 +1034,7 @@
       "cleaned_command": "sudo apt install python3-pip",
       "expected_pattern": "(sudo\\s+)?apt(-get)?\\s+install.*python3-pip",
       "pattern_match": true,
-      "response_time_sec": 0.152,
+      "response_time_sec": 0.158,
       "error": null
     },
     {
@@ -1046,7 +1046,7 @@
       "cleaned_command": "pip install numpy",
       "expected_pattern": "pip\\s+install.*numpy",
       "pattern_match": true,
-      "response_time_sec": 0.09,
+      "response_time_sec": 0.091,
       "error": null
     },
     {
@@ -1070,7 +1070,7 @@
       "cleaned_command": "",
       "expected_pattern": "(qdrant|query|search).*deep.?learning",
       "pattern_match": false,
-      "response_time_sec": 0.075,
+      "response_time_sec": 0.074,
       "error": "empty_response"
     },
     {
@@ -1082,7 +1082,7 @@
       "cleaned_command": "",
       "expected_pattern": "(sentence|transform|embed|python)",
       "pattern_match": false,
-      "response_time_sec": 0.044,
+      "response_time_sec": 0.045,
       "error": "empty_response"
     },
     {
@@ -1094,7 +1094,7 @@
       "cleaned_command": "",
       "expected_pattern": "(markdown|md|langchain|load|read).*(/content|content)",
       "pattern_match": false,
-      "response_time_sec": 0.044,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -1102,11 +1102,11 @@
       "domain": "presentation",
       "query": "przekonwertuj CHANGELOG.md na PDF",
       "description": "MD to PDF",
-      "raw_response": "markdown to pdf -> pandoc CHANGELOG.md -o CHANGELOG.pdf",
-      "cleaned_command": "markdown to pdf -> pandoc CHANGELOG.md -o CHANGELOG.pdf",
+      "raw_response": "pandoc CHANGELOG.md -o CHANGELOG.pdf",
+      "cleaned_command": "pandoc CHANGELOG.md -o CHANGELOG.pdf",
       "expected_pattern": "(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf",
       "pattern_match": true,
-      "response_time_sec": 0.336,
+      "response_time_sec": 0.259,
       "error": null
     },
     {
@@ -1118,7 +1118,7 @@
       "cleaned_command": "",
       "expected_pattern": "(matplotlib|plt|gnuplot|chart|plot|pandas).*data",
       "pattern_match": false,
-      "response_time_sec": 0.045,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -1126,11 +1126,11 @@
       "domain": "presentation",
       "query": "wyrenderuj PlantUML do SVG",
       "description": "PlantUML render",
-      "raw_response": "plantuml -o plantuml.svg",
-      "cleaned_command": "plantuml -o plantuml.svg",
+      "raw_response": "plantuml2svg",
+      "cleaned_command": "plantuml2svg",
       "expected_pattern": "(plantuml|puml).*svg",
       "pattern_match": true,
-      "response_time_sec": 0.154,
+      "response_time_sec": 0.096,
       "error": null
     },
     {
@@ -1142,7 +1142,7 @@
       "cleaned_command": "find /home -type f -name '*.docx' -size +5M",
       "expected_pattern": "find.*\\.docx.*-size",
       "pattern_match": true,
-      "response_time_sec": 0.268,
+      "response_time_sec": 0.263,
       "error": null
     },
     {
@@ -1150,11 +1150,11 @@
       "domain": "shell",
       "query": "sprawdź zajętość dysku w /tmp",
       "description": "Disk usage /tmp",
-      "raw_response": "df -h /tmp",
-      "cleaned_command": "df -h /tmp",
+      "raw_response": "du -sh /tmp",
+      "cleaned_command": "du -sh /tmp",
       "expected_pattern": "(du|df).*(/tmp|tmp)",
       "pattern_match": true,
-      "response_time_sec": 0.1,
+      "response_time_sec": 0.104,
       "error": null
     },
     {
@@ -1166,7 +1166,7 @@
       "cleaned_command": "ps aux --sort=-%cpu | head -n 15",
       "expected_pattern": "(ps.*sort|top|ps.*cpu)",
       "pattern_match": true,
-      "response_time_sec": 0.213,
+      "response_time_sec": 0.216,
       "error": null
     },
     {
@@ -1178,7 +1178,7 @@
       "cleaned_command": "docker ps -a --filter=\"status=exited\" --format \"table {{.ID}}\\t{{.Image}}\\t{{.Command}}\\t{{.Status}}\"",
       "expected_pattern": "docker\\s+(ps|container\\s+ls)",
       "pattern_match": true,
-      "response_time_sec": 0.511,
+      "response_time_sec": 0.513,
       "error": null
     },
     {
@@ -1190,7 +1190,7 @@
       "cleaned_command": "docker build -t webapp:v2.0 .",
       "expected_pattern": "docker\\s+build.*-t.*webapp",
       "pattern_match": true,
-      "response_time_sec": 0.177,
+      "response_time_sec": 0.175,
       "error": null
     },
     {
@@ -1202,7 +1202,7 @@
       "cleaned_command": "docker logs --tail 50 redis",
       "expected_pattern": "docker\\s+logs.*(redis|--tail|50)",
       "pattern_match": true,
-      "response_time_sec": 0.133,
+      "response_time_sec": 0.136,
       "error": null
     },
     {
@@ -1214,7 +1214,7 @@
       "cleaned_command": "SELECT * FROM users WHERE city = 'Krakow';",
       "expected_pattern": "SELECT.*FROM.*WHERE.*(Krak|city|miasto)",
       "pattern_match": true,
-      "response_time_sec": 0.207,
+      "response_time_sec": 0.216,
       "error": null
     },
     {
@@ -1226,7 +1226,7 @@
       "cleaned_command": "SELECT DATE_TRUNC('week', created_at) AS w, COUNT(*) FROM orders GROUP BY w;",
       "expected_pattern": "(SELECT.*COUNT|GROUP\\s+BY|count)",
       "pattern_match": true,
-      "response_time_sec": 0.288,
+      "response_time_sec": 0.287,
       "error": null
     },
     {
@@ -1238,7 +1238,7 @@
       "cleaned_command": "CREATE TABLE klienci (id SERIAL PRIMARY KEY, email VARCHAR(255), telefon VARCHAR(20));",
       "expected_pattern": "CREATE\\s+TABLE.*klient",
       "pattern_match": false,
-      "response_time_sec": 0.341,
+      "response_time_sec": 0.338,
       "error": null
     },
     {
@@ -1250,7 +1250,7 @@
       "cleaned_command": "kubectl get pods -n staging",
       "expected_pattern": "kubectl\\s+get\\s+pods.*(-n|namespace).*stag",
       "pattern_match": true,
-      "response_time_sec": 0.125,
+      "response_time_sec": 0.128,
       "error": null
     },
     {
@@ -1262,7 +1262,7 @@
       "cleaned_command": "kubectl scale deployment api-server --replicas=3",
       "expected_pattern": "kubectl\\s+scale.*replicas.*3",
       "pattern_match": true,
-      "response_time_sec": 0.163,
+      "response_time_sec": 0.167,
       "error": null
     },
     {
@@ -1286,7 +1286,7 @@
       "cleaned_command": "xdg-open 'https://stackoverflow.com'",
       "expected_pattern": "(xdg-open|open|playwright|firefox|chrome|chromium|sensible-browser).*stackoverflow\\.com",
       "pattern_match": true,
-      "response_time_sec": 0.165,
+      "response_time_sec": 0.164,
       "error": null
     },
     {
@@ -1310,7 +1310,7 @@
       "cleaned_command": "git log -20 --oneline",
       "expected_pattern": "git\\s+log.*(-n\\s*20|--oneline|-20|-\\d+|head|pretty)",
       "pattern_match": true,
-      "response_time_sec": 0.151,
+      "response_time_sec": 0.157,
       "error": null
     },
     {
@@ -1322,7 +1322,7 @@
       "cleaned_command": "git checkout -b bugfix/auth-error",
       "expected_pattern": "git\\s+(checkout\\s+-b|branch|switch\\s+-c).*bugfix.auth",
       "pattern_match": true,
-      "response_time_sec": 0.144,
+      "response_time_sec": 0.139,
       "error": null
     },
     {
@@ -1334,7 +1334,7 @@
       "cleaned_command": "git add -A && git commit -m 'feat: dodaj API'",
       "expected_pattern": "git\\s+(add.*commit|commit.*-a)",
       "pattern_match": true,
-      "response_time_sec": 0.25,
+      "response_time_sec": 0.242,
       "error": null
     },
     {
@@ -1358,7 +1358,7 @@
       "cleaned_command": "ansible-playbook -i inventory setup.yml",
       "expected_pattern": "ansible-playbook.*setup\\.yml",
       "pattern_match": true,
-      "response_time_sec": 0.136,
+      "response_time_sec": 0.139,
       "error": null
     },
     {
@@ -1370,7 +1370,7 @@
       "cleaned_command": "terraform plan",
       "expected_pattern": "terraform\\s+(plan|init)",
       "pattern_match": true,
-      "response_time_sec": 0.065,
+      "response_time_sec": 0.066,
       "error": null
     },
     {
@@ -1382,7 +1382,7 @@
       "cleaned_command": "curl -s https://api.github.com/repos",
       "expected_pattern": "curl.*https?://api\\.github\\.com/repos",
       "pattern_match": true,
-      "response_time_sec": 0.176,
+      "response_time_sec": 0.173,
       "error": null
     },
     {
@@ -1394,7 +1394,7 @@
       "cleaned_command": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\":\"user123\", \"email\":\"user@example.com\", \"password\":\"securepassword\"}' https://example.com/api/register",
       "expected_pattern": "curl.*-X\\s*POST.*(Content-Type:.*json|application/json).*(-d|--data)",
       "pattern_match": true,
-      "response_time_sec": 0.569,
+      "response_time_sec": 0.57,
       "error": null
     },
     {
@@ -1406,7 +1406,7 @@
       "cleaned_command": "curl -o /dev/null -s -w \"%{http_code}\" https://google.com",
       "expected_pattern": "curl.*(http_code|status|head|-I|-w)",
       "pattern_match": true,
-      "response_time_sec": 0.269,
+      "response_time_sec": 0.275,
       "error": null
     },
     {
@@ -1418,7 +1418,7 @@
       "cleaned_command": "ffmpeg -i movie.avi -c:v libx264 -crf 23 -c:a aac output.mp4",
       "expected_pattern": "ffmpeg.*-i.*(movie\\.avi|input).*\\.mp4",
       "pattern_match": true,
-      "response_time_sec": 0.398,
+      "response_time_sec": 0.394,
       "error": null
     },
     {
@@ -1430,7 +1430,7 @@
       "cleaned_command": "ffmpeg -i recording.mkv -vn -acodec pcm_s16le out.wav",
       "expected_pattern": "ffmpeg.*-i.*(-vn|audio|wav)",
       "pattern_match": true,
-      "response_time_sec": 0.282,
+      "response_time_sec": 0.277,
       "error": null
     },
     {
@@ -1438,11 +1438,11 @@
       "domain": "ffmpeg",
       "query": "zmień rozdzielczość na 1080p",
       "description": "Resize 1080p",
-      "raw_response": "ffmpeg -i input.mp4 -vf \"scale=1920:1080\" output.mp4",
-      "cleaned_command": "ffmpeg -i input.mp4 -vf \"scale=1920:1080\" output.mp4",
+      "raw_response": "ffmpeg -i input.mp4 -vf \"scale=-1:1080\" output.mp4",
+      "cleaned_command": "ffmpeg -i input.mp4 -vf \"scale=-1:1080\" output.mp4",
       "expected_pattern": "ffmpeg.*(-vf\\s+scale|1080|-1:1080|resize)",
       "pattern_match": true,
-      "response_time_sec": 0.331,
+      "response_time_sec": 0.297,
       "error": null
     },
     {
@@ -1454,7 +1454,7 @@
       "cleaned_command": "convert image.png -resize 1024x768\\> image_resized.jpg",
       "expected_pattern": "(convert|mogrify|ffmpeg).*(-resize|scale|1024).*768",
       "pattern_match": true,
-      "response_time_sec": 0.318,
+      "response_time_sec": 0.308,
       "error": null
     },
     {
@@ -1466,7 +1466,7 @@
       "cleaned_command": "mogrify -format png *.jpg",
       "expected_pattern": "(convert|mogrify|for).*(png|jpg|jpeg)",
       "pattern_match": true,
-      "response_time_sec": 0.138,
+      "response_time_sec": 0.14,
       "error": null
     },
     {
@@ -1478,7 +1478,7 @@
       "cleaned_command": "convert logo.jpg -thumbnail 200x200 logo_miniature.jpg",
       "expected_pattern": "(convert|mogrify).*(thumbnail|resize|200)",
       "pattern_match": true,
-      "response_time_sec": 0.251,
+      "response_time_sec": 0.252,
       "error": null
     },
     {
@@ -1486,11 +1486,11 @@
       "domain": "data",
       "query": "wyświetl statystyki pliku sales.csv",
       "description": "CSV stats",
-      "raw_response": "python pandas_sales_statistics.py sales.csv",
-      "cleaned_command": "python pandas_sales_statistics.py sales.csv",
+      "raw_response": "python pandas sales.csv stats = sales.csv | python -m pandas.stats.descriptive",
+      "cleaned_command": "python pandas sales.csv stats = sales.csv | python -m pandas.stats.descriptive",
       "expected_pattern": "(csvstat|csvlook|pandas|describe|head).*sales\\.csv",
       "pattern_match": true,
-      "response_time_sec": 0.149,
+      "response_time_sec": 0.256,
       "error": null
     },
     {
@@ -1502,7 +1502,7 @@
       "cleaned_command": "jq '.[] | select(.salary > 5000)' customers.json",
       "expected_pattern": "jq.*select.*salary.*(>|gt).*5000",
       "pattern_match": true,
-      "response_time_sec": 0.242,
+      "response_time_sec": 0.235,
       "error": null
     },
     {
@@ -1514,7 +1514,7 @@
       "cleaned_command": "cut -d',' -f4 events.csv | sort | uniq -c | sort -nr",
       "expected_pattern": "((cut.*(type|\\-f\\s*2|\\-f2).*events\\.csv)|(awk.*type.*events\\.csv)).*(sort|uniq)",
       "pattern_match": false,
-      "response_time_sec": 0.272,
+      "response_time_sec": 0.271,
       "error": null
     },
     {
@@ -1526,7 +1526,7 @@
       "cleaned_command": "ssh root@10.0.0.50",
       "expected_pattern": "ssh\\s+root@10\\.0\\.0\\.50",
       "pattern_match": true,
-      "response_time_sec": 0.203,
+      "response_time_sec": 0.206,
       "error": null
     },
     {
@@ -1538,7 +1538,7 @@
       "cleaned_command": "rsync -avz archive.zip admin@server:/home/user/",
       "expected_pattern": "(scp|rsync).*archive\\.zip.*(/home|user)",
       "pattern_match": true,
-      "response_time_sec": 0.211,
+      "response_time_sec": 0.206,
       "error": null
     },
     {
@@ -1550,7 +1550,7 @@
       "cleaned_command": "rsync -avz /opt/app admin@192.168.1.100:/opt/app",
       "expected_pattern": "rsync.*(/opt/app|opt|app)",
       "pattern_match": true,
-      "response_time_sec": 0.357,
+      "response_time_sec": 0.356,
       "error": null
     },
     {
@@ -1562,7 +1562,7 @@
       "cleaned_command": "temp sensor 0",
       "expected_pattern": "(vcgencmd\\s+measure_temp|temp|sensors|cpu)",
       "pattern_match": true,
-      "response_time_sec": 0.118,
+      "response_time_sec": 0.103,
       "error": null
     },
     {
@@ -1574,7 +1574,7 @@
       "cleaned_command": "i2cdetect -y 0",
       "expected_pattern": "i2cdetect.*(-y\\s+)?0",
       "pattern_match": true,
-      "response_time_sec": 0.138,
+      "response_time_sec": 0.14,
       "error": null
     },
     {
@@ -1582,11 +1582,11 @@
       "domain": "iot",
       "query": "opublikuj MQTT na topic home/humidity",
       "description": "MQTT publish",
-      "raw_response": "mosquitto_pub -h localhost -t home/humidity -m '45'",
-      "cleaned_command": "mosquitto_pub -h localhost -t home/humidity -m '45'",
+      "raw_response": "mosquitto_pub -h localhost -t home/humidity -m '45.6'",
+      "cleaned_command": "mosquitto_pub -h localhost -t home/humidity -m '45.6'",
       "expected_pattern": "mosquitto_pub.*(-t|topic).*(home|humidity)",
       "pattern_match": true,
-      "response_time_sec": 0.275,
+      "response_time_sec": 0.287,
       "error": null
     },
     {
@@ -1598,7 +1598,7 @@
       "cleaned_command": "sudo apt install python3-pip",
       "expected_pattern": "(sudo\\s+)?apt(-get)?\\s+install.*python3-pip",
       "pattern_match": true,
-      "response_time_sec": 0.158,
+      "response_time_sec": 0.136,
       "error": null
     },
     {
@@ -1610,7 +1610,7 @@
       "cleaned_command": "pip install numpy",
       "expected_pattern": "pip\\s+install.*numpy",
       "pattern_match": true,
-      "response_time_sec": 0.092,
+      "response_time_sec": 0.084,
       "error": null
     },
     {
@@ -1622,7 +1622,7 @@
       "cleaned_command": "yarn global:list",
       "expected_pattern": "(yarn|npm)\\s+(list|ls|global list)",
       "pattern_match": false,
-      "response_time_sec": 0.107,
+      "response_time_sec": 0.092,
       "error": null
     },
     {
@@ -1630,11 +1630,11 @@
       "domain": "rag",
       "query": "przeszukaj Qdrant w poszukiwaniu 'deep learning'",
       "description": "Qdrant query",
-      "raw_response": "curl -X POST http://localhost:6338/vectors/ -H \"Content-Type: application/json\" -d '{\"query\":\"deep learning\"}'",
-      "cleaned_command": "curl -X POST http://localhost:6338/vectors/ -H \"Content-Type: application/json\" -d '{\"query\":\"deep learning\"}'",
+      "raw_response": "curl -X POST \"http://localhost:6338/query\" -H \"Content-Type: application/json\" -d '{\"query\": {\"vector\": [0.1, 0.2, 0.3, ..., 0.8], \"on\": [\"deep_learning\"]}}'",
+      "cleaned_command": "curl -X POST \"http://localhost:6338/query\" -H \"Content-Type: application/json\" -d '{\"query\": {\"vector\": [0.1, 0.2, 0.3, ..., 0.8], \"on\": [\"deep_learning\"]}}'",
       "expected_pattern": "(qdrant|query|search).*deep.?learning",
       "pattern_match": true,
-      "response_time_sec": 0.503,
+      "response_time_sec": 0.822,
       "error": null
     },
     {
@@ -1646,7 +1646,7 @@
       "cleaned_command": "curl -s http://localhost:11434/api/embed -d '{\"model\":\"sentence-transformers/all-MiniLM-L6-v2\",\"input\":\"text\"}'",
       "expected_pattern": "(sentence|transform|embed|python)",
       "pattern_match": true,
-      "response_time_sec": 0.527,
+      "response_time_sec": 0.476,
       "error": null
     },
     {
@@ -1654,11 +1654,11 @@
       "domain": "rag",
       "query": "zaindeksuj pliki Markdown z /content",
       "description": "Index Markdown",
-      "raw_response": "python3 -c \"from langchain.document_loaders import UnstructuredMarkdownLoader; print(len(list(UnstructuredMarkdownLoader('/content').load_and_split())),'documents')\"",
-      "cleaned_command": "python3 -c \"from langchain.document_loaders import UnstructuredMarkdownLoader; print(len(list(UnstructuredMarkdownLoader('/content').load_and_split())),'documents')\"",
+      "raw_response": "python3 -c \"from langchain.document_loaders import UnstructuredMarkdownLoader; print(len(list(UnstructuredMarkdownLoader('/content').load_and_split())),'docs')\"",
+      "cleaned_command": "python3 -c \"from langchain.document_loaders import UnstructuredMarkdownLoader; print(len(list(UnstructuredMarkdownLoader('/content').load_and_split())),'docs')\"",
       "expected_pattern": "(markdown|md|langchain|load|read).*(/content|content)",
       "pattern_match": true,
-      "response_time_sec": 0.508,
+      "response_time_sec": 0.457,
       "error": null
     },
     {
@@ -1666,11 +1666,11 @@
       "domain": "presentation",
       "query": "przekonwertuj CHANGELOG.md na PDF",
       "description": "MD to PDF",
-      "raw_response": "markdown -f pdf --output CHANGELOG.pdf CHANGELOG.md",
-      "cleaned_command": "markdown -f pdf --output CHANGELOG.pdf CHANGELOG.md",
+      "raw_response": "pandoc CHANGELOG.md -o CHANGELOG.pdf",
+      "cleaned_command": "pandoc CHANGELOG.md -o CHANGELOG.pdf",
       "expected_pattern": "(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf",
-      "pattern_match": false,
-      "response_time_sec": 0.23,
+      "pattern_match": true,
+      "response_time_sec": 0.19,
       "error": null
     },
     {
@@ -1682,7 +1682,7 @@
       "cleaned_command": "python3 -c \"import pandas as pd,matplotlib.pyplot as plt;df = pd.read_csv('data.csv');df.plot(x='Time', y='Value', kind='line');plt.savefig('linear_plot.png')\"",
       "expected_pattern": "(matplotlib|plt|gnuplot|chart|plot|pandas).*data",
       "pattern_match": true,
-      "response_time_sec": 0.641,
+      "response_time_sec": 0.596,
       "error": null
     },
     {
@@ -1690,11 +1690,11 @@
       "domain": "presentation",
       "query": "wyrenderuj PlantUML do SVG",
       "description": "PlantUML render",
-      "raw_response": "plantuml -p -tsvg input.pu > output.svg",
-      "cleaned_command": "plantuml -p -tsvg input.pu > output.svg",
+      "raw_response": "plantuml -p -tsvg inputFile.pu outputFile.svg",
+      "cleaned_command": "plantuml -p -tsvg inputFile.pu outputFile.svg",
       "expected_pattern": "(plantuml|puml).*svg",
       "pattern_match": true,
-      "response_time_sec": 0.22,
+      "response_time_sec": 0.192,
       "error": null
     },
     {
@@ -1706,7 +1706,7 @@
       "cleaned_command": "find /home -type f -name \"*.docx\" -size +5M",
       "expected_pattern": "find.*\\.docx.*-size",
       "pattern_match": true,
-      "response_time_sec": 0.29,
+      "response_time_sec": 0.275,
       "error": null
     },
     {
@@ -1718,7 +1718,7 @@
       "cleaned_command": "df -h /tmp",
       "expected_pattern": "(du|df).*(/tmp|tmp)",
       "pattern_match": true,
-      "response_time_sec": 0.143,
+      "response_time_sec": 0.131,
       "error": null
     },
     {
@@ -1730,7 +1730,7 @@
       "cleaned_command": "",
       "expected_pattern": "(ps.*sort|top|ps.*cpu)",
       "pattern_match": false,
-      "response_time_sec": 0.064,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -1742,7 +1742,7 @@
       "cleaned_command": "",
       "expected_pattern": "docker\\s+(ps|container\\s+ls)",
       "pattern_match": false,
-      "response_time_sec": 0.053,
+      "response_time_sec": 0.055,
       "error": "empty_response"
     },
     {
@@ -1750,12 +1750,12 @@
       "domain": "docker",
       "query": "zbuduj obraz z tagiem webapp:v2.0",
       "description": "Build image",
-      "raw_response": "docker build -t webapp:v2.0 .",
-      "cleaned_command": "docker build -t webapp:v2.0 .",
+      "raw_response": "",
+      "cleaned_command": "",
       "expected_pattern": "docker\\s+build.*-t.*webapp",
-      "pattern_match": true,
-      "response_time_sec": 0.21,
-      "error": null
+      "pattern_match": false,
+      "response_time_sec": 0.045,
+      "error": "empty_response"
     },
     {
       "model": "gemma2:2b",
@@ -1766,7 +1766,7 @@
       "cleaned_command": "",
       "expected_pattern": "docker\\s+logs.*(redis|--tail|50)",
       "pattern_match": false,
-      "response_time_sec": 0.045,
+      "response_time_sec": 0.049,
       "error": "empty_response"
     },
     {
@@ -1778,7 +1778,7 @@
       "cleaned_command": "",
       "expected_pattern": "SELECT.*FROM.*WHERE.*(Krak|city|miasto)",
       "pattern_match": false,
-      "response_time_sec": 0.059,
+      "response_time_sec": 0.055,
       "error": "empty_response"
     },
     {
@@ -1790,7 +1790,7 @@
       "cleaned_command": "",
       "expected_pattern": "(SELECT.*COUNT|GROUP\\s+BY|count)",
       "pattern_match": false,
-      "response_time_sec": 0.047,
+      "response_time_sec": 0.049,
       "error": "empty_response"
     },
     {
@@ -1802,7 +1802,7 @@
       "cleaned_command": "",
       "expected_pattern": "CREATE\\s+TABLE.*klient",
       "pattern_match": false,
-      "response_time_sec": 0.047,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -1814,7 +1814,7 @@
       "cleaned_command": "kubectl get pods -n staging",
       "expected_pattern": "kubectl\\s+get\\s+pods.*(-n|namespace).*stag",
       "pattern_match": true,
-      "response_time_sec": 0.143,
+      "response_time_sec": 0.151,
       "error": null
     },
     {
@@ -1822,12 +1822,12 @@
       "domain": "kubernetes",
       "query": "skaluj deployment api-server do 3 replik",
       "description": "Scale deployment",
-      "raw_response": "kubectl scale deployment api-server --replicas=3",
-      "cleaned_command": "kubectl scale deployment api-server --replicas=3",
+      "raw_response": "",
+      "cleaned_command": "",
       "expected_pattern": "kubectl\\s+scale.*replicas.*3",
-      "pattern_match": true,
-      "response_time_sec": 0.185,
-      "error": null
+      "pattern_match": false,
+      "response_time_sec": 0.044,
+      "error": "empty_response"
     },
     {
       "model": "gemma2:2b",
@@ -1838,7 +1838,7 @@
       "cleaned_command": "kubectl logs postgres-xyz789",
       "expected_pattern": "kubectl\\s+logs.*postgres",
       "pattern_match": true,
-      "response_time_sec": 0.164,
+      "response_time_sec": 0.165,
       "error": null
     },
     {
@@ -1862,7 +1862,7 @@
       "cleaned_command": "xdg-open 'https://www.google.com/search?q=rust+programming'",
       "expected_pattern": "(google\\.com/search\\?q=|xdg-open.*google\\.com/search\\?q=|chrome.*google\\.com/search\\?q=|firefox.*google\\.com/search\\?q=)",
       "pattern_match": true,
-      "response_time_sec": 0.31,
+      "response_time_sec": 0.311,
       "error": null
     },
     {
@@ -1874,7 +1874,7 @@
       "cleaned_command": "git log -n 20",
       "expected_pattern": "git\\s+log.*(-n\\s*20|--oneline|-20|-\\d+|head|pretty)",
       "pattern_match": true,
-      "response_time_sec": 0.161,
+      "response_time_sec": 0.16,
       "error": null
     },
     {
@@ -1886,7 +1886,7 @@
       "cleaned_command": "git checkout -b bugfix/auth-error",
       "expected_pattern": "git\\s+(checkout\\s+-b|branch|switch\\s+-c).*bugfix.auth",
       "pattern_match": true,
-      "response_time_sec": 0.186,
+      "response_time_sec": 0.185,
       "error": null
     },
     {
@@ -1898,7 +1898,7 @@
       "cleaned_command": "git add -A && git commit -m \"feat: dodaj API\"",
       "expected_pattern": "git\\s+(add.*commit|commit.*-a)",
       "pattern_match": true,
-      "response_time_sec": 0.257,
+      "response_time_sec": 0.252,
       "error": null
     },
     {
@@ -1910,7 +1910,7 @@
       "cleaned_command": "pg_ctl -d status",
       "expected_pattern": "(systemctl\\s+status|service\\s+.*status).*postgres",
       "pattern_match": false,
-      "response_time_sec": 0.143,
+      "response_time_sec": 0.14,
       "error": null
     },
     {
@@ -1922,7 +1922,7 @@
       "cleaned_command": "ansible-playbook setup.yml",
       "expected_pattern": "ansible-playbook.*setup\\.yml",
       "pattern_match": true,
-      "response_time_sec": 0.148,
+      "response_time_sec": 0.15,
       "error": null
     },
     {
@@ -1934,7 +1934,7 @@
       "cleaned_command": "terraform plan",
       "expected_pattern": "terraform\\s+(plan|init)",
       "pattern_match": true,
-      "response_time_sec": 0.093,
+      "response_time_sec": 0.092,
       "error": null
     },
     {
@@ -1946,7 +1946,7 @@
       "cleaned_command": "curl -s https://api.github.com/repos",
       "expected_pattern": "curl.*https?://api\\.github\\.com/repos",
       "pattern_match": true,
-      "response_time_sec": 0.228,
+      "response_time_sec": 0.223,
       "error": null
     },
     {
@@ -1954,11 +1954,11 @@
       "domain": "api",
       "query": "wyślij POST z danymi JSON na /api/register",
       "description": "POST JSON",
-      "raw_response": "curl -X POST -H \"Content-Type: application/json\" -d '{\"name\": \"John Doe\", \"email\": \"johndoe@example.com\"}' http://localhost:8080/api/register",
-      "cleaned_command": "curl -X POST -H \"Content-Type: application/json\" -d '{\"name\": \"John Doe\", \"email\": \"johndoe@example.com\"}' http://localhost:8080/api/register",
+      "raw_response": "curl -X POST -H \"Content-Type: application/json\" -d '{\"name\": \"John Doe\", \"email\": \"johndoe@example.com\"}' https://api.example.com/register",
+      "cleaned_command": "curl -X POST -H \"Content-Type: application/json\" -d '{\"name\": \"John Doe\", \"email\": \"johndoe@example.com\"}' https://api.example.com/register",
       "expected_pattern": "curl.*-X\\s*POST.*(Content-Type:.*json|application/json).*(-d|--data)",
       "pattern_match": true,
-      "response_time_sec": 0.667,
+      "response_time_sec": 0.612,
       "error": null
     },
     {
@@ -1966,11 +1966,11 @@
       "domain": "api",
       "query": "sprawdź status HTTP strony https://google.com",
       "description": "HTTP status check",
-      "raw_response": "curl -s https://google.com | head -c 1 | awk '{print $2}'",
-      "cleaned_command": "curl -s https://google.com | head -c 1 | awk '{print $2}'",
+      "raw_response": "curl -s https://google.com | head",
+      "cleaned_command": "curl -s https://google.com | head",
       "expected_pattern": "curl.*(http_code|status|head|-I|-w)",
       "pattern_match": true,
-      "response_time_sec": 0.35,
+      "response_time_sec": 0.184,
       "error": null
     },
     {
@@ -1978,12 +1978,12 @@
       "domain": "ffmpeg",
       "query": "przekonwertuj movie.avi na format mp4",
       "description": "Convert to mp4",
-      "raw_response": "ffmpeg -i movie.avi output.mp4",
-      "cleaned_command": "ffmpeg -i movie.avi output.mp4",
+      "raw_response": "",
+      "cleaned_command": "",
       "expected_pattern": "ffmpeg.*-i.*(movie\\.avi|input).*\\.mp4",
-      "pattern_match": true,
-      "response_time_sec": 0.273,
-      "error": null
+      "pattern_match": false,
+      "response_time_sec": 0.06,
+      "error": "empty_response"
     },
     {
       "model": "gemma2:2b",
@@ -1994,7 +1994,7 @@
       "cleaned_command": "",
       "expected_pattern": "ffmpeg.*-i.*(-vn|audio|wav)",
       "pattern_match": false,
-      "response_time_sec": 0.046,
+      "response_time_sec": 0.045,
       "error": "empty_response"
     },
     {
@@ -2006,7 +2006,7 @@
       "cleaned_command": "",
       "expected_pattern": "ffmpeg.*(-vf\\s+scale|1080|-1:1080|resize)",
       "pattern_match": false,
-      "response_time_sec": 0.043,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -2018,7 +2018,7 @@
       "cleaned_command": "convert image.png -resize 1024x768 output.png",
       "expected_pattern": "(convert|mogrify|ffmpeg).*(-resize|scale|1024).*768",
       "pattern_match": true,
-      "response_time_sec": 0.292,
+      "response_time_sec": 0.295,
       "error": null
     },
     {
@@ -2030,7 +2030,7 @@
       "cleaned_command": "convert *.jpg png",
       "expected_pattern": "(convert|mogrify|for).*(png|jpg|jpeg)",
       "pattern_match": true,
-      "response_time_sec": 0.116,
+      "response_time_sec": 0.119,
       "error": null
     },
     {
@@ -2038,11 +2038,11 @@
       "domain": "media",
       "query": "stwórz miniaturę 200x200 z logo.jpg",
       "description": "Thumbnail",
-      "raw_response": "convert logo.jpg -resize 200x200 thumbnail.jpg",
-      "cleaned_command": "convert logo.jpg -resize 200x200 thumbnail.jpg",
+      "raw_response": "convert logo.jpg -thumbnail 200x200 mini_logo.jpg",
+      "cleaned_command": "convert logo.jpg -thumbnail 200x200 mini_logo.jpg",
       "expected_pattern": "(convert|mogrify).*(thumbnail|resize|200)",
       "pattern_match": true,
-      "response_time_sec": 0.265,
+      "response_time_sec": 0.287,
       "error": null
     },
     {
@@ -2054,7 +2054,7 @@
       "cleaned_command": "csvstat sales.csv",
       "expected_pattern": "(csvstat|csvlook|pandas|describe|head).*sales\\.csv",
       "pattern_match": true,
-      "response_time_sec": 0.148,
+      "response_time_sec": 0.136,
       "error": null
     },
     {
@@ -2066,7 +2066,7 @@
       "cleaned_command": "",
       "expected_pattern": "jq.*select.*salary.*(>|gt).*5000",
       "pattern_match": false,
-      "response_time_sec": 0.047,
+      "response_time_sec": 0.046,
       "error": "empty_response"
     },
     {
@@ -2078,7 +2078,7 @@
       "cleaned_command": "cut -d',' -f3 events.csv | sort | uniq -c | sort -rn",
       "expected_pattern": "((cut.*(type|\\-f\\s*2|\\-f2).*events\\.csv)|(awk.*type.*events\\.csv)).*(sort|uniq)",
       "pattern_match": false,
-      "response_time_sec": 0.292,
+      "response_time_sec": 0.297,
       "error": null
     },
     {
@@ -2090,7 +2090,7 @@
       "cleaned_command": "ssh root@10.0.0.50",
       "expected_pattern": "ssh\\s+root@10\\.0\\.0\\.50",
       "pattern_match": true,
-      "response_time_sec": 0.209,
+      "response_time_sec": 0.222,
       "error": null
     },
     {
@@ -2102,7 +2102,7 @@
       "cleaned_command": "scp archive.zip admin@server:/home/user/",
       "expected_pattern": "(scp|rsync).*archive\\.zip.*(/home|user)",
       "pattern_match": true,
-      "response_time_sec": 0.214,
+      "response_time_sec": 0.207,
       "error": null
     },
     {
@@ -2114,7 +2114,7 @@
       "cleaned_command": "rsync -avz /opt/app admin@server:/opt/app/",
       "expected_pattern": "rsync.*(/opt/app|opt|app)",
       "pattern_match": true,
-      "response_time_sec": 0.263,
+      "response_time_sec": 0.257,
       "error": null
     },
     {
@@ -2126,7 +2126,7 @@
       "cleaned_command": "vcgencmd measure_temp",
       "expected_pattern": "(vcgencmd\\s+measure_temp|temp|sensors|cpu)",
       "pattern_match": true,
-      "response_time_sec": 0.147,
+      "response_time_sec": 0.145,
       "error": null
     },
     {
@@ -2138,7 +2138,7 @@
       "cleaned_command": "",
       "expected_pattern": "i2cdetect.*(-y\\s+)?0",
       "pattern_match": false,
-      "response_time_sec": 0.07,
+      "response_time_sec": 0.047,
       "error": "empty_response"
     },
     {
@@ -2146,11 +2146,11 @@
       "domain": "iot",
       "query": "opublikuj MQTT na topic home/humidity",
       "description": "MQTT publish",
-      "raw_response": "mosquitto_pub -h localhost -t home/humidity -m '70'",
-      "cleaned_command": "mosquitto_pub -h localhost -t home/humidity -m '70'",
+      "raw_response": "mosquitto_pub -h localhost -t home/humidity -m '70.2'",
+      "cleaned_command": "mosquitto_pub -h localhost -t home/humidity -m '70.2'",
       "expected_pattern": "mosquitto_pub.*(-t|topic).*(home|humidity)",
       "pattern_match": true,
-      "response_time_sec": 0.326,
+      "response_time_sec": 0.316,
       "error": null
     },
     {
@@ -2162,7 +2162,7 @@
       "cleaned_command": "sudo apt install python3-pip",
       "expected_pattern": "(sudo\\s+)?apt(-get)?\\s+install.*python3-pip",
       "pattern_match": true,
-      "response_time_sec": 0.189,
+      "response_time_sec": 0.155,
       "error": null
     },
     {
@@ -2174,7 +2174,7 @@
       "cleaned_command": "pip install numpy",
       "expected_pattern": "pip\\s+install.*numpy",
       "pattern_match": true,
-      "response_time_sec": 0.14,
+      "response_time_sec": 0.103,
       "error": null
     },
     {
@@ -2186,7 +2186,7 @@
       "cleaned_command": "npm list -g yarn",
       "expected_pattern": "(yarn|npm)\\s+(list|ls|global list)",
       "pattern_match": true,
-      "response_time_sec": 0.166,
+      "response_time_sec": 0.125,
       "error": null
     },
     {
@@ -2198,7 +2198,7 @@
       "cleaned_command": "",
       "expected_pattern": "(qdrant|query|search).*deep.?learning",
       "pattern_match": false,
-      "response_time_sec": 0.089,
+      "response_time_sec": 0.068,
       "error": "empty_response"
     },
     {
@@ -2210,7 +2210,7 @@
       "cleaned_command": "",
       "expected_pattern": "(sentence|transform|embed|python)",
       "pattern_match": false,
-      "response_time_sec": 0.068,
+      "response_time_sec": 0.048,
       "error": "empty_response"
     },
     {
@@ -2222,7 +2222,7 @@
       "cleaned_command": "",
       "expected_pattern": "(markdown|md|langchain|load|read).*(/content|content)",
       "pattern_match": false,
-      "response_time_sec": 0.067,
+      "response_time_sec": 0.048,
       "error": "empty_response"
     },
     {
@@ -2230,23 +2230,23 @@
       "domain": "presentation",
       "query": "przekonwertuj CHANGELOG.md na PDF",
       "description": "MD to PDF",
-      "raw_response": "",
-      "cleaned_command": "",
+      "raw_response": "pandoc CHANGELOG.md -o changelog.pdf",
+      "cleaned_command": "pandoc CHANGELOG.md -o changelog.pdf",
       "expected_pattern": "(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf",
-      "pattern_match": false,
-      "response_time_sec": 0.085,
-      "error": "empty_response"
+      "pattern_match": true,
+      "response_time_sec": 0.222,
+      "error": null
     },
     {
       "model": "gemma2:2b",
       "domain": "presentation",
       "query": "stwórz wykres liniowy z data.csv",
       "description": "Line chart from CSV",
-      "raw_response": "python3 -c \"import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('data.csv').plot(kind='line');plt.savefig('chart.png')\"",
-      "cleaned_command": "python3 -c \"import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('data.csv').plot(kind='line');plt.savefig('chart.png')\"",
+      "raw_response": "python3 -c \"import pandas as pd;pd.read_csv('data.csv').plot(kind='line');plt.savefig('chart.png')\"",
+      "cleaned_command": "python3 -c \"import pandas as pd;pd.read_csv('data.csv').plot(kind='line');plt.savefig('chart.png')\"",
       "expected_pattern": "(matplotlib|plt|gnuplot|chart|plot|pandas).*data",
       "pattern_match": true,
-      "response_time_sec": 0.587,
+      "response_time_sec": 0.475,
       "error": null
     },
     {
@@ -2258,7 +2258,7 @@
       "cleaned_command": "plantuml -t svg plantuml_diagram.puml",
       "expected_pattern": "(plantuml|puml).*svg",
       "pattern_match": true,
-      "response_time_sec": 0.236,
+      "response_time_sec": 0.212,
       "error": null
     },
     {
@@ -2266,11 +2266,11 @@
       "domain": "shell",
       "query": "wyszukaj pliki DOCX większe niż 5MB w katalogu /home",
       "description": "Find large DOCX files",
-      "raw_response": "find /home -type f -name \"*.docx\" -size +5M",
-      "cleaned_command": "find /home -type f -name \"*.docx\" -size +5M",
+      "raw_response": "find /home -type f -name '*.docx' -size +5M",
+      "cleaned_command": "find /home -type f -name '*.docx' -size +5M",
       "expected_pattern": "find.*\\.docx.*-size",
       "pattern_match": true,
-      "response_time_sec": 0.295,
+      "response_time_sec": 0.253,
       "error": null
     },
     {
@@ -2282,7 +2282,7 @@
       "cleaned_command": "df -h /tmp",
       "expected_pattern": "(du|df).*(/tmp|tmp)",
       "pattern_match": true,
-      "response_time_sec": 0.122,
+      "response_time_sec": 0.099,
       "error": null
     },
     {
@@ -2294,7 +2294,7 @@
       "cleaned_command": "ps aux --sort=-%cpu | head -n 16",
       "expected_pattern": "(ps.*sort|top|ps.*cpu)",
       "pattern_match": true,
-      "response_time_sec": 0.249,
+      "response_time_sec": 0.202,
       "error": null
     },
     {
@@ -2306,7 +2306,7 @@
       "cleaned_command": "docker ps -a",
       "expected_pattern": "docker\\s+(ps|container\\s+ls)",
       "pattern_match": true,
-      "response_time_sec": 0.123,
+      "response_time_sec": 0.099,
       "error": null
     },
     {
@@ -2318,7 +2318,7 @@
       "cleaned_command": "docker build -t webapp:v2.0 .",
       "expected_pattern": "docker\\s+build.*-t.*webapp",
       "pattern_match": true,
-      "response_time_sec": 0.18,
+      "response_time_sec": 0.165,
       "error": null
     },
     {
@@ -2330,7 +2330,7 @@
       "cleaned_command": "docker logs --tail 50 redis",
       "expected_pattern": "docker\\s+logs.*(redis|--tail|50)",
       "pattern_match": true,
-      "response_time_sec": 0.144,
+      "response_time_sec": 0.136,
       "error": null
     },
     {
@@ -2342,7 +2342,7 @@
       "cleaned_command": "SELECT * FROM customers WHERE city = 'Kraków'",
       "expected_pattern": "SELECT.*FROM.*WHERE.*(Krak|city|miasto)",
       "pattern_match": true,
-      "response_time_sec": 0.234,
+      "response_time_sec": 0.199,
       "error": null
     },
     {
@@ -2354,7 +2354,7 @@
       "cleaned_command": "SELECT DATE_TRUNC('week', created_at) AS w, SUM(amount * price) AS total_sales FROM orders GROUP BY w",
       "expected_pattern": "(SELECT.*COUNT|GROUP\\s+BY|count)",
       "pattern_match": true,
-      "response_time_sec": 0.372,
+      "response_time_sec": 0.33,
       "error": null
     },
     {
@@ -2366,7 +2366,7 @@
       "cleaned_command": "CREATE TABLE klienci (id SERIAL PRIMARY KEY, email VARCHAR(255), telefon VARCHAR(15));",
       "expected_pattern": "CREATE\\s+TABLE.*klient",
       "pattern_match": false,
-      "response_time_sec": 0.345,
+      "response_time_sec": 0.319,
       "error": null
     },
     {
@@ -2378,7 +2378,7 @@
       "cleaned_command": "kubectl get pods -n staging",
       "expected_pattern": "kubectl\\s+get\\s+pods.*(-n|namespace).*stag",
       "pattern_match": true,
-      "response_time_sec": 0.14,
+      "response_time_sec": 0.126,
       "error": null
     },
     {
@@ -2390,7 +2390,7 @@
       "cleaned_command": "kubectl scale deployment api-server --replicas=3",
       "expected_pattern": "kubectl\\s+scale.*replicas.*3",
       "pattern_match": true,
-      "response_time_sec": 0.167,
+      "response_time_sec": 0.152,
       "error": null
     },
     {
@@ -2402,7 +2402,7 @@
       "cleaned_command": "kubectl logs postgres-xyz789",
       "expected_pattern": "kubectl\\s+logs.*postgres",
       "pattern_match": true,
-      "response_time_sec": 0.146,
+      "response_time_sec": 0.131,
       "error": null
     },
     {
@@ -2414,7 +2414,7 @@
       "cleaned_command": "xdg-open 'https://stackoverflow.com'",
       "expected_pattern": "(xdg-open|open|playwright|firefox|chrome|chromium|sensible-browser).*stackoverflow\\.com",
       "pattern_match": true,
-      "response_time_sec": 0.164,
+      "response_time_sec": 0.156,
       "error": null
     },
     {
@@ -2426,7 +2426,7 @@
       "cleaned_command": "xdg-open 'https://www.google.com/search?q=rust+programming'",
       "expected_pattern": "(google\\.com/search\\?q=|xdg-open.*google\\.com/search\\?q=|chrome.*google\\.com/search\\?q=|firefox.*google\\.com/search\\?q=)",
       "pattern_match": true,
-      "response_time_sec": 0.25,
+      "response_time_sec": 0.225,
       "error": null
     },
     {
@@ -2438,7 +2438,7 @@
       "cleaned_command": "git log --oneline -20",
       "expected_pattern": "git\\s+log.*(-n\\s*20|--oneline|-20|-\\d+|head|pretty)",
       "pattern_match": true,
-      "response_time_sec": 0.148,
+      "response_time_sec": 0.144,
       "error": null
     },
     {
@@ -2450,7 +2450,7 @@
       "cleaned_command": "git checkout -b bugfix/auth-error",
       "expected_pattern": "git\\s+(checkout\\s+-b|branch|switch\\s+-c).*bugfix.auth",
       "pattern_match": true,
-      "response_time_sec": 0.138,
+      "response_time_sec": 0.135,
       "error": null
     },
     {
@@ -2462,7 +2462,7 @@
       "cleaned_command": "git add -A && git commit -m 'feat: dodaj API'",
       "expected_pattern": "git\\s+(add.*commit|commit.*-a)",
       "pattern_match": true,
-      "response_time_sec": 0.235,
+      "response_time_sec": 0.23,
       "error": null
     },
     {
@@ -2474,7 +2474,7 @@
       "cleaned_command": "systemctl status postgresql",
       "expected_pattern": "(systemctl\\s+status|service\\s+.*status).*postgres",
       "pattern_match": true,
-      "response_time_sec": 0.112,
+      "response_time_sec": 0.108,
       "error": null
     },
     {
@@ -2486,7 +2486,7 @@
       "cleaned_command": "ansible-playbook setup.yml",
       "expected_pattern": "ansible-playbook.*setup\\.yml",
       "pattern_match": true,
-      "response_time_sec": 0.101,
+      "response_time_sec": 0.099,
       "error": null
     },
     {
@@ -2494,11 +2494,11 @@
       "domain": "devops",
       "query": "zaplanuj zmiany w Terraform",
       "description": "Terraform plan",
-      "raw_response": "terraform plan -out=plan.out",
-      "cleaned_command": "terraform plan -out=plan.out",
+      "raw_response": "terraform plan -out=tfplan",
+      "cleaned_command": "terraform plan -out=tfplan",
       "expected_pattern": "terraform\\s+(plan|init)",
       "pattern_match": true,
-      "response_time_sec": 0.129,
+      "response_time_sec": 0.109,
       "error": null
     },
     {
@@ -2510,7 +2510,7 @@
       "cleaned_command": "curl -s https://api.github.com/repos",
       "expected_pattern": "curl.*https?://api\\.github\\.com/repos",
       "pattern_match": true,
-      "response_time_sec": 0.171,
+      "response_time_sec": 0.172,
       "error": null
     },
     {
@@ -2518,11 +2518,11 @@
       "domain": "api",
       "query": "wyślij POST z danymi JSON na /api/register",
       "description": "POST JSON",
-      "raw_response": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\":\"john_doe\",\"password\":\"secure_password\"}' https://example.com/api/register",
-      "cleaned_command": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\":\"john_doe\",\"password\":\"secure_password\"}' https://example.com/api/register",
+      "raw_response": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\":\"john_doe\", \"password\":\"secure_password\"}' https://example.com/api/register",
+      "cleaned_command": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\":\"john_doe\", \"password\":\"secure_password\"}' https://example.com/api/register",
       "expected_pattern": "curl.*-X\\s*POST.*(Content-Type:.*json|application/json).*(-d|--data)",
       "pattern_match": true,
-      "response_time_sec": 0.453,
+      "response_time_sec": 0.485,
       "error": null
     },
     {
@@ -2534,7 +2534,7 @@
       "cleaned_command": "curl -o /dev/null -s -w '%{http_code}' https://google.com",
       "expected_pattern": "curl.*(http_code|status|head|-I|-w)",
       "pattern_match": true,
-      "response_time_sec": 0.28,
+      "response_time_sec": 0.275,
       "error": null
     },
     {
@@ -2546,7 +2546,7 @@
       "cleaned_command": "ffmpeg -i movie.avi output.mp4",
       "expected_pattern": "ffmpeg.*-i.*(movie\\.avi|input).*\\.mp4",
       "pattern_match": true,
-      "response_time_sec": 0.173,
+      "response_time_sec": 0.181,
       "error": null
     },
     {
@@ -2558,7 +2558,7 @@
       "cleaned_command": "ffmpeg -i recording.mkv -vn -acodec pcm_s16le -ar 44100 output.wav",
       "expected_pattern": "ffmpeg.*-i.*(-vn|audio|wav)",
       "pattern_match": true,
-      "response_time_sec": 0.366,
+      "response_time_sec": 0.403,
       "error": null
     },
     {
@@ -2570,7 +2570,7 @@
       "cleaned_command": "ffmpeg -i input.mp4 -vf scale=-1:1080 output.mp4",
       "expected_pattern": "ffmpeg.*(-vf\\s+scale|1080|-1:1080|resize)",
       "pattern_match": true,
-      "response_time_sec": 0.27,
+      "response_time_sec": 0.292,
       "error": null
     },
     {
@@ -2582,7 +2582,7 @@
       "cleaned_command": "convert image.png -resize 1024x768 output.jpg",
       "expected_pattern": "(convert|mogrify|ffmpeg).*(-resize|scale|1024).*768",
       "pattern_match": true,
-      "response_time_sec": 0.264,
+      "response_time_sec": 0.279,
       "error": null
     },
     {
@@ -2594,7 +2594,7 @@
       "cleaned_command": "mogrify -format png *.jpg",
       "expected_pattern": "(convert|mogrify|for).*(png|jpg|jpeg)",
       "pattern_match": true,
-      "response_time_sec": 0.139,
+      "response_time_sec": 0.133,
       "error": null
     },
     {
@@ -2602,11 +2602,11 @@
       "domain": "media",
       "query": "stwórz miniaturę 200x200 z logo.jpg",
       "description": "Thumbnail",
-      "raw_response": "convert logo.jpg -thumbnail 200x200 thumb_logo.jpg",
-      "cleaned_command": "convert logo.jpg -thumbnail 200x200 thumb_logo.jpg",
+      "raw_response": "convert logo.jpg -resize 200x200 thumb.png",
+      "cleaned_command": "convert logo.jpg -resize 200x200 thumb.png",
       "expected_pattern": "(convert|mogrify).*(thumbnail|resize|200)",
       "pattern_match": true,
-      "response_time_sec": 0.238,
+      "response_time_sec": 0.23,
       "error": null
     },
     {
@@ -2618,7 +2618,7 @@
       "cleaned_command": "csvstat sales.csv",
       "expected_pattern": "(csvstat|csvlook|pandas|describe|head).*sales\\.csv",
       "pattern_match": true,
-      "response_time_sec": 0.105,
+      "response_time_sec": 0.123,
       "error": null
     },
     {
@@ -2630,7 +2630,7 @@
       "cleaned_command": "jq '.[] | select(.salary > 5000)' customers.json",
       "expected_pattern": "jq.*select.*salary.*(>|gt).*5000",
       "pattern_match": true,
-      "response_time_sec": 0.234,
+      "response_time_sec": 0.251,
       "error": null
     },
     {
@@ -2642,7 +2642,7 @@
       "cleaned_command": "cut -d',' -f4 events.csv | sort | uniq -c | sort -rn",
       "expected_pattern": "((cut.*(type|\\-f\\s*2|\\-f2).*events\\.csv)|(awk.*type.*events\\.csv)).*(sort|uniq)",
       "pattern_match": false,
-      "response_time_sec": 0.274,
+      "response_time_sec": 0.294,
       "error": null
     },
     {
@@ -2654,7 +2654,7 @@
       "cleaned_command": "ssh root@10.0.0.50",
       "expected_pattern": "ssh\\s+root@10\\.0\\.0\\.50",
       "pattern_match": true,
-      "response_time_sec": 0.201,
+      "response_time_sec": 0.221,
       "error": null
     },
     {
@@ -2666,7 +2666,7 @@
       "cleaned_command": "scp archive.zip user@192.168.1.100:/home/user/",
       "expected_pattern": "(scp|rsync).*archive\\.zip.*(/home|user)",
       "pattern_match": true,
-      "response_time_sec": 0.302,
+      "response_time_sec": 0.33,
       "error": null
     },
     {
@@ -2678,7 +2678,7 @@
       "cleaned_command": "rsync -avz /opt/app user@remote_host:/path/to/destination/",
       "expected_pattern": "rsync.*(/opt/app|opt|app)",
       "pattern_match": true,
-      "response_time_sec": 0.255,
+      "response_time_sec": 0.271,
       "error": null
     },
     {
@@ -2690,7 +2690,7 @@
       "cleaned_command": "vcgencmd measure_temp",
       "expected_pattern": "(vcgencmd\\s+measure_temp|temp|sensors|cpu)",
       "pattern_match": true,
-      "response_time_sec": 0.126,
+      "response_time_sec": 0.125,
       "error": null
     },
     {
@@ -2702,7 +2702,7 @@
       "cleaned_command": "i2cdetect -y 0",
       "expected_pattern": "i2cdetect.*(-y\\s+)?0",
       "pattern_match": true,
-      "response_time_sec": 0.143,
+      "response_time_sec": 0.147,
       "error": null
     },
     {
@@ -2714,7 +2714,7 @@
       "cleaned_command": "mosquitto_pub -h localhost -t home/humidity -m '45'",
       "expected_pattern": "mosquitto_pub.*(-t|topic).*(home|humidity)",
       "pattern_match": true,
-      "response_time_sec": 0.26,
+      "response_time_sec": 0.273,
       "error": null
     },
     {
@@ -2722,11 +2722,11 @@
       "domain": "package_mgmt",
       "query": "zainstaluj python3-pip przez apt",
       "description": "apt install",
-      "raw_response": "sudo apt install python3-pip",
-      "cleaned_command": "sudo apt install python3-pip",
+      "raw_response": "sudo apt-get update && sudo apt-get install python3-pip",
+      "cleaned_command": "sudo apt-get update && sudo apt-get install python3-pip",
       "expected_pattern": "(sudo\\s+)?apt(-get)?\\s+install.*python3-pip",
       "pattern_match": true,
-      "response_time_sec": 0.134,
+      "response_time_sec": 0.201,
       "error": null
     },
     {
@@ -2738,7 +2738,7 @@
       "cleaned_command": "pip install numpy",
       "expected_pattern": "pip\\s+install.*numpy",
       "pattern_match": true,
-      "response_time_sec": 0.081,
+      "response_time_sec": 0.083,
       "error": null
     },
     {
@@ -2746,11 +2746,11 @@
       "domain": "package_mgmt",
       "query": "wyświetl globalne pakiety yarn",
       "description": "yarn list global",
-      "raw_response": "yarn global ls",
-      "cleaned_command": "yarn global ls",
+      "raw_response": "yarn global list",
+      "cleaned_command": "yarn global list",
       "expected_pattern": "(yarn|npm)\\s+(list|ls|global list)",
-      "pattern_match": false,
-      "response_time_sec": 0.091,
+      "pattern_match": true,
+      "response_time_sec": 0.088,
       "error": null
     },
     {
@@ -2758,11 +2758,11 @@
       "domain": "rag",
       "query": "przeszukaj Qdrant w poszukiwaniu 'deep learning'",
       "description": "Qdrant query",
-      "raw_response": "python3 -c \"import qdrant_client; client = qdrant_client.QdrantClient('http://localhost:6333'); collection_name = 'docs'; results = client.search(collection_name, query_vector=[0.1, 0.2, 0.3], limit=5); print(results)\"",
-      "cleaned_command": "python3 -c \"import qdrant_client; client = qdrant_client.QdrantClient('http://localhost:6333'); collection_name = 'docs'; results = client.search(collection_name, query_vector=[0.1, 0.2, 0.3], limit=5); print(results)\"",
+      "raw_response": "python3 -c \"import qdrant_client; client = qdrant_client.QdrantClient('http://localhost:6333'); res = client.search(collection_name='docs', query_vector=[0.1, 0.2, 0.3], limit=5); print(res)\"",
+      "cleaned_command": "python3 -c \"import qdrant_client; client = qdrant_client.QdrantClient('http://localhost:6333'); res = client.search(collection_name='docs', query_vector=[0.1, 0.2, 0.3], limit=5); print(res)\"",
       "expected_pattern": "(qdrant|query|search).*deep.?learning",
       "pattern_match": false,
-      "response_time_sec": 0.888,
+      "response_time_sec": 0.804,
       "error": null
     },
     {
@@ -2770,11 +2770,11 @@
       "domain": "rag",
       "query": "wygeneruj embeddingi przez model sentence-transformers",
       "description": "Sentence embeddings",
-      "raw_response": "python3 -c \"from sentence_transformers import SentenceTransformer; model = SentenceTransformer('all-MiniLM-L6-v2'); embeddings = model.encode(['text1', 'text2']); print(embeddings)\"",
-      "cleaned_command": "python3 -c \"from sentence_transformers import SentenceTransformer; model = SentenceTransformer('all-MiniLM-L6-v2'); embeddings = model.encode(['text1', 'text2']); print(embeddings)\"",
+      "raw_response": "curl -s https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2 -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" -d '{\"inputs\":\"text\"}'",
+      "cleaned_command": "curl -s https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2 -H \"Authorization: Bearer YOUR_ACCESS_TOKEN\" -d '{\"inputs\":\"text\"}'",
       "expected_pattern": "(sentence|transform|embed|python)",
       "pattern_match": true,
-      "response_time_sec": 0.563,
+      "response_time_sec": 0.552,
       "error": null
     },
     {
@@ -2782,11 +2782,11 @@
       "domain": "rag",
       "query": "zaindeksuj pliki Markdown z /content",
       "description": "Index Markdown",
-      "raw_response": "python3 -c \"from langchain.document_loaders import DirectoryLoader; print(len(DirectoryLoader('/content',glob='**/*.md').load()),'docs')\"",
-      "cleaned_command": "python3 -c \"from langchain.document_loaders import DirectoryLoader; print(len(DirectoryLoader('/content',glob='**/*.md').load()),'docs')\"",
+      "raw_response": "python3 -c \"from langchain.document_loaders import DirectoryLoader; from langchain.vectorstores import Chroma; c = Chroma.from_documents(DirectoryLoader('/content', glob='**/*.md').load(), persist_directory='/path/to/your/chroma/db');\"",
+      "cleaned_command": "python3 -c \"from langchain.document_loaders import DirectoryLoader; from langchain.vectorstores import Chroma; c = Chroma.from_documents(DirectoryLoader('/content', glob='**/*.md').load(), persist_directory='/path/to/your/chroma/db');\"",
       "expected_pattern": "(markdown|md|langchain|load|read).*(/content|content)",
       "pattern_match": true,
-      "response_time_sec": 0.45,
+      "response_time_sec": 0.694,
       "error": null
     },
     {
@@ -2798,7 +2798,7 @@
       "cleaned_command": "pandoc CHANGELOG.md -o CHANGELOG.pdf",
       "expected_pattern": "(pandoc|wkhtmltopdf|weasyprint|md).*CHANGELOG.*pdf",
       "pattern_match": true,
-      "response_time_sec": 0.193,
+      "response_time_sec": 0.189,
       "error": null
     },
     {
@@ -2810,7 +2810,7 @@
       "cleaned_command": "python3 -c \"import pandas as pd,matplotlib.pyplot as plt;pd.read_csv('data.csv').plot();plt.savefig('line_chart.png')\"",
       "expected_pattern": "(matplotlib|plt|gnuplot|chart|plot|pandas).*data",
       "pattern_match": true,
-      "response_time_sec": 0.419,
+      "response_time_sec": 0.417,
       "error": null
     },
     {
@@ -2822,7 +2822,7 @@
       "cleaned_command": "plantuml -tsvg diagram.puml -o diagram.svg",
       "expected_pattern": "(plantuml|puml).*svg",
       "pattern_match": true,
-      "response_time_sec": 0.188,
+      "response_time_sec": 0.187,
       "error": null
     }
   ],
@@ -2848,5 +2848,5 @@
       "params": "3B"
     }
   ],
-  "timestamp": "2026-02-26T21:45:35.674952"
+  "timestamp": "2026-02-26T21:50:06.822250"
 }
