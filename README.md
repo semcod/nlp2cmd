@@ -195,6 +195,35 @@ nlp2cmd -r "otwórz https://www.prototypowanie.pl/kontakt/ i wypełnij formularz
 nlp2cmd web-schema history --stats
 ```
 
+### 🔍 Exploration System (NEW!)
+
+Automatic resource discovery when commands fail - searches for missing files, directories, API endpoints, and web content:
+
+```bash
+# If file doesn't exist in expected location, system searches and finds alternative
+nlp2cmd -r "edytuj konfigurację nginx"
+# → 🔍 Searching for nginx config...
+# → ✓ Found: /home/user/projects/myapp/nginx.conf
+
+# If form not on main page, automatically explores entire website
+nlp2cmd -r "wejdź na maskservice.pl i wypełnij formularz kontaktu"
+# → 🔍 Exploring site for contact form...
+# → ✓ Found form at: https://www.maskservice.pl/en/contact
+```
+
+**Supported Exploration Types:**
+- **Web** (`SiteExplorer`) - Finds forms, articles, products, docs across entire websites
+- **Disk** (`DiskExplorer`) - Searches filesystem for files, configs, code, data
+- **Services** (`ServiceExplorer`) - Discovers REST/GraphQL API endpoints
+- **Data** (`DataTreeExplorer`) - Navigates JSON and nested data structures
+
+**Integration:**
+- Automatic in `ExecutionRunner.run_with_recovery()` - tries discovery before LLM fallback
+- Integrated in `PipelineRunner._run_shell()` - retries with discovered resources
+- Decision logic: analyzes error → decides → discovers → adapts command → retries
+
+[📖 Full Documentation](docs/EXPLORATION_GUIDE.md)
+
 ### 🚀 Service Mode (NEW!)
 ```bash
 # Configure service settings

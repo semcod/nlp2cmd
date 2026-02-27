@@ -126,9 +126,14 @@ class BrowserAdapter(BaseDSLAdapter):
             "znajdź formularz", "znajdz formularz", "find form",
             "szukaj formularza", "szukaj kontaktu", "search contact",
             "przeszukaj stronę", "przeszukaj strone", "explore site",
-            "odnajdź formularz", "odnajdz formularz", "locate form"
+            "odnajdź formularz", "odnajdz formularz", "locate form",
+            "znajdź stronę kontaktu", "znajdz strone kontaktu", "szukaj kontaktu",
+            "znajdź kontakt", "znajdz kontakt"
         ]
         text_lower = text.lower()
+        
+        # Also return True if we're asked to fill a form but no specific path is given in URL
+        # handled in generate() logic too
         return any(kw in text_lower for kw in explore_keywords)
     
     @staticmethod
@@ -207,19 +212,35 @@ class BrowserAdapter(BaseDSLAdapter):
 
         if self._has_fill_form_action(text):
             # Check if we need to explore for forms
-            if self._should_explore_for_forms(text):
+            # We explore if:
+            # 1. User explicitly asked to find/search (already in _should_explore_for_forms)
+            # 2. OR we are at the root domain and intent is to fill form (proactive discovery)
+            is_root = False
+            try:
+                parsed = urlparse(url)
+                is_root = parsed.path in ("", "/")
+            except Exception:
+                pass
+
+            if self._should_explore_for_forms(text) or is_root:
                 # Add exploration step before filling form
                 actions.append({"action": "explore_for_form", "intent": "contact"})
+                actions.append({"action": "fill_form"})
                 action_id = "dom.explore_and_fill_form"
                 explanation = f"browser adapter: explore {url} for contact form and fill"
             else:
                 actions.append({"action": "fill_form"})
                 action_id = "dom.goto_and_fill_form"
                 explanation = f"browser adapter: goto {url} and fill form"
+        elif self._should_explore_for_forms(text):
+            # User wants to find a form but didn't explicitly say "fill"
+            actions.append({"action": "explore_for_form", "intent": "contact"})
+            action_id = "dom.explore_for_form"
+            explanation = f"browser adapter: explore {url} for contact form"
         
-        # Check for content exploration
+        # Check for content exploration (but don't duplicate with form exploration)
         should_explore, content_type = self._should_explore_for_content(text)
-        if should_explore:
+        if should_explore and not self._has_fill_form_action(text):
             actions.append({"action": "explore_for_content", "content_type": content_type})
             action_id = f"dom.explore_for_{content_type}"
             explanation = f"browser adapter: explore {url} for {content_type}"

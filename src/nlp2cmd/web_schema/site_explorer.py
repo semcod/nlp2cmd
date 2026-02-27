@@ -56,6 +56,8 @@ class SiteExplorer:
         "kontakt", "contact", "napisz do nas", "write to us",
         "formularz", "form", "wiadomość", "message",
         "pomoc", "help", "support", "serwis",
+        "zapytaj", "ask", "biuro", "office", "dane", "info",
+        "obsługa", "obsuga", "klienta", "customer",
     ]
     
     # Keywords that suggest articles/content
@@ -142,8 +144,8 @@ class SiteExplorer:
             self._explored_urls = set()
             explored_pages: list[PageInfo] = []
             
-            # Start exploration
-            result = self._explore_recursive(
+            # Start exploration - first analyze the main page for links
+            main_page_result = self._explore_recursive(
                 page=page,
                 url=url,
                 depth=0,
@@ -153,13 +155,83 @@ class SiteExplorer:
                 search_term=search_term,
             )
             
-            if result and self._has_content_type(result, content_type):
+            print(f"DEBUG: Main page result: {main_page_result is not None}")
+            if main_page_result:
+                print(f"DEBUG: Main page URL: {main_page_result.url}")
+                print(f"DEBUG: Main page has form: {main_page_result.has_form}")
+                print(f"DEBUG: Main page links: {len(main_page_result.links)}")
+            
+            # If main page has the target content AND it's not contact intent, return it
+            if main_page_result and self._has_content_type(main_page_result, content_type) and content_type != "contact":
                 return ExplorationResult(
                     success=True,
-                    form_url=result.url,  # Reuse field for content URL
-                    form_page=result,
+                    form_url=main_page_result.url,  # Reuse field for content URL
+                    form_page=main_page_result,
                     explored_pages=explored_pages,
                 )
+            
+            # For contact intent, always explore contact links first even if main page has form
+            if main_page_result and main_page_result.links and len(explored_pages) < self.max_pages:
+                print(f"DEBUG: Exploring links from main page")
+                # Sort links by contact relevance
+                contact_links = []
+                other_links = []
+                
+                for link in main_page_result.links[:12]:  # Check more links from main page
+                    if len(self._explored_urls) >= self.max_pages:
+                        break
+                    
+                    link_lower = link.lower()
+                    if any(kw in link_lower for kw in ["kontakt", "contact", "formularz", "form"]):
+                        contact_links.append(link)
+                    else:
+                        other_links.append(link)
+                
+                print(f"DEBUG: Found {len(contact_links)} contact links: {contact_links}")
+                
+                # Explore contact links first
+                for link in contact_links[:5]:  # Check up to 5 contact links
+                    if len(self._explored_urls) >= self.max_pages:
+                        break
+                    print(f"DEBUG: Exploring contact link: {link}")
+                    result = self._explore_recursive(
+                        page=page,
+                        url=link,
+                        depth=1,
+                        intent=content_type,
+                        explored_pages=explored_pages,
+                        base_domain=urlparse(url).netloc,
+                        search_term=search_term,
+                    )
+                    if result and self._has_content_type(result, content_type):
+                        print(f"DEBUG: Found contact form at: {link}")
+                        return ExplorationResult(
+                            success=True,
+                            form_url=result.url,
+                            form_page=result,
+                            explored_pages=explored_pages,
+                        )
+                
+                # Then explore other links if no contact form found
+                for link in other_links[:3]:  # Check up to 3 other links
+                    if len(self._explored_urls) >= self.max_pages:
+                        break
+                    result = self._explore_recursive(
+                        page=page,
+                        url=link,
+                        depth=1,
+                        intent=content_type,
+                        explored_pages=explored_pages,
+                        base_domain=urlparse(url).netloc,
+                        search_term=search_term,
+                    )
+                    if result and self._has_content_type(result, content_type):
+                        return ExplorationResult(
+                            success=True,
+                            form_url=result.url,
+                            form_page=result,
+                            explored_pages=explored_pages,
+                        )
             
             # No content found - return best candidate
             best_page = self._find_best_content_candidate(explored_pages, content_type, search_term)
@@ -231,42 +303,193 @@ class SiteExplorer:
                 sitemap_urls = []
 
             if sitemap_urls:
-                for u in sitemap_urls:
-                    if len(self._explored_urls) >= self.max_pages:
-                        break
-                    result = self._explore_recursive(
-                        page=page,
-                        url=u,
-                        depth=0,
-                        intent=intent,
-                        explored_pages=explored_pages,
-                        base_domain=urlparse(url).netloc,
-                    )
-                    if result and result.has_form:
-                        return ExplorationResult(
-                            success=True,
-                            form_url=result.url,
-                            form_page=result,
-                            explored_pages=explored_pages,
+                if intent == "contact":
+                    print(f"DEBUG: Found {len(sitemap_urls)} sitemap URLs, prioritizing contact links")
+                    # For contact intent, prioritize contact URLs from sitemap
+                    contact_sitemap_urls = []
+                    other_sitemap_urls = []
+                    
+                    for u in sitemap_urls:
+                        u_lower = u.lower()
+                        # More strict contact detection - exclude article-like URLs
+                        # Look for exact contact-related words, not partial matches
+                        is_contact = any(
+                            kw in u_lower.split('-') or kw in u_lower.split('/') 
+                            for kw in ["kontakt", "contact", "formularz"]
                         )
+                        # Only look for standalone "form" word, not part of other words
+                        has_form_word = (
+                            " form" in u_lower or u_lower.endswith("form") or 
+                            u_lower.startswith("form") or " form/" in u_lower
+                        ) and not any(word in u_lower for word in ["informacje", "platform", "transform"])
+                        
+                        is_contact = is_contact or has_form_word
+                        is_article = any(kw in u_lower for kw in ["artykul", "article", "informacje", "news", "blog"])
+                        
+                        if is_contact and not is_article:
+                            contact_sitemap_urls.append(u)
+                        else:
+                            other_sitemap_urls.append(u)
+                    
+                    print(f"DEBUG: Contact sitemap URLs: {contact_sitemap_urls[:3]}")
+                    
+                    # Explore contact URLs first
+                    for u in contact_sitemap_urls[:5]:
+                        if len(self._explored_urls) >= self.max_pages:
+                            break
+                        result = self._explore_recursive(
+                            page=page,
+                            url=u,
+                            depth=0,
+                            intent=intent,
+                            explored_pages=explored_pages,
+                            base_domain=urlparse(url).netloc,
+                        )
+                        if result and result.has_form:
+                            return ExplorationResult(
+                                success=True,
+                                form_url=result.url,
+                                form_page=result,
+                                explored_pages=explored_pages,
+                            )
+                    
+                    # Then explore a few other URLs
+                    for u in other_sitemap_urls[:3]:
+                        if len(self._explored_urls) >= self.max_pages:
+                            break
+                        result = self._explore_recursive(
+                            page=page,
+                            url=u,
+                            depth=0,
+                            intent=intent,
+                            explored_pages=explored_pages,
+                            base_domain=urlparse(url).netloc,
+                        )
+                        if result and result.has_form:
+                            return ExplorationResult(
+                                success=True,
+                                form_url=result.url,
+                                form_page=result,
+                                explored_pages=explored_pages,
+                            )
+                else:
+                    # Original logic for non-contact intents
+                    for u in sitemap_urls:
+                        if len(self._explored_urls) >= self.max_pages:
+                            break
+                        result = self._explore_recursive(
+                            page=page,
+                            url=u,
+                            depth=0,
+                            intent=intent,
+                            explored_pages=explored_pages,
+                            base_domain=urlparse(url).netloc,
+                        )
+                        if result and result.has_form:
+                            return ExplorationResult(
+                                success=True,
+                                form_url=result.url,
+                                form_page=result,
+                                explored_pages=explored_pages,
+                            )
             
-            # Start exploration
-            result = self._explore_recursive(
-                page=page,
-                url=url,
-                depth=0,
-                intent=intent,
-                explored_pages=explored_pages,
-                base_domain=urlparse(url).netloc,
-            )
-            
-            if result and result.has_form:
-                return ExplorationResult(
-                    success=True,
-                    form_url=result.url,
-                    form_page=result,
+            # Start exploration - use the same logic as find_content for contact intent
+            if intent == "contact":
+                print(f"DEBUG: Using contact-aware exploration for {url}")
+                # Use the same logic as find_content for contact
+                main_page_result = self._explore_recursive(
+                    page=page,
+                    url=url,
+                    depth=0,
+                    intent=intent,
                     explored_pages=explored_pages,
+                    base_domain=urlparse(url).netloc,
                 )
+                
+                print(f"DEBUG: Main page result: {main_page_result is not None}")
+                if main_page_result:
+                    print(f"DEBUG: Main page URL: {main_page_result.url}")
+                    print(f"DEBUG: Main page has form: {main_page_result.has_form}")
+                    print(f"DEBUG: Main page links: {len(main_page_result.links)}")
+                
+                # For contact intent, always explore contact links first even if main page has form
+                if main_page_result and main_page_result.links and len(explored_pages) < self.max_pages:
+                    print(f"DEBUG: Exploring links from main page")
+                    # Sort links by contact relevance
+                    contact_links = []
+                    other_links = []
+                    
+                    for link in main_page_result.links[:12]:  # Check more links from main page
+                        if len(self._explored_urls) >= self.max_pages:
+                            break
+                        
+                        link_lower = link.lower()
+                        if any(kw in link_lower for kw in ["kontakt", "contact", "formularz", "form"]):
+                            contact_links.append(link)
+                        else:
+                            other_links.append(link)
+                    
+                    print(f"DEBUG: Found {len(contact_links)} contact links: {contact_links}")
+                    
+                    # Explore contact links first
+                    for link in contact_links[:5]:  # Check up to 5 contact links
+                        if len(self._explored_urls) >= self.max_pages:
+                            break
+                        print(f"DEBUG: Exploring contact link: {link}")
+                        result = self._explore_recursive(
+                            page=page,
+                            url=link,
+                            depth=1,
+                            intent=intent,
+                            explored_pages=explored_pages,
+                            base_domain=urlparse(url).netloc,
+                        )
+                        if result and result.has_form:
+                            print(f"DEBUG: Found contact form at: {link}")
+                            return ExplorationResult(
+                                success=True,
+                                form_url=result.url,
+                                form_page=result,
+                                explored_pages=explored_pages,
+                            )
+                    
+                    # Then explore other links if no contact form found
+                    for link in other_links[:3]:  # Check up to 3 other links
+                        if len(self._explored_urls) >= self.max_pages:
+                            break
+                        result = self._explore_recursive(
+                            page=page,
+                            url=link,
+                            depth=1,
+                            intent=intent,
+                            explored_pages=explored_pages,
+                            base_domain=urlparse(url).netloc,
+                        )
+                        if result and result.has_form:
+                            return ExplorationResult(
+                                success=True,
+                                form_url=result.url,
+                                form_page=result,
+                                explored_pages=explored_pages,
+                            )
+            else:
+                # Original logic for non-contact intents
+                result = self._explore_recursive(
+                    page=page,
+                    url=url,
+                    depth=0,
+                    intent=intent,
+                    explored_pages=explored_pages,
+                    base_domain=urlparse(url).netloc,
+                )
+                
+                if result and result.has_form:
+                    return ExplorationResult(
+                        success=True,
+                        form_url=result.url,
+                        form_page=result,
+                        explored_pages=explored_pages,
+                    )
             
             # No form found - return best candidate or failure
             best_page = self._find_best_form_candidate(explored_pages, intent)
@@ -334,13 +557,19 @@ class SiteExplorer:
             page_info = self._analyze_page(page, url)
             explored_pages.append(page_info)
             
-            # If target content found, return immediately
-            if self._has_content_type(page_info, intent):
+            # If target content found, return immediately (except for contact - we want to check contact links first)
+            if self._has_content_type(page_info, intent) and intent != "contact":
                 return page_info
             
-            # If form found, return immediately  
-            if page_info.has_form:
-                return page_info
+            # For contact intent, always explore contact links first even if main page has form
+            if intent == "contact":
+                # Check if this page has contact-related URL - if yes, return it
+                url_lower = url.lower()
+                if any(kw in url_lower for kw in ["kontakt", "contact", "formularz", "form"]):
+                    return page_info  # This is likely a contact page
+                # Otherwise, continue exploring to find contact page even if current page has form
+            elif page_info.has_form:
+                return page_info  # For non-contact intents, return immediately
             
             # Otherwise explore linked pages
             if depth < self.max_depth:
@@ -499,11 +728,12 @@ class SiteExplorer:
         
         # Special scoring for different content types
         if intent == "contact" and info.has_form:
-            score += 3.0
+            score += 4.0  # Increased boost for forms
             # Check for email/phone fields (strong indicator of contact form)
             try:
                 page_html = page.content().lower()
-                for kw in self.FORM_FIELD_KEYWORDS:
+                indicators = self.FORM_FIELD_KEYWORDS + ["required", "wyslij", "wyślij", "submit"]
+                for kw in indicators:
                     if kw in page_html:
                         score += 0.5
             except Exception:
@@ -586,6 +816,14 @@ class SiteExplorer:
         form_pages = [p for p in pages if p.has_form]
         if not form_pages:
             return None
+        
+        # Prioritize pages with contact-related URLs for contact intent
+        if intent == "contact":
+            contact_urls = [p for p in form_pages if any(
+                kw in p.url.lower() for kw in ["kontakt", "contact", "formularz", "form"]
+            )]
+            if contact_urls:
+                form_pages = contact_urls
         
         # Sort by score descending
         form_pages.sort(key=lambda p: p.score, reverse=True)
@@ -678,7 +916,9 @@ class SiteExplorer:
             for kw in self.CONTACT_KEYWORDS:
                 if kw in ul:
                     s += 2.0
-            if any(x in ul for x in ["kontakt", "contact", "formularz", "form"]):
+            if any(x in ul for x in ["kontakt", "contact", "formularz", "form", "wiadomosc", "wiadomość"]):
+                s += 2.0
+            if any(x in ul for x in ["tel", "email", "mail"]):
                 s += 1.0
             return s
 

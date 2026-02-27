@@ -6,6 +6,7 @@ Provides:
 - Error detection and classification
 - LLM integration for suggesting recovery commands
 - Automatic app2schema discovery for new commands
+- Automatic resource discovery for missing files/directories/endpoints
 """
 
 from __future__ import annotations
@@ -13,6 +14,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import time
+import re
 from dataclasses import dataclass, field
 from typing import Any, Optional, Callable
 from pathlib import Path
@@ -491,6 +493,70 @@ If the command syntax was wrong, provide the corrected command.
                     continue
                 return line
         return None
+
+    def _maybe_explore_missing_resource(self, context: RecoveryContext) -> Optional[str]:
+        error = (context.error_output or "").lower()
+        if "no such file or directory" not in error and "cannot access" not in error:
+            return None
+
+        cmd = context.executed_command or ""
+        tokens = cmd.split()
+        if not tokens:
+            return None
+
+        missing: str | None = None
+        for t in tokens[1:]:
+            if t.startswith("-"):
+                continue
+            if t.startswith(("/", "./", "../", "~")):
+                missing = t
+                break
+
+        if not missing:
+            m = re.search(r"\s([./~][^\s]+)", cmd)
+            if m:
+                missing = m.group(1)
+
+        if not missing:
+            return None
+
+        try:
+            missing_expanded = str(Path(missing).expanduser())
+        except Exception:
+            missing_expanded = missing
+
+        try:
+            from nlp2cmd.exploration import explore
+
+            search_term = Path(missing_expanded).name or missing_expanded
+            result = explore(".", intent="file", search_term=search_term)
+        except Exception:
+            return None
+
+        if not getattr(result, "success", False) or not getattr(result, "target", None):
+            return None
+
+        candidate_path = getattr(result.target, "path", None)
+        if not isinstance(candidate_path, str) or not candidate_path.strip():
+            return None
+
+        try:
+            from nlp2cmd.cli.markdown_output import print_yaml_block
+
+            print_yaml_block(
+                {
+                    "status": "explorer_suggested_resource",
+                    "space_type": "disk",
+                    "intent": "file",
+                    "missing": missing,
+                    "candidate": candidate_path,
+                },
+                console=self.console,
+            )
+        except Exception:
+            pass
+
+        return cmd.replace(missing, candidate_path, 1)
     
     def _get_heuristic_suggestion(self, context: RecoveryContext) -> Optional[str]:
         """Get heuristic-based recovery suggestion."""
@@ -521,20 +587,39 @@ If the command syntax was wrong, provide the corrected command.
         command: str,
         original_query: str,
         on_suggestion: Optional[Callable[[str], bool]] = None,
+        use_resource_discovery: bool = True,
     ) -> ExecutionResult:
         """
-        Execute command with automatic error recovery.
+        Execute command with automatic error recovery and resource discovery.
+        
+        When a command fails due to missing resources (files, directories,
+        endpoints), automatically attempts to discover them using explorers.
         
         Args:
             command: Command to execute
             original_query: Original user query
             on_suggestion: Callback when recovery suggestion is made
+            use_resource_discovery: Enable automatic resource discovery on failure
         
         Returns:
             Final ExecutionResult
         """
         attempts = []
         current_command = command
+        discovery_attempts = 0
+        
+        # Initialize resource discovery manager if enabled
+        resource_discovery = None
+        if use_resource_discovery:
+            try:
+                from nlp2cmd.exploration.resource_discovery import (
+                    ResourceDiscoveryManager,
+                    get_resource_discovery_manager,
+                )
+                resource_discovery = get_resource_discovery_manager()
+                resource_discovery.console = self.console
+            except Exception:
+                pass
         
         for attempt in range(self.max_retries + 1):
             if attempt > 0:
@@ -557,6 +642,25 @@ If the command syntax was wrong, provide the corrected command.
             attempts.append(current_command)
             
             if attempt < self.max_retries:
+                # First: Try resource discovery for missing resources
+                if resource_discovery and result.stderr:
+                    recovered, new_command = resource_discovery.handle_execution_failure(
+                        current_command,
+                        result.stderr,
+                        discovery_attempts,
+                    )
+                    if recovered and new_command:
+                        current_command = new_command
+                        discovery_attempts += 1
+                        if not self.plain_output:
+                            self.print_markdown_block(
+                                f"🔄 Retrying with discovered resource",
+                                language="text",
+                                console=self.console,
+                            )
+                        continue
+                
+                # Second: Try LLM-assisted recovery
                 context = RecoveryContext(
                     original_query=original_query,
                     executed_command=current_command,
@@ -564,8 +668,12 @@ If the command syntax was wrong, provide the corrected command.
                     exit_code=result.exit_code,
                     previous_attempts=attempts,
                 )
-                
-                suggestion = self.get_recovery_suggestion(context)
+
+                explorer_suggestion = self._maybe_explore_missing_resource(context)
+                if explorer_suggestion and explorer_suggestion != current_command:
+                    suggestion = explorer_suggestion
+                else:
+                    suggestion = self.get_recovery_suggestion(context)
                 
                 if suggestion:
                     if not self.plain_output:

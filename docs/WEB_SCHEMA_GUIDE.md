@@ -52,6 +52,86 @@ nlp2cmd web-schema extract https://example.com --headless
 # command_schemas/sites/example.com.json
 ```
 
+## Site Explorer (Automatic Form Discovery)
+
+The `SiteExplorer` provides automatic discovery of forms and content across entire websites, even when they're not on the initially loaded page.
+
+### How It Works
+
+1. **Crawl website** - Follows links from navigation, sitemap.xml
+2. **Analyze pages** - Detects forms, content types
+3. **Score relevance** - Matches pages to search intent
+4. **Navigate automatically** - Goes to best matching page
+
+### Usage
+
+```python
+from nlp2cmd.web_schema import SiteExplorer
+
+explorer = SiteExplorer(max_depth=2, max_pages=10)
+
+# Find contact forms
+result = explorer.find_form("https://example.com", intent="contact")
+if result.success:
+    print(f"Found form at: {result.form_url}")
+    # Automatically navigated to contact page
+
+# Find content pages
+result = explorer.find_content(
+    "https://example.com",
+    content_type="article"  # or "product", "docs"
+)
+
+# Universal exploration with intent detection
+result = explorer.explore(
+    "https://example.com",
+    "find pricing information"  # Auto-detects "product" intent
+)
+```
+
+### Automatic Form Discovery in Browser Commands
+
+When using CLI with `-r` flag, form discovery happens automatically:
+
+```bash
+# If form not on main page, SiteExplorer searches the site
+nlp2cmd -r "wejdź na maskservice.pl i wypełnij formularz kontaktu"
+
+# Output:
+# 🔍 Exploring site for contact form...
+# ✓ Found form at: https://www.maskservice.pl/en/contact
+# Form submitted via: input[type="submit"]
+```
+
+### Supported Intents
+
+- **contact** - Contact forms, support pages
+- **article** - Blog posts, news, publications  
+- **product** - Product pages, pricing, catalogs
+- **docs** - Documentation, guides, FAQ
+
+### Features
+
+- **Sitemap parsing** - Reads sitemap.xml for efficient crawling
+- **Cookie consent handling** - Auto-dismisses common popups
+- **Iframe support** - Detects forms inside iframes
+- **Multi-language** - Polish and English keyword support
+- **Depth control** - Configurable crawl depth and page limits
+
+### Configuration
+
+```python
+from nlp2cmd.web_schema import SiteExplorer
+
+explorer = SiteExplorer(
+    max_depth=2,           # How many levels deep to crawl
+    max_pages=10,          # Maximum pages to visit
+    headless=True,         # Run browser headless
+    timeout_ms=15000,      # Page load timeout
+    dynamic_wait_ms=3000,  # Wait for JS frameworks
+)
+```
+
 ## Browser Domain Integration
 
 ### Browser Intents

@@ -18,6 +18,7 @@
 ### API & Technical Documentation
 
 - **[🔌 API Reference](api/README.md)** - Detailed API documentation
+- **[🔍 Exploration Guide](EXPLORATION_GUIDE.md)** - Resource discovery across web/disk/services/data
 - **[🔬 Thermodynamic Integration](../THERMODYNAMIC_INTEGRATION.md)** - Advanced optimization guide
 - **[🏗️ Thermodynamic Architecture](../THERMODYNAMIC_ARCHITECTURE.md)** - Deep technical architecture
 - **[🧪 Thermodynamic Use Cases](THERMODYNAMIC_USE_CASES.md)** - Concrete solutions & benefits

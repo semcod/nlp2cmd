@@ -125,7 +125,26 @@ class RuleBasedPipeline:
                 # Fallback: use entities from detection if extraction fails
                 result.entities = detection.entities or {}
             
-            # Step 4: Template generation
+            # Step 4: Command generation
+            # For complex domains like browser, use the adapter if possible
+            if result.domain == 'browser':
+                try:
+                    from nlp2cmd.adapters import BrowserAdapter
+                    adapter = BrowserAdapter()
+                    plan = {
+                        "text": text,
+                        "intent": result.intent,
+                        "entities": result.entities,
+                        "confidence": result.detection_confidence
+                    }
+                    result.command = adapter.generate(plan)
+                    result.success = True
+                    result.confidence = result.detection_confidence
+                    result.source = "adapter"
+                    return result
+                except Exception as adapter_err:
+                    result.warnings.append(f"Browser adapter failed, falling back to template: {adapter_err}")
+
             # Map unsupported domains to shell for basic functionality
             effective_domain = result.domain
             if effective_domain not in self.template_generator.templates:

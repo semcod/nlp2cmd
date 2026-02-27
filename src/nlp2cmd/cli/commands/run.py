@@ -23,6 +23,7 @@ from nlp2cmd.cli.helpers import (
     print_yaml_block,
     _looks_like_log_input,
     _timed_default_yes,
+    _timed_default_no,
     _fallback_open_url_from_query,
     ExecutionRunner,
 )
@@ -38,6 +39,7 @@ def handle_run_mode(
     dsl: str,
     appspec: Optional[Path],
     auto_confirm: bool,
+    no_submit: bool,
     execute_web: bool,
     auto_install: bool,
     auto_repair: bool,
@@ -397,6 +399,15 @@ def handle_run_mode(
     if is_browser_command and execute_web:
         if not only_output:
             console.print("\n[cyan]Using Playwright for browser automation...[/cyan]")
+            print_yaml_block(
+                {
+                    "status": "run_mode_flags",
+                    "auto_confirm": bool(auto_confirm),
+                    "no_submit": bool(no_submit),
+                    "execute_web": bool(execute_web),
+                },
+                console=console,
+            )
 
         from nlp2cmd.utils.playwright_installer import ensure_playwright_installed
 
@@ -410,6 +421,77 @@ def handle_run_mode(
             browser_adapter = BrowserAdapter()
             nlp_browser = NLP2CMD(adapter=browser_adapter)
             ir = nlp_browser.transform_ir(query)
+
+            if no_submit:
+                try:
+                    dsl_payload = json.loads(getattr(ir, "dsl", "") or "")
+                except Exception:
+                    dsl_payload = None
+
+                if dsl_payload is None and not only_output:
+                    try:
+                        raw_dsl = getattr(ir, "dsl", None)
+                        raw_preview = str(raw_dsl)[:300] if raw_dsl is not None else ""
+                    except Exception:
+                        raw_preview = ""
+                    print_yaml_block(
+                        {
+                            "status": "no_submit_parse_failed",
+                            "dsl_type": str(type(getattr(ir, "dsl", None)).__name__),
+                            "dsl_preview": raw_preview,
+                        },
+                        console=console,
+                    )
+
+                if isinstance(dsl_payload, dict):
+                    actions = dsl_payload.get("actions")
+                    is_dom_payload = (
+                        dsl_payload.get("dsl") == "dom_dql.v1"
+                        or isinstance(actions, list)
+                    )
+                    if (not is_dom_payload) and (not only_output):
+                        print_yaml_block(
+                            {
+                                "status": "no_submit_payload_not_dom",
+                                "dsl": dsl_payload.get("dsl"),
+                                "has_actions": bool(isinstance(actions, list)),
+                            },
+                            console=console,
+                        )
+                    if is_dom_payload and isinstance(actions, list):
+                        filtered: list[dict[str, Any]] = []
+                        for a in actions:
+                            if not isinstance(a, dict):
+                                continue
+
+                            act = str(a.get("action") or "")
+                            if act == "submit":
+                                continue
+                            if act == "press" and str(a.get("key") or "") in {"Enter", "Return"}:
+                                continue
+
+                            filtered.append(a)
+
+                        dsl_payload["actions"] = filtered
+                        ir.dsl = json.dumps(dsl_payload, ensure_ascii=False)
+
+                        if not only_output:
+                            try:
+                                filtered_actions = [
+                                    a.get("action")
+                                    for a in dsl_payload.get("actions")
+                                    if isinstance(a, dict)
+                                ]
+                            except Exception:
+                                filtered_actions = []
+                            print_yaml_block(
+                                {
+                                    "status": "no_submit_filtered_actions",
+                                    "actions_count": int(len(filtered_actions)),
+                                    "actions": filtered_actions,
+                                },
+                                console=console,
+                            )
 
             if not only_output:
                 import json as _json
@@ -448,16 +530,16 @@ def handle_run_mode(
 
                 if not approved and not auto_confirm:
                     if reason == "submit":
-                        timed_prompt = "\n[yellow]This action will submit a form. Proceed? (auto-Y in 1s; Enter=choose):[/yellow] "
+                        timed_prompt = "\n[yellow]This action will submit a form. Proceed? (auto-N in 1s; Enter=choose):[/yellow] "
                         full_prompt = "\n[yellow]This action will submit a form. Proceed? [[y/N/a(always)]]:[/yellow] "
                     elif reason == "press_enter":
-                        timed_prompt = "\n[yellow]Press Enter action. Proceed? (auto-Y in 1s; Enter=choose):[/yellow] "
+                        timed_prompt = "\n[yellow]Press Enter action. Proceed? (auto-N in 1s; Enter=choose):[/yellow] "
                         full_prompt = "\n[yellow]Press Enter action. Proceed? [[y/N/a(always)]]:[/yellow] "
                     else:
-                        timed_prompt = "\n[yellow]Confirm action? (auto-Y in 1s):[/yellow] "
+                        timed_prompt = "\n[yellow]Confirm action? (auto-N in 1s):[/yellow] "
                         full_prompt = "\n[yellow]Confirm action? [[y/N]]:[/yellow] "
 
-                    resp = _timed_default_yes(timed_prompt=timed_prompt, full_prompt=full_prompt)
+                    resp = _timed_default_no(timed_prompt=timed_prompt, full_prompt=full_prompt)
                     if resp in {"a", "always"} and reason in {"submit", "press_enter"}:
                         data_loader_for_confirm.set_site_approval(reason, True)
                         approved = True
@@ -514,6 +596,7 @@ def _handle_run_query(
     dsl: str,
     appspec: Optional[Path],
     auto_confirm: bool,
+    no_submit: bool,
     execute_web: bool,
     auto_install: bool,
     auto_repair: bool,
@@ -524,6 +607,7 @@ def _handle_run_query(
         dsl=dsl,
         appspec=appspec,
         auto_confirm=auto_confirm,
+        no_submit=no_submit,
         execute_web=execute_web,
         auto_install=auto_install,
         auto_repair=auto_repair,

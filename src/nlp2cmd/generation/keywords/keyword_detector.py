@@ -151,6 +151,23 @@ def _get_spacy_model():
         return None
 
 
+def _normalize_url(raw: str) -> str:
+    """Normalize URL by adding https:// if needed."""
+    u = (raw or "").strip().strip('""')
+    if not u:
+        return u
+    if u.startswith("http://") or u.startswith("https://") or u.startswith("file://"):
+        return u
+    if u.startswith("www."):
+        return f"https://{u}"
+    # If it looks like a domain[/path], default to https
+    # Regex: starts with alphanumeric, then alphanumeric/hyphen/dot, then a dot, then 2+ letters,
+    # optionally followed by a path (non-whitespace/quote chars)
+    if re.match(r"^[a-zA-Z0-9][\w\-\.]*\.[a-zA-Z]{2,}(?:/[^\s'\"]*)?$", u):
+        return f"https://{u}"
+    return u
+
+
 @dataclass
 class DetectionResult:
     """Result of intent detection."""
@@ -718,25 +735,31 @@ class KeywordIntentDetector:
                 
                 return DetectionResult(domain="sql", intent=intent, confidence=0.85, entities=entities)
 
-        # URL detection
-        # IMPORTANT:
-        # - Prefer explicit URLs (https?://...) over bare domain matches.
-        # - Preserve the full path/query when present.
-        # - If the user provides a bare domain (e.g. prototypowanie.pl),
-        #   default to https:// so xdg-open doesn't treat it like a local file.
-
-        def _normalize_url(raw: str) -> str:
-            u = (raw or "").strip().strip("'\"")
-            if not u:
-                return u
-            if u.startswith("http://") or u.startswith("https://") or u.startswith("file://"):
-                return u
-            if u.startswith("www."):
-                return f"https://{u}"
-            # If it looks like a domain[/path], default to https
-            if re.match(r"^[a-zA-Z0-9][\w\-]*\.[a-zA-Z]{2,}(?:/[^\s'\"]*)?$", u):
-                return f"https://{u}"
-            return u
+        # Browser complex intents (before generic URL)
+        _BROWSER_COMPLEX = [
+            ("znajdź formularz i wypełnij", "browser", "explore_and_fill"),
+            ("znajdz formularz i wypelnij", "browser", "explore_and_fill"),
+            ("znajdź stronę kontaktu i wypełnij", "browser", "explore_and_fill"),
+            ("znajdz strone kontaktu i wypelnij", "browser", "explore_and_fill"),
+            ("find form and fill", "browser", "explore_and_fill"),
+            ("szukaj kontaktu i wypełnij", "browser", "explore_and_fill"),
+            ("szukaj kontaktu i wypelnij", "browser", "explore_and_fill"),
+            ("znajdź formularz", "browser", "find_form"),
+            ("znajdz formularz", "browser", "find_form"),
+            ("szukaj formularza", "browser", "find_form"),
+            ("find form", "browser", "find_form"),
+            ("search form", "browser", "find_form"),
+            ("locate form", "browser", "find_form"),
+            ("znajdź stronę kontaktu", "browser", "find_form"),
+            ("znajdz strone kontaktu", "browser", "find_form"),
+            ("szukaj kontaktu", "browser", "find_form"),
+            ("znajdź kontakt", "browser", "find_form"),
+        ]
+        for kw, domain, intent in _BROWSER_COMPLEX:
+            if kw in text_lower:
+                url_match = re.search(r"\b(https?://[^\s'\"]+)", text_lower)
+                entities = {"url": _normalize_url(url_match.group(1))} if url_match else {}
+                return DetectionResult(domain=domain, intent=intent, confidence=0.95, entities=entities)
 
         # 1) Full explicit URLs
         url_match = re.search(r"\b(https?://[^\s'\"]+)", text_lower)

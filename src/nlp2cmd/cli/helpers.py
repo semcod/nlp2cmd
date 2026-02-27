@@ -110,6 +110,39 @@ def _timed_default_yes(
     return resp or "y"
 
 
+def _timed_default_no(
+    *,
+    timed_prompt: str,
+    full_prompt: str,
+    timeout_s: float = 1.0,
+) -> str:
+    if not sys.stdin.isatty():
+        return "n"
+
+    console.print(timed_prompt, end="")
+    _system_beep()
+    try:
+        ready, _, _ = select.select([sys.stdin], [], [], timeout_s)
+    except Exception:
+        ready = []
+
+    if not ready:
+        console.print("n")
+        return "n"
+
+    try:
+        line = sys.stdin.readline()
+    except Exception:
+        line = ""
+
+    resp = (line or "").strip().lower()
+    if resp:
+        return resp
+
+    resp = console.input(full_prompt).strip().lower()
+    return resp or "n"
+
+
 def _shell_env_context(context: dict[str, Any]) -> dict[str, Any]:
     os_info = context.get("os") or {}
     shell_info = context.get("shell") or {}

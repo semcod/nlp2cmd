@@ -47,6 +47,12 @@ from nlp2cmd.exploration.data_tree import (
     DataTreeExplorer,
     quick_find_in_data,
 )
+from nlp2cmd.exploration.resource_discovery import (
+    ResourceDiscoveryManager,
+    MissingResource,
+    DiscoveryDecision,
+    get_resource_discovery_manager,
+)
 
 # Import and register web explorer if available
 try:
@@ -90,6 +96,11 @@ __all__ = [
     "DataNode",
     "DataMatch",
     "quick_find_in_data",
+    # Resource Discovery (Execution Integration)
+    "ResourceDiscoveryManager",
+    "MissingResource",
+    "DiscoveryDecision",
+    "get_resource_discovery_manager",
     # Web (optional)
     "WebExplorer",
 ]

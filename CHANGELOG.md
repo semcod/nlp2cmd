@@ -1,3 +1,94 @@
+## [1.0.86] - 2026-02-27
+
+### Summary
+
+feat(exploration): universal resource discovery system across web, disk, services, and data
+
+### Features
+
+- **Exploration Package** (`src/nlp2cmd/exploration/`):
+  - `BaseExplorer` - Abstract base class for all explorers
+  - `DiskExplorer` - File system exploration (find files, configs, code, data)
+  - `ServiceExplorer` - API/service discovery (REST, GraphQL endpoints)
+  - `DataTreeExplorer` - JSON/nested data navigation
+  - `ExplorerRegistry` - Unified registry for all space types
+  - Universal `explore()` function with auto-detection
+
+- **SiteExplorer Enhancement** (`src/nlp2cmd/web_schema/site_explorer.py`):
+  - `explore()` method with intent auto-detection from natural language
+  - `find_content()` for articles, products, documentation
+  - `find_form()` with iframe support and cookie consent handling
+  - Support for multiple intents: contact, article, product, docs
+  - Sitemap.xml parsing for efficient crawling
+  - Multi-language keyword support (Polish, English)
+
+- **ResourceDiscoveryManager** (`src/nlp2cmd/exploration/resource_discovery.py`):
+  - Automatic error pattern recognition (missing files, directories, commands, packages, endpoints)
+  - Decision engine for when to attempt discovery vs. fail
+  - Integration with `ExecutionRunner.run_with_recovery()`
+  - Integration with `PipelineRunner._run_shell()`
+  - Automatic command adaptation with discovered resources
+  - Configurable discovery limits and timeouts
+
+### Integration Points
+
+- **ExecutionRunner** (`src/nlp2cmd/execution/runner.py`):
+  - `run_with_recovery()` now tries resource discovery before LLM fallback
+  - New parameter: `use_resource_discovery=True`
+  - Automatic retry with discovered resources
+
+- **PipelineRunner** (`src/nlp2cmd/pipeline_runner.py`):
+  - `_run_shell()` integrated with resource discovery
+  - Automatic retry loop with discovery on missing resource errors
+  - Preserves all existing safety policies
+
+### API Usage
+
+```python
+from nlp2cmd.exploration import explore, DiskExplorer, SiteExplorer
+
+# Universal exploration - auto-detects space type
+result = explore("/etc", "config", search_term="nginx")
+result = explore("https://example.com", "contact")
+
+# Specific explorers
+disk = DiskExplorer()
+files = disk.find_config("~", app_name="myapp")
+
+web = SiteExplorer()
+form = web.find_form("https://example.com", intent="contact")
+```
+
+### Documentation
+
+- Added `docs/EXPLORATION_GUIDE.md` - comprehensive exploration system guide
+- Updated `docs/WEB_SCHEMA_GUIDE.md` - SiteExplorer documentation
+- Updated `docs/README.md` - added exploration to navigation
+- Updated main `README.md` - Exploration System feature section
+
+### Decision Flow
+
+```
+Command Fails → analyze_error() → should_attempt_discovery()?
+     ↓ YES                           ↓ NO
+     ↓                    (fallback to LLM/prompt)
+discover_missing_resource()
+     ↓
+adapt_command()
+     ↓
+Retry with discovered resource
+```
+
+### Error Patterns Supported
+
+- `No such file or directory` → filesystem search
+- `cd: No such file` → directory search
+- `command not found` → PATH search
+- `ModuleNotFoundError` → package install suggestion
+- `Connection refused` → service endpoint search
+
+---
+
 ## [1.0.85] - 2026-02-27
 
 ### Summary

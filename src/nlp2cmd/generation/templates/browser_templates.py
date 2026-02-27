@@ -17,6 +17,8 @@ BROWSER_TEMPLATES = {
     'search_youtube': "xdg-open 'https://www.youtube.com/results?search_query={query}'",
     'search_amazon': "xdg-open 'https://www.amazon.com/s?k={query}'",
     'open_gmail': "xdg-open 'https://mail.google.com'",
+    'find_form': '{{ "dsl": "dom_dql.v1", "url": "{url}", "actions": [ {{ "action": "explore_for_form", "intent": "contact" }} ] }}',
+    'explore_and_fill': '{{ "dsl": "dom_dql.v1", "url": "{url}", "actions": [ {{ "action": "explore_for_form", "intent": "contact" }}, {{ "action": "fill_form" }}, {{ "action": "submit" }} ] }}',
     'open_outlook': "xdg-open 'https://outlook.live.com'",
     'open_github': "xdg-open 'https://github.com'",
     'open_stackoverflow': "xdg-open 'https://stackoverflow.com'",

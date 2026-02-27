@@ -193,7 +193,15 @@ class PipelineRunner:
         timeout_s: float,
         dry_run: bool,
         confirm: bool,
+        use_resource_discovery: bool = True,
     ) -> RunnerResult:
+        """
+        Execute shell command with optional resource discovery on failure.
+        
+        When a command fails due to missing files/directories and
+        use_resource_discovery is True, automatically attempts to discover
+        and use alternative paths.
+        """
         cmd = str(command or "").strip()
         if not cmd:
             return RunnerResult(success=False, kind="shell", error="Empty command")
@@ -229,25 +237,75 @@ class PipelineRunner:
         if dry_run:
             return RunnerResult(success=True, kind="shell", data={"argv": argv, "dry_run": True})
 
-        cp = subprocess.run(
-            argv,
-            capture_output=True,
-            text=True,
-            cwd=cwd,
-            timeout=timeout_s,
-            check=False,
-        )
-        return RunnerResult(
-            success=cp.returncode == 0,
-            kind="shell",
-            data={
-                "argv": argv,
-                "returncode": cp.returncode,
-                "stdout": cp.stdout,
-                "stderr": cp.stderr,
-            },
-            error=None if cp.returncode == 0 else (cp.stderr.strip() or f"returncode={cp.returncode}"),
-        )
+        # Initialize resource discovery if enabled
+        resource_discovery = None
+        if use_resource_discovery:
+            try:
+                from nlp2cmd.exploration.resource_discovery import get_resource_discovery_manager
+                resource_discovery = get_resource_discovery_manager()
+            except Exception:
+                pass
+
+        # Try execution with potential recovery
+        current_argv = argv
+        discovery_attempts = 0
+        max_discovery_attempts = 3
+
+        while True:
+            cp = subprocess.run(
+                current_argv,
+                capture_output=True,
+                text=True,
+                cwd=cwd,
+                timeout=timeout_s,
+                check=False,
+            )
+
+            if cp.returncode == 0:
+                return RunnerResult(
+                    success=True,
+                    kind="shell",
+                    data={
+                        "argv": current_argv,
+                        "returncode": cp.returncode,
+                        "stdout": cp.stdout,
+                        "stderr": cp.stderr,
+                    },
+                )
+
+            # Command failed - check if we can recover via resource discovery
+            if resource_discovery and discovery_attempts < max_discovery_attempts:
+                error_output = cp.stderr or ""
+                command_str = " ".join(current_argv)
+                
+                recovered, new_command = resource_discovery.handle_execution_failure(
+                    command_str,
+                    error_output,
+                    discovery_attempts,
+                )
+                
+                if recovered and new_command:
+                    # Parse new command and retry
+                    try:
+                        import shlex
+                        current_argv = shlex.split(new_command)
+                        discovery_attempts += 1
+                        continue
+                    except Exception:
+                        pass
+
+            # No recovery possible - return failure
+            return RunnerResult(
+                success=False,
+                kind="shell",
+                data={
+                    "argv": current_argv,
+                    "returncode": cp.returncode,
+                    "stdout": cp.stdout,
+                    "stderr": cp.stderr,
+                },
+                error=None if cp.returncode == 0 else (cp.stderr.strip() or f"returncode={cp.returncode}"),
+            )
 
     def _parse_shell_command(self, command: str) -> dict[str, Any]:
         cmd = command.strip()

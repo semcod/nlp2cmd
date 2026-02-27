@@ -183,6 +183,7 @@ if not hasattr(click, 'Group'):
 @click.option("--explain", is_flag=True, help="Explain how the result was produced")
 @click.option("--execute-web", is_flag=True, help="Execute dom_dql.v1 actions via Playwright (requires playwright)")
 @click.option("-ac", "--auto-confirm", is_flag=True, help="Skip confirmation prompts when using --run")
+@click.option("--no-submit", is_flag=True, help="In --run mode, do not submit forms (skip submit/Enter actions)")
 @click.option(
     "--auto-install/--no-auto-install",
     default=True,
@@ -204,6 +205,7 @@ def main(
     explain: bool,
     execute_web: bool,
     auto_confirm: bool,
+    no_submit: bool,
     auto_install: bool,
     version: bool,
 ):
@@ -249,6 +251,7 @@ def main(
                 dsl=dsl,
                 appspec=appspec,
                 auto_confirm=auto_confirm,
+                no_submit=no_submit,
                 execute_web=execute_web,
                 auto_install=auto_install,
                 auto_repair=auto_repair,
