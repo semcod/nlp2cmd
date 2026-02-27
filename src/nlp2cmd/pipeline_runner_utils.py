@@ -183,6 +183,26 @@ def _filter_form_fields(
 
     contact_like = [f for f in fields if _is_contact_relevant_field(f)]
     if not contact_like:
+        # Fallback: some contact forms have poor metadata (no name/id/placeholder),
+        # so token-based heuristics may fail. If we see strong form signals (textarea/email/tel/checkbox),
+        # keep non-junk typical fields instead of returning empty.
+        try:
+            strong_types = {"textarea", "email", "tel", "checkbox"}
+            has_strong = any((_field_attrs(f)[0] in strong_types) and (not _is_junk_field(f)) for f in fields)
+        except Exception:
+            has_strong = False
+
+        if has_strong:
+            relaxed = []
+            for f in fields:
+                if _is_junk_field(f):
+                    continue
+                field_type, *_ = _field_attrs(f)
+                if field_type in {"text", "textarea", "email", "tel", "checkbox"}:
+                    relaxed.append(f)
+            if relaxed:
+                return relaxed
+
         if console_wrapper is not None:
             try:
                 console_wrapper.print(

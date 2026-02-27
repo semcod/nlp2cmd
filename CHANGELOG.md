@@ -1,3 +1,34 @@
+## [1.0.84] - 2026-02-27
+
+### Summary
+
+feat(examples): deep code analysis engine with 4 supporting modules
+
+### Core
+
+- update src/nlp2cmd/pipeline_runner_utils.py
+
+### Docs
+
+- docs: update session.md
+- docs: update README
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_press_controlaltt.png
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_press_enter.png
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_screenshot.png
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_type_df_-h_.png
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_type_free_-h.png
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_type_uname_-a.png
+- update examples/06_desktop_automation/01_terminal/logs/session_screenshots/01_type_whoami.png
+- scripts: update run.sh
+
+
 ## [1.0.89] - 2026-02-27
 
 ### Summary
