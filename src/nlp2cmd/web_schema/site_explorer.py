@@ -27,6 +27,8 @@ class PageInfo:
     links: list[str] = field(default_factory=list)
     has_form: bool = False
     form_count: int = 0
+    contact_field_count: int = 0
+    junk_field_count: int = 0
     score: float = 0.0  # Relevance score for form/contact pages
 
 
@@ -347,7 +349,7 @@ class SiteExplorer:
                             explored_pages=explored_pages,
                             base_domain=urlparse(url).netloc,
                         )
-                        if result and result.has_form:
+                        if result and ((intent != "contact" and result.has_form) or (intent == "contact" and result.contact_field_count > 0)):
                             return ExplorationResult(
                                 success=True,
                                 form_url=result.url,
@@ -367,7 +369,7 @@ class SiteExplorer:
                             explored_pages=explored_pages,
                             base_domain=urlparse(url).netloc,
                         )
-                        if result and result.has_form:
+                        if result and ((intent != "contact" and result.has_form) or (intent == "contact" and result.contact_field_count > 0)):
                             return ExplorationResult(
                                 success=True,
                                 form_url=result.url,
@@ -446,7 +448,7 @@ class SiteExplorer:
                             explored_pages=explored_pages,
                             base_domain=urlparse(url).netloc,
                         )
-                        if result and result.has_form:
+                        if result and result.contact_field_count > 0:
                             print(f"DEBUG: Found contact form at: {link}")
                             return ExplorationResult(
                                 success=True,
@@ -598,20 +600,115 @@ class SiteExplorer:
         """Analyze a page for forms, iframes, and links."""
         info = PageInfo(url=url)
         
+        info.form_count = len(inputs) + len(textareas) + len(selects)
+        info.has_form = info.form_count > 0
+
+        # Compute contact-like vs junk fields for contact intent.
+        # This helps avoid false positives (search boxes, cookie consent toggles,
+        # comment forms, captcha-only pages).
         try:
-            # Get page title
-            info.title = page.title() or ""
-        except Exception:
-            pass
-        
-        # Count form fields in main document
-        try:
-            inputs = page.query_selector_all('input:not([type="hidden"])')
-            textareas = page.query_selector_all('textarea')
-            selects = page.query_selector_all('select')
-            
-            info.form_count = len(inputs) + len(textareas) + len(selects)
-            info.has_form = info.form_count > 0
+            field_nodes = []
+            try:
+                field_nodes.extend(inputs[:30])
+            except Exception:
+                field_nodes.extend(inputs)
+            try:
+                field_nodes.extend(textareas[:15])
+            except Exception:
+                field_nodes.extend(textareas)
+
+            def _is_junk_desc(field_type: str, name: str, fid: str, placeholder: str, aria: str) -> bool:
+                ft = (field_type or "").strip().lower()
+                n = (name or "").strip().lower()
+                i = (fid or "").strip().lower()
+                p = (placeholder or "").strip().lower()
+                a = (aria or "").strip().lower()
+                hay = " ".join([n, i, p, a])
+
+                if ft == "search" or n in {"s", "q", "search", "query"}:
+                    return True
+                if "search" in hay or "szukaj" in hay or "wyszuki" in hay:
+                    return True
+
+                if "cookie" in hay or "consent" in hay:
+                    return True
+                if i.startswith("cky") or "cky" in hay:
+                    return True
+                if i.startswith("cmplz") or "cmplz" in hay:
+                    return True
+
+                if "captcha" in hay or "recaptcha" in hay or "g-recaptcha" in hay or "hcaptcha" in hay:
+                    return True
+
+                if n.startswith("apbct__") or "cleantalk" in hay:
+                    return True
+
+                if "comment" in hay or n in {"author", "email", "url"}:
+                    return True
+
+                return False
+
+            def _is_contact_desc(field_type: str, name: str, fid: str, placeholder: str, aria: str) -> bool:
+                ft = (field_type or "").strip().lower()
+                n = (name or "").strip().lower()
+                i = (fid or "").strip().lower()
+                p = (placeholder or "").strip().lower()
+                a = (aria or "").strip().lower()
+                hay = " ".join([n, i, p, a])
+
+                if _is_junk_desc(field_type, name, fid, placeholder, aria):
+                    return False
+
+                if ft in {"email", "tel"}:
+                    return True
+                if ft == "textarea":
+                    return True
+
+                tokens = [
+                    "email",
+                    "e-mail",
+                    "mail",
+                    "telefon",
+                    "phone",
+                    "wiadomo",
+                    "message",
+                    "temat",
+                    "subject",
+                    "imi",
+                    "name",
+                ]
+                return any(t in hay for t in tokens)
+
+            for node in field_nodes:
+                try:
+                    tag = (node.evaluate('el => el.tagName.toLowerCase()') or "").strip().lower()
+                except Exception:
+                    tag = ""
+                try:
+                    ftype = (node.get_attribute('type') or ("textarea" if tag == "textarea" else "text"))
+                except Exception:
+                    ftype = "text"
+                try:
+                    name = node.get_attribute('name') or ""
+                except Exception:
+                    name = ""
+                try:
+                    fid = node.get_attribute('id') or ""
+                except Exception:
+                    fid = ""
+                try:
+                    placeholder = node.get_attribute('placeholder') or ""
+                except Exception:
+                    placeholder = ""
+                try:
+                    aria = node.get_attribute('aria-label') or ""
+                except Exception:
+                    aria = ""
+
+                if _is_junk_desc(str(ftype), name, fid, placeholder, aria):
+                    info.junk_field_count += 1
+                if _is_contact_desc(str(ftype), name, fid, placeholder, aria):
+                    info.contact_field_count += 1
         except Exception:
             pass
         

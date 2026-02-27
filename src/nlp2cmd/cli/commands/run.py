@@ -44,6 +44,7 @@ def handle_run_mode(
     auto_install: bool,
     auto_repair: bool,
     only_output: bool = False,
+    verbose: bool = False,
 ):
     """
     Handle --run option: generate and execute command with error recovery.
@@ -55,6 +56,14 @@ def handle_run_mode(
     - Interactive retry loop with LLM assistance
     - Context-aware disambiguation from history
     """
+    
+    # Verbose logging setup
+    def _verbose_log(msg: str, data: Any = None):
+        if verbose:
+            print_yaml_block({"verbose": msg, "data": data}, console=console)
+    
+    _verbose_log("handle_run_mode started", {"query": query, "dsl": dsl})
+    
     from nlp2cmd.generation.pipeline import RuleBasedPipeline
     from nlp2cmd import NLP2CMD
     from nlp2cmd.adapters import (
@@ -80,13 +89,17 @@ def handle_run_mode(
         print()
     
     # Step 0: Check for similar queries in history (disambiguation)
-    # - interactive mode: ask user to pick an option
-    # - auto-confirm mode: auto-select only if similarity is very high
+    _verbose_log("Step 0: Checking history for similar queries")
     try:
         from nlp2cmd.context.disambiguator import CommandDisambiguator
 
         disambiguator = CommandDisambiguator(console=console)
         result = disambiguator.disambiguate(query, auto_select=auto_confirm)
+        
+        _verbose_log("History check result", {
+            "from_history": result.from_history,
+            "selected_command": bool(result.selected_command),
+        })
 
         if result.from_history and result.selected_command:
             if not only_output:
@@ -99,25 +112,23 @@ def handle_run_mode(
                 )
             query = result.selected_query
             history_selected_command = result.selected_command
-    except Exception:
-        pass
+    except Exception as e:
+        _verbose_log("History check failed", {"error": str(e)})
 
     # If the user selected a previous command from history, execute it directly.
-    # This avoids regenerating a simpler command (e.g., browser/navigate) and losing
-    # multi-step dom_dql.v1 sequences (fill_form/submit/etc.).
     if history_selected_command:
+        _verbose_log("Using history command", {"command": history_selected_command[:100]})
         cmd = history_selected_command.strip()
 
         # If it's dom_dql.v1 JSON, prefer executing via Playwright PipelineRunner.
         try:
-            import json
-
             payload = json.loads(cmd)
         except Exception:
             payload = None
 
         if isinstance(payload, dict) and payload.get("dsl") == "dom_dql.v1":
             requires_web_execution = True
+            _verbose_log("Detected dom_dql.v1 command from history")
 
             confirmed_for_web = bool(auto_confirm or execute_web)
 
@@ -327,6 +338,7 @@ def handle_run_mode(
         return
 
     # Step 4: Detect browser commands with typing/form actions
+    _verbose_log("Step 4: Detecting browser command indicators")
     is_browser_command = False
     detected_has_typing = False
 
@@ -340,17 +352,33 @@ def handle_run_mode(
         *loader.get_nlp_keywords("press_enter"),
     ])
     extract_article_keywords = loader.get_nlp_keywords("extract_article")
+    extract_companies_keywords = loader.get_nlp_keywords("extract_companies")
+    save_to_file_keywords = loader.get_nlp_keywords("save_to_file")
 
     query_lower = query.lower()
     has_typing = any(kw in query_lower for kw in typing_keywords)
     has_clicking = any(kw in query_lower for kw in clicking_keywords)
     has_form = any(kw in query_lower for kw in form_keywords)
     has_extract_article = any(kw in query_lower for kw in extract_article_keywords)
+    has_extract_companies = any(kw in query_lower for kw in extract_companies_keywords)
+    has_save_to_file = any(kw in query_lower for kw in save_to_file_keywords)
+    
+    _verbose_log("Keyword detection results", {
+        "has_typing": has_typing,
+        "has_clicking": has_clicking,
+        "has_form": has_form,
+        "has_extract_article": has_extract_article,
+        "has_extract_companies": has_extract_companies,
+        "has_save_to_file": has_save_to_file,
+        "detected_domain": detected_domain,
+        "detected_intent": detected_intent,
+    })
 
     if dsl == "auto":
         if detected_domain == "shell" and detected_intent in ("open_url", "search_web"):
             is_browser_command = True
-            detected_has_typing = has_typing or has_clicking or has_form or has_extract_article
+            detected_has_typing = has_typing or has_clicking or has_form or has_extract_article or has_extract_companies
+            _verbose_log("Detected as shell browser command", {"has_typing": detected_has_typing})
             if detected_has_typing and not execute_web:
                 if not only_output:
                     print_yaml_block(
@@ -360,7 +388,8 @@ def handle_run_mode(
                 execute_web = True
         elif detected_domain == "browser":
             is_browser_command = True
-            detected_has_typing = has_typing or has_clicking or has_form or has_extract_article
+            detected_has_typing = has_typing or has_clicking or has_form or has_extract_article or has_extract_companies
+            _verbose_log("Detected as browser domain command", {"has_typing": detected_has_typing})
             # Enable browser automation for ANY browser domain command when in run mode
             # This allows simple navigation (open URL) to use Playwright, not just xdg-open
             if not execute_web:
@@ -379,8 +408,15 @@ def handle_run_mode(
     elif dsl == "browser":
         is_browser_command = True
         detected_has_typing = True
+        _verbose_log("DSL explicitly set to browser")
         if not execute_web:
             execute_web = True
+    
+    _verbose_log("Browser detection complete", {
+        "is_browser_command": is_browser_command,
+        "execute_web": execute_web,
+        "detected_has_typing": detected_has_typing,
+    })
 
     # Step 5: Execute
     if ExecutionRunner is None:
@@ -420,13 +456,31 @@ def handle_run_mode(
         try:
             browser_adapter = BrowserAdapter()
             nlp_browser = NLP2CMD(adapter=browser_adapter)
+            
+            _verbose_log("Transforming query to IR via BrowserAdapter")
             ir = nlp_browser.transform_ir(query)
+            
+            _verbose_log("BrowserAdapter transformation result", {
+                "action_id": getattr(ir, "action_id", None),
+                "dsl_kind": getattr(ir, "dsl_kind", None),
+                "dsl_preview": str(getattr(ir, "dsl", "")[:200]),
+                "confidence": getattr(ir, "confidence", 0),
+            })
 
             if no_submit:
                 try:
                     dsl_payload = json.loads(getattr(ir, "dsl", "") or "")
-                except Exception:
+                except Exception as e:
                     dsl_payload = None
+                    if not only_output:
+                        print_yaml_block(
+                            {
+                                "status": "no_submit_json_loads_error",
+                                "error": str(e),
+                                "error_type": str(type(e).__name__),
+                            },
+                            console=console,
+                        )
 
                 if dsl_payload is None and not only_output:
                     try:
@@ -449,6 +503,23 @@ def handle_run_mode(
                         dsl_payload.get("dsl") == "dom_dql.v1"
                         or isinstance(actions, list)
                     )
+
+                    if not only_output:
+                        try:
+                            actions_len = len(actions) if isinstance(actions, list) else None
+                        except Exception:
+                            actions_len = None
+                        print_yaml_block(
+                            {
+                                "status": "no_submit_payload_info",
+                                "dsl": dsl_payload.get("dsl"),
+                                "is_dom_payload": bool(is_dom_payload),
+                                "actions_type": str(type(actions).__name__),
+                                "actions_len": actions_len,
+                            },
+                            console=console,
+                        )
+
                     if (not is_dom_payload) and (not only_output):
                         print_yaml_block(
                             {
@@ -601,6 +672,7 @@ def _handle_run_query(
     auto_install: bool,
     auto_repair: bool,
     only_output: bool = False,
+    verbose: bool = False,
 ) -> None:
     handle_run_mode(
         query,
@@ -612,6 +684,7 @@ def _handle_run_query(
         auto_install=auto_install,
         auto_repair=auto_repair,
         only_output=only_output,
+        verbose=verbose,
     )
     return
 

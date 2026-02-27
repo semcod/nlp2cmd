@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -9,6 +11,14 @@ from nlp2cmd.adapters.base import AdapterConfig, BaseDSLAdapter, SafetyPolicy
 from nlp2cmd.ir import ActionIR
 from nlp2cmd.web_schema.form_data_loader import FormDataLoader
 from nlp2cmd.web_schema.site_explorer import SiteExplorer
+
+_DEBUG = os.environ.get("NLP2CMD_DEBUG", "").lower() in ("1", "true", "yes")
+
+
+def _debug(msg: str) -> None:
+    """Print debug message to stderr when NLP2CMD_DEBUG=1."""
+    if _DEBUG:
+        print(f"DEBUG [BrowserAdapter] {msg}", file=sys.stderr, flush=True)
 
 
 @dataclass
@@ -190,10 +200,76 @@ class BrowserAdapter(BaseDSLAdapter):
                 topic = re.sub(r'[,;.!?]+$', '', topic).strip()
                 return topic if topic else None
         return None
-    
+
+    @staticmethod
+    def _has_extract_companies_action(text: str) -> bool:
+        """Check if text contains company extraction intent."""
+        keywords = FormDataLoader().get_nlp_keywords("extract_companies")
+        tl = text.lower()
+        matched = [kw for kw in keywords if kw in tl]
+        if matched:
+            _debug(f"_has_extract_companies_action: matched keywords {matched}")
+        return bool(matched)
+
+    @staticmethod
+    def _has_save_to_file_action(text: str) -> bool:
+        """Check if text contains save-to-file intent."""
+        keywords = FormDataLoader().get_nlp_keywords("save_to_file")
+        tl = text.lower()
+        matched = [kw for kw in keywords if kw in tl]
+        if matched:
+            _debug(f"_has_save_to_file_action: matched keywords {matched}")
+        return bool(matched)
+
+    @staticmethod
+    def _extract_save_filename(text: str) -> Optional[str]:
+        """Extract output filename from NL (e.g. 'zapisz do pliku firmy.txt' -> 'firmy.txt')."""
+        patterns = FormDataLoader().get_save_filename_patterns()
+        for pattern in patterns:
+            m = re.search(pattern, text, flags=re.IGNORECASE)
+            if m:
+                fname = m.group(1).strip()
+                _debug(f"_extract_save_filename: extracted '{fname}' via pattern")
+                return fname if fname else None
+        # Fallback: look for quoted filename anywhere
+        m = re.search(r"['\"]([\\w._-]+\\.\\w{1,5})['\"]", text)
+        if m:
+            fname = m.group(1).strip()
+            _debug(f"_extract_save_filename: extracted '{fname}' via quoted fallback")
+            return fname
+        return None
+
+    @staticmethod
+    def _has_deep_website_extraction(text: str) -> bool:
+        """Check if text requests deep extraction of company websites."""
+        deep_keywords = [
+            "strona www", "strony www", "strona firmy", "strony firm",
+            "witryna", "witryny", "website firmy", "websites firm",
+            "adres www", "adresy www", "adres strony", "adresy stron",
+            "www firmy", "www firm", "strona internetowa", "strony internetowe",
+            "company website", "company websites", "firm website", "business website",
+            "wejdź na profil", "wejdz na profil", "wejdź w profil", "wejdz w profil",
+            "otwórz profil", "otworz profil",
+            "pobierz strony www", "pobierz www", "extract websites", "pobierz adresy"
+        ]
+        tl = text.lower()
+        matched = [kw for kw in deep_keywords if kw in tl]
+        if matched:
+            _debug(f"_has_deep_website_extraction: matched {matched}")
+        return bool(matched)
+
+    @staticmethod
+    def _has_csv_format(text: str) -> bool:
+        """Check if text requests CSV format."""
+        csv_indicators = [".csv", "csv", "format csv", "do csv", "w csv"]
+        tl = text.lower()
+        return any(ind in tl for ind in csv_indicators)
+
     def generate(self, plan: dict[str, Any]) -> str:
         text = str(plan.get("text") or plan.get("query") or "")
         entities = plan.get("entities") if isinstance(plan.get("entities"), dict) else {}
+
+        _debug(f"generate() text='{text[:120]}...'")
 
         url = None
         if isinstance(entities, dict):
@@ -203,19 +279,42 @@ class BrowserAdapter(BaseDSLAdapter):
 
         url = url or self._extract_url(text)
         if not url:
+            _debug("generate(): no URL found, aborting")
             self.last_action_ir = None
             return "# Could not generate command"
+
+        _debug(f"generate(): URL={url}")
 
         actions: list[dict[str, Any]] = [{"action": "goto", "url": url}]
         params: dict[str, Any] = {"url": url}
         action_id = "dom.goto"
         explanation = "browser adapter: goto"
 
-        if self._has_fill_form_action(text):
-            # Check if we need to explore for forms
-            # We explore if:
-            # 1. User explicitly asked to find/search (already in _should_explore_for_forms)
-            # 2. OR we are at the root domain and intent is to fill form (proactive discovery)
+        # --- Detect all intents upfront for debug visibility ---
+        has_fill = self._has_fill_form_action(text)
+        has_explore_forms = self._should_explore_for_forms(text)
+        should_explore_content, explore_content_type = self._should_explore_for_content(text)
+        has_type = self._has_type_action(text)
+        has_enter = self._has_press_enter(text)
+        has_submit = self._has_submit_action(text)
+        has_extract_article = self._has_extract_article_action(text)
+        has_extract_companies = self._has_extract_companies_action(text)
+        has_deep_extraction = self._has_deep_website_extraction(text)
+        has_save_keyword = self._has_save_to_file_action(text)
+        has_csv = self._has_csv_format(text)
+        save_filename = self._extract_save_filename(text)
+        # Trigger save if keyword found OR filename explicitly mentioned
+        has_save = has_save_keyword or bool(save_filename)
+
+        _debug(
+            f"generate(): intents: fill_form={has_fill}, explore_forms={has_explore_forms}, "
+            f"explore_content={should_explore_content}({explore_content_type}), type={has_type}, "
+            f"enter={has_enter}, submit={has_submit}, extract_article={has_extract_article}, "
+            f"extract_companies={has_extract_companies}, deep_extraction={has_deep_extraction}, "
+            f"save={has_save}, csv={has_csv}, filename={save_filename}"
+        )
+
+        if has_fill:
             is_root = False
             try:
                 parsed = urlparse(url)
@@ -223,31 +322,47 @@ class BrowserAdapter(BaseDSLAdapter):
             except Exception:
                 pass
 
-            if self._should_explore_for_forms(text) or is_root:
-                # Add exploration step before filling form
+            if has_explore_forms or is_root:
                 actions.append({"action": "explore_for_form", "intent": "contact"})
                 actions.append({"action": "fill_form"})
                 action_id = "dom.explore_and_fill_form"
                 explanation = f"browser adapter: explore {url} for contact form and fill"
+                _debug("generate(): chose explore_and_fill_form path")
             else:
                 actions.append({"action": "fill_form"})
                 action_id = "dom.goto_and_fill_form"
                 explanation = f"browser adapter: goto {url} and fill form"
-        elif self._should_explore_for_forms(text):
-            # User wants to find a form but didn't explicitly say "fill"
+                _debug("generate(): chose goto_and_fill_form path")
+        elif has_explore_forms:
             actions.append({"action": "explore_for_form", "intent": "contact"})
             action_id = "dom.explore_for_form"
             explanation = f"browser adapter: explore {url} for contact form"
-        
+            _debug("generate(): chose explore_for_form path")
+
         # Check for content exploration (but don't duplicate with form exploration)
-        should_explore, content_type = self._should_explore_for_content(text)
-        if should_explore and not self._has_fill_form_action(text):
-            actions.append({"action": "explore_for_content", "content_type": content_type})
-            action_id = f"dom.explore_for_{content_type}"
-            explanation = f"browser adapter: explore {url} for {content_type}"
+        if should_explore_content and not has_fill and not has_extract_companies:
+            actions.append({"action": "explore_for_content", "content_type": explore_content_type})
+            action_id = f"dom.explore_for_{explore_content_type}"
+            explanation = f"browser adapter: explore {url} for {explore_content_type}"
+            _debug(f"generate(): chose explore_for_content({explore_content_type}) path")
+
+        # --- Company extraction (deep or shallow) ---
+        if has_deep_extraction:
+            # Deep extraction: navigate to each profile and get external website
+            actions.append({"action": "extract_company_websites_deep", "max_companies": 20})
+            params["deep_extraction"] = True
+            action_id = f"{action_id}_and_extract_company_websites_deep"
+            explanation = f"{explanation} and extract company websites from profiles"
+            _debug("generate(): added extract_company_websites_deep action")
+        elif has_extract_companies:
+            actions.append({"action": "extract_companies"})
+            params["extract_companies"] = True
+            action_id = f"{action_id}_and_extract_companies"
+            explanation = f"{explanation} and extract companies"
+            _debug("generate(): added extract_companies action")
 
         type_text = self._extract_type_text(text)
-        if type_text and self._has_type_action(text):
+        if type_text and has_type:
             actions.append({"action": "type", "selector": "__auto__", "text": type_text})
             params["type_text"] = type_text
             if action_id == "dom.goto":
@@ -257,22 +372,22 @@ class BrowserAdapter(BaseDSLAdapter):
                 action_id = f"{action_id}_and_type"
                 explanation = f"{explanation} and type '{type_text}'"
 
-        if self._has_press_enter(text):
+        if has_enter:
             actions.append({"action": "press", "key": "Enter"})
             params["press_key"] = "Enter"
             action_id = f"{action_id}_and_press_enter"
             explanation = f"{explanation} and press Enter"
-        
-        if self._has_submit_action(text):
+
+        if has_submit:
             actions.append({"action": "submit"})
             params["submit"] = True
             action_id = f"{action_id}_and_submit"
             explanation = f"{explanation} and submit"
-        
-        if self._has_extract_article_action(text):
+
+        if has_extract_article:
             is_plural = self._is_plural_article_request(text)
             topic = self._extract_article_topic(text)
-            
+
             extract_action: dict[str, Any] = {"action": "extract_article"}
             if is_plural:
                 extract_action["mode"] = "list"
@@ -280,19 +395,48 @@ class BrowserAdapter(BaseDSLAdapter):
             if topic:
                 extract_action["topic"] = topic
                 params["article_topic"] = topic
-            
+
             actions.append(extract_action)
             params["extract_article"] = True
-            
+
             if is_plural:
                 action_id = f"{action_id}_and_list_articles"
                 explanation = f"{explanation} and list articles"
             else:
                 action_id = f"{action_id}_and_extract_article"
                 explanation = f"{explanation} and extract article"
-            
+
             if topic:
                 explanation = f"{explanation} about '{topic}'"
+
+        # --- Save to file (CSV or text) ---
+        if has_save:
+            if has_csv:
+                save_action: dict[str, Any] = {"action": "save_to_csv"}
+                default_ext = ".csv"
+            else:
+                save_action = {"action": "save_to_file"}
+                default_ext = ".txt"
+            
+            if save_filename:
+                save_action["filename"] = save_filename
+                params["save_filename"] = save_filename
+            else:
+                # Generate default filename from URL domain
+                try:
+                    from urllib.parse import urlparse as _urlparse
+                    domain = _urlparse(url).netloc.replace(".", "_")
+                    default_name = f"{domain}_data{default_ext}"
+                except Exception:
+                    default_name = f"extracted_data{default_ext}"
+                save_action["filename"] = default_name
+                params["save_filename"] = default_name
+            actions.append(save_action)
+            action_id = f"{action_id}_and_save"
+            explanation = f"{explanation} and save to '{params.get('save_filename', 'file')}'"
+            _debug(f"generate(): added {save_action['action']} action, filename={params.get('save_filename')}")
+
+        _debug(f"generate(): final actions={[a.get('action') for a in actions]}, action_id={action_id}")
 
         if len(actions) == 1:
             payload = {
@@ -321,6 +465,15 @@ class BrowserAdapter(BaseDSLAdapter):
 
         return self.last_action_ir.dsl
 
+    # Supported parameterless actions (no selector/key/text needed)
+    _PARAMETERLESS_ACTIONS = {
+        "goto", "navigate",
+        "fill_form", "submit", "extract_article",
+        "explore_for_form", "explore_for_content",
+        "extract_companies", "save_to_file",
+        "extract_company_websites_deep", "save_to_csv",
+    }
+
     def validate_syntax(self, command: str) -> dict[str, Any]:
         try:
             payload = json.loads(command)
@@ -343,9 +496,7 @@ class BrowserAdapter(BaseDSLAdapter):
                     errors.append(f"Action {i}: not an object")
                     continue
                 act = str(a.get("action") or "")
-                if act in {"goto", "navigate"}:
-                    continue
-                if act in {"fill_form", "submit", "extract_article"}:
+                if act in self._PARAMETERLESS_ACTIONS:
                     continue
                 if act in {"type", "click", "press", "select"}:
                     if act in {"type", "click", "select"} and not str(a.get("selector") or ""):

@@ -606,6 +606,49 @@ class FormDataLoader:
             return self._dedupe_preserve_order([*cleaned, *defaults])
         return defaults
 
+    def get_company_listing_selectors(self) -> list[str]:
+        """Get CSS selectors for company listing items."""
+        configured = self._schema.get("company_listing_selectors")
+        defaults = [
+            ".company-item", ".business-listing", ".listing-item",
+            ".company-card", ".search-result", ".result-item",
+        ]
+        if isinstance(configured, list):
+            cleaned: list[str] = [s.strip() for s in configured if isinstance(s, str) and s.strip()]
+            return self._dedupe_preserve_order([*cleaned, *defaults])
+        return defaults
+
+    def get_company_link_selectors(self) -> list[str]:
+        """Get CSS selectors for company name links."""
+        configured = self._schema.get("company_link_selectors")
+        defaults = [
+            "a[href*='firma']", "a[href*='company']",
+            "h2 a", "h3 a", ".listing-title a",
+        ]
+        if isinstance(configured, list):
+            cleaned: list[str] = [s.strip() for s in configured if isinstance(s, str) and s.strip()]
+            return self._dedupe_preserve_order([*cleaned, *defaults])
+        return defaults
+
+    def get_company_website_selectors(self) -> list[str]:
+        """Get CSS selectors for company external website links."""
+        configured = self._schema.get("company_website_selectors")
+        defaults = [
+            ".website a", ".www a", ".company-website a",
+            "a[rel='nofollow'][href*='http']", "a.external-link",
+        ]
+        if isinstance(configured, list):
+            cleaned: list[str] = [s.strip() for s in configured if isinstance(s, str) and s.strip()]
+            return self._dedupe_preserve_order([*cleaned, *defaults])
+        return defaults
+
+    def get_save_filename_patterns(self) -> list[str]:
+        """Get regex patterns to extract output filename from NL."""
+        patterns = self._schema.get("save_filename_patterns")
+        if isinstance(patterns, list):
+            return [p for p in patterns if isinstance(p, str) and p.strip()]
+        return []
+
     def get_nlp_keywords(self, group: str) -> list[str]:
         """Get schema-driven NLP keyword list (e.g. typing/clicking/form/submit/press_enter)."""
         nlp_cfg = self._schema.get("nlp_keywords")

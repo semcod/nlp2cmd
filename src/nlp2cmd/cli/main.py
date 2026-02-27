@@ -190,6 +190,7 @@ if not hasattr(click, 'Group'):
     help="Auto-install missing Python deps/tools when using --run (e.g. playwright)",
 )
 @click.option("-v", "--version", is_flag=True, help="Show version information")
+@click.option("--verbose", is_flag=True, help="Enable verbose debug output")
 @click.pass_context
 def main(
     ctx,
@@ -208,6 +209,7 @@ def main(
     no_submit: bool,
     auto_install: bool,
     version: bool,
+    verbose: bool,
 ):
     """NLP2CMD - Natural Language to Domain-Specific Commands."""
     # Start timing from the very beginning
@@ -222,6 +224,7 @@ def main(
     ctx.obj["dsl"] = dsl
     ctx.obj["auto_repair"] = auto_repair
     ctx.obj["script_start_time"] = script_start_time
+    ctx.obj["verbose"] = verbose
 
     if ctx.invoked_subcommand is None:
         auto_stdin = (not stdin_mode) and (not query) and (not sys.stdin.isatty())
@@ -256,6 +259,7 @@ def main(
                 auto_install=auto_install,
                 auto_repair=auto_repair,
                 only_output=only_output,
+                verbose=verbose,
             )
         elif query:
             if dsl == "appspec":
@@ -267,6 +271,7 @@ def main(
                     auto_repair=auto_repair,
                     explain=explain,
                     execute_web=execute_web,
+                    verbose=verbose,
                 )
             elif dsl == "auto":
                 from nlp2cmd.cli.commands.generate import handle_generate_query
@@ -278,6 +283,7 @@ def main(
                     execute_web=execute_web,
                     stdout_only=stdout_only,
                     script_start_time=ctx.obj.get("script_start_time", time.time()),
+                    verbose=verbose,
                 )
         elif interactive:
             session = InteractiveSession(

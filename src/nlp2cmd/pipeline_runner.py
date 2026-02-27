@@ -5,6 +5,7 @@ import os
 import re
 import shlex
 import subprocess
+import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -16,6 +17,139 @@ from nlp2cmd.ir import ActionIR
 from nlp2cmd.utils.data_files import find_data_file
 from rich.console import Console
 from nlp2cmd.utils.yaml_compat import yaml
+
+_DEBUG = os.environ.get("NLP2CMD_DEBUG", "").lower() in ("1", "true", "yes")
+
+
+def _debug(msg: str) -> None:
+    """Print debug message to stderr when NLP2CMD_DEBUG=1."""
+    if _DEBUG:
+        print(f"DEBUG [PipelineRunner] {msg}", file=sys.stderr, flush=True)
+
+
+# ---------------------------------------------------------------------------
+# Form-field filtering helpers (used in multiple places during form filling)
+# ---------------------------------------------------------------------------
+
+def _field_attrs(f: object) -> tuple[str, str, str, str, str, str]:
+    """Extract common field attributes as lowered strings.
+
+    Returns (field_type, name, fid, label, placeholder, selector).
+    """
+    try:
+        field_type = str(getattr(f, "field_type", "") or "").strip().lower()
+        name = str(getattr(f, "name", "") or "").strip().lower()
+        fid = str(getattr(f, "id", "") or "").strip().lower()
+        label = str(getattr(f, "label", "") or "").strip().lower()
+        placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+        selector = str(getattr(f, "selector", "") or "").strip().lower()
+    except Exception:
+        return ("", "", "", "", "", "")
+    return (field_type, name, fid, label, placeholder, selector)
+
+
+def _is_junk_field(f: object) -> bool:
+    """Return True if a detected field is search/cookie/captcha/comment junk."""
+    field_type, name, fid, label, placeholder, _ = _field_attrs(f)
+    hay = " ".join([name, fid, label, placeholder])
+
+    if field_type == "search":
+        return True
+    if name in {"s", "q", "search", "query"}:
+        return True
+    if "search" in hay or "szukaj" in hay or "wyszuki" in hay:
+        return True
+    if "cookie" in hay or "consent" in hay:
+        return True
+    if fid.startswith("cky") or "cky" in hay:
+        return True
+    if fid.startswith("cmplz") or "cmplz" in hay:
+        return True
+    if "captcha" in hay or "recaptcha" in hay or "g-recaptcha" in hay or "hcaptcha" in hay:
+        return True
+    if name in {"comment", "author", "url", "wp-comment-cookies-consent"}:
+        return True
+    if "comment" in hay:
+        return True
+    if name.startswith("apbct__") or "cleantalk" in hay:
+        return True
+    return False
+
+
+def _is_contact_relevant_field(f: object) -> bool:
+    """Return True if a field looks like part of a contact form."""
+    if _is_junk_field(f):
+        return False
+
+    field_type, name, fid, label, placeholder, _ = _field_attrs(f)
+    if field_type in {"email", "tel"}:
+        return True
+    if field_type not in {"text", "textarea", "email", "tel"}:
+        return False
+
+    hay = " ".join([name, fid, label, placeholder])
+    contact_tokens = [
+        "email", "e-mail", "mail", "telefon", "phone",
+        "wiadomo", "message", "imi", "name", "temat", "subject",
+    ]
+    return any(t in hay for t in contact_tokens)
+
+
+def _looks_like_comment_form(fields: list) -> bool:
+    """Return True if *fields* look like a WordPress comment form."""
+    try:
+        for f in fields:
+            _, name, fid, _, label, selector = _field_attrs(f)
+            placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+            hay = " ".join([name, fid, selector, label, placeholder])
+            if "comment" in hay or name in {"author", "email", "url"}:
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def _filter_form_fields(
+    fields: list,
+    console_wrapper: Optional[Any] = None,
+) -> list:
+    """Filter out junk / comment / non-contact fields, log via *console_wrapper*.
+
+    Returns the (possibly empty) filtered list.
+    """
+    if not fields:
+        return fields
+
+    if _looks_like_comment_form(fields):
+        if console_wrapper is not None:
+            try:
+                console_wrapper.print(
+                    yaml.safe_dump(
+                        {"status": "form_fields_ignored_as_comment_form", "detected_count": len(fields)},
+                        sort_keys=False, allow_unicode=True,
+                    ).rstrip(),
+                    language="yaml",
+                )
+            except Exception:
+                pass
+        return []
+
+    contact_like = [f for f in fields if _is_contact_relevant_field(f)]
+    if not contact_like:
+        if console_wrapper is not None:
+            try:
+                console_wrapper.print(
+                    yaml.safe_dump(
+                        {"status": "form_fields_ignored_as_non_contact", "detected_count": len(fields)},
+                        sort_keys=False, allow_unicode=True,
+                    ).rstrip(),
+                    language="yaml",
+                )
+            except Exception:
+                pass
+        return []
+
+    return fields
 
 
 class _MarkdownConsoleWrapper:
@@ -509,10 +643,12 @@ class PipelineRunner:
             detected_form_fields: list[object] | None = None
             filled_any_form_field: bool = False
             saw_fill_form_action: bool = False
+            extracted_data: list[dict[str, str]] = []  # accumulated data for save_to_file
             
             try:
                 for i, action_spec in enumerate(actions):
                     action = action_spec.get("action")
+                    _debug(f"action[{i}]: executing '{action}' spec={action_spec}")
                     
                     if action in {"goto", "navigate"}:
                         action_url = action_spec.get("url", url)
@@ -623,6 +759,134 @@ class PipelineRunner:
                             console_wrapper.print("🔍 Detecting form fields...", language="text")
                             fields = form_handler.detect_form_fields(page)
                             detected_form_fields = fields
+
+                            def _is_junk_field(f: object) -> bool:
+                                try:
+                                    field_type = str(getattr(f, "field_type", "") or "").strip().lower()
+                                    name = str(getattr(f, "name", "") or "").strip().lower()
+                                    fid = str(getattr(f, "id", "") or "").strip().lower()
+                                    label = str(getattr(f, "label", "") or "").strip().lower()
+                                    placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+                                except Exception:
+                                    return False
+
+                                hay = " ".join([name, fid, label, placeholder])
+
+                                if field_type == "search":
+                                    return True
+                                if name in {"s", "q", "search", "query"}:
+                                    return True
+                                if "search" in hay or "szukaj" in hay or "wyszuki" in hay:
+                                    return True
+
+                                if "cookie" in hay or "consent" in hay:
+                                    return True
+                                if fid.startswith("cky") or "cky" in hay:
+                                    return True
+                                if fid.startswith("cmplz") or "cmplz" in hay:
+                                    return True
+
+                                if "captcha" in hay or "recaptcha" in hay or "g-recaptcha" in hay or "hcaptcha" in hay:
+                                    return True
+
+                                if name in {"comment", "author", "url", "wp-comment-cookies-consent"}:
+                                    return True
+                                if "comment" in hay:
+                                    return True
+
+                                if name.startswith("apbct__") or "cleantalk" in hay:
+                                    return True
+
+                                return False
+
+                            def _is_contact_relevant_field(f: object) -> bool:
+                                try:
+                                    field_type = str(getattr(f, "field_type", "") or "").strip().lower()
+                                    name = str(getattr(f, "name", "") or "").strip().lower()
+                                    fid = str(getattr(f, "id", "") or "").strip().lower()
+                                    label = str(getattr(f, "label", "") or "").strip().lower()
+                                    placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+                                except Exception:
+                                    return False
+
+                                if _is_junk_field(f):
+                                    return False
+
+                                if field_type in {"email", "tel"}:
+                                    return True
+                                if field_type not in {"text", "textarea", "email", "tel"}:
+                                    return False
+
+                                hay = " ".join([name, fid, label, placeholder])
+                                contact_tokens = [
+                                    "email",
+                                    "e-mail",
+                                    "mail",
+                                    "telefon",
+                                    "phone",
+                                    "wiadomo",
+                                    "message",
+                                    "imi",
+                                    "name",
+                                    "temat",
+                                    "subject",
+                                ]
+                                return any(t in hay for t in contact_tokens)
+
+                            # If the page contains only junk fields (cookie/search/captcha/comments),
+                            # treat it as no form found and attempt discovery/navigation.
+                            if fields:
+                                looks_like_comment_form = False
+                                try:
+                                    for f in fields:
+                                        name = str(getattr(f, "name", "") or "").strip().lower()
+                                        fid = str(getattr(f, "id", "") or "").strip().lower()
+                                        sel = str(getattr(f, "selector", "") or "").strip().lower()
+                                        label = str(getattr(f, "label", "") or "").strip().lower()
+                                        placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+                                        hay = " ".join([name, fid, sel, label, placeholder])
+                                        if "comment" in hay or name in {"author", "email", "url"}:
+                                            looks_like_comment_form = True
+                                            break
+                                except Exception:
+                                    looks_like_comment_form = False
+
+                                if looks_like_comment_form:
+                                    try:
+                                        console_wrapper.print(
+                                            yaml.safe_dump(
+                                                {
+                                                    "status": "form_fields_ignored_as_comment_form",
+                                                    "detected_count": int(len(fields)),
+                                                },
+                                                sort_keys=False,
+                                                allow_unicode=True,
+                                            ).rstrip(),
+                                            language="yaml",
+                                        )
+                                    except Exception:
+                                        pass
+                                    fields = []
+                                    detected_form_fields = []
+
+                                contact_like = [f for f in fields if _is_contact_relevant_field(f)]
+                                if not contact_like:
+                                    try:
+                                        console_wrapper.print(
+                                            yaml.safe_dump(
+                                                {
+                                                    "status": "form_fields_ignored_as_non_contact",
+                                                    "detected_count": int(len(fields)),
+                                                },
+                                                sort_keys=False,
+                                                allow_unicode=True,
+                                            ).rstrip(),
+                                            language="yaml",
+                                        )
+                                    except Exception:
+                                        pass
+                                    fields = []
+                                    detected_form_fields = []
                             
                             if not fields:
                                 console_wrapper.print("No form fields detected on this page", language="text")
@@ -668,6 +932,59 @@ class PipelineRunner:
                                         console_wrapper.print("🔁 Retrying form field detection after exploration...", language="text")
                                         fields = form_handler.detect_form_fields(page)
                                         detected_form_fields = fields
+
+                                        if fields:
+                                            looks_like_comment_form = False
+                                            try:
+                                                for f in fields:
+                                                    name = str(getattr(f, "name", "") or "").strip().lower()
+                                                    fid = str(getattr(f, "id", "") or "").strip().lower()
+                                                    sel = str(getattr(f, "selector", "") or "").strip().lower()
+                                                    label = str(getattr(f, "label", "") or "").strip().lower()
+                                                    placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+                                                    hay = " ".join([name, fid, sel, label, placeholder])
+                                                    if "comment" in hay or name in {"author", "email", "url"}:
+                                                        looks_like_comment_form = True
+                                                        break
+                                            except Exception:
+                                                looks_like_comment_form = False
+
+                                            if looks_like_comment_form:
+                                                try:
+                                                    console_wrapper.print(
+                                                        yaml.safe_dump(
+                                                            {
+                                                                "status": "form_fields_ignored_as_comment_form",
+                                                                "detected_count": int(len(fields)),
+                                                            },
+                                                            sort_keys=False,
+                                                            allow_unicode=True,
+                                                        ).rstrip(),
+                                                        language="yaml",
+                                                    )
+                                                except Exception:
+                                                    pass
+                                                fields = []
+                                                detected_form_fields = []
+
+                                            contact_like = [f for f in fields if _is_contact_relevant_field(f)]
+                                            if not contact_like:
+                                                try:
+                                                    console_wrapper.print(
+                                                        yaml.safe_dump(
+                                                            {
+                                                                "status": "form_fields_ignored_as_non_contact",
+                                                                "detected_count": int(len(fields)),
+                                                            },
+                                                            sort_keys=False,
+                                                            allow_unicode=True,
+                                                        ).rstrip(),
+                                                        language="yaml",
+                                                    )
+                                                except Exception:
+                                                    pass
+                                                fields = []
+                                                detected_form_fields = []
                                 except Exception as e:
                                     console_wrapper.print(f"Site exploration failed: {e}", language="text")
                                     # Fall through to simpler heuristic
@@ -699,6 +1016,59 @@ class PipelineRunner:
                                             console_wrapper.print("🔁 Retrying form field detection after navigating...", language="text")
                                             fields = form_handler.detect_form_fields(page)
                                             detected_form_fields = fields
+
+                                            if fields:
+                                                looks_like_comment_form = False
+                                                try:
+                                                    for f in fields:
+                                                        name = str(getattr(f, "name", "") or "").strip().lower()
+                                                        fid = str(getattr(f, "id", "") or "").strip().lower()
+                                                        sel = str(getattr(f, "selector", "") or "").strip().lower()
+                                                        label = str(getattr(f, "label", "") or "").strip().lower()
+                                                        placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
+                                                        hay = " ".join([name, fid, sel, label, placeholder])
+                                                        if "comment" in hay or name in {"author", "email", "url"}:
+                                                            looks_like_comment_form = True
+                                                            break
+                                                except Exception:
+                                                    looks_like_comment_form = False
+
+                                                if looks_like_comment_form:
+                                                    try:
+                                                        console_wrapper.print(
+                                                            yaml.safe_dump(
+                                                                {
+                                                                    "status": "form_fields_ignored_as_comment_form",
+                                                                    "detected_count": int(len(fields)),
+                                                                },
+                                                                sort_keys=False,
+                                                                allow_unicode=True,
+                                                            ).rstrip(),
+                                                            language="yaml",
+                                                        )
+                                                    except Exception:
+                                                        pass
+                                                    fields = []
+                                                    detected_form_fields = []
+
+                                                contact_like = [f for f in fields if _is_contact_relevant_field(f)]
+                                                if not contact_like:
+                                                    try:
+                                                        console_wrapper.print(
+                                                            yaml.safe_dump(
+                                                                {
+                                                                    "status": "form_fields_ignored_as_non_contact",
+                                                                    "detected_count": int(len(fields)),
+                                                                },
+                                                                sort_keys=False,
+                                                                allow_unicode=True,
+                                                            ).rstrip(),
+                                                            language="yaml",
+                                                        )
+                                                    except Exception:
+                                                        pass
+                                                    fields = []
+                                                    detected_form_fields = []
                                     except Exception:
                                         pass
 
@@ -1084,7 +1454,385 @@ class PipelineRunner:
                             
                         except Exception as e:
                             return RunnerResult(success=False, kind="dom", error=f"Action {i}: Article extraction failed: {e}")
-                    
+
+                    elif action == "extract_companies":
+                        # Extract company names and website URLs from a directory page
+                        try:
+                            _debug("extract_companies: starting extraction")
+                            page.wait_for_load_state("domcontentloaded", timeout=10000)
+                            page.wait_for_timeout(2000)
+
+                            # Dismiss popups first
+                            self._dismiss_popups(page, schema_loader)
+
+                            companies: list[dict[str, str]] = []
+
+                            # Strategy 1: Use JS to collect all links with company-like patterns
+                            _debug("extract_companies: trying JS link extraction")
+                            js_companies = page.evaluate(r"""() => {
+    const out = [];
+    const seen = new Set();
+    // Collect all links on the page
+    const links = Array.from(document.querySelectorAll('a[href]'));
+    for (const a of links) {
+        const href = (a.getAttribute('href') || '').trim();
+        const text = (a.textContent || '').trim().replace(/\s+/g, ' ');
+        if (!href || !text || text.length < 3 || text.length > 200) continue;
+        // Skip navigation/social/internal links
+        if (/^(#|javascript:|mailto:|tel:)/.test(href)) continue;
+        if (/facebook|twitter|instagram|linkedin|youtube|google|cookie|privacy|regulamin|polityka/i.test(href)) continue;
+        // Skip very short generic link text
+        if (/^(więcej|more|czytaj|read|see|zobacz|>|»|›)$/i.test(text)) continue;
+        const key = text.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push({name: text, url: href});
+    }
+    return out;
+}""")
+
+                            if isinstance(js_companies, list):
+                                _debug(f"extract_companies: JS found {len(js_companies)} raw links")
+
+                                # Filter: keep links that look like company entries
+                                # Heuristic: links in main content area, not nav/footer
+                                main_links = page.evaluate(r"""() => {
+    const out = [];
+    const seen = new Set();
+    // Try to find the main content area
+    const containers = document.querySelectorAll('main, [role="main"], .content, .results, .listing, #content, .companies, .firmy, article');
+    let root = containers.length > 0 ? containers[0] : document.body;
+    const links = Array.from(root.querySelectorAll('a[href]'));
+    for (const a of links) {
+        const href = (a.getAttribute('href') || '').trim();
+        const text = (a.textContent || '').trim().replace(/\s+/g, ' ');
+        if (!href || !text || text.length < 3 || text.length > 200) continue;
+        if (/^(#|javascript:|mailto:|tel:)/.test(href)) continue;
+        if (/facebook|twitter|instagram|linkedin|youtube|google|cookie|privacy|regulamin|polityka/i.test(href)) continue;
+        if (/^(więcej|more|czytaj|read|see|zobacz|>|»|›)$/i.test(text)) continue;
+        const key = text.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push({name: text, url: href});
+    }
+    return out;
+}""")
+
+                                if isinstance(main_links, list) and len(main_links) > 2:
+                                    _debug(f"extract_companies: main content area found {len(main_links)} links")
+                                    for item in main_links:
+                                        if isinstance(item, dict):
+                                            name = str(item.get("name", "")).strip()
+                                            link = str(item.get("url", "")).strip()
+                                            if name and link:
+                                                # Make URL absolute
+                                                if not link.startswith("http"):
+                                                    from urllib.parse import urljoin
+                                                    link = urljoin(url, link)
+                                                companies.append({"name": name, "url": link})
+                                else:
+                                    # Fallback to all page links
+                                    for item in js_companies:
+                                        if isinstance(item, dict):
+                                            name = str(item.get("name", "")).strip()
+                                            link = str(item.get("url", "")).strip()
+                                            if name and link:
+                                                if not link.startswith("http"):
+                                                    from urllib.parse import urljoin
+                                                    link = urljoin(url, link)
+                                                companies.append({"name": name, "url": link})
+
+                            # Strategy 2: If few results, try schema-driven selectors
+                            if len(companies) < 3:
+                                _debug("extract_companies: trying schema-driven selectors")
+                                link_selectors = schema_loader.get_company_link_selectors()
+                                for sel in link_selectors:
+                                    try:
+                                        elements = page.locator(sel).all()
+                                        for el in elements[:50]:
+                                            try:
+                                                name = el.inner_text().strip()
+                                                href = el.get_attribute("href") or ""
+                                                if name and href:
+                                                    if not href.startswith("http"):
+                                                        from urllib.parse import urljoin
+                                                        href = urljoin(url, href)
+                                                    companies.append({"name": name, "url": href})
+                                            except Exception:
+                                                continue
+                                    except Exception:
+                                        continue
+
+                            # Deduplicate by name
+                            seen_names: set[str] = set()
+                            unique_companies: list[dict[str, str]] = []
+                            for c in companies:
+                                key = c["name"].lower()
+                                if key not in seen_names:
+                                    seen_names.add(key)
+                                    unique_companies.append(c)
+                            companies = unique_companies
+
+                            _debug(f"extract_companies: found {len(companies)} unique companies")
+
+                            if not companies:
+                                console_wrapper.print("⚠️  No company data found on page", language="text")
+                                return RunnerResult(success=False, kind="dom", error="No company data found on page")
+
+                            # Store for save_to_file action
+                            extracted_data.extend(companies)
+
+                            # Display results
+                            if console_wrapper.enable_markdown:
+                                console.print(f"\n## Browser automation: found {len(companies)} companies", markup=False)
+                            for idx, c in enumerate(companies[:30], 1):
+                                console_wrapper.print(f"{idx}. {c['name']}", language="text")
+                                console_wrapper.print(f"   {c['url']}", language="text")
+                            if len(companies) > 30:
+                                console_wrapper.print(f"... and {len(companies) - 30} more", language="text")
+
+                            console_wrapper.print(
+                                yaml.safe_dump(
+                                    {"status": "companies_extracted", "count": len(companies)},
+                                    sort_keys=False, allow_unicode=True,
+                                ).rstrip(),
+                                language="yaml",
+                            )
+
+                        except Exception as e:
+                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Company extraction failed: {e}")
+
+                    elif action == "extract_company_websites_deep":
+                        # Navigate to each company profile and extract their external website
+                        try:
+                            _debug("extract_company_websites_deep: starting deep extraction")
+                            page.wait_for_load_state("domcontentloaded", timeout=10000)
+                            page.wait_for_timeout(2000)
+
+                            # Dismiss popups first
+                            self._dismiss_popups(page, schema_loader)
+
+                            max_companies = action_spec.get("max_companies", 20)
+                            companies_data: list[dict[str, str]] = []
+                            base_url = page.url
+
+                            # Find company profile links on the catalog page
+                            _debug("extract_company_websites_deep: finding company links")
+                            company_links = page.evaluate(r"""() => {
+                                const links = [];
+                                const seen = new Set();
+                                // Common patterns for company links in directories
+                                const selectors = [
+                                    'a[href*="/firma/"]',
+                                    'a[href*="/company/"]',
+                                    'a[href*="/f/"]',
+                                    '.company-name a',
+                                    '.business-name a',
+                                    '.result-title a',
+                                    'h2 a', 'h3 a', 'h4 a'
+                                ];
+                                for (const sel of selectors) {
+                                    const elements = document.querySelectorAll(sel);
+                                    for (const el of elements) {
+                                        const href = el.getAttribute('href');
+                                        const text = el.textContent.trim();
+                                        if (!href || !text || text.length < 2 || text.length > 100) continue;
+                                        if (seen.has(href)) continue;
+                                        seen.add(href);
+                                        links.push({name: text, href: href});
+                                    }
+                                }
+                                return links.slice(0, 50); // Limit initial collection
+                            }""")
+
+                            if not isinstance(company_links, list) or not company_links:
+                                console_wrapper.print("⚠️  No company links found on catalog page", language="text")
+                                return RunnerResult(success=False, kind="dom", error="No company links found")
+
+                            _debug(f"extract_company_websites_deep: found {len(company_links)} potential companies")
+                            console_wrapper.print(f"🔍 Found {len(company_links)} company profiles to check", language="text")
+
+                            # Process each company profile
+                            for idx, company in enumerate(company_links[:max_companies], 1):
+                                try:
+                                    name = str(company.get("name", "")).strip()
+                                    href = str(company.get("href", "")).strip()
+                                    if not name or not href:
+                                        continue
+
+                                    # Make URL absolute
+                                    if not href.startswith("http"):
+                                        from urllib.parse import urljoin
+                                        href = urljoin(base_url, href)
+
+                                    _debug(f"Processing {idx}/{min(len(company_links), max_companies)}: {name}")
+                                    console_wrapper.print(f"[{idx}/{min(len(company_links), max_companies)}] Checking: {name}", language="text")
+
+                                    # Navigate to company profile
+                                    page.goto(href, wait_until="domcontentloaded")
+                                    page.wait_for_timeout(1500)
+                                    self._dismiss_popups(page, schema_loader)
+
+                                    # Find external website link on the profile page
+                                    external_site = page.evaluate(r"""() => {
+                                        // Look for external website links (not social media)
+                                        const externalPatterns = [
+                                            'a[href^="http"]:not([href*="oferteo.pl"]):not([href*="facebook.com"]):not([href*="twitter.com"]):not([href*="instagram.com"]):not([href*="linkedin.com"]):not([href*="youtube.com"])',
+                                            '.website a', '.www a', '.company-website a',
+                                            'a.external-link', 'a[rel="nofollow"]',
+                                            '[data-website] a', '.biz-website a'
+                                        ];
+                                        for (const pattern of externalPatterns) {
+                                            const links = document.querySelectorAll(pattern);
+                                            for (const link of links) {
+                                                const href = link.getAttribute('href');
+                                                if (href && href.startsWith('http') && 
+                                                    !href.includes('oferteo.pl') &&
+                                                    !href.includes('facebook.com') &&
+                                                    !href.includes('google.com')) {
+                                                    return href;
+                                                }
+                                            }
+                                        }
+                                        // Try to find by text content
+                                        const allLinks = document.querySelectorAll('a[href^="http"]');
+                                        for (const link of allLinks) {
+                                            const href = link.getAttribute('href');
+                                            const text = link.textContent.toLowerCase();
+                                            if (href && !href.includes('oferteo.pl') && 
+                                                (text.includes('www.') || text.includes('strona') || 
+                                                 text.includes('website') || text.includes('witryna'))) {
+                                                return href;
+                                            }
+                                        }
+                                        return null;
+                                    }""")
+
+                                    if external_site and isinstance(external_site, str):
+                                        companies_data.append({
+                                            "name": name,
+                                            "oferteo_url": href,
+                                            "website": external_site
+                                        })
+                                        console_wrapper.print(f"   ✓ Found website: {external_site}", language="text")
+                                        _debug(f"Found website for {name}: {external_site}")
+                                    else:
+                                        console_wrapper.print(f"   ⚠ No external website found", language="text")
+                                        companies_data.append({
+                                            "name": name,
+                                            "oferteo_url": href,
+                                            "website": ""
+                                        })
+
+                                    # Go back to catalog
+                                    page.goto(base_url, wait_until="domcontentloaded")
+                                    page.wait_for_timeout(1000)
+
+                                except Exception as e:
+                                    _debug(f"Error processing company: {e}")
+                                    continue
+
+                            _debug(f"extract_company_websites_deep: extracted {len(companies_data)} companies with websites")
+
+                            if not companies_data:
+                                console_wrapper.print("⚠️  No company website data extracted", language="text")
+                                return RunnerResult(success=False, kind="dom", error="No company website data extracted")
+
+                            # Store for save_to_csv action
+                            extracted_data.extend(companies_data)
+
+                            # Display results
+                            console_wrapper.print(f"\n✅ Extracted {len(companies_data)} companies with websites:", language="text")
+                            for c in companies_data[:10]:
+                                website = c.get("website", "N/A")
+                                console_wrapper.print(f"  • {c['name']}: {website}", language="text")
+                            if len(companies_data) > 10:
+                                console_wrapper.print(f"  ... and {len(companies_data) - 10} more", language="text")
+
+                        except Exception as e:
+                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Deep company extraction failed: {e}")
+
+                    elif action == "save_to_file":
+                        # Save extracted data to a file
+                        try:
+                            filename = action_spec.get("filename", "extracted_data.txt")
+                            _debug(f"save_to_file: saving {len(extracted_data)} items to {filename}")
+
+                            if not extracted_data:
+                                console_wrapper.print("⚠️  No data to save (extraction produced no results)", language="text")
+                                continue
+
+                            filepath = Path(filename)
+                            lines: list[str] = []
+                            for item in extracted_data:
+                                name = item.get("name", "")
+                                item_url = item.get("url", "")
+                                if name and item_url:
+                                    lines.append(f"{name}\t{item_url}")
+                                elif name:
+                                    lines.append(name)
+
+                            filepath.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+                            console_wrapper.print(f"💾 Saved {len(lines)} entries to {filepath.resolve()}", language="text")
+                            console_wrapper.print(
+                                yaml.safe_dump(
+                                    {
+                                        "status": "saved_to_file",
+                                        "filename": str(filepath.resolve()),
+                                        "entries": len(lines),
+                                    },
+                                    sort_keys=False, allow_unicode=True,
+                                ).rstrip(),
+                                language="yaml",
+                            )
+                            _debug(f"save_to_file: wrote {len(lines)} lines to {filepath.resolve()}")
+
+                        except Exception as e:
+                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Save to file failed: {e}")
+
+                    elif action == "save_to_csv":
+                        # Save extracted data to a CSV file
+                        try:
+                            filename = action_spec.get("filename", "companies.csv")
+                            _debug(f"save_to_csv: saving {len(extracted_data)} items to {filename}")
+
+                            if not extracted_data:
+                                console_wrapper.print("⚠️  No data to save (extraction produced no results)", language="text")
+                                continue
+
+                            import csv
+                            from io import StringIO
+
+                            filepath = Path(filename)
+
+                            # Determine fieldnames from first item
+                            fieldnames = list(extracted_data[0].keys()) if extracted_data else ["name", "website"]
+
+                            with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
+                                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                                writer.writeheader()
+                                for item in extracted_data:
+                                    writer.writerow(item)
+
+                            console_wrapper.print(f"💾 Saved {len(extracted_data)} entries to CSV: {filepath.resolve()}", language="text")
+                            console_wrapper.print(
+                                yaml.safe_dump(
+                                    {
+                                        "status": "saved_to_csv",
+                                        "filename": str(filepath.resolve()),
+                                        "entries": len(extracted_data),
+                                        "columns": fieldnames,
+                                    },
+                                    sort_keys=False, allow_unicode=True,
+                                ).rstrip(),
+                                language="yaml",
+                            )
+                            _debug(f"save_to_csv: wrote {len(extracted_data)} rows to {filepath.resolve()}")
+
+                        except Exception as e:
+                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Save to CSV failed: {e}")
+
                     else:
                         return RunnerResult(success=False, kind="dom", error=f"Action {i}: Unsupported action: {action}")
                 
@@ -1092,7 +1840,10 @@ class PipelineRunner:
                 page.wait_for_timeout(2000)
                 browser.close()
                 
-                return RunnerResult(success=True, kind="dom", data={"url": url, "actions_executed": len(actions)})
+                return RunnerResult(
+                    success=True, kind="dom",
+                    data={"url": url, "actions_executed": len(actions), "extracted_count": len(extracted_data)},
+                )
             
             except Exception as e:
                 browser.close()

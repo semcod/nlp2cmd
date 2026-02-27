@@ -10,7 +10,9 @@
     "press_enter": ["naciśnij enter", "nacisnij enter", "wciśnij enter", "wcisnij enter", "press enter", "hit enter", "enter"],
     "fill_form_phrases": ["wypełnij formularz", "wypelnij formularz", "fill form", "fill the form", "fill out the form", "fill in the form", "znajdź formularz", "znajdz formularz", "znajdź formularz kontaktowy", "znajdz formularz kontaktowy", "znajdź formularz i wypełnij", "znajdz formularz i wypelnij", "znajdź stronę kontaktu i wypełnij", "znajdz strone kontaktu i wypelnij"],
     "extract_article": ["wyświetl artykuł", "wyswiетl artykul", "pokaż artykuł", "pokaz artykul", "extract article", "show article", "display article", "read article", "get article"],
-    "extract_articles_plural": ["wyświetl artykuły", "wyswietl artykuly", "pokaż artykuły", "pokaz artykuly", "extract articles", "show articles", "display articles", "list articles", "get articles"]
+    "extract_articles_plural": ["wyświetl artykuły", "wyswietl artykuly", "pokaż artykuły", "pokaz artykuly", "extract articles", "show articles", "display articles", "list articles", "get articles"],
+    "extract_companies": ["znajdź firmy", "znajdz firmy", "find companies", "zbierz firmy", "lista firm", "listę firm", "liste firm", "katalog firm", "wyszukaj firmy", "firmy", "zbierz adresy", "zbierz dane firm", "extract companies", "scrape companies", "collect companies", "get companies", "list companies", "company directory", "business directory", "katalog"],
+    "save_to_file": ["zapisz do pliku", "zapisz w pliku", "save to file", "write to file", "export to file", "zapisz wyniki", "zapisz dane", "save results", "save data", "do pliku", "to file"]
   },
   
   "article_topic_patterns": [
@@ -114,6 +116,51 @@
     ]
   },
   
+  "save_filename_patterns": [
+    "(?:zapisz|save|write|export)\\s+(?:do|to|w|in)\\s+(?:pliku?)?\\s*['\"]?([\\w._-]+\\.\\w+)['\"]?",
+    "(?:do|to)\\s+pliku\\s*['\"]?([\\w._-]+\\.\\w+)['\"]?",
+    "(?:plik|file)\\s*['\"]?([\\w._-]+\\.\\w+)['\"]?"
+  ],
+
+  "company_listing_selectors": [
+    ".company-item",
+    ".business-listing",
+    ".firm-item",
+    ".listing-item",
+    ".company-card",
+    ".business-card",
+    "[data-company]",
+    ".search-result",
+    ".result-item",
+    ".company",
+    ".firma",
+    "article.company",
+    "div.company",
+    "li.company"
+  ],
+
+  "company_link_selectors": [
+    "a[href*='firma']",
+    "a[href*='company']",
+    "a[href*='business']",
+    ".company-name a",
+    ".business-name a",
+    ".firma-name a",
+    "h2 a",
+    "h3 a",
+    ".listing-title a",
+    ".result-title a"
+  ],
+
+  "company_website_selectors": [
+    "a[href*='http']:not([href*='facebook']):not([href*='twitter']):not([href*='instagram']):not([href*='linkedin'])",
+    ".website a",
+    ".www a",
+    ".company-website a",
+    "a[rel='nofollow'][href*='http']",
+    "a.external-link"
+  ],
+
   "dismiss_selectors": [
     "button:has-text('Accept all')",
     "button:has-text('Akceptuj wszystko')",
