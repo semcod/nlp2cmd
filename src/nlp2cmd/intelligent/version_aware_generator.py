@@ -7,7 +7,7 @@ from typing import Dict, Optional, Tuple, Any, List
 from pathlib import Path
 
 from nlp2cmd.storage.versioned_store import VersionedSchemaStore
-from nlp2cmd.schema_based.generator import SchemaBasedGenerator
+from nlp2cmd.generation.schema.generator import SchemaBasedGenerator
 
 
 class VersionAwareCommandGenerator:

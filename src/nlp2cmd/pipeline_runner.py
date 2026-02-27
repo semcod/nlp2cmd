@@ -27,6 +27,45 @@ def _debug(msg: str) -> None:
         print(f"DEBUG [PipelineRunner] {msg}", file=sys.stderr, flush=True)
 
 
+def _with_epipe_retry(func, max_retries: int = 3, backoff_ms: int = 500):
+    """Execute a Playwright operation with retry logic for EPIPE errors.
+    
+    EPIPE (broken pipe) errors occur when the Node.js process communication
+    breaks. We retry with exponential backoff to allow the connection to recover.
+    
+    Args:
+        func: Callable that performs the Playwright operation
+        max_retries: Maximum number of retry attempts
+        backoff_ms: Initial backoff in milliseconds (doubles each retry)
+    
+    Returns:
+        The result of func() if successful
+    
+    Raises:
+        The last exception if all retries fail
+    """
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            return func()
+        except Exception as e:
+            last_error = e
+            err_str = str(e).lower()
+            is_epipe = "epipe" in err_str or "broken pipe" in err_str or "econnreset" in err_str
+            
+            if not is_epipe:
+                # Not an EPIPE error, fail immediately
+                raise
+            
+            # EPIPE error - retry with backoff
+            wait_ms = min(backoff_ms * (2 ** attempt), 5000)  # Cap at 5 seconds
+            _debug(f"EPIPE error on attempt {attempt + 1}/{max_retries}, waiting {wait_ms}ms before retry: {e}")
+            time.sleep(wait_ms / 1000)
+    
+    # All retries exhausted
+    raise last_error if last_error else RuntimeError("EPIPE retry failed")
+
+
 # ---------------------------------------------------------------------------
 # Form-field filtering helpers (used in multiple places during form filling)
 # ---------------------------------------------------------------------------
@@ -877,528 +916,14 @@ class PipelineRunner:
                                         error="No form fields detected on the current page (contact form not found).",
                                         data={"url": url},
                                     )
-                            else:
-                                console_wrapper.print("🔍 Detected form fields:", language="text")
-                                console_wrapper.print(
-                                    yaml.safe_dump(
-                                        {
-                                            "status": "form_fields_detected",
-                                            "count": len(fields),
-                                            "fields": [
-                                                {
-                                                    "field": f.get_display_name(),
-                                                    "type": f.field_type,
-                                                    "selector": f.selector,
-                                                    "name": f.name,
-                                                    "id": f.id,
-                                                }
-                                                for f in fields
-                                            ],
-                                        },
-                                        sort_keys=False,
-                                        allow_unicode=True,
-                                    ).rstrip(),
-                                    language="yaml",
-                                )
-                                
-                                # Automatic fill from .env and data/ files
-                                if data_loader.has_data():
-                                    console_wrapper.print("📂 Loading form data from .env and data/...", language="text")
-                                    form_data = form_handler.automatic_fill(fields, data_loader)
-                                else:
-                                    console_wrapper.print("No form data in .env or data/ - using interactive mode", language="text")
-                                    form_data = form_handler.interactive_fill(fields)
-                                if form_data is not None:
-                                    form_data.submit_selector = form_handler.detect_submit_button(page, data_loader)
-                                
-                                # Fill the form if we have data
-                                if form_data and form_data.fields:
-                                    console_wrapper.print("📝 Filling form...", language="text")
-                                    ok = form_handler.fill_form(page, form_data)
-                                    if ok:
-                                        filled_any_form_field = True
-                                
-                            page.wait_for_timeout(500)
-                            
                         except Exception as e:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Form filling failed: {e}")
-                    
-                    elif action == "type":
-                        selector = action_spec.get("selector", "__auto__")
-                        text = action_spec.get("text", "")
-                        
-                        if not text:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Missing text for type")
-                        
-                        selectors_to_try: list[str] = []
-
-                        if isinstance(selector, str) and selector.strip() and selector.strip() != "__auto__":
-                            selectors_to_try.append(selector.strip())
-
-                        search_selectors = schema_loader.get_type_selectors("search")
-                        generic_selectors = schema_loader.get_type_selectors("generic")
-                        search_selector_set = set(search_selectors)
-                        generic_selector_set = set(generic_selectors)
-
-                        selectors_to_try.extend(search_selectors)
-                        selectors_to_try.extend(generic_selectors)
-                        selectors_to_try = FormDataLoader.dedupe_selectors(selectors_to_try)
-                        
-                        typed = False
-                        last_error = None
-                        
-                        for sel in selectors_to_try:
-                            try:
-                                # Wait for selector to be visible
-                                page.wait_for_selector(sel, state="visible", timeout=2000)
-                                locator = page.locator(sel).first
-                                
-                                # Click to focus
-                                locator.click()
-                                page.wait_for_timeout(200)
-                                
-                                # Clear and type
-                                locator.fill("")
-                                locator.type(str(text), delay=50)
-                                page.wait_for_timeout(500)
-
-                                selector_group = "search" if sel in search_selector_set else "generic"
-                                schema_loader.add_type_selector(sel, selector_type=selector_group)
-                                
-                                # Record successful interaction
-                                if self._history:
-                                    parsed = urlparse(url)
-                                    self._history.learn_from_success(
-                                        domain=parsed.netloc,
-                                        action_type="type",
-                                        selector=sel,
-                                    )
-                                
-                                typed = True
-                                break
-                            except Exception as e:
-                                last_error = str(e)
-                                
-                                # Record failed attempt
-                                if self._history:
-                                    parsed = urlparse(url)
-                                    self._history.learn_from_failure(
-                                        domain=parsed.netloc,
-                                        action_type="type",
-                                        selector=sel,
-                                        error=str(e),
-                                    )
-                                continue
-                        
-                        if not typed:
+                            console_wrapper.print(f"fill_form failed: {e}", language="text")
                             return RunnerResult(
                                 success=False,
                                 kind="dom",
-                                error=f"Action {i}: Could not find typeable input field. Last error: {last_error}"
+                                error=f"fill_form error: {e}",
+                                data={"url": url},
                             )
-                    
-                    elif action == "click":
-                        selector = action_spec.get("selector", "")
-                        if not selector:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Missing selector for click")
-                        
-                        try:
-                            page.wait_for_selector(selector, state="visible", timeout=3000)
-                            locator = page.locator(selector).first
-                            locator.click()
-                            page.wait_for_timeout(500)
-                        except Exception as e:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Could not click {selector}: {e}")
-                    
-                    elif action == "press":
-                        key = action_spec.get("key", "")
-                        if not key:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Missing key for press")
-                        
-                        page.keyboard.press(str(key))
-                        page.wait_for_timeout(500)
-                    
-                    elif action == "submit":
-                        # Submit form by clicking submit button
-                        # Load submit selectors from schema
-                        if saw_fill_form_action and not filled_any_form_field:
-                            return RunnerResult(
-                                success=False,
-                                kind="dom",
-                                error="Submit requested but no form fields were filled (skipping Enter fallback).",
-                                data={"url": url, "form_fields_detected": int(len(detected_form_fields or []))},
-                            )
-
-                        submit_selectors = schema_loader.get_submit_selectors()
-                        
-                        submitted = False
-                        for sel in submit_selectors:
-                            try:
-                                page.wait_for_selector(sel, state="visible", timeout=2000)
-                                page.click(sel)
-                                submitted = True
-                                console_wrapper.print(f"Form submitted via: {sel}", language="text")
-                                schema_loader.add_submit_selector(sel)
-                                break
-                            except Exception:
-                                continue
-                        
-                        if not submitted:
-                            return RunnerResult(
-                                success=False,
-                                kind="dom",
-                                error="Could not find a visible submit button on this page (not submitting via Enter).",
-                                data={"url": url, "form_fields_detected": int(len(detected_form_fields or []))},
-                            )
-                        
-                        page.wait_for_timeout(2000)
-                    
-                    elif action == "extract_article":
-                        # Extract article content from the page
-                        try:
-                            # Get mode and topic from action spec
-                            mode = action_spec.get("mode", "single")  # "single" or "list"
-                            topic = action_spec.get("topic")  # Optional topic filter
-                            
-                            # Wait for page to be fully loaded
-                            page.wait_for_load_state("domcontentloaded", timeout=5000)
-                            page.wait_for_timeout(1000)
-
-                            # Collect all article links
-                            article_links: list[dict[str, str]] = []
-                            attempted_llm = False
-
-                            for attempt in range(2):
-                                article_selectors = schema_loader.get_article_link_selectors()
-                                for selector in article_selectors:
-                                    try:
-                                        links = page.locator(selector).all()
-                                        for link in links[:20]:  # Limit to first 20
-                                            try:
-                                                href = link.get_attribute("href")
-                                                text = link.inner_text().strip()
-                                                if href and text:
-                                                    article_links.append({"href": href, "text": text})
-                                            except Exception:
-                                                continue
-                                    except Exception:
-                                        continue
-                                
-                                if article_links:
-                                    break
-
-                                if attempted_llm:
-                                    break
-                                attempted_llm = True
-
-                                llm_suggestion = self._llm_suggest_article_selectors(page)
-                                if not llm_suggestion:
-                                    break
-
-                                for sel in llm_suggestion.get("article_link_selectors") or []:
-                                    try:
-                                        schema_loader.add_article_link_selector(sel)
-                                    except Exception:
-                                        pass
-                                for sel in llm_suggestion.get("article_content_selectors") or []:
-                                    try:
-                                        schema_loader.add_article_content_selector(sel)
-                                    except Exception:
-                                        pass
-
-                            if not article_links:
-                                console_wrapper.print("⚠️  No article links found on page", language="text")
-                                return RunnerResult(success=False, kind="dom", error="No article links found")
-                            
-                            # Filter by topic if specified
-                            if topic:
-                                filtered_links = []
-                                topic_lower = topic.lower()
-                                for link in article_links:
-                                    text_lower = link["text"].lower()
-                                    # Simple keyword matching (can be enhanced with similarity)
-                                    if topic_lower in text_lower or any(word in text_lower for word in topic_lower.split()):
-                                        filtered_links.append(link)
-                                
-                                if filtered_links:
-                                    article_links = filtered_links
-                                    if console_wrapper.enable_markdown:
-                                        console.print(f"\n## Browser automation: filtered by topic '{topic}'", markup=False)
-                                    console_wrapper.print(f"Found {len(article_links)} articles matching topic", language="text")
-                                else:
-                                    console_wrapper.print(f"⚠️  No articles found matching topic '{topic}'", language="text")
-                            
-                            # Handle list mode (plural)
-                            if mode == "list":
-                                if console_wrapper.enable_markdown:
-                                    console.print("\n## Browser automation: article list", markup=False)
-                                if console_wrapper.enable_markdown:
-                                    console.print(f"Found {len(article_links)} articles:", markup=False)
-                                    console.print("", markup=False)
-
-                                    from urllib.parse import urljoin
-
-                                    for link in article_links[:10]:  # Show max 10
-                                        title = str(link.get("text") or "").strip()
-                                        href = str(link.get("href") or "").strip()
-                                        if not href:
-                                            continue
-                                        abs_url = href
-                                        if not abs_url.startswith("http"):
-                                            abs_url = urljoin(url, abs_url)
-                                        if title:
-                                            console.print(f"- [{title}]({abs_url})", markup=False)
-                                        else:
-                                            console.print(f"- {abs_url}", markup=False)
-
-                                    if len(article_links) > 10:
-                                        console.print(f"\n... and {len(article_links) - 10} more", markup=False)
-                                else:
-                                    console_wrapper.print(f"Found {len(article_links)} articles:", language="text")
-                                    console_wrapper.print("", language="text")
-
-                                    for idx, link in enumerate(article_links[:10], 1):  # Show max 10
-                                        from urllib.parse import urljoin
-                                        abs_url = link["href"]
-                                        if not abs_url.startswith("http"):
-                                            abs_url = urljoin(url, abs_url)
-                                        console_wrapper.print(f"{idx}. {link['text']}", language="text")
-                                        console_wrapper.print(f"   {abs_url}", language="text")
-                                        console_wrapper.print("", language="text")
-
-                                    if len(article_links) > 10:
-                                        console_wrapper.print(f"... and {len(article_links) - 10} more", language="text")
-                            
-                            # Handle single mode (extract first article)
-                            else:
-                                selected_link = article_links[0]
-                                article_url = selected_link["href"]
-                                article_title = selected_link["text"]
-                                
-                                # Make URL absolute if needed
-                                if article_url and not article_url.startswith("http"):
-                                    from urllib.parse import urljoin
-                                    article_url = urljoin(url, article_url)
-
-                                if console_wrapper.enable_markdown:
-                                    console.print("\n## Browser automation: found article", markup=False)
-                                console_wrapper.print(f"Title: {article_title}", language="text")
-                                console_wrapper.print(f"URL: {article_url}", language="text")
-                                
-                                # Navigate to article
-                                page.goto(article_url, wait_until="domcontentloaded")
-                                page.wait_for_timeout(1500)
-                                
-                                # Dismiss popups on article page
-                                self._dismiss_popups(page, schema_loader)
-                                
-                                attempted_llm_content = False
-
-                                for attempt in range(2):
-                                    # Extract article content
-                                    content_selectors = schema_loader.get_article_content_selectors()
-
-                                    article_content = None
-                                    for selector in content_selectors:
-                                        try:
-                                            article_element = page.locator(selector).first
-                                            if article_element is not None and article_element.count() > 0:
-                                                article_content = article_element.inner_text()
-                                                if article_content and len(article_content.strip()) > 100:
-                                                    break
-                                        except Exception:
-                                            continue
-
-                                    if article_content and len(article_content.strip()) > 100:
-                                        break
-
-                                    if attempted_llm_content:
-                                        break
-                                    attempted_llm_content = True
-
-                                    llm_suggestion = self._llm_suggest_article_selectors(page)
-                                    if not llm_suggestion:
-                                        break
-
-                                    for sel in llm_suggestion.get("article_content_selectors") or []:
-                                        try:
-                                            schema_loader.add_article_content_selector(sel)
-                                        except Exception:
-                                            pass
-                                
-                                if not article_content:
-                                    # Fallback: try to get main content
-                                    try:
-                                        article_content = page.locator("main").first.inner_text()
-                                    except Exception:
-                                        article_content = None
-                                
-                                if article_content:
-                                    # Clean up the content
-                                    lines = [line.strip() for line in article_content.split("\n") if line.strip()]
-                                    cleaned_content = "\n".join(lines)
-
-                                    if console_wrapper.enable_markdown:
-                                        console.print("\n## Browser automation: article content", markup=False)
-                                    console_wrapper.print(cleaned_content[:2000], language="text")  # Limit to 2000 chars
-                                    if len(cleaned_content) > 2000:
-                                        console_wrapper.print(
-                                            f"... (truncated, {len(cleaned_content)} total characters)",
-                                            language="text",
-                                        )
-                                else:
-                                    console_wrapper.print("⚠️  Could not extract article content", language="text")
-                                    return RunnerResult(success=False, kind="dom", error="Could not extract article content")
-                            
-                        except Exception as e:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Article extraction failed: {e}")
-
-                    elif action == "extract_companies":
-                        # Extract company names and website URLs from a directory page
-                        try:
-                            _debug("extract_companies: starting extraction")
-                            page.wait_for_load_state("domcontentloaded", timeout=10000)
-                            page.wait_for_timeout(2000)
-
-                            # Dismiss popups first
-                            self._dismiss_popups(page, schema_loader)
-
-                            companies: list[dict[str, str]] = []
-
-                            # Strategy 1: Use JS to collect all links with company-like patterns
-                            _debug("extract_companies: trying JS link extraction")
-                            js_companies = page.evaluate(r"""() => {
-    const out = [];
-    const seen = new Set();
-    // Collect all links on the page
-    const links = Array.from(document.querySelectorAll('a[href]'));
-    for (const a of links) {
-        const href = (a.getAttribute('href') || '').trim();
-        const text = (a.textContent || '').trim().replace(/\s+/g, ' ');
-        if (!href || !text || text.length < 3 || text.length > 200) continue;
-        // Skip navigation/social/internal links
-        if (/^(#|javascript:|mailto:|tel:)/.test(href)) continue;
-        if (/facebook|twitter|instagram|linkedin|youtube|google|cookie|privacy|regulamin|polityka/i.test(href)) continue;
-        // Skip very short generic link text
-        if (/^(więcej|more|czytaj|read|see|zobacz|>|»|›)$/i.test(text)) continue;
-        const key = text.toLowerCase();
-        if (seen.has(key)) continue;
-        seen.add(key);
-        out.push({name: text, url: href});
-    }
-    return out;
-}""")
-
-                            if isinstance(js_companies, list):
-                                _debug(f"extract_companies: JS found {len(js_companies)} raw links")
-
-                                # Filter: keep links that look like company entries
-                                # Heuristic: links in main content area, not nav/footer
-                                main_links = page.evaluate(r"""() => {
-    const out = [];
-    const seen = new Set();
-    // Try to find the main content area
-    const containers = document.querySelectorAll('main, [role="main"], .content, .results, .listing, #content, .companies, .firmy, article');
-    let root = containers.length > 0 ? containers[0] : document.body;
-    const links = Array.from(root.querySelectorAll('a[href]'));
-    for (const a of links) {
-        const href = (a.getAttribute('href') || '').trim();
-        const text = (a.textContent || '').trim().replace(/\s+/g, ' ');
-        if (!href || !text || text.length < 3 || text.length > 200) continue;
-        if (/^(#|javascript:|mailto:|tel:)/.test(href)) continue;
-        if (/facebook|twitter|instagram|linkedin|youtube|google|cookie|privacy|regulamin|polityka/i.test(href)) continue;
-        if (/^(więcej|more|czytaj|read|see|zobacz|>|»|›)$/i.test(text)) continue;
-        const key = text.toLowerCase();
-        if (seen.has(key)) continue;
-        seen.add(key);
-        out.push({name: text, url: href});
-    }
-    return out;
-}""")
-
-                                if isinstance(main_links, list) and len(main_links) > 2:
-                                    _debug(f"extract_companies: main content area found {len(main_links)} links")
-                                    for item in main_links:
-                                        if isinstance(item, dict):
-                                            name = str(item.get("name", "")).strip()
-                                            link = str(item.get("url", "")).strip()
-                                            if name and link:
-                                                # Make URL absolute
-                                                if not link.startswith("http"):
-                                                    from urllib.parse import urljoin
-                                                    link = urljoin(url, link)
-                                                companies.append({"name": name, "url": link})
-                                else:
-                                    # Fallback to all page links
-                                    for item in js_companies:
-                                        if isinstance(item, dict):
-                                            name = str(item.get("name", "")).strip()
-                                            link = str(item.get("url", "")).strip()
-                                            if name and link:
-                                                if not link.startswith("http"):
-                                                    from urllib.parse import urljoin
-                                                    link = urljoin(url, link)
-                                                companies.append({"name": name, "url": link})
-
-                            # Strategy 2: If few results, try schema-driven selectors
-                            if len(companies) < 3:
-                                _debug("extract_companies: trying schema-driven selectors")
-                                link_selectors = schema_loader.get_company_link_selectors()
-                                for sel in link_selectors:
-                                    try:
-                                        elements = page.locator(sel).all()
-                                        for el in elements[:50]:
-                                            try:
-                                                name = el.inner_text().strip()
-                                                href = el.get_attribute("href") or ""
-                                                if name and href:
-                                                    if not href.startswith("http"):
-                                                        from urllib.parse import urljoin
-                                                        href = urljoin(url, href)
-                                                    companies.append({"name": name, "url": href})
-                                            except Exception:
-                                                continue
-                                    except Exception:
-                                        continue
-
-                            # Deduplicate by name
-                            seen_names: set[str] = set()
-                            unique_companies: list[dict[str, str]] = []
-                            for c in companies:
-                                key = c["name"].lower()
-                                if key not in seen_names:
-                                    seen_names.add(key)
-                                    unique_companies.append(c)
-                            companies = unique_companies
-
-                            _debug(f"extract_companies: found {len(companies)} unique companies")
-
-                            if not companies:
-                                console_wrapper.print("⚠️  No company data found on page", language="text")
-                                return RunnerResult(success=False, kind="dom", error="No company data found on page")
-
-                            # Store for save_to_file action
-                            extracted_data.extend(companies)
-
-                            # Display results
-                            if console_wrapper.enable_markdown:
-                                console.print(f"\n## Browser automation: found {len(companies)} companies", markup=False)
-                            for idx, c in enumerate(companies[:30], 1):
-                                console_wrapper.print(f"{idx}. {c['name']}", language="text")
-                                console_wrapper.print(f"   {c['url']}", language="text")
-                            if len(companies) > 30:
-                                console_wrapper.print(f"... and {len(companies) - 30} more", language="text")
-
-                            console_wrapper.print(
-                                yaml.safe_dump(
-                                    {"status": "companies_extracted", "count": len(companies)},
-                                    sort_keys=False, allow_unicode=True,
-                                ).rstrip(),
-                                language="yaml",
-                            )
-
-                        except Exception as e:
-                            return RunnerResult(success=False, kind="dom", error=f"Action {i}: Company extraction failed: {e}")
 
                     elif action == "extract_company_websites_deep":
                         # Navigate to each company profile and extract their external website
@@ -1452,7 +977,7 @@ class PipelineRunner:
 
                                     // Prefer the main listings area if present
                                     const roots = document.querySelectorAll('main, [role="main"], .results, .listing, #content, .companies, .firmy');
-                                    const root = roots.length ? roots[0] : document.body;
+                                    const root = roots.length > 0 ? roots[0] : document.body;
 
                                     const allLinks = Array.from(root.querySelectorAll('a[href]'));
                                     for (const el of allLinks) {
@@ -1489,10 +1014,16 @@ class PipelineRunner:
                                     for item in batch:
                                         if not isinstance(item, dict):
                                             continue
-                                        name = str(item.get("name", "") or "").strip()
-                                        href = str(item.get("href", "") or "").strip()
+                                        name = str(item.get("name", "")).strip()
+                                        href = str(item.get("href", "")).strip()
                                         if not name or not href:
                                             continue
+
+                                        # Make URL absolute
+                                        if not href.startswith("http"):
+                                            from urllib.parse import urljoin
+                                            href = urljoin(base_url, href)
+
                                         key = href.lower()
                                         if key in seen_hrefs:
                                             continue
@@ -1575,6 +1106,9 @@ class PipelineRunner:
                                         // Look for external website links (not social media)
                                         const externalPatterns = [
                                             'a[href^="http"]:not([href*="oferteo.pl"]):not([href*="facebook.com"]):not([href*="twitter.com"]):not([href*="instagram.com"]):not([href*="linkedin.com"]):not([href*="youtube.com"])',
+                                            // Sometimes Oferteo uses redirect links to external sites
+                                            'a[href*="oferteo.pl"][href*="redirect"]',
+                                            'a[href*="oferteo.pl"][href*="url="]',
                                             '.website a', '.www a', '.company-website a',
                                             'a.external-link', 'a[rel="nofollow"]',
                                             '[data-website] a', '.biz-website a'
@@ -1587,6 +1121,11 @@ class PipelineRunner:
                                                     !href.includes('oferteo.pl') &&
                                                     !href.includes('facebook.com') &&
                                                     !href.includes('google.com')) {
+                                                    return href;
+                                                }
+
+                                                // Allow oferteo redirects (decoded later in Python)
+                                                if (href && href.includes('oferteo.pl') && (href.includes('redirect') || href.includes('url='))) {
                                                     return href;
                                                 }
                                             }
@@ -1716,6 +1255,7 @@ class PipelineRunner:
                         # Save extracted data to a file
                         try:
                             filename = action_spec.get("filename", "extracted_data.txt")
+                            file_format = action_spec.get("format", "txt")
                             _debug(f"save_to_file: saving {len(extracted_data)} items to {filename}")
 
                             if not extracted_data:
@@ -1723,14 +1263,36 @@ class PipelineRunner:
                                 continue
 
                             filepath = Path(filename)
+                            seen: set[str] = set()
                             lines: list[str] = []
                             for item in extracted_data:
-                                name = item.get("name", "")
-                                item_url = item.get("url", "")
-                                if name and item_url:
-                                    lines.append(f"{name}\t{item_url}")
-                                elif name:
-                                    lines.append(name)
+                                if isinstance(item, dict):
+                                    candidate = ""
+                                    if item.get("website"):
+                                        candidate = str(item.get("website") or "").strip()
+                                    elif item.get("url"):
+                                        candidate = str(item.get("url") or "").strip()
+                                    elif item.get("oferteo_url"):
+                                        candidate = str(item.get("oferteo_url") or "").strip()
+                                    else:
+                                        candidate = " ".join(str(v) for v in item.values()).strip()
+
+                                    if not candidate:
+                                        continue
+                                    key = candidate.lower()
+                                    if key in seen:
+                                        continue
+                                    seen.add(key)
+                                    lines.append(candidate)
+                                else:
+                                    candidate = str(item).strip()
+                                    if not candidate:
+                                        continue
+                                    key = candidate.lower()
+                                    if key in seen:
+                                        continue
+                                    seen.add(key)
+                                    lines.append(candidate)
 
                             filepath.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
