@@ -189,6 +189,12 @@ if not hasattr(click, 'Group'):
     default=True,
     help="Auto-install missing Python deps/tools when using --run (e.g. playwright)",
 )
+@click.option(
+    "--source",
+    "source_uri",
+    default=None,
+    help="Stream source URI (e.g. ssh://user@host, rtsp://cam/stream, libvirt:///system, vnc://host:5901)",
+)
 @click.option("-v", "--version", is_flag=True, help="Show version information")
 @click.option("--verbose", is_flag=True, help="Enable verbose debug output")
 @click.pass_context
@@ -208,6 +214,7 @@ def main(
     auto_confirm: bool,
     no_submit: bool,
     auto_install: bool,
+    source_uri: Optional[str],
     version: bool,
     verbose: bool,
 ):
@@ -247,6 +254,22 @@ def main(
         if version:
             from nlp2cmd import __version__
             console.print(f"nlp2cmd version {__version__}")
+            return
+        # --source stream mode: dispatch to StreamRouter
+        if source_uri and query:
+            from nlp2cmd.streams import StreamRouter
+            router = StreamRouter()
+            if run:
+                result = router.execute(source_uri, query)
+            else:
+                result = router.query(source_uri, query)
+            if result.output:
+                console.print(result.output)
+            if result.error:
+                console.print(f"[red]{result.error}[/red]")
+            if result.data and not stdout_only:
+                from nlp2cmd.cli.helpers import print_yaml_block
+                print_yaml_block(result.data, console=console)
             return
         if run and query:
             _handle_run_query(

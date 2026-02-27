@@ -674,6 +674,20 @@ class PipelineRunner:
                                                 page.wait_for_timeout(1200)
                                                 self._dismiss_popups(page, schema_loader)
 
+                                                # Some sites render the contact form only after JS hydration or scroll.
+                                                try:
+                                                    page.evaluate("() => window.scrollTo(0, document.body.scrollHeight)")
+                                                except Exception:
+                                                    pass
+                                                page.wait_for_timeout(900)
+
+                                                try:
+                                                    direct_attempt["forms"] = int(
+                                                        page.evaluate("() => document.querySelectorAll('form').length")
+                                                    )
+                                                except Exception:
+                                                    direct_attempt["forms"] = None
+
                                                 try:
                                                     direct_attempt["status"] = int(resp.status) if resp is not None else None
                                                 except Exception:

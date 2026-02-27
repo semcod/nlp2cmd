@@ -31,6 +31,39 @@
 
 ---
 
+## ✅ Ukończone — Screenshot + Video Recording (2026-02-27)
+
+### Browser Automation Features
+- [x] **Optional Screenshot Capture** (`ask_for_screenshot`, `take_screenshot`)
+  - [x] Interactive prompt: "Zrobić zrzut ekranu? [T/n]"
+  - [x] Custom save path or default: `./screenshots/form_YYYYMMDD_HHMMSS.png`
+  - [x] Full-page screenshot support
+  - [x] Respects `--auto-confirm` flag (skips prompt when auto-confirm enabled)
+- [x] **Video Recording** (`VideoRecorder`, `ask_for_video_recording`)
+  - [x] Interactive prompt: "Nagrać wideo z procesu? [T/n]"
+  - [x] Custom output directory or default: `./recordings/`
+  - [x] Playwright native video recording (WebM format, 1280x720)
+  - [x] Respects `--auto-confirm` flag (skips prompt when auto-confirm enabled)
+- [x] **Pipeline Integration**
+  - [x] Video setup in `_run_dom_multi_action` before browser context creation
+  - [x] Video teardown after actions complete (success or error)
+  - [x] Optional screenshot after `fill_form` action (interactive mode only)
+- [x] **Utilities Module** (`pipeline_runner_utils.py`)
+  - [x] `get_timestamp()` — timestamp for filenames
+  - [x] `ensure_dir()` — directory creation
+  - [x] `ask_for_screenshot()` — interactive screenshot prompt
+  - [x] `take_screenshot()` — capture and save screenshot
+  - [x] `VideoRecorder` class — video recording manager
+  - [x] `ask_for_video_recording()` — interactive video prompt
+- [x] **Bug Fixes**
+  - [x] Fixed missing `Path` import from `pathlib`
+  - [x] Fixed `extract_companies` alias for `extract_company_websites_deep`
+- [x] **Demo Script** (`examples/demo_screenshot_video.sh`)
+  - [x] Automated demonstration of all features
+  - [x] Logs results to `demo_results/`
+
+---
+
 ## ✅ Ukończone — Oferteo.pl Deep Extraction (2026-02-27)
 
 ### Browser Automation Features
