@@ -265,6 +265,41 @@ class BrowserAdapter(BaseDSLAdapter):
         tl = text.lower()
         return any(ind in tl for ind in csv_indicators)
 
+    @staticmethod
+    def _wants_clipboard(text: str) -> bool:
+        tl = (text or "").lower()
+        return any(
+            k in tl
+            for k in [
+                "schowek",
+                "clipboard",
+                "skopiuj",
+                "kopiuj",
+                "do schowka",
+                "to clipboard",
+                "copy to clipboard",
+            ]
+        )
+
+    @staticmethod
+    def _wants_print_terminal(text: str) -> bool:
+        tl = (text or "").lower()
+        return any(
+            k in tl
+            for k in [
+                "wypisz",
+                "wydrukuj",
+                "print",
+                "pokaż",
+                "pokaz",
+                "w terminalu",
+                "na terminal",
+                "to terminal",
+                "print to terminal",
+                "stdout",
+            ]
+        )
+
     def generate(self, plan: dict[str, Any]) -> str:
         text = str(plan.get("text") or plan.get("query") or "")
         entities = plan.get("entities") if isinstance(plan.get("entities"), dict) else {}
@@ -411,6 +446,8 @@ class BrowserAdapter(BaseDSLAdapter):
 
         # --- Save to file (CSV or text) ---
         if has_save:
+            wants_clipboard = self._wants_clipboard(text)
+            wants_print = self._wants_print_terminal(text)
             if has_csv:
                 save_action: dict[str, Any] = {"action": "save_to_csv"}
                 default_ext = ".csv"
@@ -431,6 +468,11 @@ class BrowserAdapter(BaseDSLAdapter):
                     default_name = f"extracted_data{default_ext}"
                 save_action["filename"] = default_name
                 params["save_filename"] = default_name
+
+            if wants_clipboard:
+                save_action["also_copy"] = True
+            if wants_print:
+                save_action["also_print"] = True
             actions.append(save_action)
             action_id = f"{action_id}_and_save"
             explanation = f"{explanation} and save to '{params.get('save_filename', 'file')}'"

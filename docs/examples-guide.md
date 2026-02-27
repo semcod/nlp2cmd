@@ -344,6 +344,99 @@ result = await generator.generate("Zaplanuj trasy transportu publicznego")
 - Waste management
 - Urban planning
 
+## 🌐 Browser Automation Examples (v1.0.85+)
+
+### API Key Extraction (Known Services — No LLM)
+
+```bash
+# Extract API key from OpenRouter and save to .env
+nlp2cmd -r "otwórz openrouter.ai i wyciągnij klucz API, zapisz do .env"
+
+# Same for Anthropic
+nlp2cmd -r "wyciągnij klucz API z anthropic i zapisz do .env"
+
+# GitHub token
+nlp2cmd -r "pobierz token z github i zapisz do .env"
+```
+
+Supported services (rule-based, 0ms overhead): OpenRouter, Anthropic, OpenAI, GitHub, HuggingFace, Replicate.
+
+### Multi-Tab Navigation
+
+```bash
+# Open multiple tabs
+nlp2cmd -r "otwórz 3 taby: github.com, gmail.com i stackoverflow.com"
+```
+
+### Browser Automation with Video Recording
+
+```bash
+# Draw ladybug on jspaint with video recording
+nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę" --video webm
+
+# Record MP4
+nlp2cmd -r "otwórz stronę example.com i wypełnij formularz" --video mp4
+```
+
+### Multi-Step Browser Commands (Python API)
+
+```python
+from nlp2cmd.generation.complex_detector import ComplexQueryDetector
+from nlp2cmd.automation.action_planner import ActionPlanner
+
+# Detect if query is multi-step
+detector = ComplexQueryDetector()
+result = detector.analyze(
+    "otwórz przeglądarkę i stronę openrouter.ai, "
+    "wyciągnij klucz API i zapisz do .env"
+)
+print(result.is_complex)    # True
+print(result.num_intents)   # 4
+print(result.intents)       # ['browser:launch', 'browser:navigate',
+                            #  'browser:extract_data', 'browser:save_file']
+
+# Decompose into action plan
+planner = ActionPlanner()
+plan = planner.decompose_sync(
+    "otwórz openrouter.ai i wyciągnij klucz API, zapisz do .env"
+)
+for step in plan.steps:
+    print(f"  {step.action}: {step.description}")
+# navigate: Przejdź na stronę kluczy openrouter
+# extract_api_key: Wyciągnij klucz API openrouter
+# save_env: Zapisz OPENROUTER_API_KEY do .env
+```
+
+### Execute Action Plan with PipelineRunner
+
+```python
+from nlp2cmd.pipeline_runner import PipelineRunner
+
+runner = PipelineRunner(headless=False, video_fmt="webm")
+result = runner.execute_action_plan(plan, dry_run=False)
+print(result.success)
+print(result.data.get("video"))  # path to recorded video
+```
+
+### Full Pipeline with Multi-Step Detection
+
+```python
+from nlp2cmd.generation.pipeline import RuleBasedPipeline
+
+pipeline = RuleBasedPipeline()
+result = pipeline.process(
+    "otwórz openrouter.ai i wyciągnij klucz API, zapisz do .env"
+)
+
+if result.action_plan:
+    # Multi-step command detected
+    print(f"Plan: {len(result.action_plan.steps)} steps")
+    print(f"Source: {result.source}")  # "rule_decomposer" or "llm_planner"
+else:
+    # Single command
+    print(f"Command: {result.command}")
+```
+
 ## 🔬 Advanced Examples
 
 ### Thermodynamic Optimization Benchmarks

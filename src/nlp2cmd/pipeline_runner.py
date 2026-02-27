@@ -1504,6 +1504,8 @@ class PipelineRunner:
                         try:
                             filename = action_spec.get("filename", "extracted_data.txt")
                             file_format = action_spec.get("format", "txt")
+                            also_copy = bool(action_spec.get("also_copy") or action_spec.get("copy_to_clipboard"))
+                            also_print = bool(action_spec.get("also_print") or action_spec.get("print_to_terminal"))
                             _debug(f"save_to_file: saving {len(extracted_data)} items to {filename}")
 
                             if not extracted_data:
@@ -1598,6 +1600,94 @@ class PipelineRunner:
                             filepath.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
                             console_wrapper.print(f"💾 Saved {len(lines)} entries to {filepath.resolve()}", language="text")
+
+                            if also_print:
+                                try:
+                                    console_wrapper.print("\n".join(lines), language="text")
+                                except Exception as pe:
+                                    _debug(f"save_to_file: print failed: {pe}")
+
+                            if also_copy:
+                                copied = False
+                                copy_err = None
+                                payload = ("\n".join(lines) + "\n").encode("utf-8")
+                                try:
+                                    # Prefer Wayland
+                                    p = subprocess.Popen(
+                                        ["wl-copy"],
+                                        stdin=subprocess.PIPE,
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.PIPE,
+                                    )
+                                    _, err = p.communicate(payload, timeout=3)
+                                    copied = p.returncode == 0
+                                    if not copied:
+                                        copy_err = (err or b"").decode("utf-8", errors="ignore")
+                                except FileNotFoundError:
+                                    pass
+                                except Exception as ce:
+                                    copy_err = str(ce)
+
+                                if not copied:
+                                    try:
+                                        p = subprocess.Popen(
+                                            ["xclip", "-selection", "clipboard"],
+                                            stdin=subprocess.PIPE,
+                                            stdout=subprocess.DEVNULL,
+                                            stderr=subprocess.PIPE,
+                                        )
+                                        _, err = p.communicate(payload, timeout=3)
+                                        copied = p.returncode == 0
+                                        if not copied:
+                                            copy_err = (err or b"").decode("utf-8", errors="ignore")
+                                    except FileNotFoundError:
+                                        pass
+                                    except Exception as ce:
+                                        copy_err = str(ce)
+
+                                if not copied:
+                                    try:
+                                        p = subprocess.Popen(
+                                            ["xsel", "--clipboard", "--input"],
+                                            stdin=subprocess.PIPE,
+                                            stdout=subprocess.DEVNULL,
+                                            stderr=subprocess.PIPE,
+                                        )
+                                        _, err = p.communicate(payload, timeout=3)
+                                        copied = p.returncode == 0
+                                        if not copied:
+                                            copy_err = (err or b"").decode("utf-8", errors="ignore")
+                                    except FileNotFoundError:
+                                        pass
+                                    except Exception as ce:
+                                        copy_err = str(ce)
+
+                                if copied:
+                                    console_wrapper.print(
+                                        yaml.safe_dump(
+                                            {
+                                                "status": "copied_to_clipboard",
+                                                "lines": len(lines),
+                                            },
+                                            sort_keys=False,
+                                            allow_unicode=True,
+                                        ).rstrip(),
+                                        language="yaml",
+                                    )
+                                else:
+                                    console_wrapper.print(
+                                        yaml.safe_dump(
+                                            {
+                                                "status": "clipboard_copy_skipped",
+                                                "reason": "no_clipboard_tool",
+                                                "error": str(copy_err or ""),
+                                            },
+                                            sort_keys=False,
+                                            allow_unicode=True,
+                                        ).rstrip(),
+                                        language="yaml",
+                                    )
+
                             console_wrapper.print(
                                 yaml.safe_dump(
                                     {
@@ -1666,20 +1756,41 @@ class PipelineRunner:
                 # Keep browser open for a moment to see the result
                 page.wait_for_timeout(2000)
                 
-                # Stop video recording if active
+                # Stop video recording if active — save Playwright video to target path
+                video_saved_path = None
                 if video_recorder and video_recorder.is_recording:
+                    try:
+                        pw_video = page.video
+                        if pw_video:
+                            # Playwright auto-saves .webm; save_as copies to our target
+                            target = video_recorder.video_path or str(Path(_effective_video_dir) / "browser_automation.webm")
+                            pw_video.save_as(target)
+                            video_saved_path = target
+                            console.print(f"[green]🎥 Video saved: {target}[/green]")
+                    except Exception as ve:
+                        _debug(f"Video save_as failed: {ve}")
                     video_recorder.stop_recording(console)
                 
                 browser.close()
                 
+                result_data: dict[str, Any] = {"url": url, "actions_executed": len(actions), "extracted_count": len(extracted_data)}
+                if video_saved_path:
+                    result_data["video"] = video_saved_path
                 return RunnerResult(
                     success=True, kind="dom",
-                    data={"url": url, "actions_executed": len(actions), "extracted_count": len(extracted_data)},
+                    data=result_data,
                 )
             
             except Exception as e:
                 # Stop video recording if active (even on error)
                 if video_recorder and video_recorder.is_recording:
+                    try:
+                        pw_video = page.video
+                        if pw_video and video_recorder.video_path:
+                            pw_video.save_as(video_recorder.video_path)
+                            console.print(f"[yellow]🎥 Partial video saved: {video_recorder.video_path}[/yellow]")
+                    except Exception:
+                        pass
                     video_recorder.stop_recording(console)
                 
                 browser.close()
@@ -1973,6 +2084,29 @@ class PipelineRunner:
 
         elif action == "prompt_secret":
             prompt = str(params.get("prompt") or "Enter secret: ")
+            env_var = str(params.get("env_var") or "").strip()
+
+            # Non-interactive support: allow providing secret via environment.
+            if env_var:
+                try:
+                    env_val = os.environ.get(env_var)
+                except Exception:
+                    env_val = None
+                if isinstance(env_val, str) and env_val.strip():
+                    return env_val.strip()
+
+            # If stdin is not a TTY, prompting will fail (EOF). Provide a clear instruction.
+            try:
+                is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+            except Exception:
+                is_tty = False
+            if not is_tty:
+                if env_var:
+                    raise ValueError(
+                        f"prompt_secret requires interactive TTY or {env_var} in environment"
+                    )
+                raise ValueError("prompt_secret requires interactive TTY")
+
             try:
                 import getpass
                 val = getpass.getpass(prompt)

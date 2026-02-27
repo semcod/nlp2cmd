@@ -25,6 +25,19 @@ _semantic_matcher = None
 _spacy = None
 _nlp_model = None
 _nlp_model_loaded = False
+_query_normalizer = None
+
+
+def _get_query_normalizer():
+    """Lazy load QueryNormalizer (Etap 1 of NLP refactoring)."""
+    global _query_normalizer
+    if _query_normalizer is None:
+        try:
+            from nlp2cmd.nlp.normalizer import QueryNormalizer
+            _query_normalizer = QueryNormalizer()
+        except ImportError:
+            _query_normalizer = False
+    return _query_normalizer if _query_normalizer else None
 
 
 def _get_polish_support():
@@ -238,6 +251,13 @@ class KeywordIntentDetector:
         if not text or not text.strip():
             return DetectionResult(domain="unknown", intent="unknown", confidence=0.0, matched=False)
         
+        # ═══ LAYER 0: Query Normalization (Etap 1) ═══
+        _normalizer = _get_query_normalizer()
+        _normalized = None
+        if _normalizer is not None:
+            _normalized = _normalizer.normalize(text)
+            text = _normalized.text  # typo-corrected, Unicode-normalized
+
         text_lower = text.lower()
 
         # ═══ SUPER-FAST BROWSER OVERRIDE (before ML/fuzzy/semantic) ═══
