@@ -728,63 +728,70 @@ class PipelineRunner:
 
                             # If we start on Oferteo homepage, we are likely on category tiles, not company listings.
                             # Try a best-effort jump to a city listing (this command is specifically for Gdańsk).
+                            cur = ""
                             try:
                                 cur = str(page.url or "")
-                                _cond = ("oferteo.pl" in cur and urlparse(cur).path.strip("/") == "")
-                                if _cond:
-                                    for cand in [
-                                        "https://www.oferteo.pl/firmy/gdansk",
-                                        "https://www.oferteo.pl/firmy/gda%C5%84sk",
-                                        "https://www.oferteo.pl/firmy-gdansk",
-                                        "https://www.oferteo.pl/firmy-budowlane/gdansk",
-                                    ]:
-                                        attempt: dict[str, object] = {"candidate": cand}
-                                        attempts.append(attempt)
+                            except Exception:
+                                cur = ""
+
+                            try:
+                                cur_path = urlparse(cur).path or ""
+                            except Exception:
+                                cur_path = ""
+
+                            _cond = ("oferteo.pl" in cur and cur_path in {"", "/"})
+                            if _cond:
+                                for cand in [
+                                    "https://www.oferteo.pl/firmy/gdansk",
+                                    "https://www.oferteo.pl/firmy/gda%C5%84sk",
+                                    "https://www.oferteo.pl/firmy-gdansk",
+                                    "https://www.oferteo.pl/firmy-budowlane/gdansk",
+                                ]:
+                                    attempt: dict[str, object] = {"candidate": cand}
+                                    attempts.append(attempt)
+                                    try:
+                                        resp = page.goto(cand, wait_until="domcontentloaded", timeout=15000)
+                                        page.wait_for_timeout(900)
+                                        self._dismiss_popups(page, schema_loader)
+
                                         try:
-                                            resp = page.goto(cand, wait_until="domcontentloaded", timeout=15000)
-                                            page.wait_for_timeout(900)
-                                            self._dismiss_popups(page, schema_loader)
+                                            status = int(resp.status) if resp is not None else None
+                                        except Exception:
+                                            status = None
 
-                                            try:
-                                                status = int(resp.status) if resp is not None else None
-                                            except Exception:
-                                                status = None
+                                        try:
+                                            cur_after = str(page.url or "")
+                                        except Exception:
+                                            cur_after = ""
 
-                                            try:
-                                                cur_after = str(page.url or "")
-                                            except Exception:
-                                                cur_after = ""
-
-                                            try:
-                                                firma_cnt = page.evaluate(
-                                                    r"""() => Array.from(document.querySelectorAll('a[href]'))
+                                        try:
+                                            firma_cnt = page.evaluate(
+                                                r"""() => Array.from(document.querySelectorAll('a[href]'))
   .map(a => (a.getAttribute('href') || '').toLowerCase())
   .filter(h => h.includes('/firma')).length"""
-                                                )
-                                            except Exception:
-                                                firma_cnt = 0
+                                            )
+                                        except Exception:
+                                            firma_cnt = 0
 
-                                            try:
-                                                title = page.title() or ""
-                                            except Exception:
-                                                title = ""
+                                        try:
+                                            title = page.title() or ""
+                                        except Exception:
+                                            title = ""
 
-                                            attempt["status"] = status
-                                            attempt["final_url"] = cur_after
-                                            attempt["title"] = title
-                                            attempt["firma_links"] = firma_cnt
-                                            attempt["error"] = None
+                                        attempt["status"] = status
+                                        attempt["final_url"] = cur_after
+                                        attempt["title"] = title
+                                        attempt["firma_links"] = firma_cnt
+                                        attempt["error"] = None
 
-                                            # accept the first candidate that navigates away from homepage successfully
-                                            if status is None or (isinstance(status, int) and status < 400):
-                                                if urlparse(cur_after).path.strip("/") != "":
-                                                    base_url = page.url
-                                                    break
-                                        except Exception as e:
-                                            attempt["error"] = str(e)
-                                            continue
-                            except Exception:
-                                pass
+                                        # accept the first candidate that navigates away from homepage successfully
+                                        if status is None or (isinstance(status, int) and status < 400):
+                                            if urlparse(cur_after).path.strip("/") != "":
+                                                base_url = page.url
+                                                break
+                                    except Exception as e:
+                                        attempt["error"] = str(e)
+                                        continue
 
                             try:
                                 console_wrapper.print(
@@ -1135,7 +1142,7 @@ class PipelineRunner:
 
                                         # Decode oferteo redirect links if present
                                         try:
-                                            from urllib.parse import urlparse, parse_qs, unquote
+                                            from urllib.parse import parse_qs, unquote
 
                                             parsed = urlparse(raw_ext)
                                             if "oferteo.pl" in (parsed.netloc or ""):

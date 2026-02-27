@@ -1,0 +1,28 @@
+# noVNC Desktop Environment for NLP2CMD GUI Automation
+#
+# Usage:
+#   docker compose -f docker/novnc/docker-compose.yml up -d
+#   # Open http://localhost:6080/vnc.html in browser
+#   # Run demos from host: python3 docker/novnc/demos/demo_desktop_gui.py
+#
+# To record video:
+#   docker exec nlp2cmd-desktop bash -c "ffmpeg -f x11grab -video_size 1280x800 -i :1 -t 30 /home/nlp2cmd/recordings/demo.mp4"
+
+services:
+  desktop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nlp2cmd-desktop
+    ports:
+      - "6080:6080"   # noVNC web interface
+      - "5901:5901"   # VNC direct connect
+    environment:
+      - VNC_RESOLUTION=1280x800
+      - VNC_PASSWORD=nlp2cmd
+      - DISPLAY=:1
+    volumes:
+      - ./recordings:/home/nlp2cmd/recordings
+      - ../../src:/home/nlp2cmd/nlp2cmd-src:ro
+    shm_size: "512m"
+    restart: unless-stopped
