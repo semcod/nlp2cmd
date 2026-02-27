@@ -1405,7 +1405,7 @@ class PipelineRunner:
                         try:
                             _debug("extract_company_websites_deep: starting deep extraction")
                             page.wait_for_load_state("domcontentloaded", timeout=10000)
-                            page.wait_for_timeout(2000)
+                            page.wait_for_timeout(800)
 
                             # Dismiss popups first
                             self._dismiss_popups(page, schema_loader)
@@ -1414,30 +1414,102 @@ class PipelineRunner:
                             companies_data: list[dict[str, str]] = []
                             base_url = page.url
 
+                            # If we start on Oferteo homepage, we are likely on category tiles, not company listings.
+                            # Try a best-effort jump to a city listing (this command is specifically for Gdańsk).
+                            try:
+                                cur = str(page.url or "")
+                                if "oferteo.pl" in cur and urlparse(cur).path.strip("/") == "":
+                                    for cand in [
+                                        "https://www.oferteo.pl/firmy/gdansk",
+                                        "https://www.oferteo.pl/firmy/gda%C5%84sk",
+                                        "https://www.oferteo.pl/firmy-gdansk",
+                                    ]:
+                                        try:
+                                            page.goto(cand, wait_until="domcontentloaded", timeout=15000)
+                                            page.wait_for_timeout(900)
+                                            self._dismiss_popups(page, schema_loader)
+                                            # accept the first candidate that looks like a listing page
+                                            if "oferteo.pl" in str(page.url or "") and urlparse(str(page.url or "")).path.strip("/") != "":
+                                                base_url = page.url
+                                                break
+                                        except Exception:
+                                            continue
+                            except Exception:
+                                pass
+
                             # Find company profile links on the catalog page
                             _debug("extract_company_websites_deep: finding company links")
-                            company_links = page.evaluate(r"""() => {
-                                const links = [];
-                                const seen = new Set();
-                                // Get all links and filter by href pattern
-                                const allLinks = Array.from(document.querySelectorAll('a[href]'));
-                                for (const el of allLinks) {
-                                    const href = el.getAttribute('href') || '';
-                                    const text = el.textContent.trim();
-                                    // Check if href contains company patterns (case insensitive)
-                                    const hrefLower = href.toLowerCase();
-                                    if (!hrefLower.includes('/firma/') && 
-                                        !hrefLower.includes('/company/') &&
-                                        !hrefLower.includes('/f/') &&
-                                        !hrefLower.includes('/business/') &&
-                                        !hrefLower.includes('/biznes/')) continue;
-                                    if (!text || text.length < 2 || text.length > 100) continue;
-                                    if (seen.has(href)) continue;
-                                    seen.add(href);
-                                    links.push({name: text, href: href});
-                                }
-                                return links.slice(0, 50);
-                            }""")
+                            company_links: list[dict[str, str]] = []
+                            try:
+                                from urllib.parse import urljoin
+                            except Exception:
+                                urljoin = None
+
+                            def _collect_company_links() -> list[dict[str, str]]:
+                                res = page.evaluate(r"""() => {
+                                    const links = [];
+                                    const seen = new Set();
+
+                                    // Prefer the main listings area if present
+                                    const roots = document.querySelectorAll('main, [role="main"], .results, .listing, #content, .companies, .firmy');
+                                    const root = roots.length ? roots[0] : document.body;
+
+                                    const allLinks = Array.from(root.querySelectorAll('a[href]'));
+                                    for (const el of allLinks) {
+                                        const href = (el.getAttribute('href') || '').trim();
+                                        const text = (el.textContent || '').trim().replace(/\s+/g, ' ');
+                                        if (!href || !text) continue;
+                                        if (text.length < 2 || text.length > 140) continue;
+                                        if (/^(#|javascript:|mailto:|tel:)/i.test(href)) continue;
+
+                                        const hrefLower = href.toLowerCase();
+                                        // Exclude categories/listings and noise
+                                        if (hrefLower.includes('/firmy-')) continue;
+                                        if (hrefLower.includes('/katalog') || hrefLower.includes('/kategorie') || hrefLower.includes('/branze') || hrefLower.includes('/uslugi')) continue;
+                                        if (hrefLower.includes('facebook.com') || hrefLower.includes('instagram.com') || hrefLower.includes('linkedin.com')) continue;
+
+                                        // Company profiles typically live under /firma/
+                                        const looksLikeCompany = hrefLower.includes('/firma/') || hrefLower.includes('/company/');
+                                        if (!looksLikeCompany) continue;
+
+                                        if (seen.has(hrefLower)) continue;
+                                        seen.add(hrefLower);
+                                        links.push({name: text, href: href});
+                                    }
+
+                                    return links;
+                                }""")
+                                return res if isinstance(res, list) else []
+
+                            # Try multiple passes with scrolling to load more results
+                            try:
+                                seen_hrefs: set[str] = set()
+                                for pass_idx in range(4):
+                                    batch = _collect_company_links()
+                                    for item in batch:
+                                        if not isinstance(item, dict):
+                                            continue
+                                        name = str(item.get("name", "") or "").strip()
+                                        href = str(item.get("href", "") or "").strip()
+                                        if not name or not href:
+                                            continue
+                                        key = href.lower()
+                                        if key in seen_hrefs:
+                                            continue
+                                        seen_hrefs.add(key)
+                                        company_links.append({"name": name, "href": href})
+
+                                    if len(company_links) >= 120:
+                                        break
+
+                                    # Scroll to load more
+                                    try:
+                                        page.evaluate("() => window.scrollTo(0, document.body.scrollHeight)")
+                                        page.wait_for_timeout(900)
+                                    except Exception:
+                                        break
+                            except Exception:
+                                pass
                             
                             _debug(f"extract_company_websites_deep: raw company_links type={type(company_links)}, value={str(company_links)[:200]}")
 
@@ -1472,9 +1544,14 @@ class PipelineRunner:
                             _debug(f"extract_company_websites_deep: found {len(company_links)} potential companies")
                             console_wrapper.print(f"🔍 Found {len(company_links)} company profiles to check", language="text")
 
-                            # Process each company profile
-                            for idx, company in enumerate(company_links[:max_companies], 1):
+                            # Process profiles until we gather max_companies real websites
+                            target_websites = int(max_companies) if isinstance(max_companies, int) else 20
+                            max_profiles_to_check = max(target_websites * 6, 80)
+                            checked = 0
+
+                            for idx, company in enumerate(company_links[:max_profiles_to_check], 1):
                                 try:
+                                    checked += 1
                                     name = str(company.get("name", "")).strip()
                                     href = str(company.get("href", "")).strip()
                                     if not name or not href:
@@ -1485,12 +1562,12 @@ class PipelineRunner:
                                         from urllib.parse import urljoin
                                         href = urljoin(base_url, href)
 
-                                    _debug(f"Processing {idx}/{min(len(company_links), max_companies)}: {name}")
-                                    console_wrapper.print(f"[{idx}/{min(len(company_links), max_companies)}] Checking: {name}", language="text")
+                                    _debug(f"Processing {idx}/{min(len(company_links), max_profiles_to_check)}: {name}")
+                                    console_wrapper.print(f"[{idx}/{min(len(company_links), max_profiles_to_check)}] Checking: {name}", language="text")
 
                                     # Navigate to company profile
                                     page.goto(href, wait_until="domcontentloaded")
-                                    page.wait_for_timeout(1500)
+                                    page.wait_for_timeout(600)
                                     self._dismiss_popups(page, schema_loader)
 
                                     # Find external website link on the profile page
@@ -1525,8 +1602,62 @@ class PipelineRunner:
                                                 return href;
                                             }
                                         }
+
+                                        // Last resort: find anything that looks like a domain in visible text
+                                        const bodyText = (document.body && document.body.innerText) ? document.body.innerText : '';
+                                        const m = bodyText.match(/\b([a-z0-9][a-z0-9\-]{0,62}\.)+[a-z]{2,}\b/i);
+                                        if (m && m[0]) {
+                                            return m[0];
+                                        }
                                         return null;
                                     }""")
+
+                                    # Filter out non-company websites (app stores, social, tracking)
+                                    if external_site and isinstance(external_site, str):
+                                        raw_ext = external_site.strip()
+                                        ext_low = raw_ext.lower()
+
+                                        # If it's a bare domain found in text, normalize to https://
+                                        if ext_low and (not ext_low.startswith("http")) and "." in ext_low and "/" not in ext_low:
+                                            raw_ext = f"https://{raw_ext}"
+                                            ext_low = raw_ext.lower()
+
+                                        # Decode oferteo redirect links if present
+                                        try:
+                                            from urllib.parse import urlparse, parse_qs, unquote
+
+                                            parsed = urlparse(raw_ext)
+                                            if "oferteo.pl" in (parsed.netloc or ""):
+                                                qs = parse_qs(parsed.query or "")
+                                                for key in ("url", "u", "target", "redirect"):
+                                                    if key in qs and qs[key]:
+                                                        cand = unquote(str(qs[key][0]))
+                                                        if cand.startswith("http"):
+                                                            raw_ext = cand
+                                                            ext_low = raw_ext.lower()
+                                                            break
+                                        except Exception:
+                                            pass
+
+                                        bad_domains = [
+                                            "apps.apple.com",
+                                            "play.google.com",
+                                            "itunes.apple.com",
+                                            "oferteo.pl",
+                                            "facebook.com",
+                                            "instagram.com",
+                                            "linkedin.com",
+                                            "twitter.com",
+                                            "x.com",
+                                            "youtube.com",
+                                            "tiktok.com",
+                                            "goo.gl",
+                                            "bit.ly",
+                                        ]
+                                        if any(b in ext_low for b in bad_domains):
+                                            external_site = None
+                                        else:
+                                            external_site = raw_ext
 
                                     if external_site and isinstance(external_site, str):
                                         companies_data.append({
@@ -1536,6 +1667,11 @@ class PipelineRunner:
                                         })
                                         console_wrapper.print(f"   ✓ Found website: {external_site}", language="text")
                                         _debug(f"Found website for {name}: {external_site}")
+
+                                        # Stop early when we have enough real websites
+                                        real_websites = [c for c in companies_data if c.get("website")]
+                                        if len(real_websites) >= target_websites:
+                                            break
                                     else:
                                         console_wrapper.print(f"   ⚠ No external website found", language="text")
                                         companies_data.append({
@@ -1544,9 +1680,13 @@ class PipelineRunner:
                                             "website": ""
                                         })
 
-                                    # Go back to catalog
-                                    page.goto(base_url, wait_until="domcontentloaded")
-                                    page.wait_for_timeout(1000)
+                                    # Go back to catalog (lighter than re-loading base_url each time)
+                                    try:
+                                        page.go_back(wait_until="domcontentloaded", timeout=8000)
+                                        page.wait_for_timeout(400)
+                                    except Exception:
+                                        page.goto(base_url, wait_until="domcontentloaded")
+                                        page.wait_for_timeout(600)
 
                                 except Exception as e:
                                     _debug(f"Error processing company: {e}")
