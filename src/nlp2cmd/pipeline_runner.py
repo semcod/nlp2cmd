@@ -579,7 +579,8 @@ class PipelineRunner:
                             
                             # Detect form fields
                             console_wrapper.print("🔍 Detecting form fields...", language="text")
-                            fields = form_handler.detect_form_fields(page)
+                            fill_target = page
+                            fields = form_handler.detect_form_fields(fill_target)
                             detected_form_fields = fields
 
                             # If the page contains only junk fields (cookie/search/captcha/comments),
@@ -629,7 +630,8 @@ class PipelineRunner:
                                         
                                         # Retry form detection
                                         console_wrapper.print("🔁 Retrying form field detection after exploration...", language="text")
-                                        fields = form_handler.detect_form_fields(page)
+                                        fill_target = page
+                                        fields = form_handler.detect_form_fields(fill_target)
                                         detected_form_fields = fields
 
                                         fields = _filter_form_fields(fields, console_wrapper)
@@ -654,25 +656,64 @@ class PipelineRunner:
                                             "/kontakt.html",
                                             "/kontakt.php",
                                             "/kontakt-i-dane",
+                                            "/kontakt-2",
+                                            "/kontakt-2/",
                                             "/contact",
                                             "/contact/",
                                         ]
 
+                                        direct_attempts: list[dict[str, object]] = []
                                         for pth in direct_paths:
                                             if fields:
                                                 break
                                             try:
                                                 cand_url = urljoin(base, pth)
-                                                page.goto(cand_url, wait_until="domcontentloaded", timeout=12000)
+                                                direct_attempt: dict[str, object] = {"candidate": cand_url}
+                                                direct_attempts.append(direct_attempt)
+                                                resp = page.goto(cand_url, wait_until="domcontentloaded", timeout=12000)
                                                 page.wait_for_timeout(1200)
                                                 self._dismiss_popups(page, schema_loader)
+
+                                                try:
+                                                    direct_attempt["status"] = int(resp.status) if resp is not None else None
+                                                except Exception:
+                                                    direct_attempt["status"] = None
+                                                try:
+                                                    direct_attempt["final_url"] = str(page.url or "")
+                                                except Exception:
+                                                    direct_attempt["final_url"] = ""
+                                                try:
+                                                    direct_attempt["title"] = page.title() or ""
+                                                except Exception:
+                                                    direct_attempt["title"] = ""
 
                                                 fields = form_handler.detect_form_fields(page)
                                                 detected_form_fields = fields
                                                 fields = _filter_form_fields(fields, console_wrapper)
                                                 detected_form_fields = fields
                                             except Exception:
+                                                try:
+                                                    if direct_attempts:
+                                                        direct_attempts[-1]["error"] = "goto_failed"
+                                                except Exception:
+                                                    pass
                                                 continue
+
+                                        try:
+                                            console_wrapper.print(
+                                                yaml.safe_dump(
+                                                    {
+                                                        "status": "direct_contact_nav_attempts",
+                                                        "base": base,
+                                                        "attempts": direct_attempts,
+                                                    },
+                                                    sort_keys=False,
+                                                    allow_unicode=True,
+                                                ).rstrip(),
+                                                language="yaml",
+                                            )
+                                        except Exception:
+                                            pass
 
                                         if fields:
                                             clicked = True
@@ -702,11 +743,60 @@ class PipelineRunner:
 
                                         if clicked:
                                             console_wrapper.print("🔁 Retrying form field detection after navigating...", language="text")
-                                            fields = form_handler.detect_form_fields(page)
+                                            fill_target = page
+                                            fields = form_handler.detect_form_fields(fill_target)
                                             detected_form_fields = fields
 
                                             fields = _filter_form_fields(fields, console_wrapper)
                                             detected_form_fields = fields
+                                    except Exception:
+                                        pass
+
+                                # If still no fields, check if there is a contact form inside an iframe.
+                                if not fields:
+                                    try:
+                                        frames = list(getattr(page, "frames", []) or [])
+                                    except Exception:
+                                        frames = []
+
+                                    frame_attempts: list[dict[str, object]] = []
+                                    for fr in frames[1:]:
+                                        try:
+                                            fr_url = ""
+                                            try:
+                                                fr_url = str(fr.url or "")
+                                            except Exception:
+                                                fr_url = ""
+
+                                            frame_attempt: dict[str, object] = {"frame_url": fr_url}
+                                            frame_attempts.append(frame_attempt)
+
+                                            fr_fields = form_handler.detect_form_fields(fr)
+                                            fr_fields = _filter_form_fields(fr_fields, console_wrapper)
+                                            if fr_fields:
+                                                fill_target = fr
+                                                fields = fr_fields
+                                                frame_attempt["found_fields"] = len(fr_fields)
+                                                break
+                                            frame_attempt["found_fields"] = 0
+                                        except Exception as e:
+                                            frame_attempts.append({"error": str(e)})
+                                            continue
+
+                                    try:
+                                        console_wrapper.print(
+                                            yaml.safe_dump(
+                                                {
+                                                    "status": "iframe_form_scan",
+                                                    "frames": len(frames),
+                                                    "attempts": frame_attempts,
+                                                    "selected": "frame" if fill_target is not page else "page",
+                                                },
+                                                sort_keys=False,
+                                                allow_unicode=True,
+                                            ).rstrip(),
+                                            language="yaml",
+                                        )
                                     except Exception:
                                         pass
 

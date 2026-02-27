@@ -67,24 +67,54 @@ def stop_recording(container: str = "nlp2cmd-desktop"):
     print("Recording stopped → docker/novnc/recordings/demo_session.mp4")
 
 
-def take_screenshot(page, name: str, output_dir: Path):
-    """Take a screenshot and save it."""
-    path = output_dir / f"{name}.png"
-    page.screenshot(path=str(path))
-    print(f"  Screenshot: {path}")
+def _connect_novnc(page, novnc_url: str, logger) -> bool:
+    """Connect to noVNC with retry logic. Returns True if connected."""
+    vnc_page = f"{novnc_url}/vnc.html?autoconnect=true"
+    for attempt in range(1, 11):
+        try:
+            page.goto(vnc_page, wait_until="load", timeout=8000)
+            return True
+        except Exception as e:
+            err = str(e)
+            if "ERR_CONNECTION_REFUSED" in err or "net::" in err:
+                msg = f"Retry {attempt}/10..." if attempt > 1 else "Container not ready, retrying..."
+                print(f"  {msg}")
+                logger.info(msg)
+                time.sleep(3)
+            else:
+                logger.warning(f"Connection error: {e}")
+                return False
+    return False
 
 
 def run_demo(*, record: bool = False, headless: bool = False, novnc_url: str = "http://localhost:6080"):
-    """Run the desktop GUI automation demo."""
+    """Run the desktop GUI automation demo with markdown session logging."""
     from playwright.sync_api import sync_playwright
+
+    # Add src to path so SessionLogger is importable
+    src_path = str(Path(__file__).resolve().parents[3] / "src")
+    if src_path not in sys.path:
+        sys.path.insert(0, src_path)
+    from nlp2cmd.cli.session_logger import SessionLogger
 
     output_dir = Path("docker/novnc/recordings")
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    logger = SessionLogger(
+        "desktop_gui_demo",
+        output_dir=output_dir,
+        thumbnail_width=256,
+    )
+    logger.start(
+        "NLP2CMD Desktop GUI Automation Demo",
+        description="Controlling Linux XFCE desktop via noVNC + Playwright",
+    )
+
     recorder = None
     if record:
         recorder = start_recording()
-        time.sleep(2)  # Let recording start
+        time.sleep(2)
+        logger.info("Video recording started (ffmpeg inside Docker)")
 
     print("\n" + "=" * 60)
     print("NLP2CMD Desktop GUI Automation Demo")
@@ -98,32 +128,14 @@ def run_demo(*, record: bool = False, headless: bool = False, novnc_url: str = "
         )
         page = context.new_page()
 
-        # Connect to noVNC with retry
+        # --- Step 1: Connect ---
         print(f"\n[1/6] Connecting to noVNC at {novnc_url}...")
-        vnc_page = f"{novnc_url}/vnc.html?autoconnect=true&password=nlp2cmd"
-        connected = False
-        for attempt in range(1, 11):
-            try:
-                page.goto(vnc_page, wait_until="load", timeout=8000)
-                connected = True
-                break
-            except Exception as e:
-                err = str(e)
-                if "ERR_CONNECTION_REFUSED" in err or "net::" in err:
-                    if attempt == 1:
-                        print(f"  Container not ready yet, retrying ({attempt}/10)...")
-                    else:
-                        print(f"  Retry {attempt}/10...")
-                    time.sleep(3)
-                else:
-                    print(f"  Connection error: {e}")
-                    break
-
-        if not connected:
+        if not _connect_novnc(page, novnc_url, logger):
             print("\n  ERROR: Could not connect to noVNC.")
-            print("  Make sure the container is running:")
             print("    docker compose -f docker/novnc/docker-compose.yml up -d")
-            print("    docker logs nlp2cmd-desktop --tail 10")
+            logger.warning("Could not connect to noVNC — container not running?")
+            md_path = logger.end()
+            print(f"  Partial log: {md_path}")
             context.close()
             browser.close()
             if record:
@@ -131,127 +143,129 @@ def run_demo(*, record: bool = False, headless: bool = False, novnc_url: str = "
             return
 
         page.wait_for_timeout(3000)
-
-        # Wait for VNC canvas to appear
         try:
             page.wait_for_selector("canvas", timeout=15000)
             print("  Connected to desktop via noVNC")
         except Exception:
-            print("  Warning: VNC canvas not found, continuing anyway...")
+            print("  Warning: VNC canvas not found, continuing...")
 
-        take_screenshot(page, "01_desktop_connected", output_dir)
+        logger.step("Connected to XFCE desktop via noVNC", page=page, extra={
+            "url": novnc_url,
+            "resolution": "1280x800",
+            "protocol": "noVNC (websocket → VNC)",
+        })
 
-        # === Demo 1: Open Terminal and run a command ===
-        print("\n[2/6] Opening terminal via keyboard shortcut...")
-        # XFCE terminal shortcut or click on taskbar
+        # --- Step 2: Terminal ---
+        print("\n[2/6] Opening terminal...")
         page.keyboard.press("Control+Alt+t")
         page.wait_for_timeout(2000)
-        take_screenshot(page, "02_terminal_opened", output_dir)
+        logger.step("Opened terminal (Ctrl+Alt+T)", page=page)
 
-        print("  Typing command: 'echo Hello from NLP2CMD!'")
-        page.keyboard.type("echo 'Hello from NLP2CMD! Autonomous desktop control.'", delay=30)
-        page.wait_for_timeout(500)
+        cmd = "echo 'Hello from NLP2CMD! Autonomous desktop control.'"
+        print(f"  Typing: {cmd}")
+        page.keyboard.type(cmd, delay=30)
+        page.wait_for_timeout(300)
         page.keyboard.press("Enter")
         page.wait_for_timeout(1000)
-        take_screenshot(page, "03_command_executed", output_dir)
+        logger.step("Executed shell command", page=page)
+        logger.code(cmd)
 
-        # === Demo 2: Open Calculator ===
+        # --- Step 3: Calculator ---
         print("\n[3/6] Opening calculator...")
         page.keyboard.type("galculator &", delay=30)
         page.keyboard.press("Enter")
         page.wait_for_timeout(2000)
-        take_screenshot(page, "04_calculator_opened", output_dir)
+        logger.step("Opened galculator", page=page)
 
-        # Type a calculation
-        print("  Calculating: 42 * 137")
-        page.keyboard.type("42*137", delay=100)
-        page.wait_for_timeout(500)
+        calc_expr = "42*137"
+        print(f"  Calculating: {calc_expr}")
+        page.keyboard.type(calc_expr, delay=100)
+        page.wait_for_timeout(300)
         page.keyboard.press("Enter")
         page.wait_for_timeout(1000)
-        take_screenshot(page, "05_calculation_done", output_dir)
+        logger.step(f"Calculated {calc_expr} = 5754", page=page, extra={
+            "expression": calc_expr,
+            "expected_result": 5754,
+        })
 
-        # === Demo 3: Open text editor ===
-        print("\n[4/6] Opening text editor (Mousepad)...")
-        # Click on terminal first to focus it
-        page.keyboard.press("Alt+F2")  # XFCE run dialog
+        # --- Step 4: Text editor ---
+        print("\n[4/6] Opening text editor...")
+        page.keyboard.press("Alt+F2")
         page.wait_for_timeout(1000)
         page.keyboard.type("mousepad", delay=50)
         page.keyboard.press("Enter")
         page.wait_for_timeout(2000)
-        take_screenshot(page, "06_editor_opened", output_dir)
+        logger.step("Opened Mousepad text editor (Alt+F2)", page=page)
 
-        print("  Typing document content...")
-        text = (
+        doc_text = (
             "NLP2CMD Desktop Automation Report\n"
             "==================================\n\n"
             "Date: 2026-02-27\n"
             "System: Linux (XFCE via noVNC)\n\n"
-            "This document was created autonomously by NLP2CMD\n"
-            "using Playwright connected to a noVNC desktop session.\n\n"
-            "Capabilities demonstrated:\n"
-            "- Open applications via keyboard shortcuts\n"
-            "- Type text in any GUI application\n"
-            "- Navigate menus and click buttons\n"
-            "- Take screenshots and record video\n"
-            "- Control any OS with a GUI via VNC/noVNC\n"
+            "This document was created autonomously by NLP2CMD.\n"
         )
-        page.keyboard.type(text, delay=10)
+        print("  Typing document...")
+        page.keyboard.type(doc_text, delay=8)
         page.wait_for_timeout(500)
-        take_screenshot(page, "07_document_written", output_dir)
+        logger.step("Typed document content", page=page)
+        logger.code(doc_text, language="text")
 
-        # Save with Ctrl+S
-        print("  Saving document...")
+        print("  Saving (Ctrl+S)...")
         page.keyboard.press("Control+s")
         page.wait_for_timeout(1500)
-        # Type filename in save dialog
-        page.keyboard.type("/home/nlp2cmd/nlp2cmd_demo_report.txt", delay=30)
+        page.keyboard.type("/home/nlp2cmd/nlp2cmd_report.txt", delay=30)
         page.keyboard.press("Enter")
         page.wait_for_timeout(1000)
-        take_screenshot(page, "08_document_saved", output_dir)
+        logger.step("Saved document via Ctrl+S", page=page, extra={
+            "filename": "/home/nlp2cmd/nlp2cmd_report.txt",
+        })
 
-        # === Demo 4: Open file manager ===
-        print("\n[5/6] Opening file manager (Thunar)...")
+        # --- Step 5: File manager ---
+        print("\n[5/6] Opening file manager...")
         page.keyboard.press("Alt+F2")
         page.wait_for_timeout(1000)
         page.keyboard.type("thunar /home/nlp2cmd", delay=50)
         page.keyboard.press("Enter")
         page.wait_for_timeout(2000)
-        take_screenshot(page, "09_file_manager", output_dir)
+        logger.step("Opened Thunar file manager", page=page, extra={
+            "path": "/home/nlp2cmd",
+        })
 
-        # === Demo 5: Firefox web browse ===
-        print("\n[6/6] Opening Firefox browser...")
+        # --- Step 6: Firefox ---
+        print("\n[6/6] Opening Firefox...")
         page.keyboard.press("Alt+F2")
         page.wait_for_timeout(1000)
-        page.keyboard.type("firefox https://github.com/wronai/nlp2cmd", delay=30)
+        url = "https://github.com/wronai/nlp2cmd"
+        page.keyboard.type(f"firefox {url}", delay=30)
         page.keyboard.press("Enter")
         page.wait_for_timeout(5000)
-        take_screenshot(page, "10_firefox_github", output_dir)
+        logger.step("Opened Firefox browser", page=page, extra={"url": url})
 
-        # Final screenshot
-        print("\nDemo complete!")
+        # --- Final ---
         page.wait_for_timeout(2000)
-        take_screenshot(page, "11_final_state", output_dir)
+        logger.step("Final desktop state", page=page)
 
         context.close()
         browser.close()
 
     if record:
         stop_recording()
+        logger.info("Video saved: docker/novnc/recordings/demo_session.mp4")
+
+    md_path = logger.end(summary={
+        "Apps controlled": "Terminal, Calculator, Text Editor, File Manager, Firefox",
+        "Protocol": "Playwright → noVNC (websocket) → TigerVNC → XFCE4",
+        "OS": "Ubuntu 22.04 in Docker",
+    })
 
     print("\n" + "=" * 60)
     print("Demo Results")
     print("=" * 60)
-    print(f"Screenshots saved to: {output_dir}/")
+    print(f"  Markdown report: {md_path}")
+    print(f"  Screenshots: {output_dir}/desktop_gui_demo_screenshots/")
     if record:
-        print(f"Video saved to: {output_dir}/demo_session.mp4")
-    print("\nCapabilities demonstrated:")
-    print("  1. Terminal command execution")
-    print("  2. Calculator app interaction")
-    print("  3. Text editor - write and save document")
-    print("  4. File manager navigation")
-    print("  5. Firefox web browser")
-    print("\nThis proves NLP2CMD can control ANY desktop application")
-    print("on ANY OS (Linux/Windows/macOS) via VNC/noVNC protocol.")
+        print(f"  Video: {output_dir}/demo_session.mp4")
+    print("\n  Open the .md file to see the full report with inline thumbnails.")
 
 
 def main():

@@ -18,6 +18,7 @@ import os
 import sys
 import time
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Optional
 
 from nlp2cmd.adapters.base import SafetyPolicy

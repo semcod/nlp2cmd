@@ -4,12 +4,8 @@
 echo "=== NLP2CMD Desktop Environment ==="
 echo "User: $(whoami) | Home: $HOME"
 
-# Create VNC password
-mkdir -p "$HOME/.vnc" || true
-echo "$VNC_PASSWORD" | vncpasswd -f > "$HOME/.vnc/passwd"
-chmod 600 "$HOME/.vnc/passwd"
-
 # Create xstartup
+mkdir -p "$HOME/.vnc" || true
 cat > "$HOME/.vnc/xstartup" << 'XEOF'
 #!/bin/bash
 unset SESSION_MANAGER
@@ -22,12 +18,13 @@ chmod +x "$HOME/.vnc/xstartup"
 vncserver -kill :1 2>/dev/null || true
 sleep 1
 
-# Start VNC server
+# Start VNC server (no auth — local Docker demo only)
 echo "Starting VNC server on :1 (${VNC_RESOLUTION})..."
 vncserver :1 \
     -geometry "$VNC_RESOLUTION" \
     -depth 24 \
-    -SecurityTypes VncAuth \
+    -SecurityTypes None \
+    --I-KNOW-THIS-IS-INSECURE \
     -localhost no
 
 echo "VNC server started on :1 (port $VNC_PORT)"
