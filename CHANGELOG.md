@@ -1,3 +1,34 @@
+## [1.0.85] - 2026-02-27
+
+### Summary
+
+refactor(cli): split cli/main.py monolith into commands/ subpackage (Sprint 4b)
+
+### Refactoring
+
+- **Split `cli/main.py`** (1901 → 393 lines, **79% reduction**):
+  - `cli/commands/run.py` — `handle_run_mode`, `_handle_run_query`, `_suggest_next_steps` (~460 ln)
+  - `cli/commands/generate.py` — single-query fast path `handle_generate_query`, `handle_appspec_query` (~160 ln)
+  - `cli/commands/interactive.py` — `InteractiveSession` REPL + `_interactive_followup` (~500 ln)
+  - `cli/commands/tools.py` — `cmd_repair`, `cmd_validate`, `cmd_analyze_env` (~160 ln)
+  - `cli/helpers.py` — shared utilities: adapter factory, browser/Playwright fallbacks, console helpers (~250 ln)
+  - `cli/commands/__init__.py` — package init
+
+- **Backward compatibility preserved**: all public symbols (`main`, `cli_entry_point`,
+  `InteractiveSession`, `handle_run_mode`, `ExecutionRunner`, `get_adapter`, etc.)
+  remain importable from `nlp2cmd.cli.main` via re-exports.
+
+### Tests
+
+- 1129 passed, 0 failed (excluding known Playwright flaky test)
+- All 15 CLI-specific tests pass unchanged
+
+### Docs
+
+- Added `docs/ROADMAP_SPRINT4.md` — full Sprint 4/4b/5 roadmap
+
+---
+
 ## [1.0.84] - 2026-02-26
 
 ### Summary

@@ -95,6 +95,22 @@ analiza wymaga odwrócenia priorytetów:
 
 ---
 
+## ✅ Ukończone — Sprint 4b (2026-02-27)
+
+### Split `cli/main.py` (1901 → 393 lines, 79% reduction)
+- [x] `cli/commands/run.py` — `handle_run_mode`, `_handle_run_query`, `_suggest_next_steps` (~460 ln)
+- [x] `cli/commands/generate.py` — `handle_generate_query`, `handle_appspec_query` (~160 ln)
+- [x] `cli/commands/interactive.py` — `InteractiveSession` REPL + `_interactive_followup` (~500 ln)
+- [x] `cli/commands/tools.py` — `cmd_repair`, `cmd_validate`, `cmd_analyze_env` (~160 ln)
+- [x] `cli/helpers.py` — shared utilities, adapter factory, browser/Playwright fallbacks (~250 ln)
+- [x] Backward compatibility: all public symbols re-exported from `nlp2cmd.cli.main`
+- [x] Testy: 1129 passed, 0 failed
+
+### Docs
+- [x] `docs/ROADMAP_SPRINT4.md` — full Sprint 4/4b/5 roadmap
+
+---
+
 ## 🚀 High Priority (Sprint 4) — Schema-First Pipeline
 
 ### Architektura docelowa
@@ -114,8 +130,9 @@ User Query
     → Keywords detection → Entity extraction → Template fill
     → LLM repair jeśli confidence < threshold
     ↓
-[4] Validation + History
+[4] Validation + History + Auto-repair
     → Walidacja wygenerowanej komendy
+    → Auto-repair błędnych komend (LLM-based)
     → Zapis do historii dla przyszłego schema-match
 ```
 
@@ -123,7 +140,8 @@ User Query
 - [ ] Przenieś `schema_based/` do `generation/schema/` (bliskość z pipeline)
 - [ ] Zintegruj `intelligent/` z pipeline jako pre-processing
 - [ ] Dodaj `SchemaRegistry.match(query)` jako pierwszy krok w `RuleBasedPipeline.process()`
-- [ ] Split `cli/main.py` (~1900 ln) → modularny pakiet cli/
+- [x] ~~Split `cli/main.py` (~1900 ln) → modularny pakiet cli/~~ ✅ Sprint 4b (2026-02-27)
+- [ ] **Auto-repair system**: LLM-based naprawa błędnych komend przed wykonaniem
 
 ### Unifikacja matcherów
 - [ ] Jedno API: `IntentMatcher.match(text) → MatchResult`

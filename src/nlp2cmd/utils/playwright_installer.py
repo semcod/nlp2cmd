@@ -13,6 +13,11 @@ from typing import Optional
 
 from rich.console import Console
 
+
+def _is_pep668_externally_managed_error(stderr: str) -> bool:
+    msg = (stderr or "").lower()
+    return "externally-managed-environment" in msg or "this environment is externally managed" in msg
+
 try:
     from nlp2cmd.cli.markdown_output import print_yaml_block
 except Exception:  # pragma: no cover
@@ -99,13 +104,22 @@ def install_playwright(console: Optional[Console] = None) -> bool:
             )
             return True
         else:
+            stderr = (result.stderr or "").strip()
+            extra: dict[str, object] = {}
+            if _is_pep668_externally_managed_error(stderr):
+                extra = {
+                    "error_kind": "pep668_externally_managed_environment",
+                    "hint": "Your Python environment blocks pip installs (PEP 668). Install playwright in a venv/conda env or use pipx.",
+                    "recommended_fix": "Create/activate a venv/conda env for nlp2cmd and run: python -m pip install playwright && python -m playwright install chromium",
+                }
             print_yaml_block(
                 {
                     "status": "dependency_install_failed",
                     "dependency": "playwright",
                     "success": False,
                     "returncode": int(result.returncode),
-                    "stderr": (result.stderr or "").strip(),
+                    "stderr": stderr,
+                    **extra,
                 },
                 console=console,
             )
