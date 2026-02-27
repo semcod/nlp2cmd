@@ -2141,11 +2141,14 @@ class PipelineRunner:
 
         console = Console()
 
-        # Detect desktop automation steps early
+        # Detect steps that need the desktop executor (not Playwright)
+        _DESKTOP_ACTIONS = frozenset({"open_firefox_tab", "desktop_wait"})
         try:
             steps_iter = getattr(plan, "steps", None) or []
             has_desktop_steps = any(
-                str(getattr(s, "action", "")).startswith("desktop_") for s in steps_iter
+                str(getattr(s, "action", "")).startswith("desktop_")
+                or str(getattr(s, "action", "")) in _DESKTOP_ACTIONS
+                for s in steps_iter
             )
         except Exception:
             has_desktop_steps = False

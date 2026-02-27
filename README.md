@@ -511,6 +511,11 @@ nlp2cmd "szukaj na amazon python books"
 # Install with all dependencies (including service mode)
 pip install nlp2cmd[all]
 
+# Install desktop automation tools (for Firefox tab control, etc.)
+nlp2cmd-install-desktop
+# or after cloning repo:
+make install-desktop
+
 # Or install specific components
 pip install nlp2cmd[browser,nlp]  # Web automation + Polish NLP
 pip install nlp2cmd[sql,shell]   # Database + system commands
@@ -554,6 +559,11 @@ nlp2cmd --dsl shell --query "pokaż procesy zużywające najwięcej pamięci"
 ```bash
 # Auto-setup Playwright browsers and cache
 nlp2cmd cache auto-setup
+
+# Install desktop automation tools (for Firefox tab control, etc.)
+nlp2cmd-install-desktop
+# or manually:
+make install-desktop
 
 # Manual setup
 nlp2cmd cache install --package playwright

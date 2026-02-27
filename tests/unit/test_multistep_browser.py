@@ -117,8 +117,12 @@ class TestActionPlanner:
         )
         assert plan is not None
         assert len(plan.steps) >= 4
-        assert plan.steps[0].action == "new_tab"
-        assert any(s.action == "navigate" for s in plan.steps)
+        # Query mentions "already open Firefox" → generates open_firefox_tab
+        # (uses `firefox --new-tab URL`, works on both X11 and Wayland)
+        first_action = plan.steps[0].action
+        assert first_action == "open_firefox_tab", (
+            f"Expected open_firefox_tab for existing Firefox query, got: {first_action}"
+        )
         assert any(s.action == "prompt_secret" for s in plan.steps)
         assert any(s.action == "save_env" for s in plan.steps)
 

@@ -21,7 +21,7 @@
 #   make publish           - Publish to PyPI (with automatic patch bump)
 # =============================================================================
 
-.PHONY: help install setup-cache test test-unit test-e2e test-web-schema lint format clean \
+.PHONY: help install install-desktop setup-cache test test-unit test-e2e test-web-schema lint format clean \
         docker-build docker-up docker-down docker-test docker-e2e docker-push \
         dev demo demo-benchmark test-examples bump-patch bump-minor bump-major publish publish-test push git-tag report \
         scripts-maintenance scripts-thermo scripts-test \
@@ -71,6 +71,10 @@ install: ## Install package in development mode
 install-all: ## Install package with all dependencies
 	$(PIP) install -e ".[all]" --break-system-packages
 
+install-desktop: ## Install desktop automation tools (xdotool, wmctrl, ydotool)
+	@echo "$(BLUE)Installing desktop automation tools...$(NC)"
+	@./scripts/install_desktop_tools.sh
+
 install-ci: ## Install for CI (no editable)
 	$(PIP) install ".[dev]" --break-system-packages
 
@@ -86,6 +90,7 @@ setup-dev: ## Complete development setup
 	@echo "$(BLUE)Setting up development environment...$(NC)"
 	$(MAKE) install-all
 	$(MAKE) setup-cache
+	@echo "$(YELLOW)Note: For desktop automation support, run: make install-desktop$(NC)"
 	@echo "$(GREEN)✓ Development setup complete!$(NC)"
 
 # =============================================================================

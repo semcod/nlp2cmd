@@ -97,36 +97,30 @@ class TestDetectDesktopBackend:
         assert PipelineRunner._detect_desktop_backend() == "none"
 
 
-# ── Wayland fallback in action planner ──────────────────────────────────
+# ── Firefox tab opening ─────────────────────────────────────────────────
 
-class TestActionPlannerWaylandFallback:
-    @patch("nlp2cmd.automation.action_planner._can_use_desktop_automation", return_value=False)
-    def test_firefox_query_falls_back_to_playwright(self, mock_desktop):
+class TestActionPlannerFirefoxTab:
+    def test_existing_firefox_query_uses_open_firefox_tab(self):
+        """open_firefox_tab works on both X11 and Wayland (firefox --new-tab CLI)."""
         planner = ActionPlanner()
         plan = planner.decompose_sync(
             "otwórz tab w już otwartym oknie przeglądarki firefox "
             "wyciągnij klucz API z OpenRouter i zapisz do .env"
         )
+        actions = [s.action for s in plan.steps]
+        assert "open_firefox_tab" in actions
+        assert "prompt_secret" in actions
+        assert "save_env" in actions
+        # No desktop_* steps — open_firefox_tab replaces them
         desktop_steps = [s for s in plan.steps if s.action.startswith("desktop_")]
-        assert len(desktop_steps) == 0, "Desktop steps should not be generated on Wayland"
+        assert len(desktop_steps) == 0
+
+    def test_non_firefox_query_uses_navigate(self):
+        planner = ActionPlanner()
+        plan = planner.decompose_sync(
+            "wyciągnij klucz API z OpenRouter i zapisz do .env"
+        )
         actions = [s.action for s in plan.steps]
         assert "navigate" in actions
         assert "save_env" in actions
-
-    @patch("nlp2cmd.automation.action_planner._can_use_desktop_automation", return_value=True)
-    def test_firefox_query_uses_desktop_on_x11(self, mock_desktop):
-        planner = ActionPlanner()
-        plan = planner.decompose_sync(
-            "otwórz tab w już otwartym oknie przeglądarki firefox "
-            "wyciągnij klucz API z OpenRouter i zapisz do .env"
-        )
-        desktop_steps = [s for s in plan.steps if s.action.startswith("desktop_")]
-        assert len(desktop_steps) > 0, "Desktop steps should be generated on X11"
-
-    def test_non_firefox_query_never_uses_desktop(self):
-        planner = ActionPlanner()
-        plan = planner.decompose_sync(
-            "wyciągnij klucz API z OpenRouter i zapisz do .env"
-        )
-        desktop_steps = [s for s in plan.steps if s.action.startswith("desktop_")]
-        assert len(desktop_steps) == 0
+        assert "open_firefox_tab" not in actions

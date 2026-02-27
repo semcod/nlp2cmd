@@ -30,6 +30,8 @@ def handle_generate_query(
     execute_web: bool,
     stdout_only: bool,
     script_start_time: float,
+    verbose: bool = False,
+    **_ignored_kwargs,
 ) -> None:
     """Handle single-query generation (no --run, dsl=auto fast path)."""
     from nlp2cmd.generation.pipeline import RuleBasedPipeline

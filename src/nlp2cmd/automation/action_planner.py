@@ -309,17 +309,6 @@ class ActionPlanner:
             and any(p in text for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"])
         )
 
-        # On Wayland without desktop tools, fall back to Playwright path
-        if wants_existing_firefox:
-            if self._desktop_available is None:
-                self._desktop_available = _can_use_desktop_automation()
-            if not self._desktop_available:
-                log.info(
-                    "Desktop automation unavailable (Wayland without ydotool). "
-                    "Falling back to Playwright browser."
-                )
-                wants_existing_firefox = False
-
         # Pattern: "extract API key from <service> and save to .env"
         for svc_name, svc in KNOWN_SERVICES.items():
             if svc_name not in text:

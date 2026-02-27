@@ -109,6 +109,7 @@ all = [
 nlp2cmd = "nlp2cmd.cli.main:cli_entry_point"
 app2schema = "app2schema.cli:main"
 nlp2cmd-setup = "scripts.setup_external:main"
+nlp2cmd-install-desktop = "scripts.install_desktop_tools:main"
 
 [project.urls]
 Homepage = "https://github.com/wronai/nlp2cmd"
