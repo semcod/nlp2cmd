@@ -84,8 +84,9 @@ class TestActionPlanner:
         assert plan.source == "rule_decomposer"
         assert plan.confidence >= 0.9
         assert len(plan.steps) >= 3
-        assert plan.steps[0].action == "navigate"
-        assert "openrouter" in plan.steps[0].params["url"]
+        nav_steps = [s for s in plan.steps if s.action == "navigate"]
+        assert len(nav_steps) >= 1, f"No navigate step found, actions: {[s.action for s in plan.steps]}"
+        assert "openrouter" in nav_steps[0].params["url"]
         # Find the save_env step (may not be at index 2 if echo/prompt steps are inserted)
         save_steps = [s for s in plan.steps if s.action == "save_env"]
         assert len(save_steps) == 1
@@ -97,7 +98,9 @@ class TestActionPlanner:
         )
         assert plan is not None
         assert len(plan.steps) >= 2  # navigate + extract/prompt (no save)
-        assert "anthropic" in plan.steps[0].params["url"]
+        nav_steps = [s for s in plan.steps if s.action == "navigate"]
+        assert len(nav_steps) >= 1
+        assert "anthropic" in nav_steps[0].params["url"]
         # Should NOT have save_env since no "zapisz" in query
         assert not any(s.action == "save_env" for s in plan.steps)
 
@@ -119,9 +122,9 @@ class TestActionPlanner:
         assert len(plan.steps) >= 4
         # Query mentions "already open Firefox" → generates open_firefox_tab
         # (uses `firefox --new-tab URL`, works on both X11 and Wayland)
-        first_action = plan.steps[0].action
-        assert first_action == "open_firefox_tab", (
-            f"Expected open_firefox_tab for existing Firefox query, got: {first_action}"
+        ff_steps = [s for s in plan.steps if s.action == "open_firefox_tab"]
+        assert len(ff_steps) >= 1, (
+            f"Expected open_firefox_tab for existing Firefox query, got actions: {[s.action for s in plan.steps]}"
         )
         assert any(s.action == "prompt_secret" for s in plan.steps)
         assert any(s.action == "save_env" for s in plan.steps)

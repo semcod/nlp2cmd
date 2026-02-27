@@ -2159,8 +2159,12 @@ class PipelineRunner:
             has_desktop_steps = False
 
         console.print(f"\n[bold]🎯 Plan wykonania ({len(plan.steps)} kroków):[/bold]")
+        console.print(f"  [dim]Źródło: {getattr(plan, 'source', '?')} | "
+                       f"Pewność: {getattr(plan, 'confidence', 0):.0%} | "
+                       f"Est. czas: {getattr(plan, 'estimated_time_ms', 0)/1000:.1f}s[/dim]")
         for i, step in enumerate(plan.steps, 1):
-            console.print(f"  {i}. {step.description or step.action}")
+            action_tag = f"[cyan]{step.action}[/cyan]" if hasattr(step, 'action') else ""
+            console.print(f"  {i}. {step.description or step.action} {action_tag}")
 
         if dry_run:
             return RunnerResult(
@@ -2487,8 +2491,76 @@ class PipelineRunner:
             if submit:
                 submit.click()
 
+        elif action == "check_session":
+            # Check if the user is logged into a service by examining page content
+            service = params.get("service", "unknown")
+            session_indicators = params.get("session_indicators", [])
+            login_indicators = params.get("login_indicators", [])
+            login_url = params.get("login_url", "")
+            keys_url = params.get("keys_url", "")
+
+            _debug(f"check_session: checking {service} session state")
+            console.print(f"  [dim]🔍 Sprawdzam sesję {service}...[/dim]")
+
+            try:
+                body_text = page.text_content("body") or ""
+                current_url = page.url
+
+                # Check login indicators first (are we on a login page?)
+                is_login_page = any(ind.lower() in body_text.lower() for ind in login_indicators)
+                if login_url and login_url in current_url:
+                    is_login_page = True
+
+                # Check session indicators (are we logged in?)
+                has_session = any(ind.lower() in body_text.lower() for ind in session_indicators)
+
+                if has_session and not is_login_page:
+                    console.print(f"  [green]✓[/green] Zalogowany na {service}")
+                    _debug(f"check_session: {service} — session active")
+                    return "logged_in"
+                elif is_login_page:
+                    console.print(f"  [yellow]![/yellow] Niezalogowany na {service}")
+                    console.print(f"  [dim]   Strona logowania: {current_url}[/dim]")
+                    console.print(f"  [dim]   Zaloguj się w przeglądarce, potem kontynuuj[/dim]")
+                    _debug(f"check_session: {service} — login page detected")
+
+                    # Ask user if they want to open email to get verification link
+                    try:
+                        is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+                    except Exception:
+                        is_tty = False
+
+                    if is_tty:
+                        console.print(
+                            f"\n  [bold]Czy potrzebujesz otworzyć email "
+                            f"(np. do weryfikacji logowania)?[/bold]"
+                        )
+                        console.print(
+                            f"  Wpisz nazwę klienta email "
+                            f"(roundcube/thunderbird/gmail/outlook) lub Enter aby pominąć:"
+                        )
+                        email_choice = input("  > ").strip().lower()
+                        if email_choice:
+                            _debug(f"check_session: user chose email client: {email_choice}")
+                            variables["_email_client"] = email_choice
+                            return "needs_login_with_email"
+
+                    return "needs_login"
+                else:
+                    console.print(f"  [dim]?[/dim] Nie udało się określić stanu sesji {service}")
+                    _debug(f"check_session: {service} — session state unknown")
+                    return "unknown"
+            except Exception as e:
+                _debug(f"check_session error: {e}")
+                return "error"
+
         elif action == "echo":
-            _debug(params.get("message", "") or params.get("text", ""))
+            msg = params.get("message", "") or params.get("text", "")
+            if msg:
+                _debug(msg)
+                # Also print to user console for visibility
+                for line in str(msg).split("\n"):
+                    console.print(f"  [dim]{line}[/dim]")
 
         return None
 

@@ -454,6 +454,11 @@ class ActionPlanner:
             log.debug("Rule decomposition hit for: %s", query[:60])
             return rule_plan
 
+        # Tier 0b: Multi-tab pattern
+        multi_plan = self._try_multi_tab_decomposition(query)
+        if multi_plan:
+            return multi_plan
+
         # Tier 1: LLM decomposition
         try:
             plan = await self._call_llm(query)
@@ -471,12 +476,14 @@ class ActionPlanner:
         detected_intents: Optional[list[str]] = None,
     ) -> ActionPlan:
         """Synchronous wrapper for decompose()."""
-        # Try rule-based first (no async needed)
         rule_plan = self._try_rule_decomposition(query)
         if rule_plan:
             return rule_plan
 
-        # Try LLM via sync requests
+        multi_plan = self._try_multi_tab_decomposition(query)
+        if multi_plan:
+            return multi_plan
+
         try:
             plan = self._call_llm_sync(query)
             if plan:
@@ -490,166 +497,410 @@ class ActionPlanner:
     # Rule-based decomposition
     # ------------------------------------------------------------------
     def _try_rule_decomposition(self, query: str) -> Optional[ActionPlan]:
-        """Rule-based decomposition for known service patterns (no LLM)."""
+        """Rule-based decomposition for known service patterns (no LLM).
+
+        Enhanced with:
+        - Verbose logging at every decision point
+        - Session/login detection steps
+        - Create-new-key form filling flow
+        - Email client fallback when not logged in
+        """
         text = query.lower()
-        wants_new_tab = any(
-            phrase in text
-            for phrase in [
-                "tab",
-                "kart",
-                "zakład",
-                "zaklad",
-                "nowa karta",
-                "new tab",
-                "new card",
-                "otworz tab",
-                "otwórz tab",
-                "owtorz tab",
-            ]
+
+        # --- Resolve service name via aliases ---
+        svc_name, svc = self._resolve_service(text)
+        if not svc_name:
+            return None
+
+        if not any(w in text for w in ["klucz", "key", "api", "token"]):
+            return None
+
+        log.info(
+            "[ActionPlanner] Service matched: %s (keys_url=%s, env_var=%s)",
+            svc_name, svc.get("keys_url"), svc.get("env_var"),
         )
 
-        wants_existing_firefox = (
-            ("firefox" in text)
-            and any(p in text for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"])
+        # --- Detect user intent flags ---
+        wants_new_tab = self._wants_new_tab(text)
+        wants_existing_firefox = self._wants_existing_firefox(text)
+        wants_create = self._wants_create_key(text)
+        wants_save = any(w in text for w in [".env", "zapisz", "save"])
+
+        log.info(
+            "[ActionPlanner] Flags: new_tab=%s, existing_firefox=%s, "
+            "create_key=%s, save_to_env=%s",
+            wants_new_tab, wants_existing_firefox, wants_create, wants_save,
         )
 
-        # Pattern: "extract API key from <service> and save to .env"
+        steps: list[ActionStep] = []
+
+        # --- Step 0: Screenshot before (audit) ---
+        steps.append(ActionStep(
+            action="echo",
+            params={"text": (
+                f"📋 Plan: {'Utwórz nowy' if wants_create else 'Pobierz'} klucz API "
+                f"z serwisu {svc_name.upper()}\n"
+                f"   URL: {svc.get('keys_url', 'N/A')}\n"
+                f"   Env: {svc.get('env_var', 'N/A')}\n"
+                f"   Pattern: {svc.get('key_pattern', 'N/A')}"
+            )},
+            description=f"Podsumowanie planu dla {svc_name}",
+        ))
+
+        # --- Step 1: Open browser / navigate ---
+        steps.extend(self._build_navigation_steps(
+            svc_name, svc, wants_existing_firefox, wants_new_tab,
+        ))
+
+        # --- Step 2: Session detection ---
+        steps.extend(self._build_session_check_steps(svc_name, svc))
+
+        # --- Step 3: Create key or manual prompt ---
+        if wants_create:
+            steps.extend(self._build_create_key_steps(svc_name, svc))
+        else:
+            steps.extend(self._build_manual_key_steps(svc_name, svc, wants_existing_firefox))
+
+        # --- Step 4: Save to .env ---
+        if wants_save:
+            steps.append(ActionStep(
+                action="save_env",
+                params={
+                    "var_name": svc["env_var"],
+                    "file": ".env",
+                    "value": "$api_key",
+                },
+                description=f"Zapisz {svc['env_var']} do .env",
+            ))
+            steps.append(ActionStep(
+                action="echo",
+                params={"text": (
+                    f"✅ Klucz {svc['env_var']} zapisany do .env\n"
+                    f"   Aby załadować: source .env"
+                )},
+                description="Potwierdzenie zapisu",
+            ))
+
+        log.info(
+            "[ActionPlanner] Plan built: %d steps for %s (source=rule_decomposer)",
+            len(steps), svc_name,
+        )
+
+        return ActionPlan(
+            query=query,
+            steps=steps,
+            confidence=0.95,
+            source="rule_decomposer",
+            estimated_time_ms=len(steps) * 2000,
+        )
+
+    # ------------------------------------------------------------------
+    # Service resolution
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _resolve_service(text: str) -> tuple[Optional[str], dict[str, Any]]:
+        """Resolve service name from text using aliases."""
+        for alias, canonical in SERVICE_ALIASES.items():
+            if alias in text and canonical in KNOWN_SERVICES:
+                return canonical, KNOWN_SERVICES[canonical]
         for svc_name, svc in KNOWN_SERVICES.items():
-            if svc_name not in text:
-                continue
-            if not any(w in text for w in ["klucz", "key", "api", "token"]):
-                continue
+            if svc_name in text:
+                return svc_name, svc
+        return None, {}
 
-            steps: list[ActionStep] = []
+    # ------------------------------------------------------------------
+    # Intent detection helpers
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _wants_new_tab(text: str) -> bool:
+        return any(p in text for p in [
+            "tab", "kart", "zakład", "zaklad", "nowa karta",
+            "new tab", "otworz tab", "otwórz tab", "owtorz tab",
+        ])
 
-            if wants_existing_firefox:
-                # Deterministic path: ask Firefox itself to open a new tab in the existing instance.
-                # Works on both X11 and Wayland without fragile window focusing.
-                steps.append(
-                    ActionStep(
-                        action="open_firefox_tab",
-                        params={"url": svc["keys_url"]},
-                        description="Otwórz nową kartę w istniejącym Firefox",
-                        retry_on_fail=True,
-                    )
-                )
-                steps.append(
-                    ActionStep(
-                        action="desktop_wait",
-                        params={"ms": 1200},
-                        description="Poczekaj na załadowanie strony",
-                    )
-                )
+    @staticmethod
+    def _wants_existing_firefox(text: str) -> bool:
+        return (
+            "firefox" in text
+            and any(p in text for p in [
+                "już", "juz", "otwart", "otwarty", "otwarte",
+                "existing", "already open",
+            ])
+        )
 
-            elif wants_new_tab:
-                steps.append(
-                    ActionStep(
-                        action="new_tab",
-                        params={},
-                        description="Otwórz nową kartę w przeglądarce",
-                    )
-                )
+    @staticmethod
+    def _wants_create_key(text: str) -> bool:
+        return any(p in text for p in [
+            "stwórz", "stworz", "utwórz", "utworz", "wygeneruj",
+            "nowy klucz", "nowy key", "nowy token",
+            "create", "generate", "new key", "new token",
+        ])
 
-            if not wants_existing_firefox:
-                steps.extend([
-                    ActionStep(
-                        action="navigate",
-                        params={"url": svc["keys_url"]},
-                        description=f"Przejdź na stronę kluczy {svc_name}",
-                    ),
-                    ActionStep(
-                        action="echo",
-                        params={
-                            "message": (
-                                f"🔐 Otworzyłem stronę generowania kluczy {svc_name}. "
-                                "Utwórz nowy klucz w przeglądarce, skopiuj go do schowka, "
-                                "a następnie wklej tutaj."
-                            )
-                        },
-                        description="Instrukcja ręcznego skopiowania klucza",
-                    ),
-                    ActionStep(
-                        action="prompt_secret",
-                        params={
-                            "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
-                            "env_var": svc["env_var"],
-                        },
-                        description=f"Wprowadź klucz API {svc_name}",
-                        store_as="api_key",
-                    ),
-                ])
-            else:
-                steps.extend([
-                    ActionStep(
-                        action="echo",
-                        params={
-                            "text": (
-                                f"Przełączyłem na Firefox i otworzyłem stronę kluczy dla {svc_name}. "
-                                "Utwórz nowy klucz w przeglądarce, skopiuj go do schowka, "
-                                "a następnie wklej tutaj."
-                            )
-                        },
-                        description="Instrukcja ręcznego skopiowania klucza",
-                    ),
-                    ActionStep(
-                        action="prompt_secret",
-                        params={
-                            "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
-                            "env_var": svc["env_var"],
-                        },
-                        description=f"Wprowadź klucz API {svc_name}",
-                        store_as="api_key",
-                    ),
-                ])
+    # ------------------------------------------------------------------
+    # Step builders
+    # ------------------------------------------------------------------
+    def _build_navigation_steps(
+        self,
+        svc_name: str,
+        svc: dict[str, Any],
+        wants_existing_firefox: bool,
+        wants_new_tab: bool,
+    ) -> list[ActionStep]:
+        """Build steps for opening the keys page."""
+        steps: list[ActionStep] = []
 
-            if ".env" in text or "zapisz" in text or "save" in text:
+        if wants_existing_firefox:
+            log.info("[ActionPlanner] Using existing Firefox window (desktop path)")
+            steps.append(ActionStep(
+                action="open_firefox_tab",
+                params={"url": svc["keys_url"]},
+                description=f"Otwórz {svc['keys_url']} w istniejącym Firefox",
+                retry_on_fail=True,
+            ))
+            steps.append(ActionStep(
+                action="desktop_wait",
+                params={"ms": 2000},
+                description="Poczekaj na załadowanie strony",
+            ))
+        else:
+            if wants_new_tab:
                 steps.append(ActionStep(
-                    action="save_env",
+                    action="new_tab", params={},
+                    description="Otwórz nową kartę w przeglądarce",
+                ))
+            steps.append(ActionStep(
+                action="navigate",
+                params={"url": svc["keys_url"]},
+                description=f"Przejdź na stronę kluczy {svc_name}",
+            ))
+            steps.append(ActionStep(
+                action="echo",
+                params={"text": f"🌐 Otwieram stronę: {svc['keys_url']}"},
+                description="Log: nawigacja",
+            ))
+
+        return steps
+
+    def _build_session_check_steps(
+        self,
+        svc_name: str,
+        svc: dict[str, Any],
+    ) -> list[ActionStep]:
+        """Build steps for session/login detection.
+
+        Adds a check_session step that inspects the page for session
+        indicators (logged in) vs login indicators (not logged in).
+        If not logged in, prompts user about email client.
+        """
+        steps: list[ActionStep] = []
+
+        session_indicators = svc.get("session_indicators", [])
+        login_indicators = svc.get("login_indicators", [])
+        login_url = svc.get("login_url", "")
+
+        if session_indicators or login_indicators:
+            steps.append(ActionStep(
+                action="check_session",
+                params={
+                    "service": svc_name,
+                    "session_indicators": session_indicators,
+                    "login_indicators": login_indicators,
+                    "login_url": login_url,
+                    "keys_url": svc["keys_url"],
+                },
+                description=f"Sprawdź sesję na {svc_name} (zalogowany?)",
+                store_as="session_status",
+            ))
+            steps.append(ActionStep(
+                action="echo",
+                params={"text": (
+                    f"� Sprawdzam sesję na {svc_name}...\n"
+                    f"   Szukam: {', '.join(session_indicators[:3])}\n"
+                    f"   Login URL: {login_url}"
+                )},
+                description="Log: sprawdzanie sesji",
+            ))
+
+        return steps
+
+    def _build_create_key_steps(
+        self,
+        svc_name: str,
+        svc: dict[str, Any],
+    ) -> list[ActionStep]:
+        """Build steps for creating a NEW API key via the provider's form."""
+        steps: list[ActionStep] = []
+        create_cfg = svc.get("create_key", {})
+
+        if not create_cfg:
+            log.info("[ActionPlanner] No create_key config for %s, falling back to manual", svc_name)
+            return self._build_manual_key_steps(svc_name, svc, False)
+
+        log.info(
+            "[ActionPlanner] Building create-key flow for %s (button=%s, fields=%d)",
+            svc_name,
+            create_cfg.get("button_selector", "?"),
+            len(create_cfg.get("form_fields", {})),
+        )
+
+        # Explain what we're doing
+        steps.append(ActionStep(
+            action="echo",
+            params={"text": (
+                f"🔑 Tworzę nowy klucz API na {svc_name}...\n"
+                f"   Kliknę przycisk: {create_cfg.get('button_selector', '?')}\n"
+                f"   Wypełnię formularz: {list(create_cfg.get('form_fields', {}).keys())}"
+            )},
+            description=f"Log: tworzenie klucza {svc_name}",
+        ))
+
+        # Click "Create" button
+        steps.append(ActionStep(
+            action="click",
+            params={"selector": create_cfg["button_selector"]},
+            description=f"Kliknij przycisk tworzenia klucza na {svc_name}",
+            timeout_ms=5000,
+        ))
+
+        steps.append(ActionStep(
+            action="wait",
+            params={"ms": 1500},
+            description="Poczekaj na otwarcie formularza",
+        ))
+
+        # Fill form fields
+        for field_name, field_cfg in create_cfg.get("form_fields", {}).items():
+            default_value = field_cfg.get("default", "")
+            if default_value:
+                steps.append(ActionStep(
+                    action="type_text",
                     params={
-                        "var_name": svc["env_var"],
-                        "file": ".env",
-                        "value": "$api_key",
+                        "selector": field_cfg["selector"],
+                        "text": default_value,
                     },
-                    description=f"Zapisz {svc['env_var']} do .env",
+                    description=f"Wypełnij pole '{field_name}': {default_value}",
                 ))
 
-            return ActionPlan(
-                query=query,
-                steps=steps,
-                confidence=0.95,
-                source="rule_decomposer",
-                estimated_time_ms=len(steps) * 2000,
+        # Submit
+        if create_cfg.get("submit_selector"):
+            steps.append(ActionStep(
+                action="click",
+                params={"selector": create_cfg["submit_selector"]},
+                description="Zatwierdź formularz tworzenia klucza",
+            ))
+
+        steps.append(ActionStep(
+            action="wait",
+            params={"ms": 3000},
+            description="Poczekaj na wygenerowanie klucza",
+        ))
+
+        # Screenshot after creation
+        steps.append(ActionStep(
+            action="screenshot",
+            params={"path": f"/tmp/nlp2cmd_{svc_name}_key_created.png"},
+            description=f"Zrzut ekranu po utworzeniu klucza {svc_name}",
+        ))
+
+        # Try to extract the key automatically
+        steps.append(ActionStep(
+            action="echo",
+            params={"text": (
+                f"📋 Klucz powinien być widoczny na stronie.\n"
+                f"   Skopiuj go i wklej poniżej.\n"
+                f"   Pattern: {svc.get('key_pattern', 'N/A')}"
+            )},
+            description="Instrukcja skopiowania nowego klucza",
+        ))
+
+        steps.append(ActionStep(
+            action="prompt_secret",
+            params={
+                "prompt": f"Wklej nowo utworzony klucz API {svc_name} (nie będzie wyświetlany): ",
+                "env_var": svc["env_var"],
+            },
+            description=f"Wprowadź nowy klucz API {svc_name}",
+            store_as="api_key",
+        ))
+
+        return steps
+
+    def _build_manual_key_steps(
+        self,
+        svc_name: str,
+        svc: dict[str, Any],
+        is_firefox_desktop: bool,
+    ) -> list[ActionStep]:
+        """Build steps for manual key retrieval (user copies key themselves)."""
+        steps: list[ActionStep] = []
+
+        if is_firefox_desktop:
+            msg = (
+                f"🔐 Otworzyłem stronę kluczy {svc_name} w Firefox.\n"
+                f"   1. Znajdź swój klucz API na stronie\n"
+                f"   2. Jeśli nie masz klucza, kliknij 'Create' aby utworzyć nowy\n"
+                f"   3. Skopiuj klucz do schowka\n"
+                f"   4. Wróć do terminala i wklej"
+            )
+        else:
+            msg = (
+                f"🔐 Otworzyłem stronę generowania kluczy {svc_name}.\n"
+                f"   URL: {svc.get('keys_url', 'N/A')}\n"
+                f"   1. Zaloguj się jeśli trzeba\n"
+                f"   2. Znajdź lub utwórz klucz API\n"
+                f"   3. Skopiuj klucz do schowka\n"
+                f"   4. Wklej poniżej"
             )
 
-        # Pattern: "open N tabs: X, Y, Z"
+        steps.append(ActionStep(
+            action="echo",
+            params={"text": msg},
+            description="Instrukcja ręcznego skopiowania klucza",
+        ))
+
+        steps.append(ActionStep(
+            action="prompt_secret",
+            params={
+                "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
+                "env_var": svc["env_var"],
+            },
+            description=f"Wprowadź klucz API {svc_name}",
+            store_as="api_key",
+        ))
+
+        return steps
+
+    def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
+        """Rule-based decomposition for 'open N tabs' pattern."""
+        text = query.lower()
         multi_tab = re.search(
             r"(?:otw[oó]rz|open)\s+(\d+)\s+(?:tab|kart)", text
         )
-        if multi_tab:
-            # Try to extract URLs/domains from text
-            domains = re.findall(
-                r'\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|co))\b',
-                text,
-            )
-            steps = []
-            for i, domain in enumerate(domains):
-                if i > 0:
-                    steps.append(ActionStep(
-                        action="new_tab", params={},
-                        description="Nowy tab",
-                    ))
-                steps.append(ActionStep(
-                    action="navigate",
-                    params={"url": f"https://{domain}"},
-                    description=f"Otwórz {domain}",
-                ))
-            if steps:
-                return ActionPlan(
-                    query=query, steps=steps,
-                    confidence=0.9, source="rule_decomposer",
-                    estimated_time_ms=len(steps) * 1500,
-                )
+        if not multi_tab:
+            return None
 
+        domains = re.findall(
+            r'\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|co))\b',
+            text,
+        )
+        steps: list[ActionStep] = []
+        for i, domain in enumerate(domains):
+            if i > 0:
+                steps.append(ActionStep(
+                    action="new_tab", params={},
+                    description="Nowy tab",
+                ))
+            steps.append(ActionStep(
+                action="navigate",
+                params={"url": f"https://{domain}"},
+                description=f"Otwórz {domain}",
+            ))
+        if steps:
+            return ActionPlan(
+                query=query, steps=steps,
+                confidence=0.9, source="rule_decomposer",
+                estimated_time_ms=len(steps) * 1500,
+            )
         return None
 
     # ------------------------------------------------------------------
