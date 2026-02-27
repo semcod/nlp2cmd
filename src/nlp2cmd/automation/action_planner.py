@@ -277,6 +277,7 @@ class ActionPlanner:
                     action="prompt_secret",
                     params={
                         "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
+                        "env_var": svc["env_var"],
                     },
                     description=f"Wprowadź klucz API {svc_name}",
                     store_as="api_key",

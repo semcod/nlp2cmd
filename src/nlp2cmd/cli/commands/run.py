@@ -664,8 +664,11 @@ def handle_run_mode(
                 print_yaml_block(payload_info, console=console)
 
             from nlp2cmd.pipeline_runner import PipelineRunner
-            pw_runner = PipelineRunner(headless=True)  # Force headless for testing
-            pw_result = pw_runner.run(ir, dry_run=False, confirm=auto_confirm)
+            _headless = not bool(video_fmt)  # Force headless=False when recording video
+            pw_runner = PipelineRunner(headless=_headless, video_fmt=video_fmt,
+                                       video_dir="./recordings")
+            pw_result = pw_runner.run(ir, dry_run=False, confirm=auto_confirm,
+                                      video_fmt=video_fmt, video_dir="./recordings")
 
             if (not pw_result.success) and isinstance(pw_result.data, dict) and pw_result.data.get("requires_confirmation"):
                 reason = str(pw_result.data.get("confirmation_reason") or "unknown")
