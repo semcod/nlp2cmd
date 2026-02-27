@@ -962,6 +962,16 @@ class PipelineRunner:
                             except Exception:
                                 pass
 
+                            # Best-effort: if we still are on the homepage, force the most likely listing URL.
+                            try:
+                                if "oferteo.pl" in str(page.url or "") and urlparse(str(page.url or "")).path.strip("/") == "":
+                                    page.goto("https://www.oferteo.pl/firmy/gdansk", wait_until="domcontentloaded", timeout=15000)
+                                    page.wait_for_timeout(900)
+                                    self._dismiss_popups(page, schema_loader)
+                                    base_url = page.url
+                            except Exception:
+                                pass
+
                             # Find company profile links on the catalog page
                             _debug("extract_company_websites_deep: finding company links")
                             company_links: list[dict[str, str]] = []
@@ -989,7 +999,9 @@ class PipelineRunner:
 
                                         const hrefLower = href.toLowerCase();
                                         // Exclude categories/listings and noise
+                                        if (hrefLower.includes('/firma-')) continue;
                                         if (hrefLower.includes('/firmy-')) continue;
+                                        if (hrefLower.includes('/firmy/')) continue;
                                         if (hrefLower.includes('/katalog') || hrefLower.includes('/kategorie') || hrefLower.includes('/branze') || hrefLower.includes('/uslugi')) continue;
                                         if (hrefLower.includes('facebook.com') || hrefLower.includes('instagram.com') || hrefLower.includes('linkedin.com')) continue;
 
