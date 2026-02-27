@@ -1850,24 +1850,50 @@ class PipelineRunner:
         if not isinstance(text, str) or not text.strip():
             return None
 
+    @staticmethod
+    def _detect_desktop_backend() -> str:
+        """Detect best desktop automation backend: 'ydotool', 'xdotool', or 'none'."""
+        session_type = os.environ.get("XDG_SESSION_TYPE", "").lower()
+        is_wayland = session_type == "wayland" or bool(os.environ.get("WAYLAND_DISPLAY"))
+        if is_wayland and shutil.which("ydotool"):
+            return "ydotool"
+        if shutil.which("xdotool"):
+            return "xdotool"
+        if shutil.which("wmctrl"):
+            return "wmctrl"  # wmctrl only for focus, not type/key
+        return "none"
+
     def _execute_desktop_plan_step(self, step, variables: dict) -> Optional[str]:
-        """Execute an ActionPlan step via local desktop automation (wmctrl/xdotool)."""
+        """Execute an ActionPlan step via local desktop automation.
+
+        Supports three backends:
+        - ydotool: works on Wayland (requires ydotoold daemon)
+        - xdotool: works on X11
+        - wmctrl: X11 window management only
+        """
         params = self._resolve_plan_variables(getattr(step, "params", {}) or {}, variables)
         action = str(getattr(step, "action", "") or "")
+        backend = self._detect_desktop_backend()
 
-        def _need_tool(name: str) -> None:
-            if shutil.which(name) is None:
-                raise ValueError(f"Missing required desktop tool: {name}")
+        if backend == "none":
+            raise ValueError(
+                "No desktop automation tool available. "
+                "On Wayland: sudo apt install ydotool && sudo systemctl enable --now ydotool. "
+                "On X11: sudo apt install xdotool wmctrl."
+            )
 
         if action == "desktop_focus_app":
             title = str(params.get("title") or "Firefox")
-            # Prefer wmctrl, but fall back to xdotool (often installed even when wmctrl isn't)
+            if backend == "ydotool":
+                # ydotool can't focus windows; try gdbus on GNOME
+                _debug(f"desktop_focus_app: ydotool can't focus windows, trying Alt+Tab")
+                subprocess.run(["ydotool", "key", "56:1", "15:1", "15:0", "56:0"], check=False)
+                time.sleep(0.3)
+                return None
             if shutil.which("wmctrl") is not None:
                 subprocess.run(["wmctrl", "-a", title], check=True)
                 return None
-
-            _need_tool("xdotool")
-            # Try by window name/class; activate first match. If not found, continue (non-fatal).
+            # xdotool fallback
             candidates = [
                 ("--name", title),
                 ("--name", "Mozilla Firefox"),
@@ -1888,7 +1914,6 @@ class PipelineRunner:
                         break
                 except Exception:
                     continue
-
             if win_id:
                 subprocess.run(["xdotool", "windowactivate", "--sync", win_id], check=True)
             else:
@@ -1896,23 +1921,31 @@ class PipelineRunner:
             return None
 
         if action == "desktop_shortcut":
-            _need_tool("xdotool")
             keys = str(params.get("keys") or "").strip() or "ctrl+t"
-            subprocess.run(["xdotool", "key", keys], check=True)
+            if backend == "ydotool":
+                ydotool_keys = self._xdotool_keys_to_ydotool(keys)
+                subprocess.run(["ydotool", "key"] + ydotool_keys, check=True)
+            else:
+                subprocess.run(["xdotool", "key", keys], check=True)
             return None
 
         if action == "desktop_key":
-            _need_tool("xdotool")
             key = str(params.get("key") or "Return").strip() or "Return"
-            subprocess.run(["xdotool", "key", key], check=True)
+            if backend == "ydotool":
+                ydotool_keys = self._xdotool_keys_to_ydotool(key)
+                subprocess.run(["ydotool", "key"] + ydotool_keys, check=True)
+            else:
+                subprocess.run(["xdotool", "key", key], check=True)
             return None
 
         if action == "desktop_type":
-            _need_tool("xdotool")
             txt = str(params.get("text") or "")
             if not txt.strip():
                 return None
-            subprocess.run(["xdotool", "type", "--delay", "20", txt], check=True)
+            if backend == "ydotool":
+                subprocess.run(["ydotool", "type", "--key-delay", "20", txt], check=True)
+            else:
+                subprocess.run(["xdotool", "type", "--delay", "20", txt], check=True)
             return None
 
         if action == "desktop_wait":
@@ -1950,22 +1983,50 @@ class PipelineRunner:
 
         raise ValueError(f"Unsupported desktop plan action: {action}")
 
-        raw = text.strip()
-        m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL | re.IGNORECASE)
-        if m:
-            raw = m.group(1).strip()
-        else:
-            m2 = re.search(r"(\{.*\})", raw, flags=re.DOTALL)
-            if m2:
-                raw = m2.group(1).strip()
+    @staticmethod
+    def _xdotool_keys_to_ydotool(keys: str) -> list[str]:
+        """Convert xdotool key names to ydotool keycode sequences.
 
-        try:
-            payload = json.loads(raw)
-        except Exception:
-            return None
-        if not isinstance(payload, dict):
-            return None
-        return payload
+        ydotool uses Linux input event keycodes (evdev), not X11 keysyms.
+        Format: keycode:1 (press), keycode:0 (release).
+        """
+        _KEYMAP = {
+            "ctrl": "29", "control": "29",
+            "alt": "56", "shift": "42", "super": "125",
+            "return": "28", "enter": "28",
+            "tab": "15", "escape": "1", "esc": "1",
+            "space": "57", "backspace": "14", "delete": "111",
+            "up": "103", "down": "108", "left": "105", "right": "106",
+            "home": "102", "end": "107",
+            "pageup": "104", "page_up": "104",
+            "pagedown": "109", "page_down": "109",
+            "f1": "59", "f2": "60", "f3": "61", "f4": "62",
+            "f5": "63", "f6": "64", "f7": "65", "f8": "66",
+            "f9": "67", "f10": "68", "f11": "87", "f12": "88",
+        }
+        # Letters a-z
+        for i, c in enumerate("abcdefghijklmnopqrstuvwxyz"):
+            _KEYMAP[c] = str(30 + i if i < 12 else 44 + i - 12 if i < 24 else 50 + i - 24)
+        # More accurate letter keycodes
+        _LETTER_CODES = {
+            "a": "30", "b": "48", "c": "46", "d": "32", "e": "18", "f": "33",
+            "g": "34", "h": "35", "i": "23", "j": "36", "k": "37", "l": "38",
+            "m": "50", "n": "49", "o": "24", "p": "25", "q": "16", "r": "19",
+            "s": "31", "t": "20", "u": "22", "v": "47", "w": "17", "x": "45",
+            "y": "21", "z": "44",
+        }
+        _KEYMAP.update(_LETTER_CODES)
+
+        parts = keys.lower().replace("+", " ").split()
+        codes = [_KEYMAP.get(p, p) for p in parts]
+
+        # Build press-all then release-all sequence
+        result = []
+        for code in codes:
+            result.append(f"{code}:1")
+        for code in reversed(codes):
+            result.append(f"{code}:0")
+        return result
 
     @staticmethod
     def _normalize_llm_article_selector_payload(payload: dict[str, Any]) -> dict[str, list[str]]:
@@ -2038,9 +2099,11 @@ class PipelineRunner:
 
         console = Console()
 
+        # Detect desktop automation steps early
         try:
+            steps_iter = getattr(plan, "steps", None) or []
             has_desktop_steps = any(
-                str(getattr(s, "action", "")).startswith("desktop_") for s in (plan.steps or [])
+                str(getattr(s, "action", "")).startswith("desktop_") for s in steps_iter
             )
         except Exception:
             has_desktop_steps = False

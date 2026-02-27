@@ -22,6 +22,7 @@ import json
 import logging
 import os
 import re
+import shutil
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
@@ -191,6 +192,29 @@ Odpowiedz TYLKO JSON (bez markdown):
 # ---------------------------------------------------------------------------
 # ActionPlanner
 # ---------------------------------------------------------------------------
+def _can_use_desktop_automation() -> bool:
+    """Check if desktop automation (xdotool/wmctrl/ydotool) is usable.
+
+    Returns False on Wayland sessions without a working tool.
+    """
+    session_type = os.environ.get("XDG_SESSION_TYPE", "").lower()
+    is_wayland = session_type == "wayland" or bool(os.environ.get("WAYLAND_DISPLAY"))
+
+    if is_wayland:
+        # On Wayland: ydotool works, xdotool/wmctrl do NOT
+        if shutil.which("ydotool"):
+            return True
+        log.debug(
+            "Wayland session detected but ydotool not installed. "
+            "Desktop automation unavailable — falling back to Playwright. "
+            "Install ydotool for native desktop control: sudo apt install ydotool"
+        )
+        return False
+
+    # X11 session: xdotool or wmctrl suffice
+    return bool(shutil.which("xdotool") or shutil.which("wmctrl"))
+
+
 class ActionPlanner:
     """Decomposes complex NL commands into ActionPlan via rules or LLM.
 
@@ -209,6 +233,7 @@ class ActionPlanner:
             "OLLAMA_BASE_URL", "http://localhost:11434"
         )
         self.model = model or os.getenv("NLP2CMD_PLANNER_MODEL", "qwen2.5:3b")
+        self._desktop_available: Optional[bool] = None
 
     async def decompose(
         self,
@@ -281,8 +306,19 @@ class ActionPlanner:
 
         wants_existing_firefox = (
             ("firefox" in text)
-            and any(p in text for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"]) 
+            and any(p in text for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"])
         )
+
+        # On Wayland without desktop tools, fall back to Playwright path
+        if wants_existing_firefox:
+            if self._desktop_available is None:
+                self._desktop_available = _can_use_desktop_automation()
+            if not self._desktop_available:
+                log.info(
+                    "Desktop automation unavailable (Wayland without ydotool). "
+                    "Falling back to Playwright browser."
+                )
+                wants_existing_firefox = False
 
         # Pattern: "extract API key from <service> and save to .env"
         for svc_name, svc in KNOWN_SERVICES.items():
