@@ -1055,7 +1055,13 @@ class PipelineRunner:
                             # Oferteo often doesn't expose external websites publicly; in that case we still want
                             # to save >= max_companies profile URLs.
                             profile_fallback: list[dict[str, str]] = []
-                            for company in company_links[:max_companies]:
+                            try:
+                                _max_companies_int = int(max_companies)
+                            except Exception:
+                                _max_companies_int = 20
+                            _max_companies_int = max(1, min(_max_companies_int, 200))
+
+                            for company in company_links[:_max_companies_int]:
                                 try:
                                     name = str(company.get("name", "")).strip()
                                     href = str(company.get("href", "")).strip()
@@ -1070,10 +1076,10 @@ class PipelineRunner:
 
                             # Visit a small probe set of profiles and try to extract external websites.
                             # (If this succeeds, save_to_file will write websites; otherwise it will write profile URLs.)
-                            target_websites = max_companies
+                            target_websites = _max_companies_int
                             action_deadline = time.time() + 85.0
                             checked = 0
-                            probe_profiles = min(max_profiles_to_check, max_companies)
+                            probe_profiles = min(max_profiles_to_check, _max_companies_int)
 
                             for idx, company in enumerate(company_links[:probe_profiles], 1):
                                 try:
@@ -1162,7 +1168,7 @@ class PipelineRunner:
 
                                         # Decode oferteo redirect links if present
                                         try:
-                                            from urllib.parse import parse_qs, unquote
+                                            from urllib.parse import parse_qs, unquote, urlparse
 
                                             parsed = urlparse(raw_ext)
                                             if "oferteo.pl" in (parsed.netloc or ""):
@@ -1274,19 +1280,6 @@ class PipelineRunner:
                             seen: set[str] = set()
                             lines: list[str] = []
 
-                            dicts = [it for it in extracted_data if isinstance(it, dict)]
-                            has_website_field = any("website" in it for it in dicts)
-                            has_real_websites = False
-                            if has_website_field:
-                                for it in dicts:
-                                    try:
-                                        w = str(it.get("website") or "").strip()
-                                    except Exception:
-                                        w = ""
-                                    if w and not _is_bad_website(w):
-                                        has_real_websites = True
-                                        break
-
                             def _is_bad_website(u: str) -> bool:
                                 low = (u or "").strip().lower()
                                 if not low:
@@ -1309,6 +1302,19 @@ class PipelineRunner:
                                     "policies.google.com",
                                 ]
                                 return any(b in low for b in bad)
+
+                            dicts = [it for it in extracted_data if isinstance(it, dict)]
+                            has_website_field = any("website" in it for it in dicts)
+                            has_real_websites = False
+                            if has_website_field:
+                                for it in dicts:
+                                    try:
+                                        w = str(it.get("website") or "").strip()
+                                    except Exception:
+                                        w = ""
+                                    if w and not _is_bad_website(w):
+                                        has_real_websites = True
+                                        break
 
                             for item in extracted_data:
                                 if isinstance(item, dict):

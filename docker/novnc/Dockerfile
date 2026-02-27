@@ -38,20 +38,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-liberation fonts-dejavu-core \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Create virtual environment for Python packages (Ubuntu 22.04 has Python 3.10,
-# which doesn't support --break-system-packages flag)
+# Create non-root user FIRST so /home/nlp2cmd is owned correctly
+RUN useradd -m -s /bin/bash nlp2cmd && \
+    echo "nlp2cmd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Create virtual environment for Python packages as nlp2cmd user
+USER nlp2cmd
+WORKDIR /home/nlp2cmd
 RUN python3 -m venv /home/nlp2cmd/venv && \
     /home/nlp2cmd/venv/bin/pip install --no-cache-dir \
     playwright click rich python-dotenv pyyaml
 
-# Install Playwright browsers
+# Install Playwright browsers (needs root for deps, then switch back)
+USER root
 RUN /home/nlp2cmd/venv/bin/python -m playwright install --with-deps chromium
-
-# Create non-root user
-RUN useradd -m -s /bin/bash nlp2cmd && \
-    echo "nlp2cmd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER nlp2cmd
-WORKDIR /home/nlp2cmd
 
 # VNC startup script
 COPY --chown=nlp2cmd:nlp2cmd start-vnc.sh /home/nlp2cmd/start-vnc.sh
@@ -59,6 +60,9 @@ RUN chmod +x /home/nlp2cmd/start-vnc.sh
 
 # Demo scripts
 COPY --chown=nlp2cmd:nlp2cmd demos/ /home/nlp2cmd/demos/
+
+# Pre-create directories needed at runtime
+RUN mkdir -p /home/nlp2cmd/.vnc /home/nlp2cmd/recordings
 
 EXPOSE 5901 6080
 
