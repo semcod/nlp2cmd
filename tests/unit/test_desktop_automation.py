@@ -111,9 +111,13 @@ class TestActionPlannerFirefoxTab:
         assert "open_firefox_tab" in actions
         assert "prompt_secret" in actions
         assert "save_env" in actions
-        # No desktop_* steps — open_firefox_tab replaces them
-        desktop_steps = [s for s in plan.steps if s.action.startswith("desktop_")]
-        assert len(desktop_steps) == 0
+        # No desktop_focus/type/key steps — open_firefox_tab replaces them
+        # (desktop_wait is just a sleep helper, not real desktop automation)
+        desktop_interaction_steps = [
+            s for s in plan.steps
+            if s.action.startswith("desktop_") and s.action != "desktop_wait"
+        ]
+        assert len(desktop_interaction_steps) == 0
 
     def test_non_firefox_query_uses_navigate(self):
         planner = ActionPlanner()
