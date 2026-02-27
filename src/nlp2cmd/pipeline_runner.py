@@ -447,6 +447,10 @@ class PipelineRunner:
 
             context = browser.new_context(**ctx_opts)
             page = context.new_page()
+
+            detected_form_fields: list[object] | None = None
+            filled_any_form_field: bool = False
+            saw_fill_form_action: bool = False
             
             try:
                 for i, action_spec in enumerate(actions):
@@ -460,13 +464,84 @@ class PipelineRunner:
                         # Try to dismiss common popups/cookie consents
                         self._dismiss_popups(page, schema_loader)
 
+                    elif action == "explore_for_content":
+                        # Explore site to find content
+                        try:
+                            from nlp2cmd.web_schema.site_explorer import SiteExplorer
+                            
+                            content_type = action_spec.get("content_type", "article")
+                            console_wrapper.print(f"🔍 Exploring site for {content_type}...", language="text")
+                            explorer = SiteExplorer(max_depth=2, max_pages=8, headless=self.headless)
+                            
+                            # Don't close browser - reuse current context
+                            explore_result = explorer.find_content(
+                                url=url,
+                                content_type=content_type,
+                                page=page,
+                                context=context,
+                                close_browser=False,
+                            )
+                            
+                            if explore_result.success and explore_result.form_url:
+                                content_url = explore_result.form_url
+                                console_wrapper.print(f"✓ Found {content_type} at: {content_url}", language="text")
+                                
+                                # Navigate to the discovered content page
+                                if content_url != page.url:
+                                    page.goto(content_url, wait_until="domcontentloaded")
+                                    page.wait_for_timeout(1500)
+                                
+                                # Update URL for subsequent actions
+                                url = content_url
+                            else:
+                                console_wrapper.print(f"No {content_type} found during exploration", language="text")
+                        except Exception as e:
+                            console_wrapper.print(f"Content exploration failed: {e}", language="text")
+
+                    elif action == "explore_for_form":
+                        # Explore site to find forms before filling
+                        try:
+                            from nlp2cmd.web_schema.site_explorer import SiteExplorer
+                            
+                            intent = action_spec.get("intent", "contact")
+                            console_wrapper.print(f"🔍 Exploring site for {intent} form...", language="text")
+                            explorer = SiteExplorer(max_depth=2, max_pages=8, headless=self.headless)
+                            
+                            # Don't close browser - reuse current context
+                            explore_result = explorer.find_form(
+                                url=url,
+                                intent=intent,
+                                page=page,
+                                context=context,
+                                close_browser=False,
+                            )
+                            
+                            if explore_result.success and explore_result.form_url:
+                                form_url = explore_result.form_url
+                                console_wrapper.print(f"✓ Found form at: {form_url}", language="text")
+                                
+                                # Navigate to the discovered form page
+                                if form_url != page.url:
+                                    page.goto(form_url, wait_until="domcontentloaded")
+                                    page.wait_for_timeout(1500)
+                                
+                                # Update URL for subsequent actions
+                                url = form_url
+                            else:
+                                console_wrapper.print("No form found during exploration", language="text")
+                        except Exception as e:
+                            console_wrapper.print(f"Site exploration failed: {e}", language="text")
+
                     elif action == "fill_form":
                         # Automatic form filling from .env and data/*.json
                         try:
                             from nlp2cmd.web_schema.form_handler import FormHandler
+                            from nlp2cmd.web_schema.site_explorer import SiteExplorer
                             
                             form_handler = FormHandler(console=console, use_markdown=True)
                             data_loader = schema_loader
+
+                            saw_fill_form_action = True
                             
                             # Wait for page to be fully loaded.
                             # Try networkidle first (best for static sites), but fall back
@@ -486,9 +561,93 @@ class PipelineRunner:
                             # Detect form fields
                             console_wrapper.print("🔍 Detecting form fields...", language="text")
                             fields = form_handler.detect_form_fields(page)
+                            detected_form_fields = fields
                             
                             if not fields:
                                 console_wrapper.print("No form fields detected on this page", language="text")
+
+                                try:
+                                    console_wrapper.print(
+                                        yaml.safe_dump(
+                                            {
+                                                "status": "form_discovery_started",
+                                                "strategy": "site_explorer",
+                                                "max_depth": 2,
+                                                "max_pages": 8,
+                                                "url": url,
+                                            },
+                                            sort_keys=False,
+                                            allow_unicode=True,
+                                        ).rstrip(),
+                                        language="yaml",
+                                    )
+                                except Exception:
+                                    pass
+
+                                try:
+                                    explorer = SiteExplorer(max_depth=2, max_pages=8, headless=self.headless)
+                                    explore_result = explorer.find_form(
+                                        url=url,
+                                        intent="contact",
+                                        page=page,
+                                        context=context,
+                                        close_browser=False,
+                                    )
+                                    
+                                    if explore_result.success and explore_result.form_url:
+                                        form_url = explore_result.form_url
+                                        console_wrapper.print(f"✓ Found form at: {form_url}", language="text")
+                                        
+                                        # Navigate to the discovered form page
+                                        if form_url != page.url:
+                                            page.goto(form_url, wait_until="domcontentloaded")
+                                            page.wait_for_timeout(1500)
+                                        
+                                        # Retry form detection
+                                        console_wrapper.print("🔁 Retrying form field detection after exploration...", language="text")
+                                        fields = form_handler.detect_form_fields(page)
+                                        detected_form_fields = fields
+                                except Exception as e:
+                                    console_wrapper.print(f"Site exploration failed: {e}", language="text")
+                                    # Fall through to simpler heuristic
+
+                                # Fallback: simple heuristic - try to navigate to contact page
+                                if not fields:
+                                    try:
+                                        candidates = [
+                                            'a[href*="kontakt" i]',
+                                            'a:has-text("Kontakt")',
+                                            'a:has-text("Kontakt") >> visible=true',
+                                            'a:has-text("Contact")',
+                                            'a[href*="contact" i]',
+                                        ]
+                                        clicked = False
+                                        for sel in candidates:
+                                            try:
+                                                loc = page.locator(sel).first
+                                                if loc.count() > 0:
+                                                    loc.click(timeout=1500)
+                                                    page.wait_for_load_state("domcontentloaded", timeout=8000)
+                                                    page.wait_for_timeout(1200)
+                                                    clicked = True
+                                                    break
+                                            except Exception:
+                                                continue
+
+                                        if clicked:
+                                            console_wrapper.print("🔁 Retrying form field detection after navigating...", language="text")
+                                            fields = form_handler.detect_form_fields(page)
+                                            detected_form_fields = fields
+                                    except Exception:
+                                        pass
+
+                                if not fields:
+                                    return RunnerResult(
+                                        success=False,
+                                        kind="dom",
+                                        error="No form fields detected on the current page (contact form not found).",
+                                        data={"url": url},
+                                    )
                             else:
                                 console_wrapper.print("🔍 Detected form fields:", language="text")
                                 console_wrapper.print(
@@ -526,7 +685,9 @@ class PipelineRunner:
                                 # Fill the form if we have data
                                 if form_data and form_data.fields:
                                     console_wrapper.print("📝 Filling form...", language="text")
-                                    form_handler.fill_form(page, form_data)
+                                    ok = form_handler.fill_form(page, form_data)
+                                    if ok:
+                                        filled_any_form_field = True
                                 
                             page.wait_for_timeout(500)
                             
@@ -631,6 +792,14 @@ class PipelineRunner:
                     elif action == "submit":
                         # Submit form by clicking submit button
                         # Load submit selectors from schema
+                        if saw_fill_form_action and not filled_any_form_field:
+                            return RunnerResult(
+                                success=False,
+                                kind="dom",
+                                error="Submit requested but no form fields were filled (skipping Enter fallback).",
+                                data={"url": url, "form_fields_detected": int(len(detected_form_fields or []))},
+                            )
+
                         submit_selectors = schema_loader.get_submit_selectors()
                         
                         submitted = False
@@ -646,8 +815,12 @@ class PipelineRunner:
                                 continue
                         
                         if not submitted:
-                            page.keyboard.press("Enter")
-                            console_wrapper.print("Form submitted via Enter key", language="text")
+                            return RunnerResult(
+                                success=False,
+                                kind="dom",
+                                error="Could not find a visible submit button on this page (not submitting via Enter).",
+                                data={"url": url, "form_fields_detected": int(len(detected_form_fields or []))},
+                            )
                         
                         page.wait_for_timeout(2000)
                     

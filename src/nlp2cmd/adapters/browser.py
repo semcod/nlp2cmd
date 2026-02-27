@@ -8,6 +8,7 @@ from typing import Any, Optional
 from nlp2cmd.adapters.base import AdapterConfig, BaseDSLAdapter, SafetyPolicy
 from nlp2cmd.ir import ActionIR
 from nlp2cmd.web_schema.form_data_loader import FormDataLoader
+from nlp2cmd.web_schema.site_explorer import SiteExplorer
 
 
 @dataclass
@@ -45,6 +46,7 @@ class BrowserAdapter(BaseDSLAdapter):
     ):
         super().__init__(config, safety_policy or BrowserSafetyPolicy())
         self.last_action_ir: Optional[ActionIR] = None
+        self.site_explorer = SiteExplorer(max_depth=2, max_pages=8, headless=True)
 
     @staticmethod
     def _extract_url(text: str) -> Optional[str]:
@@ -92,6 +94,42 @@ class BrowserAdapter(BaseDSLAdapter):
         type_keywords = FormDataLoader().get_nlp_keywords("typing")
         tl = text.lower()
         return any(kw in tl for kw in type_keywords)
+    
+    @staticmethod
+    def _should_explore_for_content(text: str) -> tuple[bool, str]:
+        """Check if we should explore the site for content and what type."""
+        content_patterns = {
+            "article": [
+                "znajdź artykuł", "znajdz artykul", "find article", "szukaj artykułu",
+                "przeszukaj artykuły", "znajdź post", "znajdz post", "blog", "news"
+            ],
+            "product": [
+                "znajdź produkt", "znajdz produkt", "find product", "szukaj produktu",
+                "przeszukaj ofertę", "katalog", "sklep", "cena", "buy"
+            ],
+            "docs": [
+                "znajdź dokumentację", "znajdz dokumentacje", "find documentation",
+                "szukaj pomocy", "przeszukaj manual", "faq", "guide", "tutorial"
+            ]
+        }
+        
+        text_lower = text.lower()
+        for content_type, patterns in content_patterns.items():
+            if any(pattern in text_lower for pattern in patterns):
+                return True, content_type
+        return False, "unknown"
+    
+    @staticmethod
+    def _should_explore_for_forms(text: str) -> bool:
+        """Check if we should explore the site for forms instead of just checking current page."""
+        explore_keywords = [
+            "znajdź formularz", "znajdz formularz", "find form",
+            "szukaj formularza", "szukaj kontaktu", "search contact",
+            "przeszukaj stronę", "przeszukaj strone", "explore site",
+            "odnajdź formularz", "odnajdz formularz", "locate form"
+        ]
+        text_lower = text.lower()
+        return any(kw in text_lower for kw in explore_keywords)
     
     @staticmethod
     def _has_fill_form_action(text: str) -> bool:
@@ -168,9 +206,23 @@ class BrowserAdapter(BaseDSLAdapter):
         explanation = "browser adapter: goto"
 
         if self._has_fill_form_action(text):
-            actions.append({"action": "fill_form"})
-            action_id = "dom.goto_and_fill_form"
-            explanation = f"browser adapter: goto {url} and fill form"
+            # Check if we need to explore for forms
+            if self._should_explore_for_forms(text):
+                # Add exploration step before filling form
+                actions.append({"action": "explore_for_form", "intent": "contact"})
+                action_id = "dom.explore_and_fill_form"
+                explanation = f"browser adapter: explore {url} for contact form and fill"
+            else:
+                actions.append({"action": "fill_form"})
+                action_id = "dom.goto_and_fill_form"
+                explanation = f"browser adapter: goto {url} and fill form"
+        
+        # Check for content exploration
+        should_explore, content_type = self._should_explore_for_content(text)
+        if should_explore:
+            actions.append({"action": "explore_for_content", "content_type": content_type})
+            action_id = f"dom.explore_for_{content_type}"
+            explanation = f"browser adapter: explore {url} for {content_type}"
 
         type_text = self._extract_type_text(text)
         if type_text and self._has_type_action(text):
