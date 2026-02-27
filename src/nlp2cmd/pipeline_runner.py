@@ -1850,6 +1850,33 @@ class PipelineRunner:
         if not isinstance(text, str) or not text.strip():
             return None
 
+        raw = text.strip()
+        m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL | re.IGNORECASE)
+        if m:
+            try:
+                return json.loads(m.group(1))
+            except Exception:
+                pass
+
+        # Fallback: try parsing the whole text as JSON
+        try:
+            obj = json.loads(raw)
+            if isinstance(obj, dict):
+                return obj
+        except Exception:
+            pass
+
+        # Fallback: find first { ... } block
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start != -1 and end > start:
+            try:
+                return json.loads(raw[start:end + 1])
+            except Exception:
+                pass
+
+        return None
+
     @staticmethod
     def _detect_desktop_backend() -> str:
         """Detect best desktop automation backend: 'ydotool', 'xdotool', or 'none'."""
@@ -1951,6 +1978,21 @@ class PipelineRunner:
         if action == "desktop_wait":
             ms = int(params.get("ms", 500))
             time.sleep(max(ms, 0) / 1000.0)
+            return None
+
+        if action == "open_firefox_tab":
+            url = str(params.get("url") or "").strip()
+            if not url:
+                return None
+            if shutil.which("firefox") is None:
+                raise ValueError("Firefox executable not found in PATH")
+
+            # Open a new tab in existing Firefox instance (remote command).
+            # This is more reliable than synthetic key events.
+            try:
+                subprocess.run(["firefox", "--new-tab", url], check=True)
+            except Exception:
+                subprocess.run(["firefox", "--new-window", url], check=True)
             return None
 
         # Reuse safe non-desktop steps

@@ -330,38 +330,19 @@ class ActionPlanner:
             steps: list[ActionStep] = []
 
             if wants_existing_firefox:
-                # Desktop automation path: control already-open Firefox window via wmctrl/xdotool.
+                # Deterministic path: ask Firefox itself to open a new tab in the existing instance.
+                # Works on both X11 and Wayland without fragile window focusing.
                 steps.append(
                     ActionStep(
-                        action="desktop_focus_app",
-                        params={"title": "Firefox"},
-                        description="Przełącz na okno Firefox",
+                        action="open_firefox_tab",
+                        params={"url": svc["keys_url"]},
+                        description="Otwórz nową kartę w istniejącym Firefox",
+                        retry_on_fail=True,
                     )
                 )
                 steps.append(
                     ActionStep(
-                        action="desktop_shortcut",
-                        params={"keys": "ctrl+t"},
-                        description="Otwórz nową kartę w Firefox",
-                    )
-                )
-                steps.append(
-                    ActionStep(
-                        action="desktop_type",
-                        params={"text": svc["keys_url"]},
-                        description="Wpisz adres strony kluczy OpenRouter",
-                    )
-                )
-                steps.append(
-                    ActionStep(
-                        action="desktop_key",
-                        params={"key": "Return"},
-                        description="Przejdź na stronę",
-                    )
-                )
-                steps.append(
-                    ActionStep(
-                        action="desktop_wait",
+                        action="wait",
                         params={"ms": 1200},
                         description="Poczekaj na załadowanie strony",
                     )
