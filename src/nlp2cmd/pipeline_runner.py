@@ -698,7 +698,7 @@ class PipelineRunner:
                                 data={"url": url},
                             )
 
-                    elif action == "extract_company_websites_deep":
+                    elif action in ("extract_company_websites_deep", "extract_companies"):
                         # Navigate to each company profile and extract their external website
                         try:
                             _debug("extract_company_websites_deep: starting deep extraction")
@@ -1049,13 +1049,33 @@ class PipelineRunner:
                             # We collect rows even when website is empty, so there's no need to scan huge lists.
                             max_profiles_to_check = max(10, min(int(target_websites), 25))
                             if isinstance(company_links, list):
-                                max_profiles_to_check = min(max_profiles_to_check, len(company_links))
+                                console_wrapper.print(f"🔍 Found {len(company_links)} company profiles to check", language="text")
 
-                            # Hard time budget for this action (prevents missing save_to_csv due to outer `timeout`).
+                            # Always keep a fast fallback list of profile URLs.
+                            # Oferteo often doesn't expose external websites publicly; in that case we still want
+                            # to save >= max_companies profile URLs.
+                            profile_fallback: list[dict[str, str]] = []
+                            for company in company_links[:max_companies]:
+                                try:
+                                    name = str(company.get("name", "")).strip()
+                                    href = str(company.get("href", "")).strip()
+                                    if not href:
+                                        continue
+                                    if not href.startswith("http"):
+                                        from urllib.parse import urljoin
+                                        href = urljoin(base_url, href)
+                                    profile_fallback.append({"name": name, "oferteo_url": href, "website": ""})
+                                except Exception:
+                                    continue
+
+                            # Visit a small probe set of profiles and try to extract external websites.
+                            # (If this succeeds, save_to_file will write websites; otherwise it will write profile URLs.)
+                            target_websites = max_companies
                             action_deadline = time.time() + 85.0
                             checked = 0
+                            probe_profiles = min(max_profiles_to_check, max_companies)
 
-                            for idx, company in enumerate(company_links[:max_profiles_to_check], 1):
+                            for idx, company in enumerate(company_links[:probe_profiles], 1):
                                 try:
                                     if time.time() >= action_deadline:
                                         _debug("extract_company_websites_deep: time budget exceeded; stopping early")
@@ -1209,6 +1229,15 @@ class PipelineRunner:
                                 except Exception as e:
                                     _debug(f"Error processing company: {e}")
                                     continue
+
+                            # If we didn't find any real websites, fall back to the listing profile URLs.
+                            # This guarantees that downstream save_to_file can write >= max_companies entries.
+                            try:
+                                real_websites_cnt = len([c for c in companies_data if str(c.get("website") or "").strip()])
+                            except Exception:
+                                real_websites_cnt = 0
+                            if real_websites_cnt == 0 and profile_fallback:
+                                companies_data = profile_fallback
 
                             _debug(f"extract_company_websites_deep: extracted {len(companies_data)} companies with websites")
 

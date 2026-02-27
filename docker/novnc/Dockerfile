@@ -38,12 +38,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-liberation fonts-dejavu-core \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Playwright + nlp2cmd dependencies
-RUN pip3 install --no-cache-dir --break-system-packages \
+# Create virtual environment for Python packages (Ubuntu 22.04 has Python 3.10,
+# which doesn't support --break-system-packages flag)
+RUN python3 -m venv /home/nlp2cmd/venv && \
+    /home/nlp2cmd/venv/bin/pip install --no-cache-dir \
     playwright click rich python-dotenv pyyaml
 
 # Install Playwright browsers
-RUN python3 -m playwright install --with-deps chromium
+RUN /home/nlp2cmd/venv/bin/python -m playwright install --with-deps chromium
 
 # Create non-root user
 RUN useradd -m -s /bin/bash nlp2cmd && \
