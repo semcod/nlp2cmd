@@ -155,6 +155,11 @@ class RuleBasedPipeline:
                 and any(w in text_lower for w in ["klucz", "key", "api", "token"])
             )
 
+            wants_existing_firefox = (
+                ("firefox" in text_lower)
+                and any(p in text_lower for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"])
+            )
+
             browser_phrases = [
                 r"otw[oó]rz\s+przegl[aą]dark",
                 r"uruchom\s+przegl[aą]dark",
@@ -178,7 +183,7 @@ class RuleBasedPipeline:
         
         try:
             # ═══ LAYER 0: Multi-Step Schema Cache ═══
-            if self.evolutionary_cache and (not force_single_step_browser):
+            if self.evolutionary_cache and (not force_single_step_browser) and (not wants_existing_firefox):
                 cached_plan = self.evolutionary_cache.lookup_multistep(text)
                 if cached_plan:
                     # Safety/compatibility: ignore stale cached plans for API-key workflows

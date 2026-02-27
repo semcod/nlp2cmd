@@ -5,6 +5,7 @@ import os
 import re
 import shlex
 import subprocess
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -1849,6 +1850,106 @@ class PipelineRunner:
         if not isinstance(text, str) or not text.strip():
             return None
 
+    def _execute_desktop_plan_step(self, step, variables: dict) -> Optional[str]:
+        """Execute an ActionPlan step via local desktop automation (wmctrl/xdotool)."""
+        params = self._resolve_plan_variables(getattr(step, "params", {}) or {}, variables)
+        action = str(getattr(step, "action", "") or "")
+
+        def _need_tool(name: str) -> None:
+            if shutil.which(name) is None:
+                raise ValueError(f"Missing required desktop tool: {name}")
+
+        if action == "desktop_focus_app":
+            title = str(params.get("title") or "Firefox")
+            # Prefer wmctrl, but fall back to xdotool (often installed even when wmctrl isn't)
+            if shutil.which("wmctrl") is not None:
+                subprocess.run(["wmctrl", "-a", title], check=True)
+                return None
+
+            _need_tool("xdotool")
+            # Try by window name/class; activate first match. If not found, continue (non-fatal).
+            candidates = [
+                ("--name", title),
+                ("--name", "Mozilla Firefox"),
+                ("--class", title),
+                ("--class", "firefox"),
+                ("--class", "Navigator"),
+            ]
+            win_id = ""
+            for flag, value in candidates:
+                try:
+                    out = subprocess.check_output(
+                        ["xdotool", "search", "--onlyvisible", flag, value],
+                        stderr=subprocess.DEVNULL,
+                        text=True,
+                    )
+                    win_id = (out.strip().splitlines() or [""])[0].strip()
+                    if win_id:
+                        break
+                except Exception:
+                    continue
+
+            if win_id:
+                subprocess.run(["xdotool", "windowactivate", "--sync", win_id], check=True)
+            else:
+                _debug(f"desktop_focus_app: could not find visible window for '{title}', continuing")
+            return None
+
+        if action == "desktop_shortcut":
+            _need_tool("xdotool")
+            keys = str(params.get("keys") or "").strip() or "ctrl+t"
+            subprocess.run(["xdotool", "key", keys], check=True)
+            return None
+
+        if action == "desktop_key":
+            _need_tool("xdotool")
+            key = str(params.get("key") or "Return").strip() or "Return"
+            subprocess.run(["xdotool", "key", key], check=True)
+            return None
+
+        if action == "desktop_type":
+            _need_tool("xdotool")
+            txt = str(params.get("text") or "")
+            if not txt.strip():
+                return None
+            subprocess.run(["xdotool", "type", "--delay", "20", txt], check=True)
+            return None
+
+        if action == "desktop_wait":
+            ms = int(params.get("ms", 500))
+            time.sleep(max(ms, 0) / 1000.0)
+            return None
+
+        # Reuse safe non-desktop steps
+        if action == "echo":
+            _debug(str(params.get("message", "") or params.get("text", "")))
+            return None
+
+        if action == "prompt_secret":
+            # Delegate to existing safe prompt handler via the normal executor
+            class _Tmp:
+                pass
+
+            tmp_step = _Tmp()
+            tmp_step.action = "prompt_secret"
+            tmp_step.params = params
+            tmp_step.store_as = getattr(step, "store_as", None)
+            tmp_step.retry_on_fail = getattr(step, "retry_on_fail", False)
+            return self._execute_plan_step(page=None, context=None, step=tmp_step, variables=variables)
+
+        if action == "save_env":
+            class _Tmp:
+                pass
+
+            tmp_step = _Tmp()
+            tmp_step.action = "save_env"
+            tmp_step.params = params
+            tmp_step.store_as = getattr(step, "store_as", None)
+            tmp_step.retry_on_fail = getattr(step, "retry_on_fail", False)
+            return self._execute_plan_step(page=None, context=None, step=tmp_step, variables=variables)
+
+        raise ValueError(f"Unsupported desktop plan action: {action}")
+
         raw = text.strip()
         m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL | re.IGNORECASE)
         if m:
@@ -1937,6 +2038,13 @@ class PipelineRunner:
 
         console = Console()
 
+        try:
+            has_desktop_steps = any(
+                str(getattr(s, "action", "")).startswith("desktop_") for s in (plan.steps or [])
+            )
+        except Exception:
+            has_desktop_steps = False
+
         console.print(f"\n[bold]🎯 Plan wykonania ({len(plan.steps)} kroków):[/bold]")
         for i, step in enumerate(plan.steps, 1):
             console.print(f"  {i}. {step.description or step.action}")
@@ -1946,6 +2054,60 @@ class PipelineRunner:
                 success=True, kind="action_plan",
                 data={"dry_run": True, "steps": [s.to_dict() for s in plan.steps]},
             )
+
+        if has_desktop_steps:
+            variables: dict[str, str] = {}
+            results_log: list[dict] = []
+
+            try:
+                for i, step in enumerate(plan.steps):
+                    step_desc = step.description or step.action
+                    console.print(f"\n[cyan]▸ Krok {i+1}/{len(plan.steps)}:[/cyan] {step_desc}")
+
+                    try:
+                        result = self._execute_desktop_plan_step(step, variables)
+                        if step.store_as and result:
+                            variables[step.store_as] = result
+                            console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
+                        else:
+                            console.print(f"  [green]✓[/green] OK")
+
+                        results_log.append({
+                            "step": i + 1,
+                            "action": step.action,
+                            "status": "ok",
+                            "stored": step.store_as,
+                        })
+
+                    except Exception as e:
+                        console.print(f"  [red]✗[/red] Błąd: {e}")
+                        results_log.append({
+                            "step": i + 1,
+                            "action": step.action,
+                            "status": "error",
+                            "error": str(e),
+                        })
+
+                        if step.retry_on_fail:
+                            console.print(f"  [yellow]↻[/yellow] Retry...")
+                            time.sleep(1)
+                            try:
+                                result = self._execute_desktop_plan_step(step, variables)
+                                if step.store_as and result:
+                                    variables[step.store_as] = result
+                                console.print(f"  [green]✓[/green] Retry OK")
+                                results_log[-1]["status"] = "ok_retry"
+                            except Exception as e2:
+                                console.print(f"  [red]✗[/red] Retry failed: {e2}")
+                                results_log[-1]["status"] = "failed"
+
+                return RunnerResult(
+                    success=all(r["status"] != "failed" for r in results_log),
+                    kind="action_plan",
+                    data={"steps": results_log, "variables": variables, "mode": "desktop"},
+                )
+            except Exception as e:
+                return RunnerResult(success=False, kind="action_plan", error=str(e))
 
         try:
             from playwright.sync_api import sync_playwright
@@ -2213,7 +2375,7 @@ class PipelineRunner:
                 submit.click()
 
         elif action == "echo":
-            _debug(params.get("message", ""))
+            _debug(params.get("message", "") or params.get("text", ""))
 
         return None
 

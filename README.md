@@ -193,6 +193,22 @@ nlp2cmd -r "otwórz https://www.prototypowanie.pl/kontakt/ i wypełnij formularz
 
 # Manage interaction history
 nlp2cmd web-schema history --stats
+
+# Multi-step: use existing Firefox window, open new tab, and save OpenRouter key to .env
+nlp2cmd -r "owtorz tab w już otwartym oknie przegladarki firefox wyciągnij klucz API z OpenRouter i zapisz do .env"
+```
+
+Expected multi-step plan for the command above:
+
+```yaml
+status: multistep_plan_detected
+intent: rule_decomposer
+steps:
+  - new_tab
+  - navigate
+  - echo
+  - prompt_secret
+  - save_env
 ```
 
 ### 🏢 Deep Company Extraction (NEW!)
@@ -312,6 +328,7 @@ curl -X POST http://localhost:8000/query \
 nlp2cmd cache info          # Show cache status
 nlp2cmd cache auto-setup    # Install and configure
 nlp2cmd cache clear         # Clear cache if needed
+nlp2cmd cache full-clear --yes  # Clear full NLP2CMD cache (runtime + external + schema)
 ```
 
 ## 🏗️ Architecture Overview
