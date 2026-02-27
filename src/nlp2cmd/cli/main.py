@@ -200,8 +200,12 @@ if not hasattr(click, 'Group'):
     "log_dir",
     default=None,
     type=click.Path(),
-    help="Directory for session logs with screenshots (used with --source)",
+    help="Directory for session logs (used with --source)",
 )
+@click.option("--screenshot", "do_screenshot", is_flag=True, help="Save screenshot after --source action (PNG to --log-dir)")
+@click.option("--video", "video_fmt", default=None, type=click.Choice(["mp4", "webm"]), help="Record short video of --source action")
+@click.option("--duration", "video_duration", default=3, type=int, help="Video duration in seconds (default: 3)")
+@click.option("--md", "do_md", is_flag=True, help="Generate Markdown log with inline thumbnails for --source action")
 @click.option("-v", "--version", is_flag=True, help="Show version information")
 @click.option("--verbose", is_flag=True, help="Enable verbose debug output")
 @click.pass_context
@@ -223,6 +227,10 @@ def main(
     auto_install: bool,
     source_uri: Optional[str],
     log_dir: Optional[str],
+    do_screenshot: bool,
+    video_fmt: Optional[str],
+    video_duration: int,
+    do_md: bool,
     version: bool,
     verbose: bool,
 ):
@@ -269,13 +277,15 @@ def main(
             from nlp2cmd.streams import StreamRouter
             router = StreamRouter()
 
-            # Session logging with screenshots
+            # Determine output directory
+            _out = Path(log_dir) if log_dir else Path(".")
+            _out.mkdir(parents=True, exist_ok=True)
+
+            # Session logging with screenshots (--md or --log-dir)
             logger = None
-            if log_dir:
+            if do_md or log_dir:
                 from nlp2cmd.cli.session_logger import SessionLogger
-                _ld = Path(log_dir)
-                _ld.mkdir(parents=True, exist_ok=True)
-                logger = SessionLogger("session", output_dir=_ld, thumbnail_width=256)
+                logger = SessionLogger("session", output_dir=_out, thumbnail_width=256)
                 logger.start(f"nlp2cmd --source {source_uri}", description=query)
 
             if run:
@@ -291,6 +301,63 @@ def main(
                 from nlp2cmd.cli.helpers import print_yaml_block
                 print_yaml_block(result.data, console=console)
 
+            # --screenshot: save PNG
+            if do_screenshot and result.screenshot:
+                png_path = _out / "screenshot.png"
+                png_path.write_bytes(result.screenshot)
+                console.print(f"Screenshot: {png_path}")
+            elif do_screenshot and not result.screenshot:
+                # Try to get screenshot from adapter
+                try:
+                    adapter = router.get_adapter(source_uri)
+                    shot = adapter.screenshot()
+                    if shot:
+                        png_path = _out / "screenshot.png"
+                        png_path.write_bytes(shot)
+                        console.print(f"Screenshot: {png_path}")
+                        result.screenshot = shot
+                except Exception:
+                    pass
+
+            # --video: record short video via adapter (visual streams)
+            if video_fmt:
+                try:
+                    adapter = router.get_adapter(source_uri)
+                    if hasattr(adapter, '_page') and adapter._page:
+                        vid_path = _out / f"recording.{video_fmt}"
+                        page = adapter._page
+                        import time as _t
+                        frames = []
+                        end_t = _t.time() + video_duration
+                        while _t.time() < end_t:
+                            frames.append(page.screenshot())
+                            page.wait_for_timeout(200)
+                        # Save as animated sequence (simple approach: save frames + convert)
+                        for i, f in enumerate(frames):
+                            (_out / f"frame_{i:04d}.png").write_bytes(f)
+                        console.print(f"Captured {len(frames)} frames ({video_duration}s) → {_out}/frame_*.png")
+                        # Try ffmpeg conversion
+                        import subprocess as _sp
+                        try:
+                            _sp.run([
+                                "ffmpeg", "-y", "-framerate", "5",
+                                "-i", str(_out / "frame_%04d.png"),
+                                "-c:v", "libx264" if video_fmt == "mp4" else "libvpx",
+                                "-pix_fmt", "yuv420p",
+                                str(vid_path),
+                            ], capture_output=True, timeout=30)
+                            # Cleanup frames
+                            for fp in _out.glob("frame_*.png"):
+                                fp.unlink()
+                            console.print(f"Video: {vid_path}")
+                        except Exception:
+                            console.print(f"Frames saved (install ffmpeg for {video_fmt} conversion)")
+                    else:
+                        console.print(f"[yellow]--video requires a visual stream (vnc/novnc/spice/rdp)[/yellow]")
+                except Exception as e:
+                    console.print(f"[yellow]Video capture failed: {e}[/yellow]")
+
+            # --md: generate markdown log
             if logger:
                 logger.step(
                     query,

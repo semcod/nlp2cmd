@@ -815,11 +815,77 @@ class PipelineRunner:
                                         pass
 
                                 if not fields:
+                                    # Graceful fallback: some sites have a "Kontakt" page but no contact form
+                                    # (only a site-wide search form). In that case, extract contact info instead
+                                    # of failing hard.
+                                    contact_info: dict[str, object] = {"mailto": [], "tel": [], "emails": [], "phones": []}
+                                    try:
+                                        contact_info = page.evaluate(r"""() => {
+                                            const mailto = Array.from(document.querySelectorAll('a[href^="mailto:"]'))
+                                                .map(a => (a.getAttribute('href') || '').trim())
+                                                .filter(Boolean);
+                                            const tel = Array.from(document.querySelectorAll('a[href^="tel:"]'))
+                                                .map(a => (a.getAttribute('href') || '').trim())
+                                                .filter(Boolean);
+
+                                            const text = (document.body && (document.body.innerText || document.body.textContent)) ? (document.body.innerText || document.body.textContent) : '';
+
+                                            const emails = [];
+                                            const emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+                                            let m;
+                                            while ((m = emailRe.exec(text)) !== null) {
+                                                emails.push(m[0]);
+                                                if (emails.length >= 20) break;
+                                            }
+
+                                            const phones = [];
+                                            const phoneRe = /\b(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{2,4}\)?[\s.-]?)?\d{2,4}[\s.-]?\d{2,4}[\s.-]?\d{2,4}\b/g;
+                                            let p;
+                                            while ((p = phoneRe.exec(text)) !== null) {
+                                                const cand = (p[0] || '').trim();
+                                                if (!cand) continue;
+                                                // Keep only plausible lengths
+                                                const digits = cand.replace(/\D/g, '');
+                                                if (digits.length < 7 || digits.length > 15) continue;
+                                                phones.push(cand);
+                                                if (phones.length >= 20) break;
+                                            }
+
+                                            const uniq = (arr) => Array.from(new Set(arr));
+                                            return {
+                                                mailto: uniq(mailto),
+                                                tel: uniq(tel),
+                                                emails: uniq(emails),
+                                                phones: uniq(phones),
+                                            };
+                                        }""")
+                                    except Exception:
+                                        contact_info = {"mailto": [], "tel": [], "emails": [], "phones": []}
+
+                                    try:
+                                        console_wrapper.print(
+                                            yaml.safe_dump(
+                                                {
+                                                    "status": "no_contact_form_fallback_contact_info",
+                                                    "url": str(page.url or url),
+                                                    "contact_info": contact_info,
+                                                },
+                                                sort_keys=False,
+                                                allow_unicode=True,
+                                            ).rstrip(),
+                                            language="yaml",
+                                        )
+                                    except Exception:
+                                        pass
+
                                     return RunnerResult(
-                                        success=False,
+                                        success=True,
                                         kind="dom",
-                                        error="No form fields detected on the current page (contact form not found).",
-                                        data={"url": url},
+                                        data={
+                                            "url": str(page.url or url),
+                                            "contact_info": contact_info,
+                                            "note": "No contact form detected; extracted contact info instead.",
+                                        },
                                     )
                             
                             # Optional screenshot after form interaction (only if not in auto-confirm mode)
