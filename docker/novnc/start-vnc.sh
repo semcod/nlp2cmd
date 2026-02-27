@@ -1,22 +1,29 @@
 #!/bin/bash
 # Start VNC server + noVNC websocket proxy
-set -e
+
+echo "=== NLP2CMD Desktop Environment ==="
+echo "User: $(whoami) | Home: $HOME"
 
 # Create VNC password
-mkdir -p ~/.vnc
-echo "$VNC_PASSWORD" | vncpasswd -f > ~/.vnc/passwd
-chmod 600 ~/.vnc/passwd
+mkdir -p "$HOME/.vnc" || true
+echo "$VNC_PASSWORD" | vncpasswd -f > "$HOME/.vnc/passwd"
+chmod 600 "$HOME/.vnc/passwd"
 
 # Create xstartup
-cat > ~/.vnc/xstartup << 'EOF'
+cat > "$HOME/.vnc/xstartup" << 'XEOF'
 #!/bin/bash
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-exec startxfce4 &
-EOF
-chmod +x ~/.vnc/xstartup
+startxfce4
+XEOF
+chmod +x "$HOME/.vnc/xstartup"
+
+# Kill any existing VNC server on :1
+vncserver -kill :1 2>/dev/null || true
+sleep 1
 
 # Start VNC server
+echo "Starting VNC server on :1 (${VNC_RESOLUTION})..."
 vncserver :1 \
     -geometry "$VNC_RESOLUTION" \
     -depth 24 \
@@ -25,16 +32,23 @@ vncserver :1 \
 
 echo "VNC server started on :1 (port $VNC_PORT)"
 
+# Wait for VNC to be ready
+sleep 2
+
 # Start noVNC websocket proxy
+echo "Starting noVNC websocket proxy on port $NOVNC_PORT..."
 websockify --web=/usr/share/novnc/ \
     "$NOVNC_PORT" \
     "localhost:$VNC_PORT" &
 
-echo "noVNC started on http://0.0.0.0:$NOVNC_PORT"
-echo "VNC password: $VNC_PASSWORD"
+echo ""
+echo "=== Ready ==="
+echo "noVNC:  http://0.0.0.0:$NOVNC_PORT/vnc.html?autoconnect=true&password=$VNC_PASSWORD"
+echo "VNC:    localhost:$VNC_PORT (password: $VNC_PASSWORD)"
+echo ""
 
-# Start video recording in background (for demo)
-mkdir -p /home/nlp2cmd/recordings
+# Ensure recordings dir exists
+mkdir -p "$HOME/recordings" || true
 
 # Keep container running
-tail -f /dev/null
+exec tail -f /dev/null

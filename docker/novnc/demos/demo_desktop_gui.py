@@ -98,9 +98,38 @@ def run_demo(*, record: bool = False, headless: bool = False, novnc_url: str = "
         )
         page = context.new_page()
 
-        # Connect to noVNC
+        # Connect to noVNC with retry
         print(f"\n[1/6] Connecting to noVNC at {novnc_url}...")
-        page.goto(f"{novnc_url}/vnc.html?autoconnect=true&password=nlp2cmd", wait_until="load")
+        vnc_page = f"{novnc_url}/vnc.html?autoconnect=true&password=nlp2cmd"
+        connected = False
+        for attempt in range(1, 11):
+            try:
+                page.goto(vnc_page, wait_until="load", timeout=8000)
+                connected = True
+                break
+            except Exception as e:
+                err = str(e)
+                if "ERR_CONNECTION_REFUSED" in err or "net::" in err:
+                    if attempt == 1:
+                        print(f"  Container not ready yet, retrying ({attempt}/10)...")
+                    else:
+                        print(f"  Retry {attempt}/10...")
+                    time.sleep(3)
+                else:
+                    print(f"  Connection error: {e}")
+                    break
+
+        if not connected:
+            print("\n  ERROR: Could not connect to noVNC.")
+            print("  Make sure the container is running:")
+            print("    docker compose -f docker/novnc/docker-compose.yml up -d")
+            print("    docker logs nlp2cmd-desktop --tail 10")
+            context.close()
+            browser.close()
+            if record:
+                stop_recording()
+            return
+
         page.wait_for_timeout(3000)
 
         # Wait for VNC canvas to appear

@@ -641,6 +641,44 @@ class PipelineRunner:
                                 # Fallback: simple heuristic - try to navigate to contact page
                                 if not fields:
                                     try:
+                                        # First try direct contact URLs (many sites hide menu items behind a hamburger).
+                                        try:
+                                            from urllib.parse import urljoin
+                                            base = str(page.url or url)
+                                        except Exception:
+                                            base = str(url)
+
+                                        direct_paths = [
+                                            "/kontakt",
+                                            "/kontakt/",
+                                            "/kontakt.html",
+                                            "/kontakt.php",
+                                            "/kontakt-i-dane",
+                                            "/contact",
+                                            "/contact/",
+                                        ]
+
+                                        for pth in direct_paths:
+                                            if fields:
+                                                break
+                                            try:
+                                                cand_url = urljoin(base, pth)
+                                                page.goto(cand_url, wait_until="domcontentloaded", timeout=12000)
+                                                page.wait_for_timeout(1200)
+                                                self._dismiss_popups(page, schema_loader)
+
+                                                fields = form_handler.detect_form_fields(page)
+                                                detected_form_fields = fields
+                                                fields = _filter_form_fields(fields, console_wrapper)
+                                                detected_form_fields = fields
+                                            except Exception:
+                                                continue
+
+                                        if fields:
+                                            clicked = True
+                                        else:
+                                            clicked = False
+
                                         candidates = [
                                             'a[href*="kontakt" i]',
                                             'a:has-text("Kontakt")',
@@ -648,18 +686,19 @@ class PipelineRunner:
                                             'a:has-text("Contact")',
                                             'a[href*="contact" i]',
                                         ]
-                                        clicked = False
-                                        for sel in candidates:
-                                            try:
-                                                loc = page.locator(sel).first
-                                                if loc.count() > 0:
-                                                    loc.click(timeout=1500)
-                                                    page.wait_for_load_state("domcontentloaded", timeout=8000)
-                                                    page.wait_for_timeout(1200)
-                                                    clicked = True
-                                                    break
-                                            except Exception:
-                                                continue
+
+                                        if not clicked:
+                                            for sel in candidates:
+                                                try:
+                                                    loc = page.locator(sel).first
+                                                    if loc.count() > 0:
+                                                        loc.click(timeout=1500)
+                                                        page.wait_for_load_state("domcontentloaded", timeout=8000)
+                                                        page.wait_for_timeout(1200)
+                                                        clicked = True
+                                                        break
+                                                except Exception:
+                                                    continue
 
                                         if clicked:
                                             console_wrapper.print("🔁 Retrying form field detection after navigating...", language="text")
