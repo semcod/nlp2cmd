@@ -1,0 +1,53 @@
+# Browser automation selectors — single source of truth
+# Used by: BrowserConfigLoader, SiteExplorer, FormDataLoader, PipelineRunner
+
+dismiss_popups:
+  # Cookie consent / popup dismissal selectors (priority order)
+  - "button:has-text('Accept all')"
+  - "button:has-text('Akceptuj wszystko')"
+  - "button:has-text('Zaakceptuj')"
+  - "button:has-text('Accept')"
+  - "button:has-text('Zgadzam się')"
+  - "button:has-text('Zgadzam sie')"
+  - "button:has-text('I agree')"
+  - "button:has-text('OK')"
+  - "button[aria-label*='Accept']"
+  - "button[aria-label*='Akceptuj']"
+  - "button[id*='accept']"
+  - "button[id*='consent']"
+  - "[data-testid='cookie-accept']"
+  - ".cookie-accept"
+  - "#onetrust-accept-btn-handler"
+  - "#L2AGLb"
+
+submit_form:
+  - "button[type='submit']"
+  - "input[type='submit']"
+  - "button:has-text('Wyślij')"
+  - "button:has-text('Send')"
+  - "button:has-text('Submit')"
+  - "button:has-text('Zapisz')"
+
+type_selectors:
+  search:
+    - "input[name='q']"
+    - "input[type='search']"
+    - "textarea[name='q']"
+    - "textarea[aria-label*='Search']"
+    - "textarea[aria-label*='Szukaj']"
+    - "input[aria-label*='Search']"
+    - "input[aria-label*='Szukaj']"
+    - "textarea"
+    - "input[type='text']"
+  generic:
+    - "textarea"
+    - "input[type='text']"
+    - "input"
+
+contact_page_links:
+  # Selectors for finding contact page navigation links
+  - 'a[href*="kontakt" i]'
+  - 'a:has-text("Kontakt")'
+  - 'a:has-text("Kontakt") >> visible=true'
+  - 'a:has-text("Contact")'
+  - 'a[href*="contact" i]'

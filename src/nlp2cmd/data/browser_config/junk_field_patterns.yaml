@@ -1,0 +1,60 @@
+# Junk field detection patterns for form filtering
+# Used by: _is_junk_field(), _is_contact_relevant_field() in pipeline_runner_utils.py
+
+# Fields matching these patterns are excluded from contact forms
+junk_indicators:
+  field_types:
+    - "search"
+  
+  exact_names:
+    - "s"
+    - "q"
+    - "search"
+    - "query"
+    - "comment"
+    - "author"
+    - "url"
+    - "wp-comment-cookies-consent"
+  
+  substring_matches:
+    - "search"
+    - "szukaj"
+    - "wyszuki"
+    - "cookie"
+    - "consent"
+    - "captcha"
+    - "recaptcha"
+    - "g-recaptcha"
+    - "hcaptcha"
+    - "comment"
+    - "cleantalk"
+  
+  prefix_matches:
+    - "cky"
+    - "cmplz"
+    - "apbct__"
+
+# Fields matching these patterns are recognized as contact form fields
+contact_indicators:
+  field_types:
+    - "email"
+    - "tel"
+  
+  allowed_field_types:
+    - "text"
+    - "textarea"
+    - "email"
+    - "tel"
+  
+  tokens:
+    - "email"
+    - "e-mail"
+    - "mail"
+    - "telefon"
+    - "phone"
+    - "wiadomo"
+    - "message"
+    - "imi"
+    - "name"
+    - "temat"
+    - "subject"

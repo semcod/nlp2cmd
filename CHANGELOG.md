@@ -1,3 +1,39 @@
+## [1.0.88] - 2026-02-27
+
+### Summary
+
+refactor(sprint4): schema_based → generation/schema, pipeline_runner utils extraction, cleanup
+
+### Refactoring
+
+- **Move `schema_based/` → `generation/schema/`** (Sprint 4 roadmap):
+  - `generation/schema/__init__.py`, `generator.py`, `adapter.py` — canonical location
+  - `schema_based/` retained as backward-compatible shim (re-exports)
+  - Updated `intelligent/version_aware_generator.py` import
+
+- **Extract `pipeline_runner_utils.py`** from `pipeline_runner.py` (1568 → 1336 lines):
+  - Utility functions: `_debug`, `_with_epipe_retry`, form field filtering helpers
+  - Classes: `_MarkdownConsoleWrapper`, `ShellExecutionPolicy`, `RunnerResult`
+  - All re-exported via `pipeline_runner.py` imports for backward compatibility
+
+### Bug Fixes
+
+- **Fix `pipeline_runner.py` SyntaxError**: unclosed `try` block in `fill_form` action
+  handler caused `expected 'except' or 'finally' block` at `extract_company_websites_deep`
+- **Fix `test_run_mode_sql`**: added missing `no_submit` parameter to match updated
+  `_handle_run_query()` signature
+
+### Cleanup
+
+- Removed debug files from project root: `minimal_test.py`, `debug_test.py`,
+  `debug_test2.py`, `debug_test3.py`
+
+### Tests
+
+- 1141 passed, 0 failed (excluding known Playwright flaky test)
+
+---
+
 ## [1.0.87] - 2026-02-27
 
 ### Summary

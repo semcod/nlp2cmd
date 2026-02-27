@@ -132,6 +132,28 @@ analiza wymaga odwrócenia priorytetów:
 
 ---
 
+## ✅ Ukończone — Sprint 4c (2026-02-27)
+
+### Move `schema_based/` → `generation/schema/`
+- [x] `generation/schema/__init__.py`, `generator.py`, `adapter.py` — canonical location
+- [x] `schema_based/` → backward-compatible shim (re-exports)
+- [x] Updated `intelligent/version_aware_generator.py` import
+
+### Extract `pipeline_runner_utils.py` (1568 → 1336 lines)
+- [x] `_debug`, `_with_epipe_retry`, form field filtering helpers
+- [x] `_MarkdownConsoleWrapper`, `ShellExecutionPolicy`, `RunnerResult`
+- [x] All re-exported via `pipeline_runner.py` imports
+
+### Bug Fixes
+- [x] Fix `pipeline_runner.py` SyntaxError (unclosed `try` in `fill_form`)
+- [x] Fix `test_run_mode_sql` (missing `no_submit` parameter)
+
+### Cleanup
+- [x] Removed debug files from root: `minimal_test.py`, `debug_test*.py`
+- [x] Testy: 1141 passed, 0 failed
+
+---
+
 ## 🚀 High Priority (Sprint 4) — Schema-First Pipeline
 
 ### Architektura docelowa
@@ -158,7 +180,7 @@ User Query
 ```
 
 ### Zadania
-- [ ] Przenieś `schema_based/` do `generation/schema/` (bliskość z pipeline)
+- [x] ~~Przenieś `schema_based/` do `generation/schema/`~~ ✅ Sprint 4c (2026-02-27)
 - [ ] Zintegruj `intelligent/` z pipeline jako pre-processing
 - [ ] Dodaj `SchemaRegistry.match(query)` jako pierwszy krok w `RuleBasedPipeline.process()`
 - [x] ~~Split `cli/main.py` (~1900 ln) → modularny pakiet cli/~~ ✅ Sprint 4b (2026-02-27)
