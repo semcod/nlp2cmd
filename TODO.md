@@ -1,8 +1,29 @@
 # TODO - NLP2CMD Project
 
-> **Diagnostyka:** 2026-02-26 | **Wersja:** 1.0.82 | **Moduły:** ~115 | **Indeks funkcji:** ~1400+
+> **Diagnostyka:** 2026-02-27 | **Wersja:** 1.0.87 | **Moduły:** ~115 | **Indeks funkcji:** ~1400+
 >
-> Źródło analizy: `project.toon` (2026-02-26)
+> Źródło analizy: `project.toon` (2026-02-27)
+
+---
+
+## ✅ Ukończone — Oferteo.pl Deep Extraction (2026-02-27)
+
+### Browser Automation Features
+- [x] **Deep Company Extraction** (`extract_company_websites_deep`)
+  - [x] Navigate to each company profile from catalog
+  - [x] Extract external website URLs (filter social media)
+  - [x] Return structured data: name, oferteo_url, website
+- [x] **CSV Export** (`save_to_csv`)
+  - [x] Auto-detect columns from data
+  - [x] UTF-8 encoding with headers
+- [x] **Form Field Filtering** (PipelineRunner)
+  - [x] `_filter_form_fields()` - filters junk/comment forms
+  - [x] `_is_junk_field()` - excludes search/cookie/captcha
+  - [x] `_is_contact_relevant_field()` - contact form detection
+- [x] **Intent Detection Fixes** (BrowserAdapter, run.py)
+  - [x] Expanded keywords for deep extraction (plural forms)
+  - [x] Auto-detect CSV from filename extension
+  - [x] Save detection without explicit "plik" keyword
 
 ---
 

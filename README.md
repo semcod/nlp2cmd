@@ -195,6 +195,30 @@ nlp2cmd -r "otwórz https://www.prototypowanie.pl/kontakt/ i wypełnij formularz
 nlp2cmd web-schema history --stats
 ```
 
+### 🏢 Deep Company Extraction (NEW!)
+
+Extract company data from business directories (e.g., Oferteo.pl) and save to CSV:
+
+```bash
+# Extract company websites from Oferteo catalog and save to CSV
+nlp2cmd -r "wejdź na https://www.oferteo.pl/katalog-firm, znajdź strony www firm i zapisz do firmy.csv"
+# → 🔍 Found 25 company profiles to check
+# → ✓ Extracted 20 companies with websites
+# → 💾 Saved 20 entries to CSV: /home/user/firmy.csv
+
+# Find companies from specific city and save to text file
+nlp2cmd -r "Otwórz przeglądarkę i wejdź na https://www.oferteo.pl. Przeszukaj katalog firm w poszukiwaniu stron www firm z Gdańska. Znajdź co najmniej 20 firm i zapisz ich adresy internetowe do pliku oferteo_firmy.txt"
+# → 🔍 Found 20 company profiles to check  
+# → 💾 Saved 20 entries to file: /home/user/oferteo_firmy.txt
+```
+
+**Features:**
+- **Deep extraction** - Navigates to each company profile page
+- **Website discovery** - Finds external company websites (filters out social media)
+- **CSV export** - Structured data with name, Oferteo URL, and website
+- **Text export** - Simple list format for further processing
+- **Form filtering** - Automatically ignores search/cookie/comment forms
+
 ### 🔍 Exploration System (NEW!)
 
 Automatic resource discovery when commands fail - searches for missing files, directories, API endpoints, and web content:
@@ -376,6 +400,7 @@ nlp2cmd "szukaj na amazon python books"
 - 👤 **User Operations**: Username-specific directory operations
 - 📦 **Package Management**: APT installation with Polish variants
 - 🌐 **Web Automation**: Google, GitHub, Amazon search integration
+- 🏢 **Deep Company Extraction**: Navigate business directories, extract external websites, export to CSV
 - 🚀 **Service Mode**: HTTP API with FastAPI + Pydantic for integration
 - ⚡ **Real-time Processing**: Sub-second command generation
 - 🛡️ **Safety Validation**: Command safety checks and confirmation

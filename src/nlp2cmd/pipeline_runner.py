@@ -638,6 +638,26 @@ class PipelineRunner:
             ctx_opts = schema_loader.get_browser_context_options()
 
             context = browser.new_context(**ctx_opts)
+
+            # Strategy 2: Block heavy resources (images, fonts, video) for speed
+            try:
+                _BLOCKED = (
+                    "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg",
+                    "**/*.webp", "**/*.ico", "**/*.bmp", "**/*.tiff",
+                    "**/*.woff", "**/*.woff2", "**/*.ttf", "**/*.eot",
+                    "**/*.mp4", "**/*.webm", "**/*.ogg", "**/*.mp3",
+                )
+                def _abort_heavy(route):
+                    try:
+                        route.abort()
+                    except Exception:
+                        pass
+                for pat in _BLOCKED:
+                    context.route(pat, _abort_heavy)
+                _debug("Resource blocking enabled in pipeline_runner")
+            except Exception:
+                pass
+
             page = context.new_page()
 
             detected_form_fields: list[object] | None = None
@@ -648,12 +668,13 @@ class PipelineRunner:
             try:
                 for i, action_spec in enumerate(actions):
                     action = action_spec.get("action")
+                    _action_t0 = time.perf_counter()
                     _debug(f"action[{i}]: executing '{action}' spec={action_spec}")
                     
                     if action in {"goto", "navigate"}:
                         action_url = action_spec.get("url", url)
                         page.goto(str(action_url), wait_until="domcontentloaded")
-                        page.wait_for_timeout(1000)
+                        page.wait_for_timeout(500)
                         
                         # Try to dismiss common popups/cookie consents
                         self._dismiss_popups(page, schema_loader)
@@ -760,133 +781,10 @@ class PipelineRunner:
                             fields = form_handler.detect_form_fields(page)
                             detected_form_fields = fields
 
-                            def _is_junk_field(f: object) -> bool:
-                                try:
-                                    field_type = str(getattr(f, "field_type", "") or "").strip().lower()
-                                    name = str(getattr(f, "name", "") or "").strip().lower()
-                                    fid = str(getattr(f, "id", "") or "").strip().lower()
-                                    label = str(getattr(f, "label", "") or "").strip().lower()
-                                    placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
-                                except Exception:
-                                    return False
-
-                                hay = " ".join([name, fid, label, placeholder])
-
-                                if field_type == "search":
-                                    return True
-                                if name in {"s", "q", "search", "query"}:
-                                    return True
-                                if "search" in hay or "szukaj" in hay or "wyszuki" in hay:
-                                    return True
-
-                                if "cookie" in hay or "consent" in hay:
-                                    return True
-                                if fid.startswith("cky") or "cky" in hay:
-                                    return True
-                                if fid.startswith("cmplz") or "cmplz" in hay:
-                                    return True
-
-                                if "captcha" in hay or "recaptcha" in hay or "g-recaptcha" in hay or "hcaptcha" in hay:
-                                    return True
-
-                                if name in {"comment", "author", "url", "wp-comment-cookies-consent"}:
-                                    return True
-                                if "comment" in hay:
-                                    return True
-
-                                if name.startswith("apbct__") or "cleantalk" in hay:
-                                    return True
-
-                                return False
-
-                            def _is_contact_relevant_field(f: object) -> bool:
-                                try:
-                                    field_type = str(getattr(f, "field_type", "") or "").strip().lower()
-                                    name = str(getattr(f, "name", "") or "").strip().lower()
-                                    fid = str(getattr(f, "id", "") or "").strip().lower()
-                                    label = str(getattr(f, "label", "") or "").strip().lower()
-                                    placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
-                                except Exception:
-                                    return False
-
-                                if _is_junk_field(f):
-                                    return False
-
-                                if field_type in {"email", "tel"}:
-                                    return True
-                                if field_type not in {"text", "textarea", "email", "tel"}:
-                                    return False
-
-                                hay = " ".join([name, fid, label, placeholder])
-                                contact_tokens = [
-                                    "email",
-                                    "e-mail",
-                                    "mail",
-                                    "telefon",
-                                    "phone",
-                                    "wiadomo",
-                                    "message",
-                                    "imi",
-                                    "name",
-                                    "temat",
-                                    "subject",
-                                ]
-                                return any(t in hay for t in contact_tokens)
-
                             # If the page contains only junk fields (cookie/search/captcha/comments),
                             # treat it as no form found and attempt discovery/navigation.
-                            if fields:
-                                looks_like_comment_form = False
-                                try:
-                                    for f in fields:
-                                        name = str(getattr(f, "name", "") or "").strip().lower()
-                                        fid = str(getattr(f, "id", "") or "").strip().lower()
-                                        sel = str(getattr(f, "selector", "") or "").strip().lower()
-                                        label = str(getattr(f, "label", "") or "").strip().lower()
-                                        placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
-                                        hay = " ".join([name, fid, sel, label, placeholder])
-                                        if "comment" in hay or name in {"author", "email", "url"}:
-                                            looks_like_comment_form = True
-                                            break
-                                except Exception:
-                                    looks_like_comment_form = False
-
-                                if looks_like_comment_form:
-                                    try:
-                                        console_wrapper.print(
-                                            yaml.safe_dump(
-                                                {
-                                                    "status": "form_fields_ignored_as_comment_form",
-                                                    "detected_count": int(len(fields)),
-                                                },
-                                                sort_keys=False,
-                                                allow_unicode=True,
-                                            ).rstrip(),
-                                            language="yaml",
-                                        )
-                                    except Exception:
-                                        pass
-                                    fields = []
-                                    detected_form_fields = []
-
-                                contact_like = [f for f in fields if _is_contact_relevant_field(f)]
-                                if not contact_like:
-                                    try:
-                                        console_wrapper.print(
-                                            yaml.safe_dump(
-                                                {
-                                                    "status": "form_fields_ignored_as_non_contact",
-                                                    "detected_count": int(len(fields)),
-                                                },
-                                                sort_keys=False,
-                                                allow_unicode=True,
-                                            ).rstrip(),
-                                            language="yaml",
-                                        )
-                                    except Exception:
-                                        pass
-                                    fields = []
-                                    detected_form_fields = []
+                            fields = _filter_form_fields(fields, console_wrapper)
+                            detected_form_fields = fields
                             
                             if not fields:
                                 console_wrapper.print("No form fields detected on this page", language="text")
@@ -933,58 +831,8 @@ class PipelineRunner:
                                         fields = form_handler.detect_form_fields(page)
                                         detected_form_fields = fields
 
-                                        if fields:
-                                            looks_like_comment_form = False
-                                            try:
-                                                for f in fields:
-                                                    name = str(getattr(f, "name", "") or "").strip().lower()
-                                                    fid = str(getattr(f, "id", "") or "").strip().lower()
-                                                    sel = str(getattr(f, "selector", "") or "").strip().lower()
-                                                    label = str(getattr(f, "label", "") or "").strip().lower()
-                                                    placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
-                                                    hay = " ".join([name, fid, sel, label, placeholder])
-                                                    if "comment" in hay or name in {"author", "email", "url"}:
-                                                        looks_like_comment_form = True
-                                                        break
-                                            except Exception:
-                                                looks_like_comment_form = False
-
-                                            if looks_like_comment_form:
-                                                try:
-                                                    console_wrapper.print(
-                                                        yaml.safe_dump(
-                                                            {
-                                                                "status": "form_fields_ignored_as_comment_form",
-                                                                "detected_count": int(len(fields)),
-                                                            },
-                                                            sort_keys=False,
-                                                            allow_unicode=True,
-                                                        ).rstrip(),
-                                                        language="yaml",
-                                                    )
-                                                except Exception:
-                                                    pass
-                                                fields = []
-                                                detected_form_fields = []
-
-                                            contact_like = [f for f in fields if _is_contact_relevant_field(f)]
-                                            if not contact_like:
-                                                try:
-                                                    console_wrapper.print(
-                                                        yaml.safe_dump(
-                                                            {
-                                                                "status": "form_fields_ignored_as_non_contact",
-                                                                "detected_count": int(len(fields)),
-                                                            },
-                                                            sort_keys=False,
-                                                            allow_unicode=True,
-                                                        ).rstrip(),
-                                                        language="yaml",
-                                                    )
-                                                except Exception:
-                                                    pass
-                                                fields = []
-                                                detected_form_fields = []
+                                        fields = _filter_form_fields(fields, console_wrapper)
+                                        detected_form_fields = fields
                                 except Exception as e:
                                     console_wrapper.print(f"Site exploration failed: {e}", language="text")
                                     # Fall through to simpler heuristic
@@ -1017,58 +865,8 @@ class PipelineRunner:
                                             fields = form_handler.detect_form_fields(page)
                                             detected_form_fields = fields
 
-                                            if fields:
-                                                looks_like_comment_form = False
-                                                try:
-                                                    for f in fields:
-                                                        name = str(getattr(f, "name", "") or "").strip().lower()
-                                                        fid = str(getattr(f, "id", "") or "").strip().lower()
-                                                        sel = str(getattr(f, "selector", "") or "").strip().lower()
-                                                        label = str(getattr(f, "label", "") or "").strip().lower()
-                                                        placeholder = str(getattr(f, "placeholder", "") or "").strip().lower()
-                                                        hay = " ".join([name, fid, sel, label, placeholder])
-                                                        if "comment" in hay or name in {"author", "email", "url"}:
-                                                            looks_like_comment_form = True
-                                                            break
-                                                except Exception:
-                                                    looks_like_comment_form = False
-
-                                                if looks_like_comment_form:
-                                                    try:
-                                                        console_wrapper.print(
-                                                            yaml.safe_dump(
-                                                                {
-                                                                    "status": "form_fields_ignored_as_comment_form",
-                                                                    "detected_count": int(len(fields)),
-                                                                },
-                                                                sort_keys=False,
-                                                                allow_unicode=True,
-                                                            ).rstrip(),
-                                                            language="yaml",
-                                                        )
-                                                    except Exception:
-                                                        pass
-                                                    fields = []
-                                                    detected_form_fields = []
-
-                                                contact_like = [f for f in fields if _is_contact_relevant_field(f)]
-                                                if not contact_like:
-                                                    try:
-                                                        console_wrapper.print(
-                                                            yaml.safe_dump(
-                                                                {
-                                                                    "status": "form_fields_ignored_as_non_contact",
-                                                                    "detected_count": int(len(fields)),
-                                                                },
-                                                                sort_keys=False,
-                                                                allow_unicode=True,
-                                                            ).rstrip(),
-                                                            language="yaml",
-                                                        )
-                                                    except Exception:
-                                                        pass
-                                                    fields = []
-                                                    detected_form_fields = []
+                                            fields = _filter_form_fields(fields, console_wrapper)
+                                            detected_form_fields = fields
                                     except Exception:
                                         pass
 
@@ -1835,6 +1633,10 @@ class PipelineRunner:
 
                     else:
                         return RunnerResult(success=False, kind="dom", error=f"Action {i}: Unsupported action: {action}")
+
+                    # Strategy 9: Timing metric per action
+                    _action_elapsed = (time.perf_counter() - _action_t0) * 1000
+                    _debug(f"action[{i}] '{action}' completed in {_action_elapsed:.0f}ms")
                 
                 # Keep browser open for a moment to see the result
                 page.wait_for_timeout(2000)

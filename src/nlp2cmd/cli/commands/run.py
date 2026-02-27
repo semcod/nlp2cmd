@@ -13,6 +13,7 @@ Features:
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, Optional
@@ -354,6 +355,7 @@ def handle_run_mode(
     extract_article_keywords = loader.get_nlp_keywords("extract_article")
     extract_companies_keywords = loader.get_nlp_keywords("extract_companies")
     save_to_file_keywords = loader.get_nlp_keywords("save_to_file")
+    save_filename_patterns = loader.get_save_filename_patterns()
 
     query_lower = query.lower()
     has_typing = any(kw in query_lower for kw in typing_keywords)
@@ -361,7 +363,20 @@ def handle_run_mode(
     has_form = any(kw in query_lower for kw in form_keywords)
     has_extract_article = any(kw in query_lower for kw in extract_article_keywords)
     has_extract_companies = any(kw in query_lower for kw in extract_companies_keywords)
-    has_save_to_file = any(kw in query_lower for kw in save_to_file_keywords)
+    has_save_keyword = any(kw in query_lower for kw in save_to_file_keywords)
+    
+    # Also detect save if a filename pattern is found
+    has_save_filename = False
+    for pattern in save_filename_patterns:
+        if re.search(pattern, query, flags=re.IGNORECASE):
+            has_save_filename = True
+            break
+    # Fallback: check for .csv, .txt, .json extensions
+    if not has_save_filename:
+        if re.search(r'[\w._-]+\.(csv|txt|json|md|yaml|yml)', query, flags=re.IGNORECASE):
+            has_save_filename = True
+    
+    has_save_to_file = has_save_keyword or has_save_filename
     
     _verbose_log("Keyword detection results", {
         "has_typing": has_typing,

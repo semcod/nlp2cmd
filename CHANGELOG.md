@@ -1,3 +1,54 @@
+## [1.0.87] - 2026-02-27
+
+### Summary
+
+feat(browser): deep company extraction with external website discovery and CSV export
+
+### Features
+
+- **Deep Company Extraction** (`extract_company_websites_deep`):
+  - Navigates to each company profile from catalog listings
+  - Extracts external website URLs (filters out social media)
+  - Returns structured data with company name, Oferteo URL, and website
+
+- **CSV Export** (`save_to_csv`):
+  - New action for saving extracted data to CSV format
+  - Auto-detects columns from data structure
+  - UTF-8 encoding with proper headers
+
+- **Browser Adapter Enhancements**:
+  - New intent detection for deep website extraction
+  - Expanded keyword lists (plural forms and variants)
+  - Auto-detection of CSV format from filename
+
+- **Form Field Filtering** (PipelineRunner):
+  - `_filter_form_fields()` - filters out junk/comment forms
+  - `_is_junk_field()` - excludes search, cookie, captcha fields
+  - `_is_contact_relevant_field()` - identifies contact form fields
+  - Integrated into form exploration flow
+
+- **Save Detection Fix** (run.py):
+  - Fixed detection to trigger on filename presence (e.g., "firmy.csv")
+  - No longer requires explicit "plik" keyword
+
+### Usage Examples
+
+```bash
+# Extract company websites from Oferteo and save to CSV
+nlp2cmd --run "wejdź na https://www.oferteo.pl/katalog-firm, znajdź strony www firm i zapisz do firmy.csv"
+
+# Find 20 companies from Gdańsk and save to text file
+nlp2cmd --run "Otwórz przeglądarkę i wejdź na https://www.oferteo.pl. Przeszukaj katalog firm w poszukiwaniu stron www firm z Gdańska. Znajdź co najmniej 20 firm i zapisz ich adresy internetowe do pliku oferteo_firmy.txt."
+```
+
+### Files Modified
+
+- `src/nlp2cmd/adapters/browser.py` - deep extraction detection
+- `src/nlp2cmd/pipeline_runner.py` - new actions and form filtering
+- `src/nlp2cmd/cli/commands/run.py` - save filename detection
+
+---
+
 ## [1.0.86] - 2026-02-27
 
 ### Summary
