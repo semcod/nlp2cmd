@@ -715,27 +715,93 @@ class PipelineRunner:
                             max_companies = action_spec.get("max_companies", 20)
                             companies_data: list[dict[str, str]] = []
                             base_url = page.url
+                            attempts: list[dict[str, object]] = []
+
+                            try:
+                                _start_url = str(page.url or "")
+                            except Exception:
+                                _start_url = ""
+                            try:
+                                _start_path = urlparse(_start_url).path
+                            except Exception:
+                                _start_path = ""
 
                             # If we start on Oferteo homepage, we are likely on category tiles, not company listings.
                             # Try a best-effort jump to a city listing (this command is specifically for Gdańsk).
                             try:
                                 cur = str(page.url or "")
-                                if "oferteo.pl" in cur and urlparse(cur).path.strip("/") == "":
+                                _cond = ("oferteo.pl" in cur and urlparse(cur).path.strip("/") == "")
+                                if _cond:
                                     for cand in [
                                         "https://www.oferteo.pl/firmy/gdansk",
                                         "https://www.oferteo.pl/firmy/gda%C5%84sk",
                                         "https://www.oferteo.pl/firmy-gdansk",
+                                        "https://www.oferteo.pl/firmy-budowlane/gdansk",
                                     ]:
+                                        attempt: dict[str, object] = {"candidate": cand}
+                                        attempts.append(attempt)
                                         try:
-                                            page.goto(cand, wait_until="domcontentloaded", timeout=15000)
+                                            resp = page.goto(cand, wait_until="domcontentloaded", timeout=15000)
                                             page.wait_for_timeout(900)
                                             self._dismiss_popups(page, schema_loader)
-                                            # accept the first candidate that looks like a listing page
-                                            if "oferteo.pl" in str(page.url or "") and urlparse(str(page.url or "")).path.strip("/") != "":
-                                                base_url = page.url
-                                                break
-                                        except Exception:
+
+                                            try:
+                                                status = int(resp.status) if resp is not None else None
+                                            except Exception:
+                                                status = None
+
+                                            try:
+                                                cur_after = str(page.url or "")
+                                            except Exception:
+                                                cur_after = ""
+
+                                            try:
+                                                firma_cnt = page.evaluate(
+                                                    r"""() => Array.from(document.querySelectorAll('a[href]'))
+  .map(a => (a.getAttribute('href') || '').toLowerCase())
+  .filter(h => h.includes('/firma')).length"""
+                                                )
+                                            except Exception:
+                                                firma_cnt = 0
+
+                                            try:
+                                                title = page.title() or ""
+                                            except Exception:
+                                                title = ""
+
+                                            attempt["status"] = status
+                                            attempt["final_url"] = cur_after
+                                            attempt["title"] = title
+                                            attempt["firma_links"] = firma_cnt
+                                            attempt["error"] = None
+
+                                            # accept the first candidate that navigates away from homepage successfully
+                                            if status is None or (isinstance(status, int) and status < 400):
+                                                if urlparse(cur_after).path.strip("/") != "":
+                                                    base_url = page.url
+                                                    break
+                                        except Exception as e:
+                                            attempt["error"] = str(e)
                                             continue
+                            except Exception:
+                                pass
+
+                            try:
+                                console_wrapper.print(
+                                    yaml.safe_dump(
+                                        {
+                                            "status": "oferteo_nav_attempts",
+                                            "start_url": _start_url,
+                                            "start_path": _start_path,
+                                            "current_url": str(page.url or ""),
+                                            "condition": bool(locals().get("_cond", False)),
+                                            "attempts": attempts,
+                                        },
+                                        sort_keys=False,
+                                        allow_unicode=True,
+                                    ).rstrip(),
+                                    language="yaml",
+                                )
                             except Exception:
                                 pass
 
@@ -771,7 +837,7 @@ class PipelineRunner:
                                         cnt = page.evaluate(
                                             r"""() => Array.from(document.querySelectorAll('a[href]'))
   .map(a => (a.getAttribute('href') || '').toLowerCase())
-  .filter(h => h.includes('/firma/')).length"""
+  .filter(h => h.includes('/firma')).length"""
                                         )
                                     except Exception:
                                         cnt = 0
@@ -821,6 +887,7 @@ class PipelineRunner:
                                         // Exclude categories/listings and noise
                                         // Categories sometimes use /firma-... or /firmy-...
                                         if (hrefLower.includes('/firma-')) continue;
+                                        if (hrefLower.includes('/firmy-')) continue;
                                         if (hrefLower.includes('/firmy/')) continue;
                                         if (hrefLower.includes('/katalog') || hrefLower.includes('/kategorie') || hrefLower.includes('/branze') || hrefLower.includes('/uslugi')) continue;
                                         if (hrefLower.includes('facebook.com') || hrefLower.includes('instagram.com') || hrefLower.includes('linkedin.com')) continue;
@@ -920,6 +987,7 @@ class PipelineRunner:
                                                     "status": "oferteo_no_profile_links",
                                                     "url": cur_url,
                                                     "title": cur_title,
+                                                    "attempts": attempts,
                                                     "sample": sample,
                                                 },
                                                 sort_keys=False,
@@ -935,7 +1003,7 @@ class PipelineRunner:
                                         success=False,
                                         kind="dom",
                                         error="No company profile links found on Oferteo",
-                                        data={"url": cur_url, "title": cur_title, "sample": sample},
+                                        data={"url": cur_url, "title": cur_title, "attempts": attempts, "sample": sample},
                                     )
 
                                 _debug("extract_company_websites_deep: no company links found, trying fallback")
@@ -970,11 +1038,22 @@ class PipelineRunner:
 
                             # Process profiles until we gather max_companies real websites
                             target_websites = int(max_companies) if isinstance(max_companies, int) else 20
-                            max_profiles_to_check = max(target_websites * 6, 80)
+                            # Keep this bounded so the whole run can finish under CLI timeouts.
+                            # We collect rows even when website is empty, so there's no need to scan huge lists.
+                            max_profiles_to_check = max(10, min(int(target_websites), 25))
+                            if isinstance(company_links, list):
+                                max_profiles_to_check = min(max_profiles_to_check, len(company_links))
+
+                            # Hard time budget for this action (prevents missing save_to_csv due to outer `timeout`).
+                            action_deadline = time.time() + 85.0
                             checked = 0
 
                             for idx, company in enumerate(company_links[:max_profiles_to_check], 1):
                                 try:
+                                    if time.time() >= action_deadline:
+                                        _debug("extract_company_websites_deep: time budget exceeded; stopping early")
+                                        break
+
                                     checked += 1
                                     name = str(company.get("name", "")).strip()
                                     href = str(company.get("href", "")).strip()
@@ -990,8 +1069,8 @@ class PipelineRunner:
                                     console_wrapper.print(f"[{idx}/{min(len(company_links), max_profiles_to_check)}] Checking: {name}", language="text")
 
                                     # Navigate to company profile
-                                    page.goto(href, wait_until="domcontentloaded")
-                                    page.wait_for_timeout(600)
+                                    page.goto(href, wait_until="domcontentloaded", timeout=7000)
+                                    page.wait_for_timeout(250)
                                     self._dismiss_popups(page, schema_loader)
 
                                     # Find external website link on the profile page
@@ -1114,11 +1193,11 @@ class PipelineRunner:
 
                                     # Go back to catalog (lighter than re-loading base_url each time)
                                     try:
-                                        page.go_back(wait_until="domcontentloaded", timeout=8000)
-                                        page.wait_for_timeout(400)
+                                        page.go_back(wait_until="domcontentloaded", timeout=9000)
+                                        page.wait_for_timeout(200)
                                     except Exception:
-                                        page.goto(base_url, wait_until="domcontentloaded")
-                                        page.wait_for_timeout(600)
+                                        page.goto(base_url, wait_until="domcontentloaded", timeout=15000)
+                                        page.wait_for_timeout(300)
 
                                 except Exception as e:
                                     _debug(f"Error processing company: {e}")
