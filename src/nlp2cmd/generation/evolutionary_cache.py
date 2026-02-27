@@ -956,7 +956,7 @@ class EvolutionaryCache:
             best_plan = None
             for _fp, entry in self._multistep_exact.items():
                 original = entry.get("original_query", "")
-                score = _rfuzz.WRatio(query.lower(), original.lower())
+                score = _rfuzz.QRatio(query.lower(), original.lower())
                 if score > best_score and score >= self.similarity_threshold:
                     best_score = score
                     best_plan = entry["plan"]

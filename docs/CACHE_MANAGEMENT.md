@@ -103,6 +103,44 @@ schemas:
 
 ## Cache Management Commands
 
+### Full cache reset (recommended for troubleshooting)
+
+Use this when cached multi-step plans or old runtime state cause unexpected behavior.
+
+```bash
+# 1) Remove NLP2CMD runtime cache (includes learned_schemas.json, action_plans.json, browser profile)
+rm -rf ~/.nlp2cmd
+
+# 2) Remove repo-local external cache (Playwright manifest/browsers used by this repo)
+rm -rf .cache
+
+# 2b) Optional: remove global Playwright browser cache
+rm -rf ~/.cache/ms-playwright
+
+# 3) Optional: clear extracted site schema cache
+rm -rf command_schemas/sites
+mkdir -p command_schemas/sites
+
+# 4) Optional: clear HuggingFace model cache (forces model redownloads)
+rm -rf ~/.cache/huggingface
+```
+
+Quick verification:
+
+```bash
+ls -ld ~/.nlp2cmd 2>/dev/null || echo "~/.nlp2cmd removed"
+ls -ld .cache 2>/dev/null || echo ".cache removed"
+ls -ld ~/.cache/ms-playwright 2>/dev/null || echo "~/.cache/ms-playwright removed"
+ls -ld command_schemas/sites
+ls -ld ~/.cache/huggingface 2>/dev/null || echo "~/.cache/huggingface removed"
+```
+
+CLI helper (external cache only):
+
+```bash
+nlp2cmd cache clear --all --yes
+```
+
 ### View Cache Status
 
 ```bash

@@ -1934,11 +1934,21 @@ class PipelineRunner:
         user_data_dir.mkdir(parents=True, exist_ok=True)
 
         with sync_playwright() as pw:
-            context = pw.chromium.launch_persistent_context(
-                user_data_dir=str(user_data_dir),
-                headless=self.headless,
-                viewport={"width": 1280, "height": 720},
-            )
+            try:
+                context = pw.chromium.launch_persistent_context(
+                    user_data_dir=str(user_data_dir),
+                    headless=self.headless,
+                    viewport={"width": 1280, "height": 720},
+                )
+            except Exception:
+                if self.headless:
+                    raise
+                # Fallback for environments without a working headed display.
+                context = pw.chromium.launch_persistent_context(
+                    user_data_dir=str(user_data_dir),
+                    headless=True,
+                    viewport={"width": 1280, "height": 720},
+                )
             page = context.pages[0] if context.pages else context.new_page()
 
             variables: dict[str, str] = {}  # stores results from prior steps

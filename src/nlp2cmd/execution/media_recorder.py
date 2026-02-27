@@ -1,0 +1,159 @@
+"""
+Media recorder — Etap 3 of the NLP refactoring plan.
+
+Handles video recording and screenshot capture for browser automation.
+Extracted from ``pipeline_runner._run_dom_multi_action`` video logic.
+"""
+
+from __future__ import annotations
+
+import logging
+import sys
+from typing import Any, Optional
+
+from nlp2cmd.execution.base import BaseExecutor, ExecutorContext, ExecutorResult
+
+log = logging.getLogger(__name__)
+
+
+class MediaRecorder(BaseExecutor):
+    """Manages video recording and screenshots during browser sessions."""
+
+    def __init__(self, output_dir: str = "./recordings") -> None:
+        self._output_dir = output_dir
+        self._video_recorder: Any = None
+        self._recording = False
+
+    @property
+    def supported_actions(self) -> list[str]:
+        return ["start_recording", "stop_recording", "screenshot"]
+
+    def execute(
+        self,
+        params: dict[str, Any],
+        ctx: ExecutorContext,
+    ) -> ExecutorResult:
+        action = params.get("action", "screenshot")
+        if action == "start_recording":
+            return self.start_recording(params, ctx)
+        if action == "stop_recording":
+            return self.stop_recording(params, ctx)
+        if action == "screenshot":
+            return self.take_screenshot(params, ctx)
+        return ExecutorResult(
+            success=False, kind="media",
+            error=f"Unknown media action: {action}",
+        )
+
+    def start_recording(
+        self,
+        params: dict[str, Any],
+        ctx: ExecutorContext,
+    ) -> ExecutorResult:
+        """Start video recording."""
+        output_dir = params.get("output_dir", ctx.video_dir or self._output_dir)
+        name_prefix = params.get("name_prefix", "browser_automation")
+
+        try:
+            from nlp2cmd.pipeline_runner_utils import VideoRecorder
+            self._video_recorder = VideoRecorder(output_dir=output_dir)
+            video_path = self._video_recorder.start_recording(name_prefix=name_prefix)
+            if video_path:
+                self._recording = True
+                return ExecutorResult(
+                    success=True, kind="media",
+                    data={"video_path": str(video_path), "recording": True},
+                )
+            return ExecutorResult(
+                success=False, kind="media",
+                error="VideoRecorder.start_recording returned no path",
+            )
+        except Exception as e:
+            return ExecutorResult(
+                success=False, kind="media",
+                error=f"Failed to start recording: {e}",
+            )
+
+    def stop_recording(
+        self,
+        params: dict[str, Any],
+        ctx: ExecutorContext,
+    ) -> ExecutorResult:
+        """Stop video recording and return output path."""
+        if not self._video_recorder or not self._recording:
+            return ExecutorResult(
+                success=True, kind="media",
+                data={"recording": False, "note": "No active recording"},
+            )
+        try:
+            self._video_recorder.stop_recording()
+            self._recording = False
+            return ExecutorResult(
+                success=True, kind="media",
+                data={"recording": False, "stopped": True},
+            )
+        except Exception as e:
+            return ExecutorResult(
+                success=False, kind="media",
+                error=f"Failed to stop recording: {e}",
+            )
+
+    def take_screenshot(
+        self,
+        params: dict[str, Any],
+        ctx: ExecutorContext,
+    ) -> ExecutorResult:
+        """Take a screenshot of the current page."""
+        page = ctx.page
+        if page is None:
+            return ExecutorResult(
+                success=False, kind="media",
+                error="No page available for screenshot",
+            )
+
+        path = params.get("path", "")
+        if not path:
+            from nlp2cmd.pipeline_runner_utils import get_timestamp, ensure_dir
+            path = f"./screenshots/screenshot_{get_timestamp()}.png"
+            ensure_dir(path)
+
+        try:
+            page.screenshot(path=path)
+            return ExecutorResult(
+                success=True, kind="media",
+                data={"screenshot_path": path},
+            )
+        except Exception as e:
+            return ExecutorResult(
+                success=False, kind="media",
+                error=f"Screenshot failed: {e}",
+            )
+
+    @property
+    def is_recording(self) -> bool:
+        return self._recording
+
+    def get_context_options(self, video_fmt: Optional[str] = None) -> dict[str, Any]:
+        """Return Playwright context options for video recording."""
+        if not video_fmt:
+            return {}
+        return {
+            "record_video_dir": self._output_dir,
+            "record_video_size": {"width": 1280, "height": 720},
+        }
+
+    @staticmethod
+    def should_record_interactive(console: Any, confirm: bool) -> tuple[bool, str]:
+        """Ask user interactively whether to record video (TTY only)."""
+        try:
+            is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+        except Exception:
+            is_tty = False
+
+        if confirm and is_tty:
+            try:
+                from nlp2cmd.pipeline_runner_utils import ask_for_video_recording
+                return ask_for_video_recording(console)
+            except Exception:
+                pass
+        return False, "./recordings"
