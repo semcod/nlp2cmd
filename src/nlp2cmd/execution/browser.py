@@ -159,6 +159,172 @@ class BrowserExecutor:
             raise RuntimeError(
                 "Playwright is not installed. Install with: pip install playwright && playwright install"
             )
+
+    async def _ensure_persistent_context(self):
+        """
+        Initialize Playwright with persistent browser context.
+        
+        Preserves login sessions, cookies, and localStorage across runs.
+        Uses ~/.nlp2cmd/browser_profile/ as the profile directory.
+        """
+        if self._browser is not None:
+            return
+        
+        try:
+            from pathlib import Path
+            from playwright.async_api import async_playwright
+            
+            user_data_dir = Path.home() / ".nlp2cmd" / "browser_profile"
+            user_data_dir.mkdir(parents=True, exist_ok=True)
+            
+            self._playwright = await async_playwright().start()
+            # launch_persistent_context returns a BrowserContext (not Browser)
+            self._context = await self._playwright.chromium.launch_persistent_context(
+                user_data_dir=str(user_data_dir),
+                headless=self.headless,
+                viewport={"width": 1280, "height": 720},
+            )
+            self._page = self._context.pages[0] if self._context.pages else await self._context.new_page()
+            # Set _browser to context so close() works
+            self._browser = self._context
+        except ImportError:
+            raise RuntimeError(
+                "Playwright is not installed. Install with: pip install playwright && playwright install"
+            )
+
+    # ── Multi-tab management ─────────────────────────────────────
+
+    async def new_tab(self, url: str = "") -> BrowserResult:
+        """
+        Open a new browser tab, optionally navigating to a URL.
+        
+        Args:
+            url: Optional URL to navigate to in the new tab
+            
+        Returns:
+            BrowserResult
+        """
+        await self._ensure_playwright()
+        try:
+            context = self._page.context
+            new_page = await context.new_page()
+            if url:
+                url = normalize_url(url)
+                await new_page.goto(url)
+            self._page = new_page  # switch to new tab
+            return BrowserResult(
+                success=True,
+                action="new_tab",
+                url=url or "about:blank",
+                message=f"Opened new tab" + (f" at {url}" if url else ""),
+            )
+        except Exception as e:
+            return BrowserResult(success=False, action="new_tab", error=str(e))
+
+    async def switch_tab(self, index: int = -1, title_filter: str = "") -> BrowserResult:
+        """
+        Switch to a different browser tab.
+        
+        Args:
+            index: Tab index (0-based), -1 for last tab
+            title_filter: Switch to tab whose title contains this string
+            
+        Returns:
+            BrowserResult
+        """
+        await self._ensure_playwright()
+        try:
+            context = self._page.context
+            pages = context.pages
+            
+            if title_filter:
+                for page in pages:
+                    if title_filter.lower() in (await page.title()).lower():
+                        self._page = page
+                        await page.bring_to_front()
+                        return BrowserResult(
+                            success=True,
+                            action="switch_tab",
+                            message=f"Switched to tab: {await page.title()}",
+                        )
+                return BrowserResult(
+                    success=False,
+                    action="switch_tab",
+                    error=f"No tab found matching: {title_filter}",
+                )
+            
+            if index == -1:
+                index = len(pages) - 1
+            if 0 <= index < len(pages):
+                self._page = pages[index]
+                await pages[index].bring_to_front()
+                return BrowserResult(
+                    success=True,
+                    action="switch_tab",
+                    message=f"Switched to tab {index}: {await pages[index].title()}",
+                )
+            return BrowserResult(
+                success=False,
+                action="switch_tab",
+                error=f"Tab index {index} out of range (0-{len(pages)-1})",
+            )
+        except Exception as e:
+            return BrowserResult(success=False, action="switch_tab", error=str(e))
+
+    async def close_tab(self, index: int = -1) -> BrowserResult:
+        """
+        Close a browser tab.
+        
+        Args:
+            index: Tab index to close (-1 for current)
+            
+        Returns:
+            BrowserResult
+        """
+        await self._ensure_playwright()
+        try:
+            context = self._page.context
+            pages = context.pages
+            
+            if index == -1:
+                page_to_close = self._page
+            elif 0 <= index < len(pages):
+                page_to_close = pages[index]
+            else:
+                return BrowserResult(
+                    success=False,
+                    action="close_tab",
+                    error=f"Tab index {index} out of range",
+                )
+            
+            await page_to_close.close()
+            
+            # Switch to remaining tab
+            remaining = context.pages
+            if remaining:
+                self._page = remaining[-1]
+            
+            return BrowserResult(
+                success=True,
+                action="close_tab",
+                message=f"Closed tab {index}",
+            )
+        except Exception as e:
+            return BrowserResult(success=False, action="close_tab", error=str(e))
+
+    async def list_tabs(self) -> list[dict[str, str]]:
+        """List all open tabs with their titles and URLs."""
+        await self._ensure_playwright()
+        context = self._page.context
+        tabs = []
+        for i, page in enumerate(context.pages):
+            tabs.append({
+                "index": str(i),
+                "title": await page.title(),
+                "url": page.url,
+                "active": str(page == self._page),
+            })
+        return tabs
     
     async def close(self):
         """Close the browser and cleanup."""

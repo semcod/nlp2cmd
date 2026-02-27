@@ -37,6 +37,8 @@ from nlp2cmd.adapters.dql import (
 )
 from nlp2cmd.adapters.appspec import AppSpecAdapter
 from nlp2cmd.adapters.browser import BrowserAdapter
+from nlp2cmd.adapters.canvas import CanvasAdapter
+from nlp2cmd.adapters.desktop import DesktopAdapter, DesktopAction
 
 __all__ = [
     # Base
@@ -67,4 +69,9 @@ __all__ = [
     "AppSpecAdapter",
     # Browser
     "BrowserAdapter",
+    # Canvas
+    "CanvasAdapter",
+    # Desktop
+    "DesktopAdapter",
+    "DesktopAction",
 ]
