@@ -1419,29 +1419,51 @@ class PipelineRunner:
                             company_links = page.evaluate(r"""() => {
                                 const links = [];
                                 const seen = new Set();
-                                // Common patterns for company links in directories
-                                const selectors = [
-                                    'a[href*="/firma/"]',
-                                    'a[href*="/company/"]',
-                                    'a[href*="/f/"]',
-                                    '.company-name a',
-                                    '.business-name a',
-                                    '.result-title a',
-                                    'h2 a', 'h3 a', 'h4 a'
-                                ];
-                                for (const sel of selectors) {
-                                    const elements = document.querySelectorAll(sel);
-                                    for (const el of elements) {
-                                        const href = el.getAttribute('href');
+                                // Get all links and filter by href pattern
+                                const allLinks = Array.from(document.querySelectorAll('a[href]'));
+                                for (const el of allLinks) {
+                                    const href = el.getAttribute('href') || '';
+                                    const text = el.textContent.trim();
+                                    // Check if href contains company patterns (case insensitive)
+                                    const hrefLower = href.toLowerCase();
+                                    if (!hrefLower.includes('/firma/') && 
+                                        !hrefLower.includes('/company/') &&
+                                        !hrefLower.includes('/f/') &&
+                                        !hrefLower.includes('/business/') &&
+                                        !hrefLower.includes('/biznes/')) continue;
+                                    if (!text || text.length < 2 || text.length > 100) continue;
+                                    if (seen.has(href)) continue;
+                                    seen.add(href);
+                                    links.push({name: text, href: href});
+                                }
+                                return links.slice(0, 50);
+                            }""")
+                            
+                            _debug(f"extract_company_websites_deep: raw company_links type={type(company_links)}, value={str(company_links)[:200]}")
+
+                            if not isinstance(company_links, list) or not company_links:
+                                _debug("extract_company_websites_deep: no company links found, trying fallback")
+                                # Fallback: try to find any links that look like company profiles
+                                company_links = page.evaluate(r"""() => {
+                                    const links = [];
+                                    const seen = new Set();
+                                    const allLinks = Array.from(document.querySelectorAll('a[href]'));
+                                    for (const el of allLinks) {
+                                        const href = el.getAttribute('href') || '';
                                         const text = el.textContent.trim();
-                                        if (!href || !text || text.length < 2 || text.length > 100) continue;
+                                        // Look for any non-empty link with reasonable text
+                                        if (!href || href.startsWith('#') || href.startsWith('javascript:')) continue;
+                                        if (!text || text.length < 3 || text.length > 80) continue;
+                                        // Skip common non-company links
+                                        if (href.includes('facebook') || href.includes('twitter') || 
+                                            href.includes('linkedin') || href.includes('instagram')) continue;
                                         if (seen.has(href)) continue;
                                         seen.add(href);
                                         links.push({name: text, href: href});
                                     }
-                                }
-                                return links.slice(0, 50); // Limit initial collection
-                            }""")
+                                    return links.slice(0, 50);
+                                }""")
+                                _debug(f"extract_company_websites_deep: fallback found {len(company_links) if isinstance(company_links, list) else 0} links")
 
                             if not isinstance(company_links, list) or not company_links:
                                 console_wrapper.print("⚠️  No company links found on catalog page", language="text")

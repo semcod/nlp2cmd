@@ -469,8 +469,12 @@ def handle_run_mode(
             return
 
         try:
+            _verbose_log("Starting browser automation try block")
+            print("DEBUG: Entering try block", file=sys.stderr, flush=True)
             browser_adapter = BrowserAdapter()
+            _verbose_log("BrowserAdapter created successfully")
             nlp_browser = NLP2CMD(adapter=browser_adapter)
+            _verbose_log("NLP2CMD created successfully")
             
             _verbose_log("Transforming query to IR via BrowserAdapter")
             ir = nlp_browser.transform_ir(query)
@@ -602,7 +606,7 @@ def handle_run_mode(
                 print_yaml_block(payload_info, console=console)
 
             from nlp2cmd.pipeline_runner import PipelineRunner
-            pw_runner = PipelineRunner(headless=bool(has_extract_article is True))
+            pw_runner = PipelineRunner(headless=True)  # Force headless for testing
             pw_result = pw_runner.run(ir, dry_run=False, confirm=auto_confirm)
 
             if (not pw_result.success) and isinstance(pw_result.data, dict) and pw_result.data.get("requires_confirmation"):
