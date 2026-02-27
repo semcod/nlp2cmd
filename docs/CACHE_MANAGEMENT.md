@@ -141,6 +141,16 @@ CLI helper (external cache only):
 nlp2cmd cache clear --all --yes
 ```
 
+New helper (full NLP2CMD cache reset):
+
+```bash
+# Runtime + repo external + schema cache
+nlp2cmd cache full-clear --yes
+
+# Include global caches too
+nlp2cmd cache full-clear --include-global-playwright --include-models --yes
+```
+
 ### View Cache Status
 
 ```bash

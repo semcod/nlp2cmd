@@ -279,6 +279,11 @@ class ActionPlanner:
             ]
         )
 
+        wants_existing_firefox = (
+            ("firefox" in text)
+            and any(p in text for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"]) 
+        )
+
         # Pattern: "extract API key from <service> and save to .env"
         for svc_name, svc in KNOWN_SERVICES.items():
             if svc_name not in text:
@@ -288,7 +293,45 @@ class ActionPlanner:
 
             steps: list[ActionStep] = []
 
-            if wants_new_tab:
+            if wants_existing_firefox:
+                # Desktop automation path: control already-open Firefox window via wmctrl/xdotool.
+                steps.append(
+                    ActionStep(
+                        action="desktop_focus_app",
+                        params={"title": "Firefox"},
+                        description="Przełącz na okno Firefox",
+                    )
+                )
+                steps.append(
+                    ActionStep(
+                        action="desktop_shortcut",
+                        params={"keys": "ctrl+t"},
+                        description="Otwórz nową kartę w Firefox",
+                    )
+                )
+                steps.append(
+                    ActionStep(
+                        action="desktop_type",
+                        params={"text": svc["keys_url"]},
+                        description="Wpisz adres strony kluczy OpenRouter",
+                    )
+                )
+                steps.append(
+                    ActionStep(
+                        action="desktop_key",
+                        params={"key": "Return"},
+                        description="Przejdź na stronę",
+                    )
+                )
+                steps.append(
+                    ActionStep(
+                        action="desktop_wait",
+                        params={"ms": 1200},
+                        description="Poczekaj na załadowanie strony",
+                    )
+                )
+
+            elif wants_new_tab:
                 steps.append(
                     ActionStep(
                         action="new_tab",
@@ -297,33 +340,57 @@ class ActionPlanner:
                     )
                 )
 
-            steps.extend([
-                ActionStep(
-                    action="navigate",
-                    params={"url": svc["keys_url"]},
-                    description=f"Przejdź na stronę kluczy {svc_name}",
-                ),
-                ActionStep(
-                    action="echo",
-                    params={
-                        "message": (
-                            f"🔐 Otworzyłem stronę generowania kluczy {svc_name}. "
-                            "Utwórz nowy klucz w przeglądarce, skopiuj go do schowka, "
-                            "a następnie wklej tutaj."
-                        )
-                    },
-                    description="Instrukcja ręcznego skopiowania klucza",
-                ),
-                ActionStep(
-                    action="prompt_secret",
-                    params={
-                        "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
-                        "env_var": svc["env_var"],
-                    },
-                    description=f"Wprowadź klucz API {svc_name}",
-                    store_as="api_key",
-                ),
-            ])
+            if not wants_existing_firefox:
+                steps.extend([
+                    ActionStep(
+                        action="navigate",
+                        params={"url": svc["keys_url"]},
+                        description=f"Przejdź na stronę kluczy {svc_name}",
+                    ),
+                    ActionStep(
+                        action="echo",
+                        params={
+                            "message": (
+                                f"🔐 Otworzyłem stronę generowania kluczy {svc_name}. "
+                                "Utwórz nowy klucz w przeglądarce, skopiuj go do schowka, "
+                                "a następnie wklej tutaj."
+                            )
+                        },
+                        description="Instrukcja ręcznego skopiowania klucza",
+                    ),
+                    ActionStep(
+                        action="prompt_secret",
+                        params={
+                            "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
+                            "env_var": svc["env_var"],
+                        },
+                        description=f"Wprowadź klucz API {svc_name}",
+                        store_as="api_key",
+                    ),
+                ])
+            else:
+                steps.extend([
+                    ActionStep(
+                        action="echo",
+                        params={
+                            "text": (
+                                f"Przełączyłem na Firefox i otworzyłem stronę kluczy dla {svc_name}. "
+                                "Utwórz nowy klucz w przeglądarce, skopiuj go do schowka, "
+                                "a następnie wklej tutaj."
+                            )
+                        },
+                        description="Instrukcja ręcznego skopiowania klucza",
+                    ),
+                    ActionStep(
+                        action="prompt_secret",
+                        params={
+                            "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
+                            "env_var": svc["env_var"],
+                        },
+                        description=f"Wprowadź klucz API {svc_name}",
+                        store_as="api_key",
+                    ),
+                ])
 
             if ".env" in text or "zapisz" in text or "save" in text:
                 steps.append(ActionStep(

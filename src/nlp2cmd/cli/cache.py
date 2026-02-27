@@ -38,6 +38,7 @@ except Exception:  # pragma: no cover
     click = _ClickStub()
 
 from pathlib import Path
+import shutil
 try:
     from rich.console import Console
     from rich.table import Table
@@ -80,6 +81,18 @@ except Exception:  # pragma: no cover
             return
 
 console = Console()
+
+
+def _clear_path(path: Path) -> bool:
+    """Best-effort path removal helper for cache cleanup."""
+    try:
+        if path.is_dir():
+            shutil.rmtree(path)
+        elif path.exists():
+            path.unlink()
+        return True
+    except Exception:
+        return False
 
 
 @click.group(name="cache")
@@ -279,6 +292,75 @@ def clear_cache(package: str | None, clear_all: bool, cache_dir: Path | None):
     else:
         console.print("[red]✗ Failed to clear cache[/red]")
         raise click.Abort()
+
+
+@cache_group.command(name="full-clear")
+@click.option(
+    "--include-models",
+    is_flag=True,
+    help="Also remove ~/.cache/huggingface",
+)
+@click.option(
+    "--include-global-playwright",
+    is_flag=True,
+    help="Also remove ~/.cache/ms-playwright",
+)
+@click.confirmation_option(
+    prompt="Are you sure you want to clear ALL NLP2CMD caches?",
+    help="Confirm full cache clearing",
+)
+def full_clear_cache(include_models: bool, include_global_playwright: bool):
+    """Clear all nlp2cmd caches (runtime + external + schema + optional global caches)."""
+    from nlp2cmd.generation.evolutionary_cache import EvolutionaryCache
+    from nlp2cmd.utils.external_cache import ExternalCacheManager
+
+    home = Path.home()
+    repo_root = Path(__file__).resolve().parent.parent.parent.parent
+
+    targets: list[tuple[str, Path, bool]] = [
+        ("runtime", home / ".nlp2cmd", False),
+        ("repo_external", repo_root / ".cache", False),
+        ("schema_sites", repo_root / "command_schemas" / "sites", False),
+        ("huggingface", home / ".cache" / "huggingface", include_models),
+        (
+            "ms_playwright",
+            home / ".cache" / "ms-playwright",
+            include_global_playwright,
+        ),
+    ]
+
+    console.print("[cyan]Clearing full NLP2CMD cache...[/cyan]")
+
+    # Clear in-memory/on-disk evolutionary cache using official API first.
+    # This ensures cache files are reset consistently before directory cleanup.
+    try:
+        EvolutionaryCache().clear()
+        console.print("[green]✓[/green] evolutionary cache cleared")
+    except Exception:
+        console.print("[yellow]![/yellow] evolutionary cache clear skipped")
+
+    # Clear external cache via manager API first.
+    try:
+        if ExternalCacheManager().clear_cache(None):
+            console.print("[green]✓[/green] external cache manager cleared")
+    except Exception:
+        console.print("[yellow]![/yellow] external cache manager clear skipped")
+
+    for name, path, optional in targets:
+        if optional is False and name in {"huggingface", "ms_playwright"}:
+            continue
+        existed = path.exists()
+        ok = _clear_path(path)
+        if ok:
+            status = "removed" if existed else "already_clean"
+            console.print(f"[green]✓[/green] {name}: {status} ({path})")
+        else:
+            console.print(f"[red]✗[/red] {name}: failed ({path})")
+
+    # Recreate schema directory to keep downstream assumptions stable.
+    schema_dir = repo_root / "command_schemas" / "sites"
+    schema_dir.mkdir(parents=True, exist_ok=True)
+    console.print(f"[green]✓[/green] schema_sites: ensured empty dir ({schema_dir})")
 
 
 @cache_group.command(name="auto-setup")
