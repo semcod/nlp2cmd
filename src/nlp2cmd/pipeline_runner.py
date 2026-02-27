@@ -1948,6 +1948,21 @@ class PipelineRunner:
                 step_desc = step.description or step.action
                 console.print(f"\n[cyan]▸ Krok {i+1}/{len(plan.steps)}:[/cyan] {step_desc}")
 
+                if step.action == "new_tab":
+                    page = context.new_page()
+                    try:
+                        page.bring_to_front()
+                    except Exception:
+                        pass
+                    console.print("  [green]✓[/green] OK")
+                    results_log.append({
+                        "step": i + 1,
+                        "action": step.action,
+                        "status": "ok",
+                        "stored": step.store_as,
+                    })
+                    continue
+
                 try:
                     result = self._execute_plan_step(
                         page, context, step, variables
