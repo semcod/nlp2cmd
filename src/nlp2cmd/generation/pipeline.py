@@ -58,10 +58,57 @@ class RuleBasedPipeline:
         self.extractor = _create_default_extractor()
         self.template_generator = TemplateGenerator()
         
+        # Multi-step components (lazy loaded)
+        self._complex_detector = None
+        self._complex_detector_loaded = False
+        self._action_planner = None
+        self._action_planner_loaded = False
+        self._evolutionary_cache = None
+        self._evolutionary_cache_loaded = False
+        
         # Enhanced context detector (lazy loaded)
         self._enhanced_detector = None
         self._enhanced_detector_loaded = False
     
+    @property
+    def complex_detector(self):
+        """Lazy load ComplexQueryDetector."""
+        if self._complex_detector_loaded:
+            return self._complex_detector
+        try:
+            from nlp2cmd.generation.complex_detector import ComplexQueryDetector
+            self._complex_detector = ComplexQueryDetector()
+        except ImportError:
+            pass
+        self._complex_detector_loaded = True
+        return self._complex_detector
+
+    @property
+    def action_planner(self):
+        """Lazy load ActionPlanner."""
+        if self._action_planner_loaded:
+            return self._action_planner
+        try:
+            from nlp2cmd.automation.action_planner import ActionPlanner
+            self._action_planner = ActionPlanner()
+        except ImportError:
+            pass
+        self._action_planner_loaded = True
+        return self._action_planner
+
+    @property
+    def evolutionary_cache(self):
+        """Lazy load EvolutionaryCache."""
+        if self._evolutionary_cache_loaded:
+            return self._evolutionary_cache
+        try:
+            from nlp2cmd.generation.evolutionary_cache import EvolutionaryCache
+            self._evolutionary_cache = EvolutionaryCache(enable_llm=False)
+        except ImportError:
+            pass
+        self._evolutionary_cache_loaded = True
+        return self._evolutionary_cache
+
     @property
     def enhanced_detector(self):
         """Lazy load enhanced context detector."""
@@ -94,8 +141,92 @@ class RuleBasedPipeline:
         start_time = time.time()
         
         result = PipelineResult(input_text=text)
+
+        # If this clearly looks like a browser/navigation query, do not route it through
+        # multi-step cache / decomposer. Those layers can misclassify (e.g. openrouter.ai -> "route").
+        # Exception: allow multi-step planner for API-key/.env setup workflows.
+        text_lower = str(text or "").lower()
+        force_single_step_browser = False
+        try:
+            import re as _re
+
+            is_key_env_workflow = (
+                (".env" in text_lower)
+                and any(w in text_lower for w in ["klucz", "key", "api", "token"])
+            )
+
+            browser_phrases = [
+                r"otw[oó]rz\s+przegl[aą]dark",
+                r"uruchom\s+przegl[aą]dark",
+                r"w[łl][aą]cz\s+przegl[aą]dark",
+                r"(?:wejd[zź]|przejd[zź]|id[zź])\s+na\s+stron",
+                r"otw[oó]rz\s+stron",
+                r"firefox|chrome|chromium|safari|edge",
+            ]
+            has_browser_phrase = any(_re.search(p, text_lower) for p in browser_phrases)
+            has_url = bool(_re.search(r"\bhttps?://[^\s'\"]+", text_lower))
+            has_domain = bool(
+                _re.search(
+                    r"\b[a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|co|de|uk|eu)(?:/[^\s'\"]*)?\b",
+                    text_lower,
+                )
+            )
+            if (has_browser_phrase or has_url or has_domain) and (not is_key_env_workflow):
+                force_single_step_browser = True
+        except Exception:
+            force_single_step_browser = False
         
         try:
+            # ═══ LAYER 0: Multi-Step Schema Cache ═══
+            if self.evolutionary_cache and (not force_single_step_browser):
+                cached_plan = self.evolutionary_cache.lookup_multistep(text)
+                if cached_plan:
+                    # Safety/compatibility: ignore stale cached plans for API-key workflows
+                    # (older cache entries may contain extract_api_key, which we no longer execute).
+                    try:
+                        if (".env" in text_lower) and any(w in text_lower for w in ["klucz", "key", "api", "token"]):
+                            if any(getattr(s, "action", "") == "extract_api_key" for s in (cached_plan.steps or [])):
+                                cached_plan = None
+                    except Exception:
+                        pass
+
+                if cached_plan:
+                    result.domain = "multi_step"
+                    result.intent = "cached_plan"
+                    result.action_plan = cached_plan
+                    result.confidence = cached_plan.confidence
+                    result.detection_confidence = cached_plan.confidence
+                    result.success = True
+                    result.source = "multistep_cache"
+                    result.latency_ms = (time.time() - start_time) * 1000
+                    self.metrics.record_result(result)
+                    return result
+
+            # ═══ LAYER 0.5: Complex Query Detection ═══
+            if self.complex_detector and (not force_single_step_browser):
+                complexity = self.complex_detector.analyze(text)
+                if complexity.is_complex and self.action_planner:
+                    # ═══ LAYER 0.7: Action Planner ═══
+                    plan = self.action_planner.decompose_sync(
+                        text, complexity.intents
+                    )
+                    if plan and plan.steps:
+                        # ═══ LAYER 0.9: Auto-cache schema ═══
+                        if self.evolutionary_cache:
+                            self.evolutionary_cache.store_multistep(text, plan)
+
+                        result.domain = "multi_step"
+                        result.intent = plan.source
+                        result.action_plan = plan
+                        result.confidence = plan.confidence
+                        result.detection_confidence = plan.confidence
+                        result.success = True
+                        result.source = plan.source
+                        result.latency_ms = (time.time() - start_time) * 1000
+                        self.metrics.record_result(result)
+                        return result
+
+            # ═══ LAYER 1-11: Standard single-command pipeline ═══
             # Step 1: Intent detection
             detection = self.detector.detect(text)
             if not detection.matched:

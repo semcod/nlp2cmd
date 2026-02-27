@@ -1756,6 +1756,269 @@ class PipelineRunner:
                 out.append({"href": href, "text": text})
         return out
 
+    # ═══ Multi-Step ActionPlan Execution ═════════════════════════════════
+
+    def execute_action_plan(
+        self,
+        plan,
+        *,
+        dry_run: bool = False,
+        confirm: bool = False,
+    ) -> RunnerResult:
+        """Execute an ActionPlan step by step using Playwright.
+
+        Args:
+            plan: ActionPlan instance with steps to execute
+            dry_run: If True, only show the plan without executing
+            confirm: If True, user has confirmed execution
+        """
+        from nlp2cmd.automation.action_planner import ActionPlan, ActionStep
+
+        console = Console()
+
+        console.print(f"\n[bold]🎯 Plan wykonania ({len(plan.steps)} kroków):[/bold]")
+        for i, step in enumerate(plan.steps, 1):
+            console.print(f"  {i}. {step.description or step.action}")
+
+        if dry_run:
+            return RunnerResult(
+                success=True, kind="action_plan",
+                data={"dry_run": True, "steps": [s.to_dict() for s in plan.steps]},
+            )
+
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError as e:
+            return RunnerResult(
+                success=False, kind="action_plan",
+                error=f"Playwright not available: {e}",
+            )
+
+        user_data_dir = Path.home() / ".nlp2cmd" / "browser_profile"
+        user_data_dir.mkdir(parents=True, exist_ok=True)
+
+        with sync_playwright() as pw:
+            context = pw.chromium.launch_persistent_context(
+                user_data_dir=str(user_data_dir),
+                headless=self.headless,
+                viewport={"width": 1280, "height": 720},
+            )
+            page = context.pages[0] if context.pages else context.new_page()
+
+            variables: dict[str, str] = {}  # stores results from prior steps
+            results_log: list[dict] = []
+
+            for i, step in enumerate(plan.steps):
+                step_desc = step.description or step.action
+                console.print(f"\n[cyan]▸ Krok {i+1}/{len(plan.steps)}:[/cyan] {step_desc}")
+
+                try:
+                    result = self._execute_plan_step(
+                        page, context, step, variables
+                    )
+                    if step.store_as and result:
+                        variables[step.store_as] = result
+                        console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
+                    else:
+                        console.print(f"  [green]✓[/green] OK")
+
+                    results_log.append({
+                        "step": i + 1, "action": step.action,
+                        "status": "ok", "stored": step.store_as,
+                    })
+
+                except Exception as e:
+                    console.print(f"  [red]✗[/red] Błąd: {e}")
+                    results_log.append({
+                        "step": i + 1, "action": step.action,
+                        "status": "error", "error": str(e),
+                    })
+
+                    if step.retry_on_fail:
+                        console.print(f"  [yellow]↻[/yellow] Retry...")
+                        page.wait_for_timeout(1000)
+                        try:
+                            result = self._execute_plan_step(
+                                page, context, step, variables
+                            )
+                            if step.store_as and result:
+                                variables[step.store_as] = result
+                            console.print(f"  [green]✓[/green] Retry OK")
+                            results_log[-1]["status"] = "ok_retry"
+                        except Exception as e2:
+                            console.print(f"  [red]✗[/red] Retry failed: {e2}")
+                            results_log[-1]["status"] = "failed"
+
+            context.close()
+
+        return RunnerResult(
+            success=all(r["status"] != "failed" for r in results_log),
+            kind="action_plan",
+            data={"steps": results_log, "variables": variables},
+        )
+
+    def _execute_plan_step(self, page, context, step, variables: dict) -> Optional[str]:
+        """Execute a single ActionPlan step. Returns extracted value or None."""
+        params = self._resolve_plan_variables(step.params, variables)
+        action = step.action
+
+        # Local console for interactive prompts in multi-step plans
+        console = Console()
+
+        if action == "browser_open":
+            pass  # context already open
+
+        elif action == "navigate":
+            url = params.get("url", "")
+            if not url.startswith("http"):
+                url = f"https://{url}"
+            page.goto(url, wait_until="domcontentloaded", timeout=15000)
+            page.wait_for_timeout(1000)
+
+        elif action == "new_tab":
+            page = context.new_page()
+
+        elif action == "click":
+            selector = params.get("selector")
+            text = params.get("text")
+            if text:
+                page.get_by_text(text).first.click()
+            elif selector:
+                page.click(selector)
+
+        elif action == "type_text":
+            page.fill(params.get("selector", "input"), params.get("text", ""))
+
+        elif action in ("extract_text", "extract_api_key"):
+            # Do not scrape API keys or other secrets from pages.
+            # API keys should be manually copied by the user and pasted via prompt_secret.
+            if action == "extract_api_key":
+                raise ValueError("extract_api_key is disabled for safety. Use prompt_secret to paste the key.")
+
+            pattern = params.get("pattern")
+            selectors = params.get("selectors", ["code", "pre", ".api-key"])
+
+            for sel in selectors:
+                try:
+                    elements = page.query_selector_all(sel)
+                    for el in elements:
+                        text = (el.text_content() or "").strip()
+                        if pattern and re.search(pattern, text):
+                            return re.search(pattern, text).group(0)
+                        elif not pattern and len(text) > 10:
+                            return text
+                except Exception:
+                    continue
+
+            # Fallback: regex on full body
+            body = page.text_content("body") or ""
+            if pattern:
+                match = re.search(pattern, body)
+                if match:
+                    return match.group(0)
+            return None
+
+        elif action == "save_env":
+            var_name = params.get("var_name", "UNKNOWN_KEY")
+            value = params.get("value", "")
+            file_path = params.get("file", ".env")
+
+            # Resolve $variable references
+            if isinstance(value, str) and value.startswith("$"):
+                value = variables.get(value[1:], "")
+
+            if not value:
+                raise ValueError(f"Brak wartości do zapisania dla {var_name}")
+
+            env_path = Path(file_path)
+            existing = env_path.read_text() if env_path.exists() else ""
+
+            if f"{var_name}=" in existing:
+                updated = re.sub(
+                    rf"{re.escape(var_name)}=.*",
+                    f'{var_name}="{value}"',
+                    existing,
+                )
+                env_path.write_text(updated)
+            else:
+                with open(env_path, "a") as f:
+                    f.write(f'\n{var_name}="{value}"\n')
+
+            return value
+
+        elif action == "prompt_secret":
+            prompt = str(params.get("prompt") or "Enter secret: ")
+            try:
+                import getpass
+                val = getpass.getpass(prompt)
+            except Exception:
+                # Fallback (echoed) if getpass is unavailable
+                val = console.input(prompt)
+
+            val = str(val or "").strip()
+            if not val:
+                raise ValueError("No secret provided")
+            return val
+
+        elif action == "screenshot":
+            path = params.get(
+                "path", f"/tmp/nlp2cmd_screenshot_{int(time.time())}.png"
+            )
+            page.screenshot(path=path, full_page=True)
+            return path
+
+        elif action == "wait":
+            ms = int(params.get("ms", 1000))
+            page.wait_for_timeout(ms)
+
+        elif action == "login":
+            email = params.get("email", "")
+            password = params.get("password", "")
+            email_field = page.query_selector(
+                'input[type="email"], input[name*="email"], input[name*="login"]'
+            )
+            if email_field:
+                email_field.fill(email)
+            pass_field = page.query_selector('input[type="password"]')
+            if pass_field:
+                pass_field.fill(password)
+            submit = page.query_selector(
+                'button[type="submit"], input[type="submit"]'
+            )
+            if submit:
+                submit.click()
+
+        elif action == "fill_form":
+            fields = params.get("fields", {})
+            for selector, value in fields.items():
+                try:
+                    page.fill(selector, str(value))
+                except Exception:
+                    pass
+
+        elif action == "submit_form":
+            submit = page.query_selector(
+                'button[type="submit"], input[type="submit"], form button'
+            )
+            if submit:
+                submit.click()
+
+        elif action == "echo":
+            _debug(params.get("message", ""))
+
+        return None
+
+    @staticmethod
+    def _resolve_plan_variables(params: dict, variables: dict) -> dict:
+        """Replace $variable references with values from prior steps."""
+        resolved = {}
+        for k, v in params.items():
+            if isinstance(v, str) and v.startswith("$"):
+                resolved[k] = variables.get(v[1:], v)
+            else:
+                resolved[k] = v
+        return resolved
+
     def _llm_suggest_article_selectors(self, page) -> Optional[dict[str, list[str]]]:
         try:
             import litellm

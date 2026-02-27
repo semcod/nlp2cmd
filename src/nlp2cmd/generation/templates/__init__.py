@@ -20,6 +20,7 @@ from .iot_templates import IOT_TEMPLATES
 from .package_mgmt_templates import PACKAGE_MGMT_TEMPLATES
 from .rag_templates import RAG_TEMPLATES
 from .presentation_templates import PRESENTATION_TEMPLATES
+from .desktop_templates import DESKTOP_TEMPLATES
 
 __all__ = [
     'SQL_TEMPLATES',
@@ -38,4 +39,5 @@ __all__ = [
     'PACKAGE_MGMT_TEMPLATES',
     'RAG_TEMPLATES',
     'PRESENTATION_TEMPLATES',
+    'DESKTOP_TEMPLATES',
 ]

@@ -41,6 +41,9 @@ class PipelineResult:
     command: str = ""
     template_used: str = ""
     
+    # Multi-step action plan (None for single commands)
+    action_plan: Any = None  # ActionPlan instance for multi-step commands
+    
     # Metadata
     success: bool = False
     source: str = "rules"  # "rules" or "llm"

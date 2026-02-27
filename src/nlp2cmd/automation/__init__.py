@@ -9,6 +9,7 @@ from nlp2cmd.automation.mouse_controller import MouseController, Point
 from nlp2cmd.automation.env_extractor import EnvExtractor
 from nlp2cmd.automation.captcha_solver import CaptchaSolver
 from nlp2cmd.automation.complex_planner import ComplexCommandPlanner, ActionStep
+from nlp2cmd.automation.action_planner import ActionPlanner, ActionPlan
 
 __all__ = [
     "MouseController",
@@ -17,4 +18,6 @@ __all__ = [
     "CaptchaSolver",
     "ComplexCommandPlanner",
     "ActionStep",
+    "ActionPlanner",
+    "ActionPlan",
 ]

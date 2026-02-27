@@ -240,6 +240,39 @@ class KeywordIntentDetector:
         
         text_lower = text.lower()
 
+        # ═══ SUPER-FAST BROWSER OVERRIDE (before ML/fuzzy/semantic) ═══
+        # Prevent false positives like openrouter.ai -> networking_ext/route or multi_step/rule_decomposer.
+        # If the user clearly asks to open a browser / open a site / navigate to a domain, prefer browser.
+        try:
+            _browser_override_patterns = [
+                r"otw[oó]rz\s+przegl[aą]dark[eę]",
+                r"uruchom\s+przegl[aą]dark[eę]",
+                r"w[łl][aą]cz\s+przegl[aą]dark[eę]",
+                r"(?:wejd[zź]|przejd[zź]|id[zź])\s+na\s+stron[eę]",
+                r"otw[oó]rz\s+stron[eę]",
+                r"(?:otw[oó]rz|wejd[zź]|uruchom).+\.[a-z]{2,}",
+            ]
+            if any(re.search(p, text_lower) for p in _browser_override_patterns):
+                url_match = re.search(r"\b(https?://[^\s'\"]+)", text_lower)
+                domain_in_text = re.search(
+                    r"\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|co|de|uk|eu)(?:/[^\s'\"]*)?)",
+                    text_lower,
+                )
+                entities = {}
+                if url_match:
+                    entities["url"] = _normalize_url(url_match.group(1))
+                elif domain_in_text:
+                    entities["url"] = _normalize_url(domain_in_text.group(1))
+                return DetectionResult(
+                    domain="browser",
+                    intent="navigate",
+                    confidence=0.96,
+                    entities=entities,
+                    matched_keyword="super_fast_browser_override",
+                )
+        except Exception:
+            pass
+
         # ML-based detection if available (highest quality, checked first)
         ml_result = self._ml_detection(text)
         if ml_result and ml_result.confidence >= self.confidence_threshold:
@@ -606,6 +639,10 @@ class KeywordIntentDetector:
                 return DetectionResult(domain="kubernetes", intent=intent, confidence=0.9)
 
         # Shell fast-path — file/process/system terms (only when no docker/k8s context)
+        # Guard: skip shell matching if browser signals are present
+        _browser_context_signals = {"klucz", "key", "api", "token", ".env", "stron", "przegladark", "przeglądark"}
+        _has_browser_context = any(s in text_lower for s in _browser_context_signals)
+
         _SHELL_TERMS = {
             "configuration files": "find", "config files": "find",
             "find files": "find", "find file": "find",
@@ -636,6 +673,9 @@ class KeywordIntentDetector:
         }
         for kw, intent in _SHELL_TERMS.items():
             if kw in text_lower:
+                # Skip shell match if browser signals present (e.g. "skopiuj klucz API")
+                if _has_browser_context and intent in ("copy", "move", "delete"):
+                    continue
                 entities = {}
                 # Extract file patterns for find operations
                 if intent == "find" and ("*" in text_lower or ".py" in text_lower or ".txt" in text_lower or ".json" in text_lower):
@@ -735,6 +775,47 @@ class KeywordIntentDetector:
                 
                 return DetectionResult(domain="sql", intent=intent, confidence=0.85, entities=entities)
 
+        # ═══ BROWSER FAST-PATH: Polish browser phrases (before URL detection) ═══
+        # These patterns catch multi-step browser commands that would otherwise
+        # fall through to general keyword matching and false-match networking_ext
+        _BROWSER_PHRASE_PATTERNS = [
+            # Opening browser
+            (r"otw[oó]rz\s+przegl[aą]dark[eę]", "browser", "open_browser"),
+            (r"uruchom\s+przegl[aą]dark[eę]", "browser", "open_browser"),
+            (r"w[łl][aą]cz\s+przegl[aą]dark[eę]", "browser", "open_browser"),
+            # Navigate to page (critical — "stronę" was false-matching networking_ext/route)
+            (r"(?:wejd[zź]|przejd[zź]|id[zź])\s+na\s+stron[eę]", "browser", "navigate"),
+            (r"otw[oó]rz\s+stron[eę]", "browser", "navigate"),
+            # "otwórz X.ai" / "otwórz X.com" — domain in context of open verb
+            (r"(?:otw[oó]rz|wejd[zź]|uruchom).+\.[a-z]{2,}", "browser", "navigate"),
+            # New tab / card / multiple tabs
+            (r"(?:nowy|otw[oó]rz)\s+tab", "browser", "new_tab"),
+            (r"now[aą]\s+kart[eę]", "browser", "new_tab"),
+            (r"(?:otw[oó]rz|open)\s+\d+\s+(?:tab|kart)", "browser", "new_tab"),
+            # Browser data operations
+            (r"(?:wyci[aą]gnij|skopiuj|pobierz).+(?:klucz|key|token|api)", "browser", "extract_data"),
+            (r"zapiszs*\s+(?:do|w)\s+\.env", "browser", "save_env"),
+            (r"zapi[sś]z?\s+(?:do|w)\s+\.env", "browser", "save_env"),
+            (r"(?:wype[lł]nij|uzupe[lł]nij)\s+formul", "browser", "fill_form"),
+        ]
+        for pattern, domain, intent in _BROWSER_PHRASE_PATTERNS:
+            if re.search(pattern, text_lower):
+                # Try to extract URL/domain from text
+                url_match = re.search(r"\b(https?://[^\s'\"]+)", text_lower)
+                domain_in_text = re.search(
+                    r'\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|co|de|uk|eu)(?:/[^\s\'\"]*)?)',
+                    text_lower,
+                )
+                entities = {}
+                if url_match:
+                    entities["url"] = _normalize_url(url_match.group(1))
+                elif domain_in_text:
+                    entities["url"] = _normalize_url(domain_in_text.group(1))
+                return DetectionResult(
+                    domain=domain, intent=intent, confidence=0.92,
+                    entities=entities, matched_keyword=pattern,
+                )
+
         # Browser complex intents (before generic URL)
         _BROWSER_COMPLEX = [
             ("znajdź formularz i wypełnij", "browser", "explore_and_fill"),
@@ -783,7 +864,7 @@ class KeywordIntentDetector:
 
         # 3) Bare domains (optionally with a path)
         domain_match = re.search(
-            r"\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|dev|pl|de|uk|eu|gov|edu|tv|co)(?:/[^\s'\"]*)?)\b",
+            r"\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|de|uk|eu|gov|edu|tv|co)(?:/[^\s'\"]*)?)\b",
             text_lower,
         )
         if domain_match:
@@ -917,6 +998,28 @@ class KeywordIntentDetector:
             if booster_confidence > 0:
                 best_match.confidence = min(1.0, best_match.confidence + 0.1)
         
+        # ═══ Anti-networking override ═══
+        # If networking_ext was detected but text contains browser signals,
+        # it's a false positive (e.g. "stronę" substring-matching "route").
+        if best_match.domain == "networking_ext":
+            _browser_signals = [
+                "przegladark", "przeglądark", "stron", "tab", "kart",
+                ".com", ".org", ".net", ".io", ".ai", ".pl", ".app",
+                "klucz", "api", "key", "token", "formularz",
+            ]
+            if any(signal in text_lower for signal in _browser_signals):
+                # Extract URL if present
+                _dm = re.search(
+                    r'\b([a-zA-Z0-9][\w\-]*\.(?:com|org|net|io|ai|dev|pl|app|co)(?:/[^\s\'\"]*)?)',
+                    text_lower,
+                )
+                entities = {"url": _normalize_url(_dm.group(1))} if _dm else {}
+                best_match = DetectionResult(
+                    domain="browser", intent="navigate",
+                    confidence=0.85, entities=entities,
+                    matched_keyword="anti_networking_override",
+                )
+        
         return best_match
     
     def _calculate_keyword_confidence(self, text: str, keywords: list[str]) -> float:
@@ -997,6 +1100,11 @@ class KeywordIntentDetector:
         # Special patterns for single keywords
         if len(keyword) <= 3 and re.fullmatch(r"[a-z0-9]+", keyword):
             return re.search(rf"(?<![a-z0-9_]){re.escape(keyword)}(?![a-z0-9_])", text) is not None
-        
-        # General substring search
+
+        # For plain single-word keywords, avoid substring matches (e.g. "openrouter" contains "route").
+        # Require word boundaries unless the keyword contains non-word chars.
+        if re.fullmatch(r"[\w\-]+", keyword):
+            return re.search(rf"(?<![\w]){re.escape(keyword)}(?![\w])", text) is not None
+
+        # Fallback: substring search for non-word keywords (rare)
         return keyword in text

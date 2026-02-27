@@ -303,6 +303,62 @@ def handle_run_mode(
             command = result.command
             detected_domain = result.domain
             detected_intent = result.intent
+
+            # Multi-step ActionPlan execution (browser + prompts + file updates)
+            if detected_domain == "multi_step" and getattr(result, "action_plan", None):
+                if not only_output:
+                    print_yaml_block(
+                        {
+                            "status": "multistep_plan_detected",
+                            "intent": detected_intent,
+                            "steps": [
+                                getattr(s, "action", "")
+                                for s in (getattr(result.action_plan, "steps", None) or [])
+                            ],
+                        },
+                        console=console,
+                    )
+
+                from nlp2cmd.utils.playwright_installer import ensure_playwright_installed
+                if not ensure_playwright_installed(console=console, auto_install=auto_install):
+                    if not only_output:
+                        print_yaml_block(
+                            {
+                                "status": "browser_automation_skipped",
+                                "reason": "playwright_not_available",
+                            },
+                            console=console,
+                        )
+                    return
+
+                try:
+                    from nlp2cmd.pipeline_runner import PipelineRunner
+                    pw_runner = PipelineRunner(headless=False)
+                    plan_res = pw_runner.execute_action_plan(
+                        result.action_plan,
+                        dry_run=False,
+                        confirm=bool(auto_confirm),
+                    )
+                    if not only_output:
+                        print_yaml_block(
+                            {
+                                "status": "multistep_plan_completed",
+                                "success": bool(plan_res.success),
+                                "error": str(plan_res.error or "") if not plan_res.success else "",
+                            },
+                            console=console,
+                        )
+                    return
+                except Exception as e:
+                    if not only_output:
+                        print_yaml_block(
+                            {
+                                "status": "multistep_plan_failed",
+                                "error": str(e),
+                            },
+                            console=console,
+                        )
+                    return
         else:
             if only_output:
                 sys.stderr.write("nlp2cmd: could not generate executable command\n")

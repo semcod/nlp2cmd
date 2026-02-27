@@ -906,3 +906,104 @@ class EvolutionaryCache:
         self.stats = {"total_queries": 0, "cache_hits": 0, "llm_calls": 0,
                       "template_hits": 0, "total_saved_ms": 0.0}
         self.save()
+        # Also clear multi-step cache if initialized
+        if hasattr(self, "_multistep_loaded"):
+            self._multistep_exact.clear()
+            self._multistep_fuzzy.clear()
+            self._save_multistep()
+
+    # ═══ Multi-Step ActionPlan Cache ═══════════════════════════════════════
+
+    MULTISTEP_CACHE_FILE = "action_plans.json"
+
+    def _init_multistep(self):
+        """Initialize multi-step cache (called lazily on first access)."""
+        if hasattr(self, "_multistep_loaded"):
+            return
+        self._multistep_exact: dict[str, dict] = {}
+        self._multistep_fuzzy: dict[str, dict] = {}
+        self._multistep_loaded = True
+        self._load_multistep()
+
+    def lookup_multistep(self, query: str):
+        """Look up a cached ActionPlan. Returns ActionPlan or None.
+
+        3-tier: exact (MD5) → fuzzy (word-bag) → similar (rapidfuzz).
+        """
+        self._init_multistep()
+        from nlp2cmd.automation.action_planner import ActionPlan
+
+        fp = fingerprint(query)
+
+        # Tier 1a: exact
+        if fp in self._multistep_exact:
+            entry = self._multistep_exact[fp]
+            entry["hits"] = entry.get("hits", 0) + 1
+            self._save_multistep()
+            return ActionPlan.from_cache_dict(entry["plan"])
+
+        # Tier 1b: fuzzy
+        ffp = fuzzy_fingerprint(query)
+        if ffp in self._multistep_fuzzy:
+            entry = self._multistep_fuzzy[ffp]
+            entry["hits"] = entry.get("hits", 0) + 1
+            self._save_multistep()
+            return ActionPlan.from_cache_dict(entry["plan"])
+
+        # Tier 1c: similar (rapidfuzz)
+        if _rfuzz is not None:
+            best_score = 0.0
+            best_plan = None
+            for _fp, entry in self._multistep_exact.items():
+                original = entry.get("original_query", "")
+                score = _rfuzz.WRatio(query.lower(), original.lower())
+                if score > best_score and score >= self.similarity_threshold:
+                    best_score = score
+                    best_plan = entry["plan"]
+
+            if best_plan:
+                return ActionPlan.from_cache_dict(best_plan)
+
+        return None
+
+    def store_multistep(self, query: str, plan) -> None:
+        """Store an ActionPlan in the multi-step cache."""
+        self._init_multistep()
+
+        fp = fingerprint(query)
+        ffp = fuzzy_fingerprint(query)
+
+        entry = {
+            "original_query": query,
+            "plan": plan.to_cache_dict(),
+            "created": time.time(),
+            "hits": 0,
+        }
+
+        self._multistep_exact[fp] = entry
+        self._multistep_fuzzy[ffp] = entry
+        self._save_multistep()
+
+    def _load_multistep(self):
+        """Load multi-step cache from disk."""
+        path = self.cache_dir / self.MULTISTEP_CACHE_FILE
+        if path.exists():
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                self._multistep_exact = data.get("exact", {})
+                self._multistep_fuzzy = data.get("fuzzy", {})
+                log.debug("Loaded %d multistep cache entries", len(self._multistep_exact))
+            except Exception as exc:
+                log.warning("Multistep cache load failed: %s", exc)
+
+    def _save_multistep(self):
+        """Save multi-step cache to disk."""
+        path = self.cache_dir / self.MULTISTEP_CACHE_FILE
+        path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            path.write_text(json.dumps({
+                "exact": self._multistep_exact,
+                "fuzzy": self._multistep_fuzzy,
+            }, indent=2, ensure_ascii=False), encoding="utf-8")
+        except Exception as exc:
+            log.warning("Multistep cache save failed: %s", exc)
