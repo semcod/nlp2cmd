@@ -20,6 +20,27 @@ def _render_to_text(renderable: Any) -> str:
     return capture_console.export_text().rstrip()
 
 
+def _infer_markdown_title(*, language: str, body: str, title: Optional[str]) -> str:
+    if isinstance(title, str) and title.strip():
+        t = title.strip()
+        # If caller passed a markdown header already, normalize it to a plain title.
+        t = t.lstrip("#").strip()
+        return t
+
+    if language.lower() == "yaml":
+        for line in body.splitlines()[:20]:
+            if line.startswith("status:"):
+                value = line.split(":", 1)[1].strip()
+                if value:
+                    return f"status: {value}"
+
+    if language.lower() == "bash":
+        return "run"
+    if language.lower() == "text":
+        return "output"
+    return language
+
+
 def print_markdown_block(
     renderable: Any,
     *,
@@ -30,9 +51,11 @@ def print_markdown_block(
     """Print a renderable or string wrapped in a Markdown code block."""
     console = console or Console()
     body = _render_to_text(renderable)
+
+    md_title = _infer_markdown_title(language=language, body=body, title=title)
+    if md_title:
+        console.print(f"\n### {md_title}", markup=False)
     lines = [f"```{language}"]
-    if title:
-        lines.append(title.rstrip())
     if body:
         lines.append(body)
     lines.append("```")
@@ -87,9 +110,11 @@ class MarkdownBlockStream:
 
     def _ensure_open(self) -> None:
         if not self._open:
+            body_preview = ""  # no content yet; still provide a stable title
+            md_title = _infer_markdown_title(language=self._language, body=body_preview, title=self._title)
+            if md_title:
+                self._console.print(f"\n### {md_title}", markup=False)
             self._console.print(f"```{self._language}", markup=False)
-            if self._title:
-                self._console.print(self._title, markup=False)
             self._open = True
 
     def print(self, renderable: Any) -> None:

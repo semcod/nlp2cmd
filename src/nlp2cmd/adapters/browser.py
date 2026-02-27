@@ -123,8 +123,29 @@ class BrowserAdapter(BaseDSLAdapter):
     def _has_extract_article_action(text: str) -> bool:
         """Check if text contains article extraction intent."""
         extract_keywords = FormDataLoader().get_nlp_keywords("extract_article")
+        plural_keywords = FormDataLoader().get_nlp_keywords("extract_articles_plural")
         tl = text.lower()
-        return any(kw in tl for kw in extract_keywords)
+        return any(kw in tl for kw in extract_keywords) or any(kw in tl for kw in plural_keywords)
+    
+    @staticmethod
+    def _is_plural_article_request(text: str) -> bool:
+        """Check if request is for multiple articles (plural form)."""
+        plural_keywords = FormDataLoader().get_nlp_keywords("extract_articles_plural")
+        tl = text.lower()
+        return any(kw in tl for kw in plural_keywords)
+    
+    @staticmethod
+    def _extract_article_topic(text: str) -> Optional[str]:
+        """Extract topic/subject from article request (e.g., 'artykuł o polityce' -> 'polityce')."""
+        patterns = FormDataLoader().get_article_topic_patterns()
+        for pattern in patterns:
+            m = re.search(pattern, text, flags=re.IGNORECASE)
+            if m:
+                topic = m.group(1).strip()
+                # Clean up trailing punctuation
+                topic = re.sub(r'[,;.!?]+$', '', topic).strip()
+                return topic if topic else None
+        return None
     
     def generate(self, plan: dict[str, Any]) -> str:
         text = str(plan.get("text") or plan.get("query") or "")
@@ -175,10 +196,29 @@ class BrowserAdapter(BaseDSLAdapter):
             explanation = f"{explanation} and submit"
         
         if self._has_extract_article_action(text):
-            actions.append({"action": "extract_article"})
+            is_plural = self._is_plural_article_request(text)
+            topic = self._extract_article_topic(text)
+            
+            extract_action: dict[str, Any] = {"action": "extract_article"}
+            if is_plural:
+                extract_action["mode"] = "list"
+                params["extract_mode"] = "list"
+            if topic:
+                extract_action["topic"] = topic
+                params["article_topic"] = topic
+            
+            actions.append(extract_action)
             params["extract_article"] = True
-            action_id = f"{action_id}_and_extract_article"
-            explanation = f"{explanation} and extract article"
+            
+            if is_plural:
+                action_id = f"{action_id}_and_list_articles"
+                explanation = f"{explanation} and list articles"
+            else:
+                action_id = f"{action_id}_and_extract_article"
+                explanation = f"{explanation} and extract article"
+            
+            if topic:
+                explanation = f"{explanation} about '{topic}'"
 
         if len(actions) == 1:
             payload = {

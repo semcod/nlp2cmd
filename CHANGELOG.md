@@ -1,3 +1,58 @@
+## [1.0.84] - 2026-02-26
+
+### Summary
+
+feat(benchmark): add --no-cache flag and refresh benchmark queries
+
+### Features
+
+- **Benchmark No-Cache Mode**: New `--no-cache` flag for pure LLM performance testing
+  - Disables all cache tiers (exact, fuzzy, similarity, template pipeline)
+  - Forces fresh LLM calls for every query
+  - Environment variable: `NLP2CMD_DISABLE_CACHE=1`
+  - Usage: `python3 examples/benchmark_nlp2cmd.py --no-cache`
+  - Makefile target: `make benchmark-no-cache`
+
+- **Refreshed Benchmark Queries**: All 47 benchmark queries replaced with new variants
+  - Prevents cache hits from previous benchmark runs
+  - Same domain/intent coverage with different phrasing
+  - New file names, numbers, and parameters in queries
+  - Examples:
+    - Old: `znajdź wszystkie pliki PDF większe niż 10MB`
+    - New: `wyszukaj pliki DOCX większe niż 5MB w katalogu /home`
+
+### Core
+
+- update `examples/benchmark_nlp2cmd.py`:
+  - Add argparse with `--no-cache` flag
+  - Set `NLP2CMD_DISABLE_CACHE=1` environment variable when flag is used
+  - Replace all 47 benchmark queries with new uncached variants
+  - Update expected regex patterns for new queries
+
+- update `src/nlp2cmd/generation/evolutionary_cache.py`:
+  - Add `cache_disabled` check in `lookup()` method
+  - Skip all cache tiers when `NLP2CMD_DISABLE_CACHE` is set
+  - Skip template pipeline when cache is disabled
+  - Direct all queries to LLM teacher for pure LLM testing
+
+### Build
+
+- update `Makefile`:
+  - Add `benchmark-no-cache` target for convenient no-cache benchmarking
+
+### Docs
+
+- update `docs/BENCHMARKING.md`:
+  - Document `--no-cache` flag usage
+  - Add section explaining when to use no-cache mode
+  - Add examples for benchmark with and without cache
+
+- update `docs/EVOLUTIONARY_CACHE.md`:
+  - Add "Disabling Cache" section with environment variable usage
+  - Document `NLP2CMD_DISABLE_CACHE` variable
+  - Add Python and CLI examples
+
+
 ## [1.0.83] - 2026-02-26
 
 ### Summary
@@ -24,28 +79,50 @@ feat(docs): deep code analysis engine with 5 supporting modules
 
 ### Summary
 
-feat(browser): add article extraction capability
+feat(browser): add article extraction with plural and topic filtering
 
 ### Features
 
 - **Article Extraction**: Browser adapter now supports extracting and displaying article content from news websites
   - New `extract_article` action in browser automation pipeline
-  - Detects Polish keywords: "wyświetl artykuł", "pokaż artykuł"
-  - Detects English keywords: "show article", "display article", "extract article", "read article"
+  - **Singular mode** (default): Extracts and displays first article content
+    - Detects Polish keywords: "wyświetl artykuł", "pokaż artykuł"
+    - Detects English keywords: "show article", "display article", "extract article", "read article"
+    - Example: `nlp2cmd -r "otwórz https://wp.pl i wyświetl artykuł"`
+  - **Plural mode**: Lists multiple article titles and URLs (up to 10)
+    - Detects Polish keywords: "wyświetl artykuły", "pokaż artykuły"
+    - Detects English keywords: "show articles", "list articles", "display articles"
+    - Example: `nlp2cmd -r "otwórz https://wp.pl i wyświetl artykuły"`
+  - **Topic filtering**: Filter articles by keyword/topic
+    - Polish: "artykuł o [topic]", "artykuł na temat [topic]"
+    - English: "article about [topic]"
+    - Example: `nlp2cmd -r "otwórz https://wp.pl i wyświetl artykuł o polityce"`
+    - Works with both singular and plural modes
   - Automatically finds article links on homepage using multiple selectors
   - Extracts article content using semantic HTML selectors (article, main, etc.)
   - Prints formatted article text to terminal (up to 2000 chars with truncation notice)
-  - Example: `nlp2cmd -r "otwórz https://wp.pl i wyświetl artykuł"`
 
 ### Core
 
-- update src/nlp2cmd/adapters/browser.py: add `_has_extract_article_action()` method and action generation
-- update src/nlp2cmd/pipeline_runner.py: add `extract_article` handler in `_run_dom_multi_action()`
-- update data/form_schema.json: add `extract_article` keywords
+- update src/nlp2cmd/adapters/browser.py: add plural detection, topic extraction, and enhanced action generation
+  - `_has_extract_article_action()`: detects both singular and plural forms
+  - `_is_plural_article_request()`: checks for plural keywords
+  - `_extract_article_topic()`: extracts topic from query using regex patterns
+- update src/nlp2cmd/pipeline_runner.py: enhanced `extract_article` handler with mode and topic support
+  - Collects all article links (up to 20)
+  - Filters by topic using keyword matching
+  - List mode: displays article titles and URLs
+  - Single mode: extracts and displays full article content
+- update src/nlp2cmd/web_schema/form_data_loader.py: add `get_article_topic_patterns()` method
+- update data/form_schema.json: add plural keywords and topic extraction patterns
 
 ### Tests
 
-- add tests/unit/test_browser_automation.py: 6 new tests for article extraction (Polish/English queries, validation, metadata)
+- add tests/unit/test_browser_automation.py: 15 new tests for article extraction
+  - Basic singular/plural extraction (Polish/English)
+  - Topic-based filtering
+  - Validation and metadata checks
+  - Action ID verification
 
 
 ## [1.0.82] - 2026-02-26

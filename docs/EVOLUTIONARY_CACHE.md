@@ -207,6 +207,31 @@ export NLP2CMD_CACHE_DIR="~/.nlp2cmd"
 export NLP2CMD_BENCHMARK_MODELS="qwen2.5:3b,gemma2:2b"  # custom model list
 ```
 
+### Disabling Cache
+
+For testing or benchmarking purposes, you can disable all cache tiers:
+
+```bash
+# Via environment variable
+export NLP2CMD_DISABLE_CACHE="1"
+
+# In Python
+import os
+os.environ["NLP2CMD_DISABLE_CACHE"] = "1"
+
+from nlp2cmd.generation.evolutionary_cache import EvolutionaryCache
+cache = EvolutionaryCache()
+# All lookups will bypass cache and template pipeline
+
+# Benchmark without cache
+python3 examples/benchmark_nlp2cmd.py --no-cache
+```
+
+When cache is disabled:
+- Tier 1 (exact/fuzzy/similarity) lookups are skipped
+- Tier 2 (template pipeline) is skipped
+- All queries go directly to LLM teacher (Tier 3)
+
 ---
 
 ## Roadmap

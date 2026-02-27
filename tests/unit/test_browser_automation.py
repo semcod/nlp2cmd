@@ -16,6 +16,7 @@ import pytest
 from nlp2cmd.adapters.browser import BrowserAdapter
 from nlp2cmd.core.core_transform import NLP2CMD
 from nlp2cmd.ir import ActionIR
+from nlp2cmd.pipeline_runner import PipelineRunner
 
 
 def _make_ir(query: str) -> ActionIR:
@@ -172,6 +173,31 @@ class TestBrowserExtractArticlePL:
         actions = _get_actions(ir)
         assert actions[0] == "goto"
         assert "extract_article" in actions
+
+
+# ---------------------------------------------------------------------------
+# 4c. LLM fallback helper parsing (no real Playwright run)
+# ---------------------------------------------------------------------------
+
+class TestBrowserLLMSelectorHelpers:
+
+    def test_extract_json_from_fenced_block(self):
+        text = """```json
+{\"article_link_selectors\": [\"main a[href]\"], \"article_content_selectors\": [\"article\"]}
+```"""
+        payload = PipelineRunner._extract_json_from_llm_response(text)
+        assert isinstance(payload, dict)
+        assert payload.get("article_link_selectors") == ["main a[href]"]
+
+    def test_normalize_payload_filters_non_strings(self):
+        normalized = PipelineRunner._normalize_llm_article_selector_payload(
+            {
+                "article_link_selectors": ["a[href]", None, 123, "  ", "h2 a[href]"],
+                "article_content_selectors": ["article", "  main article  "],
+            }
+        )
+        assert normalized["article_link_selectors"] == ["a[href]", "h2 a[href]"]
+        assert normalized["article_content_selectors"] == ["article", "main article"]
 
 
 # ---------------------------------------------------------------------------
@@ -357,6 +383,64 @@ class TestBrowserArticleExtraction:
     def test_extract_article_metadata(self):
         ir = _make_ir("otwórz https://news.site.com i wyświetl artykuł")
         assert ir.metadata.get("extract_article") is True
+
+    def test_extract_articles_plural_polish(self):
+        ir = _make_ir("otwórz https://wp.pl i wyświetl artykuły")
+        assert ir.dsl_kind == "dom"
+        actions = _get_actions(ir)
+        assert "goto" in actions
+        assert "extract_article" in actions
+        # Check for list mode in action
+        payload = _parse_ir(ir)
+        extract_action = next((a for a in payload.get("actions", []) if a.get("action") == "extract_article"), None)
+        assert extract_action is not None
+        assert extract_action.get("mode") == "list"
+
+    def test_extract_articles_plural_english(self):
+        ir = _make_ir("open https://news.ycombinator.com and list articles")
+        assert ir.dsl_kind == "dom"
+        payload = _parse_ir(ir)
+        extract_action = next((a for a in payload.get("actions", []) if a.get("action") == "extract_article"), None)
+        assert extract_action is not None
+        assert extract_action.get("mode") == "list"
+
+    def test_extract_article_with_topic_polish(self):
+        ir = _make_ir("otwórz https://wp.pl i wyświetl artykuł o polityce")
+        assert ir.dsl_kind == "dom"
+        payload = _parse_ir(ir)
+        extract_action = next((a for a in payload.get("actions", []) if a.get("action") == "extract_article"), None)
+        assert extract_action is not None
+        assert extract_action.get("topic") == "polityce"
+
+    def test_extract_article_with_topic_english(self):
+        ir = _make_ir("open https://bbc.com and show article about technology")
+        assert ir.dsl_kind == "dom"
+        payload = _parse_ir(ir)
+        extract_action = next((a for a in payload.get("actions", []) if a.get("action") == "extract_article"), None)
+        assert extract_action is not None
+        assert extract_action.get("topic") == "technology"
+
+    def test_extract_articles_plural_with_topic(self):
+        ir = _make_ir("otwórz https://onet.pl i wyświetl artykuły o sporcie")
+        assert ir.dsl_kind == "dom"
+        payload = _parse_ir(ir)
+        extract_action = next((a for a in payload.get("actions", []) if a.get("action") == "extract_article"), None)
+        assert extract_action is not None
+        assert extract_action.get("mode") == "list"
+        assert extract_action.get("topic") == "sporcie"
+
+    def test_list_articles_action_id(self):
+        ir = _make_ir("otwórz https://wp.pl i wyświetl artykuły")
+        assert "list_articles" in ir.action_id
+
+    def test_extract_article_topic_metadata(self):
+        ir = _make_ir("otwórz https://news.com i wyświetl artykuł o ekonomii")
+        assert ir.metadata.get("article_topic") == "ekonomii"
+        assert ir.metadata.get("extract_mode") is None  # singular mode
+
+    def test_extract_articles_list_metadata(self):
+        ir = _make_ir("otwórz https://news.com i wyświetl artykuły")
+        assert ir.metadata.get("extract_mode") == "list"
 
 
 # ---------------------------------------------------------------------------

@@ -9,9 +9,17 @@
     "submit": ["wyślij", "wyslij", "submit", "send", "prześlij", "przeslij", "zatwierdź", "zatwierdz"],
     "press_enter": ["naciśnij enter", "nacisnij enter", "wciśnij enter", "wcisnij enter", "press enter", "hit enter", "enter"],
     "fill_form_phrases": ["wypełnij formularz", "wypelnij formularz", "fill form", "fill the form", "fill out the form", "fill in the form"],
-    "extract_article": ["wyświetl artykuł", "wyswiетl artykul", "pokaż artykuł", "pokaz artykul", "extract article", "show article", "display article", "read article", "get article"]
+    "extract_article": ["wyświetl artykuł", "wyswiетl artykul", "pokaż artykuł", "pokaz artykul", "extract article", "show article", "display article", "read article", "get article"],
+    "extract_articles_plural": ["wyświetl artykuły", "wyswietl artykuly", "pokaż artykuły", "pokaz artykuly", "extract articles", "show articles", "display articles", "list articles", "get articles"]
   },
   
+  "article_topic_patterns": [
+    "(?:artykuł|article)\\s+o\\s+(.+?)(?:\\s*$|\\s+i\\s)",
+    "(?:artykuł|article)\\s+(?:na\\s+temat|about)\\s+(.+?)(?:\\s*$|\\s+i\\s)",
+    "(?:artykuły|articles)\\s+o\\s+(.+?)(?:\\s*$|\\s+i\\s)",
+    "(?:artykuły|articles)\\s+(?:na\\s+temat|about)\\s+(.+?)(?:\\s*$|\\s+i\\s)"
+  ],
+
   "type_text_patterns": [
     "(?:wpisz|type|input|napisz)\\s+(?:w\\s+pole)?:?\\s*(.+?)(?:\\s*,?\\s*(?:oraz|and|i)\\s+(?:naciśnij|nacisnij|press|hit)\\s+(?:enter|return)|$)",
     "(?:wpisz|type|input|napisz)\\s+(?:tekst|text)?\\s*[\"'](.+?)[\"']",

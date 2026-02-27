@@ -427,6 +427,21 @@ benchmark: ## Run LLM benchmark (5 models ≤3B, all 6 nlp2cmd domains)
 	@echo "$(YELLOW)Open HTML report:$(NC)"
 	@echo "  xdg-open benchmark_output/benchmark_results.html"
 
+benchmark-no-cache: ## Run benchmark WITHOUT cache (pure LLM performance testing)
+	@echo "$(BLUE)Running NLP2CMD LLM Benchmark (NO CACHE)...$(NC)"
+	@echo "$(YELLOW)Testing pure LLM performance - all cache tiers disabled$(NC)"
+	@echo "$(YELLOW)This forces fresh LLM calls for every query$(NC)"
+	@echo "$(YELLOW)Requires: ollama running locally$(NC)"
+	PYTHONPATH=src $(PYTHON) examples/benchmark_nlp2cmd.py --no-cache
+	@echo ""
+	@echo "$(GREEN)✓ No-cache benchmark complete!$(NC)"
+	@echo "$(BLUE)Reports in benchmark_output/:$(NC)"
+	@echo "  - benchmark_results.json  (detailed JSON)"
+	@echo "  - benchmark_results.html  (interactive charts)"
+	@echo ""
+	@echo "$(YELLOW)Open HTML report:$(NC)"
+	@echo "  xdg-open benchmark_output/benchmark_results.html"
+
 benchmark-view: ## View the last benchmark summary JSON
 	@if [ -f benchmark_output/benchmark_results.json ]; then \
 		echo "$(BLUE)Last Benchmark Summary:$(NC)"; \

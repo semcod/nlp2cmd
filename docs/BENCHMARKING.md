@@ -31,9 +31,35 @@ make benchmark-clean
 # Run the main benchmark script
 python3 benchmark_nlp2cmd.py
 
+# Run benchmark WITHOUT cache (forces fresh LLM calls for every query)
+python3 examples/benchmark_nlp2cmd.py --no-cache
+
 # Run the sequential commands example
 python3 examples/benchmark_sequential_commands.py
 ```
+
+### Benchmark Without Cache
+
+For true LLM performance testing without cache influence:
+
+```bash
+# Standard benchmark (uses cache and template pipeline)
+make benchmark
+
+# Benchmark without cache (pure LLM performance)
+python3 examples/benchmark_nlp2cmd.py --no-cache
+
+# The --no-cache flag disables:
+# - Cache lookups (exact, fuzzy, similarity)
+# - Template pipeline (1615 patterns)
+# Forces fresh LLM calls for every query
+```
+
+Use `--no-cache` when:
+- Testing pure LLM accuracy without cache influence
+- Measuring true LLM latency (not cached/template responses)
+- Validating model improvements
+- Avoiding cache hits from previous benchmark runs
 
 ## Understanding the Results
 

@@ -312,6 +312,12 @@ class FormDataLoader:
     def add_type_selector(self, selector: str, *, selector_type: str = "generic", domain: Optional[str] = None) -> bool:
         return self._add_selector_to_type_selectors(domain, selector_type=selector_type, selector=selector)
 
+    def add_article_link_selector(self, selector: str, *, domain: Optional[str] = None) -> bool:
+        return self._add_selector_to_list(domain, key="article_link_selectors", selector=selector)
+
+    def add_article_content_selector(self, selector: str, *, domain: Optional[str] = None) -> bool:
+        return self._add_selector_to_list(domain, key="article_content_selectors", selector=selector)
+
     def get_site_approval(self, action: str, *, domain: Optional[str] = None) -> bool:
         d = self._ensure_domain(domain)
         if not d:
@@ -560,6 +566,46 @@ class FormDataLoader:
             return self._dedupe_preserve_order([*configured, *defaults])
         return defaults
 
+    def get_article_link_selectors(self) -> list[str]:
+        configured = self._schema.get("article_link_selectors")
+        defaults = [
+            "article a[href]",
+            "main a[href]",
+            "h1 a[href]",
+            "h2 a[href]",
+            "h3 a[href]",
+            "a[href*='artykul']",
+            "a[href*='article']",
+            "a[class*='title']",
+            "a[class*='headline']",
+        ]
+        if isinstance(configured, list):
+            cleaned: list[str] = []
+            for s in configured:
+                if isinstance(s, str) and s.strip():
+                    cleaned.append(s.strip())
+            return self._dedupe_preserve_order([*cleaned, *defaults])
+        return defaults
+
+    def get_article_content_selectors(self) -> list[str]:
+        configured = self._schema.get("article_content_selectors")
+        defaults = [
+            "article",
+            "[role='article']",
+            "main article",
+            ".article-content",
+            ".article-body",
+            ".entry-content",
+            ".post-content",
+        ]
+        if isinstance(configured, list):
+            cleaned: list[str] = []
+            for s in configured:
+                if isinstance(s, str) and s.strip():
+                    cleaned.append(s.strip())
+            return self._dedupe_preserve_order([*cleaned, *defaults])
+        return defaults
+
     def get_nlp_keywords(self, group: str) -> list[str]:
         """Get schema-driven NLP keyword list (e.g. typing/clicking/form/submit/press_enter)."""
         nlp_cfg = self._schema.get("nlp_keywords")
@@ -578,6 +624,17 @@ class FormDataLoader:
     def get_type_text_patterns(self) -> list[str]:
         """Get regex patterns used to extract text-to-type from NL (schema-driven)."""
         patterns = self._schema.get("type_text_patterns")
+        if isinstance(patterns, list):
+            out: list[str] = []
+            for p in patterns:
+                if isinstance(p, str) and p.strip():
+                    out.append(p)
+            return out
+        return []
+    
+    def get_article_topic_patterns(self) -> list[str]:
+        """Get regex patterns used to extract article topic from NL (schema-driven)."""
+        patterns = self._schema.get("article_topic_patterns")
         if isinstance(patterns, list):
             out: list[str] = []
             for p in patterns:

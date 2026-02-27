@@ -359,12 +359,51 @@ class FormHandler:
         self._print("📋 Auto-filling form fields:", language="text")
 
         filled_rows: list[dict[str, Any]] = []
+
+        def _looks_like_honeypot_or_search(field: FormField) -> bool:
+            name = (field.name or "").strip().lower()
+            fid = (field.id or "").strip().lower()
+            label = (field.label or "").strip().lower()
+            placeholder = (field.placeholder or "").strip().lower()
+            field_type = (field.field_type or "").strip().lower()
+
+            # Common search widgets
+            if field_type == "search":
+                return True
+            if name in {"s", "q", "search", "query"}:
+                return True
+            if "search" in placeholder or "search" in label:
+                return True
+            if "type your search" in placeholder:
+                return True
+
+            # Honeypots / anti-bot traps
+            if "honeypot" in name or "honeypot" in fid:
+                return True
+            if name.endswith("[hp]") or "[hp]" in name or "-hp" in name or "_hp" in name:
+                return True
+
+            # Captcha
+            if "captcha" in name or "captcha" in fid:
+                return True
+            if "recaptcha" in name or "recaptcha" in fid:
+                return True
+            if "h-captcha" in name or "h-captcha" in fid:
+                return True
+            if "g-recaptcha" in name or "g-recaptcha" in fid:
+                return True
+
+            return False
         
         for f in fields:
             field_name_lower = (f.name or "").lower()
             
             # Skip internal/hidden-like fields
             if field_name_lower in skip_fields:
+                continue
+
+            # Skip fields that are very likely search widgets / honeypots / captchas
+            if _looks_like_honeypot_or_search(f):
                 continue
             
             # Handle checkbox fields (consent, RODO, etc.)
@@ -541,19 +580,60 @@ class FormHandler:
                 if tag == 'select':
                     elem.select_option(label=value)
                 elif tag in ('input', 'textarea'):
-                    elem.click()
-                    elem.fill('')
-                    elem.type(value, delay=30)
+                    # Prefer fill without click to avoid pointer interception by overlays/icons.
+                    try:
+                        elem.fill(value)
+                    except Exception:
+                        # Fallback: scroll and force-click, then type.
+                        try:
+                            elem.scroll_into_view_if_needed()
+                        except Exception:
+                            pass
+                        try:
+                            elem.click(force=True)
+                        except Exception:
+                            pass
+                        try:
+                            elem.fill('')
+                        except Exception:
+                            pass
+                        elem.type(value, delay=30)
                 elif tag == 'div' or elem.get_attribute('contenteditable') == 'true':
                     # Handle contenteditable divs and div-based inputs
-                    elem.click()
-                    elem.fill('')  # Clear existing content
-                    elem.type(value, delay=30)
+                    try:
+                        elem.fill(value)
+                    except Exception:
+                        try:
+                            elem.scroll_into_view_if_needed()
+                        except Exception:
+                            pass
+                        try:
+                            elem.click(force=True)
+                        except Exception:
+                            pass
+                        try:
+                            elem.fill('')  # Clear existing content
+                        except Exception:
+                            pass
+                        elem.type(value, delay=30)
                 else:
                     # Fallback for other element types
-                    elem.click()
-                    elem.fill('')
-                    elem.type(value, delay=30)
+                    try:
+                        elem.fill(value)
+                    except Exception:
+                        try:
+                            elem.scroll_into_view_if_needed()
+                        except Exception:
+                            pass
+                        try:
+                            elem.click(force=True)
+                        except Exception:
+                            pass
+                        try:
+                            elem.fill('')
+                        except Exception:
+                            pass
+                        elem.type(value, delay=30)
                 
                 page.wait_for_timeout(200)
                 self.console.print(f"[green]✓[/green] Filled: {selector}")

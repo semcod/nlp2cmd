@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import shlex
 import subprocess
@@ -653,106 +654,199 @@ class PipelineRunner:
                     elif action == "extract_article":
                         # Extract article content from the page
                         try:
+                            # Get mode and topic from action spec
+                            mode = action_spec.get("mode", "single")  # "single" or "list"
+                            topic = action_spec.get("topic")  # Optional topic filter
+                            
                             # Wait for page to be fully loaded
                             page.wait_for_load_state("domcontentloaded", timeout=5000)
                             page.wait_for_timeout(1000)
-                            
-                            # Try to find article links and select the best match
-                            article_selectors = [
-                                "article a[href]",
-                                "a[href*='artykul']",
-                                "a[href*='article']",
-                                ".article-link",
-                                ".news-link",
-                                "h2 a[href]",
-                                "h3 a[href]",
-                                ".headline a[href]",
-                                "a[class*='title']",
-                                "a[class*='headline']",
-                            ]
-                            
-                            article_link = None
-                            for selector in article_selectors:
-                                try:
-                                    links = page.locator(selector).all()
-                                    if links:
-                                        # Get the first visible link
-                                        article_link = links[0]
-                                        break
-                                except Exception:
-                                    continue
-                            
-                            if not article_link:
+
+                            # Collect all article links
+                            article_links: list[dict[str, str]] = []
+                            attempted_llm = False
+
+                            for attempt in range(2):
+                                article_selectors = schema_loader.get_article_link_selectors()
+                                for selector in article_selectors:
+                                    try:
+                                        links = page.locator(selector).all()
+                                        for link in links[:20]:  # Limit to first 20
+                                            try:
+                                                href = link.get_attribute("href")
+                                                text = link.inner_text().strip()
+                                                if href and text:
+                                                    article_links.append({"href": href, "text": text})
+                                            except Exception:
+                                                continue
+                                    except Exception:
+                                        continue
+                                
+                                if article_links:
+                                    break
+
+                                if attempted_llm:
+                                    break
+                                attempted_llm = True
+
+                                llm_suggestion = self._llm_suggest_article_selectors(page)
+                                if not llm_suggestion:
+                                    break
+
+                                for sel in llm_suggestion.get("article_link_selectors") or []:
+                                    try:
+                                        schema_loader.add_article_link_selector(sel)
+                                    except Exception:
+                                        pass
+                                for sel in llm_suggestion.get("article_content_selectors") or []:
+                                    try:
+                                        schema_loader.add_article_content_selector(sel)
+                                    except Exception:
+                                        pass
+
+                            if not article_links:
                                 console_wrapper.print("⚠️  No article links found on page", language="text")
                                 return RunnerResult(success=False, kind="dom", error="No article links found")
                             
-                            # Get article URL and title
-                            article_url = article_link.get_attribute("href")
-                            article_title = article_link.inner_text().strip()
+                            # Filter by topic if specified
+                            if topic:
+                                filtered_links = []
+                                topic_lower = topic.lower()
+                                for link in article_links:
+                                    text_lower = link["text"].lower()
+                                    # Simple keyword matching (can be enhanced with similarity)
+                                    if topic_lower in text_lower or any(word in text_lower for word in topic_lower.split()):
+                                        filtered_links.append(link)
+                                
+                                if filtered_links:
+                                    article_links = filtered_links
+                                    if console_wrapper.enable_markdown:
+                                        console.print(f"\n## Browser automation: filtered by topic '{topic}'", markup=False)
+                                    console_wrapper.print(f"Found {len(article_links)} articles matching topic", language="text")
+                                else:
+                                    console_wrapper.print(f"⚠️  No articles found matching topic '{topic}'", language="text")
                             
-                            # Make URL absolute if needed
-                            if article_url and not article_url.startswith("http"):
-                                from urllib.parse import urljoin
-                                article_url = urljoin(url, article_url)
+                            # Handle list mode (plural)
+                            if mode == "list":
+                                if console_wrapper.enable_markdown:
+                                    console.print("\n## Browser automation: article list", markup=False)
+                                if console_wrapper.enable_markdown:
+                                    console.print(f"Found {len(article_links)} articles:", markup=False)
+                                    console.print("", markup=False)
 
-                            if console_wrapper.enable_markdown:
-                                console.print("\n## Browser automation: found article", markup=False)
-                            console_wrapper.print(f"Title: {article_title}", language="text")
-                            console_wrapper.print(f"URL: {article_url}", language="text")
+                                    from urllib.parse import urljoin
+
+                                    for link in article_links[:10]:  # Show max 10
+                                        title = str(link.get("text") or "").strip()
+                                        href = str(link.get("href") or "").strip()
+                                        if not href:
+                                            continue
+                                        abs_url = href
+                                        if not abs_url.startswith("http"):
+                                            abs_url = urljoin(url, abs_url)
+                                        if title:
+                                            console.print(f"- [{title}]({abs_url})", markup=False)
+                                        else:
+                                            console.print(f"- {abs_url}", markup=False)
+
+                                    if len(article_links) > 10:
+                                        console.print(f"\n... and {len(article_links) - 10} more", markup=False)
+                                else:
+                                    console_wrapper.print(f"Found {len(article_links)} articles:", language="text")
+                                    console_wrapper.print("", language="text")
+
+                                    for idx, link in enumerate(article_links[:10], 1):  # Show max 10
+                                        from urllib.parse import urljoin
+                                        abs_url = link["href"]
+                                        if not abs_url.startswith("http"):
+                                            abs_url = urljoin(url, abs_url)
+                                        console_wrapper.print(f"{idx}. {link['text']}", language="text")
+                                        console_wrapper.print(f"   {abs_url}", language="text")
+                                        console_wrapper.print("", language="text")
+
+                                    if len(article_links) > 10:
+                                        console_wrapper.print(f"... and {len(article_links) - 10} more", language="text")
                             
-                            # Navigate to article
-                            page.goto(article_url, wait_until="domcontentloaded")
-                            page.wait_for_timeout(1500)
-                            
-                            # Dismiss popups on article page
-                            self._dismiss_popups(page, schema_loader)
-                            
-                            # Extract article content
-                            content_selectors = [
-                                "article",
-                                "[role='article']",
-                                ".article-content",
-                                ".article-body",
-                                ".post-content",
-                                ".entry-content",
-                                "main article",
-                                ".content article",
-                            ]
-                            
-                            article_content = None
-                            for selector in content_selectors:
-                                try:
-                                    article_element = page.locator(selector).first
-                                    if article_element:
-                                        article_content = article_element.inner_text()
-                                        if article_content and len(article_content.strip()) > 100:
-                                            break
-                                except Exception:
-                                    continue
-                            
-                            if not article_content:
-                                # Fallback: try to get main content
-                                try:
-                                    article_content = page.locator("main").first.inner_text()
-                                except Exception:
-                                    article_content = None
-                            
-                            if article_content:
-                                # Clean up the content
-                                lines = [line.strip() for line in article_content.split("\n") if line.strip()]
-                                cleaned_content = "\n".join(lines)
+                            # Handle single mode (extract first article)
+                            else:
+                                selected_link = article_links[0]
+                                article_url = selected_link["href"]
+                                article_title = selected_link["text"]
+                                
+                                # Make URL absolute if needed
+                                if article_url and not article_url.startswith("http"):
+                                    from urllib.parse import urljoin
+                                    article_url = urljoin(url, article_url)
 
                                 if console_wrapper.enable_markdown:
-                                    console.print("\n## Browser automation: article content", markup=False)
-                                console_wrapper.print(cleaned_content[:2000], language="text")  # Limit to 2000 chars
-                                if len(cleaned_content) > 2000:
-                                    console_wrapper.print(
-                                        f"... (truncated, {len(cleaned_content)} total characters)",
-                                        language="text",
-                                    )
-                            else:
-                                console_wrapper.print("⚠️  Could not extract article content", language="text")
-                                return RunnerResult(success=False, kind="dom", error="Could not extract article content")
+                                    console.print("\n## Browser automation: found article", markup=False)
+                                console_wrapper.print(f"Title: {article_title}", language="text")
+                                console_wrapper.print(f"URL: {article_url}", language="text")
+                                
+                                # Navigate to article
+                                page.goto(article_url, wait_until="domcontentloaded")
+                                page.wait_for_timeout(1500)
+                                
+                                # Dismiss popups on article page
+                                self._dismiss_popups(page, schema_loader)
+                                
+                                attempted_llm_content = False
+
+                                for attempt in range(2):
+                                    # Extract article content
+                                    content_selectors = schema_loader.get_article_content_selectors()
+
+                                    article_content = None
+                                    for selector in content_selectors:
+                                        try:
+                                            article_element = page.locator(selector).first
+                                            if article_element is not None and article_element.count() > 0:
+                                                article_content = article_element.inner_text()
+                                                if article_content and len(article_content.strip()) > 100:
+                                                    break
+                                        except Exception:
+                                            continue
+
+                                    if article_content and len(article_content.strip()) > 100:
+                                        break
+
+                                    if attempted_llm_content:
+                                        break
+                                    attempted_llm_content = True
+
+                                    llm_suggestion = self._llm_suggest_article_selectors(page)
+                                    if not llm_suggestion:
+                                        break
+
+                                    for sel in llm_suggestion.get("article_content_selectors") or []:
+                                        try:
+                                            schema_loader.add_article_content_selector(sel)
+                                        except Exception:
+                                            pass
+                                
+                                if not article_content:
+                                    # Fallback: try to get main content
+                                    try:
+                                        article_content = page.locator("main").first.inner_text()
+                                    except Exception:
+                                        article_content = None
+                                
+                                if article_content:
+                                    # Clean up the content
+                                    lines = [line.strip() for line in article_content.split("\n") if line.strip()]
+                                    cleaned_content = "\n".join(lines)
+
+                                    if console_wrapper.enable_markdown:
+                                        console.print("\n## Browser automation: article content", markup=False)
+                                    console_wrapper.print(cleaned_content[:2000], language="text")  # Limit to 2000 chars
+                                    if len(cleaned_content) > 2000:
+                                        console_wrapper.print(
+                                            f"... (truncated, {len(cleaned_content)} total characters)",
+                                            language="text",
+                                        )
+                                else:
+                                    console_wrapper.print("⚠️  Could not extract article content", language="text")
+                                    return RunnerResult(success=False, kind="dom", error="Could not extract article content")
                             
                         except Exception as e:
                             return RunnerResult(success=False, kind="dom", error=f"Action {i}: Article extraction failed: {e}")
@@ -792,3 +886,155 @@ class PipelineRunner:
                 break
             except:
                 continue
+
+    @staticmethod
+    def _extract_json_from_llm_response(text: str) -> Optional[dict[str, Any]]:
+        if not isinstance(text, str) or not text.strip():
+            return None
+
+        raw = text.strip()
+        m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL | re.IGNORECASE)
+        if m:
+            raw = m.group(1).strip()
+        else:
+            m2 = re.search(r"(\{.*\})", raw, flags=re.DOTALL)
+            if m2:
+                raw = m2.group(1).strip()
+
+        try:
+            payload = json.loads(raw)
+        except Exception:
+            return None
+        if not isinstance(payload, dict):
+            return None
+        return payload
+
+    @staticmethod
+    def _normalize_llm_article_selector_payload(payload: dict[str, Any]) -> dict[str, list[str]]:
+        def _clean_list(value: Any) -> list[str]:
+            if not isinstance(value, list):
+                return []
+            out: list[str] = []
+            for s in value:
+                if isinstance(s, str) and s.strip():
+                    out.append(s.strip())
+            return out
+
+        link_selectors = _clean_list(payload.get("article_link_selectors"))
+        content_selectors = _clean_list(payload.get("article_content_selectors"))
+        return {
+            "article_link_selectors": link_selectors,
+            "article_content_selectors": content_selectors,
+        }
+
+    @staticmethod
+    def _collect_page_links_for_llm(page, *, limit: int = 40) -> list[dict[str, str]]:
+        try:
+            items = page.evaluate(
+                r"""(limit) => {
+  const out = [];
+  const nodes = Array.from(document.querySelectorAll('a[href]'));
+  for (const a of nodes) {
+    if (out.length >= limit) break;
+    const href = a.getAttribute('href') || '';
+    const text = (a.textContent || '').trim().replace(/\s+/g, ' ');
+    if (!href) continue;
+    out.push({href, text});
+  }
+  return out;
+}""",
+                limit,
+            )
+        except Exception:
+            return []
+
+        if not isinstance(items, list):
+            return []
+        out: list[dict[str, str]] = []
+        for it in items:
+            if not isinstance(it, dict):
+                continue
+            href = it.get("href")
+            text = it.get("text")
+            if isinstance(href, str) and isinstance(text, str):
+                out.append({"href": href, "text": text})
+        return out
+
+    def _llm_suggest_article_selectors(self, page) -> Optional[dict[str, list[str]]]:
+        try:
+            import litellm
+            from litellm import completion
+        except Exception:
+            return None
+
+        model = (
+            os.environ.get("LITELLM_MODEL")
+            or os.environ.get("NLP2CMD_LLM_MODEL")
+            or "ollama/qwen2.5-coder:7b"
+        )
+        api_base = (
+            os.environ.get("LITELLM_API_BASE")
+            or os.environ.get("NLP2CMD_LLM_API_BASE")
+            or "http://localhost:11434"
+        )
+        api_key = os.environ.get("LITELLM_API_KEY") or os.environ.get("NLP2CMD_LLM_API_KEY") or ""
+        temperature = float(os.environ.get("LITELLM_TEMPERATURE") or os.environ.get("NLP2CMD_LLM_TEMPERATURE") or "0.1")
+        max_tokens = int(os.environ.get("LITELLM_MAX_TOKENS") or os.environ.get("NLP2CMD_LLM_MAX_TOKENS") or "512")
+        timeout = float(os.environ.get("LITELLM_TIMEOUT") or os.environ.get("NLP2CMD_LLM_TIMEOUT") or "30")
+
+        litellm.api_base = api_base
+        if api_key:
+            litellm.api_key = api_key
+        litellm.timeout = timeout
+
+        try:
+            html = page.content()
+        except Exception:
+            html = ""
+        links = self._collect_page_links_for_llm(page, limit=40)
+
+        html_short = html[:24000] if isinstance(html, str) else ""
+        links_json = json.dumps(links[:40], ensure_ascii=False)
+
+        system = (
+            "Jesteś ekspertem od selektorów CSS i ekstrakcji artykułów. "
+            "Dostajesz HTML strony oraz listę linków. "
+            "Masz zwrócić TYLKO JSON z propozycją selektorów."
+        )
+        user = (
+            "Zaproponuj selektory CSS do: (1) znalezienia linku do artykułu na stronie głównej oraz "
+            "(2) wyciągnięcia treści artykułu na stronie artykułu.\n\n"
+            "Wymagany format JSON:\n"
+            "{\n"
+            "  \"article_link_selectors\": [\"...\"],\n"
+            "  \"article_content_selectors\": [\"...\"]\n"
+            "}\n\n"
+            "Zasady:\n"
+            "- Tylko JSON, bez markdown i bez komentarzy\n"
+            "- Selektory mają być możliwie specyficzne, ale stabilne\n"
+            "- Jeśli nie masz pewności, zwróć 2-5 propozycji na listę\n\n"
+            f"LINKS_JSON:\n{links_json}\n\n"
+            f"HTML_SNIPPET:\n{html_short}"
+        )
+
+        try:
+            resp = completion(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            content = str(resp.choices[0].message["content"])
+        except Exception:
+            return None
+
+        parsed = self._extract_json_from_llm_response(content)
+        if not parsed:
+            return None
+        normalized = self._normalize_llm_article_selector_payload(parsed)
+        if not normalized.get("article_link_selectors") and not normalized.get("article_content_selectors"):
+            return None
+        return normalized
