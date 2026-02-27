@@ -248,6 +248,42 @@ nlp2cmd -r "wejdź na maskservice.pl i wypełnij formularz kontaktu"
 
 [📖 Full Documentation](docs/EXPLORATION_GUIDE.md)
 
+### 🖥️ Desktop GUI Automation via noVNC (NEW!)
+
+Control **any desktop application** on any OS through natural language — not just web pages.
+NLP2CMD connects to a full Linux desktop (XFCE) running in Docker via noVNC/VNC protocol.
+
+```bash
+# Start desktop environment
+docker compose -f docker/novnc/docker-compose.yml up -d
+# Open http://localhost:6080/vnc.html to watch live
+
+# Run demo — opens terminal, calculator, text editor, file manager, Firefox
+python3 docker/novnc/demos/demo_desktop_gui.py
+
+# With video recording
+python3 docker/novnc/demos/demo_desktop_gui.py --record
+```
+
+**Demonstrated capabilities:**
+- **Open applications** — terminal, calculator, text editor, file manager, browser
+- **Type text** — in any GUI application field
+- **Keyboard shortcuts** — Ctrl+S, Alt+F2, Alt+F4, etc.
+- **Navigate menus** — click buttons, select options
+- **Take screenshots** — automatic at each step
+- **Record video** — ffmpeg session recording inside Docker
+
+**Cross-OS Roadmap:**
+
+| Protocol | OS | Status |
+|----------|-----|--------|
+| **noVNC** (Docker) | Linux | ✅ Working |
+| **noVNC** (remote) | Any with VNC | 🔜 Planned |
+| **RDP** via xfreerdp | Windows | 🔜 Planned |
+| **VNC** direct | macOS | 🔜 Planned |
+
+[📖 Full Documentation](docs/DESKTOP_GUI_AUTOMATION.md)
+
 ### 🚀 Service Mode (NEW!)
 ```bash
 # Configure service settings

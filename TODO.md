@@ -1,8 +1,33 @@
 # TODO - NLP2CMD Project
 
-> **Diagnostyka:** 2026-02-27 | **Wersja:** 1.0.87 | **Moduły:** ~115 | **Indeks funkcji:** ~1400+
+> **Diagnostyka:** 2026-02-27 | **Wersja:** 1.0.89 | **Moduły:** ~140 | **Indeks funkcji:** ~1650+
 >
-> Źródło analizy: `project.toon` (2026-02-27)
+> Źródło analizy: `project.toon` (2026-02-27) · 380 plików, 107,572 linii
+
+---
+
+## ✅ Ukończone — Desktop GUI Automation + Agentic Config (2026-02-27)
+
+### Desktop GUI Automation via noVNC
+- [x] `docker/novnc/Dockerfile` — full XFCE desktop in Docker (Ubuntu 22.04)
+- [x] `docker/novnc/docker-compose.yml` — single-command start
+- [x] `docker/novnc/start-vnc.sh` — VNC + noVNC startup
+- [x] `docker/novnc/demos/demo_desktop_gui.py` — demo: terminal, calculator, editor, file manager, Firefox
+- [x] `src/nlp2cmd/adapters/desktop.py` — `DesktopAdapter` (desktop_dql.v1 DSL)
+- [x] Video recording via ffmpeg in Docker
+- [x] `docs/DESKTOP_GUI_AUTOMATION.md` — full documentation
+
+### BrowserConfigLoader (Phase 1 Agentic Refactoring)
+- [x] `data/browser_config/selectors.yaml` — 16 dismiss + submit + type selectors
+- [x] `data/browser_config/contact_paths.yaml` — 9 common paths + keywords
+- [x] `data/browser_config/junk_field_patterns.yaml` — junk/contact indicators
+- [x] `web_schema/browser_config.py` — `BrowserConfigLoader` + `DynamicSelectorGenerator`
+- [x] `docs/AGENTIC_REFACTORING_PLAN.md` — 4-phase plan
+
+### schema_based/ Cleanup
+- [x] Removed 313 lines dead code from `schema_based/generator.py` and `adapter.py`
+- [x] Clean shims: re-export only from `generation/schema/`
+- [x] Testy: 1141 passed, 0 failed
 
 ---
 
@@ -215,9 +240,14 @@ User Query
 
 - [ ] **Voice Input**: Integracja STT (powiązanie z projektem stts)
 - [ ] **Multi-language**: Wsparcie EN, DE, FR (poza PL/EN)
-- [ ] **Docker Images**: Oficjalne obrazy
 - [ ] **CI/CD Pipeline**: GitHub Actions
 - [ ] **API Documentation**: Pełne API reference
+- [ ] **Desktop GUI — Windows (RDP)**: xfreerdp + noVNC bridge
+- [ ] **Desktop GUI — macOS (VNC)**: Screen Sharing protocol
+- [ ] **Desktop GUI — Agentic loop**: LLM decyduje o kolejnych krokach autonomicznie
+- [ ] **BrowserConfigLoader Phase 2**: Zamień hardcode w site_explorer/form_data_loader → config lookups
+- [ ] **BrowserConfigLoader Phase 3**: AgenticPipelineRunner z NavigatorAgent, FormAgent, ExtractorAgent
+- [ ] **BrowserConfigLoader Phase 4**: SelfImprovingConfig — confidence tracking, auto-selector refresh
 
 ---
 
@@ -226,46 +256,51 @@ User Query
 | Problem | Wpływ | Status |
 |---------|-------|--------|
 | Polskie diakrytyki — edge cases | Średni | Fuzzy matching jako fallback |
-| `cli/main.py` ~1700 linii po cleanup | Średni | Dalszy refactor w Sprint 4 |
+| `pipeline_runner.py` 1336 ln | Średni | Utils extracted, dalszy split planned |
 | Dynamic JS content — niekompletna ekstrakcja | Średni | Explicit waits + retry |
 | Python 3.13 — brak `_posixsubprocess` | Wysoki | Użyj Python 3.12 |
+| Dismiss selectors zduplikowane w 3 plikach | Niski | BrowserConfigLoader gotowy, Phase 2 wpiąć |
 
 ---
 
 ## 🏗️ Roadmap
 
-### v1.1.0 ← **TERAZ** (cleanup + refactor monolitów)
+### v1.1.0 ✅ (cleanup + refactor monolitów)
 - [x] Rozbicie templates.py, keywords.py, core.py
 - [x] Naprawy CLI (browser, history, auto-install)
-- [x] Usunięcie _old.py, _original.py, redundantnych matcherów
-- [x] Usunięcie dead code: concepts/, contracts/, nlp/, interfaces/ (~4.5K ln)
-- [x] Fix browser automation (transform_ir dsl_kind mapping)
-- [ ] Konsolidacja README
-- [ ] Konsolidacja JSON → TOON
+- [x] Usunięcie dead code (~4.5K ln)
+- [x] Fix browser automation
+- [x] Split cli/main.py (1901 → 393 ln)
+- [x] Move schema_based/ → generation/schema/
+- [x] Extract pipeline_runner_utils.py
 
-### v1.2.0 (Schema-First Pipeline)
-- [ ] Integracja schema_based/ + intelligent/ z generation/
+### v1.2.0 ← **TERAZ** (Schema-First + Desktop GUI)
+- [x] Desktop GUI automation via noVNC Docker
+- [x] BrowserConfigLoader + DynamicSelectorGenerator
+- [ ] Integracja intelligent/ z generation/ pipeline
 - [ ] Unified IntentMatcher API
 - [ ] Rewrite pipeline.py do schema-first flow
+- [ ] Konsolidacja README
 - **ETA**: 2-3 tygodnie
 
-### v2.0.0 (AI-Driven)
+### v2.0.0 (AI-Driven Autonomous Agent)
+- [ ] Agentic pipeline: LLM decision loop
+- [ ] Self-improving config per-domain
+- [ ] Cross-OS GUI control (Windows RDP, macOS VNC)
 - [ ] Real-time learning z historii
-- [ ] CQRS + Event Sourcing
-- [ ] Full Playwright automation
 - **ETA**: 2-3 miesiące
 
 ---
 
-## 📊 Statystyki projektu (2026-02-26)
+## 📊 Statystyki projektu (2026-02-27)
 
-- **~115 modułów** Python w `src/` (było 129, usunięto 14 dead files)
-- **~12,300 linii** w `generation/` (20 plików)
-- **~4,543 linii** dead code usunięte w Sprint 3
-- **Kluczowe metryki**:
-  - `cli/main.py`: ~1900 ln — kandydat do split w Sprint 4
-  - `pipeline.py`: 32 fn, CC do 34
-  - `template_generator.py`: 38 fn
-  - `keyword_detector.py`: 18 fn (po split z 46)
-  - `adapters/shell.py`: 345 ln (po split z 2311 ln w Sprint 2)
-- **Testy**: 1072 passed, 0 failed, 385 deselected
+- **~140 modułów** Python w `src/` · **380 plików** · **107,572 linii**
+- **1,141 testów**: 0 failed, 385 deselected
+- **Kluczowe metryki po refaktoryzacji**:
+  - `cli/main.py`: 393 ln (było 1901, ↓79%)
+  - `pipeline_runner.py`: 1336 ln (było 1568, ↓15%)
+  - `schema_based/`: czyste shimy (313 ln dead code usunięte)
+  - `pipeline_runner_utils.py`: 466 ln (nowy, extracted)
+  - `web_schema/browser_config.py`: 237 ln (nowy, Phase 1)
+  - `adapters/desktop.py`: nowy (noVNC GUI adapter)
+- **Nowe capabilities**: desktop GUI control, browser config YAML, LLM selector generation

@@ -1,3 +1,44 @@
+## [1.0.89] - 2026-02-27
+
+### Summary
+
+feat(desktop): desktop GUI automation via noVNC + Docker, BrowserConfigLoader, schema_based cleanup
+
+### Features
+
+- **Desktop GUI Automation** (`DesktopAdapter` + noVNC Docker):
+  - Control any desktop application via natural language
+  - `docker/novnc/` — full XFCE desktop in Docker with VNC + noVNC
+  - `DesktopAdapter` — new adapter for desktop_dql.v1 DSL
+  - Demo script: opens terminal, calculator, text editor, file manager, Firefox
+  - Video recording via ffmpeg inside Docker
+  - Supported intents: open_app, type_text, click, keyboard_shortcut, screenshot, close_app
+  - Cross-OS roadmap: Linux (noVNC), Windows (RDP), macOS (VNC)
+
+- **BrowserConfigLoader** — single source of truth for browser automation config:
+  - `data/browser_config/selectors.yaml` — dismiss, submit, type selectors
+  - `data/browser_config/contact_paths.yaml` — common contact page paths + keywords
+  - `data/browser_config/junk_field_patterns.yaml` — junk/contact field detection
+  - `DynamicSelectorGenerator` — LLM fallback when static selectors fail
+  - Per-domain overrides via `data/browser_config/domains/<domain>.yaml`
+
+### Refactoring
+
+- **schema_based/ cleanup**: removed 313 lines of dead code duplicates from
+  `schema_based/generator.py` and `schema_based/adapter.py` — now clean shims
+  that re-export from `generation/schema/`
+
+### Docs
+
+- `docs/DESKTOP_GUI_AUTOMATION.md` — noVNC setup, usage, cross-OS roadmap
+- `docs/AGENTIC_REFACTORING_PLAN.md` — 4-phase plan for autonomous browser agent
+
+### Tests
+
+- 1141 passed, 0 failed
+
+---
+
 ## [1.0.88] - 2026-02-27
 
 ### Summary
