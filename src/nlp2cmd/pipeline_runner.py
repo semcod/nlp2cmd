@@ -48,6 +48,8 @@ class PipelineRunner:
         safety_policy: Optional[SafetyPolicy] = None,
         headless: bool = True,
         enable_history: bool = True,
+        video_fmt: Optional[str] = None,
+        video_dir: str = "./recordings",
     ):
         self.shell_policy = shell_policy or ShellExecutionPolicy()
         try:
@@ -56,6 +58,11 @@ class PipelineRunner:
             pass
         self.safety_policy = safety_policy
         self.headless = headless
+        # When video recording is requested, force headless=False so there's content to record
+        self.video_fmt = video_fmt
+        self.video_dir = video_dir
+        if video_fmt:
+            self.headless = False
         self.enable_history = enable_history
         self._history = None
         
@@ -75,13 +82,16 @@ class PipelineRunner:
         dry_run: bool = True,
         confirm: bool = False,
         web_url: Optional[str] = None,
+        video_fmt: Optional[str] = None,
+        video_dir: Optional[str] = None,
     ) -> RunnerResult:
         started = time.time()
         try:
             if ir.dsl_kind == "shell":
                 res = self._run_shell(ir.dsl, cwd=cwd, timeout_s=timeout_s, dry_run=dry_run, confirm=confirm)
             elif ir.dsl_kind == "dom":
-                res = self._run_dom_dql(ir.dsl, dry_run=dry_run, confirm=confirm, web_url=web_url)
+                res = self._run_dom_dql(ir.dsl, dry_run=dry_run, confirm=confirm, web_url=web_url,
+                                        video_fmt=video_fmt, video_dir=video_dir)
             else:
                 res = RunnerResult(
                     success=False,
@@ -280,6 +290,8 @@ class PipelineRunner:
         dry_run: bool,
         confirm: bool,
         web_url: Optional[str],
+        video_fmt: Optional[str] = None,
+        video_dir: Optional[str] = None,
     ) -> RunnerResult:
         try:
             payload = json.loads(dql_json)
@@ -292,7 +304,8 @@ class PipelineRunner:
         # Check if this is a multi-action sequence
         actions = payload.get("actions")
         if actions and isinstance(actions, list):
-            return self._run_dom_multi_action(payload, dry_run=dry_run, confirm=confirm, web_url=web_url)
+            return self._run_dom_multi_action(payload, dry_run=dry_run, confirm=confirm, web_url=web_url,
+                                               video_fmt=video_fmt, video_dir=video_dir)
 
         url = payload.get("url") or web_url
         action = str(payload.get("action") or "")
@@ -361,6 +374,8 @@ class PipelineRunner:
         dry_run: bool,
         confirm: bool,
         web_url: Optional[str],
+        video_fmt: Optional[str] = None,
+        video_dir: Optional[str] = None,
     ) -> RunnerResult:
         """Execute multiple browser actions in sequence."""
         actions = payload.get("actions", [])
@@ -417,47 +432,57 @@ class PipelineRunner:
             schema_loader = FormDataLoader(site=str(url))
             ctx_opts = schema_loader.get_browser_context_options()
 
-            # Ask user if they want to record video (interactive TTY only).
-            # Never block automation/non-interactive runs.
-            should_record_video, video_dir = False, ""
-            try:
-                is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
-            except Exception:
-                is_tty = False
-            if confirm and is_tty:
-                should_record_video, video_dir = ask_for_video_recording(console)
+            # Video recording: prefer CLI --video flag, fall back to interactive prompt
+            should_record_video = False
+            _effective_video_dir = video_dir or "./recordings"
+            
+            if video_fmt:
+                # CLI --video flag was passed — record automatically
+                should_record_video = True
+                _effective_video_dir = video_dir or "./recordings"
+                _debug(f"Video recording enabled via --video {video_fmt}")
+            else:
+                # Fallback: interactive prompt (TTY only)
+                try:
+                    is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+                except Exception:
+                    is_tty = False
+                if confirm and is_tty:
+                    should_record_video, _effective_video_dir = ask_for_video_recording(console)
             
             video_recorder = None
             
             if should_record_video:
-                video_recorder = VideoRecorder(output_dir=video_dir)
-                video_path = video_recorder.start_recording(name_prefix="form_automation")
+                video_recorder = VideoRecorder(output_dir=_effective_video_dir)
+                video_path = video_recorder.start_recording(name_prefix="browser_automation")
                 if video_path:
                     console.print(f"[dim]🎥 Nagrywanie wideo: {video_path}[/dim]")
-                    # Enable video recording in Playwright context options
-                    ctx_opts["record_video_dir"] = video_dir
+                    # Enable Playwright built-in video recording
+                    ctx_opts["record_video_dir"] = _effective_video_dir
                     ctx_opts["record_video_size"] = {"width": 1280, "height": 720}
 
             context = browser.new_context(**ctx_opts)
 
-            # Strategy 2: Block heavy resources (images, fonts, video) for speed
-            try:
-                _BLOCKED = (
-                    "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg",
-                    "**/*.webp", "**/*.ico", "**/*.bmp", "**/*.tiff",
-                    "**/*.woff", "**/*.woff2", "**/*.ttf", "**/*.eot",
-                    "**/*.mp4", "**/*.webm", "**/*.ogg", "**/*.mp3",
-                )
-                def _abort_heavy(route):
-                    try:
-                        route.abort()
-                    except Exception:
-                        pass
-                for pat in _BLOCKED:
-                    context.route(pat, _abort_heavy)
-                _debug("Resource blocking enabled in pipeline_runner")
-            except Exception:
-                pass
+            # Strategy 2: Block heavy resources for speed — but NOT when recording video
+            # (blocking images/fonts breaks visual content like jspaint canvas)
+            if not should_record_video:
+                try:
+                    _BLOCKED = (
+                        "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg",
+                        "**/*.webp", "**/*.ico", "**/*.bmp", "**/*.tiff",
+                        "**/*.woff", "**/*.woff2", "**/*.ttf", "**/*.eot",
+                        "**/*.mp4", "**/*.webm", "**/*.ogg", "**/*.mp3",
+                    )
+                    def _abort_heavy(route):
+                        try:
+                            route.abort()
+                        except Exception:
+                            pass
+                    for pat in _BLOCKED:
+                        context.route(pat, _abort_heavy)
+                    _debug("Resource blocking enabled in pipeline_runner")
+                except Exception:
+                    pass
 
             page = context.new_page()
 

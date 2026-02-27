@@ -386,6 +386,8 @@ def main(
                 auto_repair=auto_repair,
                 only_output=only_output,
                 verbose=verbose,
+                video_fmt=video_fmt,
+                video_duration=video_duration,
             )
         elif query:
             if dsl == "appspec":

@@ -46,6 +46,8 @@ def handle_run_mode(
     auto_repair: bool,
     only_output: bool = False,
     verbose: bool = False,
+    video_fmt: Optional[str] = None,
+    video_duration: int = 3,
 ):
     """
     Handle --run option: generate and execute command with error recovery.
@@ -748,6 +750,9 @@ def _handle_run_query(
     auto_repair: bool,
     only_output: bool = False,
     verbose: bool = False,
+    video_fmt: Optional[str] = None,
+    video_duration: int = 3,
+    **_ignored_kwargs,
 ) -> None:
     handle_run_mode(
         query,
@@ -760,6 +765,8 @@ def _handle_run_query(
         auto_repair=auto_repair,
         only_output=only_output,
         verbose=verbose,
+        video_fmt=video_fmt,
+        video_duration=video_duration,
     )
     return
 
