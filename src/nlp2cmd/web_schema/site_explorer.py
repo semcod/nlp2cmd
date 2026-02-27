@@ -78,7 +78,9 @@ class SiteExplorer:
     DOCS_KEYWORDS = [
         "dokumentacja", "documentation", "docs", "pomoc", "help",
         "faq", "pytania", "questions", "support", "wsparcie",
-        "manual", "instrukcja", "guide", "tutorial",
+        "manual", "instrukcja", "guide", "tutorial", "readme",
+        "wiki", "api", "reference", "examples", "przykłady",
+        "github", "gitlab", "bitbucket", "repository", "repo"
     ]
     
     # Keywords that suggest form fields
@@ -777,7 +779,9 @@ class SiteExplorer:
             return page_info.has_form
         elif content_type in ["article", "product", "docs"]:
             # For non-contact content, check if page has relevant content indicators
-            return page_info.score > 1.0  # Has some relevant keywords
+            # Lower threshold for docs since documentation pages might not have high scores
+            threshold = 0.5 if content_type == "docs" else 1.0
+            return page_info.score > threshold
         return False
     
     def _find_best_content_candidate(

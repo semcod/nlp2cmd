@@ -529,7 +529,10 @@ class PipelineRunner:
                             
                             content_type = action_spec.get("content_type", "article")
                             console_wrapper.print(f"🔍 Exploring site for {content_type}...", language="text")
-                            explorer = SiteExplorer(max_depth=2, max_pages=8, headless=self.headless)
+                            # Use smaller limits for docs to avoid timeouts
+                            max_pages = 2 if content_type == "docs" else 8
+                            max_depth = 1 if content_type == "docs" else 2
+                            explorer = SiteExplorer(max_depth=max_depth, max_pages=max_pages, headless=self.headless, timeout_ms=5000, dynamic_wait_ms=1000)
                             
                             # Don't close browser - reuse current context
                             explore_result = explorer.find_content(

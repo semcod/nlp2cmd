@@ -109,7 +109,8 @@ class BrowserAdapter(BaseDSLAdapter):
             ],
             "docs": [
                 "znajdź dokumentację", "znajdz dokumentacje", "find documentation",
-                "szukaj pomocy", "przeszukaj manual", "faq", "guide", "tutorial"
+                "szukaj pomocy", "przeszukaj manual", "faq", "guide", "tutorial",
+                "readme", "wiki", "api docs", "documentation"
             ]
         }
         
