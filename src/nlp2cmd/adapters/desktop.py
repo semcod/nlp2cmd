@@ -1,28 +1,57 @@
 """
 Desktop GUI Adapter for NLP2CMD.
 
-Enables controlling desktop applications on any OS via VNC/noVNC protocol.
-Playwright connects to a noVNC web client, which proxies to a VNC server
-running inside a Docker container or remote machine.
+Enables controlling desktop applications on any OS via:
+- VNC/noVNC protocol (Docker containers, remote machines)
+- Local xdotool/wmctrl (native Linux desktop)
+- Playwright browser automation (multi-tab, persistent context)
 
 Supported protocols:
 - noVNC (websocket → VNC, via Docker or remote)
+- Local (xdotool + wmctrl for native desktop)
 - Direct VNC (future)
 - RDP (future, via xfreerdp + noVNC bridge)
 
+Capabilities:
+- App launch/close/focus (any desktop app)
+- Window management (minimize, maximize, switch, tile)
+- Email client control (Thunderbird shortcuts)
+- Multi-tab browser control (new tab, switch tab, close tab)
+- Keyboard shortcuts and combos
+- Desktop screenshot
+- xdotool/wmctrl integration for native control
+
 Usage:
     adapter = DesktopAdapter(vnc_url="http://localhost:6080")
-    nlp = NLP2CMD(adapter=adapter)
-    result = nlp.transform("open calculator and type 2+2")
+    result = adapter.generate({"text": "otwórz Firefox i nowy tab"})
 """
 
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 from nlp2cmd.adapters.base import BaseAdapter, SafetyPolicy
+
+_DEBUG = os.environ.get("NLP2CMD_DEBUG", "").lower() in ("1", "true", "yes")
+
+
+def _debug(msg: str) -> None:
+    if _DEBUG:
+        print(f"DEBUG [DesktopAdapter] {msg}", file=sys.stderr, flush=True)
+
+
+@dataclass
+class DesktopAction:
+    """Structured desktop automation action."""
+    app: str = ""
+    action: str = ""
+    params: dict[str, Any] = field(default_factory=dict)
+    fallback_shell: Optional[str] = None
 
 
 class DesktopSafetyPolicy(SafetyPolicy):
