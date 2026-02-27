@@ -1975,6 +1975,11 @@ class PipelineRunner:
                 subprocess.run(["xdotool", "type", "--delay", "20", txt], check=True)
             return None
 
+        if action == "wait":
+            ms = int(params.get("ms", 500))
+            time.sleep(max(ms, 0) / 1000.0)
+            return None
+
         if action == "desktop_wait":
             ms = int(params.get("ms", 500))
             time.sleep(max(ms, 0) / 1000.0)
