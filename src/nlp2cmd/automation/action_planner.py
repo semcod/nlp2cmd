@@ -331,7 +331,7 @@ class ActionPlanner:
                 )
                 steps.append(
                     ActionStep(
-                        action="wait",
+                        action="desktop_wait",
                         params={"ms": 1200},
                         description="Poczekaj na załadowanie strony",
                     )
