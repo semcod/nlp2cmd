@@ -1247,6 +1247,16 @@ class PipelineRunner:
 
                             dicts = [it for it in extracted_data if isinstance(it, dict)]
                             has_website_field = any("website" in it for it in dicts)
+                            has_real_websites = False
+                            if has_website_field:
+                                for it in dicts:
+                                    try:
+                                        w = str(it.get("website") or "").strip()
+                                    except Exception:
+                                        w = ""
+                                    if w and not _is_bad_website(w):
+                                        has_real_websites = True
+                                        break
 
                             def _is_bad_website(u: str) -> bool:
                                 low = (u or "").strip().lower()
@@ -1275,11 +1285,20 @@ class PipelineRunner:
                                 if isinstance(item, dict):
                                     candidate = ""
                                     if has_website_field:
-                                        # In company-website extraction mode, only write real external websites.
-                                        if item.get("website"):
-                                            candidate = str(item.get("website") or "").strip()
+                                        if has_real_websites:
+                                            # In company-website extraction mode, only write real external websites.
+                                            if item.get("website"):
+                                                candidate = str(item.get("website") or "").strip()
+                                            else:
+                                                candidate = ""
                                         else:
-                                            candidate = ""
+                                            # Fallback: profiles do not expose external websites. Save profile URLs instead.
+                                            if item.get("oferteo_url"):
+                                                candidate = str(item.get("oferteo_url") or "").strip()
+                                            elif item.get("url"):
+                                                candidate = str(item.get("url") or "").strip()
+                                            else:
+                                                candidate = ""
                                     elif item.get("url"):
                                         candidate = str(item.get("url") or "").strip()
                                     elif item.get("oferteo_url"):
@@ -1287,7 +1306,7 @@ class PipelineRunner:
                                     else:
                                         candidate = " ".join(str(v) for v in item.values()).strip()
 
-                                    if has_website_field and _is_bad_website(candidate):
+                                    if has_website_field and has_real_websites and _is_bad_website(candidate):
                                         continue
 
                                     if not candidate:

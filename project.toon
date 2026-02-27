@@ -1,7 +1,6 @@
-# nlp2cmd | 380f 107572L | python:379/sql:1
+# nlp2cmd | 382f 107599L | python:381/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[380]:
-  src/nlp2cmd/web_schema/browser_config.py,237
+M[382]:
   benchmarks/thermodynamic_benchmark.py,318
   browser_test.py,41
   demos/demo_enhanced.py,95
@@ -13,6 +12,7 @@ M[380]:
   demos/schema_flow_demo.py,144
   demos/simple_schema_demo.py,83
   docker/init-db.sql,143
+  docker/novnc/demos/demo_desktop_gui.py,184
   examples/01_basics/app2schema/example.py,15
   examples/01_basics/docker_basics/example.py,68
   examples/01_basics/docker_basics/file_repair.py,219
@@ -126,6 +126,7 @@ M[380]:
   src/nlp2cmd/adapters/appspec.py,71
   src/nlp2cmd/adapters/base.py,168
   src/nlp2cmd/adapters/browser.py,433
+  src/nlp2cmd/adapters/desktop.py,180
   src/nlp2cmd/adapters/docker.py,486
   src/nlp2cmd/adapters/dql.py,334
   src/nlp2cmd/adapters/dynamic.py,496
@@ -227,15 +228,15 @@ M[380]:
   src/nlp2cmd/nlp_light/__init__.py,3
   src/nlp2cmd/nlp_light/semantic_shell.py,276
   src/nlp2cmd/parsing/toon_parser.py,342
-  src/nlp2cmd/pipeline_runner.py,1161
+  src/nlp2cmd/pipeline_runner.py,1284
   src/nlp2cmd/pipeline_runner_utils.py,361
   src/nlp2cmd/planner/__init__.py,340
   src/nlp2cmd/polish_support.py,240
   src/nlp2cmd/registry/__init__.py,529
   src/nlp2cmd/router/__init__.py,266
   src/nlp2cmd/schema_based/__init__.py,11
-  src/nlp2cmd/schema_based/adapter.py,198
-  src/nlp2cmd/schema_based/generator.py,242
+  src/nlp2cmd/schema_based/adapter.py,6
+  src/nlp2cmd/schema_based/generator.py,9
   src/nlp2cmd/schema_driven.py,220
   src/nlp2cmd/schema_extraction/__init__.py,34
   src/nlp2cmd/schema_extraction/extractors.py,332
@@ -258,6 +259,7 @@ M[380]:
   src/nlp2cmd/utils/yaml_compat.py,141
   src/nlp2cmd/validators/__init__.py,582
   src/nlp2cmd/web_schema/__init__.py,28
+  src/nlp2cmd/web_schema/browser_config.py,237
   src/nlp2cmd/web_schema/extractor.py,299
   src/nlp2cmd/web_schema/form_data_loader.py,670
   src/nlp2cmd/web_schema/form_handler.py,530
@@ -382,14 +384,6 @@ M[380]:
   tools/schema/update_schemas.py,128
   tools/schema/validate_schemas.py,91
 D:
-  src/nlp2cmd/web_schema/browser_config.py:
-    i: os,nlp2cmd.utils.data_files.find_data_file,nlp2cmd.utils.yaml_compat.yaml,pathlib.Path,typing.{Any,Optional}
-    e: _BROWSER_CONFIG_DIR,BrowserConfigLoader,DynamicSelectorGenerator
-    BrowserConfigLoader: __init__(0),_ensure_loaded(0),get_dismiss_selectors(0),get_submit_selectors(0),get_type_selectors(1)  # Single source of truth for browser au...
-    DynamicSelectorGenerator: __init__(0),suggest_selectors(2)  # Generate selectors dynamically using...
-    _find_config_dir()->Optional[Path]
-    _load_yaml(path:Path)->dict[str, Any]
-    _dedupe(items:list[str])->list[str]
   benchmarks/thermodynamic_benchmark.py:
     i: asyncio,time,sys,numpy,dataclasses.dataclass,nlp2cmd.generation.thermodynamic.create_thermodynamic_generator,pathlib.Path,typing.{Any,Dict,List}
     e: BenchmarkResult,benchmark_langevin_sampler,benchmark_parallel_vs_sequential,benchmark_adaptive_steps,benchmark_generator_problems,benchmark_energy_savings,print_benchmark_result,main
@@ -454,6 +448,15 @@ D:
     IF: 
     IF: 
     IF: 
+  docker/novnc/demos/demo_desktop_gui.py:
+    i: argparse,json,subprocess,sys,time,pathlib.Path,typing.{Any,Optional}
+    e: ensure_playwright,start_recording,stop_recording,take_screenshot,run_demo,main
+    ensure_playwright()
+    start_recording(container:str='nlp2cmd-desktop';duration:int=60)->Optional[subprocess.Popen]
+    stop_recording(container:str='nlp2cmd-desktop')
+    take_screenshot(page;name:str;output_dir:Path)
+    run_demo()
+    main()
   examples/01_basics/app2schema/example.py:
     i: json,app2schema.extract_appspec_to_file,nlp2cmd.adapters.AppSpecAdapter,nlp2cmd.core.NLP2CMD,pathlib.Path
     e: main
@@ -1170,6 +1173,11 @@ D:
     BrowserSafetyPolicy: 
     BrowserAdapter: __init__(2),_extract_url(1),_extract_type_text(1),_has_type_action(1),_should_explore_for_content(1)  # Minimal adapter that turns NL into do...
     _debug(msg:str)->None
+  src/nlp2cmd/adapters/desktop.py:
+    i: json,re,nlp2cmd.adapters.base.{BaseAdapter,SafetyPolicy},typing.{Any,Dict,List,Optional}
+    e: DesktopSafetyPolicy,DesktopAdapter
+    DesktopSafetyPolicy: validate(1)  # Safety policy for desktop GUI automat...
+    DesktopAdapter: __init__(0),generate(1),detect_intent(1),_extract_app_name(1),_extract_quoted_text(1)  # Adapter for desktop GUI automation vi...
   src/nlp2cmd/adapters/docker.py:
     i: re,dataclasses.{dataclass,field},nlp2cmd.adapters.base.{AdapterConfig,BaseDSLAdapter,SafetyPolicy},nlp2cmd.utils.yaml_compat.yaml,typing.{Any,Optional}
     e: DockerSafetyPolicy,ComposeContext,DockerAdapter
@@ -1748,17 +1756,6 @@ D:
     RoutingResult:   # Result of routing decision.
     RouterConfig:   # Configuration for Decision Router.
     DecisionRouter: __init__(1),_register_default_mappings(0),_load_config_from_data(0),route(5),_has_multi_step_indicators(1)  # Routes incoming requests to appropria...
-  src/nlp2cmd/schema_based/adapter.py:
-    i: nlp2cmd.adapters.appspec.AppSpecAdapter,nlp2cmd.ir.ActionIR,nlp2cmd.schema_based.generator.SchemaRegistry,pathlib.Path,typing.{Any,Dict,Optional}
-    e: SchemaDrivenAppSpecAdapter,test_schema_driven_adapter
-    SchemaDrivenAppSpecAdapter: __init__(0),_load_schemas(0),_action_to_schema(1),_infer_category(1),generate(1)  # AppSpec adapter that uses schema-base...
-    test_schema_driven_adapter()
-  src/nlp2cmd/schema_based/generator.py:
-    i: json,nlp2cmd.schema_extraction.{CommandSchema,ExtractedSchema},nlp2cmd.schema_extraction.llm_extractor.LLMSchemaExtractor,pathlib.Path,typing.{Any,Dict,List,Optional}
-    e: SchemaBasedGenerator,SchemaRegistry,test_schema_based_generator
-    SchemaBasedGenerator: __init__(1),learn_from_schema(1),generate_command(2),_extract_pattern(1),_apply_pattern(2)  # Generates commands using schemas inst...
-    SchemaRegistry: __init__(1),register_schema(1),load_from_file(1),_convert_from_json(2),generate_command(2)  # Registry for managing and improving s...
-    test_schema_based_generator()
   src/nlp2cmd/schema_driven.py:
     i: json,re,dataclasses.dataclass,nlp2cmd.appspec_runtime.{AppAction,AppSpec},nlp2cmd.ir.ActionIR,typing.{Any,Optional}
     e: MatchResult,SchemaDrivenNLP2CMD
@@ -1870,6 +1867,14 @@ D:
     SyntaxValidator: validate(1)  # Generic syntax validator for balanced...
     SQLValidator: __init__(1),validate(1)  # SQL-specific validator.
     ShellValidator: __init__(1),validate(1)  # Shell command validator.
+  src/nlp2cmd/web_schema/browser_config.py:
+    i: os,nlp2cmd.utils.data_files.find_data_file,nlp2cmd.utils.yaml_compat.yaml,pathlib.Path,typing.{Any,Optional}
+    e: _BROWSER_CONFIG_DIR,BrowserConfigLoader,DynamicSelectorGenerator
+    BrowserConfigLoader: __init__(0),_ensure_loaded(0),get_dismiss_selectors(0),get_submit_selectors(0),get_type_selectors(1)  # Single source of truth for browser au...
+    DynamicSelectorGenerator: __init__(0),suggest_selectors(2)  # Generate selectors dynamically using...
+    _find_config_dir()->Optional[Path]
+    _load_yaml(path:Path)->dict[str, Any]
+    _dedupe(items:list[str])->list[str]
   src/nlp2cmd/web_schema/extractor.py:
     i: json,re,dataclasses.{dataclass,field},pathlib.Path,typing.{Any,Optional},urllib.parse.urlparse
     e: WebElement,WebPageSchema,WebSchemaExtractor,extract_web_schema
