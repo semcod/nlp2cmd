@@ -1,0 +1,67 @@
+========================================
+RAPORT TESTU ZRZUTÓW EKRANU
+========================================
+Data: 2025-02-27 22:40
+System: Linux (Ubuntu/GNOME)
+
+🎯 CELE TESTU:
+1. ✅ Robienie zrzutów ekranu co 2 sekundy
+2. ✅ Weryfikacja czy zrzuty zostały pobrane poprawnie  
+3. ✅ Zmniejszenie zrzutów o 30% (skala 0.7)
+4. ✅ Analiza poprawności plików
+
+📊 WYNIKI:
+
+1. ROBIENIE ZRZUTÓW EKRANU:
+   - Użyte narzędzie: scrot
+   - Interwał: 2 sekundy
+   - Liczba zrzutów: 5
+   - Status: ✅ SUKCES
+   - Wszystkie zrzuty zapisane poprawnie
+
+2. WERYFIKACJA POBRANIA:
+   - Liczba plików: 6 (łącznie z testowym)
+   - Wszystkie pliki poprawne: ✅ TAK
+   - Rozmiar każdego pliku: 24,297 bytes
+   - Wymiary: 2160x3840 px
+   - Format: PNG (RGB)
+   - Status: ✅ SUKCES
+
+3. ZMIANA ROZMIARU (zmniejszenie o 30%):
+   - Oryginalne wymiary: 2160x3840 px
+   - Nowe wymiary: 1512x2688 px
+   - Skala: 70% (zmniejszenie o 30%)
+   - Redukcja rozmiaru plików: 51.0%
+   - Oszczędność miejsca: 74,322 bytes
+   - Status: ✅ SUKCES
+
+4. ANALIZA POPRAWNOŚCI:
+   - Wszystkie pliki poprawne: 6/6
+   - Błędne pliki: 0
+   - Hashy plików spójne (podobna zawartość)
+   - Status: ✅ SUKCES
+
+📈 PODSUMOWANIE:
+- Wszystkie testy zakończone sukcesem ✅
+- System robienia zrzutów działa poprawnie
+- Zmiana rozmiaru zoptymalizowana (51% redukcji)
+- Automatyzacja przebiegła bezbłędnie
+
+🛠️ UŻYTE NARZĘDZIA:
+- scrot: robienie zrzutów ekranu
+- Python + Pillow: analiza i zmiana rozmiaru
+- Bash: automatyzacja procesu
+
+📁 STRUKTURA PLIKÓW:
+test_screenshots/
+├── capture_script.sh          # skrypt do robienia zrzutów
+├── analyze_screenshots.py    # skrypt do analizy i przetwarzania
+├── raport_testu.txt          # ten raport
+├── screenshot_test.png       # zrzut testowy
+├── screenshot_*.png          # zrzuty co 2 sekundy (5 szt.)
+└── resized_70percent/        # zrzuty zmniejszone o 30%
+    └── screenshot_*.png      # przetworzone pliki
+
+========================================
+KONIEC RAPORTU - TEST ZAKOŃCZONY SUKCESEM
+========================================
