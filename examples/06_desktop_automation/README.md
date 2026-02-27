@@ -1,36 +1,41 @@
 # Desktop GUI Automation Examples
 
-Control desktop applications on any OS via noVNC + Playwright.
+Control desktop applications via `nlp2cmd --source novnc://` bash commands.  
+Each example is a **bash script** with `nlp2cmd` CLI calls — no Python needed.  
+Every run generates a **Markdown log with inline screenshots** in `logs/`.
 
 ## Prerequisites
 
 ```bash
 # Start the desktop environment
 docker compose -f docker/novnc/docker-compose.yml up -d
-
-# Wait ~10s, then watch live at:
-# http://localhost:6080/vnc.html?autoconnect=true
+# Wait ~10s for XFCE to start
+# Watch live: http://localhost:6080/vnc.html?autoconnect=true
 ```
 
 ## Examples
 
-| Script | Description |
-|--------|-------------|
-| `example_terminal.py` | Open terminal, run shell commands |
-| `example_calculator.py` | Open calculator, do math |
-| `example_text_editor.py` | Open editor, write document, save |
-| `example_multi_app.py` | Full workflow: terminal → calc → editor → browser |
+| Folder | What it does | Command |
+|--------|-------------|---------|
+| `01_terminal/` | Open terminal, run shell commands | `bash 01_terminal/run.sh` |
+| `02_calculator/` | Open calculator, do math | `bash 02_calculator/run.sh` |
+| `03_text_editor/` | Write a document, save it | `bash 03_text_editor/run.sh` |
+| `04_multi_app/` | Full workflow: 5 apps in sequence | `bash 04_multi_app/run.sh` |
 
-## Session Logs
+## How it works
 
-Each example generates a Markdown report with inline base64 thumbnails:
+Each `run.sh` calls `nlp2cmd --source novnc://localhost:6080 --run --log-dir ./logs`:
 
 ```bash
-python3 examples/06_desktop_automation/example_terminal.py
-# → examples/06_desktop_automation/terminal_session.md
+nlp2cmd --source novnc://localhost:6080 --run --log-dir ./logs \
+    -q "open terminal"
+nlp2cmd --source novnc://localhost:6080 --run --log-dir ./logs \
+    -q "type uname -a"
+nlp2cmd --source novnc://localhost:6080 --run --log-dir ./logs \
+    -q "press Enter"
 ```
 
-Open the `.md` file in any Markdown viewer to see screenshots inline.
+After running, check `logs/session.md` for the Markdown report with screenshots.
 
 ## Stop
 

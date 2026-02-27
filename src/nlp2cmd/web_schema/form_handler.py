@@ -81,8 +81,161 @@ class FormHandler:
         Returns:
             List of FormField objects
         """
-        fields = []
+        fields: list[FormField] = []
+
+        def _css_path(el) -> Optional[str]:
+            try:
+                return el.evaluate(
+                    """(node) => {
+                        function esc(s){
+                            try { return CSS && CSS.escape ? CSS.escape(s) : s; } catch(e) { return s; }
+                        }
+                        if (!node || !node.ownerDocument) return null;
+                        if (node.id) return '#' + esc(node.id);
+                        const parts = [];
+                        let el = node;
+                        while (el && el.nodeType === 1 && el.tagName && el.tagName.toLowerCase() !== 'html') {
+                            let selector = el.tagName.toLowerCase();
+                            if (el.classList && el.classList.length) {
+                                const cls = Array.from(el.classList).slice(0, 2).map(c => '.' + esc(c)).join('');
+                                if (cls) selector += cls;
+                            }
+                            const parent = el.parentElement;
+                            if (parent) {
+                                const siblings = Array.from(parent.children).filter(c => c.tagName === el.tagName);
+                                if (siblings.length > 1) {
+                                    const idx = siblings.indexOf(el) + 1;
+                                    selector += `:nth-of-type(${idx})`;
+                                }
+                            }
+                            parts.unshift(selector);
+                            el = parent;
+                        }
+                        return parts.length ? parts.join(' > ') : null;
+                    }"""
+                )
+            except Exception:
+                return None
+
+        def _add_field(*, el, field_type: str, name: Optional[str], inp_id: Optional[str], placeholder: Optional[str], required: bool) -> None:
+            label = None
+            try:
+                if inp_id:
+                    label_elem = page.query_selector(f'label[for="{inp_id}"]')
+                    if label_elem:
+                        label = label_elem.inner_text().strip()
+            except Exception:
+                label = None
+
+            selector: Optional[str] = None
+            if inp_id:
+                selector = f'#{inp_id}'
+            elif name:
+                # Prefer tag-specific selector when possible
+                tag = None
+                try:
+                    tag = el.evaluate('e => e.tagName.toLowerCase()')
+                except Exception:
+                    tag = None
+                if tag == 'textarea':
+                    selector = f'textarea[name="{name}"]'
+                else:
+                    selector = f'input[name="{name}"]'
+            else:
+                selector = _css_path(el)
+
+            if not selector:
+                return
+
+            fields.append(
+                FormField(
+                    selector=selector,
+                    field_type=field_type,
+                    name=name,
+                    id=inp_id,
+                    label=label,
+                    placeholder=placeholder,
+                    required=required,
+                )
+            )
         
+        # Prefer scanning inside <form> first (helps avoid picking site-wide search inputs).
+        try:
+            forms = page.query_selector_all('form')
+        except Exception:
+            forms = []
+
+        if forms:
+            try:
+                self._print_yaml({"status": "forms_total", "count": len(forms)})
+            except Exception:
+                pass
+
+            for f in forms[:10]:
+                try:
+                    inputs = f.query_selector_all('input:not([type="hidden"]):not([type="submit"]):not([type="button"])')
+                except Exception:
+                    inputs = []
+                for inp in inputs:
+                    try:
+                        inp_type = inp.get_attribute('type') or 'text'
+                        name = inp.get_attribute('name')
+                        inp_id = inp.get_attribute('id')
+                        placeholder = inp.get_attribute('placeholder')
+                        required = inp.get_attribute('required') is not None
+
+                        self._print_yaml(
+                            {
+                                "status": "form_input_detected",
+                                "type": inp_type,
+                                "name": name,
+                                "id": inp_id,
+                                "placeholder": placeholder,
+                            }
+                        )
+
+                        _add_field(
+                            el=inp,
+                            field_type=inp_type,
+                            name=name,
+                            inp_id=inp_id,
+                            placeholder=placeholder,
+                            required=required,
+                        )
+                    except Exception:
+                        continue
+
+                try:
+                    textareas = f.query_selector_all('textarea')
+                except Exception:
+                    textareas = []
+                for ta in textareas:
+                    try:
+                        name = ta.get_attribute('name')
+                        ta_id = ta.get_attribute('id')
+                        placeholder = ta.get_attribute('placeholder')
+                        required = ta.get_attribute('required') is not None
+
+                        self._print_yaml(
+                            {
+                                "status": "form_textarea_detected",
+                                "name": name,
+                                "id": ta_id,
+                                "placeholder": placeholder,
+                            }
+                        )
+
+                        _add_field(
+                            el=ta,
+                            field_type='textarea',
+                            name=name,
+                            inp_id=ta_id,
+                            placeholder=placeholder,
+                            required=required,
+                        )
+                    except Exception:
+                        continue
+
         # Debug: Show all input fields found
         all_inputs = page.query_selector_all('input')
         self._print_yaml({"status": "form_inputs_total", "count": len(all_inputs)})
@@ -110,30 +263,14 @@ class FormHandler:
                     }
                 )
                 
-                # Try to find label
-                label = None
-                if inp_id:
-                    label_elem = page.query_selector(f'label[for="{inp_id}"]')
-                    if label_elem:
-                        label = label_elem.inner_text().strip()
-                
-                # Generate selector
-                if inp_id:
-                    selector = f'#{inp_id}'
-                elif name:
-                    selector = f'input[name="{name}"]'
-                else:
-                    continue
-                
-                fields.append(FormField(
-                    selector=selector,
+                _add_field(
+                    el=inp,
                     field_type=inp_type,
                     name=name,
-                    id=inp_id,
-                    label=label,
+                    inp_id=inp_id,
                     placeholder=placeholder,
                     required=required,
-                ))
+                )
             except Exception:
                 continue
         
@@ -158,30 +295,14 @@ class FormHandler:
                     }
                 )
                 
-                # Try to find label
-                label = None
-                if ta_id:
-                    label_elem = page.query_selector(f'label[for="{ta_id}"]')
-                    if label_elem:
-                        label = label_elem.inner_text().strip()
-                
-                # Generate selector
-                if ta_id:
-                    selector = f'#{ta_id}'
-                elif name:
-                    selector = f'textarea[name="{name}"]'
-                else:
-                    continue
-                
-                fields.append(FormField(
-                    selector=selector,
+                _add_field(
+                    el=ta,
                     field_type='textarea',
                     name=name,
-                    id=ta_id,
-                    label=label,
+                    inp_id=ta_id,
                     placeholder=placeholder,
                     required=required,
-                ))
+                )
             except Exception:
                 continue
         

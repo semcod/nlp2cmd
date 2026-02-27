@@ -195,6 +195,13 @@ if not hasattr(click, 'Group'):
     default=None,
     help="Stream source URI (e.g. ssh://user@host, rtsp://cam/stream, libvirt:///system, vnc://host:5901)",
 )
+@click.option(
+    "--log-dir",
+    "log_dir",
+    default=None,
+    type=click.Path(),
+    help="Directory for session logs with screenshots (used with --source)",
+)
 @click.option("-v", "--version", is_flag=True, help="Show version information")
 @click.option("--verbose", is_flag=True, help="Enable verbose debug output")
 @click.pass_context
@@ -215,6 +222,7 @@ def main(
     no_submit: bool,
     auto_install: bool,
     source_uri: Optional[str],
+    log_dir: Optional[str],
     version: bool,
     verbose: bool,
 ):
@@ -230,6 +238,7 @@ def main(
     ctx.ensure_object(dict)
     ctx.obj["dsl"] = dsl
     ctx.obj["auto_repair"] = auto_repair
+    ctx.obj["log_dir"] = log_dir
     ctx.obj["script_start_time"] = script_start_time
     ctx.obj["verbose"] = verbose
 
@@ -259,10 +268,21 @@ def main(
         if source_uri and query:
             from nlp2cmd.streams import StreamRouter
             router = StreamRouter()
+
+            # Session logging with screenshots
+            logger = None
+            if log_dir:
+                from nlp2cmd.cli.session_logger import SessionLogger
+                _ld = Path(log_dir)
+                _ld.mkdir(parents=True, exist_ok=True)
+                logger = SessionLogger("session", output_dir=_ld, thumbnail_width=256)
+                logger.start(f"nlp2cmd --source {source_uri}", description=query)
+
             if run:
                 result = router.execute(source_uri, query)
             else:
                 result = router.query(source_uri, query)
+
             if result.output:
                 console.print(result.output)
             if result.error:
@@ -270,6 +290,22 @@ def main(
             if result.data and not stdout_only:
                 from nlp2cmd.cli.helpers import print_yaml_block
                 print_yaml_block(result.data, console=console)
+
+            if logger:
+                logger.step(
+                    query,
+                    screenshot_bytes=result.screenshot,
+                    extra={"source": source_uri, "success": result.success,
+                           **(result.data or {})},
+                )
+                if result.output:
+                    logger.info(result.output[:500])
+                if result.error:
+                    logger.warning(result.error)
+                md_path = logger.end(summary={"source": source_uri, "query": query})
+                console.print(f"Session log: {md_path}")
+
+            router.close_all()
             return
         if run and query:
             _handle_run_query(
