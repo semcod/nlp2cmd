@@ -1,0 +1,85 @@
+# services.yaml — Known API services for browser automation
+# Used by: ActionPlanner, EnvExtractor
+# To add a new service, add an entry here — no code changes needed.
+
+services:
+  openrouter:
+    display_name: OpenRouter
+    base_url: https://openrouter.ai
+    keys_url: https://openrouter.ai/settings/keys
+    login_url: https://openrouter.ai/auth/login
+    key_pattern: "sk-or-v1-[a-f0-9]{64}"
+    env_var: OPENROUTER_API_KEY
+    key_selectors:
+      - "[data-testid='api-key']"
+      - .api-key-value
+      - code
+      - pre
+    instructions: Navigate to OpenRouter Settings → Keys to find your API key.
+
+  anthropic:
+    display_name: Anthropic
+    base_url: https://console.anthropic.com
+    keys_url: https://console.anthropic.com/settings/keys
+    login_url: https://console.anthropic.com/login
+    key_pattern: "sk-ant-[a-zA-Z0-9-]{40,}"
+    env_var: ANTHROPIC_API_KEY
+    key_selectors:
+      - "[data-testid='api-key']"
+      - .key-value
+      - code
+    instructions: Navigate to Anthropic Console → Settings → API Keys.
+
+  openai:
+    display_name: OpenAI
+    base_url: https://platform.openai.com
+    keys_url: https://platform.openai.com/api-keys
+    login_url: https://platform.openai.com/login
+    key_pattern: "sk-[a-zA-Z0-9]{48,}"
+    env_var: OPENAI_API_KEY
+    key_selectors:
+      - "[data-testid='api-key']"
+      - .key-value
+      - code
+      - "input[type='text']"
+    instructions: Navigate to OpenAI Platform → API Keys.
+
+  github:
+    display_name: GitHub
+    base_url: https://github.com
+    keys_url: https://github.com/settings/tokens
+    login_url: https://github.com/login
+    key_pattern: "gh[ps]_[A-Za-z0-9_]{36,}"
+    env_var: GITHUB_TOKEN
+    key_selectors:
+      - "#new-oauth-token"
+      - .token
+      - code
+      - "input[type='text']"
+    instructions: Navigate to GitHub → Settings → Developer settings → Personal access tokens.
+
+  huggingface:
+    display_name: Hugging Face
+    base_url: https://huggingface.co
+    keys_url: https://huggingface.co/settings/tokens
+    login_url: https://huggingface.co/login
+    key_pattern: "hf_[A-Za-z0-9]{34,}"
+    env_var: HF_TOKEN
+    key_selectors:
+      - .token-value
+      - code
+      - "input[type='text']"
+    instructions: Navigate to Hugging Face → Settings → Access Tokens.
+
+  replicate:
+    display_name: Replicate
+    base_url: https://replicate.com
+    keys_url: https://replicate.com/account/api-tokens
+    login_url: https://replicate.com/signin
+    key_pattern: "r8_[A-Za-z0-9]{37,}"
+    env_var: REPLICATE_API_TOKEN
+    key_selectors:
+      - .token
+      - code
+      - "input[type='text']"
+    instructions: Navigate to Replicate → Account → API Tokens.

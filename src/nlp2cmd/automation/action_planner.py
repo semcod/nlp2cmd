@@ -89,9 +89,9 @@ class ActionPlan:
 
 
 # ---------------------------------------------------------------------------
-# Known services — rule-based decomposition without LLM
+# Known services — loaded from YAML config (Etap 2), hardcoded fallback
 # ---------------------------------------------------------------------------
-KNOWN_SERVICES: dict[str, dict[str, Any]] = {
+_HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
     "openrouter": {
         "base_url": "https://openrouter.ai",
         "keys_url": "https://openrouter.ai/settings/keys",
@@ -135,6 +135,21 @@ KNOWN_SERVICES: dict[str, dict[str, Any]] = {
         "key_selectors": ["code", "pre"],
     },
 }
+
+
+def _load_known_services() -> dict[str, dict[str, Any]]:
+    """Load KNOWN_SERVICES from YAML config, falling back to hardcoded dict."""
+    try:
+        from nlp2cmd.nlp.config import get_service_registry
+        registry = get_service_registry()
+        if len(registry) > 0:
+            return registry.as_planner_dict()
+    except Exception as e:
+        log.debug("YAML service config unavailable, using hardcoded: %s", e)
+    return dict(_HARDCODED_SERVICES)
+
+
+KNOWN_SERVICES: dict[str, dict[str, Any]] = _load_known_services()
 
 
 # ---------------------------------------------------------------------------
@@ -248,6 +263,21 @@ class ActionPlanner:
     def _try_rule_decomposition(self, query: str) -> Optional[ActionPlan]:
         """Rule-based decomposition for known service patterns (no LLM)."""
         text = query.lower()
+        wants_new_tab = any(
+            phrase in text
+            for phrase in [
+                "tab",
+                "kart",
+                "zakład",
+                "zaklad",
+                "nowa karta",
+                "new tab",
+                "new card",
+                "otworz tab",
+                "otwórz tab",
+                "owtorz tab",
+            ]
+        )
 
         # Pattern: "extract API key from <service> and save to .env"
         for svc_name, svc in KNOWN_SERVICES.items():
@@ -256,7 +286,18 @@ class ActionPlanner:
             if not any(w in text for w in ["klucz", "key", "api", "token"]):
                 continue
 
-            steps = [
+            steps: list[ActionStep] = []
+
+            if wants_new_tab:
+                steps.append(
+                    ActionStep(
+                        action="new_tab",
+                        params={},
+                        description="Otwórz nową kartę w przeglądarce",
+                    )
+                )
+
+            steps.extend([
                 ActionStep(
                     action="navigate",
                     params={"url": svc["keys_url"]},
@@ -282,7 +323,7 @@ class ActionPlanner:
                     description=f"Wprowadź klucz API {svc_name}",
                     store_as="api_key",
                 ),
-            ]
+            ])
 
             if ".env" in text or "zapisz" in text or "save" in text:
                 steps.append(ActionStep(

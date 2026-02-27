@@ -238,8 +238,11 @@ _VOCABULARY: list[str] = sorted(set(_TYPO_MAP.values()) | {
     "start", "build", "push", "pull", "restart", "install",
 })
 
-# Minimum score for rapidfuzz to consider a match (0–100)
-_FUZZY_THRESHOLD = 80
+# Minimum score for rapidfuzz to consider a match (0–100).
+# Set high (96) to avoid correcting valid inflected forms like
+# "kontenera", "obrazów", "foldery" which are not typos.
+# The direct _TYPO_MAP lookup handles curated typos regardless of this threshold.
+_FUZZY_THRESHOLD = 96
 
 
 def _preserve_case(original: str, corrected: str) -> str:

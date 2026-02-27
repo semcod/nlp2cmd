@@ -111,6 +111,17 @@ class TestActionPlanner:
         assert len(save_steps) == 1
         assert save_steps[0].params["var_name"] == "GITHUB_TOKEN"
 
+    def test_openrouter_with_tab_intent_adds_new_tab_step(self):
+        plan = self.planner._try_rule_decomposition(
+            "owtorz tab w już otwartym oknie przegladarki firefox wyciągnij klucz API z OpenRouter i zapisz do .env"
+        )
+        assert plan is not None
+        assert len(plan.steps) >= 4
+        assert plan.steps[0].action == "new_tab"
+        assert any(s.action == "navigate" for s in plan.steps)
+        assert any(s.action == "prompt_secret" for s in plan.steps)
+        assert any(s.action == "save_env" for s in plan.steps)
+
     def test_unknown_service_returns_none(self):
         plan = self.planner._try_rule_decomposition(
             "otwórz stronę example.com i kliknij przycisk"

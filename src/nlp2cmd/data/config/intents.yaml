@@ -1,0 +1,424 @@
+# intents.yaml — Multilingual intent examples and configuration
+# Used by: KeywordIntentDetector, future ML classifiers
+# To add a new language: add a key under examples (e.g., fr, es, cs)
+
+browser:
+  navigate:
+    confidence_base: 0.9
+    examples:
+      pl:
+        - otwórz stronę
+        - wejdź na stronę
+        - przejdź do
+        - otwórz przeglądarkę
+        - uruchom przeglądarkę
+      en:
+        - open page
+        - go to
+        - navigate to
+        - open browser
+        - visit
+      de:
+        - öffne Seite
+        - gehe zu
+        - navigiere zu
+        - öffne Browser
+
+  extract_data:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - wyciągnij
+        - skopiuj
+        - pobierz
+        - wyciągnij klucz
+        - skopiuj klucz API
+      en:
+        - extract
+        - copy
+        - get
+        - extract key
+        - copy API key
+      de:
+        - extrahiere
+        - kopiere
+        - hole
+
+  save_env:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - zapisz do .env
+        - zapisz klucz
+        - zapisz w pliku
+      en:
+        - save to .env
+        - save key
+        - store in file
+      de:
+        - speichere in .env
+        - speichere Schlüssel
+
+  new_tab:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - nowy tab
+        - nowa karta
+        - otwórz tab
+      en:
+        - new tab
+        - open tab
+      de:
+        - neuer Tab
+
+  fill_form:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - wypełnij formularz
+        - wpisz dane
+        - uzupełnij pola
+      en:
+        - fill form
+        - fill in
+        - enter data
+      de:
+        - Formular ausfüllen
+        - Daten eingeben
+
+docker:
+  list:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - pokaż kontenery
+        - lista kontenerów
+        - docker ps
+      en:
+        - show containers
+        - list containers
+        - docker ps
+      de:
+        - zeige Container
+        - Container auflisten
+
+  run:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - uruchom kontener
+        - docker run
+      en:
+        - run container
+        - start container
+        - docker run
+      de:
+        - Container starten
+        - Container ausführen
+
+  stop:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - zatrzymaj kontener
+        - docker stop
+      en:
+        - stop container
+        - docker stop
+      de:
+        - Container stoppen
+
+  exec:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - wejdź do kontenera
+        - shell kontenera
+        - docker exec
+      en:
+        - enter container
+        - container shell
+        - docker exec
+      de:
+        - Container betreten
+
+  logs:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - logi kontenera
+        - docker logs
+      en:
+        - container logs
+        - docker logs
+      de:
+        - Container Logs
+
+  build:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - zbuduj obraz
+        - docker build
+        - stwórz obraz
+      en:
+        - build image
+        - docker build
+      de:
+        - Image bauen
+
+  images:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - lista obrazów
+        - pokaż obrazy
+        - docker images
+      en:
+        - list images
+        - show images
+        - docker images
+      de:
+        - Images auflisten
+
+kubernetes:
+  list_pods:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - pokaż pody
+        - lista podów
+        - kubectl get pods
+      en:
+        - show pods
+        - list pods
+        - kubectl get pods
+      de:
+        - Pods anzeigen
+
+  logs:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - pokaż logi poda
+        - kubectl logs
+      en:
+        - show pod logs
+        - kubectl logs
+      de:
+        - Pod Logs anzeigen
+
+shell:
+  list:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - lista plików
+        - pokaż pliki
+        - pokaż zawartość katalogu
+      en:
+        - list files
+        - show files
+        - directory contents
+      de:
+        - Dateien auflisten
+        - Dateien anzeigen
+
+  find:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - znajdź plik
+        - szukaj pliku
+        - znajdź pliki
+      en:
+        - find file
+        - search file
+        - find files
+      de:
+        - Datei finden
+        - Datei suchen
+
+  delete:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - usuń plik
+        - skasuj plik
+        - usuwanie pliku
+      en:
+        - delete file
+        - remove file
+      de:
+        - Datei löschen
+        - Datei entfernen
+
+  copy:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - skopiuj plik
+        - kopiuj plik
+      en:
+        - copy file
+      de:
+        - Datei kopieren
+
+  move:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - przenieś plik
+        - przenies plik
+      en:
+        - move file
+      de:
+        - Datei verschieben
+
+  process_list:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - pokaż procesy
+        - lista procesów
+      en:
+        - show processes
+        - list processes
+      de:
+        - Prozesse anzeigen
+
+  disk_usage:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - sprawdź miejsce na dysku
+        - użycie dysku
+      en:
+        - check disk space
+        - disk usage
+      de:
+        - Speicherplatz prüfen
+
+  service_restart:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - restartuj usługę
+        - zrestartuj serwis
+      en:
+        - restart service
+      de:
+        - Dienst neustarten
+
+sql:
+  select:
+    confidence_base: 0.9
+    examples:
+      pl:
+        - pokaż dane z tabeli
+        - wybierz z tabeli
+        - pokaż użytkowników
+      en:
+        - show data from table
+        - select from table
+        - show users
+      de:
+        - Daten aus Tabelle anzeigen
+        - auswählen aus Tabelle
+
+  insert:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - dodaj rekord
+        - wstaw do tabeli
+      en:
+        - add record
+        - insert into table
+      de:
+        - Datensatz hinzufügen
+
+  update:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - zmień dane
+        - aktualizuj rekord
+      en:
+        - change data
+        - update record
+      de:
+        - Daten ändern
+
+  delete:
+    confidence_base: 0.85
+    examples:
+      pl:
+        - usuń rekord
+        - skasuj z tabeli
+      en:
+        - delete record
+        - remove from table
+      de:
+        - Datensatz löschen
+
+  create_table:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - utwórz tabelę
+        - stwórz tabelę
+      en:
+        - create table
+      de:
+        - Tabelle erstellen
+
+git:
+  status:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - pokaż status
+        - git status
+      en:
+        - show status
+        - git status
+      de:
+        - Status anzeigen
+
+  commit:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - zatwierdź zmiany
+        - git commit
+      en:
+        - commit changes
+        - git commit
+      de:
+        - Änderungen committen
+
+  push:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - wypchnij zmiany
+        - git push
+      en:
+        - push changes
+        - git push
+      de:
+        - Änderungen pushen
+
+  pull:
+    confidence_base: 0.88
+    examples:
+      pl:
+        - pobierz zmiany
+        - git pull
+      en:
+        - pull changes
+        - git pull
+      de:
+        - Änderungen pullen
