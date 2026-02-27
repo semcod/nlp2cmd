@@ -65,7 +65,19 @@ class PipelineRunner:
             self.headless = False
         self.enable_history = enable_history
         self._history = None
-        
+        self._executor_registry = None
+
+        # Etap 3: opt-in modular executor dispatch
+        if os.getenv("NLP2CMD_USE_EXECUTOR_REGISTRY", "1") == "1":
+            try:
+                from nlp2cmd.execution.executor_registry import create_default_registry
+                self._executor_registry = create_default_registry(
+                    shell_policy=self.shell_policy,
+                    safety_policy=self.safety_policy,
+                )
+            except Exception:
+                self._executor_registry = None
+
         if enable_history:
             try:
                 from nlp2cmd.web_schema.history import InteractionHistory
@@ -87,7 +99,20 @@ class PipelineRunner:
     ) -> RunnerResult:
         started = time.time()
         try:
-            if ir.dsl_kind == "shell":
+            if ir.dsl_kind == "shell" and self._executor_registry and "shell" in self._executor_registry:
+                from nlp2cmd.execution.base import ExecutorContext
+                ctx = ExecutorContext(
+                    dry_run=dry_run, confirm=confirm, headless=self.headless,
+                    video_fmt=video_fmt or self.video_fmt,
+                    video_dir=video_dir or self.video_dir,
+                )
+                executor_result = self._executor_registry.dispatch(
+                    "shell",
+                    {"command": ir.dsl, "cwd": cwd, "timeout_s": timeout_s},
+                    ctx,
+                )
+                res = executor_result.to_runner_result()
+            elif ir.dsl_kind == "shell":
                 res = self._run_shell(ir.dsl, cwd=cwd, timeout_s=timeout_s, dry_run=dry_run, confirm=confirm)
             elif ir.dsl_kind == "dom":
                 res = self._run_dom_dql(ir.dsl, dry_run=dry_run, confirm=confirm, web_url=web_url,
