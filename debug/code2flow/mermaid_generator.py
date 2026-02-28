@@ -297,10 +297,21 @@ def generate_single_png(mmd_file: Path, output_file: Path, timeout: int = 60) ->
     # Mermaid's default maxTextSize is often too low for large projects,
     # resulting in placeholder PNGs that say "Maximum text size in diagram exceeded".
     # Provide a temporary config with a higher limit.
+    try:
+        max_text_size = int(os.getenv('CODE2FLOW_MERMAID_MAX_TEXT_SIZE', '2000000'))
+    except Exception:
+        max_text_size = 2000000
+
+    try:
+        max_edges = int(os.getenv('CODE2FLOW_MERMAID_MAX_EDGES', '20000'))
+    except Exception:
+        max_edges = 20000
+
     cfg_path: Optional[str] = None
     try:
         cfg = {
-            "maxTextSize": 2000000,
+            "maxTextSize": max_text_size,
+            "maxEdges": max_edges,
             "theme": "default",
         }
         with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as tmp_cfg:
@@ -358,7 +369,13 @@ def generate_single_png(mmd_file: Path, output_file: Path, timeout: int = 60) ->
             try:
                 if renderer_name == 'puppeteer':
                     # Special puppeteer handling
-                    if generate_with_puppeteer(mmd_file, output_file, timeout, max_text_size=2000000):
+                    if generate_with_puppeteer(
+                        mmd_file,
+                        output_file,
+                        timeout,
+                        max_text_size=max_text_size,
+                        max_edges=max_edges,
+                    ):
                         return True
                     continue
                 
@@ -386,7 +403,13 @@ def generate_single_png(mmd_file: Path, output_file: Path, timeout: int = 60) ->
                 pass
 
 
-def generate_with_puppeteer(mmd_file: Path, output_file: Path, timeout: int = 60, max_text_size: int = 2000000) -> bool:
+def generate_with_puppeteer(
+    mmd_file: Path,
+    output_file: Path,
+    timeout: int = 60,
+    max_text_size: int = 2000000,
+    max_edges: int = 20000,
+) -> bool:
     """Generate PNG using Puppeteer with HTML template."""
     try:
         mmd_content = mmd_file.read_text(encoding='utf-8')
@@ -407,7 +430,7 @@ def generate_with_puppeteer(mmd_file: Path, output_file: Path, timeout: int = 60
 {mmd_content}
     </div>
     <script>
-        mermaid.initialize({{ startOnLoad: true, theme: 'default', maxTextSize: {max_text_size} }});
+        mermaid.initialize({{ startOnLoad: true, theme: 'default', maxTextSize: {max_text_size}, maxEdges: {max_edges} }});
     </script>
 </body>
 </html>
