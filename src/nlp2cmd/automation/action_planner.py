@@ -577,13 +577,14 @@ class ActionPlanner:
             wants_new_tab, wants_existing_firefox, wants_create, wants_save,
         )
 
-        # Only the "create new key" flow requires DOM interaction (click/type_text).
-        # When the user asks to *extract/copy* a key from an already-open Firefox session,
-        # keep the desktop path: open the keys page in the user's real Firefox and ask
-        # them to paste the key.
-        if wants_create and wants_existing_firefox:
+        # ALL API-key workflows need DOM access for proper validation:
+        # - check_session needs to inspect page DOM for login indicators
+        # - extract_key needs to read key from page elements
+        # - clipboard validation needs browser context
+        # The desktop path (firefox --new-tab) can only open a URL.
+        if wants_existing_firefox:
             log.info(
-                "[ActionPlanner] Create-key flow requires DOM access — "
+                "[ActionPlanner] API-key workflow requires DOM access — "
                 "switching from Firefox desktop to Playwright browser"
             )
             wants_existing_firefox = False
@@ -897,33 +898,44 @@ class ActionPlanner:
         svc: dict[str, Any],
         is_firefox_desktop: bool,
     ) -> list[ActionStep]:
-        """Build steps for manual key retrieval (user copies key themselves)."""
+        """Build steps for key retrieval with automatic extraction + manual fallback.
+
+        Order:
+        1. Try automatic DOM extraction (extract_key)
+        2. Check clipboard for key (check_clipboard)
+        3. Fall back to manual prompt (prompt_secret)
+        """
         steps: list[ActionStep] = []
 
-        if is_firefox_desktop:
-            msg = (
-                f"🔐 Otworzyłem stronę kluczy {svc_name} w Firefox.\n"
-                f"   1. Znajdź swój klucz API na stronie\n"
-                f"   2. Jeśli nie masz klucza, kliknij 'Create' aby utworzyć nowy\n"
-                f"   3. Skopiuj klucz do schowka\n"
-                f"   4. Wróć do terminala i wklej"
-            )
-        else:
-            msg = (
-                f"🔐 Otworzyłem stronę generowania kluczy {svc_name}.\n"
-                f"   URL: {svc.get('keys_url', 'N/A')}\n"
-                f"   1. Zaloguj się jeśli trzeba\n"
-                f"   2. Znajdź lub utwórz klucz API\n"
-                f"   3. Skopiuj klucz do schowka\n"
-                f"   4. Wklej poniżej"
-            )
-
+        # Step 1: Try automatic extraction from page DOM
         steps.append(ActionStep(
-            action="echo",
-            params={"text": msg},
-            description="Instrukcja ręcznego skopiowania klucza",
+            action="extract_key",
+            params={
+                "service": svc_name,
+                "key_pattern": svc.get("key_pattern", ""),
+                "selectors": svc.get("key_selectors", [
+                    "code", "pre", "input[readonly]",
+                    ".api-key", "[data-testid*='key']",
+                ]),
+                "keys_url": svc.get("keys_url", ""),
+            },
+            description=f"Szukaj klucza API na stronie {svc_name}",
+            store_as="extracted_key",
         ))
 
+        # Step 2: Check clipboard (user may have copied key)
+        steps.append(ActionStep(
+            action="check_clipboard",
+            params={
+                "key_pattern": svc.get("key_pattern", ""),
+                "env_var": svc["env_var"],
+            },
+            description=f"Sprawdź schowek — klucz {svc_name}",
+            store_as="clipboard_key",
+        ))
+
+        # Step 3: Manual prompt as last resort
+        # (StepValidator pre-check will skip this if key already extracted)
         steps.append(ActionStep(
             action="prompt_secret",
             params={
@@ -942,11 +954,11 @@ class ActionPlanner:
 
         Handles queries like 'wejdź na jspaint.app i narysuj biedronkę'.
         Priority: 
-            0) Vector DB semantic search (arbitrary objects)
-            1) Rich blueprints (SVG paths, polygons, beziers)
-            2) Legacy templates (hardcoded patterns)
-            3) LLM fallback (generate via Ollama)
-            4) Rule-based generic (last resort)
+            1) Rich blueprints (SVG paths, polygons, beziers) — hand-crafted, highest quality
+            2) Vector DB semantic search (arbitrary objects) — fallback for novel objects
+            3) Legacy templates (hardcoded patterns)
+            4) LLM fallback (generate via Ollama)
+            5) Rule-based generic (last resort)
         """
         text = query.lower()
 
@@ -966,11 +978,6 @@ class ActionPlanner:
         )
         canvas_url = f"https://{url_match.group(1)}" if url_match else "https://jspaint.app"
 
-        # --- Tier 0: Vector database semantic search (most flexible) ---
-        vector_plan = self._search_vector_db_for_pattern(query, text, canvas_url)
-        if vector_plan:
-            return vector_plan
-        
         # --- Tier 1: Rich drawing blueprints (SVG paths, polygons, beziers) ---
         try:
             from nlp2cmd.automation.drawing_blueprints import (
@@ -1007,7 +1014,12 @@ class ActionPlanner:
         except ImportError:
             pass
 
-        # --- Tier 2: Legacy ComplexCommandPlanner templates ---
+        # --- Tier 2: Vector database semantic search (novel objects) ---
+        vector_plan = self._search_vector_db_for_pattern(query, text, canvas_url)
+        if vector_plan:
+            return vector_plan
+
+        # --- Tier 3: Legacy ComplexCommandPlanner templates ---
         try:
             from nlp2cmd.automation.complex_planner import (
                 DRAWING_PATTERNS,

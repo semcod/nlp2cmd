@@ -279,7 +279,7 @@ Control **any desktop application** through natural language — browser tabs, e
 nlp2cmd -r "otwórz tab w firefox, wyciągnij klucz API z OpenRouter i zapisz do .env"
 
 # Canvas drawing on jspaint.app
-nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę"
+nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę" --video webm
 
 # Email client automation
 nlp2cmd -r "otwórz Thunderbird i sprawdź pocztę"

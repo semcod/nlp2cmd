@@ -532,84 +532,405 @@ def run_doctor(auto_fix: bool = False, output_json: bool = False, fix_script: Op
 def get_hf_token_via_browser(console: Optional[Console] = None) -> Optional[str]:
     """Open browser to help user get HF_TOKEN from Hugging Face.
     
-    Uses existing Firefox if available, otherwise Playwright.
+    Browser priority:
+    1. Connect to existing browser (Firefox/Chrome via CDP)
+    2. Open new system browser (firefox/chrome commands)
+    3. Use Playwright (requires manual login)
+    
     Returns the token if successfully retrieved.
     """
     if console:
         console.print("[cyan]🌐 Opening Hugging Face in browser...[/cyan]")
-        console.print("[dim]   If not logged in, please login first.[/dim]")
-        console.print("[dim]   Then create a token at: https://huggingface.co/settings/tokens[/dim]")
     else:
         print("🌐 Opening Hugging Face in browser...")
-        print("   If not logged in, please login first.")
-        print("   Then create a token at: https://huggingface.co/settings/tokens")
+    
+    # Try priority 1: Connect to existing browser
+    token = _try_existing_browser(console)
+    if token:
+        return token
+    
+    # Try priority 2: Open new system browser
+    token = _try_system_browser(console)
+    if token:
+        return token
+    
+    # Try priority 3: Use Playwright
+    token = _try_playwright_browser(console)
+    if token:
+        return token
+    
+    return None
+
+
+def _try_existing_browser(console: Optional[Console] = None) -> Optional[str]:
+    """Try to connect to existing browser via CDP with detailed logging."""
+    import socket
+    
+    if console:
+        console.print("[dim]   [Stage 1/3] Checking for existing browser...[/dim]")
+    
+    # Check common CDP ports
+    cdp_ports = [9222, 9223, 9224, 9333]
+    found_port = None
+    
+    for port in cdp_ports:
+        if console:
+            console.print(f"[dim]     Checking port {port}...[/dim]")
+        
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(1)
+            result = sock.connect_ex(("localhost", port))
+            sock.close()
+            
+            if result == 0:
+                found_port = port
+                if console:
+                    console.print(f"[green]     ✓ Found browser on port {port}[/green]")
+                break
+            else:
+                if console:
+                    console.print(f"[dim]     Port {port}: not available[/dim]")
+        except Exception as e:
+            if console:
+                console.print(f"[dim]     Port {port}: error - {e}[/dim]")
+    
+    if not found_port:
+        if console:
+            console.print("[dim]     ℹ No existing browser with CDP found[/dim]")
+            console.print("[dim]       Tip: Run 'firefox --remote-debugging-port=9222' first[/dim]")
+        return None
+    
+    # Try to connect via Playwright CDP
+    if console:
+        console.print(f"[cyan]     → Connecting via Playwright to port {found_port}...[/cyan]")
     
     try:
         from playwright.sync_api import sync_playwright
         
         with sync_playwright() as p:
-            # Try to connect to existing Firefox first
-            browser = None
+            # Try Chrome/Chromium first
             try:
-                # Try connecting to existing Firefox via CDP
-                browser = p.firefox.connect_over_cdp("http://localhost:9222")
+                browser = p.chromium.connect_over_cdp(f"http://localhost:{found_port}")
+                browser_type = "Chrome/Chromium"
                 if console:
-                    console.print("[green]✓ Connected to existing Firefox[/green]")
-                else:
-                    print("✓ Connected to existing Firefox")
-            except Exception:
-                # Launch new Firefox instance
+                    console.print(f"[green]     ✓ Connected to {browser_type}[/green]")
+            except Exception as chrome_err:
                 if console:
-                    console.print("[yellow]   Launching new Firefox instance...[/yellow]")
-                else:
-                    print("   Launching new Firefox instance...")
-                browser = p.firefox.launch(headless=False)
+                    console.print(f"[dim]     Chromium CDP failed: {chrome_err}[/dim]")
+                
+                # Try Firefox
+                try:
+                    browser = p.firefox.connect_over_cdp(f"http://localhost:{found_port}")
+                    browser_type = "Firefox"
+                    if console:
+                        console.print(f"[green]     ✓ Connected to Firefox[/green]")
+                except Exception as firefox_err:
+                    if console:
+                        console.print(f"[red]     ✗ Could not connect: {firefox_err}[/red]")
+                    return None
+            
+            # Create new context and page
+            if console:
+                console.print(f"[dim]     Creating browser context...[/dim]")
             
             context = browser.new_context()
             page = context.new_page()
             
-            # Navigate to tokens page
-            page.goto("https://huggingface.co/settings/tokens")
-            
+            # Navigate
             if console:
-                console.print("[cyan]📋 Instructions:[/cyan]")
-                console.print("   1. Login to Hugging Face if needed")
-                console.print("   2. Click 'New token' button")
-                console.print("   3. Set name: 'nlp2cmd'")
-                console.print("   4. Select 'Read' role")
-                console.print("   5. Click 'Generate token'")
-                console.print("   6. Copy the token and paste it here")
-            else:
-                print("\n📋 Instructions:")
-                print("   1. Login to Hugging Face if needed")
-                print("   2. Click 'New token' button")
-                print("   3. Set name: 'nlp2cmd'")
-                print("   4. Select 'Read' role")
-                print("   5. Click 'Generate token'")
-                print("   6. Copy the token and paste it here")
+                console.print(f"[cyan]     → Navigating to huggingface.co...[/cyan]")
             
-            # Interactive prompt for token
             try:
-                token = input("\n🔑 Paste HF_TOKEN here (hidden): ").strip()
-                if token:
-                    return token
-            except (EOFError, KeyboardInterrupt):
-                pass
+                page.goto("https://huggingface.co/settings/tokens", timeout=30000)
+                if console:
+                    console.print(f"[green]     ✓ Page loaded successfully[/green]")
+            except Exception as nav_err:
+                if console:
+                    console.print(f"[yellow]     ⚠ Navigation timeout/warning: {nav_err}[/yellow]")
             
-            browser.close()
+            return _navigate_and_get_token(page, console, browser_type)
             
     except ImportError:
         if console:
-            console.print("[yellow]⚠ Playwright not installed. Open browser manually:[/yellow]")
-        else:
-            print("⚠ Playwright not installed. Open browser manually:")
-        print("   https://huggingface.co/settings/tokens")
+            console.print(f"[red]     ✗ Playwright not installed[/red]")
+        return None
     except Exception as e:
         if console:
-            console.print(f"[red]✗ Browser error: {e}[/red]")
+            console.print(f"[red]     ✗ CDP connection error: {e}[/red]")
+        return None
+
+
+def _try_system_browser(console: Optional[Console] = None) -> Optional[str]:
+    """Try to open new system browser with detailed stage logging."""
+    import subprocess
+    import time
+    import socket
+    
+    if console:
+        console.print("[dim]   [Stage 2/3] Opening system browser...[/dim]")
+    
+    # Try to open Firefox or Chrome/Chromium
+    browsers_to_try = [
+        ("firefox", ["firefox", "--new-window", "--remote-debugging-port=9222"]),
+        ("google-chrome", ["google-chrome", "--new-window", "--remote-debugging-port=9222"]),
+        ("chromium", ["chromium", "--new-window", "--remote-debugging-port=9222"]),
+        ("chromium-browser", ["chromium-browser", "--new-window", "--remote-debugging-port=9222"]),
+    ]
+    
+    for browser_name, cmd in browsers_to_try:
+        try:
+            # Stage 2.1: Check if browser binary exists
+            if console:
+                console.print(f"[dim]     Checking {browser_name}...[/dim]")
+            
+            result = subprocess.run(["which", browser_name], capture_output=True, timeout=5)
+            if result.returncode != 0:
+                if console:
+                    console.print(f"[dim]     ✗ {browser_name} not found[/dim]")
+                continue
+            
+            if console:
+                console.print(f"[cyan]     → Launching {browser_name}...[/cyan]")
+            
+            # Stage 2.2: Launch browser with CDP enabled
+            try:
+                process = subprocess.Popen(
+                    cmd + ["about:blank"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    start_new_session=True
+                )
+                if console:
+                    console.print(f"[dim]     PID: {process.pid}[/dim]")
+            except Exception as e:
+                if console:
+                    console.print(f"[red]     ✗ Failed to launch: {e}[/red]")
+                continue
+            
+            # Stage 2.3: Wait for browser to initialize
+            if console:
+                console.print("[dim]     Waiting for browser to start (3s)...[/dim]")
+            time.sleep(3)
+            
+            # Stage 2.4: Try to connect via CDP
+            if console:
+                console.print("[dim]     Checking CDP port 9222...[/dim]")
+            
+            cdp_available = False
+            for attempt in range(5):
+                try:
+                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    sock.settimeout(2)
+                    result = sock.connect_ex(("localhost", 9222))
+                    sock.close()
+                    
+                    if result == 0:
+                        cdp_available = True
+                        if console:
+                            console.print(f"[green]     ✓ CDP port 9222 ready[/green]")
+                        break
+                    else:
+                        if console:
+                            console.print(f"[dim]     Attempt {attempt+1}/5: port not ready[/dim]")
+                except Exception as e:
+                    if console:
+                        console.print(f"[dim]     Attempt {attempt+1}/5: {e}[/dim]")
+                time.sleep(1)
+            
+            if not cdp_available:
+                if console:
+                    console.print(f"[yellow]     ✗ CDP not available after 5 attempts[/yellow]")
+                continue
+            
+            # Stage 2.5: Connect with Playwright
+            if console:
+                console.print(f"[cyan]     → Connecting via Playwright CDP...[/cyan]")
+            
+            try:
+                from playwright.sync_api import sync_playwright
+                
+                with sync_playwright() as p:
+                    try:
+                        browser = p.chromium.connect_over_cdp("http://localhost:9222")
+                        if console:
+                            console.print(f"[green]     ✓ Connected to {browser_name}[/green]")
+                    except Exception as e:
+                        if console:
+                            console.print(f"[yellow]     ⚠ CDP connect failed: {e}[/yellow]")
+                            console.print(f"[dim]     Falling back to manual mode...[/dim]")
+                        return _manual_browser_instructions(console, browser_name)
+                    
+                    context = browser.new_context()
+                    page = context.new_page()
+                    
+                    # Stage 2.6: Navigate to HF
+                    if console:
+                        console.print(f"[cyan]     → Navigating to huggingface.co...[/cyan]")
+                    
+                    try:
+                        page.goto("https://huggingface.co/settings/tokens", timeout=30000)
+                        if console:
+                            console.print(f"[green]     ✓ Page loaded[/green]")
+                    except Exception as e:
+                        if console:
+                            console.print(f"[yellow]     ⚠ Navigation issue: {e}[/yellow]")
+                    
+                    # Stage 2.7: Get token from user
+                    return _navigate_and_get_token(page, console, browser_name)
+                    
+            except ImportError:
+                if console:
+                    console.print(f"[red]     ✗ Playwright not installed[/red]")
+                return _manual_browser_instructions(console, browser_name)
+            except Exception as e:
+                if console:
+                    console.print(f"[red]     ✗ Playwright error: {e}[/red]")
+                return _manual_browser_instructions(console, browser_name)
+                        
+        except Exception as e:
+            if console:
+                console.print(f"[red]   ✗ Error with {browser_name}: {e}[/red]")
+            continue
+    
+    if console:
+        console.print("[red]   ✗ No system browser could be opened[/red]")
+    return None
+
+
+def _try_playwright_browser(console: Optional[Console] = None) -> Optional[str]:
+    """Last resort: Use Playwright to launch browser with detailed logging."""
+    try:
+        from playwright.sync_api import sync_playwright
+        
+        if console:
+            console.print("[dim]   [Stage 3/3] Using Playwright (last resort)...[/dim]")
+            console.print("[yellow]     ⚠ Note: You'll need to login manually[/yellow]")
         else:
-            print(f"✗ Browser error: {e}")
-        print("   Please open manually: https://huggingface.co/settings/tokens")
+            print("   [Stage 3/3] Using Playwright (you may need to login manually)...")
+        
+        with sync_playwright() as p:
+            # Try Firefox first (better privacy)
+            browser_type = "firefox"
+            try:
+                if console:
+                    console.print("[dim]     Launching Firefox...[/dim]")
+                browser = p.firefox.launch(headless=False)
+                if console:
+                    console.print("[green]     ✓ Firefox launched[/green]")
+            except Exception as firefox_err:
+                if console:
+                    console.print(f"[dim]     Firefox failed: {firefox_err}[/dim]")
+                    console.print("[dim]     Trying Chromium...[/dim]")
+                
+                try:
+                    browser = p.chromium.launch(headless=False)
+                    browser_type = "chromium"
+                    if console:
+                        console.print("[green]     ✓ Chromium launched[/green]")
+                except Exception as chromium_err:
+                    if console:
+                        console.print(f"[red]     ✗ Both browsers failed[/red]")
+                    return None
+            
+            # Create context and page
+            if console:
+                console.print("[dim]     Creating browser context...[/dim]")
+            
+            context = browser.new_context()
+            page = context.new_page()
+            
+            # Navigate
+            if console:
+                console.print(f"[cyan]     → Navigating to huggingface.co...[/cyan]")
+            
+            try:
+                page.goto("https://huggingface.co/settings/tokens", timeout=30000)
+                if console:
+                    console.print(f"[green]     ✓ Page loaded[/green]")
+            except Exception as nav_err:
+                if console:
+                    console.print(f"[yellow]     ⚠ Navigation issue: {nav_err}[/yellow]")
+            
+            return _navigate_and_get_token(page, console, browser_type)
+            
+    except ImportError:
+        if console:
+            console.print("[red]     ✗ Playwright not installed[/red]")
+        else:
+            print("     ✗ Playwright not installed")
+        return None
+    except Exception as e:
+        if console:
+            console.print(f"[red]     ✗ Playwright error: {e}[/red]")
+        else:
+            print(f"     ✗ Playwright error: {e}")
+        return None
+
+
+def _navigate_and_get_token(page, console: Optional[Console], browser_type: str) -> Optional[str]:
+    """Navigate to HuggingFace and get token from user."""
+    # Navigate to tokens page
+    page.goto("https://huggingface.co/settings/tokens")
+    
+    if console:
+        console.print("[cyan]📋 Instructions:[/cyan]")
+        console.print("   1. Login to Hugging Face if needed")
+        console.print("   2. Click 'New token' button")
+        console.print("   3. Set name: 'nlp2cmd'")
+        console.print("   4. Select 'Read' role")
+        console.print("   5. Click 'Generate token'")
+        console.print("   6. Copy the token and paste it here")
+    else:
+        print("\n📋 Instructions:")
+        print("   1. Login to Hugging Face if needed")
+        print("   2. Click 'New token' button")
+        print("   3. Set name: 'nlp2cmd'")
+        print("   4. Select 'Read' role")
+        print("   5. Click 'Generate token'")
+        print("   6. Copy the token and paste it here")
+    
+    # Interactive prompt for token
+    try:
+        token = input("\n🔑 Paste HF_TOKEN here (hidden): ").strip()
+        if token:
+            try:
+                page.close()
+            except Exception:
+                pass
+            return token
+    except (EOFError, KeyboardInterrupt):
+        pass
+    
+    try:
+        page.close()
+    except Exception:
+        pass
+    
+    return None
+
+
+def _manual_browser_instructions(console: Optional[Console], browser_name: str) -> Optional[str]:
+    """Show manual instructions when browser automation fails."""
+    if console:
+        console.print(f"\n[cyan]📋 {browser_name} opened. Please:[/cyan]")
+        console.print("   1. Go to: https://huggingface.co/settings/tokens")
+        console.print("   2. Login if not logged in")
+        console.print("   3. Create new token (name: nlp2cmd, role: read)")
+        console.print("   4. Copy the token")
+    else:
+        print(f"\n📋 {browser_name} opened. Please:")
+        print("   1. Go to: https://huggingface.co/settings/tokens")
+        print("   2. Login if not logged in")
+        print("   3. Create new token (name: nlp2cmd, role: read)")
+        print("   4. Copy the token")
+    
+    try:
+        token = input("\n🔑 Paste HF_TOKEN here: ").strip()
+        if token:
+            return token
+    except (EOFError, KeyboardInterrupt):
+        pass
     
     return None
 

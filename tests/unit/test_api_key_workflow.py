@@ -280,18 +280,20 @@ class TestRuleDecomposition:
         assert "save_env" in actions
         assert "check_session" in actions
 
-    def test_openrouter_firefox_tab(self, planner):
-        """Existing Firefox extract/copy workflow uses desktop tab opening.
+    def test_openrouter_firefox_tab_forces_playwright(self, planner):
+        """ALL API-key workflows use Playwright for DOM access.
 
-        We only force Playwright for the create-key flow (click/type_text).
+        Even when user mentions 'existing Firefox', we override to Playwright
+        because DOM access is needed for check_session, extract_key, etc.
         """
         plan = planner.decompose_sync(
             "otwórz tab w już otwartym oknie firefox wyciągnij klucz API z OpenRouter i zapisz do .env"
         )
         actions = [s.action for s in plan.steps]
-        assert "open_firefox_tab" in actions
-        assert "desktop_wait" in actions
-        assert "navigate" not in actions
+        assert "navigate" in actions
+        assert "open_firefox_tab" not in actions
+        assert "desktop_wait" not in actions
+        assert "extract_key" in actions
         assert "save_env" in actions
 
     def test_openrouter_create_key(self, planner):

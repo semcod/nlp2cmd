@@ -2384,12 +2384,63 @@ class PipelineRunner:
                 error=f"Playwright not available: {e}",
             )
 
-        user_data_dir = Path.home() / ".nlp2cmd" / "browser_profile"
-        user_data_dir.mkdir(parents=True, exist_ok=True)
+        # --- Firefox session injection ---
+        # NLP2CMD_USE_FIREFOX_SESSIONS=1  → use Firefox with copied profile (full sessions)
+        # NLP2CMD_USE_FIREFOX_SESSIONS=cookies → inject cookies into Chromium context
+        # NLP2CMD_FIREFOX_PROFILE=/path   → explicit Firefox profile path
+        use_ff_sessions = os.environ.get("NLP2CMD_USE_FIREFOX_SESSIONS", "").strip()
+        ff_profile_override = os.environ.get("NLP2CMD_FIREFOX_PROFILE", "").strip() or None
+        ff_session_importer = None
+        ff_chromium_cookies: list[dict] = []
+
+        if use_ff_sessions:
+            try:
+                from nlp2cmd.automation.firefox_sessions import FirefoxSessionImporter
+                importer_kwargs: dict[str, Any] = {}
+                if ff_profile_override:
+                    importer_kwargs["firefox_profile"] = ff_profile_override
+
+                if use_ff_sessions == "cookies":
+                    # Cookie injection mode → Chromium browser + Firefox cookies
+                    importer_kwargs["browser"] = "chromium"
+                    ff_session_importer = FirefoxSessionImporter(**importer_kwargs)
+                    ff_chromium_cookies = ff_session_importer.get_chromium_cookies()
+                    if ff_chromium_cookies:
+                        console.print(
+                            f"[dim]🦊 Załadowano {len(ff_chromium_cookies)} ciasteczek "
+                            f"z Firefox do Chromium[/dim]"
+                        )
+                    else:
+                        console.print("[yellow]⚠ Nie znaleziono ciasteczek Firefox[/yellow]")
+                else:
+                    # Full Firefox profile mode
+                    importer_kwargs["browser"] = "firefox"
+                    ff_session_importer = FirefoxSessionImporter(**importer_kwargs)
+                    ff_profile_dir = ff_session_importer.prepare_playwright_profile()
+                    if ff_profile_dir:
+                        console.print(
+                            f"[dim]🦊 Skopiowano sesje Firefox → {ff_profile_dir}[/dim]"
+                        )
+                    else:
+                        console.print("[yellow]⚠ Nie znaleziono profilu Firefox[/yellow]")
+                        ff_session_importer = None
+            except Exception as e:
+                _debug(f"Firefox session import failed: {e}")
+                console.print(f"[yellow]⚠ Import sesji Firefox: {e}[/yellow]")
+
+        # --- Determine browser & profile ---
+        if ff_session_importer and use_ff_sessions != "cookies":
+            # Firefox mode with copied profile
+            user_data_dir = ff_session_importer.target_dir
+            _pw_browser = "firefox"
+        else:
+            user_data_dir = Path.home() / ".nlp2cmd" / "browser_profile"
+            user_data_dir.mkdir(parents=True, exist_ok=True)
+            _pw_browser = "chromium"
 
         with sync_playwright() as pw:
             try:
-                ctx_opts = {
+                ctx_opts: dict[str, Any] = {
                     "user_data_dir": str(user_data_dir),
                     "headless": self.headless,
                     "viewport": {"width": 1280, "height": 720},
@@ -2397,21 +2448,72 @@ class PipelineRunner:
                 if should_record_video:
                     ctx_opts["record_video_dir"] = _effective_video_dir
                     ctx_opts["record_video_size"] = {"width": 1280, "height": 720}
-                context = pw.chromium.launch_persistent_context(**ctx_opts)
+
+                if _pw_browser == "firefox":
+                    console.print("[dim]🦊 Uruchamiam Playwright Firefox z sesjami...[/dim]")
+                    context = pw.firefox.launch_persistent_context(**ctx_opts)
+                else:
+                    context = pw.chromium.launch_persistent_context(**ctx_opts)
             except Exception:
                 if self.headless:
                     raise
                 # Fallback for environments without a working headed display.
                 ctx_opts["headless"] = True
-                context = pw.chromium.launch_persistent_context(**ctx_opts)
+                if _pw_browser == "firefox":
+                    context = pw.firefox.launch_persistent_context(**ctx_opts)
+                else:
+                    context = pw.chromium.launch_persistent_context(**ctx_opts)
             page = context.pages[0] if context.pages else context.new_page()
+
+            # Inject Firefox cookies into Chromium context if in cookie mode
+            if ff_chromium_cookies and _pw_browser == "chromium":
+                try:
+                    context.add_cookies(ff_chromium_cookies)
+                    _debug(f"Injected {len(ff_chromium_cookies)} Firefox cookies into Chromium")
+                except Exception as e:
+                    _debug(f"Cookie injection failed: {e}")
 
             variables: dict[str, str] = {}  # stores results from prior steps
             results_log: list[dict] = []
 
-            for i, step in enumerate(plan.steps):
+            # --- Validation & fallback infrastructure ---
+            try:
+                from nlp2cmd.automation.step_validator import StepValidator
+                validator = StepValidator()
+            except ImportError:
+                validator = None
+
+            try:
+                from nlp2cmd.automation.schema_fallback import SchemaFallback, FallbackContext
+                fallback_engine = SchemaFallback()
+            except ImportError:
+                fallback_engine = None
+
+            # Resolve service config for fallback context
+            _svc_config: dict = {}
+            _svc_name: str = ""
+            try:
+                from nlp2cmd.automation.action_planner import KNOWN_SERVICES
+                for _sn, _sc in KNOWN_SERVICES.items():
+                    if _sn in (getattr(plan, "query", "") or "").lower():
+                        _svc_config = _sc
+                        _svc_name = _sn
+                        break
+            except Exception:
+                pass
+
+            # Build mutable step queue (allows injecting fallback steps)
+            step_queue = list(plan.steps)
+            step_idx = 0
+
+            while step_idx < len(step_queue):
+                step = step_queue[step_idx]
                 step_desc = step.description or step.action
-                console.print(f"\n[cyan]▸ Krok {i+1}/{len(plan.steps)}:[/cyan] {step_desc}")
+                total_display = len(step_queue)
+                console.print(
+                    f"\n[cyan]▸ Krok {step_idx+1}/{total_display}:[/cyan] {step_desc}"
+                    f"  [dim]({step.action})[/dim]"
+                )
 
                 if step.action == "new_tab":
                     page = context.new_page()
@@ -2421,36 +2523,204 @@ class PipelineRunner:
                         pass
                     console.print("  [green]✓[/green] OK")
                     results_log.append({
-                        "step": i + 1,
-                        "action": step.action,
-                        "status": "ok",
-                        "stored": step.store_as,
+                        "step": step_idx + 1, "action": step.action,
+                        "status": "ok", "stored": step.store_as,
                     })
+                    step_idx += 1
                     continue
 
+                # --- Pre-validation ---
+                pre_ok = True
+                if validator:
+                    params_resolved = self._resolve_plan_variables(
+                        step.params or {}, variables,
+                    )
+                    pre_result = validator.validate_pre(
+                        step.action, page, params_resolved, variables,
+                    )
+                    if not pre_result.passed:
+                        console.print(f"  [yellow]⚠ Pre-check:[/yellow] {pre_result.message}")
+                        if pre_result.suggestion:
+                            console.print(f"  [dim]   💡 {pre_result.suggestion}[/dim]")
+                        pre_ok = False
+                    # Check if key already extracted (skip prompt_secret)
+                    if (step.action == "prompt_secret"
+                            and pre_result.details.get("already_extracted")):
+                        var_name = pre_result.details.get("var", "api_key")
+                        existing_val = variables.get(var_name, "")
+                        if existing_val:
+                            console.print(
+                                f"  [green]✓[/green] Klucz już wyekstrahowany "
+                                f"(${var_name}, {len(existing_val)} znaków) — pomijam prompt"
+                            )
+                            if step.store_as:
+                                variables[step.store_as] = existing_val
+                            results_log.append({
+                                "step": step_idx + 1, "action": step.action,
+                                "status": "ok", "stored": step.store_as,
+                                "note": "skipped_already_extracted",
+                            })
+                            step_idx += 1
+                            continue
+
+                    # Snapshot clipboard before key-related steps
+                    if step.action in ("extract_key", "prompt_secret", "check_clipboard"):
+                        validator.snapshot_clipboard()
+
+                step_start = time.time()
                 try:
                     result = self._execute_plan_step(
                         page, context, step, variables
                     )
+                    elapsed_ms = (time.time() - step_start) * 1000
+
                     if step.store_as and result:
                         variables[step.store_as] = result
                         console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
                     else:
                         console.print(f"  [green]✓[/green] OK")
+                    console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
+
+                    # --- Post-validation ---
+                    if validator:
+                        params_resolved = self._resolve_plan_variables(
+                            step.params or {}, variables,
+                        )
+                        post_result = validator.validate_post(
+                            step.action, page, params_resolved, result,
+                        )
+                        if not post_result.passed:
+                            console.print(
+                                f"  [yellow]⚠ Post-check:[/yellow] {post_result.message}"
+                            )
+                            if post_result.suggestion:
+                                console.print(f"  [dim]   💡 {post_result.suggestion}[/dim]")
+                            # Post-validation failure on critical steps → trigger fallback
+                            if step.action in ("check_session", "extract_key") and fallback_engine:
+                                console.print(
+                                    f"  [cyan]🔄 Uruchamiam dynamiczny fallback...[/cyan]"
+                                )
+                                fb_ctx = FallbackContext(
+                                    failed_action=step.action,
+                                    failed_params=params_resolved,
+                                    error_message=post_result.message,
+                                    step_index=step_idx,
+                                    total_steps=len(step_queue),
+                                    variables=dict(variables),
+                                    page_url=page.url if page else "",
+                                    page_title=page.title() if page else "",
+                                    service_name=_svc_name,
+                                    service_config=_svc_config,
+                                    previous_steps_ok=[
+                                        r["action"] for r in results_log
+                                        if r.get("status") in ("ok", "ok_retry")
+                                    ],
+                                )
+                                fb_result = fallback_engine.generate_fallback(fb_ctx, page)
+                                if fb_result.success:
+                                    console.print(
+                                        f"  [green]✓ Fallback:[/green] {fb_result.strategy}"
+                                        f" — {fb_result.message}"
+                                    )
+                                    if fb_result.extracted_value:
+                                        # Direct extraction succeeded
+                                        if step.store_as:
+                                            variables[step.store_as] = fb_result.extracted_value
+                                        variables["extracted_key"] = fb_result.extracted_value
+                                        console.print(
+                                            f"  [green]✓[/green] Wyekstrahowano klucz "
+                                            f"({len(fb_result.extracted_value)} znaków)"
+                                        )
+                                    elif fb_result.replacement_steps:
+                                        # Inject replacement steps into the queue
+                                        from nlp2cmd.automation.action_planner import ActionStep
+                                        new_steps = []
+                                        for rs in fb_result.replacement_steps:
+                                            new_steps.append(ActionStep(
+                                                action=rs["action"],
+                                                params=rs.get("params", {}),
+                                                description=rs.get("description", ""),
+                                            ))
+                                        # Insert after current step
+                                        step_queue[step_idx+1:step_idx+1] = new_steps
+                                        console.print(
+                                            f"  [dim]   📝 Wstawiono {len(new_steps)} "
+                                            f"dodatkowych kroków[/dim]"
+                                        )
 
                     results_log.append({
-                        "step": i + 1, "action": step.action,
+                        "step": step_idx + 1, "action": step.action,
                         "status": "ok", "stored": step.store_as,
+                        "elapsed_ms": round(elapsed_ms),
                     })
 
                 except Exception as e:
+                    elapsed_ms = (time.time() - step_start) * 1000
                     console.print(f"  [red]✗[/red] Błąd: {e}")
+                    console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
                     results_log.append({
-                        "step": i + 1, "action": step.action,
+                        "step": step_idx + 1, "action": step.action,
                         "status": "error", "error": str(e),
+                        "elapsed_ms": round(elapsed_ms),
                     })
 
-                    if step.retry_on_fail:
+                    # --- Dynamic fallback on error ---
+                    fallback_handled = False
+                    if fallback_engine:
+                        console.print(f"  [cyan]🔄 Uruchamiam dynamiczny fallback...[/cyan]")
+                        params_resolved = self._resolve_plan_variables(
+                            step.params or {}, variables,
+                        )
+                        fb_ctx = FallbackContext(
+                            failed_action=step.action,
+                            failed_params=params_resolved,
+                            error_message=str(e),
+                            step_index=step_idx,
+                            total_steps=len(step_queue),
+                            variables=dict(variables),
+                            page_url=page.url if page else "",
+                            page_title=page.title() if page else "",
+                            service_name=_svc_name,
+                            service_config=_svc_config,
+                            previous_steps_ok=[
+                                r["action"] for r in results_log
+                                if r.get("status") in ("ok", "ok_retry")
+                            ],
+                        )
+                        fb_result = fallback_engine.generate_fallback(fb_ctx, page)
+                        if fb_result.success:
+                            console.print(
+                                f"  [green]✓ Fallback:[/green] {fb_result.strategy}"
+                                f" — {fb_result.message}"
+                            )
+                            if fb_result.extracted_value:
+                                if step.store_as:
+                                    variables[step.store_as] = fb_result.extracted_value
+                                variables["extracted_key"] = fb_result.extracted_value
+                                results_log[-1]["status"] = "ok_fallback"
+                                fallback_handled = True
+                            elif fb_result.replacement_steps:
+                                from nlp2cmd.automation.action_planner import ActionStep
+                                new_steps = []
+                                for rs in fb_result.replacement_steps:
+                                    new_steps.append(ActionStep(
+                                        action=rs["action"],
+                                        params=rs.get("params", {}),
+                                        description=rs.get("description", ""),
+                                    ))
+                                step_queue[step_idx+1:step_idx+1] = new_steps
+                                console.print(
+                                    f"  [dim]   📝 Wstawiono {len(new_steps)} "
+                                    f"alternatywnych kroków[/dim]"
+                                )
+                                results_log[-1]["status"] = "fallback_injected"
+                                fallback_handled = True
+                        else:
+                            console.print(
+                                f"  [dim]   Fallback wyczerpany: {fb_result.message}[/dim]"
+                            )
+
+                    if not fallback_handled and step.retry_on_fail:
                         console.print(f"  [yellow]↻[/yellow] Retry...")
                         page.wait_for_timeout(1000)
                         try:
@@ -2464,6 +2734,17 @@ class PipelineRunner:
                         except Exception as e2:
                             console.print(f"  [red]✗[/red] Retry failed: {e2}")
                             results_log[-1]["status"] = "failed"
+
+                step_idx += 1
+
+            # --- Validation summary ---
+            if validator:
+                summary = validator.summary()
+                if summary.get("failed", 0) > 0:
+                    console.print(
+                        f"\n[bold yellow]⚠ Walidacja:[/bold yellow] "
+                        f"{summary['failed']} kroków nie przeszło walidacji"
+                    )
 
             if video_recorder and video_recorder.is_recording:
                 try:
@@ -3676,6 +3957,87 @@ class PipelineRunner:
             except Exception as e:
                 _debug(f"check_session error: {e}")
                 return "error"
+
+        elif action == "extract_key":
+            # Try to extract API key from page DOM + clipboard
+            key_pattern = params.get("key_pattern", "")
+            key_selectors = params.get("selectors", [
+                "code", "pre", "input[readonly]", "input[type='text'][readonly]",
+                ".api-key", "[data-testid*='key']", "[class*='key']",
+                ".token", "[data-testid*='token']",
+            ])
+            service = params.get("service", "")
+            console.print(f"  [dim]🔍 Szukam klucza API na stronie {service}...[/dim]")
+
+            # Strategy 1: Search DOM elements
+            for sel in key_selectors:
+                try:
+                    elements = page.query_selector_all(sel)
+                    for el in elements:
+                        text = (el.text_content() or "").strip()
+                        if not text or len(text) < 10:
+                            continue
+                        if key_pattern and re.match(key_pattern, text):
+                            console.print(f"  [green]✓[/green] Znaleziono klucz w DOM ({sel}, {len(text)} znaków)")
+                            _debug(f"extract_key: found via DOM selector {sel}")
+                            return text
+                        if not key_pattern and re.match(r'^[a-zA-Z0-9_\-]{20,}$', text):
+                            console.print(f"  [green]✓[/green] Potencjalny klucz w DOM ({sel}, {len(text)} znaków)")
+                            return text
+                except Exception:
+                    continue
+
+            # Strategy 2: Check clipboard
+            try:
+                from nlp2cmd.automation.step_validator import StepValidator
+                clipboard = StepValidator.get_clipboard()
+                if clipboard and len(clipboard) >= 10:
+                    if key_pattern and re.match(key_pattern, clipboard):
+                        console.print(f"  [green]✓[/green] Klucz znaleziony w schowku ({len(clipboard)} znaków, pasuje do wzorca)")
+                        return clipboard
+                    elif not key_pattern and re.match(r'^[a-zA-Z0-9_\-]{20,}$', clipboard):
+                        console.print(f"  [green]✓[/green] Potencjalny klucz w schowku ({len(clipboard)} znaków)")
+                        return clipboard
+            except Exception as e:
+                _debug(f"extract_key: clipboard check failed: {e}")
+
+            # Strategy 3: Full body regex scan
+            try:
+                body = page.text_content("body") or ""
+                if key_pattern:
+                    match = re.search(key_pattern, body)
+                    if match:
+                        found = match.group(0)
+                        console.print(f"  [green]✓[/green] Klucz znaleziony w treści strony ({len(found)} znaków)")
+                        return found
+            except Exception as e:
+                _debug(f"extract_key: body scan failed: {e}")
+
+            console.print(f"  [yellow]⚠[/yellow] Nie znaleziono klucza na stronie")
+            return None
+
+        elif action == "check_clipboard":
+            # Validate clipboard content against expected key pattern
+            key_pattern = params.get("key_pattern", "")
+            env_var = params.get("env_var", "")
+            console.print(f"  [dim]📋 Sprawdzam schowek...[/dim]")
+            try:
+                from nlp2cmd.automation.step_validator import StepValidator
+                clipboard = StepValidator.get_clipboard()
+                if clipboard and len(clipboard) >= 10:
+                    if key_pattern and re.match(key_pattern, clipboard):
+                        console.print(f"  [green]✓[/green] Klucz w schowku pasuje do wzorca ({len(clipboard)} znaków)")
+                        return clipboard
+                    elif clipboard and len(clipboard) >= 20:
+                        console.print(f"  [dim]   Schowek zawiera {len(clipboard)} znaków (brak wzorca do walidacji)[/dim]")
+                        return clipboard
+                    else:
+                        console.print(f"  [yellow]⚠[/yellow] Schowek nie zawiera klucza API")
+                else:
+                    console.print(f"  [yellow]⚠[/yellow] Schowek pusty lub za krótki")
+            except Exception as e:
+                console.print(f"  [yellow]⚠[/yellow] Nie można odczytać schowka: {e}")
+            return None
 
         elif action == "verify_env":
             var_name = params.get("var_name", "UNKNOWN")

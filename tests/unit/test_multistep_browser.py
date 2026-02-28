@@ -115,11 +115,10 @@ class TestActionPlanner:
         assert save_steps[0].params["var_name"] == "GITHUB_TOKEN"
 
     def test_openrouter_with_tab_intent_forces_playwright(self):
-        """Existing Firefox workflow should use desktop tab opening.
+        """ALL API-key workflows use Playwright for DOM access.
 
-        We only force Playwright for *create key* flows that require DOM clicks.
-        For extract/copy workflows we open the keys page in the user's real
-        Firefox and ask them to paste the key.
+        Even when user mentions 'existing Firefox', we override to Playwright
+        because DOM access is needed for check_session, extract_key, etc.
         """
         plan = self.planner._try_rule_decomposition(
             "owtorz tab w już otwartym oknie przegladarki firefox wyciągnij klucz API z OpenRouter i zapisz do .env"
@@ -127,10 +126,10 @@ class TestActionPlanner:
         assert plan is not None
         assert len(plan.steps) >= 4
         actions = [s.action for s in plan.steps]
-        assert "open_firefox_tab" in actions
-        assert "desktop_wait" in actions
-        assert "navigate" not in actions
-        assert any(s.action == "prompt_secret" for s in plan.steps)
+        assert "navigate" in actions
+        assert "open_firefox_tab" not in actions
+        assert "desktop_wait" not in actions
+        assert "extract_key" in actions
         assert any(s.action == "save_env" for s in plan.steps)
 
     def test_unknown_service_returns_none(self):
