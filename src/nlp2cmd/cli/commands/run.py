@@ -340,6 +340,8 @@ def handle_run_mode(
                         result.action_plan,
                         dry_run=False,
                         confirm=bool(auto_confirm),
+                        video_fmt=video_fmt,
+                        video_dir=None,  # Or use a default like "./recordings"
                     )
                     if not only_output:
                         print_yaml_block(

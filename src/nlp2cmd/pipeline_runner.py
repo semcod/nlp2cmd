@@ -2149,6 +2149,8 @@ class PipelineRunner:
         plan,
         *,
         dry_run: bool = False,
+        video_fmt: Optional[str] = None,
+        video_dir: Optional[str] = None,
         confirm: bool = False,
     ) -> RunnerResult:
         """Execute an ActionPlan step by step using Playwright.
@@ -2187,6 +2189,31 @@ class PipelineRunner:
                 success=True, kind="action_plan",
                 data={"dry_run": True, "steps": [s.to_dict() for s in plan.steps]},
             )
+
+        # Video recording setup
+        should_record_video = False
+        _effective_video_dir = video_dir or self.video_dir or "./recordings"
+        _fmt = video_fmt or self.video_fmt
+        
+        if _fmt:
+            should_record_video = True
+            _debug(f"Video recording enabled for ActionPlan via --video {_fmt}")
+        else:
+            try:
+                is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+            except Exception:
+                is_tty = False
+            if confirm and is_tty:
+                should_record_video, _effective_video_dir = ask_for_video_recording(console)
+
+        video_recorder = None
+        video_saved_path = None
+        
+        if should_record_video:
+            video_recorder = VideoRecorder(output_dir=_effective_video_dir)
+            video_path = video_recorder.start_recording(name_prefix="action_plan_automation")
+            if video_path:
+                console.print(f"[dim]🎥 Nagrywanie wideo: {video_path}[/dim]")
 
         if has_desktop_steps:
             variables: dict[str, str] = {}
@@ -2234,10 +2261,16 @@ class PipelineRunner:
                                 console.print(f"  [red]✗[/red] Retry failed: {e2}")
                                 results_log[-1]["status"] = "failed"
 
+                if video_recorder and video_recorder.is_recording:
+                    video_recorder.stop_recording(None)  # discard dummy path since no playwright
+                    console.print("[dim]⚠️ Uwaga: Nagrywanie wideo jest niedostępne w trybie 'desktop' (wymaga pełnego silnika Playwright).[/dim]")
+
+                result_data = {"steps": results_log, "variables": variables, "mode": "desktop"}
+
                 return RunnerResult(
                     success=all(r["status"] != "failed" for r in results_log),
                     kind="action_plan",
-                    data={"steps": results_log, "variables": variables, "mode": "desktop"},
+                    data=result_data,
                 )
             except Exception as e:
                 return RunnerResult(success=False, kind="action_plan", error=str(e))
@@ -2255,20 +2288,21 @@ class PipelineRunner:
 
         with sync_playwright() as pw:
             try:
-                context = pw.chromium.launch_persistent_context(
-                    user_data_dir=str(user_data_dir),
-                    headless=self.headless,
-                    viewport={"width": 1280, "height": 720},
-                )
+                ctx_opts = {
+                    "user_data_dir": str(user_data_dir),
+                    "headless": self.headless,
+                    "viewport": {"width": 1280, "height": 720},
+                }
+                if should_record_video:
+                    ctx_opts["record_video_dir"] = _effective_video_dir
+                    ctx_opts["record_video_size"] = {"width": 1280, "height": 720}
+                context = pw.chromium.launch_persistent_context(**ctx_opts)
             except Exception:
                 if self.headless:
                     raise
                 # Fallback for environments without a working headed display.
-                context = pw.chromium.launch_persistent_context(
-                    user_data_dir=str(user_data_dir),
-                    headless=True,
-                    viewport={"width": 1280, "height": 720},
-                )
+                ctx_opts["headless"] = True
+                context = pw.chromium.launch_persistent_context(**ctx_opts)
             page = context.pages[0] if context.pages else context.new_page()
 
             variables: dict[str, str] = {}  # stores results from prior steps
@@ -2330,12 +2364,55 @@ class PipelineRunner:
                             console.print(f"  [red]✗[/red] Retry failed: {e2}")
                             results_log[-1]["status"] = "failed"
 
-            context.close()
+            if video_recorder and video_recorder.is_recording:
+                try:
+                    # To ensure the video file is completely written, Playwright requires the page/context to be closed
+                    # But we want a screenshot first. We do it below.
+                    pass
+                except Exception as ve:
+                    pass
+
+            # Capture final screenshot on success/failure
+            screenshot_path = None
+            try:
+                if not should_record_video or page:
+                    timestamp = get_timestamp()
+                    screenshot_path = str(Path(_effective_video_dir) / f"action_plan_final_{timestamp}.png")
+                    # need to ensure page isn't closed if we didn't save video yet
+                    if not page.is_closed():
+                        page.screenshot(path=screenshot_path)
+                        console.print(f"[dim]📸 Zrzut ekranu zapisany: {screenshot_path}[/dim]")
+            except Exception as e:
+                _debug(f"Failed to capture final screenshot: {e}")
+
+            try:
+                context.close()
+            except Exception:
+                pass
+                
+            if video_recorder and video_recorder.is_recording:
+                try:
+                    pw_video = page.video
+                    if pw_video:
+                        target = video_recorder.video_path or str(Path(_effective_video_dir) / "action_plan_automation.webm")
+                        # save_as works after context is closed
+                        pw_video.save_as(target)
+                        video_saved_path = target
+                        console.print(f"[green]🎥 Video saved: {target}[/green]")
+                except Exception as ve:
+                    _debug(f"Video save_as failed: {ve}")
+                video_recorder.stop_recording(console)
+
+        result_data = {"steps": results_log, "variables": variables, "mode": "playwright"}
+        if video_saved_path:
+            result_data["video"] = video_saved_path
+        if screenshot_path:
+            result_data["screenshot"] = screenshot_path
 
         return RunnerResult(
             success=all(r["status"] != "failed" for r in results_log),
             kind="action_plan",
-            data={"steps": results_log, "variables": variables},
+            data=result_data,
         )
 
     def _execute_plan_step(self, page, context, step, variables: dict) -> Optional[str]:
