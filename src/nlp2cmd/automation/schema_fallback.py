@@ -97,9 +97,13 @@ class SchemaFallback:
             ctx.failed_action, ctx.step_index, ctx.total_steps,
         )
 
-        # Prefer generic LLM-generated schemas first (provider-agnostic),
-        # then use deterministic fallbacks only as a safety net.
-        if self._prefer_llm:
+        # For extract_key failures, ALWAYS prefer rule-based first — it has the
+        # complete create-key flow (dismiss overlays → discover section → pre-clicks
+        # → click Create → fill form → submit → extract key → save_env).
+        # LLM tends to generate weak 1-step responses that short-circuit this.
+        _rules_first_actions = {"extract_key", "check_session", "navigate"}
+
+        if self._prefer_llm and ctx.failed_action not in _rules_first_actions:
             result = self._run_llm_repair_rounds(ctx, page)
             if result and result.success:
                 return result
@@ -115,7 +119,14 @@ class SchemaFallback:
             if result and result.success:
                 return result
 
-        # Strategy 2b: Page analysis — find correct section/selectors
+        # Strategy 2b: Dynamic page schema — scan DOM for buttons/forms/tokens
+        # and generate an action plan based on what's actually visible
+        if page is not None:
+            result = self._try_dynamic_page_schema(ctx, page)
+            if result and result.success:
+                return result
+
+        # Strategy 2c: Page analysis — find correct section/selectors
         if page is not None:
             result = self._try_page_analysis(ctx, page)
             if result and result.success:
@@ -126,8 +137,12 @@ class SchemaFallback:
         if result and result.success:
             return result
 
-        # Strategy 4+5: LLM re-planning (only if not already attempted first)
-        if not self._prefer_llm:
+        # Strategy 4+5: LLM re-planning (if not already attempted, or for
+        # extract_key where we now try it after rules)
+        llm_already_tried = (
+            self._prefer_llm and ctx.failed_action not in _rules_first_actions
+        )
+        if not llm_already_tried:
             result = self._run_llm_repair_rounds(ctx, page)
             if result and result.success:
                 return result
@@ -452,7 +467,289 @@ class SchemaFallback:
         return None
 
     # ------------------------------------------------------------------
-    # Strategy 2b: Page analysis
+    # Strategy 2b: Dynamic page schema — scan DOM to understand page
+    # ------------------------------------------------------------------
+    def _try_dynamic_page_schema(
+        self, ctx: FallbackContext, page: Any,
+    ) -> Optional[FallbackResult]:
+        """Scan the page DOM to discover actionable elements and build a plan.
+
+        This is the "schema generation" step — instead of relying on hardcoded
+        selectors, we look at what's actually on the page (buttons, forms,
+        tokens, copy buttons) and construct an action plan dynamically.
+        """
+        if ctx.failed_action not in ("extract_key", "click", "type_text"):
+            return None
+
+        svc = ctx.service_config or {}
+        key_pattern = svc.get("key_pattern", "")
+        env_var = svc.get("env_var", "API_KEY")
+
+        try:
+            # ---- Phase 1: Scan page for key-like elements ----
+            page_schema = self._extract_page_schema(page)
+            log.info(
+                "[DynamicSchema] buttons=%d, forms=%d, tokens=%d, copy_btns=%d",
+                len(page_schema.get("buttons", [])),
+                len(page_schema.get("forms", [])),
+                len(page_schema.get("tokens", [])),
+                len(page_schema.get("copy_buttons", [])),
+            )
+
+            steps: list[dict[str, Any]] = []
+
+            # ---- Phase 2: If tokens already visible → extract directly ----
+            if page_schema["tokens"]:
+                tok = page_schema["tokens"][0]
+                steps.append({
+                    "action": "echo",
+                    "params": {"text": (
+                        f"🔍 Dynamiczny schemat: znaleziono token na stronie "
+                        f"(selektor: {tok['selector']})"
+                    )},
+                })
+                # If there's a copy button nearby, click it first
+                if page_schema["copy_buttons"]:
+                    cb = page_schema["copy_buttons"][0]
+                    steps.append({
+                        "action": "click",
+                        "params": {"selector": cb["selector"], "timeout": 3000},
+                        "description": f"Kliknij przycisk kopiowania: {cb.get('text', '')}",
+                    })
+                    steps.append({"action": "wait", "params": {"ms": 500}})
+                    steps.append({
+                        "action": "check_clipboard",
+                        "params": {"key_pattern": key_pattern, "env_var": env_var},
+                        "store_as": "extracted_key",
+                        "description": "Pobierz klucz ze schowka",
+                    })
+                else:
+                    steps.append({
+                        "action": "extract_key",
+                        "params": {
+                            "service": ctx.service_name,
+                            "key_pattern": key_pattern,
+                            "selectors": [tok["selector"]],
+                        },
+                        "store_as": "extracted_key",
+                        "description": f"Pobierz token z {tok['selector']}",
+                    })
+                steps.append({
+                    "action": "save_env",
+                    "params": {"var_name": env_var, "value": "$extracted_key", "file": ".env"},
+                })
+                return FallbackResult(
+                    success=True,
+                    strategy="dynamic_schema",
+                    message=f"Found existing token on page (selector: {tok['selector']})",
+                    replacement_steps=steps,
+                )
+
+            # ---- Phase 3: No tokens visible → find "Create" button and form ----
+            create_buttons = [
+                b for b in page_schema["buttons"]
+                if any(kw in b.get("text", "").lower() for kw in (
+                    "create", "new", "generate", "add", "utwórz", "nowy",
+                ))
+            ]
+
+            if create_buttons:
+                btn = create_buttons[0]
+                steps.append({
+                    "action": "echo",
+                    "params": {"text": (
+                        f"🔍 Dynamiczny schemat: brak tokenu, znaleziono przycisk "
+                        f"'{btn['text']}' — tworzę nowy klucz"
+                    )},
+                })
+                steps.append({
+                    "action": "click",
+                    "params": {
+                        "selector": btn["selector"],
+                        "timeout": 10000,
+                    },
+                    "description": f"Kliknij: {btn['text']}",
+                })
+                steps.append({"action": "wait", "params": {"ms": 2000}})
+
+                # After clicking Create, fill any visible form fields
+                if page_schema["forms"]:
+                    for field in page_schema["forms"][:3]:
+                        default = "nlp2cmd" if "name" in field.get("name", "").lower() else ""
+                        if not default and "name" in field.get("placeholder", "").lower():
+                            default = "nlp2cmd"
+                        if not default and "token" in field.get("placeholder", "").lower():
+                            default = "nlp2cmd"
+                        if default:
+                            steps.append({
+                                "action": "type_text",
+                                "params": {
+                                    "selector": field["selector"],
+                                    "text": default,
+                                },
+                                "description": f"Wypełnij pole: {field.get('name') or field.get('placeholder', '')}",
+                            })
+
+                # Submit form + extract key
+                submit_buttons = [
+                    b for b in page_schema["buttons"]
+                    if any(kw in b.get("text", "").lower() for kw in (
+                        "create", "generate", "submit", "confirm", "ok",
+                        "utwórz", "generuj", "zatwierdź",
+                    ))
+                ]
+                submit_sel = submit_buttons[0]["selector"] if submit_buttons else btn["selector"]
+
+                steps.append({
+                    "action": "submit_and_extract_key",
+                    "params": {
+                        "selector": submit_sel,
+                        "key_pattern": key_pattern,
+                        "timeout": 60000,
+                        "selectors": svc.get("key_selectors", ["code", "pre", "input[readonly]"]),
+                    },
+                    "store_as": "extracted_key",
+                    "description": "Zatwierdź i przechwytuj nowy klucz",
+                })
+                steps.append({
+                    "action": "save_env",
+                    "params": {"var_name": env_var, "value": "$extracted_key", "file": ".env"},
+                })
+
+                return FallbackResult(
+                    success=True,
+                    strategy="dynamic_schema",
+                    message=f"Built dynamic create-key plan via button '{btn['text']}'",
+                    replacement_steps=steps,
+                )
+
+        except Exception as e:
+            log.warning("[DynamicSchema] Failed: %s", e)
+
+        return None
+
+    @staticmethod
+    def _extract_page_schema(page: Any) -> dict[str, list[dict[str, str]]]:
+        """Extract actionable elements from the current page DOM.
+
+        Returns a schema dict with:
+        - buttons: visible clickable elements (button, a[role=button], etc.)
+        - forms: visible text input fields
+        - tokens: elements that look like API tokens/keys
+        - copy_buttons: buttons likely used to copy tokens
+        """
+        schema: dict[str, list[dict[str, str]]] = {
+            "buttons": [],
+            "forms": [],
+            "tokens": [],
+            "copy_buttons": [],
+        }
+
+        try:
+            # --- Buttons ---
+            btn_locators = page.locator(
+                "button:visible, a[role='button']:visible, "
+                "[role='button']:visible"
+            )
+            for i in range(min(btn_locators.count(), 30)):
+                try:
+                    el = btn_locators.nth(i)
+                    text = (el.text_content() or "").strip()[:80]
+                    if not text or len(text) < 2:
+                        continue
+                    # Build a unique selector
+                    test_id = el.get_attribute("data-testid") or ""
+                    aria = el.get_attribute("aria-label") or ""
+                    if test_id:
+                        sel = f"[data-testid='{test_id}']"
+                    elif aria:
+                        sel = f"[aria-label='{aria}']"
+                    else:
+                        sel = f"text='{text}'"
+                    schema["buttons"].append({
+                        "text": text, "selector": sel,
+                        "tag": el.evaluate("el => el.tagName.toLowerCase()"),
+                    })
+                except Exception:
+                    continue
+
+            # --- Text inputs (forms) ---
+            input_locators = page.locator(
+                "input[type='text']:visible, input:not([type]):visible, "
+                "textarea:visible"
+            )
+            for i in range(min(input_locators.count(), 15)):
+                try:
+                    el = input_locators.nth(i)
+                    name = el.get_attribute("name") or ""
+                    placeholder = el.get_attribute("placeholder") or ""
+                    inp_type = el.get_attribute("type") or "text"
+                    test_id = el.get_attribute("data-testid") or ""
+                    if test_id:
+                        sel = f"[data-testid='{test_id}']"
+                    elif name:
+                        sel = f"input[name='{name}']"
+                    elif placeholder:
+                        sel = f"input[placeholder='{placeholder}']"
+                    else:
+                        sel = f"input[type='{inp_type}']:visible >> nth={i}"
+                    schema["forms"].append({
+                        "name": name, "placeholder": placeholder,
+                        "selector": sel, "type": inp_type,
+                    })
+                except Exception:
+                    continue
+
+            # --- Token-like elements ---
+            token_selectors = [
+                "input[readonly]", "input[type='text'][readonly]",
+                "code", "pre", ".token-value", "[data-testid*='token']",
+                ".api-key", "[class*='secret']", "[class*='token']",
+            ]
+            for ts in token_selectors:
+                try:
+                    els = page.query_selector_all(ts)
+                    for el in els[:5]:
+                        text = (el.text_content() or el.get_attribute("value") or "").strip()
+                        if text and len(text) >= 10:
+                            schema["tokens"].append({
+                                "selector": ts, "text_preview": text[:20] + "...",
+                                "length": str(len(text)),
+                            })
+                except Exception:
+                    continue
+
+            # --- Copy buttons ---
+            copy_locators = page.locator(
+                "button:has-text('Copy'):visible, "
+                "button:has-text('Kopiuj'):visible, "
+                "button[aria-label*='copy' i]:visible, "
+                "button[aria-label*='clipboard' i]:visible, "
+                "[data-testid*='copy']:visible"
+            )
+            for i in range(min(copy_locators.count(), 5)):
+                try:
+                    el = copy_locators.nth(i)
+                    text = (el.text_content() or "").strip()[:40]
+                    test_id = el.get_attribute("data-testid") or ""
+                    aria = el.get_attribute("aria-label") or ""
+                    if test_id:
+                        sel = f"[data-testid='{test_id}']"
+                    elif aria:
+                        sel = f"button[aria-label='{aria}']"
+                    else:
+                        sel = f"text='{text}'" if text else "button >> nth=0"
+                    schema["copy_buttons"].append({"text": text, "selector": sel})
+                except Exception:
+                    continue
+
+        except Exception as e:
+            log.warning("[DynamicSchema] Schema extraction error: %s", e)
+
+        return schema
+
+    # ------------------------------------------------------------------
+    # Strategy 2c: Page analysis
     # ------------------------------------------------------------------
     def _try_page_analysis(self, ctx: FallbackContext, page: Any) -> Optional[FallbackResult]:
         """Analyze page DOM to find correct navigation target or selectors."""

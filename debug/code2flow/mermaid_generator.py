@@ -117,29 +117,21 @@ def fix_mermaid_file(mmd_path: Path) -> bool:
         for line in lines:
             original_line = line
             
-            # Fix common issues
+            # 1. Remove problematic HTML entities that break Mermaid parsing
+            if '&quot;' in line or '&apos;' in line or '&#40;' in line or '&#41;' in line:
+                # Replace HTML entities back to regular characters
+                line = line.replace('&quot;', '"')
+                line = line.replace('&apos;', "'")
+                line = line.replace('&#40;', '(')
+                line = line.replace('&#41;', ')')
+                line = line.replace('&#91;', '[')
+                line = line.replace('&#93;', ']')
+                line = line.replace('&lt;', '<')
+                line = line.replace('&gt;', '>')
             
-            # 1. Fix malformed node labels (unescaped quotes and parentheses)
-            if '[' in line and ']' in line:
-                # Extract node label and fix escaping
-                parts = line.split('[', 1)
-                if len(parts) == 2:
-                    label_part, rest = parts[1].split(']', 1)
-                    # Fix unescaped quotes and parentheses in labels
-                    label_part = label_part.replace('"', '&quot;')
-                    label_part = label_part.replace('(', '&#40;')
-                    label_part = label_part.replace(')', '&#41;')
-                    # Also fix single quotes that might break parsing
-                    label_part = label_part.replace("'", '&apos;')
-                    # Fix any other problematic characters
-                    label_part = label_part.replace('<', '&lt;')
-                    label_part = label_part.replace('>', '&gt;')
-                    line = f"{parts[0]}[{label_part}]{rest}"
-            
-            # 2. Fix edge labels with parentheses
+            # 2. Fix edge labels that might have pipe issues
             if '-->' in line and '|' in line:
-                # Handle edge labels like: N1 -->|"label with (parens)"| N2
-                # Find the edge label part
+                # Handle edge labels like: N1 -->|"label"| N2
                 if '-->|' in line:
                     parts = line.split('-->|', 1)
                     if len(parts) == 2:
@@ -149,11 +141,15 @@ def fix_mermaid_file(mmd_path: Path) -> bool:
                             parts2 = label_and_target.split('|', 1)
                             if len(parts2) == 2:
                                 label_content, target = parts2
-                                # Fix the label content
-                                label_content = label_content.replace('"', '&quot;')
-                                label_content = label_content.replace('(', '&#40;')
-                                label_content = label_content.replace(')', '&#41;')
-                                label_content = label_content.replace("'", '&apos;')
+                                # Clean up the label content - remove extra pipes if any
+                                label_content = label_content.strip('|')
+                                # Fix incomplete parentheses in edge labels
+                                if label_content.endswith('('):
+                                    label_content = label_content[:-1]  # Remove trailing parenthesis
+                                elif label_content.count('(') > label_content.count(')'):
+                                    # Add missing closing parentheses
+                                    missing_parens = label_content.count('(') - label_content.count(')')
+                                    label_content += ')' * missing_parens
                                 line = f"{parts[0]}-->|{label_content}|{target}"
             
             # 3. Fix malformed condition labels

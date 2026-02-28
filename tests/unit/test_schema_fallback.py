@@ -168,6 +168,46 @@ def test_generate_fallback_prefers_llm_first_mode_before_rules():
         llm_mock.assert_called_once()
 
 
+def test_extract_key_uses_rules_first_even_in_llm_first_mode():
+    """extract_key failures must use rule-based (create-key flow) BEFORE LLM,
+    even when NLP2CMD_LLM_SCHEMA_MODE=llm_first. LLM tends to generate weak
+    1-step responses that short-circuit the full create-key flow."""
+    with patch.dict("os.environ", {"NLP2CMD_LLM_SCHEMA_MODE": "llm_first"}):
+        engine = SchemaFallback()
+        ctx = FallbackContext(
+            failed_action="extract_key",
+            failed_params={
+                "service": "huggingface",
+                "keys_url": "https://huggingface.co/settings/tokens",
+                "key_pattern": r"hf_[A-Za-z0-9]{34,}",
+            },
+            error_message="No key extracted",
+            step_index=6,
+            total_steps=11,
+            variables={},
+            page_url="https://huggingface.co/settings/tokens",
+            service_name="huggingface",
+            service_config=_svc_cfg(),
+        )
+
+        result = engine.generate_fallback(ctx, page=None)
+
+    # Should get rule_based strategy, NOT llm
+    assert result.success is True
+    assert result.strategy == "rule_based"
+    actions = [s["action"] for s in result.replacement_steps]
+    # Must include the full create-key flow, not just a discover_service_section
+    assert "submit_and_extract_key" in actions
+    assert "type_text" in actions
+
+
+def test_dynamic_page_schema_strategy_exists():
+    """Verify _try_dynamic_page_schema method is callable."""
+    engine = SchemaFallback()
+    assert hasattr(engine, "_try_dynamic_page_schema")
+    assert hasattr(SchemaFallback, "_extract_page_schema")
+
+
 def test_github_extract_key_fallback_includes_pre_clicks():
     """GitHub dropdown: fallback should inject pre_clicks before main button click."""
     with patch.dict("os.environ", {"NLP2CMD_LLM_SCHEMA_MODE": "rule_first"}):

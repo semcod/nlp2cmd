@@ -31,6 +31,7 @@ Examples:
     
     parser.add_argument(
         'source',
+        nargs='?',
         help='Path to Python source file or directory'
     )
     
@@ -89,6 +90,31 @@ Examples:
         action='version',
         version='%(prog)s 0.1.0'
     )
+
+    subparsers = parser.add_subparsers(dest='command')
+
+    llm_flow = subparsers.add_parser(
+        'llm-flow',
+        help='Generate compact LLM-friendly flow summary from analysis.yaml'
+    )
+    llm_flow.add_argument(
+        '-i', '--input',
+        default='./output/analysis.yaml',
+        help='Path to analysis.yaml (default: ./output/analysis.yaml)'
+    )
+    llm_flow.add_argument(
+        '-o', '--output',
+        default='./output/llm_flow.yaml',
+        help='Output llm_flow.yaml path (default: ./output/llm_flow.yaml)'
+    )
+    llm_flow.add_argument(
+        '--md',
+        default=None,
+        help='Optional output Markdown summary path (e.g. ./output/llm_flow.md)'
+    )
+    llm_flow.add_argument('--max-functions', type=int, default=40)
+    llm_flow.add_argument('--limit-decisions', type=int, default=8)
+    llm_flow.add_argument('--limit-calls', type=int, default=12)
     
     return parser
 
@@ -97,7 +123,25 @@ def main():
     """Main CLI entry point."""
     parser = create_parser()
     args = parser.parse_args()
+
+    if args.command == 'llm-flow':
+        from .llm_flow_generator import main as llm_flow_main
+
+        argv = [
+            '--input', args.input,
+            '--output', args.output,
+            '--max-functions', str(args.max_functions),
+            '--limit-decisions', str(args.limit_decisions),
+            '--limit-calls', str(args.limit_calls),
+        ]
+        if args.md:
+            argv += ['--md', args.md]
+        return llm_flow_main(argv)
     
+    if not args.source:
+        print("Error: missing required argument: source", file=sys.stderr)
+        sys.exit(2)
+
     # Validate source path
     source_path = Path(args.source)
     if not source_path.exists():
