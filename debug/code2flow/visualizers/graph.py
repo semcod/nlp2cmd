@@ -85,7 +85,8 @@ class GraphVisualizer:
         for node_id in self.graph.nodes():
             node_data = self.graph.nodes[node_id]
             if node_data.get('type') in ['FUNC', 'IF', 'CALL']:
-                labels[node_id] = node_data['label'][:25]
+                label = node_data.get('label', '') or ''
+                labels[node_id] = label[:25]
                 
         nx.draw_networkx_labels(
             self.graph, pos, labels,
@@ -158,7 +159,7 @@ class GraphVisualizer:
         )
         
         # Labels
-        labels = {n: call_graph.nodes[n]['label'][:20] for n in call_graph.nodes()}
+        labels = {n: (call_graph.nodes[n].get('label') or n)[:20] for n in call_graph.nodes()}
         nx.draw_networkx_labels(
             call_graph, pos, labels,
             font_size=9,

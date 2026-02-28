@@ -1,4 +1,4 @@
-.PHONY: install dev-install test lint format clean help analyze run docker
+.PHONY: install dev-install test lint format clean help analyze run docker mermaid-png install-mermaid check-mermaid clean-png
 
 # Default target
 help:
@@ -15,6 +15,9 @@ help:
 	@echo "  make analyze       - Run analysis on sample (python folder)"
 	@echo "  make run           - Run with example arguments"
 	@echo "  make build         - Build distribution packages"
+	@echo "  make mermaid-png   - Generate PNG from all Mermaid files"
+	@echo "  make install-mermaid - Install Mermaid CLI renderer"
+	@echo "  make check-mermaid - Check available Mermaid renderers"
 	@echo ""
 
 # Installation
@@ -71,3 +74,23 @@ clean:
 # Development utilities
 check: lint typecheck test
 	@echo "✓ All checks passed"
+
+# Mermaid diagram generation
+mermaid-png:
+	python mermaid_to_png.py --batch output output
+
+mermaid-png-%:
+	python mermaid_to_png.py output/$*.mmd output/$*.png
+
+install-mermaid:
+	npm install -g @mermaid-js/mermaid-cli
+
+check-mermaid:
+	@echo "Checking available Mermaid renderers..."
+	@which mmdc > /dev/null && echo "✓ mmdc (mermaid-cli)" || echo "✗ mmdc (run: npm install -g @mermaid-js/mermaid-cli)"
+	@which npx > /dev/null && echo "✓ npx (for @mermaid-js/mermaid-cli)" || echo "✗ npx (install Node.js)"
+	@which puppeteer > /dev/null && echo "✓ puppeteer" || echo "✗ puppeteer (run: npm install -g puppeteer)"
+
+clean-png:
+	rm -f output/*.png
+	@echo "✓ Cleaned PNG files"

@@ -128,7 +128,28 @@ analyzer = ProjectAnalyzer(config)
 result = analyzer.analyze_project('/path/to/project')
 
 exporter = YAMLExporter()
-exporter.export(result, 'output.yaml')
+exporter.export(result, 'output.yaml')  # Default: skip empty values
+exporter.export(result, 'output_full.yaml', include_defaults=True)  # Full output
+```
+
+## Eksport Danych (Compact by Default)
+
+Wszystkie eksporty YAML/JSON domyślnie **ukrywają puste wartości**:
+- `column: null` - pomijane
+- `conditions: []` - pomijane  
+- `data_flow: []` - pomijane
+- `metadata: {}` - pomijane
+- `returns: null` - pomijane
+
+Aby pokazać wszystkie pola (np. dla debugowania):
+```bash
+code2flow /path/to/project --full
+```
+
+Programowo:
+```python
+result.to_dict()  # Default: False - skip empty values
+result.to_dict(include_defaults=True)  # Include all fields
 ```
 
 ## Znane Problemy

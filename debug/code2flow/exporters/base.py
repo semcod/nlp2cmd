@@ -12,9 +12,9 @@ from ..core.models import AnalysisResult
 class YAMLExporter:
     """Export analysis to YAML format."""
     
-    def export(self, result: AnalysisResult, filepath: str):
-        """Export result to YAML file."""
-        data = result.to_dict()
+    def export(self, result: AnalysisResult, filepath: str, include_defaults: bool = False):
+        """Export result to YAML file. Skip empty values by default."""
+        data = result.to_dict(include_defaults)
         
         with open(filepath, 'w', encoding='utf-8') as f:
             yaml.dump(data, f, default_flow_style=False, indent=2, 
@@ -59,9 +59,9 @@ class YAMLExporter:
 class JSONExporter:
     """Export analysis to JSON format."""
     
-    def export(self, result: AnalysisResult, filepath: str):
-        """Export result to JSON file."""
-        data = result.to_dict()
+    def export(self, result: AnalysisResult, filepath: str, include_defaults: bool = False):
+        """Export result to JSON file. Skip empty values by default."""
+        data = result.to_dict(include_defaults)
         
         with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
@@ -236,7 +236,7 @@ class CompactMermaidExporter:
             
     def _escape_label(self, label: str) -> str:
         """Escape special characters for Mermaid."""
-        return label.replace('"', '&quot;').replace('[', '(').replace(']', ')').replace('{', '(').replace('}', ')')
+        return label.replace('"', '&quot;').replace('[', '(').replace(']', ')').replace('{', '(').replace('}', ')').replace('(', '(').replace(')', ')')
         
     def _safe_id(self, name: str) -> str:
         """Create safe Mermaid ID from name."""

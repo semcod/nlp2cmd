@@ -54,6 +54,12 @@ Examples:
     )
     
     parser.add_argument(
+        '--full',
+        action='store_true',
+        help='Include all fields in output (including empty/null values)'
+    )
+    
+    parser.add_argument(
         '--no-patterns',
         action='store_true',
         help='Disable pattern detection'
@@ -133,14 +139,14 @@ def main():
         if 'yaml' in formats:
             exporter = YAMLExporter()
             filepath = output_dir / 'analysis.yaml'
-            exporter.export(result, str(filepath))
+            exporter.export(result, str(filepath), include_defaults=args.full)
             if args.verbose:
                 print(f"  - YAML: {filepath}")
                 
         if 'json' in formats:
             exporter = JSONExporter()
             filepath = output_dir / 'analysis.json'
-            exporter.export(result, str(filepath))
+            exporter.export(result, str(filepath), include_defaults=args.full)
             if args.verbose:
                 print(f"  - JSON: {filepath}")
                 
@@ -154,6 +160,28 @@ def main():
             exporter.export_compact(result, str(filepath))
             if args.verbose:
                 print(f"  - Mermaid: {output_dir / '*.mmd'}")
+                
+            # Auto-generate PNG from Mermaid files
+            try:
+                from .mermaid_generator import generate_pngs
+                png_count = generate_pngs(output_dir, output_dir)
+                if args.verbose and png_count > 0:
+                    print(f"  - PNG: {png_count} files generated")
+            except ImportError:
+                # Fallback to external script
+                try:
+                    import subprocess
+                    script_path = Path(__file__).parent.parent / 'mermaid_to_png.py'
+                    if script_path.exists():
+                        result = subprocess.run([
+                            'python', str(script_path), 
+                            '--batch', str(output_dir), str(output_dir)
+                        ], capture_output=True, text=True, timeout=60)
+                        if result.returncode == 0 and args.verbose:
+                            print(f"  - PNG: {output_dir / '*.png'}")
+                except Exception as png_error:
+                    if args.verbose:
+                        print(f"  - PNG: Skipped (install with: make install-mermaid)")
                 
         if 'png' in formats:
             visualizer = GraphVisualizer(result)

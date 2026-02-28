@@ -35,20 +35,31 @@ class FlowNode:
     data_flow: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
     
-    def to_dict(self) -> Dict:
-        """Convert node to dictionary."""
-        return {
+    def to_dict(self, include_defaults: bool = False) -> Dict:
+        """Convert node to dictionary. Skip empty values by default."""
+        result = {
             'id': self.id,
             'type': self.type,
             'label': self.label,
-            'function': self.function,
-            'file': self.file,
-            'line': self.line,
-            'column': self.column,
-            'conditions': self.conditions,
-            'data_flow': self.data_flow,
-            'metadata': self.metadata
         }
+        
+        # Only include non-empty values unless include_defaults=True
+        if include_defaults or self.function is not None:
+            result['function'] = self.function
+        if include_defaults or self.file is not None:
+            result['file'] = self.file
+        if include_defaults or self.line is not None:
+            result['line'] = self.line
+        if include_defaults or self.column is not None:
+            result['column'] = self.column
+        if include_defaults or self.conditions:
+            result['conditions'] = self.conditions
+        if include_defaults or self.data_flow:
+            result['data_flow'] = self.data_flow
+        if include_defaults or self.metadata:
+            result['metadata'] = self.metadata
+            
+        return result
 
 
 @dataclass 
@@ -60,15 +71,21 @@ class FlowEdge:
     condition: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
     
-    def to_dict(self) -> Dict:
-        """Convert edge to dictionary."""
-        return {
+    def to_dict(self, include_defaults: bool = False) -> Dict:
+        """Convert edge to dictionary. Skip empty values by default."""
+        result = {
             'source': self.source,
             'target': self.target,
-            'type': self.edge_type,
-            'condition': self.condition,
-            'metadata': self.metadata
         }
+        
+        if include_defaults or self.edge_type != "control":
+            result['type'] = self.edge_type
+        if include_defaults or self.condition is not None:
+            result['condition'] = self.condition
+        if include_defaults or self.metadata:
+            result['metadata'] = self.metadata
+            
+        return result
 
 
 @dataclass
@@ -79,14 +96,18 @@ class DataFlow:
     used_at: List[int] = field(default_factory=list)
     dependencies: Set[str] = field(default_factory=set)
     
-    def to_dict(self) -> Dict:
-        """Convert data flow to dictionary."""
-        return {
-            'variable': self.variable,
-            'defined_at': self.defined_at,
-            'used_at': self.used_at,
-            'dependencies': list(self.dependencies)
-        }
+    def to_dict(self, include_defaults: bool = False) -> Dict:
+        """Convert data flow to dictionary. Skip empty values by default."""
+        result = {'variable': self.variable}
+        
+        if include_defaults or self.defined_at is not None:
+            result['defined_at'] = self.defined_at
+        if include_defaults or self.used_at:
+            result['used_at'] = self.used_at
+        if include_defaults or self.dependencies:
+            result['dependencies'] = list(self.dependencies)
+            
+        return result
 
 
 @dataclass
@@ -103,20 +124,28 @@ class FunctionInfo:
     called_by: Set[str] = field(default_factory=set)
     complexity: int = 1  # Cyclomatic complexity
     
-    def to_dict(self) -> Dict:
-        """Convert function info to dictionary."""
-        return {
+    def to_dict(self, include_defaults: bool = False) -> Dict:
+        """Convert function info to dictionary. Skip empty values by default."""
+        result = {
             'name': self.name,
             'qualified_name': self.qualified_name,
             'file': self.file,
             'line_start': self.line_start,
             'line_end': self.line_end,
-            'args': self.args,
-            'returns': self.returns,
-            'calls': list(self.calls),
-            'called_by': list(self.called_by),
-            'complexity': self.complexity
         }
+        
+        if include_defaults or self.args:
+            result['args'] = self.args
+        if include_defaults or self.returns is not None:
+            result['returns'] = self.returns
+        if include_defaults or self.calls:
+            result['calls'] = list(self.calls)
+        if include_defaults or self.called_by:
+            result['called_by'] = list(self.called_by)
+        if include_defaults or self.complexity != 1:
+            result['complexity'] = self.complexity
+            
+        return result
 
 
 @dataclass
@@ -131,15 +160,25 @@ class AnalysisResult:
     imports: Dict[str, str] = field(default_factory=dict)
     classes: Dict[str, Dict] = field(default_factory=dict)
     
-    def to_dict(self) -> Dict:
-        """Convert result to dictionary."""
-        return {
-            'nodes': {k: v.to_dict() for k, v in self.nodes.items()},
-            'cfg_edges': [e.to_dict() for e in self.cfg_edges],
-            'dfg_edges': [e.to_dict() for e in self.dfg_edges],
-            'call_edges': [e.to_dict() for e in self.call_edges],
-            'functions': {k: v.to_dict() for k, v in self.functions.items()},
-            'data_flows': {k: v.to_dict() for k, v in self.data_flows.items()},
-            'imports': self.imports,
-            'classes': self.classes
-        }
+    def to_dict(self, include_defaults: bool = False) -> Dict:
+        """Convert result to dictionary. Skip empty values by default."""
+        result = {}
+        
+        if self.nodes:
+            result['nodes'] = {k: v.to_dict(include_defaults) for k, v in self.nodes.items()}
+        if self.cfg_edges:
+            result['cfg_edges'] = [e.to_dict(include_defaults) for e in self.cfg_edges]
+        if self.dfg_edges:
+            result['dfg_edges'] = [e.to_dict(include_defaults) for e in self.dfg_edges]
+        if self.call_edges:
+            result['call_edges'] = [e.to_dict(include_defaults) for e in self.call_edges]
+        if self.functions:
+            result['functions'] = {k: v.to_dict(include_defaults) for k, v in self.functions.items()}
+        if self.data_flows:
+            result['data_flows'] = {k: v.to_dict(include_defaults) for k, v in self.data_flows.items()}
+        if include_defaults or self.imports:
+            result['imports'] = self.imports
+        if include_defaults or self.classes:
+            result['classes'] = self.classes
+            
+        return result
