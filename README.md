@@ -1176,6 +1176,8 @@ nlp2cmd provides comprehensive tools for analyzing decision-making process:
 
 ### Decision Tree Example
 
+![img_6.png](img_6.png)
+
 ```bash
 $ nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
 

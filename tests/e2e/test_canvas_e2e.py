@@ -93,6 +93,81 @@ class TestCanvasDrawingE2E:
         }}
         """
 
+    def _js_draw_polygon(self, points: list[tuple[float, float]], color: str, width: int = 2, fill: bool = False) -> str:
+        pts_js = ",".join([f"[{x},{y}]" for x, y in points])
+        return f"""
+        () => {{
+            const canvas = document.querySelector('canvas');
+            if (!canvas) return 'no_canvas';
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const ctx = canvas.getContext('2d');
+            const pts = [{pts_js}];
+            if (!pts.length) return 'no_points';
+            ctx.save();
+            ctx.lineWidth = {width};
+            ctx.strokeStyle = '{color}';
+            ctx.fillStyle = '{color}';
+            ctx.beginPath();
+            ctx.moveTo((pts[0][0] - rect.left) * scaleX, (pts[0][1] - rect.top) * scaleY);
+            for (let i = 1; i < pts.length; i++) {{
+                ctx.lineTo((pts[i][0] - rect.left) * scaleX, (pts[i][1] - rect.top) * scaleY);
+            }}
+            ctx.closePath();
+            if ({str(bool(fill)).lower()}) ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            return '{"polygon_filled" if fill else "polygon_stroked"}';
+        }}
+        """
+
+    def _js_draw_bezier(self, commands: list[dict], color: str, width: int = 2, fill: bool = False, close: bool = False) -> str:
+        import json as _json
+
+        cmds_js = _json.dumps(commands)
+        return f"""
+        () => {{
+            const canvas = document.querySelector('canvas');
+            if (!canvas) return 'no_canvas';
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const ctx = canvas.getContext('2d');
+            const cmds = {cmds_js};
+            if (!Array.isArray(cmds) || cmds.length === 0) return 'no_cmds';
+            ctx.save();
+            ctx.lineWidth = {width};
+            ctx.strokeStyle = '{color}';
+            ctx.fillStyle = '{color}';
+            ctx.beginPath();
+            for (const c of cmds) {{
+                const t = (c.type || '').toUpperCase();
+                if (t === 'M') {{
+                    ctx.moveTo((c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY);
+                }} else if (t === 'L') {{
+                    ctx.lineTo((c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY);
+                }} else if (t === 'Q') {{
+                    ctx.quadraticCurveTo(
+                        (c.cpx - rect.left) * scaleX, (c.cpy - rect.top) * scaleY,
+                        (c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY
+                    );
+                }} else if (t === 'C') {{
+                    ctx.bezierCurveTo(
+                        (c.cp1x - rect.left) * scaleX, (c.cp1y - rect.top) * scaleY,
+                        (c.cp2x - rect.left) * scaleX, (c.cp2y - rect.top) * scaleY,
+                        (c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY
+                    );
+                }}
+            }}
+            if ({str(bool(close)).lower()}) ctx.closePath();
+            if ({str(bool(fill)).lower()}) ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            return '{"bezier_filled" if fill else "bezier_stroked"}';
+        }}
+        """
+
     def test_jspaint_loads_and_has_canvas(self, browser_context):
         """Test that jspaint.app loads with canvas element."""
         page = browser_context.new_page()
@@ -141,23 +216,27 @@ class TestCanvasDrawingE2E:
 
         cx, cy = self._get_canvas_center(page)
 
+        current_color = "#000000"
+        current_line_width = 2
+
         # Execute drawing steps
         for step in steps:
             action = step.action
             params = step.params or {}
 
             if action == "set_color":
-                # Colors set automatically via current_color in real code
-                pass
+                current_color = str(params.get("color", current_color))
 
             elif action == "set_line_width":
-                # Line width set automatically
-                pass
+                try:
+                    current_line_width = max(1, int(params.get("width", params.get("line_width", current_line_width))))
+                except Exception:
+                    current_line_width = 2
 
             elif action == "draw_filled_circle":
                 offset = params.get("offset", [0, 0])
                 radius = params.get("radius", 20)
-                color = params.get("color", "#FF0000")
+                color = params.get("color", current_color)
                 x = cx + offset[0]
                 y = cy + offset[1]
                 page.evaluate(self._js_draw_filled_circle(x, y, radius, color))
@@ -166,11 +245,64 @@ class TestCanvasDrawingE2E:
             elif action == "draw_circle":
                 offset = params.get("offset", [0, 0])
                 radius = params.get("radius", 20)
-                color = params.get("color", "#000000")
+                color = params.get("color", current_color)
                 x = cx + offset[0]
                 y = cy + offset[1]
                 page.evaluate(self._js_draw_filled_circle(x, y, radius, color))
                 page.wait_for_timeout(50)
+
+            elif action == "draw_polygon":
+                offset = params.get("offset", [0, 0]) or [0, 0]
+                fill = bool(params.get("fill", False))
+                pts = []
+                for pt in (params.get("points", []) or []):
+                    try:
+                        px = float(pt[0])
+                        py = float(pt[1])
+                    except Exception:
+                        continue
+                    pts.append((cx + float(offset[0]) + px, cy + float(offset[1]) + py))
+                if pts:
+                    page.evaluate(self._js_draw_polygon(pts, current_color, current_line_width, fill))
+                    page.wait_for_timeout(50)
+
+            elif action == "draw_bezier":
+                fill = bool(params.get("fill", False))
+                close = bool(params.get("close", False))
+                try:
+                    width = max(1, int(params.get("line_width", current_line_width)))
+                except Exception:
+                    width = current_line_width
+                cmds: list[dict] = []
+                for c in (params.get("curves", []) or []):
+                    if not isinstance(c, dict):
+                        continue
+                    t = str(c.get("type", "")).upper()
+                    if t == "M":
+                        cmds.append({"type": "M", "x": cx + float(c.get("x", 0)), "y": cy + float(c.get("y", 0))})
+                    elif t == "L":
+                        cmds.append({"type": "L", "x": cx + float(c.get("x", 0)), "y": cy + float(c.get("y", 0))})
+                    elif t == "Q":
+                        cmds.append({
+                            "type": "Q",
+                            "cpx": cx + float(c.get("cpx", 0)),
+                            "cpy": cy + float(c.get("cpy", 0)),
+                            "x": cx + float(c.get("x", 0)),
+                            "y": cy + float(c.get("y", 0)),
+                        })
+                    elif t == "C":
+                        cmds.append({
+                            "type": "C",
+                            "cp1x": cx + float(c.get("cp1x", 0)),
+                            "cp1y": cy + float(c.get("cp1y", 0)),
+                            "cp2x": cx + float(c.get("cp2x", 0)),
+                            "cp2y": cy + float(c.get("cp2y", 0)),
+                            "x": cx + float(c.get("x", 0)),
+                            "y": cy + float(c.get("y", 0)),
+                        })
+                if cmds:
+                    page.evaluate(self._js_draw_bezier(cmds, current_color, width, fill, close))
+                    page.wait_for_timeout(50)
 
             elif action == "screenshot":
                 suffix = params.get("suffix", "ladybug")

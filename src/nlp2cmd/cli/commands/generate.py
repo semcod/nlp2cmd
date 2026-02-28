@@ -652,9 +652,10 @@ def _execute_multi_step_with_video(
                     elif action == 'draw_filled_ellipse':
                         rx = params.get('rx', 50)
                         ry = params.get('ry', 50)
-                        x = canvas_center['x']
-                        y = canvas_center['y']
-                        console.print(f"    Drawing filled ellipse at ({x}, {y}) rx={rx}, ry={ry}")
+                        offset = params.get('offset', [0, 0])
+                        x = canvas_center['x'] + offset[0]
+                        y = canvas_center['y'] + offset[1]
+                        console.print(f"    Drawing filled ellipse at ({x}, {y}) rx={rx}, ry={ry} offset={offset}")
 
                         # 1) Select ellipse tool
                         page.evaluate(_js_select_tool('ellipse'))
