@@ -852,5 +852,5 @@
     "config_set": "git config {scope} {key} '{value}'"
   },
   "find_network_cameras": "nmap -sn {network_range} | grep -E 'camera|Camera|CAMERA'",
-  "find_cameras": "nmap -p 80,8080,554,8554,8000,8081,8082,8083,8084,8085,5000,5001,5002,5003 --open -sV {network} | grep -E '(camera|webcam|rtsp|dcs|foscam|hikvision|axis|pelco|d-link)'"
+  "find_cameras": "nmap -p 80,8080,554,8554,8000,8081,8082,8083,8084,8085,5000,5001,5002,5003 --open -sV {network_range} | grep -E '(camera|webcam|rtsp|dcs|foscam|hikvision|axis|pelco|d-link|reolink|amcrest|lorex|swann|wyze|ring|arlo)' || echo 'No camera devices found on the network'"
 }

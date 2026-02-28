@@ -152,7 +152,11 @@ _HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
         "session_indicators": ["Personal access tokens", "Generate new token"],
         "login_indicators": ["Sign in to GitHub", "Username or email"],
         "create_key": {
-            "button_selector": "a:has-text('Generate new token')",
+            # GitHub has a dropdown: "Generate new token" → choose "classic"
+            "pre_clicks": [
+                {"text": "Generate new token", "description": "Otwórz dropdown 'Generate new token'"},
+            ],
+            "button_selector": "a:has-text('Generate new token (classic)')",
             "form_fields": {
                 "note": {"selector": "#oauth_access_description", "default": "nlp2cmd"},
             },

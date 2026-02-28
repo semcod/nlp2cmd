@@ -59,11 +59,34 @@ bash examples/08_llm_validation/demo_validation.sh
 | Edge cases (partial, multi) | 2 | 100% |
 | **Total** | **15** | **100%** |
 
+## Declarative Feedback Loop (Browser Automation)
+
+The feedback loop wraps each browser step with validation → diagnosis → repair:
+
+```
+Execute step → Validate → Classify failure → Repair escalation → Retry
+                              ↓
+              schema_error | page_state_error | data_error | handling_error
+                              ↓
+              Rule-based → Page analysis → Local LLM → Cloud LLM
+```
+
+```bash
+# Run feedback loop tests (19 cases: failure classification + page analysis + multi-provider)
+python3 examples/08_llm_validation/test_feedback_loop.py
+```
+
+### Multi-Provider Support
+
+Tested across: HuggingFace, OpenRouter, Anthropic, GitHub, Groq — `PageAnalyzer` finds API key sections on any SaaS site without hardcoded URLs.
+
 ## Files
 
 | File | Description |
 |------|-------------|
-| `test_validator.py` | 15 test cases with automated scoring |
+| `test_validator.py` | 15 test cases — LLM output validation |
+| `test_feedback_loop.py` | 19 test cases — failure classification, page analysis, multi-provider |
 | `demo_validation.sh` | Live demo script |
-| `test_results.json` | Last test run results (auto-generated) |
+| `test_results.json` | Last validator test run (auto-generated) |
+| `test_feedback_results.json` | Last feedback loop test run (auto-generated) |
 | `README.md` | This file |

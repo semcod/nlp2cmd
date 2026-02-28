@@ -112,6 +112,34 @@ LLM_REPAIR_MODEL=qwen/qwen-2.5-coder-32b-instruct
 
 Test suite: `python3 examples/08_llm_validation/test_validator.py` — 15 test cases, 100% accuracy with `qwen2.5:3b`.
 
+### Declarative Feedback Loop (Browser Automation)
+
+Complex multi-step browser automation uses a **schema-driven feedback loop** — each step is validated, failures are classified, and repairs are escalated until a solution is found.
+
+```
+Step Schema (declarative)
+    ↓
+Execute step → Validate result (pre/post)
+    ↓ failed?
+Classify failure:
+  schema_error      → wrong selector/URL     → Page analysis (DOM scan)
+  page_state_error  → redirect/CAPTCHA/modal  → Navigate to correct page
+  data_error        → not logged in / no key   → Login flow / create key
+  handling_error    → browser crash / timeout   → Retry / escalate
+    ↓
+Repair escalation:
+  1. Rule-based         ~0ms    (selector alternatives)
+  2. Page analysis      ~50ms   (DOM scan for elements)
+  3. Local LLM          ~500ms  (qwen2.5:3b diagnosis)
+  4. Cloud LLM          ~2s     (OpenRouter 32B repair)
+    ↓
+Retry with repaired params (max 5 attempts)
+```
+
+Provider-agnostic: works across HuggingFace, OpenRouter, Anthropic, GitHub, Groq, and any SaaS site without hardcoded URLs — `PageAnalyzer` dynamically finds API key sections by scanning navigation links.
+
+Test suite: `python3 examples/08_llm_validation/test_feedback_loop.py` — 19 test cases (failure classification + page analysis + multi-provider), 100% accuracy.
+
 ### Polish Language Support
 
 Native Polish NLP with 87%+ accuracy: lemmatization, fuzzy matching, diacritic normalization.

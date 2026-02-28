@@ -100,18 +100,359 @@ class ActionPlan:
 
 
 # ---------------------------------------------------------------------------
-# Known services, email clients, aliases, LLM prompt — extracted to service_configs.py
+# Known services — loaded from YAML config (Etap 2), hardcoded fallback
 # ---------------------------------------------------------------------------
-from nlp2cmd.automation.service_configs import (  # noqa: E402
-    _HARDCODED_SERVICES,
-    KNOWN_SERVICES,
-    SERVICE_ALIASES,
-    EMAIL_CLIENTS,
-    EMAIL_ALIASES,
-    _SYSTEM_PROMPT,
-    _can_use_desktop_automation,
-    _load_known_services,
-)
+_HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
+    "openrouter": {
+        "base_url": "https://openrouter.ai",
+        "keys_url": "https://openrouter.ai/settings/keys",
+        "login_url": "https://openrouter.ai/auth/login",
+        "key_pattern": r"sk-or-v1-[a-f0-9]{64}",
+        "env_var": "OPENROUTER_API_KEY",
+        "key_selectors": ["code", ".api-key-value", "[data-testid='api-key']"],
+        "session_indicators": ["API Keys", "Manage your keys", "Create"],
+        "login_indicators": ["Sign in", "Log in", "Continue with Google"],
+        "create_key": {
+            "button_selector": "button:has-text('Create')",
+            "form_fields": {
+                "name": {"selector": "#name", "default": "nlp2cmd"},
+            },
+            "submit_selector": "div.mt-4 button:has-text('Create'), button:has-text('Create'):not([disabled])",
+            "key_reveal_selector": "code, .api-key-value, [data-testid='api-key'], pre",
+            "copy_button_text": "Copy",
+        },
+    },
+    "anthropic": {
+        "base_url": "https://console.anthropic.com",
+        "keys_url": "https://console.anthropic.com/settings/keys",
+        "login_url": "https://console.anthropic.com/login",
+        "key_pattern": r"sk-ant-[a-zA-Z0-9-]{40,}",
+        "env_var": "ANTHROPIC_API_KEY",
+        "key_selectors": ["code", "pre"],
+        "session_indicators": ["API keys", "Create Key", "Settings"],
+        "login_indicators": ["Sign in", "Log in", "Email"],
+        "create_key": {
+            "button_selector": "button:has-text('Create Key')",
+            "form_fields": {
+                "name": {"selector": "input[name='name']", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button[type='submit']:has-text('Create')",
+            "key_reveal_selector": "code, pre, .key-value",
+        },
+    },
+    "openai": {
+        "base_url": "https://platform.openai.com",
+        "keys_url": "https://platform.openai.com/api-keys",
+        "login_url": "https://platform.openai.com/login",
+        "key_pattern": r"sk-[a-zA-Z0-9]{48,}",
+        "env_var": "OPENAI_API_KEY",
+        "key_selectors": ["code", "pre", ".sensitive"],
+        "session_indicators": ["API keys", "Create new secret key", "Dashboard"],
+        "login_indicators": ["Log in", "Welcome back", "Email address"],
+        "create_key": {
+            "button_selector": "button:has-text('Create new secret key')",
+            "form_fields": {
+                "name": {"selector": "input[placeholder*='key']", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button:has-text('Create secret key')",
+            "key_reveal_selector": "code, .key-value, input[readonly]",
+        },
+    },
+    "groq": {
+        "base_url": "https://console.groq.com",
+        "keys_url": "https://console.groq.com/keys",
+        "login_url": "https://console.groq.com/login",
+        "key_pattern": r"gsk_[a-zA-Z0-9]{52,}",
+        "env_var": "GROQ_API_KEY",
+        "key_selectors": ["code", "pre", ".api-key"],
+        "session_indicators": ["API Keys", "Create API Key", "GroqCloud"],
+        "login_indicators": ["Sign in", "Log in", "Continue with Google"],
+        "create_key": {
+            "button_selector": "button:has-text('Create API Key')",
+            "form_fields": {
+                "name": {"selector": "input[name='name']", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button:has-text('Submit')",
+            "key_reveal_selector": "code, pre, input[readonly]",
+        },
+    },
+    "mistral": {
+        "base_url": "https://console.mistral.ai",
+        "keys_url": "https://console.mistral.ai/api-keys",
+        "login_url": "https://console.mistral.ai/login",
+        "key_pattern": r"[a-zA-Z0-9]{32}",
+        "env_var": "MISTRAL_API_KEY",
+        "key_selectors": ["code", "pre", ".api-key"],
+        "session_indicators": ["API keys", "Create new key", "La Plateforme"],
+        "login_indicators": ["Sign in", "Log in"],
+        "create_key": {
+            "button_selector": "button:has-text('Create new key')",
+            "form_fields": {
+                "name": {"selector": "input[name='name']", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button:has-text('Create')",
+            "key_reveal_selector": "code, pre, input[readonly]",
+        },
+    },
+    "deepseek": {
+        "base_url": "https://platform.deepseek.com",
+        "keys_url": "https://platform.deepseek.com/api_keys",
+        "login_url": "https://platform.deepseek.com/sign_in",
+        "key_pattern": r"sk-[a-f0-9]{48,}",
+        "env_var": "DEEPSEEK_API_KEY",
+        "key_selectors": ["code", "pre", ".api-key"],
+        "session_indicators": ["API keys", "Create new", "DeepSeek"],
+        "login_indicators": ["Sign in", "Log in", "Email"],
+        "create_key": {
+            "button_selector": "button:has-text('Create')",
+            "form_fields": {},
+            "submit_selector": "button:has-text('Create')",
+            "key_reveal_selector": "code, pre, input[readonly]",
+        },
+    },
+    "together": {
+        "base_url": "https://api.together.ai",
+        "keys_url": "https://api.together.ai/settings/api-keys",
+        "login_url": "https://api.together.ai/signin",
+        "key_pattern": r"[a-f0-9]{64}",
+        "env_var": "TOGETHER_API_KEY",
+        "key_selectors": ["code", "pre", ".api-key"],
+        "session_indicators": ["API Keys", "Create", "Together"],
+        "login_indicators": ["Sign in", "Log in"],
+        "create_key": {
+            "button_selector": "button:has-text('Create')",
+            "form_fields": {},
+            "submit_selector": "button:has-text('Create')",
+            "key_reveal_selector": "code, pre",
+        },
+    },
+    "github": {
+        "base_url": "https://github.com",
+        "keys_url": "https://github.com/settings/tokens",
+        "login_url": "https://github.com/login",
+        "key_pattern": r"ghp_[a-zA-Z0-9]{36}",
+        "env_var": "GITHUB_TOKEN",
+        "key_selectors": ["code", "#new-oauth-token"],
+        "session_indicators": ["Personal access tokens", "Generate new token"],
+        "login_indicators": ["Sign in to GitHub", "Username or email"],
+        "create_key": {
+            "button_selector": "a:has-text('Generate new token')",
+            "form_fields": {
+                "note": {"selector": "#oauth_access_description", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button:has-text('Generate token')",
+            "key_reveal_selector": "code, #new-oauth-token",
+        },
+    },
+    "huggingface": {
+        "base_url": "https://huggingface.co",
+        "keys_url": "https://huggingface.co/settings/tokens",
+        "login_url": "https://huggingface.co/login",
+        "key_pattern": r"hf_[a-zA-Z0-9]{34,}",
+        "env_var": "HF_TOKEN",
+        "key_selectors": ["code", "pre"],
+        "session_indicators": ["Access Tokens", "New token", "User Access Tokens"],
+        "login_indicators": ["Sign In", "Log In"],
+        "create_key": {
+            "button_selector": "button:has-text('New token')",
+            "form_fields": {
+                "name": {"selector": "input[name='name']", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button:has-text('Generate')",
+            "key_reveal_selector": "code, pre, input[readonly]",
+        },
+    },
+    "replicate": {
+        "base_url": "https://replicate.com",
+        "keys_url": "https://replicate.com/account/api-tokens",
+        "login_url": "https://replicate.com/signin",
+        "key_pattern": r"r8_[a-zA-Z0-9]{37,}",
+        "env_var": "REPLICATE_API_TOKEN",
+        "key_selectors": ["code", "pre"],
+        "session_indicators": ["API tokens", "Create token"],
+        "login_indicators": ["Sign in", "Log in"],
+        "create_key": {
+            "button_selector": "button:has-text('Create token')",
+            "form_fields": {},
+            "submit_selector": "button:has-text('Create')",
+            "key_reveal_selector": "code, pre",
+        },
+    },
+}
+
+# ---------------------------------------------------------------------------
+# Email client configuration — for login fallback
+# ---------------------------------------------------------------------------
+EMAIL_CLIENTS: dict[str, dict[str, Any]] = {
+    "roundcube": {
+        "type": "webmail",
+        "name": "Roundcube Webmail",
+        "login_selectors": {
+            "user": "input#rcmloginuser, input[name='_user']",
+            "pass": "input#rcmloginpwd, input[name='_pass']",
+            "submit": "button#rcmloginsubmit, input[type='submit']",
+        },
+        "inbox_indicators": ["Inbox", "Odebrane", "INBOX"],
+        "search_selector": "input#quicksearchbox",
+        "message_list_selector": "#messagelist tbody tr",
+    },
+    "thunderbird": {
+        "type": "desktop",
+        "name": "Mozilla Thunderbird",
+        "launch_cmd": "thunderbird",
+        "shortcuts": {
+            "get_mail": "Ctrl+Shift+T",
+            "new_message": "Ctrl+N",
+            "search": "Ctrl+K",
+            "reply": "Ctrl+R",
+            "forward": "Ctrl+L",
+        },
+        "wmclass": "Thunderbird",
+    },
+    "gmail": {
+        "type": "webmail",
+        "name": "Gmail",
+        "url": "https://mail.google.com",
+        "inbox_indicators": ["Inbox", "Primary", "Compose"],
+        "search_selector": "input[aria-label='Search mail']",
+    },
+    "outlook": {
+        "type": "webmail",
+        "name": "Outlook",
+        "url": "https://outlook.live.com/mail",
+        "inbox_indicators": ["Inbox", "Focused", "Other"],
+        "search_selector": "input[aria-label='Search']",
+    },
+}
+
+# NL aliases for email clients (Polish + English)
+EMAIL_ALIASES: dict[str, str] = {
+    "roundcube": "roundcube",
+    "round cube": "roundcube",
+    "webmail": "roundcube",
+    "thunderbird": "thunderbird",
+    "poczta": "thunderbird",
+    "gmail": "gmail",
+    "outlook": "outlook",
+    "hotmail": "outlook",
+}
+
+
+def _load_known_services() -> dict[str, dict[str, Any]]:
+    """Load KNOWN_SERVICES: hardcoded base merged with YAML overrides.
+
+    The hardcoded dict contains the full config (login_url, session_indicators,
+    create_key, etc.). The YAML registry may override base_url/keys_url/key_pattern
+    but should NOT strip fields it doesn't know about.
+    """
+    result = {k: dict(v) for k, v in _HARDCODED_SERVICES.items()}
+    try:
+        from nlp2cmd.nlp.config import get_service_registry
+        registry = get_service_registry()
+        if len(registry) > 0:
+            yaml_dict = registry.as_planner_dict()
+            for svc_name, yaml_svc in yaml_dict.items():
+                if svc_name in result:
+                    # Merge: YAML values override hardcoded, but don't drop new fields
+                    result[svc_name].update(yaml_svc)
+                else:
+                    result[svc_name] = yaml_svc
+    except Exception as e:
+        log.debug("YAML service config unavailable, using hardcoded only: %s", e)
+    return result
+
+
+KNOWN_SERVICES: dict[str, dict[str, Any]] = _load_known_services()
+
+# NL aliases for service names (Polish + English)
+SERVICE_ALIASES: dict[str, str] = {
+    "openrouter": "openrouter", "open router": "openrouter",
+    "anthropic": "anthropic", "claude": "anthropic",
+    "openai": "openai", "gpt": "openai", "chatgpt": "openai",
+    "groq": "groq",
+    "mistral": "mistral",
+    "deepseek": "deepseek", "deep seek": "deepseek",
+    "together": "together", "together.ai": "together", "togetherai": "together",
+    "github": "github",
+    "huggingface": "huggingface", "hugging face": "huggingface", "hf": "huggingface",
+    "replicate": "replicate",
+}
+
+
+# ---------------------------------------------------------------------------
+# LLM System Prompt
+# ---------------------------------------------------------------------------
+_SYSTEM_PROMPT = """\
+Jesteś planistą akcji browser automation oraz rysowania na canvas (jspaint).
+Dekomponujesz złożone komendy na sekwencję kroków.
+
+Dostępne akcje:
+- browser_open: Otwórz przeglądarkę
+- navigate: Przejdź na URL {url}
+- click: Kliknij element {selector} lub {text}
+- type_text: Wpisz tekst {text} w pole {selector}
+- extract_text: Wyciągnij tekst z {selector} pasujący do {pattern}
+- extract_api_key: Wyciągnij API key z serwisu {service}
+- save_env: Zapisz wartość do .env {var_name}={value}
+- fill_form: Wypełnij formularz {fields}
+- submit_form: Wyślij formularz
+- screenshot: Zrób screenshot {suffix?}
+- wait: Czekaj {ms} milisekund
+- new_tab: Otwórz nowy tab
+- switch_tab: Przełącz na tab {filter}
+- login: Zaloguj się {email} {password}
+
+Akcje rysowania (na jspaint.app):
+- wait_for_canvas: Poczekaj na załadowanie canvas
+- get_canvas_center: Pobierz środek canvas
+- select_tool: Wybierz narzędzie {tool} (dostępne: pencil, brush, fill, ellipse, rectangle, line, text, eraser, select)
+- set_color: Ustaw kolor {color} (#RRGGBB)
+- draw_circle: Narysuj okrąg {radius, offset: [x, y]}
+- draw_filled_circle: Narysuj wypełnione koło {radius, offset: [x, y]}
+- draw_ellipse: Narysuj elipsę {rx, ry, offset: [x, y]}
+- draw_filled_ellipse: Narysuj wypełnioną elipsę {rx, ry, relative_to: "center"}
+- draw_rectangle: Narysuj prostokąt {width, height, offset: [x, y]}
+- draw_line: Narysuj linię {from_offset: [x, y], to_offset: [x, y]}
+- fill_at: Wypełnij w punkcie {offset: [x, y]}
+- click_canvas: Kliknij canvas w punkcie {offset: [x, y]}
+
+Znane serwisy (użyj ich URL-ów):
+- openrouter: keys=https://openrouter.ai/settings/keys pattern=sk-or-v1-*
+- anthropic: keys=https://console.anthropic.com/settings/keys pattern=sk-ant-*
+- openai: keys=https://platform.openai.com/api-keys pattern=sk-*
+- github: keys=https://github.com/settings/tokens pattern=ghp_*
+
+Odpowiedz TYLKO JSON (bez markdown):
+[
+  {"action": "...", "params": {...}, "description": "..."},
+  ...
+]"""
+
+
+# ---------------------------------------------------------------------------
+# ActionPlanner
+# ---------------------------------------------------------------------------
+def _can_use_desktop_automation() -> bool:
+    """Check if desktop automation (xdotool/wmctrl/ydotool) is usable.
+
+    Returns False on Wayland sessions without a working tool.
+    """
+    session_type = os.environ.get("XDG_SESSION_TYPE", "").lower()
+    is_wayland = session_type == "wayland" or bool(os.environ.get("WAYLAND_DISPLAY"))
+
+    if is_wayland:
+        # On Wayland: ydotool works, xdotool/wmctrl do NOT
+        if shutil.which("ydotool"):
+            return True
+        log.debug(
+            "Wayland session detected but ydotool not installed. "
+            "Desktop automation unavailable — falling back to Playwright. "
+            "Install ydotool for native desktop control: sudo apt install ydotool"
+        )
+        return False
+
+    # X11 session: xdotool or wmctrl suffice
+    return bool(shutil.which("xdotool") or shutil.which("wmctrl"))
 
 
 class ActionPlanner:
@@ -399,18 +740,6 @@ class ActionPlanner:
                 description=f"Przejdź na stronę kluczy {svc_name}",
             ))
             steps.append(ActionStep(
-                action="discover_service_section",
-                params={
-                    "service": svc_name,
-                    "section": "keys",
-                    "base_url": svc.get("base_url", ""),
-                    "keys_url": svc.get("keys_url", ""),
-                    "hints": svc.get("section_hints", svc.get("session_indicators", [])),
-                },
-                description=f"Znajdź sekcję kluczy API na {svc_name}",
-                store_as="resolved_keys_url",
-            ))
-            steps.append(ActionStep(
                 action="echo",
                 params={"text": f"🌐 Otwieram stronę: {svc['keys_url']}"},
                 description="Log: nawigacja",
@@ -690,11 +1019,11 @@ class ActionPlanner:
         if vector_plan:
             # Quality check: vector plan must be detailed enough (minimum 12 drawing steps)
             drawing_steps = [s for s in vector_plan.steps if s.action.startswith('draw_')]
-            if len(drawing_steps) >= 12:  # Require at least 12 drawing steps for quality
+            if len(drawing_steps) >= 8:  # Require at least 8 drawing steps
                 log.info("[ActionPlanner] Using vector DB plan with %d drawing steps", len(drawing_steps))
                 return vector_plan
             else:
-                log.info("[ActionPlanner] Vector DB plan too simple (%d steps, need 12+), using LLM", len(drawing_steps))
+                log.info("[ActionPlanner] Vector DB plan too simple (%d steps), trying LLM", len(drawing_steps))
                 # Fall through to LLM generation
 
         # --- Tier 3: LLM-generated drawing plan ---
@@ -886,23 +1215,7 @@ class ActionPlanner:
             # Simple heuristic for fixing trailing commas in lists/dicts
             raw = re.sub(r",(\s*[\}\]])", r"\1", raw)
 
-            try:
-                steps_data = json.loads(raw)
-            except json.JSONDecodeError:
-                # Attempt to fix truncated JSON list
-                if raw.strip().startswith("[") and not raw.strip().endswith("]"):
-                    # Find last complete object
-                    last_brace = raw.rfind("}")
-                    if last_brace != -1:
-                        raw = raw[:last_brace+1] + "]"
-                        try:
-                            steps_data = json.loads(raw)
-                        except json.JSONDecodeError:
-                            raise
-                    else:
-                        raise
-                else:
-                    raise
+            steps_data = json.loads(raw)
             if not isinstance(steps_data, list) or len(steps_data) < 2:
                 log.warning("Canvas LLM returned invalid plan")
                 return None
@@ -1102,37 +1415,32 @@ class ActionPlanner:
             
             # Extract object description from query
             obj_match = re.search(
-                r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*$)",
+                r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*\$)",
                 text,
             )
             search_query = obj_match.group(1).strip() if obj_match else text
             search_query = re.sub(r"\s*https?://\S+", "", search_query).strip()
             
-            
             # Search vector database
-            log.info("[ActionPlanner] Searching vector DB for raw query: '%s'", search_query)
+            log.info("[ActionPlanner] Searching vector DB for: %s", search_query)
             
             best_pattern = None
             confidence = 0.0
             
             # 1. First try exact/fuzzy match on tags (helps with non-English queries)
             query_lower = search_query.lower()
-            
-            # More robust stemming for Polish
-            base_query = query_lower
-            for suffix in ["a", "ek", "kiem", "ka", "y", "iego"]:
-                if query_lower.endswith(suffix) and len(query_lower) > 3:
-                    base_query = query_lower[:-len(suffix)]
-                    break
-                    
-            log.debug("[ActionPlanner] Tag matching bases: %s, %s", query_lower, base_query)
+            # Simple stemming: lisa -> lis
+            if query_lower.endswith("a") or query_lower.endswith("ek") or query_lower.endswith("kiem") or query_lower.endswith("ka"):
+                base_query = re.sub(r'(a|ek|kiem|ka)$', '', query_lower)
+            else:
+                base_query = query_lower
                 
             all_patterns = store.list_patterns()
             for p_name in all_patterns:
                 p = store.get_pattern(p_name)
                 if p:
                     # Check tags and name
-                    if base_query in p.tags or query_lower in p.tags or base_query == p.name or query_lower == p.name:
+                    if base_query in p.tags or query_lower in p.tags or base_query == p.name:
                         best_pattern = p
                         confidence = 0.95
                         log.info("[ActionPlanner] Vector DB exact tag match: %s", p.name)
@@ -1140,17 +1448,12 @@ class ActionPlanner:
             
             # 2. Fallback to semantic search
             if not best_pattern:
-                results = store.search(search_query, n_results=3, min_confidence=0.85)
+                results = store.search(search_query, n_results=3, min_confidence=0.0)
                 if results:
-                    # If the semantic score is very low, let's not trust it
-                    if results[0][1] >= 0.6:
-                        best_pattern, confidence = results[0]
-                        log.info("[ActionPlanner] Vector DB semantic match: %s (confidence: %.2f)", 
-                                 best_pattern.name, confidence)
-                    else:
-                        log.debug("[ActionPlanner] Vector DB match %s too low confidence: %.2f", 
-                                  results[0][0].name, results[0][1])
-
+                    best_pattern, confidence = results[0]
+                    log.info("[ActionPlanner] Vector DB semantic match: %s (confidence: %.2f)", 
+                             best_pattern.name, confidence)
+            
             if not best_pattern:
                 log.debug("No matching patterns in vector DB")
                 return None
@@ -1276,23 +1579,7 @@ class ActionPlanner:
         raw = re.sub(r"\s*```$", "", raw)
 
         try:
-            try:
-                steps_data = json.loads(raw)
-            except json.JSONDecodeError:
-                # Attempt to fix truncated JSON list
-                if raw.strip().startswith("[") and not raw.strip().endswith("]"):
-                    # Find last complete object
-                    last_brace = raw.rfind("}")
-                    if last_brace != -1:
-                        raw = raw[:last_brace+1] + "]"
-                        try:
-                            steps_data = json.loads(raw)
-                        except json.JSONDecodeError:
-                            raise
-                    else:
-                        raise
-                else:
-                    raise
+            steps_data = json.loads(raw)
         except json.JSONDecodeError:
             log.warning("Failed to parse LLM response as JSON")
             return None

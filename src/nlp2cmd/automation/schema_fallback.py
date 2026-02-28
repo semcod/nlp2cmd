@@ -75,7 +75,13 @@ class SchemaFallback:
     ) -> FallbackResult:
         """Generate fallback steps for a failed action.
 
-        Tries strategies in order: rule-based → DOM → clipboard → LLM.
+        Tries strategies in order:
+          1. Rule-based heuristics (fast, no LLM)
+          2. DOM extraction (inspect page for keys)
+          3. Page analysis (find correct section/selectors via DOM scan)
+          4. Clipboard check
+          5. Local LLM re-planning (Ollama)
+          6. Cloud LLM re-planning (OpenRouter escalation)
         """
         log.info(
             "[SchemaFallback] Generating fallback for failed '%s' at step %d/%d",
@@ -93,13 +99,24 @@ class SchemaFallback:
             if result and result.success:
                 return result
 
+        # Strategy 2b: Page analysis — find correct section/selectors
+        if page is not None:
+            result = self._try_page_analysis(ctx, page)
+            if result and result.success:
+                return result
+
         # Strategy 3: Clipboard check
         result = self._try_clipboard(ctx)
         if result and result.success:
             return result
 
-        # Strategy 4: LLM re-planning
-        result = self._try_llm_replan(ctx)
+        # Strategy 4: Local LLM re-planning
+        result = self._try_llm_replan(ctx, page=page, use_cloud=False)
+        if result and result.success:
+            return result
+
+        # Strategy 5: Cloud LLM escalation (larger model)
+        result = self._try_llm_replan(ctx, page=page, use_cloud=True)
         if result and result.success:
             return result
 
@@ -114,6 +131,34 @@ class SchemaFallback:
     # ------------------------------------------------------------------
     def _try_rule_based(self, ctx: FallbackContext, page: Any = None) -> Optional[FallbackResult]:
         """Rule-based fallback for known failure patterns."""
+
+        # navigate failed/mismatched URL -> discover the keys/tokens section dynamically
+        if ctx.failed_action == "navigate":
+            svc = ctx.service_config
+            if svc:
+                return FallbackResult(
+                    success=True,
+                    strategy="rule_based",
+                    message="Navigation mismatch — trying dynamic section discovery",
+                    replacement_steps=[
+                        {"action": "echo", "params": {"text": (
+                            "🔎 Strona docelowa nie została osiągnięta po nawigacji.\n"
+                            "   Próbuję dynamicznie znaleźć sekcję kluczy/tokenów..."
+                        )}},
+                        {
+                            "action": "discover_service_section",
+                            "params": {
+                                "service": ctx.service_name or "service",
+                                "section": "keys",
+                                "base_url": svc.get("base_url", ""),
+                                "keys_url": svc.get("keys_url", ""),
+                                "hints": svc.get("section_hints", svc.get("session_indicators", [])),
+                            },
+                            "store_as": "resolved_keys_url",
+                        },
+                        {"action": "wait", "params": {"ms": 1200}},
+                    ],
+                )
 
         # check_session failed → try navigating to login page
         if ctx.failed_action == "check_session":
@@ -177,7 +222,37 @@ class SchemaFallback:
                     "description": "Zamknij banery cookie/consent",
                 })
 
-                # 1. Click page-level "Create" button to open modal
+                # 0b. Provider-agnostic section discovery (works even when redirected)
+                steps.append({
+                    "action": "discover_service_section",
+                    "params": {
+                        "service": ctx.service_name or "service",
+                        "section": "keys",
+                        "base_url": svc.get("base_url", ""),
+                        "keys_url": svc.get("keys_url", ""),
+                        "hints": svc.get("section_hints", svc.get("session_indicators", [])),
+                    },
+                    "store_as": "resolved_keys_url",
+                    "description": "Znajdź sekcję kluczy API (fallback)",
+                })
+                steps.append({"action": "wait", "params": {"ms": 1200}})
+
+                # 1a. Pre-clicks (e.g. open dropdown before selecting option)
+                pre_clicks = create_cfg.get("pre_clicks", [])
+                for pc in pre_clicks:
+                    pc_params: dict[str, Any] = {"timeout": 5000}
+                    if pc.get("text"):
+                        pc_params["text"] = pc["text"]
+                    elif pc.get("selector"):
+                        pc_params["selector"] = pc["selector"]
+                    steps.append({
+                        "action": "click",
+                        "params": pc_params,
+                        "description": pc.get("description", "Pre-click"),
+                    })
+                    steps.append({"action": "wait", "params": {"ms": 800}})
+
+                # 1b. Click page-level "Create" button (or dropdown option)
                 btn_selector = create_cfg["button_selector"]
                 btn_text = None
                 if "has-text(" in btn_selector:
@@ -341,38 +416,193 @@ class SchemaFallback:
         return None
 
     # ------------------------------------------------------------------
-    # Strategy 4: LLM re-planning
+    # Strategy 2b: Page analysis
     # ------------------------------------------------------------------
-    def _try_llm_replan(self, ctx: FallbackContext) -> Optional[FallbackResult]:
-        """Use LLM to generate alternative steps."""
-        if not self._is_llm_available():
+    def _try_page_analysis(self, ctx: FallbackContext, page: Any) -> Optional[FallbackResult]:
+        """Analyze page DOM to find correct navigation target or selectors."""
+        try:
+            from nlp2cmd.automation.feedback_loop import PageAnalyzer
+        except ImportError:
             return None
 
-        prompt = self._build_replan_prompt(ctx)
-        try:
-            import subprocess
-            result = subprocess.run(
-                ["ollama", "run", self._llm_model],
-                input=prompt,
-                capture_output=True,
-                text=True,
-                timeout=30,
-            )
-            if result.returncode != 0:
-                return None
-
-            response = result.stdout.strip()
-            steps = self._parse_llm_steps(response)
-            if steps:
+        # If navigation/extract failed, try finding the right section
+        if ctx.failed_action in ("navigate", "extract_key", "check_session"):
+            keys_url = PageAnalyzer.find_api_keys_section(page)
+            if keys_url and keys_url != ctx.page_url:
                 return FallbackResult(
                     success=True,
-                    strategy="llm",
-                    message=f"LLM generated {len(steps)} alternative steps",
-                    replacement_steps=steps,
+                    strategy="page_analysis",
+                    message=f"Found API keys section: {keys_url}",
+                    replacement_steps=[
+                        {"action": "navigate", "params": {"url": keys_url}},
+                        {"action": "wait", "params": {"ms": 2000}},
+                    ],
                 )
-        except (FileNotFoundError, subprocess.TimeoutExpired) as e:
-            log.warning("[SchemaFallback] LLM replan failed: %s", e)
 
+        # If click failed, try finding the right button
+        if ctx.failed_action == "click":
+            text_hint = ctx.failed_params.get("text", "")
+            if not text_hint:
+                sel = ctx.failed_params.get("selector", "")
+                m = re.search(r"has-text\(['\"](.+?)['\"]\)", sel)
+                if m:
+                    text_hint = m.group(1)
+            if text_hint:
+                alts = PageAnalyzer.find_clickable_for_text(page, text_hint)
+                if alts:
+                    steps = [{"action": "click", "params": {"selector": s},
+                              "description": f"Page analysis: {s}"}
+                             for s in alts[:3]]
+                    return FallbackResult(
+                        success=True,
+                        strategy="page_analysis",
+                        message=f"Found {len(alts)} clickable elements for '{text_hint}'",
+                        replacement_steps=steps,
+                    )
+
+        # If type_text failed, try finding input fields
+        if ctx.failed_action == "type_text":
+            try:
+                inputs = page.query_selector_all(
+                    "input:not([type='hidden']):not([type='submit']), textarea"
+                )
+                visible_inputs = []
+                for inp in inputs:
+                    try:
+                        if inp.is_visible(timeout=500):
+                            name = inp.get_attribute("name") or ""
+                            placeholder = inp.get_attribute("placeholder") or ""
+                            type_ = inp.get_attribute("type") or "text"
+                            sel = f"input[name='{name}']" if name else f"input[type='{type_}']"
+                            visible_inputs.append((sel, name or placeholder))
+                    except Exception:
+                        continue
+                if visible_inputs:
+                    sel, desc = visible_inputs[0]
+                    text = ctx.failed_params.get("text", "nlp2cmd")
+                    return FallbackResult(
+                        success=True,
+                        strategy="page_analysis",
+                        message=f"Found visible input: {desc or sel}",
+                        replacement_steps=[{
+                            "action": "type_text",
+                            "params": {"selector": sel, "text": text},
+                            "description": f"Wypełnij: {desc or sel}",
+                        }],
+                    )
+            except Exception:
+                pass
+
+        return None
+
+    # ------------------------------------------------------------------
+    # Strategy 4+5: LLM re-planning (local → cloud escalation)
+    # ------------------------------------------------------------------
+    def _try_llm_replan(
+        self,
+        ctx: FallbackContext,
+        page: Any = None,
+        use_cloud: bool = False,
+    ) -> Optional[FallbackResult]:
+        """Use LLM to generate alternative steps.
+
+        When use_cloud=False, tries local Ollama first.
+        When use_cloud=True, escalates to OpenRouter cloud LLM.
+        """
+        prompt = self._build_replan_prompt(ctx, page)
+
+        response = None
+        strategy = "llm"
+
+        if not use_cloud:
+            if not self._is_llm_available():
+                return None
+            response = self._call_local_llm(prompt)
+            strategy = "llm"
+        else:
+            response = self._call_cloud_llm(prompt)
+            strategy = "cloud_llm"
+
+        if not response:
+            return None
+
+        steps = self._parse_llm_steps(response)
+        if steps:
+            return FallbackResult(
+                success=True,
+                strategy=strategy,
+                message=f"LLM generated {len(steps)} alternative steps",
+                replacement_steps=steps,
+            )
+
+        return None
+
+    def _call_local_llm(self, prompt: str) -> Optional[str]:
+        """Call local Ollama model via API (not subprocess)."""
+        try:
+            import urllib.request
+            ollama_url = os.environ.get(
+                "LLM_VALIDATOR_BASE_URL", "http://localhost:11434"
+            ).rstrip("/")
+            payload = json.dumps({
+                "model": self._llm_model,
+                "messages": [{"role": "user", "content": prompt}],
+                "stream": False,
+                "options": {"temperature": 0.1, "num_predict": 500},
+            }).encode()
+            req = urllib.request.Request(
+                f"{ollama_url}/api/chat",
+                data=payload,
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = json.loads(resp.read())
+                return data.get("message", {}).get("content", "").strip()
+        except Exception as e:
+            log.debug("[SchemaFallback] Local LLM call failed: %s", e)
+            return None
+
+    def _call_cloud_llm(self, prompt: str) -> Optional[str]:
+        """Call cloud LLM via OpenRouter for complex repair."""
+        api_key = (
+            os.environ.get("LLM_REPAIR_API_KEY")
+            or os.environ.get("OPENROUTER_API_KEY")
+            or ""
+        )
+        if not api_key:
+            return None
+
+        model = os.environ.get(
+            "LLM_REPAIR_MODEL", "qwen/qwen-2.5-coder-32b-instruct"
+        )
+        if model.startswith("openrouter/"):
+            model = model[len("openrouter/"):]
+
+        try:
+            import urllib.request
+            payload = json.dumps({
+                "model": model,
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 800,
+                "temperature": 0.1,
+            }).encode()
+            req = urllib.request.Request(
+                "https://openrouter.ai/api/v1/chat/completions",
+                data=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {api_key}",
+                },
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.loads(resp.read())
+                choices = data.get("choices", [])
+                if choices:
+                    return choices[0].get("message", {}).get("content", "").strip()
+        except Exception as e:
+            log.debug("[SchemaFallback] Cloud LLM call failed: %s", e)
         return None
 
     def _is_llm_available(self) -> bool:
@@ -380,30 +610,44 @@ class SchemaFallback:
         if self._llm_available is not None:
             return self._llm_available
         try:
-            import subprocess
-            result = subprocess.run(
-                ["ollama", "list"],
-                capture_output=True, text=True, timeout=5,
-            )
-            self._llm_available = result.returncode == 0
-        except (FileNotFoundError, subprocess.TimeoutExpired):
+            import urllib.request
+            ollama_url = os.environ.get(
+                "LLM_VALIDATOR_BASE_URL", "http://localhost:11434"
+            ).rstrip("/")
+            with urllib.request.urlopen(f"{ollama_url}/api/tags", timeout=3) as r:
+                self._llm_available = r.status == 200
+        except Exception:
             self._llm_available = False
         return self._llm_available
 
-    def _build_replan_prompt(self, ctx: FallbackContext) -> str:
-        """Build prompt for LLM re-planning."""
+    def _build_replan_prompt(self, ctx: FallbackContext, page: Any = None) -> str:
+        """Build prompt for LLM re-planning with page context."""
+        page_context = ""
+        if page is not None:
+            try:
+                from nlp2cmd.automation.feedback_loop import PageAnalyzer
+                page_context = PageAnalyzer.extract_page_context(page, max_chars=1500)
+            except Exception:
+                page_context = f"URL: {ctx.page_url}\nTitle: {ctx.page_title}"
+
         return (
-            f"You are an automation planner. A step failed during browser automation.\n"
-            f"Generate alternative steps in JSON format.\n\n"
+            f"You are a browser automation planner. A step failed and needs repair.\n"
+            f"Generate alternative steps as a JSON array.\n\n"
             f"Failed action: {ctx.failed_action}\n"
-            f"Error: {ctx.error_message}\n"
-            f"Page URL: {ctx.page_url}\n"
+            f"Parameters: {json.dumps(ctx.failed_params, default=str)[:300]}\n"
+            f"Error: {ctx.error_message[:300]}\n"
             f"Service: {ctx.service_name}\n"
-            f"Previous OK steps: {ctx.previous_steps_ok}\n"
+            f"Previous OK steps: {ctx.previous_steps_ok}\n\n"
+            f"Current page state:\n{page_context}\n\n"
             f"Available actions: navigate, click, type_text, wait, extract_text, "
-            f"check_session, extract_key, prompt_secret, save_env, verify_env, echo\n\n"
-            f"Respond with a JSON array of step objects, each with 'action' and 'params' keys.\n"
-            f"Example: [{{'action': 'click', 'params': {{'selector': 'button.create'}}}}]\n"
+            f"check_session, extract_key, prompt_secret, save_env, verify_env, "
+            f"echo, dismiss_overlay, open_tab, select\n\n"
+            f"Rules:\n"
+            f"- Respond with ONLY a JSON array of step objects.\n"
+            f"- Each step: {{\"action\": \"...\", \"params\": {{...}}, \"description\": \"...\"}}\n"
+            f"- Use actual selectors visible on the page, not guesses.\n"
+            f"- If the page is on a different URL than expected, add a navigate step first.\n"
+            f"- Maximum 5 steps.\n"
         )
 
     @staticmethod

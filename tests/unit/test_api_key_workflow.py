@@ -349,6 +349,22 @@ class TestRuleDecomposition:
         save_steps = [s for s in plan.steps if s.action == "save_env"]
         assert any(s.params.get("var_name") == "HF_TOKEN" for s in save_steps)
 
+    def test_huggingface_plan_has_section_discovery_step(self, planner):
+        plan = planner.decompose_sync("wyciągnij klucz API z huggingface i zapisz do .env")
+        discover_steps = [s for s in plan.steps if s.action == "discover_service_section"]
+        assert len(discover_steps) >= 1
+        ds = discover_steps[0]
+        assert ds.params.get("service") == "huggingface"
+        assert ds.params.get("section") == "keys"
+        assert ds.params.get("keys_url") == "https://huggingface.co/settings/tokens"
+        assert ds.params.get("base_url") == "https://huggingface.co"
+        assert ds.store_as == "resolved_keys_url"
+
+    def test_openrouter_plan_has_section_discovery_step(self, planner):
+        plan = planner.decompose_sync("pobierz klucz API z openrouter")
+        actions = [s.action for s in plan.steps]
+        assert "discover_service_section" in actions
+
     def test_no_service_returns_none(self, planner):
         plan = planner._try_rule_decomposition("zrób zrzut ekranu")
         assert plan is None

@@ -63,6 +63,7 @@ Domain knowledge (use these to judge output relevance):
 - Network cameras use RTSP protocol (port 554), HTTP (port 80/8080). Keywords: rtsp, webcam, camera, dcs, hikvision, axis, foscam, onvif.
 - "find" command outputs file paths — each line is one found file. If paths appear, the search succeeded. When "find" uses "-size +100M", the listed paths ARE files matching that size criteria — no separate size column is needed.
 - "nmap" outputs host/port info. Open ports with service names indicate discovered services.
+- "ping" outputs ICMP echo replies with "bytes from", "icmp_seq", "ttl", "time=". Statistics line shows "packets transmitted, received". If these appear, the ping succeeded.
 - Error indicators: "command not found", "Permission denied", "No such file", "Connection refused", "timed out".
 - Success indicators: actual data rows, file paths, table output, statistics summaries.
 
@@ -107,6 +108,11 @@ class LLMValidator:
     DEFAULT_TIMEOUT = 30
     DEFAULT_TEMPERATURE = 0.1
     MAX_OUTPUT_CHARS = 4000  # trim very long outputs before sending
+    _ERROR_INDICATORS = (
+        "command not found", "permission denied", "no such file",
+        "connection refused", "timed out", "error:", "fatal:",
+        "traceback", "exception", "segfault", "core dumped",
+    )
 
     def __init__(
         self,
@@ -188,7 +194,37 @@ class LLMValidator:
                 skipped=True,
             )
 
-        return self._parse_response(raw)
+        verdict = self._parse_response(raw)
+
+        # Sanity check: small LLMs sometimes score 0.0 on valid output
+        if not verdict.passed and verdict.score < 0.1:
+            verdict = self._sanity_check_verdict(verdict, trimmed_output)
+
+        return verdict
+
+    def _sanity_check_verdict(
+        self, verdict: ValidationVerdict, output: str,
+    ) -> ValidationVerdict:
+        """Override clearly wrong fail/0.0 verdicts when output has real data."""
+        lines = [l.strip() for l in output.strip().splitlines() if l.strip()]
+        if not lines:
+            return verdict
+
+        output_lower = output.lower()
+        if any(err in output_lower for err in self._ERROR_INDICATORS):
+            return verdict
+
+        # Output has data lines with no error indicators but LLM scored 0.0
+        _debug(
+            f"Sanity override: {len(lines)} data lines, no errors, "
+            f"LLM scored {verdict.score:.1f} → pass 0.6"
+        )
+        return ValidationVerdict(
+            verdict="pass",
+            reason=f"Output contains data (LLM override: {verdict.reason[:80]})",
+            score=0.6,
+            model=verdict.model,
+        )
 
     def _call_ollama(self, user_message: str) -> Optional[str]:
         """Call Ollama generate API synchronously. Returns raw text or None on error."""

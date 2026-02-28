@@ -10,7 +10,7 @@ import sys
 import time
 from pathlib import Path
 from typing import Any, Optional
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 
 from rich.console import Console
 
@@ -396,6 +396,12 @@ class PlanExecutionMixin:
             except ImportError:
                 fallback_engine = None
 
+            try:
+                from nlp2cmd.automation.feedback_loop import FeedbackLoop, PageAnalyzer
+                feedback_loop = FeedbackLoop()
+            except ImportError:
+                feedback_loop = None
+
             # Resolve service config for fallback context
             _svc_config: dict = {}
             _svc_name: str = ""
@@ -528,7 +534,7 @@ class PlanExecutionMixin:
                             # Post-validation failure on critical steps → trigger fallback
                             _fb_key = f"post:{step.action}"
                             if (
-                                step.action in ("check_session", "extract_key")
+                                step.action in ("navigate", "check_session", "extract_key")
                                 and fallback_engine
                                 and _fb_key not in _fallback_tried
                             ):
@@ -630,6 +636,33 @@ class PlanExecutionMixin:
                         "elapsed_ms": round(elapsed_ms),
                     })
 
+                    # --- Feedback loop: classify failure ---
+                    _diagnosis_str = ""
+                    if feedback_loop:
+                        try:
+                            params_resolved_diag = self._resolve_plan_variables(
+                                step.params or {}, variables,
+                            )
+                            diagnosis = feedback_loop.classify_failure(
+                                action=step.action,
+                                error=str(e),
+                                page=page,
+                                params=params_resolved_diag,
+                                service_config=_svc_config,
+                            )
+                            _diagnosis_str = (
+                                f"{diagnosis.failure_type.value}: {diagnosis.reason}"
+                            )
+                            console.print(
+                                f"  [dim]   🔍 Diagnoza: {_diagnosis_str}[/dim]"
+                            )
+                            if diagnosis.suggested_fix:
+                                console.print(
+                                    f"  [dim]   💡 Sugestia: {diagnosis.suggested_fix}[/dim]"
+                                )
+                        except Exception:
+                            pass
+
                     # --- Dynamic fallback on error ---
                     fallback_handled = False
                     _fb_err_key = f"err:{step.action}"
@@ -647,7 +680,7 @@ class PlanExecutionMixin:
                         fb_ctx = FallbackContext(
                             failed_action=step.action,
                             failed_params=params_resolved,
-                            error_message=str(e),
+                            error_message=str(e) + (f" [{_diagnosis_str}]" if _diagnosis_str else ""),
                             step_index=step_idx,
                             total_steps=len(step_queue),
                             variables=dict(variables),
@@ -858,6 +891,136 @@ class PlanExecutionMixin:
                         page.wait_for_timeout(1000)
                     except Exception:
                         pass
+
+        elif action == "discover_service_section":
+            service = str(params.get("service") or "service")
+            section = str(params.get("section") or "keys").lower()
+            base_url = str(params.get("base_url") or "").strip()
+            keys_url = str(params.get("keys_url") or "").strip()
+            raw_hints = params.get("hints", [])
+            if isinstance(raw_hints, str):
+                hints = [raw_hints]
+            elif isinstance(raw_hints, list):
+                hints = [str(h) for h in raw_hints if str(h).strip()]
+            else:
+                hints = []
+
+            keyword_defaults = [
+                "api key", "api keys", "token", "tokens", "access token",
+                "developer", "credential", "secret", "settings",
+                "klucz", "klucze", "tokeny", "ustawienia",
+            ]
+            hint_terms = {h.lower() for h in (hints + keyword_defaults) if h}
+
+            current_url = page.url or ""
+            if keys_url and keys_url in current_url:
+                _debug(f"discover_service_section: already on keys page for {service}")
+                return current_url
+
+            # Ensure we are at least on the provider domain before link discovery
+            if current_url in ("", "about:blank"):
+                seed_url = base_url or keys_url
+                if seed_url:
+                    if not seed_url.startswith("http"):
+                        seed_url = f"https://{seed_url}"
+                    page.goto(seed_url, wait_until="domcontentloaded", timeout=15000)
+                    page.wait_for_timeout(700)
+                    current_url = page.url or ""
+
+            best_link = ""
+            best_score = -1
+            try:
+                links = page.evaluate("""() => {
+                    return Array.from(document.querySelectorAll('a[href]')).slice(0, 300).map(a => ({
+                        href: a.href || '',
+                        text: (a.innerText || a.textContent || '').trim(),
+                        aria: (a.getAttribute('aria-label') || '').trim(),
+                    }));
+                }""")
+            except Exception:
+                links = []
+
+            if isinstance(links, list):
+                for item in links:
+                    if not isinstance(item, dict):
+                        continue
+                    href = str(item.get("href") or "").strip()
+                    if not href or href.startswith("javascript:") or href.startswith("mailto:"):
+                        continue
+                    text_blob = " ".join([
+                        href,
+                        str(item.get("text") or ""),
+                        str(item.get("aria") or ""),
+                    ]).lower()
+                    score = sum(1 for term in hint_terms if term in text_blob)
+                    if section == "keys" and any(k in text_blob for k in ("key", "token", "api", "secret", "credential")):
+                        score += 1
+                    if score > best_score:
+                        best_score = score
+                        best_link = href
+
+            candidate_urls: list[str] = []
+            if best_link:
+                candidate_urls.append(best_link)
+            if keys_url:
+                candidate_urls.append(keys_url)
+
+            if base_url:
+                normalized_base = base_url if base_url.startswith("http") else f"https://{base_url}"
+                for path in [
+                    "/settings/tokens",
+                    "/settings/token",
+                    "/settings/keys",
+                    "/settings/api-keys",
+                    "/settings/access-tokens",
+                    "/account/api-tokens",
+                    "/account/api-keys",
+                    "/account/tokens",
+                    "/api-keys",
+                    "/tokens",
+                    "/keys",
+                ]:
+                    candidate_urls.append(urljoin(normalized_base, path))
+
+            seen: set[str] = set()
+            deduped_candidates: list[str] = []
+            for cand in candidate_urls:
+                if cand and cand not in seen:
+                    seen.add(cand)
+                    deduped_candidates.append(cand)
+
+            for cand in deduped_candidates:
+                try:
+                    page.goto(cand, wait_until="domcontentloaded", timeout=12000)
+                    page.wait_for_timeout(600)
+                    now_url = (page.url or "").lower()
+                    body = (page.text_content("body") or "").lower()
+                    score = sum(1 for term in hint_terms if term in (now_url + " " + body))
+                    if score > 0 or any(k in now_url for k in ("key", "token", "api", "credential")):
+                        resolved = page.url or cand
+                        _debug(f"discover_service_section: resolved {service}/{section} -> {resolved}")
+                        return resolved
+                except Exception:
+                    continue
+
+            # Last resort: use PageAnalyzer to scan navigation links
+            if page is not None:
+                try:
+                    from nlp2cmd.automation.feedback_loop import PageAnalyzer
+                    pa_url = PageAnalyzer.find_api_keys_section(page)
+                    if pa_url:
+                        _debug(f"discover_service_section: PageAnalyzer found {pa_url}")
+                        page.goto(pa_url, wait_until="domcontentloaded", timeout=12000)
+                        page.wait_for_timeout(600)
+                        return page.url or pa_url
+                except Exception:
+                    pass
+
+            _debug(
+                f"discover_service_section: could not confidently resolve {service}/{section}; "
+                f"staying on {page.url or current_url}"
+            )
+            return page.url or current_url
 
         elif action == "new_tab":
             page = context.new_page()

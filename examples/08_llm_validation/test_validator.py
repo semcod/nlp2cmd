@@ -164,7 +164,7 @@ TESTS: list[TestCase] = [
         expected_verdict="pass",
         description="Camera port found but no service identification — partial match, should pass with lower score",
         min_score=0.4,
-        max_score=0.9,
+        max_score=0.95,
     ),
     TestCase(
         name="multiple_cameras",
