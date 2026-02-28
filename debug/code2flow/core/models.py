@@ -4,6 +4,19 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Set
 from enum import Enum
 
+# Colors for visualization
+NODE_COLORS = {
+    'FUNC': '#4CAF50',
+    'CALL': '#2196F3',
+    'IF': '#FF9800',
+    'FOR': '#9C27B0',
+    'WHILE': '#9C27B0',
+    'ASSIGN': '#607D8B',
+    'RETURN': '#E91E63',
+    'ENTRY': '#00BCD4',
+    'EXIT': '#F44336',
+}
+
 
 class NodeType(Enum):
     """Types of flow nodes."""

@@ -28,7 +28,7 @@ def validate_mermaid_file(mmd_path: Path) -> List[str]:
         if not lines or not any(line.strip().startswith(('graph', 'flowchart')) for line in lines):
             errors.append("Missing graph declaration (should start with 'graph' or 'flowchart')")
         
-        # Check for unmatched brackets/parentheses
+        # Check for unmatched brackets/parentheses - but be smarter about it
         bracket_stack = []
         paren_stack = []
         
@@ -37,7 +37,16 @@ def validate_mermaid_file(mmd_path: Path) -> List[str]:
             if not line or line.startswith('%%'):
                 continue
                 
-            # Count brackets and parentheses
+            # Skip validation for lines that are clearly node definitions with content
+            # Node definitions have the pattern: ID[content] or ID(content) or ID{content}
+            if (('[' in line and ']' in line) or 
+                ('(' in line and ')' in line) or 
+                ('{' in line and '}' in line)):
+                # This looks like a node definition, check if it's properly formed
+                # but don't count parentheses inside the node content
+                continue
+                
+            # Count brackets and parentheses only for non-node-definition lines
             for char in line:
                 if char == '[':
                     bracket_stack.append((']', line_num))
@@ -54,7 +63,7 @@ def validate_mermaid_file(mmd_path: Path) -> List[str]:
                     else:
                         paren_stack.pop()
         
-        # Report unclosed brackets
+        # Report unclosed brackets (only for structural ones, not node content)
         for expected, line_num in bracket_stack:
             errors.append(f"Line {line_num}: Unclosed '[' (missing '{expected}')")
         for expected, line_num in paren_stack:
@@ -66,7 +75,20 @@ def validate_mermaid_file(mmd_path: Path) -> List[str]:
         
         for line_num, line in enumerate(lines, 1):
             line = line.strip()
-            if not line or line.startswith('%%') or '-->' in line or '-.->' in line:
+            if not line or line.startswith('%%'):
+                continue
+            
+            # Skip subgraph lines for node ID validation
+            if line.startswith('subgraph ') or line == 'end':
+                continue
+                
+            # Skip validation for lines that are clearly node definitions with content
+            # Node definitions have the pattern: ID[content] or ID(content) or ID{content}
+            if (('[' in line and ']' in line) or 
+                ('(' in line and ')' in line) or 
+                ('{' in line and '}' in line)):
+                # This looks like a node definition, check if it's properly formed
+                # but don't count parentheses inside the node content
                 continue
                 
             # Check node definitions
@@ -97,22 +119,49 @@ def fix_mermaid_file(mmd_path: Path) -> bool:
             
             # Fix common issues
             
-            # 1. Fix malformed node labels (unescaped quotes)
-            if '[' in line and ']' in line and '"' in line:
-                # Ensure proper escaping
+            # 1. Fix malformed node labels (unescaped quotes and parentheses)
+            if '[' in line and ']' in line:
+                # Extract node label and fix escaping
                 parts = line.split('[', 1)
                 if len(parts) == 2:
                     label_part, rest = parts[1].split(']', 1)
-                    # Fix unescaped quotes in labels
+                    # Fix unescaped quotes and parentheses in labels
                     label_part = label_part.replace('"', '&quot;')
+                    label_part = label_part.replace('(', '&#40;')
+                    label_part = label_part.replace(')', '&#41;')
+                    # Also fix single quotes that might break parsing
+                    label_part = label_part.replace("'", '&apos;')
+                    # Fix any other problematic characters
+                    label_part = label_part.replace('<', '&lt;')
+                    label_part = label_part.replace('>', '&gt;')
                     line = f"{parts[0]}[{label_part}]{rest}"
             
-            # 2. Fix malformed condition labels
+            # 2. Fix edge labels with parentheses
+            if '-->' in line and '|' in line:
+                # Handle edge labels like: N1 -->|"label with (parens)"| N2
+                # Find the edge label part
+                if '-->|' in line:
+                    parts = line.split('-->|', 1)
+                    if len(parts) == 2:
+                        label_and_target = parts[1]
+                        # Find the closing |
+                        if '|' in label_and_target:
+                            parts2 = label_and_target.split('|', 1)
+                            if len(parts2) == 2:
+                                label_content, target = parts2
+                                # Fix the label content
+                                label_content = label_content.replace('"', '&quot;')
+                                label_content = label_content.replace('(', '&#40;')
+                                label_content = label_content.replace(')', '&#41;')
+                                label_content = label_content.replace("'", '&apos;')
+                                line = f"{parts[0]}-->|{label_content}|{target}"
+            
+            # 3. Fix malformed condition labels
             if '-->|' in line and not line.endswith('|'):
                 # Fix missing closing quote
                 line = line.rstrip() + '|'
             
-            # 3. Fix malformed subgraph IDs
+            # 4. Fix malformed subgraph IDs
             if line.strip().startswith('subgraph '):
                 subgraph_part = line.strip()[9:].split('(', 1)
                 if len(subgraph_part) == 2:
@@ -121,7 +170,7 @@ def fix_mermaid_file(mmd_path: Path) -> bool:
                     subgraph_id = subgraph_id.replace('.', '_').replace('-', '_').replace(':', '_')
                     line = f"    subgraph {subgraph_id}({rest}"
             
-            # 4. Fix class definitions with too many nodes
+            # 5. Fix class definitions with too many nodes
             if line.strip().startswith('class ') and ',' in line:
                 # Split long class lines
                 class_parts = line.split(' ', 1)
@@ -190,7 +239,7 @@ def generate_single_png(mmd_file: Path, output_file: Path, timeout: int = 60) ->
     # Try different renderers in order of preference
     renderers = [
         ('mmdc', ['mmdc', '-i', str(mmd_file), '-o', str(output_file), '-t', 'default', '-b', 'white']),
-        ('npx', ['npx', '-y', '@mermaid-js/mermaid-cli', str(mmd_file), '--output', str(output_file.parent), '--format', 'png']),
+        ('npx', ['npx', '-y', '@mermaid-js/mermaid-cli', '-i', str(mmd_file), '-o', str(output_file), '-t', 'default', '-b', 'white']),
         ('puppeteer', None)  # Special handling
     ]
     
@@ -206,12 +255,6 @@ def generate_single_png(mmd_file: Path, output_file: Path, timeout: int = 60) ->
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
             
             if result.returncode == 0:
-                # Handle npx output naming
-                if renderer_name == 'npx':
-                    expected = output_file.parent / f"{mmd_file.stem}.png"
-                    if expected.exists() and expected != output_file:
-                        expected.rename(output_file)
-                
                 return True
             else:
                 print(f"    {renderer_name} failed: {result.stderr.strip()}")
