@@ -621,6 +621,20 @@ If the command syntax was wrong, provide the corrected command.
             except Exception:
                 pass
         
+        # Lazy-load validator and repair once per run_with_recovery call
+        _validator = None
+        _repairer = None
+        try:
+            from nlp2cmd.llm.validator import LLMValidator
+            _validator = LLMValidator()
+        except Exception:
+            pass
+        try:
+            from nlp2cmd.llm.repair import LLMRepair
+            _repairer = LLMRepair()
+        except Exception:
+            pass
+
         for attempt in range(self.max_retries + 1):
             if attempt > 0:
                 if not self.plain_output:
@@ -635,7 +649,57 @@ If the command syntax was wrong, provide the corrected command.
                 )
             
             result = self.run_command(current_command)
-            
+
+            # ── LLM Validator: check output against user intent ──────────────
+            full_output = (result.stdout or "") + (result.stderr or "")
+            if _validator and full_output.strip():
+                verdict = _validator.validate(
+                    query=original_query,
+                    command=current_command,
+                    output=full_output,
+                )
+                if not verdict.skipped and not self.plain_output:
+                    from nlp2cmd.cli.markdown_output import print_yaml_block
+                    verdict_info: dict = {
+                        "llm_validator": verdict.verdict,
+                        "score": round(verdict.score, 2),
+                        "reason": verdict.reason,
+                        "model": verdict.model,
+                    }
+                    print_yaml_block(verdict_info, console=self.console)
+
+                if not verdict.skipped and not verdict.passed:
+                    # ── LLM Repair: get improved command from cloud LLM ──────
+                    if _repairer and _repairer.is_configured:
+                        if not self.plain_output:
+                            self.console.print(
+                                "[yellow]🔧 Validator failed — calling LLM Repair...[/yellow]"
+                            )
+                        repair = _repairer.repair(
+                            query=original_query,
+                            command=current_command,
+                            full_output=full_output,
+                            verdict=verdict.verdict,
+                            validator_reason=verdict.reason,
+                        )
+                        if not self.plain_output:
+                            from nlp2cmd.cli.markdown_output import print_yaml_block
+                            repair_info: dict = {
+                                "llm_repair": "applied" if repair.success else "skipped",
+                                "improved_command": repair.improved_command or "",
+                                "reason": repair.reason,
+                                "patches": repair.patches_applied,
+                                "model": repair.model,
+                            }
+                            print_yaml_block(repair_info, console=self.console)
+
+                        if repair.success and repair.improved_command:
+                            # Offer / auto-use improved command on next attempt
+                            if attempt < self.max_retries:
+                                current_command = repair.improved_command
+                                attempts.append(current_command)
+                                continue
+
             if result.success:
                 return result
             

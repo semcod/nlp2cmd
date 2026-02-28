@@ -1,3 +1,45 @@
+## [1.1.0] - 2026-02-28
+
+### Summary
+
+Major refactoring release: documentation cleanup, duplicate removal, README rewrite, architecture documentation update.
+
+### Refactoring (from v1.0.93)
+
+- **pipeline_runner.py split** — 4413 → 170 lines core + 4 mixin modules:
+  - `pipeline_runner_shell.py` (217 LOC) — Shell execution, safety checks
+  - `pipeline_runner_browser.py` (1561 LOC) — DOM/DQL browser automation
+  - `pipeline_runner_desktop.py` (389 LOC) — Desktop automation (xdotool/ydotool)
+  - `pipeline_runner_plans.py` (2277 LOC) — Multi-step ActionPlan execution
+- **action_planner.py** — Extracted `service_configs.py` (368 LOC) with API service definitions, email clients, NL aliases
+- **site_explorer.py** — Removed duplicate `_has_content_type` and `_find_best_content_candidate` methods
+
+### Cleanup
+
+- **57 junk files removed** from root and `src/nlp2cmd/` (fix_*, test_*, clean_duplicates*, patch_*, jspaint_app_test*, etc.)
+- **21 stale documentation files removed** (ENHANCED_README.md, README_GENERATION.md, REFACTORING_PLAN.md, debug.md, benchmark_report.md, 16 outdated docs/* files)
+- **1 duplicate maintenance script** removed (apply_polish_integration_fixed.py)
+
+### Documentation
+
+- **README.md** — Complete rewrite: 1459 → ~220 lines, removed duplication, updated to current architecture
+- **PROJECT_STRUCTURE.md** — Rewritten with mixin architecture tables
+- **CHANGELOG.md** — Updated with v1.0.93 and v1.1.0 changes
+
+### Bug Fixes
+
+- **examples/toon_format/13_query_system/demo.py** — Fixed nested triple-quote syntax error
+
+### Tests
+
+- 1543 passed, 0 regressions
+
+## [1.0.93] - 2026-02-28
+
+### Summary
+
+Major cleanup: 57 junk files removed, pipeline_runner.py split into mixins, action_planner service configs extracted.
+
 ## [1.0.92] - 2026-02-28
 
 ### Summary

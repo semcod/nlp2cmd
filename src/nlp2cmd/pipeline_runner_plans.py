@@ -452,25 +452,39 @@ class PlanExecutionMixin:
                             console.print(f"  [dim]   💡 {pre_result.suggestion}[/dim]")
                         pre_ok = False
                         pre_message = str(pre_result.message or "")
-                    # Check if key already extracted (skip prompt_secret)
-                    if (step.action == "prompt_secret"
-                            and pre_result.details.get("already_extracted")):
-                        var_name = pre_result.details.get("var", "api_key")
-                        existing_val = variables.get(var_name, "")
-                        if existing_val:
-                            console.print(
-                                f"  [green]✓[/green] Klucz już wyekstrahowany "
-                                f"(${var_name}, {len(existing_val)} znaków) — pomijam prompt"
-                            )
-                            if step.store_as:
-                                variables[step.store_as] = existing_val
-                            results_log.append({
-                                "step": step_idx + 1, "action": step.action,
-                                "status": "ok", "stored": step.store_as,
-                                "note": "skipped_already_extracted",
-                            })
-                            step_idx += 1
-                            continue
+                    # Skip prompt when key is already available
+                    if step.action == "prompt_secret":
+                        details = pre_result.details or {}
+                        already_extracted = bool(details.get("already_extracted"))
+                        already_set = bool(details.get("already_set"))
+                        if already_extracted or already_set:
+                            existing_val = ""
+                            source = ""
+
+                            if already_extracted:
+                                var_name = details.get("var", "api_key")
+                                existing_val = variables.get(var_name, "")
+                                source = f"${var_name}"
+                            else:
+                                env_var = str(params_resolved.get("env_var") or "").strip()
+                                if env_var:
+                                    existing_val = os.environ.get(env_var, "")
+                                    source = f"os.environ[{env_var}]"
+
+                            if existing_val:
+                                console.print(
+                                    f"  [green]✓[/green] Klucz już dostępny "
+                                    f"({source}, {len(existing_val)} znaków) — pomijam prompt"
+                                )
+                                if step.store_as:
+                                    variables[step.store_as] = existing_val
+                                results_log.append({
+                                    "step": step_idx + 1, "action": step.action,
+                                    "status": "ok", "stored": step.store_as,
+                                    "note": "skipped_already_available",
+                                })
+                                step_idx += 1
+                                continue
 
                     # Snapshot clipboard before key-related steps
                     if step.action in ("extract_key", "prompt_secret", "check_clipboard"):
@@ -568,6 +582,7 @@ class PlanExecutionMixin:
                                                 action=rs["action"],
                                                 params=rs.get("params", {}),
                                                 description=rs.get("description", ""),
+                                                store_as=rs.get("store_as"),
                                             ))
                                         step_queue[step_idx+1:step_idx+1] = new_steps
                                         console.print(
@@ -665,6 +680,7 @@ class PlanExecutionMixin:
                                         action=rs["action"],
                                         params=rs.get("params", {}),
                                         description=rs.get("description", ""),
+                                        store_as=rs.get("store_as"),
                                     ))
                                 step_queue[step_idx+1:step_idx+1] = new_steps
                                 console.print(
@@ -801,10 +817,47 @@ class PlanExecutionMixin:
 
         elif action == "navigate":
             url = params.get("url", "")
+            if not url or url in ("https://", "http://"):
+                raise ValueError(f"navigate: empty or invalid URL '{url}'. Add url parameter.")
             if not url.startswith("http"):
                 url = f"https://{url}"
             page.goto(url, wait_until="domcontentloaded", timeout=15000)
             page.wait_for_timeout(1000)
+
+            # Handle security-checkup redirects (e.g. HuggingFace)
+            current_url = page.url or ""
+            if "security-checkup" in current_url and "security-checkup" not in url:
+                _debug(f"navigate: security-checkup redirect detected, trying to pass through")
+                # Try clicking common "continue" / "skip" / "confirm" buttons
+                _security_passed = False
+                for _btn_text in ["Continue", "Skip", "Confirm", "Kontynuuj", "Pomiń", "I understand"]:
+                    try:
+                        _btn = page.get_by_text(_btn_text, exact=False).first
+                        if _btn.is_visible(timeout=1500):
+                            _btn.click(timeout=3000)
+                            page.wait_for_timeout(2000)
+                            _security_passed = True
+                            _debug(f"navigate: clicked '{_btn_text}' on security-checkup")
+                            break
+                    except Exception:
+                        continue
+
+                # Re-navigate to original target after passing security check
+                new_url = page.url or ""
+                if new_url != url and "security-checkup" not in new_url:
+                    # Security check redirected us somewhere else — try target again
+                    try:
+                        page.goto(url, wait_until="domcontentloaded", timeout=15000)
+                        page.wait_for_timeout(1000)
+                    except Exception:
+                        pass
+                elif "security-checkup" in new_url:
+                    # Still stuck on security — try direct navigation anyway
+                    try:
+                        page.goto(url, wait_until="domcontentloaded", timeout=15000)
+                        page.wait_for_timeout(1000)
+                    except Exception:
+                        pass
 
         elif action == "new_tab":
             page = context.new_page()
@@ -1802,6 +1855,15 @@ class PlanExecutionMixin:
                 value = variables.get(ref_name, "")
                 _debug(f"save_env: resolved ${ref_name} → {'<empty>' if not value else f'{len(value)} chars'}")
 
+            # Fallback: try well-known variable names if $ref was empty
+            if not value:
+                for _fallback_var in ("extracted_key", "api_key", "clipboard_key"):
+                    _fv = variables.get(_fallback_var, "")
+                    if _fv and len(_fv) >= 10:
+                        value = _fv
+                        _debug(f"save_env: fallback resolved from ${_fallback_var} ({len(value)} chars)")
+                        break
+
             if not value:
                 raise ValueError(f"Brak wartości do zapisania dla {var_name} (zmienna nie zawiera klucza)")
 
@@ -1841,6 +1903,14 @@ class PlanExecutionMixin:
             prompt = str(params.get("prompt") or "Enter secret: ")
             env_var = str(params.get("env_var") or "").strip()
             key_pattern = str(params.get("key_pattern") or "").strip()
+
+            # Skip if key was already extracted in a prior step
+            for _var_name in ("extracted_key", "api_key", "clipboard_key"):
+                _existing = variables.get(_var_name, "")
+                if _existing and len(_existing) >= 10:
+                    _debug(f"prompt_secret: SKIP — key already in ${_var_name} ({len(_existing)} chars)")
+                    console.print(f"  [green]✓[/green] Klucz już pobrany (${_var_name}, {len(_existing)} znaków) — pomijam prompt")
+                    return _existing
 
             # Check if stdin is a TTY
             try:
@@ -1986,29 +2056,122 @@ class PlanExecutionMixin:
                 elif is_login_page:
                     console.print(f"  [yellow]![/yellow] Niezalogowany na {service}")
                     console.print(f"  [dim]   Strona logowania: {current_url}[/dim]")
-                    console.print(f"  [dim]   Zaloguj się w przeglądarce, potem kontynuuj[/dim]")
                     _debug(f"check_session: {service} — login page detected")
 
-                    # Ask user if they want to open email to get verification link
+                    # Try auto-login via password store
+                    _auto_logged_in = False
                     try:
-                        is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
-                    except Exception:
-                        is_tty = False
+                        from nlp2cmd.automation.password_store import get_password_store
+                        pw_store = get_password_store()
+                        cred = pw_store.get_credentials(service)
+                        if cred and cred.username and cred.password:
+                            console.print(f"  [dim]🔐 Znaleziono dane logowania ({cred.source}: {cred.username})[/dim]")
+                            _debug(f"check_session: auto-login attempt for {service} via {cred.source}")
 
-                    if is_tty:
-                        console.print(
-                            f"\n  [bold]Czy potrzebujesz otworzyć email "
-                            f"(np. do weryfikacji logowania)?[/bold]"
-                        )
-                        console.print(
-                            f"  Wpisz nazwę klienta email "
-                            f"(roundcube/thunderbird/gmail/outlook) lub Enter aby pominąć:"
-                        )
-                        email_choice = input("  > ").strip().lower()
-                        if email_choice:
-                            _debug(f"check_session: user chose email client: {email_choice}")
-                            variables["_email_client"] = email_choice
-                            return "needs_login_with_email"
+                            # Fill email/username field
+                            _email_selectors = [
+                                'input[type="email"]', 'input[name*="email"]',
+                                'input[name*="login"]', 'input[name*="user"]',
+                                'input[type="text"][autocomplete*="user"]',
+                                'input[id*="email"]', 'input[id*="user"]',
+                                'input[id*="login"]',
+                            ]
+                            _filled_user = False
+                            for _sel in _email_selectors:
+                                try:
+                                    _el = page.query_selector(_sel)
+                                    if _el and _el.is_visible():
+                                        _el.fill(cred.username)
+                                        _filled_user = True
+                                        _debug(f"check_session: filled username via {_sel}")
+                                        break
+                                except Exception:
+                                    continue
+
+                            # Fill password field
+                            _filled_pass = False
+                            try:
+                                _pw_el = page.query_selector('input[type="password"]')
+                                if _pw_el and _pw_el.is_visible():
+                                    _pw_el.fill(cred.password)
+                                    _filled_pass = True
+                                    _debug("check_session: filled password field")
+                            except Exception:
+                                pass
+
+                            # Submit login form
+                            if _filled_user and _filled_pass:
+                                _submit_selectors = [
+                                    'button[type="submit"]',
+                                    'input[type="submit"]',
+                                    'button:has-text("Sign in")',
+                                    'button:has-text("Log in")',
+                                    'button:has-text("Zaloguj")',
+                                    'button:has-text("Continue")',
+                                ]
+                                for _sub_sel in _submit_selectors:
+                                    try:
+                                        _sub = page.locator(_sub_sel).first
+                                        if _sub.is_visible(timeout=2000):
+                                            _sub.click(timeout=5000)
+                                            page.wait_for_timeout(3000)
+                                            _debug(f"check_session: clicked submit via {_sub_sel}")
+                                            break
+                                    except Exception:
+                                        continue
+
+                                # Check if login succeeded
+                                page.wait_for_timeout(2000)
+                                body_after = page.text_content("body") or ""
+                                still_login = any(ind.lower() in body_after.lower() for ind in login_indicators)
+                                now_session = any(ind.lower() in body_after.lower() for ind in session_indicators)
+                                if now_session and not still_login:
+                                    console.print(f"  [green]✓[/green] Auto-login na {service} powiódł się!")
+                                    _auto_logged_in = True
+                                    # Navigate to keys page
+                                    if keys_url:
+                                        try:
+                                            page.goto(keys_url, wait_until="domcontentloaded", timeout=15000)
+                                            page.wait_for_timeout(1000)
+                                        except Exception:
+                                            pass
+                                    return "logged_in"
+                                else:
+                                    console.print(f"  [yellow]⚠[/yellow] Auto-login nie powiódł się (2FA/captcha?)")
+                            elif _filled_user:
+                                console.print(f"  [dim]   Wypełniono użytkownika, ale nie znaleziono pola hasła[/dim]")
+                        else:
+                            backends = pw_store.list_backends()
+                            active = [k for k, v in backends.items() if v]
+                            console.print(f"  [dim]   Brak danych logowania dla {service} (backends: {', '.join(active)})[/dim]")
+                    except ImportError:
+                        pass
+                    except Exception as _pw_err:
+                        _debug(f"check_session: password store error: {_pw_err}")
+
+                    if not _auto_logged_in:
+                        console.print(f"  [dim]   Zaloguj się ręcznie w przeglądarce, potem kontynuuj[/dim]")
+
+                        # Ask user if they want to open email to get verification link
+                        try:
+                            is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+                        except Exception:
+                            is_tty = False
+
+                        if is_tty:
+                            console.print(
+                                f"\n  [bold]Czy potrzebujesz otworzyć email "
+                                f"(np. do weryfikacji logowania)?[/bold]"
+                            )
+                            console.print(
+                                f"  Wpisz nazwę klienta email "
+                                f"(roundcube/thunderbird/gmail/outlook) lub Enter aby pominąć:"
+                            )
+                            email_choice = input("  > ").strip().lower()
+                            if email_choice:
+                                _debug(f"check_session: user chose email client: {email_choice}")
+                                variables["_email_client"] = email_choice
+                                return "needs_login_with_email"
 
                     return "needs_login"
                 else:
@@ -2018,6 +2181,103 @@ class PlanExecutionMixin:
             except Exception as e:
                 _debug(f"check_session error: {e}")
                 return "error"
+
+        elif action == "submit_and_extract_key":
+            # Composite action: non-blocking JS click on submit + poll for key
+            # Solves: blocking click (91s) causes key reveal dialog to close before capture
+            submit_selector = params.get("selector", "")
+            key_pattern = params.get("key_pattern", "")
+            poll_timeout = params.get("timeout", 60000)  # ms
+            key_selectors = params.get("selectors", [
+                "code", "pre", "input[readonly]", "[data-testid*='key']",
+            ])
+
+            console.print(f"  [dim]🔑 Klikam submit i szukam klucza...[/dim]")
+
+            # Click submit (non-blocking — no_wait_after skips navigation wait)
+            click_ok = False
+            if submit_selector:
+                # Try each selector in comma-separated list
+                for sel_candidate in submit_selector.split(","):
+                    sel_candidate = sel_candidate.strip()
+                    if not sel_candidate:
+                        continue
+                    try:
+                        loc = page.locator(sel_candidate).first
+                        if loc.is_visible(timeout=2000):
+                            loc.click(no_wait_after=True, timeout=5000)
+                            _debug(f"submit_and_extract_key: clicked '{sel_candidate}'")
+                            click_ok = True
+                            break
+                    except Exception as e:
+                        _debug(f"submit_and_extract_key: selector '{sel_candidate}' failed: {e}")
+                        continue
+
+            if not click_ok:
+                _debug("submit_and_extract_key: all selectors failed, trying JS fallback")
+                try:
+                    # JS fallback: find all buttons with "Create" text, click the enabled one
+                    page.evaluate("""
+                        (() => {
+                            const btns = [...document.querySelectorAll('button')];
+                            const create = btns.find(b => b.textContent.trim() === 'Create' && !b.disabled);
+                            if (create) create.click();
+                        })()
+                    """)
+                    _debug("submit_and_extract_key: JS fallback clicked Create button")
+                except Exception as js_err:
+                    _debug(f"submit_and_extract_key: JS fallback failed: {js_err}")
+
+            # Poll page body for key pattern
+            poll_interval = 500  # ms
+            elapsed = 0
+            found_key = None
+            while elapsed < poll_timeout:
+                page.wait_for_timeout(poll_interval)
+                elapsed += poll_interval
+
+                # Check DOM selectors first (faster, more precise)
+                for sel in key_selectors:
+                    try:
+                        elements = page.query_selector_all(sel)
+                        for el in elements:
+                            text = (el.text_content() or "").strip()
+                            if text and key_pattern and re.search(key_pattern, text):
+                                found_key = re.search(key_pattern, text).group(0)
+                                break
+                            elif text and not key_pattern and len(text) > 30 and re.match(r'^[a-zA-Z0-9_\-]+$', text):
+                                found_key = text
+                                break
+                    except Exception:
+                        continue
+                    if found_key:
+                        break
+
+                # Fallback: full body regex
+                if not found_key and key_pattern:
+                    try:
+                        body = page.text_content("body") or ""
+                        m = re.search(key_pattern, body)
+                        if m:
+                            found_key = m.group(0)
+                    except Exception:
+                        pass
+
+                if found_key:
+                    console.print(f"  [green]✓[/green] Klucz przechwycony! ({len(found_key)} znaków, {elapsed}ms)")
+                    # Copy to clipboard via JS
+                    try:
+                        page.evaluate(f"navigator.clipboard.writeText({json.dumps(found_key)})")
+                    except Exception:
+                        pass
+                    return found_key
+
+                # Progress indicator every 5s
+                if elapsed % 5000 == 0:
+                    _debug(f"submit_and_extract_key: polling... {elapsed}ms / {poll_timeout}ms")
+
+            console.print(f"  [yellow]⚠[/yellow] Klucz nie pojawił się w ciągu {poll_timeout/1000:.0f}s")
+            return None
 
         elif action == "extract_key":
             # Try to extract API key from page DOM + clipboard

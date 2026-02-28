@@ -1,6 +1,6 @@
-# nlp2cmd | 496f 139994L | python:495/sql:1
+# nlp2cmd | 492f 139297L | python:495/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[496]:
+M[492]:
   benchmarks/thermodynamic_benchmark.py,318
   demos/demo_enhanced.py,95
   demos/demo_intelligent_nlp2cmd.py,200
@@ -188,7 +188,8 @@ M[496]:
   src/nlp2cmd/aggregator/__init__.py,274
   src/nlp2cmd/appspec_runtime.py,45
   src/nlp2cmd/automation/__init__.py,30
-  src/nlp2cmd/automation/action_planner.py,1127
+  src/nlp2cmd/automation/action_planner.py,1393
+  src/nlp2cmd/automation/service_configs.py,368
   src/nlp2cmd/automation/captcha_solver.py,420
   src/nlp2cmd/automation/complex_planner.py,417
   src/nlp2cmd/automation/drawing_blueprints.py,562
@@ -196,7 +197,6 @@ M[496]:
   src/nlp2cmd/automation/firefox_sessions.py,367
   src/nlp2cmd/automation/mouse_controller.py,284
   src/nlp2cmd/automation/schema_fallback.py,364
-  src/nlp2cmd/automation/service_configs.py,329
   src/nlp2cmd/automation/shape_planner.py,91
   src/nlp2cmd/automation/step_validator.py,305
   src/nlp2cmd/automation/vector_store.py,462
@@ -310,11 +310,11 @@ M[496]:
   src/nlp2cmd/nlp_light/__init__.py,3
   src/nlp2cmd/nlp_light/semantic_shell.py,276
   src/nlp2cmd/parsing/toon_parser.py,342
-  src/nlp2cmd/pipeline_runner.py,3862
-  src/nlp2cmd/pipeline_runner_browser.py,1283
-  src/nlp2cmd/pipeline_runner_desktop.py,333
-  src/nlp2cmd/pipeline_runner_plans.py,2013
-  src/nlp2cmd/pipeline_runner_shell.py,175
+  src/nlp2cmd/pipeline_runner.py,170
+  src/nlp2cmd/pipeline_runner_shell.py,217
+  src/nlp2cmd/pipeline_runner_browser.py,1561
+  src/nlp2cmd/pipeline_runner_desktop.py,389
+  src/nlp2cmd/pipeline_runner_plans.py,2277
   src/nlp2cmd/pipeline_runner_utils.py,380
   src/nlp2cmd/planner/__init__.py,340
   src/nlp2cmd/polish_support.py,240

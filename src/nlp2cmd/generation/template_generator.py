@@ -402,6 +402,9 @@ class TemplateGenerator:
             self._shell_intent_file_content(entities, result)
         elif intent == 'file_operation':
             self._shell_intent_file_operation(entities, result)
+        
+        # Apply category-specific defaults (including network)
+        self._apply_shell_intent_specific_defaults(intent, entities, result)
 
         return result
     
@@ -906,7 +909,52 @@ class TemplateGenerator:
         result.setdefault('port', self._get_default('shell.default_port', os.environ.get('NLP2CMD_DEFAULT_PORT') or '8080'))
 
     def _shell_intent_network_scan(self, result: dict[str, Any]) -> None:
-        result.setdefault('cidr', self._get_default('shell.scan_cidr', os.environ.get('NLP2CMD_DEFAULT_SCAN_CIDR') or '192.168.1.0/24'))
+        # Auto-detect local network CIDR based on primary network interface
+        auto_cidr = self._detect_local_network_cidr()
+        result.setdefault('cidr', self._get_default('shell.scan_cidr', os.environ.get('NLP2CMD_DEFAULT_SCAN_CIDR') or auto_cidr))
+
+    def _shell_intent_camera_scan(self, result: dict[str, Any]) -> None:
+        # Auto-detect local network CIDR based on primary network interface
+        auto_cidr = self._detect_local_network_cidr()
+        result.setdefault('cidr', self._get_default('shell.scan_cidr', os.environ.get('NLP2CMD_DEFAULT_SCAN_CIDR') or auto_cidr))
+
+    def _detect_local_network_cidr(self) -> str:
+        """Detect the local network CIDR based on the primary network interface."""
+        try:
+            import subprocess
+            import re
+            import ipaddress
+            
+            # Get the default route to find the primary interface
+            result = subprocess.run(['ip', 'route', 'show', 'default'], 
+                                  capture_output=True, text=True, check=True)
+            default_route = result.stdout.strip()
+            
+            # Extract interface name from default route
+            match = re.search(r'dev (\w+)', default_route)
+            if not match:
+                return '192.168.1.0/24'  # fallback
+            
+            interface = match.group(1)
+            
+            # Get IP address and subnet mask for this interface
+            result = subprocess.run(['ip', 'addr', 'show', interface], 
+                                  capture_output=True, text=True, check=True)
+            addr_info = result.stdout
+            
+            # Find the primary inet address (not loopback)
+            inet_match = re.search(r'inet (\d+\.\d+\.\d+\.\d+)/(\d+)', addr_info)
+            if inet_match:
+                ip = inet_match.group(1)
+                prefix = inet_match.group(2)
+                
+                # Calculate network address
+                network = ipaddress.IPv4Network(f"{ip}/{prefix}", strict=False)
+                return str(network)
+            
+            return '192.168.1.0/24'  # fallback
+        except Exception:
+            return '192.168.1.0/24'  # fallback
 
     def _shell_intent_network_speed(self, result: dict[str, Any]) -> None:
         result.setdefault('url', self._get_default('shell.speedtest_url', os.environ.get('NLP2CMD_DEFAULT_SPEEDTEST_URL') or 'http://speedtest.net'))
@@ -1060,6 +1108,7 @@ class TemplateGenerator:
             'network_lsof': lambda e, r: self._shell_intent_network_lsof(r),
             'network_scan': lambda e, r: self._shell_intent_network_scan(r),
             'network_speed': lambda e, r: self._shell_intent_network_speed(r),
+            'camera_scan': lambda e, r: self._shell_intent_camera_scan(r),
         }
         handler = network_handlers.get(intent)
         if handler is None:

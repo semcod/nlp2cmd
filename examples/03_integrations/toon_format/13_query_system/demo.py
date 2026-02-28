@@ -31,35 +31,35 @@ results = manager.query(
 """)
     
     print("2️⃣ Zapytania z JOIN:")
-    print("""
-# Komendy z ich aliasami
-results = manager.query("""
-    SELECT c.name, a.alias_name
-    FROM commands c
-    JOIN aliases a ON c.name = a.target
-""")
-""")
+    print(
+        '# Komendy z ich aliasami\n'
+        'results = manager.query("""\n'
+        '    SELECT c.name, a.alias_name\n'
+        '    FROM commands c\n'
+        '    JOIN aliases a ON c.name = a.target\n'
+        '""")'
+    )
     
     print("3️⃣ Agregacje:")
-    print("""
-# Liczba komend w każdej kategorii
-results = manager.query("""
-    SELECT category, COUNT(*) as count
-    FROM commands
-    GROUP BY category
-""")
-""")
+    print(
+        '# Liczba komend w każdej kategorii\n'
+        'results = manager.query("""\n'
+        '    SELECT category, COUNT(*) as count\n'
+        '    FROM commands\n'
+        '    GROUP BY category\n'
+        '""")'
+    )
     
     print("4️⃣ Sortowanie i limit:")
-    print("""
-# Top 10 najczęściej używanych komend
-results = manager.query("""
-    SELECT name, usage_count
-    FROM commands
-    ORDER BY usage_count DESC
-    LIMIT 10
-""")
-""")
+    print(
+        '# Top 10 najczęściej używanych komend\n'
+        'results = manager.query("""\n'
+        '    SELECT name, usage_count\n'
+        '    FROM commands\n'
+        '    ORDER BY usage_count DESC\n'
+        '    LIMIT 10\n'
+        '""")'
+    )
     
     print()
     print("=" * 60)
