@@ -7,6 +7,7 @@ import shlex
 import subprocess
 import shutil
 import sys
+import threading
 import time
 from pathlib import Path
 from typing import Any, Optional
@@ -38,8 +39,51 @@ from nlp2cmd.utils.yaml_compat import yaml
 from nlp2cmd.adapters.base import SafetyPolicy
 
 
+# Maximum total steps allowed in a plan (including fallback-injected steps)
+_MAX_PLAN_STEPS = int(os.environ.get("NLP2CMD_MAX_PLAN_STEPS", "30"))
+# Maximum number of fallback injections per plan execution
+_MAX_FALLBACK_INJECTIONS = int(os.environ.get("NLP2CMD_MAX_FALLBACK_INJECTIONS", "3"))
+# Default prompt timeout in seconds (0 = no timeout)
+_PROMPT_TIMEOUT = int(os.environ.get("NLP2CMD_PROMPT_TIMEOUT", "60"))
+
+
 class PlanExecutionMixin:
     """Multi-step ActionPlan execution methods for PipelineRunner."""
+
+    @staticmethod
+    def _sanitize_replacement_steps(
+        steps: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        """Drop invalid injected steps (mostly from LLM) to keep execution safe.
+
+        This is not a security boundary; it is a robustness filter.
+        """
+        sanitized: list[dict[str, Any]] = []
+        for s in steps or []:
+            if not isinstance(s, dict):
+                continue
+            action = str(s.get("action") or "").strip()
+            params = s.get("params", {})
+            if not action:
+                continue
+            if not isinstance(params, dict):
+                params = {}
+
+            if action in {"save_env", "verify_env"}:
+                var_name = str(params.get("var_name") or "").strip()
+                if not var_name or var_name.upper() in {"UNKNOWN", "UNKNOWN_KEY"}:
+                    _debug(f"sanitize: dropping invalid {action} step (var_name={var_name!r})")
+                    continue
+
+            sanitized.append(
+                {
+                    "action": action,
+                    "params": params,
+                    **({"description": s.get("description", "")} if s.get("description") else {}),
+                    **({"store_as": s.get("store_as")} if s.get("store_as") else {}),
+                }
+            )
+        return sanitized
 
     # ═══ Multi-Step ActionPlan Execution ═════════════════════════════════
 
@@ -418,6 +462,7 @@ class PlanExecutionMixin:
             # Build mutable step queue (allows injecting fallback steps)
             step_queue = list(plan.steps)
             step_idx = 0
+            _fallback_injection_count = 0
 
             while step_idx < len(step_queue):
                 step = step_queue[step_idx]
@@ -581,23 +626,34 @@ class PlanExecutionMixin:
                                         step_error = ""
                                         fb_applied = True
                                     elif fb_result.replacement_steps:
-                                        from nlp2cmd.automation.action_planner import ActionStep
-                                        new_steps = []
-                                        for rs in fb_result.replacement_steps:
-                                            new_steps.append(ActionStep(
-                                                action=rs["action"],
-                                                params=rs.get("params", {}),
-                                                description=rs.get("description", ""),
-                                                store_as=rs.get("store_as"),
-                                            ))
-                                        step_queue[step_idx+1:step_idx+1] = new_steps
-                                        console.print(
-                                            f"  [dim]   📝 Wstawiono {len(new_steps)} "
-                                            f"dodatkowych kroków[/dim]"
-                                        )
-                                        step_status = "fallback_injected"
-                                        step_error = ""
-                                        fb_applied = True
+                                        if (
+                                            _fallback_injection_count >= _MAX_FALLBACK_INJECTIONS
+                                            or len(step_queue) + len(fb_result.replacement_steps) > _MAX_PLAN_STEPS
+                                        ):
+                                            console.print(
+                                                f"  [yellow]⚠ Limit fallbacków osiągnięty "
+                                                f"({_fallback_injection_count}/{_MAX_FALLBACK_INJECTIONS} "
+                                                f"injekcji, {len(step_queue)} kroków) — pomijam[/yellow]"
+                                            )
+                                        else:
+                                            from nlp2cmd.automation.action_planner import ActionStep
+                                            new_steps = []
+                                            for rs in self._sanitize_replacement_steps(fb_result.replacement_steps):
+                                                new_steps.append(ActionStep(
+                                                    action=rs["action"],
+                                                    params=rs.get("params", {}),
+                                                    description=rs.get("description", ""),
+                                                    store_as=rs.get("store_as"),
+                                                ))
+                                            step_queue[step_idx+1:step_idx+1] = new_steps
+                                            _fallback_injection_count += 1
+                                            console.print(
+                                                f"  [dim]   📝 Wstawiono {len(new_steps)} "
+                                                f"dodatkowych kroków[/dim]"
+                                            )
+                                            step_status = "fallback_injected"
+                                            step_error = ""
+                                            fb_applied = True
 
                     if step.store_as and result:
                         console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
@@ -706,22 +762,33 @@ class PlanExecutionMixin:
                                 results_log[-1]["status"] = "ok_fallback"
                                 fallback_handled = True
                             elif fb_result.replacement_steps:
-                                from nlp2cmd.automation.action_planner import ActionStep
-                                new_steps = []
-                                for rs in fb_result.replacement_steps:
-                                    new_steps.append(ActionStep(
-                                        action=rs["action"],
-                                        params=rs.get("params", {}),
-                                        description=rs.get("description", ""),
-                                        store_as=rs.get("store_as"),
-                                    ))
-                                step_queue[step_idx+1:step_idx+1] = new_steps
-                                console.print(
-                                    f"  [dim]   📝 Wstawiono {len(new_steps)} "
-                                    f"alternatywnych kroków[/dim]"
-                                )
-                                results_log[-1]["status"] = "fallback_injected"
-                                fallback_handled = True
+                                if (
+                                    _fallback_injection_count >= _MAX_FALLBACK_INJECTIONS
+                                    or len(step_queue) + len(fb_result.replacement_steps) > _MAX_PLAN_STEPS
+                                ):
+                                    console.print(
+                                        f"  [yellow]⚠ Limit fallbacków osiągnięty "
+                                        f"({_fallback_injection_count}/{_MAX_FALLBACK_INJECTIONS} "
+                                        f"injekcji, {len(step_queue)} kroków) — pomijam[/yellow]"
+                                    )
+                                else:
+                                    from nlp2cmd.automation.action_planner import ActionStep
+                                    new_steps = []
+                                    for rs in self._sanitize_replacement_steps(fb_result.replacement_steps):
+                                        new_steps.append(ActionStep(
+                                            action=rs["action"],
+                                            params=rs.get("params", {}),
+                                            description=rs.get("description", ""),
+                                            store_as=rs.get("store_as"),
+                                        ))
+                                    step_queue[step_idx+1:step_idx+1] = new_steps
+                                    _fallback_injection_count += 1
+                                    console.print(
+                                        f"  [dim]   📝 Wstawiono {len(new_steps)} "
+                                        f"alternatywnych kroków[/dim]"
+                                    )
+                                    results_log[-1]["status"] = "fallback_injected"
+                                    fallback_handled = True
                         else:
                             console.print(
                                 f"  [dim]   Fallback wyczerpany: {fb_result.message}[/dim]"
@@ -1113,7 +1180,47 @@ class PlanExecutionMixin:
                 _debug("dismiss_overlay: no overlay found to dismiss")
 
         elif action == "type_text":
-            page.fill(params.get("selector", "input"), params.get("text", ""))
+            selector = params.get("selector", "input")
+            text = params.get("text", "")
+            timeout = int(params.get("timeout", 30000))
+            alt_selectors = params.get("alt_selectors", [])
+
+            filled = False
+            last_err: Exception | None = None
+
+            # Try primary selector
+            try:
+                page.fill(selector, text, timeout=timeout)
+                filled = True
+            except Exception as primary_err:
+                last_err = primary_err
+                _debug(f"type_text: primary selector '{selector}' failed: {primary_err}")
+
+            # Try alternative selectors if primary failed
+            if not filled and alt_selectors:
+                for alt in alt_selectors:
+                    try:
+                        _debug(f"type_text: trying alt selector '{alt}'")
+                        page.fill(alt, text, timeout=5000)
+                        filled = True
+                        _debug(f"type_text: alt selector '{alt}' worked")
+                        break
+                    except Exception:
+                        continue
+
+            # Last resort: try first visible text input
+            if not filled:
+                try:
+                    _debug("type_text: trying first visible text input")
+                    loc = page.locator("input[type='text']:visible").first
+                    loc.fill(text, timeout=5000)
+                    filled = True
+                    _debug("type_text: first visible text input worked")
+                except Exception:
+                    pass
+
+            if not filled and last_err:
+                raise last_err
 
         elif action == "wait_for_canvas":
             page.wait_for_selector("canvas", state="visible", timeout=15000)
@@ -2097,16 +2204,50 @@ class PlanExecutionMixin:
                     )
                 raise ValueError("prompt_secret requires interactive TTY")
 
-            # Interactive mode — always prompt the user
-            _debug(f"prompt_secret: TTY available, prompting user (env_var={env_var})")
+            # Interactive mode — prompt with timeout
+            timeout_sec = _PROMPT_TIMEOUT
+            _debug(f"prompt_secret: TTY available, prompting user (env_var={env_var}, timeout={timeout_sec}s)")
+
+            if timeout_sec > 0:
+                console.print(f"  [dim]⏱ Timeout: {timeout_sec}s (ustaw NLP2CMD_PROMPT_TIMEOUT w .env)[/dim]")
+
+            def _getpass_with_timeout(prompt_str: str, timeout: int) -> str | None:
+                """Run getpass in a thread with timeout. Returns None on timeout."""
+                result_box: list[str | None] = [None]
+                error_box: list[Exception | None] = [None]
+
+                def _reader():
+                    try:
+                        import getpass as _gp
+                        result_box[0] = _gp.getpass(prompt_str)
+                    except Exception as exc:
+                        error_box[0] = exc
+
+                t = threading.Thread(target=_reader, daemon=True)
+                t.start()
+                t.join(timeout=timeout if timeout > 0 else None)
+                if t.is_alive():
+                    return None  # timeout
+                if error_box[0]:
+                    raise error_box[0]
+                return result_box[0]
 
             max_attempts = 3
             for attempt in range(1, max_attempts + 1):
-                try:
-                    import getpass
-                    val = getpass.getpass(prompt)
-                except Exception:
-                    val = console.input(prompt)
+                val = _getpass_with_timeout(prompt, timeout_sec)
+
+                if val is None:
+                    # Timeout — skip prompt, fall through to env var or fail gracefully
+                    console.print(
+                        f"  [yellow]⚠ Timeout ({timeout_sec}s) — użytkownik nie odpowiedział.[/yellow]"
+                    )
+                    if env_var:
+                        env_val = os.environ.get(env_var, "").strip()
+                        if env_val:
+                            console.print(f"  [dim]ℹ Używam istniejącej wartości {env_var} z os.environ[/dim]")
+                            return env_val
+                    console.print(f"  [dim]ℹ Pomijam prompt_secret (brak odpowiedzi i brak {env_var} w env)[/dim]")
+                    return ""
 
                 val = str(val or "").strip()
                 if not val:

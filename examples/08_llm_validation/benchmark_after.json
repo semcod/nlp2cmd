@@ -9,7 +9,7 @@
   "consistency_pct": 100.0,
   "deterministic": 13,
   "deterministic_pct": 86.7,
-  "avg_latency_ms": 11.9,
+  "avg_latency_ms": 13.6,
   "results": [
     {
       "name": "nmap_camera_found",
@@ -163,7 +163,7 @@
         "deterministic"
       ],
       "latencies_ms": [
-        0.0,
+        0.3,
         0.0,
         0.0
       ],
@@ -409,9 +409,9 @@
         0.0
       ],
       "reasons": [
-        "Output contains no relevant information about local network cameras.",
-        "Output contains no relevant information about local network cameras.",
-        "Output contains no relevant information about local network cameras."
+        "Output contains no relevant information about network cameras.",
+        "Output contains no relevant information about network cameras.",
+        "Output contains no relevant information about network cameras."
       ],
       "models": [
         "qwen2.5:3b",
@@ -419,7 +419,7 @@
         "qwen2.5:3b"
       ],
       "latencies_ms": [
-        534.2,
+        610.9,
         0.0,
         0.0
       ],
@@ -451,7 +451,7 @@
         "deterministic"
       ],
       "latencies_ms": [
-        0.0,
+        0.1,
         0.0,
         0.0
       ],

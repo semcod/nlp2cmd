@@ -367,6 +367,34 @@ class KeywordIntentDetector:
         """Fast path detection for common patterns."""
         # Explicit overrides — highest priority, very specific patterns
         _EXPLICIT_OVERRIDES = [
+            # Camera scan — Polish morphological variants (before IP to avoid conflicts)
+            ("kamer w sieci", "shell", "camera_scan", "kamer w sieci"),
+            ("kamery w sieci", "shell", "camera_scan", "kamery w sieci"),
+            ("kamer podłączon", "shell", "camera_scan", "kamer podłączon"),
+            ("kamer podlaczon", "shell", "camera_scan", "kamer podlaczon"),
+            ("kamery podłączon", "shell", "camera_scan", "kamery podłączon"),
+            ("kamer sieciow", "shell", "camera_scan", "kamer sieciow"),
+            ("kamery sieciow", "shell", "camera_scan", "kamery sieciow"),
+            ("ip kamer", "shell", "camera_scan", "ip kamer"),
+            ("ip kamery", "shell", "camera_scan", "ip kamery"),
+            ("ip camera", "shell", "camera_scan", "ip camera"),
+            ("network camera", "shell", "camera_scan", "network camera"),
+            ("skanuj kamer", "shell", "camera_scan", "skanuj kamer"),
+            ("znajdź kamer", "shell", "camera_scan", "znajdź kamer"),
+            ("znajdz kamer", "shell", "camera_scan", "znajdz kamer"),
+            ("wyszukaj kamer", "shell", "camera_scan", "wyszukaj kamer"),
+            ("liste kamer", "shell", "camera_scan", "liste kamer"),
+            ("listę kamer", "shell", "camera_scan", "listę kamer"),
+            ("lista kamer", "shell", "camera_scan", "lista kamer"),
+            ("pokaż kamer", "shell", "camera_scan", "pokaż kamer"),
+            ("pokaz kamer", "shell", "camera_scan", "pokaz kamer"),
+            # Network scan
+            ("skanuj sieć", "shell", "network_scan", "skanuj sieć"),
+            ("skanuj siec", "shell", "network_scan", "skanuj siec"),
+            ("skanowanie sieci", "shell", "network_scan", "skanowanie sieci"),
+            ("urządzenia w sieci", "shell", "network_scan", "urządzenia w sieci"),
+            ("urzadzenia w sieci", "shell", "network_scan", "urzadzenia w sieci"),
+            ("hosty w sieci", "shell", "network_scan", "hosty w sieci"),
             # IP address / network
             ("adres ip", "shell", "network", "adres ip"),
             ("ip address", "shell", "network", "ip address"),

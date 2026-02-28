@@ -174,11 +174,19 @@ _HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
         "session_indicators": ["Access Tokens", "New token", "User Access Tokens"],
         "login_indicators": ["Sign In", "Log In"],
         "create_key": {
-            "button_selector": "button:has-text('New token')",
+            "button_selector": "button:has-text('Create new token')",
             "form_fields": {
-                "name": {"selector": "input[name='name']", "default": "nlp2cmd"},
+                "name": {
+                    "selector": "input[placeholder*='token' i]",
+                    "alt_selectors": [
+                        "input[placeholder*='name' i]",
+                        "input[data-testid='token-name']",
+                        "input[type='text']:visible",
+                    ],
+                    "default": "nlp2cmd",
+                },
             },
-            "submit_selector": "button:has-text('Generate')",
+            "submit_selector": "button:has-text('Create token')",
             "key_reveal_selector": "code, pre, input[readonly]",
         },
     },

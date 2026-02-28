@@ -115,20 +115,32 @@ class LLMValidator:
         "connection refused", "timed out", "error:", "fatal:",
         "traceback", "exception", "segfault", "core dumped",
     )
-    _CAMERA_QUERY_WORDS = ("camera", "kamera", "kamery", "webcam")
-    # Query signals that indicate a specific domain — used to detect mismatches
-    # between what the user asked for and what the command actually does.
-    _QUERY_DOMAIN_SIGNALS: dict[str, tuple[str, ...]] = {
-        "network_scan": ("kamer", "camera", "webcam", "skan", "scan", "sieć", "siec", "network", "nmap", "port"),
-        "file_listing": ("plik", "file", "katalog", "folder", "dir", "list", "pokaż plik", "pokaz plik"),
-        "disk_usage": ("dysk", "disk", "miejsc", "space", "użyci", "uzyci", "usage"),
-        "process": ("proces", "process", "pamięć", "pamiec", "memory", "cpu"),
+    # Regex for detecting IP addresses in output
+    _IP_RE = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+    # Query keywords grouped by domain — used for relevance matching
+    _DOMAIN_QUERY_KW: dict[str, tuple[str, ...]] = {
+        "network": (
+            "sieć", "siec", "network", "ip", "host", "kamer", "camera",
+            "webcam", "scan", "skan", "port", "nmap", "ping", "subnet",
+            "router", "dns", "dhcp", "arp", "mac",
+        ),
+        "file": (
+            "plik", "file", "katalog", "folder", "dir",
+            "ścieżk", "path", "rozszerzeni", "extension",
+        ),
+        "disk": ("dysk", "disk", "miejsc", "space", "użyci", "uzyci", "usage", "rozmiar", "size"),
+        "process": ("proces", "process", "pamięć", "pamiec", "memory", "cpu", "pid"),
+        "user": ("użytkownik", "uzytkownik", "user", "konto", "account", "passwd", "who"),
     }
-    _CMD_EXPECTED_DOMAINS: dict[str, tuple[str, ...]] = {
-        "ls": ("file_listing",),
-        "df": ("disk_usage",),
-        "du": ("disk_usage",),
-        "ps": ("process",),
+    # Which command base names belong to which domain
+    _CMD_DOMAIN: dict[str, str] = {
+        "nmap": "network", "ping": "network", "arp": "network",
+        "traceroute": "network", "dig": "network", "nslookup": "network",
+        "ss": "network", "netstat": "network", "ip": "network", "curl": "network",
+        "find": "file", "locate": "file", "ls": "file", "tree": "file",
+        "df": "disk", "du": "disk", "lsblk": "disk", "mount": "disk",
+        "ps": "process", "top": "process", "htop": "process", "kill": "process",
+        "cat": "user", "who": "user", "w": "user", "id": "user",
     }
 
     def __init__(
@@ -254,10 +266,43 @@ class LLMValidator:
 
     # ── Deterministic pre-check ──────────────────────────────────────────
 
+    @staticmethod
+    def _pipe_cmd_bases(cmd_lower: str) -> list[str]:
+        """Extract base command names from a (possibly piped) command line."""
+        bases: list[str] = []
+        for segment in cmd_lower.split("|"):
+            parts = segment.strip().split()
+            if not parts:
+                continue
+            base = parts[0].rsplit("/", 1)[-1]
+            if base == "sudo" and len(parts) > 1:
+                base = parts[1].rsplit("/", 1)[-1]
+            bases.append(base)
+        return bases
+
+    def _query_domain(self, q_lower: str) -> set[str]:
+        """Return the set of domain tags that the query belongs to."""
+        domains: set[str] = set()
+        for domain, keywords in self._DOMAIN_QUERY_KW.items():
+            if any(kw in q_lower for kw in keywords):
+                domains.add(domain)
+        return domains
+
+    def _cmd_domains(self, cmd_bases: list[str]) -> set[str]:
+        """Return domain tags covered by the commands in a pipe chain."""
+        return {self._CMD_DOMAIN[b] for b in cmd_bases if b in self._CMD_DOMAIN}
+
     def _deterministic_pre_check(
         self, query: str, command: str, output: str,
     ) -> Optional[ValidationVerdict]:
-        """Return a verdict without calling LLM for clear-cut cases.
+        """General-purpose deterministic verdict for clear-cut cases.
+
+        Works with any command (including piped chains) by:
+          1. Detecting error-only output → auto-fail.
+          2. Detecting query-command domain mismatch → fall through to LLM.
+          3. Recognising common output patterns (IPs, paths, tables).
+          4. Command-specific signal checks (pipe-aware).
+          5. General keyword overlap between query and output.
 
         Returns None when uncertain — the caller should fall through to LLM.
         """
@@ -271,7 +316,7 @@ class LLMValidator:
 
         has_errors = any(err in out_lower for err in self._ERROR_INDICATORS)
 
-        # ── Auto-fail: output consists only of error messages ────────────
+        # ── 1. Auto-fail: output consists only of error messages ──────────
         if has_errors:
             non_error = [
                 l for l in lines
@@ -289,111 +334,131 @@ class LLMValidator:
         # From here: no error indicators present
         _ca = lambda *needles: any(n in out_lower for n in needles)
 
-        # ── ping ─────────────────────────────────────────────────────────
-        if cmd_lower.startswith("ping ") or " ping " in f" {cmd_lower} ":
+        # ── 2. Pipe-aware command parsing ─────────────────────────────────
+        cmd_bases = self._pipe_cmd_bases(cmd_lower)
+        q_domains = self._query_domain(q_lower)
+        c_domains = self._cmd_domains(cmd_bases)
+
+        # Domain mismatch guard: if query clearly asks for domain X but the
+        # command belongs to domain Y, let the LLM decide.
+        if q_domains and c_domains and not (q_domains & c_domains):
+            return None
+
+        # ── 3. Detect structured output patterns ──────────────────────────
+        ip_addrs = self._IP_RE.findall(output)
+        has_ips = len(ip_addrs) >= 1
+        has_paths = lines and all(
+            l.startswith("/") or l.startswith("./") for l in lines[:5]
+        )
+
+        # ── 4. Command-specific signal checks (pipe-aware) ───────────────
+
+        # -- ping --
+        if "ping" in cmd_bases:
             if _ca("bytes from", "icmp_seq=", "ttl=", "packets transmitted"):
                 return ValidationVerdict(
                     verdict="pass", reason="Ping reply received",
                     score=0.9, model="deterministic",
                 )
 
-        # ── nmap ─────────────────────────────────────────────────────────
-        if cmd_lower.startswith("nmap ") or " nmap " in f" {cmd_lower} ":
-            nmap_ok = _ca("/tcp", "open", "service info", "nmap scan report")
-            is_camera_q = any(w in q_lower for w in self._CAMERA_QUERY_WORDS)
-            if is_camera_q:
-                camera_kw = _ca(
-                    "rtsp", "webcam", "camera", "hikvision",
-                    "axis", "foscam", "onvif", "dcs",
-                )
-                if nmap_ok and camera_kw:
+        # -- nmap (anywhere in pipe) --
+        if "nmap" in cmd_bases:
+            nmap_full = _ca("/tcp", "open", "service info", "nmap scan report")
+            camera_kw_in_q = any(w in q_lower for w in (
+                "camera", "kamera", "kamery", "webcam",
+            ))
+            camera_kw_in_out = _ca(
+                "rtsp", "webcam", "camera", "hikvision",
+                "axis", "foscam", "onvif", "dcs",
+            )
+            # Full nmap output (not piped through grep/awk)
+            if nmap_full:
+                if camera_kw_in_q and camera_kw_in_out:
                     return ValidationVerdict(
                         verdict="pass",
                         reason="Camera/webcam data found in nmap output",
                         score=0.85, model="deterministic",
                     )
-                if nmap_ok and not camera_kw:
+                if camera_kw_in_q and not camera_kw_in_out:
                     return ValidationVerdict(
                         verdict="fail",
                         reason="Nmap scan succeeded but no camera keywords in output",
                         score=0.2, model="deterministic",
                     )
-            elif nmap_ok:
                 return ValidationVerdict(
                     verdict="pass", reason="Nmap found open ports/services",
                     score=0.8, model="deterministic",
                 )
+            # Piped nmap: output was filtered (grep/awk stripped markers)
+            # → if output still has IPs and query is about network → pass
+            if has_ips and "network" in q_domains:
+                return ValidationVerdict(
+                    verdict="pass",
+                    reason=f"Network scan produced {len(ip_addrs)} IP address(es)",
+                    score=0.75, model="deterministic",
+                )
 
-        # ── find ─────────────────────────────────────────────────────────
-        if cmd_lower.startswith("find ") or " find " in f" {cmd_lower} ":
-            if lines and all(
-                l.startswith("/") or l.startswith("./") for l in lines[:5]
-            ):
+        # -- find / locate --
+        if "find" in cmd_bases or "locate" in cmd_bases:
+            if has_paths:
                 return ValidationVerdict(
                     verdict="pass",
                     reason=f"Found {len(lines)} matching path(s)",
                     score=0.85, model="deterministic",
                 )
 
-        # ── Generic commands: ls, df, du, ps ─────────────────────────
-        # These always produce "valid" output, so we must also check that
-        # the query intent matches the command type.
-        cmd_base = cmd_lower.split()[0] if cmd_lower else ""
-        # Strip leading path (e.g. /usr/bin/ls → ls) and sudo
-        cmd_base = cmd_base.rsplit("/", 1)[-1]
-        if cmd_base == "sudo" and len(cmd_lower.split()) > 1:
-            cmd_base = cmd_lower.split()[1].rsplit("/", 1)[-1]
+        # -- ls --
+        if "ls" in cmd_bases and lines:
+            return ValidationVerdict(
+                verdict="pass", reason="Directory listing produced",
+                score=0.85, model="deterministic",
+            )
 
-        if cmd_base in self._CMD_EXPECTED_DOMAINS:
-            if not self._query_matches_cmd_domain(q_lower, cmd_base):
-                return None  # mismatch → let LLM decide
-
-        if cmd_base == "ls":
-            if lines:
-                return ValidationVerdict(
-                    verdict="pass", reason="Directory listing produced",
-                    score=0.85, model="deterministic",
-                )
-
-        if cmd_base in ("df", "du"):
+        # -- df / du --
+        if {"df", "du"} & set(cmd_bases):
             if _ca("filesystem", "size", "mounted on", "use%", "/dev/"):
                 return ValidationVerdict(
                     verdict="pass", reason="Disk usage data shown",
                     score=0.85, model="deterministic",
                 )
 
-        if cmd_base == "ps":
+        # -- ps --
+        if "ps" in cmd_bases:
             if _ca("pid", "%cpu", "%mem", "command", "stat"):
                 return ValidationVerdict(
                     verdict="pass", reason="Process listing shown",
                     score=0.85, model="deterministic",
                 )
 
+        # ── 5. General pattern-based verdicts ─────────────────────────────
+
+        # IP addresses in output + network-related query
+        if has_ips and "network" in q_domains:
+            return ValidationVerdict(
+                verdict="pass",
+                reason=f"Output contains {len(ip_addrs)} IP address(es) for network query",
+                score=0.75, model="deterministic",
+            )
+
+        # File paths in output + file-related query
+        if has_paths and "file" in q_domains:
+            return ValidationVerdict(
+                verdict="pass",
+                reason=f"Output contains {len(lines)} file path(s)",
+                score=0.75, model="deterministic",
+            )
+
+        # Keyword overlap: if ≥3 query words (len≥3) appear in output
+        q_words = set(re.findall(r'[a-ząćęłńóśźż]{3,}', q_lower))
+        overlap = q_words & set(re.findall(r'[a-ząćęłńóśźż]{3,}', out_lower))
+        if len(overlap) >= 3 and len(lines) >= 2:
+            return ValidationVerdict(
+                verdict="pass",
+                reason=f"Output contains {len(overlap)} query keywords: {', '.join(list(overlap)[:4])}",
+                score=0.7, model="deterministic",
+            )
+
         return None  # uncertain → fall through to LLM
-
-    def _query_matches_cmd_domain(self, q_lower: str, cmd_base: str) -> bool:
-        """Check if the query intent is compatible with the command type.
-
-        Returns True (compatible) when:
-          - The query contains signals for the command's expected domain, OR
-          - The query has no strong domain signals at all (generic query).
-        Returns False when the query clearly belongs to a *different* domain.
-        """
-        expected_domains = self._CMD_EXPECTED_DOMAINS.get(cmd_base, ())
-        if not expected_domains:
-            return True
-
-        # Detect which domains the query mentions
-        query_domains: set[str] = set()
-        for domain, signals in self._QUERY_DOMAIN_SIGNALS.items():
-            if any(s in q_lower for s in signals):
-                query_domains.add(domain)
-
-        if not query_domains:
-            return True  # no strong signals → assume compatible
-
-        # If any expected domain is in the query domains, it's a match
-        return bool(query_domains & set(expected_domains))
 
     def _build_dynamic_hints(self, query: str, command: str, output: str) -> str:
         """Build context hints for the prompt from command + stdout/stderr.
@@ -421,14 +486,34 @@ class LLMValidator:
         lines = [l for l in out.splitlines() if l.strip()]
         hints.append(f"Non-empty output lines: {len(lines)}")
 
-        # --- Command-type specific signals ---
+        # --- Pipe-aware command detection ---
         cmd_lower = cmd.lower()
+        cmd_bases = self._pipe_cmd_bases(cmd_lower)
+        hints.append(f"Commands in pipeline: {', '.join(cmd_bases)}")
 
         def _contains_any(*needles: str) -> bool:
             return any(n in out_lower for n in needles)
 
+        # --- IP address detection ---
+        ip_addrs = self._IP_RE.findall(out)
+        if ip_addrs:
+            hints.append(f"IP addresses detected in output: {len(ip_addrs)}")
+
+        # --- Query-command domain context ---
+        q_domains = self._query_domain(q_lower)
+        c_domains = self._cmd_domains(cmd_bases)
+        if q_domains:
+            hints.append(f"Query domain signals: {', '.join(q_domains)}")
+        if q_domains and c_domains:
+            if q_domains & c_domains:
+                hints.append("Query domain MATCHES command domain.")
+            else:
+                hints.append(f"Query domain ({', '.join(q_domains)}) does NOT match command domain ({', '.join(c_domains)}).")
+
+        # --- Command-type specific signals (pipe-aware) ---
+
         # ping
-        if cmd_lower.startswith("ping ") or " ping " in f" {cmd_lower} ":
+        if "ping" in cmd_bases:
             ping_ok = _contains_any("bytes from", "icmp_seq=", "ttl=", "packets transmitted")
             hints.append(
                 "Command type: ping. Success signals: bytes from / icmp_seq / ttl / packets transmitted. "
@@ -436,13 +521,20 @@ class LLMValidator:
             )
 
         # nmap
-        if cmd_lower.startswith("nmap ") or " nmap " in f" {cmd_lower} ":
+        if "nmap" in cmd_bases:
             nmap_ok = _contains_any("/tcp", "open", "service info", "nmap scan report")
             camera_kw = _contains_any("rtsp", "webcam", "camera", "hikvision", "axis", "foscam", "onvif", "dcs")
+            is_piped = len(cmd_bases) > 1
             hints.append(
-                "Command type: nmap. Success signals: Nmap scan report / open ports / service info. "
+                "Command type: nmap"
+                + (" (piped — output may be filtered)" if is_piped else "")
+                + ". Success signals: Nmap scan report / open ports / service info. "
                 + ("Detected." if nmap_ok else "Not detected.")
             )
+            if is_piped and ip_addrs:
+                hints.append(
+                    f"Piped nmap produced {len(ip_addrs)} IP addresses — these are discovered hosts."
+                )
             if "camera" in q_lower or "kamera" in q_lower or "kamery" in q_lower:
                 hints.append(
                     "Query looks like camera scan. Relevant signals: rtsp/webcam/camera vendor keywords and port 554. "
@@ -450,7 +542,7 @@ class LLMValidator:
                 )
 
         # find
-        if cmd_lower.startswith("find ") or " find " in f" {cmd_lower} ":
+        if "find" in cmd_bases or "locate" in cmd_bases:
             hints.append(
                 "Command type: find. Each output line is typically a matching file path; listed paths imply a match."
             )
@@ -460,19 +552,19 @@ class LLMValidator:
                 )
 
         # ls
-        if cmd_lower.startswith("ls ") or cmd_lower == "ls" or " ls " in f" {cmd_lower} ":
+        if "ls" in cmd_bases:
             hints.append("Command type: ls. Output usually lists files/dirs; that typically satisfies 'list files'.")
 
         # df/du
-        if cmd_lower.startswith("df ") or cmd_lower.startswith("du "):
+        if {"df", "du"} & set(cmd_bases):
             hints.append("Command type: df/du. Output is disk usage/size table; satisfies 'disk usage' queries.")
 
         # ps
-        if cmd_lower.startswith("ps "):
+        if "ps" in cmd_bases:
             hints.append("Command type: ps. Output is process list; satisfies 'show processes' queries.")
 
         # curl
-        if cmd_lower.startswith("curl "):
+        if "curl" in cmd_bases:
             hints.append("Command type: curl. Success is indicated by HTTP response content; failures include timeout/refused.")
 
         # --- Minimal keyword overlap hint ---

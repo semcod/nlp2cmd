@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from unittest.mock import patch
 
 from nlp2cmd.automation.schema_fallback import (
@@ -18,12 +19,41 @@ def _svc_cfg() -> dict:
         "key_pattern": r"hf_[A-Za-z0-9]{34,}",
         "env_var": "HF_TOKEN",
         "create_key": {
-            "button_selector": "button:has-text('New token')",
+            "button_selector": "button:has-text('Create new token')",
             "form_fields": {
-                "name": {"selector": "input[name='name']", "default": "nlp2cmd"},
+                "name": {
+                    "selector": "input[placeholder*='token' i]",
+                    "alt_selectors": [
+                        "input[placeholder*='name' i]",
+                        "input[type='text']:visible",
+                    ],
+                    "default": "nlp2cmd",
+                },
             },
-            "submit_selector": "button:has-text('Generate')",
+            "submit_selector": "button:has-text('Create token')",
             "key_reveal_selector": "code, pre, input[readonly]",
+        },
+    }
+
+
+def _github_svc_cfg() -> dict:
+    return {
+        "base_url": "https://github.com",
+        "keys_url": "https://github.com/settings/tokens",
+        "login_url": "https://github.com/login",
+        "session_indicators": ["Personal access tokens", "Generate new token"],
+        "key_pattern": r"ghp_[a-zA-Z0-9]{36}",
+        "env_var": "GITHUB_TOKEN",
+        "create_key": {
+            "pre_clicks": [
+                {"text": "Generate new token", "description": "Open dropdown"},
+            ],
+            "button_selector": "a:has-text('Generate new token (classic)')",
+            "form_fields": {
+                "note": {"selector": "#oauth_access_description", "default": "nlp2cmd"},
+            },
+            "submit_selector": "button:has-text('Generate token')",
+            "key_reveal_selector": "code, #new-oauth-token",
         },
     }
 

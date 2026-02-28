@@ -304,12 +304,15 @@ class SchemaFallback:
                 form_fields = create_cfg.get("form_fields", {})
                 for _fname, field_cfg in form_fields.items():
                     if field_cfg.get("default"):
+                        _type_params: dict[str, Any] = {
+                            "selector": field_cfg["selector"],
+                            "text": field_cfg["default"],
+                        }
+                        if field_cfg.get("alt_selectors"):
+                            _type_params["alt_selectors"] = field_cfg["alt_selectors"]
                         steps.append({
                             "action": "type_text",
-                            "params": {
-                                "selector": field_cfg["selector"],
-                                "text": field_cfg["default"],
-                            },
+                            "params": _type_params,
                             "description": f"Wypełnij pole: {_fname}",
                         })
                 steps.append({"action": "wait", "params": {"ms": 500}})
