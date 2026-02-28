@@ -679,11 +679,6 @@ def _execute_multi_step_with_video(
                             page.keyboard.type(text, delay=30)
                         page.wait_for_timeout(200)
 
-                    elif action == 'echo':
-                        text = params.get('text', params.get('message', ''))
-                        if text:
-                            console.print(f"    [cyan]{text}[/cyan]")
-
                     elif action in ('draw_ellipse', 'draw_rectangle'):
                         rx = params.get('rx', params.get('width', 100) // 2)
                         ry = params.get('ry', params.get('height', 80) // 2)
@@ -697,10 +692,6 @@ def _execute_multi_step_with_video(
                         page.mouse.move(x + rx, y + ry, steps=5)
                         page.mouse.up()
                         page.wait_for_timeout(300)
-
-                    elif action == 'wait':
-                        ms = params.get('ms', 1000)
-                        page.wait_for_timeout(ms)
 
                     elif action == 'screenshot':
                         suffix = params.get('suffix', 'final')

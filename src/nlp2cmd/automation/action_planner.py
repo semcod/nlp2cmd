@@ -1174,6 +1174,142 @@ class ActionPlanner:
             estimated_time_ms=len(steps) * 600,
         )
 
+    def _generate_rule_based_canvas_plan(self, query: str, text: str, canvas_url: str) -> ActionPlan:
+        """Generate a drawing plan for an arbitrary object using rules.
+        
+        This is a fallback when LLM is not available. Uses object name to determine
+        shape composition (ellipses, circles, lines) based on object characteristics.
+        """
+        # Extract object name
+        obj_match = re.search(
+            r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)"
+            r"\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*$)",
+            text,
+        )
+        object_name = obj_match.group(1).strip() if obj_match else "obiekt"
+        object_name = re.sub(r"\s*https?://\S+", "", object_name).strip()
+        if not object_name:
+            object_name = "obiekt"
+        
+        obj_lower = object_name.lower()
+        
+        # Define shape composition rules for different object categories
+        steps: list[ActionStep] = [
+            ActionStep("navigate", {"url": canvas_url}, f"Otwórz {canvas_url}"),
+            ActionStep("wait_for_canvas", {}, "Poczekaj na canvas"),
+            ActionStep("get_canvas_center", {}, "Pobierz środek canvas"),
+        ]
+        
+        # Object category detection and shape rules
+        if any(w in obj_lower for w in ["zając", "zajac", "królik", "krolik", "rabbit", "bunny"]):
+            # Rabbit: tall body, long ears, small head
+            steps.extend([
+                ActionStep("select_tool", {"tool": "ellipse"}, "Wybierz elipsę"),
+                ActionStep("set_color", {"color": "#D2B48C"}, "Kolor: beżowy"),
+                ActionStep("draw_filled_ellipse", {"rx": 50, "ry": 80, "relative_to": "center"}, "Ciało zająca"),
+                ActionStep("set_color", {"color": "#FFE4B5"}, "Kolor: jasny beż"),
+                ActionStep("draw_filled_circle", {"radius": 35, "offset": [0, -90]}, "Głowa"),
+                ActionStep("set_color", {"color": "#D2B48C"}, "Kolor: beżowy"),
+                ActionStep("draw_filled_ellipse", {"rx": 15, "ry": 50, "offset": [-25, -130]}, "Lewe ucho"),
+                ActionStep("draw_filled_ellipse", {"rx": 15, "ry": 50, "offset": [25, -130]}, "Prawe ucho"),
+                ActionStep("set_color", {"color": "#000000"}, "Kolor: czarny"),
+                ActionStep("draw_circle", {"radius": 5, "offset": [-12, -95]}, "Lewe oko"),
+                ActionStep("draw_circle", {"radius": 5, "offset": [12, -95]}, "Prawe oko"),
+                ActionStep("draw_circle", {"radius": 3, "offset": [0, -85]}, "Nos"),
+                ActionStep("draw_line", {"from_offset": [-15, -105], "to_offset": [15, -105]}, "Wąsy"),
+                ActionStep("screenshot", {"suffix": "rabbit"}, "Zrzut ekranu"),
+            ])
+            
+        elif any(w in obj_lower for w in ["samochód", "samochod", "auto", "car", "pojazd", "vehicle"]):
+            # Car: rectangle body, circles for wheels
+            steps.extend([
+                ActionStep("select_tool", {"tool": "ellipse"}, "Wybierz elipsę"),
+                ActionStep("set_color", {"color": "#FF0000"}, "Kolor: czerwony"),
+                ActionStep("draw_filled_ellipse", {"rx": 90, "ry": 40, "relative_to": "center"}, "Karoseria"),
+                ActionStep("set_color", {"color": "#87CEEB"}, "Kolor: niebieski"),
+                ActionStep("draw_filled_ellipse", {"rx": 50, "ry": 25, "offset": [20, -30]}, "Szyby"),
+                ActionStep("set_color", {"color": "#333333"}, "Kolor: czarny"),
+                ActionStep("draw_filled_circle", {"radius": 25, "offset": [-50, 30]}, "Lewe koło"),
+                ActionStep("draw_filled_circle", {"radius": 25, "offset": [50, 30]}, "Prawe koło"),
+                ActionStep("set_color", {"color": "#888888"}, "Kolor: szary"),
+                ActionStep("draw_circle", {"radius": 12, "offset": [-50, 30]}, "Felga lewa"),
+                ActionStep("draw_circle", {"radius": 12, "offset": [50, 30]}, "Felga prawa"),
+                ActionStep("screenshot", {"suffix": "car"}, "Zrzut ekranu"),
+            ])
+            
+        elif any(w in obj_lower for w in ["dom", "house", "budynek", "building", "chatka", "cottage"]):
+            # House: rectangle body, triangle roof
+            steps.extend([
+                ActionStep("select_tool", {"tool": "ellipse"}, "Wybierz elipsę"),
+                ActionStep("set_color", {"color": "#F4A460"}, "Kolor: brązowy"),
+                ActionStep("draw_filled_ellipse", {"rx": 70, "ry": 60, "relative_to": "center"}, "Ściany domu"),
+                ActionStep("set_color", {"color": "#8B4513"}, "Kolor: ciemny brąz"),
+                ActionStep("draw_line", {"from_offset": [-70, -60], "to_offset": [0, -120]}, "Dach lewa strona"),
+                ActionStep("draw_line", {"from_offset": [70, -60], "to_offset": [0, -120]}, "Dach prawa strona"),
+                ActionStep("draw_line", {"from_offset": [-70, -60], "to_offset": [70, -60]}, "Podstawa dachu"),
+                ActionStep("set_color", {"color": "#8B4513"}, "Kolor: ciemny brąz"),
+                ActionStep("draw_filled_ellipse", {"rx": 20, "ry": 30, "offset": [0, 15]}, "Drzwi"),
+                ActionStep("set_color", {"color": "#87CEEB"}, "Kolor: niebieski"),
+                ActionStep("draw_filled_circle", {"radius": 15, "offset": [-35, -30]}, "Okno lewe"),
+                ActionStep("draw_filled_circle", {"radius": 15, "offset": [35, -30]}, "Okno prawe"),
+                ActionStep("screenshot", {"suffix": "house"}, "Zrzut ekranu"),
+            ])
+            
+        elif any(w in obj_lower for w in ["słońce", "slonce", "sun", "gwiazda", "star"]):
+            # Sun: circle center with radiating lines
+            steps.extend([
+                ActionStep("select_tool", {"tool": "ellipse"}, "Wybierz elipsę"),
+                ActionStep("set_color", {"color": "#FFD700"}, "Kolor: złoty"),
+                ActionStep("draw_filled_circle", {"radius": 60, "offset": [0, 0], "relative_to": "center"}, "Słońce"),
+                ActionStep("set_color", {"color": "#FFA500"}, "Kolor: pomarańczowy"),
+                # Sun rays
+                ActionStep("draw_line", {"from_offset": [0, -70], "to_offset": [0, -100]}, "Promień górny"),
+                ActionStep("draw_line", {"from_offset": [50, -50], "to_offset": [70, -70]}, "Promień górny-prawy"),
+                ActionStep("draw_line", {"from_offset": [70, 0], "to_offset": [100, 0]}, "Promień prawy"),
+                ActionStep("draw_line", {"from_offset": [50, 50], "to_offset": [70, 70]}, "Promień dolny-prawy"),
+                ActionStep("draw_line", {"from_offset": [0, 70], "to_offset": [0, 100]}, "Promień dolny"),
+                ActionStep("draw_line", {"from_offset": [-50, 50], "to_offset": [-70, 70]}, "Promień dolny-lewy"),
+                ActionStep("draw_line", {"from_offset": [-70, 0], "to_offset": [-100, 0]}, "Promień lewy"),
+                ActionStep("draw_line", {"from_offset": [-50, -50], "to_offset": [-70, -70]}, "Promień górny-lewy"),
+                ActionStep("screenshot", {"suffix": "sun"}, "Zrzut ekranu"),
+            ])
+            
+        elif any(w in obj_lower for w in ["drzewo", "tree", "las", "forest", "sosna", "pine"]):
+            # Tree: brown rectangle trunk, green triangle/ellipse for foliage
+            steps.extend([
+                ActionStep("select_tool", {"tool": "ellipse"}, "Wybierz elipsę"),
+                ActionStep("set_color", {"color": "#8B4513"}, "Kolor: brązowy"),
+                ActionStep("draw_filled_ellipse", {"rx": 20, "ry": 50, "offset": [0, 40]}, "Pień"),
+                ActionStep("set_color", {"color": "#228B22"}, "Kolor: zielony"),
+                ActionStep("draw_filled_ellipse", {"rx": 70, "ry": 60, "offset": [0, -40]}, "Korona dolna"),
+                ActionStep("draw_filled_ellipse", {"rx": 50, "ry": 50, "offset": [0, -80]}, "Korona górna"),
+                ActionStep("screenshot", {"suffix": "tree"}, "Zrzut ekranu"),
+            ])
+            
+        else:
+            # Generic object: simple ellipse/circle composition
+            # Use object name length to determine size
+            size_factor = min(40 + len(object_name) * 5, 100)
+            steps.extend([
+                ActionStep("select_tool", {"tool": "ellipse"}, "Wybierz elipsę"),
+                ActionStep("set_color", {"color": "#4169E1"}, "Kolor: niebieski"),
+                ActionStep("draw_filled_ellipse", {"rx": size_factor, "ry": size_factor * 0.8, "relative_to": "center"}, f"Ciało: {object_name}"),
+                ActionStep("set_color", {"color": "#FFD700"}, "Kolor: złoty"),
+                ActionStep("draw_filled_circle", {"radius": size_factor * 0.4, "offset": [0, -size_factor * 0.9]}, "Głowa"),
+                ActionStep("set_color", {"color": "#000000"}, "Kolor: czarny"),
+                ActionStep("draw_circle", {"radius": 5, "offset": [-size_factor*0.15, -size_factor*0.9]}, "Oko lewe"),
+                ActionStep("draw_circle", {"radius": 5, "offset": [size_factor*0.15, -size_factor*0.9]}, "Oko prawe"),
+                ActionStep("screenshot", {"suffix": object_name.replace(" ", "_")}, "Zrzut ekranu"),
+            ])
+        
+        return ActionPlan(
+            query=query,
+            steps=steps,
+            confidence=0.75,
+            source="canvas_rule_based",
+            estimated_time_ms=len(steps) * 400,
+        )
+
     def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
         """Rule-based decomposition for 'open N tabs' pattern."""
         text = query.lower()
