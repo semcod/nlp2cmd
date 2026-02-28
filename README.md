@@ -1179,6 +1179,11 @@ nlp2cmd provides comprehensive tools for analyzing decision-making process:
 ![img_6.png](img_6.png)
 
 ```bash
+nlp2cmd -q "wejdź na jspaint.app i narysuj zająca" --record-session recordings/rabbit.webm --execute-web
+```
+![img_7.png](img_7.png)
+
+```bash
 $ nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
 
 # Decision Tree for Query: "wejdź na jspaint.app i narysuj biedronkę"
@@ -1208,6 +1213,86 @@ $ nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
 - Generated: {"dsl": "dom_dql.v1", "action": "goto", "url": "jspaint.app", "params": {}}
 - Final Confidence: 0.96
 ```
+
+
+### Analiza drzewa decyzyjnego i schematów
+
+![img_8.png](img_8.png)
+
+nlp2cmd udostępnia flagi do analizy procesu decyzyjnego:
+
+```bash
+# Pokaż pełne drzewo decyzyjne dla zapytania
+nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
+
+# Wyjaśnij jak wynik został wygenerowany
+nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę" --explain
+
+# Pokaż dostępne schematy (intencje, encje, szablony)
+nlp2cmd --show-schema
+
+# Generuj szczegółowe logi w formacie Markdown
+nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę" --md > output.md
+
+# Włącz verbose output dla dodatkowych informacji
+nlp2cmd "zapytanie" --verbose
+
+nlp2cmd -q "wejdź na jspaint.app i narysuj biedronke" --record-session recordings/ladybug.webm --execute-web
+```
+
+#### Przykład drzewa decyzyjnego
+
+```
+## Step 1: Intent Detection
+1. 🟢 draw (confidence: 0.95) - Domain: canvas
+2. 🟢 navigate (confidence: 0.95) - Domain: browser ← SELECTED
+
+## Step 2: Pipeline Processing
+- Domain: browser
+- Intent: navigate
+- Confidence: 0.96
+
+## Step 3: Entity Extraction
+- url: jspaint.app
+
+## Step 4: Command Generation
+- {"dsl": "dom_dql.v1", "action": "goto", "url": "jspaint.app", "params": {}}
+```
+
+#### Dostępne flagi analityczne
+
+| Flag | Opis |
+|------|------|
+| `--show-decision-tree` | Pokazuje drzewo decyzyjne z intencjami i encjami |
+| `--explain` | Wyjaśnia krok po kroku proces generowania komendy |
+| `--verbose` | Włącza szczegółowe logi debugowania |
+| `--md` | Generuje logi w formacie Markdown |
+| `--show-schema` | Wyświetla dostępne schematy i szablony |
+
+### Cache Management (nlp2cmd)
+
+nlp2cmd uses intelligent caching for performance:
+
+```bash
+# Show cache information
+nlp2cmd cache info
+
+# Clear external dependencies cache
+nlp2cmd cache clear
+
+# Clear ALL caches (runtime + external + schema)
+nlp2cmd cache full-clear --yes
+
+# Clear everything including models
+nlp2cmd cache full-clear --include-models --yes
+```
+
+### Cache Types
+- **External Dependencies** - Playwright browsers, packages
+- **Runtime Cache** - Temporary data in `~/.nlp2cmd/`
+- **Schema Cache** - Generated web schemas
+- **Evolutionary Cache** - Learned patterns
+
 
 ### Schema Analysis
 

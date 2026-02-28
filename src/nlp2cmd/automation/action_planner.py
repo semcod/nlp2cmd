@@ -931,7 +931,12 @@ class ActionPlanner:
         """Bridge drawing blueprints and templates into ActionPlanner.
 
         Handles queries like 'wejdź na jspaint.app i narysuj biedronkę'.
-        Priority: 1) Rich blueprints 2) Legacy templates 3) LLM fallback
+        Priority: 
+            0) Vector DB semantic search (arbitrary objects)
+            1) Rich blueprints (SVG paths, polygons, beziers)
+            2) Legacy templates (hardcoded patterns)
+            3) LLM fallback (generate via Ollama)
+            4) Rule-based generic (last resort)
         """
         text = query.lower()
 
@@ -951,6 +956,11 @@ class ActionPlanner:
         )
         canvas_url = f"https://{url_match.group(1)}" if url_match else "https://jspaint.app"
 
+        # --- Tier 0: Vector database semantic search (most flexible) ---
+        vector_plan = self._search_vector_db_for_pattern(query, text, canvas_url)
+        if vector_plan:
+            return vector_plan
+        
         # --- Tier 1: Rich drawing blueprints (SVG paths, polygons, beziers) ---
         try:
             from nlp2cmd.automation.drawing_blueprints import (
@@ -1312,7 +1322,70 @@ class ActionPlanner:
             estimated_time_ms=len(steps) * 400,
         )
 
-    def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
+    
+    def _search_vector_db_for_pattern(self, query: str, text: str, canvas_url: str) -> Optional[ActionPlan]:
+        """Search vector database for semantically similar drawing patterns.
+        
+        Tier 0: Semantic search through vector database of drawing patterns.
+        Falls back to subsequent tiers if no match found.
+        """
+        if not _VECTOR_STORE_AVAILABLE:
+            log.debug("Vector store not available, skipping semantic search")
+            return None
+            
+        try:
+            store = get_vector_store()
+            if not store.is_available():
+                log.debug("Vector store client not initialized")
+                return None
+            
+            # Extract object description from query
+            obj_match = re.search(
+                r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*\$)",
+                text,
+            )
+            search_query = obj_match.group(1).strip() if obj_match else text
+            search_query = re.sub(r"\s*https?://\S+", "", search_query).strip()
+            
+            # Search vector database
+            log.info("[ActionPlanner] Searching vector DB for: %s", search_query)
+            results = store.search(search_query, n_results=3, min_confidence=0.6)
+            
+            if not results:
+                log.debug("No matching patterns in vector DB")
+                return None
+            
+            # Use best match
+            best_pattern, confidence = results[0]
+            log.info("[ActionPlanner] Vector DB match: %s (confidence: %.2f)", 
+                     best_pattern.name, confidence)
+            
+            # Build ActionPlan from pattern steps
+            steps: list[ActionStep] = [
+                ActionStep("navigate", {"url": canvas_url}, f"Open {canvas_url}"),
+                ActionStep("wait_for_canvas", {}, "Wait for canvas"),
+                ActionStep("get_canvas_center", {}, "Get canvas center"),
+            ]
+            
+            for step_data in best_pattern.steps:
+                action = step_data.get("action", "")
+                params = step_data.get("params", {})
+                desc = step_data.get("description", action)
+                if action:
+                    steps.append(ActionStep(action=action, params=params, description=desc))
+            
+            return ActionPlan(
+                query=query,
+                steps=steps,
+                confidence=confidence,
+                source="vector_db",
+                estimated_time_ms=len(steps) * 400,
+            )
+            
+        except Exception as e:
+            log.warning("Vector DB search failed: %s", e)
+            return None
+def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
         """Rule-based decomposition for 'open N tabs' pattern."""
         text = query.lower()
         multi_tab = re.search(
