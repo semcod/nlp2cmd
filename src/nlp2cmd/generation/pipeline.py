@@ -147,6 +147,7 @@ class RuleBasedPipeline:
         # Exception: allow multi-step planner for API-key/.env setup workflows.
         text_lower = str(text or "").lower()
         force_single_step_browser = False
+        is_canvas_workflow = False
         try:
             import re as _re
 
@@ -158,6 +159,11 @@ class RuleBasedPipeline:
             wants_existing_firefox = (
                 ("firefox" in text_lower)
                 and any(p in text_lower for p in ["już", "juz", "otwart", "otwarty", "otwarte", "existing", "already open"])
+            )
+
+            is_canvas_workflow = (
+                ("jspaint" in text_lower or "jspaint.app" in text_lower or "excalidraw" in text_lower)
+                and any(w in text_lower for w in ["narys", "rysuj", "draw", "rysunek", "paint"])
             )
 
             browser_phrases = [
@@ -189,14 +195,15 @@ class RuleBasedPipeline:
             ]
             has_chain_signal = any(_re.search(p, text_lower) for p in chain_signals)
 
-            if (has_browser_phrase or has_url or has_domain) and (not is_key_env_workflow) and (not has_chain_signal):
+            if (has_browser_phrase or has_url or has_domain) and (not is_key_env_workflow) and (not has_chain_signal) and (not is_canvas_workflow):
                 force_single_step_browser = True
         except Exception:
             force_single_step_browser = False
+            is_canvas_workflow = False
         
         try:
             # ═══ LAYER 0: Multi-Step Schema Cache ═══
-            if self.evolutionary_cache and (not force_single_step_browser) and (not wants_existing_firefox):
+            if self.evolutionary_cache and (not force_single_step_browser) and (not wants_existing_firefox) and (not is_canvas_workflow):
                 cached_plan = self.evolutionary_cache.lookup_multistep(text)
                 if cached_plan:
                     # Safety/compatibility: ignore stale cached plans for API-key workflows

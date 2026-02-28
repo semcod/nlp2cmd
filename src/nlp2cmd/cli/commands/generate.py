@@ -731,7 +731,7 @@ def _execute_multi_step_with_video(
             console.print(f"[yellow]No video file found in {video_dir}[/yellow]")
 
         if screenshot_path and Path(screenshot_path).exists():
-            console.print(f"[green]✅ Screenshot showing ladybug: {screenshot_path}[/green]")
+            console.print(f"[green]✅ Screenshot saved: {screenshot_path}[/green]")
 
     except ImportError:
         console.print("[red]Playwright not installed. Install with: pip install playwright[/red]")

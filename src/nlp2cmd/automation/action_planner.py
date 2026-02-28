@@ -398,6 +398,7 @@ Akcje rysowania (na jspaint.app):
 - select_tool: Wybierz narzędzie {tool} (dostępne: pencil, brush, fill, ellipse, rectangle, line, text, eraser, select)
 - set_color: Ustaw kolor {color} (#RRGGBB)
 - draw_circle: Narysuj okrąg {radius, offset: [x, y]}
+- draw_filled_circle: Narysuj wypełnione koło {radius, offset: [x, y]}
 - draw_ellipse: Narysuj elipsę {rx, ry, offset: [x, y]}
 - draw_filled_ellipse: Narysuj wypełnioną elipsę {rx, ry, relative_to: "center"}
 - draw_rectangle: Narysuj prostokąt {width, height, offset: [x, y]}
@@ -974,8 +975,126 @@ class ActionPlanner:
                     ) + len(steps) * 500,
                 )
 
-        # Generic canvas: no template match, let the LLM handle it
-        return None
+        # No template match — generate drawing plan via LLM
+        return self._generate_canvas_plan_with_llm(query, text)
+
+    def _generate_canvas_plan_with_llm(
+        self, query: str, text: str,
+    ) -> Optional[ActionPlan]:
+        """Generate a drawing plan for an arbitrary object via LLM.
+
+        Extracts the object name from the query and asks the LLM to produce
+        a sequence of canvas drawing actions (filled ellipses, circles, lines)
+        that approximate the requested shape.
+        """
+        # Extract object name: "narysuj <object>" / "draw <object>"
+        obj_match = re.search(
+            r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)"
+            r"\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*$)",
+            text,
+        )
+        object_name = obj_match.group(1).strip() if obj_match else "obiekt"
+        # Remove trailing URL fragments
+        object_name = re.sub(r"\s*https?://\S+", "", object_name).strip()
+        if not object_name:
+            object_name = "obiekt"
+
+        canvas_prompt = (
+            f'Wygeneruj plan rysowania obiektu "{object_name}" na canvas.\n'
+            "Użyj TYLKO tych akcji w formacie JSON array:\n"
+            '- set_color: {{"color": "#RRGGBB"}}\n'
+            '- draw_filled_ellipse: {{"rx": N, "ry": N, "offset": [x, y]}}\n'
+            '- draw_filled_circle: {{"radius": N, "offset": [x, y]}}\n'
+            '- draw_line: {{"from_offset": [x, y], "to_offset": [x, y]}}\n'
+            '- draw_circle: {{"radius": N, "offset": [x, y]}}\n'
+            '- screenshot: {{"suffix": "name"}}\n'
+            "\n"
+            "Offset [x,y] jest relatywny do środka canvas (0,0 = środek).\n"
+            "Ujemne y = góra, dodatnie y = dół. Ujemne x = lewo, dodatnie x = prawo.\n"
+            "Użyj realistycznych kolorów i proporcji.\n"
+            "Odpowiedz TYLKO tablicą JSON, bez markdown, bez komentarzy.\n"
+            "Przykład (kot):\n"
+            "[\n"
+            '  {"action": "set_color", "params": {"color": "#808080"}},\n'
+            '  {"action": "draw_filled_ellipse", "params": {"rx": 80, "ry": 60, "offset": [0, 20]}},\n'
+            '  {"action": "draw_filled_circle", "params": {"radius": 40, "offset": [0, -50]}},\n'
+            '  {"action": "draw_line", "params": {"from_offset": [-20, -80], "to_offset": [-35, -110]}},\n'
+            '  {"action": "draw_line", "params": {"from_offset": [20, -80], "to_offset": [35, -110]}},\n'
+            '  {"action": "screenshot", "params": {"suffix": "cat"}}\n'
+            "]\n"
+        )
+
+        log.info(
+            "[ActionPlanner] Canvas LLM plan for object: %s", object_name,
+        )
+
+        try:
+            import requests
+            resp = requests.post(
+                f"{self.ollama_url}/api/generate",
+                json={
+                    "model": self.model,
+                    "prompt": canvas_prompt,
+                    "stream": False,
+                    "options": {"temperature": 0.3, "num_predict": 1500},
+                },
+                timeout=30,
+            )
+            if resp.status_code != 200:
+                log.warning("Canvas LLM returned %d", resp.status_code)
+                return None
+
+            raw = resp.json().get("response", "").strip()
+            # Strip markdown fences
+            raw = re.sub(r"^```(?:json)?\s*", "", raw)
+            raw = re.sub(r"\s*```$", "", raw)
+
+            steps_data = json.loads(raw)
+            if not isinstance(steps_data, list) or len(steps_data) < 2:
+                log.warning("Canvas LLM returned invalid plan")
+                return None
+
+        except Exception as e:
+            log.warning("Canvas LLM call failed: %s", e)
+            return None
+
+        # Build ActionPlan: navigate + canvas setup + LLM steps
+        url_match = re.search(
+            r'\b([a-zA-Z0-9][\w\-]*\.(?:app|com|io))\b', text,
+        )
+        url = f"https://{url_match.group(1)}" if url_match else "https://jspaint.app"
+
+        steps: list[ActionStep] = [
+            ActionStep("navigate", {"url": url}, f"Otwórz {url}"),
+            ActionStep("wait_for_canvas", {}, "Poczekaj na canvas"),
+            ActionStep("get_canvas_center", {}, "Pobierz środek canvas"),
+        ]
+
+        for s in steps_data:
+            if not isinstance(s, dict):
+                continue
+            action = s.get("action", "")
+            params = s.get("params", {})
+            desc = s.get("description", f"{action}")
+            if action and isinstance(params, dict):
+                steps.append(ActionStep(
+                    action=action, params=params, description=desc,
+                ))
+
+        # Ensure screenshot at end
+        if not any(s.action == "screenshot" for s in steps):
+            steps.append(ActionStep(
+                "screenshot", {"suffix": object_name.replace(" ", "_")},
+                "Zrób screenshot",
+            ))
+
+        return ActionPlan(
+            query=query,
+            steps=steps,
+            confidence=0.80,
+            source="canvas_llm",
+            estimated_time_ms=len(steps) * 600,
+        )
 
     def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
         """Rule-based decomposition for 'open N tabs' pattern."""
