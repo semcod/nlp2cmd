@@ -382,6 +382,15 @@ class FileAnalyzer:
         return None
 
 
+def _analyze_single_file(args):
+    """Analyze single file - module level function for pickle compatibility."""
+    file_path, module_name, config_dict = args
+    from .config import Config
+    config = Config(**config_dict)
+    analyzer = FileAnalyzer(config, None)
+    return analyzer.analyze_file(file_path, module_name)
+
+
 class ProjectAnalyzer:
     """Main analyzer with parallel processing."""
     
@@ -469,16 +478,20 @@ class ProjectAnalyzer:
         results = []
         workers = min(self.config.performance.parallel_workers, len(files))
         
-        # Note: Can't easily share cache across processes with pickle
-        # So each worker creates its own analyzer
+        # Convert config to dict for pickle compatibility
+        config_dict = {
+            'mode': self.config.mode,
+            'max_depth_enumeration': self.config.max_depth_enumeration,
+            'detect_state_machines': self.config.detect_state_machines,
+            'detect_recursion': self.config.detect_recursion,
+            'output_dir': self.config.output_dir,
+        }
         
-        def analyze_single(args):
-            file_path, module_name = args
-            analyzer = FileAnalyzer(self.config, None)  # No shared cache in parallel
-            return analyzer.analyze_file(file_path, module_name)
+        # Prepare args with config dict
+        args_list = [(f[0], f[1], config_dict) for f in files]
         
         with ProcessPoolExecutor(max_workers=workers) as executor:
-            futures = {executor.submit(analyze_single, f): f for f in files}
+            futures = {executor.submit(_analyze_single_file, a): a for a in args_list}
             
             for future in as_completed(futures):
                 try:

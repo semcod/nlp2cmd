@@ -32,12 +32,12 @@ class GraphVisualizer:
             )
             
         # Add edges
-        for edge in self.result.cfg_edges:
+        for edge in self.result.edges:
             self.graph.add_edge(
                 edge.source,
                 edge.target,
                 edge_type=edge.edge_type,
-                condition=edge.condition
+                conditions=edge.conditions
             )
             
     def visualize_cfg(self, filepath: str, layout: str = 'spring'):
