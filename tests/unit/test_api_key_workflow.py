@@ -425,11 +425,11 @@ class TestVerboseLogging:
         first_echo = echo_steps[0]
         assert "OPENROUTER" in first_echo.params.get("text", "")
 
-    def test_plan_has_save_confirmation(self, planner):
+    def test_plan_has_save_verification(self, planner):
         plan = planner.decompose_sync("pobierz klucz API z openrouter i zapisz do .env")
-        echo_steps = [s for s in plan.steps if s.action == "echo"]
-        texts = [s.params.get("text", "") for s in echo_steps]
-        assert any("source .env" in t for t in texts)
+        verify_steps = [s for s in plan.steps if s.action == "verify_env"]
+        assert len(verify_steps) >= 1, "Plan should have a verify_env step after save_env"
+        assert verify_steps[0].params.get("var_name") == "OPENROUTER_API_KEY"
 
     def test_create_key_has_detailed_logs(self, planner):
         plan = planner.decompose_sync("stwórz nowy klucz API na openrouter i zapisz do .env")

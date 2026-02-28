@@ -362,6 +362,7 @@ def _execute_multi_step_with_video(
 
             screenshot_path = None
             canvas_center = {"x": 640, "y": 360}  # Default center
+            current_line_width = 2
             current_color = "#000000"  # Track foreground color for canvas API fallbacks
 
             # ── JS helpers for jspaint.app interaction ──
@@ -496,6 +497,85 @@ def _execute_multi_step_with_video(
                     ctx.stroke();
                     ctx.restore();
                     return 'line_drawn';
+                }}
+                """
+
+            def _js_draw_polygon(points: list[tuple[float, float]], color: str, width: int = 2, fill: bool = False) -> str:
+                """Draw (and optionally fill) polygon directly on the canvas."""
+                pts_js = ",".join([f"[{x},{y}]" for x, y in points])
+                return f"""
+                () => {{
+                    const canvas = document.querySelector('canvas');
+                    if (!canvas) return 'no_canvas';
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    const ctx = canvas.getContext('2d');
+                    const pts = [{pts_js}];
+                    if (!pts.length) return 'no_points';
+                    ctx.save();
+                    ctx.lineWidth = {width};
+                    ctx.strokeStyle = '{color}';
+                    ctx.fillStyle = '{color}';
+                    ctx.beginPath();
+                    ctx.moveTo((pts[0][0] - rect.left) * scaleX, (pts[0][1] - rect.top) * scaleY);
+                    for (let i = 1; i < pts.length; i++) {{
+                        ctx.lineTo((pts[i][0] - rect.left) * scaleX, (pts[i][1] - rect.top) * scaleY);
+                    }}
+                    ctx.closePath();
+                    if ({str(bool(fill)).lower()}) ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                    return '{"polygon_filled" if fill else "polygon_stroked"}';
+                }}
+                """
+
+            def _js_draw_bezier(commands: list[dict], color: str, width: int = 2, fill: bool = False, close: bool = False) -> str:
+                """Draw quadratic/cubic bezier paths on the canvas.
+
+                commands is a list of {type: 'M'|'L'|'Q'|'C', ...} with absolute screen coords.
+                """
+                import json as _json
+                cmds_js = _json.dumps(commands)
+                return f"""
+                () => {{
+                    const canvas = document.querySelector('canvas');
+                    if (!canvas) return 'no_canvas';
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    const ctx = canvas.getContext('2d');
+                    const cmds = {cmds_js};
+                    if (!Array.isArray(cmds) || cmds.length === 0) return 'no_cmds';
+                    ctx.save();
+                    ctx.lineWidth = {width};
+                    ctx.strokeStyle = '{color}';
+                    ctx.fillStyle = '{color}';
+                    ctx.beginPath();
+                    for (const c of cmds) {{
+                        const t = (c.type || '').toUpperCase();
+                        if (t === 'M') {{
+                            ctx.moveTo((c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY);
+                        }} else if (t === 'L') {{
+                            ctx.lineTo((c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY);
+                        }} else if (t === 'Q') {{
+                            ctx.quadraticCurveTo(
+                                (c.cpx - rect.left) * scaleX, (c.cpy - rect.top) * scaleY,
+                                (c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY
+                            );
+                        }} else if (t === 'C') {{
+                            ctx.bezierCurveTo(
+                                (c.cp1x - rect.left) * scaleX, (c.cp1y - rect.top) * scaleY,
+                                (c.cp2x - rect.left) * scaleX, (c.cp2y - rect.top) * scaleY,
+                                (c.x - rect.left) * scaleX, (c.y - rect.top) * scaleY
+                            );
+                        }}
+                    }}
+                    if ({str(bool(close)).lower()}) ctx.closePath();
+                    if ({str(bool(fill)).lower()}) ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                    return '{"bezier_filled" if fill else "bezier_stroked"}';
                 }}
                 """
 
@@ -642,7 +722,7 @@ def _execute_multi_step_with_video(
                         console.print(f"    Drawing line from ({x1}, {y1}) to ({x2}, {y2})")
 
                         # Draw line via canvas API for precision
-                        result = page.evaluate(_js_draw_line(x1, y1, x2, y2, current_color, 2))
+                        result = page.evaluate(_js_draw_line(x1, y1, x2, y2, current_color, current_line_width))
                         console.print(f"      {result}")
 
                         # Also do mouse drag for visual effect in video recording
@@ -653,6 +733,96 @@ def _execute_multi_step_with_video(
                         page.mouse.move(x2, y2, steps=10)
                         page.mouse.up()
                         page.wait_for_timeout(300)
+
+                    elif action == 'set_line_width':
+                        width = params.get('width', params.get('line_width', 2))
+                        try:
+                            current_line_width = max(1, int(width))
+                        except Exception:
+                            current_line_width = 2
+                        console.print(f"    Line width: {current_line_width}")
+
+                    elif action == 'draw_polygon':
+                        points = params.get('points', []) or []
+                        offset = params.get('offset', [0, 0]) or [0, 0]
+                        fill = bool(params.get('fill', False))
+                        try:
+                            ox, oy = float(offset[0]), float(offset[1])
+                        except Exception:
+                            ox, oy = 0.0, 0.0
+                        abs_points: list[tuple[float, float]] = []
+                        for pt in points:
+                            try:
+                                px, py = float(pt[0]), float(pt[1])
+                            except Exception:
+                                continue
+                            abs_points.append((canvas_center['x'] + ox + px, canvas_center['y'] + oy + py))
+                        console.print(f"    Drawing polygon points={len(abs_points)} fill={fill}")
+                        if abs_points:
+                            result = page.evaluate(_js_draw_polygon(abs_points, current_color, current_line_width, fill))
+                            console.print(f"      {result}")
+                        page.wait_for_timeout(150)
+
+                    elif action == 'draw_bezier':
+                        curves = params.get('curves', []) or []
+                        fill = bool(params.get('fill', False))
+                        close = bool(params.get('close', False))
+                        width = params.get('line_width', current_line_width)
+                        try:
+                            width_i = max(1, int(width))
+                        except Exception:
+                            width_i = current_line_width
+
+                        cmds: list[dict] = []
+                        for c in curves:
+                            if not isinstance(c, dict):
+                                continue
+                            t = str(c.get('type', '')).upper()
+                            if t == 'M':
+                                try:
+                                    x = canvas_center['x'] + float(c.get('x', 0))
+                                    y = canvas_center['y'] + float(c.get('y', 0))
+                                except Exception:
+                                    continue
+                                cmds.append({'type': 'M', 'x': x, 'y': y})
+                            elif t == 'L':
+                                try:
+                                    x = canvas_center['x'] + float(c.get('x', 0))
+                                    y = canvas_center['y'] + float(c.get('y', 0))
+                                except Exception:
+                                    continue
+                                cmds.append({'type': 'L', 'x': x, 'y': y})
+                            elif t == 'Q':
+                                try:
+                                    cpx = canvas_center['x'] + float(c.get('cpx', 0))
+                                    cpy = canvas_center['y'] + float(c.get('cpy', 0))
+                                    x = canvas_center['x'] + float(c.get('x', 0))
+                                    y = canvas_center['y'] + float(c.get('y', 0))
+                                except Exception:
+                                    continue
+                                cmds.append({'type': 'Q', 'cpx': cpx, 'cpy': cpy, 'x': x, 'y': y})
+                            elif t == 'C':
+                                try:
+                                    cp1x = canvas_center['x'] + float(c.get('cp1x', 0))
+                                    cp1y = canvas_center['y'] + float(c.get('cp1y', 0))
+                                    cp2x = canvas_center['x'] + float(c.get('cp2x', 0))
+                                    cp2y = canvas_center['y'] + float(c.get('cp2y', 0))
+                                    x = canvas_center['x'] + float(c.get('x', 0))
+                                    y = canvas_center['y'] + float(c.get('y', 0))
+                                except Exception:
+                                    continue
+                                cmds.append({
+                                    'type': 'C',
+                                    'cp1x': cp1x, 'cp1y': cp1y,
+                                    'cp2x': cp2x, 'cp2y': cp2y,
+                                    'x': x, 'y': y,
+                                })
+
+                        console.print(f"    Drawing bezier cmds={len(cmds)} fill={fill} close={close}")
+                        if cmds:
+                            result = page.evaluate(_js_draw_bezier(cmds, current_color, width_i, fill, close))
+                            console.print(f"      {result}")
+                        page.wait_for_timeout(150)
 
                     elif action == 'fill_at':
                         offset = params.get('offset', [0, 0])
