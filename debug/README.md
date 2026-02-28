@@ -1,86 +1,110 @@
-# Advanced Flow Analyzer
+# code2flow
 
-Comprehensive system behavior analysis tool combining static and dynamic analysis for reverse engineering and understanding complex codebases.
+**Python Code Flow Analysis Tool** - Static analysis for control flow graphs (CFG), data flow graphs (DFG), and call graph extraction.
 
 ## Features
 
-### 🔍 **Multi-Mode Analysis**
-- **Static**: AST-based control flow and data flow analysis
-- **Dynamic**: Runtime execution tracing
-- **Hybrid**: Combined static + dynamic for maximum insight
-- **Behavioral**: Pattern extraction and recognition
-- **Reverse**: LLM-ready outputs for system reconstruction
-
-### 📊 **Analysis Capabilities**
-- Control Flow Graph (CFG) generation
-- Data Flow Graph (DFG) tracking
-- Call graph reconstruction
-- Variable dependency mapping
-- State machine detection
-- Behavioral pattern extraction
-- Recursive pattern identification
-
-### 🎯 **Pattern Recognition**
-- Sequential execution patterns
-- Conditional branching patterns
-- Iterative/loop patterns
-- Recursive function patterns
-- State machine patterns
-
-### 📁 **Output Formats**
-- **LLM Prompt**: System analysis in natural language
-- **YAML**: Structured data for programmatic processing
-- **Mermaid**: Flow diagrams for documentation
-- **PNG**: Visual flow representations
-- **JSON**: Raw diagram data
-- **Report**: Summary statistics and insights
+- **Control Flow Graph (CFG)**: Extract execution paths from Python AST
+- **Data Flow Graph (DFG)**: Track variable definitions and dependencies  
+- **Call Graph Analysis**: Map function calls and dependencies
+- **Pattern Detection**: Identify design patterns (state machines, factories, recursion)
+- **Compact Output**: Deduplicated flow diagrams with pattern recognition
+- **Multiple Output Formats**: YAML, JSON, Mermaid diagrams, PNG visualizations
+- **LLM-Ready Output**: Generate prompts for reverse engineering
 
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+# Install from source
+pip install -e .
+
+# Or with development dependencies
+pip install -e ".[dev]"
+```
+
+## Quick Start
+
+```bash
+# Analyze a Python project
+code2flow /path/to/project
+
+# With verbose output
+code2flow /path/to/project -v
+
+# Specify output directory and formats
+code2flow /path/to/project -o ./analysis --format yaml,json,mermaid,png
+
+# Use different analysis modes
+code2flow /path/to/project -m static    # Fast static analysis only
+code2flow /path/to/project -m hybrid     # Combined analysis (default)
 ```
 
 ## Usage
 
 ### Basic Analysis
 ```bash
-python flow.py /path/to/project
+code2flow /path/to/project
 ```
 
 ### Analysis Modes
 ```bash
 # Static analysis only (fastest)
-python flow.py /path/to/project -m static
+code2flow /path/to/project -m static
 
 # Dynamic analysis with tracing
-python flow.py /path/to/project -m dynamic
+code2flow /path/to/project -m dynamic
 
 # Hybrid analysis (recommended)
-python flow.py /path/to/project -m hybrid
+code2flow /path/to/project -m hybrid
 
 # Behavioral pattern focus
-python flow.py /path/to/project -m behavioral
+code2flow /path/to/project -m behavioral
 
 # Reverse engineering ready
-python flow.py /path/to/project -m reverse
+code2flow /path/to/project -m reverse
 ```
 
 ### Custom Output
 ```bash
-python flow.py /path/to/project -o my_analysis
+code2flow /path/to/project -o my_analysis
 ```
 
 ## Output Files
 
 | File | Description |
 |------|-------------|
-| `system_analysis_prompt.md` | Complete system description for LLM |
-| `system_analysis.yaml` | Structured analysis data |
-| `system_flow.mmd` | Mermaid diagram source |
-| `system_flow.png` | Flow visualization |
-| `diagram_data.json` | Raw graph data |
-| `analysis_report.md` | Summary and statistics |
+| `analysis.yaml` | Complete structured analysis data |
+| `analysis.json` | JSON format for programmatic use |
+| `flow.mmd` | Full Mermaid flowchart (all nodes) |
+| `compact_flow.mmd` | **Compact flowchart** - deduplicated nodes, grouped by function |
+| `calls.mmd` | Function call graph |
+| `cfg.png` | Control flow visualization |
+| `call_graph.png` | Call graph visualization |
+| `llm_prompt.md` | LLM-ready analysis summary |
+
+### Compact Flow Format
+
+The `compact_flow.mmd` file provides optimized output:
+
+- **Deduplication**: Identical node patterns are merged (e.g., `x = 1`, `x = 2` → `x = N`)
+- **Function Subgraphs**: Nodes grouped by function in subgraphs
+- **Pattern Preservation**: Control flow structure maintained while reducing file size
+- **Import Reuse**: Common patterns linked rather than duplicated
+
+Example compact output:
+```mermaid
+flowchart TD
+    %% Function subgraphs
+    subgraph F12345["process_data"]
+        N1["x = N"]  
+        N2{"if x > 0"}
+        N3[/"return x"/]
+    end
+    
+    %% Edges reference deduplicated nodes
+    N1 --> N2
+    N2 -->|"true"| N3
+```
 
 ## Understanding the Output
 

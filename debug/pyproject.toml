@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code2flow"
+version = "0.1.0"
+description = "Python code flow analysis tool - CFG, DFG, and call graph extraction"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "STTS Project"}
+]
+keywords = ["static-analysis", "control-flow", "data-flow", "call-graph", "reverse-engineering"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "networkx>=2.6",
+    "matplotlib>=3.4",
+    "pyyaml>=5.4",
+    "numpy>=1.20",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.2",
+    "pytest-cov>=2.12",
+    "black>=21.0",
+    "flake8>=3.9",
+    "mypy>=0.910",
+]
+
+[project.scripts]
+code2flow = "code2flow.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/wronai/stts"
+Repository = "https://github.com/wronai/stts"
+Issues = "https://github.com/wronai/stts/issues"
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
