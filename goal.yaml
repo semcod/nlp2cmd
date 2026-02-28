@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-02-28 19:12:04
+# Generated: 2026-02-28 19:13:04
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -22,6 +22,7 @@ project:
 versioning:
   strategy: semver
   files:
+  - VERSION
   - pyproject.toml:version
   - setup.py:version
   - code2flow/__init__.py:__version__

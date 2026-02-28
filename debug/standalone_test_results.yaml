@@ -9,12 +9,12 @@ performance_metrics:
   type_hints: 341
   docstrings: 146
   error_handling: 6
-  validation_improvement: 89.47368421052632
-  old_validation_time: 9.059906005859375e-06
+  validation_improvement: 88.23529411764706
+  old_validation_time: 8.106231689453125e-06
   new_validation_time: 9.5367431640625e-07
-  processing_improvement: 89.74358974358975
+  processing_improvement: 92.3076923076923
   old_processing_time: 9.298324584960938e-06
-  new_processing_time: 9.5367431640625e-07
+  new_processing_time: 7.152557373046875e-07
   function_reduction_percent: 98.95968790637191
   complexity_reduction_percent: 70.0
   original_functions: 769
@@ -31,7 +31,7 @@ test_results:
   performance: Good
 - test: performance_simulation
   status: PASSED
-  details: 'Validation improvement: 89.5%, Processing improvement: 89.7%'
+  details: 'Validation improvement: 88.2%, Processing improvement: 92.3%'
   performance: Simulated
 - test: integration_simulation
   status: PASSED

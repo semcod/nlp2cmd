@@ -315,21 +315,34 @@ class SchemaFallback:
                 steps.append({"action": "click", "params": open_params})
                 steps.append({"action": "wait", "params": {"ms": 1500}})
 
-                # 2. Fill form fields (e.g. Name = "nlp2cmd")
+                # 2. Fill form fields (e.g. Name = "nlp2cmd", select radio button)
                 form_fields = create_cfg.get("form_fields", {})
                 for _fname, field_cfg in form_fields.items():
                     if field_cfg.get("default"):
-                        _type_params: dict[str, Any] = {
-                            "selector": field_cfg["selector"],
-                            "text": field_cfg["default"],
-                        }
-                        if field_cfg.get("alt_selectors"):
-                            _type_params["alt_selectors"] = field_cfg["alt_selectors"]
-                        steps.append({
-                            "action": "type_text",
-                            "params": _type_params,
-                            "description": f"Wypełnij pole: {_fname}",
-                        })
+                        # Special handling for radio buttons (e.g., token type selection)
+                        if field_cfg.get("action") == "click_radio":
+                            steps.append({
+                                "action": "click",
+                                "params": {
+                                    "selector": field_cfg["selector"],
+                                    "timeout": 5000,
+                                },
+                                "description": f"Wybierz opcję: {_fname} = {field_cfg['default']}",
+                            })
+                            steps.append({"action": "wait", "params": {"ms": 300}})
+                        else:
+                            # Regular text input
+                            _type_params: dict[str, Any] = {
+                                "selector": field_cfg["selector"],
+                                "text": field_cfg["default"],
+                            }
+                            if field_cfg.get("alt_selectors"):
+                                _type_params["alt_selectors"] = field_cfg["alt_selectors"]
+                            steps.append({
+                                "action": "type_text",
+                                "params": _type_params,
+                                "description": f"Wypełnij pole: {_fname}",
+                            })
                 steps.append({"action": "wait", "params": {"ms": 500}})
 
                 # 3. Submit form + capture key (non-blocking click + polling)
@@ -489,9 +502,10 @@ class SchemaFallback:
             # ---- Phase 1: Scan page for key-like elements ----
             page_schema = self._extract_page_schema(page)
             log.info(
-                "[DynamicSchema] buttons=%d, forms=%d, tokens=%d, copy_btns=%d",
+                "[DynamicSchema] buttons=%d, forms=%d, radio_btns=%d, tokens=%d, copy_btns=%d",
                 len(page_schema.get("buttons", [])),
                 len(page_schema.get("forms", [])),
+                len(page_schema.get("radio_buttons", [])),
                 len(page_schema.get("tokens", [])),
                 len(page_schema.get("copy_buttons", [])),
             )
@@ -572,7 +586,19 @@ class SchemaFallback:
                 })
                 steps.append({"action": "wait", "params": {"ms": 2000}})
 
-                # After clicking Create, fill any visible form fields
+                # After clicking Create, handle radio buttons first (token type selection)
+                if page_schema["radio_buttons"]:
+                    # Prefer "read" token type for general access
+                    read_radio = next((rb for rb in page_schema["radio_buttons"] if rb.get("value") == "read"), None)
+                    if read_radio:
+                        steps.append({
+                            "action": "click",
+                            "params": {"selector": read_radio["selector"], "timeout": 5000},
+                            "description": f"Wybierz typ tokenu: {read_radio.get('label', 'Read')}",
+                        })
+                        steps.append({"action": "wait", "params": {"ms": 300}})
+
+                # Fill any visible text form fields
                 if page_schema["forms"]:
                     for field in page_schema["forms"][:3]:
                         default = "nlp2cmd" if "name" in field.get("name", "").lower() else ""
@@ -635,12 +661,14 @@ class SchemaFallback:
         Returns a schema dict with:
         - buttons: visible clickable elements (button, a[role=button], etc.)
         - forms: visible text input fields
+        - radio_buttons: radio button groups (for token type selection)
         - tokens: elements that look like API tokens/keys
         - copy_buttons: buttons likely used to copy tokens
         """
         schema: dict[str, list[dict[str, str]]] = {
             "buttons": [],
             "forms": [],
+            "radio_buttons": [],
             "tokens": [],
             "copy_buttons": [],
         }
@@ -696,6 +724,38 @@ class SchemaFallback:
                     schema["forms"].append({
                         "name": name, "placeholder": placeholder,
                         "selector": sel, "type": inp_type,
+                    })
+                except Exception:
+                    continue
+
+            # --- Radio buttons (for token type selection) ---
+            radio_locators = page.locator("input[type='radio']:visible")
+            for i in range(min(radio_locators.count(), 10)):
+                try:
+                    el = radio_locators.nth(i)
+                    value = el.get_attribute("value") or ""
+                    name = el.get_attribute("name") or ""
+                    test_id = el.get_attribute("data-testid") or ""
+                    # Find associated label text
+                    label_sel = f"label[for='{el.get_attribute('id') or ''}']"
+                    label_text = ""
+                    try:
+                        label_el = page.query_selector(label_sel)
+                        if label_el:
+                            label_text = (label_el.text_content() or "").strip()[:30]
+                    except Exception:
+                        pass
+                    if test_id:
+                        sel = f"[data-testid='{test_id}']"
+                    elif name and value:
+                        sel = f"input[name='{name}'][value='{value}']"
+                    elif value:
+                        sel = f"input[type='radio'][value='{value}']"
+                    else:
+                        sel = f"input[type='radio']:visible >> nth={i}"
+                    schema["radio_buttons"].append({
+                        "value": value, "name": name, "label": label_text,
+                        "selector": sel,
                     })
                 except Exception:
                     continue

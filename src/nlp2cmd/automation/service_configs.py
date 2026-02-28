@@ -183,17 +183,24 @@ _HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
         "create_key": {
             "button_selector": "button:has-text('Create new token')",
             "form_fields": {
+                # Step 1: Select token type (radio button) - default to "Read"
+                "token_type": {
+                    "selector": "input[type='radio'][value='read']",
+                    "action": "click_radio",  # Special action for radio selection
+                    "default": "read",
+                },
+                # Step 2: Token name field
                 "name": {
-                    "selector": "input[placeholder*='token' i]",
+                    "selector": "input[name='displayName']",
                     "alt_selectors": [
+                        "input[placeholder*='Token name' i]",
                         "input[placeholder*='name' i]",
-                        "input[data-testid='token-name']",
                         "input[type='text']:visible",
                     ],
                     "default": "nlp2cmd",
                 },
             },
-            "submit_selector": "button:has-text('Create token')",
+            "submit_selector": "button[type='submit']:has-text('Create token')",
             "key_reveal_selector": "code, pre, input[readonly]",
         },
     },
