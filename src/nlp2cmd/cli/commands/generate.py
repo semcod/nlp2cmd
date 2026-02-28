@@ -402,15 +402,73 @@ def _execute_multi_step_with_video(
                     elif action == 'select_tool':
                         tool = params.get('tool', '')
                         console.print(f"    Selecting tool: {tool}")
-                        # Try to select tool in jspaint
+                        # Try to select tool in jspaint - use JavaScript to click on toolbar tools
                         try:
-                            if tool == 'ellipse':
-                                # Look for ellipse/circle tool button
-                                page.locator('button:has-text("ellipse"), button[title*="circle"], button[aria-label*="ellipse"]').first.click(timeout=1000)
+                            if tool in ['ellipse', 'circle']:
+                                # jspaint uses toolbar with tool icons - try multiple selectors
+                                # The oval tool is typically the 6th tool in the toolbar
+                                js_select_oval = """
+                                () => {
+                                    // Try to find and click the oval/ellipse tool
+                                    const tools = document.querySelectorAll('.tool, [data-tool], .jspaint-tool, button[title*="oval"], button[title*="ellipse"], button[title*="circle"]');
+                                    for (let t of tools) {
+                                        const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
+                                        if (title.includes('oval') || title.includes('ellipse') || title.includes('circle')) {
+                                            t.click();
+                                            return 'oval tool clicked';
+                                        }
+                                    }
+                                    // Fallback: try to find by icon or position in toolbar
+                                    const allTools = document.querySelectorAll('.tool, button');
+                                    if (allTools.length > 5) {
+                                        allTools[5].click(); // Oval is usually 6th tool
+                                        return 'oval tool clicked (position fallback)';
+                                    }
+                                    return 'no oval tool found';
+                                }
+                                """
+                                result = page.evaluate(js_select_oval)
+                                console.print(f"      {result}")
+                                page.wait_for_timeout(500)
+                                
+                                # Also try to enable fill mode for filled ellipse
+                                js_enable_fill = """
+                                () => {
+                                    // Look for fill option or transparent/filled toggle
+                                    const fillOptions = document.querySelectorAll('[title*="fill"], [title*="Fill"], button[aria-label*="fill"]');
+                                    for (let f of fillOptions) {
+                                        f.click();
+                                        return 'fill enabled';
+                                    }
+                                    return 'no fill option found';
+                                }
+                                """
+                                page.evaluate(js_enable_fill)
+                                
                             elif tool == 'brush':
-                                page.locator('button:has-text("brush"), button[title*="brush"], button[aria-label*="brush"]').first.click(timeout=1000)
-                        except:
-                            pass
+                                js_select_brush = """
+                                () => {
+                                    const tools = document.querySelectorAll('.tool, [data-tool], button');
+                                    for (let t of tools) {
+                                        const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
+                                        if (title.includes('brush') || title.includes('pencil') || title.includes('paint')) {
+                                            t.click();
+                                            return 'brush tool clicked';
+                                        }
+                                    }
+                                    // Fallback: brush is usually 2nd tool
+                                    const allTools = document.querySelectorAll('.tool, button');
+                                    if (allTools.length > 1) {
+                                        allTools[1].click();
+                                        return 'brush tool clicked (position fallback)';
+                                    }
+                                    return 'no brush tool found';
+                                }
+                                """
+                                result = page.evaluate(js_select_brush)
+                                console.print(f"      {result}")
+                        except Exception as e:
+                            console.print(f"      [yellow]Tool selection warning: {e}[/yellow]")
                         page.wait_for_timeout(500)
 
                     elif action == 'set_color':
@@ -428,10 +486,42 @@ def _execute_multi_step_with_video(
 
                         console.print(f"    Drawing filled ellipse at ({x}, {y}) rx={rx}, ry={ry}")
 
-                        # Draw ellipse using mouse
-                        page.mouse.move(x - rx, y - ry)
+                        # For jspaint: drag from top-left to bottom-right to draw ellipse
+                        # First ensure oval tool is selected with fill enabled
+                        try:
+                            js_ensure_oval = """
+                            () => {
+                                // Select oval tool if not already selected
+                                const tools = document.querySelectorAll('.tool, button');
+                                for (let t of tools) {
+                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
+                                    if (title.includes('oval') || title.includes('ellipse')) {
+                                        if (!t.classList.contains('selected')) {
+                                            t.click();
+                                        }
+                                        return 'oval ready';
+                                    }
+                                }
+                                return 'oval not found';
+                            }
+                            """
+                            page.evaluate(js_ensure_oval)
+                        except:
+                            pass
+                        
+                        page.wait_for_timeout(200)
+                        
+                        # Draw ellipse by dragging from corner to corner
+                        start_x = x - rx
+                        start_y = y - ry
+                        end_x = x + rx
+                        end_y = y + ry
+                        
+                        # Move to start, drag to end
+                        page.mouse.move(start_x, start_y)
                         page.mouse.down()
-                        page.mouse.move(x + rx, y + ry, steps=10)
+                        page.wait_for_timeout(100)  # Small delay for jspaint to register
+                        page.mouse.move(end_x, end_y)
                         page.mouse.up()
                         page.wait_for_timeout(500)
 
@@ -444,10 +534,65 @@ def _execute_multi_step_with_video(
 
                         console.print(f"    Drawing circle at ({x}, {y}) radius={radius}")
 
-                        # Draw small circle
+                        # For jspaint circles: use brush tool with single click or small drag
+                        # First ensure brush tool is selected
+                        try:
+                            js_ensure_brush = """
+                            () => {
+                                const tools = document.querySelectorAll('.tool, button');
+                                for (let t of tools) {
+                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
+                                    if (title.includes('brush') || title.includes('pencil')) {
+                                        if (!t.classList.contains('selected')) {
+                                            t.click();
+                                        }
+                                        return 'brush ready';
+                                    }
+                                }
+                                return 'brush not found';
+                            }
+                            """
+                            page.evaluate(js_ensure_brush)
+                        except:
+                            pass
+                        
+                        page.wait_for_timeout(200)
+                        
+                        # For jspaint: use filled circle tool if available, or draw small filled ellipse
+                        # Try to select circle tool temporarily
+                        try:
+                            js_select_circle = """
+                            () => {
+                                const tools = document.querySelectorAll('.tool, button');
+                                for (let t of tools) {
+                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
+                                    if (title.includes('circle') && !title.includes('ellipse')) {
+                                        t.click();
+                                        return 'circle tool selected';
+                                    }
+                                }
+                                // Fallback: use oval tool
+                                for (let t of tools) {
+                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
+                                    if (title.includes('oval') || title.includes('ellipse')) {
+                                        t.click();
+                                        return 'oval tool for circle';
+                                    }
+                                }
+                                return 'using brush';
+                            }
+                            """
+                            page.evaluate(js_select_circle)
+                        except:
+                            pass
+                        
+                        page.wait_for_timeout(200)
+                        
+                        # Draw circle by dragging (for filled circle) or single click for brush dot
                         page.mouse.move(x - radius, y - radius)
                         page.mouse.down()
-                        page.mouse.move(x + radius, y + radius, steps=5)
+                        page.wait_for_timeout(100)
+                        page.mouse.move(x + radius, y + radius)
                         page.mouse.up()
                         page.wait_for_timeout(300)
 

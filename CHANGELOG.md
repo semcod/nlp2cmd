@@ -7,7 +7,7 @@ fix(automation): OpenRouter API key flow, canvas drawing integration, stale cach
 ### Bug Fixes
 
 - **OpenRouter API key flow** — "wyciągnij klucz API z OpenRouter i zapisz do .env" now fully automates key creation via Playwright instead of opening a popup and asking user to paste. Added Polish verbs (`wyciągnij`, `wyciagnij`, `pobierz`, `zapisz`, `extract`, `get key`, `fetch`) to `_wants_create_key` triggers.
-- **Playwright forced for key creation** — When both `wants_existing_firefox` and `wants_create` are true, the planner now forces Playwright path (desktop executor can't interact with page DOM for click/type_text actions).
+- **Playwright forced for all API-key workflows** — When existing Firefox is requested for any API-key service workflow, the planner now forces Playwright path. Desktop executor can only open tabs via CLI — it cannot read page DOM for `check_session`, `click`, or `type_text` actions.
 - **jspaint canvas drawing** — `nlp2cmd -q "wejdź na jspaint.app i narysuj biedronkę"` was returning `generated_command: null`. Root cause: `ActionPlanner` had no canvas/drawing pattern support — only `ComplexCommandPlanner` had templates. Added `_try_canvas_decomposition()` to bridge `DRAWING_PATTERNS` from `ComplexCommandPlanner` into `ActionPlanner`. Now returns 16-step ladybug drawing plan.
 - **Stale multistep cache** — Cleared `~/.nlp2cmd/action_plans.json` which contained old LLM plans with only 1 navigate step for canvas queries.
 
