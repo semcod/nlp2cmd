@@ -1014,7 +1014,12 @@ class ActionPlanner:
             pass
 
         # --- Tier 3: LLM-generated drawing plan ---
-        return self._generate_canvas_plan_with_llm(query, text)
+        llm_plan = self._generate_canvas_plan_with_llm(query, text)
+        if llm_plan:
+            return llm_plan
+        
+        # --- Tier 4: Rule-based generic drawing plan (fallback when LLM unavailable) ---
+        return self._generate_rule_based_canvas_plan(query, text, canvas_url)
 
     def _generate_canvas_plan_with_llm(
         self, query: str, text: str,

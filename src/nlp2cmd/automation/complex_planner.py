@@ -253,12 +253,19 @@ Available actions:
 - get_canvas_center: {} — get canvas dimensions
 - select_tool: {tool} — select drawing tool (pencil, brush, fill, ellipse, rectangle, line, text, eraser, select)
 - set_color: {color} — set foreground color (#RRGGBB)
-- draw_circle: {radius, offset?} — draw circle at canvas center + offset
-- draw_ellipse: {rx, ry, offset?} — draw ellipse
-- draw_rectangle: {width, height, offset?} — draw rectangle
+- set_line_width: {width} — set stroke width
+- draw_circle: {radius, offset?} — draw circle outline
+- draw_ellipse: {rx, ry, offset?} — draw ellipse outline
+- draw_rectangle: {width, height, offset?} — draw rectangle outline
 - draw_line: {from_offset, to_offset} — draw line relative to center
-- draw_filled_ellipse: {rx, ry} — draw and fill ellipse
-- fill_at: {offset} — click with fill bucket tool at offset from center
+- draw_filled_ellipse: {rx, ry, offset?, rotation?} — draw and fill ellipse
+- draw_filled_circle: {radius, offset?} — draw and fill circle
+- draw_filled_rectangle: {width, height, offset?} — draw and fill rectangle
+- draw_arc: {radius, start_angle, end_angle, offset?, fill?} — draw arc
+- draw_polygon: {points, offset?, fill?} — draw polygon from point list
+- draw_bezier: {curves, offset?, fill?, close?} — draw bezier curve
+- draw_svg_path: {d, offset?, fill?, scale?} — draw SVG path data
+- fill_at: {offset} — click with fill bucket tool
 - click_canvas: {offset} — click on canvas
 - type_text: {text} — type text
 - screenshot: {suffix?} — take screenshot
