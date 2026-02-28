@@ -291,6 +291,13 @@ nlp2cmd -r "zminimalizuj wszystko"
 nlp2cmd -r "wejdź na github.com" --video webm
 ```
 
+
+![img_9.png](img_9.png)
+
+```bash
+nlp2cmd -r "wejdź na jspaint.app i narysuj kota" --screenshot
+```
+
 **Desktop examples** (`examples/06_desktop_automation/`):
 
 | Example | Description |

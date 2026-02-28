@@ -115,11 +115,11 @@ _HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
         "create_key": {
             "button_selector": "button:has-text('Create')",
             "form_fields": {
-                "name": {"selector": "input[placeholder*='Chatbot']", "default": "nlp2cmd"},
-                "credit_limit": {"selector": "input[placeholder*='unlimited']", "default": ""},
+                "name": {"selector": "#name", "default": "nlp2cmd"},
             },
-            "submit_selector": "button:has-text('Create')",
-            "key_reveal_selector": "code, .api-key-value, [data-testid='api-key']",
+            "submit_selector": "div.mt-4 button:has-text('Create'), button:has-text('Create'):not([disabled])",
+            "key_reveal_selector": "code, .api-key-value, [data-testid='api-key'], pre",
+            "copy_button_text": "Copy",
         },
     },
     "anthropic": {
@@ -1017,9 +1017,16 @@ class ActionPlanner:
         # --- Tier 2: Vector database semantic search (novel objects) ---
         vector_plan = self._search_vector_db_for_pattern(query, text, canvas_url)
         if vector_plan:
-            return vector_plan
+            # Quality check: vector plan must be detailed enough (minimum 12 drawing steps)
+            drawing_steps = [s for s in vector_plan.steps if s.action.startswith('draw_')]
+            if len(drawing_steps) >= 8:  # Require at least 8 drawing steps
+                log.info("[ActionPlanner] Using vector DB plan with %d drawing steps", len(drawing_steps))
+                return vector_plan
+            else:
+                log.info("[ActionPlanner] Vector DB plan too simple (%d steps), trying LLM", len(drawing_steps))
+                # Fall through to LLM generation
 
-        # --- Tier 3: Legacy ComplexCommandPlanner templates ---
+        # --- Tier 3: LLM-generated drawing plan ---
         try:
             from nlp2cmd.automation.complex_planner import (
                 DRAWING_PATTERNS,
@@ -1194,8 +1201,19 @@ class ActionPlanner:
 
             raw = resp.json().get("response", "").strip()
             # Strip markdown fences
-            raw = re.sub(r"^```(?:json)?\s*", "", raw)
-            raw = re.sub(r"\s*```$", "", raw)
+            raw = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.MULTILINE)
+            raw = re.sub(r"\s*```$", "", raw, flags=re.MULTILINE)
+            
+            # Basic cleanup for common LLM JSON mistakes
+            raw = raw.strip()
+            # If it didn't strip properly because of newlines
+            if raw.startswith("```json"): raw = raw[7:]
+            if raw.startswith("```"): raw = raw[3:]
+            if raw.endswith("```"): raw = raw[:-3]
+            raw = raw.strip()
+            
+            # Simple heuristic for fixing trailing commas in lists/dicts
+            raw = re.sub(r",(\s*[\}\]])", r"\1", raw)
 
             steps_data = json.loads(raw)
             if not isinstance(steps_data, list) or len(steps_data) < 2:

@@ -232,16 +232,74 @@ class TestCookieExport:
         assert len(cookies) == 2
 
         or_cookie = next(c for c in cookies if c["name"] == "session_id")
-        assert or_cookie["domain"] == "openrouter.ai"
+        assert or_cookie["domain"] == ".openrouter.ai"
         assert or_cookie["secure"] is True
         assert or_cookie["httpOnly"] is True
-        assert or_cookie["sameSite"] == "None"
-        assert "expires" not in or_cookie  # session cookie
+        assert or_cookie["sameSite"] == "None"  # secure=True → None kept
+        assert "expires" not in or_cookie  # session cookie (expiry=0)
 
         gh_cookie = next(c for c in cookies if c["name"] == "gh_sess")
-        assert gh_cookie["domain"] == "github.com"
-        assert gh_cookie["expires"] == 1735689600
+        assert gh_cookie["domain"] == ".github.com"
+        assert gh_cookie["expires"] == 1735689600  # in seconds, no conversion
         assert gh_cookie["sameSite"] == "Lax"
+
+    def test_export_cookies_ms_to_sec_conversion(self, tmp_path):
+        """Firefox Snap stores expiry in milliseconds; Playwright expects seconds."""
+        db_path = tmp_path / "cookies.sqlite"
+        conn = sqlite3.connect(str(db_path))
+        conn.execute(
+            "CREATE TABLE moz_cookies ("
+            "  id INTEGER PRIMARY KEY,"
+            "  host TEXT, name TEXT, value TEXT, path TEXT,"
+            "  expiry INTEGER, isSecure INTEGER, isHttpOnly INTEGER,"
+            "  sameSite INTEGER"
+            ")"
+        )
+        # Expiry in milliseconds (>1e12)
+        conn.execute(
+            "INSERT INTO moz_cookies VALUES "
+            "(1, '.example.com', 'sess', 'val', '/', 1803819424000, 1, 1, 1)"
+        )
+        # Expiry in seconds (<1e12)
+        conn.execute(
+            "INSERT INTO moz_cookies VALUES "
+            "(2, '.example.com', 'old', 'val2', '/', 1735689600, 1, 0, 1)"
+        )
+        conn.commit()
+        conn.close()
+
+        importer = FirefoxSessionImporter()
+        cookies = importer.export_cookies_for_chromium(db_path)
+
+        ms_cookie = next(c for c in cookies if c["name"] == "sess")
+        assert ms_cookie["expires"] == 1803819424  # converted from ms to sec
+
+        sec_cookie = next(c for c in cookies if c["name"] == "old")
+        assert sec_cookie["expires"] == 1735689600  # kept as-is
+
+    def test_export_cookies_samesite_none_insecure_fixup(self, tmp_path):
+        """Chromium rejects SameSite=None without Secure. We fix to Lax."""
+        db_path = tmp_path / "cookies.sqlite"
+        conn = sqlite3.connect(str(db_path))
+        conn.execute(
+            "CREATE TABLE moz_cookies ("
+            "  id INTEGER PRIMARY KEY,"
+            "  host TEXT, name TEXT, value TEXT, path TEXT,"
+            "  expiry INTEGER, isSecure INTEGER, isHttpOnly INTEGER,"
+            "  sameSite INTEGER"
+            ")"
+        )
+        # sameSite=0 (None) + isSecure=0 → should be fixed to Lax
+        conn.execute(
+            "INSERT INTO moz_cookies VALUES "
+            "(1, '.example.com', 'tracker', 'v', '/', 0, 0, 0, 0)"
+        )
+        conn.commit()
+        conn.close()
+
+        importer = FirefoxSessionImporter()
+        cookies = importer.export_cookies_for_chromium(db_path)
+        assert cookies[0]["sameSite"] == "Lax"  # fixed from None
 
     def test_export_cookies_missing_db(self, tmp_path):
         importer = FirefoxSessionImporter()

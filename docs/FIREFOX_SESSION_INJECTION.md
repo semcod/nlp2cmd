@@ -40,27 +40,30 @@ Moduł `FirefoxSessionImporter` (`src/nlp2cmd/automation/firefox_sessions.py`):
 
 ## Tryby pracy
 
-### Tryb 1: Pełny profil Firefox (zalecany)
+### Tryb 1: Chromium + cookie injection (zalecany, domyślny)
 
 ```bash
 NLP2CMD_USE_FIREFOX_SESSIONS=1 nlp2cmd -r "wyciągnij klucz API z OpenRouter i zapisz do .env"
 ```
 
+- Czyta `cookies.sqlite` z Firefox (WAL-safe, działa gdy Firefox uruchomiony)
+- Uruchamia **Chromium** i wstrzykuje cookies via `context.add_cookies()`
+- **Bezpieczny dla SPA** (React, Next.js, Vue) — brak konfliktów localStorage
+- Wymaga: `playwright install chromium`
+- `=1` i `=cookies` działają identycznie
+
+### Tryb 2: Pełny profil Firefox (eksperymentalny)
+
+```bash
+NLP2CMD_USE_FIREFOX_SESSIONS=firefox nlp2cmd -r "otwórz stronę"
+```
+
 - Kopiuje cały profil Firefox do `~/.nlp2cmd/firefox_playwright_profile/`
 - Uruchamia `pw.firefox.launch_persistent_context()` z tym profilem
 - **Wszystkie sesje, cookies, localStorage, certyfikaty** — dostępne
+- ⚠️ **UWAGA**: Może crashować SPA (Next.js, React) z powodu konfliktów
+  localStorage/IndexedDB między Snap Firefox a Playwright Firefox
 - Wymaga: `playwright install firefox`
-
-### Tryb 2: Wstrzykiwanie ciasteczek do Chromium
-
-```bash
-NLP2CMD_USE_FIREFOX_SESSIONS=cookies nlp2cmd -r "otwórz openrouter.ai"
-```
-
-- Czyta `cookies.sqlite` z Firefox (WAL-safe, działa gdy Firefox uruchomiony)
-- Uruchamia Chromium i wstrzykuje cookies via `context.add_cookies()`
-- **Lżejszy** — nie kopiuje pełnego profilu
-- **Ograniczenie**: brak localStorage/IndexedDB (tylko cookies)
 
 ### Tryb 3: Jawna ścieżka profilu
 
@@ -85,8 +88,9 @@ System automatycznie przełącza się na Chromium + cookie injection.
 
 | Zmienna | Wartości | Opis |
 |---------|----------|------|
-| `NLP2CMD_USE_FIREFOX_SESSIONS` | `1` | Pełny profil Firefox → Playwright Firefox |
-| `NLP2CMD_USE_FIREFOX_SESSIONS` | `cookies` | Cookie injection → Playwright Chromium |
+| `NLP2CMD_USE_FIREFOX_SESSIONS` | `1` | Chromium + Firefox cookie injection (zalecany) |
+| `NLP2CMD_USE_FIREFOX_SESSIONS` | `cookies` | Identycznie jak `1` |
+| `NLP2CMD_USE_FIREFOX_SESSIONS` | `firefox` | Pełny profil Firefox (eksperymentalny, SPA crash!) |
 | `NLP2CMD_USE_FIREFOX_SESSIONS` | *(puste/brak)* | Domyślne: czysty Chromium |
 | `NLP2CMD_FIREFOX_PROFILE` | `/ścieżka/do/profilu` | Jawna ścieżka do profilu Firefox |
 
@@ -119,6 +123,23 @@ Kolejność wykrywania profilu:
 | `formhistory.sqlite` | Historia formularzy |
 | `storage/` | IndexedDB, cache API |
 | `sessionstore.jsonlz4` | Otwarte karty |
+
+## Kompatybilność z SPA
+
+⚠️ **Pełny profil Firefox (`=firefox`) crashuje strony SPA** jak OpenRouter, GitHub, Anthropic.
+
+Przyczyna: localStorage/IndexedDB/service workers z profilu Snap Firefox są
+niekompatybilne z wersją Firefox w Playwright. Strona wyświetla:
+`"Application error: a client-side exception has occurred"`.
+
+**Rozwiązanie**: Tryb `=1` (Chromium + cookies) jest bezpieczny — wstrzykuje
+tylko ciasteczka, które wystarczają do utrzymania sesji logowania.
+LocalStorage nie jest potrzebny do autentykacji.
+
+| Tryb | SPA-safe | localStorage | cookies | Zalecany |
+|------|----------|-------------|---------|----------|
+| `=1` / `=cookies` | ✅ | ❌ | ✅ | **Tak** |
+| `=firefox` | ❌ | ✅ | ✅ | Nie (crashuje SPA) |
 
 ## Bezpieczeństwo
 

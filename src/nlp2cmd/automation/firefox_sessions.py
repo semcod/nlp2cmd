@@ -307,24 +307,37 @@ class FirefoxSessionImporter:
             )
             for row in cursor:
                 host = row["host"]
-                # Playwright expects domain without leading dot for exact match
-                domain = host.lstrip(".")
+                # Preserve leading dot for domain cookies (matches subdomains)
+                # Firefox: ".openrouter.ai" = domain cookie, "openrouter.ai" = host-only
+                # Playwright add_cookies() handles both formats correctly
+                domain = host
 
                 same_site_map = {0: "None", 1: "Lax", 2: "Strict"}
                 same_site = same_site_map.get(row["sameSite"], "None")
+
+                is_secure = bool(row["isSecure"])
+
+                # Chromium rejects SameSite=None without Secure flag
+                if same_site == "None" and not is_secure:
+                    same_site = "Lax"
 
                 cookie = {
                     "name": row["name"],
                     "value": row["value"],
                     "domain": domain,
                     "path": row["path"] or "/",
-                    "secure": bool(row["isSecure"]),
+                    "secure": is_secure,
                     "httpOnly": bool(row["isHttpOnly"]),
                     "sameSite": same_site,
                 }
                 # Only set expires if not a session cookie
                 if row["expiry"] and row["expiry"] > 0:
-                    cookie["expires"] = row["expiry"]
+                    expiry = row["expiry"]
+                    # Firefox Snap stores expiry in milliseconds;
+                    # Playwright expects seconds. Detect and convert.
+                    if expiry > 1e12:
+                        expiry = int(expiry / 1000)
+                    cookie["expires"] = expiry
 
                 cookies.append(cookie)
 
