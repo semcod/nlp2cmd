@@ -2515,6 +2515,7 @@ class PipelineRunner:
 
             variables: dict[str, str] = {}  # stores results from prior steps
             results_log: list[dict] = []
+            _fallback_tried: set[str] = set()  # track fallback attempts to prevent loops
 
             # --- Validation & fallback infrastructure ---
             try:
@@ -2645,7 +2646,13 @@ class PipelineRunner:
                             step_error = str(post_result.message or "")
 
                             # Post-validation failure on critical steps → trigger fallback
-                            if step.action in ("check_session", "extract_key") and fallback_engine:
+                            _fb_key = f"post:{step.action}"
+                            if (
+                                step.action in ("check_session", "extract_key")
+                                and fallback_engine
+                                and _fb_key not in _fallback_tried
+                            ):
+                                _fallback_tried.add(_fb_key)
                                 console.print(
                                     f"  [cyan]🔄 Uruchamiam dynamiczny fallback...[/cyan]"
                                 )
@@ -2712,6 +2719,8 @@ class PipelineRunner:
                     else:
                         console.print(f"  [red]✗[/red] Krok nie przeszedł walidacji")
 
+                    console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
+
                     results_log.append({
                         "step": step_idx + 1, "action": step.action,
                         "status": step_status, "stored": step.store_as,
@@ -2723,6 +2732,17 @@ class PipelineRunner:
                     elapsed_ms = (time.time() - step_start) * 1000
                     console.print(f"  [red]✗[/red] Błąd: {e}")
                     console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
+
+                    # Screenshot on failure for debugging
+                    if step.action in ("click", "extract_key", "check_session"):
+                        try:
+                            dbg_dir = Path.home() / ".nlp2cmd" / "debug"
+                            dbg_dir.mkdir(parents=True, exist_ok=True)
+                            ss_path = dbg_dir / f"fail_{step.action}_{step_idx}.png"
+                            page.screenshot(path=str(ss_path))
+                            console.print(f"  [dim]   📸 Screenshot: {ss_path}[/dim]")
+                        except Exception:
+                            pass
                     results_log.append({
                         "step": step_idx + 1, "action": step.action,
                         "status": "error", "error": str(e),
@@ -2731,7 +2751,9 @@ class PipelineRunner:
 
                     # --- Dynamic fallback on error ---
                     fallback_handled = False
-                    if fallback_engine:
+                    _fb_err_key = f"err:{step.action}"
+                    if fallback_engine and _fb_err_key not in _fallback_tried:
+                        _fallback_tried.add(_fb_err_key)
                         console.print(f"  [cyan]🔄 Uruchamiam dynamiczny fallback...[/cyan]")
                         params_resolved = self._resolve_plan_variables(
                             step.params or {}, variables,
@@ -2829,7 +2851,7 @@ class PipelineRunner:
             # Final summary
             ok_count = sum(1 for r in results_log if r["status"] in ("ok", "ok_retry", "ok_fallback", "fallback_injected"))
             fail_count = sum(1 for r in results_log if r["status"] == "failed")
-            err_count = sum(1 for r in results_log if r["status"] == "error")
+            err_count = sum(1 for r in results_log if r["status"] in ("error", "failed_validation"))
             total_ms = sum(r.get("elapsed_ms", 0) for r in results_log)
 
             console.print(f"\n[bold]📊 Podsumowanie planu:[/bold]")
@@ -3015,6 +3037,9 @@ class PipelineRunner:
             color = params.get("color", "#000000")
             try:
                 page.evaluate(f'''() => {{
+                    // Store a stable color value even if JSPaint internals differ.
+                    window.__nlp2cmd_foreground = '{color}';
+                    window.__nlp2cmd_background = '{color}';
                     if (window.colors) {{
                         window.colors.foreground = '{color}';
                         window.colors.background = '{color}';
@@ -3029,17 +3054,43 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const pickCanvas = () => {{
+                        const all = Array.from(document.querySelectorAll('canvas'));
+                        if (!all.length) return null;
+                        // Prefer explicit main canvas if present.
+                        const main = document.querySelector('.main-canvas');
+                        if (main && main instanceof HTMLCanvasElement) return main;
+                        // Otherwise pick the largest visible canvas.
+                        let best = null;
+                        let bestArea = -1;
+                        for (const c of all) {{
+                            if (!(c instanceof HTMLCanvasElement)) continue;
+                            const r = c.getBoundingClientRect();
+                            if (!r || r.width <= 64 || r.height <= 64) continue;
+                            const style = window.getComputedStyle(c);
+                            if (style && (style.visibility === 'hidden' || style.display === 'none')) continue;
+                            const area = r.width * r.height;
+                            if (area > bestArea) {{
+                                bestArea = area;
+                                best = c;
+                            }}
+                        }}
+                        return best;
+                    }};
+
+                    const canvas = pickCanvas();
+                    if (!canvas) throw new Error('No suitable canvas found');
                     const ctx = canvas.getContext('2d');
-                    if (!ctx) return;
+                    if (!ctx) throw new Error('Canvas 2D context unavailable');
                     const rect = canvas.getBoundingClientRect();
-                    const cx = rect.width / 2 + {offset[0]};
-                    const cy = rect.height / 2 + {offset[1]};
+                    const sx = (canvas.width && rect.width) ? (canvas.width / rect.width) : 1;
+                    const sy = (canvas.height && rect.height) ? (canvas.height / rect.height) : 1;
+                    const cx = (rect.width / 2 + {offset[0]}) * sx;
+                    const cy = (rect.height / 2 + {offset[1]}) * sy;
+                    const r = {radius} * Math.max(sx, sy);
                     ctx.beginPath();
-                    ctx.arc(cx, cy, {radius}, 0, 2 * Math.PI);
-                    if (window.colors && window.colors.foreground) {{
-                        ctx.fillStyle = window.colors.foreground;
-                    }}
+                    ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                    ctx.fillStyle = (window.__nlp2cmd_foreground || (window.colors && window.colors.foreground) || '#000');
                     ctx.fill();
                 }}''')
                 page.wait_for_timeout(200)
@@ -3053,17 +3104,42 @@ class PipelineRunner:
             rotation = float(params.get("rotation", 0))
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const pickCanvas = () => {{
+                        const all = Array.from(document.querySelectorAll('canvas'));
+                        if (!all.length) return null;
+                        const main = document.querySelector('.main-canvas');
+                        if (main && main instanceof HTMLCanvasElement) return main;
+                        let best = null;
+                        let bestArea = -1;
+                        for (const c of all) {{
+                            if (!(c instanceof HTMLCanvasElement)) continue;
+                            const r = c.getBoundingClientRect();
+                            if (!r || r.width <= 64 || r.height <= 64) continue;
+                            const style = window.getComputedStyle(c);
+                            if (style && (style.visibility === 'hidden' || style.display === 'none')) continue;
+                            const area = r.width * r.height;
+                            if (area > bestArea) {{
+                                bestArea = area;
+                                best = c;
+                            }}
+                        }}
+                        return best;
+                    }};
+
+                    const canvas = pickCanvas();
+                    if (!canvas) throw new Error('No suitable canvas found');
                     const ctx = canvas.getContext('2d');
-                    if (!ctx) return;
+                    if (!ctx) throw new Error('Canvas 2D context unavailable');
                     const rect = canvas.getBoundingClientRect();
-                    const cx = rect.width / 2 + {offset[0]};
-                    const cy = rect.height / 2 + {offset[1]};
+                    const sx = (canvas.width && rect.width) ? (canvas.width / rect.width) : 1;
+                    const sy = (canvas.height && rect.height) ? (canvas.height / rect.height) : 1;
+                    const cx = (rect.width / 2 + {offset[0]}) * sx;
+                    const cy = (rect.height / 2 + {offset[1]}) * sy;
+                    const _rx = {rx} * sx;
+                    const _ry = {ry} * sy;
                     ctx.beginPath();
-                    ctx.ellipse(cx, cy, {rx}, {ry}, {rotation}, 0, 2 * Math.PI);
-                    if (window.colors && window.colors.foreground) {{
-                        ctx.fillStyle = window.colors.foreground;
-                    }}
+                    ctx.ellipse(cx, cy, _rx, _ry, {rotation}, 0, 2 * Math.PI);
+                    ctx.fillStyle = (window.__nlp2cmd_foreground || (window.colors && window.colors.foreground) || '#000');
                     ctx.fill();
                 }}''')
                 page.wait_for_timeout(200)
@@ -3075,17 +3151,41 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const pickCanvas = () => {{
+                        const all = Array.from(document.querySelectorAll('canvas'));
+                        if (!all.length) return null;
+                        const main = document.querySelector('.main-canvas');
+                        if (main && main instanceof HTMLCanvasElement) return main;
+                        let best = null;
+                        let bestArea = -1;
+                        for (const c of all) {{
+                            if (!(c instanceof HTMLCanvasElement)) continue;
+                            const r = c.getBoundingClientRect();
+                            if (!r || r.width <= 64 || r.height <= 64) continue;
+                            const style = window.getComputedStyle(c);
+                            if (style && (style.visibility === 'hidden' || style.display === 'none')) continue;
+                            const area = r.width * r.height;
+                            if (area > bestArea) {{
+                                bestArea = area;
+                                best = c;
+                            }}
+                        }}
+                        return best;
+                    }};
+
+                    const canvas = pickCanvas();
+                    if (!canvas) throw new Error('No suitable canvas found');
                     const ctx = canvas.getContext('2d');
-                    if (!ctx) return;
+                    if (!ctx) throw new Error('Canvas 2D context unavailable');
                     const rect = canvas.getBoundingClientRect();
-                    const cx = rect.width / 2 + {offset[0]};
-                    const cy = rect.height / 2 + {offset[1]};
+                    const sx = (canvas.width && rect.width) ? (canvas.width / rect.width) : 1;
+                    const sy = (canvas.height && rect.height) ? (canvas.height / rect.height) : 1;
+                    const cx = (rect.width / 2 + {offset[0]}) * sx;
+                    const cy = (rect.height / 2 + {offset[1]}) * sy;
+                    const r = {radius} * Math.max(sx, sy);
                     ctx.beginPath();
-                    ctx.arc(cx, cy, {radius}, 0, 2 * Math.PI);
-                    if (window.colors && window.colors.foreground) {{
-                        ctx.fillStyle = window.colors.foreground;
-                    }}
+                    ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                    ctx.fillStyle = (window.__nlp2cmd_foreground || (window.colors && window.colors.foreground) || '#000');
                     ctx.fill();
                 }}''')
                 page.wait_for_timeout(200)
@@ -3098,7 +3198,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3123,7 +3223,7 @@ class PipelineRunner:
             try:
                 fill_js = "true" if fill else "false"
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3158,7 +3258,7 @@ class PipelineRunner:
                     fill_js = "true" if fill else "false"
                     pts_js = ",".join(f"[{p[0]},{p[1]}]" for p in points)
                     page.evaluate(f'''() => {{
-                        const canvas = document.querySelector('canvas');
+                        const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                         const ctx = canvas.getContext('2d');
                         if (!ctx) return;
                         const rect = canvas.getBoundingClientRect();
@@ -3198,7 +3298,7 @@ class PipelineRunner:
                     close_js = "true" if close else "false"
                     curves_js = json.dumps(curves)
                     page.evaluate(f'''() => {{
-                        const canvas = document.querySelector('canvas');
+                        const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                         const ctx = canvas.getContext('2d');
                         if (!ctx) return;
                         const rect = canvas.getBoundingClientRect();
@@ -3244,7 +3344,7 @@ class PipelineRunner:
                 try:
                     fill_js = "true" if fill else "false"
                     page.evaluate(f'''() => {{
-                        const canvas = document.querySelector('canvas');
+                        const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                         const ctx = canvas.getContext('2d');
                         if (!ctx) return;
                         const rect = canvas.getBoundingClientRect();
@@ -3274,7 +3374,7 @@ class PipelineRunner:
             width = float(params.get("width", 2))
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (ctx) ctx.lineWidth = {width};
                 }}''')
@@ -3287,7 +3387,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3308,7 +3408,7 @@ class PipelineRunner:
             to = params.get("to_offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3332,7 +3432,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3353,7 +3453,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const rect = canvas.getBoundingClientRect();
                     const cx = rect.width / 2 + {offset[0]};
                     const cy = rect.height / 2 + {offset[1]};
@@ -3380,7 +3480,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const rect = canvas.getBoundingClientRect();
                     const cx = rect.width / 2 + {offset[0]};
                     const cy = rect.height / 2 + {offset[1]};
@@ -3606,7 +3706,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(500)
             except Exception as e:
-                _debug(f"Tool selection error: {e}")
+                raise RuntimeError(f"Tool selection error: {e}")
 
         elif action == "set_color":
             color = params.get("color", "#000000")
@@ -3621,14 +3721,14 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Color set error: {e}")
+                raise RuntimeError(f"Color set error: {e}")
 
         elif action == "draw_circle":
             radius = float(params.get("radius", 10))
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3643,7 +3743,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw circle error: {e}")
+                raise RuntimeError(f"Draw circle error: {e}")
                 
         elif action == "draw_filled_ellipse":
             rx = float(params.get("rx", 10))
@@ -3652,7 +3752,7 @@ class PipelineRunner:
             rotation = float(params.get("rotation", 0))
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3667,14 +3767,14 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw filled ellipse error: {e}")
+                raise RuntimeError(f"Draw filled ellipse error: {e}")
 
         elif action == "draw_filled_circle":
             radius = float(params.get("radius", 10))
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3689,7 +3789,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw filled circle error: {e}")
+                raise RuntimeError(f"Draw filled circle error: {e}")
 
         elif action == "draw_filled_rectangle":
             w = float(params.get("width", 50))
@@ -3697,7 +3797,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3710,7 +3810,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw filled rectangle error: {e}")
+                raise RuntimeError(f"Draw filled rectangle error: {e}")
 
         elif action == "draw_arc":
             radius = float(params.get("radius", 50))
@@ -3722,7 +3822,7 @@ class PipelineRunner:
             try:
                 fill_js = "true" if fill else "false"
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3745,7 +3845,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw arc error: {e}")
+                raise RuntimeError(f"Draw arc error: {e}")
 
         elif action == "draw_polygon":
             points = params.get("points", [])
@@ -3757,7 +3857,7 @@ class PipelineRunner:
                     fill_js = "true" if fill else "false"
                     pts_js = ",".join(f"[{p[0]},{p[1]}]" for p in points)
                     page.evaluate(f'''() => {{
-                        const canvas = document.querySelector('canvas');
+                        const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                         const ctx = canvas.getContext('2d');
                         if (!ctx) return;
                         const rect = canvas.getBoundingClientRect();
@@ -3783,7 +3883,7 @@ class PipelineRunner:
                     }}''')
                     page.wait_for_timeout(200)
                 except Exception as e:
-                    _debug(f"Draw polygon error: {e}")
+                    raise RuntimeError(f"Draw polygon error: {e}")
 
         elif action == "draw_bezier":
             curves = params.get("curves", [])
@@ -3797,7 +3897,7 @@ class PipelineRunner:
                     close_js = "true" if close else "false"
                     curves_js = json.dumps(curves)
                     page.evaluate(f'''() => {{
-                        const canvas = document.querySelector('canvas');
+                        const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                         const ctx = canvas.getContext('2d');
                         if (!ctx) return;
                         const rect = canvas.getBoundingClientRect();
@@ -3831,7 +3931,7 @@ class PipelineRunner:
                     }}''')
                     page.wait_for_timeout(200)
                 except Exception as e:
-                    _debug(f"Draw bezier error: {e}")
+                    raise RuntimeError(f"Draw bezier error: {e}")
 
         elif action == "draw_svg_path":
             path_d = params.get("d", "")
@@ -3843,7 +3943,7 @@ class PipelineRunner:
                 try:
                     fill_js = "true" if fill else "false"
                     page.evaluate(f'''() => {{
-                        const canvas = document.querySelector('canvas');
+                        const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                         const ctx = canvas.getContext('2d');
                         if (!ctx) return;
                         const rect = canvas.getBoundingClientRect();
@@ -3867,18 +3967,18 @@ class PipelineRunner:
                     }}''')
                     page.wait_for_timeout(200)
                 except Exception as e:
-                    _debug(f"Draw SVG path error: {e}")
+                    raise RuntimeError(f"Draw SVG path error: {e}")
 
         elif action == "set_line_width":
             width = float(params.get("width", 2))
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (ctx) ctx.lineWidth = {width};
                 }}''')
             except Exception as e:
-                _debug(f"Set line width error: {e}")
+                raise RuntimeError(f"Set line width error: {e}")
 
         elif action == "draw_rectangle":
             w = float(params.get("width", 50))
@@ -3886,7 +3986,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3900,14 +4000,14 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw rectangle error: {e}")
+                raise RuntimeError(f"Draw rectangle error: {e}")
 
         elif action == "draw_line":
             fo = params.get("from_offset", [0, 0])
             to = params.get("to_offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3923,7 +4023,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw line error: {e}")
+                raise RuntimeError(f"Draw line error: {e}")
 
         elif action == "draw_ellipse":
             rx = float(params.get("rx", 10))
@@ -3931,7 +4031,7 @@ class PipelineRunner:
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
@@ -3946,14 +4046,14 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw ellipse error: {e}")
+                raise RuntimeError(f"Draw ellipse error: {e}")
                 
         elif action == "fill_at":
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
                     // JSPaint doesn't expose fill easily via context, best we can do is dispatch click
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const rect = canvas.getBoundingClientRect();
                     const cx = rect.width / 2 + {offset[0]};
                     const cy = rect.height / 2 + {offset[1]};
@@ -3974,13 +4074,13 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Fill at error: {e}")
+                raise RuntimeError(f"Fill at error: {e}")
 
         elif action == "click_canvas":
             offset = params.get("offset", [0, 0])
             try:
                 page.evaluate(f'''() => {{
-                    const canvas = document.querySelector('canvas');
+                    const canvas = (document.querySelector('.main-canvas') || document.querySelector('canvas'));
                     const rect = canvas.getBoundingClientRect();
                     const cx = rect.width / 2 + {offset[0]};
                     const cy = rect.height / 2 + {offset[1]};
@@ -4001,7 +4101,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Click canvas error: {e}")
+                raise RuntimeError(f"Click canvas error: {e}")
 
         elif action == "wait":
             ms = int(params.get("ms", 1000))
