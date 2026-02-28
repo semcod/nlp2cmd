@@ -101,25 +101,27 @@ class TestDetectDesktopBackend:
 
 class TestActionPlannerFirefoxTab:
     def test_existing_firefox_query_forces_playwright(self):
-        """API-key workflows force Playwright even with existing Firefox,
-        because check_session/click/type_text need DOM access."""
+        """Existing Firefox query should open a new tab in real Firefox.
+
+        For extract/copy workflows we do not force Playwright/Chromium.
+        """
         planner = ActionPlanner()
         plan = planner.decompose_sync(
             "otwórz tab w już otwartym oknie przeglądarki firefox "
             "wyciągnij klucz API z OpenRouter i zapisz do .env"
         )
         actions = [s.action for s in plan.steps]
-        # Playwright path: navigate, not open_firefox_tab
-        assert "navigate" in actions
-        assert "open_firefox_tab" not in actions
+        assert "open_firefox_tab" in actions
+        assert "desktop_wait" in actions
+        assert "navigate" not in actions
         assert "prompt_secret" in actions
         assert "save_env" in actions
-        # No desktop interaction steps at all
+        # Desktop interaction steps must exist
         desktop_steps = [
             s for s in plan.steps
             if s.action.startswith("desktop_") or s.action == "open_firefox_tab"
         ]
-        assert len(desktop_steps) == 0
+        assert len(desktop_steps) >= 2
 
     def test_non_firefox_query_uses_navigate(self):
         planner = ActionPlanner()

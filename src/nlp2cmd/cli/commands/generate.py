@@ -516,6 +516,19 @@ def _execute_multi_step_with_video(
                         page.goto(url, wait_until='networkidle')
                         page.wait_for_timeout(1000)
 
+                    elif action == 'wait':
+                        ms = params.get('ms', 1000)
+                        try:
+                            ms = int(ms)
+                        except Exception:
+                            ms = 1000
+                        page.wait_for_timeout(ms)
+
+                    elif action == 'echo':
+                        msg = str(params.get('text', '') or params.get('message', '') or '')
+                        if msg:
+                            console.print(f"    [dim]{msg}[/dim]")
+
                     elif action == 'wait_for_canvas':
                         try:
                             page.wait_for_selector('canvas', timeout=5000)
@@ -665,6 +678,25 @@ def _execute_multi_step_with_video(
                         if text:
                             page.keyboard.type(text, delay=30)
                         page.wait_for_timeout(200)
+
+                    elif action == 'echo':
+                        text = params.get('text', params.get('message', ''))
+                        if text:
+                            console.print(f"    [cyan]{text}[/cyan]")
+
+                    elif action in ('draw_ellipse', 'draw_rectangle'):
+                        rx = params.get('rx', params.get('width', 100) // 2)
+                        ry = params.get('ry', params.get('height', 80) // 2)
+                        offset = params.get('offset', [0, 0])
+                        x = canvas_center['x'] + offset[0]
+                        y = canvas_center['y'] + offset[1]
+                        console.print(f"    Drawing {action} at ({x}, {y}) rx={rx}, ry={ry}")
+                        page.mouse.move(x - rx, y - ry)
+                        page.mouse.down()
+                        page.wait_for_timeout(50)
+                        page.mouse.move(x + rx, y + ry, steps=5)
+                        page.mouse.up()
+                        page.wait_for_timeout(300)
 
                     elif action == 'wait':
                         ms = params.get('ms', 1000)
