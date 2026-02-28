@@ -362,6 +362,144 @@ def _execute_multi_step_with_video(
 
             screenshot_path = None
             canvas_center = {"x": 640, "y": 360}  # Default center
+            current_color = "#000000"  # Track foreground color for canvas API fallbacks
+
+            # ── JS helpers for jspaint.app interaction ──
+
+            def _js_set_color(color_hex: str) -> str:
+                """Click matching palette swatch in jspaint. Left-click = foreground."""
+                return f"""
+                () => {{
+                    const target = '{color_hex}'.toUpperCase();
+                    const tr = parseInt(target.slice(1,3), 16);
+                    const tg = parseInt(target.slice(3,5), 16);
+                    const tb = parseInt(target.slice(5,7), 16);
+
+                    // Method 1: click matching swatch in palette
+                    const swatches = document.querySelectorAll('.color-button');
+                    for (const s of swatches) {{
+                        const bg = getComputedStyle(s).backgroundColor;
+                        const m = bg.match(/rgb\\((\\d+),\\s*(\\d+),\\s*(\\d+)\\)/);
+                        if (m) {{
+                            const r = +m[1], g = +m[2], b = +m[3];
+                            if (Math.abs(r - tr) < 10 && Math.abs(g - tg) < 10 && Math.abs(b - tb) < 10) {{
+                                s.click();
+                                return 'palette: rgb(' + r + ',' + g + ',' + b + ')';
+                            }}
+                        }}
+                    }}
+
+                    // Method 2: jspaint internal API
+                    if (typeof selected_colors !== 'undefined') {{
+                        selected_colors.foreground = target;
+                        return 'api: ' + target;
+                    }}
+
+                    // Method 3: Edit Colors dialog — open, set, close
+                    // (too complex, skip for now)
+
+                    return 'not_found';
+                }}
+                """
+
+            def _js_select_tool(tool_name: str) -> str:
+                """Select a tool in jspaint by matching its title attribute."""
+                tool_title_map = {
+                    'ellipse': 'Ellipse', 'circle': 'Ellipse', 'oval': 'Ellipse',
+                    'rectangle': 'Rectangle', 'rect': 'Rectangle',
+                    'rounded_rectangle': 'Rounded Rectangle',
+                    'line': 'Line', 'curve': 'Curve',
+                    'brush': 'Brush', 'pencil': 'Pencil',
+                    'fill': 'Fill', 'eraser': 'Eraser',
+                    'text': 'Text', 'select': 'Select',
+                    'airbrush': 'Airbrush', 'polygon': 'Polygon',
+                    'pick_color': 'Pick Color', 'magnifier': 'Magnifier',
+                    'free_select': 'Free-Form Select',
+                }
+                title_part = tool_title_map.get(tool_name.lower(), tool_name)
+                return f"""
+                () => {{
+                    const tools = document.querySelectorAll('.tool');
+                    for (const t of tools) {{
+                        if (t.title && t.title.includes('{title_part}')) {{
+                            t.click();
+                            return 'selected: ' + t.title;
+                        }}
+                    }}
+                    return 'not_found: {tool_name}';
+                }}
+                """
+
+            def _js_draw_filled_circle(cx: float, cy: float, radius: float, color: str) -> str:
+                """Draw a filled circle directly on the jspaint canvas via Canvas 2D API."""
+                return f"""
+                () => {{
+                    const canvas = document.querySelector('canvas');
+                    if (!canvas) return 'no_canvas';
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    const ctx = canvas.getContext('2d');
+                    const pcx = ({cx} - rect.left) * scaleX;
+                    const pcy = ({cy} - rect.top) * scaleY;
+                    const pr = {radius} * Math.min(scaleX, scaleY);
+                    ctx.save();
+                    ctx.fillStyle = '{color}';
+                    ctx.beginPath();
+                    ctx.arc(pcx, pcy, pr, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                    return 'filled_circle_at(' + Math.round(pcx) + ',' + Math.round(pcy) + ')';
+                }}
+                """
+
+            def _js_draw_filled_ellipse(cx: float, cy: float, rx: float, ry: float, color: str) -> str:
+                """Draw a filled ellipse directly on the jspaint canvas via Canvas 2D API."""
+                return f"""
+                () => {{
+                    const canvas = document.querySelector('canvas');
+                    if (!canvas) return 'no_canvas';
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    const ctx = canvas.getContext('2d');
+                    const pcx = ({cx} - rect.left) * scaleX;
+                    const pcy = ({cy} - rect.top) * scaleY;
+                    const prx = {rx} * scaleX;
+                    const pry = {ry} * scaleY;
+                    ctx.save();
+                    ctx.fillStyle = '{color}';
+                    ctx.beginPath();
+                    ctx.ellipse(pcx, pcy, prx, pry, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                    return 'filled_ellipse';
+                }}
+                """
+
+            def _js_draw_line(x1: float, y1: float, x2: float, y2: float, color: str, width: int = 2) -> str:
+                """Draw a line directly on the jspaint canvas via Canvas 2D API."""
+                return f"""
+                () => {{
+                    const canvas = document.querySelector('canvas');
+                    if (!canvas) return 'no_canvas';
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.save();
+                    ctx.strokeStyle = '{color}';
+                    ctx.lineWidth = {width};
+                    ctx.beginPath();
+                    ctx.moveTo(({x1} - rect.left) * scaleX, ({y1} - rect.top) * scaleY);
+                    ctx.lineTo(({x2} - rect.left) * scaleX, ({y2} - rect.top) * scaleY);
+                    ctx.stroke();
+                    ctx.restore();
+                    return 'line_drawn';
+                }}
+                """
+
+            # ── Step execution loop ──
 
             for i, step in enumerate(steps, 1):
                 action = getattr(step, 'action', '')
@@ -379,15 +517,13 @@ def _execute_multi_step_with_video(
                         page.wait_for_timeout(1000)
 
                     elif action == 'wait_for_canvas':
-                        # Wait for canvas element
                         try:
                             page.wait_for_selector('canvas', timeout=5000)
-                        except:
+                        except Exception:
                             pass
                         page.wait_for_timeout(1000)
 
                     elif action == 'get_canvas_center':
-                        # Get canvas center for drawing
                         try:
                             canvas = page.locator('canvas').first
                             if canvas.is_visible():
@@ -402,216 +538,119 @@ def _execute_multi_step_with_video(
                     elif action == 'select_tool':
                         tool = params.get('tool', '')
                         console.print(f"    Selecting tool: {tool}")
-                        # Try to select tool in jspaint - use JavaScript to click on toolbar tools
                         try:
-                            if tool in ['ellipse', 'circle']:
-                                # jspaint uses toolbar with tool icons - try multiple selectors
-                                # The oval tool is typically the 6th tool in the toolbar
-                                js_select_oval = """
-                                () => {
-                                    // Try to find and click the oval/ellipse tool
-                                    const tools = document.querySelectorAll('.tool, [data-tool], .jspaint-tool, button[title*="oval"], button[title*="ellipse"], button[title*="circle"]');
-                                    for (let t of tools) {
-                                        const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
-                                        if (title.includes('oval') || title.includes('ellipse') || title.includes('circle')) {
-                                            t.click();
-                                            return 'oval tool clicked';
-                                        }
-                                    }
-                                    // Fallback: try to find by icon or position in toolbar
-                                    const allTools = document.querySelectorAll('.tool, button');
-                                    if (allTools.length > 5) {
-                                        allTools[5].click(); // Oval is usually 6th tool
-                                        return 'oval tool clicked (position fallback)';
-                                    }
-                                    return 'no oval tool found';
-                                }
-                                """
-                                result = page.evaluate(js_select_oval)
-                                console.print(f"      {result}")
-                                page.wait_for_timeout(500)
-                                
-                                # Also try to enable fill mode for filled ellipse
-                                js_enable_fill = """
-                                () => {
-                                    // Look for fill option or transparent/filled toggle
-                                    const fillOptions = document.querySelectorAll('[title*="fill"], [title*="Fill"], button[aria-label*="fill"]');
-                                    for (let f of fillOptions) {
-                                        f.click();
-                                        return 'fill enabled';
-                                    }
-                                    return 'no fill option found';
-                                }
-                                """
-                                page.evaluate(js_enable_fill)
-                                
-                            elif tool == 'brush':
-                                js_select_brush = """
-                                () => {
-                                    const tools = document.querySelectorAll('.tool, [data-tool], button');
-                                    for (let t of tools) {
-                                        const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
-                                        if (title.includes('brush') || title.includes('pencil') || title.includes('paint')) {
-                                            t.click();
-                                            return 'brush tool clicked';
-                                        }
-                                    }
-                                    // Fallback: brush is usually 2nd tool
-                                    const allTools = document.querySelectorAll('.tool, button');
-                                    if (allTools.length > 1) {
-                                        allTools[1].click();
-                                        return 'brush tool clicked (position fallback)';
-                                    }
-                                    return 'no brush tool found';
-                                }
-                                """
-                                result = page.evaluate(js_select_brush)
-                                console.print(f"      {result}")
+                            result = page.evaluate(_js_select_tool(tool))
+                            console.print(f"      {result}")
                         except Exception as e:
                             console.print(f"      [yellow]Tool selection warning: {e}[/yellow]")
-                        page.wait_for_timeout(500)
+                        page.wait_for_timeout(300)
 
                     elif action == 'set_color':
                         color = params.get('color', '#000000')
+                        current_color = color
                         console.print(f"    Setting color: {color}")
-                        page.wait_for_timeout(300)
+                        try:
+                            result = page.evaluate(_js_set_color(color))
+                            console.print(f"      {result}")
+                        except Exception as e:
+                            console.print(f"      [yellow]Color setting warning: {e}[/yellow]")
+                        page.wait_for_timeout(200)
 
                     elif action == 'draw_filled_ellipse':
                         rx = params.get('rx', 50)
                         ry = params.get('ry', 50)
-                        relative = params.get('relative_to', '')
-
                         x = canvas_center['x']
                         y = canvas_center['y']
-
                         console.print(f"    Drawing filled ellipse at ({x}, {y}) rx={rx}, ry={ry}")
 
-                        # For jspaint: drag from top-left to bottom-right to draw ellipse
-                        # First ensure oval tool is selected with fill enabled
-                        try:
-                            js_ensure_oval = """
-                            () => {
-                                // Select oval tool if not already selected
-                                const tools = document.querySelectorAll('.tool, button');
-                                for (let t of tools) {
-                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
-                                    if (title.includes('oval') || title.includes('ellipse')) {
-                                        if (!t.classList.contains('selected')) {
-                                            t.click();
-                                        }
-                                        return 'oval ready';
-                                    }
-                                }
-                                return 'oval not found';
-                            }
-                            """
-                            page.evaluate(js_ensure_oval)
-                        except:
-                            pass
-                        
+                        # 1) Select ellipse tool
+                        page.evaluate(_js_select_tool('ellipse'))
                         page.wait_for_timeout(200)
-                        
-                        # Draw ellipse by dragging from corner to corner
-                        start_x = x - rx
-                        start_y = y - ry
-                        end_x = x + rx
-                        end_y = y + ry
-                        
-                        # Move to start, drag to end
-                        page.mouse.move(start_x, start_y)
+
+                        # 2) Draw outline via mouse drag
+                        page.mouse.move(x - rx, y - ry)
                         page.mouse.down()
-                        page.wait_for_timeout(100)  # Small delay for jspaint to register
-                        page.mouse.move(end_x, end_y)
-                        page.mouse.up()
-                        page.wait_for_timeout(500)
-
-                    elif action == 'draw_circle':
-                        radius = params.get('radius', 10)
-                        offset = params.get('offset', [0, 0])
-
-                        x = canvas_center['x'] + offset[0]
-                        y = canvas_center['y'] + offset[1]
-
-                        console.print(f"    Drawing circle at ({x}, {y}) radius={radius}")
-
-                        # For jspaint circles: use brush tool with single click or small drag
-                        # First ensure brush tool is selected
-                        try:
-                            js_ensure_brush = """
-                            () => {
-                                const tools = document.querySelectorAll('.tool, button');
-                                for (let t of tools) {
-                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
-                                    if (title.includes('brush') || title.includes('pencil')) {
-                                        if (!t.classList.contains('selected')) {
-                                            t.click();
-                                        }
-                                        return 'brush ready';
-                                    }
-                                }
-                                return 'brush not found';
-                            }
-                            """
-                            page.evaluate(js_ensure_brush)
-                        except:
-                            pass
-                        
-                        page.wait_for_timeout(200)
-                        
-                        # For jspaint: use filled circle tool if available, or draw small filled ellipse
-                        # Try to select circle tool temporarily
-                        try:
-                            js_select_circle = """
-                            () => {
-                                const tools = document.querySelectorAll('.tool, button');
-                                for (let t of tools) {
-                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
-                                    if (title.includes('circle') && !title.includes('ellipse')) {
-                                        t.click();
-                                        return 'circle tool selected';
-                                    }
-                                }
-                                // Fallback: use oval tool
-                                for (let t of tools) {
-                                    const title = (t.title || t.getAttribute('aria-label') || '').toLowerCase();
-                                    if (title.includes('oval') || title.includes('ellipse')) {
-                                        t.click();
-                                        return 'oval tool for circle';
-                                    }
-                                }
-                                return 'using brush';
-                            }
-                            """
-                            page.evaluate(js_select_circle)
-                        except:
-                            pass
-                        
-                        page.wait_for_timeout(200)
-                        
-                        # Draw circle by dragging (for filled circle) or single click for brush dot
-                        page.mouse.move(x - radius, y - radius)
-                        page.mouse.down()
-                        page.wait_for_timeout(100)
-                        page.mouse.move(x + radius, y + radius)
+                        page.wait_for_timeout(50)
+                        page.mouse.move(x + rx, y + ry, steps=5)
                         page.mouse.up()
                         page.wait_for_timeout(300)
+
+                        # 3) Fill interior via canvas API (reliable for any color)
+                        result = page.evaluate(_js_draw_filled_ellipse(x, y, rx, ry, current_color))
+                        console.print(f"      fill: {result}")
+
+                        # 4) Re-draw outline on top so border is visible
+                        page.evaluate(_js_select_tool('ellipse'))
+                        page.wait_for_timeout(200)
+                        page.mouse.move(x - rx, y - ry)
+                        page.mouse.down()
+                        page.wait_for_timeout(50)
+                        page.mouse.move(x + rx, y + ry, steps=5)
+                        page.mouse.up()
+                        page.wait_for_timeout(300)
+
+                    elif action in ('draw_circle', 'draw_filled_circle'):
+                        radius = params.get('radius', 10)
+                        offset = params.get('offset', [0, 0])
+                        x = canvas_center['x'] + offset[0]
+                        y = canvas_center['y'] + offset[1]
+                        console.print(f"    Drawing {'filled ' if 'filled' in action else ''}circle at ({x}, {y}) radius={radius}")
+
+                        # Draw filled circle via canvas API — precise and works with any color
+                        result = page.evaluate(_js_draw_filled_circle(x, y, radius, current_color))
+                        console.print(f"      {result}")
+                        page.wait_for_timeout(150)
 
                     elif action == 'draw_line':
                         from_offset = params.get('from_offset', [0, 0])
                         to_offset = params.get('to_offset', [0, 0])
-
                         x1 = canvas_center['x'] + from_offset[0]
                         y1 = canvas_center['y'] + from_offset[1]
                         x2 = canvas_center['x'] + to_offset[0]
                         y2 = canvas_center['y'] + to_offset[1]
-
                         console.print(f"    Drawing line from ({x1}, {y1}) to ({x2}, {y2})")
 
+                        # Draw line via canvas API for precision
+                        result = page.evaluate(_js_draw_line(x1, y1, x2, y2, current_color, 2))
+                        console.print(f"      {result}")
+
+                        # Also do mouse drag for visual effect in video recording
+                        page.evaluate(_js_select_tool('line'))
+                        page.wait_for_timeout(200)
                         page.mouse.move(x1, y1)
                         page.mouse.down()
                         page.mouse.move(x2, y2, steps=10)
                         page.mouse.up()
                         page.wait_for_timeout(300)
+
+                    elif action == 'fill_at':
+                        offset = params.get('offset', [0, 0])
+                        x = canvas_center['x'] + offset[0]
+                        y = canvas_center['y'] + offset[1]
+                        console.print(f"    Fill at ({x}, {y}) with {current_color}")
+
+                        # Select fill tool and click at position
+                        page.evaluate(_js_select_tool('fill'))
+                        page.wait_for_timeout(200)
+                        page.mouse.click(x, y)
+                        page.wait_for_timeout(300)
+
+                    elif action == 'click_canvas':
+                        offset = params.get('offset', [0, 0])
+                        x = canvas_center['x'] + offset[0]
+                        y = canvas_center['y'] + offset[1]
+                        page.mouse.click(x, y)
+                        page.wait_for_timeout(200)
+
+                    elif action == 'type_text':
+                        text = params.get('text', '')
+                        if text:
+                            page.keyboard.type(text, delay=30)
+                        page.wait_for_timeout(200)
+
+                    elif action == 'wait':
+                        ms = params.get('ms', 1000)
+                        page.wait_for_timeout(ms)
 
                     elif action == 'screenshot':
                         suffix = params.get('suffix', 'final')
