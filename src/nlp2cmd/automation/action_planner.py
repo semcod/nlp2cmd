@@ -28,6 +28,16 @@ from typing import Any, Optional
 
 log = logging.getLogger("nlp2cmd.action_planner")
 
+# Optional vector store for semantic drawing pattern search
+try:
+    from nlp2cmd.automation.vector_store import get_vector_store
+    _VECTOR_STORE_AVAILABLE = True
+except ImportError:
+    _VECTOR_STORE_AVAILABLE = False
+
+    def get_vector_store(*a, **kw):  # type: ignore[misc]
+        return None
+
 
 # ---------------------------------------------------------------------------
 # Data classes
@@ -1385,7 +1395,8 @@ class ActionPlanner:
         except Exception as e:
             log.warning("Vector DB search failed: %s", e)
             return None
-def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
+
+    def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
         """Rule-based decomposition for 'open N tabs' pattern."""
         text = query.lower()
         multi_tab = re.search(

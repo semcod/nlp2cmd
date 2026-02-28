@@ -1176,12 +1176,17 @@ nlp2cmd provides comprehensive tools for analyzing decision-making process:
 
 ### Decision Tree Example
 
-![img_6.png](img_6.png)
-
 ```bash
 nlp2cmd -q "wejdź na jspaint.app i narysuj zająca" --record-session recordings/rabbit.webm --execute-web
 ```
 ![img_7.png](img_7.png)
+
+
+
+### Analiza drzewa decyzyjnego i schematów
+
+![img_8.png](img_8.png)
+
 
 ```bash
 $ nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
@@ -1213,11 +1218,6 @@ $ nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
 - Generated: {"dsl": "dom_dql.v1", "action": "goto", "url": "jspaint.app", "params": {}}
 - Final Confidence: 0.96
 ```
-
-
-### Analiza drzewa decyzyjnego i schematów
-
-![img_8.png](img_8.png)
 
 nlp2cmd udostępnia flagi do analizy procesu decyzyjnego:
 
