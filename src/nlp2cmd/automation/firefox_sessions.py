@@ -245,6 +245,42 @@ class FirefoxSessionImporter:
                     pass
 
     # ------------------------------------------------------------------
+    # Safe SQLite reading (handles WAL locks from running Firefox)
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _open_sqlite_safe(db_path: Path) -> sqlite3.Connection:
+        """Open a SQLite DB that may be WAL-locked by a running Firefox.
+
+        Copies the DB + WAL/SHM files to a temp directory first,
+        then opens the copy. This avoids 'database is locked' errors.
+        """
+        import tempfile
+
+        tmp_dir = Path(tempfile.mkdtemp(prefix="nlp2cmd_ff_"))
+        tmp_db = tmp_dir / db_path.name
+
+        # Copy the main DB file
+        shutil.copy2(str(db_path), str(tmp_db))
+
+        # Also copy WAL and SHM if they exist (needed for pending writes)
+        for suffix in ("-wal", "-shm"):
+            wal = db_path.parent / (db_path.name + suffix)
+            if wal.exists():
+                try:
+                    shutil.copy2(str(wal), str(tmp_dir / wal.name))
+                except Exception:
+                    pass
+
+        conn = sqlite3.connect(str(tmp_db))
+        # Checkpoint WAL into main DB so we get the latest data
+        try:
+            conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        except Exception:
+            pass
+        conn.row_factory = sqlite3.Row
+        return conn
+
+    # ------------------------------------------------------------------
     # Cookie export (for Chromium target)
     # ------------------------------------------------------------------
     def export_cookies_for_chromium(
@@ -255,14 +291,16 @@ class FirefoxSessionImporter:
 
         These can be injected into a Chromium context via
         context.add_cookies(cookies).
+
+        Handles locked databases (when Firefox is running) by copying
+        the DB to a temp directory first.
         """
         if not firefox_cookies_db.exists():
             return []
 
         cookies = []
         try:
-            conn = sqlite3.connect(str(firefox_cookies_db))
-            conn.row_factory = sqlite3.Row
+            conn = self._open_sqlite_safe(firefox_cookies_db)
             cursor = conn.execute(
                 "SELECT host, name, value, path, expiry, isSecure, isHttpOnly, "
                 "sameSite FROM moz_cookies"
@@ -401,11 +439,11 @@ class FirefoxSessionImporter:
                     "size": f.stat().st_size if f.exists() else 0,
                 }
 
-            # Count cookies
+            # Count cookies (use safe reader to handle WAL locks)
             cookies_db = source / "cookies.sqlite"
             if cookies_db.exists():
                 try:
-                    conn = sqlite3.connect(str(cookies_db))
+                    conn = self._open_sqlite_safe(cookies_db)
                     count = conn.execute("SELECT COUNT(*) FROM moz_cookies").fetchone()[0]
                     domains = [
                         row[0] for row in conn.execute(

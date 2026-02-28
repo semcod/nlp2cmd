@@ -436,12 +436,13 @@ class VideoRecorder:
             self.is_recording = False
             return None
     
-    def stop_recording(self, console: Optional[Any] = None) -> Optional[str]:
+    def stop_recording(self, console: Optional[Any] = None, saved_path: Optional[str] = None) -> Optional[str]:
         """
         Stop recording and return video path.
         
         Args:
             console: Optional console for output
+            saved_path: Actual path returned by Playwright save (if known)
             
         Returns:
             Path to saved video or None
@@ -450,6 +451,8 @@ class VideoRecorder:
             return None
             
         try:
+            if saved_path:
+                self.video_path = str(saved_path)
             if console and self.video_path:
                 console.print(f"[green]🎥 Nagranie zapisane: {self.video_path}[/green]")
             return self.video_path

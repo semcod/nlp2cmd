@@ -35,6 +35,19 @@ except Exception:  # pragma: no cover
     FormDataLoader = None  # type: ignore
 
 
+def _run_doctor_fallback(*, only_output: bool = False) -> bool:
+    """Run doctor --fix as a best-effort fallback. Returns True when no critical errors remain."""
+    try:
+        from nlp2cmd.cli.commands.doctor import run_doctor
+        if not only_output:
+            console.print("[yellow]🔧 Uruchamiam fallback: nlp2cmd doctor --fix[/yellow]")
+        return bool(run_doctor(auto_fix=True, output_json=False))
+    except Exception as e:
+        if not only_output:
+            console.print(f"[yellow]Doctor fallback failed: {e}[/yellow]")
+        return False
+
+
 def handle_run_mode(
     query: str,
     dsl: str,
@@ -358,6 +371,23 @@ def handle_run_mode(
                         video_fmt=video_fmt,
                         video_dir=None,  # Or use a default like "./recordings"
                     )
+
+                    if (not plan_res.success) and auto_repair:
+                        repaired = _run_doctor_fallback(only_output=only_output)
+                        if repaired:
+                            if not only_output:
+                                print_yaml_block(
+                                    {"status": "doctor_retrying_multistep_plan"},
+                                    console=console,
+                                )
+                            plan_res = pw_runner.execute_action_plan(
+                                result.action_plan,
+                                dry_run=False,
+                                confirm=bool(auto_confirm),
+                                video_fmt=video_fmt,
+                                video_dir=None,
+                            )
+
                     if not only_output:
                         print_yaml_block(
                             {
@@ -720,6 +750,22 @@ def handle_run_mode(
                     return
 
                 pw_result = pw_runner.run(ir, dry_run=False, confirm=True)
+
+            if (not pw_result.success) and auto_repair:
+                repaired = _run_doctor_fallback(only_output=only_output)
+                if repaired:
+                    if not only_output:
+                        print_yaml_block(
+                            {"status": "doctor_retrying_browser_automation"},
+                            console=console,
+                        )
+                    pw_result = pw_runner.run(
+                        ir,
+                        dry_run=False,
+                        confirm=auto_confirm,
+                        video_fmt=video_fmt,
+                        video_dir="./recordings",
+                    )
 
             if pw_result.success:
                 if not only_output:

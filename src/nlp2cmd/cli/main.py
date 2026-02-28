@@ -474,6 +474,29 @@ def main(
             else:
                 result = router.query(source_uri, query)
 
+            # Automatic fallback path: when stream execution fails, run Doctor and retry once.
+            # This is especially useful for VNC/noVNC mismatch errors.
+            if run and result.error:
+                retry_source = None
+                err_lower = str(result.error).lower()
+                if source_uri.startswith("vnc://") and (
+                    "not connected via novnc" in err_lower or "use novnc:// scheme" in err_lower
+                ):
+                    retry_source = "novnc://" + source_uri[len("vnc://"):]
+                    console.print(f"[yellow]↻ Stream retry with corrected scheme: {retry_source}[/yellow]")
+                    result = router.execute(retry_source, query)
+                    source_uri = retry_source
+
+                if result.error:
+                    try:
+                        from nlp2cmd.cli.commands.doctor import run_doctor
+                        console.print("[yellow]🔧 Uruchamiam fallback: nlp2cmd doctor --fix[/yellow]")
+                        run_doctor(auto_fix=True, output_json=False)
+                        console.print("[yellow]↻ Ponawiam zadanie po Doctor...[/yellow]")
+                        result = router.execute(source_uri, query)
+                    except Exception as doc_err:
+                        console.print(f"[yellow]Doctor fallback failed: {doc_err}[/yellow]")
+
             if result.output:
                 console.print(result.output)
             if result.error:

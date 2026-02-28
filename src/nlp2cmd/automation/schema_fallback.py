@@ -163,6 +163,19 @@ class SchemaFallback:
             svc = ctx.service_config
             create_cfg = svc.get("create_key", {})
             if create_cfg and create_cfg.get("button_selector"):
+                btn_selector = create_cfg["button_selector"]
+                # Extract text from selector for text-based click (more SPA-safe)
+                # e.g. "button:has-text('Create')" → text="Create"
+                btn_text = None
+                if "has-text(" in btn_selector:
+                    m = re.search(r"has-text\(['\"](.+?)['\"]\)", btn_selector)
+                    if m:
+                        btn_text = m.group(1)
+                click_params: dict[str, Any] = {"timeout": 15000, "retries": 3}
+                if btn_text:
+                    click_params["text"] = btn_text
+                else:
+                    click_params["selector"] = btn_selector
                 return FallbackResult(
                     success=True,
                     strategy="rule_based",
@@ -172,10 +185,9 @@ class SchemaFallback:
                             "🔑 Nie znaleziono istniejącego klucza.\n"
                             "   Próbuję utworzyć nowy klucz API..."
                         )}},
-                        {"action": "click", "params": {
-                            "selector": create_cfg["button_selector"],
-                        }},
                         {"action": "wait", "params": {"ms": 2000}},
+                        {"action": "click", "params": click_params},
+                        {"action": "wait", "params": {"ms": 3000}},
                         {"action": "extract_key", "params": ctx.failed_params},
                     ],
                 )

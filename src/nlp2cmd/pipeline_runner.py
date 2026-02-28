@@ -1790,12 +1790,19 @@ class PipelineRunner:
                         if pw_video:
                             # Playwright auto-saves .webm; save_as copies to our target
                             target = video_recorder.video_path or str(Path(_effective_video_dir) / "browser_automation.webm")
-                            pw_video.save_as(target)
-                            video_saved_path = target
-                            console.print(f"[green]🎥 Video saved: {target}[/green]")
+                            try:
+                                pw_video.save_as(target)
+                                video_saved_path = target
+                            except Exception:
+                                try:
+                                    video_saved_path = pw_video.path()
+                                except Exception:
+                                    video_saved_path = None
+                            if video_saved_path:
+                                console.print(f"[green]🎥 Video saved: {video_saved_path}[/green]")
                     except Exception as ve:
                         _debug(f"Video save_as failed: {ve}")
-                    video_recorder.stop_recording(console)
+                    video_recorder.stop_recording(console, saved_path=video_saved_path)
                 
                 browser.close()
                 
@@ -2369,7 +2376,7 @@ class PipelineRunner:
                 result_data = {"steps": results_log, "variables": variables, "mode": "desktop"}
 
                 return RunnerResult(
-                    success=(not plan_aborted and all(r["status"] != "failed" for r in results_log)),
+                    success=(not plan_aborted and all(r["status"] not in ("failed", "error") for r in results_log)),
                     kind="action_plan",
                     data=result_data,
                 )
@@ -2439,37 +2446,70 @@ class PipelineRunner:
             _pw_browser = "chromium"
 
         with sync_playwright() as pw:
-            try:
-                ctx_opts: dict[str, Any] = {
-                    "user_data_dir": str(user_data_dir),
-                    "headless": self.headless,
-                    "viewport": {"width": 1280, "height": 720},
-                }
-                if should_record_video:
-                    ctx_opts["record_video_dir"] = _effective_video_dir
-                    ctx_opts["record_video_size"] = {"width": 1280, "height": 720}
+            ctx_opts: dict[str, Any] = {
+                "user_data_dir": str(user_data_dir),
+                "headless": self.headless,
+                "viewport": {"width": 1280, "height": 720},
+            }
+            if should_record_video:
+                ctx_opts["record_video_dir"] = _effective_video_dir
+                ctx_opts["record_video_size"] = {"width": 1280, "height": 720}
 
-                if _pw_browser == "firefox":
-                    console.print("[dim]🦊 Uruchamiam Playwright Firefox z sesjami...[/dim]")
-                    context = pw.firefox.launch_persistent_context(**ctx_opts)
-                else:
-                    context = pw.chromium.launch_persistent_context(**ctx_opts)
-            except Exception:
-                if self.headless:
-                    raise
-                # Fallback for environments without a working headed display.
-                ctx_opts["headless"] = True
-                if _pw_browser == "firefox":
-                    context = pw.firefox.launch_persistent_context(**ctx_opts)
-                else:
-                    context = pw.chromium.launch_persistent_context(**ctx_opts)
+            context = None
+
+            # --- Try Firefox first (if session mode) ---
+            if _pw_browser == "firefox":
+                console.print("[dim]🦊 Uruchamiam Playwright Firefox z sesjami...[/dim]")
+                for headless_try in ([self.headless] if self.headless else [False, True]):
+                    try:
+                        ctx_opts["headless"] = headless_try
+                        context = pw.firefox.launch_persistent_context(**ctx_opts)
+                        break
+                    except Exception as ff_err:
+                        ff_err_str = str(ff_err)
+                        if "Executable doesn't exist" in ff_err_str:
+                            # Firefox binary not installed → fallback to Chromium + cookies
+                            console.print(
+                                "[yellow]⚠ Playwright Firefox nie zainstalowany "
+                                "(uruchom: playwright install firefox)[/yellow]"
+                            )
+                            console.print(
+                                "[dim]   ↳ Fallback: Chromium + wstrzykiwanie ciasteczek Firefox[/dim]"
+                            )
+                            _pw_browser = "chromium"
+                            # Load cookies for injection if we haven't yet
+                            if not ff_chromium_cookies and ff_session_importer:
+                                ff_chromium_cookies = ff_session_importer.get_chromium_cookies()
+                            # Switch user_data_dir to Chromium profile
+                            user_data_dir = Path.home() / ".nlp2cmd" / "browser_profile"
+                            user_data_dir.mkdir(parents=True, exist_ok=True)
+                            ctx_opts["user_data_dir"] = str(user_data_dir)
+                            break
+                        if headless_try:
+                            raise
+                        _debug(f"Firefox headed launch failed: {ff_err}, trying headless")
+
+            # --- Chromium path (default or fallback from Firefox) ---
+            if context is None:
+                for headless_try in ([self.headless] if self.headless else [False, True]):
+                    try:
+                        ctx_opts["headless"] = headless_try
+                        context = pw.chromium.launch_persistent_context(**ctx_opts)
+                        break
+                    except Exception:
+                        if headless_try:
+                            raise
+
             page = context.pages[0] if context.pages else context.new_page()
 
-            # Inject Firefox cookies into Chromium context if in cookie mode
+            # Inject Firefox cookies into Chromium context
             if ff_chromium_cookies and _pw_browser == "chromium":
                 try:
                     context.add_cookies(ff_chromium_cookies)
-                    _debug(f"Injected {len(ff_chromium_cookies)} Firefox cookies into Chromium")
+                    console.print(
+                        f"[dim]🦊 Wstrzyknięto {len(ff_chromium_cookies)} "
+                        f"ciasteczek Firefox do Chromium[/dim]"
+                    )
                 except Exception as e:
                     _debug(f"Cookie injection failed: {e}")
 
@@ -2531,6 +2571,7 @@ class PipelineRunner:
 
                 # --- Pre-validation ---
                 pre_ok = True
+                pre_message = ""
                 if validator:
                     params_resolved = self._resolve_plan_variables(
                         step.params or {}, variables,
@@ -2543,6 +2584,7 @@ class PipelineRunner:
                         if pre_result.suggestion:
                             console.print(f"  [dim]   💡 {pre_result.suggestion}[/dim]")
                         pre_ok = False
+                        pre_message = str(pre_result.message or "")
                     # Check if key already extracted (skip prompt_secret)
                     if (step.action == "prompt_secret"
                             and pre_result.details.get("already_extracted")):
@@ -2574,12 +2616,16 @@ class PipelineRunner:
                     )
                     elapsed_ms = (time.time() - step_start) * 1000
 
+                    step_status = "ok"
+                    step_error = ""
+                    if not pre_ok:
+                        step_status = "warning_pre"
+                        step_error = pre_message
+
                     if step.store_as and result:
                         variables[step.store_as] = result
-                        console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
-                    else:
-                        console.print(f"  [green]✓[/green] OK")
-                    console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
+
+                    fb_applied = False
 
                     # --- Post-validation ---
                     if validator:
@@ -2595,11 +2641,19 @@ class PipelineRunner:
                             )
                             if post_result.suggestion:
                                 console.print(f"  [dim]   💡 {post_result.suggestion}[/dim]")
+                            step_status = "failed_validation"
+                            step_error = str(post_result.message or "")
+
                             # Post-validation failure on critical steps → trigger fallback
                             if step.action in ("check_session", "extract_key") and fallback_engine:
                                 console.print(
                                     f"  [cyan]🔄 Uruchamiam dynamiczny fallback...[/cyan]"
                                 )
+                                try:
+                                    _fb_url = page.url if page else ""
+                                    _fb_title = page.title() if page else ""
+                                except Exception:
+                                    _fb_url = _fb_title = ""
                                 fb_ctx = FallbackContext(
                                     failed_action=step.action,
                                     failed_params=params_resolved,
@@ -2607,13 +2661,13 @@ class PipelineRunner:
                                     step_index=step_idx,
                                     total_steps=len(step_queue),
                                     variables=dict(variables),
-                                    page_url=page.url if page else "",
-                                    page_title=page.title() if page else "",
+                                    page_url=_fb_url,
+                                    page_title=_fb_title,
                                     service_name=_svc_name,
                                     service_config=_svc_config,
                                     previous_steps_ok=[
                                         r["action"] for r in results_log
-                                        if r.get("status") in ("ok", "ok_retry")
+                                        if r.get("status") in ("ok", "ok_retry", "ok_fallback")
                                     ],
                                 )
                                 fb_result = fallback_engine.generate_fallback(fb_ctx, page)
@@ -2623,7 +2677,6 @@ class PipelineRunner:
                                         f" — {fb_result.message}"
                                     )
                                     if fb_result.extracted_value:
-                                        # Direct extraction succeeded
                                         if step.store_as:
                                             variables[step.store_as] = fb_result.extracted_value
                                         variables["extracted_key"] = fb_result.extracted_value
@@ -2631,8 +2684,10 @@ class PipelineRunner:
                                             f"  [green]✓[/green] Wyekstrahowano klucz "
                                             f"({len(fb_result.extracted_value)} znaków)"
                                         )
+                                        step_status = "ok_fallback"
+                                        step_error = ""
+                                        fb_applied = True
                                     elif fb_result.replacement_steps:
-                                        # Inject replacement steps into the queue
                                         from nlp2cmd.automation.action_planner import ActionStep
                                         new_steps = []
                                         for rs in fb_result.replacement_steps:
@@ -2641,17 +2696,27 @@ class PipelineRunner:
                                                 params=rs.get("params", {}),
                                                 description=rs.get("description", ""),
                                             ))
-                                        # Insert after current step
                                         step_queue[step_idx+1:step_idx+1] = new_steps
                                         console.print(
                                             f"  [dim]   📝 Wstawiono {len(new_steps)} "
                                             f"dodatkowych kroków[/dim]"
                                         )
+                                        step_status = "fallback_injected"
+                                        step_error = ""
+                                        fb_applied = True
+
+                    if step.store_as and result:
+                        console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
+                    elif step_status in ("ok", "ok_retry", "ok_fallback", "fallback_injected"):
+                        console.print(f"  [green]✓[/green] OK")
+                    else:
+                        console.print(f"  [red]✗[/red] Krok nie przeszedł walidacji")
 
                     results_log.append({
                         "step": step_idx + 1, "action": step.action,
-                        "status": "ok", "stored": step.store_as,
+                        "status": step_status, "stored": step.store_as,
                         "elapsed_ms": round(elapsed_ms),
+                        **({"error": step_error} if step_error else {}),
                     })
 
                 except Exception as e:
@@ -2671,6 +2736,11 @@ class PipelineRunner:
                         params_resolved = self._resolve_plan_variables(
                             step.params or {}, variables,
                         )
+                        try:
+                            _fb_url = page.url if page else ""
+                            _fb_title = page.title() if page else ""
+                        except Exception:
+                            _fb_url = _fb_title = ""
                         fb_ctx = FallbackContext(
                             failed_action=step.action,
                             failed_params=params_resolved,
@@ -2678,8 +2748,8 @@ class PipelineRunner:
                             step_index=step_idx,
                             total_steps=len(step_queue),
                             variables=dict(variables),
-                            page_url=page.url if page else "",
-                            page_title=page.title() if page else "",
+                            page_url=_fb_url,
+                            page_title=_fb_title,
                             service_name=_svc_name,
                             service_config=_svc_config,
                             previous_steps_ok=[
@@ -2720,10 +2790,13 @@ class PipelineRunner:
                                 f"  [dim]   Fallback wyczerpany: {fb_result.message}[/dim]"
                             )
 
-                    if not fallback_handled and step.retry_on_fail:
+                    # Detect browser-closed — no point retrying
+                    _browser_dead = "browser has been closed" in str(e).lower()
+
+                    if not fallback_handled and step.retry_on_fail and not _browser_dead:
                         console.print(f"  [yellow]↻[/yellow] Retry...")
-                        page.wait_for_timeout(1000)
                         try:
+                            page.wait_for_timeout(1000)
                             result = self._execute_plan_step(
                                 page, context, step, variables
                             )
@@ -2735,6 +2808,12 @@ class PipelineRunner:
                             console.print(f"  [red]✗[/red] Retry failed: {e2}")
                             results_log[-1]["status"] = "failed"
 
+                    if _browser_dead:
+                        console.print(
+                            "  [red]⛔ Przeglądarka zamknięta — przerywam wykonanie[/red]"
+                        )
+                        break
+
                 step_idx += 1
 
             # --- Validation summary ---
@@ -2745,6 +2824,19 @@ class PipelineRunner:
                         f"\n[bold yellow]⚠ Walidacja:[/bold yellow] "
                         f"{summary['failed']} kroków nie przeszło walidacji"
                     )
+
+
+            # Final summary
+            ok_count = sum(1 for r in results_log if r["status"] in ("ok", "ok_retry", "ok_fallback", "fallback_injected"))
+            fail_count = sum(1 for r in results_log if r["status"] == "failed")
+            err_count = sum(1 for r in results_log if r["status"] == "error")
+            total_ms = sum(r.get("elapsed_ms", 0) for r in results_log)
+
+            console.print(f"\n[bold]📊 Podsumowanie planu:[/bold]")
+            console.print(
+                f"  Kroki: {ok_count}✓ {err_count}⚠ {fail_count}✗ "
+                f"z {len(plan.steps)} | Czas: {total_ms/1000:.1f}s"
+            )
 
             if video_recorder and video_recorder.is_recording:
                 try:
@@ -2778,12 +2870,19 @@ class PipelineRunner:
                     if pw_video:
                         target = video_recorder.video_path or str(Path(_effective_video_dir) / "action_plan_automation.webm")
                         # save_as works after context is closed
-                        pw_video.save_as(target)
-                        video_saved_path = target
-                        console.print(f"[green]🎥 Video saved: {target}[/green]")
+                        try:
+                            pw_video.save_as(target)
+                            video_saved_path = target
+                        except Exception:
+                            try:
+                                video_saved_path = pw_video.path()
+                            except Exception:
+                                video_saved_path = None
+                        if video_saved_path:
+                            console.print(f"[green]🎥 Video saved: {video_saved_path}[/green]")
                 except Exception as ve:
                     _debug(f"Video save_as failed: {ve}")
-                video_recorder.stop_recording(console)
+                video_recorder.stop_recording(console, saved_path=video_saved_path)
 
         result_data = {"steps": results_log, "variables": variables, "mode": "playwright"}
         if video_saved_path:
@@ -2792,7 +2891,7 @@ class PipelineRunner:
             result_data["screenshot"] = screenshot_path
 
         return RunnerResult(
-            success=all(r["status"] != "failed" for r in results_log),
+            success=all(r["status"] not in ("failed", "error", "failed_validation") for r in results_log),
             kind="action_plan",
             data=result_data,
         )
@@ -2821,10 +2920,55 @@ class PipelineRunner:
         elif action == "click":
             selector = params.get("selector")
             text = params.get("text")
-            if text:
-                page.get_by_text(text).first.click()
-            elif selector:
-                page.click(selector)
+            timeout = int(params.get("timeout", 10000))
+            max_retries = int(params.get("retries", 3))
+
+            # Wait for page to stabilize (SPA re-renders)
+            try:
+                page.wait_for_load_state("domcontentloaded", timeout=5000)
+            except Exception:
+                pass
+            try:
+                page.wait_for_load_state("networkidle", timeout=5000)
+            except Exception:
+                pass
+
+            last_err = None
+            for attempt in range(1, max_retries + 1):
+                try:
+                    if text:
+                        locator = page.get_by_text(text).first
+                        locator.wait_for(state="visible", timeout=timeout)
+                        locator.click(timeout=timeout)
+                    elif selector:
+                        page.wait_for_selector(selector, state="visible", timeout=timeout)
+                        page.click(selector, timeout=timeout)
+                    last_err = None
+                    break
+                except Exception as click_err:
+                    last_err = click_err
+                    err_str = str(click_err)
+                    if "detached from the DOM" in err_str and attempt < max_retries:
+                        _debug(f"click: element detached, retry {attempt}/{max_retries}")
+                        page.wait_for_timeout(1000)
+                        continue
+                    if "Target page, context or browser has been closed" in err_str:
+                        raise
+                    if attempt < max_retries:
+                        _debug(f"click: attempt {attempt} failed: {click_err}")
+                        page.wait_for_timeout(500)
+                        continue
+                    # Last attempt: try force click
+                    try:
+                        if text:
+                            page.get_by_text(text).first.click(force=True, timeout=timeout)
+                        elif selector:
+                            page.click(selector, force=True, timeout=timeout)
+                        last_err = None
+                    except Exception as force_err:
+                        last_err = force_err
+            if last_err:
+                raise last_err
 
         elif action == "type_text":
             page.fill(params.get("selector", "input"), params.get("text", ""))
@@ -2865,7 +3009,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(500)
             except Exception as e:
-                _debug(f"Tool selection error: {e}")
+                raise RuntimeError(f"Tool selection error: {e}")
 
         elif action == "set_color":
             color = params.get("color", "#000000")
@@ -2878,7 +3022,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Color set error: {e}")
+                raise RuntimeError(f"Color set error: {e}")
 
         elif action == "draw_circle":
             radius = float(params.get("radius", 10))
@@ -2900,7 +3044,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw circle error: {e}")
+                raise RuntimeError(f"Draw circle error: {e}")
                 
         elif action == "draw_filled_ellipse":
             rx = float(params.get("rx", 10))
@@ -2924,7 +3068,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw filled ellipse error: {e}")
+                raise RuntimeError(f"Draw filled ellipse error: {e}")
 
         elif action == "draw_filled_circle":
             radius = float(params.get("radius", 10))
@@ -2946,7 +3090,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw filled circle error: {e}")
+                raise RuntimeError(f"Draw filled circle error: {e}")
 
         elif action == "draw_filled_rectangle":
             w = float(params.get("width", 50))
@@ -2967,7 +3111,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw filled rectangle error: {e}")
+                raise RuntimeError(f"Draw filled rectangle error: {e}")
 
         elif action == "draw_arc":
             radius = float(params.get("radius", 50))
@@ -3002,7 +3146,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw arc error: {e}")
+                raise RuntimeError(f"Draw arc error: {e}")
 
         elif action == "draw_polygon":
             points = params.get("points", [])
@@ -3040,7 +3184,7 @@ class PipelineRunner:
                     }}''')
                     page.wait_for_timeout(200)
                 except Exception as e:
-                    _debug(f"Draw polygon error: {e}")
+                    raise RuntimeError(f"Draw polygon error: {e}")
 
         elif action == "draw_bezier":
             curves = params.get("curves", [])
@@ -3088,7 +3232,7 @@ class PipelineRunner:
                     }}''')
                     page.wait_for_timeout(200)
                 except Exception as e:
-                    _debug(f"Draw bezier error: {e}")
+                    raise RuntimeError(f"Draw bezier error: {e}")
 
         elif action == "draw_svg_path":
             path_d = params.get("d", "")
@@ -3124,7 +3268,7 @@ class PipelineRunner:
                     }}''')
                     page.wait_for_timeout(200)
                 except Exception as e:
-                    _debug(f"Draw SVG path error: {e}")
+                    raise RuntimeError(f"Draw SVG path error: {e}")
 
         elif action == "set_line_width":
             width = float(params.get("width", 2))
@@ -3135,7 +3279,7 @@ class PipelineRunner:
                     if (ctx) ctx.lineWidth = {width};
                 }}''')
             except Exception as e:
-                _debug(f"Set line width error: {e}")
+                raise RuntimeError(f"Set line width error: {e}")
 
         elif action == "draw_rectangle":
             w = float(params.get("width", 50))
@@ -3157,7 +3301,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw rectangle error: {e}")
+                raise RuntimeError(f"Draw rectangle error: {e}")
 
         elif action == "draw_line":
             fo = params.get("from_offset", [0, 0])
@@ -3180,7 +3324,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw line error: {e}")
+                raise RuntimeError(f"Draw line error: {e}")
 
         elif action == "draw_ellipse":
             rx = float(params.get("rx", 10))
@@ -3203,7 +3347,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Draw ellipse error: {e}")
+                raise RuntimeError(f"Draw ellipse error: {e}")
                 
         elif action == "fill_at":
             offset = params.get("offset", [0, 0])
@@ -3230,7 +3374,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Fill at error: {e}")
+                raise RuntimeError(f"Fill at error: {e}")
 
         elif action == "click_canvas":
             offset = params.get("offset", [0, 0])
@@ -3257,7 +3401,7 @@ class PipelineRunner:
                 }}''')
                 page.wait_for_timeout(200)
             except Exception as e:
-                _debug(f"Click canvas error: {e}")
+                raise RuntimeError(f"Click canvas error: {e}")
 
 
         elif action in ("extract_text", "extract_api_key"):

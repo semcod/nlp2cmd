@@ -445,16 +445,8 @@ class CanvasAdapter(BaseDSLAdapter):
     async def execute_drawing_plan(page: Any, plan_json: str) -> dict[str, Any]:
         """
         Execute a canvas drawing plan on a Playwright page.
-
-        This is called by PipelineRunner when dsl_kind == 'dom'
-        and the payload contains canvas_dql.v1.
-
-        Args:
-            page: Playwright page object
-            plan_json: JSON string with canvas_dql.v1 plan
-
-        Returns:
-            Dict with 'success', 'steps_executed', 'screenshot_path'
+        
+        IMPROVED: Added detailed diagnostic logging for each step.
         """
         from nlp2cmd.automation.mouse_controller import MouseController, Point
 
@@ -468,22 +460,118 @@ class CanvasAdapter(BaseDSLAdapter):
         canvas_center: Optional[Point] = None
         canvas_box: Optional[dict] = None
         executed = 0
+        errors = []
+        
+        # Diagnostic logging
+        import sys
+        def log_step(step_num: int, action: str, status: str, details: str = ""):
+            prefix = f"[Canvas {step_num}/{len(steps)}]"
+            if status == "OK":
+                print(f"{prefix} ✓ {action}: {details}", file=sys.stderr)
+            elif status == "ERROR":
+                print(f"{prefix} ✗ {action} FAILED: {details}", file=sys.stderr)
+            else:
+                print(f"{prefix} → {action}: {details}", file=sys.stderr)
+        
+        # Helper to check if canvas has non-white pixels (drawing verification)
+        async def check_canvas_has_drawing() -> dict:
+            """Check if canvas has visible drawing by sampling pixels."""
+            try:
+                result = await page.evaluate("""
+                    () => {
+                        const canvas = document.querySelector('canvas');
+                        if (!canvas) return {error: 'No canvas found'};
+                        const ctx = canvas.getContext('2d');
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imageData.data;
+                        
+                        // Count non-white/non-transparent pixels
+                        let nonWhitePixels = 0;
+                        let totalPixels = data.length / 4;
+                        
+                        // Sample every 100th pixel for performance
+                        for (let i = 0; i < data.length; i += 400) {
+                            const r = data[i];
+                            const g = data[i + 1];
+                            const b = data[i + 2];
+                            const a = data[i + 3];
+                            
+                            // Not white (255,255,255) and not fully transparent
+                            if (!(r === 255 && g === 255 && b === 255) && a > 0) {
+                                nonWhitePixels++;
+                            }
+                        }
+                        
+                        return {
+                            totalPixels: totalPixels,
+                            nonWhitePixels: nonWhitePixels,
+                            hasDrawing: nonWhitePixels > 10,  // Threshold
+                            isBlank: nonWhitePixels <= 10
+                        };
+                    }
+                """)
+                return result
+            except Exception as e:
+                return {error: str(e), hasDrawing: False}
+        
+        # Capture canvas state before first drawing
+        canvas_was_blank_before = True
 
-        for step in steps:
+        for i, step in enumerate(steps, 1):
             action = step.get("action", "")
-            _debug(f"Executing step: {action}")
-
+            description = step.get("description", action)
+            
             try:
                 if action == "navigate":
-                    await page.goto(step["url"], wait_until="networkidle", timeout=15000)
+                    url = step.get("url", "")
+                    log_step(i, action, "START", f"Navigating to {url}")
+                    await page.goto(url, wait_until="networkidle", timeout=15000)
+                    # Verify page loaded
+                    current_url = page.url
+                    if url in current_url or "jspaint" in current_url:
+                        log_step(i, action, "OK", f"Loaded: {current_url[:50]}")
+                        executed += 1
+                    else:
+                        log_step(i, action, "ERROR", f"Wrong URL: {current_url}")
+                        errors.append(f"Step {i}: Navigation failed - got {current_url}")
 
                 elif action == "wait":
-                    await page.wait_for_timeout(step.get("ms", 1000))
+                    ms = step.get("ms", 1000)
+                    log_step(i, action, "START", f"Waiting {ms}ms")
+                    await page.wait_for_timeout(ms)
+                    log_step(i, action, "OK", f"Waited {ms}ms")
+                    executed += 1
 
                 elif action == "wait_for_canvas":
-                    await page.wait_for_selector("canvas", timeout=10000)
+                    log_step(i, action, "START", "Looking for canvas element")
+                    try:
+                        await page.wait_for_selector("canvas", timeout=10000)
+                        # Verify canvas is visible and has size
+                        canvas_info = await page.evaluate("""
+                            () => {
+                                const canvas = document.querySelector('canvas');
+                                if (!canvas) return {error: 'No canvas found'};
+                                const rect = canvas.getBoundingClientRect();
+                                return {
+                                    width: canvas.width,
+                                    height: canvas.height,
+                                    visible: rect.width > 0 && rect.height > 0,
+                                    rect: {x: rect.x, y: rect.y, w: rect.width, h: rect.height}
+                                };
+                            }
+                        """)
+                        if canvas_info.get('visible'):
+                            log_step(i, action, "OK", f"Canvas ready: {canvas_info}")
+                            executed += 1
+                        else:
+                            log_step(i, action, "ERROR", f"Canvas not visible: {canvas_info}")
+                            errors.append(f"Step {i}: Canvas not visible")
+                    except Exception as e:
+                        log_step(i, action, "ERROR", f"Canvas not found: {e}")
+                        errors.append(f"Step {i}: Canvas wait failed - {e}")
 
                 elif action == "get_canvas_info":
+                    log_step(i, action, "START", "Getting canvas dimensions")
                     canvas_el = await page.query_selector("canvas")
                     if canvas_el:
                         canvas_box = await canvas_el.bounding_box()
@@ -492,44 +580,118 @@ class CanvasAdapter(BaseDSLAdapter):
                                 canvas_box["x"] + canvas_box["width"] / 2,
                                 canvas_box["y"] + canvas_box["height"] / 2,
                             )
+                            log_step(i, action, "OK", f"Center: ({canvas_center.x:.0f}, {canvas_center.y:.0f}), Size: {canvas_box['width']:.0f}x{canvas_box['height']:.0f}")
+                            executed += 1
+                        else:
+                            log_step(i, action, "ERROR", "Canvas has no bounding box")
+                            errors.append(f"Step {i}: Canvas bounding box is None")
+                    else:
+                        log_step(i, action, "ERROR", "Canvas element not found")
+                        errors.append(f"Step {i}: Canvas element is None")
 
                 elif action == "select_tool":
                     tool_name = step.get("tool", "brush")
+                    log_step(i, action, "START", f"Selecting tool: {tool_name}")
                     tool_info = CanvasAdapter.TOOLS_JSPAINT.get(tool_name)
                     if tool_info:
+                        # Try selector first
                         el = await page.query_selector(tool_info["selector"])
                         if el:
                             await el.click()
+                            await page.wait_for_timeout(300)  # Wait for tool activation
+                            # Verify tool was selected
+                            is_active = await page.evaluate(f"""
+                                () => {{
+                                    const tool = document.querySelector('{tool_info["selector"]}');
+                                    return tool && (tool.classList.contains('selected') || tool.getAttribute('aria-pressed') === 'true');
+                                }}
+                            """)
+                            if is_active:
+                                log_step(i, action, "OK", f"Tool {tool_name} selected via selector")
+                                executed += 1
+                            else:
+                                log_step(i, action, "WARN", f"Tool {tool_name} clicked but may not be active")
+                                executed += 1  # Still count as executed
                         else:
-                            # Fallback: click by index in toolbar
+                            # Fallback: click by index
                             tools = await page.query_selector_all(".tool")
                             idx = tool_info.get("fallback_idx", 0)
                             if 0 <= idx < len(tools):
                                 await tools[idx].click()
-                    await page.wait_for_timeout(200)
+                                await page.wait_for_timeout(300)
+                                log_step(i, action, "OK", f"Tool {tool_name} selected via index {idx}")
+                                executed += 1
+                            else:
+                                log_step(i, action, "ERROR", f"Tool index {idx} out of range ({len(tools)} tools)")
+                                errors.append(f"Step {i}: Tool selection failed")
+                    else:
+                        log_step(i, action, "ERROR", f"Unknown tool: {tool_name}")
+                        errors.append(f"Step {i}: Unknown tool {tool_name}")
 
                 elif action == "set_color":
                     color = step.get("color", "#000000")
-                    # JSPaint: use the color palette or JS injection
-                    await page.evaluate(f"""
-                        (() => {{
-                            const el = document.querySelector('.swatch.selected') 
-                                || document.querySelector('.color-button');
-                            if (el) {{
-                                // Try setting via palette click or direct assignment
-                                const ctx = document.querySelector('canvas')?.getContext('2d');
-                                if (ctx) {{
-                                    ctx.strokeStyle = '{color}';
-                                    ctx.fillStyle = '{color}';
+                    log_step(i, action, "START", f"Setting color: {color}")
+                    
+                    # Try multiple methods to set color
+                    color_set = False
+                    
+                    # Method 1: Try to find and click color in palette
+                    try:
+                        # Look for color swatch
+                        color_result = await page.evaluate(f"""
+                            () => {{
+                                // Try to find color button with matching background
+                                const buttons = document.querySelectorAll('.color-button, .swatch, [class*="color"]');
+                                for (const btn of buttons) {{
+                                    const style = window.getComputedStyle(btn);
+                                    if (style.backgroundColor.includes('{color}') || style.background.includes('{color}')) {{
+                                        btn.click();
+                                        return {{method: 'click', element: btn.className}};
+                                    }}
                                 }}
+                                return {{method: 'none found'}};
                             }}
-                            // JSPaint specific
-                            if (typeof window.set_foreground_color === 'function') {{
-                                window.set_foreground_color('{color}');
-                            }}
-                        }})()
-                    """)
+                        """)
+                        if color_result.get('method') == 'click':
+                            color_set = True
+                            log_step(i, action, "OK", f"Color set via palette click: {color_result}")
+                    except Exception as e:
+                        log_step(i, action, "WARN", f"Palette click failed: {e}")
+                    
+                    # Method 2: JS injection for JSPaint
+                    if not color_set:
+                        try:
+                            await page.evaluate(f"""
+                                (() => {{
+                                    if (typeof window.set_foreground_color === 'function') {{
+                                        window.set_foreground_color('{color}');
+                                        return {{method: 'jspaint_api'}};
+                                    }}
+                                    // Try to set canvas context directly
+                                    const canvas = document.querySelector('canvas');
+                                    if (canvas) {{
+                                        const ctx = canvas.getContext('2d');
+                                        if (ctx) {{
+                                            ctx.strokeStyle = '{color}';
+                                            ctx.fillStyle = '{color}';
+                                            return {{method: 'canvas_context'}};
+                                        }}
+                                    }}
+                                    return {{method: 'none'}};
+                                }})()
+                            """)
+                            color_set = True
+                            log_step(i, action, "OK", f"Color set via JS: {color}")
+                        except Exception as e:
+                            log_step(i, action, "WARN", f"JS color set failed: {e}")
+                    
+                    if not color_set:
+                        log_step(i, action, "ERROR", f"Could not set color {color}")
+                        errors.append(f"Step {i}: Color setting failed")
+                    
                     await page.wait_for_timeout(100)
+                    if color_set:
+                        executed += 1
 
                 elif action == "draw_circle" or action == "draw_filled_circle":
                     if canvas_center:
@@ -539,7 +701,33 @@ class CanvasAdapter(BaseDSLAdapter):
                             canvas_center.y + offset[1],
                         )
                         radius = step.get("radius", 50)
-                        await mouse.draw_circle(center, radius)
+                        log_step(i, action, "START", f"Drawing circle at ({center.x:.0f}, {center.y:.0f}) r={radius}")
+                        
+                        # Check canvas before drawing
+                        before_check = await check_canvas_has_drawing()
+                        
+                        try:
+                            await mouse.draw_circle(center, radius)
+                            await page.wait_for_timeout(100)  # Wait for render
+                            
+                            # Verify drawing actually happened
+                            after_check = await check_canvas_has_drawing()
+                            
+                            if after_check.get('hasDrawing') and not before_check.get('hasDrawing'):
+                                log_step(i, action, "OK", f"✓ Circle drawn - canvas now has {after_check.get('nonWhitePixels', 0)} non-white pixels")
+                                executed += 1
+                            elif after_check.get('hasDrawing') and before_check.get('hasDrawing'):
+                                log_step(i, action, "OK", f"Circle drawn (canvas already had drawing)")
+                                executed += 1
+                            else:
+                                log_step(i, action, "ERROR", f"✗ Circle NOT visible - canvas still blank! Before: {before_check}, After: {after_check}")
+                                errors.append(f"Step {i}: Draw circle produced no visible output")
+                        except Exception as e:
+                            log_step(i, action, "ERROR", f"Draw failed: {e}")
+                            errors.append(f"Step {i}: Draw circle failed - {e}")
+                    else:
+                        log_step(i, action, "ERROR", "No canvas center available")
+                        errors.append(f"Step {i}: No canvas center")
 
                 elif action == "draw_ellipse" or action == "draw_filled_ellipse":
                     if canvas_center:
@@ -550,7 +738,28 @@ class CanvasAdapter(BaseDSLAdapter):
                         )
                         rx = step.get("rx", 100)
                         ry = step.get("ry", 80)
-                        await mouse.draw_ellipse(center, rx, ry)
+                        log_step(i, action, "START", f"Drawing ellipse at ({center.x:.0f}, {center.y:.0f}) rx={rx} ry={ry}")
+                        
+                        before_check = await check_canvas_has_drawing()
+                        
+                        try:
+                            await mouse.draw_ellipse(center, rx, ry)
+                            await page.wait_for_timeout(100)
+                            
+                            after_check = await check_canvas_has_drawing()
+                            
+                            if after_check.get('hasDrawing'):
+                                log_step(i, action, "OK", f"Ellipse drawn - canvas has {after_check.get('nonWhitePixels', 0)} non-white pixels")
+                                executed += 1
+                            else:
+                                log_step(i, action, "ERROR", f"✗ Ellipse NOT visible - canvas still blank!")
+                                errors.append(f"Step {i}: Draw ellipse produced no visible output")
+                        except Exception as e:
+                            log_step(i, action, "ERROR", f"Draw failed: {e}")
+                            errors.append(f"Step {i}: Draw ellipse failed - {e}")
+                    else:
+                        log_step(i, action, "ERROR", "No canvas center")
+                        errors.append(f"Step {i}: No canvas center")
 
                 elif action == "draw_rectangle":
                     if canvas_center:
@@ -560,7 +769,17 @@ class CanvasAdapter(BaseDSLAdapter):
                             canvas_center.x - w / 2,
                             canvas_center.y - h / 2,
                         )
-                        await mouse.draw_rectangle(top_left, w, h)
+                        log_step(i, action, "START", f"Drawing rectangle {w}x{h} at ({top_left.x:.0f}, {top_left.y:.0f})")
+                        try:
+                            await mouse.draw_rectangle(top_left, w, h)
+                            log_step(i, action, "OK", f"Rectangle drawn")
+                            executed += 1
+                        except Exception as e:
+                            log_step(i, action, "ERROR", f"Draw failed: {e}")
+                            errors.append(f"Step {i}: Draw rect failed - {e}")
+                    else:
+                        log_step(i, action, "ERROR", "No canvas center")
+                        errors.append(f"Step {i}: No canvas center")
 
                 elif action == "draw_line":
                     if canvas_center:
@@ -568,27 +787,85 @@ class CanvasAdapter(BaseDSLAdapter):
                         to_off = step.get("to_offset", [100, 0])
                         start = Point(canvas_center.x + from_off[0], canvas_center.y + from_off[1])
                         end = Point(canvas_center.x + to_off[0], canvas_center.y + to_off[1])
-                        await mouse.draw_line(start, end)
+                        log_step(i, action, "START", f"Drawing line from ({start.x:.0f}, {start.y:.0f}) to ({end.x:.0f}, {end.y:.0f})")
+                        
+                        before_check = await check_canvas_has_drawing()
+                        
+                        try:
+                            await mouse.draw_line(start, end)
+                            await page.wait_for_timeout(100)
+                            
+                            after_check = await check_canvas_has_drawing()
+                            
+                            if after_check.get('hasDrawing'):
+                                log_step(i, action, "OK", f"Line drawn - canvas has {after_check.get('nonWhitePixels', 0)} non-white pixels")
+                                executed += 1
+                            else:
+                                log_step(i, action, "ERROR", f"✗ Line NOT visible - canvas still blank!")
+                                errors.append(f"Step {i}: Draw line produced no visible output")
+                        except Exception as e:
+                            log_step(i, action, "ERROR", f"Draw failed: {e}")
+                            errors.append(f"Step {i}: Draw line failed - {e}")
+                    else:
+                        log_step(i, action, "ERROR", "No canvas center")
+                        errors.append(f"Step {i}: No canvas center")
 
                 elif action == "fill_at":
                     if canvas_center:
                         offset = step.get("offset", [0, 0])
-                        await mouse.fill_at(
-                            canvas_center.x + offset[0],
-                            canvas_center.y + offset[1],
-                        )
+                        x = canvas_center.x + offset[0]
+                        y = canvas_center.y + offset[1]
+                        log_step(i, action, "START", f"Fill at ({x:.0f}, {y:.0f})")
+                        
+                        before_check = await check_canvas_has_drawing()
+                        
+                        try:
+                            await mouse.fill_at(x, y)
+                            await page.wait_for_timeout(100)
+                            
+                            after_check = await check_canvas_has_drawing()
+                            
+                            # Fill should change pixel count
+                            if after_check.get('nonWhitePixels', 0) > before_check.get('nonWhitePixels', 0):
+                                log_step(i, action, "OK", f"Fill applied - pixels: {before_check.get('nonWhitePixels', 0)} → {after_check.get('nonWhitePixels', 0)}")
+                                executed += 1
+                            else:
+                                log_step(i, action, "WARN", f"Fill may not have worked - pixel count unchanged")
+                                executed += 1  # Still count as executed but warn
+                        except Exception as e:
+                            log_step(i, action, "ERROR", f"Fill failed: {e}")
+                            errors.append(f"Step {i}: Fill failed - {e}")
+                    else:
+                        log_step(i, action, "ERROR", "No canvas center")
+                        errors.append(f"Step {i}: No canvas center")
 
                 elif action == "click_canvas":
                     if canvas_center:
                         offset = step.get("offset", [0, 0])
-                        await mouse.click(
-                            int(canvas_center.x + offset[0]),
-                            int(canvas_center.y + offset[1]),
-                        )
+                        x = int(canvas_center.x + offset[0])
+                        y = int(canvas_center.y + offset[1])
+                        log_step(i, action, "START", f"Click at ({x}, {y})")
+                        try:
+                            await mouse.click(x, y)
+                            log_step(i, action, "OK", f"Clicked")
+                            executed += 1
+                        except Exception as e:
+                            log_step(i, action, "ERROR", f"Click failed: {e}")
+                            errors.append(f"Step {i}: Click failed - {e}")
+                    else:
+                        log_step(i, action, "ERROR", "No canvas center")
+                        errors.append(f"Step {i}: No canvas center")
 
                 elif action == "type_text":
                     text = step.get("text", "")
-                    await page.keyboard.type(text, delay=30)
+                    log_step(i, action, "START", f"Typing: {text[:30]}")
+                    try:
+                        await page.keyboard.type(text, delay=30)
+                        log_step(i, action, "OK", f"Typed {len(text)} chars")
+                        executed += 1
+                    except Exception as e:
+                        log_step(i, action, "ERROR", f"Type failed: {e}")
+                        errors.append(f"Step {i}: Type failed - {e}")
 
                 elif action == "screenshot":
                     suffix = step.get("suffix", "canvas")
@@ -597,20 +874,36 @@ class CanvasAdapter(BaseDSLAdapter):
                     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                     path = Path.home() / ".nlp2cmd" / "screenshots" / f"{suffix}_{ts}.png"
                     path.parent.mkdir(parents=True, exist_ok=True)
-                    await page.screenshot(path=str(path))
-                    _debug(f"Screenshot saved: {path}")
+                    log_step(i, action, "START", f"Saving to {path}")
+                    try:
+                        await page.screenshot(path=str(path))
+                        log_step(i, action, "OK", f"Screenshot saved: {path}")
+                        executed += 1
+                    except Exception as e:
+                        log_step(i, action, "ERROR", f"Screenshot failed: {e}")
+                        errors.append(f"Step {i}: Screenshot failed - {e}")
 
                 else:
-                    _debug(f"Unknown canvas action: {action}")
-
-                executed += 1
+                    log_step(i, action, "WARN", f"Unknown action: {action}")
+                    errors.append(f"Step {i}: Unknown action {action}")
 
             except Exception as e:
-                _debug(f"Step '{action}' failed: {e}")
+                log_step(i, action, "ERROR", f"Exception: {e}")
+                errors.append(f"Step {i}: Exception - {e}")
                 # Continue with remaining steps
 
+        # Final summary
+        success = executed > 0 and len(errors) == 0
+        if errors:
+            print(f"\n[Canvas] Completed with {len(errors)} errors:", file=sys.stderr)
+            for err in errors[:5]:  # Show first 5 errors
+                print(f"  - {err}", file=sys.stderr)
+        else:
+            print(f"\n[Canvas] All {executed} steps completed successfully", file=sys.stderr)
+
         return {
-            "success": executed > 0,
+            "success": success,
             "steps_executed": executed,
             "total_steps": len(steps),
+            "errors": errors,
         }

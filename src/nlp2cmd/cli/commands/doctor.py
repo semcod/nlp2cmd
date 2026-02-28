@@ -16,6 +16,7 @@ import sys
 import json
 import socket
 import subprocess
+import shutil
 import time
 from pathlib import Path
 from typing import Optional
@@ -292,12 +293,57 @@ class NP2CMDDoctor:
                 fix_command="pip install playwright && playwright install chromium"
             )
         except Exception as e:
+            if "sync api inside the asyncio loop" in str(e).lower():
+                return CheckResult(
+                    name="Playwright",
+                    status=Status.WARNING,
+                    message="Playwright check skipped in active asyncio loop (runtime may still be OK)",
+                    details={"error": str(e)},
+                    fix_command="Run `nlp2cmd doctor` from a regular shell (outside async loop) for full check",
+                )
             return CheckResult(
                 name="Playwright",
                 status=Status.ERROR,
                 message=f"Playwright error: {e}",
                 fix_command="playwright install"
             )
+
+    def check_visual_stream_tools(self) -> CheckResult:
+        """Check prerequisites for visual stream recording (vnc/novnc/xvfb)."""
+        vnc_server = shutil.which("vncserver")
+        novnc_proxy = shutil.which("novnc_proxy")
+        xvfb_run = shutil.which("xvfb-run")
+
+        details = {
+            "vncserver": bool(vnc_server),
+            "novnc_proxy": bool(novnc_proxy),
+            "xvfb_run": bool(xvfb_run),
+        }
+
+        if vnc_server and novnc_proxy:
+            return CheckResult(
+                name="Visual Streams",
+                status=Status.OK,
+                message="VNC/noVNC tooling detected",
+                details=details,
+            )
+
+        if xvfb_run:
+            return CheckResult(
+                name="Visual Streams",
+                status=Status.WARNING,
+                message="VNC/noVNC not fully configured (xvfb-run available as fallback)",
+                details=details,
+                fix_command="Install VNC + noVNC for --source vnc/novnc video recording",
+            )
+
+        return CheckResult(
+            name="Visual Streams",
+            status=Status.WARNING,
+            message="No visual stream backend detected (vnc/novnc/xvfb)",
+            details=details,
+            fix_command="Install at least one backend (recommended: VNC + noVNC, or xvfb-run)",
+        )
 
     def check_environment(self) -> CheckResult:
         """Check environment configuration."""
@@ -384,6 +430,7 @@ class NP2CMDDoctor:
             self.check_ollama_models,
             self.check_hf_token,
             self.check_playwright,
+            self.check_visual_stream_tools,
             self.check_environment,
             self.check_dependencies,
         ]
@@ -605,6 +652,10 @@ def _try_existing_browser(console: Optional[Console] = None) -> Optional[str]:
     if console:
         console.print(f"[cyan]     → Connecting via Playwright to port {found_port}...[/cyan]")
     
+    connection_success = False
+    browser = None
+    browser_type = None
+    
     try:
         from playwright.sync_api import sync_playwright
         
@@ -613,43 +664,86 @@ def _try_existing_browser(console: Optional[Console] = None) -> Optional[str]:
             try:
                 browser = p.chromium.connect_over_cdp(f"http://localhost:{found_port}")
                 browser_type = "Chrome/Chromium"
+                connection_success = True
                 if console:
-                    console.print(f"[green]     ✓ Connected to {browser_type}[/green]")
+                    console.print(f"[green]     ✓ Connected to {browser_type} via CDP[/green]")
             except Exception as chrome_err:
                 if console:
-                    console.print(f"[dim]     Chromium CDP failed: {chrome_err}[/dim]")
+                    console.print(f"[dim]     Chromium CDP failed: {str(chrome_err)[:50]}...[/dim]")
                 
                 # Try Firefox
                 try:
                     browser = p.firefox.connect_over_cdp(f"http://localhost:{found_port}")
                     browser_type = "Firefox"
+                    connection_success = True
                     if console:
-                        console.print(f"[green]     ✓ Connected to Firefox[/green]")
+                        console.print(f"[green]     ✓ Connected to Firefox via CDP[/green]")
                 except Exception as firefox_err:
                     if console:
-                        console.print(f"[red]     ✗ Could not connect: {firefox_err}[/red]")
+                        console.print(f"[red]     ✗ CDP connection failed for both browsers[/red]")
+                        console.print(f"[dim]       Chrome error: {str(chrome_err)[:30]}...[/dim]")
+                        console.print(f"[dim]       Firefox error: {str(firefox_err)[:30]}...[/dim]")
                     return None
+            
+            if not connection_success or not browser:
+                if console:
+                    console.print(f"[red]     ✗ Browser connection established but browser object is None[/red]")
+                return None
             
             # Create new context and page
             if console:
                 console.print(f"[dim]     Creating browser context...[/dim]")
             
-            context = browser.new_context()
-            page = context.new_page()
+            try:
+                context = browser.new_context()
+                page = context.new_page()
+                if console:
+                    console.print(f"[green]     ✓ Browser context created[/green]")
+            except Exception as ctx_err:
+                if console:
+                    console.print(f"[red]     ✗ Failed to create browser context: {ctx_err}[/red]")
+                return None
             
             # Navigate
             if console:
                 console.print(f"[cyan]     → Navigating to huggingface.co...[/cyan]")
             
+            nav_success = False
+            expected_url_pattern = "huggingface.co/settings/tokens"
+            actual_url = None
+            
             try:
                 page.goto("https://huggingface.co/settings/tokens", timeout=30000)
+                actual_url = page.url
+                
+                # Verify we reached the expected page (or at least HF domain)
+                if expected_url_pattern in actual_url:
+                    nav_success = True
+                    if console:
+                        console.print(f"[green]     ✓ Page loaded at correct URL[/green]")
+                elif "huggingface.co/login" in actual_url:
+                    # This is expected if not logged in, but we should warn
+                    nav_success = True  # Page loaded, just needs login
+                    if console:
+                        console.print(f"[yellow]     ⚠ Page loaded but requires login first[/yellow]")
+                        console.print(f"[dim]       URL: {actual_url}[/dim]")
+                elif "huggingface.co" in actual_url:
+                    nav_success = True
+                    if console:
+                        console.print(f"[yellow]     ⚠ Page loaded on HF domain but different path[/yellow]")
+                        console.print(f"[dim]       URL: {actual_url}[/dim]")
+                else:
+                    if console:
+                        console.print(f"[red]     ✗ Page loaded but unexpected URL[/red]")
+                        console.print(f"[dim]       Expected: {expected_url_pattern}[/dim]")
+                        console.print(f"[dim]       Actual: {actual_url}[/dim]")
+                        
+            except Exception as e:
                 if console:
-                    console.print(f"[green]     ✓ Page loaded successfully[/green]")
-            except Exception as nav_err:
-                if console:
-                    console.print(f"[yellow]     ⚠ Navigation timeout/warning: {nav_err}[/yellow]")
-            
-            return _navigate_and_get_token(page, console, browser_type)
+                    console.print(f"[red]     ✗ Navigation failed: {e}[/red]")
+                    if actual_url:
+                        console.print(f"[dim]       Last URL: {actual_url}[/dim]")
+                    nav_success = False
             
     except ImportError:
         if console:
@@ -713,39 +807,59 @@ def _try_system_browser(console: Optional[Console] = None) -> Optional[str]:
                 console.print("[dim]     Waiting for browser to start (3s)...[/dim]")
             time.sleep(3)
             
-            # Stage 2.4: Try to connect via CDP
+            # Stage 2.4: Try to connect via CDP (with actual protocol verification)
             if console:
-                console.print("[dim]     Checking CDP port 9222...[/dim]")
+                console.print("[dim]     Checking CDP port 9222 (with protocol verification)...[/dim]")
             
             cdp_available = False
             for attempt in range(5):
                 try:
+                    # First: basic TCP check
                     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     sock.settimeout(2)
                     result = sock.connect_ex(("localhost", 9222))
                     sock.close()
                     
                     if result == 0:
-                        cdp_available = True
-                        if console:
-                            console.print(f"[green]     ✓ CDP port 9222 ready[/green]")
-                        break
+                        # Second: verify it's actually a CDP endpoint by making HTTP request
+                        import urllib.request
+                        try:
+                            response = urllib.request.urlopen(
+                                "http://localhost:9222/json/version", 
+                                timeout=3
+                            )
+                            cdp_info = response.read().decode('utf-8')
+                            if 'Browser' in cdp_info or 'Protocol-Version' in cdp_info:
+                                cdp_available = True
+                                if console:
+                                    console.print(f"[green]     ✓ CDP port 9222 ready (verified protocol)[/green]")
+                                break
+                            else:
+                                if console:
+                                    console.print(f"[dim]     Attempt {attempt+1}/5: port open but not CDP protocol[/dim]")
+                        except Exception as http_err:
+                            if console:
+                                console.print(f"[dim]     Attempt {attempt+1}/5: port open but CDP check failed: {str(http_err)[:40]}[/dim]")
                     else:
                         if console:
-                            console.print(f"[dim]     Attempt {attempt+1}/5: port not ready[/dim]")
+                            console.print(f"[dim]     Attempt {attempt+1}/5: port not ready (code: {result})[/dim]")
                 except Exception as e:
                     if console:
-                        console.print(f"[dim]     Attempt {attempt+1}/5: {e}[/dim]")
+                        console.print(f"[dim]     Attempt {attempt+1}/5: {str(e)[:40]}[/dim]")
                 time.sleep(1)
             
             if not cdp_available:
                 if console:
                     console.print(f"[yellow]     ✗ CDP not available after 5 attempts[/yellow]")
+                    console.print(f"[dim]       Browser launched but CDP protocol not responding[/dim]")
                 continue
             
             # Stage 2.5: Connect with Playwright
             if console:
                 console.print(f"[cyan]     → Connecting via Playwright CDP...[/cyan]")
+            
+            connection_success = False
+            browser = None
             
             try:
                 from playwright.sync_api import sync_playwright
@@ -753,31 +867,77 @@ def _try_system_browser(console: Optional[Console] = None) -> Optional[str]:
                 with sync_playwright() as p:
                     try:
                         browser = p.chromium.connect_over_cdp("http://localhost:9222")
+                        connection_success = True
                         if console:
-                            console.print(f"[green]     ✓ Connected to {browser_name}[/green]")
+                            console.print(f"[green]     ✓ Connected to {browser_name} via CDP[/green]")
                     except Exception as e:
                         if console:
-                            console.print(f"[yellow]     ⚠ CDP connect failed: {e}[/yellow]")
+                            console.print(f"[yellow]     ⚠ CDP connect failed: {str(e)[:50]}...[/yellow]")
                             console.print(f"[dim]     Falling back to manual mode...[/dim]")
                         return _manual_browser_instructions(console, browser_name)
                     
-                    context = browser.new_context()
-                    page = context.new_page()
+                    if not connection_success or not browser:
+                        if console:
+                            console.print(f"[red]     ✗ Connection reported success but browser is None[/red]")
+                        return _manual_browser_instructions(console, browser_name)
+                    
+                    try:
+                        context = browser.new_context()
+                        page = context.new_page()
+                        if console:
+                            console.print(f"[green]     ✓ Browser context created[/green]")
+                    except Exception as ctx_err:
+                        if console:
+                            console.print(f"[red]     ✗ Failed to create context: {ctx_err}[/red]")
+                        return _manual_browser_instructions(console, browser_name)
                     
                     # Stage 2.6: Navigate to HF
                     if console:
                         console.print(f"[cyan]     → Navigating to huggingface.co...[/cyan]")
                     
+                    nav_success = False
+                    expected_url_pattern = "huggingface.co/settings/tokens"
+                    actual_url = None
+                    
                     try:
                         page.goto("https://huggingface.co/settings/tokens", timeout=30000)
-                        if console:
-                            console.print(f"[green]     ✓ Page loaded[/green]")
+                        actual_url = page.url
+                        
+                        # Verify we reached the expected page (or at least HF domain)
+                        if expected_url_pattern in actual_url:
+                            nav_success = True
+                            if console:
+                                console.print(f"[green]     ✓ Page loaded at correct URL[/green]")
+                        elif "huggingface.co/login" in actual_url:
+                            nav_success = True  # Page loaded, just needs login
+                            if console:
+                                console.print(f"[yellow]     ⚠ Page loaded but requires login first[/yellow]")
+                                console.print(f"[dim]       URL: {actual_url}[/dim]")
+                        elif "huggingface.co" in actual_url:
+                            nav_success = True
+                            if console:
+                                console.print(f"[yellow]     ⚠ Page loaded on HF domain but different path[/yellow]")
+                                console.print(f"[dim]       URL: {actual_url}[/dim]")
+                        else:
+                            if console:
+                                console.print(f"[red]     ✗ Page loaded but unexpected URL[/red]")
+                                console.print(f"[dim]       Expected: {expected_url_pattern}[/dim]")
+                                console.print(f"[dim]       Actual: {actual_url}[/dim]")
+                                
                     except Exception as e:
                         if console:
-                            console.print(f"[yellow]     ⚠ Navigation issue: {e}[/yellow]")
+                            console.print(f"[red]     ✗ Navigation failed: {e}[/red]")
+                            if actual_url:
+                                console.print(f"[dim]       Last URL: {actual_url}[/dim]")
+                        nav_success = False
                     
-                    # Stage 2.7: Get token from user
-                    return _navigate_and_get_token(page, console, browser_name)
+                    # Stage 2.7: Get token from user (even if nav had issues, let user try)
+                    if nav_success or actual_url:  # Only proceed if we at least loaded something
+                        return _navigate_and_get_token(page, console, browser_name)
+                    else:
+                        if console:
+                            console.print(f"[red]     ✗ Cannot proceed - page did not load[/red]")
+                        return None
                     
             except ImportError:
                 if console:
@@ -844,15 +1004,49 @@ def _try_playwright_browser(console: Optional[Console] = None) -> Optional[str]:
             if console:
                 console.print(f"[cyan]     → Navigating to huggingface.co...[/cyan]")
             
+            nav_success = False
+            expected_url_pattern = "huggingface.co/settings/tokens"
+            actual_url = None
+            
             try:
                 page.goto("https://huggingface.co/settings/tokens", timeout=30000)
+                actual_url = page.url
+                
+                # Verify we reached the expected page (or at least HF domain)
+                if expected_url_pattern in actual_url:
+                    nav_success = True
+                    if console:
+                        console.print(f"[green]     ✓ Page loaded at correct URL[/green]")
+                elif "huggingface.co/login" in actual_url:
+                    nav_success = True
+                    if console:
+                        console.print(f"[yellow]     ⚠ Page loaded but requires login first[/yellow]")
+                        console.print(f"[dim]       URL: {actual_url}[/dim]")
+                elif "huggingface.co" in actual_url:
+                    nav_success = True
+                    if console:
+                        console.print(f"[yellow]     ⚠ Page loaded on HF domain but different path[/yellow]")
+                        console.print(f"[dim]       URL: {actual_url}[/dim]")
+                else:
+                    if console:
+                        console.print(f"[red]     ✗ Page loaded but unexpected URL[/red]")
+                        console.print(f"[dim]       Expected: {expected_url_pattern}[/dim]")
+                        console.print(f"[dim]       Actual: {actual_url}[/dim]")
+                        
+            except Exception as e:
                 if console:
-                    console.print(f"[green]     ✓ Page loaded[/green]")
-            except Exception as nav_err:
-                if console:
-                    console.print(f"[yellow]     ⚠ Navigation issue: {nav_err}[/yellow]")
+                    console.print(f"[red]     ✗ Navigation failed: {e}[/red]")
+                    if actual_url:
+                        console.print(f"[dim]       Last URL: {actual_url}[/dim]")
+                nav_success = False
             
-            return _navigate_and_get_token(page, console, browser_type)
+            # Only proceed if page loaded
+            if nav_success or actual_url:
+                return _navigate_and_get_token(page, console, browser_type)
+            else:
+                if console:
+                    console.print(f"[red]     ✗ Cannot proceed - page did not load[/red]")
+                return None
             
     except ImportError:
         if console:
@@ -870,17 +1064,28 @@ def _try_playwright_browser(console: Optional[Console] = None) -> Optional[str]:
 
 def _navigate_and_get_token(page, console: Optional[Console], browser_type: str) -> Optional[str]:
     """Navigate to HuggingFace and get token from user."""
-    # Navigate to tokens page
-    page.goto("https://huggingface.co/settings/tokens")
     
     if console:
-        console.print("[cyan]📋 Instructions:[/cyan]")
-        console.print("   1. Login to Hugging Face if needed")
-        console.print("   2. Click 'New token' button")
-        console.print("   3. Set name: 'nlp2cmd'")
-        console.print("   4. Select 'Read' role")
-        console.print("   5. Click 'Generate token'")
-        console.print("   6. Copy the token and paste it here")
+        console.print(f"[dim]       [Token Step 1/4] Already navigated to HF tokens page[/dim]")
+    
+    # Verify page loaded by checking URL
+    try:
+        current_url = page.url
+        if console:
+            console.print(f"[dim]       Current URL: {current_url}[/dim]")
+    except Exception as e:
+        if console:
+            console.print(f"[yellow]       ⚠ Could not get URL: {e}[/yellow]")
+    
+    # Show instructions
+    if console:
+        console.print(f"[cyan]       [Token Step 2/4] Showing instructions:[/cyan]")
+        console.print("         1. Login to Hugging Face if needed")
+        console.print("         2. Click 'New token' button")
+        console.print("         3. Set name: 'nlp2cmd'")
+        console.print("         4. Select 'Read' role")
+        console.print("         5. Click 'Generate token'")
+        console.print("         6. Copy the token and paste it here")
     else:
         print("\n📋 Instructions:")
         print("   1. Login to Hugging Face if needed")
@@ -891,16 +1096,54 @@ def _navigate_and_get_token(page, console: Optional[Console], browser_type: str)
         print("   6. Copy the token and paste it here")
     
     # Interactive prompt for token
+    if console:
+        console.print(f"[cyan]       [Token Step 3/4] Waiting for user input...[/cyan]")
+        console.print(f"[bold yellow]       ⚠️  CHECK YOUR TERMINAL - waiting for token input![/bold yellow]")
+        console.print(f"[bold]       The browser should be open.[/bold]")
+        console.print(f"[bold]       After you create the token in the browser, come back here and paste it below.[/bold]")
+    
     try:
-        token = input("\n🔑 Paste HF_TOKEN here (hidden): ").strip()
+        # Print visible separator to catch attention
+        print("\n" + "="*60)
+        print("🔐 ENTER YOUR HF_TOKEN BELOW 🔐")
+        print("="*60)
+        
+        token = input("🔑 Paste HF_TOKEN here: ").strip()
+        
+        print("="*60)
+        
+        if console:
+            console.print(f"[dim]       Input received: {'Yes' if token else 'No'}[/dim]")
+        
         if token:
+            if console:
+                console.print(f"[cyan]       [Token Step 4/4] Closing browser page...[/cyan]")
+            
             try:
                 page.close()
-            except Exception:
-                pass
+                if console:
+                    console.print(f"[green]       ✓ Page closed[/green]")
+            except Exception as e:
+                if console:
+                    console.print(f"[dim]       Note: Could not close page: {e}[/dim]")
+            
             return token
-    except (EOFError, KeyboardInterrupt):
-        pass
+        else:
+            if console:
+                console.print(f"[yellow]       ⚠ No token entered[/yellow]")
+    except EOFError:
+        if console:
+            console.print(f"[red]       ✗ EOFError (no input available)[/red]")
+    except KeyboardInterrupt:
+        if console:
+            console.print(f"[yellow]       ⚠ User cancelled (KeyboardInterrupt)[/yellow]")
+    except Exception as e:
+        if console:
+            console.print(f"[red]       ✗ Error getting input: {e}[/red]")
+    
+    # Cleanup on failure
+    if console:
+        console.print(f"[dim]       Cleaning up...[/dim]")
     
     try:
         page.close()
