@@ -119,6 +119,24 @@ Examples:
         help='Split YAML output into multiple files (summary, functions, classes, modules, entry_points)'
     )
     
+    parser.add_argument(
+        '--separate-orphans',
+        action='store_true',
+        help='Separate consolidated project from orphaned/isolated functions into different folders'
+    )
+    
+    parser.add_argument(
+        '--data-flow',
+        action='store_true',
+        help='Export data flow analysis (pipelines, state patterns, dependencies, events)'
+    )
+    
+    parser.add_argument(
+        '--data-structures',
+        action='store_true',
+        help='Export data structure analysis (types, flows, optimization opportunities)'
+    )
+    
     return parser
 
 
@@ -241,7 +259,13 @@ def main():
     try:
         if 'yaml' in formats:
             exporter = YAMLExporter()
-            if args.split_output:
+            if args.separate_orphans:
+                # Create separated output (consolidated vs orphans)
+                sep_dir = output_dir / 'separated'
+                exporter.export_separated(result, str(sep_dir), compact=True)
+                if args.verbose:
+                    print(f"  - YAML (separated): {sep_dir}/")
+            elif args.split_output:
                 # Create split output for large projects
                 split_dir = output_dir / 'split'
                 exporter.export_split(result, str(split_dir), include_defaults=args.full)
@@ -305,8 +329,14 @@ def main():
             if args.verbose:
                 print(f"  - PNG: {output_dir / '*.png'}")
                 
+        if args.data_structures:
+            exporter = YAMLExporter()
+            struct_path = output_dir / 'data_structures.yaml'
+            exporter.export_data_structures(result, str(struct_path), compact=True)
+            if args.verbose:
+                print(f"  - Data structures: {struct_path}")
+                
         # Always generate LLM prompt
-        exporter = LLMPromptExporter()
         filepath = output_dir / 'llm_prompt.md'
         exporter.export(result, str(filepath))
         if args.verbose:

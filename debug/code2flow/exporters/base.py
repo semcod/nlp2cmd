@@ -187,6 +187,676 @@ class YAMLExporter:
         print(f"  - entry_points.yaml ({entry_size}KB)")
         if not compact_mode:
             print(f"  - cfg_nodes.yaml")
+    
+    def export_separated(self, result: AnalysisResult, output_dir: str, compact: bool = True) -> dict:
+        """Export analysis separating consolidated project from orphaned functions.
+        
+        Creates two folders:
+        - consolidated/ - functions connected to the main project structure
+        - orphans/ - isolated functions not connected to main flows
+        
+        Returns statistics about the separation.
+        """
+        from collections import defaultdict
+        
+        output_path = Path(output_dir)
+        consolidated_dir = output_path / 'consolidated'
+        orphans_dir = output_path / 'orphans'
+        consolidated_dir.mkdir(parents=True, exist_ok=True)
+        orphans_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Identify orphan functions
+        # Orphans = no calls AND not called by anyone (isolated)
+        # Or = called but caller is also orphan (dead code chain)
+        
+        consolidated_funcs = {}
+        orphan_funcs = {}
+        
+        # First pass: identify clearly connected functions
+        for func_name, func in result.functions.items():
+            has_calls = len(func.calls) > 0
+            is_called = len(func.called_by) > 0
+            is_entry = func_name in result.entry_points
+            
+            if is_entry:
+                # Entry points are always consolidated
+                consolidated_funcs[func_name] = func
+            elif has_calls and is_called:
+                # Functions that both call and are called = consolidated
+                consolidated_funcs[func_name] = func
+            elif is_called and not has_calls:
+                # Leaf functions (called but don't call) = consolidated
+                consolidated_funcs[func_name] = func
+            elif has_calls and not is_called:
+                # Functions that call but aren't called = check if they call consolidated
+                calls_consolidated = any(c in consolidated_funcs for c in func.calls)
+                if calls_consolidated:
+                    consolidated_funcs[func_name] = func
+                else:
+                    orphan_funcs[func_name] = func
+            else:
+                # No calls, not called = orphan
+                orphan_funcs[func_name] = func
+        
+        # Second pass: resolve chains (functions called by orphans are also orphans)
+        changed = True
+        iterations = 0
+        while changed and iterations < 10:
+            changed = False
+            iterations += 1
+            for func_name, func in list(consolidated_funcs.items()):
+                # If all callers are orphans, this becomes orphan
+                if func.called_by and all(c in orphan_funcs for c in func.called_by):
+                    orphan_funcs[func_name] = func
+                    del consolidated_funcs[func_name]
+                    changed = True
+        
+        # Group nodes by function for each category
+        def get_nodes_for_funcs(funcs):
+            nodes = {}
+            for node_id, node in result.nodes.items():
+                if hasattr(node, 'function') and node.function in funcs:
+                    nodes[node_id] = node
+            return nodes
+        
+        consolidated_nodes = get_nodes_for_funcs(consolidated_funcs)
+        orphan_nodes = get_nodes_for_funcs(orphan_funcs)
+        
+        # Export consolidated project
+        consolidated_data = {
+            'summary': {
+                'total_functions': len(consolidated_funcs),
+                'total_nodes': len(consolidated_nodes),
+                'percentage_of_project': f"{len(consolidated_funcs) / len(result.functions) * 100:.1f}%",
+                'description': 'Functions connected to main project flows - REFACTOR THESE',
+            },
+            'functions': {k: v.to_dict(compact) for k, v in consolidated_funcs.items()},
+            'nodes': {k: v.to_dict(compact) for k, v in consolidated_nodes.items()},
+        }
+        
+        with open(consolidated_dir / 'project.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(consolidated_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # Export orphans
+        orphan_data = {
+            'summary': {
+                'total_functions': len(orphan_funcs),
+                'total_nodes': len(orphan_nodes),
+                'percentage_of_project': f"{len(orphan_funcs) / len(result.functions) * 100:.1f}%",
+                'description': 'Isolated functions NOT connected to main flows - LEAVE AS IS',
+            },
+            'functions': {k: v.to_dict(compact) for k, v in orphan_funcs.items()},
+            'nodes': {k: v.to_dict(compact) for k, v in orphan_nodes.items()},
+        }
+        
+        with open(orphans_dir / 'isolated.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(orphan_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # Create index file
+        index = {
+            'project_path': result.project_path,
+            'separation_strategy': 'connectivity-based',
+            'consolidated': {
+                'function_count': len(consolidated_funcs),
+                'percentage': f"{len(consolidated_funcs) / len(result.functions) * 100:.1f}%",
+                'location': 'consolidated/',
+                'files': ['consolidated/project.yaml'],
+            },
+            'orphans': {
+                'function_count': len(orphan_funcs),
+                'percentage': f"{len(orphan_funcs) / len(result.functions) * 100:.1f}%",
+                'location': 'orphans/',
+                'files': ['orphans/isolated.yaml'],
+            },
+            'orphan_function_list': sorted(orphan_funcs.keys())[:100],  # First 100 for reference
+        }
+        
+        with open(output_path / 'index.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(index, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # Print summary
+        print(f"✓ Separated export created in {output_dir}:")
+        print(f"  📦 consolidated/project.yaml - {len(consolidated_funcs)} functions ({len(consolidated_funcs) / len(result.functions) * 100:.1f}%)")
+        print(f"     → Functions connected to main project flows")
+        print(f"     → REFACTOR THESE")
+        print(f"  🗑️  orphans/isolated.yaml - {len(orphan_funcs)} functions ({len(orphan_funcs) / len(result.functions) * 100:.1f}%)")
+        print(f"     → Isolated functions not connected to main flows")
+        print(f"     → LEAVE AS IS (do not refactor)")
+        
+        return {
+            'consolidated_count': len(consolidated_funcs),
+            'orphan_count': len(orphan_funcs),
+            'total': len(result.functions),
+        }
+    
+    def export_data_flow(self, result: AnalysisResult, output_path: str, compact: bool = True) -> None:
+        """Export detailed data flow analysis showing what happens in the project.
+        
+        Analyzes:
+        - Data pipelines (input → transform → output)
+        - State transitions and lifecycles
+        - Cross-component data dependencies
+        - Event/callback flows
+        """
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # 1. Identify data transformation chains
+        data_pipelines = self._find_data_pipelines(result)
+        
+        # 2. Identify state management patterns
+        state_patterns = self._find_state_patterns(result)
+        
+        # 3. Identify data dependencies between modules
+        data_deps = self._find_data_dependencies(result)
+        
+        # 4. Identify event/callback flows
+        event_flows = self._find_event_flows(result)
+        
+        # Build data flow report
+        flow_data = {
+            'project_path': result.project_path,
+            'analysis_type': 'data_flow',
+            'summary': {
+                'data_pipelines_count': len(data_pipelines),
+                'state_managers_count': len(state_patterns),
+                'cross_module_data_deps': len(data_deps),
+                'event_flows_count': len(event_flows),
+            },
+            'data_pipelines': data_pipelines,
+            'state_patterns': state_patterns,
+            'data_dependencies': data_deps,
+            'event_flows': event_flows,
+        }
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            yaml.dump(flow_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        print(f"✓ Data flow exported: {output_path}")
+        print(f"  - Data pipelines: {len(data_pipelines)}")
+        print(f"  - State patterns: {len(state_patterns)}")
+        print(f"  - Data dependencies: {len(data_deps)}")
+        print(f"  - Event flows: {len(event_flows)}")
+    
+    def _find_data_pipelines(self, result: AnalysisResult) -> list:
+        """Find data transformation pipelines in the codebase."""
+        pipelines = []
+        
+        # Data processing indicators by stage
+        input_indicators = ['parse', 'load', 'read', 'fetch', 'get', 'input', 'receive', 'extract']
+        transform_indicators = ['transform', 'convert', 'process', 'validate', 'filter', 'map', 'reduce', 'compute']
+        output_indicators = ['serialize', 'format', 'write', 'save', 'send', 'output', 'render', 'encode']
+        
+        # Group functions by their data role
+        input_funcs = []
+        transform_funcs = []
+        output_funcs = []
+        
+        for func_name, func in result.functions.items():
+            name_lower = func.name.lower()
+            
+            if any(ind in name_lower for ind in input_indicators):
+                input_funcs.append((func_name, func))
+            elif any(ind in name_lower for ind in transform_indicators):
+                transform_funcs.append((func_name, func))
+            elif any(ind in name_lower for ind in output_indicators):
+                output_funcs.append((func_name, func))
+        
+        # Find chains: input → transform → output
+        for in_name, in_func in input_funcs[:20]:
+            for t_name, t_func in transform_funcs[:30]:
+                # Check if input calls transform
+                if t_name in in_func.calls:
+                    for out_name, out_func in output_funcs[:20]:
+                        # Check if transform calls output
+                        if out_name in t_func.calls:
+                            pipelines.append({
+                                'pipeline_id': f"pipeline_{len(pipelines)+1}",
+                                'stages': [
+                                    {'stage': 'input', 'function': in_name, 'description': in_func.docstring[:100] if in_func.docstring else 'N/A'},
+                                    {'stage': 'transform', 'function': t_name, 'description': t_func.docstring[:100] if t_func.docstring else 'N/A'},
+                                    {'stage': 'output', 'function': out_name, 'description': out_func.docstring[:100] if out_func.docstring else 'N/A'},
+                                ],
+                                'data_flow': f"{in_name} → {t_name} → {out_name}",
+                            })
+                            if len(pipelines) >= 15:
+                                return pipelines
+        
+        return pipelines
+    
+    def _find_state_patterns(self, result: AnalysisResult) -> list:
+        """Find state management patterns and lifecycles."""
+        patterns = []
+        
+        # State-related keywords
+        state_indicators = ['state', 'status', 'mode', 'phase', 'lifecycle', 'session', 'context']
+        transition_indicators = ['transition', 'change', 'update', 'set_state', 'switch']
+        
+        for func_name, func in result.functions.items():
+            name_lower = func.name.lower()
+            
+            # Check for state management functions
+            is_state_related = any(ind in name_lower for ind in state_indicators + transition_indicators)
+            
+            if is_state_related:
+                # Find what states this function affects
+                affected_states = []
+                for call in func.calls[:10]:
+                    call_func = result.functions.get(call)
+                    if call_func:
+                        call_lower = call_func.name.lower()
+                        if any(ind in call_lower for ind in state_indicators):
+                            affected_states.append(call)
+                
+                patterns.append({
+                    'function': func_name,
+                    'type': 'state_manager' if 'set' in name_lower or 'update' in name_lower else 'state_reader',
+                    'affects_states': affected_states[:5],
+                    'description': func.docstring[:150] if func.docstring else 'N/A',
+                })
+                
+                if len(patterns) >= 20:
+                    break
+        
+        return patterns
+    
+    def _find_data_dependencies(self, result: AnalysisResult) -> list:
+        """Find cross-module data dependencies."""
+        deps = []
+        
+        # Track which modules share data
+        module_data_flow = {}
+        
+        for func_name, func in result.functions.items():
+            func_module = func_name.rsplit('.', 1)[0] if '.' in func_name else 'root'
+            
+            for called in func.calls[:15]:
+                called_module = called.rsplit('.', 1)[0] if '.' in called else 'root'
+                
+                if func_module != called_module and called in result.functions:
+                    key = (func_module, called_module)
+                    if key not in module_data_flow:
+                        module_data_flow[key] = {
+                            'from_module': func_module,
+                            'to_module': called_module,
+                            'data_functions': [],
+                            'call_count': 0,
+                        }
+                    
+                    module_data_flow[key]['data_functions'].append({
+                        'caller': func_name,
+                        'callee': called,
+                    })
+                    module_data_flow[key]['call_count'] += 1
+        
+        # Convert to list and sort by call count
+        deps = sorted(module_data_flow.values(), key=lambda x: x['call_count'], reverse=True)
+        
+        # Limit data functions per dependency
+        for dep in deps:
+            dep['data_functions'] = dep['data_functions'][:10]
+        
+        return deps[:15]
+    
+    def _find_event_flows(self, result: AnalysisResult) -> list:
+        """Find event-driven patterns and callback flows."""
+        flows = []
+        
+        # Event/callback indicators
+        event_indicators = ['event', 'emit', 'trigger', 'notify', 'callback', 'handler', 'listen', 'subscribe']
+        hook_indicators = ['hook', 'on_', 'before_', 'after_', 'pre_', 'post_']
+        
+        for func_name, func in result.functions.items():
+            name_lower = func.name.lower()
+            
+            is_event_related = (
+                any(ind in name_lower for ind in event_indicators) or
+                any(name_lower.startswith(ind) for ind in hook_indicators)
+            )
+            
+            if is_event_related:
+                # Find event handlers (functions called by this that might be callbacks)
+                handlers = []
+                for called in func.calls[:10]:
+                    called_func = result.functions.get(called)
+                    if called_func:
+                        called_lower = called_func.name.lower()
+                        if any(ind in called_lower for ind in event_indicators + ['handle', 'process']):
+                            handlers.append(called)
+                
+                flows.append({
+                    'event_source': func_name,
+                    'type': 'emitter' if 'emit' in name_lower or 'trigger' in name_lower else 'handler',
+                    'handlers': handlers[:5],
+                    'description': func.docstring[:150] if func.docstring else 'N/A',
+                })
+                
+                if len(flows) >= 20:
+                    break
+        
+        return flows
+    
+    def export_data_structures(self, result: AnalysisResult, output_path: str, compact: bool = True) -> None:
+        """Export data structure analysis focusing on data types, flows, and optimization opportunities.
+        
+        Analyzes:
+        - Data types and their usage patterns
+        - Data flow graphs (DFG) between functions
+        - Process dependencies and data transformations
+        - Optimization opportunities (type reduction, process consolidation)
+        """
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # 1. Analyze data types and structures
+        data_types = self._analyze_data_types(result)
+        
+        # 2. Build data flow graph
+        data_flow_graph = self._build_data_flow_graph(result)
+        
+        # 3. Identify process patterns
+        process_patterns = self._identify_process_patterns(result)
+        
+        # 4. Calculate optimization opportunities
+        optimization_analysis = self._analyze_optimization_opportunities(result, data_types, data_flow_graph)
+        
+        # Build comprehensive data structure report
+        structure_data = {
+            'project_path': result.project_path,
+            'analysis_type': 'data_structures',
+            'summary': {
+                'unique_data_types': len(data_types),
+                'data_flow_nodes': len(data_flow_graph.get('nodes', [])),
+                'process_patterns': len(process_patterns),
+                'optimization_potential': optimization_analysis.get('potential_score', 0),
+            },
+            'data_types': data_types,
+            'data_flow_graph': data_flow_graph,
+            'process_patterns': process_patterns,
+            'optimization_analysis': optimization_analysis,
+        }
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            yaml.dump(structure_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        print(f"✓ Data structures exported: {output_path}")
+        print(f"  - Data types: {len(data_types)}")
+        print(f"  - Flow nodes: {len(data_flow_graph.get('nodes', []))}")
+        print(f"  - Process patterns: {len(process_patterns)}")
+        print(f"  - Optimization score: {optimization_analysis.get('potential_score', 0):.1f}")
+    
+    def _analyze_data_types(self, result: AnalysisResult) -> list:
+        """Analyze data types and their usage patterns."""
+        data_types = {}
+        
+        # Common data type indicators in function names and docstrings
+        type_indicators = {
+            'list': ['list', 'array', 'items', 'elements', 'collection', 'sequence'],
+            'dict': ['dict', 'map', 'mapping', 'key_value', 'record', 'object'],
+            'str': ['string', 'text', 'content', 'message', 'input_text'],
+            'int': ['int', 'integer', 'count', 'index', 'number', 'id'],
+            'float': ['float', 'decimal', 'score', 'probability', 'rate'],
+            'bool': ['bool', 'boolean', 'flag', 'is_', 'has_', 'can_'],
+            'tuple': ['tuple', 'pair', 'coordinate', 'point'],
+            'set': ['set', 'unique', 'collection_unique'],
+        }
+        
+        for func_name, func in result.functions.items():
+            # Analyze function name for type hints
+            func_name_lower = func.name.lower()
+            docstring = func.docstring.lower() if func.docstring else ''
+            
+            detected_types = []
+            for type_name, indicators in type_indicators.items():
+                if any(ind in func_name_lower or ind in docstring for ind in indicators):
+                    detected_types.append(type_name)
+            
+            # Analyze parameter patterns (simplified)
+            param_types = self._infer_parameter_types(func)
+            
+            # Analyze return patterns
+            return_types = self._infer_return_types(func)
+            
+            if detected_types or param_types or return_types:
+                type_key = f"{','.join(sorted(set(detected_types + param_types + return_types)))}"
+                
+                if type_key not in data_types:
+                    data_types[type_key] = {
+                        'type_name': type_key,
+                        'detected_types': list(set(detected_types)),
+                        'parameter_types': list(set(param_types)),
+                        'return_types': list(set(return_types)),
+                        'functions': [],
+                        'usage_count': 0,
+                        'cross_module_usage': 0,
+                    }
+                
+                data_types[type_key]['functions'].append(func_name)
+                data_types[type_key]['usage_count'] += 1
+                
+                # Check cross-module usage
+                func_module = func_name.rsplit('.', 1)[0] if '.' in func_name else 'root'
+                for called in func.calls[:10]:
+                    called_module = called.rsplit('.', 1)[0] if '.' in called else 'root'
+                    if func_module != called_module:
+                        data_types[type_key]['cross_module_usage'] += 1
+                        break
+        
+        return sorted(data_types.values(), key=lambda x: x['usage_count'], reverse=True)
+    
+    def _infer_parameter_types(self, func) -> list:
+        """Infer parameter types from function name patterns."""
+        param_types = []
+        
+        # Common parameter patterns
+        if 'list' in func.name.lower() or 'items' in func.name.lower():
+            param_types.append('list')
+        if 'dict' in func.name.lower() or 'map' in func.name.lower():
+            param_types.append('dict')
+        if 'text' in func.name.lower() or 'string' in func.name.lower():
+            param_types.append('str')
+        if 'count' in func.name.lower() or 'index' in func.name.lower():
+            param_types.append('int')
+        
+        return param_types
+    
+    def _infer_return_types(self, func) -> list:
+        """Infer return types from function name patterns."""
+        return_types = []
+        
+        # Common return patterns
+        if func.name.startswith('get_') or func.name.startswith('find_'):
+            return_types.append('dict')  # Usually returns records
+        if func.name.startswith('is_') or func.name.startswith('has_'):
+            return_types.append('bool')
+        if func.name.startswith('count_') or func.name.startswith('len_'):
+            return_types.append('int')
+        if func.name.startswith('list_') or func.name.startswith('get_all_'):
+            return_types.append('list')
+        
+        return return_types
+    
+    def _build_data_flow_graph(self, result: AnalysisResult) -> dict:
+        """Build data flow graph showing how data moves between functions."""
+        nodes = {}
+        edges = []
+        
+        # Create nodes for functions
+        for func_name, func in result.functions.items():
+            # Determine data type for this function
+            data_types = self._get_function_data_types(func)
+            
+            nodes[func_name] = {
+                'id': func_name,
+                'name': func.name.split('.')[-1],
+                'module': func_name.rsplit('.', 1)[0] if '.' in func_name else 'root',
+                'data_types': data_types,
+                'in_degree': len(func.called_by),
+                'out_degree': len(func.calls),
+                'is_hub': len(func.calls) > 5 or len(func.called_by) > 5,
+            }
+        
+        # Create edges for data flow
+        for func_name, func in result.functions.items():
+            for called in func.calls[:15]:  # Limit for performance
+                if called in result.functions:
+                    edges.append({
+                        'from': func_name,
+                        'to': called,
+                        'data_flow': True,
+                        'weight': 1,
+                    })
+        
+        return {
+            'nodes': nodes,
+            'edges': edges,
+            'stats': {
+                'total_nodes': len(nodes),
+                'total_edges': len(edges),
+                'hub_nodes': sum(1 for n in nodes.values() if n['is_hub']),
+            }
+        }
+    
+    def _get_function_data_types(self, func) -> list:
+        """Get data types associated with a function."""
+        types = []
+        
+        # Check function name
+        name_lower = func.name.lower()
+        if 'list' in name_lower or 'items' in name_lower:
+            types.append('list')
+        if 'dict' in name_lower or 'map' in name_lower:
+            types.append('dict')
+        if 'text' in name_lower or 'string' in name_lower:
+            types.append('str')
+        if 'count' in name_lower or 'index' in name_lower:
+            types.append('int')
+        
+        # Check docstring
+        if func.docstring:
+            docstring_lower = func.docstring.lower()
+            if 'list' in docstring_lower:
+                types.append('list')
+            if 'dict' in docstring_lower:
+                types.append('dict')
+            if 'string' in docstring_lower or 'text' in docstring_lower:
+                types.append('str')
+        
+        return list(set(types))
+    
+    def _identify_process_patterns(self, result: AnalysisResult) -> list:
+        """Identify common data processing patterns."""
+        patterns = {
+            'filter': [],
+            'map': [],
+            'reduce': [],
+            'aggregate': [],
+            'transform': [],
+            'validate': [],
+        }
+        
+        process_indicators = {
+            'filter': ['filter', 'select', 'where', 'find', 'search'],
+            'map': ['map', 'transform', 'convert', 'apply', 'process'],
+            'reduce': ['reduce', 'sum', 'count', 'aggregate', 'fold'],
+            'aggregate': ['group', 'bucket', 'cluster', 'partition'],
+            'transform': ['transform', 'convert', 'normalize', 'standardize'],
+            'validate': ['validate', 'check', 'verify', 'ensure', 'assert'],
+        }
+        
+        for func_name, func in result.functions.items():
+            name_lower = func.name.lower()
+            docstring = func.docstring.lower() if func.docstring else ''
+            
+            for pattern_type, indicators in process_indicators.items():
+                if any(ind in name_lower or ind in docstring for ind in indicators):
+                    patterns[pattern_type].append({
+                        'function': func_name,
+                        'description': func.docstring[:100] if func.docstring else 'N/A',
+                        'data_flow': f"{len(func.called_by)} → {func_name} → {len(func.calls)}",
+                    })
+                    break
+        
+        # Convert to list and sort by usage
+        process_patterns = []
+        for pattern_type, funcs in patterns.items():
+            process_patterns.append({
+                'pattern_type': pattern_type,
+                'functions': funcs[:10],  # Limit per pattern
+                'count': len(funcs),
+            })
+        
+        return sorted(process_patterns, key=lambda x: x['count'], reverse=True)
+    
+    def _analyze_optimization_opportunities(self, result: AnalysisResult, data_types: list, data_flow_graph: dict) -> dict:
+        """Analyze optimization opportunities for data types and processes."""
+        optimization = {
+            'potential_score': 0.0,
+            'type_consolidation': [],
+            'process_consolidation': [],
+            'hub_optimization': [],
+            'recommendations': [],
+        }
+        
+        # 1. Type consolidation opportunities
+        similar_types = {}
+        for dt in data_types:
+            type_signature = ','.join(sorted(dt['detected_types']))
+            if type_signature not in similar_types:
+                similar_types[type_signature] = []
+            similar_types[type_signature].append(dt)
+        
+        for type_sig, similar in similar_types.items():
+            if len(similar) > 1:
+                total_usage = sum(s['usage_count'] for s in similar)
+                if total_usage > 10:  # Significant usage
+                    optimization['type_consolidation'].append({
+                        'type_signature': type_sig,
+                        'similar_types': [s['type_name'] for s in similar],
+                        'total_usage': total_usage,
+                        'potential_reduction': len(similar) - 1,
+                    })
+        
+        # 2. Process consolidation
+        process_patterns = self._identify_process_patterns(result)
+        for pattern in process_patterns:
+            if pattern['count'] > 5:  # Many similar processes
+                optimization['process_consolidation'].append({
+                    'pattern_type': pattern['pattern_type'],
+                    'function_count': pattern['count'],
+                    'potential_reduction': pattern['count'] // 3,  # Consolidate 1/3
+                })
+        
+        # 3. Hub optimization (functions with many connections)
+        hub_nodes = [n for n in data_flow_graph['nodes'].values() if n['is_hub']]
+        for hub in hub_nodes[:10]:  # Top 10 hubs
+            optimization['hub_optimization'].append({
+                'function': hub['id'],
+                'connections': hub['in_degree'] + hub['out_degree'],
+                'optimization_type': 'split' if hub['out_degree'] > 10 else 'cache',
+            })
+        
+        # 4. Calculate overall potential score
+        type_score = len(optimization['type_consolidation']) * 10
+        process_score = len(optimization['process_consolidation']) * 15
+        hub_score = len(optimization['hub_optimization']) * 5
+        optimization['potential_score'] = (type_score + process_score + hub_score) / 100.0
+        
+        # 5. Generate recommendations
+        if optimization['type_consolidation']:
+            optimization['recommendations'].append(
+                f"Consolidate {len(optimization['type_consolidation'])} similar data types to reduce complexity"
+            )
+        if optimization['process_consolidation']:
+            optimization['recommendations'].append(
+                f"Merge {len(optimization['process_consolidation'])} process patterns to eliminate redundancy"
+            )
+        if optimization['hub_optimization']:
+            optimization['recommendations'].append(
+                f"Optimize {len(optimization['hub_optimization'])} hub functions for better performance"
+            )
+        
+        return optimization
 
 
 class MermaidExporter:
