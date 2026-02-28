@@ -924,18 +924,11 @@ class ActionPlanner:
         return steps
 
     def _try_canvas_decomposition(self, query: str) -> Optional[ActionPlan]:
-        """Bridge ComplexCommandPlanner drawing templates into ActionPlanner.
+        """Bridge drawing blueprints and templates into ActionPlanner.
 
         Handles queries like 'wejdź na jspaint.app i narysuj biedronkę'.
+        Priority: 1) Rich blueprints 2) Legacy templates 3) LLM fallback
         """
-        try:
-            from nlp2cmd.automation.complex_planner import (
-                ComplexCommandPlanner,
-                DRAWING_PATTERNS,
-            )
-        except ImportError:
-            return None
-
         text = query.lower()
 
         # Check if this is a drawing/canvas query
@@ -948,34 +941,79 @@ class ActionPlanner:
         if not has_draw:
             return None
 
-        # Match against ComplexCommandPlanner templates
-        for template in DRAWING_PATTERNS:
-            if re.search(template["pattern"], text):
-                log.info(
-                    "[ActionPlanner] Canvas template match: %s",
-                    template["description"],
-                )
+        # Extract target URL from query
+        url_match = re.search(
+            r'\b([a-zA-Z0-9][\w\-]*\.(?:app|com|io))\b', text,
+        )
+        canvas_url = f"https://{url_match.group(1)}" if url_match else "https://jspaint.app"
 
-                # Convert ComplexCommandPlanner ActionSteps to our ActionSteps
-                steps: list[ActionStep] = []
-                for cstep in template["steps"]:
+        # --- Tier 1: Rich drawing blueprints (SVG paths, polygons, beziers) ---
+        try:
+            from nlp2cmd.automation.drawing_blueprints import (
+                get_blueprint_steps,
+                lookup_blueprint,
+            )
+            bp = lookup_blueprint(text)
+            if bp:
+                log.info(
+                    "[ActionPlanner] Blueprint match: %s", bp["description"],
+                )
+                draw_steps = bp["steps_fn"]()
+
+                # Build full plan: navigate + canvas setup + drawing steps
+                steps: list[ActionStep] = [
+                    ActionStep("navigate", {"url": canvas_url}, f"Open {canvas_url}"),
+                    ActionStep("wait_for_canvas", {}, "Wait for canvas"),
+                    ActionStep("get_canvas_center", {}, "Get canvas center"),
+                ]
+                for ds in draw_steps:
                     steps.append(ActionStep(
-                        action=cstep.action,
-                        params=dict(cstep.params) if cstep.params else {},
-                        description=cstep.description,
+                        action=ds.action,
+                        params=dict(ds.params) if ds.params else {},
+                        description=ds.description,
                     ))
 
                 return ActionPlan(
                     query=query,
                     steps=steps,
-                    confidence=0.92,
-                    source="canvas_template",
-                    estimated_time_ms=sum(
-                        s.wait_after_ms for s in template["steps"]
-                    ) + len(steps) * 500,
+                    confidence=0.95,
+                    source="canvas_blueprint",
+                    estimated_time_ms=len(steps) * 400,
                 )
+        except ImportError:
+            pass
 
-        # No template match — generate drawing plan via LLM
+        # --- Tier 2: Legacy ComplexCommandPlanner templates ---
+        try:
+            from nlp2cmd.automation.complex_planner import (
+                DRAWING_PATTERNS,
+            )
+            for template in DRAWING_PATTERNS:
+                if re.search(template["pattern"], text):
+                    log.info(
+                        "[ActionPlanner] Canvas template match: %s",
+                        template["description"],
+                    )
+                    steps = []
+                    for cstep in template["steps"]:
+                        steps.append(ActionStep(
+                            action=cstep.action,
+                            params=dict(cstep.params) if cstep.params else {},
+                            description=cstep.description,
+                        ))
+                    return ActionPlan(
+                        query=query,
+                        steps=steps,
+                        confidence=0.92,
+                        source="canvas_template",
+                        estimated_time_ms=sum(
+                            s.wait_after_ms for s in template["steps"]
+                        ) + len(steps) * 500,
+                    )
+        except ImportError:
+            pass
+
+        # --- Tier 3: LLM-generated drawing plan ---
         return self._generate_canvas_plan_with_llm(query, text)
 
     def _generate_canvas_plan_with_llm(
