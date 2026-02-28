@@ -1038,27 +1038,62 @@ class ActionPlanner:
             object_name = "obiekt"
 
         canvas_prompt = (
-            f'Wygeneruj plan rysowania obiektu "{object_name}" na canvas.\n'
-            "Użyj TYLKO tych akcji w formacie JSON array:\n"
+            f'Wygeneruj SZCZEGÓŁOWY plan rysowania obiektu "{object_name}" na canvas.\n'
+            "Obiekt powinien być rozpoznawalny i realistyczny — użyj wielu warstw.\n"
+            "\n"
+            "DOSTĘPNE AKCJE (JSON array):\n"
+            "Kształty wypełnione:\n"
             '- set_color: {{"color": "#RRGGBB"}}\n'
-            '- draw_filled_ellipse: {{"rx": N, "ry": N, "offset": [x, y]}}\n'
-            '- draw_filled_circle: {{"radius": N, "offset": [x, y]}}\n'
-            '- draw_line: {{"from_offset": [x, y], "to_offset": [x, y]}}\n'
-            '- draw_circle: {{"radius": N, "offset": [x, y]}}\n'
+            '- draw_filled_ellipse: {{"rx": N, "ry": N, "offset": [x,y], "rotation": rad}}\n'
+            '- draw_filled_circle: {{"radius": N, "offset": [x,y]}}\n'
+            '- draw_filled_rectangle: {{"width": N, "height": N, "offset": [x,y]}}\n'
+            "Kontury:\n"
+            '- draw_line: {{"from_offset": [x,y], "to_offset": [x,y]}}\n'
+            '- draw_circle: {{"radius": N, "offset": [x,y]}}\n'
+            '- draw_arc: {{"radius": N, "start_angle": rad, "end_angle": rad, "offset": [x,y], "fill": bool}}\n'
+            "Zaawansowane:\n"
+            '- draw_polygon: {{"points": [[x,y],...], "offset": [x,y], "fill": bool}}\n'
+            '- draw_bezier: {{"curves": [{{"type":"M","x":N,"y":N}},{{"type":"Q","cpx":N,"cpy":N,"x":N,"y":N}},{{"type":"C","cp1x":N,"cp1y":N,"cp2x":N,"cp2y":N,"x":N,"y":N}}], "fill": bool, "close": bool}}\n'
+            '- draw_svg_path: {{"d": "M0 0 L10 10...", "fill": bool, "scale": N}}\n'
+            '- set_line_width: {{"width": N}}\n'
             '- screenshot: {{"suffix": "name"}}\n'
             "\n"
-            "Offset [x,y] jest relatywny do środka canvas (0,0 = środek).\n"
-            "Ujemne y = góra, dodatnie y = dół. Ujemne x = lewo, dodatnie x = prawo.\n"
-            "Użyj realistycznych kolorów i proporcji.\n"
-            "Odpowiedz TYLKO tablicą JSON, bez markdown, bez komentarzy.\n"
-            "Przykład (kot):\n"
+            "ZASADY:\n"
+            "- offset [x,y] relatywny do środka canvas (0,0 = środek)\n"
+            "- Ujemne y = góra, dodatnie y = dół\n"
+            "- Rysuj od tyłu do przodu (tło → ciało → detale → oczy)\n"
+            "- Każda część ciała = osobny kształt z set_color\n"
+            "- Użyj realistycznych kolorów, proporcji i detali\n"
+            "- Minimum 12 kroków dla rozpoznawalnego obiektu\n"
+            "- Odpowiedz TYLKO tablicą JSON, BEZ markdown, BEZ komentarzy\n"
+            "\n"
+            "Przykład (kot — 18 kroków):\n"
             "[\n"
-            '  {"action": "set_color", "params": {"color": "#808080"}},\n'
-            '  {"action": "draw_filled_ellipse", "params": {"rx": 80, "ry": 60, "offset": [0, 20]}},\n'
-            '  {"action": "draw_filled_circle", "params": {"radius": 40, "offset": [0, -50]}},\n'
-            '  {"action": "draw_line", "params": {"from_offset": [-20, -80], "to_offset": [-35, -110]}},\n'
-            '  {"action": "draw_line", "params": {"from_offset": [20, -80], "to_offset": [35, -110]}},\n'
-            '  {"action": "screenshot", "params": {"suffix": "cat"}}\n'
+            '  {"action":"set_color","params":{"color":"#808080"}},\n'
+            '  {"action":"draw_filled_ellipse","params":{"rx":80,"ry":60,"offset":[0,40]}},\n'
+            '  {"action":"draw_filled_circle","params":{"radius":45,"offset":[0,-35]}},\n'
+            '  {"action":"draw_polygon","params":{"points":[[-30,-10],[-45,-55],[-10,-30]],"offset":[0,-35],"fill":true}},\n'
+            '  {"action":"draw_polygon","params":{"points":[[30,-10],[45,-55],[10,-30]],"offset":[0,-35],"fill":true}},\n'
+            '  {"action":"set_color","params":{"color":"#FFB6C1"}},\n'
+            '  {"action":"draw_polygon","params":{"points":[[-28,-12],[-40,-48],[-14,-28]],"offset":[0,-35],"fill":true}},\n'
+            '  {"action":"draw_polygon","params":{"points":[[28,-12],[40,-48],[14,-28]],"offset":[0,-35],"fill":true}},\n'
+            '  {"action":"set_color","params":{"color":"#32CD32"}},\n'
+            '  {"action":"draw_filled_ellipse","params":{"rx":10,"ry":8,"offset":[-16,-40]}},\n'
+            '  {"action":"draw_filled_ellipse","params":{"rx":10,"ry":8,"offset":[16,-40]}},\n'
+            '  {"action":"set_color","params":{"color":"#000000"}},\n'
+            '  {"action":"draw_filled_ellipse","params":{"rx":4,"ry":7,"offset":[-16,-40]}},\n'
+            '  {"action":"draw_filled_ellipse","params":{"rx":4,"ry":7,"offset":[16,-40]}},\n'
+            '  {"action":"set_color","params":{"color":"#FF69B4"}},\n'
+            '  {"action":"draw_polygon","params":{"points":[[0,-4],[-5,4],[5,4]],"offset":[0,-25],"fill":true}},\n'
+            '  {"action":"set_color","params":{"color":"#000000"}},\n'
+            '  {"action":"draw_line","params":{"from_offset":[-15,-22],"to_offset":[-50,-30]}},\n'
+            '  {"action":"draw_line","params":{"from_offset":[-15,-20],"to_offset":[-50,-20]}},\n'
+            '  {"action":"draw_line","params":{"from_offset":[15,-22],"to_offset":[50,-30]}},\n'
+            '  {"action":"draw_line","params":{"from_offset":[15,-20],"to_offset":[50,-20]}},\n'
+            '  {"action":"set_line_width","params":{"width":8}},\n'
+            '  {"action":"set_color","params":{"color":"#808080"}},\n'
+            '  {"action":"draw_bezier","params":{"curves":[{"type":"M","x":75,"y":40},{"type":"C","cp1x":110,"cp1y":20,"cp2x":120,"cp2y":-30,"x":90,"y":-50}],"fill":false,"line_width":8}},\n'
+            '  {"action":"screenshot","params":{"suffix":"cat"}}\n'
             "]\n"
         )
 
@@ -1074,7 +1109,7 @@ class ActionPlanner:
                     "model": self.model,
                     "prompt": canvas_prompt,
                     "stream": False,
-                    "options": {"temperature": 0.3, "num_predict": 1500},
+                    "options": {"temperature": 0.3, "num_predict": 3000},
                 },
                 timeout=30,
             )
