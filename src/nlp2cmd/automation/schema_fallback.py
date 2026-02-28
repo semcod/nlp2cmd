@@ -92,6 +92,7 @@ class SchemaFallback:
           5. Local LLM re-planning (Ollama)
           6. Cloud LLM re-planning (OpenRouter escalation)
         """
+        print(f"[DEBUG] SchemaFallback: generate_fallback called for action={ctx.failed_action}")
         log.info(
             "[SchemaFallback] Generating fallback for failed '%s' at step %d/%d",
             ctx.failed_action, ctx.step_index, ctx.total_steps,
@@ -179,6 +180,7 @@ class SchemaFallback:
     # ------------------------------------------------------------------
     def _try_rule_based(self, ctx: FallbackContext, page: Any = None) -> Optional[FallbackResult]:
         """Rule-based fallback for known failure patterns."""
+        print(f"[DEBUG] SchemaFallback: _try_rule_based called for action={ctx.failed_action}")
 
         # navigate failed/mismatched URL -> discover the keys/tokens section dynamically
         if ctx.failed_action == "navigate":
@@ -316,11 +318,17 @@ class SchemaFallback:
                 steps.append({"action": "wait", "params": {"ms": 1500}})
 
                 # 2. Fill form fields (e.g. Name = "nlp2cmd", select radio button)
+                # Wait for form to fully load (radio buttons may appear after animation)
                 form_fields = create_cfg.get("form_fields", {})
+                print(f"[DEBUG] SchemaFallback: Processing form fields: {list(form_fields.keys())}")
+                log.info("[SchemaFallback] Processing form fields: %s", list(form_fields.keys()))
                 for _fname, field_cfg in form_fields.items():
+                    log.info("[SchemaFallback] Field %s: action=%s, selector=%s", 
+                            _fname, field_cfg.get("action"), field_cfg.get("selector"))
                     if field_cfg.get("default"):
                         # Special handling for radio buttons (e.g., token type selection)
                         if field_cfg.get("action") == "click_radio":
+                            log.info("[SchemaFallback] Adding radio button click for %s", _fname)
                             steps.append({
                                 "action": "click",
                                 "params": {
@@ -332,6 +340,7 @@ class SchemaFallback:
                             steps.append({"action": "wait", "params": {"ms": 300}})
                         else:
                             # Regular text input
+                            log.info("[SchemaFallback] Adding type_text for %s", _fname)
                             _type_params: dict[str, Any] = {
                                 "selector": field_cfg["selector"],
                                 "text": field_cfg["default"],
