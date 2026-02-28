@@ -264,10 +264,39 @@ nlp2cmd -r "wejdź na maskservice.pl i wypełnij formularz kontaktu"
 
 [📖 Full Documentation](docs/EXPLORATION_GUIDE.md)
 
-### 🖥️ Desktop GUI Automation via noVNC (NEW!)
+### 🖥️ Desktop GUI Automation (NEW!)
 
-Control **any desktop application** on any OS through natural language — not just web pages.
-NLP2CMD connects to a full Linux desktop (XFCE) running in Docker via noVNC/VNC protocol.
+Control **any desktop application** through natural language — browser tabs, email, drawing, API keys.
+
+```bash
+# Multi-step: open Firefox tab, extract API key, save to .env
+nlp2cmd -r "otwórz tab w firefox, wyciągnij klucz API z OpenRouter i zapisz do .env"
+
+# Canvas drawing on jspaint.app
+nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę"
+
+# Email client automation
+nlp2cmd -r "otwórz Thunderbird i sprawdź pocztę"
+
+# Window management
+nlp2cmd -r "zminimalizuj wszystko"
+
+# Record video of browser automation
+nlp2cmd -r "wejdź na github.com" --video webm
+```
+
+**Desktop examples** (`examples/06_desktop_automation/`):
+
+| Example | Description |
+|---------|-------------|
+| `04_browser_tabs/` | Multi-tab Firefox management |
+| `05_email_client/` | Thunderbird check/compose |
+| `06_env_extract/` | API key extraction → .env (6 services) |
+| `07_canvas_drawing/` | jspaint.app shapes (ladybug, circles) |
+| `08_captcha_solver/` | CAPTCHA solving via LLM vision |
+| `09_complex_commands/` | Multi-step NL command planning |
+
+#### noVNC Docker Desktop
 
 ```bash
 # Start desktop environment
@@ -592,12 +621,22 @@ nlp2cmd web-schema history --stats
 nlp2cmd --explain --query "Sprawdź status systemu"
 nlp2cmd --auto-repair --query "Napraw konfigurację nginx"
 
+# Decision tree and schema analysis
+nlp2cmd --show-decision-tree --query "wejdź na jspaint.app i narysuj biedronkę"
+nlp2cmd --show-schema  # Show available intents, entities, and templates
+nlp2cmd --verbose --query "zapytanie"  # Enable debug output
+
+# Generate markdown logs
+nlp2cmd -r "wejdź na jspaint.app" --md > output.md
+
 # Interactive mode
 nlp2cmd --interactive
 
 # Cache management
 nlp2cmd cache info
 nlp2cmd cache auto-setup
+nlp2cmd cache clear  # Clear external dependencies cache
+nlp2cmd cache full-clear --yes  # Clear ALL caches (runtime + external + schema)
 
 # Environment analysis
 nlp2cmd analyze-env
@@ -1062,6 +1101,146 @@ This command triggers thermodynamic optimization for constraint satisfaction pro
 - **Optimization**: General constrained optimization problems
 
 See [Thermodynamic Integration](THERMODYNAMIC_INTEGRATION.md) for detailed documentation.
+
+## 💾 Cache Management
+
+nlp2cmd uses intelligent caching to improve performance and reduce external dependencies:
+
+### Cache Types
+
+| Cache Type | Location | Purpose |
+|------------|----------|---------|
+| **External Dependencies** | `.cache/external/` | Playwright browsers, system packages |
+| **Runtime Cache** | `~/.nlp2cmd/` | Runtime data, temporary files |
+| **Schema Cache** | `command_schemas/sites/` | Generated web schemas |
+| **Evolutionary Cache** | Internal | Learned patterns and templates |
+
+### Cache Commands
+
+```bash
+# Show cache information and statistics
+nlp2cmd cache info
+
+# Auto-setup and install external dependencies
+nlp2cmd cache auto-setup
+
+# Clear only external dependencies cache
+nlp2cmd cache clear
+
+# Clear ALL caches (runtime + external + schema)
+nlp2cmd cache full-clear --yes
+
+# Clear everything including HuggingFace models
+nlp2cmd cache full-clear --include-models --yes
+
+# Clear everything including global Playwright cache
+nlp2cmd cache full-clear --include-global-playwright --yes
+
+# Complete cleanup (all options)
+nlp2cmd cache full-clear --include-models --include-global-playwright --yes
+```
+
+### When to Clear Cache
+
+- **After updates** - Clear cache after nlp2cmd updates
+- **Corrupted cache** - If you see unexpected behavior or errors
+- **Storage cleanup** - To free disk space (models can be several GB)
+- **Environment changes** - After changing system dependencies
+
+### Cache Safety
+
+- ✅ **Auto-rebuild** - Cache automatically rebuilds when needed
+- ✅ **No data loss** - Only temporary/cached data is removed
+- ✅ **Selective clearing** - You can clear specific cache types
+- ✅ **Confirmation** - Destructive operations require confirmation
+
+## 🔍 Decision Tree Analysis and Debugging
+
+nlp2cmd provides comprehensive tools for analyzing decision-making process:
+
+### Analytical Flags
+
+| Flag | Description |
+|------|-------------|
+| `--show-decision-tree` | Display complete decision tree with intent detection, entity extraction, and confidence scores |
+| `--explain` | Show step-by-step explanation of how the command was generated |
+| `--show-schema` | Display available intents, entities, templates, and domain schemas |
+| `--verbose` | Enable detailed debug output including internal processing |
+| `--md` | Generate execution logs in Markdown format with structured output |
+
+### Decision Tree Example
+
+```bash
+$ nlp2cmd "wejdź na jspaint.app i narysuj biedronkę" --show-decision-tree
+
+# Decision Tree for Query: "wejdź na jspaint.app i narysuj biedronkę"
+
+## Step 1: Intent Detection
+### Top Intent Matches:
+1. 🟢 draw (confidence: 0.95)
+   - Domain: canvas
+   - Method: keyword
+   - Matched label: narysuj (pl)
+
+2. 🟢 navigate (confidence: 0.95) ← SELECTED
+   - Domain: browser
+   - Method: keyword
+   - Matched label: wejdz na (pl)
+
+## Step 2: Pipeline Processing
+- Domain: browser
+- Intent: navigate
+- Detection Confidence: 0.96
+- Source: adapter
+
+## Step 3: Entity Extraction
+- url: jspaint.app
+
+## Step 4: Command Generation
+- Generated: {"dsl": "dom_dql.v1", "action": "goto", "url": "jspaint.app", "params": {}}
+- Final Confidence: 0.96
+```
+
+### Schema Analysis
+
+```bash
+$ nlp2cmd --show-schema
+
+Available Domains:
+- browser: navigate, click, fill, submit
+- shell: list, find, create, delete
+- sql: select, insert, update, delete
+- docker: build, run, stop, remove
+- kubernetes: deploy, scale, get, delete
+
+Available Entities:
+- url: Web addresses
+- path: File system paths
+- size: File sizes (KB, MB, GB)
+- time: Time expressions
+- user: Usernames
+
+Templates:
+- browser_goto: "go to {url}"
+- shell_find: "find {path} -size {size}"
+- sql_select: "select {columns} from {table}"
+```
+
+### Usage Examples
+
+```bash
+# Analyze why a command was generated
+nlp2cmd "pokaż procesy" --explain
+
+# Debug complex multi-intent queries
+nlp2cmd "otwórz github i znajdź nlp2cmd" --show-decision-tree --verbose
+
+# Save complete analysis to file
+nlp2cmd -r "złożona komenda" --md > analysis.md
+
+# Check what patterns are recognized
+nlp2cmd --show-schema | grep -A 10 "Intents:"
+```
 
 ## 💡 Examples
 

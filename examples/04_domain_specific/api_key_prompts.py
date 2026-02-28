@@ -189,7 +189,7 @@ HUGGINGFACE_PROMPTS = [
 # ---------------------------------------------------------------------------
 COMPLEX_PROMPTS = [
     PromptExample(
-        query="otwórz tab w Firefox, przejdź na OpenRouter, stwórz nowy klucz API i zapisz do .env",
+        query="otwórz tab w już otwartym Firefox, przejdź na OpenRouter, stwórz nowy klucz API i zapisz do .env",
         provider="openrouter",
         expects_firefox=True,
         expects_create=True,

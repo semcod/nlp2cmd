@@ -1,0 +1,21 @@
+intent: email_check
+domain: desktop
+description: Check for new email messages
+labels:
+  pl: ["sprawdź pocztę", "sprawdz poczte", "sprawdź maile", "sprawdz maile", "pobierz pocztę", "pobierz poczte", "odśwież pocztę", "odswierz poczte", "nowe maile", "nowa poczta"]
+  en: ["check mail", "check email", "get messages", "refresh inbox", "new mail", "fetch email"]
+  de: ["e-mail prüfen", "post abrufen", "neue nachrichten"]
+entities:
+  - name: client
+    type: app_name
+    required: false
+    default: thunderbird
+examples:
+  pl:
+    - "sprawdź pocztę"
+    - "sprawdź maile w thunderbird"
+    - "pobierz nową pocztę"
+  en:
+    - "check my email"
+    - "get new messages"
+    - "refresh inbox in thunderbird"

@@ -11,6 +11,8 @@ from nlp2cmd.nlp.config import (
     get_service_registry,
 )
 from nlp2cmd.nlp.normalizer import NormalizedQuery, QueryNormalizer
+from nlp2cmd.nlp.intent_matcher import IntentMatcher, IntentDef, IntentMatch
+from nlp2cmd.nlp.entity_resolver import EntityResolver, AppInfo
 
 __all__ = [
     "NormalizedQuery",
@@ -21,4 +23,10 @@ __all__ = [
     "IntentRegistry",
     "get_service_registry",
     "get_intent_registry",
+    # Phase R1 — YAML-driven multilingual NLP
+    "IntentMatcher",
+    "IntentDef",
+    "IntentMatch",
+    "EntityResolver",
+    "AppInfo",
 ]

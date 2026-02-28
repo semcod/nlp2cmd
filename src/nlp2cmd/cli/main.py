@@ -208,6 +208,32 @@ if not hasattr(click, 'Group'):
 @click.option("--md", "do_md", is_flag=True, help="Generate Markdown log with inline thumbnails for --source action")
 @click.option("-v", "--version", is_flag=True, help="Show version information")
 @click.option("--verbose", is_flag=True, help="Enable verbose debug output")
+@click.option(
+    "--show-schema",
+    "show_schema",
+    is_flag=True,
+    help="Show available schemas (intents, entities, templates) and exit",
+)
+@click.option(
+    "--show-decision-tree",
+    "show_decision_tree",
+    is_flag=True,
+    help="Show decision tree for a query (what intents detected, entities extracted, etc.)",
+)
+@click.option(
+    "--debug-log-md",
+    "debug_log_md",
+    type=click.Path(),
+    default=None,
+    help="Generate debug log in markdown format to file",
+)
+@click.option(
+    "--record-session",
+    "record_session",
+    type=click.Path(),
+    default=None,
+    help="Record CLI session to webm video file",
+)
 @click.pass_context
 def main(
     ctx,
@@ -233,6 +259,10 @@ def main(
     do_md: bool,
     version: bool,
     verbose: bool,
+    show_schema: bool,
+    show_decision_tree: bool,
+    debug_log_md: Optional[str],
+    record_session: Optional[str],
 ):
     """NLP2CMD - Natural Language to Domain-Specific Commands."""
     # Start timing from the very beginning
@@ -249,6 +279,22 @@ def main(
     ctx.obj["log_dir"] = log_dir
     ctx.obj["script_start_time"] = script_start_time
     ctx.obj["verbose"] = verbose
+
+    # Handle --show-schema flag
+    if show_schema:
+        from nlp2cmd.cli.debug_info import show_schema_info
+        show_schema_info(console)
+        return
+
+    # Handle --show-decision-tree flag (requires --query)
+    if show_decision_tree:
+        if not query:
+            console.print("[red]Error: --show-decision-tree requires --query <text>[/red]")
+            console.print("Example: nlp2cmd --show-decision-tree --query 'otwórz firefox'")
+            return
+        from nlp2cmd.cli.debug_info import show_decision_tree_info
+        show_decision_tree_info(query, console)
+        return
 
     if ctx.invoked_subcommand is None:
         auto_stdin = (not stdin_mode) and (not query) and (not sys.stdin.isatty())
@@ -412,6 +458,8 @@ def main(
                     stdout_only=stdout_only,
                     script_start_time=ctx.obj.get("script_start_time", time.time()),
                     verbose=verbose,
+                    debug_log_md=debug_log_md,
+                    record_session=record_session,
                 )
         elif interactive:
             session = InteractiveSession(

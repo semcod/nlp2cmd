@@ -1,0 +1,25 @@
+intent: screenshot
+domain: desktop
+description: Take a screenshot of the screen or a specific window
+labels:
+  pl: ["zrzut ekranu", "zrzut", "screenshot", "przechwytuj", "zrób screenshot", "zrob screenshot", "zrób zrzut", "zrob zrzut", "print screen", "printscreen"]
+  en: ["screenshot", "capture screen", "take screenshot", "screen capture", "print screen", "snap", "grab screen"]
+  de: ["bildschirmfoto", "screenshot machen", "bildschirm aufnehmen"]
+entities:
+  - name: target
+    type: enum
+    values: ["full", "window", "area"]
+    required: false
+    default: full
+  - name: path
+    type: file_path
+    required: false
+examples:
+  pl:
+    - "zrób screenshot"
+    - "zrzut ekranu"
+    - "zrób zrzut aktywnego okna"
+  en:
+    - "take a screenshot"
+    - "capture the screen"
+    - "screenshot of the current window"

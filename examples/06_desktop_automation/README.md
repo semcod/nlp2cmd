@@ -22,6 +22,7 @@ export OPENROUTER_API_KEY="sk-or-v1-..."  # for CAPTCHA/LLM features
 
 | Folder | What it does | Type | Command |
 |--------|-------------|------|---------|
+| `00_full_lifecycle/` | Setup → run all → analyze → teardown | bash | `bash 00_full_lifecycle/run.sh` |
 | `01_terminal/` | Open terminal, run shell commands | bash | `bash 01_terminal/run.sh` |
 | `02_calculator/` | Open calculator, do math | bash | `bash 02_calculator/run.sh` |
 | `03_text_editor/` | Write a document, save it | bash | `bash 03_text_editor/run.sh` |
@@ -72,6 +73,35 @@ nlp2cmd -r "zrób screenshot ekranu i wyślij mailem do szef@firma.pl"
 ```
 
 After running, check `logs/session.md` for the Markdown report with screenshots.
+
+## CLI Flags
+
+| Flag | Description |
+|------|-------------|
+| `--source <URI>` | Stream source URI (e.g. `novnc://localhost:6080`) |
+| `--log-dir <path>` | Directory for session logs with screenshots |
+| `--screenshot` | Save PNG screenshot after each action |
+| `--video mp4\|webm` | Record short video of the action |
+| `--duration <sec>` | Video duration in seconds (default: 3) |
+| `--md` | Append Markdown step with base64 thumbnail to `session.md` |
+
+## Full Lifecycle
+
+```bash
+# Run everything: setup → test → analyze → teardown
+bash 00_full_lifecycle/run.sh
+
+# Skip Docker startup (env already running)
+bash 00_full_lifecycle/run.sh --skip-setup
+
+# Run only specific examples
+bash 00_full_lifecycle/run.sh --only 01 03
+
+# Keep env running after tests
+bash 00_full_lifecycle/run.sh --skip-teardown
+```
+
+Results are saved to `00_full_lifecycle/results/summary.md`.
 
 ## Architecture
 

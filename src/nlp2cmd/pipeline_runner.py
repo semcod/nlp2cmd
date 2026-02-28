@@ -2000,9 +2000,25 @@ class PipelineRunner:
                 subprocess.run(["firefox", "--new-window", url], check=True)
             return None
 
+        if action == "check_session":
+            # In desktop mode we opened the URL in the user's real Firefox.
+            # We don't have a Playwright page to inspect, so just inform the user.
+            service = params.get("service", "unknown")
+            console = Console()
+            console.print(f"  [dim]🔍 Strona {service} została otwarta w Twojej przeglądarce.[/dim]")
+            console.print(f"  [dim]   Sprawdź, czy jesteś zalogowany. Jeśli nie — zaloguj się teraz.[/dim]")
+            # Give user time to check
+            time.sleep(2)
+            return "desktop_skipped"
+
         # Reuse safe non-desktop steps
         if action == "echo":
-            _debug(str(params.get("message", "") or params.get("text", "")))
+            msg = str(params.get("message", "") or params.get("text", ""))
+            if msg:
+                _debug(msg)
+                console = Console()
+                for line in msg.split("\n"):
+                    console.print(f"  [dim]{line}[/dim]")
             return None
 
         if action == "prompt_secret":

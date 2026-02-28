@@ -157,7 +157,8 @@ class TestActionPlanner:
         assert plan is not None
         assert plan.source == "rule_decomposer"
         assert len(plan.steps) >= 3
-        assert plan.steps[0].action == "navigate"
+        nav_steps = [s for s in plan.steps if s.action == "navigate"]
+        assert len(nav_steps) >= 1, f"No navigate step found, actions: {[s.action for s in plan.steps]}"
 
     def test_cache_serialization_roundtrip(self):
         from nlp2cmd.automation.action_planner import ActionPlan

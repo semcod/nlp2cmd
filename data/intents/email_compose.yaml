@@ -1,0 +1,26 @@
+intent: email_compose
+domain: desktop
+description: Compose a new email message
+labels:
+  pl: ["napisz maila", "napisz email", "nowy mail", "nowa wiadomość", "nowa wiadomosc", "wyślij maila", "wyslij maila", "skomponuj", "utwórz wiadomość"]
+  en: ["compose email", "new email", "new message", "write email", "send email", "draft email"]
+  de: ["neue e-mail", "e-mail schreiben", "nachricht verfassen"]
+entities:
+  - name: recipient
+    type: email
+    required: false
+  - name: subject
+    type: text
+    required: false
+  - name: body
+    type: text
+    required: false
+examples:
+  pl:
+    - "napisz maila do jan@example.com z tematem 'Raport Q1'"
+    - "nowa wiadomość do szefa"
+    - "wyślij email z raportem"
+  en:
+    - "compose email to john@example.com about 'Q1 Report'"
+    - "write a new email"
+    - "send email with the report"

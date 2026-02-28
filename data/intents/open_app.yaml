@@ -1,0 +1,27 @@
+intent: open_app
+domain: desktop
+description: Launch or open a desktop application
+labels:
+  pl: ["otwórz", "otworz", "uruchom", "odpal", "włącz", "wlacz", "wystartuj", "zapal", "puść", "pusc"]
+  en: ["open", "launch", "start", "run", "execute", "fire up", "bring up", "boot"]
+  de: ["öffne", "starte", "führe aus", "ausführen"]
+entities:
+  - name: app
+    type: app_name
+    required: true
+examples:
+  pl:
+    - "otwórz firefox"
+    - "uruchom przeglądarkę"
+    - "odpal mi chromka"
+    - "włącz terminal"
+    - "wystartuj vscode"
+  en:
+    - "open firefox"
+    - "launch the browser"
+    - "start chrome"
+    - "fire up the terminal"
+    - "run vscode"
+  de:
+    - "öffne firefox"
+    - "starte den browser"

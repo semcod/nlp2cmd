@@ -176,7 +176,20 @@ class RuleBasedPipeline:
                     text_lower,
                 )
             )
-            if (has_browser_phrase or has_url or has_domain) and (not is_key_env_workflow):
+
+            # Check for multi-step chain signals (don't force single-step for these)
+            chain_signals = [
+                r"\bi\b",                    # "otwórz X i Y"
+                r"\bpotem\b",
+                r"\bnast[eę]pnie\b",
+                r"\ba\s+potem\b",
+                r"\bpo\s+czym\b",
+                r"\bthen\b",
+                r"\band\s+then\b",
+            ]
+            has_chain_signal = any(_re.search(p, text_lower) for p in chain_signals)
+
+            if (has_browser_phrase or has_url or has_domain) and (not is_key_env_workflow) and (not has_chain_signal):
                 force_single_step_browser = True
         except Exception:
             force_single_step_browser = False

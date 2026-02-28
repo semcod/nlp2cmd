@@ -329,15 +329,27 @@ EMAIL_ALIASES: dict[str, str] = {
 
 
 def _load_known_services() -> dict[str, dict[str, Any]]:
-    """Load KNOWN_SERVICES from YAML config, falling back to hardcoded dict."""
+    """Load KNOWN_SERVICES: hardcoded base merged with YAML overrides.
+
+    The hardcoded dict contains the full config (login_url, session_indicators,
+    create_key, etc.). The YAML registry may override base_url/keys_url/key_pattern
+    but should NOT strip fields it doesn't know about.
+    """
+    result = {k: dict(v) for k, v in _HARDCODED_SERVICES.items()}
     try:
         from nlp2cmd.nlp.config import get_service_registry
         registry = get_service_registry()
         if len(registry) > 0:
-            return registry.as_planner_dict()
+            yaml_dict = registry.as_planner_dict()
+            for svc_name, yaml_svc in yaml_dict.items():
+                if svc_name in result:
+                    # Merge: YAML values override hardcoded, but don't drop new fields
+                    result[svc_name].update(yaml_svc)
+                else:
+                    result[svc_name] = yaml_svc
     except Exception as e:
-        log.debug("YAML service config unavailable, using hardcoded: %s", e)
-    return dict(_HARDCODED_SERVICES)
+        log.debug("YAML service config unavailable, using hardcoded only: %s", e)
+    return result
 
 
 KNOWN_SERVICES: dict[str, dict[str, Any]] = _load_known_services()
@@ -532,6 +544,16 @@ class ActionPlanner:
             wants_new_tab, wants_existing_firefox, wants_create, wants_save,
         )
 
+        # When automation (click/type_text) is needed, force Playwright path
+        # because desktop executor can't interact with page DOM.
+        if wants_create and wants_existing_firefox:
+            log.info(
+                "[ActionPlanner] Key creation requires Playwright — "
+                "switching from Firefox desktop to Playwright browser"
+            )
+            wants_existing_firefox = False
+            wants_new_tab = False  # Playwright opens its own browser
+
         steps: list[ActionStep] = []
 
         # --- Step 0: Screenshot before (audit) ---
@@ -632,8 +654,10 @@ class ActionPlanner:
     def _wants_create_key(text: str) -> bool:
         return any(p in text for p in [
             "stwórz", "stworz", "utwórz", "utworz", "wygeneruj",
+            "wyciągnij", "wyciagnij", "pobierz", "zapisz",
             "nowy klucz", "nowy key", "nowy token",
             "create", "generate", "new key", "new token",
+            "extract", "get key", "fetch",
         ])
 
     # ------------------------------------------------------------------

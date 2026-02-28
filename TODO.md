@@ -1,8 +1,50 @@
 # TODO - NLP2CMD Project
 
-> **Diagnostyka:** 2026-02-27 | **Wersja:** 1.0.89 | **Moduły:** ~140 | **Indeks funkcji:** ~1650+
+> **Diagnostyka:** 2026-02-28 | **Wersja:** 1.0.90 | **Moduły:** ~160 | **Testy:** 1527
 >
-> Źródło analizy: `project.toon` (2026-02-27) · 380 plików, 107,572 linii
+> Źródło: `project.toon` (2026-02-28) · 420+ plików, ~115K linii
+
+---
+
+## 🔄 W toku — Phase R2: Semantic Intent Classification
+
+- [ ] Sentence embedding model (paraphrase-multilingual-MiniLM-L12-v2)
+- [ ] HybridIntentClassifier (semantic + keyword + LLM fallback)
+- [ ] Intent classification benchmark (YAML test sets, multilingual)
+- [ ] Wire IntentMatcher into RuleBasedPipeline as first-tier detector
+
+## 🔄 W toku — Phase R3-R6: NLP Architecture Refactoring
+
+- [ ] R3: Entity extraction modernization (NER + fuzzy)
+- [ ] R4: Pipeline decomposition (pipeline_runner.py 2168 → ~800 ln)
+- [ ] R5: Error resilience (typo tolerance, confidence gates, structured errors)
+- [ ] R6: Multilingual benchmark + regression tests
+- See `docs/REFACTORING_NLP_ARCHITECTURE.md` for full plan
+
+---
+
+## ✅ Ukończone — Sprint 5 + Phase R1 (2026-02-28)
+
+### New Packages
+- [x] `automation/` — MouseController, EnvExtractor, CaptchaSolver, ComplexCommandPlanner
+- [x] `llm/` — OpenRouterClient, VisionAnalyzer
+- [x] `adapters/canvas.py` — CanvasAdapter (canvas_dql.v1)
+
+### Phase R1: Language Abstraction Layer
+- [x] `data/intents/*.yaml` — 9 multilingual intent definitions (PL/EN/DE)
+- [x] `data/entities/*.yaml` — colors (11), shapes (9), apps (11) with multilingual aliases
+- [x] `nlp/intent_matcher.py` — YAML-driven intent matching + rapidfuzz fuzzy
+- [x] `nlp/entity_resolver.py` — color/shape/app resolution from YAML
+
+### Bug Fixes
+- [x] `--video webm` not working in `--run` mode (was only wired for `--source`)
+- [x] `_extract_json_from_llm_response` body truncated
+- [x] `check_session` crash in desktop executor mode
+- [x] `echo` step silent in desktop mode
+
+### Examples (06_desktop_automation/)
+- [x] 00_full_lifecycle, 04_browser_tabs, 05_email_client
+- [x] 06_env_extract, 07_canvas_drawing, 08_captcha_solver, 09_complex_commands
 
 ---
 

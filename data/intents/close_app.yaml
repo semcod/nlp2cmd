@@ -1,0 +1,29 @@
+intent: close_app
+domain: desktop
+description: Close or quit a desktop application
+labels:
+  pl: ["zamknij", "zakończ", "zakoncz", "wyjdź", "wyjdz", "wyłącz", "wylacz", "ubij", "zabij"]
+  en: ["close", "quit", "exit", "kill", "terminate", "shut down", "stop"]
+  de: ["schließe", "beende", "beenden"]
+entities:
+  - name: app
+    type: app_name
+    required: false
+  - name: scope
+    type: enum
+    values: ["all", "current", "window"]
+    required: false
+examples:
+  pl:
+    - "zamknij firefox"
+    - "zakończ wszystkie okna vscode"
+    - "wyjdź z terminala"
+    - "ubij chromium"
+  en:
+    - "close firefox"
+    - "quit the browser"
+    - "exit terminal"
+    - "kill all chrome windows"
+  de:
+    - "schließe firefox"
+    - "beende den browser"

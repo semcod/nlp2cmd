@@ -1,0 +1,25 @@
+intent: navigate
+domain: browser
+description: Navigate to a URL or website
+labels:
+  pl: ["wejdź na", "wejdz na", "przejdź na", "przejdz na", "idź na", "idz na", "otwórz stronę", "otworz strone", "otwórz witrynę", "pokaż stronę", "pokaz strone"]
+  en: ["go to", "navigate to", "visit", "open page", "open site", "browse to", "head to"]
+  de: ["gehe zu", "navigiere zu", "öffne seite", "besuche"]
+entities:
+  - name: url
+    type: url
+    required: true
+examples:
+  pl:
+    - "wejdź na stronę github.com"
+    - "przejdź na google.pl"
+    - "otwórz stronę openrouter.ai"
+    - "pokaż stronę wikipedia.org"
+  en:
+    - "go to github.com"
+    - "navigate to openrouter.ai"
+    - "visit google.com"
+    - "open the page stackoverflow.com"
+  de:
+    - "gehe zu github.com"
+    - "öffne seite google.de"

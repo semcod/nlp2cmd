@@ -31,6 +31,8 @@ def handle_generate_query(
     stdout_only: bool,
     script_start_time: float,
     verbose: bool = False,
+    debug_log_md: Optional[str] = None,
+    record_video: Optional[str] = None,
     **_ignored_kwargs,
 ) -> None:
     """Handle single-query generation (no --run, dsl=auto fast path)."""
@@ -47,6 +49,30 @@ def handle_generate_query(
     }
     with (measure_resources() if _measure else nullcontext()):
         pipeline_result = pipeline.process(query)
+
+    # Handle multi-step action plan - serialize it as the command
+    action_plan = getattr(pipeline_result, 'action_plan', None)
+    if action_plan and not pipeline_result.command:
+        try:
+            import json
+            # Convert action plan to a JSON command
+            steps = getattr(action_plan, 'steps', [])
+            if steps:
+                commands = []
+                for step in steps:
+                    step_dict = {
+                        'action': getattr(step, 'action', 'unknown'),
+                        'target': getattr(step, 'target', None),
+                        'params': getattr(step, 'params', {}),
+                    }
+                    commands.append(step_dict)
+                pipeline_result.command = json.dumps({
+                    'dsl': 'multi_step',
+                    'steps': commands,
+                    'source': pipeline_result.source,
+                }, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
 
     if stdout_only:
         cmd = (pipeline_result.command or "").strip()
@@ -136,7 +162,18 @@ def handle_generate_query(
         show_yaml=True,
         title="NLP2CMD Result",
     )
-    
+
+    # Generate debug log if requested
+    if debug_log_md:
+        from nlp2cmd.cli.debug_info import generate_debug_log_md
+        generate_debug_log_md(query, debug_log_md)
+
+    # Record session video if requested
+    if record_session:
+        try:
+            _record_cli_session(record_session, query, out)
+        except Exception as e:
+            console.print(f"[yellow]Session recording failed: {e}[/yellow]")
     if execute_web and dsl == "browser":
         try:
             from nlp2cmd import NLP2CMD
@@ -193,3 +230,76 @@ def handle_appspec_query(
                 console.print(f"\n❌ Web execution failed: {res.error}")
         except Exception as e:
             console.print(f"\n❌ Web execution error: {e}")
+
+
+def _record_cli_session(output_path: str, query: str, result_data: dict) -> None:
+    """Record CLI session to webm video using ffmpeg."""
+    import subprocess
+    import tempfile
+    from pathlib import Path
+
+    console.print(f"[blue]Recording session to {output_path}...[/blue]")
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+
+        # Generate session info as text
+        frames_data = [
+            "NLP2CMD Session Recording",
+            f"Query: {query}",
+            "",
+            f"Status: {result_data.get('status', 'unknown')}",
+            f"Domain: {result_data.get('domain', 'unknown')}",
+            f"Intent: {result_data.get('intent', 'unknown')}",
+            f"Confidence: {result_data.get('confidence', 0):.2f}",
+            "",
+            "Generated Command:",
+            result_data.get('generated_command', 'N/A')[:200] if result_data.get('generated_command') else 'N/A',
+        ]
+
+        for i, text in enumerate(frames_data):
+            frame_file = tmp_path / f"frame_{i:04d}.txt"
+            frame_file.write_text(text, encoding='utf-8')
+
+        try:
+            duration = len(frames_data) * 1.5
+
+            filters = []
+            for i, text in enumerate(frames_data):
+                start = i * 1.5
+                end = (i + 1) * 1.5
+                safe_text = text.replace("'", "\\'").replace(":", "\\:").replace("[", "\\[").replace("]", "\\]")
+                filters.append(
+                    f"drawtext=text='{safe_text}':x=10:y=30+{i*30}:fontsize=24:fontcolor=white:enable='between(t,{start},{end})'"
+                )
+
+            filter_complex = ",".join(filters) if filters else "drawtext=text='NLP2CMD Session':x=10:y=10:fontsize=24:fontcolor=white"
+
+            cmd = [
+                "ffmpeg", "-y",
+                "-f", "lavfi", "-i", f"testsrc=duration={duration}:size=1280x720:rate=1",
+                "-vf", filter_complex,
+                "-c:v", "libvpx-vp9", "-pix_fmt", "yuv420p",
+                "-b:v", "1M",
+                "-deadline", "good",
+                "-cpu-used", "2",
+                output_path,
+            ]
+
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+
+            if result.returncode == 0 and Path(output_path).exists():
+                console.print(f"[green]Session video saved to: {output_path}[/green]")
+            else:
+                console.print(f"[yellow]ffmpeg failed, saving session log instead[/yellow]")
+                log_path = output_path.replace(".webm", ".txt")
+                Path(log_path).write_text("\n".join(frames_data), encoding='utf-8')
+                console.print(f"[blue]Session log saved to: {log_path}[/blue]")
+
+        except FileNotFoundError:
+            console.print(f"[yellow]ffmpeg not found. Install ffmpeg to enable video recording.[/yellow]")
+            log_path = output_path.replace(".webm", ".txt")
+            Path(log_path).write_text("\n".join(frames_data), encoding='utf-8')
+            console.print(f"[blue]Session log saved to: {log_path}[/blue]")
+        except subprocess.TimeoutExpired:
+            console.print(f"[yellow]Video recording timed out[/yellow]")

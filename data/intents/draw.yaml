@@ -1,0 +1,28 @@
+intent: draw
+domain: canvas
+description: Draw shapes or patterns on a canvas application
+labels:
+  pl: ["narysuj", "rysuj", "namaluj", "maluj", "naszkicuj", "szkicuj", "nakreśl"]
+  en: ["draw", "paint", "sketch", "trace", "render"]
+  de: ["zeichne", "male", "skizziere"]
+entities:
+  - name: shape
+    type: shape_name
+    required: false
+  - name: color
+    type: color_name
+    required: false
+  - name: size
+    type: number
+    required: false
+examples:
+  pl:
+    - "narysuj czerwone koło"
+    - "namaluj biedronkę"
+    - "narysuj prostokąt na jspaint.app"
+    - "rysuj niebieską linię"
+  en:
+    - "draw a red circle"
+    - "paint a ladybug"
+    - "draw a rectangle on jspaint.app"
+    - "sketch a blue line"

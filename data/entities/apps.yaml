@@ -1,0 +1,90 @@
+# Application names → launch commands (multilingual aliases)
+apps:
+  firefox:
+    launch: "firefox"
+    process: "firefox"
+    wmclass: "Firefox"
+    aliases:
+      pl: ["firefox", "przeglądarka", "przegladarka", "przeglądarkę", "przegladarke"]
+      en: ["firefox", "browser", "web browser"]
+      de: ["firefox", "browser", "webbrowser"]
+  chrome:
+    launch: "google-chrome"
+    process: "chrome"
+    wmclass: "Google-chrome"
+    aliases:
+      pl: ["chrome", "chromium", "chrom", "chromka", "google chrome"]
+      en: ["chrome", "google chrome", "chromium"]
+      de: ["chrome", "google chrome"]
+  terminal:
+    launch: "xfce4-terminal"
+    process: "xfce4-terminal"
+    wmclass: "Xfce4-terminal"
+    aliases:
+      pl: ["terminal", "konsola", "wiersz poleceń", "wiersz polecen"]
+      en: ["terminal", "console", "shell", "command line"]
+      de: ["terminal", "konsole", "kommandozeile"]
+  thunderbird:
+    launch: "thunderbird"
+    process: "thunderbird"
+    wmclass: "Thunderbird"
+    aliases:
+      pl: ["thunderbird", "poczta", "pocztę", "poczte", "mail", "klient pocztowy"]
+      en: ["thunderbird", "mail", "email", "email client"]
+      de: ["thunderbird", "e-mail", "post"]
+  vscode:
+    launch: "code"
+    process: "code"
+    wmclass: "Code"
+    aliases:
+      pl: ["vscode", "code", "vs code", "visual studio code", "edytor kodu"]
+      en: ["vscode", "code", "vs code", "visual studio code"]
+      de: ["vscode", "code", "vs code"]
+  calculator:
+    launch: "galculator"
+    process: "galculator"
+    wmclass: "Galculator"
+    aliases:
+      pl: ["kalkulator", "calculator"]
+      en: ["calculator", "calc"]
+      de: ["taschenrechner", "rechner"]
+  editor:
+    launch: "mousepad"
+    process: "mousepad"
+    wmclass: "Mousepad"
+    aliases:
+      pl: ["edytor", "notatnik", "notepad", "mousepad"]
+      en: ["editor", "notepad", "text editor", "mousepad"]
+      de: ["editor", "texteditor", "notizblock"]
+  file_manager:
+    launch: "thunar"
+    process: "thunar"
+    wmclass: "Thunar"
+    aliases:
+      pl: ["menedżer plików", "menadzer plikow", "pliki", "eksplorator"]
+      en: ["file manager", "files", "explorer", "thunar", "nautilus"]
+      de: ["dateimanager", "dateien", "dateiexplorer"]
+  libreoffice_writer:
+    launch: "libreoffice --writer"
+    process: "soffice"
+    wmclass: "libreoffice"
+    aliases:
+      pl: ["writer", "libreoffice writer", "edytor tekstu", "word"]
+      en: ["writer", "libreoffice writer", "word processor"]
+      de: ["writer", "libreoffice writer", "textverarbeitung"]
+  gimp:
+    launch: "gimp"
+    process: "gimp"
+    wmclass: "Gimp"
+    aliases:
+      pl: ["gimp", "edytor grafiki", "edytor obrazów"]
+      en: ["gimp", "image editor", "photo editor"]
+      de: ["gimp", "bildbearbeitung"]
+  vlc:
+    launch: "vlc"
+    process: "vlc"
+    wmclass: "vlc"
+    aliases:
+      pl: ["vlc", "odtwarzacz", "odtwarzacz wideo"]
+      en: ["vlc", "media player", "video player"]
+      de: ["vlc", "mediaplayer", "videoplayer"]

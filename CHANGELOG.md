@@ -1,3 +1,53 @@
+## [1.0.90] - 2026-02-28
+
+### Summary
+
+feat(automation): Desktop automation, canvas drawing, CAPTCHA solving, LLM vision, multilingual NLP refactoring (Phase R1)
+
+### New Packages
+
+- **`automation/`** — MouseController (Bézier curves, shapes), EnvExtractor (6 API services → .env), CaptchaSolver (reCAPTCHA/hCaptcha/slider via Gemini 2.5 Pro), ComplexCommandPlanner (template + LLM decomposition)
+- **`llm/`** — OpenRouterClient (text + vision + JSON mode), VisionAnalyzer (OCR, UI detection, drawing verification)
+- **`adapters/canvas.py`** — CanvasAdapter: NL → canvas_dql.v1 for jspaint.app/Excalidraw drawing
+
+### Features
+
+- **Desktop Adapter extended** (221 → 650 lines): 17 intents, 30+ apps, email shortcuts (Thunderbird/Evolution), window management (wmctrl/xdotool/ydotool), Wayland support
+- **Browser executor** — persistent context, multi-tab management (new_tab, switch_tab, close_tab)
+- **--video webm fix** — video recording now works in `--run` mode (was only wired for `--source` noVNC mode)
+- **Desktop templates** — 63 new shell templates for desktop automation
+- **Action planner** — `open_firefox_tab` action, `check_session` handling in desktop mode, Wayland/ydotool backend detection
+
+### Phase R1: Language Abstraction Layer
+
+- **`data/intents/*.yaml`** — 9 multilingual intent definitions (PL/EN/DE): open_app, close_app, navigate, new_tab, email_check, email_compose, draw, screenshot, minimize_all
+- **`data/entities/*.yaml`** — colors (11 × 3 langs), shapes (9 × 3 langs), apps (11 with aliases)
+- **`nlp/intent_matcher.py`** — IntentMatcher: YAML-driven intent detection with exact + fuzzy (rapidfuzz) matching, diacritic-insensitive normalization
+- **`nlp/entity_resolver.py`** — EntityResolver: colors, shapes, apps from YAML with fuzzy matching
+
+### Bug Fixes
+
+- **`--video webm` not generating video** — threaded video_fmt through CLI → PipelineRunner → Playwright context; disabled resource blocking during recording
+- **`_extract_json_from_llm_response` truncated** — restored regex + JSON parsing logic
+- **`check_session` crash in desktop mode** — added fallback handler that informs user instead of crashing
+- **`echo` step silent in desktop mode** — now prints to user console
+
+### Examples
+
+- `04_browser_tabs/` — multi-tab Firefox management
+- `05_email_client/` — Thunderbird check/compose
+- `06_env_extract/` — API key extraction → .env (6 services)
+- `07_canvas_drawing/` — jspaint.app shape drawing (ladybug, circles, rectangles)
+- `08_captcha_solver/` — CAPTCHA solving via LLM vision
+- `09_complex_commands/` — multi-step NL command planning
+- `00_full_lifecycle/` — full test suite runner with reports
+
+### Tests
+
+- 1527 tests passing (168 new tests for automation, NLP, intent matching)
+- New dependency: `rapidfuzz>=3.0` for fuzzy matching
+
+
 ## [1.0.84] - 2026-02-27
 
 ### Summary

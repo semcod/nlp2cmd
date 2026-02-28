@@ -61,6 +61,7 @@ class ComplexQueryDetector:
             r"(?:wejd[zź]|przejd[zź]|id[zź])\s+na\s+(?:stron|link|url)",
             r"otw[oó]rz\s+(?:stron|link|url)",
             r"otw[oó]rz\s+\S+\.\w{2,}",  # "otwórz openrouter.ai"
+            r"(?:wejd[zź]|przejd[zź]|id[zź])\s+na\s+\S+\.\w{2,}",  # "wejdź na jspaint.app"
         ],
         "click": [
             r"kliknij",
@@ -95,6 +96,53 @@ class ComplexQueryDetector:
         ],
     }
 
+    # Canvas/drawing intents for paint applications
+    CANVAS_INTENTS: dict[str, list[str]] = {
+        "draw": [
+            r"narysuj",
+            r"rysuj",
+            r"namaluj",
+            r"maluj",
+            r"naszkicuj",
+            r"skicuj",
+            r"draw",
+            r"paint",
+        ],
+        "draw_shape": [
+            r"narysuj\s+(?:ko[lł]o|kwadrat|prostok[aą]t|tr[oó]jk[aą]t|owal|lini[eę]|strza[lł]k[eę])",
+            r"draw\s+(?:circle|square|rectangle|triangle|oval|line|arrow)",
+        ],
+        "fill": [
+            r"wype[lł]nij",
+            r"zamalu[jj]",
+            r"fill",
+            r"zafarbu[jj]",
+        ],
+        "select_color": [
+            r"wybierz\s+kolor",
+            r"kolor\s+czerwony|niebieski|zielony|ż[oó][lł]ty|czarny|bia[lł]y",
+            r"select\s+color",
+            r"red|blue|green|yellow|black|white\s+color",
+        ],
+        "clear_canvas": [
+            r"wyczy[sś][ćc]\s+(?:p[lł]utno|kanw[aę]|ekran)",
+            r"nowy\s+rysunek",
+            r"clear\s+canvas",
+            r"new\s+drawing",
+        ],
+        "undo": [
+            r"cofnij",
+            r"undo",
+            r"wr[oó][ćc]",
+        ],
+        "save_image": [
+            r"zapisz\s+(?:obraz|rysunek|obrazek|plik)",
+            r"eksportuj",
+            r"save\s+(?:image|drawing|file)",
+            r"export",
+        ],
+    }
+
     # Desktop application intents
     DESKTOP_INTENTS: dict[str, list[str]] = {
         "email_check": [
@@ -121,6 +169,13 @@ class ComplexQueryDetector:
             for pattern in patterns:
                 if re.search(pattern, text):
                     detected_intents.append(f"browser:{intent_name}")
+                    break
+
+        # Check canvas intents
+        for intent_name, patterns in self.CANVAS_INTENTS.items():
+            for pattern in patterns:
+                if re.search(pattern, text):
+                    detected_intents.append(f"canvas:{intent_name}")
                     break
 
         # Check desktop intents

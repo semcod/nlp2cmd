@@ -1,0 +1,20 @@
+intent: new_tab
+domain: browser
+description: Open a new browser tab, optionally with a URL
+labels:
+  pl: ["nowy tab", "nowa karta", "nowa zakładka", "nowa zakladka", "otwórz tab", "otworz tab", "dodaj tab", "dodaj kartę"]
+  en: ["new tab", "open tab", "add tab", "another tab", "open new tab"]
+  de: ["neuer tab", "neuer reiter", "tab öffnen"]
+entities:
+  - name: url
+    type: url
+    required: false
+examples:
+  pl:
+    - "otwórz nowy tab"
+    - "nowa karta z github.com"
+    - "dodaj tab ze stackoverflow"
+  en:
+    - "open a new tab"
+    - "new tab with google.com"
+    - "open another tab"
