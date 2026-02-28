@@ -97,6 +97,13 @@ def _register_subcommands_for_args(argv: list[str]) -> None:
         pass
 
     try:
+        if wants_help or subcmd in {"doctor"}:
+            from nlp2cmd.cli.commands.doctor import doctor_command
+            main.add_command(doctor_command)
+    except Exception:
+        pass
+
+    try:
         if wants_help or subcmd in {"history"}:
             from nlp2cmd.cli.history import history_group
             main.add_command(history_group)
@@ -135,6 +142,48 @@ def analyze_env(*args, **kwargs):
 
 def version(*args, **kwargs):
     pass
+
+
+def _run_preflight_checks(console, verbose: bool = False):
+    """Run quick pre-flight checks before executing commands.
+    
+    Warns about common issues that will cause problems later.
+    """
+    warnings = []
+    
+    # Check HF_TOKEN
+    hf_token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN")
+    if not hf_token:
+        warnings.append(
+            "[yellow]⚠ HF_TOKEN not set - HF Hub requests will be unauthenticated (rate limits)[/yellow]\n"
+            "   Set with: export HF_TOKEN=your_token  # from https://huggingface.co/settings/tokens"
+        )
+    
+    # Check Ollama for canvas/web commands (only if we might need it)
+    ollama_host = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    try:
+        import socket
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1)
+        host = ollama_host.replace("http://", "").replace("https://", "").split(":")[0]
+        result = sock.connect_ex((host, 11434))
+        sock.close()
+        if result != 0:
+            warnings.append(
+                "[yellow]⚠ Ollama not running on port 11434 - canvas drawing commands will use fallback[/yellow]\n"
+                "   Start with: ollama serve"
+            )
+    except Exception:
+        pass
+    
+    if warnings and console:
+        if verbose:
+            console.print("\n[dim]--- Pre-flight checks ---[/dim]")
+        for warning in warnings:
+            console.print(warning)
+        if verbose:
+            console.print("[dim]-------------------------[/dim]\n")
+
 
 # Add command methods to main when click is not available
 if not hasattr(click, 'Group'):
@@ -273,6 +322,11 @@ def main(
             load_dotenv()
         except Exception:
             pass
+    
+    # Pre-flight health check for critical issues
+    if not show_schema and not show_decision_tree and not version:
+        _run_preflight_checks(console, verbose)
+    
     ctx.ensure_object(dict)
     ctx.obj["dsl"] = dsl
     ctx.obj["auto_repair"] = auto_repair

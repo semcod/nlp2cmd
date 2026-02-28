@@ -1132,18 +1132,52 @@ class ActionPlanner:
 
         try:
             import requests
-            resp = requests.post(
-                f"{self.ollama_url}/api/generate",
-                json={
-                    "model": self.model,
-                    "prompt": canvas_prompt,
-                    "stream": False,
-                    "options": {"temperature": 0.3, "num_predict": 3000},
-                },
-                timeout=30,
-            )
-            if resp.status_code != 200:
-                log.warning("Canvas LLM returned %d", resp.status_code)
+            
+            # Configurable timeout with fallback (default 60s for LLM generation)
+            timeout = float(os.getenv("CANVAS_LLM_TIMEOUT", "60"))
+            max_retries = int(os.getenv("CANVAS_LLM_RETRIES", "2"))
+            
+            resp = None
+            last_error = None
+            
+            for attempt in range(max_retries + 1):
+                try:
+                    resp = requests.post(
+                        f"{self.ollama_url}/api/generate",
+                        json={
+                            "model": self.model,
+                            "prompt": canvas_prompt,
+                            "stream": False,
+                            "options": {"temperature": 0.3, "num_predict": 3000},
+                        },
+                        timeout=timeout,
+                    )
+                    if resp.status_code == 200:
+                        break
+                    # If we get a non-200, retry
+                    if attempt < max_retries:
+                        log.warning("Canvas LLM returned %d, retrying...", resp.status_code)
+                        import time
+                        time.sleep(1.0 * (attempt + 1))
+                except requests.exceptions.Timeout as e:
+                    last_error = e
+                    if attempt < max_retries:
+                        log.warning("Canvas LLM timeout (attempt %d/%d), retrying...", attempt + 1, max_retries + 1)
+                        import time
+                        time.sleep(1.0 * (attempt + 1))
+                    else:
+                        raise
+                except Exception as e:
+                    last_error = e
+                    if attempt < max_retries:
+                        log.warning("Canvas LLM error (attempt %d/%d): %s", attempt + 1, max_retries + 1, e)
+                        import time
+                        time.sleep(1.0 * (attempt + 1))
+                    else:
+                        raise
+            
+            if resp is None or resp.status_code != 200:
+                log.warning("Canvas LLM failed after %d attempts", max_retries + 1)
                 return None
 
             raw = resp.json().get("response", "").strip()

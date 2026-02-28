@@ -1,3 +1,24 @@
+## [1.0.92] - 2026-02-28
+
+### Summary
+
+fix(goal): configuration management system
+
+### Core
+
+- update src/nlp2cmd/automation/action_planner.py
+- update src/nlp2cmd/cli/commands/doctor.py
+- update src/nlp2cmd/cli/main.py
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update screenshot_rabbit.png
+
+
 ## [1.0.91] - 2026-02-28
 
 ### Summary
