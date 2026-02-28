@@ -1,0 +1,68 @@
+module: cli.commands.tools
+type: functions
+count: 3
+functions:
+  cli.commands.tools.cmd_repair:
+    name: cmd_repair
+    qualified_name: cli.commands.tools.cmd_repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/commands/tools.py
+    line: 20
+    module: cli.commands.tools
+    cfg_entry: cli.commands.tools.cmd_repair_entry
+    calls:
+    - Path
+    - SchemaRegistry
+    - registry.detect_format
+    - console.print
+    - file_path.read_text
+    - registry.validate
+    - validation.get
+    - registry.repair
+    - schema.name.lower
+    - file_path.write_text
+    - change.get
+    - file_path.with_suffix
+    - backup_path.write_text
+    called_by:
+    - cli.main.repair
+  cli.commands.tools.cmd_validate:
+    name: cmd_validate
+    qualified_name: cli.commands.tools.cmd_validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/commands/tools.py
+    line: 74
+    module: cli.commands.tools
+    cfg_entry: cli.commands.tools.cmd_validate_entry
+    calls:
+    - Path
+    - SchemaRegistry
+    - registry.detect_format
+    - console.print
+    - file_path.read_text
+    - registry.validate
+    - result.get
+    - schema.name.lower
+    called_by:
+    - cli.main.validate
+  cli.commands.tools.cmd_analyze_env:
+    name: cmd_analyze_env
+    qualified_name: cli.commands.tools.cmd_analyze_env
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/commands/tools.py
+    line: 105
+    module: cli.commands.tools
+    cfg_entry: cli.commands.tools.cmd_analyze_env_entry
+    calls:
+    - EnvironmentAnalyzer
+    - analyzer.full_report
+    - console.print
+    - Table
+    - table.add_column
+    - report.tools.items
+    - report.services.items
+    - open
+    - json.dump
+    - Panel.fit
+    - table.add_row
+    - str
+    - report.os_info.get
+    called_by:
+    - cli.main.analyze_env

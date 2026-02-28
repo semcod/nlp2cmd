@@ -1,0 +1,260 @@
+module: streams.rtsp_stream.RTSPStreamAdapter
+type: functions
+count: 16
+functions:
+  streams.rtsp_stream.RTSPStreamAdapter.__init__:
+    name: __init__
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 30
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter.__init___entry
+    calls:
+    - None.__init__
+    - self._build_rtsp_url
+    - super
+  streams.rtsp_stream.RTSPStreamAdapter.connect:
+    name: connect
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 45
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter.connect_entry
+    calls:
+    - cv2.VideoCapture
+    - int
+    - self._cap.get
+    - StreamResult
+    - self._cap.isOpened
+    - str
+  streams.rtsp_stream.RTSPStreamAdapter.execute:
+    name: execute
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 72
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter.execute_entry
+    calls:
+    - self.query
+  streams.rtsp_stream.RTSPStreamAdapter.query:
+    name: query
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter.query
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 76
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter.query_entry
+    calls:
+    - question.lower
+    - any
+    - self._analyze_colors
+    - self._detect_motion
+    - self._detect_objects
+    - self._count_objects
+    - self._analyze_brightness
+    - self._capture_frame
+    - self._full_analysis
+  streams.rtsp_stream.RTSPStreamAdapter.screenshot:
+    name: screenshot
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter.screenshot
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 96
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter.screenshot_entry
+    calls:
+    - self._grab_frame
+    - self._frame_to_png
+  streams.rtsp_stream.RTSPStreamAdapter.disconnect:
+    name: disconnect
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter.disconnect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 103
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter.disconnect_entry
+    calls:
+    - self._cap.release
+  streams.rtsp_stream.RTSPStreamAdapter._grab_frame:
+    name: _grab_frame
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._grab_frame
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 113
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._grab_frame_entry
+    calls:
+    - self._cap.read
+    - self._cap.isOpened
+  streams.rtsp_stream.RTSPStreamAdapter._frame_to_png:
+    name: _frame_to_png
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._frame_to_png
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 120
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._frame_to_png_entry
+    calls:
+    - cv2.imencode
+    - buf.tobytes
+  streams.rtsp_stream.RTSPStreamAdapter._analyze_colors:
+    name: _analyze_colors
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._analyze_colors
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 125
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._analyze_colors_entry
+    calls:
+    - self._grab_frame
+    - cv2.cvtColor
+    - cv2.split
+    - color_ranges.items
+    - sorted
+    - float
+    - StreamResult
+    - round
+    - color_pcts.items
+    - np.mean
+    - cv2.inRange
+    - cv2.countNonZero
+    - self._frame_to_png
+    - dict
+    - None.join
+  streams.rtsp_stream.RTSPStreamAdapter._detect_motion:
+    name: _detect_motion
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._detect_motion
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 175
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._detect_motion_entry
+    calls:
+    - self._grab_frame
+    - time.sleep
+    - cv2.cvtColor
+    - cv2.GaussianBlur
+    - cv2.absdiff
+    - cv2.threshold
+    - cv2.findContours
+    - StreamResult
+    - kwargs.get
+    - cv2.boundingRect
+    - cv2.rectangle
+    - cv2.countNonZero
+    - self._frame_to_png
+    - cv2.contourArea
+    - round
+    - len
+  streams.rtsp_stream.RTSPStreamAdapter._detect_objects:
+    name: _detect_objects
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._detect_objects
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 219
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._detect_objects_entry
+    calls:
+    - self._grab_frame
+    - self._frame_to_png
+    - self._llm_analyze_frame
+    - cv2.cvtColor
+    - cv2.Canny
+    - cv2.findContours
+    - StreamResult
+    - cv2.contourArea
+    - len
+  streams.rtsp_stream.RTSPStreamAdapter._count_objects:
+    name: _count_objects
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._count_objects
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 250
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._count_objects_entry
+    calls:
+    - self._grab_frame
+    - self._frame_to_png
+    - self._llm_analyze_frame
+    - StreamResult
+  streams.rtsp_stream.RTSPStreamAdapter._analyze_brightness:
+    name: _analyze_brightness
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._analyze_brightness
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 269
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._analyze_brightness_entry
+    calls:
+    - self._grab_frame
+    - cv2.cvtColor
+    - float
+    - StreamResult
+    - np.mean
+    - np.std
+    - self._frame_to_png
+    - round
+  streams.rtsp_stream.RTSPStreamAdapter._capture_frame:
+    name: _capture_frame
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._capture_frame
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 304
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._capture_frame_entry
+    calls:
+    - self._grab_frame
+    - StreamResult
+    - self._frame_to_png
+  streams.rtsp_stream.RTSPStreamAdapter._full_analysis:
+    name: _full_analysis
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._full_analysis
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 315
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._full_analysis_entry
+    calls:
+    - self._grab_frame
+    - cv2.cvtColor
+    - float
+    - self._frame_to_png
+    - self._llm_analyze_frame
+    - StreamResult
+    - np.mean
+    - round
+  streams.rtsp_stream.RTSPStreamAdapter._llm_analyze_frame:
+    name: _llm_analyze_frame
+    qualified_name: streams.rtsp_stream.RTSPStreamAdapter._llm_analyze_frame
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rtsp_stream.py
+    line: 340
+    module: streams.rtsp_stream
+    class: RTSPStreamAdapter
+    is_method: true
+    cfg_entry: streams.rtsp_stream.RTSPStreamAdapter._llm_analyze_frame_entry
+    calls:
+    - None.decode
+    - LiteLLMClient
+    - asyncio.run
+    - llm.generate
+    - result.strip
+    - base64.b64encode
+    - len

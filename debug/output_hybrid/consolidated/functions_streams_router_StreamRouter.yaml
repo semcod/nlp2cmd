@@ -1,0 +1,70 @@
+module: streams.router.StreamRouter
+type: functions
+count: 4
+functions:
+  streams.router.StreamRouter.get_adapter:
+    name: get_adapter
+    qualified_name: streams.router.StreamRouter.get_adapter
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/router.py
+    line: 52
+    module: streams.router
+    class: StreamRouter
+    is_method: true
+    cfg_entry: streams.router.StreamRouter.get_adapter_entry
+    calls:
+    - isinstance
+    - _PROTOCOL_MAP.get
+    - streams.router._load_adapter_class
+    - cls
+    - streams.base.parse_source_uri
+    - ValueError
+    - None.join
+    - sorted
+    - _PROTOCOL_MAP.keys
+  streams.router.StreamRouter.execute:
+    name: execute
+    qualified_name: streams.router.StreamRouter.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/router.py
+    line: 73
+    module: streams.router
+    class: StreamRouter
+    is_method: true
+    cfg_entry: streams.router.StreamRouter.execute_entry
+    calls:
+    - time.time
+    - streams.base.parse_source_uri
+    - self.get_adapter
+    - adapter.execute
+    - adapter.connect
+    - StreamResult
+    - str
+  streams.router.StreamRouter.query:
+    name: query
+    qualified_name: streams.router.StreamRouter.query
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/router.py
+    line: 109
+    module: streams.router
+    class: StreamRouter
+    is_method: true
+    cfg_entry: streams.router.StreamRouter.query_entry
+    calls:
+    - time.time
+    - streams.base.parse_source_uri
+    - self.get_adapter
+    - adapter.query
+    - adapter.connect
+    - StreamResult
+    - str
+  streams.router.StreamRouter.close_all:
+    name: close_all
+    qualified_name: streams.router.StreamRouter.close_all
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/router.py
+    line: 129
+    module: streams.router
+    class: StreamRouter
+    is_method: true
+    cfg_entry: streams.router.StreamRouter.close_all_entry
+    calls:
+    - self._adapters.values
+    - self._adapters.clear
+    - adapter.disconnect

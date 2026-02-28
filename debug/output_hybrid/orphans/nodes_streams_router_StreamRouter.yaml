@@ -1,0 +1,105 @@
+module: streams.router.StreamRouter
+type: orphan_nodes
+count: 19
+nodes:
+  streams.router.StreamRouter.__init___entry:
+    id: streams.router.StreamRouter.__init___entry
+    type: ENTRY
+    label: entry
+    function: streams.router.StreamRouter.__init__
+  streams.router.StreamRouter.__init___exit:
+    id: streams.router.StreamRouter.__init___exit
+    type: EXIT
+    label: exit
+    function: streams.router.StreamRouter.__init__
+  streams.router.StreamRouter.get_adapter_entry:
+    id: streams.router.StreamRouter.get_adapter_entry
+    type: ENTRY
+    label: entry
+    function: streams.router.StreamRouter.get_adapter
+  streams.router.StreamRouter.get_adapter_exit:
+    id: streams.router.StreamRouter.get_adapter_exit
+    type: EXIT
+    label: exit
+    function: streams.router.StreamRouter.get_adapter
+  streams.router.StreamRouter.get_adapter_if_54:
+    id: streams.router.StreamRouter.get_adapter_if_54
+    type: IF
+    label: if
+    function: streams.router.StreamRouter.get_adapter
+    line: 54
+  streams.router.StreamRouter.get_adapter_merge_54:
+    id: streams.router.StreamRouter.get_adapter_merge_54
+    type: FUNC
+    label: merge
+    function: streams.router.StreamRouter.get_adapter
+  streams.router.StreamRouter.get_adapter_if_58:
+    id: streams.router.StreamRouter.get_adapter_if_58
+    type: IF
+    label: if
+    function: streams.router.StreamRouter.get_adapter
+    line: 58
+  streams.router.StreamRouter.get_adapter_return_59:
+    id: streams.router.StreamRouter.get_adapter_return_59
+    type: RETURN
+    label: return
+    function: streams.router.StreamRouter.get_adapter
+    line: 59
+  streams.router.StreamRouter.get_adapter_merge_58:
+    id: streams.router.StreamRouter.get_adapter_merge_58
+    type: FUNC
+    label: merge
+    function: streams.router.StreamRouter.get_adapter
+  streams.router.StreamRouter.get_adapter_if_62:
+    id: streams.router.StreamRouter.get_adapter_if_62
+    type: IF
+    label: if
+    function: streams.router.StreamRouter.get_adapter
+    line: 62
+  streams.router.StreamRouter.get_adapter_merge_62:
+    id: streams.router.StreamRouter.get_adapter_merge_62
+    type: FUNC
+    label: merge
+    function: streams.router.StreamRouter.get_adapter
+  streams.router.StreamRouter.get_adapter_return_71:
+    id: streams.router.StreamRouter.get_adapter_return_71
+    type: RETURN
+    label: return
+    function: streams.router.StreamRouter.get_adapter
+    line: 71
+  streams.router.StreamRouter.execute_entry:
+    id: streams.router.StreamRouter.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.router.StreamRouter.execute
+  streams.router.StreamRouter.execute_exit:
+    id: streams.router.StreamRouter.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.router.StreamRouter.execute
+  streams.router.StreamRouter.query_entry:
+    id: streams.router.StreamRouter.query_entry
+    type: ENTRY
+    label: entry
+    function: streams.router.StreamRouter.query
+  streams.router.StreamRouter.query_exit:
+    id: streams.router.StreamRouter.query_exit
+    type: EXIT
+    label: exit
+    function: streams.router.StreamRouter.query
+  streams.router.StreamRouter.close_all_entry:
+    id: streams.router.StreamRouter.close_all_entry
+    type: ENTRY
+    label: entry
+    function: streams.router.StreamRouter.close_all
+  streams.router.StreamRouter.close_all_exit:
+    id: streams.router.StreamRouter.close_all_exit
+    type: EXIT
+    label: exit
+    function: streams.router.StreamRouter.close_all
+  streams.router.StreamRouter.close_all_loop_131:
+    id: streams.router.StreamRouter.close_all_loop_131
+    type: FOR
+    label: for
+    function: streams.router.StreamRouter.close_all
+    line: 131

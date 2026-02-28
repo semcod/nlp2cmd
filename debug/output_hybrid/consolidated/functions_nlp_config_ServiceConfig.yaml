@@ -1,0 +1,15 @@
+module: nlp.config.ServiceConfig
+type: functions
+count: 1
+functions:
+  nlp.config.ServiceConfig.to_planner_dict:
+    name: to_planner_dict
+    qualified_name: nlp.config.ServiceConfig.to_planner_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 48
+    module: nlp.config
+    class: ServiceConfig
+    is_method: true
+    cfg_entry: nlp.config.ServiceConfig.to_planner_dict_entry
+    calls:
+    - list

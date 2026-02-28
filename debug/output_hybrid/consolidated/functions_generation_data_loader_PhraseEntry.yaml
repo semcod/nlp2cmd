@@ -1,0 +1,19 @@
+module: generation.data_loader.PhraseEntry
+type: functions
+count: 1
+functions:
+  generation.data_loader.PhraseEntry.from_dict:
+    name: from_dict
+    qualified_name: generation.data_loader.PhraseEntry.from_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/data_loader.py
+    line: 57
+    module: generation.data_loader
+    class: PhraseEntry
+    is_method: true
+    cfg_entry: generation.data_loader.PhraseEntry.from_dict_entry
+    calls:
+    - cls
+    - data.get
+    called_by:
+    - generation.data_loader.PhraseDatabase.from_dict
+    - generation.data_loader.from_dict

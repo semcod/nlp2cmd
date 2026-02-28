@@ -1,0 +1,27 @@
+module: src.nlp2cmd.processing.framework.TransformProcessor
+type: functions
+count: 2
+functions:
+  src.nlp2cmd.processing.framework.TransformProcessor.__init__:
+    name: __init__
+    qualified_name: src.nlp2cmd.processing.framework.TransformProcessor.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 98
+    module: src.nlp2cmd.processing.framework
+    class: TransformProcessor
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.TransformProcessor.__init___entry
+    calls:
+    - None.__init__
+    - super
+  src.nlp2cmd.processing.framework.TransformProcessor.process:
+    name: process
+    qualified_name: src.nlp2cmd.processing.framework.TransformProcessor.process
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 102
+    module: src.nlp2cmd.processing.framework
+    class: TransformProcessor
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.TransformProcessor.process_entry
+    calls:
+    - self.transform

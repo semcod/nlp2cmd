@@ -1,0 +1,187 @@
+module: core.core_backends
+type: orphan_nodes
+count: 33
+nodes:
+  core.core_backends.extract_intent_entry:
+    id: core.core_backends.extract_intent_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.extract_intent
+  core.core_backends.extract_intent_exit:
+    id: core.core_backends.extract_intent_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.extract_intent
+  core.core_backends.extract_entities_entry:
+    id: core.core_backends.extract_entities_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.extract_entities
+  core.core_backends.extract_entities_exit:
+    id: core.core_backends.extract_entities_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.extract_entities
+  core.core_backends.generate_plan_entry:
+    id: core.core_backends.generate_plan_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.generate_plan
+  core.core_backends.generate_plan_exit:
+    id: core.core_backends.generate_plan_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.generate_plan
+  core.core_backends.__init___entry:
+    id: core.core_backends.__init___entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.__init__
+  core.core_backends.__init___exit:
+    id: core.core_backends.__init___exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.__init__
+  core.core_backends.extract_entities_loop_65:
+    id: core.core_backends.extract_entities_loop_65
+    type: FOR
+    label: for
+    function: core.core_backends.extract_entities
+    line: 65
+  core.core_backends.extract_entities_return_74:
+    id: core.core_backends.extract_entities_return_74
+    type: RETURN
+    label: return
+    function: core.core_backends.extract_entities
+    line: 74
+  core.core_backends.extract_entities_if_183:
+    id: core.core_backends.extract_entities_if_183
+    type: IF
+    label: if
+    function: core.core_backends.extract_entities
+    line: 183
+  core.core_backends.extract_entities_if_194:
+    id: core.core_backends.extract_entities_if_194
+    type: IF
+    label: if
+    function: core.core_backends.extract_entities
+    line: 194
+  core.core_backends.extract_entities_merge_194:
+    id: core.core_backends.extract_entities_merge_194
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_entities
+  core.core_backends.extract_entities_loop_203:
+    id: core.core_backends.extract_entities_loop_203
+    type: FOR
+    label: for
+    function: core.core_backends.extract_entities
+    line: 203
+  core.core_backends.extract_entities_if_204:
+    id: core.core_backends.extract_entities_if_204
+    type: IF
+    label: if
+    function: core.core_backends.extract_entities
+    line: 204
+  core.core_backends.extract_entities_loop_206:
+    id: core.core_backends.extract_entities_loop_206
+    type: FOR
+    label: for
+    function: core.core_backends.extract_entities
+    line: 206
+  core.core_backends.extract_entities_loop_219:
+    id: core.core_backends.extract_entities_loop_219
+    type: FOR
+    label: for
+    function: core.core_backends.extract_entities
+    line: 219
+  core.core_backends.extract_entities_merge_204:
+    id: core.core_backends.extract_entities_merge_204
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_entities
+  core.core_backends.extract_entities_merge_183:
+    id: core.core_backends.extract_entities_merge_183
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_entities
+  core.core_backends.extract_entities_if_229:
+    id: core.core_backends.extract_entities_if_229
+    type: IF
+    label: if
+    function: core.core_backends.extract_entities
+    line: 229
+  core.core_backends.extract_entities_merge_229:
+    id: core.core_backends.extract_entities_merge_229
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_entities
+  core.core_backends.extract_entities_return_253:
+    id: core.core_backends.extract_entities_return_253
+    type: RETURN
+    label: return
+    function: core.core_backends.extract_entities
+    line: 253
+  core.core_backends.extract_intent_loop_263:
+    id: core.core_backends.extract_intent_loop_263
+    type: FOR
+    label: for
+    function: core.core_backends.extract_intent
+    line: 263
+  core.core_backends.extract_intent_loop_264:
+    id: core.core_backends.extract_intent_loop_264
+    type: FOR
+    label: for
+    function: core.core_backends.extract_intent
+    line: 264
+  core.core_backends.extract_intent_if_268:
+    id: core.core_backends.extract_intent_if_268
+    type: IF
+    label: if
+    function: core.core_backends.extract_intent
+    line: 268
+  core.core_backends.extract_intent_merge_268:
+    id: core.core_backends.extract_intent_merge_268
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_intent
+  core.core_backends.extract_intent_if_276:
+    id: core.core_backends.extract_intent_if_276
+    type: IF
+    label: if
+    function: core.core_backends.extract_intent
+    line: 276
+  core.core_backends.extract_intent_merge_276:
+    id: core.core_backends.extract_intent_merge_276
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_intent
+  core.core_backends.extract_intent_if_285:
+    id: core.core_backends.extract_intent_if_285
+    type: IF
+    label: if
+    function: core.core_backends.extract_intent
+    line: 285
+  core.core_backends.extract_intent_merge_285:
+    id: core.core_backends.extract_intent_merge_285
+    type: FUNC
+    label: merge
+    function: core.core_backends.extract_intent
+  core.core_backends.extract_intent_return_291:
+    id: core.core_backends.extract_intent_return_291
+    type: RETURN
+    label: return
+    function: core.core_backends.extract_intent
+    line: 291
+  core.core_backends.generate_plan_loop_300:
+    id: core.core_backends.generate_plan_loop_300
+    type: FOR
+    label: for
+    function: core.core_backends.generate_plan
+    line: 300
+  core.core_backends.generate_plan_return_303:
+    id: core.core_backends.generate_plan_return_303
+    type: RETURN
+    label: return
+    function: core.core_backends.generate_plan
+    line: 303

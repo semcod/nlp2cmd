@@ -1,0 +1,99 @@
+module: validators.ValidationResult
+type: functions
+count: 8
+functions:
+  validators.ValidationResult.merge:
+    name: merge
+    qualified_name: validators.ValidationResult.merge
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 27
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.merge_entry
+    calls:
+    - ValidationResult
+  validators.ValidationResult.from_dict:
+    name: from_dict
+    qualified_name: validators.ValidationResult.from_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 48
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.from_dict_entry
+    calls:
+    - cls
+    - data.get
+  validators.ValidationResult.add_error:
+    name: add_error
+    qualified_name: validators.ValidationResult.add_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 58
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.add_error_entry
+    calls:
+    - self.errors.append
+  validators.ValidationResult.add_warning:
+    name: add_warning
+    qualified_name: validators.ValidationResult.add_warning
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 63
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.add_warning_entry
+    calls:
+    - self.warnings.append
+  validators.ValidationResult.has_errors:
+    name: has_errors
+    qualified_name: validators.ValidationResult.has_errors
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 67
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.has_errors_entry
+    calls:
+    - len
+  validators.ValidationResult.has_warnings:
+    name: has_warnings
+    qualified_name: validators.ValidationResult.has_warnings
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 71
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.has_warnings_entry
+    calls:
+    - len
+  validators.ValidationResult.copy:
+    name: copy
+    qualified_name: validators.ValidationResult.copy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 75
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.copy_entry
+    calls:
+    - ValidationResult
+    - self.errors.copy
+    - self.warnings.copy
+    - self.suggestions.copy
+    - self.metadata.copy
+  validators.ValidationResult.__str__:
+    name: __str__
+    qualified_name: validators.ValidationResult.__str__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 85
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.__str___entry
+    calls:
+    - details.append
+    - len
+    - None.join

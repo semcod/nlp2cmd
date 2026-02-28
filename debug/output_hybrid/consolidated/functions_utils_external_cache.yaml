@@ -1,0 +1,176 @@
+module: utils.external_cache
+type: functions
+count: 13
+functions:
+  utils.external_cache.main:
+    name: main
+    qualified_name: utils.external_cache.main
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 241
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.main_entry
+    calls:
+    - argparse.ArgumentParser
+    - parser.add_argument
+    - parser.parse_args
+    - ExternalCacheManager
+    - manager.setup_environment
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - sys.exit
+    - manager.install_playwright_if_needed
+    - manager.get_cache_info
+    - None.items
+    - pkg_info.items
+    - manager.is_playwright_cached
+    - manager.clear_cache
+    - package.upper
+  utils.external_cache.__init__:
+    name: __init__
+    qualified_name: utils.external_cache.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 20
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.__init___entry
+    calls:
+    - Path
+    - self.cache_dir.mkdir
+    - self._load_manifest
+  utils.external_cache._load_manifest:
+    name: _load_manifest
+    qualified_name: utils.external_cache._load_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 37
+    module: utils.external_cache
+    cfg_entry: utils.external_cache._load_manifest_entry
+    calls:
+    - self.manifest_file.exists
+    - open
+    - json.load
+  utils.external_cache._save_manifest:
+    name: _save_manifest
+    qualified_name: utils.external_cache._save_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 47
+    module: utils.external_cache
+    cfg_entry: utils.external_cache._save_manifest_entry
+    calls:
+    - open
+    - json.dump
+  utils.external_cache._get_package_hash:
+    name: _get_package_hash
+    qualified_name: utils.external_cache._get_package_hash
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 55
+    module: utils.external_cache
+    cfg_entry: utils.external_cache._get_package_hash_entry
+    calls:
+    - None.hexdigest
+    - importlib.util.find_spec
+    - hashlib.md5
+    - Path
+    - file_path.exists
+    - None.encode
+    - file_path.stat
+    - content.encode
+  utils.external_cache.setup_playwright_cache:
+    name: setup_playwright_cache
+    qualified_name: utils.external_cache.setup_playwright_cache
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 75
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.setup_playwright_cache_entry
+    calls:
+    - self.playwright_browsers_dir.mkdir
+    - str
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - self.is_playwright_cached
+    - self._save_manifest
+    - self._get_installed_browsers
+    - Path.cwd
+  utils.external_cache.is_playwright_cached:
+    name: is_playwright_cached
+    qualified_name: utils.external_cache.is_playwright_cached
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 104
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.is_playwright_cached_entry
+    calls:
+    - self.playwright_browsers_dir.iterdir
+    - self.playwright_browsers_dir.exists
+    - any
+    - item.is_dir
+    - item.name.startswith
+  utils.external_cache.install_playwright_if_needed:
+    name: install_playwright_if_needed
+    qualified_name: utils.external_cache.install_playwright_if_needed
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 123
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.install_playwright_if_needed_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - self.is_playwright_cached
+    - self.setup_playwright_cache
+    - subprocess.run
+    - self._save_manifest
+    - Path.cwd
+    - str
+    - self._get_installed_browsers
+  utils.external_cache._get_installed_browsers:
+    name: _get_installed_browsers
+    qualified_name: utils.external_cache._get_installed_browsers
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 165
+    module: utils.external_cache
+    cfg_entry: utils.external_cache._get_installed_browsers_entry
+    calls:
+    - self.playwright_browsers_dir.exists
+    - self.playwright_browsers_dir.iterdir
+    - item.is_dir
+    - browsers.append
+  utils.external_cache.get_cache_info:
+    name: get_cache_info
+    qualified_name: utils.external_cache.get_cache_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 174
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.get_cache_info_entry
+    calls:
+    - str
+    - self._get_cache_size
+    - None.copy
+    - self.is_playwright_cached
+  utils.external_cache._get_cache_size:
+    name: _get_cache_size
+    qualified_name: utils.external_cache._get_cache_size
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 191
+    module: utils.external_cache
+    cfg_entry: utils.external_cache._get_cache_size_entry
+    calls:
+    - self.cache_dir.rglob
+    - item.is_file
+    - item.stat
+  utils.external_cache.clear_cache:
+    name: clear_cache
+    qualified_name: utils.external_cache.clear_cache
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 202
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.clear_cache_entry
+    calls:
+    - self.playwright_cache_dir.exists
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - shutil.rmtree
+    - self._save_manifest
+    - self.cache_dir.exists
+    - self.cache_dir.mkdir
+  utils.external_cache.setup_environment:
+    name: setup_environment
+    qualified_name: utils.external_cache.setup_environment
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/external_cache.py
+    line: 230
+    module: utils.external_cache
+    cfg_entry: utils.external_cache.setup_environment_entry
+    calls:
+    - self.setup_playwright_cache

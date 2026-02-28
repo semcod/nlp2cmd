@@ -1,0 +1,73 @@
+module: execution.shell_executor
+type: functions
+count: 5
+functions:
+  execution.shell_executor.execute:
+    name: execute
+    qualified_name: execution.shell_executor.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/shell_executor.py
+    line: 39
+    module: execution.shell_executor
+    cfg_entry: execution.shell_executor.execute_entry
+    calls:
+    - None.strip
+    - params.get
+    - float
+    - self._parse_command
+    - parsed.get
+    - self._execute_with_recovery
+    - ExecutorResult
+    - self._check_safety_policy
+    - str
+    - chk.get
+    - isinstance
+  execution.shell_executor._parse_command:
+    name: _parse_command
+    qualified_name: execution.shell_executor._parse_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/shell_executor.py
+    line: 103
+    module: execution.shell_executor
+    cfg_entry: execution.shell_executor._parse_command_entry
+    calls:
+    - command.strip
+    - cmd.lower
+    - any
+    - shlex.split
+    - re.search
+    - cmd.split
+  execution.shell_executor._check_safety_policy:
+    name: _check_safety_policy
+    qualified_name: execution.shell_executor._check_safety_policy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/shell_executor.py
+    line: 146
+    module: execution.shell_executor
+    cfg_entry: execution.shell_executor._check_safety_policy_entry
+    calls:
+    - None.lower
+    - any
+    - str
+  execution.shell_executor._execute_with_recovery:
+    name: _execute_with_recovery
+    qualified_name: execution.shell_executor._execute_with_recovery
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/shell_executor.py
+    line: 168
+    module: execution.shell_executor
+    cfg_entry: execution.shell_executor._execute_with_recovery_entry
+    calls:
+    - self._get_resource_discovery
+    - list
+    - subprocess.run
+    - ExecutorResult
+    - None.join
+    - exploration.resource_discovery.handle_execution_failure
+    - shlex.split
+    - cp.stderr.strip
+  execution.shell_executor._get_resource_discovery:
+    name: _get_resource_discovery
+    qualified_name: execution.shell_executor._get_resource_discovery
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/shell_executor.py
+    line: 227
+    module: execution.shell_executor
+    cfg_entry: execution.shell_executor._get_resource_discovery_entry
+    calls:
+    - exploration.resource_discovery.get_resource_discovery_manager

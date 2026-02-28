@@ -1,0 +1,450 @@
+module: execution.browser
+type: orphan_nodes
+count: 82
+nodes:
+  execution.browser.get_os_open_command_entry:
+    id: execution.browser.get_os_open_command_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.get_os_open_command
+  execution.browser.get_os_open_command_exit:
+    id: execution.browser.get_os_open_command_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.get_os_open_command
+  execution.browser.get_os_open_command_if_32:
+    id: execution.browser.get_os_open_command_if_32
+    type: IF
+    label: if
+    function: execution.browser.get_os_open_command
+    line: 32
+  execution.browser.get_os_open_command_return_33:
+    id: execution.browser.get_os_open_command_return_33
+    type: RETURN
+    label: return
+    function: execution.browser.get_os_open_command
+    line: 33
+  execution.browser.get_os_open_command_if_34:
+    id: execution.browser.get_os_open_command_if_34
+    type: IF
+    label: if
+    function: execution.browser.get_os_open_command
+    line: 34
+  execution.browser.get_os_open_command_return_35:
+    id: execution.browser.get_os_open_command_return_35
+    type: RETURN
+    label: return
+    function: execution.browser.get_os_open_command
+    line: 35
+  execution.browser.get_os_open_command_if_36:
+    id: execution.browser.get_os_open_command_if_36
+    type: IF
+    label: if
+    function: execution.browser.get_os_open_command
+    line: 36
+  execution.browser.get_os_open_command_return_37:
+    id: execution.browser.get_os_open_command_return_37
+    type: RETURN
+    label: return
+    function: execution.browser.get_os_open_command
+    line: 37
+  execution.browser.get_os_open_command_return_39:
+    id: execution.browser.get_os_open_command_return_39
+    type: RETURN
+    label: return
+    function: execution.browser.get_os_open_command
+    line: 39
+  execution.browser.get_os_open_command_merge_36:
+    id: execution.browser.get_os_open_command_merge_36
+    type: FUNC
+    label: merge
+    function: execution.browser.get_os_open_command
+  execution.browser.get_os_open_command_merge_34:
+    id: execution.browser.get_os_open_command_merge_34
+    type: FUNC
+    label: merge
+    function: execution.browser.get_os_open_command
+  execution.browser.get_os_open_command_merge_32:
+    id: execution.browser.get_os_open_command_merge_32
+    type: FUNC
+    label: merge
+    function: execution.browser.get_os_open_command
+  execution.browser.normalize_url_entry:
+    id: execution.browser.normalize_url_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.normalize_url
+  execution.browser.normalize_url_exit:
+    id: execution.browser.normalize_url_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.normalize_url
+  execution.browser.normalize_url_if_45:
+    id: execution.browser.normalize_url_if_45
+    type: IF
+    label: if
+    function: execution.browser.normalize_url
+    line: 45
+  execution.browser.normalize_url_merge_45:
+    id: execution.browser.normalize_url_merge_45
+    type: FUNC
+    label: merge
+    function: execution.browser.normalize_url
+  execution.browser.normalize_url_return_47:
+    id: execution.browser.normalize_url_return_47
+    type: RETURN
+    label: return
+    function: execution.browser.normalize_url
+    line: 47
+  execution.browser.open_url_entry:
+    id: execution.browser.open_url_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.open_url
+  execution.browser.open_url_exit:
+    id: execution.browser.open_url_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.open_url
+  execution.browser.search_web_entry:
+    id: execution.browser.search_web_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.search_web
+  execution.browser.search_web_exit:
+    id: execution.browser.search_web_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.search_web
+  execution.browser.search_web_return_119:
+    id: execution.browser.search_web_return_119
+    type: RETURN
+    label: return
+    function: execution.browser.search_web
+    line: 119
+  execution.browser.generate_shell_command_entry:
+    id: execution.browser.generate_shell_command_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.generate_shell_command
+  execution.browser.generate_shell_command_exit:
+    id: execution.browser.generate_shell_command_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.generate_shell_command
+  execution.browser.generate_shell_command_if_504:
+    id: execution.browser.generate_shell_command_if_504
+    type: IF
+    label: if
+    function: execution.browser.generate_shell_command
+    line: 504
+  execution.browser.generate_shell_command_return_506:
+    id: execution.browser.generate_shell_command_return_506
+    type: RETURN
+    label: return
+    function: execution.browser.generate_shell_command
+    line: 506
+  execution.browser.generate_shell_command_if_508:
+    id: execution.browser.generate_shell_command_if_508
+    type: IF
+    label: if
+    function: execution.browser.generate_shell_command
+    line: 508
+  execution.browser.generate_shell_command_return_519:
+    id: execution.browser.generate_shell_command_return_519
+    type: RETURN
+    label: return
+    function: execution.browser.generate_shell_command
+    line: 519
+  execution.browser.generate_shell_command_return_522:
+    id: execution.browser.generate_shell_command_return_522
+    type: RETURN
+    label: return
+    function: execution.browser.generate_shell_command
+    line: 522
+  execution.browser.generate_shell_command_merge_508:
+    id: execution.browser.generate_shell_command_merge_508
+    type: FUNC
+    label: merge
+    function: execution.browser.generate_shell_command
+  execution.browser.generate_shell_command_merge_504:
+    id: execution.browser.generate_shell_command_merge_504
+    type: FUNC
+    label: merge
+    function: execution.browser.generate_shell_command
+  execution.browser.__init___entry:
+    id: execution.browser.__init___entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.__init__
+  execution.browser.__init___exit:
+    id: execution.browser.__init___exit
+    type: EXIT
+    label: exit
+    function: execution.browser.__init__
+  execution.browser._ensure_playwright_entry:
+    id: execution.browser._ensure_playwright_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser._ensure_playwright
+  execution.browser._ensure_playwright_exit:
+    id: execution.browser._ensure_playwright_exit
+    type: EXIT
+    label: exit
+    function: execution.browser._ensure_playwright
+  execution.browser._ensure_playwright_if_147:
+    id: execution.browser._ensure_playwright_if_147
+    type: IF
+    label: if
+    function: execution.browser._ensure_playwright
+    line: 147
+  execution.browser._ensure_playwright_return_148:
+    id: execution.browser._ensure_playwright_return_148
+    type: RETURN
+    label: return
+    function: execution.browser._ensure_playwright
+    line: 148
+  execution.browser._ensure_playwright_merge_147:
+    id: execution.browser._ensure_playwright_merge_147
+    type: FUNC
+    label: merge
+    function: execution.browser._ensure_playwright
+  execution.browser._ensure_persistent_context_entry:
+    id: execution.browser._ensure_persistent_context_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser._ensure_persistent_context
+  execution.browser._ensure_persistent_context_exit:
+    id: execution.browser._ensure_persistent_context_exit
+    type: EXIT
+    label: exit
+    function: execution.browser._ensure_persistent_context
+  execution.browser._ensure_persistent_context_if_170:
+    id: execution.browser._ensure_persistent_context_if_170
+    type: IF
+    label: if
+    function: execution.browser._ensure_persistent_context
+    line: 170
+  execution.browser._ensure_persistent_context_return_171:
+    id: execution.browser._ensure_persistent_context_return_171
+    type: RETURN
+    label: return
+    function: execution.browser._ensure_persistent_context
+    line: 171
+  execution.browser._ensure_persistent_context_merge_170:
+    id: execution.browser._ensure_persistent_context_merge_170
+    type: FUNC
+    label: merge
+    function: execution.browser._ensure_persistent_context
+  execution.browser.new_tab_entry:
+    id: execution.browser.new_tab_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.new_tab
+  execution.browser.new_tab_exit:
+    id: execution.browser.new_tab_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.new_tab
+  execution.browser.switch_tab_entry:
+    id: execution.browser.switch_tab_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.switch_tab
+  execution.browser.switch_tab_exit:
+    id: execution.browser.switch_tab_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.switch_tab
+  execution.browser.close_tab_entry:
+    id: execution.browser.close_tab_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.close_tab
+  execution.browser.close_tab_exit:
+    id: execution.browser.close_tab_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.close_tab
+  execution.browser.list_tabs_entry:
+    id: execution.browser.list_tabs_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.list_tabs
+  execution.browser.list_tabs_exit:
+    id: execution.browser.list_tabs_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.list_tabs
+  execution.browser.list_tabs_loop_320:
+    id: execution.browser.list_tabs_loop_320
+    type: FOR
+    label: for
+    function: execution.browser.list_tabs
+    line: 320
+  execution.browser.list_tabs_return_327:
+    id: execution.browser.list_tabs_return_327
+    type: RETURN
+    label: return
+    function: execution.browser.list_tabs
+    line: 327
+  execution.browser.close_entry:
+    id: execution.browser.close_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.close
+  execution.browser.close_exit:
+    id: execution.browser.close_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.close
+  execution.browser.close_if_331:
+    id: execution.browser.close_if_331
+    type: IF
+    label: if
+    function: execution.browser.close
+    line: 331
+  execution.browser.close_merge_331:
+    id: execution.browser.close_merge_331
+    type: FUNC
+    label: merge
+    function: execution.browser.close
+  execution.browser.close_if_335:
+    id: execution.browser.close_if_335
+    type: IF
+    label: if
+    function: execution.browser.close
+    line: 335
+  execution.browser.close_merge_335:
+    id: execution.browser.close_merge_335
+    type: FUNC
+    label: merge
+    function: execution.browser.close
+  execution.browser.execute_simple_entry:
+    id: execution.browser.execute_simple_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.execute_simple
+  execution.browser.execute_simple_exit:
+    id: execution.browser.execute_simple_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.execute_simple
+  execution.browser.execute_simple_if_350:
+    id: execution.browser.execute_simple_if_350
+    type: IF
+    label: if
+    function: execution.browser.execute_simple
+    line: 350
+  execution.browser.execute_simple_if_352:
+    id: execution.browser.execute_simple_if_352
+    type: IF
+    label: if
+    function: execution.browser.execute_simple
+    line: 352
+  execution.browser.execute_simple_return_353:
+    id: execution.browser.execute_simple_return_353
+    type: RETURN
+    label: return
+    function: execution.browser.execute_simple
+    line: 353
+  execution.browser.execute_simple_merge_352:
+    id: execution.browser.execute_simple_merge_352
+    type: FUNC
+    label: merge
+    function: execution.browser.execute_simple
+  execution.browser.execute_simple_return_358:
+    id: execution.browser.execute_simple_return_358
+    type: RETURN
+    label: return
+    function: execution.browser.execute_simple
+    line: 358
+  execution.browser.execute_simple_if_360:
+    id: execution.browser.execute_simple_if_360
+    type: IF
+    label: if
+    function: execution.browser.execute_simple
+    line: 360
+  execution.browser.execute_simple_if_363:
+    id: execution.browser.execute_simple_if_363
+    type: IF
+    label: if
+    function: execution.browser.execute_simple
+    line: 363
+  execution.browser.execute_simple_return_364:
+    id: execution.browser.execute_simple_return_364
+    type: RETURN
+    label: return
+    function: execution.browser.execute_simple
+    line: 364
+  execution.browser.execute_simple_merge_363:
+    id: execution.browser.execute_simple_merge_363
+    type: FUNC
+    label: merge
+    function: execution.browser.execute_simple
+  execution.browser.execute_simple_return_369:
+    id: execution.browser.execute_simple_return_369
+    type: RETURN
+    label: return
+    function: execution.browser.execute_simple
+    line: 369
+  execution.browser.execute_simple_return_372:
+    id: execution.browser.execute_simple_return_372
+    type: RETURN
+    label: return
+    function: execution.browser.execute_simple
+    line: 372
+  execution.browser.execute_simple_merge_360:
+    id: execution.browser.execute_simple_merge_360
+    type: FUNC
+    label: merge
+    function: execution.browser.execute_simple
+  execution.browser.execute_simple_merge_350:
+    id: execution.browser.execute_simple_merge_350
+    type: FUNC
+    label: merge
+    function: execution.browser.execute_simple
+  execution.browser.execute_entry:
+    id: execution.browser.execute_entry
+    type: ENTRY
+    label: entry
+    function: execution.browser.execute
+  execution.browser.execute_exit:
+    id: execution.browser.execute_exit
+    type: EXIT
+    label: exit
+    function: execution.browser.execute
+  execution.browser.execute_if_393:
+    id: execution.browser.execute_if_393
+    type: IF
+    label: if
+    function: execution.browser.execute
+    line: 393
+  execution.browser.execute_return_394:
+    id: execution.browser.execute_return_394
+    type: RETURN
+    label: return
+    function: execution.browser.execute
+    line: 394
+  execution.browser.execute_merge_393:
+    id: execution.browser.execute_merge_393
+    type: FUNC
+    label: merge
+    function: execution.browser.execute
+  execution.browser.execute_if_397:
+    id: execution.browser.execute_if_397
+    type: IF
+    label: if
+    function: execution.browser.execute
+    line: 397
+  execution.browser.execute_return_398:
+    id: execution.browser.execute_return_398
+    type: RETURN
+    label: return
+    function: execution.browser.execute
+    line: 398
+  execution.browser.execute_merge_397:
+    id: execution.browser.execute_merge_397
+    type: FUNC
+    label: merge
+    function: execution.browser.execute

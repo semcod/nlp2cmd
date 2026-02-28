@@ -1,0 +1,15 @@
+module: execution.base.ExecutorResult
+type: functions
+count: 1
+functions:
+  execution.base.ExecutorResult.to_runner_result:
+    name: to_runner_result
+    qualified_name: execution.base.ExecutorResult.to_runner_result
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/base.py
+    line: 26
+    module: execution.base
+    class: ExecutorResult
+    is_method: true
+    cfg_entry: execution.base.ExecutorResult.to_runner_result_entry
+    calls:
+    - RunnerResult

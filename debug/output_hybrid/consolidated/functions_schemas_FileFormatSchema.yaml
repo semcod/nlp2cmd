@@ -1,0 +1,64 @@
+module: schemas.FileFormatSchema
+type: functions
+count: 5
+functions:
+  schemas.FileFormatSchema.validate:
+    name: validate
+    qualified_name: schemas.FileFormatSchema.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 39
+    module: schemas
+    class: FileFormatSchema
+    is_method: true
+    cfg_entry: schemas.FileFormatSchema.validate_entry
+    calls:
+    - self.validator
+  schemas.FileFormatSchema.parse:
+    name: parse
+    qualified_name: schemas.FileFormatSchema.parse
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 45
+    module: schemas
+    class: FileFormatSchema
+    is_method: true
+    cfg_entry: schemas.FileFormatSchema.parse_entry
+    calls:
+    - self.parser
+  schemas.FileFormatSchema.generate:
+    name: generate
+    qualified_name: schemas.FileFormatSchema.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 51
+    module: schemas
+    class: FileFormatSchema
+    is_method: true
+    cfg_entry: schemas.FileFormatSchema.generate_entry
+    calls:
+    - self.generator
+    - str
+    - data.get
+  schemas.FileFormatSchema.matches_extension:
+    name: matches_extension
+    qualified_name: schemas.FileFormatSchema.matches_extension
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 57
+    module: schemas
+    class: FileFormatSchema
+    is_method: true
+    cfg_entry: schemas.FileFormatSchema.matches_extension_entry
+    calls:
+    - filename.lower
+    - pattern.lower
+    - fnmatch.fnmatch
+  schemas.FileFormatSchema.self_validate:
+    name: self_validate
+    qualified_name: schemas.FileFormatSchema.self_validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 72
+    module: schemas
+    class: FileFormatSchema
+    is_method: true
+    cfg_entry: schemas.FileFormatSchema.self_validate_entry
+    calls:
+    - errors.append
+    - len

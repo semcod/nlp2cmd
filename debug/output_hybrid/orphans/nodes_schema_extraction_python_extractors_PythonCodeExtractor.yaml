@@ -1,0 +1,839 @@
+module: schema_extraction.python_extractors.PythonCodeExtractor
+type: orphan_nodes
+count: 150
+nodes:
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_if_52:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_if_52
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file
+    line: 52
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_merge_52:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_merge_52
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_return_58:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file_return_58
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_file
+    line: 58
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_loop_69:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_loop_69
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 69
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_70:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_70
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 70
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_73:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_73
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 73
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_73:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_73
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_79:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_79
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 79
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_79:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_79
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_85:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_85
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 85
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_85:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_85
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_90:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_90
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 90
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_90:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_90
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_70:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_70
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_95:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_if_95
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 95
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_95:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_merge_95
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+  schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_return_98:
+    id: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source_return_98
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor.extract_from_source
+    line: 98
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_109:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_109
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 109
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_110:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_110
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 110
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_109:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_109
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_113:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_113
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 113
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_114:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_114
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 114
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_114:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_114
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_116:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_116
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 116
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_116:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_116
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_119:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_119
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 119
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_119:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_119
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_121:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_121
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 121
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_121:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_121
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_124:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_124
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 124
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_125:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_125
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 125
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_125:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_125
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_127:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_127
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 127
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_127:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_127
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_124:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_124
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_130:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_130
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 130
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_131:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_131
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 131
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_130:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_130
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_134:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_134
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 134
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_135:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_135
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 135
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_136:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_136
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 136
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_137:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_137
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 137
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_137:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_137
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_136:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_136
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_135:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_135
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_141:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_141
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 141
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_142:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_142
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 142
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_141:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_141
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_146:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_146
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 146
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_147:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_147
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 147
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_147:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_147
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_155:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_loop_155
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 155
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_157:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_157
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 157
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_157:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_157
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_161:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_if_161
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 161
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_161:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_merge_161
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_174:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command_return_174
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_typer_command
+    line: 174
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_186:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_186
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 186
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_return_187:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_return_187
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 187
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_186:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_186
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_loop_191:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_loop_191
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 191
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_192:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_192
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 192
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_193:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_193
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 193
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_193:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_193
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_196:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_196
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 196
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_197:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_197
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 197
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_197:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_197
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_196:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_196
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_192:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_192
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_201:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_201
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 201
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_return_202:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_return_202
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 202
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_201:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_201
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_loop_209:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_loop_209
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 209
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_211:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_211
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 211
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_211:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_211
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_215:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_if_215
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 215
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_215:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_merge_215
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_return_228:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command_return_228
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_click_command
+    line: 228
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_240:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_240
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 240
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_return_241:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_return_241
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 241
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_240:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_240
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_loop_247:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_loop_247
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 247
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_248:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_248
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 248
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_251:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_251
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 251
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_252:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_252
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 252
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_252:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_252
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_251:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_251
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_248:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_248
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_256:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_256
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 256
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_return_257:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_return_257
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 257
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_256:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_256
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_loop_264:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_loop_264
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 264
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_266:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_266
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 266
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_266:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_266
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_270:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_if_270
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 270
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_270:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_merge_270
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_return_283:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command_return_283
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_generic_command
+    line: 283
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_295:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_295
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 295
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_296:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_296
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 296
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_295:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_295
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_300:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_300
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 300
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_301:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_301
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 301
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_300:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_300
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_304:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_304
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 304
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_305:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_305
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 305
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_304:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_304
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_311:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_311
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 311
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_312:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_312
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 312
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_311:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_311
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_loop_317:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_loop_317
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 317
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_319:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_319
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 319
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_319:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_319
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_323:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_if_323
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 323
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_323:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_merge_323
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_336:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function_return_336
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_plain_function
+    line: 336
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_entry:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_exit:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_350:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_350
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 350
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_351:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_351
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 351
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_352:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_352
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 352
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_356:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_356
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 356
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_357:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_357
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 357
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_357:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_357
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_356:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_356
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_351:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_351
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_361:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_361
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 361
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_return_362:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_return_362
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 362
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_361:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_361
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_366:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_366
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 366
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_367:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_367
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 367
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_368:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_loop_368
+    type: FOR
+    label: for
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 368
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_367:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_367
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_378:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_378
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 378
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_378:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_378
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_381:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_if_381
+    type: IF
+    label: if
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 381
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_return_382:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_return_382
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 382
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_381:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_merge_381
+    type: FUNC
+    label: merge
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+  schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_return_387:
+    id: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli_return_387
+    type: RETURN
+    label: return
+    function: schema_extraction.python_extractors.PythonCodeExtractor._extract_argparse_cli
+    line: 387

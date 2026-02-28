@@ -1,0 +1,191 @@
+module: storage.per_command_store.PerCommandSchemaStore
+type: functions
+count: 12
+functions:
+  storage.per_command_store.PerCommandSchemaStore.__init__:
+    name: __init__
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 17
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.__init___entry
+    calls:
+    - Path
+    - self.base_dir.mkdir
+    - self.commands_dir.mkdir
+    - self.categories_dir.mkdir
+    - self._load_index
+  storage.per_command_store.PerCommandSchemaStore._load_index:
+    name: _load_index
+    qualified_name: storage.per_command_store.PerCommandSchemaStore._load_index
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 37
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore._load_index_entry
+    calls:
+    - self.index_file.exists
+    - None.isoformat
+    - open
+    - json.load
+    - datetime.now
+  storage.per_command_store.PerCommandSchemaStore._save_index:
+    name: _save_index
+    qualified_name: storage.per_command_store.PerCommandSchemaStore._save_index
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 58
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore._save_index_entry
+    calls:
+    - None.isoformat
+    - len
+    - open
+    - json.dump
+    - datetime.now
+  storage.per_command_store.PerCommandSchemaStore._get_command_path:
+    name: _get_command_path
+    qualified_name: storage.per_command_store.PerCommandSchemaStore._get_command_path
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 67
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore._get_command_path_entry
+    calls:
+    - None.rstrip
+    - None.join
+    - c.isalnum
+  storage.per_command_store.PerCommandSchemaStore.store_schema:
+    name: store_schema
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.store_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 77
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.store_schema_entry
+    calls:
+    - self._save_index
+    - self._get_command_path
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - None.isoformat
+    - open
+    - json.dump
+    - str
+    - len
+    - bool
+    - None.append
+    - file_path.relative_to
+    - datetime.now
+  storage.per_command_store.PerCommandSchemaStore.load_schema:
+    name: load_schema
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.load_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 153
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.load_schema_entry
+    calls:
+    - self._get_command_path
+    - file_path.exists
+    - CommandSchema
+    - ExtractedSchema
+    - open
+    - json.load
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - data.get
+  storage.per_command_store.PerCommandSchemaStore.list_commands:
+    name: list_commands
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.list_commands
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 200
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.list_commands_entry
+    calls:
+    - list
+    - None.get
+    - None.keys
+  storage.per_command_store.PerCommandSchemaStore.list_categories:
+    name: list_categories
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.list_categories
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 213
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.list_categories_entry
+    calls:
+    - list
+    - None.keys
+  storage.per_command_store.PerCommandSchemaStore.get_stats:
+    name: get_stats
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.get_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 217
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.get_stats_entry
+    calls:
+    - None.copy
+    - str
+    - None.items
+    - len
+  storage.per_command_store.PerCommandSchemaStore.delete_schema:
+    name: delete_schema
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.delete_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 234
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.delete_schema_entry
+    calls:
+    - self._get_command_path
+    - file_path.exists
+    - file_path.unlink
+    - self._save_index
+    - None.remove
+  storage.per_command_store.PerCommandSchemaStore.backup:
+    name: backup
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.backup
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 267
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.backup_entry
+    calls:
+    - Path
+    - shutil.make_archive
+    - shutil.copytree
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - str
+    - backup_path.with_suffix
+  storage.per_command_store.PerCommandSchemaStore.restore:
+    name: restore
+    qualified_name: storage.per_command_store.PerCommandSchemaStore.restore
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/storage/per_command_store.py
+    line: 292
+    module: storage.per_command_store
+    class: PerCommandSchemaStore
+    is_method: true
+    cfg_entry: storage.per_command_store.PerCommandSchemaStore.restore_entry
+    calls:
+    - Path
+    - self.base_dir.exists
+    - self.base_dir.mkdir
+    - self._load_index
+    - shutil.rmtree
+    - shutil.copytree
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - zipfile.ZipFile
+    - zip_ref.extractall

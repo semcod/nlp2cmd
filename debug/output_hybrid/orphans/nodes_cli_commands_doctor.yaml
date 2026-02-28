@@ -1,0 +1,1021 @@
+module: cli.commands.doctor
+type: orphan_nodes
+count: 186
+nodes:
+  cli.commands.doctor.run_doctor_entry:
+    id: cli.commands.doctor.run_doctor_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.run_doctor
+  cli.commands.doctor.run_doctor_exit:
+    id: cli.commands.doctor.run_doctor_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.run_doctor
+  cli.commands.doctor.run_doctor_if_543:
+    id: cli.commands.doctor.run_doctor_if_543
+    type: IF
+    label: if
+    function: cli.commands.doctor.run_doctor
+    line: 543
+  cli.commands.doctor.run_doctor_return_566:
+    id: cli.commands.doctor.run_doctor_return_566
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.run_doctor
+    line: 566
+  cli.commands.doctor.run_doctor_merge_543:
+    id: cli.commands.doctor.run_doctor_merge_543
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.run_doctor
+  cli.commands.doctor.run_doctor_if_568:
+    id: cli.commands.doctor.run_doctor_if_568
+    type: IF
+    label: if
+    function: cli.commands.doctor.run_doctor
+    line: 568
+  cli.commands.doctor.run_doctor_merge_568:
+    id: cli.commands.doctor.run_doctor_merge_568
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.run_doctor
+  cli.commands.doctor.run_doctor_return_576:
+    id: cli.commands.doctor.run_doctor_return_576
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.run_doctor
+    line: 576
+  cli.commands.doctor.get_hf_token_via_browser_entry:
+    id: cli.commands.doctor.get_hf_token_via_browser_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.get_hf_token_via_browser
+  cli.commands.doctor.get_hf_token_via_browser_exit:
+    id: cli.commands.doctor.get_hf_token_via_browser_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.get_hf_token_via_browser
+  cli.commands.doctor.get_hf_token_via_browser_if_589:
+    id: cli.commands.doctor.get_hf_token_via_browser_if_589
+    type: IF
+    label: if
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 589
+  cli.commands.doctor.get_hf_token_via_browser_merge_589:
+    id: cli.commands.doctor.get_hf_token_via_browser_merge_589
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.get_hf_token_via_browser
+  cli.commands.doctor.get_hf_token_via_browser_if_596:
+    id: cli.commands.doctor.get_hf_token_via_browser_if_596
+    type: IF
+    label: if
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 596
+  cli.commands.doctor.get_hf_token_via_browser_return_597:
+    id: cli.commands.doctor.get_hf_token_via_browser_return_597
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 597
+  cli.commands.doctor.get_hf_token_via_browser_merge_596:
+    id: cli.commands.doctor.get_hf_token_via_browser_merge_596
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.get_hf_token_via_browser
+  cli.commands.doctor.get_hf_token_via_browser_if_601:
+    id: cli.commands.doctor.get_hf_token_via_browser_if_601
+    type: IF
+    label: if
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 601
+  cli.commands.doctor.get_hf_token_via_browser_return_602:
+    id: cli.commands.doctor.get_hf_token_via_browser_return_602
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 602
+  cli.commands.doctor.get_hf_token_via_browser_merge_601:
+    id: cli.commands.doctor.get_hf_token_via_browser_merge_601
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.get_hf_token_via_browser
+  cli.commands.doctor.get_hf_token_via_browser_if_606:
+    id: cli.commands.doctor.get_hf_token_via_browser_if_606
+    type: IF
+    label: if
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 606
+  cli.commands.doctor.get_hf_token_via_browser_return_607:
+    id: cli.commands.doctor.get_hf_token_via_browser_return_607
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 607
+  cli.commands.doctor.get_hf_token_via_browser_merge_606:
+    id: cli.commands.doctor.get_hf_token_via_browser_merge_606
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.get_hf_token_via_browser
+  cli.commands.doctor.get_hf_token_via_browser_return_609:
+    id: cli.commands.doctor.get_hf_token_via_browser_return_609
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.get_hf_token_via_browser
+    line: 609
+  cli.commands.doctor._try_existing_browser_entry:
+    id: cli.commands.doctor._try_existing_browser_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_existing_browser_exit:
+    id: cli.commands.doctor._try_existing_browser_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_existing_browser_if_616:
+    id: cli.commands.doctor._try_existing_browser_if_616
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_existing_browser
+    line: 616
+  cli.commands.doctor._try_existing_browser_merge_616:
+    id: cli.commands.doctor._try_existing_browser_merge_616
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_existing_browser_loop_623:
+    id: cli.commands.doctor._try_existing_browser_loop_623
+    type: FOR
+    label: for
+    function: cli.commands.doctor._try_existing_browser
+    line: 623
+  cli.commands.doctor._try_existing_browser_if_624:
+    id: cli.commands.doctor._try_existing_browser_if_624
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_existing_browser
+    line: 624
+  cli.commands.doctor._try_existing_browser_merge_624:
+    id: cli.commands.doctor._try_existing_browser_merge_624
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_existing_browser_if_645:
+    id: cli.commands.doctor._try_existing_browser_if_645
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_existing_browser
+    line: 645
+  cli.commands.doctor._try_existing_browser_if_646:
+    id: cli.commands.doctor._try_existing_browser_if_646
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_existing_browser
+    line: 646
+  cli.commands.doctor._try_existing_browser_merge_646:
+    id: cli.commands.doctor._try_existing_browser_merge_646
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_existing_browser_return_649:
+    id: cli.commands.doctor._try_existing_browser_return_649
+    type: RETURN
+    label: return
+    function: cli.commands.doctor._try_existing_browser
+    line: 649
+  cli.commands.doctor._try_existing_browser_merge_645:
+    id: cli.commands.doctor._try_existing_browser_merge_645
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_existing_browser_if_652:
+    id: cli.commands.doctor._try_existing_browser_if_652
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_existing_browser
+    line: 652
+  cli.commands.doctor._try_existing_browser_merge_652:
+    id: cli.commands.doctor._try_existing_browser_merge_652
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_existing_browser
+  cli.commands.doctor._try_system_browser_entry:
+    id: cli.commands.doctor._try_system_browser_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._try_system_browser
+  cli.commands.doctor._try_system_browser_exit:
+    id: cli.commands.doctor._try_system_browser_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._try_system_browser
+  cli.commands.doctor._try_system_browser_if_764:
+    id: cli.commands.doctor._try_system_browser_if_764
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_system_browser
+    line: 764
+  cli.commands.doctor._try_system_browser_merge_764:
+    id: cli.commands.doctor._try_system_browser_merge_764
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_system_browser
+  cli.commands.doctor._try_system_browser_loop_775:
+    id: cli.commands.doctor._try_system_browser_loop_775
+    type: FOR
+    label: for
+    function: cli.commands.doctor._try_system_browser
+    line: 775
+  cli.commands.doctor._try_system_browser_if_956:
+    id: cli.commands.doctor._try_system_browser_if_956
+    type: IF
+    label: if
+    function: cli.commands.doctor._try_system_browser
+    line: 956
+  cli.commands.doctor._try_system_browser_merge_956:
+    id: cli.commands.doctor._try_system_browser_merge_956
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._try_system_browser
+  cli.commands.doctor._try_system_browser_return_958:
+    id: cli.commands.doctor._try_system_browser_return_958
+    type: RETURN
+    label: return
+    function: cli.commands.doctor._try_system_browser
+    line: 958
+  cli.commands.doctor._try_playwright_browser_entry:
+    id: cli.commands.doctor._try_playwright_browser_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._try_playwright_browser
+  cli.commands.doctor._try_playwright_browser_exit:
+    id: cli.commands.doctor._try_playwright_browser_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._try_playwright_browser
+  cli.commands.doctor._navigate_and_get_token_entry:
+    id: cli.commands.doctor._navigate_and_get_token_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._navigate_and_get_token
+  cli.commands.doctor._navigate_and_get_token_exit:
+    id: cli.commands.doctor._navigate_and_get_token_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._navigate_and_get_token
+  cli.commands.doctor._navigate_and_get_token_if_1068:
+    id: cli.commands.doctor._navigate_and_get_token_if_1068
+    type: IF
+    label: if
+    function: cli.commands.doctor._navigate_and_get_token
+    line: 1068
+  cli.commands.doctor._navigate_and_get_token_merge_1068:
+    id: cli.commands.doctor._navigate_and_get_token_merge_1068
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._navigate_and_get_token
+  cli.commands.doctor._navigate_and_get_token_if_1081:
+    id: cli.commands.doctor._navigate_and_get_token_if_1081
+    type: IF
+    label: if
+    function: cli.commands.doctor._navigate_and_get_token
+    line: 1081
+  cli.commands.doctor._navigate_and_get_token_merge_1081:
+    id: cli.commands.doctor._navigate_and_get_token_merge_1081
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._navigate_and_get_token
+  cli.commands.doctor._navigate_and_get_token_if_1099:
+    id: cli.commands.doctor._navigate_and_get_token_if_1099
+    type: IF
+    label: if
+    function: cli.commands.doctor._navigate_and_get_token
+    line: 1099
+  cli.commands.doctor._navigate_and_get_token_merge_1099:
+    id: cli.commands.doctor._navigate_and_get_token_merge_1099
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._navigate_and_get_token
+  cli.commands.doctor._navigate_and_get_token_if_1145:
+    id: cli.commands.doctor._navigate_and_get_token_if_1145
+    type: IF
+    label: if
+    function: cli.commands.doctor._navigate_and_get_token
+    line: 1145
+  cli.commands.doctor._navigate_and_get_token_merge_1145:
+    id: cli.commands.doctor._navigate_and_get_token_merge_1145
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._navigate_and_get_token
+  cli.commands.doctor._navigate_and_get_token_return_1153:
+    id: cli.commands.doctor._navigate_and_get_token_return_1153
+    type: RETURN
+    label: return
+    function: cli.commands.doctor._navigate_and_get_token
+    line: 1153
+  cli.commands.doctor._manual_browser_instructions_entry:
+    id: cli.commands.doctor._manual_browser_instructions_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._manual_browser_instructions
+  cli.commands.doctor._manual_browser_instructions_exit:
+    id: cli.commands.doctor._manual_browser_instructions_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._manual_browser_instructions
+  cli.commands.doctor._manual_browser_instructions_if_1158:
+    id: cli.commands.doctor._manual_browser_instructions_if_1158
+    type: IF
+    label: if
+    function: cli.commands.doctor._manual_browser_instructions
+    line: 1158
+  cli.commands.doctor._manual_browser_instructions_merge_1158:
+    id: cli.commands.doctor._manual_browser_instructions_merge_1158
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._manual_browser_instructions
+  cli.commands.doctor._manual_browser_instructions_return_1178:
+    id: cli.commands.doctor._manual_browser_instructions_return_1178
+    type: RETURN
+    label: return
+    function: cli.commands.doctor._manual_browser_instructions
+    line: 1178
+  cli.commands.doctor.__init___entry:
+    id: cli.commands.doctor.__init___entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.__init__
+  cli.commands.doctor.__init___exit:
+    id: cli.commands.doctor.__init___exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.__init__
+  cli.commands.doctor._print_entry:
+    id: cli.commands.doctor._print_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._print
+  cli.commands.doctor._print_exit:
+    id: cli.commands.doctor._print_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._print
+  cli.commands.doctor._print_if_73:
+    id: cli.commands.doctor._print_if_73
+    type: IF
+    label: if
+    function: cli.commands.doctor._print
+    line: 73
+  cli.commands.doctor._print_merge_73:
+    id: cli.commands.doctor._print_merge_73
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._print
+  cli.commands.doctor._check_port_entry:
+    id: cli.commands.doctor._check_port_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._check_port
+  cli.commands.doctor._check_port_exit:
+    id: cli.commands.doctor._check_port_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._check_port
+  cli.commands.doctor.check_ollama_server_entry:
+    id: cli.commands.doctor.check_ollama_server_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_ollama_server
+  cli.commands.doctor.check_ollama_server_exit:
+    id: cli.commands.doctor.check_ollama_server_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_ollama_server
+  cli.commands.doctor.check_ollama_server_if_94:
+    id: cli.commands.doctor.check_ollama_server_if_94
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_ollama_server
+    line: 94
+  cli.commands.doctor.check_ollama_server_if_96:
+    id: cli.commands.doctor.check_ollama_server_if_96
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_ollama_server
+    line: 96
+  cli.commands.doctor.check_ollama_server_merge_96:
+    id: cli.commands.doctor.check_ollama_server_merge_96
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_ollama_server
+  cli.commands.doctor.check_ollama_server_return_127:
+    id: cli.commands.doctor.check_ollama_server_return_127
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_ollama_server
+    line: 127
+  cli.commands.doctor.check_ollama_server_merge_94:
+    id: cli.commands.doctor.check_ollama_server_merge_94
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_ollama_server
+  cli.commands.doctor.check_ollama_server_return_135:
+    id: cli.commands.doctor.check_ollama_server_return_135
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_ollama_server
+    line: 135
+  cli.commands.doctor.check_ollama_models_entry:
+    id: cli.commands.doctor.check_ollama_models_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_ollama_models
+  cli.commands.doctor.check_ollama_models_exit:
+    id: cli.commands.doctor.check_ollama_models_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_ollama_models
+  cli.commands.doctor.check_ollama_models_if_143:
+    id: cli.commands.doctor.check_ollama_models_if_143
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_ollama_models
+    line: 143
+  cli.commands.doctor.check_ollama_models_return_144:
+    id: cli.commands.doctor.check_ollama_models_return_144
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_ollama_models
+    line: 144
+  cli.commands.doctor.check_ollama_models_merge_143:
+    id: cli.commands.doctor.check_ollama_models_merge_143
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_ollama_models
+  cli.commands.doctor.check_hf_token_entry:
+    id: cli.commands.doctor.check_hf_token_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_hf_token
+  cli.commands.doctor.check_hf_token_exit:
+    id: cli.commands.doctor.check_hf_token_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_hf_token
+  cli.commands.doctor.check_hf_token_if_229:
+    id: cli.commands.doctor.check_hf_token_if_229
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_hf_token
+    line: 229
+  cli.commands.doctor.check_hf_token_return_232:
+    id: cli.commands.doctor.check_hf_token_return_232
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_hf_token
+    line: 232
+  cli.commands.doctor.check_hf_token_merge_229:
+    id: cli.commands.doctor.check_hf_token_merge_229
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_hf_token
+  cli.commands.doctor.check_hf_token_if_243:
+    id: cli.commands.doctor.check_hf_token_if_243
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_hf_token
+    line: 243
+  cli.commands.doctor.check_hf_token_return_244:
+    id: cli.commands.doctor.check_hf_token_return_244
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_hf_token
+    line: 244
+  cli.commands.doctor.check_hf_token_merge_243:
+    id: cli.commands.doctor.check_hf_token_merge_243
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_hf_token
+  cli.commands.doctor.check_hf_token_return_252:
+    id: cli.commands.doctor.check_hf_token_return_252
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_hf_token
+    line: 252
+  cli.commands.doctor.check_playwright_entry:
+    id: cli.commands.doctor.check_playwright_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_playwright
+  cli.commands.doctor.check_playwright_exit:
+    id: cli.commands.doctor.check_playwright_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_playwright
+  cli.commands.doctor.check_visual_stream_tools_entry:
+    id: cli.commands.doctor.check_visual_stream_tools_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_visual_stream_tools
+  cli.commands.doctor.check_visual_stream_tools_exit:
+    id: cli.commands.doctor.check_visual_stream_tools_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_visual_stream_tools
+  cli.commands.doctor.check_visual_stream_tools_if_323:
+    id: cli.commands.doctor.check_visual_stream_tools_if_323
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_visual_stream_tools
+    line: 323
+  cli.commands.doctor.check_visual_stream_tools_return_324:
+    id: cli.commands.doctor.check_visual_stream_tools_return_324
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_visual_stream_tools
+    line: 324
+  cli.commands.doctor.check_visual_stream_tools_merge_323:
+    id: cli.commands.doctor.check_visual_stream_tools_merge_323
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_visual_stream_tools
+  cli.commands.doctor.check_visual_stream_tools_if_331:
+    id: cli.commands.doctor.check_visual_stream_tools_if_331
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_visual_stream_tools
+    line: 331
+  cli.commands.doctor.check_visual_stream_tools_return_332:
+    id: cli.commands.doctor.check_visual_stream_tools_return_332
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_visual_stream_tools
+    line: 332
+  cli.commands.doctor.check_visual_stream_tools_merge_331:
+    id: cli.commands.doctor.check_visual_stream_tools_merge_331
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_visual_stream_tools
+  cli.commands.doctor.check_visual_stream_tools_return_340:
+    id: cli.commands.doctor.check_visual_stream_tools_return_340
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_visual_stream_tools
+    line: 340
+  cli.commands.doctor.check_environment_entry:
+    id: cli.commands.doctor.check_environment_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_environment
+  cli.commands.doctor.check_environment_exit:
+    id: cli.commands.doctor.check_environment_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_environment
+  cli.commands.doctor.check_environment_if_357:
+    id: cli.commands.doctor.check_environment_if_357
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_environment
+    line: 357
+  cli.commands.doctor.check_environment_merge_357:
+    id: cli.commands.doctor.check_environment_merge_357
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_environment
+  cli.commands.doctor.check_environment_if_362:
+    id: cli.commands.doctor.check_environment_if_362
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_environment
+    line: 362
+  cli.commands.doctor.check_environment_merge_362:
+    id: cli.commands.doctor.check_environment_merge_362
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_environment
+  cli.commands.doctor.check_environment_if_375:
+    id: cli.commands.doctor.check_environment_if_375
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_environment
+    line: 375
+  cli.commands.doctor.check_environment_return_376:
+    id: cli.commands.doctor.check_environment_return_376
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_environment
+    line: 376
+  cli.commands.doctor.check_environment_merge_375:
+    id: cli.commands.doctor.check_environment_merge_375
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_environment
+  cli.commands.doctor.check_environment_return_383:
+    id: cli.commands.doctor.check_environment_return_383
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_environment
+    line: 383
+  cli.commands.doctor.check_dependencies_entry:
+    id: cli.commands.doctor.check_dependencies_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.check_dependencies
+  cli.commands.doctor.check_dependencies_exit:
+    id: cli.commands.doctor.check_dependencies_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.check_dependencies
+  cli.commands.doctor.check_dependencies_loop_404:
+    id: cli.commands.doctor.check_dependencies_loop_404
+    type: FOR
+    label: for
+    function: cli.commands.doctor.check_dependencies
+    line: 404
+  cli.commands.doctor.check_dependencies_if_411:
+    id: cli.commands.doctor.check_dependencies_if_411
+    type: IF
+    label: if
+    function: cli.commands.doctor.check_dependencies
+    line: 411
+  cli.commands.doctor.check_dependencies_return_412:
+    id: cli.commands.doctor.check_dependencies_return_412
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_dependencies
+    line: 412
+  cli.commands.doctor.check_dependencies_merge_411:
+    id: cli.commands.doctor.check_dependencies_merge_411
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.check_dependencies
+  cli.commands.doctor.check_dependencies_return_420:
+    id: cli.commands.doctor.check_dependencies_return_420
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.check_dependencies
+    line: 420
+  cli.commands.doctor.run_all_checks_entry:
+    id: cli.commands.doctor.run_all_checks_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.run_all_checks
+  cli.commands.doctor.run_all_checks_exit:
+    id: cli.commands.doctor.run_all_checks_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.run_all_checks
+  cli.commands.doctor.run_all_checks_loop_440:
+    id: cli.commands.doctor.run_all_checks_loop_440
+    type: FOR
+    label: for
+    function: cli.commands.doctor.run_all_checks
+    line: 440
+  cli.commands.doctor.run_all_checks_return_445:
+    id: cli.commands.doctor.run_all_checks_return_445
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.run_all_checks
+    line: 445
+  cli.commands.doctor._display_result_entry:
+    id: cli.commands.doctor._display_result_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor._display_result
+  cli.commands.doctor._display_result_exit:
+    id: cli.commands.doctor._display_result_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor._display_result
+  cli.commands.doctor._display_result_if_449:
+    id: cli.commands.doctor._display_result_if_449
+    type: IF
+    label: if
+    function: cli.commands.doctor._display_result
+    line: 449
+  cli.commands.doctor._display_result_if_460:
+    id: cli.commands.doctor._display_result_if_460
+    type: IF
+    label: if
+    function: cli.commands.doctor._display_result
+    line: 460
+  cli.commands.doctor._display_result_merge_460:
+    id: cli.commands.doctor._display_result_merge_460
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._display_result
+  cli.commands.doctor._display_result_if_472:
+    id: cli.commands.doctor._display_result_if_472
+    type: IF
+    label: if
+    function: cli.commands.doctor._display_result
+    line: 472
+  cli.commands.doctor._display_result_merge_472:
+    id: cli.commands.doctor._display_result_merge_472
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._display_result
+  cli.commands.doctor._display_result_merge_449:
+    id: cli.commands.doctor._display_result_merge_449
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor._display_result
+  cli.commands.doctor.print_summary_entry:
+    id: cli.commands.doctor.print_summary_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_exit:
+    id: cli.commands.doctor.print_summary_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_482:
+    id: cli.commands.doctor.print_summary_if_482
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 482
+  cli.commands.doctor.print_summary_if_487:
+    id: cli.commands.doctor.print_summary_if_487
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 487
+  cli.commands.doctor.print_summary_merge_487:
+    id: cli.commands.doctor.print_summary_merge_487
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_489:
+    id: cli.commands.doctor.print_summary_if_489
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 489
+  cli.commands.doctor.print_summary_merge_489:
+    id: cli.commands.doctor.print_summary_merge_489
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_491:
+    id: cli.commands.doctor.print_summary_if_491
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 491
+  cli.commands.doctor.print_summary_merge_491:
+    id: cli.commands.doctor.print_summary_merge_491
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_497:
+    id: cli.commands.doctor.print_summary_if_497
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 497
+  cli.commands.doctor.print_summary_if_499:
+    id: cli.commands.doctor.print_summary_if_499
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 499
+  cli.commands.doctor.print_summary_merge_499:
+    id: cli.commands.doctor.print_summary_merge_499
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_merge_497:
+    id: cli.commands.doctor.print_summary_merge_497
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_506:
+    id: cli.commands.doctor.print_summary_if_506
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 506
+  cli.commands.doctor.print_summary_merge_506:
+    id: cli.commands.doctor.print_summary_merge_506
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_508:
+    id: cli.commands.doctor.print_summary_if_508
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 508
+  cli.commands.doctor.print_summary_merge_508:
+    id: cli.commands.doctor.print_summary_merge_508
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_510:
+    id: cli.commands.doctor.print_summary_if_510
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 510
+  cli.commands.doctor.print_summary_merge_510:
+    id: cli.commands.doctor.print_summary_merge_510
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_if_513:
+    id: cli.commands.doctor.print_summary_if_513
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 513
+  cli.commands.doctor.print_summary_if_515:
+    id: cli.commands.doctor.print_summary_if_515
+    type: IF
+    label: if
+    function: cli.commands.doctor.print_summary
+    line: 515
+  cli.commands.doctor.print_summary_merge_515:
+    id: cli.commands.doctor.print_summary_merge_515
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_merge_513:
+    id: cli.commands.doctor.print_summary_merge_513
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.print_summary_merge_482:
+    id: cli.commands.doctor.print_summary_merge_482
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.print_summary
+  cli.commands.doctor.generate_fix_script_entry:
+    id: cli.commands.doctor.generate_fix_script_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.generate_fix_script
+  cli.commands.doctor.generate_fix_script_exit:
+    id: cli.commands.doctor.generate_fix_script_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.generate_fix_script
+  cli.commands.doctor.generate_fix_script_loop_523:
+    id: cli.commands.doctor.generate_fix_script_loop_523
+    type: FOR
+    label: for
+    function: cli.commands.doctor.generate_fix_script
+    line: 523
+  cli.commands.doctor.generate_fix_script_if_524:
+    id: cli.commands.doctor.generate_fix_script_if_524
+    type: IF
+    label: if
+    function: cli.commands.doctor.generate_fix_script
+    line: 524
+  cli.commands.doctor.generate_fix_script_merge_524:
+    id: cli.commands.doctor.generate_fix_script_merge_524
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.generate_fix_script
+  cli.commands.doctor.generate_fix_script_if_529:
+    id: cli.commands.doctor.generate_fix_script_if_529
+    type: IF
+    label: if
+    function: cli.commands.doctor.generate_fix_script
+    line: 529
+  cli.commands.doctor.generate_fix_script_return_530:
+    id: cli.commands.doctor.generate_fix_script_return_530
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.generate_fix_script
+    line: 530
+  cli.commands.doctor.generate_fix_script_merge_529:
+    id: cli.commands.doctor.generate_fix_script_merge_529
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.generate_fix_script
+  cli.commands.doctor.generate_fix_script_return_532:
+    id: cli.commands.doctor.generate_fix_script_return_532
+    type: RETURN
+    label: return
+    function: cli.commands.doctor.generate_fix_script
+    line: 532
+  cli.commands.doctor.doctor_command_entry:
+    id: cli.commands.doctor.doctor_command_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_exit:
+    id: cli.commands.doctor.doctor_command_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_if_1237:
+    id: cli.commands.doctor.doctor_command_if_1237
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1237
+  cli.commands.doctor.doctor_command_if_1239:
+    id: cli.commands.doctor.doctor_command_if_1239
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1239
+  cli.commands.doctor.doctor_command_if_1242:
+    id: cli.commands.doctor.doctor_command_if_1242
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1242
+  cli.commands.doctor.doctor_command_if_1244:
+    id: cli.commands.doctor.doctor_command_if_1244
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1244
+  cli.commands.doctor.doctor_command_merge_1244:
+    id: cli.commands.doctor.doctor_command_merge_1244
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_merge_1242:
+    id: cli.commands.doctor.doctor_command_merge_1242
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_if_1255:
+    id: cli.commands.doctor.doctor_command_if_1255
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1255
+  cli.commands.doctor.doctor_command_merge_1255:
+    id: cli.commands.doctor.doctor_command_merge_1255
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_merge_1239:
+    id: cli.commands.doctor.doctor_command_merge_1239
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_merge_1237:
+    id: cli.commands.doctor.doctor_command_merge_1237
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_if_1264:
+    id: cli.commands.doctor.doctor_command_if_1264
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1264
+  cli.commands.doctor.doctor_command_if_1269:
+    id: cli.commands.doctor.doctor_command_if_1269
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1269
+  cli.commands.doctor.doctor_command_if_1272:
+    id: cli.commands.doctor.doctor_command_if_1272
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1272
+  cli.commands.doctor.doctor_command_loop_1275:
+    id: cli.commands.doctor.doctor_command_loop_1275
+    type: FOR
+    label: for
+    function: cli.commands.doctor.doctor_command
+    line: 1275
+  cli.commands.doctor.doctor_command_merge_1272:
+    id: cli.commands.doctor.doctor_command_merge_1272
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_merge_1269:
+    id: cli.commands.doctor.doctor_command_merge_1269
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_if_1290:
+    id: cli.commands.doctor.doctor_command_if_1290
+    type: IF
+    label: if
+    function: cli.commands.doctor.doctor_command
+    line: 1290
+  cli.commands.doctor.doctor_command_merge_1290:
+    id: cli.commands.doctor.doctor_command_merge_1290
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command
+  cli.commands.doctor.doctor_command_merge_1264:
+    id: cli.commands.doctor.doctor_command_merge_1264
+    type: FUNC
+    label: merge
+    function: cli.commands.doctor.doctor_command

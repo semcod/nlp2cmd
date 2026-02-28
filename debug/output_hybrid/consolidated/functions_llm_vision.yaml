@@ -1,0 +1,110 @@
+module: llm.vision
+type: functions
+count: 9
+functions:
+  llm.vision._debug:
+    name: _debug
+    qualified_name: llm.vision._debug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 25
+    module: llm.vision
+    cfg_entry: llm.vision._debug_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  llm.vision.__init__:
+    name: __init__
+    qualified_name: llm.vision.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 49
+    module: llm.vision
+    cfg_entry: llm.vision.__init___entry
+    calls:
+    - os.getenv
+  llm.vision._get_client:
+    name: _get_client
+    qualified_name: llm.vision._get_client
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 58
+    module: llm.vision
+    cfg_entry: llm.vision._get_client_entry
+    calls:
+    - OpenRouterClient
+  llm.vision._encode_image:
+    name: _encode_image
+    qualified_name: llm.vision._encode_image
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 63
+    module: llm.vision
+    cfg_entry: llm.vision._encode_image_entry
+    calls:
+    - isinstance
+    - None.decode
+    - Path
+    - image.read_bytes
+    - base64.b64encode
+  llm.vision.describe_screenshot:
+    name: describe_screenshot
+    qualified_name: llm.vision.describe_screenshot
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 71
+    module: llm.vision
+    cfg_entry: llm.vision.describe_screenshot_entry
+    calls:
+    - self._encode_image
+    - VisionResult
+    - self._get_client
+    - client.vision
+  llm.vision.find_ui_element:
+    name: find_ui_element
+    qualified_name: llm.vision.find_ui_element
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 102
+    module: llm.vision
+    cfg_entry: llm.vision.find_ui_element_entry
+    calls:
+    - self._encode_image
+    - VisionResult
+    - self._get_client
+    - client.vision
+    - re.sub
+    - json.loads
+    - pipeline_runner_utils._debug
+  llm.vision.read_text_from_image:
+    name: read_text_from_image
+    qualified_name: llm.vision.read_text_from_image
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 151
+    module: llm.vision
+    cfg_entry: llm.vision.read_text_from_image_entry
+    calls:
+    - self._encode_image
+    - VisionResult
+    - self._get_client
+    - client.vision
+  llm.vision.verify_drawing:
+    name: verify_drawing
+    qualified_name: llm.vision.verify_drawing
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 182
+    module: llm.vision
+    cfg_entry: llm.vision.verify_drawing_entry
+    calls:
+    - self._encode_image
+    - VisionResult
+    - self._get_client
+    - client.vision
+    - re.sub
+    - json.loads
+    - pipeline_runner_utils._debug
+  llm.vision.analyze_captcha:
+    name: analyze_captcha
+    qualified_name: llm.vision.analyze_captcha
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/vision.py
+    line: 230
+    module: llm.vision
+    cfg_entry: llm.vision.analyze_captcha_entry
+    calls:
+    - self._encode_image
+    - VisionResult
+    - self._get_client
+    - client.vision

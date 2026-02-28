@@ -1,0 +1,103 @@
+module: schema_extraction.extractors.ShellHelpExtractor
+type: orphan_nodes
+count: 18
+nodes:
+  schema_extraction.extractors.ShellHelpExtractor.extract_from_command_entry:
+    id: schema_extraction.extractors.ShellHelpExtractor.extract_from_command_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.extractors.ShellHelpExtractor.extract_from_command
+  schema_extraction.extractors.ShellHelpExtractor.extract_from_command_exit:
+    id: schema_extraction.extractors.ShellHelpExtractor.extract_from_command_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.extractors.ShellHelpExtractor.extract_from_command
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_entry:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_exit:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_loop_338:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_loop_338
+    type: FOR
+    label: for
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 338
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_340:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_340
+    type: IF
+    label: if
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 340
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_340:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_340
+    type: FUNC
+    label: merge
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_loop_348:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_loop_348
+    type: FOR
+    label: for
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 348
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_350:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_350
+    type: IF
+    label: if
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 350
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_360:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_360
+    type: IF
+    label: if
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 360
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_361:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_361
+    type: IF
+    label: if
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 361
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_361:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_361
+    type: FUNC
+    label: merge
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_360:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_360
+    type: FUNC
+    label: merge
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_350:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_350
+    type: FUNC
+    label: merge
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_loop_381:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_loop_381
+    type: FOR
+    label: for
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 381
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_383:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_if_383
+    type: IF
+    label: if
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 383
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_383:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_merge_383
+    type: FUNC
+    label: merge
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+  schema_extraction.extractors.ShellHelpExtractor._parse_help_output_return_386:
+    id: schema_extraction.extractors.ShellHelpExtractor._parse_help_output_return_386
+    type: RETURN
+    label: return
+    function: schema_extraction.extractors.ShellHelpExtractor._parse_help_output
+    line: 386

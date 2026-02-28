@@ -1,0 +1,24 @@
+module: web_schema.browser_config.DynamicSelectorGenerator
+type: orphan_nodes
+count: 4
+nodes:
+  web_schema.browser_config.DynamicSelectorGenerator.__init___entry:
+    id: web_schema.browser_config.DynamicSelectorGenerator.__init___entry
+    type: ENTRY
+    label: entry
+    function: web_schema.browser_config.DynamicSelectorGenerator.__init__
+  web_schema.browser_config.DynamicSelectorGenerator.__init___exit:
+    id: web_schema.browser_config.DynamicSelectorGenerator.__init___exit
+    type: EXIT
+    label: exit
+    function: web_schema.browser_config.DynamicSelectorGenerator.__init__
+  web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors_entry:
+    id: web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors_entry
+    type: ENTRY
+    label: entry
+    function: web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors
+  web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors_exit:
+    id: web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors_exit
+    type: EXIT
+    label: exit
+    function: web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors

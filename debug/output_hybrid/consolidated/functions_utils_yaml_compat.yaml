@@ -1,0 +1,65 @@
+module: utils.yaml_compat
+type: functions
+count: 3
+functions:
+  utils.yaml_compat._parse_scalar:
+    name: _parse_scalar
+    qualified_name: utils.yaml_compat._parse_scalar
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/yaml_compat.py
+    line: 25
+    module: utils.yaml_compat
+    cfg_entry: utils.yaml_compat._parse_scalar_entry
+    calls:
+    - text.strip
+    - t.lower
+    - int
+    - t.startswith
+    - t.endswith
+    - float
+    called_by:
+    - utils.yaml_compat.safe_load
+  utils.yaml_compat.safe_load:
+    name: safe_load
+    qualified_name: utils.yaml_compat.safe_load
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/yaml_compat.py
+    line: 51
+    module: utils.yaml_compat
+    cfg_entry: utils.yaml_compat.safe_load_entry
+    calls:
+    - None.splitlines
+    - raw.lstrip
+    - stripped.startswith
+    - cleaned.append
+    - _Frame
+    - content.startswith
+    - content.split
+    - key.strip
+    - val.strip
+    - str
+    - raw.strip
+    - len
+    - stack.pop
+    - isinstance
+    - None.strip
+    - YAMLError
+    - stack.append
+    - utils.yaml_compat._parse_scalar
+    - stripped.rstrip
+    - item_text.split
+    - current.append
+    - frame.parent.get
+  utils.yaml_compat._dump_obj:
+    name: _dump_obj
+    qualified_name: utils.yaml_compat._dump_obj
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/utils/yaml_compat.py
+    line: 137
+    module: utils.yaml_compat
+    cfg_entry: utils.yaml_compat._dump_obj_entry
+    calls:
+    - isinstance
+    - obj.items
+    - None.join
+    - out_lines.append
+    - utils.yaml_compat._dump_obj
+    called_by:
+    - utils.yaml_compat._dump_obj

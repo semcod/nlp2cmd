@@ -1,0 +1,173 @@
+module: nlp_light.semantic_shell
+type: functions
+count: 13
+functions:
+  nlp_light.semantic_shell.__init__:
+    name: __init__
+    qualified_name: nlp_light.semantic_shell.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 19
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell.__init___entry
+    calls:
+    - None.__init__
+    - os.environ.get
+    - super
+  nlp_light.semantic_shell._maybe_warm_spacy:
+    name: _maybe_warm_spacy
+    qualified_name: nlp_light.semantic_shell._maybe_warm_spacy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 24
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._maybe_warm_spacy_entry
+    calls:
+    - self.model.startswith
+    - spacy.blank
+    - spacy.load
+    - nlp.add_pipe
+    - self.model.split
+  nlp_light.semantic_shell.extract_intent:
+    name: extract_intent
+    qualified_name: nlp_light.semantic_shell.extract_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 44
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell.extract_intent_entry
+    calls:
+    - None.lower
+    - any
+    - text_lower.startswith
+  nlp_light.semantic_shell.generate_plan:
+    name: generate_plan
+    qualified_name: nlp_light.semantic_shell.generate_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 87
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell.generate_plan_entry
+    calls:
+    - self._maybe_warm_spacy
+    - None.lower
+    - self.extract_intent
+    - self._extract_scope
+    - self._infer_target
+    - re.search
+    - self._extract_username_with_nlp
+    - self._extract_extension
+    - self._extract_size_filter
+    - self._extract_age_filter
+    - ExecutionPlan
+    - file_match.group
+    - filters.append
+    - SemanticEntityExtractor
+    - semantic_extractor.extract
+    - generation.thermodynamic_components._NumpyStub.max
+    - pattern_match.group
+    - username.lower
+    - entities.update
+  nlp_light.semantic_shell._infer_target:
+    name: _infer_target
+    qualified_name: nlp_light.semantic_shell._infer_target
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 174
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._infer_target_entry
+    calls:
+    - any
+  nlp_light.semantic_shell._extract_scope:
+    name: _extract_scope
+    qualified_name: nlp_light.semantic_shell._extract_scope
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 180
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._extract_scope_entry
+    calls:
+    - re.search
+    - m.group
+  nlp_light.semantic_shell._extract_extension:
+    name: _extract_extension
+    qualified_name: nlp_light.semantic_shell._extract_extension
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 191
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._extract_extension_entry
+    calls:
+    - re.search
+    - text.lower
+    - None.lower
+    - m.group
+  nlp_light.semantic_shell._extract_size_filter:
+    name: _extract_size_filter
+    qualified_name: nlp_light.semantic_shell._extract_size_filter
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 210
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._extract_size_filter_entry
+    calls:
+    - cls._extract_first_size
+    - cls._infer_size_operator
+    - cls._format_size_for_find
+  nlp_light.semantic_shell._infer_size_operator:
+    name: _infer_size_operator
+    qualified_name: nlp_light.semantic_shell._infer_size_operator
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 221
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._infer_size_operator_entry
+    calls:
+    - re.search
+    - any
+  nlp_light.semantic_shell._extract_age_filter:
+    name: _extract_age_filter
+    qualified_name: nlp_light.semantic_shell._extract_age_filter
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 235
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._extract_age_filter_entry
+    calls:
+    - re.search
+    - m.group
+    - int
+    - kind.startswith
+  nlp_light.semantic_shell._extract_first_size:
+    name: _extract_first_size
+    qualified_name: nlp_light.semantic_shell._extract_first_size
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 256
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._extract_first_size_entry
+    calls:
+    - re.search
+    - None.replace
+    - None.upper
+    - _ParsedSize
+    - float
+    - m.group
+  nlp_light.semantic_shell._format_size_for_find:
+    name: _format_size_for_find
+    qualified_name: nlp_light.semantic_shell._format_size_for_find
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 271
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._format_size_for_find_entry
+    calls:
+    - None.upper
+    - None.is_integer
+    - int
+    - round
+    - float
+  nlp_light.semantic_shell._extract_username_with_nlp:
+    name: _extract_username_with_nlp
+    qualified_name: nlp_light.semantic_shell._extract_username_with_nlp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_light/semantic_shell.py
+    line: 290
+    module: nlp_light.semantic_shell
+    cfg_entry: nlp_light.semantic_shell._extract_username_with_nlp_entry
+    calls:
+    - re.search
+    - self._nlp
+    - m.groups
+    - token.text.lower
+    - re.match
+    - enumerate
+    - len
+    - child.text.lower

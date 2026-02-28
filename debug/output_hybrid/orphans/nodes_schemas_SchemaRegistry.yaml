@@ -1,0 +1,1698 @@
+module: schemas.SchemaRegistry
+type: orphan_nodes
+count: 308
+nodes:
+  schemas.SchemaRegistry.__init___entry:
+    id: schemas.SchemaRegistry.__init___entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.__init__
+  schemas.SchemaRegistry.__init___exit:
+    id: schemas.SchemaRegistry.__init___exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.__init__
+  schemas.SchemaRegistry._register_builtin_schemas_entry:
+    id: schemas.SchemaRegistry._register_builtin_schemas_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._register_builtin_schemas
+  schemas.SchemaRegistry._register_builtin_schemas_exit:
+    id: schemas.SchemaRegistry._register_builtin_schemas_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._register_builtin_schemas
+  schemas.SchemaRegistry.register_entry:
+    id: schemas.SchemaRegistry.register_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.register
+  schemas.SchemaRegistry.register_exit:
+    id: schemas.SchemaRegistry.register_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.register
+  schemas.SchemaRegistry.register_if_241:
+    id: schemas.SchemaRegistry.register_if_241
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.register
+    line: 241
+  schemas.SchemaRegistry.register_merge_241:
+    id: schemas.SchemaRegistry.register_merge_241
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.register
+  schemas.SchemaRegistry.get_entry:
+    id: schemas.SchemaRegistry.get_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.get
+  schemas.SchemaRegistry.get_exit:
+    id: schemas.SchemaRegistry.get_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.get
+  schemas.SchemaRegistry.get_return_250:
+    id: schemas.SchemaRegistry.get_return_250
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.get
+    line: 250
+  schemas.SchemaRegistry.has_schema_entry:
+    id: schemas.SchemaRegistry.has_schema_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.has_schema
+  schemas.SchemaRegistry.has_schema_exit:
+    id: schemas.SchemaRegistry.has_schema_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.has_schema
+  schemas.SchemaRegistry.has_schema_return_254:
+    id: schemas.SchemaRegistry.has_schema_return_254
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.has_schema
+    line: 254
+  schemas.SchemaRegistry.list_schemas_entry:
+    id: schemas.SchemaRegistry.list_schemas_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.list_schemas
+  schemas.SchemaRegistry.list_schemas_exit:
+    id: schemas.SchemaRegistry.list_schemas_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.list_schemas
+  schemas.SchemaRegistry.list_schemas_return_258:
+    id: schemas.SchemaRegistry.list_schemas_return_258
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.list_schemas
+    line: 258
+  schemas.SchemaRegistry.unregister_entry:
+    id: schemas.SchemaRegistry.unregister_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.unregister
+  schemas.SchemaRegistry.unregister_exit:
+    id: schemas.SchemaRegistry.unregister_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.unregister
+  schemas.SchemaRegistry.unregister_if_263:
+    id: schemas.SchemaRegistry.unregister_if_263
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.unregister
+    line: 263
+  schemas.SchemaRegistry.unregister_if_265:
+    id: schemas.SchemaRegistry.unregister_if_265
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.unregister
+    line: 265
+  schemas.SchemaRegistry.unregister_merge_265:
+    id: schemas.SchemaRegistry.unregister_merge_265
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.unregister
+  schemas.SchemaRegistry.unregister_return_268:
+    id: schemas.SchemaRegistry.unregister_return_268
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.unregister
+    line: 268
+  schemas.SchemaRegistry.unregister_merge_263:
+    id: schemas.SchemaRegistry.unregister_merge_263
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.unregister
+  schemas.SchemaRegistry.unregister_return_269:
+    id: schemas.SchemaRegistry.unregister_return_269
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.unregister
+    line: 269
+  schemas.SchemaRegistry.find_schema_for_file_entry:
+    id: schemas.SchemaRegistry.find_schema_for_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.find_schema_for_file
+  schemas.SchemaRegistry.find_schema_for_file_exit:
+    id: schemas.SchemaRegistry.find_schema_for_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.find_schema_for_file
+  schemas.SchemaRegistry.find_schema_for_file_return_274:
+    id: schemas.SchemaRegistry.find_schema_for_file_return_274
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.find_schema_for_file
+    line: 274
+  schemas.SchemaRegistry.find_schema_by_mime_type_entry:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+  schemas.SchemaRegistry.find_schema_by_mime_type_exit:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+  schemas.SchemaRegistry.find_schema_by_mime_type_loop_278:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_loop_278
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+    line: 278
+  schemas.SchemaRegistry.find_schema_by_mime_type_if_279:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_if_279
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+    line: 279
+  schemas.SchemaRegistry.find_schema_by_mime_type_return_280:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_return_280
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+    line: 280
+  schemas.SchemaRegistry.find_schema_by_mime_type_merge_279:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_merge_279
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+  schemas.SchemaRegistry.find_schema_by_mime_type_return_281:
+    id: schemas.SchemaRegistry.find_schema_by_mime_type_return_281
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.find_schema_by_mime_type
+    line: 281
+  schemas.SchemaRegistry.find_extension_conflicts_entry:
+    id: schemas.SchemaRegistry.find_extension_conflicts_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.find_extension_conflicts
+  schemas.SchemaRegistry.find_extension_conflicts_exit:
+    id: schemas.SchemaRegistry.find_extension_conflicts_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.find_extension_conflicts
+  schemas.SchemaRegistry.find_extension_conflicts_loop_288:
+    id: schemas.SchemaRegistry.find_extension_conflicts_loop_288
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.find_extension_conflicts
+    line: 288
+  schemas.SchemaRegistry.find_extension_conflicts_loop_289:
+    id: schemas.SchemaRegistry.find_extension_conflicts_loop_289
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.find_extension_conflicts
+    line: 289
+  schemas.SchemaRegistry.find_extension_conflicts_if_290:
+    id: schemas.SchemaRegistry.find_extension_conflicts_if_290
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.find_extension_conflicts
+    line: 290
+  schemas.SchemaRegistry.find_extension_conflicts_merge_290:
+    id: schemas.SchemaRegistry.find_extension_conflicts_merge_290
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.find_extension_conflicts
+  schemas.SchemaRegistry.find_extension_conflicts_loop_294:
+    id: schemas.SchemaRegistry.find_extension_conflicts_loop_294
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.find_extension_conflicts
+    line: 294
+  schemas.SchemaRegistry.find_extension_conflicts_if_295:
+    id: schemas.SchemaRegistry.find_extension_conflicts_if_295
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.find_extension_conflicts
+    line: 295
+  schemas.SchemaRegistry.find_extension_conflicts_merge_295:
+    id: schemas.SchemaRegistry.find_extension_conflicts_merge_295
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.find_extension_conflicts
+  schemas.SchemaRegistry.find_extension_conflicts_return_298:
+    id: schemas.SchemaRegistry.find_extension_conflicts_return_298
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.find_extension_conflicts
+    line: 298
+  schemas.SchemaRegistry.validate_integrity_entry:
+    id: schemas.SchemaRegistry.validate_integrity_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.validate_integrity
+  schemas.SchemaRegistry.validate_integrity_exit:
+    id: schemas.SchemaRegistry.validate_integrity_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.validate_integrity
+  schemas.SchemaRegistry.validate_integrity_loop_302:
+    id: schemas.SchemaRegistry.validate_integrity_loop_302
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.validate_integrity
+    line: 302
+  schemas.SchemaRegistry.validate_integrity_if_303:
+    id: schemas.SchemaRegistry.validate_integrity_if_303
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.validate_integrity
+    line: 303
+  schemas.SchemaRegistry.validate_integrity_merge_303:
+    id: schemas.SchemaRegistry.validate_integrity_merge_303
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.validate_integrity
+  schemas.SchemaRegistry.validate_integrity_if_307:
+    id: schemas.SchemaRegistry.validate_integrity_if_307
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.validate_integrity
+    line: 307
+  schemas.SchemaRegistry.validate_integrity_return_308:
+    id: schemas.SchemaRegistry.validate_integrity_return_308
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.validate_integrity
+    line: 308
+  schemas.SchemaRegistry.validate_integrity_merge_307:
+    id: schemas.SchemaRegistry.validate_integrity_merge_307
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.validate_integrity
+  schemas.SchemaRegistry.validate_integrity_return_309:
+    id: schemas.SchemaRegistry.validate_integrity_return_309
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.validate_integrity
+    line: 309
+  schemas.SchemaRegistry.get_dependencies_entry:
+    id: schemas.SchemaRegistry.get_dependencies_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.get_dependencies
+  schemas.SchemaRegistry.get_dependencies_exit:
+    id: schemas.SchemaRegistry.get_dependencies_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.get_dependencies
+  schemas.SchemaRegistry.get_dependencies_if_313:
+    id: schemas.SchemaRegistry.get_dependencies_if_313
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.get_dependencies
+    line: 313
+  schemas.SchemaRegistry.get_dependencies_return_314:
+    id: schemas.SchemaRegistry.get_dependencies_return_314
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.get_dependencies
+    line: 314
+  schemas.SchemaRegistry.get_dependencies_merge_313:
+    id: schemas.SchemaRegistry.get_dependencies_merge_313
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.get_dependencies
+  schemas.SchemaRegistry.get_dependencies_return_315:
+    id: schemas.SchemaRegistry.get_dependencies_return_315
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.get_dependencies
+    line: 315
+  schemas.SchemaRegistry.get_version_entry:
+    id: schemas.SchemaRegistry.get_version_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.get_version
+  schemas.SchemaRegistry.get_version_exit:
+    id: schemas.SchemaRegistry.get_version_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.get_version
+  schemas.SchemaRegistry.get_version_if_323:
+    id: schemas.SchemaRegistry.get_version_if_323
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.get_version
+    line: 323
+  schemas.SchemaRegistry.get_version_return_324:
+    id: schemas.SchemaRegistry.get_version_return_324
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.get_version
+    line: 324
+  schemas.SchemaRegistry.get_version_merge_323:
+    id: schemas.SchemaRegistry.get_version_merge_323
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.get_version
+  schemas.SchemaRegistry.get_version_return_325:
+    id: schemas.SchemaRegistry.get_version_return_325
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.get_version
+    line: 325
+  schemas.SchemaRegistry.export_schema_entry:
+    id: schemas.SchemaRegistry.export_schema_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.export_schema
+  schemas.SchemaRegistry.export_schema_exit:
+    id: schemas.SchemaRegistry.export_schema_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.export_schema
+  schemas.SchemaRegistry.export_schema_if_329:
+    id: schemas.SchemaRegistry.export_schema_if_329
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.export_schema
+    line: 329
+  schemas.SchemaRegistry.export_schema_merge_329:
+    id: schemas.SchemaRegistry.export_schema_merge_329
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.export_schema
+  schemas.SchemaRegistry.export_schema_return_331:
+    id: schemas.SchemaRegistry.export_schema_return_331
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.export_schema
+    line: 331
+  schemas.SchemaRegistry.import_schema_entry:
+    id: schemas.SchemaRegistry.import_schema_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.import_schema
+  schemas.SchemaRegistry.import_schema_exit:
+    id: schemas.SchemaRegistry.import_schema_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.import_schema
+  schemas.SchemaRegistry.load_from_file_entry:
+    id: schemas.SchemaRegistry.load_from_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.load_from_file
+  schemas.SchemaRegistry.load_from_file_exit:
+    id: schemas.SchemaRegistry.load_from_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.load_from_file
+  schemas.SchemaRegistry.load_from_file_if_365:
+    id: schemas.SchemaRegistry.load_from_file_if_365
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.load_from_file
+    line: 365
+  schemas.SchemaRegistry.load_from_file_if_370:
+    id: schemas.SchemaRegistry.load_from_file_if_370
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.load_from_file
+    line: 370
+  schemas.SchemaRegistry.load_from_file_return_373:
+    id: schemas.SchemaRegistry.load_from_file_return_373
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.load_from_file
+    line: 373
+  schemas.SchemaRegistry.load_from_file_merge_370:
+    id: schemas.SchemaRegistry.load_from_file_merge_370
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.load_from_file
+  schemas.SchemaRegistry.load_from_file_merge_365:
+    id: schemas.SchemaRegistry.load_from_file_merge_365
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.load_from_file
+  schemas.SchemaRegistry.load_from_file_if_375:
+    id: schemas.SchemaRegistry.load_from_file_if_375
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.load_from_file
+    line: 375
+  schemas.SchemaRegistry.load_from_file_merge_375:
+    id: schemas.SchemaRegistry.load_from_file_merge_375
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.load_from_file
+  schemas.SchemaRegistry.load_from_file_loop_378:
+    id: schemas.SchemaRegistry.load_from_file_loop_378
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.load_from_file
+    line: 378
+  schemas.SchemaRegistry.load_from_file_if_379:
+    id: schemas.SchemaRegistry.load_from_file_if_379
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.load_from_file
+    line: 379
+  schemas.SchemaRegistry.load_from_file_merge_379:
+    id: schemas.SchemaRegistry.load_from_file_merge_379
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.load_from_file
+  schemas.SchemaRegistry.load_from_file_return_395:
+    id: schemas.SchemaRegistry.load_from_file_return_395
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.load_from_file
+    line: 395
+  schemas.SchemaRegistry.load_from_directory_entry:
+    id: schemas.SchemaRegistry.load_from_directory_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.load_from_directory
+  schemas.SchemaRegistry.load_from_directory_exit:
+    id: schemas.SchemaRegistry.load_from_directory_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.load_from_directory
+  schemas.SchemaRegistry.load_from_directory_loop_402:
+    id: schemas.SchemaRegistry.load_from_directory_loop_402
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.load_from_directory
+    line: 402
+  schemas.SchemaRegistry.load_from_directory_loop_409:
+    id: schemas.SchemaRegistry.load_from_directory_loop_409
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.load_from_directory
+    line: 409
+  schemas.SchemaRegistry.load_from_directory_loop_416:
+    id: schemas.SchemaRegistry.load_from_directory_loop_416
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.load_from_directory
+    line: 416
+  schemas.SchemaRegistry.load_from_directory_return_423:
+    id: schemas.SchemaRegistry.load_from_directory_return_423
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.load_from_directory
+    line: 423
+  schemas.SchemaRegistry.detect_format_entry:
+    id: schemas.SchemaRegistry.detect_format_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.detect_format
+  schemas.SchemaRegistry.detect_format_exit:
+    id: schemas.SchemaRegistry.detect_format_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.detect_format
+  schemas.SchemaRegistry.detect_format_loop_432:
+    id: schemas.SchemaRegistry.detect_format_loop_432
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.detect_format
+    line: 432
+  schemas.SchemaRegistry.detect_format_loop_433:
+    id: schemas.SchemaRegistry.detect_format_loop_433
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.detect_format
+    line: 433
+  schemas.SchemaRegistry.detect_format_if_434:
+    id: schemas.SchemaRegistry.detect_format_if_434
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.detect_format
+    line: 434
+  schemas.SchemaRegistry.detect_format_merge_434:
+    id: schemas.SchemaRegistry.detect_format_merge_434
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.detect_format
+  schemas.SchemaRegistry.detect_format_if_437:
+    id: schemas.SchemaRegistry.detect_format_if_437
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.detect_format
+    line: 437
+  schemas.SchemaRegistry.detect_format_merge_437:
+    id: schemas.SchemaRegistry.detect_format_merge_437
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.detect_format
+  schemas.SchemaRegistry.detect_format_if_442:
+    id: schemas.SchemaRegistry.detect_format_if_442
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.detect_format
+    line: 442
+  schemas.SchemaRegistry.detect_format_return_443:
+    id: schemas.SchemaRegistry.detect_format_return_443
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.detect_format
+    line: 443
+  schemas.SchemaRegistry.detect_format_merge_442:
+    id: schemas.SchemaRegistry.detect_format_merge_442
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.detect_format
+  schemas.SchemaRegistry.detect_format_return_446:
+    id: schemas.SchemaRegistry.detect_format_return_446
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.detect_format
+    line: 446
+  schemas.SchemaRegistry._match_pattern_entry:
+    id: schemas.SchemaRegistry._match_pattern_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._match_pattern
+  schemas.SchemaRegistry._match_pattern_exit:
+    id: schemas.SchemaRegistry._match_pattern_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._match_pattern
+  schemas.SchemaRegistry._match_pattern_return_452:
+    id: schemas.SchemaRegistry._match_pattern_return_452
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._match_pattern
+    line: 452
+  schemas.SchemaRegistry._detect_by_content_entry:
+    id: schemas.SchemaRegistry._detect_by_content_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._detect_by_content
+  schemas.SchemaRegistry._detect_by_content_exit:
+    id: schemas.SchemaRegistry._detect_by_content_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._detect_by_content
+  schemas.SchemaRegistry._detect_by_content_return_472:
+    id: schemas.SchemaRegistry._detect_by_content_return_472
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._detect_by_content
+    line: 472
+  schemas.SchemaRegistry.validate_entry:
+    id: schemas.SchemaRegistry.validate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.validate
+  schemas.SchemaRegistry.validate_exit:
+    id: schemas.SchemaRegistry.validate_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.validate
+  schemas.SchemaRegistry.validate_if_477:
+    id: schemas.SchemaRegistry.validate_if_477
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.validate
+    line: 477
+  schemas.SchemaRegistry.validate_return_478:
+    id: schemas.SchemaRegistry.validate_return_478
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.validate
+    line: 478
+  schemas.SchemaRegistry.validate_merge_477:
+    id: schemas.SchemaRegistry.validate_merge_477
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.validate
+  schemas.SchemaRegistry.validate_return_480:
+    id: schemas.SchemaRegistry.validate_return_480
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.validate
+    line: 480
+  schemas.SchemaRegistry.repair_entry:
+    id: schemas.SchemaRegistry.repair_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry.repair
+  schemas.SchemaRegistry.repair_exit:
+    id: schemas.SchemaRegistry.repair_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry.repair
+  schemas.SchemaRegistry.repair_if_490:
+    id: schemas.SchemaRegistry.repair_if_490
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.repair
+    line: 490
+  schemas.SchemaRegistry.repair_return_491:
+    id: schemas.SchemaRegistry.repair_return_491
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.repair
+    line: 491
+  schemas.SchemaRegistry.repair_merge_490:
+    id: schemas.SchemaRegistry.repair_merge_490
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.repair
+  schemas.SchemaRegistry.repair_loop_496:
+    id: schemas.SchemaRegistry.repair_loop_496
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry.repair
+    line: 496
+  schemas.SchemaRegistry.repair_if_497:
+    id: schemas.SchemaRegistry.repair_if_497
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.repair
+    line: 497
+  schemas.SchemaRegistry.repair_if_502:
+    id: schemas.SchemaRegistry.repair_if_502
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry.repair
+    line: 502
+  schemas.SchemaRegistry.repair_merge_502:
+    id: schemas.SchemaRegistry.repair_merge_502
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.repair
+  schemas.SchemaRegistry.repair_merge_497:
+    id: schemas.SchemaRegistry.repair_merge_497
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry.repair
+  schemas.SchemaRegistry.repair_return_508:
+    id: schemas.SchemaRegistry.repair_return_508
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry.repair
+    line: 508
+  schemas.SchemaRegistry._apply_pattern_rule_entry:
+    id: schemas.SchemaRegistry._apply_pattern_rule_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._apply_pattern_rule
+  schemas.SchemaRegistry._apply_pattern_rule_exit:
+    id: schemas.SchemaRegistry._apply_pattern_rule_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._apply_pattern_rule
+  schemas.SchemaRegistry._apply_pattern_rule_loop_525:
+    id: schemas.SchemaRegistry._apply_pattern_rule_loop_525
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._apply_pattern_rule
+    line: 525
+  schemas.SchemaRegistry._apply_pattern_rule_if_527:
+    id: schemas.SchemaRegistry._apply_pattern_rule_if_527
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_pattern_rule
+    line: 527
+  schemas.SchemaRegistry._apply_pattern_rule_merge_527:
+    id: schemas.SchemaRegistry._apply_pattern_rule_merge_527
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_pattern_rule
+  schemas.SchemaRegistry._apply_pattern_rule_if_530:
+    id: schemas.SchemaRegistry._apply_pattern_rule_if_530
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_pattern_rule
+    line: 530
+  schemas.SchemaRegistry._apply_pattern_rule_if_531:
+    id: schemas.SchemaRegistry._apply_pattern_rule_if_531
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_pattern_rule
+    line: 531
+  schemas.SchemaRegistry._apply_pattern_rule_merge_531:
+    id: schemas.SchemaRegistry._apply_pattern_rule_merge_531
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_pattern_rule
+  schemas.SchemaRegistry._apply_pattern_rule_merge_530:
+    id: schemas.SchemaRegistry._apply_pattern_rule_merge_530
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_pattern_rule
+  schemas.SchemaRegistry._apply_pattern_rule_return_551:
+    id: schemas.SchemaRegistry._apply_pattern_rule_return_551
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._apply_pattern_rule
+    line: 551
+  schemas.SchemaRegistry._apply_path_rule_entry:
+    id: schemas.SchemaRegistry._apply_path_rule_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._apply_path_rule
+  schemas.SchemaRegistry._apply_path_rule_exit:
+    id: schemas.SchemaRegistry._apply_path_rule_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._apply_path_rule
+  schemas.SchemaRegistry._apply_path_rule_return_579:
+    id: schemas.SchemaRegistry._apply_path_rule_return_579
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._apply_path_rule
+    line: 579
+  schemas.SchemaRegistry._check_path_entry:
+    id: schemas.SchemaRegistry._check_path_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_exit:
+    id: schemas.SchemaRegistry._check_path_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_if_591:
+    id: schemas.SchemaRegistry._check_path_if_591
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 591
+  schemas.SchemaRegistry._check_path_return_592:
+    id: schemas.SchemaRegistry._check_path_return_592
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._check_path
+    line: 592
+  schemas.SchemaRegistry._check_path_merge_591:
+    id: schemas.SchemaRegistry._check_path_merge_591
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_if_597:
+    id: schemas.SchemaRegistry._check_path_if_597
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 597
+  schemas.SchemaRegistry._check_path_if_599:
+    id: schemas.SchemaRegistry._check_path_if_599
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 599
+  schemas.SchemaRegistry._check_path_loop_600:
+    id: schemas.SchemaRegistry._check_path_loop_600
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._check_path
+    line: 600
+  schemas.SchemaRegistry._check_path_if_604:
+    id: schemas.SchemaRegistry._check_path_if_604
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 604
+  schemas.SchemaRegistry._check_path_loop_605:
+    id: schemas.SchemaRegistry._check_path_loop_605
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._check_path
+    line: 605
+  schemas.SchemaRegistry._check_path_merge_604:
+    id: schemas.SchemaRegistry._check_path_merge_604
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_merge_599:
+    id: schemas.SchemaRegistry._check_path_merge_599
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_if_610:
+    id: schemas.SchemaRegistry._check_path_if_610
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 610
+  schemas.SchemaRegistry._check_path_if_611:
+    id: schemas.SchemaRegistry._check_path_if_611
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 611
+  schemas.SchemaRegistry._check_path_if_615:
+    id: schemas.SchemaRegistry._check_path_if_615
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 615
+  schemas.SchemaRegistry._check_path_merge_615:
+    id: schemas.SchemaRegistry._check_path_merge_615
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_merge_611:
+    id: schemas.SchemaRegistry._check_path_merge_611
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_if_628:
+    id: schemas.SchemaRegistry._check_path_if_628
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._check_path
+    line: 628
+  schemas.SchemaRegistry._check_path_merge_628:
+    id: schemas.SchemaRegistry._check_path_merge_628
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_merge_610:
+    id: schemas.SchemaRegistry._check_path_merge_610
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_merge_597:
+    id: schemas.SchemaRegistry._check_path_merge_597
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._check_path
+  schemas.SchemaRegistry._check_path_return_636:
+    id: schemas.SchemaRegistry._check_path_return_636
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._check_path
+    line: 636
+  schemas.SchemaRegistry._apply_path_fix_entry:
+    id: schemas.SchemaRegistry._apply_path_fix_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_exit:
+    id: schemas.SchemaRegistry._apply_path_fix_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_if_645:
+    id: schemas.SchemaRegistry._apply_path_fix_if_645
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 645
+  schemas.SchemaRegistry._apply_path_fix_return_646:
+    id: schemas.SchemaRegistry._apply_path_fix_return_646
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 646
+  schemas.SchemaRegistry._apply_path_fix_merge_645:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_645
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_if_651:
+    id: schemas.SchemaRegistry._apply_path_fix_if_651
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 651
+  schemas.SchemaRegistry._apply_path_fix_if_652:
+    id: schemas.SchemaRegistry._apply_path_fix_if_652
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 652
+  schemas.SchemaRegistry._apply_path_fix_loop_653:
+    id: schemas.SchemaRegistry._apply_path_fix_loop_653
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 653
+  schemas.SchemaRegistry._apply_path_fix_if_655:
+    id: schemas.SchemaRegistry._apply_path_fix_if_655
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 655
+  schemas.SchemaRegistry._apply_path_fix_loop_656:
+    id: schemas.SchemaRegistry._apply_path_fix_loop_656
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 656
+  schemas.SchemaRegistry._apply_path_fix_merge_655:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_655
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_merge_652:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_652
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_if_659:
+    id: schemas.SchemaRegistry._apply_path_fix_if_659
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 659
+  schemas.SchemaRegistry._apply_path_fix_if_660:
+    id: schemas.SchemaRegistry._apply_path_fix_if_660
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 660
+  schemas.SchemaRegistry._apply_path_fix_if_663:
+    id: schemas.SchemaRegistry._apply_path_fix_if_663
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 663
+  schemas.SchemaRegistry._apply_path_fix_merge_663:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_663
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_merge_660:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_660
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_merge_659:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_659
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_merge_651:
+    id: schemas.SchemaRegistry._apply_path_fix_merge_651
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._apply_path_fix
+  schemas.SchemaRegistry._apply_path_fix_return_667:
+    id: schemas.SchemaRegistry._apply_path_fix_return_667
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._apply_path_fix
+    line: 667
+  schemas.SchemaRegistry._validate_dockerfile_entry:
+    id: schemas.SchemaRegistry._validate_dockerfile_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_exit:
+    id: schemas.SchemaRegistry._validate_dockerfile_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_loop_679:
+    id: schemas.SchemaRegistry._validate_dockerfile_loop_679
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 679
+  schemas.SchemaRegistry._validate_dockerfile_if_681:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_681
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 681
+  schemas.SchemaRegistry._validate_dockerfile_merge_681:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_681
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_if_684:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_684
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 684
+  schemas.SchemaRegistry._validate_dockerfile_if_686:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_686
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 686
+  schemas.SchemaRegistry._validate_dockerfile_if_688:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_688
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 688
+  schemas.SchemaRegistry._validate_dockerfile_merge_688:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_688
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_merge_686:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_686
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_merge_684:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_684
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_if_691:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_691
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 691
+  schemas.SchemaRegistry._validate_dockerfile_merge_691:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_691
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_if_694:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_694
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 694
+  schemas.SchemaRegistry._validate_dockerfile_if_695:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_695
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 695
+  schemas.SchemaRegistry._validate_dockerfile_if_697:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_697
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 697
+  schemas.SchemaRegistry._validate_dockerfile_merge_697:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_697
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_merge_695:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_695
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_if_699:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_699
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 699
+  schemas.SchemaRegistry._validate_dockerfile_if_702:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_702
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 702
+  schemas.SchemaRegistry._validate_dockerfile_merge_702:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_702
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_merge_699:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_699
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_merge_694:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_694
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_if_705:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_705
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 705
+  schemas.SchemaRegistry._validate_dockerfile_merge_705:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_705
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_if_708:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_708
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 708
+  schemas.SchemaRegistry._validate_dockerfile_if_715:
+    id: schemas.SchemaRegistry._validate_dockerfile_if_715
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 715
+  schemas.SchemaRegistry._validate_dockerfile_merge_715:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_715
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_merge_708:
+    id: schemas.SchemaRegistry._validate_dockerfile_merge_708
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_dockerfile
+  schemas.SchemaRegistry._validate_dockerfile_return_720:
+    id: schemas.SchemaRegistry._validate_dockerfile_return_720
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_dockerfile
+    line: 720
+  schemas.SchemaRegistry._validate_docker_compose_entry:
+    id: schemas.SchemaRegistry._validate_docker_compose_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_exit:
+    id: schemas.SchemaRegistry._validate_docker_compose_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_if_732:
+    id: schemas.SchemaRegistry._validate_docker_compose_if_732
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 732
+  schemas.SchemaRegistry._validate_docker_compose_return_733:
+    id: schemas.SchemaRegistry._validate_docker_compose_return_733
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 733
+  schemas.SchemaRegistry._validate_docker_compose_merge_732:
+    id: schemas.SchemaRegistry._validate_docker_compose_merge_732
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_if_736:
+    id: schemas.SchemaRegistry._validate_docker_compose_if_736
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 736
+  schemas.SchemaRegistry._validate_docker_compose_merge_736:
+    id: schemas.SchemaRegistry._validate_docker_compose_merge_736
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_if_739:
+    id: schemas.SchemaRegistry._validate_docker_compose_if_739
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 739
+  schemas.SchemaRegistry._validate_docker_compose_merge_739:
+    id: schemas.SchemaRegistry._validate_docker_compose_merge_739
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_loop_743:
+    id: schemas.SchemaRegistry._validate_docker_compose_loop_743
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 743
+  schemas.SchemaRegistry._validate_docker_compose_if_744:
+    id: schemas.SchemaRegistry._validate_docker_compose_if_744
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 744
+  schemas.SchemaRegistry._validate_docker_compose_merge_744:
+    id: schemas.SchemaRegistry._validate_docker_compose_merge_744
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_if_748:
+    id: schemas.SchemaRegistry._validate_docker_compose_if_748
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 748
+  schemas.SchemaRegistry._validate_docker_compose_merge_748:
+    id: schemas.SchemaRegistry._validate_docker_compose_merge_748
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_if_751:
+    id: schemas.SchemaRegistry._validate_docker_compose_if_751
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 751
+  schemas.SchemaRegistry._validate_docker_compose_merge_751:
+    id: schemas.SchemaRegistry._validate_docker_compose_merge_751
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_docker_compose
+  schemas.SchemaRegistry._validate_docker_compose_return_754:
+    id: schemas.SchemaRegistry._validate_docker_compose_return_754
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_docker_compose
+    line: 754
+  schemas.SchemaRegistry._validate_k8s_deployment_entry:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_exit:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_if_767:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_767
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 767
+  schemas.SchemaRegistry._validate_k8s_deployment_return_768:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_return_768
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 768
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_767:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_767
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_if_770:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_770
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 770
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_770:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_770
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_if_774:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_774
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 774
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_774:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_774
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_if_778:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_778
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 778
+  schemas.SchemaRegistry._validate_k8s_deployment_return_780:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_return_780
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 780
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_778:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_778
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_loop_785:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_loop_785
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 785
+  schemas.SchemaRegistry._validate_k8s_deployment_if_786:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_786
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 786
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_786:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_786
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_if_788:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_788
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 788
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_788:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_788
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_if_790:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_if_790
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 790
+  schemas.SchemaRegistry._validate_k8s_deployment_merge_790:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_merge_790
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+  schemas.SchemaRegistry._validate_k8s_deployment_return_793:
+    id: schemas.SchemaRegistry._validate_k8s_deployment_return_793
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_k8s_deployment
+    line: 793
+  schemas.SchemaRegistry._validate_github_workflow_entry:
+    id: schemas.SchemaRegistry._validate_github_workflow_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._validate_github_workflow
+  schemas.SchemaRegistry._validate_github_workflow_exit:
+    id: schemas.SchemaRegistry._validate_github_workflow_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._validate_github_workflow
+  schemas.SchemaRegistry._validate_github_workflow_if_807:
+    id: schemas.SchemaRegistry._validate_github_workflow_if_807
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 807
+  schemas.SchemaRegistry._validate_github_workflow_merge_807:
+    id: schemas.SchemaRegistry._validate_github_workflow_merge_807
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_github_workflow
+  schemas.SchemaRegistry._validate_github_workflow_if_810:
+    id: schemas.SchemaRegistry._validate_github_workflow_if_810
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 810
+  schemas.SchemaRegistry._validate_github_workflow_return_812:
+    id: schemas.SchemaRegistry._validate_github_workflow_return_812
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 812
+  schemas.SchemaRegistry._validate_github_workflow_merge_810:
+    id: schemas.SchemaRegistry._validate_github_workflow_merge_810
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_github_workflow
+  schemas.SchemaRegistry._validate_github_workflow_loop_814:
+    id: schemas.SchemaRegistry._validate_github_workflow_loop_814
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 814
+  schemas.SchemaRegistry._validate_github_workflow_if_815:
+    id: schemas.SchemaRegistry._validate_github_workflow_if_815
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 815
+  schemas.SchemaRegistry._validate_github_workflow_merge_815:
+    id: schemas.SchemaRegistry._validate_github_workflow_merge_815
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_github_workflow
+  schemas.SchemaRegistry._validate_github_workflow_if_817:
+    id: schemas.SchemaRegistry._validate_github_workflow_if_817
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 817
+  schemas.SchemaRegistry._validate_github_workflow_merge_817:
+    id: schemas.SchemaRegistry._validate_github_workflow_merge_817
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_github_workflow
+  schemas.SchemaRegistry._validate_github_workflow_return_820:
+    id: schemas.SchemaRegistry._validate_github_workflow_return_820
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_github_workflow
+    line: 820
+  schemas.SchemaRegistry._validate_env_file_entry:
+    id: schemas.SchemaRegistry._validate_env_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_exit:
+    id: schemas.SchemaRegistry._validate_env_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_loop_827:
+    id: schemas.SchemaRegistry._validate_env_file_loop_827
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 827
+  schemas.SchemaRegistry._validate_env_file_if_829:
+    id: schemas.SchemaRegistry._validate_env_file_if_829
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 829
+  schemas.SchemaRegistry._validate_env_file_merge_829:
+    id: schemas.SchemaRegistry._validate_env_file_merge_829
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_if_832:
+    id: schemas.SchemaRegistry._validate_env_file_if_832
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 832
+  schemas.SchemaRegistry._validate_env_file_merge_832:
+    id: schemas.SchemaRegistry._validate_env_file_merge_832
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_if_838:
+    id: schemas.SchemaRegistry._validate_env_file_if_838
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 838
+  schemas.SchemaRegistry._validate_env_file_merge_838:
+    id: schemas.SchemaRegistry._validate_env_file_merge_838
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_if_842:
+    id: schemas.SchemaRegistry._validate_env_file_if_842
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 842
+  schemas.SchemaRegistry._validate_env_file_merge_842:
+    id: schemas.SchemaRegistry._validate_env_file_merge_842
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_if_844:
+    id: schemas.SchemaRegistry._validate_env_file_if_844
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 844
+  schemas.SchemaRegistry._validate_env_file_merge_844:
+    id: schemas.SchemaRegistry._validate_env_file_merge_844
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._validate_env_file
+  schemas.SchemaRegistry._validate_env_file_return_847:
+    id: schemas.SchemaRegistry._validate_env_file_return_847
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._validate_env_file
+    line: 847
+  schemas.SchemaRegistry._parse_dockerfile_entry:
+    id: schemas.SchemaRegistry._parse_dockerfile_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._parse_dockerfile
+  schemas.SchemaRegistry._parse_dockerfile_exit:
+    id: schemas.SchemaRegistry._parse_dockerfile_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._parse_dockerfile
+  schemas.SchemaRegistry._parse_dockerfile_loop_853:
+    id: schemas.SchemaRegistry._parse_dockerfile_loop_853
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._parse_dockerfile
+    line: 853
+  schemas.SchemaRegistry._parse_dockerfile_if_855:
+    id: schemas.SchemaRegistry._parse_dockerfile_if_855
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._parse_dockerfile
+    line: 855
+  schemas.SchemaRegistry._parse_dockerfile_merge_855:
+    id: schemas.SchemaRegistry._parse_dockerfile_merge_855
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._parse_dockerfile
+  schemas.SchemaRegistry._parse_dockerfile_if_858:
+    id: schemas.SchemaRegistry._parse_dockerfile_if_858
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._parse_dockerfile
+    line: 858
+  schemas.SchemaRegistry._parse_dockerfile_merge_858:
+    id: schemas.SchemaRegistry._parse_dockerfile_merge_858
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._parse_dockerfile
+  schemas.SchemaRegistry._parse_dockerfile_return_863:
+    id: schemas.SchemaRegistry._parse_dockerfile_return_863
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._parse_dockerfile
+    line: 863
+  schemas.SchemaRegistry._generate_dockerfile_entry:
+    id: schemas.SchemaRegistry._generate_dockerfile_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._generate_dockerfile
+  schemas.SchemaRegistry._generate_dockerfile_exit:
+    id: schemas.SchemaRegistry._generate_dockerfile_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._generate_dockerfile
+  schemas.SchemaRegistry._generate_dockerfile_loop_868:
+    id: schemas.SchemaRegistry._generate_dockerfile_loop_868
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._generate_dockerfile
+    line: 868
+  schemas.SchemaRegistry._generate_dockerfile_return_870:
+    id: schemas.SchemaRegistry._generate_dockerfile_return_870
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._generate_dockerfile
+    line: 870
+  schemas.SchemaRegistry._parse_env_file_entry:
+    id: schemas.SchemaRegistry._parse_env_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._parse_env_file
+  schemas.SchemaRegistry._parse_env_file_exit:
+    id: schemas.SchemaRegistry._parse_env_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._parse_env_file
+  schemas.SchemaRegistry._parse_env_file_loop_875:
+    id: schemas.SchemaRegistry._parse_env_file_loop_875
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._parse_env_file
+    line: 875
+  schemas.SchemaRegistry._parse_env_file_if_877:
+    id: schemas.SchemaRegistry._parse_env_file_if_877
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._parse_env_file
+    line: 877
+  schemas.SchemaRegistry._parse_env_file_merge_877:
+    id: schemas.SchemaRegistry._parse_env_file_merge_877
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._parse_env_file
+  schemas.SchemaRegistry._parse_env_file_if_879:
+    id: schemas.SchemaRegistry._parse_env_file_if_879
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._parse_env_file
+    line: 879
+  schemas.SchemaRegistry._parse_env_file_if_883:
+    id: schemas.SchemaRegistry._parse_env_file_if_883
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._parse_env_file
+    line: 883
+  schemas.SchemaRegistry._parse_env_file_if_885:
+    id: schemas.SchemaRegistry._parse_env_file_if_885
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._parse_env_file
+    line: 885
+  schemas.SchemaRegistry._parse_env_file_merge_885:
+    id: schemas.SchemaRegistry._parse_env_file_merge_885
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._parse_env_file
+  schemas.SchemaRegistry._parse_env_file_merge_883:
+    id: schemas.SchemaRegistry._parse_env_file_merge_883
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._parse_env_file
+  schemas.SchemaRegistry._parse_env_file_merge_879:
+    id: schemas.SchemaRegistry._parse_env_file_merge_879
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._parse_env_file
+  schemas.SchemaRegistry._parse_env_file_return_888:
+    id: schemas.SchemaRegistry._parse_env_file_return_888
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._parse_env_file
+    line: 888
+  schemas.SchemaRegistry._generate_env_file_entry:
+    id: schemas.SchemaRegistry._generate_env_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._generate_env_file
+  schemas.SchemaRegistry._generate_env_file_exit:
+    id: schemas.SchemaRegistry._generate_env_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._generate_env_file
+  schemas.SchemaRegistry._generate_env_file_loop_893:
+    id: schemas.SchemaRegistry._generate_env_file_loop_893
+    type: FOR
+    label: for
+    function: schemas.SchemaRegistry._generate_env_file
+    line: 893
+  schemas.SchemaRegistry._generate_env_file_if_894:
+    id: schemas.SchemaRegistry._generate_env_file_if_894
+    type: IF
+    label: if
+    function: schemas.SchemaRegistry._generate_env_file
+    line: 894
+  schemas.SchemaRegistry._generate_env_file_merge_894:
+    id: schemas.SchemaRegistry._generate_env_file_merge_894
+    type: FUNC
+    label: merge
+    function: schemas.SchemaRegistry._generate_env_file
+  schemas.SchemaRegistry._generate_env_file_return_897:
+    id: schemas.SchemaRegistry._generate_env_file_return_897
+    type: RETURN
+    label: return
+    function: schemas.SchemaRegistry._generate_env_file
+    line: 897
+  schemas.SchemaRegistry._validate_json_entry:
+    id: schemas.SchemaRegistry._validate_json_entry
+    type: ENTRY
+    label: entry
+    function: schemas.SchemaRegistry._validate_json
+  schemas.SchemaRegistry._validate_json_exit:
+    id: schemas.SchemaRegistry._validate_json_exit
+    type: EXIT
+    label: exit
+    function: schemas.SchemaRegistry._validate_json

@@ -1,0 +1,20 @@
+module: generation.structured.StructuredPlan
+type: orphan_nodes
+count: 3
+nodes:
+  generation.structured.StructuredPlan.to_adapter_plan_entry:
+    id: generation.structured.StructuredPlan.to_adapter_plan_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.StructuredPlan.to_adapter_plan
+  generation.structured.StructuredPlan.to_adapter_plan_exit:
+    id: generation.structured.StructuredPlan.to_adapter_plan_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.StructuredPlan.to_adapter_plan
+  generation.structured.StructuredPlan.to_adapter_plan_return_78:
+    id: generation.structured.StructuredPlan.to_adapter_plan_return_78
+    type: RETURN
+    label: return
+    function: generation.structured.StructuredPlan.to_adapter_plan
+    line: 78

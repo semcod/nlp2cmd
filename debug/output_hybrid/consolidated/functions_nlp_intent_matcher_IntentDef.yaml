@@ -1,0 +1,28 @@
+module: nlp.intent_matcher.IntentDef
+type: functions
+count: 2
+functions:
+  nlp.intent_matcher.IntentDef.all_labels:
+    name: all_labels
+    qualified_name: nlp.intent_matcher.IntentDef.all_labels
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/intent_matcher.py
+    line: 50
+    module: nlp.intent_matcher
+    class: IntentDef
+    is_method: true
+    cfg_entry: nlp.intent_matcher.IntentDef.all_labels_entry
+    calls:
+    - self.labels.values
+    - result.extend
+  nlp.intent_matcher.IntentDef.all_examples:
+    name: all_examples
+    qualified_name: nlp.intent_matcher.IntentDef.all_examples
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/intent_matcher.py
+    line: 57
+    module: nlp.intent_matcher
+    class: IntentDef
+    is_method: true
+    cfg_entry: nlp.intent_matcher.IntentDef.all_examples_entry
+    calls:
+    - self.examples.values
+    - result.extend

@@ -1,0 +1,15 @@
+module: streams.base.StreamAdapter
+type: functions
+count: 1
+functions:
+  streams.base.StreamAdapter.__enter__:
+    name: __enter__
+    qualified_name: streams.base.StreamAdapter.__enter__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/base.py
+    line: 181
+    module: streams.base
+    class: StreamAdapter
+    is_method: true
+    cfg_entry: streams.base.StreamAdapter.__enter___entry
+    calls:
+    - self.connect

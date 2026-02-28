@@ -1,0 +1,568 @@
+module: registry
+type: orphan_nodes
+count: 104
+nodes:
+  registry.get_registry_entry:
+    id: registry.get_registry_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_registry
+  registry.get_registry_exit:
+    id: registry.get_registry_exit
+    type: EXIT
+    label: exit
+    function: registry.get_registry
+  registry.get_registry_if_629:
+    id: registry.get_registry_if_629
+    type: IF
+    label: if
+    function: registry.get_registry
+    line: 629
+  registry.get_registry_merge_629:
+    id: registry.get_registry_merge_629
+    type: FUNC
+    label: merge
+    function: registry.get_registry
+  registry.get_registry_return_631:
+    id: registry.get_registry_return_631
+    type: RETURN
+    label: return
+    function: registry.get_registry
+    line: 631
+  registry.get_required_params_entry:
+    id: registry.get_required_params_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_required_params
+  registry.get_required_params_exit:
+    id: registry.get_required_params_exit
+    type: EXIT
+    label: exit
+    function: registry.get_required_params
+  registry.get_required_params_return_70:
+    id: registry.get_required_params_return_70
+    type: RETURN
+    label: return
+    function: registry.get_required_params
+    line: 70
+  registry.get_optional_params_entry:
+    id: registry.get_optional_params_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_optional_params
+  registry.get_optional_params_exit:
+    id: registry.get_optional_params_exit
+    type: EXIT
+    label: exit
+    function: registry.get_optional_params
+  registry.get_optional_params_return_74:
+    id: registry.get_optional_params_return_74
+    type: RETURN
+    label: return
+    function: registry.get_optional_params
+    line: 74
+  registry.get_param_entry:
+    id: registry.get_param_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_param
+  registry.get_param_exit:
+    id: registry.get_param_exit
+    type: EXIT
+    label: exit
+    function: registry.get_param
+  registry.get_param_loop_78:
+    id: registry.get_param_loop_78
+    type: FOR
+    label: for
+    function: registry.get_param
+    line: 78
+  registry.get_param_if_79:
+    id: registry.get_param_if_79
+    type: IF
+    label: if
+    function: registry.get_param
+    line: 79
+  registry.get_param_return_80:
+    id: registry.get_param_return_80
+    type: RETURN
+    label: return
+    function: registry.get_param
+    line: 80
+  registry.get_param_merge_79:
+    id: registry.get_param_merge_79
+    type: FUNC
+    label: merge
+    function: registry.get_param
+  registry.get_param_return_81:
+    id: registry.get_param_return_81
+    type: RETURN
+    label: return
+    function: registry.get_param
+    line: 81
+  registry.ok_entry:
+    id: registry.ok_entry
+    type: ENTRY
+    label: entry
+    function: registry.ok
+  registry.ok_exit:
+    id: registry.ok_exit
+    type: EXIT
+    label: exit
+    function: registry.ok
+  registry.ok_return_96:
+    id: registry.ok_return_96
+    type: RETURN
+    label: return
+    function: registry.ok
+    line: 96
+  registry.fail_entry:
+    id: registry.fail_entry
+    type: ENTRY
+    label: entry
+    function: registry.fail
+  registry.fail_exit:
+    id: registry.fail_exit
+    type: EXIT
+    label: exit
+    function: registry.fail
+  registry.fail_return_101:
+    id: registry.fail_return_101
+    type: RETURN
+    label: return
+    function: registry.fail
+    line: 101
+  registry.validate_params_entry:
+    id: registry.validate_params_entry
+    type: ENTRY
+    label: entry
+    function: registry.validate_params
+  registry.validate_params_exit:
+    id: registry.validate_params_exit
+    type: EXIT
+    label: exit
+    function: registry.validate_params
+  registry.validate_params_loop_120:
+    id: registry.validate_params_loop_120
+    type: FOR
+    label: for
+    function: registry.validate_params
+    line: 120
+  registry.validate_params_if_121:
+    id: registry.validate_params_if_121
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 121
+  registry.validate_params_merge_121:
+    id: registry.validate_params_merge_121
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_loop_125:
+    id: registry.validate_params_loop_125
+    type: FOR
+    label: for
+    function: registry.validate_params
+    line: 125
+  registry.validate_params_if_128:
+    id: registry.validate_params_if_128
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 128
+  registry.validate_params_merge_128:
+    id: registry.validate_params_merge_128
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_if_133:
+    id: registry.validate_params_if_133
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 133
+  registry.validate_params_merge_133:
+    id: registry.validate_params_merge_133
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_if_141:
+    id: registry.validate_params_if_141
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 141
+  registry.validate_params_if_142:
+    id: registry.validate_params_if_142
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 142
+  registry.validate_params_merge_142:
+    id: registry.validate_params_merge_142
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_merge_141:
+    id: registry.validate_params_merge_141
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_if_148:
+    id: registry.validate_params_if_148
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 148
+  registry.validate_params_merge_148:
+    id: registry.validate_params_merge_148
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_if_153:
+    id: registry.validate_params_if_153
+    type: IF
+    label: if
+    function: registry.validate_params
+    line: 153
+  registry.validate_params_merge_153:
+    id: registry.validate_params_merge_153
+    type: FUNC
+    label: merge
+    function: registry.validate_params
+  registry.validate_params_loop_159:
+    id: registry.validate_params_loop_159
+    type: FOR
+    label: for
+    function: registry.validate_params
+    line: 159
+  registry.validate_params_return_166:
+    id: registry.validate_params_return_166
+    type: RETURN
+    label: return
+    function: registry.validate_params
+    line: 166
+  registry._validate_type_entry:
+    id: registry._validate_type_entry
+    type: ENTRY
+    label: entry
+    function: registry._validate_type
+  registry._validate_type_exit:
+    id: registry._validate_type_exit
+    type: EXIT
+    label: exit
+    function: registry._validate_type
+  registry._validate_type_if_170:
+    id: registry._validate_type_if_170
+    type: IF
+    label: if
+    function: registry._validate_type
+    line: 170
+  registry._validate_type_return_171:
+    id: registry._validate_type_return_171
+    type: RETURN
+    label: return
+    function: registry._validate_type
+    line: 171
+  registry._validate_type_merge_170:
+    id: registry._validate_type_merge_170
+    type: FUNC
+    label: merge
+    function: registry._validate_type
+  registry._validate_type_return_188:
+    id: registry._validate_type_return_188
+    type: RETURN
+    label: return
+    function: registry._validate_type
+    line: 188
+  registry.execute_entry:
+    id: registry.execute_entry
+    type: ENTRY
+    label: entry
+    function: registry.execute
+  registry.execute_exit:
+    id: registry.execute_exit
+    type: EXIT
+    label: exit
+    function: registry.execute
+  registry.__init___entry:
+    id: registry.__init___entry
+    type: ENTRY
+    label: entry
+    function: registry.__init__
+  registry.__init___exit:
+    id: registry.__init___exit
+    type: EXIT
+    label: exit
+    function: registry.__init__
+  registry._register_builtin_actions_entry:
+    id: registry._register_builtin_actions_entry
+    type: ENTRY
+    label: entry
+    function: registry._register_builtin_actions
+  registry._register_builtin_actions_exit:
+    id: registry._register_builtin_actions_exit
+    type: EXIT
+    label: exit
+    function: registry._register_builtin_actions
+  registry.register_entry:
+    id: registry.register_entry
+    type: ENTRY
+    label: entry
+    function: registry.register
+  registry.register_exit:
+    id: registry.register_exit
+    type: EXIT
+    label: exit
+    function: registry.register
+  registry.register_if_519:
+    id: registry.register_if_519
+    type: IF
+    label: if
+    function: registry.register
+    line: 519
+  registry.register_merge_519:
+    id: registry.register_merge_519
+    type: FUNC
+    label: merge
+    function: registry.register
+  registry.register_if_523:
+    id: registry.register_if_523
+    type: IF
+    label: if
+    function: registry.register
+    line: 523
+  registry.register_merge_523:
+    id: registry.register_merge_523
+    type: FUNC
+    label: merge
+    function: registry.register
+  registry.register_if_525:
+    id: registry.register_if_525
+    type: IF
+    label: if
+    function: registry.register
+    line: 525
+  registry.register_merge_525:
+    id: registry.register_merge_525
+    type: FUNC
+    label: merge
+    function: registry.register
+  registry.get_entry:
+    id: registry.get_entry
+    type: ENTRY
+    label: entry
+    function: registry.get
+  registry.get_exit:
+    id: registry.get_exit
+    type: EXIT
+    label: exit
+    function: registry.get
+  registry.get_return_532:
+    id: registry.get_return_532
+    type: RETURN
+    label: return
+    function: registry.get
+    line: 532
+  registry.get_handler_entry:
+    id: registry.get_handler_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_handler
+  registry.get_handler_exit:
+    id: registry.get_handler_exit
+    type: EXIT
+    label: exit
+    function: registry.get_handler
+  registry.get_handler_return_536:
+    id: registry.get_handler_return_536
+    type: RETURN
+    label: return
+    function: registry.get_handler
+    line: 536
+  registry.has_entry:
+    id: registry.has_entry
+    type: ENTRY
+    label: entry
+    function: registry.has
+  registry.has_exit:
+    id: registry.has_exit
+    type: EXIT
+    label: exit
+    function: registry.has
+  registry.has_return_540:
+    id: registry.has_return_540
+    type: RETURN
+    label: return
+    function: registry.has
+    line: 540
+  registry.list_actions_entry:
+    id: registry.list_actions_entry
+    type: ENTRY
+    label: entry
+    function: registry.list_actions
+  registry.list_actions_exit:
+    id: registry.list_actions_exit
+    type: EXIT
+    label: exit
+    function: registry.list_actions
+  registry.list_actions_if_544:
+    id: registry.list_actions_if_544
+    type: IF
+    label: if
+    function: registry.list_actions
+    line: 544
+  registry.list_actions_return_545:
+    id: registry.list_actions_return_545
+    type: RETURN
+    label: return
+    function: registry.list_actions
+    line: 545
+  registry.list_actions_merge_544:
+    id: registry.list_actions_merge_544
+    type: FUNC
+    label: merge
+    function: registry.list_actions
+  registry.list_actions_return_546:
+    id: registry.list_actions_return_546
+    type: RETURN
+    label: return
+    function: registry.list_actions
+    line: 546
+  registry.list_domains_entry:
+    id: registry.list_domains_entry
+    type: ENTRY
+    label: entry
+    function: registry.list_domains
+  registry.list_domains_exit:
+    id: registry.list_domains_exit
+    type: EXIT
+    label: exit
+    function: registry.list_domains
+  registry.list_domains_return_550:
+    id: registry.list_domains_return_550
+    type: RETURN
+    label: return
+    function: registry.list_domains
+    line: 550
+  registry.get_by_tag_entry:
+    id: registry.get_by_tag_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_by_tag
+  registry.get_by_tag_exit:
+    id: registry.get_by_tag_exit
+    type: EXIT
+    label: exit
+    function: registry.get_by_tag
+  registry.get_by_tag_return_554:
+    id: registry.get_by_tag_return_554
+    type: RETURN
+    label: return
+    function: registry.get_by_tag
+    line: 554
+  registry.get_destructive_actions_entry:
+    id: registry.get_destructive_actions_entry
+    type: ENTRY
+    label: entry
+    function: registry.get_destructive_actions
+  registry.get_destructive_actions_exit:
+    id: registry.get_destructive_actions_exit
+    type: EXIT
+    label: exit
+    function: registry.get_destructive_actions
+  registry.get_destructive_actions_return_558:
+    id: registry.get_destructive_actions_return_558
+    type: RETURN
+    label: return
+    function: registry.get_destructive_actions
+    line: 558
+  registry.validate_action_entry:
+    id: registry.validate_action_entry
+    type: ENTRY
+    label: entry
+    function: registry.validate_action
+  registry.validate_action_exit:
+    id: registry.validate_action_exit
+    type: EXIT
+    label: exit
+    function: registry.validate_action
+  registry.validate_action_if_575:
+    id: registry.validate_action_if_575
+    type: IF
+    label: if
+    function: registry.validate_action
+    line: 575
+  registry.validate_action_return_576:
+    id: registry.validate_action_return_576
+    type: RETURN
+    label: return
+    function: registry.validate_action
+    line: 576
+  registry.validate_action_merge_575:
+    id: registry.validate_action_merge_575
+    type: FUNC
+    label: merge
+    function: registry.validate_action
+  registry.validate_action_return_582:
+    id: registry.validate_action_return_582
+    type: RETURN
+    label: return
+    function: registry.validate_action
+    line: 582
+  registry.to_llm_prompt_entry:
+    id: registry.to_llm_prompt_entry
+    type: ENTRY
+    label: entry
+    function: registry.to_llm_prompt
+  registry.to_llm_prompt_exit:
+    id: registry.to_llm_prompt_exit
+    type: EXIT
+    label: exit
+    function: registry.to_llm_prompt
+  registry.to_llm_prompt_loop_598:
+    id: registry.to_llm_prompt_loop_598
+    type: FOR
+    label: for
+    function: registry.to_llm_prompt
+    line: 598
+  registry.to_llm_prompt_if_606:
+    id: registry.to_llm_prompt_if_606
+    type: IF
+    label: if
+    function: registry.to_llm_prompt
+    line: 606
+  registry.to_llm_prompt_merge_606:
+    id: registry.to_llm_prompt_merge_606
+    type: FUNC
+    label: merge
+    function: registry.to_llm_prompt
+  registry.to_llm_prompt_if_613:
+    id: registry.to_llm_prompt_if_613
+    type: IF
+    label: if
+    function: registry.to_llm_prompt
+    line: 613
+  registry.to_llm_prompt_merge_613:
+    id: registry.to_llm_prompt_merge_613
+    type: FUNC
+    label: merge
+    function: registry.to_llm_prompt
+  registry.to_llm_prompt_if_616:
+    id: registry.to_llm_prompt_if_616
+    type: IF
+    label: if
+    function: registry.to_llm_prompt
+    line: 616
+  registry.to_llm_prompt_merge_616:
+    id: registry.to_llm_prompt_merge_616
+    type: FUNC
+    label: merge
+    function: registry.to_llm_prompt
+  registry.to_llm_prompt_return_619:
+    id: registry.to_llm_prompt_return_619
+    type: RETURN
+    label: return
+    function: registry.to_llm_prompt
+    line: 619

@@ -1,0 +1,136 @@
+module: streams.ssh_stream
+type: orphan_nodes
+count: 25
+nodes:
+  streams.ssh_stream.__init___entry:
+    id: streams.ssh_stream.__init___entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream.__init__
+  streams.ssh_stream.__init___exit:
+    id: streams.ssh_stream.__init___exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream.__init__
+  streams.ssh_stream._build_ssh_target_entry:
+    id: streams.ssh_stream._build_ssh_target_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream._build_ssh_target
+  streams.ssh_stream._build_ssh_target_exit:
+    id: streams.ssh_stream._build_ssh_target_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream._build_ssh_target
+  streams.ssh_stream._build_ssh_target_return_28:
+    id: streams.ssh_stream._build_ssh_target_return_28
+    type: RETURN
+    label: return
+    function: streams.ssh_stream._build_ssh_target
+    line: 28
+  streams.ssh_stream._build_ssh_cmd_entry:
+    id: streams.ssh_stream._build_ssh_cmd_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream._build_ssh_cmd
+  streams.ssh_stream._build_ssh_cmd_exit:
+    id: streams.ssh_stream._build_ssh_cmd_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream._build_ssh_cmd
+  streams.ssh_stream._build_ssh_cmd_if_32:
+    id: streams.ssh_stream._build_ssh_cmd_if_32
+    type: IF
+    label: if
+    function: streams.ssh_stream._build_ssh_cmd
+    line: 32
+  streams.ssh_stream._build_ssh_cmd_merge_32:
+    id: streams.ssh_stream._build_ssh_cmd_merge_32
+    type: FUNC
+    label: merge
+    function: streams.ssh_stream._build_ssh_cmd
+  streams.ssh_stream._build_ssh_cmd_return_36:
+    id: streams.ssh_stream._build_ssh_cmd_return_36
+    type: RETURN
+    label: return
+    function: streams.ssh_stream._build_ssh_cmd
+    line: 36
+  streams.ssh_stream.connect_entry:
+    id: streams.ssh_stream.connect_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream.connect
+  streams.ssh_stream.connect_exit:
+    id: streams.ssh_stream.connect_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream.connect
+  streams.ssh_stream.execute_entry:
+    id: streams.ssh_stream.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream.execute
+  streams.ssh_stream.execute_exit:
+    id: streams.ssh_stream.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream.execute
+  streams.ssh_stream.execute_if_55:
+    id: streams.ssh_stream.execute_if_55
+    type: IF
+    label: if
+    function: streams.ssh_stream.execute
+    line: 55
+  streams.ssh_stream.execute_merge_55:
+    id: streams.ssh_stream.execute_merge_55
+    type: FUNC
+    label: merge
+    function: streams.ssh_stream.execute
+  streams.ssh_stream.query_entry:
+    id: streams.ssh_stream.query_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream.query
+  streams.ssh_stream.query_exit:
+    id: streams.ssh_stream.query_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream.query
+  streams.ssh_stream.query_return_87:
+    id: streams.ssh_stream.query_return_87
+    type: RETURN
+    label: return
+    function: streams.ssh_stream.query
+    line: 87
+  streams.ssh_stream._looks_like_command_entry:
+    id: streams.ssh_stream._looks_like_command_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream._looks_like_command
+  streams.ssh_stream._looks_like_command_exit:
+    id: streams.ssh_stream._looks_like_command_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream._looks_like_command
+  streams.ssh_stream._looks_like_command_return_95:
+    id: streams.ssh_stream._looks_like_command_return_95
+    type: RETURN
+    label: return
+    function: streams.ssh_stream._looks_like_command
+    line: 95
+  streams.ssh_stream._nl_to_command_entry:
+    id: streams.ssh_stream._nl_to_command_entry
+    type: ENTRY
+    label: entry
+    function: streams.ssh_stream._nl_to_command
+  streams.ssh_stream._nl_to_command_exit:
+    id: streams.ssh_stream._nl_to_command_exit
+    type: EXIT
+    label: exit
+    function: streams.ssh_stream._nl_to_command
+  streams.ssh_stream._nl_to_command_return_107:
+    id: streams.ssh_stream._nl_to_command_return_107
+    type: RETURN
+    label: return
+    function: streams.ssh_stream._nl_to_command
+    line: 107

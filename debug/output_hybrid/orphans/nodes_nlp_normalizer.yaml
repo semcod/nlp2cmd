@@ -1,0 +1,454 @@
+module: nlp.normalizer
+type: orphan_nodes
+count: 82
+nodes:
+  nlp.normalizer._score_chars_entry:
+    id: nlp.normalizer._score_chars_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer._score_chars
+  nlp.normalizer._score_chars_exit:
+    id: nlp.normalizer._score_chars_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer._score_chars
+  nlp.normalizer._score_chars_loop_96:
+    id: nlp.normalizer._score_chars_loop_96
+    type: FOR
+    label: for
+    function: nlp.normalizer._score_chars
+    line: 96
+  nlp.normalizer._score_chars_loop_97:
+    id: nlp.normalizer._score_chars_loop_97
+    type: FOR
+    label: for
+    function: nlp.normalizer._score_chars
+    line: 97
+  nlp.normalizer._score_chars_if_98:
+    id: nlp.normalizer._score_chars_if_98
+    type: IF
+    label: if
+    function: nlp.normalizer._score_chars
+    line: 98
+  nlp.normalizer._score_chars_merge_98:
+    id: nlp.normalizer._score_chars_merge_98
+    type: FUNC
+    label: merge
+    function: nlp.normalizer._score_chars
+  nlp.normalizer._score_words_entry:
+    id: nlp.normalizer._score_words_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer._score_words
+  nlp.normalizer._score_words_exit:
+    id: nlp.normalizer._score_words_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer._score_words
+  nlp.normalizer._score_words_loop_105:
+    id: nlp.normalizer._score_words_loop_105
+    type: FOR
+    label: for
+    function: nlp.normalizer._score_words
+    line: 105
+  nlp.normalizer._score_words_loop_106:
+    id: nlp.normalizer._score_words_loop_106
+    type: FOR
+    label: for
+    function: nlp.normalizer._score_words
+    line: 106
+  nlp.normalizer._score_words_if_107:
+    id: nlp.normalizer._score_words_if_107
+    type: IF
+    label: if
+    function: nlp.normalizer._score_words
+    line: 107
+  nlp.normalizer._score_words_merge_107:
+    id: nlp.normalizer._score_words_merge_107
+    type: FUNC
+    label: merge
+    function: nlp.normalizer._score_words
+  nlp.normalizer.detect_language_entry:
+    id: nlp.normalizer.detect_language_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.detect_language
+  nlp.normalizer.detect_language_exit:
+    id: nlp.normalizer.detect_language_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.detect_language
+  nlp.normalizer.detect_language_if_121:
+    id: nlp.normalizer.detect_language_if_121
+    type: IF
+    label: if
+    function: nlp.normalizer.detect_language
+    line: 121
+  nlp.normalizer.detect_language_return_122:
+    id: nlp.normalizer.detect_language_return_122
+    type: RETURN
+    label: return
+    function: nlp.normalizer.detect_language
+    line: 122
+  nlp.normalizer.detect_language_merge_121:
+    id: nlp.normalizer.detect_language_merge_121
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.detect_language
+  nlp.normalizer.detect_language_if_132:
+    id: nlp.normalizer.detect_language_if_132
+    type: IF
+    label: if
+    function: nlp.normalizer.detect_language
+    line: 132
+  nlp.normalizer.detect_language_return_133:
+    id: nlp.normalizer.detect_language_return_133
+    type: RETURN
+    label: return
+    function: nlp.normalizer.detect_language
+    line: 133
+  nlp.normalizer.detect_language_merge_132:
+    id: nlp.normalizer.detect_language_merge_132
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.detect_language
+  nlp.normalizer.detect_language_if_136:
+    id: nlp.normalizer.detect_language_if_136
+    type: IF
+    label: if
+    function: nlp.normalizer.detect_language
+    line: 136
+  nlp.normalizer.detect_language_return_137:
+    id: nlp.normalizer.detect_language_return_137
+    type: RETURN
+    label: return
+    function: nlp.normalizer.detect_language
+    line: 137
+  nlp.normalizer.detect_language_merge_136:
+    id: nlp.normalizer.detect_language_merge_136
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.detect_language
+  nlp.normalizer.detect_language_return_139:
+    id: nlp.normalizer.detect_language_return_139
+    type: RETURN
+    label: return
+    function: nlp.normalizer.detect_language
+    line: 139
+  nlp.normalizer.normalize_unicode_entry:
+    id: nlp.normalizer.normalize_unicode_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.normalize_unicode
+  nlp.normalizer.normalize_unicode_exit:
+    id: nlp.normalizer.normalize_unicode_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.normalize_unicode
+  nlp.normalizer.normalize_unicode_return_151:
+    id: nlp.normalizer.normalize_unicode_return_151
+    type: RETURN
+    label: return
+    function: nlp.normalizer.normalize_unicode
+    line: 151
+  nlp.normalizer.fold_accents_entry:
+    id: nlp.normalizer.fold_accents_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.fold_accents
+  nlp.normalizer.fold_accents_exit:
+    id: nlp.normalizer.fold_accents_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.fold_accents
+  nlp.normalizer.fold_accents_return_163:
+    id: nlp.normalizer.fold_accents_return_163
+    type: RETURN
+    label: return
+    function: nlp.normalizer.fold_accents
+    line: 163
+  nlp.normalizer._preserve_case_entry:
+    id: nlp.normalizer._preserve_case_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer._preserve_case
+  nlp.normalizer._preserve_case_exit:
+    id: nlp.normalizer._preserve_case_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer._preserve_case
+  nlp.normalizer._preserve_case_if_250:
+    id: nlp.normalizer._preserve_case_if_250
+    type: IF
+    label: if
+    function: nlp.normalizer._preserve_case
+    line: 250
+  nlp.normalizer._preserve_case_return_251:
+    id: nlp.normalizer._preserve_case_return_251
+    type: RETURN
+    label: return
+    function: nlp.normalizer._preserve_case
+    line: 251
+  nlp.normalizer._preserve_case_merge_250:
+    id: nlp.normalizer._preserve_case_merge_250
+    type: FUNC
+    label: merge
+    function: nlp.normalizer._preserve_case
+  nlp.normalizer._preserve_case_return_252:
+    id: nlp.normalizer._preserve_case_return_252
+    type: RETURN
+    label: return
+    function: nlp.normalizer._preserve_case
+    line: 252
+  nlp.normalizer._try_direct_lookup_entry:
+    id: nlp.normalizer._try_direct_lookup_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer._try_direct_lookup
+  nlp.normalizer._try_direct_lookup_exit:
+    id: nlp.normalizer._try_direct_lookup_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer._try_direct_lookup
+  nlp.normalizer._try_direct_lookup_return_257:
+    id: nlp.normalizer._try_direct_lookup_return_257
+    type: RETURN
+    label: return
+    function: nlp.normalizer._try_direct_lookup
+    line: 257
+  nlp.normalizer._try_fuzzy_match_entry:
+    id: nlp.normalizer._try_fuzzy_match_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer._try_fuzzy_match
+  nlp.normalizer._try_fuzzy_match_exit:
+    id: nlp.normalizer._try_fuzzy_match_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer._try_fuzzy_match
+  nlp.normalizer._try_fuzzy_match_if_262:
+    id: nlp.normalizer._try_fuzzy_match_if_262
+    type: IF
+    label: if
+    function: nlp.normalizer._try_fuzzy_match
+    line: 262
+  nlp.normalizer._try_fuzzy_match_return_263:
+    id: nlp.normalizer._try_fuzzy_match_return_263
+    type: RETURN
+    label: return
+    function: nlp.normalizer._try_fuzzy_match
+    line: 263
+  nlp.normalizer._try_fuzzy_match_merge_262:
+    id: nlp.normalizer._try_fuzzy_match_merge_262
+    type: FUNC
+    label: merge
+    function: nlp.normalizer._try_fuzzy_match
+  nlp.normalizer._try_fuzzy_match_if_267:
+    id: nlp.normalizer._try_fuzzy_match_if_267
+    type: IF
+    label: if
+    function: nlp.normalizer._try_fuzzy_match
+    line: 267
+  nlp.normalizer._try_fuzzy_match_if_269:
+    id: nlp.normalizer._try_fuzzy_match_if_269
+    type: IF
+    label: if
+    function: nlp.normalizer._try_fuzzy_match
+    line: 269
+  nlp.normalizer._try_fuzzy_match_return_270:
+    id: nlp.normalizer._try_fuzzy_match_return_270
+    type: RETURN
+    label: return
+    function: nlp.normalizer._try_fuzzy_match
+    line: 270
+  nlp.normalizer._try_fuzzy_match_merge_269:
+    id: nlp.normalizer._try_fuzzy_match_merge_269
+    type: FUNC
+    label: merge
+    function: nlp.normalizer._try_fuzzy_match
+  nlp.normalizer._try_fuzzy_match_merge_267:
+    id: nlp.normalizer._try_fuzzy_match_merge_267
+    type: FUNC
+    label: merge
+    function: nlp.normalizer._try_fuzzy_match
+  nlp.normalizer._try_fuzzy_match_return_271:
+    id: nlp.normalizer._try_fuzzy_match_return_271
+    type: RETURN
+    label: return
+    function: nlp.normalizer._try_fuzzy_match
+    line: 271
+  nlp.normalizer.correct_typos_entry:
+    id: nlp.normalizer.correct_typos_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.correct_typos
+  nlp.normalizer.correct_typos_exit:
+    id: nlp.normalizer.correct_typos_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.correct_typos
+  nlp.normalizer.correct_typos_if_279:
+    id: nlp.normalizer.correct_typos_if_279
+    type: IF
+    label: if
+    function: nlp.normalizer.correct_typos
+    line: 279
+  nlp.normalizer.correct_typos_return_280:
+    id: nlp.normalizer.correct_typos_return_280
+    type: RETURN
+    label: return
+    function: nlp.normalizer.correct_typos
+    line: 280
+  nlp.normalizer.correct_typos_merge_279:
+    id: nlp.normalizer.correct_typos_merge_279
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.correct_typos
+  nlp.normalizer.correct_typos_loop_285:
+    id: nlp.normalizer.correct_typos_loop_285
+    type: FOR
+    label: for
+    function: nlp.normalizer.correct_typos
+    line: 285
+  nlp.normalizer.correct_typos_if_289:
+    id: nlp.normalizer.correct_typos_if_289
+    type: IF
+    label: if
+    function: nlp.normalizer.correct_typos
+    line: 289
+  nlp.normalizer.correct_typos_merge_289:
+    id: nlp.normalizer.correct_typos_merge_289
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.correct_typos
+  nlp.normalizer.correct_typos_return_296:
+    id: nlp.normalizer.correct_typos_return_296
+    type: RETURN
+    label: return
+    function: nlp.normalizer.correct_typos
+    line: 296
+  nlp.normalizer.tokenize_entry:
+    id: nlp.normalizer.tokenize_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.tokenize
+  nlp.normalizer.tokenize_exit:
+    id: nlp.normalizer.tokenize_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.tokenize
+  nlp.normalizer.tokenize_if_322:
+    id: nlp.normalizer.tokenize_if_322
+    type: IF
+    label: if
+    function: nlp.normalizer.tokenize
+    line: 322
+  nlp.normalizer.tokenize_return_323:
+    id: nlp.normalizer.tokenize_return_323
+    type: RETURN
+    label: return
+    function: nlp.normalizer.tokenize
+    line: 323
+  nlp.normalizer.tokenize_merge_322:
+    id: nlp.normalizer.tokenize_merge_322
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.tokenize
+  nlp.normalizer.tokenize_return_324:
+    id: nlp.normalizer.tokenize_return_324
+    type: RETURN
+    label: return
+    function: nlp.normalizer.tokenize
+    line: 324
+  nlp.normalizer.__init___entry:
+    id: nlp.normalizer.__init___entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.__init__
+  nlp.normalizer.__init___exit:
+    id: nlp.normalizer.__init___exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.__init__
+  nlp.normalizer.__init___if_355:
+    id: nlp.normalizer.__init___if_355
+    type: IF
+    label: if
+    function: nlp.normalizer.__init__
+    line: 355
+  nlp.normalizer.__init___merge_355:
+    id: nlp.normalizer.__init___merge_355
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.__init__
+  nlp.normalizer.__init___if_357:
+    id: nlp.normalizer.__init___if_357
+    type: IF
+    label: if
+    function: nlp.normalizer.__init__
+    line: 357
+  nlp.normalizer.__init___merge_357:
+    id: nlp.normalizer.__init___merge_357
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.__init__
+  nlp.normalizer.normalize_entry:
+    id: nlp.normalizer.normalize_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.normalize
+  nlp.normalizer.normalize_exit:
+    id: nlp.normalizer.normalize_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.normalize
+  nlp.normalizer.normalize_if_362:
+    id: nlp.normalizer.normalize_if_362
+    type: IF
+    label: if
+    function: nlp.normalizer.normalize
+    line: 362
+  nlp.normalizer.normalize_return_363:
+    id: nlp.normalizer.normalize_return_363
+    type: RETURN
+    label: return
+    function: nlp.normalizer.normalize
+    line: 363
+  nlp.normalizer.normalize_merge_362:
+    id: nlp.normalizer.normalize_merge_362
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.normalize
+  nlp.normalizer.normalize_if_375:
+    id: nlp.normalizer.normalize_if_375
+    type: IF
+    label: if
+    function: nlp.normalizer.normalize
+    line: 375
+  nlp.normalizer.normalize_merge_375:
+    id: nlp.normalizer.normalize_merge_375
+    type: FUNC
+    label: merge
+    function: nlp.normalizer.normalize
+  nlp.normalizer.normalize_return_384:
+    id: nlp.normalizer.normalize_return_384
+    type: RETURN
+    label: return
+    function: nlp.normalizer.normalize
+    line: 384
+  nlp.normalizer.normalize_for_matching_entry:
+    id: nlp.normalizer.normalize_for_matching_entry
+    type: ENTRY
+    label: entry
+    function: nlp.normalizer.normalize_for_matching
+  nlp.normalizer.normalize_for_matching_exit:
+    id: nlp.normalizer.normalize_for_matching_exit
+    type: EXIT
+    label: exit
+    function: nlp.normalizer.normalize_for_matching
+  nlp.normalizer.normalize_for_matching_return_400:
+    id: nlp.normalizer.normalize_for_matching_return_400
+    type: RETURN
+    label: return
+    function: nlp.normalizer.normalize_for_matching
+    line: 400

@@ -1,0 +1,151 @@
+module: thermodynamic.LangevinSampler
+type: orphan_nodes
+count: 27
+nodes:
+  thermodynamic.LangevinSampler.__init___entry:
+    id: thermodynamic.LangevinSampler.__init___entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.LangevinSampler.__init__
+  thermodynamic.LangevinSampler.__init___exit:
+    id: thermodynamic.LangevinSampler.__init___exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.LangevinSampler.__init__
+  thermodynamic.LangevinSampler.sample_entry:
+    id: thermodynamic.LangevinSampler.sample_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.LangevinSampler.sample
+  thermodynamic.LangevinSampler.sample_exit:
+    id: thermodynamic.LangevinSampler.sample_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.LangevinSampler.sample
+  thermodynamic.LangevinSampler.sample_if_253:
+    id: thermodynamic.LangevinSampler.sample_if_253
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler.sample
+    line: 253
+  thermodynamic.LangevinSampler.sample_return_254:
+    id: thermodynamic.LangevinSampler.sample_return_254
+    type: RETURN
+    label: return
+    function: thermodynamic.LangevinSampler.sample
+    line: 254
+  thermodynamic.LangevinSampler.sample_return_256:
+    id: thermodynamic.LangevinSampler.sample_return_256
+    type: RETURN
+    label: return
+    function: thermodynamic.LangevinSampler.sample
+    line: 256
+  thermodynamic.LangevinSampler.sample_merge_253:
+    id: thermodynamic.LangevinSampler.sample_merge_253
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler.sample
+  thermodynamic.LangevinSampler._sample_single_entry:
+    id: thermodynamic.LangevinSampler._sample_single_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_exit:
+    id: thermodynamic.LangevinSampler._sample_single_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_if_267:
+    id: thermodynamic.LangevinSampler._sample_single_if_267
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 267
+  thermodynamic.LangevinSampler._sample_single_merge_267:
+    id: thermodynamic.LangevinSampler._sample_single_merge_267
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_if_271:
+    id: thermodynamic.LangevinSampler._sample_single_if_271
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 271
+  thermodynamic.LangevinSampler._sample_single_merge_271:
+    id: thermodynamic.LangevinSampler._sample_single_merge_271
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_loop_289:
+    id: thermodynamic.LangevinSampler._sample_single_loop_289
+    type: FOR
+    label: for
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 289
+  thermodynamic.LangevinSampler._sample_single_if_303:
+    id: thermodynamic.LangevinSampler._sample_single_if_303
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 303
+  thermodynamic.LangevinSampler._sample_single_merge_303:
+    id: thermodynamic.LangevinSampler._sample_single_merge_303
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_if_307:
+    id: thermodynamic.LangevinSampler._sample_single_if_307
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 307
+  thermodynamic.LangevinSampler._sample_single_if_309:
+    id: thermodynamic.LangevinSampler._sample_single_if_309
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 309
+  thermodynamic.LangevinSampler._sample_single_merge_309:
+    id: thermodynamic.LangevinSampler._sample_single_merge_309
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_merge_307:
+    id: thermodynamic.LangevinSampler._sample_single_merge_307
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_if_317:
+    id: thermodynamic.LangevinSampler._sample_single_if_317
+    type: IF
+    label: if
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 317
+  thermodynamic.LangevinSampler._sample_single_merge_317:
+    id: thermodynamic.LangevinSampler._sample_single_merge_317
+    type: FUNC
+    label: merge
+    function: thermodynamic.LangevinSampler._sample_single
+  thermodynamic.LangevinSampler._sample_single_return_320:
+    id: thermodynamic.LangevinSampler._sample_single_return_320
+    type: RETURN
+    label: return
+    function: thermodynamic.LangevinSampler._sample_single
+    line: 320
+  thermodynamic.LangevinSampler.sample_parallel_entry:
+    id: thermodynamic.LangevinSampler.sample_parallel_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.LangevinSampler.sample_parallel
+  thermodynamic.LangevinSampler.sample_parallel_exit:
+    id: thermodynamic.LangevinSampler.sample_parallel_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.LangevinSampler.sample_parallel
+  thermodynamic.LangevinSampler.sample_parallel_return_343:
+    id: thermodynamic.LangevinSampler.sample_parallel_return_343
+    type: RETURN
+    label: return
+    function: thermodynamic.LangevinSampler.sample_parallel
+    line: 343

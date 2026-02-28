@@ -1,0 +1,20 @@
+module: generation.hybrid.HybridStats
+type: orphan_nodes
+count: 3
+nodes:
+  generation.hybrid.HybridStats.to_dict_entry:
+    id: generation.hybrid.HybridStats.to_dict_entry
+    type: ENTRY
+    label: entry
+    function: generation.hybrid.HybridStats.to_dict
+  generation.hybrid.HybridStats.to_dict_exit:
+    id: generation.hybrid.HybridStats.to_dict_exit
+    type: EXIT
+    label: exit
+    function: generation.hybrid.HybridStats.to_dict
+  generation.hybrid.HybridStats.to_dict_return_76:
+    id: generation.hybrid.HybridStats.to_dict_return_76
+    type: RETURN
+    label: return
+    function: generation.hybrid.HybridStats.to_dict
+    line: 76

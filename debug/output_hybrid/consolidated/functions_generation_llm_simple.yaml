@@ -1,0 +1,73 @@
+module: generation.llm_simple
+type: functions
+count: 6
+functions:
+  generation.llm_simple.complete:
+    name: complete
+    qualified_name: generation.llm_simple.complete
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 389
+    module: generation.llm_simple
+    cfg_entry: generation.llm_simple.complete_entry
+    calls:
+    - self.responses.items
+    - user.lower
+    - key.lower
+  generation.llm_simple.get_system_prompt:
+    name: get_system_prompt
+    qualified_name: generation.llm_simple.get_system_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 246
+    module: generation.llm_simple
+    cfg_entry: generation.llm_simple.get_system_prompt_entry
+    calls:
+    - None.join
+    - prompt.replace
+    - self.schema.items
+  generation.llm_simple.extract_command:
+    name: extract_command
+    qualified_name: generation.llm_simple.extract_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 368
+    module: generation.llm_simple
+    cfg_entry: generation.llm_simple.extract_command_entry
+    calls:
+    - response.strip
+    - re.search
+    - None.strip
+    - match.group
+  generation.llm_simple.generate:
+    name: generate
+    qualified_name: generation.llm_simple.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 130
+    module: generation.llm_simple
+    cfg_entry: generation.llm_simple.generate_entry
+    calls:
+    - time.time
+    - self.get_system_prompt
+    - self._build_user_prompt
+    - self.extract_command
+    - LLMGenerationResult
+    - self.llm.complete
+    - str
+  generation.llm_simple._build_user_prompt:
+    name: _build_user_prompt
+    qualified_name: generation.llm_simple._build_user_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 187
+    module: generation.llm_simple
+    cfg_entry: generation.llm_simple._build_user_prompt_entry
+    calls:
+    - None.join
+    - parts.append
+  generation.llm_simple._call:
+    name: _call
+    qualified_name: generation.llm_simple._call
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 70
+    module: generation.llm_simple
+    cfg_entry: generation.llm_simple._call_entry
+    calls:
+    - completion
+    - str

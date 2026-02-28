@@ -1,0 +1,493 @@
+module: generation.ml_intent_classifier
+type: orphan_nodes
+count: 89
+nodes:
+  generation.ml_intent_classifier._check_sklearn_entry:
+    id: generation.ml_intent_classifier._check_sklearn_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier._check_sklearn
+  generation.ml_intent_classifier._check_sklearn_exit:
+    id: generation.ml_intent_classifier._check_sklearn_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier._check_sklearn
+  generation.ml_intent_classifier._check_sklearn_if_25:
+    id: generation.ml_intent_classifier._check_sklearn_if_25
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier._check_sklearn
+    line: 25
+  generation.ml_intent_classifier._check_sklearn_merge_25:
+    id: generation.ml_intent_classifier._check_sklearn_merge_25
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier._check_sklearn
+  generation.ml_intent_classifier._check_sklearn_return_33:
+    id: generation.ml_intent_classifier._check_sklearn_return_33
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier._check_sklearn
+    line: 33
+  generation.ml_intent_classifier._check_spacy_entry:
+    id: generation.ml_intent_classifier._check_spacy_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier._check_spacy
+  generation.ml_intent_classifier._check_spacy_exit:
+    id: generation.ml_intent_classifier._check_spacy_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier._check_spacy
+  generation.ml_intent_classifier._check_spacy_if_38:
+    id: generation.ml_intent_classifier._check_spacy_if_38
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier._check_spacy
+    line: 38
+  generation.ml_intent_classifier._check_spacy_merge_38:
+    id: generation.ml_intent_classifier._check_spacy_merge_38
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier._check_spacy
+  generation.ml_intent_classifier._check_spacy_return_44:
+    id: generation.ml_intent_classifier._check_spacy_return_44
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier._check_spacy
+    line: 44
+  generation.ml_intent_classifier.generate_training_data_from_phrases_entry:
+    id: generation.ml_intent_classifier.generate_training_data_from_phrases_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.generate_training_data_from_phrases
+  generation.ml_intent_classifier.generate_training_data_from_phrases_exit:
+    id: generation.ml_intent_classifier.generate_training_data_from_phrases_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.generate_training_data_from_phrases
+  generation.ml_intent_classifier.generate_training_data_from_phrases_loop_312:
+    id: generation.ml_intent_classifier.generate_training_data_from_phrases_loop_312
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.generate_training_data_from_phrases
+    line: 312
+  generation.ml_intent_classifier.generate_training_data_from_phrases_loop_328:
+    id: generation.ml_intent_classifier.generate_training_data_from_phrases_loop_328
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.generate_training_data_from_phrases
+    line: 328
+  generation.ml_intent_classifier.generate_training_data_from_phrases_return_340:
+    id: generation.ml_intent_classifier.generate_training_data_from_phrases_return_340
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.generate_training_data_from_phrases
+    line: 340
+  generation.ml_intent_classifier._generate_variations_entry:
+    id: generation.ml_intent_classifier._generate_variations_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier._generate_variations
+  generation.ml_intent_classifier._generate_variations_exit:
+    id: generation.ml_intent_classifier._generate_variations_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier._generate_variations
+  generation.ml_intent_classifier._generate_variations_loop_367:
+    id: generation.ml_intent_classifier._generate_variations_loop_367
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier._generate_variations
+    line: 367
+  generation.ml_intent_classifier._generate_variations_loop_368:
+    id: generation.ml_intent_classifier._generate_variations_loop_368
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier._generate_variations
+    line: 368
+  generation.ml_intent_classifier._generate_variations_return_377:
+    id: generation.ml_intent_classifier._generate_variations_return_377
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier._generate_variations
+    line: 377
+  generation.ml_intent_classifier.create_default_training_data_entry:
+    id: generation.ml_intent_classifier.create_default_training_data_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.create_default_training_data
+  generation.ml_intent_classifier.create_default_training_data_exit:
+    id: generation.ml_intent_classifier.create_default_training_data_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.create_default_training_data
+  generation.ml_intent_classifier.create_default_training_data_loop_558:
+    id: generation.ml_intent_classifier.create_default_training_data_loop_558
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.create_default_training_data
+    line: 558
+  generation.ml_intent_classifier.create_default_training_data_loop_561:
+    id: generation.ml_intent_classifier.create_default_training_data_loop_561
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.create_default_training_data
+    line: 561
+  generation.ml_intent_classifier.create_default_training_data_loop_564:
+    id: generation.ml_intent_classifier.create_default_training_data_loop_564
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.create_default_training_data
+    line: 564
+  generation.ml_intent_classifier.create_default_training_data_return_567:
+    id: generation.ml_intent_classifier.create_default_training_data_return_567
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.create_default_training_data
+    line: 567
+  generation.ml_intent_classifier.get_ml_classifier_entry:
+    id: generation.ml_intent_classifier.get_ml_classifier_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_exit:
+    id: generation.ml_intent_classifier.get_ml_classifier_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_if_582:
+    id: generation.ml_intent_classifier.get_ml_classifier_if_582
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 582
+  generation.ml_intent_classifier.get_ml_classifier_return_583:
+    id: generation.ml_intent_classifier.get_ml_classifier_return_583
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 583
+  generation.ml_intent_classifier.get_ml_classifier_merge_582:
+    id: generation.ml_intent_classifier.get_ml_classifier_merge_582
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_if_585:
+    id: generation.ml_intent_classifier.get_ml_classifier_if_585
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 585
+  generation.ml_intent_classifier.get_ml_classifier_return_586:
+    id: generation.ml_intent_classifier.get_ml_classifier_return_586
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 586
+  generation.ml_intent_classifier.get_ml_classifier_merge_585:
+    id: generation.ml_intent_classifier.get_ml_classifier_merge_585
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_if_592:
+    id: generation.ml_intent_classifier.get_ml_classifier_if_592
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 592
+  generation.ml_intent_classifier.get_ml_classifier_if_593:
+    id: generation.ml_intent_classifier.get_ml_classifier_if_593
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 593
+  generation.ml_intent_classifier.get_ml_classifier_return_594:
+    id: generation.ml_intent_classifier.get_ml_classifier_return_594
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 594
+  generation.ml_intent_classifier.get_ml_classifier_merge_593:
+    id: generation.ml_intent_classifier.get_ml_classifier_merge_593
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_merge_592:
+    id: generation.ml_intent_classifier.get_ml_classifier_merge_592
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_if_601:
+    id: generation.ml_intent_classifier.get_ml_classifier_if_601
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 601
+  generation.ml_intent_classifier.get_ml_classifier_merge_601:
+    id: generation.ml_intent_classifier.get_ml_classifier_merge_601
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.get_ml_classifier
+  generation.ml_intent_classifier.get_ml_classifier_return_615:
+    id: generation.ml_intent_classifier.get_ml_classifier_return_615
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.get_ml_classifier
+    line: 615
+  generation.ml_intent_classifier.__init___entry:
+    id: generation.ml_intent_classifier.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.__init__
+  generation.ml_intent_classifier.__init___exit:
+    id: generation.ml_intent_classifier.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.__init__
+  generation.ml_intent_classifier.__init___if_91:
+    id: generation.ml_intent_classifier.__init___if_91
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.__init__
+    line: 91
+  generation.ml_intent_classifier.__init___merge_91:
+    id: generation.ml_intent_classifier.__init___merge_91
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.__init__
+  generation.ml_intent_classifier._get_nlp_entry:
+    id: generation.ml_intent_classifier._get_nlp_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier._get_nlp
+  generation.ml_intent_classifier._get_nlp_exit:
+    id: generation.ml_intent_classifier._get_nlp_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier._get_nlp
+  generation.ml_intent_classifier._get_nlp_if_96:
+    id: generation.ml_intent_classifier._get_nlp_if_96
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier._get_nlp
+    line: 96
+  generation.ml_intent_classifier._get_nlp_merge_96:
+    id: generation.ml_intent_classifier._get_nlp_merge_96
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier._get_nlp
+  generation.ml_intent_classifier._get_nlp_return_105:
+    id: generation.ml_intent_classifier._get_nlp_return_105
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier._get_nlp
+    line: 105
+  generation.ml_intent_classifier._normalize_text_entry:
+    id: generation.ml_intent_classifier._normalize_text_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier._normalize_text
+  generation.ml_intent_classifier._normalize_text_exit:
+    id: generation.ml_intent_classifier._normalize_text_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier._normalize_text
+  generation.ml_intent_classifier._normalize_text_if_117:
+    id: generation.ml_intent_classifier._normalize_text_if_117
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier._normalize_text
+    line: 117
+  generation.ml_intent_classifier._normalize_text_merge_117:
+    id: generation.ml_intent_classifier._normalize_text_merge_117
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier._normalize_text
+  generation.ml_intent_classifier._normalize_text_return_121:
+    id: generation.ml_intent_classifier._normalize_text_return_121
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier._normalize_text
+    line: 121
+  generation.ml_intent_classifier._extract_features_entry:
+    id: generation.ml_intent_classifier._extract_features_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier._extract_features
+  generation.ml_intent_classifier._extract_features_exit:
+    id: generation.ml_intent_classifier._extract_features_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier._extract_features
+  generation.ml_intent_classifier._extract_features_loop_132:
+    id: generation.ml_intent_classifier._extract_features_loop_132
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier._extract_features
+    line: 132
+  generation.ml_intent_classifier._extract_features_if_133:
+    id: generation.ml_intent_classifier._extract_features_if_133
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier._extract_features
+    line: 133
+  generation.ml_intent_classifier._extract_features_loop_135:
+    id: generation.ml_intent_classifier._extract_features_loop_135
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier._extract_features
+    line: 135
+  generation.ml_intent_classifier._extract_features_merge_133:
+    id: generation.ml_intent_classifier._extract_features_merge_133
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier._extract_features
+  generation.ml_intent_classifier._extract_features_return_138:
+    id: generation.ml_intent_classifier._extract_features_return_138
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier._extract_features
+    line: 138
+  generation.ml_intent_classifier.train_entry:
+    id: generation.ml_intent_classifier.train_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.train
+  generation.ml_intent_classifier.train_exit:
+    id: generation.ml_intent_classifier.train_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.train
+  generation.ml_intent_classifier.train_if_148:
+    id: generation.ml_intent_classifier.train_if_148
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.train
+    line: 148
+  generation.ml_intent_classifier.train_merge_148:
+    id: generation.ml_intent_classifier.train_merge_148
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.train
+  generation.ml_intent_classifier.train_loop_164:
+    id: generation.ml_intent_classifier.train_loop_164
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.train
+    line: 164
+  generation.ml_intent_classifier.train_if_174:
+    id: generation.ml_intent_classifier.train_if_174
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.train
+    line: 174
+  generation.ml_intent_classifier.train_merge_174:
+    id: generation.ml_intent_classifier.train_merge_174
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.train
+  generation.ml_intent_classifier.train_if_200:
+    id: generation.ml_intent_classifier.train_if_200
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.train
+    line: 200
+  generation.ml_intent_classifier.train_merge_200:
+    id: generation.ml_intent_classifier.train_merge_200
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.train
+  generation.ml_intent_classifier.train_return_203:
+    id: generation.ml_intent_classifier.train_return_203
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.train
+    line: 203
+  generation.ml_intent_classifier.predict_entry:
+    id: generation.ml_intent_classifier.predict_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.predict
+  generation.ml_intent_classifier.predict_exit:
+    id: generation.ml_intent_classifier.predict_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.predict
+  generation.ml_intent_classifier.predict_if_216:
+    id: generation.ml_intent_classifier.predict_if_216
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.predict
+    line: 216
+  generation.ml_intent_classifier.predict_return_217:
+    id: generation.ml_intent_classifier.predict_return_217
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.predict
+    line: 217
+  generation.ml_intent_classifier.predict_merge_216:
+    id: generation.ml_intent_classifier.predict_merge_216
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.predict
+  generation.ml_intent_classifier.predict_if_222:
+    id: generation.ml_intent_classifier.predict_if_222
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.predict
+    line: 222
+  generation.ml_intent_classifier.predict_loop_237:
+    id: generation.ml_intent_classifier.predict_loop_237
+    type: FOR
+    label: for
+    function: generation.ml_intent_classifier.predict
+    line: 237
+  generation.ml_intent_classifier.predict_merge_222:
+    id: generation.ml_intent_classifier.predict_merge_222
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.predict
+  generation.ml_intent_classifier.predict_return_258:
+    id: generation.ml_intent_classifier.predict_return_258
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.predict
+    line: 258
+  generation.ml_intent_classifier.save_entry:
+    id: generation.ml_intent_classifier.save_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.save
+  generation.ml_intent_classifier.save_exit:
+    id: generation.ml_intent_classifier.save_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.save
+  generation.ml_intent_classifier.load_entry:
+    id: generation.ml_intent_classifier.load_entry
+    type: ENTRY
+    label: entry
+    function: generation.ml_intent_classifier.load
+  generation.ml_intent_classifier.load_exit:
+    id: generation.ml_intent_classifier.load_exit
+    type: EXIT
+    label: exit
+    function: generation.ml_intent_classifier.load
+  generation.ml_intent_classifier.load_if_281:
+    id: generation.ml_intent_classifier.load_if_281
+    type: IF
+    label: if
+    function: generation.ml_intent_classifier.load
+    line: 281
+  generation.ml_intent_classifier.load_return_282:
+    id: generation.ml_intent_classifier.load_return_282
+    type: RETURN
+    label: return
+    function: generation.ml_intent_classifier.load
+    line: 282
+  generation.ml_intent_classifier.load_merge_281:
+    id: generation.ml_intent_classifier.load_merge_281
+    type: FUNC
+    label: merge
+    function: generation.ml_intent_classifier.load

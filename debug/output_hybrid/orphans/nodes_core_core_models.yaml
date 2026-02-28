@@ -1,0 +1,398 @@
+module: core.core_models
+type: orphan_nodes
+count: 73
+nodes:
+  core.core_models.with_confidence_entry:
+    id: core.core_models.with_confidence_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_confidence
+  core.core_models.with_confidence_exit:
+    id: core.core_models.with_confidence_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_confidence
+  core.core_models.with_confidence_return_138:
+    id: core.core_models.with_confidence_return_138
+    type: RETURN
+    label: return
+    function: core.core_models.with_confidence
+    line: 138
+  core.core_models.with_entities_entry:
+    id: core.core_models.with_entities_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_entities
+  core.core_models.with_entities_exit:
+    id: core.core_models.with_entities_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_entities
+  core.core_models.with_entities_return_143:
+    id: core.core_models.with_entities_return_143
+    type: RETURN
+    label: return
+    function: core.core_models.with_entities
+    line: 143
+  core.core_models.with_metadata_entry:
+    id: core.core_models.with_metadata_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_metadata
+  core.core_models.with_metadata_exit:
+    id: core.core_models.with_metadata_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_metadata
+  core.core_models.with_metadata_return_147:
+    id: core.core_models.with_metadata_return_147
+    type: RETURN
+    label: return
+    function: core.core_models.with_metadata
+    line: 147
+  core.core_models.with_context_entry:
+    id: core.core_models.with_context_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_context
+  core.core_models.with_context_exit:
+    id: core.core_models.with_context_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_context
+  core.core_models.with_context_return_151:
+    id: core.core_models.with_context_return_151
+    type: RETURN
+    label: return
+    function: core.core_models.with_context
+    line: 151
+  core.core_models.with_errors_entry:
+    id: core.core_models.with_errors_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_errors
+  core.core_models.with_errors_exit:
+    id: core.core_models.with_errors_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_errors
+  core.core_models.with_errors_return_155:
+    id: core.core_models.with_errors_return_155
+    type: RETURN
+    label: return
+    function: core.core_models.with_errors
+    line: 155
+  core.core_models.with_security_entry:
+    id: core.core_models.with_security_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_security
+  core.core_models.with_security_exit:
+    id: core.core_models.with_security_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_security
+  core.core_models.with_security_return_159:
+    id: core.core_models.with_security_return_159
+    type: RETURN
+    label: return
+    function: core.core_models.with_security
+    line: 159
+  core.core_models.with_performance_entry:
+    id: core.core_models.with_performance_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.with_performance
+  core.core_models.with_performance_exit:
+    id: core.core_models.with_performance_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.with_performance
+  core.core_models.with_performance_return_163:
+    id: core.core_models.with_performance_return_163
+    type: RETURN
+    label: return
+    function: core.core_models.with_performance
+    line: 163
+  core.core_models.is_valid_entry:
+    id: core.core_models.is_valid_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.is_valid
+  core.core_models.is_valid_exit:
+    id: core.core_models.is_valid_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.is_valid
+  core.core_models.is_valid_return_167:
+    id: core.core_models.is_valid_return_167
+    type: RETURN
+    label: return
+    function: core.core_models.is_valid
+    line: 167
+  core.core_models.__post_init___entry:
+    id: core.core_models.__post_init___entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.__post_init__
+  core.core_models.__post_init___exit:
+    id: core.core_models.__post_init___exit
+    type: EXIT
+    label: exit
+    function: core.core_models.__post_init__
+  core.core_models.__post_init___if_192:
+    id: core.core_models.__post_init___if_192
+    type: IF
+    label: if
+    function: core.core_models.__post_init__
+    line: 192
+  core.core_models.__post_init___if_194:
+    id: core.core_models.__post_init___if_194
+    type: IF
+    label: if
+    function: core.core_models.__post_init__
+    line: 194
+  core.core_models.__post_init___merge_194:
+    id: core.core_models.__post_init___merge_194
+    type: FUNC
+    label: merge
+    function: core.core_models.__post_init__
+  core.core_models.__post_init___merge_192:
+    id: core.core_models.__post_init___merge_192
+    type: FUNC
+    label: merge
+    function: core.core_models.__post_init__
+  core.core_models.to_dict_entry:
+    id: core.core_models.to_dict_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.to_dict
+  core.core_models.to_dict_exit:
+    id: core.core_models.to_dict_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.to_dict
+  core.core_models.to_dict_return_209:
+    id: core.core_models.to_dict_return_209
+    type: RETURN
+    label: return
+    function: core.core_models.to_dict
+    line: 209
+  core.core_models.copy_entry:
+    id: core.core_models.copy_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.copy
+  core.core_models.copy_exit:
+    id: core.core_models.copy_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.copy
+  core.core_models.copy_return_223:
+    id: core.core_models.copy_return_223
+    type: RETURN
+    label: return
+    function: core.core_models.copy
+    line: 223
+  core.core_models.is_valid_return_238:
+    id: core.core_models.is_valid_return_238
+    type: RETURN
+    label: return
+    function: core.core_models.is_valid
+    line: 238
+  core.core_models.Field_entry:
+    id: core.core_models.Field_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.Field
+  core.core_models.Field_exit:
+    id: core.core_models.Field_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.Field
+  core.core_models.Field_return_36:
+    id: core.core_models.Field_return_36
+    type: RETURN
+    label: return
+    function: core.core_models.Field
+    line: 36
+  core.core_models.__init___entry:
+    id: core.core_models.__init___entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.__init__
+  core.core_models.__init___exit:
+    id: core.core_models.__init___exit
+    type: EXIT
+    label: exit
+    function: core.core_models.__init__
+  core.core_models.__init___loop_41:
+    id: core.core_models.__init___loop_41
+    type: FOR
+    label: for
+    function: core.core_models.__init__
+    line: 41
+  core.core_models.__init___if_42:
+    id: core.core_models.__init___if_42
+    type: IF
+    label: if
+    function: core.core_models.__init__
+    line: 42
+  core.core_models.__init___if_46:
+    id: core.core_models.__init___if_46
+    type: IF
+    label: if
+    function: core.core_models.__init__
+    line: 46
+  core.core_models.__init___if_47:
+    id: core.core_models.__init___if_47
+    type: IF
+    label: if
+    function: core.core_models.__init__
+    line: 47
+  core.core_models.__init___merge_47:
+    id: core.core_models.__init___merge_47
+    type: FUNC
+    label: merge
+    function: core.core_models.__init__
+  core.core_models.__init___merge_46:
+    id: core.core_models.__init___merge_46
+    type: FUNC
+    label: merge
+    function: core.core_models.__init__
+  core.core_models.__init___merge_42:
+    id: core.core_models.__init___merge_42
+    type: FUNC
+    label: merge
+    function: core.core_models.__init__
+  core.core_models.__init___if_54:
+    id: core.core_models.__init___if_54
+    type: IF
+    label: if
+    function: core.core_models.__init__
+    line: 54
+  core.core_models.__init___merge_54:
+    id: core.core_models.__init___merge_54
+    type: FUNC
+    label: merge
+    function: core.core_models.__init__
+  core.core_models.__eq___entry:
+    id: core.core_models.__eq___entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.__eq__
+  core.core_models.__eq___exit:
+    id: core.core_models.__eq___exit
+    type: EXIT
+    label: exit
+    function: core.core_models.__eq__
+  core.core_models.__eq___if_60:
+    id: core.core_models.__eq___if_60
+    type: IF
+    label: if
+    function: core.core_models.__eq__
+    line: 60
+  core.core_models.__eq___return_61:
+    id: core.core_models.__eq___return_61
+    type: RETURN
+    label: return
+    function: core.core_models.__eq__
+    line: 61
+  core.core_models.__eq___merge_60:
+    id: core.core_models.__eq___merge_60
+    type: FUNC
+    label: merge
+    function: core.core_models.__eq__
+  core.core_models.__eq___return_62:
+    id: core.core_models.__eq___return_62
+    type: RETURN
+    label: return
+    function: core.core_models.__eq__
+    line: 62
+  core.core_models.__repr___entry:
+    id: core.core_models.__repr___entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.__repr__
+  core.core_models.__repr___exit:
+    id: core.core_models.__repr___exit
+    type: EXIT
+    label: exit
+    function: core.core_models.__repr__
+  core.core_models.__repr___return_67:
+    id: core.core_models.__repr___return_67
+    type: RETURN
+    label: return
+    function: core.core_models.__repr__
+    line: 67
+  core.core_models.model_dump_entry:
+    id: core.core_models.model_dump_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.model_dump
+  core.core_models.model_dump_exit:
+    id: core.core_models.model_dump_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.model_dump
+  core.core_models.model_dump_loop_75:
+    id: core.core_models.model_dump_loop_75
+    type: FOR
+    label: for
+    function: core.core_models.model_dump
+    line: 75
+  core.core_models.model_dump_if_77:
+    id: core.core_models.model_dump_if_77
+    type: IF
+    label: if
+    function: core.core_models.model_dump
+    line: 77
+  core.core_models.model_dump_merge_77:
+    id: core.core_models.model_dump_merge_77
+    type: FUNC
+    label: merge
+    function: core.core_models.model_dump
+  core.core_models.model_dump_return_81:
+    id: core.core_models.model_dump_return_81
+    type: RETURN
+    label: return
+    function: core.core_models.model_dump
+    line: 81
+  core.core_models.model_copy_entry:
+    id: core.core_models.model_copy_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.model_copy
+  core.core_models.model_copy_exit:
+    id: core.core_models.model_copy_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.model_copy
+  core.core_models.model_copy_if_85:
+    id: core.core_models.model_copy_if_85
+    type: IF
+    label: if
+    function: core.core_models.model_copy
+    line: 85
+  core.core_models.model_copy_merge_85:
+    id: core.core_models.model_copy_merge_85
+    type: FUNC
+    label: merge
+    function: core.core_models.model_copy
+  core.core_models.model_copy_if_87:
+    id: core.core_models.model_copy_if_87
+    type: IF
+    label: if
+    function: core.core_models.model_copy
+    line: 87
+  core.core_models.model_copy_merge_87:
+    id: core.core_models.model_copy_merge_87
+    type: FUNC
+    label: merge
+    function: core.core_models.model_copy
+  core.core_models.model_copy_return_89:
+    id: core.core_models.model_copy_return_89
+    type: RETURN
+    label: return
+    function: core.core_models.model_copy
+    line: 89

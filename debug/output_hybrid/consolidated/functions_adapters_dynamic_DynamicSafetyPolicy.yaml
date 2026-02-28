@@ -1,0 +1,28 @@
+module: adapters.dynamic.DynamicSafetyPolicy
+type: functions
+count: 2
+functions:
+  adapters.dynamic.DynamicSafetyPolicy.__init__:
+    name: __init__
+    qualified_name: adapters.dynamic.DynamicSafetyPolicy.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/dynamic.py
+    line: 28
+    module: adapters.dynamic
+    class: DynamicSafetyPolicy
+    is_method: true
+    cfg_entry: adapters.dynamic.DynamicSafetyPolicy.__init___entry
+    calls:
+    - None.__init__
+    - super
+  adapters.dynamic.DynamicSafetyPolicy.check_command:
+    name: check_command
+    qualified_name: adapters.dynamic.DynamicSafetyPolicy.check_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/dynamic.py
+    line: 54
+    module: adapters.dynamic
+    class: DynamicSafetyPolicy
+    is_method: true
+    cfg_entry: adapters.dynamic.DynamicSafetyPolicy.check_command_entry
+    calls:
+    - command.lower
+    - re.search

@@ -1,0 +1,79 @@
+module: src.nlp2cmd.processing.framework.ProcessingPipeline
+type: orphan_nodes
+count: 14
+nodes:
+  src.nlp2cmd.processing.framework.ProcessingPipeline.__init___entry:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.__init___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.__init__
+  src.nlp2cmd.processing.framework.ProcessingPipeline.__init___exit:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.__init___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.__init__
+  src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_entry:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor
+  src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_exit:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor
+  src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_return_152:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_return_152
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor
+    line: 152
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process_entry:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.process_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process_exit:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.process_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process_loop_160:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.process_loop_160
+    type: FOR
+    label: for
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+    line: 160
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process_if_163:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.process_if_163
+    type: IF
+    label: if
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+    line: 163
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process_merge_163:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.process_merge_163
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process_return_180:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.process_return_180
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+    line: 180
+  src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_entry:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats
+  src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_exit:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats
+  src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_return_189:
+    id: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_return_189
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats
+    line: 189

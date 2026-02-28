@@ -1,0 +1,135 @@
+module: exploration.service
+type: functions
+count: 9
+functions:
+  exploration.service.quick_find_endpoint:
+    name: quick_find_endpoint
+    qualified_name: exploration.service.quick_find_endpoint
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 325
+    module: exploration.service
+    cfg_entry: exploration.service.quick_find_endpoint_entry
+    calls:
+    - ServiceExplorer
+    - ExplorationContext
+    - explorer.explore
+  exploration.service.__init__:
+    name: __init__
+    qualified_name: exploration.service.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 43
+    module: exploration.service
+    cfg_entry: exploration.service.__init___entry
+    calls:
+    - None.__init__
+    - executor.ExecutionContext.set
+    - super
+  exploration.service.explore:
+    name: explore
+    qualified_name: exploration.service.explore
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 59
+    module: exploration.service
+    cfg_entry: exploration.service.explore_entry
+    calls:
+    - None.rstrip
+    - self._try_openapi_discovery
+    - candidates.extend
+    - scored.sort
+    - ExplorationResult
+    - base_url.startswith
+    - self._try_rest_discovery
+    - self._try_graphql_discovery
+    - str
+    - self._score_endpoint
+    - len
+  exploration.service._try_openapi_discovery:
+    name: _try_openapi_discovery
+    qualified_name: exploration.service._try_openapi_discovery
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 115
+    module: exploration.service
+    cfg_entry: exploration.service._try_openapi_discovery_entry
+    calls:
+    - urljoin
+    - urllib.request.Request
+    - urllib.request.urlopen
+    - self._get_headers
+    - json.loads
+    - self._parse_openapi_spec
+    - int
+    - None.decode
+    - resp.read
+  exploration.service._parse_openapi_spec:
+    name: _parse_openapi_spec
+    qualified_name: exploration.service._parse_openapi_spec
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 154
+    module: exploration.service
+    cfg_entry: exploration.service._parse_openapi_spec_entry
+    calls:
+    - spec.get
+    - paths.items
+    - methods.items
+    - method.upper
+    - EndpointInfo
+    - endpoints.append
+    - urljoin
+    - details.get
+  exploration.service._try_rest_discovery:
+    name: _try_rest_discovery
+    qualified_name: exploration.service._try_rest_discovery
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 177
+    module: exploration.service
+    cfg_entry: exploration.service._try_rest_discovery_entry
+    calls:
+    - self._get_resource_names
+    - pattern.replace
+    - EndpointInfo
+    - endpoints.append
+    - urljoin
+  exploration.service._try_graphql_discovery:
+    name: _try_graphql_discovery
+    qualified_name: exploration.service._try_graphql_discovery
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 208
+    module: exploration.service
+    cfg_entry: exploration.service._try_graphql_discovery_entry
+    calls:
+    - urljoin
+    - urllib.request.Request
+    - urllib.request.urlopen
+    - None.encode
+    - json.loads
+    - None.get
+    - self._get_headers
+    - int
+    - None.decode
+    - EndpointInfo
+    - endpoints.append
+    - json.dumps
+    - data.get
+    - resp.read
+  exploration.service._get_resource_names:
+    name: _get_resource_names
+    qualified_name: exploration.service._get_resource_names
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 265
+    module: exploration.service
+    cfg_entry: exploration.service._get_resource_names_entry
+    calls:
+    - resources.insert
+    - context.search_term.lower
+  exploration.service._score_endpoint:
+    name: _score_endpoint
+    qualified_name: exploration.service._score_endpoint
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/service.py
+    line: 302
+    module: exploration.service
+    cfg_entry: exploration.service._score_endpoint_entry
+    calls:
+    - None._score_relevance
+    - context.search_term.lower
+    - endpoint.name.lower
+    - super

@@ -1,0 +1,144 @@
+module: generation.schema.generator
+type: functions
+count: 12
+functions:
+  generation.schema.generator.__init__:
+    name: __init__
+    qualified_name: generation.schema.generator.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 182
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.__init___entry
+    calls:
+    - SchemaBasedGenerator
+  generation.schema.generator.learn_from_schema:
+    name: learn_from_schema
+    qualified_name: generation.schema.generator.learn_from_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 30
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.learn_from_schema_entry
+    calls:
+    - example.split
+    - self._extract_pattern
+    - patterns.append
+    called_by:
+    - intelligent.version_aware_generator.VersionAwareCommandGenerator.generate_command
+    - intelligent.version_aware_generator.generate_command
+  generation.schema.generator.generate_command:
+    name: generate_command
+    qualified_name: generation.schema.generator.generate_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 226
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.generate_command_entry
+    calls:
+    - self.generator.generate_command
+    called_by:
+    - intelligent.version_aware_generator.VersionAwareCommandGenerator.generate_command
+    - intelligent.version_aware_generator.test_version_aware_generation
+    - intelligent.version_aware_generator.generate_command
+  generation.schema.generator._extract_pattern:
+    name: _extract_pattern
+    qualified_name: generation.schema.generator._extract_pattern
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 85
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator._extract_pattern_entry
+    calls:
+    - None.join
+    - part.startswith
+    - pattern_parts.append
+    - part.isdigit
+    - None.isdigit
+    - part.split
+    - part.replace
+  generation.schema.generator._apply_pattern:
+    name: _apply_pattern
+    qualified_name: generation.schema.generator._apply_pattern
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 108
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator._apply_pattern_entry
+    calls:
+    - replacements.items
+    - context.get
+    - str
+    - result.replace
+  generation.schema.generator._generate_from_schema:
+    name: _generate_from_schema
+    qualified_name: generation.schema.generator._generate_from_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 126
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator._generate_from_schema_entry
+    calls:
+    - context.get
+  generation.schema.generator.improve_from_usage:
+    name: improve_from_usage
+    qualified_name: generation.schema.generator.improve_from_usage
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 167
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.improve_from_usage_entry
+    calls:
+    - self.schema_cache.get
+    - schema.examples.append
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  generation.schema.generator.register_schema:
+    name: register_schema
+    qualified_name: generation.schema.generator.register_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 187
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.register_schema_entry
+    calls:
+    - self.generator.learn_from_schema
+  generation.schema.generator.load_from_file:
+    name: load_from_file
+    qualified_name: generation.schema.generator.load_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 192
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.load_from_file_entry
+    calls:
+    - None.items
+    - open
+    - json.load
+    - self._convert_from_json
+    - self.register_schema
+    - data.get
+  generation.schema.generator._convert_from_json:
+    name: _convert_from_json
+    qualified_name: generation.schema.generator._convert_from_json
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 202
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator._convert_from_json_entry
+    calls:
+    - data.get
+    - ExtractedSchema
+    - CommandSchema
+    - commands.append
+    - cmd_data.get
+  generation.schema.generator.improve_from_feedback:
+    name: improve_from_feedback
+    qualified_name: generation.schema.generator.improve_from_feedback
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 230
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.improve_from_feedback_entry
+    calls:
+    - self.generator.improve_from_usage
+  generation.schema.generator.save_improvements:
+    name: save_improvements
+    qualified_name: generation.schema.generator.save_improvements
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 234
+    module: generation.schema.generator
+    cfg_entry: generation.schema.generator.save_improvements_entry
+    calls:
+    - self.schemas.items
+    - open
+    - json.dump
+    - len

@@ -1,0 +1,267 @@
+module: adapters.kubernetes
+type: functions
+count: 23
+functions:
+  adapters.kubernetes.check_command:
+    name: check_command
+    qualified_name: adapters.kubernetes.check_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 32
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes.check_command_entry
+    calls:
+    - re.search
+    - int
+    - match.group
+  adapters.kubernetes.__init__:
+    name: __init__
+    qualified_name: adapters.kubernetes.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 181
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes.__init___entry
+    calls:
+    - None.__init__
+    - self._parse_cluster_context
+    - super
+    - KubernetesSafetyPolicy
+  adapters.kubernetes._parse_cluster_context:
+    name: _parse_cluster_context
+    qualified_name: adapters.kubernetes._parse_cluster_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 198
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._parse_cluster_context_entry
+    calls:
+    - ClusterContext
+    - ctx.get
+  adapters.kubernetes._normalize_resource:
+    name: _normalize_resource
+    qualified_name: adapters.kubernetes._normalize_resource
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 206
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._normalize_resource_entry
+    calls:
+    - self.RESOURCE_SHORTCUTS.get
+    - resource.lower
+  adapters.kubernetes.generate:
+    name: generate
+    qualified_name: adapters.kubernetes.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 210
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes.generate_entry
+    calls:
+    - plan.get
+    - generators.get
+    - generator
+  adapters.kubernetes._generate_get:
+    name: _generate_get
+    qualified_name: adapters.kubernetes._generate_get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 234
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_get_entry
+    calls:
+    - self._normalize_resource
+    - entities.get
+    - None.join
+    - parts.append
+    - parts.extend
+  adapters.kubernetes._generate_describe:
+    name: _generate_describe
+    qualified_name: adapters.kubernetes._generate_describe
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 265
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_describe_entry
+    calls:
+    - self._normalize_resource
+    - entities.get
+    - None.join
+    - parts.extend
+  adapters.kubernetes._generate_apply:
+    name: _generate_apply
+    qualified_name: adapters.kubernetes._generate_apply
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 278
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_apply_entry
+    calls:
+    - entities.get
+    - None.join
+    - parts.extend
+    - parts.append
+  adapters.kubernetes._generate_delete:
+    name: _generate_delete
+    qualified_name: adapters.kubernetes._generate_delete
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 298
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_delete_entry
+    calls:
+    - self._normalize_resource
+    - entities.get
+    - None.join
+    - parts.append
+    - parts.extend
+    - str
+  adapters.kubernetes._generate_scale:
+    name: _generate_scale
+    qualified_name: adapters.kubernetes._generate_scale
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 326
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_scale_entry
+    calls:
+    - entities.get
+    - None.join
+    - parts.extend
+  adapters.kubernetes._generate_logs:
+    name: _generate_logs
+    qualified_name: adapters.kubernetes._generate_logs
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 343
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_logs_entry
+    calls:
+    - entities.get
+    - None.join
+    - parts.extend
+    - parts.append
+    - str
+  adapters.kubernetes._generate_exec:
+    name: _generate_exec
+    qualified_name: adapters.kubernetes._generate_exec
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 375
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_exec_entry
+    calls:
+    - entities.get
+    - parts.append
+    - None.join
+    - parts.extend
+  adapters.kubernetes._generate_port_forward:
+    name: _generate_port_forward
+    qualified_name: adapters.kubernetes._generate_port_forward
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 401
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_port_forward_entry
+    calls:
+    - entities.get
+    - None.join
+    - parts.extend
+  adapters.kubernetes._generate_rollout:
+    name: _generate_rollout
+    qualified_name: adapters.kubernetes._generate_rollout
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 418
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_rollout_entry
+    calls:
+    - entities.get
+    - None.join
+    - parts.extend
+  adapters.kubernetes._generate_create:
+    name: _generate_create
+    qualified_name: adapters.kubernetes._generate_create
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 434
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_create_entry
+    calls:
+    - self._normalize_resource
+    - entities.get
+    - None.join
+    - parts.extend
+    - options.get
+    - parts.insert
+    - None.items
+  adapters.kubernetes.generate_manifest:
+    name: generate_manifest
+    qualified_name: adapters.kubernetes.generate_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 459
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes.generate_manifest_entry
+    calls:
+    - spec.get
+    - generators.get
+    - yaml.dump
+    - generator
+  adapters.kubernetes._generate_deployment_manifest:
+    name: _generate_deployment_manifest
+    qualified_name: adapters.kubernetes._generate_deployment_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 483
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_deployment_manifest_entry
+    calls:
+    - spec.get
+  adapters.kubernetes._generate_service_manifest:
+    name: _generate_service_manifest
+    qualified_name: adapters.kubernetes._generate_service_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 532
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_service_manifest_entry
+    calls:
+    - spec.get
+  adapters.kubernetes._generate_configmap_manifest:
+    name: _generate_configmap_manifest
+    qualified_name: adapters.kubernetes._generate_configmap_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 561
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_configmap_manifest_entry
+    calls:
+    - spec.get
+  adapters.kubernetes._generate_secret_manifest:
+    name: _generate_secret_manifest
+    qualified_name: adapters.kubernetes._generate_secret_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 577
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_secret_manifest_entry
+    calls:
+    - spec.get
+    - data.items
+    - isinstance
+    - None.decode
+    - base64.b64encode
+    - value.encode
+  adapters.kubernetes._generate_ingress_manifest:
+    name: _generate_ingress_manifest
+    qualified_name: adapters.kubernetes._generate_ingress_manifest
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 605
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes._generate_ingress_manifest_entry
+    calls:
+    - spec.get
+  adapters.kubernetes.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.kubernetes.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 654
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes.validate_syntax_entry
+    calls:
+    - command.split
+    - errors.append
+    - len
+    - warnings.append
+  adapters.kubernetes.check_safety:
+    name: check_safety
+    qualified_name: adapters.kubernetes.check_safety
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/kubernetes.py
+    line: 692
+    module: adapters.kubernetes
+    cfg_entry: adapters.kubernetes.check_safety_entry
+    calls:
+    - re.search
+    - int
+    - match.group

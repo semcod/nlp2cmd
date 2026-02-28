@@ -1,0 +1,104 @@
+module: generation.schema.generator.SchemaRegistry
+type: orphan_nodes
+count: 19
+nodes:
+  generation.schema.generator.SchemaRegistry.__init___entry:
+    id: generation.schema.generator.SchemaRegistry.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry.__init__
+  generation.schema.generator.SchemaRegistry.__init___exit:
+    id: generation.schema.generator.SchemaRegistry.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry.__init__
+  generation.schema.generator.SchemaRegistry.register_schema_entry:
+    id: generation.schema.generator.SchemaRegistry.register_schema_entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry.register_schema
+  generation.schema.generator.SchemaRegistry.register_schema_exit:
+    id: generation.schema.generator.SchemaRegistry.register_schema_exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry.register_schema
+  generation.schema.generator.SchemaRegistry.load_from_file_entry:
+    id: generation.schema.generator.SchemaRegistry.load_from_file_entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry.load_from_file
+  generation.schema.generator.SchemaRegistry.load_from_file_exit:
+    id: generation.schema.generator.SchemaRegistry.load_from_file_exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry.load_from_file
+  generation.schema.generator.SchemaRegistry.load_from_file_loop_197:
+    id: generation.schema.generator.SchemaRegistry.load_from_file_loop_197
+    type: FOR
+    label: for
+    function: generation.schema.generator.SchemaRegistry.load_from_file
+    line: 197
+  generation.schema.generator.SchemaRegistry._convert_from_json_entry:
+    id: generation.schema.generator.SchemaRegistry._convert_from_json_entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry._convert_from_json
+  generation.schema.generator.SchemaRegistry._convert_from_json_exit:
+    id: generation.schema.generator.SchemaRegistry._convert_from_json_exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry._convert_from_json
+  generation.schema.generator.SchemaRegistry._convert_from_json_loop_205:
+    id: generation.schema.generator.SchemaRegistry._convert_from_json_loop_205
+    type: FOR
+    label: for
+    function: generation.schema.generator.SchemaRegistry._convert_from_json
+    line: 205
+  generation.schema.generator.SchemaRegistry._convert_from_json_return_219:
+    id: generation.schema.generator.SchemaRegistry._convert_from_json_return_219
+    type: RETURN
+    label: return
+    function: generation.schema.generator.SchemaRegistry._convert_from_json
+    line: 219
+  generation.schema.generator.SchemaRegistry.generate_command_entry:
+    id: generation.schema.generator.SchemaRegistry.generate_command_entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry.generate_command
+  generation.schema.generator.SchemaRegistry.generate_command_exit:
+    id: generation.schema.generator.SchemaRegistry.generate_command_exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry.generate_command
+  generation.schema.generator.SchemaRegistry.generate_command_return_228:
+    id: generation.schema.generator.SchemaRegistry.generate_command_return_228
+    type: RETURN
+    label: return
+    function: generation.schema.generator.SchemaRegistry.generate_command
+    line: 228
+  generation.schema.generator.SchemaRegistry.improve_from_feedback_entry:
+    id: generation.schema.generator.SchemaRegistry.improve_from_feedback_entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry.improve_from_feedback
+  generation.schema.generator.SchemaRegistry.improve_from_feedback_exit:
+    id: generation.schema.generator.SchemaRegistry.improve_from_feedback_exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry.improve_from_feedback
+  generation.schema.generator.SchemaRegistry.save_improvements_entry:
+    id: generation.schema.generator.SchemaRegistry.save_improvements_entry
+    type: ENTRY
+    label: entry
+    function: generation.schema.generator.SchemaRegistry.save_improvements
+  generation.schema.generator.SchemaRegistry.save_improvements_exit:
+    id: generation.schema.generator.SchemaRegistry.save_improvements_exit
+    type: EXIT
+    label: exit
+    function: generation.schema.generator.SchemaRegistry.save_improvements
+  generation.schema.generator.SchemaRegistry.save_improvements_loop_244:
+    id: generation.schema.generator.SchemaRegistry.save_improvements_loop_244
+    type: FOR
+    label: for
+    function: generation.schema.generator.SchemaRegistry.save_improvements
+    line: 244

@@ -1,0 +1,175 @@
+module: adapters.sql
+type: functions
+count: 13
+functions:
+  adapters.sql.__init__:
+    name: __init__
+    qualified_name: adapters.sql.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 97
+    module: adapters.sql
+    cfg_entry: adapters.sql.__init___entry
+    calls:
+    - None.__init__
+    - self._parse_schema_context
+    - ValueError
+    - super
+    - SQLSafetyPolicy
+  adapters.sql._parse_schema_context:
+    name: _parse_schema_context
+    qualified_name: adapters.sql._parse_schema_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 121
+    module: adapters.sql
+    cfg_entry: adapters.sql._parse_schema_context_entry
+    calls:
+    - SchemaContext
+    - ctx.get
+  adapters.sql.generate:
+    name: generate
+    qualified_name: adapters.sql.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 131
+    module: adapters.sql
+    cfg_entry: adapters.sql.generate_entry
+    calls:
+    - plan.get
+    - generators.get
+    - generator
+  adapters.sql._generate_select:
+    name: _generate_select
+    qualified_name: adapters.sql._generate_select
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 149
+    module: adapters.sql
+    cfg_entry: adapters.sql._generate_select_entry
+    calls:
+    - entities.get
+    - isinstance
+    - None.join
+    - str
+    - join.get
+    - f.get
+    - self._format_value
+    - where_clauses.append
+    - order_clauses.append
+    - o.get
+  adapters.sql._generate_insert:
+    name: _generate_insert
+    qualified_name: adapters.sql._generate_insert
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 200
+    module: adapters.sql
+    cfg_entry: adapters.sql._generate_insert_entry
+    calls:
+    - entities.get
+    - list
+    - values.keys
+    - self._format_value
+    - values.values
+    - None.join
+  adapters.sql._generate_update:
+    name: _generate_update
+    qualified_name: adapters.sql._generate_update
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 216
+    module: adapters.sql
+    cfg_entry: adapters.sql._generate_update_entry
+    calls:
+    - entities.get
+    - ValueError
+    - values.items
+    - None.join
+    - f.get
+    - self._format_value
+    - where_clauses.append
+  adapters.sql._generate_delete:
+    name: _generate_delete
+    qualified_name: adapters.sql._generate_delete
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 239
+    module: adapters.sql
+    cfg_entry: adapters.sql._generate_delete_entry
+    calls:
+    - entities.get
+    - f.get
+    - self._format_value
+    - where_clauses.append
+    - None.join
+  adapters.sql._generate_aggregate:
+    name: _generate_aggregate
+    qualified_name: adapters.sql._generate_aggregate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 257
+    module: adapters.sql
+    cfg_entry: adapters.sql._generate_aggregate_entry
+    calls:
+    - entities.get
+    - select_items.append
+    - agg.get
+    - join.get
+    - None.join
+    - f.get
+    - self._format_value
+    - where_clauses.append
+    - isinstance
+    - order_clauses.append
+    - func.lower
+    - str
+    - o.get
+  adapters.sql._format_value:
+    name: _format_value
+    qualified_name: adapters.sql._format_value
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 318
+    module: adapters.sql
+    cfg_entry: adapters.sql._format_value_entry
+    calls:
+    - isinstance
+    - str
+    - value.replace
+    - self._interval_expr
+    - self._year_start_expr
+  adapters.sql._interval_expr:
+    name: _interval_expr
+    qualified_name: adapters.sql._interval_expr
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 337
+    module: adapters.sql
+    cfg_entry: adapters.sql._interval_expr_entry
+    calls:
+    - None.upper
+    - interval.split
+  adapters.sql.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.sql.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 359
+    module: adapters.sql
+    cfg_entry: adapters.sql.validate_syntax_entry
+    calls:
+    - command.upper
+    - command.count
+    - errors.append
+    - warnings.append
+    - sqlparse.parse
+    - len
+  adapters.sql.check_safety:
+    name: check_safety
+    qualified_name: adapters.sql.check_safety
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 398
+    module: adapters.sql
+    cfg_entry: adapters.sql.check_safety_entry
+    calls:
+    - command.upper
+    - re.search
+  adapters.sql._pretty_format:
+    name: _pretty_format
+    qualified_name: adapters.sql._pretty_format
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 458
+    module: adapters.sql
+    cfg_entry: adapters.sql._pretty_format_entry
+    calls:
+    - sqlparse.format

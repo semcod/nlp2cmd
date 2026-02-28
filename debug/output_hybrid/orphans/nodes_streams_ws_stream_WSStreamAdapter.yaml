@@ -1,0 +1,182 @@
+module: streams.ws_stream.WSStreamAdapter
+type: orphan_nodes
+count: 33
+nodes:
+  streams.ws_stream.WSStreamAdapter.__init___entry:
+    id: streams.ws_stream.WSStreamAdapter.__init___entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter.__init__
+  streams.ws_stream.WSStreamAdapter.__init___exit:
+    id: streams.ws_stream.WSStreamAdapter.__init___exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter.__init__
+  streams.ws_stream.WSStreamAdapter._build_url_entry:
+    id: streams.ws_stream.WSStreamAdapter._build_url_entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter._build_url
+  streams.ws_stream.WSStreamAdapter._build_url_exit:
+    id: streams.ws_stream.WSStreamAdapter._build_url_exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter._build_url
+  streams.ws_stream.WSStreamAdapter._build_url_return_29:
+    id: streams.ws_stream.WSStreamAdapter._build_url_return_29
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter._build_url
+    line: 29
+  streams.ws_stream.WSStreamAdapter.connect_entry:
+    id: streams.ws_stream.WSStreamAdapter.connect_entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter.connect
+  streams.ws_stream.WSStreamAdapter.connect_exit:
+    id: streams.ws_stream.WSStreamAdapter.connect_exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter.connect
+  streams.ws_stream.WSStreamAdapter.execute_entry:
+    id: streams.ws_stream.WSStreamAdapter.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter.execute
+  streams.ws_stream.WSStreamAdapter.execute_exit:
+    id: streams.ws_stream.WSStreamAdapter.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter.execute
+  streams.ws_stream.WSStreamAdapter.execute_if_51:
+    id: streams.ws_stream.WSStreamAdapter.execute_if_51
+    type: IF
+    label: if
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 51
+  streams.ws_stream.WSStreamAdapter.execute_return_53:
+    id: streams.ws_stream.WSStreamAdapter.execute_return_53
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 53
+  streams.ws_stream.WSStreamAdapter.execute_if_54:
+    id: streams.ws_stream.WSStreamAdapter.execute_if_54
+    type: IF
+    label: if
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 54
+  streams.ws_stream.WSStreamAdapter.execute_return_55:
+    id: streams.ws_stream.WSStreamAdapter.execute_return_55
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 55
+  streams.ws_stream.WSStreamAdapter.execute_if_56:
+    id: streams.ws_stream.WSStreamAdapter.execute_if_56
+    type: IF
+    label: if
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 56
+  streams.ws_stream.WSStreamAdapter.execute_return_57:
+    id: streams.ws_stream.WSStreamAdapter.execute_return_57
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 57
+  streams.ws_stream.WSStreamAdapter.execute_return_59:
+    id: streams.ws_stream.WSStreamAdapter.execute_return_59
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter.execute
+    line: 59
+  streams.ws_stream.WSStreamAdapter.execute_merge_56:
+    id: streams.ws_stream.WSStreamAdapter.execute_merge_56
+    type: FUNC
+    label: merge
+    function: streams.ws_stream.WSStreamAdapter.execute
+  streams.ws_stream.WSStreamAdapter.execute_merge_54:
+    id: streams.ws_stream.WSStreamAdapter.execute_merge_54
+    type: FUNC
+    label: merge
+    function: streams.ws_stream.WSStreamAdapter.execute
+  streams.ws_stream.WSStreamAdapter.execute_merge_51:
+    id: streams.ws_stream.WSStreamAdapter.execute_merge_51
+    type: FUNC
+    label: merge
+    function: streams.ws_stream.WSStreamAdapter.execute
+  streams.ws_stream.WSStreamAdapter._send_entry:
+    id: streams.ws_stream.WSStreamAdapter._send_entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter._send
+  streams.ws_stream.WSStreamAdapter._send_exit:
+    id: streams.ws_stream.WSStreamAdapter._send_exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter._send
+  streams.ws_stream.WSStreamAdapter._send_if_62:
+    id: streams.ws_stream.WSStreamAdapter._send_if_62
+    type: IF
+    label: if
+    function: streams.ws_stream.WSStreamAdapter._send
+    line: 62
+  streams.ws_stream.WSStreamAdapter._send_merge_62:
+    id: streams.ws_stream.WSStreamAdapter._send_merge_62
+    type: FUNC
+    label: merge
+    function: streams.ws_stream.WSStreamAdapter._send
+  streams.ws_stream.WSStreamAdapter._send_return_68:
+    id: streams.ws_stream.WSStreamAdapter._send_return_68
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter._send
+    line: 68
+  streams.ws_stream.WSStreamAdapter._receive_entry:
+    id: streams.ws_stream.WSStreamAdapter._receive_entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter._receive
+  streams.ws_stream.WSStreamAdapter._receive_exit:
+    id: streams.ws_stream.WSStreamAdapter._receive_exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter._receive
+  streams.ws_stream.WSStreamAdapter._receive_if_71:
+    id: streams.ws_stream.WSStreamAdapter._receive_if_71
+    type: IF
+    label: if
+    function: streams.ws_stream.WSStreamAdapter._receive
+    line: 71
+  streams.ws_stream.WSStreamAdapter._receive_merge_71:
+    id: streams.ws_stream.WSStreamAdapter._receive_merge_71
+    type: FUNC
+    label: merge
+    function: streams.ws_stream.WSStreamAdapter._receive
+  streams.ws_stream.WSStreamAdapter._receive_return_78:
+    id: streams.ws_stream.WSStreamAdapter._receive_return_78
+    type: RETURN
+    label: return
+    function: streams.ws_stream.WSStreamAdapter._receive
+    line: 78
+  streams.ws_stream.WSStreamAdapter.disconnect_entry:
+    id: streams.ws_stream.WSStreamAdapter.disconnect_entry
+    type: ENTRY
+    label: entry
+    function: streams.ws_stream.WSStreamAdapter.disconnect
+  streams.ws_stream.WSStreamAdapter.disconnect_exit:
+    id: streams.ws_stream.WSStreamAdapter.disconnect_exit
+    type: EXIT
+    label: exit
+    function: streams.ws_stream.WSStreamAdapter.disconnect
+  streams.ws_stream.WSStreamAdapter.disconnect_if_84:
+    id: streams.ws_stream.WSStreamAdapter.disconnect_if_84
+    type: IF
+    label: if
+    function: streams.ws_stream.WSStreamAdapter.disconnect
+    line: 84
+  streams.ws_stream.WSStreamAdapter.disconnect_merge_84:
+    id: streams.ws_stream.WSStreamAdapter.disconnect_merge_84
+    type: FUNC
+    label: merge
+    function: streams.ws_stream.WSStreamAdapter.disconnect

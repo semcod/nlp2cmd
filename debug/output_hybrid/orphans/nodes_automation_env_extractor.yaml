@@ -1,0 +1,348 @@
+module: automation.env_extractor
+type: orphan_nodes
+count: 63
+nodes:
+  automation.env_extractor._debug_entry:
+    id: automation.env_extractor._debug_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor._debug
+  automation.env_extractor._debug_exit:
+    id: automation.env_extractor._debug_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor._debug
+  automation.env_extractor._debug_if_23:
+    id: automation.env_extractor._debug_if_23
+    type: IF
+    label: if
+    function: automation.env_extractor._debug
+    line: 23
+  automation.env_extractor._debug_merge_23:
+    id: automation.env_extractor._debug_merge_23
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._debug
+  automation.env_extractor.__init___entry:
+    id: automation.env_extractor.__init___entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor.__init__
+  automation.env_extractor.__init___exit:
+    id: automation.env_extractor.__init___exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor.__init__
+  automation.env_extractor.detect_service_entry:
+    id: automation.env_extractor.detect_service_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor.detect_service
+  automation.env_extractor.detect_service_exit:
+    id: automation.env_extractor.detect_service_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor.detect_service
+  automation.env_extractor.detect_service_loop_147:
+    id: automation.env_extractor.detect_service_loop_147
+    type: FOR
+    label: for
+    function: automation.env_extractor.detect_service
+    line: 147
+  automation.env_extractor.detect_service_if_148:
+    id: automation.env_extractor.detect_service_if_148
+    type: IF
+    label: if
+    function: automation.env_extractor.detect_service
+    line: 148
+  automation.env_extractor.detect_service_return_149:
+    id: automation.env_extractor.detect_service_return_149
+    type: RETURN
+    label: return
+    function: automation.env_extractor.detect_service
+    line: 149
+  automation.env_extractor.detect_service_merge_148:
+    id: automation.env_extractor.detect_service_merge_148
+    type: FUNC
+    label: merge
+    function: automation.env_extractor.detect_service
+  automation.env_extractor.detect_service_return_150:
+    id: automation.env_extractor.detect_service_return_150
+    type: RETURN
+    label: return
+    function: automation.env_extractor.detect_service
+    line: 150
+  automation.env_extractor.detect_env_path_entry:
+    id: automation.env_extractor.detect_env_path_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor.detect_env_path
+  automation.env_extractor.detect_env_path_exit:
+    id: automation.env_extractor.detect_env_path_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor.detect_env_path
+  automation.env_extractor.detect_env_path_loop_170:
+    id: automation.env_extractor.detect_env_path_loop_170
+    type: FOR
+    label: for
+    function: automation.env_extractor.detect_env_path
+    line: 170
+  automation.env_extractor.detect_env_path_if_172:
+    id: automation.env_extractor.detect_env_path_if_172
+    type: IF
+    label: if
+    function: automation.env_extractor.detect_env_path
+    line: 172
+  automation.env_extractor.detect_env_path_if_174:
+    id: automation.env_extractor.detect_env_path_if_174
+    type: IF
+    label: if
+    function: automation.env_extractor.detect_env_path
+    line: 174
+  automation.env_extractor.detect_env_path_merge_174:
+    id: automation.env_extractor.detect_env_path_merge_174
+    type: FUNC
+    label: merge
+    function: automation.env_extractor.detect_env_path
+  automation.env_extractor.detect_env_path_return_176:
+    id: automation.env_extractor.detect_env_path_return_176
+    type: RETURN
+    label: return
+    function: automation.env_extractor.detect_env_path
+    line: 176
+  automation.env_extractor.detect_env_path_merge_172:
+    id: automation.env_extractor.detect_env_path_merge_172
+    type: FUNC
+    label: merge
+    function: automation.env_extractor.detect_env_path
+  automation.env_extractor.detect_env_path_return_177:
+    id: automation.env_extractor.detect_env_path_return_177
+    type: RETURN
+    label: return
+    function: automation.env_extractor.detect_env_path
+    line: 177
+  automation.env_extractor.get_service_config_entry:
+    id: automation.env_extractor.get_service_config_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor.get_service_config
+  automation.env_extractor.get_service_config_exit:
+    id: automation.env_extractor.get_service_config_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor.get_service_config
+  automation.env_extractor.get_service_config_return_181:
+    id: automation.env_extractor.get_service_config_return_181
+    type: RETURN
+    label: return
+    function: automation.env_extractor.get_service_config
+    line: 181
+  automation.env_extractor.list_services_entry:
+    id: automation.env_extractor.list_services_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor.list_services
+  automation.env_extractor.list_services_exit:
+    id: automation.env_extractor.list_services_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor.list_services
+  automation.env_extractor.list_services_return_185:
+    id: automation.env_extractor.list_services_return_185
+    type: RETURN
+    label: return
+    function: automation.env_extractor.list_services
+    line: 185
+  automation.env_extractor.extract_and_save_entry:
+    id: automation.env_extractor.extract_and_save_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor.extract_and_save
+  automation.env_extractor.extract_and_save_exit:
+    id: automation.env_extractor.extract_and_save_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor.extract_and_save
+  automation.env_extractor.extract_and_save_if_213:
+    id: automation.env_extractor.extract_and_save_if_213
+    type: IF
+    label: if
+    function: automation.env_extractor.extract_and_save
+    line: 213
+  automation.env_extractor.extract_and_save_return_214:
+    id: automation.env_extractor.extract_and_save_return_214
+    type: RETURN
+    label: return
+    function: automation.env_extractor.extract_and_save
+    line: 214
+  automation.env_extractor.extract_and_save_merge_213:
+    id: automation.env_extractor.extract_and_save_merge_213
+    type: FUNC
+    label: merge
+    function: automation.env_extractor.extract_and_save
+  automation.env_extractor.extract_and_save_return_295:
+    id: automation.env_extractor.extract_and_save_return_295
+    type: RETURN
+    label: return
+    function: automation.env_extractor.extract_and_save
+    line: 295
+  automation.env_extractor._extract_key_from_page_entry:
+    id: automation.env_extractor._extract_key_from_page_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor._extract_key_from_page
+  automation.env_extractor._extract_key_from_page_exit:
+    id: automation.env_extractor._extract_key_from_page_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor._extract_key_from_page
+  automation.env_extractor._extract_key_from_page_loop_308:
+    id: automation.env_extractor._extract_key_from_page_loop_308
+    type: FOR
+    label: for
+    function: automation.env_extractor._extract_key_from_page
+    line: 308
+  automation.env_extractor._extract_key_from_page_if_333:
+    id: automation.env_extractor._extract_key_from_page_if_333
+    type: IF
+    label: if
+    function: automation.env_extractor._extract_key_from_page
+    line: 333
+  automation.env_extractor._extract_key_from_page_merge_333:
+    id: automation.env_extractor._extract_key_from_page_merge_333
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._extract_key_from_page
+  automation.env_extractor._extract_key_from_page_return_343:
+    id: automation.env_extractor._extract_key_from_page_return_343
+    type: RETURN
+    label: return
+    function: automation.env_extractor._extract_key_from_page
+    line: 343
+  automation.env_extractor._llm_ocr_extract_entry:
+    id: automation.env_extractor._llm_ocr_extract_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor._llm_ocr_extract
+  automation.env_extractor._llm_ocr_extract_exit:
+    id: automation.env_extractor._llm_ocr_extract_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor._llm_ocr_extract
+  automation.env_extractor._llm_ocr_extract_if_349:
+    id: automation.env_extractor._llm_ocr_extract_if_349
+    type: IF
+    label: if
+    function: automation.env_extractor._llm_ocr_extract
+    line: 349
+  automation.env_extractor._llm_ocr_extract_return_350:
+    id: automation.env_extractor._llm_ocr_extract_return_350
+    type: RETURN
+    label: return
+    function: automation.env_extractor._llm_ocr_extract
+    line: 350
+  automation.env_extractor._llm_ocr_extract_merge_349:
+    id: automation.env_extractor._llm_ocr_extract_merge_349
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._llm_ocr_extract
+  automation.env_extractor._llm_ocr_extract_return_393:
+    id: automation.env_extractor._llm_ocr_extract_return_393
+    type: RETURN
+    label: return
+    function: automation.env_extractor._llm_ocr_extract
+    line: 393
+  automation.env_extractor._mask_key_entry:
+    id: automation.env_extractor._mask_key_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor._mask_key
+  automation.env_extractor._mask_key_exit:
+    id: automation.env_extractor._mask_key_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor._mask_key
+  automation.env_extractor._mask_key_if_398:
+    id: automation.env_extractor._mask_key_if_398
+    type: IF
+    label: if
+    function: automation.env_extractor._mask_key
+    line: 398
+  automation.env_extractor._mask_key_return_399:
+    id: automation.env_extractor._mask_key_return_399
+    type: RETURN
+    label: return
+    function: automation.env_extractor._mask_key
+    line: 399
+  automation.env_extractor._mask_key_merge_398:
+    id: automation.env_extractor._mask_key_merge_398
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._mask_key
+  automation.env_extractor._mask_key_return_400:
+    id: automation.env_extractor._mask_key_return_400
+    type: RETURN
+    label: return
+    function: automation.env_extractor._mask_key
+    line: 400
+  automation.env_extractor._save_to_env_entry:
+    id: automation.env_extractor._save_to_env_entry
+    type: ENTRY
+    label: entry
+    function: automation.env_extractor._save_to_env
+  automation.env_extractor._save_to_env_exit:
+    id: automation.env_extractor._save_to_env_exit
+    type: EXIT
+    label: exit
+    function: automation.env_extractor._save_to_env
+  automation.env_extractor._save_to_env_if_418:
+    id: automation.env_extractor._save_to_env_if_418
+    type: IF
+    label: if
+    function: automation.env_extractor._save_to_env
+    line: 418
+  automation.env_extractor._save_to_env_loop_420:
+    id: automation.env_extractor._save_to_env_loop_420
+    type: FOR
+    label: for
+    function: automation.env_extractor._save_to_env
+    line: 420
+  automation.env_extractor._save_to_env_if_421:
+    id: automation.env_extractor._save_to_env_if_421
+    type: IF
+    label: if
+    function: automation.env_extractor._save_to_env
+    line: 421
+  automation.env_extractor._save_to_env_merge_421:
+    id: automation.env_extractor._save_to_env_merge_421
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._save_to_env
+  automation.env_extractor._save_to_env_merge_418:
+    id: automation.env_extractor._save_to_env_merge_418
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._save_to_env
+  automation.env_extractor._save_to_env_if_426:
+    id: automation.env_extractor._save_to_env_if_426
+    type: IF
+    label: if
+    function: automation.env_extractor._save_to_env
+    line: 426
+  automation.env_extractor._save_to_env_if_427:
+    id: automation.env_extractor._save_to_env_if_427
+    type: IF
+    label: if
+    function: automation.env_extractor._save_to_env
+    line: 427
+  automation.env_extractor._save_to_env_merge_427:
+    id: automation.env_extractor._save_to_env_merge_427
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._save_to_env
+  automation.env_extractor._save_to_env_merge_426:
+    id: automation.env_extractor._save_to_env_merge_426
+    type: FUNC
+    label: merge
+    function: automation.env_extractor._save_to_env

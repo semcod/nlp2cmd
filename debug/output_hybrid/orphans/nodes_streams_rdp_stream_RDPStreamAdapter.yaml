@@ -1,0 +1,64 @@
+module: streams.rdp_stream.RDPStreamAdapter
+type: orphan_nodes
+count: 11
+nodes:
+  streams.rdp_stream.RDPStreamAdapter.connect_entry:
+    id: streams.rdp_stream.RDPStreamAdapter.connect_entry
+    type: ENTRY
+    label: entry
+    function: streams.rdp_stream.RDPStreamAdapter.connect
+  streams.rdp_stream.RDPStreamAdapter.connect_exit:
+    id: streams.rdp_stream.RDPStreamAdapter.connect_exit
+    type: EXIT
+    label: exit
+    function: streams.rdp_stream.RDPStreamAdapter.connect
+  streams.rdp_stream.RDPStreamAdapter.connect_if_26:
+    id: streams.rdp_stream.RDPStreamAdapter.connect_if_26
+    type: IF
+    label: if
+    function: streams.rdp_stream.RDPStreamAdapter.connect
+    line: 26
+  streams.rdp_stream.RDPStreamAdapter.connect_return_27:
+    id: streams.rdp_stream.RDPStreamAdapter.connect_return_27
+    type: RETURN
+    label: return
+    function: streams.rdp_stream.RDPStreamAdapter.connect
+    line: 27
+  streams.rdp_stream.RDPStreamAdapter.connect_merge_26:
+    id: streams.rdp_stream.RDPStreamAdapter.connect_merge_26
+    type: FUNC
+    label: merge
+    function: streams.rdp_stream.RDPStreamAdapter.connect
+  streams.rdp_stream.RDPStreamAdapter.connect_return_30:
+    id: streams.rdp_stream.RDPStreamAdapter.connect_return_30
+    type: RETURN
+    label: return
+    function: streams.rdp_stream.RDPStreamAdapter.connect
+    line: 30
+  streams.rdp_stream.RDPStreamAdapter.execute_entry:
+    id: streams.rdp_stream.RDPStreamAdapter.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.rdp_stream.RDPStreamAdapter.execute
+  streams.rdp_stream.RDPStreamAdapter.execute_exit:
+    id: streams.rdp_stream.RDPStreamAdapter.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.rdp_stream.RDPStreamAdapter.execute
+  streams.rdp_stream.RDPStreamAdapter.execute_if_42:
+    id: streams.rdp_stream.RDPStreamAdapter.execute_if_42
+    type: IF
+    label: if
+    function: streams.rdp_stream.RDPStreamAdapter.execute
+    line: 42
+  streams.rdp_stream.RDPStreamAdapter.execute_merge_42:
+    id: streams.rdp_stream.RDPStreamAdapter.execute_merge_42
+    type: FUNC
+    label: merge
+    function: streams.rdp_stream.RDPStreamAdapter.execute
+  streams.rdp_stream.RDPStreamAdapter.execute_return_45:
+    id: streams.rdp_stream.RDPStreamAdapter.execute_return_45
+    type: RETURN
+    label: return
+    function: streams.rdp_stream.RDPStreamAdapter.execute
+    line: 45

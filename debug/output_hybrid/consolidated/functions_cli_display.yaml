@@ -1,0 +1,128 @@
+module: cli.display
+type: functions
+count: 12
+functions:
+  cli.display.display_command_result:
+    name: display_command_result
+    qualified_name: cli.display.display_command_result
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 21
+    module: cli.display
+    cfg_entry: cli.display.display_command_result_entry
+    calls:
+    - command.strip
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - cli.helpers.get_cached_syntax
+    - console.print
+    - dict
+    - meta.setdefault
+    - yaml.safe_dump
+    - yaml_text.rstrip
+    called_by:
+    - cli.commands.interactive.InteractiveSession.display_feedback
+    - cli.commands.interactive.display_feedback
+    - cli.commands.generate.handle_generate_query
+  cli.display.display_table:
+    name: display_table
+    qualified_name: cli.display.display_table
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 65
+    module: cli.display
+    cfg_entry: cli.display.display_table_entry
+    calls:
+    - Table
+    - console.print
+    - table.add_column
+    - table.add_row
+  cli.display.display_panel:
+    name: display_panel
+    qualified_name: cli.display.display_panel
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 84
+    module: cli.display
+    cfg_entry: cli.display.display_panel_entry
+    calls:
+    - console.print
+    - Panel
+  cli.display.display_info:
+    name: display_info
+    qualified_name: cli.display.display_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 101
+    module: cli.display
+    cfg_entry: cli.display.display_info_entry
+    calls:
+    - console.print
+  cli.display.display_success:
+    name: display_success
+    qualified_name: cli.display.display_success
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 109
+    module: cli.display
+    cfg_entry: cli.display.display_success_entry
+    calls:
+    - console.print
+  cli.display.display_error:
+    name: display_error
+    qualified_name: cli.display.display_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 114
+    module: cli.display
+    cfg_entry: cli.display.display_error_entry
+    calls:
+    - console.print
+  cli.display.display_warning:
+    name: display_warning
+    qualified_name: cli.display.display_warning
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 119
+    module: cli.display
+    cfg_entry: cli.display.display_warning_entry
+    calls:
+    - console.print
+  cli.display.display_debug:
+    name: display_debug
+    qualified_name: cli.display.display_debug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 124
+    module: cli.display
+    cfg_entry: cli.display.display_debug_entry
+    calls:
+    - console.print
+  cli.display.display_progress:
+    name: display_progress
+    qualified_name: cli.display.display_progress
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 129
+    module: cli.display
+    cfg_entry: cli.display.display_progress_entry
+    calls:
+    - console.print
+  cli.display.display_section:
+    name: display_section
+    qualified_name: cli.display.display_section
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 140
+    module: cli.display
+    cfg_entry: cli.display.display_section_entry
+    calls:
+    - console.print
+  cli.display.display_list:
+    name: display_list
+    qualified_name: cli.display.display_list
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 147
+    module: cli.display
+    cfg_entry: cli.display.display_list_entry
+    calls:
+    - console.print
+  cli.display.display_kv_pairs:
+    name: display_kv_pairs
+    qualified_name: cli.display.display_kv_pairs
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/display.py
+    line: 160
+    module: cli.display
+    cfg_entry: cli.display.display_kv_pairs_entry
+    calls:
+    - data.items
+    - console.print

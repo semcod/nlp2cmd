@@ -1,0 +1,74 @@
+module: core.core_models.BaseModel
+type: functions
+count: 5
+functions:
+  core.core_models.BaseModel.__init__:
+    name: __init__
+    qualified_name: core.core_models.BaseModel.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 39
+    module: core.core_models
+    class: BaseModel
+    is_method: true
+    cfg_entry: core.core_models.BaseModel.__init___entry
+    calls:
+    - getattr
+    - annotations.keys
+    - setattr
+    - isinstance
+    - TypeError
+    - default_value.default_factory
+  core.core_models.BaseModel.__eq__:
+    name: __eq__
+    qualified_name: core.core_models.BaseModel.__eq__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 59
+    module: core.core_models
+    class: BaseModel
+    is_method: true
+    cfg_entry: core.core_models.BaseModel.__eq___entry
+    calls:
+    - isinstance
+    - self.model_dump
+    - other.model_dump
+  core.core_models.BaseModel.__repr__:
+    name: __repr__
+    qualified_name: core.core_models.BaseModel.__repr__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 64
+    module: core.core_models
+    class: BaseModel
+    is_method: true
+    cfg_entry: core.core_models.BaseModel.__repr___entry
+    calls:
+    - self.model_dump
+    - None.join
+    - data.keys
+  core.core_models.BaseModel.model_dump:
+    name: model_dump
+    qualified_name: core.core_models.BaseModel.model_dump
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 72
+    module: core.core_models
+    class: BaseModel
+    is_method: true
+    cfg_entry: core.core_models.BaseModel.model_dump_entry
+    calls:
+    - getattr
+    - annotations.keys
+    - isinstance
+    - value.model_dump
+  core.core_models.BaseModel.model_copy:
+    name: model_copy
+    qualified_name: core.core_models.BaseModel.model_copy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 83
+    module: core.core_models
+    class: BaseModel
+    is_method: true
+    cfg_entry: core.core_models.BaseModel.model_copy_entry
+    calls:
+    - self.model_dump
+    - self.__class__
+    - data.update
+    - copy.deepcopy

@@ -1,0 +1,230 @@
+module: cli.display
+type: orphan_nodes
+count: 43
+nodes:
+  cli.display.display_command_result_entry:
+    id: cli.display.display_command_result_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_command_result
+  cli.display.display_command_result_exit:
+    id: cli.display.display_command_result_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_command_result
+  cli.display.display_command_result_if_39:
+    id: cli.display.display_command_result_if_39
+    type: IF
+    label: if
+    function: cli.display.display_command_result
+    line: 39
+  cli.display.display_command_result_merge_39:
+    id: cli.display.display_command_result_merge_39
+    type: FUNC
+    label: merge
+    function: cli.display.display_command_result
+  cli.display.display_command_result_if_48:
+    id: cli.display.display_command_result_if_48
+    type: IF
+    label: if
+    function: cli.display.display_command_result
+    line: 48
+  cli.display.display_command_result_if_61:
+    id: cli.display.display_command_result_if_61
+    type: IF
+    label: if
+    function: cli.display.display_command_result
+    line: 61
+  cli.display.display_command_result_merge_61:
+    id: cli.display.display_command_result_merge_61
+    type: FUNC
+    label: merge
+    function: cli.display.display_command_result
+  cli.display.display_command_result_merge_48:
+    id: cli.display.display_command_result_merge_48
+    type: FUNC
+    label: merge
+    function: cli.display.display_command_result
+  cli.display.display_table_entry:
+    id: cli.display.display_table_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_table
+  cli.display.display_table_exit:
+    id: cli.display.display_table_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_table
+  cli.display.display_table_if_75:
+    id: cli.display.display_table_if_75
+    type: IF
+    label: if
+    function: cli.display.display_table
+    line: 75
+  cli.display.display_table_merge_75:
+    id: cli.display.display_table_merge_75
+    type: FUNC
+    label: merge
+    function: cli.display.display_table
+  cli.display.display_table_loop_78:
+    id: cli.display.display_table_loop_78
+    type: FOR
+    label: for
+    function: cli.display.display_table
+    line: 78
+  cli.display.display_panel_entry:
+    id: cli.display.display_panel_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_panel
+  cli.display.display_panel_exit:
+    id: cli.display.display_panel_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_panel
+  cli.display.display_info_entry:
+    id: cli.display.display_info_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_info
+  cli.display.display_info_exit:
+    id: cli.display.display_info_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_info
+  cli.display.display_success_entry:
+    id: cli.display.display_success_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_success
+  cli.display.display_success_exit:
+    id: cli.display.display_success_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_success
+  cli.display.display_error_entry:
+    id: cli.display.display_error_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_error
+  cli.display.display_error_exit:
+    id: cli.display.display_error_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_error
+  cli.display.display_warning_entry:
+    id: cli.display.display_warning_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_warning
+  cli.display.display_warning_exit:
+    id: cli.display.display_warning_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_warning
+  cli.display.display_debug_entry:
+    id: cli.display.display_debug_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_debug
+  cli.display.display_debug_exit:
+    id: cli.display.display_debug_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_debug
+  cli.display.display_progress_entry:
+    id: cli.display.display_progress_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_progress
+  cli.display.display_progress_exit:
+    id: cli.display.display_progress_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_progress
+  cli.display.display_progress_if_134:
+    id: cli.display.display_progress_if_134
+    type: IF
+    label: if
+    function: cli.display.display_progress
+    line: 134
+  cli.display.display_progress_merge_134:
+    id: cli.display.display_progress_merge_134
+    type: FUNC
+    label: merge
+    function: cli.display.display_progress
+  cli.display.display_section_entry:
+    id: cli.display.display_section_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_section
+  cli.display.display_section_exit:
+    id: cli.display.display_section_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_section
+  cli.display.display_section_if_143:
+    id: cli.display.display_section_if_143
+    type: IF
+    label: if
+    function: cli.display.display_section
+    line: 143
+  cli.display.display_section_merge_143:
+    id: cli.display.display_section_merge_143
+    type: FUNC
+    label: merge
+    function: cli.display.display_section
+  cli.display.display_list_entry:
+    id: cli.display.display_list_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_list
+  cli.display.display_list_exit:
+    id: cli.display.display_list_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_list
+  cli.display.display_list_if_153:
+    id: cli.display.display_list_if_153
+    type: IF
+    label: if
+    function: cli.display.display_list
+    line: 153
+  cli.display.display_list_merge_153:
+    id: cli.display.display_list_merge_153
+    type: FUNC
+    label: merge
+    function: cli.display.display_list
+  cli.display.display_list_loop_156:
+    id: cli.display.display_list_loop_156
+    type: FOR
+    label: for
+    function: cli.display.display_list
+    line: 156
+  cli.display.display_kv_pairs_entry:
+    id: cli.display.display_kv_pairs_entry
+    type: ENTRY
+    label: entry
+    function: cli.display.display_kv_pairs
+  cli.display.display_kv_pairs_exit:
+    id: cli.display.display_kv_pairs_exit
+    type: EXIT
+    label: exit
+    function: cli.display.display_kv_pairs
+  cli.display.display_kv_pairs_if_166:
+    id: cli.display.display_kv_pairs_if_166
+    type: IF
+    label: if
+    function: cli.display.display_kv_pairs
+    line: 166
+  cli.display.display_kv_pairs_merge_166:
+    id: cli.display.display_kv_pairs_merge_166
+    type: FUNC
+    label: merge
+    function: cli.display.display_kv_pairs
+  cli.display.display_kv_pairs_loop_169:
+    id: cli.display.display_kv_pairs_loop_169
+    type: FOR
+    label: for
+    function: cli.display.display_kv_pairs
+    line: 169

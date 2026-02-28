@@ -1,0 +1,183 @@
+module: enhanced
+type: orphan_nodes
+count: 33
+nodes:
+  enhanced.create_enhanced_nlp2cmd_entry:
+    id: enhanced.create_enhanced_nlp2cmd_entry
+    type: ENTRY
+    label: entry
+    function: enhanced.create_enhanced_nlp2cmd
+  enhanced.create_enhanced_nlp2cmd_exit:
+    id: enhanced.create_enhanced_nlp2cmd_exit
+    type: EXIT
+    label: exit
+    function: enhanced.create_enhanced_nlp2cmd
+  enhanced.create_enhanced_nlp2cmd_return_145:
+    id: enhanced.create_enhanced_nlp2cmd_return_145
+    type: RETURN
+    label: return
+    function: enhanced.create_enhanced_nlp2cmd
+    line: 145
+  enhanced.__init___entry:
+    id: enhanced.__init___entry
+    type: ENTRY
+    label: entry
+    function: enhanced.__init__
+  enhanced.__init___exit:
+    id: enhanced.__init___exit
+    type: EXIT
+    label: exit
+    function: enhanced.__init__
+  enhanced.get_available_commands_entry:
+    id: enhanced.get_available_commands_entry
+    type: ENTRY
+    label: entry
+    function: enhanced.get_available_commands
+  enhanced.get_available_commands_exit:
+    id: enhanced.get_available_commands_exit
+    type: EXIT
+    label: exit
+    function: enhanced.get_available_commands
+  enhanced.get_available_commands_if_66:
+    id: enhanced.get_available_commands_if_66
+    type: IF
+    label: if
+    function: enhanced.get_available_commands
+    line: 66
+  enhanced.get_available_commands_return_67:
+    id: enhanced.get_available_commands_return_67
+    type: RETURN
+    label: return
+    function: enhanced.get_available_commands
+    line: 67
+  enhanced.get_available_commands_merge_66:
+    id: enhanced.get_available_commands_merge_66
+    type: FUNC
+    label: merge
+    function: enhanced.get_available_commands
+  enhanced.get_available_commands_return_68:
+    id: enhanced.get_available_commands_return_68
+    type: RETURN
+    label: return
+    function: enhanced.get_available_commands
+    line: 68
+  enhanced.search_commands_entry:
+    id: enhanced.search_commands_entry
+    type: ENTRY
+    label: entry
+    function: enhanced.search_commands
+  enhanced.search_commands_exit:
+    id: enhanced.search_commands_exit
+    type: EXIT
+    label: exit
+    function: enhanced.search_commands
+  enhanced.search_commands_if_75:
+    id: enhanced.search_commands_if_75
+    type: IF
+    label: if
+    function: enhanced.search_commands
+    line: 75
+  enhanced.search_commands_return_76:
+    id: enhanced.search_commands_return_76
+    type: RETURN
+    label: return
+    function: enhanced.search_commands
+    line: 76
+  enhanced.search_commands_merge_75:
+    id: enhanced.search_commands_merge_75
+    type: FUNC
+    label: merge
+    function: enhanced.search_commands
+  enhanced.search_commands_loop_80:
+    id: enhanced.search_commands_loop_80
+    type: FOR
+    label: for
+    function: enhanced.search_commands
+    line: 80
+  enhanced.search_commands_if_81:
+    id: enhanced.search_commands_if_81
+    type: IF
+    label: if
+    function: enhanced.search_commands
+    line: 81
+  enhanced.search_commands_merge_81:
+    id: enhanced.search_commands_merge_81
+    type: FUNC
+    label: merge
+    function: enhanced.search_commands
+  enhanced.search_commands_if_84:
+    id: enhanced.search_commands_if_84
+    type: IF
+    label: if
+    function: enhanced.search_commands
+    line: 84
+  enhanced.search_commands_merge_84:
+    id: enhanced.search_commands_merge_84
+    type: FUNC
+    label: merge
+    function: enhanced.search_commands
+  enhanced.search_commands_return_86:
+    id: enhanced.search_commands_return_86
+    type: RETURN
+    label: return
+    function: enhanced.search_commands
+    line: 86
+  enhanced.transform_with_explanation_entry:
+    id: enhanced.transform_with_explanation_entry
+    type: ENTRY
+    label: entry
+    function: enhanced.transform_with_explanation
+  enhanced.transform_with_explanation_exit:
+    id: enhanced.transform_with_explanation_exit
+    type: EXIT
+    label: exit
+    function: enhanced.transform_with_explanation
+  enhanced.transform_with_explanation_if_104:
+    id: enhanced.transform_with_explanation_if_104
+    type: IF
+    label: if
+    function: enhanced.transform_with_explanation
+    line: 104
+  enhanced.transform_with_explanation_merge_104:
+    id: enhanced.transform_with_explanation_merge_104
+    type: FUNC
+    label: merge
+    function: enhanced.transform_with_explanation
+  enhanced.transform_with_explanation_return_109:
+    id: enhanced.transform_with_explanation_return_109
+    type: RETURN
+    label: return
+    function: enhanced.transform_with_explanation
+    line: 109
+  enhanced.transform_ir_entry:
+    id: enhanced.transform_ir_entry
+    type: ENTRY
+    label: entry
+    function: enhanced.transform_ir
+  enhanced.transform_ir_exit:
+    id: enhanced.transform_ir_exit
+    type: EXIT
+    label: exit
+    function: enhanced.transform_ir
+  enhanced.transform_ir_return_120:
+    id: enhanced.transform_ir_return_120
+    type: RETURN
+    label: return
+    function: enhanced.transform_ir
+    line: 120
+  enhanced.analyze_query_entry:
+    id: enhanced.analyze_query_entry
+    type: ENTRY
+    label: entry
+    function: enhanced.analyze_query
+  enhanced.analyze_query_exit:
+    id: enhanced.analyze_query_exit
+    type: EXIT
+    label: exit
+    function: enhanced.analyze_query
+  enhanced.analyze_query_return_125:
+    id: enhanced.analyze_query_return_125
+    type: RETURN
+    label: return
+    function: enhanced.analyze_query
+    line: 125

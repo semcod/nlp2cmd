@@ -1,0 +1,31 @@
+module: src.nlp2cmd.validation.framework.SafetyPolicyValidator
+type: functions
+count: 2
+functions:
+  src.nlp2cmd.validation.framework.SafetyPolicyValidator.__init__:
+    name: __init__
+    qualified_name: src.nlp2cmd.validation.framework.SafetyPolicyValidator.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/validation/framework.py
+    line: 58
+    module: src.nlp2cmd.validation.framework
+    class: SafetyPolicyValidator
+    is_method: true
+    cfg_entry: src.nlp2cmd.validation.framework.SafetyPolicyValidator.__init___entry
+    calls:
+    - None.__init__
+    - super
+  src.nlp2cmd.validation.framework.SafetyPolicyValidator.validate:
+    name: validate
+    qualified_name: src.nlp2cmd.validation.framework.SafetyPolicyValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/validation/framework.py
+    line: 65
+    module: src.nlp2cmd.validation.framework
+    class: SafetyPolicyValidator
+    is_method: true
+    cfg_entry: src.nlp2cmd.validation.framework.SafetyPolicyValidator.validate_entry
+    calls:
+    - self._create_result
+    - command.lower
+    - errors.append
+    - warnings.append
+    - len

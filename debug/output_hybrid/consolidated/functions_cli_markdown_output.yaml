@@ -1,0 +1,114 @@
+module: cli.markdown_output
+type: functions
+count: 8
+functions:
+  cli.markdown_output._render_to_text:
+    name: _render_to_text
+    qualified_name: cli.markdown_output._render_to_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 11
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output._render_to_text_entry
+    calls:
+    - isinstance
+    - io.StringIO
+    - Console
+    - capture_console.print
+    - None.rstrip
+    - renderable.rstrip
+    - capture_console.export_text
+    called_by:
+    - cli.markdown_output.print_markdown_block
+    - cli.markdown_output.MarkdownBlockStream.print
+    - cli.markdown_output.print
+  cli.markdown_output._infer_markdown_title:
+    name: _infer_markdown_title
+    qualified_name: cli.markdown_output._infer_markdown_title
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 23
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output._infer_markdown_title_entry
+    calls:
+    - isinstance
+    - title.strip
+    - None.strip
+    - language.lower
+    - body.splitlines
+    - line.startswith
+    - t.lstrip
+    - line.split
+    called_by:
+    - cli.markdown_output.print_markdown_block
+    - cli.markdown_output.MarkdownBlockStream._ensure_open
+    - cli.markdown_output._ensure_open
+  cli.markdown_output.print_markdown_block:
+    name: print_markdown_block
+    qualified_name: cli.markdown_output.print_markdown_block
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 44
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output.print_markdown_block_entry
+    calls:
+    - cli.markdown_output._render_to_text
+    - cli.markdown_output._infer_markdown_title
+    - lines.append
+    - console.print
+    - Console
+    - None.join
+    called_by:
+    - cli.markdown_output.print_yaml_block
+    - cli.markdown_output.MarkdownConsoleProxy.print
+    - web_schema.form_handler.FormHandler._print
+    - web_schema.form_handler._print
+  cli.markdown_output.print_yaml_block:
+    name: print_yaml_block
+    qualified_name: cli.markdown_output.print_yaml_block
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 65
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output.print_yaml_block_entry
+    calls:
+    - None.rstrip
+    - cli.markdown_output.print_markdown_block
+    - yaml.safe_dump
+  cli.markdown_output.__init__:
+    name: __init__
+    qualified_name: cli.markdown_output.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 93
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output.__init___entry
+    calls:
+    - Console
+    - isinstance
+    - title.rstrip
+  cli.markdown_output.print:
+    name: print
+    qualified_name: cli.markdown_output.print
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 120
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output.print_entry
+    calls:
+    - cli.markdown_output._render_to_text
+    - self._ensure_open
+    - self._console.print
+  cli.markdown_output._ensure_open:
+    name: _ensure_open
+    qualified_name: cli.markdown_output._ensure_open
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 111
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output._ensure_open_entry
+    calls:
+    - cli.markdown_output._infer_markdown_title
+    - self._console.print
+  cli.markdown_output.close:
+    name: close
+    qualified_name: cli.markdown_output.close
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/markdown_output.py
+    line: 128
+    module: cli.markdown_output
+    cfg_entry: cli.markdown_output.close_entry
+    calls:
+    - self._console.print

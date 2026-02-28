@@ -1,0 +1,16 @@
+module: generation.thermodynamic_components.ThermodynamicResult
+type: functions
+count: 1
+functions:
+  generation.thermodynamic_components.ThermodynamicResult.__init__:
+    name: __init__
+    qualified_name: generation.thermodynamic_components.ThermodynamicResult.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 140
+    module: generation.thermodynamic_components
+    class: ThermodynamicResult
+    is_method: true
+    cfg_entry: generation.thermodynamic_components.ThermodynamicResult.__init___entry
+    calls:
+    - kwargs.get
+    - float

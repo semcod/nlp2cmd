@@ -1,0 +1,25 @@
+module: streams.rdp_stream
+type: functions
+count: 2
+functions:
+  streams.rdp_stream.connect:
+    name: connect
+    qualified_name: streams.rdp_stream.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rdp_stream.py
+    line: 19
+    module: streams.rdp_stream
+    cfg_entry: streams.rdp_stream.connect_entry
+    calls:
+    - StreamResult
+    - subprocess.run
+  streams.rdp_stream.execute:
+    name: execute
+    qualified_name: streams.rdp_stream.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/rdp_stream.py
+    line: 32
+    module: streams.rdp_stream
+    cfg_entry: streams.rdp_stream.execute_entry
+    calls:
+    - StreamResult
+    - cmd.append
+    - None.join

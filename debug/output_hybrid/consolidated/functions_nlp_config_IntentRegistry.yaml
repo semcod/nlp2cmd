@@ -1,0 +1,89 @@
+module: nlp.config.IntentRegistry
+type: functions
+count: 6
+functions:
+  nlp.config.IntentRegistry.__init__:
+    name: __init__
+    qualified_name: nlp.config.IntentRegistry.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 146
+    module: nlp.config
+    class: IntentRegistry
+    is_method: true
+    cfg_entry: nlp.config.IntentRegistry.__init___entry
+    calls:
+    - self.load
+  nlp.config.IntentRegistry.load:
+    name: load
+    qualified_name: nlp.config.IntentRegistry.load
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 151
+    module: nlp.config
+    class: IntentRegistry
+    is_method: true
+    cfg_entry: nlp.config.IntentRegistry.load_entry
+    calls:
+    - data.items
+    - generation.thermodynamic_components._NumpyStub.sum
+    - log.debug
+    - path.exists
+    - log.warning
+    - intents.items
+    - len
+    - open
+    - log.error
+    - isinstance
+    - IntentConfig
+    - yaml.safe_load
+    - self._intents.values
+    - cfg.get
+  nlp.config.IntentRegistry.get:
+    name: get
+    qualified_name: nlp.config.IntentRegistry.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 182
+    module: nlp.config
+    class: IntentRegistry
+    is_method: true
+    cfg_entry: nlp.config.IntentRegistry.get_entry
+    calls:
+    - None.get
+    - self._intents.get
+  nlp.config.IntentRegistry.get_domain:
+    name: get_domain
+    qualified_name: nlp.config.IntentRegistry.get_domain
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 186
+    module: nlp.config
+    class: IntentRegistry
+    is_method: true
+    cfg_entry: nlp.config.IntentRegistry.get_domain_entry
+    calls:
+    - dict
+    - self._intents.get
+  nlp.config.IntentRegistry.list_domains:
+    name: list_domains
+    qualified_name: nlp.config.IntentRegistry.list_domains
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 190
+    module: nlp.config
+    class: IntentRegistry
+    is_method: true
+    cfg_entry: nlp.config.IntentRegistry.list_domains_entry
+    calls:
+    - sorted
+    - self._intents.keys
+  nlp.config.IntentRegistry.all_examples_for_training:
+    name: all_examples_for_training
+    qualified_name: nlp.config.IntentRegistry.all_examples_for_training
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 194
+    module: nlp.config
+    class: IntentRegistry
+    is_method: true
+    cfg_entry: nlp.config.IntentRegistry.all_examples_for_training_entry
+    calls:
+    - self._intents.items
+    - intents.items
+    - cfg.all_examples
+    - result.append

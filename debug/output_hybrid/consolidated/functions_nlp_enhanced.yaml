@@ -1,0 +1,126 @@
+module: nlp_enhanced
+type: functions
+count: 10
+functions:
+  nlp_enhanced.__init__:
+    name: __init__
+    qualified_name: nlp_enhanced.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 408
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced.__init___entry
+    calls:
+    - None.__init__
+    - ShellGPTBackend
+    - RuleBasedBackend
+    - DynamicSchemaRegistry
+    - self.config.get
+    - super
+    - LLMBackend
+  nlp_enhanced._find_shell_gpt:
+    name: _find_shell_gpt
+    qualified_name: nlp_enhanced._find_shell_gpt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 45
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced._find_shell_gpt_entry
+    calls:
+    - subprocess.run
+    - result.stdout.strip
+  nlp_enhanced.extract_entities:
+    name: extract_entities
+    qualified_name: nlp_enhanced.extract_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 437
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced.extract_entities_entry
+    calls:
+    - self.shell_gpt.extract_entities
+    - self.rule_backend.extract_entities
+    - self.llm_backend.extract_entities
+  nlp_enhanced.extract_intent:
+    name: extract_intent
+    qualified_name: nlp_enhanced.extract_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 456
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced.extract_intent_entry
+    calls:
+    - self.shell_gpt.extract_intent
+    - self.rule_backend.extract_intent
+    - self.llm_backend.extract_intent
+  nlp_enhanced.generate_plan:
+    name: generate_plan
+    qualified_name: nlp_enhanced.generate_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 475
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced.generate_plan_entry
+    calls:
+    - self.shell_gpt.generate_plan
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - self.rule_backend.extract_intent
+    - self.rule_backend.extract_entities
+    - ExecutionPlan
+    - self.llm_backend.generate_plan
+  nlp_enhanced._build_shell_gpt_context:
+    name: _build_shell_gpt_context
+    qualified_name: nlp_enhanced._build_shell_gpt_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 254
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced._build_shell_gpt_context_entry
+    calls:
+    - None.join
+    - context_lines.append
+    - param_descs.append
+  nlp_enhanced._infer_entity_type:
+    name: _infer_entity_type
+    qualified_name: nlp_enhanced._infer_entity_type
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 280
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced._infer_entity_type_entry
+    calls:
+    - isinstance
+    - value.startswith
+    - value.endswith
+    - re.match
+  nlp_enhanced._fallback_entity_extraction:
+    name: _fallback_entity_extraction
+    qualified_name: nlp_enhanced._fallback_entity_extraction
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 307
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced._fallback_entity_extraction_entry
+    calls:
+    - re.finditer
+    - entities.append
+    - Entity
+    - match.group
+    - match.start
+    - match.end
+    - int
+  nlp_enhanced._fallback_intent_extraction:
+    name: _fallback_intent_extraction
+    qualified_name: nlp_enhanced._fallback_intent_extraction
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 361
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced._fallback_intent_extraction_entry
+    calls:
+    - self.registry.search_commands
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - generation.thermodynamic_components._NumpyStub.max
+    - len
+  nlp_enhanced._fallback_plan_generation:
+    name: _fallback_plan_generation
+    qualified_name: nlp_enhanced._fallback_plan_generation
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 378
+    module: nlp_enhanced
+    cfg_entry: nlp_enhanced._fallback_plan_generation_entry
+    calls:
+    - self.extract_intent
+    - self.extract_entities
+    - ExecutionPlan

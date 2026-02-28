@@ -1,0 +1,81 @@
+module: automation.shape_planner.ShapePlanner
+type: functions
+count: 5
+functions:
+  automation.shape_planner.ShapePlanner.__init__:
+    name: __init__
+    qualified_name: automation.shape_planner.ShapePlanner.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/shape_planner.py
+    line: 15
+    module: automation.shape_planner
+    class: ShapePlanner
+    is_method: true
+    cfg_entry: automation.shape_planner.ShapePlanner.__init___entry
+    calls:
+    - self.db_path.parent.mkdir
+    - self._load_db
+    - Path.home
+  automation.shape_planner.ShapePlanner._load_db:
+    name: _load_db
+    qualified_name: automation.shape_planner.ShapePlanner._load_db
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/shape_planner.py
+    line: 22
+    module: automation.shape_planner
+    class: ShapePlanner
+    is_method: true
+    cfg_entry: automation.shape_planner.ShapePlanner._load_db_entry
+    calls:
+    - self.db_path.exists
+    - open
+    - json.load
+    - log.warning
+  automation.shape_planner.ShapePlanner._save_db:
+    name: _save_db
+    qualified_name: automation.shape_planner.ShapePlanner._save_db
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/shape_planner.py
+    line: 31
+    module: automation.shape_planner
+    class: ShapePlanner
+    is_method: true
+    cfg_entry: automation.shape_planner.ShapePlanner._save_db_entry
+    calls:
+    - open
+    - json.dump
+    - log.warning
+  automation.shape_planner.ShapePlanner.get_or_generate_shape_steps:
+    name: get_or_generate_shape_steps
+    qualified_name: automation.shape_planner.ShapePlanner.get_or_generate_shape_steps
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/shape_planner.py
+    line: 38
+    module: automation.shape_planner
+    class: ShapePlanner
+    is_method: true
+    cfg_entry: automation.shape_planner.ShapePlanner.get_or_generate_shape_steps_entry
+    calls:
+    - None.strip
+    - log.info
+    - self._query_llm_for_shape
+    - self._save_db
+    - shape_name.lower
+    - ActionStep
+  automation.shape_planner.ShapePlanner._query_llm_for_shape:
+    name: _query_llm_for_shape
+    qualified_name: automation.shape_planner.ShapePlanner._query_llm_for_shape
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/shape_planner.py
+    line: 59
+    module: automation.shape_planner
+    class: ShapePlanner
+    is_method: true
+    cfg_entry: automation.shape_planner.ShapePlanner._query_llm_for_shape_entry
+    calls:
+    - requests.post
+    - None.get
+    - re.sub
+    - raw.find
+    - raw.rfind
+    - json.loads
+    - log.warning
+    - raw.strip
+    - isinstance
+    - resp.json
+    - len

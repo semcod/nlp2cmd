@@ -1,0 +1,41 @@
+module: exploration.base.ExplorerRegistry
+type: functions
+count: 3
+functions:
+  exploration.base.ExplorerRegistry.get:
+    name: get
+    qualified_name: exploration.base.ExplorerRegistry.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 152
+    module: exploration.base
+    class: ExplorerRegistry
+    is_method: true
+    cfg_entry: exploration.base.ExplorerRegistry.get_entry
+    calls:
+    - cls._explorers.get
+  exploration.base.ExplorerRegistry.list_supported:
+    name: list_supported
+    qualified_name: exploration.base.ExplorerRegistry.list_supported
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 157
+    module: exploration.base
+    class: ExplorerRegistry
+    is_method: true
+    cfg_entry: exploration.base.ExplorerRegistry.list_supported_entry
+    calls:
+    - list
+    - cls._explorers.keys
+  exploration.base.ExplorerRegistry.auto_detect:
+    name: auto_detect
+    qualified_name: exploration.base.ExplorerRegistry.auto_detect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 162
+    module: exploration.base
+    class: ExplorerRegistry
+    is_method: true
+    cfg_entry: exploration.base.ExplorerRegistry.auto_detect_entry
+    calls:
+    - str
+    - root_str.startswith
+    - any
+    - isinstance

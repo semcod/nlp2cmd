@@ -1,0 +1,69 @@
+module: execution.executor_registry.ExecutorRegistry
+type: orphan_nodes
+count: 12
+nodes:
+  execution.executor_registry.ExecutorRegistry.register_entry:
+    id: execution.executor_registry.ExecutorRegistry.register_entry
+    type: ENTRY
+    label: entry
+    function: execution.executor_registry.ExecutorRegistry.register
+  execution.executor_registry.ExecutorRegistry.register_exit:
+    id: execution.executor_registry.ExecutorRegistry.register_exit
+    type: EXIT
+    label: exit
+    function: execution.executor_registry.ExecutorRegistry.register
+  execution.executor_registry.ExecutorRegistry.register_loop_36:
+    id: execution.executor_registry.ExecutorRegistry.register_loop_36
+    type: FOR
+    label: for
+    function: execution.executor_registry.ExecutorRegistry.register
+    line: 36
+  execution.executor_registry.ExecutorRegistry.get_entry:
+    id: execution.executor_registry.ExecutorRegistry.get_entry
+    type: ENTRY
+    label: entry
+    function: execution.executor_registry.ExecutorRegistry.get
+  execution.executor_registry.ExecutorRegistry.get_exit:
+    id: execution.executor_registry.ExecutorRegistry.get_exit
+    type: EXIT
+    label: exit
+    function: execution.executor_registry.ExecutorRegistry.get
+  execution.executor_registry.ExecutorRegistry.get_return_43:
+    id: execution.executor_registry.ExecutorRegistry.get_return_43
+    type: RETURN
+    label: return
+    function: execution.executor_registry.ExecutorRegistry.get
+    line: 43
+  execution.executor_registry.ExecutorRegistry.dispatch_entry:
+    id: execution.executor_registry.ExecutorRegistry.dispatch_entry
+    type: ENTRY
+    label: entry
+    function: execution.executor_registry.ExecutorRegistry.dispatch
+  execution.executor_registry.ExecutorRegistry.dispatch_exit:
+    id: execution.executor_registry.ExecutorRegistry.dispatch_exit
+    type: EXIT
+    label: exit
+    function: execution.executor_registry.ExecutorRegistry.dispatch
+  execution.executor_registry.ExecutorRegistry.dispatch_if_56:
+    id: execution.executor_registry.ExecutorRegistry.dispatch_if_56
+    type: IF
+    label: if
+    function: execution.executor_registry.ExecutorRegistry.dispatch
+    line: 56
+  execution.executor_registry.ExecutorRegistry.dispatch_return_57:
+    id: execution.executor_registry.ExecutorRegistry.dispatch_return_57
+    type: RETURN
+    label: return
+    function: execution.executor_registry.ExecutorRegistry.dispatch
+    line: 57
+  execution.executor_registry.ExecutorRegistry.dispatch_merge_56:
+    id: execution.executor_registry.ExecutorRegistry.dispatch_merge_56
+    type: FUNC
+    label: merge
+    function: execution.executor_registry.ExecutorRegistry.dispatch
+  execution.executor_registry.ExecutorRegistry.dispatch_return_62:
+    id: execution.executor_registry.ExecutorRegistry.dispatch_return_62
+    type: RETURN
+    label: return
+    function: execution.executor_registry.ExecutorRegistry.dispatch
+    line: 62

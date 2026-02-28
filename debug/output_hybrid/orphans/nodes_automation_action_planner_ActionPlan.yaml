@@ -1,0 +1,42 @@
+module: automation.action_planner.ActionPlan
+type: orphan_nodes
+count: 7
+nodes:
+  automation.action_planner.ActionPlan.to_cache_dict_entry:
+    id: automation.action_planner.ActionPlan.to_cache_dict_entry
+    type: ENTRY
+    label: entry
+    function: automation.action_planner.ActionPlan.to_cache_dict
+  automation.action_planner.ActionPlan.to_cache_dict_exit:
+    id: automation.action_planner.ActionPlan.to_cache_dict_exit
+    type: EXIT
+    label: exit
+    function: automation.action_planner.ActionPlan.to_cache_dict
+  automation.action_planner.ActionPlan.to_cache_dict_return_76:
+    id: automation.action_planner.ActionPlan.to_cache_dict_return_76
+    type: RETURN
+    label: return
+    function: automation.action_planner.ActionPlan.to_cache_dict
+    line: 76
+  automation.action_planner.ActionPlan.from_cache_dict_entry:
+    id: automation.action_planner.ActionPlan.from_cache_dict_entry
+    type: ENTRY
+    label: entry
+    function: automation.action_planner.ActionPlan.from_cache_dict
+  automation.action_planner.ActionPlan.from_cache_dict_exit:
+    id: automation.action_planner.ActionPlan.from_cache_dict_exit
+    type: EXIT
+    label: exit
+    function: automation.action_planner.ActionPlan.from_cache_dict
+  automation.action_planner.ActionPlan.from_cache_dict_loop_87:
+    id: automation.action_planner.ActionPlan.from_cache_dict_loop_87
+    type: FOR
+    label: for
+    function: automation.action_planner.ActionPlan.from_cache_dict
+    line: 87
+  automation.action_planner.ActionPlan.from_cache_dict_return_94:
+    id: automation.action_planner.ActionPlan.from_cache_dict_return_94
+    type: RETURN
+    label: return
+    function: automation.action_planner.ActionPlan.from_cache_dict
+    line: 94

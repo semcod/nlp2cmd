@@ -1,0 +1,735 @@
+module: generation.enhanced_context
+type: orphan_nodes
+count: 133
+nodes:
+  generation.enhanced_context.get_enhanced_detector_entry:
+    id: generation.enhanced_context.get_enhanced_detector_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context.get_enhanced_detector
+  generation.enhanced_context.get_enhanced_detector_exit:
+    id: generation.enhanced_context.get_enhanced_detector_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context.get_enhanced_detector
+  generation.enhanced_context.get_enhanced_detector_if_568:
+    id: generation.enhanced_context.get_enhanced_detector_if_568
+    type: IF
+    label: if
+    function: generation.enhanced_context.get_enhanced_detector
+    line: 568
+  generation.enhanced_context.get_enhanced_detector_merge_568:
+    id: generation.enhanced_context.get_enhanced_detector_merge_568
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context.get_enhanced_detector
+  generation.enhanced_context.get_enhanced_detector_return_570:
+    id: generation.enhanced_context.get_enhanced_detector_return_570
+    type: RETURN
+    label: return
+    function: generation.enhanced_context.get_enhanced_detector
+    line: 570
+  generation.enhanced_context.__init___entry:
+    id: generation.enhanced_context.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context.__init__
+  generation.enhanced_context.__init___exit:
+    id: generation.enhanced_context.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context.__init__
+  generation.enhanced_context.__init___if_113:
+    id: generation.enhanced_context.__init___if_113
+    type: IF
+    label: if
+    function: generation.enhanced_context.__init__
+    line: 113
+  generation.enhanced_context.__init___merge_113:
+    id: generation.enhanced_context.__init___merge_113
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context.__init__
+  generation.enhanced_context._initialize_nlp_entry:
+    id: generation.enhanced_context._initialize_nlp_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._initialize_nlp
+  generation.enhanced_context._initialize_nlp_exit:
+    id: generation.enhanced_context._initialize_nlp_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._initialize_nlp
+  generation.enhanced_context._initialize_nlp_if_119:
+    id: generation.enhanced_context._initialize_nlp_if_119
+    type: IF
+    label: if
+    function: generation.enhanced_context._initialize_nlp
+    line: 119
+  generation.enhanced_context._initialize_nlp_merge_119:
+    id: generation.enhanced_context._initialize_nlp_merge_119
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._initialize_nlp
+  generation.enhanced_context._initialize_nlp_if_141:
+    id: generation.enhanced_context._initialize_nlp_if_141
+    type: IF
+    label: if
+    function: generation.enhanced_context._initialize_nlp
+    line: 141
+  generation.enhanced_context._initialize_nlp_merge_141:
+    id: generation.enhanced_context._initialize_nlp_merge_141
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._initialize_nlp
+  generation.enhanced_context._initialize_nlp_if_150:
+    id: generation.enhanced_context._initialize_nlp_if_150
+    type: IF
+    label: if
+    function: generation.enhanced_context._initialize_nlp
+    line: 150
+  generation.enhanced_context._initialize_nlp_merge_150:
+    id: generation.enhanced_context._initialize_nlp_merge_150
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._initialize_nlp
+  generation.enhanced_context._load_schemas_and_templates_entry:
+    id: generation.enhanced_context._load_schemas_and_templates_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._load_schemas_and_templates
+  generation.enhanced_context._load_schemas_and_templates_exit:
+    id: generation.enhanced_context._load_schemas_and_templates_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._load_schemas_and_templates
+  generation.enhanced_context._load_schemas_and_templates_if_163:
+    id: generation.enhanced_context._load_schemas_and_templates_if_163
+    type: IF
+    label: if
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 163
+  generation.enhanced_context._load_schemas_and_templates_loop_164:
+    id: generation.enhanced_context._load_schemas_and_templates_loop_164
+    type: FOR
+    label: for
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 164
+  generation.enhanced_context._load_schemas_and_templates_if_165:
+    id: generation.enhanced_context._load_schemas_and_templates_if_165
+    type: IF
+    label: if
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 165
+  generation.enhanced_context._load_schemas_and_templates_loop_168:
+    id: generation.enhanced_context._load_schemas_and_templates_loop_168
+    type: FOR
+    label: for
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 168
+  generation.enhanced_context._load_schemas_and_templates_merge_165:
+    id: generation.enhanced_context._load_schemas_and_templates_merge_165
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._load_schemas_and_templates
+  generation.enhanced_context._load_schemas_and_templates_merge_163:
+    id: generation.enhanced_context._load_schemas_and_templates_merge_163
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._load_schemas_and_templates
+  generation.enhanced_context._load_schemas_and_templates_if_178:
+    id: generation.enhanced_context._load_schemas_and_templates_if_178
+    type: IF
+    label: if
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 178
+  generation.enhanced_context._load_schemas_and_templates_loop_179:
+    id: generation.enhanced_context._load_schemas_and_templates_loop_179
+    type: FOR
+    label: for
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 179
+  generation.enhanced_context._load_schemas_and_templates_merge_178:
+    id: generation.enhanced_context._load_schemas_and_templates_merge_178
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._load_schemas_and_templates
+  generation.enhanced_context._load_schemas_and_templates_if_194:
+    id: generation.enhanced_context._load_schemas_and_templates_if_194
+    type: IF
+    label: if
+    function: generation.enhanced_context._load_schemas_and_templates
+    line: 194
+  generation.enhanced_context._load_schemas_and_templates_merge_194:
+    id: generation.enhanced_context._load_schemas_and_templates_merge_194
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._load_schemas_and_templates
+  generation.enhanced_context._build_semantic_index_entry:
+    id: generation.enhanced_context._build_semantic_index_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_exit:
+    id: generation.enhanced_context._build_semantic_index_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_if_203:
+    id: generation.enhanced_context._build_semantic_index_if_203
+    type: IF
+    label: if
+    function: generation.enhanced_context._build_semantic_index
+    line: 203
+  generation.enhanced_context._build_semantic_index_return_204:
+    id: generation.enhanced_context._build_semantic_index_return_204
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._build_semantic_index
+    line: 204
+  generation.enhanced_context._build_semantic_index_merge_203:
+    id: generation.enhanced_context._build_semantic_index_merge_203
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_if_210:
+    id: generation.enhanced_context._build_semantic_index_if_210
+    type: IF
+    label: if
+    function: generation.enhanced_context._build_semantic_index
+    line: 210
+  generation.enhanced_context._build_semantic_index_loop_215:
+    id: generation.enhanced_context._build_semantic_index_loop_215
+    type: FOR
+    label: for
+    function: generation.enhanced_context._build_semantic_index
+    line: 215
+  generation.enhanced_context._build_semantic_index_if_216:
+    id: generation.enhanced_context._build_semantic_index_if_216
+    type: IF
+    label: if
+    function: generation.enhanced_context._build_semantic_index
+    line: 216
+  generation.enhanced_context._build_semantic_index_merge_216:
+    id: generation.enhanced_context._build_semantic_index_merge_216
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_if_218:
+    id: generation.enhanced_context._build_semantic_index_if_218
+    type: IF
+    label: if
+    function: generation.enhanced_context._build_semantic_index
+    line: 218
+  generation.enhanced_context._build_semantic_index_loop_219:
+    id: generation.enhanced_context._build_semantic_index_loop_219
+    type: FOR
+    label: for
+    function: generation.enhanced_context._build_semantic_index
+    line: 219
+  generation.enhanced_context._build_semantic_index_merge_218:
+    id: generation.enhanced_context._build_semantic_index_merge_218
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_merge_210:
+    id: generation.enhanced_context._build_semantic_index_merge_210
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_if_228:
+    id: generation.enhanced_context._build_semantic_index_if_228
+    type: IF
+    label: if
+    function: generation.enhanced_context._build_semantic_index
+    line: 228
+  generation.enhanced_context._build_semantic_index_loop_229:
+    id: generation.enhanced_context._build_semantic_index_loop_229
+    type: FOR
+    label: for
+    function: generation.enhanced_context._build_semantic_index
+    line: 229
+  generation.enhanced_context._build_semantic_index_if_230:
+    id: generation.enhanced_context._build_semantic_index_if_230
+    type: IF
+    label: if
+    function: generation.enhanced_context._build_semantic_index
+    line: 230
+  generation.enhanced_context._build_semantic_index_loop_231:
+    id: generation.enhanced_context._build_semantic_index_loop_231
+    type: FOR
+    label: for
+    function: generation.enhanced_context._build_semantic_index
+    line: 231
+  generation.enhanced_context._build_semantic_index_merge_230:
+    id: generation.enhanced_context._build_semantic_index_merge_230
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_merge_228:
+    id: generation.enhanced_context._build_semantic_index_merge_228
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._build_semantic_index
+  generation.enhanced_context._build_semantic_index_loop_256:
+    id: generation.enhanced_context._build_semantic_index_loop_256
+    type: FOR
+    label: for
+    function: generation.enhanced_context._build_semantic_index
+    line: 256
+  generation.enhanced_context._preprocess_text_entry:
+    id: generation.enhanced_context._preprocess_text_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._preprocess_text
+  generation.enhanced_context._preprocess_text_exit:
+    id: generation.enhanced_context._preprocess_text_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._preprocess_text
+  generation.enhanced_context._preprocess_text_if_266:
+    id: generation.enhanced_context._preprocess_text_if_266
+    type: IF
+    label: if
+    function: generation.enhanced_context._preprocess_text
+    line: 266
+  generation.enhanced_context._preprocess_text_return_267:
+    id: generation.enhanced_context._preprocess_text_return_267
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._preprocess_text
+    line: 267
+  generation.enhanced_context._preprocess_text_merge_266:
+    id: generation.enhanced_context._preprocess_text_merge_266
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._preprocess_text
+  generation.enhanced_context._preprocess_text_loop_275:
+    id: generation.enhanced_context._preprocess_text_loop_275
+    type: FOR
+    label: for
+    function: generation.enhanced_context._preprocess_text
+    line: 275
+  generation.enhanced_context._preprocess_text_return_282:
+    id: generation.enhanced_context._preprocess_text_return_282
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._preprocess_text
+    line: 282
+  generation.enhanced_context._extract_entities_entry:
+    id: generation.enhanced_context._extract_entities_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._extract_entities
+  generation.enhanced_context._extract_entities_exit:
+    id: generation.enhanced_context._extract_entities_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._extract_entities
+  generation.enhanced_context._extract_entities_if_289:
+    id: generation.enhanced_context._extract_entities_if_289
+    type: IF
+    label: if
+    function: generation.enhanced_context._extract_entities
+    line: 289
+  generation.enhanced_context._extract_entities_merge_289:
+    id: generation.enhanced_context._extract_entities_merge_289
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._extract_entities
+  generation.enhanced_context._extract_entities_if_296:
+    id: generation.enhanced_context._extract_entities_if_296
+    type: IF
+    label: if
+    function: generation.enhanced_context._extract_entities
+    line: 296
+  generation.enhanced_context._extract_entities_merge_296:
+    id: generation.enhanced_context._extract_entities_merge_296
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._extract_entities
+  generation.enhanced_context._extract_entities_if_330:
+    id: generation.enhanced_context._extract_entities_if_330
+    type: IF
+    label: if
+    function: generation.enhanced_context._extract_entities
+    line: 330
+  generation.enhanced_context._extract_entities_merge_330:
+    id: generation.enhanced_context._extract_entities_merge_330
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._extract_entities
+  generation.enhanced_context._extract_entities_return_357:
+    id: generation.enhanced_context._extract_entities_return_357
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._extract_entities
+    line: 357
+  generation.enhanced_context._calculate_keyword_similarity_entry:
+    id: generation.enhanced_context._calculate_keyword_similarity_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._calculate_keyword_similarity
+  generation.enhanced_context._calculate_keyword_similarity_exit:
+    id: generation.enhanced_context._calculate_keyword_similarity_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._calculate_keyword_similarity
+  generation.enhanced_context._calculate_keyword_similarity_if_361:
+    id: generation.enhanced_context._calculate_keyword_similarity_if_361
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_keyword_similarity
+    line: 361
+  generation.enhanced_context._calculate_keyword_similarity_return_362:
+    id: generation.enhanced_context._calculate_keyword_similarity_return_362
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._calculate_keyword_similarity
+    line: 362
+  generation.enhanced_context._calculate_keyword_similarity_merge_361:
+    id: generation.enhanced_context._calculate_keyword_similarity_merge_361
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_keyword_similarity
+  generation.enhanced_context._calculate_keyword_similarity_if_368:
+    id: generation.enhanced_context._calculate_keyword_similarity_if_368
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_keyword_similarity
+    line: 368
+  generation.enhanced_context._calculate_keyword_similarity_return_369:
+    id: generation.enhanced_context._calculate_keyword_similarity_return_369
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._calculate_keyword_similarity
+    line: 369
+  generation.enhanced_context._calculate_keyword_similarity_merge_368:
+    id: generation.enhanced_context._calculate_keyword_similarity_merge_368
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_keyword_similarity
+  generation.enhanced_context._calculate_keyword_similarity_if_378:
+    id: generation.enhanced_context._calculate_keyword_similarity_if_378
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_keyword_similarity
+    line: 378
+  generation.enhanced_context._calculate_keyword_similarity_merge_378:
+    id: generation.enhanced_context._calculate_keyword_similarity_merge_378
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_keyword_similarity
+  generation.enhanced_context._calculate_keyword_similarity_return_385:
+    id: generation.enhanced_context._calculate_keyword_similarity_return_385
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._calculate_keyword_similarity
+    line: 385
+  generation.enhanced_context._calculate_semantic_similarity_entry:
+    id: generation.enhanced_context._calculate_semantic_similarity_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._calculate_semantic_similarity
+  generation.enhanced_context._calculate_semantic_similarity_exit:
+    id: generation.enhanced_context._calculate_semantic_similarity_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._calculate_semantic_similarity
+  generation.enhanced_context._calculate_semantic_similarity_if_389:
+    id: generation.enhanced_context._calculate_semantic_similarity_if_389
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_semantic_similarity
+    line: 389
+  generation.enhanced_context._calculate_semantic_similarity_return_390:
+    id: generation.enhanced_context._calculate_semantic_similarity_return_390
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._calculate_semantic_similarity
+    line: 390
+  generation.enhanced_context._calculate_semantic_similarity_merge_389:
+    id: generation.enhanced_context._calculate_semantic_similarity_merge_389
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_semantic_similarity
+  generation.enhanced_context._calculate_semantic_similarity_if_394:
+    id: generation.enhanced_context._calculate_semantic_similarity_if_394
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_semantic_similarity
+    line: 394
+  generation.enhanced_context._calculate_semantic_similarity_if_402:
+    id: generation.enhanced_context._calculate_semantic_similarity_if_402
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_semantic_similarity
+    line: 402
+  generation.enhanced_context._calculate_semantic_similarity_merge_402:
+    id: generation.enhanced_context._calculate_semantic_similarity_merge_402
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_semantic_similarity
+  generation.enhanced_context._calculate_semantic_similarity_merge_394:
+    id: generation.enhanced_context._calculate_semantic_similarity_merge_394
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_semantic_similarity
+  generation.enhanced_context._calculate_semantic_similarity_if_420:
+    id: generation.enhanced_context._calculate_semantic_similarity_if_420
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_semantic_similarity
+    line: 420
+  generation.enhanced_context._calculate_semantic_similarity_merge_420:
+    id: generation.enhanced_context._calculate_semantic_similarity_merge_420
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_semantic_similarity
+  generation.enhanced_context._calculate_semantic_similarity_return_437:
+    id: generation.enhanced_context._calculate_semantic_similarity_return_437
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._calculate_semantic_similarity
+    line: 437
+  generation.enhanced_context._calculate_context_score_entry:
+    id: generation.enhanced_context._calculate_context_score_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_exit:
+    id: generation.enhanced_context._calculate_context_score_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_if_444:
+    id: generation.enhanced_context._calculate_context_score_if_444
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 444
+  generation.enhanced_context._calculate_context_score_merge_444:
+    id: generation.enhanced_context._calculate_context_score_merge_444
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_if_448:
+    id: generation.enhanced_context._calculate_context_score_if_448
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 448
+  generation.enhanced_context._calculate_context_score_merge_448:
+    id: generation.enhanced_context._calculate_context_score_merge_448
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_if_452:
+    id: generation.enhanced_context._calculate_context_score_if_452
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 452
+  generation.enhanced_context._calculate_context_score_if_454:
+    id: generation.enhanced_context._calculate_context_score_if_454
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 454
+  generation.enhanced_context._calculate_context_score_merge_454:
+    id: generation.enhanced_context._calculate_context_score_merge_454
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_merge_452:
+    id: generation.enhanced_context._calculate_context_score_merge_452
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_if_458:
+    id: generation.enhanced_context._calculate_context_score_if_458
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 458
+  generation.enhanced_context._calculate_context_score_merge_458:
+    id: generation.enhanced_context._calculate_context_score_merge_458
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_if_462:
+    id: generation.enhanced_context._calculate_context_score_if_462
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 462
+  generation.enhanced_context._calculate_context_score_if_465:
+    id: generation.enhanced_context._calculate_context_score_if_465
+    type: IF
+    label: if
+    function: generation.enhanced_context._calculate_context_score
+    line: 465
+  generation.enhanced_context._calculate_context_score_merge_465:
+    id: generation.enhanced_context._calculate_context_score_merge_465
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_merge_462:
+    id: generation.enhanced_context._calculate_context_score_merge_462
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._calculate_context_score
+  generation.enhanced_context._calculate_context_score_return_468:
+    id: generation.enhanced_context._calculate_context_score_return_468
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._calculate_context_score
+    line: 468
+  generation.enhanced_context.detect_intent_with_context_entry:
+    id: generation.enhanced_context.detect_intent_with_context_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context.detect_intent_with_context
+  generation.enhanced_context.detect_intent_with_context_exit:
+    id: generation.enhanced_context.detect_intent_with_context_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context.detect_intent_with_context
+  generation.enhanced_context.detect_intent_with_context_loop_478:
+    id: generation.enhanced_context.detect_intent_with_context_loop_478
+    type: FOR
+    label: for
+    function: generation.enhanced_context.detect_intent_with_context
+    line: 478
+  generation.enhanced_context.detect_intent_with_context_if_479:
+    id: generation.enhanced_context.detect_intent_with_context_if_479
+    type: IF
+    label: if
+    function: generation.enhanced_context.detect_intent_with_context
+    line: 479
+  generation.enhanced_context.detect_intent_with_context_merge_479:
+    id: generation.enhanced_context.detect_intent_with_context_merge_479
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context.detect_intent_with_context
+  generation.enhanced_context.detect_intent_with_context_loop_482:
+    id: generation.enhanced_context.detect_intent_with_context_loop_482
+    type: FOR
+    label: for
+    function: generation.enhanced_context.detect_intent_with_context
+    line: 482
+  generation.enhanced_context.detect_intent_with_context_if_495:
+    id: generation.enhanced_context.detect_intent_with_context_if_495
+    type: IF
+    label: if
+    function: generation.enhanced_context.detect_intent_with_context
+    line: 495
+  generation.enhanced_context.detect_intent_with_context_merge_495:
+    id: generation.enhanced_context.detect_intent_with_context_merge_495
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context.detect_intent_with_context
+  generation.enhanced_context.detect_intent_with_context_return_512:
+    id: generation.enhanced_context.detect_intent_with_context_return_512
+    type: RETURN
+    label: return
+    function: generation.enhanced_context.detect_intent_with_context
+    line: 512
+  generation.enhanced_context.get_best_match_entry:
+    id: generation.enhanced_context.get_best_match_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context.get_best_match
+  generation.enhanced_context.get_best_match_exit:
+    id: generation.enhanced_context.get_best_match_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context.get_best_match
+  generation.enhanced_context.get_best_match_return_517:
+    id: generation.enhanced_context.get_best_match_return_517
+    type: RETURN
+    label: return
+    function: generation.enhanced_context.get_best_match
+    line: 517
+  generation.enhanced_context.explain_detection_entry:
+    id: generation.enhanced_context.explain_detection_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context.explain_detection
+  generation.enhanced_context.explain_detection_exit:
+    id: generation.enhanced_context.explain_detection_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context.explain_detection
+  generation.enhanced_context.explain_detection_loop_530:
+    id: generation.enhanced_context.explain_detection_loop_530
+    type: FOR
+    label: for
+    function: generation.enhanced_context.explain_detection
+    line: 530
+  generation.enhanced_context.explain_detection_return_541:
+    id: generation.enhanced_context.explain_detection_return_541
+    type: RETURN
+    label: return
+    function: generation.enhanced_context.explain_detection
+    line: 541
+  generation.enhanced_context._generate_reasoning_entry:
+    id: generation.enhanced_context._generate_reasoning_entry
+    type: ENTRY
+    label: entry
+    function: generation.enhanced_context._generate_reasoning
+  generation.enhanced_context._generate_reasoning_exit:
+    id: generation.enhanced_context._generate_reasoning_exit
+    type: EXIT
+    label: exit
+    function: generation.enhanced_context._generate_reasoning
+  generation.enhanced_context._generate_reasoning_if_547:
+    id: generation.enhanced_context._generate_reasoning_if_547
+    type: IF
+    label: if
+    function: generation.enhanced_context._generate_reasoning
+    line: 547
+  generation.enhanced_context._generate_reasoning_merge_547:
+    id: generation.enhanced_context._generate_reasoning_merge_547
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._generate_reasoning
+  generation.enhanced_context._generate_reasoning_if_550:
+    id: generation.enhanced_context._generate_reasoning_if_550
+    type: IF
+    label: if
+    function: generation.enhanced_context._generate_reasoning
+    line: 550
+  generation.enhanced_context._generate_reasoning_merge_550:
+    id: generation.enhanced_context._generate_reasoning_merge_550
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._generate_reasoning
+  generation.enhanced_context._generate_reasoning_if_553:
+    id: generation.enhanced_context._generate_reasoning_if_553
+    type: IF
+    label: if
+    function: generation.enhanced_context._generate_reasoning
+    line: 553
+  generation.enhanced_context._generate_reasoning_merge_553:
+    id: generation.enhanced_context._generate_reasoning_merge_553
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._generate_reasoning
+  generation.enhanced_context._generate_reasoning_if_556:
+    id: generation.enhanced_context._generate_reasoning_if_556
+    type: IF
+    label: if
+    function: generation.enhanced_context._generate_reasoning
+    line: 556
+  generation.enhanced_context._generate_reasoning_merge_556:
+    id: generation.enhanced_context._generate_reasoning_merge_556
+    type: FUNC
+    label: merge
+    function: generation.enhanced_context._generate_reasoning
+  generation.enhanced_context._generate_reasoning_return_559:
+    id: generation.enhanced_context._generate_reasoning_return_559
+    type: RETURN
+    label: return
+    function: generation.enhanced_context._generate_reasoning
+    line: 559

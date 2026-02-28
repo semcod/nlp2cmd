@@ -1,0 +1,591 @@
+module: generation.train_model
+type: orphan_nodes
+count: 106
+nodes:
+  generation.train_model.load_expanded_phrases_entry:
+    id: generation.train_model.load_expanded_phrases_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.load_expanded_phrases
+  generation.train_model.load_expanded_phrases_exit:
+    id: generation.train_model.load_expanded_phrases_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.load_expanded_phrases
+  generation.train_model.load_expanded_phrases_if_42:
+    id: generation.train_model.load_expanded_phrases_if_42
+    type: IF
+    label: if
+    function: generation.train_model.load_expanded_phrases
+    line: 42
+  generation.train_model.load_expanded_phrases_return_43:
+    id: generation.train_model.load_expanded_phrases_return_43
+    type: RETURN
+    label: return
+    function: generation.train_model.load_expanded_phrases
+    line: 43
+  generation.train_model.load_expanded_phrases_merge_42:
+    id: generation.train_model.load_expanded_phrases_merge_42
+    type: FUNC
+    label: merge
+    function: generation.train_model.load_expanded_phrases
+  generation.train_model.load_expanded_phrases_loop_48:
+    id: generation.train_model.load_expanded_phrases_loop_48
+    type: FOR
+    label: for
+    function: generation.train_model.load_expanded_phrases
+    line: 48
+  generation.train_model.load_expanded_phrases_loop_64:
+    id: generation.train_model.load_expanded_phrases_loop_64
+    type: FOR
+    label: for
+    function: generation.train_model.load_expanded_phrases
+    line: 64
+  generation.train_model.load_expanded_phrases_return_72:
+    id: generation.train_model.load_expanded_phrases_return_72
+    type: RETURN
+    label: return
+    function: generation.train_model.load_expanded_phrases
+    line: 72
+  generation.train_model.load_patterns_entry:
+    id: generation.train_model.load_patterns_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.load_patterns
+  generation.train_model.load_patterns_exit:
+    id: generation.train_model.load_patterns_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.load_patterns
+  generation.train_model.load_patterns_if_79:
+    id: generation.train_model.load_patterns_if_79
+    type: IF
+    label: if
+    function: generation.train_model.load_patterns
+    line: 79
+  generation.train_model.load_patterns_return_80:
+    id: generation.train_model.load_patterns_return_80
+    type: RETURN
+    label: return
+    function: generation.train_model.load_patterns
+    line: 80
+  generation.train_model.load_patterns_merge_79:
+    id: generation.train_model.load_patterns_merge_79
+    type: FUNC
+    label: merge
+    function: generation.train_model.load_patterns
+  generation.train_model.load_patterns_loop_85:
+    id: generation.train_model.load_patterns_loop_85
+    type: FOR
+    label: for
+    function: generation.train_model.load_patterns
+    line: 85
+  generation.train_model.load_patterns_if_86:
+    id: generation.train_model.load_patterns_if_86
+    type: IF
+    label: if
+    function: generation.train_model.load_patterns
+    line: 86
+  generation.train_model.load_patterns_merge_86:
+    id: generation.train_model.load_patterns_merge_86
+    type: FUNC
+    label: merge
+    function: generation.train_model.load_patterns
+  generation.train_model.load_patterns_if_89:
+    id: generation.train_model.load_patterns_if_89
+    type: IF
+    label: if
+    function: generation.train_model.load_patterns
+    line: 89
+  generation.train_model.load_patterns_loop_90:
+    id: generation.train_model.load_patterns_loop_90
+    type: FOR
+    label: for
+    function: generation.train_model.load_patterns
+    line: 90
+  generation.train_model.load_patterns_merge_89:
+    id: generation.train_model.load_patterns_merge_89
+    type: FUNC
+    label: merge
+    function: generation.train_model.load_patterns
+  generation.train_model.load_patterns_return_101:
+    id: generation.train_model.load_patterns_return_101
+    type: RETURN
+    label: return
+    function: generation.train_model.load_patterns
+    line: 101
+  generation.train_model.load_command_schemas_entry:
+    id: generation.train_model.load_command_schemas_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.load_command_schemas
+  generation.train_model.load_command_schemas_exit:
+    id: generation.train_model.load_command_schemas_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.load_command_schemas
+  generation.train_model.load_command_schemas_if_108:
+    id: generation.train_model.load_command_schemas_if_108
+    type: IF
+    label: if
+    function: generation.train_model.load_command_schemas
+    line: 108
+  generation.train_model.load_command_schemas_return_109:
+    id: generation.train_model.load_command_schemas_return_109
+    type: RETURN
+    label: return
+    function: generation.train_model.load_command_schemas
+    line: 109
+  generation.train_model.load_command_schemas_merge_108:
+    id: generation.train_model.load_command_schemas_merge_108
+    type: FUNC
+    label: merge
+    function: generation.train_model.load_command_schemas
+  generation.train_model.load_command_schemas_loop_111:
+    id: generation.train_model.load_command_schemas_loop_111
+    type: FOR
+    label: for
+    function: generation.train_model.load_command_schemas
+    line: 111
+  generation.train_model.load_command_schemas_return_153:
+    id: generation.train_model.load_command_schemas_return_153
+    type: RETURN
+    label: return
+    function: generation.train_model.load_command_schemas
+    line: 153
+  generation.train_model.generate_augmented_samples_entry:
+    id: generation.train_model.generate_augmented_samples_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.generate_augmented_samples
+  generation.train_model.generate_augmented_samples_exit:
+    id: generation.train_model.generate_augmented_samples_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.generate_augmented_samples
+  generation.train_model.generate_augmented_samples_loop_175:
+    id: generation.train_model.generate_augmented_samples_loop_175
+    type: FOR
+    label: for
+    function: generation.train_model.generate_augmented_samples
+    line: 175
+  generation.train_model.generate_augmented_samples_if_177:
+    id: generation.train_model.generate_augmented_samples_if_177
+    type: IF
+    label: if
+    function: generation.train_model.generate_augmented_samples
+    line: 177
+  generation.train_model.generate_augmented_samples_loop_178:
+    id: generation.train_model.generate_augmented_samples_loop_178
+    type: FOR
+    label: for
+    function: generation.train_model.generate_augmented_samples
+    line: 178
+  generation.train_model.generate_augmented_samples_if_186:
+    id: generation.train_model.generate_augmented_samples_if_186
+    type: IF
+    label: if
+    function: generation.train_model.generate_augmented_samples
+    line: 186
+  generation.train_model.generate_augmented_samples_loop_187:
+    id: generation.train_model.generate_augmented_samples_loop_187
+    type: FOR
+    label: for
+    function: generation.train_model.generate_augmented_samples
+    line: 187
+  generation.train_model.generate_augmented_samples_merge_186:
+    id: generation.train_model.generate_augmented_samples_merge_186
+    type: FUNC
+    label: merge
+    function: generation.train_model.generate_augmented_samples
+  generation.train_model.generate_augmented_samples_merge_177:
+    id: generation.train_model.generate_augmented_samples_merge_177
+    type: FUNC
+    label: merge
+    function: generation.train_model.generate_augmented_samples
+  generation.train_model.generate_augmented_samples_loop_197:
+    id: generation.train_model.generate_augmented_samples_loop_197
+    type: FOR
+    label: for
+    function: generation.train_model.generate_augmented_samples
+    line: 197
+  generation.train_model.generate_augmented_samples_loop_198:
+    id: generation.train_model.generate_augmented_samples_loop_198
+    type: FOR
+    label: for
+    function: generation.train_model.generate_augmented_samples
+    line: 198
+  generation.train_model.generate_augmented_samples_return_206:
+    id: generation.train_model.generate_augmented_samples_return_206
+    type: RETURN
+    label: return
+    function: generation.train_model.generate_augmented_samples
+    line: 206
+  generation.train_model.deduplicate_samples_entry:
+    id: generation.train_model.deduplicate_samples_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.deduplicate_samples
+  generation.train_model.deduplicate_samples_exit:
+    id: generation.train_model.deduplicate_samples_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.deduplicate_samples
+  generation.train_model.deduplicate_samples_loop_214:
+    id: generation.train_model.deduplicate_samples_loop_214
+    type: FOR
+    label: for
+    function: generation.train_model.deduplicate_samples
+    line: 214
+  generation.train_model.deduplicate_samples_if_216:
+    id: generation.train_model.deduplicate_samples_if_216
+    type: IF
+    label: if
+    function: generation.train_model.deduplicate_samples
+    line: 216
+  generation.train_model.deduplicate_samples_merge_216:
+    id: generation.train_model.deduplicate_samples_merge_216
+    type: FUNC
+    label: merge
+    function: generation.train_model.deduplicate_samples
+  generation.train_model.deduplicate_samples_return_220:
+    id: generation.train_model.deduplicate_samples_return_220
+    type: RETURN
+    label: return
+    function: generation.train_model.deduplicate_samples
+    line: 220
+  generation.train_model.train_all_models_entry:
+    id: generation.train_model.train_all_models_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_exit:
+    id: generation.train_model.train_all_models_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_241:
+    id: generation.train_model.train_all_models_if_241
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 241
+  generation.train_model.train_all_models_merge_241:
+    id: generation.train_model.train_all_models_merge_241
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_243:
+    id: generation.train_model.train_all_models_if_243
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 243
+  generation.train_model.train_all_models_merge_243:
+    id: generation.train_model.train_all_models_merge_243
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_253:
+    id: generation.train_model.train_all_models_if_253
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 253
+  generation.train_model.train_all_models_merge_253:
+    id: generation.train_model.train_all_models_merge_253
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_261:
+    id: generation.train_model.train_all_models_if_261
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 261
+  generation.train_model.train_all_models_if_262:
+    id: generation.train_model.train_all_models_if_262
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 262
+  generation.train_model.train_all_models_merge_262:
+    id: generation.train_model.train_all_models_merge_262
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_merge_261:
+    id: generation.train_model.train_all_models_merge_261
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_270:
+    id: generation.train_model.train_all_models_if_270
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 270
+  generation.train_model.train_all_models_if_271:
+    id: generation.train_model.train_all_models_if_271
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 271
+  generation.train_model.train_all_models_merge_271:
+    id: generation.train_model.train_all_models_merge_271
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_merge_270:
+    id: generation.train_model.train_all_models_merge_270
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_280:
+    id: generation.train_model.train_all_models_if_280
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 280
+  generation.train_model.train_all_models_if_281:
+    id: generation.train_model.train_all_models_if_281
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 281
+  generation.train_model.train_all_models_merge_281:
+    id: generation.train_model.train_all_models_merge_281
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_merge_280:
+    id: generation.train_model.train_all_models_merge_280
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_289:
+    id: generation.train_model.train_all_models_if_289
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 289
+  generation.train_model.train_all_models_if_290:
+    id: generation.train_model.train_all_models_if_290
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 290
+  generation.train_model.train_all_models_merge_290:
+    id: generation.train_model.train_all_models_merge_290
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_merge_289:
+    id: generation.train_model.train_all_models_merge_289
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_297:
+    id: generation.train_model.train_all_models_if_297
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 297
+  generation.train_model.train_all_models_merge_297:
+    id: generation.train_model.train_all_models_merge_297
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_301:
+    id: generation.train_model.train_all_models_if_301
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 301
+  generation.train_model.train_all_models_merge_301:
+    id: generation.train_model.train_all_models_merge_301
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_305:
+    id: generation.train_model.train_all_models_if_305
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 305
+  generation.train_model.train_all_models_if_306:
+    id: generation.train_model.train_all_models_if_306
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 306
+  generation.train_model.train_all_models_merge_306:
+    id: generation.train_model.train_all_models_merge_306
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_312:
+    id: generation.train_model.train_all_models_if_312
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 312
+  generation.train_model.train_all_models_merge_312:
+    id: generation.train_model.train_all_models_merge_312
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_merge_305:
+    id: generation.train_model.train_all_models_merge_305
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_324:
+    id: generation.train_model.train_all_models_if_324
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 324
+  generation.train_model.train_all_models_merge_324:
+    id: generation.train_model.train_all_models_merge_324
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_330:
+    id: generation.train_model.train_all_models_if_330
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 330
+  generation.train_model.train_all_models_merge_330:
+    id: generation.train_model.train_all_models_merge_330
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_344:
+    id: generation.train_model.train_all_models_if_344
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 344
+  generation.train_model.train_all_models_merge_344:
+    id: generation.train_model.train_all_models_merge_344
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_349:
+    id: generation.train_model.train_all_models_if_349
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 349
+  generation.train_model.train_all_models_merge_349:
+    id: generation.train_model.train_all_models_merge_349
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_loop_359:
+    id: generation.train_model.train_all_models_loop_359
+    type: FOR
+    label: for
+    function: generation.train_model.train_all_models
+    line: 359
+  generation.train_model.train_all_models_if_377:
+    id: generation.train_model.train_all_models_if_377
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 377
+  generation.train_model.train_all_models_merge_377:
+    id: generation.train_model.train_all_models_merge_377
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_382:
+    id: generation.train_model.train_all_models_if_382
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 382
+  generation.train_model.train_all_models_if_387:
+    id: generation.train_model.train_all_models_if_387
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 387
+  generation.train_model.train_all_models_merge_387:
+    id: generation.train_model.train_all_models_merge_387
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_merge_382:
+    id: generation.train_model.train_all_models_merge_382
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_if_394:
+    id: generation.train_model.train_all_models_if_394
+    type: IF
+    label: if
+    function: generation.train_model.train_all_models
+    line: 394
+  generation.train_model.train_all_models_merge_394:
+    id: generation.train_model.train_all_models_merge_394
+    type: FUNC
+    label: merge
+    function: generation.train_model.train_all_models
+  generation.train_model.train_all_models_return_399:
+    id: generation.train_model.train_all_models_return_399
+    type: RETURN
+    label: return
+    function: generation.train_model.train_all_models
+    line: 399
+  generation.train_model.quick_test_entry:
+    id: generation.train_model.quick_test_entry
+    type: ENTRY
+    label: entry
+    function: generation.train_model.quick_test
+  generation.train_model.quick_test_exit:
+    id: generation.train_model.quick_test_exit
+    type: EXIT
+    label: exit
+    function: generation.train_model.quick_test
+  generation.train_model.quick_test_if_404:
+    id: generation.train_model.quick_test_if_404
+    type: IF
+    label: if
+    function: generation.train_model.quick_test
+    line: 404
+  generation.train_model.quick_test_merge_404:
+    id: generation.train_model.quick_test_merge_404
+    type: FUNC
+    label: merge
+    function: generation.train_model.quick_test
+  generation.train_model.quick_test_if_408:
+    id: generation.train_model.quick_test_if_408
+    type: IF
+    label: if
+    function: generation.train_model.quick_test
+    line: 408
+  generation.train_model.quick_test_merge_408:
+    id: generation.train_model.quick_test_merge_408
+    type: FUNC
+    label: merge
+    function: generation.train_model.quick_test
+  generation.train_model.quick_test_loop_428:
+    id: generation.train_model.quick_test_loop_428
+    type: FOR
+    label: for
+    function: generation.train_model.quick_test
+    line: 428
+  generation.train_model.quick_test_if_430:
+    id: generation.train_model.quick_test_if_430
+    type: IF
+    label: if
+    function: generation.train_model.quick_test
+    line: 430
+  generation.train_model.quick_test_merge_430:
+    id: generation.train_model.quick_test_merge_430
+    type: FUNC
+    label: merge
+    function: generation.train_model.quick_test

@@ -1,0 +1,55 @@
+module: streams.ftp_stream.FTPStreamAdapter
+type: functions
+count: 3
+functions:
+  streams.ftp_stream.FTPStreamAdapter.connect:
+    name: connect
+    qualified_name: streams.ftp_stream.FTPStreamAdapter.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ftp_stream.py
+    line: 20
+    module: streams.ftp_stream
+    class: FTPStreamAdapter
+    is_method: true
+    cfg_entry: streams.ftp_stream.FTPStreamAdapter.connect_entry
+    calls:
+    - StreamResult
+    - scheme.upper
+  streams.ftp_stream.FTPStreamAdapter.execute:
+    name: execute
+    qualified_name: streams.ftp_stream.FTPStreamAdapter.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ftp_stream.py
+    line: 26
+    module: streams.ftp_stream
+    class: FTPStreamAdapter
+    is_method: true
+    cfg_entry: streams.ftp_stream.FTPStreamAdapter.execute_entry
+    calls:
+    - task.lower
+    - any
+    - self._sftp_execute
+    - subprocess.run
+    - StreamResult
+    - r.stdout.strip
+    - len
+    - task.split
+    - r.stderr.strip
+    - None.join
+    - str
+  streams.ftp_stream.FTPStreamAdapter._sftp_execute:
+    name: _sftp_execute
+    qualified_name: streams.ftp_stream.FTPStreamAdapter._sftp_execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ftp_stream.py
+    line: 61
+    module: streams.ftp_stream
+    class: FTPStreamAdapter
+    is_method: true
+    cfg_entry: streams.ftp_stream.FTPStreamAdapter._sftp_execute_entry
+    calls:
+    - task.lower
+    - any
+    - str
+    - subprocess.run
+    - StreamResult
+    - task.split
+    - r.stdout.strip
+    - r.stderr.strip

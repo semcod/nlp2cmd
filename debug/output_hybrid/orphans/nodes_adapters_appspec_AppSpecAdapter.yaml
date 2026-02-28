@@ -1,0 +1,216 @@
+module: adapters.appspec.AppSpecAdapter
+type: orphan_nodes
+count: 39
+nodes:
+  adapters.appspec.AppSpecAdapter.__init___entry:
+    id: adapters.appspec.AppSpecAdapter.__init___entry
+    type: ENTRY
+    label: entry
+    function: adapters.appspec.AppSpecAdapter.__init__
+  adapters.appspec.AppSpecAdapter.__init___exit:
+    id: adapters.appspec.AppSpecAdapter.__init___exit
+    type: EXIT
+    label: exit
+    function: adapters.appspec.AppSpecAdapter.__init__
+  adapters.appspec.AppSpecAdapter.__init___if_36:
+    id: adapters.appspec.AppSpecAdapter.__init___if_36
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.__init__
+    line: 36
+  adapters.appspec.AppSpecAdapter.__init___if_38:
+    id: adapters.appspec.AppSpecAdapter.__init___if_38
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.__init__
+    line: 38
+  adapters.appspec.AppSpecAdapter.__init___merge_38:
+    id: adapters.appspec.AppSpecAdapter.__init___merge_38
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.__init__
+  adapters.appspec.AppSpecAdapter.__init___merge_36:
+    id: adapters.appspec.AppSpecAdapter.__init___merge_36
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.__init__
+  adapters.appspec.AppSpecAdapter.load_from_file_entry:
+    id: adapters.appspec.AppSpecAdapter.load_from_file_entry
+    type: ENTRY
+    label: entry
+    function: adapters.appspec.AppSpecAdapter.load_from_file
+  adapters.appspec.AppSpecAdapter.load_from_file_exit:
+    id: adapters.appspec.AppSpecAdapter.load_from_file_exit
+    type: EXIT
+    label: exit
+    function: adapters.appspec.AppSpecAdapter.load_from_file
+  adapters.appspec.AppSpecAdapter.set_spec_entry:
+    id: adapters.appspec.AppSpecAdapter.set_spec_entry
+    type: ENTRY
+    label: entry
+    function: adapters.appspec.AppSpecAdapter.set_spec
+  adapters.appspec.AppSpecAdapter.set_spec_exit:
+    id: adapters.appspec.AppSpecAdapter.set_spec_exit
+    type: EXIT
+    label: exit
+    function: adapters.appspec.AppSpecAdapter.set_spec
+  adapters.appspec.AppSpecAdapter.generate_entry:
+    id: adapters.appspec.AppSpecAdapter.generate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.appspec.AppSpecAdapter.generate
+  adapters.appspec.AppSpecAdapter.generate_exit:
+    id: adapters.appspec.AppSpecAdapter.generate_exit
+    type: EXIT
+    label: exit
+    function: adapters.appspec.AppSpecAdapter.generate
+  adapters.appspec.AppSpecAdapter.generate_if_50:
+    id: adapters.appspec.AppSpecAdapter.generate_if_50
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.generate
+    line: 50
+  adapters.appspec.AppSpecAdapter.generate_merge_50:
+    id: adapters.appspec.AppSpecAdapter.generate_merge_50
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.generate
+  adapters.appspec.AppSpecAdapter.generate_if_54:
+    id: adapters.appspec.AppSpecAdapter.generate_if_54
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.generate
+    line: 54
+  adapters.appspec.AppSpecAdapter.generate_merge_54:
+    id: adapters.appspec.AppSpecAdapter.generate_merge_54
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.generate
+  adapters.appspec.AppSpecAdapter.generate_return_59:
+    id: adapters.appspec.AppSpecAdapter.generate_return_59
+    type: RETURN
+    label: return
+    function: adapters.appspec.AppSpecAdapter.generate
+    line: 59
+  adapters.appspec.AppSpecAdapter.validate_syntax_entry:
+    id: adapters.appspec.AppSpecAdapter.validate_syntax_entry
+    type: ENTRY
+    label: entry
+    function: adapters.appspec.AppSpecAdapter.validate_syntax
+  adapters.appspec.AppSpecAdapter.validate_syntax_exit:
+    id: adapters.appspec.AppSpecAdapter.validate_syntax_exit
+    type: EXIT
+    label: exit
+    function: adapters.appspec.AppSpecAdapter.validate_syntax
+  adapters.appspec.AppSpecAdapter.validate_syntax_if_62:
+    id: adapters.appspec.AppSpecAdapter.validate_syntax_if_62
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.validate_syntax
+    line: 62
+  adapters.appspec.AppSpecAdapter.validate_syntax_return_63:
+    id: adapters.appspec.AppSpecAdapter.validate_syntax_return_63
+    type: RETURN
+    label: return
+    function: adapters.appspec.AppSpecAdapter.validate_syntax
+    line: 63
+  adapters.appspec.AppSpecAdapter.validate_syntax_merge_62:
+    id: adapters.appspec.AppSpecAdapter.validate_syntax_merge_62
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.validate_syntax
+  adapters.appspec.AppSpecAdapter.validate_syntax_return_64:
+    id: adapters.appspec.AppSpecAdapter.validate_syntax_return_64
+    type: RETURN
+    label: return
+    function: adapters.appspec.AppSpecAdapter.validate_syntax
+    line: 64
+  adapters.appspec.AppSpecAdapter.check_safety_entry:
+    id: adapters.appspec.AppSpecAdapter.check_safety_entry
+    type: ENTRY
+    label: entry
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_exit:
+    id: adapters.appspec.AppSpecAdapter.check_safety_exit
+    type: EXIT
+    label: exit
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_if_72:
+    id: adapters.appspec.AppSpecAdapter.check_safety_if_72
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 72
+  adapters.appspec.AppSpecAdapter.check_safety_if_75:
+    id: adapters.appspec.AppSpecAdapter.check_safety_if_75
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 75
+  adapters.appspec.AppSpecAdapter.check_safety_loop_76:
+    id: adapters.appspec.AppSpecAdapter.check_safety_loop_76
+    type: FOR
+    label: for
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 76
+  adapters.appspec.AppSpecAdapter.check_safety_if_77:
+    id: adapters.appspec.AppSpecAdapter.check_safety_if_77
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 77
+  adapters.appspec.AppSpecAdapter.check_safety_merge_77:
+    id: adapters.appspec.AppSpecAdapter.check_safety_merge_77
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_merge_75:
+    id: adapters.appspec.AppSpecAdapter.check_safety_merge_75
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_if_85:
+    id: adapters.appspec.AppSpecAdapter.check_safety_if_85
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 85
+  adapters.appspec.AppSpecAdapter.check_safety_loop_86:
+    id: adapters.appspec.AppSpecAdapter.check_safety_loop_86
+    type: FOR
+    label: for
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 86
+  adapters.appspec.AppSpecAdapter.check_safety_if_87:
+    id: adapters.appspec.AppSpecAdapter.check_safety_if_87
+    type: IF
+    label: if
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 87
+  adapters.appspec.AppSpecAdapter.check_safety_merge_87:
+    id: adapters.appspec.AppSpecAdapter.check_safety_merge_87
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_merge_85:
+    id: adapters.appspec.AppSpecAdapter.check_safety_merge_85
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_return_91:
+    id: adapters.appspec.AppSpecAdapter.check_safety_return_91
+    type: RETURN
+    label: return
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 91
+  adapters.appspec.AppSpecAdapter.check_safety_merge_72:
+    id: adapters.appspec.AppSpecAdapter.check_safety_merge_72
+    type: FUNC
+    label: merge
+    function: adapters.appspec.AppSpecAdapter.check_safety
+  adapters.appspec.AppSpecAdapter.check_safety_return_93:
+    id: adapters.appspec.AppSpecAdapter.check_safety_return_93
+    type: RETURN
+    label: return
+    function: adapters.appspec.AppSpecAdapter.check_safety
+    line: 93

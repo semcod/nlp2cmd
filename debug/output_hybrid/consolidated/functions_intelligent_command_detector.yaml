@@ -1,0 +1,83 @@
+module: intelligent.command_detector
+type: functions
+count: 5
+functions:
+  intelligent.command_detector.test_command_detector:
+    name: test_command_detector
+    qualified_name: intelligent.command_detector.test_command_detector
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/command_detector.py
+    line: 377
+    module: intelligent.command_detector
+    cfg_entry: intelligent.command_detector.test_command_detector_entry
+    calls:
+    - CommandDetector
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - detector.detect_command
+    - enumerate
+  intelligent.command_detector.__init__:
+    name: __init__
+    qualified_name: intelligent.command_detector.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/command_detector.py
+    line: 25
+    module: intelligent.command_detector
+    cfg_entry: intelligent.command_detector.__init___entry
+    calls:
+    - self._load_config_from_json
+    - loaded.get
+    - isinstance
+    - self.context_weights.update
+  intelligent.command_detector._load_config_from_json:
+    name: _load_config_from_json
+    qualified_name: intelligent.command_detector._load_config_from_json
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/command_detector.py
+    line: 229
+    module: intelligent.command_detector
+    cfg_entry: intelligent.command_detector._load_config_from_json_entry
+    calls:
+    - utils.data_files.find_data_file
+    - payload.get
+    - isinstance
+    - json.loads
+    - raw_action_mappings.items
+    - raw_context_weights.items
+    - os.environ.get
+    - p.read_text
+    - info.get
+    - cmd.strip
+    - float
+    - k.strip
+    - x.strip
+  intelligent.command_detector.detect_command:
+    name: detect_command
+    qualified_name: intelligent.command_detector.detect_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/command_detector.py
+    line: 288
+    module: intelligent.command_detector
+    cfg_entry: intelligent.command_detector.detect_command_entry
+    calls:
+    - query.lower
+    - self.action_mappings.items
+    - matches.sort
+    - generation.thermodynamic_components._NumpyStub.sum
+    - matched_keywords.append
+    - re.search
+    - matched_keywords.extend
+    - min
+    - matches.append
+    - len
+    - CommandMatch
+    - keyword.split
+    - list
+    - self._extract_context
+    - executor.ExecutionContext.set
+  intelligent.command_detector._extract_context:
+    name: _extract_context
+    qualified_name: intelligent.command_detector._extract_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/command_detector.py
+    line: 349
+    module: intelligent.command_detector
+    cfg_entry: intelligent.command_detector._extract_context_entry
+    calls:
+    - re.findall
+    - None.join
+    - context_words.extend

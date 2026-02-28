@@ -1,0 +1,1924 @@
+module: schemas
+type: orphan_nodes
+count: 349
+nodes:
+  schemas.validate_entry:
+    id: schemas.validate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.validate
+  schemas.validate_exit:
+    id: schemas.validate_exit
+    type: EXIT
+    label: exit
+    function: schemas.validate
+  schemas.validate_if_41:
+    id: schemas.validate_if_41
+    type: IF
+    label: if
+    function: schemas.validate
+    line: 41
+  schemas.validate_return_42:
+    id: schemas.validate_return_42
+    type: RETURN
+    label: return
+    function: schemas.validate
+    line: 42
+  schemas.validate_merge_41:
+    id: schemas.validate_merge_41
+    type: FUNC
+    label: merge
+    function: schemas.validate
+  schemas.validate_return_43:
+    id: schemas.validate_return_43
+    type: RETURN
+    label: return
+    function: schemas.validate
+    line: 43
+  schemas.parse_entry:
+    id: schemas.parse_entry
+    type: ENTRY
+    label: entry
+    function: schemas.parse
+  schemas.parse_exit:
+    id: schemas.parse_exit
+    type: EXIT
+    label: exit
+    function: schemas.parse
+  schemas.parse_if_47:
+    id: schemas.parse_if_47
+    type: IF
+    label: if
+    function: schemas.parse
+    line: 47
+  schemas.parse_return_48:
+    id: schemas.parse_return_48
+    type: RETURN
+    label: return
+    function: schemas.parse
+    line: 48
+  schemas.parse_merge_47:
+    id: schemas.parse_merge_47
+    type: FUNC
+    label: merge
+    function: schemas.parse
+  schemas.parse_return_49:
+    id: schemas.parse_return_49
+    type: RETURN
+    label: return
+    function: schemas.parse
+    line: 49
+  schemas.generate_entry:
+    id: schemas.generate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.generate
+  schemas.generate_exit:
+    id: schemas.generate_exit
+    type: EXIT
+    label: exit
+    function: schemas.generate
+  schemas.generate_if_53:
+    id: schemas.generate_if_53
+    type: IF
+    label: if
+    function: schemas.generate
+    line: 53
+  schemas.generate_return_54:
+    id: schemas.generate_return_54
+    type: RETURN
+    label: return
+    function: schemas.generate
+    line: 54
+  schemas.generate_merge_53:
+    id: schemas.generate_merge_53
+    type: FUNC
+    label: merge
+    function: schemas.generate
+  schemas.generate_return_55:
+    id: schemas.generate_return_55
+    type: RETURN
+    label: return
+    function: schemas.generate
+    line: 55
+  schemas.matches_extension_entry:
+    id: schemas.matches_extension_entry
+    type: ENTRY
+    label: entry
+    function: schemas.matches_extension
+  schemas.matches_extension_exit:
+    id: schemas.matches_extension_exit
+    type: EXIT
+    label: exit
+    function: schemas.matches_extension
+  schemas.matches_extension_loop_61:
+    id: schemas.matches_extension_loop_61
+    type: FOR
+    label: for
+    function: schemas.matches_extension
+    line: 61
+  schemas.matches_extension_if_64:
+    id: schemas.matches_extension_if_64
+    type: IF
+    label: if
+    function: schemas.matches_extension
+    line: 64
+  schemas.matches_extension_return_65:
+    id: schemas.matches_extension_return_65
+    type: RETURN
+    label: return
+    function: schemas.matches_extension
+    line: 65
+  schemas.matches_extension_merge_64:
+    id: schemas.matches_extension_merge_64
+    type: FUNC
+    label: merge
+    function: schemas.matches_extension
+  schemas.matches_extension_return_66:
+    id: schemas.matches_extension_return_66
+    type: RETURN
+    label: return
+    function: schemas.matches_extension
+    line: 66
+  schemas.matches_mime_type_entry:
+    id: schemas.matches_mime_type_entry
+    type: ENTRY
+    label: entry
+    function: schemas.matches_mime_type
+  schemas.matches_mime_type_exit:
+    id: schemas.matches_mime_type_exit
+    type: EXIT
+    label: exit
+    function: schemas.matches_mime_type
+  schemas.matches_mime_type_return_70:
+    id: schemas.matches_mime_type_return_70
+    type: RETURN
+    label: return
+    function: schemas.matches_mime_type
+    line: 70
+  schemas.self_validate_entry:
+    id: schemas.self_validate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.self_validate
+  schemas.self_validate_exit:
+    id: schemas.self_validate_exit
+    type: EXIT
+    label: exit
+    function: schemas.self_validate
+  schemas.self_validate_if_77:
+    id: schemas.self_validate_if_77
+    type: IF
+    label: if
+    function: schemas.self_validate
+    line: 77
+  schemas.self_validate_merge_77:
+    id: schemas.self_validate_merge_77
+    type: FUNC
+    label: merge
+    function: schemas.self_validate
+  schemas.self_validate_if_80:
+    id: schemas.self_validate_if_80
+    type: IF
+    label: if
+    function: schemas.self_validate
+    line: 80
+  schemas.self_validate_merge_80:
+    id: schemas.self_validate_merge_80
+    type: FUNC
+    label: merge
+    function: schemas.self_validate
+  schemas.self_validate_if_83:
+    id: schemas.self_validate_if_83
+    type: IF
+    label: if
+    function: schemas.self_validate
+    line: 83
+  schemas.self_validate_merge_83:
+    id: schemas.self_validate_merge_83
+    type: FUNC
+    label: merge
+    function: schemas.self_validate
+  schemas.self_validate_if_86:
+    id: schemas.self_validate_if_86
+    type: IF
+    label: if
+    function: schemas.self_validate
+    line: 86
+  schemas.self_validate_merge_86:
+    id: schemas.self_validate_merge_86
+    type: FUNC
+    label: merge
+    function: schemas.self_validate
+  schemas.self_validate_if_89:
+    id: schemas.self_validate_if_89
+    type: IF
+    label: if
+    function: schemas.self_validate
+    line: 89
+  schemas.self_validate_merge_89:
+    id: schemas.self_validate_merge_89
+    type: FUNC
+    label: merge
+    function: schemas.self_validate
+  schemas.self_validate_if_92:
+    id: schemas.self_validate_if_92
+    type: IF
+    label: if
+    function: schemas.self_validate
+    line: 92
+  schemas.self_validate_merge_92:
+    id: schemas.self_validate_merge_92
+    type: FUNC
+    label: merge
+    function: schemas.self_validate
+  schemas.self_validate_return_95:
+    id: schemas.self_validate_return_95
+    type: RETURN
+    label: return
+    function: schemas.self_validate
+    line: 95
+  schemas.__init___entry:
+    id: schemas.__init___entry
+    type: ENTRY
+    label: entry
+    function: schemas.__init__
+  schemas.__init___exit:
+    id: schemas.__init___exit
+    type: EXIT
+    label: exit
+    function: schemas.__init__
+  schemas._register_builtin_schemas_entry:
+    id: schemas._register_builtin_schemas_entry
+    type: ENTRY
+    label: entry
+    function: schemas._register_builtin_schemas
+  schemas._register_builtin_schemas_exit:
+    id: schemas._register_builtin_schemas_exit
+    type: EXIT
+    label: exit
+    function: schemas._register_builtin_schemas
+  schemas.register_entry:
+    id: schemas.register_entry
+    type: ENTRY
+    label: entry
+    function: schemas.register
+  schemas.register_exit:
+    id: schemas.register_exit
+    type: EXIT
+    label: exit
+    function: schemas.register
+  schemas.register_if_241:
+    id: schemas.register_if_241
+    type: IF
+    label: if
+    function: schemas.register
+    line: 241
+  schemas.register_merge_241:
+    id: schemas.register_merge_241
+    type: FUNC
+    label: merge
+    function: schemas.register
+  schemas.get_entry:
+    id: schemas.get_entry
+    type: ENTRY
+    label: entry
+    function: schemas.get
+  schemas.get_exit:
+    id: schemas.get_exit
+    type: EXIT
+    label: exit
+    function: schemas.get
+  schemas.get_return_250:
+    id: schemas.get_return_250
+    type: RETURN
+    label: return
+    function: schemas.get
+    line: 250
+  schemas.has_schema_entry:
+    id: schemas.has_schema_entry
+    type: ENTRY
+    label: entry
+    function: schemas.has_schema
+  schemas.has_schema_exit:
+    id: schemas.has_schema_exit
+    type: EXIT
+    label: exit
+    function: schemas.has_schema
+  schemas.has_schema_return_254:
+    id: schemas.has_schema_return_254
+    type: RETURN
+    label: return
+    function: schemas.has_schema
+    line: 254
+  schemas.list_schemas_entry:
+    id: schemas.list_schemas_entry
+    type: ENTRY
+    label: entry
+    function: schemas.list_schemas
+  schemas.list_schemas_exit:
+    id: schemas.list_schemas_exit
+    type: EXIT
+    label: exit
+    function: schemas.list_schemas
+  schemas.list_schemas_return_258:
+    id: schemas.list_schemas_return_258
+    type: RETURN
+    label: return
+    function: schemas.list_schemas
+    line: 258
+  schemas.unregister_entry:
+    id: schemas.unregister_entry
+    type: ENTRY
+    label: entry
+    function: schemas.unregister
+  schemas.unregister_exit:
+    id: schemas.unregister_exit
+    type: EXIT
+    label: exit
+    function: schemas.unregister
+  schemas.unregister_if_263:
+    id: schemas.unregister_if_263
+    type: IF
+    label: if
+    function: schemas.unregister
+    line: 263
+  schemas.unregister_if_265:
+    id: schemas.unregister_if_265
+    type: IF
+    label: if
+    function: schemas.unregister
+    line: 265
+  schemas.unregister_merge_265:
+    id: schemas.unregister_merge_265
+    type: FUNC
+    label: merge
+    function: schemas.unregister
+  schemas.unregister_return_268:
+    id: schemas.unregister_return_268
+    type: RETURN
+    label: return
+    function: schemas.unregister
+    line: 268
+  schemas.unregister_merge_263:
+    id: schemas.unregister_merge_263
+    type: FUNC
+    label: merge
+    function: schemas.unregister
+  schemas.unregister_return_269:
+    id: schemas.unregister_return_269
+    type: RETURN
+    label: return
+    function: schemas.unregister
+    line: 269
+  schemas.find_schema_for_file_entry:
+    id: schemas.find_schema_for_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.find_schema_for_file
+  schemas.find_schema_for_file_exit:
+    id: schemas.find_schema_for_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.find_schema_for_file
+  schemas.find_schema_for_file_return_274:
+    id: schemas.find_schema_for_file_return_274
+    type: RETURN
+    label: return
+    function: schemas.find_schema_for_file
+    line: 274
+  schemas.find_schema_by_mime_type_entry:
+    id: schemas.find_schema_by_mime_type_entry
+    type: ENTRY
+    label: entry
+    function: schemas.find_schema_by_mime_type
+  schemas.find_schema_by_mime_type_exit:
+    id: schemas.find_schema_by_mime_type_exit
+    type: EXIT
+    label: exit
+    function: schemas.find_schema_by_mime_type
+  schemas.find_schema_by_mime_type_loop_278:
+    id: schemas.find_schema_by_mime_type_loop_278
+    type: FOR
+    label: for
+    function: schemas.find_schema_by_mime_type
+    line: 278
+  schemas.find_schema_by_mime_type_if_279:
+    id: schemas.find_schema_by_mime_type_if_279
+    type: IF
+    label: if
+    function: schemas.find_schema_by_mime_type
+    line: 279
+  schemas.find_schema_by_mime_type_return_280:
+    id: schemas.find_schema_by_mime_type_return_280
+    type: RETURN
+    label: return
+    function: schemas.find_schema_by_mime_type
+    line: 280
+  schemas.find_schema_by_mime_type_merge_279:
+    id: schemas.find_schema_by_mime_type_merge_279
+    type: FUNC
+    label: merge
+    function: schemas.find_schema_by_mime_type
+  schemas.find_schema_by_mime_type_return_281:
+    id: schemas.find_schema_by_mime_type_return_281
+    type: RETURN
+    label: return
+    function: schemas.find_schema_by_mime_type
+    line: 281
+  schemas.find_extension_conflicts_entry:
+    id: schemas.find_extension_conflicts_entry
+    type: ENTRY
+    label: entry
+    function: schemas.find_extension_conflicts
+  schemas.find_extension_conflicts_exit:
+    id: schemas.find_extension_conflicts_exit
+    type: EXIT
+    label: exit
+    function: schemas.find_extension_conflicts
+  schemas.find_extension_conflicts_loop_288:
+    id: schemas.find_extension_conflicts_loop_288
+    type: FOR
+    label: for
+    function: schemas.find_extension_conflicts
+    line: 288
+  schemas.find_extension_conflicts_loop_289:
+    id: schemas.find_extension_conflicts_loop_289
+    type: FOR
+    label: for
+    function: schemas.find_extension_conflicts
+    line: 289
+  schemas.find_extension_conflicts_if_290:
+    id: schemas.find_extension_conflicts_if_290
+    type: IF
+    label: if
+    function: schemas.find_extension_conflicts
+    line: 290
+  schemas.find_extension_conflicts_merge_290:
+    id: schemas.find_extension_conflicts_merge_290
+    type: FUNC
+    label: merge
+    function: schemas.find_extension_conflicts
+  schemas.find_extension_conflicts_loop_294:
+    id: schemas.find_extension_conflicts_loop_294
+    type: FOR
+    label: for
+    function: schemas.find_extension_conflicts
+    line: 294
+  schemas.find_extension_conflicts_if_295:
+    id: schemas.find_extension_conflicts_if_295
+    type: IF
+    label: if
+    function: schemas.find_extension_conflicts
+    line: 295
+  schemas.find_extension_conflicts_merge_295:
+    id: schemas.find_extension_conflicts_merge_295
+    type: FUNC
+    label: merge
+    function: schemas.find_extension_conflicts
+  schemas.find_extension_conflicts_return_298:
+    id: schemas.find_extension_conflicts_return_298
+    type: RETURN
+    label: return
+    function: schemas.find_extension_conflicts
+    line: 298
+  schemas.validate_integrity_entry:
+    id: schemas.validate_integrity_entry
+    type: ENTRY
+    label: entry
+    function: schemas.validate_integrity
+  schemas.validate_integrity_exit:
+    id: schemas.validate_integrity_exit
+    type: EXIT
+    label: exit
+    function: schemas.validate_integrity
+  schemas.validate_integrity_loop_302:
+    id: schemas.validate_integrity_loop_302
+    type: FOR
+    label: for
+    function: schemas.validate_integrity
+    line: 302
+  schemas.validate_integrity_if_303:
+    id: schemas.validate_integrity_if_303
+    type: IF
+    label: if
+    function: schemas.validate_integrity
+    line: 303
+  schemas.validate_integrity_merge_303:
+    id: schemas.validate_integrity_merge_303
+    type: FUNC
+    label: merge
+    function: schemas.validate_integrity
+  schemas.validate_integrity_if_307:
+    id: schemas.validate_integrity_if_307
+    type: IF
+    label: if
+    function: schemas.validate_integrity
+    line: 307
+  schemas.validate_integrity_return_308:
+    id: schemas.validate_integrity_return_308
+    type: RETURN
+    label: return
+    function: schemas.validate_integrity
+    line: 308
+  schemas.validate_integrity_merge_307:
+    id: schemas.validate_integrity_merge_307
+    type: FUNC
+    label: merge
+    function: schemas.validate_integrity
+  schemas.validate_integrity_return_309:
+    id: schemas.validate_integrity_return_309
+    type: RETURN
+    label: return
+    function: schemas.validate_integrity
+    line: 309
+  schemas.get_dependencies_entry:
+    id: schemas.get_dependencies_entry
+    type: ENTRY
+    label: entry
+    function: schemas.get_dependencies
+  schemas.get_dependencies_exit:
+    id: schemas.get_dependencies_exit
+    type: EXIT
+    label: exit
+    function: schemas.get_dependencies
+  schemas.get_dependencies_if_313:
+    id: schemas.get_dependencies_if_313
+    type: IF
+    label: if
+    function: schemas.get_dependencies
+    line: 313
+  schemas.get_dependencies_return_314:
+    id: schemas.get_dependencies_return_314
+    type: RETURN
+    label: return
+    function: schemas.get_dependencies
+    line: 314
+  schemas.get_dependencies_merge_313:
+    id: schemas.get_dependencies_merge_313
+    type: FUNC
+    label: merge
+    function: schemas.get_dependencies
+  schemas.get_dependencies_return_315:
+    id: schemas.get_dependencies_return_315
+    type: RETURN
+    label: return
+    function: schemas.get_dependencies
+    line: 315
+  schemas.get_version_entry:
+    id: schemas.get_version_entry
+    type: ENTRY
+    label: entry
+    function: schemas.get_version
+  schemas.get_version_exit:
+    id: schemas.get_version_exit
+    type: EXIT
+    label: exit
+    function: schemas.get_version
+  schemas.get_version_if_323:
+    id: schemas.get_version_if_323
+    type: IF
+    label: if
+    function: schemas.get_version
+    line: 323
+  schemas.get_version_return_324:
+    id: schemas.get_version_return_324
+    type: RETURN
+    label: return
+    function: schemas.get_version
+    line: 324
+  schemas.get_version_merge_323:
+    id: schemas.get_version_merge_323
+    type: FUNC
+    label: merge
+    function: schemas.get_version
+  schemas.get_version_return_325:
+    id: schemas.get_version_return_325
+    type: RETURN
+    label: return
+    function: schemas.get_version
+    line: 325
+  schemas.export_schema_entry:
+    id: schemas.export_schema_entry
+    type: ENTRY
+    label: entry
+    function: schemas.export_schema
+  schemas.export_schema_exit:
+    id: schemas.export_schema_exit
+    type: EXIT
+    label: exit
+    function: schemas.export_schema
+  schemas.export_schema_if_329:
+    id: schemas.export_schema_if_329
+    type: IF
+    label: if
+    function: schemas.export_schema
+    line: 329
+  schemas.export_schema_merge_329:
+    id: schemas.export_schema_merge_329
+    type: FUNC
+    label: merge
+    function: schemas.export_schema
+  schemas.export_schema_return_331:
+    id: schemas.export_schema_return_331
+    type: RETURN
+    label: return
+    function: schemas.export_schema
+    line: 331
+  schemas.import_schema_entry:
+    id: schemas.import_schema_entry
+    type: ENTRY
+    label: entry
+    function: schemas.import_schema
+  schemas.import_schema_exit:
+    id: schemas.import_schema_exit
+    type: EXIT
+    label: exit
+    function: schemas.import_schema
+  schemas.load_from_file_entry:
+    id: schemas.load_from_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas.load_from_file
+  schemas.load_from_file_exit:
+    id: schemas.load_from_file_exit
+    type: EXIT
+    label: exit
+    function: schemas.load_from_file
+  schemas.load_from_file_if_365:
+    id: schemas.load_from_file_if_365
+    type: IF
+    label: if
+    function: schemas.load_from_file
+    line: 365
+  schemas.load_from_file_if_370:
+    id: schemas.load_from_file_if_370
+    type: IF
+    label: if
+    function: schemas.load_from_file
+    line: 370
+  schemas.load_from_file_return_373:
+    id: schemas.load_from_file_return_373
+    type: RETURN
+    label: return
+    function: schemas.load_from_file
+    line: 373
+  schemas.load_from_file_merge_370:
+    id: schemas.load_from_file_merge_370
+    type: FUNC
+    label: merge
+    function: schemas.load_from_file
+  schemas.load_from_file_merge_365:
+    id: schemas.load_from_file_merge_365
+    type: FUNC
+    label: merge
+    function: schemas.load_from_file
+  schemas.load_from_file_if_375:
+    id: schemas.load_from_file_if_375
+    type: IF
+    label: if
+    function: schemas.load_from_file
+    line: 375
+  schemas.load_from_file_merge_375:
+    id: schemas.load_from_file_merge_375
+    type: FUNC
+    label: merge
+    function: schemas.load_from_file
+  schemas.load_from_file_loop_378:
+    id: schemas.load_from_file_loop_378
+    type: FOR
+    label: for
+    function: schemas.load_from_file
+    line: 378
+  schemas.load_from_file_if_379:
+    id: schemas.load_from_file_if_379
+    type: IF
+    label: if
+    function: schemas.load_from_file
+    line: 379
+  schemas.load_from_file_merge_379:
+    id: schemas.load_from_file_merge_379
+    type: FUNC
+    label: merge
+    function: schemas.load_from_file
+  schemas.load_from_file_return_395:
+    id: schemas.load_from_file_return_395
+    type: RETURN
+    label: return
+    function: schemas.load_from_file
+    line: 395
+  schemas.load_from_directory_entry:
+    id: schemas.load_from_directory_entry
+    type: ENTRY
+    label: entry
+    function: schemas.load_from_directory
+  schemas.load_from_directory_exit:
+    id: schemas.load_from_directory_exit
+    type: EXIT
+    label: exit
+    function: schemas.load_from_directory
+  schemas.load_from_directory_loop_402:
+    id: schemas.load_from_directory_loop_402
+    type: FOR
+    label: for
+    function: schemas.load_from_directory
+    line: 402
+  schemas.load_from_directory_loop_409:
+    id: schemas.load_from_directory_loop_409
+    type: FOR
+    label: for
+    function: schemas.load_from_directory
+    line: 409
+  schemas.load_from_directory_loop_416:
+    id: schemas.load_from_directory_loop_416
+    type: FOR
+    label: for
+    function: schemas.load_from_directory
+    line: 416
+  schemas.load_from_directory_return_423:
+    id: schemas.load_from_directory_return_423
+    type: RETURN
+    label: return
+    function: schemas.load_from_directory
+    line: 423
+  schemas.detect_format_entry:
+    id: schemas.detect_format_entry
+    type: ENTRY
+    label: entry
+    function: schemas.detect_format
+  schemas.detect_format_exit:
+    id: schemas.detect_format_exit
+    type: EXIT
+    label: exit
+    function: schemas.detect_format
+  schemas.detect_format_loop_432:
+    id: schemas.detect_format_loop_432
+    type: FOR
+    label: for
+    function: schemas.detect_format
+    line: 432
+  schemas.detect_format_loop_433:
+    id: schemas.detect_format_loop_433
+    type: FOR
+    label: for
+    function: schemas.detect_format
+    line: 433
+  schemas.detect_format_if_434:
+    id: schemas.detect_format_if_434
+    type: IF
+    label: if
+    function: schemas.detect_format
+    line: 434
+  schemas.detect_format_merge_434:
+    id: schemas.detect_format_merge_434
+    type: FUNC
+    label: merge
+    function: schemas.detect_format
+  schemas.detect_format_if_437:
+    id: schemas.detect_format_if_437
+    type: IF
+    label: if
+    function: schemas.detect_format
+    line: 437
+  schemas.detect_format_merge_437:
+    id: schemas.detect_format_merge_437
+    type: FUNC
+    label: merge
+    function: schemas.detect_format
+  schemas.detect_format_if_442:
+    id: schemas.detect_format_if_442
+    type: IF
+    label: if
+    function: schemas.detect_format
+    line: 442
+  schemas.detect_format_return_443:
+    id: schemas.detect_format_return_443
+    type: RETURN
+    label: return
+    function: schemas.detect_format
+    line: 443
+  schemas.detect_format_merge_442:
+    id: schemas.detect_format_merge_442
+    type: FUNC
+    label: merge
+    function: schemas.detect_format
+  schemas.detect_format_return_446:
+    id: schemas.detect_format_return_446
+    type: RETURN
+    label: return
+    function: schemas.detect_format
+    line: 446
+  schemas._match_pattern_entry:
+    id: schemas._match_pattern_entry
+    type: ENTRY
+    label: entry
+    function: schemas._match_pattern
+  schemas._match_pattern_exit:
+    id: schemas._match_pattern_exit
+    type: EXIT
+    label: exit
+    function: schemas._match_pattern
+  schemas._match_pattern_return_452:
+    id: schemas._match_pattern_return_452
+    type: RETURN
+    label: return
+    function: schemas._match_pattern
+    line: 452
+  schemas._detect_by_content_entry:
+    id: schemas._detect_by_content_entry
+    type: ENTRY
+    label: entry
+    function: schemas._detect_by_content
+  schemas._detect_by_content_exit:
+    id: schemas._detect_by_content_exit
+    type: EXIT
+    label: exit
+    function: schemas._detect_by_content
+  schemas._detect_by_content_return_472:
+    id: schemas._detect_by_content_return_472
+    type: RETURN
+    label: return
+    function: schemas._detect_by_content
+    line: 472
+  schemas.validate_if_477:
+    id: schemas.validate_if_477
+    type: IF
+    label: if
+    function: schemas.validate
+    line: 477
+  schemas.validate_return_478:
+    id: schemas.validate_return_478
+    type: RETURN
+    label: return
+    function: schemas.validate
+    line: 478
+  schemas.validate_merge_477:
+    id: schemas.validate_merge_477
+    type: FUNC
+    label: merge
+    function: schemas.validate
+  schemas.validate_return_480:
+    id: schemas.validate_return_480
+    type: RETURN
+    label: return
+    function: schemas.validate
+    line: 480
+  schemas.repair_entry:
+    id: schemas.repair_entry
+    type: ENTRY
+    label: entry
+    function: schemas.repair
+  schemas.repair_exit:
+    id: schemas.repair_exit
+    type: EXIT
+    label: exit
+    function: schemas.repair
+  schemas.repair_if_490:
+    id: schemas.repair_if_490
+    type: IF
+    label: if
+    function: schemas.repair
+    line: 490
+  schemas.repair_return_491:
+    id: schemas.repair_return_491
+    type: RETURN
+    label: return
+    function: schemas.repair
+    line: 491
+  schemas.repair_merge_490:
+    id: schemas.repair_merge_490
+    type: FUNC
+    label: merge
+    function: schemas.repair
+  schemas.repair_loop_496:
+    id: schemas.repair_loop_496
+    type: FOR
+    label: for
+    function: schemas.repair
+    line: 496
+  schemas.repair_if_497:
+    id: schemas.repair_if_497
+    type: IF
+    label: if
+    function: schemas.repair
+    line: 497
+  schemas.repair_if_502:
+    id: schemas.repair_if_502
+    type: IF
+    label: if
+    function: schemas.repair
+    line: 502
+  schemas.repair_merge_502:
+    id: schemas.repair_merge_502
+    type: FUNC
+    label: merge
+    function: schemas.repair
+  schemas.repair_merge_497:
+    id: schemas.repair_merge_497
+    type: FUNC
+    label: merge
+    function: schemas.repair
+  schemas.repair_return_508:
+    id: schemas.repair_return_508
+    type: RETURN
+    label: return
+    function: schemas.repair
+    line: 508
+  schemas._apply_pattern_rule_entry:
+    id: schemas._apply_pattern_rule_entry
+    type: ENTRY
+    label: entry
+    function: schemas._apply_pattern_rule
+  schemas._apply_pattern_rule_exit:
+    id: schemas._apply_pattern_rule_exit
+    type: EXIT
+    label: exit
+    function: schemas._apply_pattern_rule
+  schemas._apply_pattern_rule_loop_525:
+    id: schemas._apply_pattern_rule_loop_525
+    type: FOR
+    label: for
+    function: schemas._apply_pattern_rule
+    line: 525
+  schemas._apply_pattern_rule_if_527:
+    id: schemas._apply_pattern_rule_if_527
+    type: IF
+    label: if
+    function: schemas._apply_pattern_rule
+    line: 527
+  schemas._apply_pattern_rule_merge_527:
+    id: schemas._apply_pattern_rule_merge_527
+    type: FUNC
+    label: merge
+    function: schemas._apply_pattern_rule
+  schemas._apply_pattern_rule_if_530:
+    id: schemas._apply_pattern_rule_if_530
+    type: IF
+    label: if
+    function: schemas._apply_pattern_rule
+    line: 530
+  schemas._apply_pattern_rule_if_531:
+    id: schemas._apply_pattern_rule_if_531
+    type: IF
+    label: if
+    function: schemas._apply_pattern_rule
+    line: 531
+  schemas._apply_pattern_rule_merge_531:
+    id: schemas._apply_pattern_rule_merge_531
+    type: FUNC
+    label: merge
+    function: schemas._apply_pattern_rule
+  schemas._apply_pattern_rule_merge_530:
+    id: schemas._apply_pattern_rule_merge_530
+    type: FUNC
+    label: merge
+    function: schemas._apply_pattern_rule
+  schemas._apply_pattern_rule_return_551:
+    id: schemas._apply_pattern_rule_return_551
+    type: RETURN
+    label: return
+    function: schemas._apply_pattern_rule
+    line: 551
+  schemas._apply_path_rule_entry:
+    id: schemas._apply_path_rule_entry
+    type: ENTRY
+    label: entry
+    function: schemas._apply_path_rule
+  schemas._apply_path_rule_exit:
+    id: schemas._apply_path_rule_exit
+    type: EXIT
+    label: exit
+    function: schemas._apply_path_rule
+  schemas._apply_path_rule_return_579:
+    id: schemas._apply_path_rule_return_579
+    type: RETURN
+    label: return
+    function: schemas._apply_path_rule
+    line: 579
+  schemas._check_path_entry:
+    id: schemas._check_path_entry
+    type: ENTRY
+    label: entry
+    function: schemas._check_path
+  schemas._check_path_exit:
+    id: schemas._check_path_exit
+    type: EXIT
+    label: exit
+    function: schemas._check_path
+  schemas._check_path_if_591:
+    id: schemas._check_path_if_591
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 591
+  schemas._check_path_return_592:
+    id: schemas._check_path_return_592
+    type: RETURN
+    label: return
+    function: schemas._check_path
+    line: 592
+  schemas._check_path_merge_591:
+    id: schemas._check_path_merge_591
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_if_597:
+    id: schemas._check_path_if_597
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 597
+  schemas._check_path_if_599:
+    id: schemas._check_path_if_599
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 599
+  schemas._check_path_loop_600:
+    id: schemas._check_path_loop_600
+    type: FOR
+    label: for
+    function: schemas._check_path
+    line: 600
+  schemas._check_path_if_604:
+    id: schemas._check_path_if_604
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 604
+  schemas._check_path_loop_605:
+    id: schemas._check_path_loop_605
+    type: FOR
+    label: for
+    function: schemas._check_path
+    line: 605
+  schemas._check_path_merge_604:
+    id: schemas._check_path_merge_604
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_merge_599:
+    id: schemas._check_path_merge_599
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_if_610:
+    id: schemas._check_path_if_610
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 610
+  schemas._check_path_if_611:
+    id: schemas._check_path_if_611
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 611
+  schemas._check_path_if_615:
+    id: schemas._check_path_if_615
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 615
+  schemas._check_path_merge_615:
+    id: schemas._check_path_merge_615
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_merge_611:
+    id: schemas._check_path_merge_611
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_if_628:
+    id: schemas._check_path_if_628
+    type: IF
+    label: if
+    function: schemas._check_path
+    line: 628
+  schemas._check_path_merge_628:
+    id: schemas._check_path_merge_628
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_merge_610:
+    id: schemas._check_path_merge_610
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_merge_597:
+    id: schemas._check_path_merge_597
+    type: FUNC
+    label: merge
+    function: schemas._check_path
+  schemas._check_path_return_636:
+    id: schemas._check_path_return_636
+    type: RETURN
+    label: return
+    function: schemas._check_path
+    line: 636
+  schemas._apply_path_fix_entry:
+    id: schemas._apply_path_fix_entry
+    type: ENTRY
+    label: entry
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_exit:
+    id: schemas._apply_path_fix_exit
+    type: EXIT
+    label: exit
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_if_645:
+    id: schemas._apply_path_fix_if_645
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 645
+  schemas._apply_path_fix_return_646:
+    id: schemas._apply_path_fix_return_646
+    type: RETURN
+    label: return
+    function: schemas._apply_path_fix
+    line: 646
+  schemas._apply_path_fix_merge_645:
+    id: schemas._apply_path_fix_merge_645
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_if_651:
+    id: schemas._apply_path_fix_if_651
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 651
+  schemas._apply_path_fix_if_652:
+    id: schemas._apply_path_fix_if_652
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 652
+  schemas._apply_path_fix_loop_653:
+    id: schemas._apply_path_fix_loop_653
+    type: FOR
+    label: for
+    function: schemas._apply_path_fix
+    line: 653
+  schemas._apply_path_fix_if_655:
+    id: schemas._apply_path_fix_if_655
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 655
+  schemas._apply_path_fix_loop_656:
+    id: schemas._apply_path_fix_loop_656
+    type: FOR
+    label: for
+    function: schemas._apply_path_fix
+    line: 656
+  schemas._apply_path_fix_merge_655:
+    id: schemas._apply_path_fix_merge_655
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_merge_652:
+    id: schemas._apply_path_fix_merge_652
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_if_659:
+    id: schemas._apply_path_fix_if_659
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 659
+  schemas._apply_path_fix_if_660:
+    id: schemas._apply_path_fix_if_660
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 660
+  schemas._apply_path_fix_if_663:
+    id: schemas._apply_path_fix_if_663
+    type: IF
+    label: if
+    function: schemas._apply_path_fix
+    line: 663
+  schemas._apply_path_fix_merge_663:
+    id: schemas._apply_path_fix_merge_663
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_merge_660:
+    id: schemas._apply_path_fix_merge_660
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_merge_659:
+    id: schemas._apply_path_fix_merge_659
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_merge_651:
+    id: schemas._apply_path_fix_merge_651
+    type: FUNC
+    label: merge
+    function: schemas._apply_path_fix
+  schemas._apply_path_fix_return_667:
+    id: schemas._apply_path_fix_return_667
+    type: RETURN
+    label: return
+    function: schemas._apply_path_fix
+    line: 667
+  schemas._validate_dockerfile_entry:
+    id: schemas._validate_dockerfile_entry
+    type: ENTRY
+    label: entry
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_exit:
+    id: schemas._validate_dockerfile_exit
+    type: EXIT
+    label: exit
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_loop_679:
+    id: schemas._validate_dockerfile_loop_679
+    type: FOR
+    label: for
+    function: schemas._validate_dockerfile
+    line: 679
+  schemas._validate_dockerfile_if_681:
+    id: schemas._validate_dockerfile_if_681
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 681
+  schemas._validate_dockerfile_merge_681:
+    id: schemas._validate_dockerfile_merge_681
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_if_684:
+    id: schemas._validate_dockerfile_if_684
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 684
+  schemas._validate_dockerfile_if_686:
+    id: schemas._validate_dockerfile_if_686
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 686
+  schemas._validate_dockerfile_if_688:
+    id: schemas._validate_dockerfile_if_688
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 688
+  schemas._validate_dockerfile_merge_688:
+    id: schemas._validate_dockerfile_merge_688
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_merge_686:
+    id: schemas._validate_dockerfile_merge_686
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_merge_684:
+    id: schemas._validate_dockerfile_merge_684
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_if_691:
+    id: schemas._validate_dockerfile_if_691
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 691
+  schemas._validate_dockerfile_merge_691:
+    id: schemas._validate_dockerfile_merge_691
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_if_694:
+    id: schemas._validate_dockerfile_if_694
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 694
+  schemas._validate_dockerfile_if_695:
+    id: schemas._validate_dockerfile_if_695
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 695
+  schemas._validate_dockerfile_if_697:
+    id: schemas._validate_dockerfile_if_697
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 697
+  schemas._validate_dockerfile_merge_697:
+    id: schemas._validate_dockerfile_merge_697
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_merge_695:
+    id: schemas._validate_dockerfile_merge_695
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_if_699:
+    id: schemas._validate_dockerfile_if_699
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 699
+  schemas._validate_dockerfile_if_702:
+    id: schemas._validate_dockerfile_if_702
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 702
+  schemas._validate_dockerfile_merge_702:
+    id: schemas._validate_dockerfile_merge_702
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_merge_699:
+    id: schemas._validate_dockerfile_merge_699
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_merge_694:
+    id: schemas._validate_dockerfile_merge_694
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_if_705:
+    id: schemas._validate_dockerfile_if_705
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 705
+  schemas._validate_dockerfile_merge_705:
+    id: schemas._validate_dockerfile_merge_705
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_if_708:
+    id: schemas._validate_dockerfile_if_708
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 708
+  schemas._validate_dockerfile_if_715:
+    id: schemas._validate_dockerfile_if_715
+    type: IF
+    label: if
+    function: schemas._validate_dockerfile
+    line: 715
+  schemas._validate_dockerfile_merge_715:
+    id: schemas._validate_dockerfile_merge_715
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_merge_708:
+    id: schemas._validate_dockerfile_merge_708
+    type: FUNC
+    label: merge
+    function: schemas._validate_dockerfile
+  schemas._validate_dockerfile_return_720:
+    id: schemas._validate_dockerfile_return_720
+    type: RETURN
+    label: return
+    function: schemas._validate_dockerfile
+    line: 720
+  schemas._validate_docker_compose_entry:
+    id: schemas._validate_docker_compose_entry
+    type: ENTRY
+    label: entry
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_exit:
+    id: schemas._validate_docker_compose_exit
+    type: EXIT
+    label: exit
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_if_732:
+    id: schemas._validate_docker_compose_if_732
+    type: IF
+    label: if
+    function: schemas._validate_docker_compose
+    line: 732
+  schemas._validate_docker_compose_return_733:
+    id: schemas._validate_docker_compose_return_733
+    type: RETURN
+    label: return
+    function: schemas._validate_docker_compose
+    line: 733
+  schemas._validate_docker_compose_merge_732:
+    id: schemas._validate_docker_compose_merge_732
+    type: FUNC
+    label: merge
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_if_736:
+    id: schemas._validate_docker_compose_if_736
+    type: IF
+    label: if
+    function: schemas._validate_docker_compose
+    line: 736
+  schemas._validate_docker_compose_merge_736:
+    id: schemas._validate_docker_compose_merge_736
+    type: FUNC
+    label: merge
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_if_739:
+    id: schemas._validate_docker_compose_if_739
+    type: IF
+    label: if
+    function: schemas._validate_docker_compose
+    line: 739
+  schemas._validate_docker_compose_merge_739:
+    id: schemas._validate_docker_compose_merge_739
+    type: FUNC
+    label: merge
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_loop_743:
+    id: schemas._validate_docker_compose_loop_743
+    type: FOR
+    label: for
+    function: schemas._validate_docker_compose
+    line: 743
+  schemas._validate_docker_compose_if_744:
+    id: schemas._validate_docker_compose_if_744
+    type: IF
+    label: if
+    function: schemas._validate_docker_compose
+    line: 744
+  schemas._validate_docker_compose_merge_744:
+    id: schemas._validate_docker_compose_merge_744
+    type: FUNC
+    label: merge
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_if_748:
+    id: schemas._validate_docker_compose_if_748
+    type: IF
+    label: if
+    function: schemas._validate_docker_compose
+    line: 748
+  schemas._validate_docker_compose_merge_748:
+    id: schemas._validate_docker_compose_merge_748
+    type: FUNC
+    label: merge
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_if_751:
+    id: schemas._validate_docker_compose_if_751
+    type: IF
+    label: if
+    function: schemas._validate_docker_compose
+    line: 751
+  schemas._validate_docker_compose_merge_751:
+    id: schemas._validate_docker_compose_merge_751
+    type: FUNC
+    label: merge
+    function: schemas._validate_docker_compose
+  schemas._validate_docker_compose_return_754:
+    id: schemas._validate_docker_compose_return_754
+    type: RETURN
+    label: return
+    function: schemas._validate_docker_compose
+    line: 754
+  schemas._validate_k8s_deployment_entry:
+    id: schemas._validate_k8s_deployment_entry
+    type: ENTRY
+    label: entry
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_exit:
+    id: schemas._validate_k8s_deployment_exit
+    type: EXIT
+    label: exit
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_if_767:
+    id: schemas._validate_k8s_deployment_if_767
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 767
+  schemas._validate_k8s_deployment_return_768:
+    id: schemas._validate_k8s_deployment_return_768
+    type: RETURN
+    label: return
+    function: schemas._validate_k8s_deployment
+    line: 768
+  schemas._validate_k8s_deployment_merge_767:
+    id: schemas._validate_k8s_deployment_merge_767
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_if_770:
+    id: schemas._validate_k8s_deployment_if_770
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 770
+  schemas._validate_k8s_deployment_merge_770:
+    id: schemas._validate_k8s_deployment_merge_770
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_if_774:
+    id: schemas._validate_k8s_deployment_if_774
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 774
+  schemas._validate_k8s_deployment_merge_774:
+    id: schemas._validate_k8s_deployment_merge_774
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_if_778:
+    id: schemas._validate_k8s_deployment_if_778
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 778
+  schemas._validate_k8s_deployment_return_780:
+    id: schemas._validate_k8s_deployment_return_780
+    type: RETURN
+    label: return
+    function: schemas._validate_k8s_deployment
+    line: 780
+  schemas._validate_k8s_deployment_merge_778:
+    id: schemas._validate_k8s_deployment_merge_778
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_loop_785:
+    id: schemas._validate_k8s_deployment_loop_785
+    type: FOR
+    label: for
+    function: schemas._validate_k8s_deployment
+    line: 785
+  schemas._validate_k8s_deployment_if_786:
+    id: schemas._validate_k8s_deployment_if_786
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 786
+  schemas._validate_k8s_deployment_merge_786:
+    id: schemas._validate_k8s_deployment_merge_786
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_if_788:
+    id: schemas._validate_k8s_deployment_if_788
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 788
+  schemas._validate_k8s_deployment_merge_788:
+    id: schemas._validate_k8s_deployment_merge_788
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_if_790:
+    id: schemas._validate_k8s_deployment_if_790
+    type: IF
+    label: if
+    function: schemas._validate_k8s_deployment
+    line: 790
+  schemas._validate_k8s_deployment_merge_790:
+    id: schemas._validate_k8s_deployment_merge_790
+    type: FUNC
+    label: merge
+    function: schemas._validate_k8s_deployment
+  schemas._validate_k8s_deployment_return_793:
+    id: schemas._validate_k8s_deployment_return_793
+    type: RETURN
+    label: return
+    function: schemas._validate_k8s_deployment
+    line: 793
+  schemas._validate_github_workflow_entry:
+    id: schemas._validate_github_workflow_entry
+    type: ENTRY
+    label: entry
+    function: schemas._validate_github_workflow
+  schemas._validate_github_workflow_exit:
+    id: schemas._validate_github_workflow_exit
+    type: EXIT
+    label: exit
+    function: schemas._validate_github_workflow
+  schemas._validate_github_workflow_if_807:
+    id: schemas._validate_github_workflow_if_807
+    type: IF
+    label: if
+    function: schemas._validate_github_workflow
+    line: 807
+  schemas._validate_github_workflow_merge_807:
+    id: schemas._validate_github_workflow_merge_807
+    type: FUNC
+    label: merge
+    function: schemas._validate_github_workflow
+  schemas._validate_github_workflow_if_810:
+    id: schemas._validate_github_workflow_if_810
+    type: IF
+    label: if
+    function: schemas._validate_github_workflow
+    line: 810
+  schemas._validate_github_workflow_return_812:
+    id: schemas._validate_github_workflow_return_812
+    type: RETURN
+    label: return
+    function: schemas._validate_github_workflow
+    line: 812
+  schemas._validate_github_workflow_merge_810:
+    id: schemas._validate_github_workflow_merge_810
+    type: FUNC
+    label: merge
+    function: schemas._validate_github_workflow
+  schemas._validate_github_workflow_loop_814:
+    id: schemas._validate_github_workflow_loop_814
+    type: FOR
+    label: for
+    function: schemas._validate_github_workflow
+    line: 814
+  schemas._validate_github_workflow_if_815:
+    id: schemas._validate_github_workflow_if_815
+    type: IF
+    label: if
+    function: schemas._validate_github_workflow
+    line: 815
+  schemas._validate_github_workflow_merge_815:
+    id: schemas._validate_github_workflow_merge_815
+    type: FUNC
+    label: merge
+    function: schemas._validate_github_workflow
+  schemas._validate_github_workflow_if_817:
+    id: schemas._validate_github_workflow_if_817
+    type: IF
+    label: if
+    function: schemas._validate_github_workflow
+    line: 817
+  schemas._validate_github_workflow_merge_817:
+    id: schemas._validate_github_workflow_merge_817
+    type: FUNC
+    label: merge
+    function: schemas._validate_github_workflow
+  schemas._validate_github_workflow_return_820:
+    id: schemas._validate_github_workflow_return_820
+    type: RETURN
+    label: return
+    function: schemas._validate_github_workflow
+    line: 820
+  schemas._validate_env_file_entry:
+    id: schemas._validate_env_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas._validate_env_file
+  schemas._validate_env_file_exit:
+    id: schemas._validate_env_file_exit
+    type: EXIT
+    label: exit
+    function: schemas._validate_env_file
+  schemas._validate_env_file_loop_827:
+    id: schemas._validate_env_file_loop_827
+    type: FOR
+    label: for
+    function: schemas._validate_env_file
+    line: 827
+  schemas._validate_env_file_if_829:
+    id: schemas._validate_env_file_if_829
+    type: IF
+    label: if
+    function: schemas._validate_env_file
+    line: 829
+  schemas._validate_env_file_merge_829:
+    id: schemas._validate_env_file_merge_829
+    type: FUNC
+    label: merge
+    function: schemas._validate_env_file
+  schemas._validate_env_file_if_832:
+    id: schemas._validate_env_file_if_832
+    type: IF
+    label: if
+    function: schemas._validate_env_file
+    line: 832
+  schemas._validate_env_file_merge_832:
+    id: schemas._validate_env_file_merge_832
+    type: FUNC
+    label: merge
+    function: schemas._validate_env_file
+  schemas._validate_env_file_if_838:
+    id: schemas._validate_env_file_if_838
+    type: IF
+    label: if
+    function: schemas._validate_env_file
+    line: 838
+  schemas._validate_env_file_merge_838:
+    id: schemas._validate_env_file_merge_838
+    type: FUNC
+    label: merge
+    function: schemas._validate_env_file
+  schemas._validate_env_file_if_842:
+    id: schemas._validate_env_file_if_842
+    type: IF
+    label: if
+    function: schemas._validate_env_file
+    line: 842
+  schemas._validate_env_file_merge_842:
+    id: schemas._validate_env_file_merge_842
+    type: FUNC
+    label: merge
+    function: schemas._validate_env_file
+  schemas._validate_env_file_if_844:
+    id: schemas._validate_env_file_if_844
+    type: IF
+    label: if
+    function: schemas._validate_env_file
+    line: 844
+  schemas._validate_env_file_merge_844:
+    id: schemas._validate_env_file_merge_844
+    type: FUNC
+    label: merge
+    function: schemas._validate_env_file
+  schemas._validate_env_file_return_847:
+    id: schemas._validate_env_file_return_847
+    type: RETURN
+    label: return
+    function: schemas._validate_env_file
+    line: 847
+  schemas._parse_dockerfile_entry:
+    id: schemas._parse_dockerfile_entry
+    type: ENTRY
+    label: entry
+    function: schemas._parse_dockerfile
+  schemas._parse_dockerfile_exit:
+    id: schemas._parse_dockerfile_exit
+    type: EXIT
+    label: exit
+    function: schemas._parse_dockerfile
+  schemas._parse_dockerfile_loop_853:
+    id: schemas._parse_dockerfile_loop_853
+    type: FOR
+    label: for
+    function: schemas._parse_dockerfile
+    line: 853
+  schemas._parse_dockerfile_if_855:
+    id: schemas._parse_dockerfile_if_855
+    type: IF
+    label: if
+    function: schemas._parse_dockerfile
+    line: 855
+  schemas._parse_dockerfile_merge_855:
+    id: schemas._parse_dockerfile_merge_855
+    type: FUNC
+    label: merge
+    function: schemas._parse_dockerfile
+  schemas._parse_dockerfile_if_858:
+    id: schemas._parse_dockerfile_if_858
+    type: IF
+    label: if
+    function: schemas._parse_dockerfile
+    line: 858
+  schemas._parse_dockerfile_merge_858:
+    id: schemas._parse_dockerfile_merge_858
+    type: FUNC
+    label: merge
+    function: schemas._parse_dockerfile
+  schemas._parse_dockerfile_return_863:
+    id: schemas._parse_dockerfile_return_863
+    type: RETURN
+    label: return
+    function: schemas._parse_dockerfile
+    line: 863
+  schemas._generate_dockerfile_entry:
+    id: schemas._generate_dockerfile_entry
+    type: ENTRY
+    label: entry
+    function: schemas._generate_dockerfile
+  schemas._generate_dockerfile_exit:
+    id: schemas._generate_dockerfile_exit
+    type: EXIT
+    label: exit
+    function: schemas._generate_dockerfile
+  schemas._generate_dockerfile_loop_868:
+    id: schemas._generate_dockerfile_loop_868
+    type: FOR
+    label: for
+    function: schemas._generate_dockerfile
+    line: 868
+  schemas._generate_dockerfile_return_870:
+    id: schemas._generate_dockerfile_return_870
+    type: RETURN
+    label: return
+    function: schemas._generate_dockerfile
+    line: 870
+  schemas._parse_env_file_entry:
+    id: schemas._parse_env_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas._parse_env_file
+  schemas._parse_env_file_exit:
+    id: schemas._parse_env_file_exit
+    type: EXIT
+    label: exit
+    function: schemas._parse_env_file
+  schemas._parse_env_file_loop_875:
+    id: schemas._parse_env_file_loop_875
+    type: FOR
+    label: for
+    function: schemas._parse_env_file
+    line: 875
+  schemas._parse_env_file_if_877:
+    id: schemas._parse_env_file_if_877
+    type: IF
+    label: if
+    function: schemas._parse_env_file
+    line: 877
+  schemas._parse_env_file_merge_877:
+    id: schemas._parse_env_file_merge_877
+    type: FUNC
+    label: merge
+    function: schemas._parse_env_file
+  schemas._parse_env_file_if_879:
+    id: schemas._parse_env_file_if_879
+    type: IF
+    label: if
+    function: schemas._parse_env_file
+    line: 879
+  schemas._parse_env_file_if_883:
+    id: schemas._parse_env_file_if_883
+    type: IF
+    label: if
+    function: schemas._parse_env_file
+    line: 883
+  schemas._parse_env_file_if_885:
+    id: schemas._parse_env_file_if_885
+    type: IF
+    label: if
+    function: schemas._parse_env_file
+    line: 885
+  schemas._parse_env_file_merge_885:
+    id: schemas._parse_env_file_merge_885
+    type: FUNC
+    label: merge
+    function: schemas._parse_env_file
+  schemas._parse_env_file_merge_883:
+    id: schemas._parse_env_file_merge_883
+    type: FUNC
+    label: merge
+    function: schemas._parse_env_file
+  schemas._parse_env_file_merge_879:
+    id: schemas._parse_env_file_merge_879
+    type: FUNC
+    label: merge
+    function: schemas._parse_env_file
+  schemas._parse_env_file_return_888:
+    id: schemas._parse_env_file_return_888
+    type: RETURN
+    label: return
+    function: schemas._parse_env_file
+    line: 888
+  schemas._generate_env_file_entry:
+    id: schemas._generate_env_file_entry
+    type: ENTRY
+    label: entry
+    function: schemas._generate_env_file
+  schemas._generate_env_file_exit:
+    id: schemas._generate_env_file_exit
+    type: EXIT
+    label: exit
+    function: schemas._generate_env_file
+  schemas._generate_env_file_loop_893:
+    id: schemas._generate_env_file_loop_893
+    type: FOR
+    label: for
+    function: schemas._generate_env_file
+    line: 893
+  schemas._generate_env_file_if_894:
+    id: schemas._generate_env_file_if_894
+    type: IF
+    label: if
+    function: schemas._generate_env_file
+    line: 894
+  schemas._generate_env_file_merge_894:
+    id: schemas._generate_env_file_merge_894
+    type: FUNC
+    label: merge
+    function: schemas._generate_env_file
+  schemas._generate_env_file_return_897:
+    id: schemas._generate_env_file_return_897
+    type: RETURN
+    label: return
+    function: schemas._generate_env_file
+    line: 897
+  schemas._validate_json_entry:
+    id: schemas._validate_json_entry
+    type: ENTRY
+    label: entry
+    function: schemas._validate_json
+  schemas._validate_json_exit:
+    id: schemas._validate_json_exit
+    type: EXIT
+    label: exit
+    function: schemas._validate_json

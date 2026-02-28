@@ -1,0 +1,178 @@
+module: feedback.FeedbackAnalyzer
+type: functions
+count: 11
+functions:
+  feedback.FeedbackAnalyzer.__init__:
+    name: __init__
+    qualified_name: feedback.FeedbackAnalyzer.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 95
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer.__init___entry
+    calls:
+    - self._register_default_rules
+  feedback.FeedbackAnalyzer._register_default_rules:
+    name: _register_default_rules
+    qualified_name: feedback.FeedbackAnalyzer._register_default_rules
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 105
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._register_default_rules_entry
+    calls:
+    - self.correction_rules.extend
+    - CorrectionRule
+  feedback.FeedbackAnalyzer.analyze:
+    name: analyze
+    qualified_name: feedback.FeedbackAnalyzer.analyze
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 142
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer.analyze_entry
+    calls:
+    - list
+    - isinstance
+    - str
+    - output_str.strip
+    - self._calculate_confidence
+    - FeedbackResult
+    - ctx.get
+    - clarification_questions.append
+    - suggestions.append
+    - self._analyze_error
+    - suggestions.extend
+    - auto_corrections.update
+    - clarification_questions.extend
+    - output_strip.startswith
+    - None.strip
+    - self._detect_missing_tool
+    - self._detect_placeholders
+    - re.search
+    - self._is_ambiguous
+    - len
+    - float
+    - transform_status.lower
+    - error_analysis.get
+    - output_strip.lower
+    - errors.append
+    - callable
+    - self._generate_clarification_questions
+    - last_plan.get
+    - output_strip.lstrip
+    - rule.replacement
+    - re.sub
+    - None.join
+  feedback.FeedbackAnalyzer._detect_missing_tool:
+    name: _detect_missing_tool
+    qualified_name: feedback.FeedbackAnalyzer._detect_missing_tool
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 303
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._detect_missing_tool_entry
+    calls:
+    - output.startswith
+    - shlex.split
+    - shutil.which
+    - output.split
+    - len
+  feedback.FeedbackAnalyzer._detect_placeholders:
+    name: _detect_placeholders
+    qualified_name: feedback.FeedbackAnalyzer._detect_placeholders
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 325
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._detect_placeholders_entry
+    calls:
+    - sorted
+    - output.startswith
+    - shlex.split
+    - executor.ExecutionContext.set
+    - output.split
+    - len
+    - re.findall
+  feedback.FeedbackAnalyzer._analyze_error:
+    name: _analyze_error
+    qualified_name: feedback.FeedbackAnalyzer._analyze_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 350
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._analyze_error_entry
+    calls:
+    - error.lower
+    - suggestions.append
+    - questions.append
+  feedback.FeedbackAnalyzer._is_ambiguous:
+    name: _is_ambiguous
+    qualified_name: feedback.FeedbackAnalyzer._is_ambiguous
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 389
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._is_ambiguous_entry
+    calls:
+    - input_text.lower
+  feedback.FeedbackAnalyzer._generate_clarification_questions:
+    name: _generate_clarification_questions
+    qualified_name: feedback.FeedbackAnalyzer._generate_clarification_questions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 414
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._generate_clarification_questions_entry
+    calls:
+    - input_text.lower
+    - questions.append
+  feedback.FeedbackAnalyzer._calculate_confidence:
+    name: _calculate_confidence
+    qualified_name: feedback.FeedbackAnalyzer._calculate_confidence
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 438
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer._calculate_confidence_entry
+    calls:
+    - generation.thermodynamic_components._NumpyStub.max
+    - len
+    - min
+  feedback.FeedbackAnalyzer.check_syntax:
+    name: check_syntax
+    qualified_name: feedback.FeedbackAnalyzer.check_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 466
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer.check_syntax_entry
+    calls:
+    - content.count
+    - errors.append
+    - len
+  feedback.FeedbackAnalyzer.analyze_exception:
+    name: analyze_exception
+    qualified_name: feedback.FeedbackAnalyzer.analyze_exception
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 489
+    module: feedback
+    class: FeedbackAnalyzer
+    is_method: true
+    cfg_entry: feedback.FeedbackAnalyzer.analyze_exception_entry
+    calls:
+    - str
+    - type
+    - suggestions.append
+    - questions.append
+    - error_msg.lower

@@ -1,0 +1,113 @@
+module: generation.llm_simple.SimpleLLMSQLGenerator
+type: orphan_nodes
+count: 20
+nodes:
+  generation.llm_simple.SimpleLLMSQLGenerator.__init___entry:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.SimpleLLMSQLGenerator.__init__
+  generation.llm_simple.SimpleLLMSQLGenerator.__init___exit:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.SimpleLLMSQLGenerator.__init__
+  generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_entry:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt
+  generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_exit:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt
+  generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_if_250:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_if_250
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt
+    line: 250
+  generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_merge_250:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_merge_250
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt
+  generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_return_260:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_return_260
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt
+    line: 260
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_entry:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_exit:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_267:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_267
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 267
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_269:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_269
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 269
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_return_270:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_return_270
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 270
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_269:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_269
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_267:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_267
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_272:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_272
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 272
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_274:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_if_274
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 274
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_return_275:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_return_275
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 275
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_274:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_274
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_272:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_merge_272
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command_return_278:
+    id: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_return_278
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    line: 278

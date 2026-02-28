@@ -1,0 +1,34 @@
+module: validators.KubernetesValidator
+type: functions
+count: 1
+functions:
+  validators.KubernetesValidator.validate:
+    name: validate
+    qualified_name: validators.KubernetesValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 620
+    module: validators
+    class: KubernetesValidator
+    is_method: true
+    cfg_entry: validators.KubernetesValidator.validate_entry
+    calls:
+    - None.strip
+    - content_stripped.lower
+    - content_lower.startswith
+    - content_stripped.split
+    - enumerate
+    - ValidationResult
+    - t.lower
+    - t.startswith
+    - errors.append
+    - warnings.append
+    - suggestions.append
+    - re.search
+    - len
+    - tokens_lower.index
+    - t.split
+    - int
+    - path.endswith
+    - None.exists
+    - None.expanduser
+    - Path

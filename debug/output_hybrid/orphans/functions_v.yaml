@@ -1,0 +1,47 @@
+letter: V
+type: orphan_functions
+count: 5
+functions:
+  generation.validating.DSLValidator.validate:
+    name: validate
+    qualified_name: generation.validating.DSLValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/validating.py
+    line: 19
+    module: generation.validating
+    class: DSLValidator
+    is_method: true
+    cfg_entry: generation.validating.DSLValidator.validate_entry
+  validators.BaseValidator.validate:
+    name: validate
+    qualified_name: validators.BaseValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 104
+    module: validators
+    class: BaseValidator
+    is_method: true
+    cfg_entry: validators.BaseValidator.validate_entry
+  adapters.base.BaseDSLAdapter.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.base.BaseDSLAdapter.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/base.py
+    line: 117
+    module: adapters.base
+    class: BaseDSLAdapter
+    is_method: true
+    cfg_entry: adapters.base.BaseDSLAdapter.validate_syntax_entry
+  adapters.base.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.base.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/base.py
+    line: 117
+    module: adapters.base
+    cfg_entry: adapters.base.validate_syntax_entry
+  src.nlp2cmd.validation.framework.BaseValidator.validate:
+    name: validate
+    qualified_name: src.nlp2cmd.validation.framework.BaseValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/validation/framework.py
+    line: 40
+    module: src.nlp2cmd.validation.framework
+    class: BaseValidator
+    is_method: true
+    cfg_entry: src.nlp2cmd.validation.framework.BaseValidator.validate_entry

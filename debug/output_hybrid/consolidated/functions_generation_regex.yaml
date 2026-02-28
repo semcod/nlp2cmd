@@ -1,0 +1,153 @@
+module: generation.regex
+type: functions
+count: 11
+functions:
+  generation.regex.__init__:
+    name: __init__
+    qualified_name: generation.regex.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 339
+    module: generation.regex
+    cfg_entry: generation.regex.__init___entry
+    calls:
+    - self._load_patterns_from_json
+    - self.SQL_PATTERNS.copy
+    - self.SHELL_PATTERNS.copy
+    - self.DOCKER_PATTERNS.copy
+    - self.KUBERNETES_PATTERNS.copy
+    - custom_patterns.items
+    - None.update
+  generation.regex._load_patterns_from_json:
+    name: _load_patterns_from_json
+    qualified_name: generation.regex._load_patterns_from_json
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 598
+    module: generation.regex
+    cfg_entry: generation.regex._load_patterns_from_json_entry
+    calls:
+    - utils.data_files.find_data_file
+    - payload.items
+    - json.loads
+    - isinstance
+    - self.patterns.setdefault
+    - domain_patterns.items
+    - os.environ.get
+    - p.read_text
+    - domain.startswith
+    - domain.strip
+    - bucket.get
+    - x.strip
+    - entity_type.strip
+  generation.regex.extract:
+    name: extract
+    qualified_name: generation.regex.extract
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 636
+    module: generation.regex
+    cfg_entry: generation.regex.extract_entry
+    calls:
+    - self.patterns.get
+    - domain_patterns.items
+    - self._post_process
+    - ExtractionResult
+    - text.lower
+    - re.search
+    - self._process_match
+    - extracted.append
+    - self._parse_columns
+    - ExtractedEntity
+    - self._normalize_direction
+  generation.regex._process_match:
+    name: _process_match
+    qualified_name: generation.regex._process_match
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 686
+    module: generation.regex
+    cfg_entry: generation.regex._process_match_entry
+    calls:
+    - match.groups
+    - match.group
+    - len
+    - int
+    - self._normalize_time_unit
+  generation.regex._parse_columns:
+    name: _parse_columns
+    qualified_name: generation.regex._parse_columns
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 721
+    module: generation.regex
+    cfg_entry: generation.regex._parse_columns_entry
+    calls:
+    - col.strip
+    - value.split
+    - col.lower
+  generation.regex._normalize_direction:
+    name: _normalize_direction
+    qualified_name: generation.regex._normalize_direction
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 738
+    module: generation.regex
+    cfg_entry: generation.regex._normalize_direction_entry
+    calls:
+    - value.lower
+  generation.regex._normalize_time_unit:
+    name: _normalize_time_unit
+    qualified_name: generation.regex._normalize_time_unit
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 746
+    module: generation.regex
+    cfg_entry: generation.regex._normalize_time_unit_entry
+    calls:
+    - unit_map.get
+    - unit.lower
+  generation.regex._post_process:
+    name: _post_process
+    qualified_name: generation.regex._post_process
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 761
+    module: generation.regex
+    cfg_entry: generation.regex._post_process_entry
+    calls:
+    - entities.copy
+    - entities.get
+    - canonical_map.get
+    - re.search
+    - None.lower
+    - path.startswith
+    - isinstance
+    - agg_map.get
+    - path.replace
+    - parsed.get
+    - None.strip
+    - str
+    - resource_map.get
+    - None.upper
+  generation.regex.extract_all_numbers:
+    name: extract_all_numbers
+    qualified_name: generation.regex.extract_all_numbers
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 882
+    module: generation.regex
+    cfg_entry: generation.regex.extract_all_numbers_entry
+    calls:
+    - int
+    - re.findall
+  generation.regex.extract_quoted_strings:
+    name: extract_quoted_strings
+    qualified_name: generation.regex.extract_quoted_strings
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 886
+    module: generation.regex
+    cfg_entry: generation.regex.extract_quoted_strings_entry
+    calls:
+    - results.extend
+    - re.findall
+  generation.regex.add_pattern:
+    name: add_pattern
+    qualified_name: generation.regex.add_pattern
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/regex.py
+    line: 893
+    module: generation.regex
+    cfg_entry: generation.regex.add_pattern_entry
+    calls:
+    - None.extend

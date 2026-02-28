@@ -1,0 +1,300 @@
+module: streams.vnc_stream.VNCStreamAdapter
+type: orphan_nodes
+count: 54
+nodes:
+  streams.vnc_stream.VNCStreamAdapter.__init___entry:
+    id: streams.vnc_stream.VNCStreamAdapter.__init___entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter.__init__
+  streams.vnc_stream.VNCStreamAdapter.__init___exit:
+    id: streams.vnc_stream.VNCStreamAdapter.__init___exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter.__init__
+  streams.vnc_stream.VNCStreamAdapter.connect_entry:
+    id: streams.vnc_stream.VNCStreamAdapter.connect_entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter.connect
+  streams.vnc_stream.VNCStreamAdapter.connect_exit:
+    id: streams.vnc_stream.VNCStreamAdapter.connect_exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter.connect
+  streams.vnc_stream.VNCStreamAdapter.connect_if_30:
+    id: streams.vnc_stream.VNCStreamAdapter.connect_if_30
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.connect
+    line: 30
+  streams.vnc_stream.VNCStreamAdapter.connect_return_50:
+    id: streams.vnc_stream.VNCStreamAdapter.connect_return_50
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.connect
+    line: 50
+  streams.vnc_stream.VNCStreamAdapter.connect_merge_30:
+    id: streams.vnc_stream.VNCStreamAdapter.connect_merge_30
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.connect
+  streams.vnc_stream.VNCStreamAdapter.execute_entry:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_exit:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_if_57:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_if_57
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 57
+  streams.vnc_stream.VNCStreamAdapter.execute_return_58:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_return_58
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 58
+  streams.vnc_stream.VNCStreamAdapter.execute_merge_57:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_merge_57
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_if_63:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_if_63
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 63
+  streams.vnc_stream.VNCStreamAdapter.execute_if_67:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_if_67
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 67
+  streams.vnc_stream.VNCStreamAdapter.execute_if_71:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_if_71
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 71
+  streams.vnc_stream.VNCStreamAdapter.execute_if_78:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_if_78
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 78
+  streams.vnc_stream.VNCStreamAdapter.execute_merge_78:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_merge_78
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_merge_71:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_merge_71
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_merge_67:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_merge_67
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_merge_63:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_merge_63
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+  streams.vnc_stream.VNCStreamAdapter.execute_return_87:
+    id: streams.vnc_stream.VNCStreamAdapter.execute_return_87
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.execute
+    line: 87
+  streams.vnc_stream.VNCStreamAdapter.query_entry:
+    id: streams.vnc_stream.VNCStreamAdapter.query_entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter.query
+  streams.vnc_stream.VNCStreamAdapter.query_exit:
+    id: streams.vnc_stream.VNCStreamAdapter.query_exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter.query
+  streams.vnc_stream.VNCStreamAdapter.query_if_90:
+    id: streams.vnc_stream.VNCStreamAdapter.query_if_90
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.query
+    line: 90
+  streams.vnc_stream.VNCStreamAdapter.query_return_92:
+    id: streams.vnc_stream.VNCStreamAdapter.query_return_92
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.query
+    line: 92
+  streams.vnc_stream.VNCStreamAdapter.query_merge_90:
+    id: streams.vnc_stream.VNCStreamAdapter.query_merge_90
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.query
+  streams.vnc_stream.VNCStreamAdapter.query_return_93:
+    id: streams.vnc_stream.VNCStreamAdapter.query_return_93
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.query
+    line: 93
+  streams.vnc_stream.VNCStreamAdapter.screenshot_entry:
+    id: streams.vnc_stream.VNCStreamAdapter.screenshot_entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter.screenshot
+  streams.vnc_stream.VNCStreamAdapter.screenshot_exit:
+    id: streams.vnc_stream.VNCStreamAdapter.screenshot_exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter.screenshot
+  streams.vnc_stream.VNCStreamAdapter.screenshot_if_96:
+    id: streams.vnc_stream.VNCStreamAdapter.screenshot_if_96
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.screenshot
+    line: 96
+  streams.vnc_stream.VNCStreamAdapter.screenshot_return_97:
+    id: streams.vnc_stream.VNCStreamAdapter.screenshot_return_97
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.screenshot
+    line: 97
+  streams.vnc_stream.VNCStreamAdapter.screenshot_merge_96:
+    id: streams.vnc_stream.VNCStreamAdapter.screenshot_merge_96
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.screenshot
+  streams.vnc_stream.VNCStreamAdapter.screenshot_return_98:
+    id: streams.vnc_stream.VNCStreamAdapter.screenshot_return_98
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter.screenshot
+    line: 98
+  streams.vnc_stream.VNCStreamAdapter.disconnect_entry:
+    id: streams.vnc_stream.VNCStreamAdapter.disconnect_entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter.disconnect
+  streams.vnc_stream.VNCStreamAdapter.disconnect_exit:
+    id: streams.vnc_stream.VNCStreamAdapter.disconnect_exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter.disconnect
+  streams.vnc_stream.VNCStreamAdapter.disconnect_if_101:
+    id: streams.vnc_stream.VNCStreamAdapter.disconnect_if_101
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.disconnect
+    line: 101
+  streams.vnc_stream.VNCStreamAdapter.disconnect_merge_101:
+    id: streams.vnc_stream.VNCStreamAdapter.disconnect_merge_101
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.disconnect
+  streams.vnc_stream.VNCStreamAdapter.disconnect_if_103:
+    id: streams.vnc_stream.VNCStreamAdapter.disconnect_if_103
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter.disconnect
+    line: 103
+  streams.vnc_stream.VNCStreamAdapter.disconnect_merge_103:
+    id: streams.vnc_stream.VNCStreamAdapter.disconnect_merge_103
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter.disconnect
+  streams.vnc_stream.VNCStreamAdapter._extract_key_entry:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_entry
+    type: ENTRY
+    label: entry
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+  streams.vnc_stream.VNCStreamAdapter._extract_key_exit:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_exit
+    type: EXIT
+    label: exit
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+  streams.vnc_stream.VNCStreamAdapter._extract_key_if_113:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_if_113
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 113
+  streams.vnc_stream.VNCStreamAdapter._extract_key_return_114:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_return_114
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 114
+  streams.vnc_stream.VNCStreamAdapter._extract_key_merge_113:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_merge_113
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+  streams.vnc_stream.VNCStreamAdapter._extract_key_if_115:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_if_115
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 115
+  streams.vnc_stream.VNCStreamAdapter._extract_key_return_116:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_return_116
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 116
+  streams.vnc_stream.VNCStreamAdapter._extract_key_merge_115:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_merge_115
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+  streams.vnc_stream.VNCStreamAdapter._extract_key_if_117:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_if_117
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 117
+  streams.vnc_stream.VNCStreamAdapter._extract_key_return_118:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_return_118
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 118
+  streams.vnc_stream.VNCStreamAdapter._extract_key_merge_117:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_merge_117
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+  streams.vnc_stream.VNCStreamAdapter._extract_key_if_119:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_if_119
+    type: IF
+    label: if
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 119
+  streams.vnc_stream.VNCStreamAdapter._extract_key_return_120:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_return_120
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 120
+  streams.vnc_stream.VNCStreamAdapter._extract_key_merge_119:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_merge_119
+    type: FUNC
+    label: merge
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+  streams.vnc_stream.VNCStreamAdapter._extract_key_return_121:
+    id: streams.vnc_stream.VNCStreamAdapter._extract_key_return_121
+    type: RETURN
+    label: return
+    function: streams.vnc_stream.VNCStreamAdapter._extract_key
+    line: 121

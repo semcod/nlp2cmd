@@ -1,0 +1,98 @@
+module: web_schema.extractor.WebSchemaExtractor
+type: functions
+count: 5
+functions:
+  web_schema.extractor.WebSchemaExtractor.extract:
+    name: extract
+    qualified_name: web_schema.extractor.WebSchemaExtractor.extract
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 144
+    module: web_schema.extractor
+    class: WebSchemaExtractor
+    is_method: true
+    cfg_entry: web_schema.extractor.WebSchemaExtractor.extract_entry
+    calls:
+    - urlparse
+    - WebPageSchema
+    - url.startswith
+    - sync_playwright
+    - p.chromium.launch
+    - browser.new_context
+    - context.new_page
+    - page.goto
+    - page.wait_for_timeout
+    - page.title
+    - self._extract_inputs
+    - self._extract_buttons
+    - self._extract_links
+    - self._extract_forms
+    - execution.browser.close
+    - RuntimeError
+    - None.isoformat
+    - datetime.datetime.now
+  web_schema.extractor.WebSchemaExtractor._extract_inputs:
+    name: _extract_inputs
+    qualified_name: web_schema.extractor.WebSchemaExtractor._extract_inputs
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 209
+    module: web_schema.extractor
+    class: WebSchemaExtractor
+    is_method: true
+    cfg_entry: web_schema.extractor.WebSchemaExtractor._extract_inputs_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - elem.get_attribute
+    - elem.evaluate
+    - inputs.append
+    - WebElement
+  web_schema.extractor.WebSchemaExtractor._extract_buttons:
+    name: _extract_buttons
+    qualified_name: web_schema.extractor.WebSchemaExtractor._extract_buttons
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 253
+    module: web_schema.extractor
+    class: WebSchemaExtractor
+    is_method: true
+    cfg_entry: web_schema.extractor.WebSchemaExtractor._extract_buttons_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - elem.get_attribute
+    - buttons.append
+    - elem.inner_text
+    - None.strip
+    - WebElement
+  web_schema.extractor.WebSchemaExtractor._extract_links:
+    name: _extract_links
+    qualified_name: web_schema.extractor.WebSchemaExtractor._extract_links
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 292
+    module: web_schema.extractor
+    class: WebSchemaExtractor
+    is_method: true
+    cfg_entry: web_schema.extractor.WebSchemaExtractor._extract_links_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - elem.get_attribute
+    - links.append
+    - elem.inner_text
+    - None.strip
+    - WebElement
+  web_schema.extractor.WebSchemaExtractor._extract_forms:
+    name: _extract_forms
+    qualified_name: web_schema.extractor.WebSchemaExtractor._extract_forms
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 321
+    module: web_schema.extractor
+    class: WebSchemaExtractor
+    is_method: true
+    cfg_entry: web_schema.extractor.WebSchemaExtractor._extract_forms_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - form.get_attribute
+    - form.query_selector_all
+    - forms.append
+    - inp.get_attribute

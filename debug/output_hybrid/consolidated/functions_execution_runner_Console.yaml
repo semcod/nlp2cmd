@@ -1,0 +1,16 @@
+module: execution.runner.Console
+type: functions
+count: 1
+functions:
+  execution.runner.Console.print:
+    name: print
+    qualified_name: execution.runner.Console.print
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/runner.py
+    line: 30
+    module: execution.runner
+    class: Console
+    is_method: true
+    cfg_entry: execution.runner.Console.print_entry
+    calls:
+    - builtins_print
+    - isinstance

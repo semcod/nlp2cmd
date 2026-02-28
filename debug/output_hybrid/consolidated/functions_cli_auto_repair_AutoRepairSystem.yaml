@@ -1,0 +1,161 @@
+module: cli.auto_repair.AutoRepairSystem
+type: functions
+count: 9
+functions:
+  cli.auto_repair.AutoRepairSystem._print:
+    name: _print
+    qualified_name: cli.auto_repair.AutoRepairSystem._print
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 74
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem._print_entry
+    calls:
+    - self.console.print
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  cli.auto_repair.AutoRepairSystem.categorize_error:
+    name: categorize_error
+    qualified_name: cli.auto_repair.AutoRepairSystem.categorize_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 81
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem.categorize_error_entry
+    calls:
+    - None.lower
+    - any
+    - type
+    - str
+  cli.auto_repair.AutoRepairSystem.attempt_repair:
+    name: attempt_repair
+    qualified_name: cli.auto_repair.AutoRepairSystem.attempt_repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 151
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem.attempt_repair_entry
+    calls:
+    - self._repair_missing_token
+    - self._repair_missing_dependency
+    - self._repair_service_unavailable
+    - self._repair_configuration_error
+    - self._repair_permission_denied
+    - RepairResult
+  cli.auto_repair.AutoRepairSystem._repair_missing_token:
+    name: _repair_missing_token
+    qualified_name: cli.auto_repair.AutoRepairSystem._repair_missing_token
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 178
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem._repair_missing_token_entry
+    calls:
+    - self._print
+    - context.get
+    - RepairResult
+    - cli.commands.doctor.get_hf_token_via_browser
+    - None.lower
+    - Path
+    - env_file.exists
+    - env_file.read_text
+    - env_file.write_text
+    - None.strip
+    - content.split
+    - None.join
+    - str
+    - input
+    - l.startswith
+  cli.auto_repair.AutoRepairSystem._repair_missing_dependency:
+    name: _repair_missing_dependency
+    qualified_name: cli.auto_repair.AutoRepairSystem._repair_missing_dependency
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 273
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem._repair_missing_dependency_entry
+    calls:
+    - str
+    - self._print
+    - RepairResult
+    - subprocess.run
+    - None.lower
+    - error_str.split
+    - type
+    - None.split
+    - None.strip
+    - error_str.strip
+    - input
+  cli.auto_repair.AutoRepairSystem._repair_service_unavailable:
+    name: _repair_service_unavailable
+    qualified_name: cli.auto_repair.AutoRepairSystem._repair_service_unavailable
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 353
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem._repair_service_unavailable_entry
+    calls:
+    - None.lower
+    - RepairResult
+    - self._print
+    - str
+    - subprocess.Popen
+    - time.sleep
+    - socket.socket
+    - sock.settimeout
+    - sock.connect_ex
+    - sock.close
+    - None.strip
+    - input
+  cli.auto_repair.AutoRepairSystem._repair_configuration_error:
+    name: _repair_configuration_error
+    qualified_name: cli.auto_repair.AutoRepairSystem._repair_configuration_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 433
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem._repair_configuration_error_entry
+    calls:
+    - Path
+    - RepairResult
+    - env_file.exists
+    - self._print
+    - example.exists
+    - env_file.write_text
+    - example.read_text
+  cli.auto_repair.AutoRepairSystem._repair_permission_denied:
+    name: _repair_permission_denied
+    qualified_name: cli.auto_repair.AutoRepairSystem._repair_permission_denied
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 464
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem._repair_permission_denied_entry
+    calls:
+    - self._print
+    - RepairResult
+  cli.auto_repair.AutoRepairSystem.handle_error:
+    name: handle_error
+    qualified_name: cli.auto_repair.AutoRepairSystem.handle_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/auto_repair.py
+    line: 480
+    module: cli.auto_repair
+    class: AutoRepairSystem
+    is_method: true
+    cfg_entry: cli.auto_repair.AutoRepairSystem.handle_error_entry
+    calls:
+    - self.categorize_error
+    - self.attempt_repair
+    - self.console.print
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - self._print
+    - traceback.print_exc
+    - time.sleep
+    - original_func

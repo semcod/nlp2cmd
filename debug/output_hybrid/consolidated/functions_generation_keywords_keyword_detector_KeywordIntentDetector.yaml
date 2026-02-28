@@ -1,0 +1,243 @@
+module: generation.keywords.keyword_detector.KeywordIntentDetector
+type: functions
+count: 13
+functions:
+  generation.keywords.keyword_detector.KeywordIntentDetector.__init__:
+    name: __init__
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 216
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector.__init___entry
+    calls:
+    - KeywordPatterns
+    - custom_patterns.items
+    - intents.items
+    - self.patterns.add_pattern
+  generation.keywords.keyword_detector.KeywordIntentDetector.add_pattern:
+    name: add_pattern
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector.add_pattern
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 237
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector.add_pattern_entry
+    calls:
+    - self.patterns.add_pattern
+  generation.keywords.keyword_detector.KeywordIntentDetector.detect:
+    name: detect
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector.detect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 241
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector.detect_entry
+    calls:
+    - generation.keywords.keyword_detector._get_query_normalizer
+    - text.lower
+    - self._ml_detection
+    - self._fuzzy_detection
+    - bool
+    - self._fast_path_detection
+    - self._semantic_detection
+    - self._keyword_detection
+    - DetectionResult
+    - _normalizer.normalize
+    - any
+    - text.strip
+    - re.search
+    - web_schema.site_explorer.SiteExplorer._normalize_url
+    - url_match.group
+    - domain_in_text.group
+  generation.keywords.keyword_detector.KeywordIntentDetector.detect_all:
+    name: detect_all
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector.detect_all
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 326
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector.detect_all_entry
+    calls:
+    - text.lower
+    - executor.ExecutionContext.set
+    - self.patterns.patterns.items
+    - results.sort
+    - intents.items
+    - text.strip
+    - self._match_keyword
+    - seen.add
+    - results.append
+    - DetectionResult
+  generation.keywords.keyword_detector.KeywordIntentDetector._match_keyword:
+    name: _match_keyword
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._match_keyword
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 362
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._match_keyword_entry
+    calls:
+    - keyword.lower
+  generation.keywords.keyword_detector.KeywordIntentDetector._fast_path_detection:
+    name: _fast_path_detection
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._fast_path_detection
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 366
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._fast_path_detection_entry
+    calls:
+    - None.join
+    - text_lower.strip
+    - _SQL_EXACT.items
+    - any
+    - _SHELL_TERMS.items
+    - re.search
+    - text_lower.split
+    - DetectionResult
+    - _re.search
+    - web_schema.site_explorer.SiteExplorer._normalize_url
+    - file_pattern_match.group
+    - pid_match.group
+    - dir_match.group
+    - perm_match.group
+    - file_match.group
+    - src_match.group
+    - table_match.group
+    - None.strip
+    - limit_match.group
+    - url_match.group
+    - ns_match.group
+    - next
+    - domain_in_text.group
+    - www_match.group
+    - domain_match.group
+    - replica_match.group
+    - re.escape
+    - where_match.group
+    - table_match.groups
+  generation.keywords.keyword_detector.KeywordIntentDetector._fuzzy_detection:
+    name: _fuzzy_detection
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._fuzzy_detection
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 987
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._fuzzy_detection_entry
+    calls:
+    - generation.keywords.keyword_detector._get_fuzzy_schema_matcher
+    - matcher.match
+    - DetectionResult
+    - logger.debug
+  generation.keywords.keyword_detector.KeywordIntentDetector._ml_detection:
+    name: _ml_detection
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._ml_detection
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 1007
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._ml_detection_entry
+    calls:
+    - generation.keywords.keyword_detector._get_ml_classifier
+    - classifier.predict
+    - DetectionResult
+    - logger.debug
+  generation.keywords.keyword_detector.KeywordIntentDetector._semantic_detection:
+    name: _semantic_detection
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._semantic_detection
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 1027
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._semantic_detection_entry
+    calls:
+    - generation.keywords.keyword_detector._get_semantic_matcher
+    - matcher.match
+    - DetectionResult
+    - logger.debug
+  generation.keywords.keyword_detector.KeywordIntentDetector._keyword_detection:
+    name: _keyword_detection
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._keyword_detection
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 1047
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._keyword_detection_entry
+    calls:
+    - DetectionResult
+    - self.patterns.list_domains
+    - self.patterns.get_priority_intents
+    - self.patterns.get_domain_boosters
+    - self._calculate_keyword_confidence
+    - any
+    - self.patterns.get_intent_patterns
+    - self.patterns.list_intents
+    - min
+    - re.search
+    - web_schema.site_explorer.SiteExplorer._normalize_url
+    - _dm.group
+  generation.keywords.keyword_detector.KeywordIntentDetector._calculate_keyword_confidence:
+    name: _calculate_keyword_confidence
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._calculate_keyword_confidence
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 1114
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._calculate_keyword_confidence_entry
+    calls:
+    - len
+    - self._tokenize_text
+    - executor.ExecutionContext.set
+    - self._keyword_matches
+    - min
+  generation.keywords.keyword_detector.KeywordIntentDetector._tokenize_text:
+    name: _tokenize_text
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._tokenize_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 1142
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._tokenize_text_entry
+    calls:
+    - generation.keywords.keyword_detector._get_spacy_model
+    - re.findall
+    - text.lower
+    - nlp
+    - generation.keywords.keyword_detector._get_polish_support
+    - logger.debug
+    - hasattr
+    - polish_support._is_important_token
+    - tokens.append
+    - token.text.lower
+    - None.lower
+    - len
+  generation.keywords.keyword_detector.KeywordIntentDetector._keyword_matches:
+    name: _keyword_matches
+    qualified_name: generation.keywords.keyword_detector.KeywordIntentDetector._keyword_matches
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/keywords/keyword_detector.py
+    line: 1178
+    module: generation.keywords.keyword_detector
+    class: KeywordIntentDetector
+    is_method: true
+    cfg_entry: generation.keywords.keyword_detector.KeywordIntentDetector._keyword_matches_entry
+    calls:
+    - re.fullmatch
+    - None.join
+    - map
+    - re.search
+    - len
+    - keyword.split
+    - re.escape

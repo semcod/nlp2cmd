@@ -1,0 +1,113 @@
+module: automation.feedback_loop.FeedbackLoop
+type: functions
+count: 6
+functions:
+  automation.feedback_loop.FeedbackLoop.__init__:
+    name: __init__
+    qualified_name: automation.feedback_loop.FeedbackLoop.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 237
+    module: automation.feedback_loop
+    class: FeedbackLoop
+    is_method: true
+    cfg_entry: automation.feedback_loop.FeedbackLoop.__init___entry
+    calls:
+    - None.rstrip
+    - int
+    - os.environ.get
+  automation.feedback_loop.FeedbackLoop.classify_failure:
+    name: classify_failure
+    qualified_name: automation.feedback_loop.FeedbackLoop.classify_failure
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 262
+    module: automation.feedback_loop
+    class: FeedbackLoop
+    is_method: true
+    cfg_entry: automation.feedback_loop.FeedbackLoop.classify_failure_entry
+    calls:
+    - error.lower
+    - any
+    - StepDiagnosis
+    - params.get
+    - automation.feedback_loop.PageAnalyzer.find_clickable_for_text
+  automation.feedback_loop.FeedbackLoop.diagnose_with_llm:
+    name: diagnose_with_llm
+    qualified_name: automation.feedback_loop.FeedbackLoop.diagnose_with_llm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 354
+    module: automation.feedback_loop
+    class: FeedbackLoop
+    is_method: true
+    cfg_entry: automation.feedback_loop.FeedbackLoop.diagnose_with_llm_entry
+    calls:
+    - StepDiagnosis
+    - self._call_ollama
+    - self._call_cloud
+    - raw.strip
+    - text.startswith
+    - json.loads
+    - data.get
+    - json.dumps
+    - text.splitlines
+    - None.strip
+    - FailureType
+    - log.warning
+    - None.join
+    - None.startswith
+    - l.strip
+  automation.feedback_loop.FeedbackLoop.generate_repair_params:
+    name: generate_repair_params
+    qualified_name: automation.feedback_loop.FeedbackLoop.generate_repair_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 420
+    module: automation.feedback_loop
+    class: FeedbackLoop
+    is_method: true
+    cfg_entry: automation.feedback_loop.FeedbackLoop.generate_repair_params_entry
+    calls:
+    - dict
+    - service_config.get
+    - None.rstrip
+    - selector.split
+  automation.feedback_loop.FeedbackLoop._call_ollama:
+    name: _call_ollama
+    qualified_name: automation.feedback_loop.FeedbackLoop._call_ollama
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 463
+    module: automation.feedback_loop
+    class: FeedbackLoop
+    is_method: true
+    cfg_entry: automation.feedback_loop.FeedbackLoop._call_ollama_entry
+    calls:
+    - None.encode
+    - urllib.request.Request
+    - urllib.request.urlopen
+    - json.loads
+    - None.strip
+    - log.debug
+    - json.dumps
+    - resp.read
+    - None.get
+    - data.get
+  automation.feedback_loop.FeedbackLoop._call_cloud:
+    name: _call_cloud
+    qualified_name: automation.feedback_loop.FeedbackLoop._call_cloud
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 486
+    module: automation.feedback_loop
+    class: FeedbackLoop
+    is_method: true
+    cfg_entry: automation.feedback_loop.FeedbackLoop._call_cloud_entry
+    calls:
+    - model.startswith
+    - None.encode
+    - urllib.request.Request
+    - urllib.request.urlopen
+    - json.loads
+    - data.get
+    - log.debug
+    - json.dumps
+    - resp.read
+    - None.strip
+    - len
+    - None.get

@@ -1,0 +1,117 @@
+module: adapters.docker.DockerSafetyPolicy
+type: orphan_nodes
+count: 20
+nodes:
+  adapters.docker.DockerSafetyPolicy.check_command_entry:
+    id: adapters.docker.DockerSafetyPolicy.check_command_entry
+    type: ENTRY
+    label: entry
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_exit:
+    id: adapters.docker.DockerSafetyPolicy.check_command_exit
+    type: EXIT
+    label: exit
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_if_37:
+    id: adapters.docker.DockerSafetyPolicy.check_command_if_37
+    type: IF
+    label: if
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 37
+  adapters.docker.DockerSafetyPolicy.check_command_return_38:
+    id: adapters.docker.DockerSafetyPolicy.check_command_return_38
+    type: RETURN
+    label: return
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 38
+  adapters.docker.DockerSafetyPolicy.check_command_merge_37:
+    id: adapters.docker.DockerSafetyPolicy.check_command_merge_37
+    type: FUNC
+    label: merge
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_if_45:
+    id: adapters.docker.DockerSafetyPolicy.check_command_if_45
+    type: IF
+    label: if
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 45
+  adapters.docker.DockerSafetyPolicy.check_command_return_46:
+    id: adapters.docker.DockerSafetyPolicy.check_command_return_46
+    type: RETURN
+    label: return
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 46
+  adapters.docker.DockerSafetyPolicy.check_command_merge_45:
+    id: adapters.docker.DockerSafetyPolicy.check_command_merge_45
+    type: FUNC
+    label: merge
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_if_53:
+    id: adapters.docker.DockerSafetyPolicy.check_command_if_53
+    type: IF
+    label: if
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 53
+  adapters.docker.DockerSafetyPolicy.check_command_return_54:
+    id: adapters.docker.DockerSafetyPolicy.check_command_return_54
+    type: RETURN
+    label: return
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 54
+  adapters.docker.DockerSafetyPolicy.check_command_merge_53:
+    id: adapters.docker.DockerSafetyPolicy.check_command_merge_53
+    type: FUNC
+    label: merge
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_loop_61:
+    id: adapters.docker.DockerSafetyPolicy.check_command_loop_61
+    type: FOR
+    label: for
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 61
+  adapters.docker.DockerSafetyPolicy.check_command_if_62:
+    id: adapters.docker.DockerSafetyPolicy.check_command_if_62
+    type: IF
+    label: if
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 62
+  adapters.docker.DockerSafetyPolicy.check_command_return_63:
+    id: adapters.docker.DockerSafetyPolicy.check_command_return_63
+    type: RETURN
+    label: return
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 63
+  adapters.docker.DockerSafetyPolicy.check_command_merge_62:
+    id: adapters.docker.DockerSafetyPolicy.check_command_merge_62
+    type: FUNC
+    label: merge
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_loop_71:
+    id: adapters.docker.DockerSafetyPolicy.check_command_loop_71
+    type: FOR
+    label: for
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 71
+  adapters.docker.DockerSafetyPolicy.check_command_if_72:
+    id: adapters.docker.DockerSafetyPolicy.check_command_if_72
+    type: IF
+    label: if
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 72
+  adapters.docker.DockerSafetyPolicy.check_command_return_73:
+    id: adapters.docker.DockerSafetyPolicy.check_command_return_73
+    type: RETURN
+    label: return
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 73
+  adapters.docker.DockerSafetyPolicy.check_command_merge_72:
+    id: adapters.docker.DockerSafetyPolicy.check_command_merge_72
+    type: FUNC
+    label: merge
+    function: adapters.docker.DockerSafetyPolicy.check_command
+  adapters.docker.DockerSafetyPolicy.check_command_return_79:
+    id: adapters.docker.DockerSafetyPolicy.check_command_return_79
+    type: RETURN
+    label: return
+    function: adapters.docker.DockerSafetyPolicy.check_command
+    line: 79

@@ -1,0 +1,44 @@
+module: src.nlp2cmd.validation.framework.FormFieldValidator
+type: functions
+count: 3
+functions:
+  src.nlp2cmd.validation.framework.FormFieldValidator.__init__:
+    name: __init__
+    qualified_name: src.nlp2cmd.validation.framework.FormFieldValidator.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/validation/framework.py
+    line: 92
+    module: src.nlp2cmd.validation.framework
+    class: FormFieldValidator
+    is_method: true
+    cfg_entry: src.nlp2cmd.validation.framework.FormFieldValidator.__init___entry
+    calls:
+    - None.__init__
+    - super
+  src.nlp2cmd.validation.framework.FormFieldValidator.validate:
+    name: validate
+    qualified_name: src.nlp2cmd.validation.framework.FormFieldValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/validation/framework.py
+    line: 100
+    module: src.nlp2cmd.validation.framework
+    class: FormFieldValidator
+    is_method: true
+    cfg_entry: src.nlp2cmd.validation.framework.FormFieldValidator.validate_entry
+    calls:
+    - field_data.get
+    - self._is_junk_field
+    - self._create_result
+    - warnings.append
+    - errors.append
+    - len
+  src.nlp2cmd.validation.framework.FormFieldValidator._is_junk_field:
+    name: _is_junk_field
+    qualified_name: src.nlp2cmd.validation.framework.FormFieldValidator._is_junk_field
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/validation/framework.py
+    line: 125
+    module: src.nlp2cmd.validation.framework
+    class: FormFieldValidator
+    is_method: true
+    cfg_entry: src.nlp2cmd.validation.framework.FormFieldValidator._is_junk_field_entry
+    calls:
+    - re.match
+    - str

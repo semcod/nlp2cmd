@@ -1,0 +1,182 @@
+module: exploration.base.BaseExplorer
+type: orphan_nodes
+count: 33
+nodes:
+  exploration.base.BaseExplorer.__init___entry:
+    id: exploration.base.BaseExplorer.__init___entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer.__init__
+  exploration.base.BaseExplorer.__init___exit:
+    id: exploration.base.BaseExplorer.__init___exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer.__init__
+  exploration.base.BaseExplorer.explore_entry:
+    id: exploration.base.BaseExplorer.explore_entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer.explore
+  exploration.base.BaseExplorer.explore_exit:
+    id: exploration.base.BaseExplorer.explore_exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer.explore
+  exploration.base.BaseExplorer.supports_entry:
+    id: exploration.base.BaseExplorer.supports_entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer.supports
+  exploration.base.BaseExplorer.supports_exit:
+    id: exploration.base.BaseExplorer.supports_exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer.supports
+  exploration.base.BaseExplorer._should_stop_entry:
+    id: exploration.base.BaseExplorer._should_stop_entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer._should_stop
+  exploration.base.BaseExplorer._should_stop_exit:
+    id: exploration.base.BaseExplorer._should_stop_exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer._should_stop
+  exploration.base.BaseExplorer._should_stop_if_87:
+    id: exploration.base.BaseExplorer._should_stop_if_87
+    type: IF
+    label: if
+    function: exploration.base.BaseExplorer._should_stop
+    line: 87
+  exploration.base.BaseExplorer._should_stop_return_88:
+    id: exploration.base.BaseExplorer._should_stop_return_88
+    type: RETURN
+    label: return
+    function: exploration.base.BaseExplorer._should_stop
+    line: 88
+  exploration.base.BaseExplorer._should_stop_merge_87:
+    id: exploration.base.BaseExplorer._should_stop_merge_87
+    type: FUNC
+    label: merge
+    function: exploration.base.BaseExplorer._should_stop
+  exploration.base.BaseExplorer._should_stop_if_89:
+    id: exploration.base.BaseExplorer._should_stop_if_89
+    type: IF
+    label: if
+    function: exploration.base.BaseExplorer._should_stop
+    line: 89
+  exploration.base.BaseExplorer._should_stop_return_90:
+    id: exploration.base.BaseExplorer._should_stop_return_90
+    type: RETURN
+    label: return
+    function: exploration.base.BaseExplorer._should_stop
+    line: 90
+  exploration.base.BaseExplorer._should_stop_merge_89:
+    id: exploration.base.BaseExplorer._should_stop_merge_89
+    type: FUNC
+    label: merge
+    function: exploration.base.BaseExplorer._should_stop
+  exploration.base.BaseExplorer._should_stop_return_91:
+    id: exploration.base.BaseExplorer._should_stop_return_91
+    type: RETURN
+    label: return
+    function: exploration.base.BaseExplorer._should_stop
+    line: 91
+  exploration.base.BaseExplorer._score_relevance_entry:
+    id: exploration.base.BaseExplorer._score_relevance_entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer._score_relevance
+  exploration.base.BaseExplorer._score_relevance_exit:
+    id: exploration.base.BaseExplorer._score_relevance_exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer._score_relevance
+  exploration.base.BaseExplorer._score_relevance_if_101:
+    id: exploration.base.BaseExplorer._score_relevance_if_101
+    type: IF
+    label: if
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 101
+  exploration.base.BaseExplorer._score_relevance_if_105:
+    id: exploration.base.BaseExplorer._score_relevance_if_105
+    type: IF
+    label: if
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 105
+  exploration.base.BaseExplorer._score_relevance_merge_105:
+    id: exploration.base.BaseExplorer._score_relevance_merge_105
+    type: FUNC
+    label: merge
+    function: exploration.base.BaseExplorer._score_relevance
+  exploration.base.BaseExplorer._score_relevance_loop_110:
+    id: exploration.base.BaseExplorer._score_relevance_loop_110
+    type: FOR
+    label: for
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 110
+  exploration.base.BaseExplorer._score_relevance_if_111:
+    id: exploration.base.BaseExplorer._score_relevance_if_111
+    type: IF
+    label: if
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 111
+  exploration.base.BaseExplorer._score_relevance_merge_111:
+    id: exploration.base.BaseExplorer._score_relevance_merge_111
+    type: FUNC
+    label: merge
+    function: exploration.base.BaseExplorer._score_relevance
+  exploration.base.BaseExplorer._score_relevance_merge_101:
+    id: exploration.base.BaseExplorer._score_relevance_merge_101
+    type: FUNC
+    label: merge
+    function: exploration.base.BaseExplorer._score_relevance
+  exploration.base.BaseExplorer._score_relevance_loop_117:
+    id: exploration.base.BaseExplorer._score_relevance_loop_117
+    type: FOR
+    label: for
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 117
+  exploration.base.BaseExplorer._score_relevance_if_118:
+    id: exploration.base.BaseExplorer._score_relevance_if_118
+    type: IF
+    label: if
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 118
+  exploration.base.BaseExplorer._score_relevance_merge_118:
+    id: exploration.base.BaseExplorer._score_relevance_merge_118
+    type: FUNC
+    label: merge
+    function: exploration.base.BaseExplorer._score_relevance
+  exploration.base.BaseExplorer._score_relevance_return_121:
+    id: exploration.base.BaseExplorer._score_relevance_return_121
+    type: RETURN
+    label: return
+    function: exploration.base.BaseExplorer._score_relevance
+    line: 121
+  exploration.base.BaseExplorer._get_intent_keywords_entry:
+    id: exploration.base.BaseExplorer._get_intent_keywords_entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer._get_intent_keywords
+  exploration.base.BaseExplorer._get_intent_keywords_exit:
+    id: exploration.base.BaseExplorer._get_intent_keywords_exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer._get_intent_keywords
+  exploration.base.BaseExplorer._get_intent_keywords_return_134:
+    id: exploration.base.BaseExplorer._get_intent_keywords_return_134
+    type: RETURN
+    label: return
+    function: exploration.base.BaseExplorer._get_intent_keywords
+    line: 134
+  exploration.base.BaseExplorer.reset_entry:
+    id: exploration.base.BaseExplorer.reset_entry
+    type: ENTRY
+    label: entry
+    function: exploration.base.BaseExplorer.reset
+  exploration.base.BaseExplorer.reset_exit:
+    id: exploration.base.BaseExplorer.reset_exit
+    type: EXIT
+    label: exit
+    function: exploration.base.BaseExplorer.reset

@@ -1,0 +1,148 @@
+module: schema_driven.SchemaDrivenNLP2CMD
+type: functions
+count: 7
+functions:
+  schema_driven.SchemaDrivenNLP2CMD.transform:
+    name: transform
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD.transform
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 22
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD.transform_entry
+    calls:
+    - self._select_action
+    - self._extract_params
+    - self._render_dsl
+    - str
+    - ActionIR
+    - match.action.dsl.get
+    - min
+    - generation.thermodynamic_components._NumpyStub.max
+  schema_driven.SchemaDrivenNLP2CMD._select_action:
+    name: _select_action
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD._select_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 40
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD._select_action_entry
+    calls:
+    - text.lower
+    - list
+    - str
+    - ValueError
+    - re.split
+    - None.lower
+    - len
+    - any
+    - MatchResult
+    - None.get
+    - isinstance
+    - schema.get
+    - min
+    - p.lower
+    - ex.lower
+  schema_driven.SchemaDrivenNLP2CMD._extract_params:
+    name: _extract_params
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD._extract_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 110
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD._extract_params_entry
+    calls:
+    - re.split
+    - text.strip
+    - tok.split
+    - key.strip
+    - value.strip
+    - str
+    - re.search
+    - action.params.get
+    - spec.get
+    - int
+    - m.group
+    - float
+    - value.lower
+  schema_driven.SchemaDrivenNLP2CMD._render_dsl:
+    name: _render_dsl
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD._render_dsl
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 150
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD._render_dsl_entry
+    calls:
+    - action.dsl.get
+    - isinstance
+    - template.strip
+    - self._render_http
+    - self._render_shell
+    - self._render_dom
+    - template.format
+  schema_driven.SchemaDrivenNLP2CMD._render_dom:
+    name: _render_dom
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD._render_dom
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 169
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD._render_dom_entry
+    calls:
+    - str
+    - schema.get
+    - json.dumps
+    - isinstance
+    - base_url.strip
+    - params.get
+  schema_driven.SchemaDrivenNLP2CMD._render_http:
+    name: _render_http
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD._render_http
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 191
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD._render_http_entry
+    calls:
+    - None.upper
+    - str
+    - None.items
+    - None.join
+    - url.startswith
+    - parts.extend
+    - schema.get
+    - path.replace
+    - query_parts.append
+    - base_url.rstrip
+    - json.dumps
+    - None.get
+  schema_driven.SchemaDrivenNLP2CMD._render_shell:
+    name: _render_shell
+    qualified_name: schema_driven.SchemaDrivenNLP2CMD._render_shell
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_driven.py
+    line: 229
+    module: schema_driven
+    class: SchemaDrivenNLP2CMD
+    is_method: true
+    cfg_entry: schema_driven.SchemaDrivenNLP2CMD._render_shell_entry
+    calls:
+    - str
+    - params.items
+    - None.join
+    - re.match
+    - None.lower
+    - schema.get
+    - m.group
+    - any
+    - action.params.get
+    - name.replace
+    - parts.extend
+    - parts.append
+    - spec.get

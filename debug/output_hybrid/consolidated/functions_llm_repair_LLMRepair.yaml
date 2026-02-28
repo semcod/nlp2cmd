@@ -1,0 +1,129 @@
+module: llm.repair.LLMRepair
+type: functions
+count: 6
+functions:
+  llm.repair.LLMRepair.__init__:
+    name: __init__
+    qualified_name: llm.repair.LLMRepair.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/repair.py
+    line: 124
+    module: llm.repair
+    class: LLMRepair
+    is_method: true
+    cfg_entry: llm.repair.LLMRepair.__init___entry
+    calls:
+    - os.environ.get
+    - int
+    - float
+    - Path
+    - None.lower
+    - str
+    - utils.data_files.find_data_file
+  llm.repair.LLMRepair.repair:
+    name: repair
+    qualified_name: llm.repair.LLMRepair.repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/repair.py
+    line: 171
+    module: llm.repair
+    class: LLMRepair
+    is_method: true
+    cfg_entry: llm.repair.LLMRepair.repair_entry
+    calls:
+    - _USER_TEMPLATE.format
+    - pipeline_runner_utils._debug
+    - self._call_openrouter
+    - self._parse_and_apply
+    - RepairResult
+    - len
+  llm.repair.LLMRepair._call_openrouter:
+    name: _call_openrouter
+    qualified_name: llm.repair.LLMRepair._call_openrouter
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/repair.py
+    line: 228
+    module: llm.repair
+    class: LLMRepair
+    is_method: true
+    cfg_entry: llm.repair.LLMRepair._call_openrouter_entry
+    calls:
+    - model_name.startswith
+    - None.encode
+    - urllib.request.Request
+    - urllib.request.urlopen
+    - json.loads
+    - None.strip
+    - pipeline_runner_utils._debug
+    - json.dumps
+    - resp.read
+    - len
+    - None.get
+    - data.get
+  llm.repair.LLMRepair._parse_and_apply:
+    name: _parse_and_apply
+    qualified_name: llm.repair.LLMRepair._parse_and_apply
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/repair.py
+    line: 275
+    module: llm.repair
+    class: LLMRepair
+    is_method: true
+    cfg_entry: llm.repair.LLMRepair._parse_and_apply_entry
+    calls:
+    - None.strip
+    - data.get
+    - isinstance
+    - RepairResult
+    - raw.strip
+    - text.startswith
+    - json.loads
+    - str
+    - self._apply_patterns_patch
+    - self._apply_templates_patch
+    - text.splitlines
+    - pipeline_runner_utils._debug
+    - raw.splitlines
+    - patches_applied.append
+    - bool
+    - line.strip
+    - None.join
+    - line.startswith
+    - None.startswith
+    - ln.strip
+  llm.repair.LLMRepair._apply_patterns_patch:
+    name: _apply_patterns_patch
+    qualified_name: llm.repair.LLMRepair._apply_patterns_patch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/repair.py
+    line: 330
+    module: llm.repair
+    class: LLMRepair
+    is_method: true
+    cfg_entry: llm.repair.LLMRepair._apply_patterns_patch_entry
+    calls:
+    - patch.get
+    - patterns_file.exists
+    - pipeline_runner_utils._debug
+    - llm.repair._find_and_patch
+    - isinstance
+    - open
+    - json.load
+    - obj.values
+    - json.dump
+    - executor.ExecutionContext.set
+    - None.extend
+  llm.repair.LLMRepair._apply_templates_patch:
+    name: _apply_templates_patch
+    qualified_name: llm.repair.LLMRepair._apply_templates_patch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/repair.py
+    line: 372
+    module: llm.repair
+    class: LLMRepair
+    is_method: true
+    cfg_entry: llm.repair.LLMRepair._apply_templates_patch_entry
+    calls:
+    - patch.get
+    - templates_file.exists
+    - pipeline_runner_utils._debug
+    - llm.repair._find_and_patch
+    - open
+    - json.load
+    - isinstance
+    - json.dump
+    - obj.values

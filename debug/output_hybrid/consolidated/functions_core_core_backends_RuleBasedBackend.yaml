@@ -1,0 +1,72 @@
+module: core.core_backends.RuleBasedBackend
+type: functions
+count: 4
+functions:
+  core.core_backends.RuleBasedBackend.__init__:
+    name: __init__
+    qualified_name: core.core_backends.RuleBasedBackend.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 161
+    module: core.core_backends
+    class: RuleBasedBackend
+    is_method: true
+    cfg_entry: core.core_backends.RuleBasedBackend.__init___entry
+    calls:
+    - None.__init__
+    - super
+  core.core_backends.RuleBasedBackend.extract_entities:
+    name: extract_entities
+    qualified_name: core.core_backends.RuleBasedBackend.extract_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 166
+    module: core.core_backends
+    class: RuleBasedBackend
+    is_method: true
+    cfg_entry: core.core_backends.RuleBasedBackend.extract_entities_entry
+    calls:
+    - None.lower
+    - None.get
+    - _patterns.items
+    - None.strip
+    - isinstance
+    - sem_mod.SemanticEntityExtractor
+    - sem_extractor.extract
+    - re.findall
+    - getattr
+    - logger.debug
+    - _os.environ.get
+    - Entity
+    - regex_entities.append
+    - None.append
+    - sem_entities_dict.items
+  core.core_backends.RuleBasedBackend.extract_intent:
+    name: extract_intent
+    qualified_name: core.core_backends.RuleBasedBackend.extract_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 255
+    module: core.core_backends
+    class: RuleBasedBackend
+    is_method: true
+    cfg_entry: core.core_backends.RuleBasedBackend.extract_intent_entry
+    calls:
+    - text.lower
+    - executor.ExecutionContext.set
+    - self.rules.items
+    - text_lower.split
+    - pattern.lower
+    - pattern_lower.split
+    - len
+    - all
+  core.core_backends.RuleBasedBackend.generate_plan:
+    name: generate_plan
+    qualified_name: core.core_backends.RuleBasedBackend.generate_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 293
+    module: core.core_backends
+    class: RuleBasedBackend
+    is_method: true
+    cfg_entry: core.core_backends.RuleBasedBackend.generate_plan_entry
+    calls:
+    - self.extract_intent
+    - self.extract_entities
+    - ExecutionPlan

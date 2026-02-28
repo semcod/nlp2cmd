@@ -1,0 +1,31 @@
+module: thermodynamic.ThermodynamicRouter
+type: functions
+count: 2
+functions:
+  thermodynamic.ThermodynamicRouter.route:
+    name: route
+    qualified_name: thermodynamic.ThermodynamicRouter.route
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 486
+    module: thermodynamic
+    class: ThermodynamicRouter
+    is_method: true
+    cfg_entry: thermodynamic.ThermodynamicRouter.route_entry
+    calls:
+    - None.strip
+    - intent.lower
+  thermodynamic.ThermodynamicRouter.estimate_complexity:
+    name: estimate_complexity
+    qualified_name: thermodynamic.ThermodynamicRouter.estimate_complexity
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 513
+    module: thermodynamic
+    class: ThermodynamicRouter
+    is_method: true
+    cfg_entry: thermodynamic.ThermodynamicRouter.estimate_complexity_entry
+    calls:
+    - len
+    - min
+    - any
+    - entities.get
+    - problem_description.lower

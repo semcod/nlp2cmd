@@ -1,0 +1,182 @@
+module: executor.PlanValidator
+type: orphan_nodes
+count: 32
+nodes:
+  executor.PlanValidator.validate_entry:
+    id: executor.PlanValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: executor.PlanValidator.validate
+  executor.PlanValidator.validate_exit:
+    id: executor.PlanValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: executor.PlanValidator.validate
+  executor.PlanValidator.validate_if_233:
+    id: executor.PlanValidator.validate_if_233
+    type: IF
+    label: if
+    function: executor.PlanValidator.validate
+    line: 233
+  executor.PlanValidator.validate_return_235:
+    id: executor.PlanValidator.validate_return_235
+    type: RETURN
+    label: return
+    function: executor.PlanValidator.validate
+    line: 235
+  executor.PlanValidator.validate_merge_233:
+    id: executor.PlanValidator.validate_merge_233
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator.validate
+  executor.PlanValidator.validate_loop_239:
+    id: executor.PlanValidator.validate_loop_239
+    type: FOR
+    label: for
+    function: executor.PlanValidator.validate
+    line: 239
+  executor.PlanValidator.validate_if_244:
+    id: executor.PlanValidator.validate_if_244
+    type: IF
+    label: if
+    function: executor.PlanValidator.validate
+    line: 244
+  executor.PlanValidator.validate_merge_244:
+    id: executor.PlanValidator.validate_merge_244
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator.validate
+  executor.PlanValidator.validate_return_247:
+    id: executor.PlanValidator.validate_return_247
+    type: RETURN
+    label: return
+    function: executor.PlanValidator.validate
+    line: 247
+  executor.PlanValidator._validate_step_entry:
+    id: executor.PlanValidator._validate_step_entry
+    type: ENTRY
+    label: entry
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_exit:
+    id: executor.PlanValidator._validate_step_exit
+    type: EXIT
+    label: exit
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_if_260:
+    id: executor.PlanValidator._validate_step_if_260
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 260
+  executor.PlanValidator._validate_step_return_262:
+    id: executor.PlanValidator._validate_step_return_262
+    type: RETURN
+    label: return
+    function: executor.PlanValidator._validate_step
+    line: 262
+  executor.PlanValidator._validate_step_merge_260:
+    id: executor.PlanValidator._validate_step_merge_260
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_if_268:
+    id: executor.PlanValidator._validate_step_if_268
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 268
+  executor.PlanValidator._validate_step_loop_269:
+    id: executor.PlanValidator._validate_step_loop_269
+    type: FOR
+    label: for
+    function: executor.PlanValidator._validate_step
+    line: 269
+  executor.PlanValidator._validate_step_merge_268:
+    id: executor.PlanValidator._validate_step_merge_268
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_if_273:
+    id: executor.PlanValidator._validate_step_if_273
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 273
+  executor.PlanValidator._validate_step_if_275:
+    id: executor.PlanValidator._validate_step_if_275
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 275
+  executor.PlanValidator._validate_step_merge_275:
+    id: executor.PlanValidator._validate_step_merge_275
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_merge_273:
+    id: executor.PlanValidator._validate_step_merge_273
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_if_281:
+    id: executor.PlanValidator._validate_step_if_281
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 281
+  executor.PlanValidator._validate_step_loop_283:
+    id: executor.PlanValidator._validate_step_loop_283
+    type: FOR
+    label: for
+    function: executor.PlanValidator._validate_step
+    line: 283
+  executor.PlanValidator._validate_step_if_284:
+    id: executor.PlanValidator._validate_step_if_284
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 284
+  executor.PlanValidator._validate_step_merge_284:
+    id: executor.PlanValidator._validate_step_merge_284
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_merge_281:
+    id: executor.PlanValidator._validate_step_merge_281
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_loop_290:
+    id: executor.PlanValidator._validate_step_loop_290
+    type: FOR
+    label: for
+    function: executor.PlanValidator._validate_step
+    line: 290
+  executor.PlanValidator._validate_step_if_291:
+    id: executor.PlanValidator._validate_step_if_291
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 291
+  executor.PlanValidator._validate_step_if_293:
+    id: executor.PlanValidator._validate_step_if_293
+    type: IF
+    label: if
+    function: executor.PlanValidator._validate_step
+    line: 293
+  executor.PlanValidator._validate_step_merge_293:
+    id: executor.PlanValidator._validate_step_merge_293
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_merge_291:
+    id: executor.PlanValidator._validate_step_merge_291
+    type: FUNC
+    label: merge
+    function: executor.PlanValidator._validate_step
+  executor.PlanValidator._validate_step_return_298:
+    id: executor.PlanValidator._validate_step_return_298
+    type: RETURN
+    label: return
+    function: executor.PlanValidator._validate_step
+    line: 298

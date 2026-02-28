@@ -1,0 +1,36 @@
+module: monitoring.resources._ProcessStub
+type: orphan_nodes
+count: 6
+nodes:
+  monitoring.resources._ProcessStub.memory_info_entry:
+    id: monitoring.resources._ProcessStub.memory_info_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources._ProcessStub.memory_info
+  monitoring.resources._ProcessStub.memory_info_exit:
+    id: monitoring.resources._ProcessStub.memory_info_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources._ProcessStub.memory_info
+  monitoring.resources._ProcessStub.memory_info_return_20:
+    id: monitoring.resources._ProcessStub.memory_info_return_20
+    type: RETURN
+    label: return
+    function: monitoring.resources._ProcessStub.memory_info
+    line: 20
+  monitoring.resources._ProcessStub.cpu_times_entry:
+    id: monitoring.resources._ProcessStub.cpu_times_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources._ProcessStub.cpu_times
+  monitoring.resources._ProcessStub.cpu_times_exit:
+    id: monitoring.resources._ProcessStub.cpu_times_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources._ProcessStub.cpu_times
+  monitoring.resources._ProcessStub.cpu_times_return_27:
+    id: monitoring.resources._ProcessStub.cpu_times_return_27
+    type: RETURN
+    label: return
+    function: monitoring.resources._ProcessStub.cpu_times
+    line: 27

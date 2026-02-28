@@ -1,0 +1,17 @@
+module: adapters.shell_generators.NetworkGenerator
+type: functions
+count: 1
+functions:
+  adapters.shell_generators.NetworkGenerator.generate_network:
+    name: generate_network
+    qualified_name: adapters.shell_generators.NetworkGenerator.generate_network
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 172
+    module: adapters.shell_generators
+    class: NetworkGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.NetworkGenerator.generate_network_entry
+    calls:
+    - entities.get
+    - actions.get
+    - shlex.quote

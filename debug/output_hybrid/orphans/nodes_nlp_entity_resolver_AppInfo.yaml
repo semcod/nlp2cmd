@@ -1,0 +1,26 @@
+module: nlp.entity_resolver.AppInfo
+type: orphan_nodes
+count: 4
+nodes:
+  nlp.entity_resolver.AppInfo.all_aliases_entry:
+    id: nlp.entity_resolver.AppInfo.all_aliases_entry
+    type: ENTRY
+    label: entry
+    function: nlp.entity_resolver.AppInfo.all_aliases
+  nlp.entity_resolver.AppInfo.all_aliases_exit:
+    id: nlp.entity_resolver.AppInfo.all_aliases_exit
+    type: EXIT
+    label: exit
+    function: nlp.entity_resolver.AppInfo.all_aliases
+  nlp.entity_resolver.AppInfo.all_aliases_loop_51:
+    id: nlp.entity_resolver.AppInfo.all_aliases_loop_51
+    type: FOR
+    label: for
+    function: nlp.entity_resolver.AppInfo.all_aliases
+    line: 51
+  nlp.entity_resolver.AppInfo.all_aliases_return_53:
+    id: nlp.entity_resolver.AppInfo.all_aliases_return_53
+    type: RETURN
+    label: return
+    function: nlp.entity_resolver.AppInfo.all_aliases
+    line: 53

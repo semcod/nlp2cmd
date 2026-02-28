@@ -1,0 +1,103 @@
+module: pipeline_runner_utils.ShellExecutionPolicy
+type: orphan_nodes
+count: 18
+nodes:
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_entry:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_entry
+    type: ENTRY
+    label: entry
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_exit:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_exit
+    type: EXIT
+    label: exit
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_290:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_290
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 290
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_return_291:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_return_291
+    type: RETURN
+    label: return
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 291
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_290:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_290
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_297:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_297
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 297
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_return_298:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_return_298
+    type: RETURN
+    label: return
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 298
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_297:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_297
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_301:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_301
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 301
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_301:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_301
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_305:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_305
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 305
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_305:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_305
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_309:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_309
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 309
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_309:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_309
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_313:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_313
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 313
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_313:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_313
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_317:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_if_317
+    type: IF
+    label: if
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data
+    line: 317
+  pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_317:
+    id: pipeline_runner_utils.ShellExecutionPolicy.load_from_data_merge_317
+    type: FUNC
+    label: merge
+    function: pipeline_runner_utils.ShellExecutionPolicy.load_from_data

@@ -1,0 +1,115 @@
+module: monitoring.resources.ResourceMonitor
+type: orphan_nodes
+count: 21
+nodes:
+  monitoring.resources.ResourceMonitor.__init___entry:
+    id: monitoring.resources.ResourceMonitor.__init___entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources.ResourceMonitor.__init__
+  monitoring.resources.ResourceMonitor.__init___exit:
+    id: monitoring.resources.ResourceMonitor.__init___exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources.ResourceMonitor.__init__
+  monitoring.resources.ResourceMonitor._process_cpu_time_seconds_entry:
+    id: monitoring.resources.ResourceMonitor._process_cpu_time_seconds_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources.ResourceMonitor._process_cpu_time_seconds
+  monitoring.resources.ResourceMonitor._process_cpu_time_seconds_exit:
+    id: monitoring.resources.ResourceMonitor._process_cpu_time_seconds_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources.ResourceMonitor._process_cpu_time_seconds
+  monitoring.resources.ResourceMonitor.get_current_metrics_entry:
+    id: monitoring.resources.ResourceMonitor.get_current_metrics_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources.ResourceMonitor.get_current_metrics
+  monitoring.resources.ResourceMonitor.get_current_metrics_exit:
+    id: monitoring.resources.ResourceMonitor.get_current_metrics_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources.ResourceMonitor.get_current_metrics
+  monitoring.resources.ResourceMonitor.get_current_metrics_return_65:
+    id: monitoring.resources.ResourceMonitor.get_current_metrics_return_65
+    type: RETURN
+    label: return
+    function: monitoring.resources.ResourceMonitor.get_current_metrics
+    line: 65
+  monitoring.resources.ResourceMonitor.measure_execution_entry:
+    id: monitoring.resources.ResourceMonitor.measure_execution_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources.ResourceMonitor.measure_execution
+  monitoring.resources.ResourceMonitor.measure_execution_exit:
+    id: monitoring.resources.ResourceMonitor.measure_execution_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources.ResourceMonitor.measure_execution
+  monitoring.resources.ResourceMonitor.get_last_metrics_entry:
+    id: monitoring.resources.ResourceMonitor.get_last_metrics_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources.ResourceMonitor.get_last_metrics
+  monitoring.resources.ResourceMonitor.get_last_metrics_exit:
+    id: monitoring.resources.ResourceMonitor.get_last_metrics_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources.ResourceMonitor.get_last_metrics
+  monitoring.resources.ResourceMonitor.get_last_metrics_return_119:
+    id: monitoring.resources.ResourceMonitor.get_last_metrics_return_119
+    type: RETURN
+    label: return
+    function: monitoring.resources.ResourceMonitor.get_last_metrics
+    line: 119
+  monitoring.resources.ResourceMonitor.format_metrics_entry:
+    id: monitoring.resources.ResourceMonitor.format_metrics_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources.ResourceMonitor.format_metrics
+  monitoring.resources.ResourceMonitor.format_metrics_exit:
+    id: monitoring.resources.ResourceMonitor.format_metrics_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources.ResourceMonitor.format_metrics
+  monitoring.resources.ResourceMonitor.format_metrics_if_129:
+    id: monitoring.resources.ResourceMonitor.format_metrics_if_129
+    type: IF
+    label: if
+    function: monitoring.resources.ResourceMonitor.format_metrics
+    line: 129
+  monitoring.resources.ResourceMonitor.format_metrics_if_130:
+    id: monitoring.resources.ResourceMonitor.format_metrics_if_130
+    type: IF
+    label: if
+    function: monitoring.resources.ResourceMonitor.format_metrics
+    line: 130
+  monitoring.resources.ResourceMonitor.format_metrics_if_132:
+    id: monitoring.resources.ResourceMonitor.format_metrics_if_132
+    type: IF
+    label: if
+    function: monitoring.resources.ResourceMonitor.format_metrics
+    line: 132
+  monitoring.resources.ResourceMonitor.format_metrics_merge_132:
+    id: monitoring.resources.ResourceMonitor.format_metrics_merge_132
+    type: FUNC
+    label: merge
+    function: monitoring.resources.ResourceMonitor.format_metrics
+  monitoring.resources.ResourceMonitor.format_metrics_merge_130:
+    id: monitoring.resources.ResourceMonitor.format_metrics_merge_130
+    type: FUNC
+    label: merge
+    function: monitoring.resources.ResourceMonitor.format_metrics
+  monitoring.resources.ResourceMonitor.format_metrics_merge_129:
+    id: monitoring.resources.ResourceMonitor.format_metrics_merge_129
+    type: FUNC
+    label: merge
+    function: monitoring.resources.ResourceMonitor.format_metrics
+  monitoring.resources.ResourceMonitor.format_metrics_return_138:
+    id: monitoring.resources.ResourceMonitor.format_metrics_return_138
+    type: RETURN
+    label: return
+    function: monitoring.resources.ResourceMonitor.format_metrics
+    line: 138

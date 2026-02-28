@@ -1,0 +1,29 @@
+module: src.nlp2cmd.processing.framework.AggregateProcessor
+type: functions
+count: 2
+functions:
+  src.nlp2cmd.processing.framework.AggregateProcessor.__init__:
+    name: __init__
+    qualified_name: src.nlp2cmd.processing.framework.AggregateProcessor.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 126
+    module: src.nlp2cmd.processing.framework
+    class: AggregateProcessor
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.AggregateProcessor.__init___entry
+    calls:
+    - None.__init__
+    - super
+  src.nlp2cmd.processing.framework.AggregateProcessor.process:
+    name: process
+    qualified_name: src.nlp2cmd.processing.framework.AggregateProcessor.process
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 130
+    module: src.nlp2cmd.processing.framework
+    class: AggregateProcessor
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.AggregateProcessor.process_entry
+    calls:
+    - self.aggregators.items
+    - aggregator
+    - str

@@ -1,0 +1,76 @@
+module: adapters.dynamic.DynamicSafetyPolicy
+type: orphan_nodes
+count: 13
+nodes:
+  adapters.dynamic.DynamicSafetyPolicy.__init___entry:
+    id: adapters.dynamic.DynamicSafetyPolicy.__init___entry
+    type: ENTRY
+    label: entry
+    function: adapters.dynamic.DynamicSafetyPolicy.__init__
+  adapters.dynamic.DynamicSafetyPolicy.__init___exit:
+    id: adapters.dynamic.DynamicSafetyPolicy.__init___exit
+    type: EXIT
+    label: exit
+    function: adapters.dynamic.DynamicSafetyPolicy.__init__
+  adapters.dynamic.DynamicSafetyPolicy.check_command_entry:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_entry
+    type: ENTRY
+    label: entry
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+  adapters.dynamic.DynamicSafetyPolicy.check_command_exit:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_exit
+    type: EXIT
+    label: exit
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+  adapters.dynamic.DynamicSafetyPolicy.check_command_loop_59:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_loop_59
+    type: FOR
+    label: for
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 59
+  adapters.dynamic.DynamicSafetyPolicy.check_command_if_60:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_if_60
+    type: IF
+    label: if
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 60
+  adapters.dynamic.DynamicSafetyPolicy.check_command_return_61:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_return_61
+    type: RETURN
+    label: return
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 61
+  adapters.dynamic.DynamicSafetyPolicy.check_command_merge_60:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_merge_60
+    type: FUNC
+    label: merge
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+  adapters.dynamic.DynamicSafetyPolicy.check_command_loop_68:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_loop_68
+    type: FOR
+    label: for
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 68
+  adapters.dynamic.DynamicSafetyPolicy.check_command_if_69:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_if_69
+    type: IF
+    label: if
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 69
+  adapters.dynamic.DynamicSafetyPolicy.check_command_return_70:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_return_70
+    type: RETURN
+    label: return
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 70
+  adapters.dynamic.DynamicSafetyPolicy.check_command_merge_69:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_merge_69
+    type: FUNC
+    label: merge
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+  adapters.dynamic.DynamicSafetyPolicy.check_command_return_77:
+    id: adapters.dynamic.DynamicSafetyPolicy.check_command_return_77
+    type: RETURN
+    label: return
+    function: adapters.dynamic.DynamicSafetyPolicy.check_command
+    line: 77

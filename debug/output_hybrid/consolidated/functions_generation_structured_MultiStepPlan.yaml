@@ -1,0 +1,21 @@
+module: generation.structured.MultiStepPlan
+type: functions
+count: 1
+functions:
+  generation.structured.MultiStepPlan.get_execution_order:
+    name: get_execution_order
+    qualified_name: generation.structured.MultiStepPlan.get_execution_order
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/structured.py
+    line: 269
+    module: generation.structured
+    class: MultiStepPlan
+    is_method: true
+    cfg_entry: generation.structured.MultiStepPlan.get_execution_order_entry
+    calls:
+    - executor.ExecutionContext.set
+    - range
+    - visited.add
+    - self.dependencies.get
+    - order.append
+    - len
+    - generation.structured.visit

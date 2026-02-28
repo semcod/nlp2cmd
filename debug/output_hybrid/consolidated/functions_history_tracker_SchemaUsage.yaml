@@ -1,0 +1,19 @@
+module: history.tracker.SchemaUsage
+type: functions
+count: 1
+functions:
+  history.tracker.SchemaUsage.from_dict:
+    name: from_dict
+    qualified_name: history.tracker.SchemaUsage.from_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 37
+    module: history.tracker
+    class: SchemaUsage
+    is_method: true
+    cfg_entry: history.tracker.SchemaUsage.from_dict_entry
+    calls:
+    - cls
+    - data.get
+    called_by:
+    - history.tracker.CommandRecord.from_dict
+    - history.tracker.from_dict

@@ -1,0 +1,955 @@
+module: llm.validator
+type: orphan_nodes
+count: 172
+nodes:
+  llm.validator._debug_entry:
+    id: llm.validator._debug_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._debug
+  llm.validator._debug_exit:
+    id: llm.validator._debug_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._debug
+  llm.validator._debug_if_32:
+    id: llm.validator._debug_if_32
+    type: IF
+    label: if
+    function: llm.validator._debug
+    line: 32
+  llm.validator._debug_merge_32:
+    id: llm.validator._debug_merge_32
+    type: FUNC
+    label: merge
+    function: llm.validator._debug
+  llm.validator.__init___entry:
+    id: llm.validator.__init___entry
+    type: ENTRY
+    label: entry
+    function: llm.validator.__init__
+  llm.validator.__init___exit:
+    id: llm.validator.__init___exit
+    type: EXIT
+    label: exit
+    function: llm.validator.__init__
+  llm.validator.validate_entry:
+    id: llm.validator.validate_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator.validate
+  llm.validator.validate_exit:
+    id: llm.validator.validate_exit
+    type: EXIT
+    label: exit
+    function: llm.validator.validate
+  llm.validator.validate_if_192:
+    id: llm.validator.validate_if_192
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 192
+  llm.validator.validate_return_194:
+    id: llm.validator.validate_return_194
+    type: RETURN
+    label: return
+    function: llm.validator.validate
+    line: 194
+  llm.validator.validate_merge_192:
+    id: llm.validator.validate_merge_192
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_if_196:
+    id: llm.validator.validate_if_196
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 196
+  llm.validator.validate_return_197:
+    id: llm.validator.validate_return_197
+    type: RETURN
+    label: return
+    function: llm.validator.validate
+    line: 197
+  llm.validator.validate_merge_196:
+    id: llm.validator.validate_merge_196
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_if_205:
+    id: llm.validator.validate_if_205
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 205
+  llm.validator.validate_merge_205:
+    id: llm.validator.validate_merge_205
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_if_210:
+    id: llm.validator.validate_if_210
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 210
+  llm.validator.validate_return_213:
+    id: llm.validator.validate_return_213
+    type: RETURN
+    label: return
+    function: llm.validator.validate
+    line: 213
+  llm.validator.validate_merge_210:
+    id: llm.validator.validate_merge_210
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_if_217:
+    id: llm.validator.validate_if_217
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 217
+  llm.validator.validate_return_220:
+    id: llm.validator.validate_return_220
+    type: RETURN
+    label: return
+    function: llm.validator.validate
+    line: 220
+  llm.validator.validate_merge_217:
+    id: llm.validator.validate_merge_217
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_if_235:
+    id: llm.validator.validate_if_235
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 235
+  llm.validator.validate_return_237:
+    id: llm.validator.validate_return_237
+    type: RETURN
+    label: return
+    function: llm.validator.validate
+    line: 237
+  llm.validator.validate_merge_235:
+    id: llm.validator.validate_merge_235
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_if_248:
+    id: llm.validator.validate_if_248
+    type: IF
+    label: if
+    function: llm.validator.validate
+    line: 248
+  llm.validator.validate_merge_248:
+    id: llm.validator.validate_merge_248
+    type: FUNC
+    label: merge
+    function: llm.validator.validate
+  llm.validator.validate_return_252:
+    id: llm.validator.validate_return_252
+    type: RETURN
+    label: return
+    function: llm.validator.validate
+    line: 252
+  llm.validator._cache_key_entry:
+    id: llm.validator._cache_key_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._cache_key
+  llm.validator._cache_key_exit:
+    id: llm.validator._cache_key_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._cache_key
+  llm.validator._cache_key_return_258:
+    id: llm.validator._cache_key_return_258
+    type: RETURN
+    label: return
+    function: llm.validator._cache_key
+    line: 258
+  llm.validator._cache_put_entry:
+    id: llm.validator._cache_put_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._cache_put
+  llm.validator._cache_put_exit:
+    id: llm.validator._cache_put_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._cache_put
+  llm.validator._cache_put_if_261:
+    id: llm.validator._cache_put_if_261
+    type: IF
+    label: if
+    function: llm.validator._cache_put
+    line: 261
+  llm.validator._cache_put_merge_261:
+    id: llm.validator._cache_put_merge_261
+    type: FUNC
+    label: merge
+    function: llm.validator._cache_put
+  llm.validator._pipe_cmd_bases_entry:
+    id: llm.validator._pipe_cmd_bases_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._pipe_cmd_bases
+  llm.validator._pipe_cmd_bases_exit:
+    id: llm.validator._pipe_cmd_bases_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._pipe_cmd_bases
+  llm.validator._pipe_cmd_bases_loop_273:
+    id: llm.validator._pipe_cmd_bases_loop_273
+    type: FOR
+    label: for
+    function: llm.validator._pipe_cmd_bases
+    line: 273
+  llm.validator._pipe_cmd_bases_if_275:
+    id: llm.validator._pipe_cmd_bases_if_275
+    type: IF
+    label: if
+    function: llm.validator._pipe_cmd_bases
+    line: 275
+  llm.validator._pipe_cmd_bases_merge_275:
+    id: llm.validator._pipe_cmd_bases_merge_275
+    type: FUNC
+    label: merge
+    function: llm.validator._pipe_cmd_bases
+  llm.validator._pipe_cmd_bases_if_278:
+    id: llm.validator._pipe_cmd_bases_if_278
+    type: IF
+    label: if
+    function: llm.validator._pipe_cmd_bases
+    line: 278
+  llm.validator._pipe_cmd_bases_merge_278:
+    id: llm.validator._pipe_cmd_bases_merge_278
+    type: FUNC
+    label: merge
+    function: llm.validator._pipe_cmd_bases
+  llm.validator._pipe_cmd_bases_return_281:
+    id: llm.validator._pipe_cmd_bases_return_281
+    type: RETURN
+    label: return
+    function: llm.validator._pipe_cmd_bases
+    line: 281
+  llm.validator._query_domain_entry:
+    id: llm.validator._query_domain_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._query_domain
+  llm.validator._query_domain_exit:
+    id: llm.validator._query_domain_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._query_domain
+  llm.validator._query_domain_loop_286:
+    id: llm.validator._query_domain_loop_286
+    type: FOR
+    label: for
+    function: llm.validator._query_domain
+    line: 286
+  llm.validator._query_domain_if_287:
+    id: llm.validator._query_domain_if_287
+    type: IF
+    label: if
+    function: llm.validator._query_domain
+    line: 287
+  llm.validator._query_domain_merge_287:
+    id: llm.validator._query_domain_merge_287
+    type: FUNC
+    label: merge
+    function: llm.validator._query_domain
+  llm.validator._query_domain_return_289:
+    id: llm.validator._query_domain_return_289
+    type: RETURN
+    label: return
+    function: llm.validator._query_domain
+    line: 289
+  llm.validator._cmd_domains_entry:
+    id: llm.validator._cmd_domains_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._cmd_domains
+  llm.validator._cmd_domains_exit:
+    id: llm.validator._cmd_domains_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._cmd_domains
+  llm.validator._cmd_domains_return_293:
+    id: llm.validator._cmd_domains_return_293
+    type: RETURN
+    label: return
+    function: llm.validator._cmd_domains
+    line: 293
+  llm.validator._deterministic_pre_check_entry:
+    id: llm.validator._deterministic_pre_check_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_exit:
+    id: llm.validator._deterministic_pre_check_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_314:
+    id: llm.validator._deterministic_pre_check_if_314
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 314
+  llm.validator._deterministic_pre_check_return_315:
+    id: llm.validator._deterministic_pre_check_return_315
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 315
+  llm.validator._deterministic_pre_check_merge_314:
+    id: llm.validator._deterministic_pre_check_merge_314
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_320:
+    id: llm.validator._deterministic_pre_check_if_320
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 320
+  llm.validator._deterministic_pre_check_if_325:
+    id: llm.validator._deterministic_pre_check_if_325
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 325
+  llm.validator._deterministic_pre_check_return_326:
+    id: llm.validator._deterministic_pre_check_return_326
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 326
+  llm.validator._deterministic_pre_check_merge_325:
+    id: llm.validator._deterministic_pre_check_merge_325
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_return_332:
+    id: llm.validator._deterministic_pre_check_return_332
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 332
+  llm.validator._deterministic_pre_check_merge_320:
+    id: llm.validator._deterministic_pre_check_merge_320
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_344:
+    id: llm.validator._deterministic_pre_check_if_344
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 344
+  llm.validator._deterministic_pre_check_return_345:
+    id: llm.validator._deterministic_pre_check_return_345
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 345
+  llm.validator._deterministic_pre_check_merge_344:
+    id: llm.validator._deterministic_pre_check_merge_344
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_357:
+    id: llm.validator._deterministic_pre_check_if_357
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 357
+  llm.validator._deterministic_pre_check_if_358:
+    id: llm.validator._deterministic_pre_check_if_358
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 358
+  llm.validator._deterministic_pre_check_return_359:
+    id: llm.validator._deterministic_pre_check_return_359
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 359
+  llm.validator._deterministic_pre_check_merge_358:
+    id: llm.validator._deterministic_pre_check_merge_358
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_merge_357:
+    id: llm.validator._deterministic_pre_check_merge_357
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_365:
+    id: llm.validator._deterministic_pre_check_if_365
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 365
+  llm.validator._deterministic_pre_check_if_375:
+    id: llm.validator._deterministic_pre_check_if_375
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 375
+  llm.validator._deterministic_pre_check_if_376:
+    id: llm.validator._deterministic_pre_check_if_376
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 376
+  llm.validator._deterministic_pre_check_return_377:
+    id: llm.validator._deterministic_pre_check_return_377
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 377
+  llm.validator._deterministic_pre_check_merge_376:
+    id: llm.validator._deterministic_pre_check_merge_376
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_382:
+    id: llm.validator._deterministic_pre_check_if_382
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 382
+  llm.validator._deterministic_pre_check_return_383:
+    id: llm.validator._deterministic_pre_check_return_383
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 383
+  llm.validator._deterministic_pre_check_merge_382:
+    id: llm.validator._deterministic_pre_check_merge_382
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_return_388:
+    id: llm.validator._deterministic_pre_check_return_388
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 388
+  llm.validator._deterministic_pre_check_merge_375:
+    id: llm.validator._deterministic_pre_check_merge_375
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_394:
+    id: llm.validator._deterministic_pre_check_if_394
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 394
+  llm.validator._deterministic_pre_check_return_395:
+    id: llm.validator._deterministic_pre_check_return_395
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 395
+  llm.validator._deterministic_pre_check_merge_394:
+    id: llm.validator._deterministic_pre_check_merge_394
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_merge_365:
+    id: llm.validator._deterministic_pre_check_merge_365
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_402:
+    id: llm.validator._deterministic_pre_check_if_402
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 402
+  llm.validator._deterministic_pre_check_if_403:
+    id: llm.validator._deterministic_pre_check_if_403
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 403
+  llm.validator._deterministic_pre_check_return_404:
+    id: llm.validator._deterministic_pre_check_return_404
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 404
+  llm.validator._deterministic_pre_check_merge_403:
+    id: llm.validator._deterministic_pre_check_merge_403
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_merge_402:
+    id: llm.validator._deterministic_pre_check_merge_402
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_411:
+    id: llm.validator._deterministic_pre_check_if_411
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 411
+  llm.validator._deterministic_pre_check_return_412:
+    id: llm.validator._deterministic_pre_check_return_412
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 412
+  llm.validator._deterministic_pre_check_merge_411:
+    id: llm.validator._deterministic_pre_check_merge_411
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_418:
+    id: llm.validator._deterministic_pre_check_if_418
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 418
+  llm.validator._deterministic_pre_check_if_419:
+    id: llm.validator._deterministic_pre_check_if_419
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 419
+  llm.validator._deterministic_pre_check_return_420:
+    id: llm.validator._deterministic_pre_check_return_420
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 420
+  llm.validator._deterministic_pre_check_merge_419:
+    id: llm.validator._deterministic_pre_check_merge_419
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_merge_418:
+    id: llm.validator._deterministic_pre_check_merge_418
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_426:
+    id: llm.validator._deterministic_pre_check_if_426
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 426
+  llm.validator._deterministic_pre_check_if_427:
+    id: llm.validator._deterministic_pre_check_if_427
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 427
+  llm.validator._deterministic_pre_check_return_428:
+    id: llm.validator._deterministic_pre_check_return_428
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 428
+  llm.validator._deterministic_pre_check_merge_427:
+    id: llm.validator._deterministic_pre_check_merge_427
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_merge_426:
+    id: llm.validator._deterministic_pre_check_merge_426
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_436:
+    id: llm.validator._deterministic_pre_check_if_436
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 436
+  llm.validator._deterministic_pre_check_return_437:
+    id: llm.validator._deterministic_pre_check_return_437
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 437
+  llm.validator._deterministic_pre_check_merge_436:
+    id: llm.validator._deterministic_pre_check_merge_436
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_444:
+    id: llm.validator._deterministic_pre_check_if_444
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 444
+  llm.validator._deterministic_pre_check_return_445:
+    id: llm.validator._deterministic_pre_check_return_445
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 445
+  llm.validator._deterministic_pre_check_merge_444:
+    id: llm.validator._deterministic_pre_check_merge_444
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_if_454:
+    id: llm.validator._deterministic_pre_check_if_454
+    type: IF
+    label: if
+    function: llm.validator._deterministic_pre_check
+    line: 454
+  llm.validator._deterministic_pre_check_return_455:
+    id: llm.validator._deterministic_pre_check_return_455
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 455
+  llm.validator._deterministic_pre_check_merge_454:
+    id: llm.validator._deterministic_pre_check_merge_454
+    type: FUNC
+    label: merge
+    function: llm.validator._deterministic_pre_check
+  llm.validator._deterministic_pre_check_return_461:
+    id: llm.validator._deterministic_pre_check_return_461
+    type: RETURN
+    label: return
+    function: llm.validator._deterministic_pre_check
+    line: 461
+  llm.validator._build_dynamic_hints_entry:
+    id: llm.validator._build_dynamic_hints_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_exit:
+    id: llm.validator._build_dynamic_hints_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_478:
+    id: llm.validator._build_dynamic_hints_if_478
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 478
+  llm.validator._build_dynamic_hints_merge_478:
+    id: llm.validator._build_dynamic_hints_merge_478
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_499:
+    id: llm.validator._build_dynamic_hints_if_499
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 499
+  llm.validator._build_dynamic_hints_merge_499:
+    id: llm.validator._build_dynamic_hints_merge_499
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_505:
+    id: llm.validator._build_dynamic_hints_if_505
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 505
+  llm.validator._build_dynamic_hints_merge_505:
+    id: llm.validator._build_dynamic_hints_merge_505
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_507:
+    id: llm.validator._build_dynamic_hints_if_507
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 507
+  llm.validator._build_dynamic_hints_if_508:
+    id: llm.validator._build_dynamic_hints_if_508
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 508
+  llm.validator._build_dynamic_hints_merge_508:
+    id: llm.validator._build_dynamic_hints_merge_508
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_merge_507:
+    id: llm.validator._build_dynamic_hints_merge_507
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_516:
+    id: llm.validator._build_dynamic_hints_if_516
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 516
+  llm.validator._build_dynamic_hints_merge_516:
+    id: llm.validator._build_dynamic_hints_merge_516
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_524:
+    id: llm.validator._build_dynamic_hints_if_524
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 524
+  llm.validator._build_dynamic_hints_if_534:
+    id: llm.validator._build_dynamic_hints_if_534
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 534
+  llm.validator._build_dynamic_hints_merge_534:
+    id: llm.validator._build_dynamic_hints_merge_534
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_538:
+    id: llm.validator._build_dynamic_hints_if_538
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 538
+  llm.validator._build_dynamic_hints_merge_538:
+    id: llm.validator._build_dynamic_hints_merge_538
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_merge_524:
+    id: llm.validator._build_dynamic_hints_merge_524
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_545:
+    id: llm.validator._build_dynamic_hints_if_545
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 545
+  llm.validator._build_dynamic_hints_if_549:
+    id: llm.validator._build_dynamic_hints_if_549
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 549
+  llm.validator._build_dynamic_hints_merge_549:
+    id: llm.validator._build_dynamic_hints_merge_549
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_merge_545:
+    id: llm.validator._build_dynamic_hints_merge_545
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_555:
+    id: llm.validator._build_dynamic_hints_if_555
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 555
+  llm.validator._build_dynamic_hints_merge_555:
+    id: llm.validator._build_dynamic_hints_merge_555
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_559:
+    id: llm.validator._build_dynamic_hints_if_559
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 559
+  llm.validator._build_dynamic_hints_merge_559:
+    id: llm.validator._build_dynamic_hints_merge_559
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_563:
+    id: llm.validator._build_dynamic_hints_if_563
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 563
+  llm.validator._build_dynamic_hints_merge_563:
+    id: llm.validator._build_dynamic_hints_merge_563
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_567:
+    id: llm.validator._build_dynamic_hints_if_567
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 567
+  llm.validator._build_dynamic_hints_merge_567:
+    id: llm.validator._build_dynamic_hints_merge_567
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_loop_572:
+    id: llm.validator._build_dynamic_hints_loop_572
+    type: FOR
+    label: for
+    function: llm.validator._build_dynamic_hints
+    line: 572
+  llm.validator._build_dynamic_hints_if_573:
+    id: llm.validator._build_dynamic_hints_if_573
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 573
+  llm.validator._build_dynamic_hints_merge_573:
+    id: llm.validator._build_dynamic_hints_merge_573
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_575:
+    id: llm.validator._build_dynamic_hints_if_575
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 575
+  llm.validator._build_dynamic_hints_merge_575:
+    id: llm.validator._build_dynamic_hints_merge_575
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_if_577:
+    id: llm.validator._build_dynamic_hints_if_577
+    type: IF
+    label: if
+    function: llm.validator._build_dynamic_hints
+    line: 577
+  llm.validator._build_dynamic_hints_merge_577:
+    id: llm.validator._build_dynamic_hints_merge_577
+    type: FUNC
+    label: merge
+    function: llm.validator._build_dynamic_hints
+  llm.validator._build_dynamic_hints_return_580:
+    id: llm.validator._build_dynamic_hints_return_580
+    type: RETURN
+    label: return
+    function: llm.validator._build_dynamic_hints
+    line: 580
+  llm.validator._sanity_check_verdict_entry:
+    id: llm.validator._sanity_check_verdict_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._sanity_check_verdict
+  llm.validator._sanity_check_verdict_exit:
+    id: llm.validator._sanity_check_verdict_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._sanity_check_verdict
+  llm.validator._sanity_check_verdict_if_587:
+    id: llm.validator._sanity_check_verdict_if_587
+    type: IF
+    label: if
+    function: llm.validator._sanity_check_verdict
+    line: 587
+  llm.validator._sanity_check_verdict_return_588:
+    id: llm.validator._sanity_check_verdict_return_588
+    type: RETURN
+    label: return
+    function: llm.validator._sanity_check_verdict
+    line: 588
+  llm.validator._sanity_check_verdict_merge_587:
+    id: llm.validator._sanity_check_verdict_merge_587
+    type: FUNC
+    label: merge
+    function: llm.validator._sanity_check_verdict
+  llm.validator._sanity_check_verdict_if_591:
+    id: llm.validator._sanity_check_verdict_if_591
+    type: IF
+    label: if
+    function: llm.validator._sanity_check_verdict
+    line: 591
+  llm.validator._sanity_check_verdict_return_592:
+    id: llm.validator._sanity_check_verdict_return_592
+    type: RETURN
+    label: return
+    function: llm.validator._sanity_check_verdict
+    line: 592
+  llm.validator._sanity_check_verdict_merge_591:
+    id: llm.validator._sanity_check_verdict_merge_591
+    type: FUNC
+    label: merge
+    function: llm.validator._sanity_check_verdict
+  llm.validator._sanity_check_verdict_if_599:
+    id: llm.validator._sanity_check_verdict_if_599
+    type: IF
+    label: if
+    function: llm.validator._sanity_check_verdict
+    line: 599
+  llm.validator._sanity_check_verdict_loop_603:
+    id: llm.validator._sanity_check_verdict_loop_603
+    type: FOR
+    label: for
+    function: llm.validator._sanity_check_verdict
+    line: 603
+  llm.validator._sanity_check_verdict_if_604:
+    id: llm.validator._sanity_check_verdict_if_604
+    type: IF
+    label: if
+    function: llm.validator._sanity_check_verdict
+    line: 604
+  llm.validator._sanity_check_verdict_return_609:
+    id: llm.validator._sanity_check_verdict_return_609
+    type: RETURN
+    label: return
+    function: llm.validator._sanity_check_verdict
+    line: 609
+  llm.validator._sanity_check_verdict_merge_604:
+    id: llm.validator._sanity_check_verdict_merge_604
+    type: FUNC
+    label: merge
+    function: llm.validator._sanity_check_verdict
+  llm.validator._sanity_check_verdict_merge_599:
+    id: llm.validator._sanity_check_verdict_merge_599
+    type: FUNC
+    label: merge
+    function: llm.validator._sanity_check_verdict
+  llm.validator._sanity_check_verdict_return_619:
+    id: llm.validator._sanity_check_verdict_return_619
+    type: RETURN
+    label: return
+    function: llm.validator._sanity_check_verdict
+    line: 619
+  llm.validator._call_ollama_entry:
+    id: llm.validator._call_ollama_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._call_ollama
+  llm.validator._call_ollama_exit:
+    id: llm.validator._call_ollama_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._call_ollama
+  llm.validator._parse_response_entry:
+    id: llm.validator._parse_response_entry
+    type: ENTRY
+    label: entry
+    function: llm.validator._parse_response
+  llm.validator._parse_response_exit:
+    id: llm.validator._parse_response_exit
+    type: EXIT
+    label: exit
+    function: llm.validator._parse_response

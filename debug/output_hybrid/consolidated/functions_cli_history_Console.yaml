@@ -1,0 +1,16 @@
+module: cli.history.Console
+type: functions
+count: 1
+functions:
+  cli.history.Console.print:
+    name: print
+    qualified_name: cli.history.Console.print
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/history.py
+    line: 37
+    module: cli.history
+    class: Console
+    is_method: true
+    cfg_entry: cli.history.Console.print_entry
+    calls:
+    - builtins_print
+    - isinstance

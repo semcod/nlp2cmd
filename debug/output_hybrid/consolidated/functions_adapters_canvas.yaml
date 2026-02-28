@@ -1,0 +1,219 @@
+module: adapters.canvas
+type: functions
+count: 14
+functions:
+  adapters.canvas._debug:
+    name: _debug
+    qualified_name: adapters.canvas._debug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 34
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._debug_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  adapters.canvas.__init__:
+    name: __init__
+    qualified_name: adapters.canvas.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 163
+    module: adapters.canvas
+    cfg_entry: adapters.canvas.__init___entry
+    calls:
+    - None.__init__
+    - super
+    - CanvasSafetyPolicy
+  adapters.canvas.generate:
+    name: generate
+    qualified_name: adapters.canvas.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 171
+    module: adapters.canvas
+    cfg_entry: adapters.canvas.generate_entry
+    calls:
+    - str
+    - pipeline_runner_utils._debug
+    - self._create_drawing_plan
+    - ActionIR
+    - plan.get
+    - json.dumps
+    - float
+  adapters.canvas._create_drawing_plan:
+    name: _create_drawing_plan
+    qualified_name: adapters.canvas._create_drawing_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 211
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._create_drawing_plan_entry
+    calls:
+    - text.lower
+    - self.CANVAS_APPS.items
+    - re.search
+    - DrawingPlan
+    - plan.steps.append
+    - bool
+    - self._extract_colors
+    - self._extract_shapes
+    - self._extract_draw_text
+    - None.rstrip
+    - DrawingStep
+    - self._plan_ladybug
+    - url_match.group
+    - self._plan_shape
+    - self._plan_text
+    - None.split
+  adapters.canvas._plan_ladybug:
+    name: _plan_ladybug
+    qualified_name: adapters.canvas._plan_ladybug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 261
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._plan_ladybug_entry
+    calls:
+    - plan.steps.append
+    - enumerate
+    - len
+    - DrawingStep
+  adapters.canvas._plan_shape:
+    name: _plan_shape
+    qualified_name: adapters.canvas._plan_shape
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 334
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._plan_shape_entry
+    calls:
+    - plan.steps.append
+    - DrawingStep
+  adapters.canvas._plan_text:
+    name: _plan_text
+    qualified_name: adapters.canvas._plan_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 372
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._plan_text_entry
+    calls:
+    - plan.steps.append
+    - DrawingStep
+  adapters.canvas._extract_colors:
+    name: _extract_colors
+    qualified_name: adapters.canvas._extract_colors
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 382
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._extract_colors_entry
+    calls:
+    - text.lower
+    - executor.ExecutionContext.set
+    - self.COLORS.items
+    - re.finditer
+    - None.upper
+    - found.append
+    - seen.add
+    - m.group
+  adapters.canvas._extract_shapes:
+    name: _extract_shapes
+    qualified_name: adapters.canvas._extract_shapes
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 402
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._extract_shapes_entry
+    calls:
+    - text.lower
+    - self.SHAPES.items
+    - re.search
+    - found.append
+  adapters.canvas._extract_draw_text:
+    name: _extract_draw_text
+    qualified_name: adapters.canvas._extract_draw_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 414
+    module: adapters.canvas
+    cfg_entry: adapters.canvas._extract_draw_text_entry
+    calls:
+    - re.search
+    - None.strip
+    - m.group
+  adapters.canvas.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.canvas.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 427
+    module: adapters.canvas
+    cfg_entry: adapters.canvas.validate_syntax_entry
+    calls:
+    - json.loads
+    - isinstance
+    - payload.get
+  adapters.canvas.execute_drawing_plan:
+    name: execute_drawing_plan
+    qualified_name: adapters.canvas.execute_drawing_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 445
+    module: adapters.canvas
+    cfg_entry: adapters.canvas.execute_drawing_plan_entry
+    calls:
+    - plan.get
+    - MouseController
+    - enumerate
+    - json.loads
+    - step.get
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - len
+    - page.evaluate
+    - adapters.canvas.log_step
+    - errors.append
+    - str
+    - page.goto
+    - page.wait_for_timeout
+    - canvas_info.get
+    - page.wait_for_selector
+    - page.query_selector
+    - CanvasAdapter.TOOLS_JSPAINT.get
+    - canvas_el.bounding_box
+    - Point
+    - tool_info.get
+    - el.click
+    - page.query_selector_all
+    - color_result.get
+    - None.click
+    - adapters.canvas.check_canvas_has_drawing
+    - mouse.draw_circle
+    - after_check.get
+    - before_check.get
+    - mouse.draw_ellipse
+    - mouse.draw_rectangle
+    - mouse.draw_line
+    - int
+    - mouse.fill_at
+    - None.strftime
+    - path.parent.mkdir
+    - mouse.click
+    - page.keyboard.type
+    - datetime.now
+    - page.screenshot
+    - Path.home
+  adapters.canvas.log_step:
+    name: log_step
+    qualified_name: adapters.canvas.log_step
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 467
+    module: adapters.canvas
+    cfg_entry: adapters.canvas.log_step_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - len
+    called_by:
+    - adapters.canvas.CanvasAdapter.execute_drawing_plan
+    - adapters.canvas.execute_drawing_plan
+  adapters.canvas.check_canvas_has_drawing:
+    name: check_canvas_has_drawing
+    qualified_name: adapters.canvas.check_canvas_has_drawing
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/canvas.py
+    line: 477
+    module: adapters.canvas
+    cfg_entry: adapters.canvas.check_canvas_has_drawing_entry
+    calls:
+    - page.evaluate
+    - str
+    called_by:
+    - adapters.canvas.CanvasAdapter.execute_drawing_plan
+    - adapters.canvas.execute_drawing_plan

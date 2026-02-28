@@ -1,0 +1,102 @@
+module: streams.ssh_stream.SSHStreamAdapter
+type: functions
+count: 7
+functions:
+  streams.ssh_stream.SSHStreamAdapter.__init__:
+    name: __init__
+    qualified_name: streams.ssh_stream.SSHStreamAdapter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 21
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter.__init___entry
+    calls:
+    - None.__init__
+    - self._build_ssh_target
+    - super
+  streams.ssh_stream.SSHStreamAdapter._build_ssh_cmd:
+    name: _build_ssh_cmd
+    qualified_name: streams.ssh_stream.SSHStreamAdapter._build_ssh_cmd
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 30
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter._build_ssh_cmd_entry
+    calls:
+    - cmd.append
+    - str
+  streams.ssh_stream.SSHStreamAdapter.connect:
+    name: connect
+    qualified_name: streams.ssh_stream.SSHStreamAdapter.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 38
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter.connect_entry
+    calls:
+    - subprocess.run
+    - StreamResult
+    - self._build_ssh_cmd
+    - result.stderr.strip
+    - str
+  streams.ssh_stream.SSHStreamAdapter.execute:
+    name: execute
+    qualified_name: streams.ssh_stream.SSHStreamAdapter.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 51
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter.execute_entry
+    calls:
+    - self._looks_like_command
+    - self._nl_to_command
+    - subprocess.run
+    - StreamResult
+    - self._build_ssh_cmd
+    - kwargs.get
+    - result.stdout.strip
+    - result.stderr.strip
+    - str
+  streams.ssh_stream.SSHStreamAdapter.query:
+    name: query
+    qualified_name: streams.ssh_stream.SSHStreamAdapter.query
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 75
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter.query_entry
+    calls:
+    - queries.get
+    - self.execute
+    - None.split
+    - question.lower
+  streams.ssh_stream.SSHStreamAdapter._looks_like_command:
+    name: _looks_like_command
+    qualified_name: streams.ssh_stream.SSHStreamAdapter._looks_like_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 89
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter._looks_like_command_entry
+    calls:
+    - text.strip
+    - first.startswith
+    - None.split
+  streams.ssh_stream.SSHStreamAdapter._nl_to_command:
+    name: _nl_to_command
+    qualified_name: streams.ssh_stream.SSHStreamAdapter._nl_to_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ssh_stream.py
+    line: 97
+    module: streams.ssh_stream
+    class: SSHStreamAdapter
+    is_method: true
+    cfg_entry: streams.ssh_stream.SSHStreamAdapter._nl_to_command_entry
+    calls:
+    - RuleBasedPipeline
+    - generation.pipeline.process

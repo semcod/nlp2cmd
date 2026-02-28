@@ -1,0 +1,30 @@
+module: src.nlp2cmd.validation.framework.BaseValidator
+type: orphan_nodes
+count: 5
+nodes:
+  src.nlp2cmd.validation.framework.BaseValidator.validate_entry:
+    id: src.nlp2cmd.validation.framework.BaseValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.BaseValidator.validate
+  src.nlp2cmd.validation.framework.BaseValidator.validate_exit:
+    id: src.nlp2cmd.validation.framework.BaseValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.BaseValidator.validate
+  src.nlp2cmd.validation.framework.BaseValidator._create_result_entry:
+    id: src.nlp2cmd.validation.framework.BaseValidator._create_result_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.BaseValidator._create_result
+  src.nlp2cmd.validation.framework.BaseValidator._create_result_exit:
+    id: src.nlp2cmd.validation.framework.BaseValidator._create_result_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.BaseValidator._create_result
+  src.nlp2cmd.validation.framework.BaseValidator._create_result_return_47:
+    id: src.nlp2cmd.validation.framework.BaseValidator._create_result_return_47
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.validation.framework.BaseValidator._create_result
+    line: 47

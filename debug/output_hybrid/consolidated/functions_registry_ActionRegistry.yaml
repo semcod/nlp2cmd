@@ -1,0 +1,138 @@
+module: registry.ActionRegistry
+type: functions
+count: 11
+functions:
+  registry.ActionRegistry.__init__:
+    name: __init__
+    qualified_name: registry.ActionRegistry.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 210
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.__init___entry
+    calls:
+    - self._register_builtin_actions
+  registry.ActionRegistry._register_builtin_actions:
+    name: _register_builtin_actions
+    qualified_name: registry.ActionRegistry._register_builtin_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 216
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry._register_builtin_actions_entry
+    calls:
+    - self.register
+    - ActionSchema
+    - ParamSchema
+  registry.ActionRegistry.register:
+    name: register
+    qualified_name: registry.ActionRegistry.register
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 505
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.register_entry
+    calls:
+    - logger.debug
+    - None.append
+  registry.ActionRegistry.get:
+    name: get
+    qualified_name: registry.ActionRegistry.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 530
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.get_entry
+    calls:
+    - self._actions.get
+  registry.ActionRegistry.get_handler:
+    name: get_handler
+    qualified_name: registry.ActionRegistry.get_handler
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 534
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.get_handler_entry
+    calls:
+    - self._handlers.get
+  registry.ActionRegistry.list_actions:
+    name: list_actions
+    qualified_name: registry.ActionRegistry.list_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 542
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.list_actions_entry
+    calls:
+    - list
+    - self._domains.get
+    - self._actions.keys
+  registry.ActionRegistry.list_domains:
+    name: list_domains
+    qualified_name: registry.ActionRegistry.list_domains
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 548
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.list_domains_entry
+    calls:
+    - list
+    - self._domains.keys
+  registry.ActionRegistry.get_by_tag:
+    name: get_by_tag
+    qualified_name: registry.ActionRegistry.get_by_tag
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 552
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.get_by_tag_entry
+    calls:
+    - self._actions.values
+  registry.ActionRegistry.get_destructive_actions:
+    name: get_destructive_actions
+    qualified_name: registry.ActionRegistry.get_destructive_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 556
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.get_destructive_actions_entry
+    calls:
+    - self._actions.items
+  registry.ActionRegistry.validate_action:
+    name: validate_action
+    qualified_name: registry.ActionRegistry.validate_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 560
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.validate_action_entry
+    calls:
+    - ActionHandler
+    - handler.validate_params
+    - self.has
+  registry.ActionRegistry.to_llm_prompt:
+    name: to_llm_prompt
+    qualified_name: registry.ActionRegistry.to_llm_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 584
+    module: registry
+    class: ActionRegistry
+    is_method: true
+    cfg_entry: registry.ActionRegistry.to_llm_prompt_entry
+    calls:
+    - self.list_actions
+    - sorted
+    - None.join
+    - schema.get_required_params
+    - schema.get_optional_params
+    - lines.append

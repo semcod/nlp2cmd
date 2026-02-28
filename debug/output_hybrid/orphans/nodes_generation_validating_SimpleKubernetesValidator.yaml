@@ -1,0 +1,59 @@
+module: generation.validating.SimpleKubernetesValidator
+type: orphan_nodes
+count: 10
+nodes:
+  generation.validating.SimpleKubernetesValidator.validate_entry:
+    id: generation.validating.SimpleKubernetesValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: generation.validating.SimpleKubernetesValidator.validate
+  generation.validating.SimpleKubernetesValidator.validate_exit:
+    id: generation.validating.SimpleKubernetesValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: generation.validating.SimpleKubernetesValidator.validate
+  generation.validating.SimpleKubernetesValidator.validate_if_272:
+    id: generation.validating.SimpleKubernetesValidator.validate_if_272
+    type: IF
+    label: if
+    function: generation.validating.SimpleKubernetesValidator.validate
+    line: 272
+  generation.validating.SimpleKubernetesValidator.validate_merge_272:
+    id: generation.validating.SimpleKubernetesValidator.validate_merge_272
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleKubernetesValidator.validate
+  generation.validating.SimpleKubernetesValidator.validate_loop_276:
+    id: generation.validating.SimpleKubernetesValidator.validate_loop_276
+    type: FOR
+    label: for
+    function: generation.validating.SimpleKubernetesValidator.validate
+    line: 276
+  generation.validating.SimpleKubernetesValidator.validate_if_277:
+    id: generation.validating.SimpleKubernetesValidator.validate_if_277
+    type: IF
+    label: if
+    function: generation.validating.SimpleKubernetesValidator.validate
+    line: 277
+  generation.validating.SimpleKubernetesValidator.validate_if_278:
+    id: generation.validating.SimpleKubernetesValidator.validate_if_278
+    type: IF
+    label: if
+    function: generation.validating.SimpleKubernetesValidator.validate
+    line: 278
+  generation.validating.SimpleKubernetesValidator.validate_merge_278:
+    id: generation.validating.SimpleKubernetesValidator.validate_merge_278
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleKubernetesValidator.validate
+  generation.validating.SimpleKubernetesValidator.validate_merge_277:
+    id: generation.validating.SimpleKubernetesValidator.validate_merge_277
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleKubernetesValidator.validate
+  generation.validating.SimpleKubernetesValidator.validate_return_283:
+    id: generation.validating.SimpleKubernetesValidator.validate_return_283
+    type: RETURN
+    label: return
+    function: generation.validating.SimpleKubernetesValidator.validate
+    line: 283

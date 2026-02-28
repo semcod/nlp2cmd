@@ -1,0 +1,214 @@
+module: generation.thermodynamic_components._NumpyStub
+type: functions
+count: 9
+functions:
+  generation.thermodynamic_components._NumpyStub.__getattr__:
+    name: __getattr__
+    qualified_name: generation.thermodynamic_components._NumpyStub.__getattr__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 16
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.__getattr___entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.array:
+    name: array
+    qualified_name: generation.thermodynamic_components._NumpyStub.array
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 20
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.array_entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.zeros_like:
+    name: zeros_like
+    qualified_name: generation.thermodynamic_components._NumpyStub.zeros_like
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 24
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.zeros_like_entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.pad:
+    name: pad
+    qualified_name: generation.thermodynamic_components._NumpyStub.pad
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 28
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.pad_entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.var:
+    name: var
+    qualified_name: generation.thermodynamic_components._NumpyStub.var
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 32
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.var_entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.sum:
+    name: sum
+    qualified_name: generation.thermodynamic_components._NumpyStub.sum
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 36
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.sum_entry
+    calls:
+    - ImportError
+    called_by:
+    - automation.step_validator.StepValidator.summary
+    - automation.step_validator.summary
+    - automation.password_store.SessionPasswordStore.print_diagnosis
+    - automation.password_store.print_diagnosis
+    - automation.action_planner.ActionPlanner._try_canvas_decomposition
+    - automation.action_planner._try_canvas_decomposition
+    - pipeline_runner_plans.PlanExecutionMixin.execute_action_plan
+    - pipeline_runner_plans.PlanExecutionMixin._execute_plan_step
+    - pipeline_runner_plans.execute_action_plan
+    - pipeline_runner_plans._execute_plan_step
+    - generation.complex_detector.ComplexQueryDetector.analyze
+    - generation.complex_detector.analyze
+    - generation.evolutionary_cache.detect_domain
+    - generation.data_loader.PhraseDatabase.get_stats
+    - generation.data_loader.get_stats
+    - generation.hybrid.AdaptiveHybridGenerator._adapt_threshold
+    - generation.hybrid._adapt_threshold
+    - nlp.config.IntentRegistry.load
+    - nlp.config.load
+    - web_schema.history.InteractionHistory.get_domain_stats
+    - web_schema.history.get_domain_stats
+    - aggregator.ResultAggregator._generate_summary
+    - aggregator.ResultAggregator._to_summary
+    - aggregator._generate_summary
+    - aggregator._to_summary
+    - web_schema.site_explorer.SiteExplorer._detect_intent_from_query
+    - web_schema.site_explorer._detect_intent_from_query
+    - adapters.desktop.DesktopAdapter.detect_intent
+    - adapters.desktop.detect_intent
+    - history.tracker.CommandHistory.get_stats
+    - history.tracker.get_stats
+    - intelligent.command_detector.CommandDetector.detect_command
+    - intelligent.command_detector.detect_command
+    - src.nlp2cmd.execution.refactored_executor.RefactoredPlanExecutor.get_execution_stats
+    - src.nlp2cmd.execution.refactored_executor.RefactoredPlanExecutor._calculate_success_rate
+    - src.nlp2cmd.execution.refactored_executor.get_execution_stats
+    - src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+    - src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats
+    - src.nlp2cmd.processing.framework.aggregate_field_stats
+    - src.nlp2cmd.processing.framework.get_stats
+    - cli.commands.doctor.NP2CMDDoctor.print_summary
+    - cli.commands.doctor.run_doctor
+    - cli.commands.doctor.print_summary
+  generation.thermodynamic_components._NumpyStub.exp:
+    name: exp
+    qualified_name: generation.thermodynamic_components._NumpyStub.exp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 40
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.exp_entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.argmax:
+    name: argmax
+    qualified_name: generation.thermodynamic_components._NumpyStub.argmax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 44
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.argmax_entry
+    calls:
+    - ImportError
+  generation.thermodynamic_components._NumpyStub.max:
+    name: max
+    qualified_name: generation.thermodynamic_components._NumpyStub.max
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 48
+    module: generation.thermodynamic_components
+    class: _NumpyStub
+    is_method: true
+    cfg_entry: generation.thermodynamic_components._NumpyStub.max_entry
+    calls:
+    - ImportError
+    called_by:
+    - monitoring.resources.ResourceMonitor.measure_execution
+    - monitoring.resources.measure_execution
+    - schema_driven.SchemaDrivenNLP2CMD.transform
+    - schema_driven.transform
+    - pipeline_runner_desktop.DesktopExecutionMixin._execute_desktop_plan_step
+    - pipeline_runner_desktop._execute_desktop_plan_step
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+    - schemas.SchemaRegistry.detect_format
+    - schemas.detect_format
+    - automation.schema_fallback.SchemaFallback.__init__
+    - automation.schema_fallback.__init__
+    - automation.mouse_controller.MouseController._human_delay
+    - automation.mouse_controller.MouseController.human_move
+    - automation.mouse_controller._human_delay
+    - automation.mouse_controller.human_move
+    - generation.fuzzy_schema_matcher.FuzzySchemaMatcher._levenshtein_similarity
+    - generation.fuzzy_schema_matcher.FuzzySchemaMatcher._combined_similarity
+    - generation.fuzzy_schema_matcher._levenshtein_similarity
+    - generation.fuzzy_schema_matcher._combined_similarity
+    - generation.ml_intent_classifier.MLIntentClassifier.predict
+    - generation.ml_intent_classifier.predict
+    - generation.thermodynamic.ThermodynamicGenerator.generate
+    - generation.evolutionary_cache.detect_domain
+    - generation.thermodynamic_components.ThermodynamicConfig.adapt_to_problem_size
+    - generation.thermodynamic_components.adapt_to_problem_size
+    - generation.enhanced_context.EnhancedContextDetector._calculate_semantic_similarity
+    - generation.enhanced_context._calculate_semantic_similarity
+    - generation.hybrid.AdaptiveHybridGenerator._adapt_threshold
+    - generation.hybrid._adapt_threshold
+    - nlp.normalizer.detect_language
+    - web_schema.history.InteractionHistory.export_domain_schema
+    - web_schema.history.export_domain_schema
+    - aggregator.ResultAggregator._to_table
+    - aggregator.ResultAggregator._to_summary
+    - aggregator._to_table
+    - aggregator._to_summary
+    - nlp_enhanced.ShellGPTBackend._fallback_intent_extraction
+    - nlp_enhanced._fallback_intent_extraction
+    - llm.validator.LLMValidator._parse_response
+    - llm.validator._parse_response
+    - nlp_light.semantic_shell.SemanticShellBackend.generate_plan
+    - nlp_light.semantic_shell.generate_plan
+    - web_schema.site_explorer.SiteExplorer._get_sitemap_urls
+    - web_schema.site_explorer.SiteExplorer._detect_intent_from_query
+    - web_schema.site_explorer.SiteExplorer._explore_generic
+    - web_schema.site_explorer._get_sitemap_urls
+    - web_schema.site_explorer._detect_intent_from_query
+    - web_schema.site_explorer._explore_generic
+    - thermodynamic.energy_models.SchedulingEnergy._overlap_penalty
+    - thermodynamic.energy_models.SchedulingEnergy._deadline_penalty
+    - thermodynamic.energy_models.SchedulingEnergy._precedence_penalty
+    - thermodynamic.energy_models.SchedulingEnergy._makespan
+    - thermodynamic.energy_models._overlap_penalty
+    - thermodynamic.energy_models._deadline_penalty
+    - thermodynamic.energy_models._precedence_penalty
+    - thermodynamic.energy_models._makespan
+    - thermodynamic.MajorityVoter._cluster_vote
+    - thermodynamic._cluster_vote
+    - feedback.FeedbackAnalyzer._calculate_confidence
+    - feedback._calculate_confidence
+    - schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    - schema_extraction.script_extractors.extract_from_source
+    - src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+    - src.nlp2cmd.validation.framework._get_most_common_type
+    - cli.commands.generate._execute_multi_step_with_video

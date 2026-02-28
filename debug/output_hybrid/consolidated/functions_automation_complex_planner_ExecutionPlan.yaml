@@ -1,0 +1,15 @@
+module: automation.complex_planner.ExecutionPlan
+type: functions
+count: 1
+functions:
+  automation.complex_planner.ExecutionPlan.to_dict:
+    name: to_dict
+    qualified_name: automation.complex_planner.ExecutionPlan.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 59
+    module: automation.complex_planner
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: automation.complex_planner.ExecutionPlan.to_dict_entry
+    calls:
+    - s.to_dict

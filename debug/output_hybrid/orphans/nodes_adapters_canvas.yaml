@@ -1,0 +1,500 @@
+module: adapters.canvas
+type: orphan_nodes
+count: 91
+nodes:
+  adapters.canvas._debug_entry:
+    id: adapters.canvas._debug_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._debug
+  adapters.canvas._debug_exit:
+    id: adapters.canvas._debug_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._debug
+  adapters.canvas._debug_if_35:
+    id: adapters.canvas._debug_if_35
+    type: IF
+    label: if
+    function: adapters.canvas._debug
+    line: 35
+  adapters.canvas._debug_merge_35:
+    id: adapters.canvas._debug_merge_35
+    type: FUNC
+    label: merge
+    function: adapters.canvas._debug
+  adapters.canvas.__init___entry:
+    id: adapters.canvas.__init___entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas.__init__
+  adapters.canvas.__init___exit:
+    id: adapters.canvas.__init___exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas.__init__
+  adapters.canvas.generate_entry:
+    id: adapters.canvas.generate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas.generate
+  adapters.canvas.generate_exit:
+    id: adapters.canvas.generate_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas.generate
+  adapters.canvas.generate_return_209:
+    id: adapters.canvas.generate_return_209
+    type: RETURN
+    label: return
+    function: adapters.canvas.generate
+    line: 209
+  adapters.canvas._create_drawing_plan_entry:
+    id: adapters.canvas._create_drawing_plan_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_exit:
+    id: adapters.canvas._create_drawing_plan_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_loop_218:
+    id: adapters.canvas._create_drawing_plan_loop_218
+    type: FOR
+    label: for
+    function: adapters.canvas._create_drawing_plan
+    line: 218
+  adapters.canvas._create_drawing_plan_if_219:
+    id: adapters.canvas._create_drawing_plan_if_219
+    type: IF
+    label: if
+    function: adapters.canvas._create_drawing_plan
+    line: 219
+  adapters.canvas._create_drawing_plan_merge_219:
+    id: adapters.canvas._create_drawing_plan_merge_219
+    type: FUNC
+    label: merge
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_if_226:
+    id: adapters.canvas._create_drawing_plan_if_226
+    type: IF
+    label: if
+    function: adapters.canvas._create_drawing_plan
+    line: 226
+  adapters.canvas._create_drawing_plan_merge_226:
+    id: adapters.canvas._create_drawing_plan_merge_226
+    type: FUNC
+    label: merge
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_if_243:
+    id: adapters.canvas._create_drawing_plan_if_243
+    type: IF
+    label: if
+    function: adapters.canvas._create_drawing_plan
+    line: 243
+  adapters.canvas._create_drawing_plan_if_245:
+    id: adapters.canvas._create_drawing_plan_if_245
+    type: IF
+    label: if
+    function: adapters.canvas._create_drawing_plan
+    line: 245
+  adapters.canvas._create_drawing_plan_loop_246:
+    id: adapters.canvas._create_drawing_plan_loop_246
+    type: FOR
+    label: for
+    function: adapters.canvas._create_drawing_plan
+    line: 246
+  adapters.canvas._create_drawing_plan_if_248:
+    id: adapters.canvas._create_drawing_plan_if_248
+    type: IF
+    label: if
+    function: adapters.canvas._create_drawing_plan
+    line: 248
+  adapters.canvas._create_drawing_plan_merge_248:
+    id: adapters.canvas._create_drawing_plan_merge_248
+    type: FUNC
+    label: merge
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_merge_245:
+    id: adapters.canvas._create_drawing_plan_merge_245
+    type: FUNC
+    label: merge
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_merge_243:
+    id: adapters.canvas._create_drawing_plan_merge_243
+    type: FUNC
+    label: merge
+    function: adapters.canvas._create_drawing_plan
+  adapters.canvas._create_drawing_plan_return_259:
+    id: adapters.canvas._create_drawing_plan_return_259
+    type: RETURN
+    label: return
+    function: adapters.canvas._create_drawing_plan
+    line: 259
+  adapters.canvas._plan_ladybug_entry:
+    id: adapters.canvas._plan_ladybug_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._plan_ladybug
+  adapters.canvas._plan_ladybug_exit:
+    id: adapters.canvas._plan_ladybug_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._plan_ladybug
+  adapters.canvas._plan_ladybug_if_267:
+    id: adapters.canvas._plan_ladybug_if_267
+    type: IF
+    label: if
+    function: adapters.canvas._plan_ladybug
+    line: 267
+  adapters.canvas._plan_ladybug_if_270:
+    id: adapters.canvas._plan_ladybug_if_270
+    type: IF
+    label: if
+    function: adapters.canvas._plan_ladybug
+    line: 270
+  adapters.canvas._plan_ladybug_merge_270:
+    id: adapters.canvas._plan_ladybug_merge_270
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_ladybug
+  adapters.canvas._plan_ladybug_merge_267:
+    id: adapters.canvas._plan_ladybug_merge_267
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_ladybug
+  adapters.canvas._plan_ladybug_loop_307:
+    id: adapters.canvas._plan_ladybug_loop_307
+    type: FOR
+    label: for
+    function: adapters.canvas._plan_ladybug
+    line: 307
+  adapters.canvas._plan_shape_entry:
+    id: adapters.canvas._plan_shape_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_shape_exit:
+    id: adapters.canvas._plan_shape_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_shape_if_338:
+    id: adapters.canvas._plan_shape_if_338
+    type: IF
+    label: if
+    function: adapters.canvas._plan_shape
+    line: 338
+  adapters.canvas._plan_shape_if_344:
+    id: adapters.canvas._plan_shape_if_344
+    type: IF
+    label: if
+    function: adapters.canvas._plan_shape
+    line: 344
+  adapters.canvas._plan_shape_if_350:
+    id: adapters.canvas._plan_shape_if_350
+    type: IF
+    label: if
+    function: adapters.canvas._plan_shape
+    line: 350
+  adapters.canvas._plan_shape_if_359:
+    id: adapters.canvas._plan_shape_if_359
+    type: IF
+    label: if
+    function: adapters.canvas._plan_shape
+    line: 359
+  adapters.canvas._plan_shape_if_365:
+    id: adapters.canvas._plan_shape_if_365
+    type: IF
+    label: if
+    function: adapters.canvas._plan_shape
+    line: 365
+  adapters.canvas._plan_shape_merge_365:
+    id: adapters.canvas._plan_shape_merge_365
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_shape_merge_359:
+    id: adapters.canvas._plan_shape_merge_359
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_shape_merge_350:
+    id: adapters.canvas._plan_shape_merge_350
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_shape_merge_344:
+    id: adapters.canvas._plan_shape_merge_344
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_shape_merge_338:
+    id: adapters.canvas._plan_shape_merge_338
+    type: FUNC
+    label: merge
+    function: adapters.canvas._plan_shape
+  adapters.canvas._plan_text_entry:
+    id: adapters.canvas._plan_text_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._plan_text
+  adapters.canvas._plan_text_exit:
+    id: adapters.canvas._plan_text_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._plan_text
+  adapters.canvas._extract_colors_entry:
+    id: adapters.canvas._extract_colors_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._extract_colors
+  adapters.canvas._extract_colors_exit:
+    id: adapters.canvas._extract_colors_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._extract_colors
+  adapters.canvas._extract_colors_loop_388:
+    id: adapters.canvas._extract_colors_loop_388
+    type: FOR
+    label: for
+    function: adapters.canvas._extract_colors
+    line: 388
+  adapters.canvas._extract_colors_if_389:
+    id: adapters.canvas._extract_colors_if_389
+    type: IF
+    label: if
+    function: adapters.canvas._extract_colors
+    line: 389
+  adapters.canvas._extract_colors_merge_389:
+    id: adapters.canvas._extract_colors_merge_389
+    type: FUNC
+    label: merge
+    function: adapters.canvas._extract_colors
+  adapters.canvas._extract_colors_loop_394:
+    id: adapters.canvas._extract_colors_loop_394
+    type: FOR
+    label: for
+    function: adapters.canvas._extract_colors
+    line: 394
+  adapters.canvas._extract_colors_if_396:
+    id: adapters.canvas._extract_colors_if_396
+    type: IF
+    label: if
+    function: adapters.canvas._extract_colors
+    line: 396
+  adapters.canvas._extract_colors_merge_396:
+    id: adapters.canvas._extract_colors_merge_396
+    type: FUNC
+    label: merge
+    function: adapters.canvas._extract_colors
+  adapters.canvas._extract_colors_return_400:
+    id: adapters.canvas._extract_colors_return_400
+    type: RETURN
+    label: return
+    function: adapters.canvas._extract_colors
+    line: 400
+  adapters.canvas._extract_shapes_entry:
+    id: adapters.canvas._extract_shapes_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._extract_shapes
+  adapters.canvas._extract_shapes_exit:
+    id: adapters.canvas._extract_shapes_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._extract_shapes
+  adapters.canvas._extract_shapes_loop_407:
+    id: adapters.canvas._extract_shapes_loop_407
+    type: FOR
+    label: for
+    function: adapters.canvas._extract_shapes
+    line: 407
+  adapters.canvas._extract_shapes_if_408:
+    id: adapters.canvas._extract_shapes_if_408
+    type: IF
+    label: if
+    function: adapters.canvas._extract_shapes
+    line: 408
+  adapters.canvas._extract_shapes_merge_408:
+    id: adapters.canvas._extract_shapes_merge_408
+    type: FUNC
+    label: merge
+    function: adapters.canvas._extract_shapes
+  adapters.canvas._extract_shapes_return_411:
+    id: adapters.canvas._extract_shapes_return_411
+    type: RETURN
+    label: return
+    function: adapters.canvas._extract_shapes
+    line: 411
+  adapters.canvas._extract_draw_text_entry:
+    id: adapters.canvas._extract_draw_text_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas._extract_draw_text
+  adapters.canvas._extract_draw_text_exit:
+    id: adapters.canvas._extract_draw_text_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas._extract_draw_text
+  adapters.canvas._extract_draw_text_loop_421:
+    id: adapters.canvas._extract_draw_text_loop_421
+    type: FOR
+    label: for
+    function: adapters.canvas._extract_draw_text
+    line: 421
+  adapters.canvas._extract_draw_text_if_423:
+    id: adapters.canvas._extract_draw_text_if_423
+    type: IF
+    label: if
+    function: adapters.canvas._extract_draw_text
+    line: 423
+  adapters.canvas._extract_draw_text_return_424:
+    id: adapters.canvas._extract_draw_text_return_424
+    type: RETURN
+    label: return
+    function: adapters.canvas._extract_draw_text
+    line: 424
+  adapters.canvas._extract_draw_text_merge_423:
+    id: adapters.canvas._extract_draw_text_merge_423
+    type: FUNC
+    label: merge
+    function: adapters.canvas._extract_draw_text
+  adapters.canvas._extract_draw_text_return_425:
+    id: adapters.canvas._extract_draw_text_return_425
+    type: RETURN
+    label: return
+    function: adapters.canvas._extract_draw_text
+    line: 425
+  adapters.canvas.validate_syntax_entry:
+    id: adapters.canvas.validate_syntax_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas.validate_syntax
+  adapters.canvas.validate_syntax_exit:
+    id: adapters.canvas.validate_syntax_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas.validate_syntax
+  adapters.canvas.validate_syntax_if_434:
+    id: adapters.canvas.validate_syntax_if_434
+    type: IF
+    label: if
+    function: adapters.canvas.validate_syntax
+    line: 434
+  adapters.canvas.validate_syntax_return_435:
+    id: adapters.canvas.validate_syntax_return_435
+    type: RETURN
+    label: return
+    function: adapters.canvas.validate_syntax
+    line: 435
+  adapters.canvas.validate_syntax_merge_434:
+    id: adapters.canvas.validate_syntax_merge_434
+    type: FUNC
+    label: merge
+    function: adapters.canvas.validate_syntax
+  adapters.canvas.validate_syntax_if_437:
+    id: adapters.canvas.validate_syntax_if_437
+    type: IF
+    label: if
+    function: adapters.canvas.validate_syntax
+    line: 437
+  adapters.canvas.validate_syntax_return_438:
+    id: adapters.canvas.validate_syntax_return_438
+    type: RETURN
+    label: return
+    function: adapters.canvas.validate_syntax
+    line: 438
+  adapters.canvas.validate_syntax_merge_437:
+    id: adapters.canvas.validate_syntax_merge_437
+    type: FUNC
+    label: merge
+    function: adapters.canvas.validate_syntax
+  adapters.canvas.validate_syntax_return_440:
+    id: adapters.canvas.validate_syntax_return_440
+    type: RETURN
+    label: return
+    function: adapters.canvas.validate_syntax
+    line: 440
+  adapters.canvas.execute_drawing_plan_entry:
+    id: adapters.canvas.execute_drawing_plan_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas.execute_drawing_plan
+  adapters.canvas.execute_drawing_plan_exit:
+    id: adapters.canvas.execute_drawing_plan_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas.execute_drawing_plan
+  adapters.canvas.execute_drawing_plan_loop_520:
+    id: adapters.canvas.execute_drawing_plan_loop_520
+    type: FOR
+    label: for
+    function: adapters.canvas.execute_drawing_plan
+    line: 520
+  adapters.canvas.execute_drawing_plan_if_897:
+    id: adapters.canvas.execute_drawing_plan_if_897
+    type: IF
+    label: if
+    function: adapters.canvas.execute_drawing_plan
+    line: 897
+  adapters.canvas.execute_drawing_plan_loop_899:
+    id: adapters.canvas.execute_drawing_plan_loop_899
+    type: FOR
+    label: for
+    function: adapters.canvas.execute_drawing_plan
+    line: 899
+  adapters.canvas.execute_drawing_plan_merge_897:
+    id: adapters.canvas.execute_drawing_plan_merge_897
+    type: FUNC
+    label: merge
+    function: adapters.canvas.execute_drawing_plan
+  adapters.canvas.execute_drawing_plan_return_904:
+    id: adapters.canvas.execute_drawing_plan_return_904
+    type: RETURN
+    label: return
+    function: adapters.canvas.execute_drawing_plan
+    line: 904
+  adapters.canvas.log_step_entry:
+    id: adapters.canvas.log_step_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas.log_step
+  adapters.canvas.log_step_exit:
+    id: adapters.canvas.log_step_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas.log_step
+  adapters.canvas.log_step_if_469:
+    id: adapters.canvas.log_step_if_469
+    type: IF
+    label: if
+    function: adapters.canvas.log_step
+    line: 469
+  adapters.canvas.log_step_if_471:
+    id: adapters.canvas.log_step_if_471
+    type: IF
+    label: if
+    function: adapters.canvas.log_step
+    line: 471
+  adapters.canvas.log_step_merge_471:
+    id: adapters.canvas.log_step_merge_471
+    type: FUNC
+    label: merge
+    function: adapters.canvas.log_step
+  adapters.canvas.log_step_merge_469:
+    id: adapters.canvas.log_step_merge_469
+    type: FUNC
+    label: merge
+    function: adapters.canvas.log_step
+  adapters.canvas.check_canvas_has_drawing_entry:
+    id: adapters.canvas.check_canvas_has_drawing_entry
+    type: ENTRY
+    label: entry
+    function: adapters.canvas.check_canvas_has_drawing
+  adapters.canvas.check_canvas_has_drawing_exit:
+    id: adapters.canvas.check_canvas_has_drawing_exit
+    type: EXIT
+    label: exit
+    function: adapters.canvas.check_canvas_has_drawing

@@ -1,0 +1,60 @@
+module: schema_extraction.script_extractors.MakefileExtractor
+type: functions
+count: 2
+functions:
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_file:
+    name: extract_from_file
+    qualified_name: schema_extraction.script_extractors.MakefileExtractor.extract_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/script_extractors.py
+    line: 180
+    module: schema_extraction.script_extractors
+    class: MakefileExtractor
+    is_method: true
+    cfg_entry: schema_extraction.script_extractors.MakefileExtractor.extract_from_file_entry
+    calls:
+    - Path
+    - file_path.read_text
+    - self.extract_from_source
+    - file_path.exists
+    - FileNotFoundError
+    - str
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source:
+    name: extract_from_source
+    qualified_name: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/script_extractors.py
+    line: 188
+    module: schema_extraction.script_extractors
+    class: MakefileExtractor
+    is_method: true
+    cfg_entry: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_entry
+    calls:
+    - source_code.splitlines
+    - None.join
+    - executor.ExecutionContext.set
+    - ExtractedSchema
+    - line.strip
+    - s.startswith
+    - self._re_var.match
+    - self._re_phony.match
+    - self._re_target.match
+    - None.strip
+    - phony_targets.update
+    - range
+    - deps.split
+    - CommandSchema
+    - commands.append
+    - description_lines.append
+    - m.group
+    - target.startswith
+    - target.endswith
+    - generation.thermodynamic_components._NumpyStub.max
+    - lines.index
+    - prev_line.startswith
+    - dep.strip
+    - list
+    - s.lstrip
+    - t.strip
+    - parameters.append
+    - None.split
+    - CommandParameter
+    - prev_line.lstrip

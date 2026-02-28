@@ -1,0 +1,26 @@
+module: monitoring.resources._ProcessStub
+type: functions
+count: 2
+functions:
+  monitoring.resources._ProcessStub.memory_info:
+    name: memory_info
+    qualified_name: monitoring.resources._ProcessStub.memory_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 17
+    module: monitoring.resources
+    class: _ProcessStub
+    is_method: true
+    cfg_entry: monitoring.resources._ProcessStub.memory_info_entry
+    calls:
+    - _MemInfo
+  monitoring.resources._ProcessStub.cpu_times:
+    name: cpu_times
+    qualified_name: monitoring.resources._ProcessStub.cpu_times
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 23
+    module: monitoring.resources
+    class: _ProcessStub
+    is_method: true
+    cfg_entry: monitoring.resources._ProcessStub.cpu_times_entry
+    calls:
+    - _CpuTimes

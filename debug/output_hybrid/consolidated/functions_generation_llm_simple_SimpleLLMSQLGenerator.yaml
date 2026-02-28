@@ -1,0 +1,43 @@
+module: generation.llm_simple.SimpleLLMSQLGenerator
+type: functions
+count: 3
+functions:
+  generation.llm_simple.SimpleLLMSQLGenerator.__init__:
+    name: __init__
+    qualified_name: generation.llm_simple.SimpleLLMSQLGenerator.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 237
+    module: generation.llm_simple
+    class: SimpleLLMSQLGenerator
+    is_method: true
+    cfg_entry: generation.llm_simple.SimpleLLMSQLGenerator.__init___entry
+    calls:
+    - None.__init__
+    - super
+  generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt:
+    name: get_system_prompt
+    qualified_name: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 246
+    module: generation.llm_simple
+    class: SimpleLLMSQLGenerator
+    is_method: true
+    cfg_entry: generation.llm_simple.SimpleLLMSQLGenerator.get_system_prompt_entry
+    calls:
+    - None.join
+    - prompt.replace
+    - self.schema.items
+  generation.llm_simple.SimpleLLMSQLGenerator.extract_command:
+    name: extract_command
+    qualified_name: generation.llm_simple.SimpleLLMSQLGenerator.extract_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 262
+    module: generation.llm_simple
+    class: SimpleLLMSQLGenerator
+    is_method: true
+    cfg_entry: generation.llm_simple.SimpleLLMSQLGenerator.extract_command_entry
+    calls:
+    - response.strip
+    - re.search
+    - None.strip
+    - match.group

@@ -1,0 +1,890 @@
+module: adapters.desktop
+type: orphan_nodes
+count: 161
+nodes:
+  adapters.desktop._debug_entry:
+    id: adapters.desktop._debug_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._debug
+  adapters.desktop._debug_exit:
+    id: adapters.desktop._debug_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._debug
+  adapters.desktop._debug_if_44:
+    id: adapters.desktop._debug_if_44
+    type: IF
+    label: if
+    function: adapters.desktop._debug
+    line: 44
+  adapters.desktop._debug_merge_44:
+    id: adapters.desktop._debug_merge_44
+    type: FUNC
+    label: merge
+    function: adapters.desktop._debug
+  adapters.desktop.validate_entry:
+    id: adapters.desktop.validate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.validate
+  adapters.desktop.validate_exit:
+    id: adapters.desktop.validate_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.validate
+  adapters.desktop.validate_loop_74:
+    id: adapters.desktop.validate_loop_74
+    type: FOR
+    label: for
+    function: adapters.desktop.validate
+    line: 74
+  adapters.desktop.validate_if_75:
+    id: adapters.desktop.validate_if_75
+    type: IF
+    label: if
+    function: adapters.desktop.validate
+    line: 75
+  adapters.desktop.validate_return_76:
+    id: adapters.desktop.validate_return_76
+    type: RETURN
+    label: return
+    function: adapters.desktop.validate
+    line: 76
+  adapters.desktop.validate_merge_75:
+    id: adapters.desktop.validate_merge_75
+    type: FUNC
+    label: merge
+    function: adapters.desktop.validate
+  adapters.desktop.validate_return_81:
+    id: adapters.desktop.validate_return_81
+    type: RETURN
+    label: return
+    function: adapters.desktop.validate
+    line: 81
+  adapters.desktop.__init___entry:
+    id: adapters.desktop.__init___entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.__init__
+  adapters.desktop.__init___exit:
+    id: adapters.desktop.__init___exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.__init__
+  adapters.desktop.generate_entry:
+    id: adapters.desktop.generate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.generate
+  adapters.desktop.generate_exit:
+    id: adapters.desktop.generate_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.generate
+  adapters.desktop.generate_if_274:
+    id: adapters.desktop.generate_if_274
+    type: IF
+    label: if
+    function: adapters.desktop.generate
+    line: 274
+  adapters.desktop.generate_merge_274:
+    id: adapters.desktop.generate_merge_274
+    type: FUNC
+    label: merge
+    function: adapters.desktop.generate
+  adapters.desktop.generate_if_285:
+    id: adapters.desktop.generate_if_285
+    type: IF
+    label: if
+    function: adapters.desktop.generate
+    line: 285
+  adapters.desktop.generate_merge_285:
+    id: adapters.desktop.generate_merge_285
+    type: FUNC
+    label: merge
+    function: adapters.desktop.generate
+  adapters.desktop.generate_return_288:
+    id: adapters.desktop.generate_return_288
+    type: RETURN
+    label: return
+    function: adapters.desktop.generate
+    line: 288
+  adapters.desktop._build_actions_entry:
+    id: adapters.desktop._build_actions_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_exit:
+    id: adapters.desktop._build_actions_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_if_294:
+    id: adapters.desktop._build_actions_if_294
+    type: IF
+    label: if
+    function: adapters.desktop._build_actions
+    line: 294
+  adapters.desktop._build_actions_if_299:
+    id: adapters.desktop._build_actions_if_299
+    type: IF
+    label: if
+    function: adapters.desktop._build_actions
+    line: 299
+  adapters.desktop._build_actions_merge_299:
+    id: adapters.desktop._build_actions_merge_299
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_if_312:
+    id: adapters.desktop._build_actions_if_312
+    type: IF
+    label: if
+    function: adapters.desktop._build_actions
+    line: 312
+  adapters.desktop._build_actions_if_316:
+    id: adapters.desktop._build_actions_if_316
+    type: IF
+    label: if
+    function: adapters.desktop._build_actions
+    line: 316
+  adapters.desktop._build_actions_if_320:
+    id: adapters.desktop._build_actions_if_320
+    type: IF
+    label: if
+    function: adapters.desktop._build_actions
+    line: 320
+  adapters.desktop._build_actions_if_324:
+    id: adapters.desktop._build_actions_if_324
+    type: IF
+    label: if
+    function: adapters.desktop._build_actions
+    line: 324
+  adapters.desktop._build_actions_merge_324:
+    id: adapters.desktop._build_actions_merge_324
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_merge_320:
+    id: adapters.desktop._build_actions_merge_320
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_merge_316:
+    id: adapters.desktop._build_actions_merge_316
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_merge_312:
+    id: adapters.desktop._build_actions_merge_312
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_merge_294:
+    id: adapters.desktop._build_actions_merge_294
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_actions
+  adapters.desktop._build_actions_return_407:
+    id: adapters.desktop._build_actions_return_407
+    type: RETURN
+    label: return
+    function: adapters.desktop._build_actions
+    line: 407
+  adapters.desktop._build_email_actions_entry:
+    id: adapters.desktop._build_email_actions_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._build_email_actions
+  adapters.desktop._build_email_actions_exit:
+    id: adapters.desktop._build_email_actions_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._build_email_actions
+  adapters.desktop._build_email_actions_if_416:
+    id: adapters.desktop._build_email_actions_if_416
+    type: IF
+    label: if
+    function: adapters.desktop._build_email_actions
+    line: 416
+  adapters.desktop._build_email_actions_merge_416:
+    id: adapters.desktop._build_email_actions_merge_416
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_email_actions
+  adapters.desktop._build_email_actions_if_424:
+    id: adapters.desktop._build_email_actions_if_424
+    type: IF
+    label: if
+    function: adapters.desktop._build_email_actions
+    line: 424
+  adapters.desktop._build_email_actions_merge_424:
+    id: adapters.desktop._build_email_actions_merge_424
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_email_actions
+  adapters.desktop._build_email_actions_if_434:
+    id: adapters.desktop._build_email_actions_if_434
+    type: IF
+    label: if
+    function: adapters.desktop._build_email_actions
+    line: 434
+  adapters.desktop._build_email_actions_merge_434:
+    id: adapters.desktop._build_email_actions_merge_434
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_email_actions
+  adapters.desktop._build_email_actions_return_438:
+    id: adapters.desktop._build_email_actions_return_438
+    type: RETURN
+    label: return
+    function: adapters.desktop._build_email_actions
+    line: 438
+  adapters.desktop._build_email_compose_entry:
+    id: adapters.desktop._build_email_compose_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._build_email_compose
+  adapters.desktop._build_email_compose_exit:
+    id: adapters.desktop._build_email_compose_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._build_email_compose
+  adapters.desktop._build_email_compose_if_445:
+    id: adapters.desktop._build_email_compose_if_445
+    type: IF
+    label: if
+    function: adapters.desktop._build_email_compose
+    line: 445
+  adapters.desktop._build_email_compose_merge_445:
+    id: adapters.desktop._build_email_compose_merge_445
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_email_compose
+  adapters.desktop._build_email_compose_if_451:
+    id: adapters.desktop._build_email_compose_if_451
+    type: IF
+    label: if
+    function: adapters.desktop._build_email_compose
+    line: 451
+  adapters.desktop._build_email_compose_merge_451:
+    id: adapters.desktop._build_email_compose_merge_451
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_email_compose
+  adapters.desktop._build_email_compose_if_458:
+    id: adapters.desktop._build_email_compose_if_458
+    type: IF
+    label: if
+    function: adapters.desktop._build_email_compose
+    line: 458
+  adapters.desktop._build_email_compose_merge_458:
+    id: adapters.desktop._build_email_compose_merge_458
+    type: FUNC
+    label: merge
+    function: adapters.desktop._build_email_compose
+  adapters.desktop._build_email_compose_return_461:
+    id: adapters.desktop._build_email_compose_return_461
+    type: RETURN
+    label: return
+    function: adapters.desktop._build_email_compose
+    line: 461
+  adapters.desktop._detect_followup_actions_entry:
+    id: adapters.desktop._detect_followup_actions_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_exit:
+    id: adapters.desktop._detect_followup_actions_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_if_470:
+    id: adapters.desktop._detect_followup_actions_if_470
+    type: IF
+    label: if
+    function: adapters.desktop._detect_followup_actions
+    line: 470
+  adapters.desktop._detect_followup_actions_merge_470:
+    id: adapters.desktop._detect_followup_actions_merge_470
+    type: FUNC
+    label: merge
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_if_476:
+    id: adapters.desktop._detect_followup_actions_if_476
+    type: IF
+    label: if
+    function: adapters.desktop._detect_followup_actions
+    line: 476
+  adapters.desktop._detect_followup_actions_merge_476:
+    id: adapters.desktop._detect_followup_actions_merge_476
+    type: FUNC
+    label: merge
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_if_482:
+    id: adapters.desktop._detect_followup_actions_if_482
+    type: IF
+    label: if
+    function: adapters.desktop._detect_followup_actions
+    line: 482
+  adapters.desktop._detect_followup_actions_if_483:
+    id: adapters.desktop._detect_followup_actions_if_483
+    type: IF
+    label: if
+    function: adapters.desktop._detect_followup_actions
+    line: 483
+  adapters.desktop._detect_followup_actions_if_486:
+    id: adapters.desktop._detect_followup_actions_if_486
+    type: IF
+    label: if
+    function: adapters.desktop._detect_followup_actions
+    line: 486
+  adapters.desktop._detect_followup_actions_merge_486:
+    id: adapters.desktop._detect_followup_actions_merge_486
+    type: FUNC
+    label: merge
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_merge_483:
+    id: adapters.desktop._detect_followup_actions_merge_483
+    type: FUNC
+    label: merge
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_merge_482:
+    id: adapters.desktop._detect_followup_actions_merge_482
+    type: FUNC
+    label: merge
+    function: adapters.desktop._detect_followup_actions
+  adapters.desktop._detect_followup_actions_return_489:
+    id: adapters.desktop._detect_followup_actions_return_489
+    type: RETURN
+    label: return
+    function: adapters.desktop._detect_followup_actions
+    line: 489
+  adapters.desktop.detect_intent_entry:
+    id: adapters.desktop.detect_intent_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.detect_intent
+  adapters.desktop.detect_intent_exit:
+    id: adapters.desktop.detect_intent_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.detect_intent
+  adapters.desktop.detect_intent_loop_499:
+    id: adapters.desktop.detect_intent_loop_499
+    type: FOR
+    label: for
+    function: adapters.desktop.detect_intent
+    line: 499
+  adapters.desktop.detect_intent_if_501:
+    id: adapters.desktop.detect_intent_if_501
+    type: IF
+    label: if
+    function: adapters.desktop.detect_intent
+    line: 501
+  adapters.desktop.detect_intent_merge_501:
+    id: adapters.desktop.detect_intent_merge_501
+    type: FUNC
+    label: merge
+    function: adapters.desktop.detect_intent
+  adapters.desktop.detect_intent_return_506:
+    id: adapters.desktop.detect_intent_return_506
+    type: RETURN
+    label: return
+    function: adapters.desktop.detect_intent
+    line: 506
+  adapters.desktop._extract_app_name_entry:
+    id: adapters.desktop._extract_app_name_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_app_name
+  adapters.desktop._extract_app_name_exit:
+    id: adapters.desktop._extract_app_name_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_app_name
+  adapters.desktop._extract_app_name_loop_511:
+    id: adapters.desktop._extract_app_name_loop_511
+    type: FOR
+    label: for
+    function: adapters.desktop._extract_app_name
+    line: 511
+  adapters.desktop._extract_app_name_if_512:
+    id: adapters.desktop._extract_app_name_if_512
+    type: IF
+    label: if
+    function: adapters.desktop._extract_app_name
+    line: 512
+  adapters.desktop._extract_app_name_return_513:
+    id: adapters.desktop._extract_app_name_return_513
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_app_name
+    line: 513
+  adapters.desktop._extract_app_name_merge_512:
+    id: adapters.desktop._extract_app_name_merge_512
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_app_name
+  adapters.desktop._extract_app_name_return_518:
+    id: adapters.desktop._extract_app_name_return_518
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_app_name
+    line: 518
+  adapters.desktop._extract_quoted_text_entry:
+    id: adapters.desktop._extract_quoted_text_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_quoted_text
+  adapters.desktop._extract_quoted_text_exit:
+    id: adapters.desktop._extract_quoted_text_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_quoted_text
+  adapters.desktop._extract_quoted_text_if_523:
+    id: adapters.desktop._extract_quoted_text_if_523
+    type: IF
+    label: if
+    function: adapters.desktop._extract_quoted_text
+    line: 523
+  adapters.desktop._extract_quoted_text_return_524:
+    id: adapters.desktop._extract_quoted_text_return_524
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_quoted_text
+    line: 524
+  adapters.desktop._extract_quoted_text_merge_523:
+    id: adapters.desktop._extract_quoted_text_merge_523
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_quoted_text
+  adapters.desktop._extract_quoted_text_if_526:
+    id: adapters.desktop._extract_quoted_text_if_526
+    type: IF
+    label: if
+    function: adapters.desktop._extract_quoted_text
+    line: 526
+  adapters.desktop._extract_quoted_text_return_527:
+    id: adapters.desktop._extract_quoted_text_return_527
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_quoted_text
+    line: 527
+  adapters.desktop._extract_quoted_text_merge_526:
+    id: adapters.desktop._extract_quoted_text_merge_526
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_quoted_text
+  adapters.desktop._extract_quoted_text_return_529:
+    id: adapters.desktop._extract_quoted_text_return_529
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_quoted_text
+    line: 529
+  adapters.desktop._extract_shortcut_entry:
+    id: adapters.desktop._extract_shortcut_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_shortcut
+  adapters.desktop._extract_shortcut_exit:
+    id: adapters.desktop._extract_shortcut_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_shortcut
+  adapters.desktop._extract_shortcut_if_534:
+    id: adapters.desktop._extract_shortcut_if_534
+    type: IF
+    label: if
+    function: adapters.desktop._extract_shortcut
+    line: 534
+  adapters.desktop._extract_shortcut_return_535:
+    id: adapters.desktop._extract_shortcut_return_535
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_shortcut
+    line: 535
+  adapters.desktop._extract_shortcut_merge_534:
+    id: adapters.desktop._extract_shortcut_merge_534
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_shortcut
+  adapters.desktop._extract_shortcut_return_536:
+    id: adapters.desktop._extract_shortcut_return_536
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_shortcut
+    line: 536
+  adapters.desktop._extract_url_entry:
+    id: adapters.desktop._extract_url_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_url
+  adapters.desktop._extract_url_exit:
+    id: adapters.desktop._extract_url_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_url
+  adapters.desktop._extract_url_if_542:
+    id: adapters.desktop._extract_url_if_542
+    type: IF
+    label: if
+    function: adapters.desktop._extract_url
+    line: 542
+  adapters.desktop._extract_url_return_543:
+    id: adapters.desktop._extract_url_return_543
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_url
+    line: 543
+  adapters.desktop._extract_url_merge_542:
+    id: adapters.desktop._extract_url_merge_542
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_url
+  adapters.desktop._extract_url_if_548:
+    id: adapters.desktop._extract_url_if_548
+    type: IF
+    label: if
+    function: adapters.desktop._extract_url
+    line: 548
+  adapters.desktop._extract_url_return_549:
+    id: adapters.desktop._extract_url_return_549
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_url
+    line: 549
+  adapters.desktop._extract_url_merge_548:
+    id: adapters.desktop._extract_url_merge_548
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_url
+  adapters.desktop._extract_url_return_550:
+    id: adapters.desktop._extract_url_return_550
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_url
+    line: 550
+  adapters.desktop._extract_tab_filter_entry:
+    id: adapters.desktop._extract_tab_filter_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_tab_filter
+  adapters.desktop._extract_tab_filter_exit:
+    id: adapters.desktop._extract_tab_filter_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_tab_filter
+  adapters.desktop._extract_tab_filter_loop_559:
+    id: adapters.desktop._extract_tab_filter_loop_559
+    type: FOR
+    label: for
+    function: adapters.desktop._extract_tab_filter
+    line: 559
+  adapters.desktop._extract_tab_filter_if_561:
+    id: adapters.desktop._extract_tab_filter_if_561
+    type: IF
+    label: if
+    function: adapters.desktop._extract_tab_filter
+    line: 561
+  adapters.desktop._extract_tab_filter_return_562:
+    id: adapters.desktop._extract_tab_filter_return_562
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_tab_filter
+    line: 562
+  adapters.desktop._extract_tab_filter_merge_561:
+    id: adapters.desktop._extract_tab_filter_merge_561
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_tab_filter
+  adapters.desktop._extract_tab_filter_return_563:
+    id: adapters.desktop._extract_tab_filter_return_563
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_tab_filter
+    line: 563
+  adapters.desktop._extract_email_address_entry:
+    id: adapters.desktop._extract_email_address_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_email_address
+  adapters.desktop._extract_email_address_exit:
+    id: adapters.desktop._extract_email_address_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_email_address
+  adapters.desktop._extract_email_address_return_569:
+    id: adapters.desktop._extract_email_address_return_569
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_email_address
+    line: 569
+  adapters.desktop._extract_email_subject_entry:
+    id: adapters.desktop._extract_email_subject_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_email_subject
+  adapters.desktop._extract_email_subject_exit:
+    id: adapters.desktop._extract_email_subject_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_email_subject
+  adapters.desktop._extract_email_subject_loop_578:
+    id: adapters.desktop._extract_email_subject_loop_578
+    type: FOR
+    label: for
+    function: adapters.desktop._extract_email_subject
+    line: 578
+  adapters.desktop._extract_email_subject_if_580:
+    id: adapters.desktop._extract_email_subject_if_580
+    type: IF
+    label: if
+    function: adapters.desktop._extract_email_subject
+    line: 580
+  adapters.desktop._extract_email_subject_return_581:
+    id: adapters.desktop._extract_email_subject_return_581
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_email_subject
+    line: 581
+  adapters.desktop._extract_email_subject_merge_580:
+    id: adapters.desktop._extract_email_subject_merge_580
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_email_subject
+  adapters.desktop._extract_email_subject_return_582:
+    id: adapters.desktop._extract_email_subject_return_582
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_email_subject
+    line: 582
+  adapters.desktop._extract_email_body_entry:
+    id: adapters.desktop._extract_email_body_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop._extract_email_body
+  adapters.desktop._extract_email_body_exit:
+    id: adapters.desktop._extract_email_body_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop._extract_email_body
+  adapters.desktop._extract_email_body_loop_591:
+    id: adapters.desktop._extract_email_body_loop_591
+    type: FOR
+    label: for
+    function: adapters.desktop._extract_email_body
+    line: 591
+  adapters.desktop._extract_email_body_if_593:
+    id: adapters.desktop._extract_email_body_if_593
+    type: IF
+    label: if
+    function: adapters.desktop._extract_email_body
+    line: 593
+  adapters.desktop._extract_email_body_return_594:
+    id: adapters.desktop._extract_email_body_return_594
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_email_body
+    line: 594
+  adapters.desktop._extract_email_body_merge_593:
+    id: adapters.desktop._extract_email_body_merge_593
+    type: FUNC
+    label: merge
+    function: adapters.desktop._extract_email_body
+  adapters.desktop._extract_email_body_return_595:
+    id: adapters.desktop._extract_email_body_return_595
+    type: RETURN
+    label: return
+    function: adapters.desktop._extract_email_body
+    line: 595
+  adapters.desktop.build_xdotool_chain_entry:
+    id: adapters.desktop.build_xdotool_chain_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.build_xdotool_chain
+  adapters.desktop.build_xdotool_chain_exit:
+    id: adapters.desktop.build_xdotool_chain_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.build_xdotool_chain
+  adapters.desktop.build_xdotool_chain_loop_603:
+    id: adapters.desktop.build_xdotool_chain_loop_603
+    type: FOR
+    label: for
+    function: adapters.desktop.build_xdotool_chain
+    line: 603
+  adapters.desktop.build_xdotool_chain_if_605:
+    id: adapters.desktop.build_xdotool_chain_if_605
+    type: IF
+    label: if
+    function: adapters.desktop.build_xdotool_chain
+    line: 605
+  adapters.desktop.build_xdotool_chain_if_609:
+    id: adapters.desktop.build_xdotool_chain_if_609
+    type: IF
+    label: if
+    function: adapters.desktop.build_xdotool_chain
+    line: 609
+  adapters.desktop.build_xdotool_chain_if_613:
+    id: adapters.desktop.build_xdotool_chain_if_613
+    type: IF
+    label: if
+    function: adapters.desktop.build_xdotool_chain
+    line: 613
+  adapters.desktop.build_xdotool_chain_merge_613:
+    id: adapters.desktop.build_xdotool_chain_merge_613
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_xdotool_chain
+  adapters.desktop.build_xdotool_chain_merge_609:
+    id: adapters.desktop.build_xdotool_chain_merge_609
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_xdotool_chain
+  adapters.desktop.build_xdotool_chain_merge_605:
+    id: adapters.desktop.build_xdotool_chain_merge_605
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_xdotool_chain
+  adapters.desktop.build_xdotool_chain_return_618:
+    id: adapters.desktop.build_xdotool_chain_return_618
+    type: RETURN
+    label: return
+    function: adapters.desktop.build_xdotool_chain
+    line: 618
+  adapters.desktop.build_wmctrl_command_entry:
+    id: adapters.desktop.build_wmctrl_command_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.build_wmctrl_command
+  adapters.desktop.build_wmctrl_command_exit:
+    id: adapters.desktop.build_wmctrl_command_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.build_wmctrl_command
+  adapters.desktop.build_wmctrl_command_if_623:
+    id: adapters.desktop.build_wmctrl_command_if_623
+    type: IF
+    label: if
+    function: adapters.desktop.build_wmctrl_command
+    line: 623
+  adapters.desktop.build_wmctrl_command_return_624:
+    id: adapters.desktop.build_wmctrl_command_return_624
+    type: RETURN
+    label: return
+    function: adapters.desktop.build_wmctrl_command
+    line: 624
+  adapters.desktop.build_wmctrl_command_if_625:
+    id: adapters.desktop.build_wmctrl_command_if_625
+    type: IF
+    label: if
+    function: adapters.desktop.build_wmctrl_command
+    line: 625
+  adapters.desktop.build_wmctrl_command_return_626:
+    id: adapters.desktop.build_wmctrl_command_return_626
+    type: RETURN
+    label: return
+    function: adapters.desktop.build_wmctrl_command
+    line: 626
+  adapters.desktop.build_wmctrl_command_if_627:
+    id: adapters.desktop.build_wmctrl_command_if_627
+    type: IF
+    label: if
+    function: adapters.desktop.build_wmctrl_command
+    line: 627
+  adapters.desktop.build_wmctrl_command_return_628:
+    id: adapters.desktop.build_wmctrl_command_return_628
+    type: RETURN
+    label: return
+    function: adapters.desktop.build_wmctrl_command
+    line: 628
+  adapters.desktop.build_wmctrl_command_if_629:
+    id: adapters.desktop.build_wmctrl_command_if_629
+    type: IF
+    label: if
+    function: adapters.desktop.build_wmctrl_command
+    line: 629
+  adapters.desktop.build_wmctrl_command_return_630:
+    id: adapters.desktop.build_wmctrl_command_return_630
+    type: RETURN
+    label: return
+    function: adapters.desktop.build_wmctrl_command
+    line: 630
+  adapters.desktop.build_wmctrl_command_merge_629:
+    id: adapters.desktop.build_wmctrl_command_merge_629
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_wmctrl_command
+  adapters.desktop.build_wmctrl_command_merge_627:
+    id: adapters.desktop.build_wmctrl_command_merge_627
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_wmctrl_command
+  adapters.desktop.build_wmctrl_command_merge_625:
+    id: adapters.desktop.build_wmctrl_command_merge_625
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_wmctrl_command
+  adapters.desktop.build_wmctrl_command_merge_623:
+    id: adapters.desktop.build_wmctrl_command_merge_623
+    type: FUNC
+    label: merge
+    function: adapters.desktop.build_wmctrl_command
+  adapters.desktop.build_wmctrl_command_return_631:
+    id: adapters.desktop.build_wmctrl_command_return_631
+    type: RETURN
+    label: return
+    function: adapters.desktop.build_wmctrl_command
+    line: 631
+  adapters.desktop.validate_syntax_entry:
+    id: adapters.desktop.validate_syntax_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.validate_syntax
+  adapters.desktop.validate_syntax_exit:
+    id: adapters.desktop.validate_syntax_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.validate_syntax
+  adapters.desktop.validate_syntax_if_640:
+    id: adapters.desktop.validate_syntax_if_640
+    type: IF
+    label: if
+    function: adapters.desktop.validate_syntax
+    line: 640
+  adapters.desktop.validate_syntax_return_641:
+    id: adapters.desktop.validate_syntax_return_641
+    type: RETURN
+    label: return
+    function: adapters.desktop.validate_syntax
+    line: 641
+  adapters.desktop.validate_syntax_merge_640:
+    id: adapters.desktop.validate_syntax_merge_640
+    type: FUNC
+    label: merge
+    function: adapters.desktop.validate_syntax
+  adapters.desktop.validate_syntax_if_643:
+    id: adapters.desktop.validate_syntax_if_643
+    type: IF
+    label: if
+    function: adapters.desktop.validate_syntax
+    line: 643
+  adapters.desktop.validate_syntax_return_644:
+    id: adapters.desktop.validate_syntax_return_644
+    type: RETURN
+    label: return
+    function: adapters.desktop.validate_syntax
+    line: 644
+  adapters.desktop.validate_syntax_merge_643:
+    id: adapters.desktop.validate_syntax_merge_643
+    type: FUNC
+    label: merge
+    function: adapters.desktop.validate_syntax
+  adapters.desktop.validate_syntax_return_646:
+    id: adapters.desktop.validate_syntax_return_646
+    type: RETURN
+    label: return
+    function: adapters.desktop.validate_syntax
+    line: 646

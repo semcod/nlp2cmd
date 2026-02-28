@@ -1,0 +1,301 @@
+module: src.nlp2cmd.execution.refactored_executor
+type: orphan_nodes
+count: 55
+nodes:
+  src.nlp2cmd.execution.refactored_executor.execute_plan_step_entry:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_step_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan_step
+  src.nlp2cmd.execution.refactored_executor.execute_plan_step_exit:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_step_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan_step
+  src.nlp2cmd.execution.refactored_executor.execute_plan_step_return_211:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_step_return_211
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan_step
+    line: 211
+  src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action
+  src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action
+  src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_return_220:
+    id: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_return_220
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action
+    line: 220
+  src.nlp2cmd.execution.refactored_executor.__init___entry:
+    id: src.nlp2cmd.execution.refactored_executor.__init___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor.__init__
+  src.nlp2cmd.execution.refactored_executor.__init___exit:
+    id: src.nlp2cmd.execution.refactored_executor.__init___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor.__init__
+  src.nlp2cmd.execution.refactored_executor.execute_entry:
+    id: src.nlp2cmd.execution.refactored_executor.execute_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor.execute
+  src.nlp2cmd.execution.refactored_executor.execute_exit:
+    id: src.nlp2cmd.execution.refactored_executor.execute_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor.execute
+  src.nlp2cmd.execution.refactored_executor._execute_dom_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor._execute_dom_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._execute_dom_action
+  src.nlp2cmd.execution.refactored_executor._execute_dom_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor._execute_dom_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._execute_dom_action
+  src.nlp2cmd.execution.refactored_executor._execute_dom_action_return_75:
+    id: src.nlp2cmd.execution.refactored_executor._execute_dom_action_return_75
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_dom_action
+    line: 75
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_if_83:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_if_83
+    type: IF
+    label: if
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+    line: 83
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_if_87:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_if_87
+    type: IF
+    label: if
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+    line: 87
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_return_88:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_return_88
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+    line: 88
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_merge_87:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_merge_87
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_merge_83:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_merge_83
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action_return_94:
+    id: src.nlp2cmd.execution.refactored_executor._execute_shell_action_return_94
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+    line: 94
+  src.nlp2cmd.execution.refactored_executor._execute_mouse_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor._execute_mouse_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._execute_mouse_action
+  src.nlp2cmd.execution.refactored_executor._execute_mouse_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor._execute_mouse_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._execute_mouse_action
+  src.nlp2cmd.execution.refactored_executor._execute_mouse_action_return_102:
+    id: src.nlp2cmd.execution.refactored_executor._execute_mouse_action_return_102
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_mouse_action
+    line: 102
+  src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action
+  src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action
+  src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_return_110:
+    id: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_return_110
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action
+    line: 110
+  src.nlp2cmd.execution.refactored_executor._execute_validation_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor._execute_validation_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._execute_validation_action
+  src.nlp2cmd.execution.refactored_executor._execute_validation_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor._execute_validation_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._execute_validation_action
+  src.nlp2cmd.execution.refactored_executor._execute_validation_action_return_118:
+    id: src.nlp2cmd.execution.refactored_executor._execute_validation_action_return_118
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_validation_action
+    line: 118
+  src.nlp2cmd.execution.refactored_executor._execute_navigation_action_entry:
+    id: src.nlp2cmd.execution.refactored_executor._execute_navigation_action_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._execute_navigation_action
+  src.nlp2cmd.execution.refactored_executor._execute_navigation_action_exit:
+    id: src.nlp2cmd.execution.refactored_executor._execute_navigation_action_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._execute_navigation_action
+  src.nlp2cmd.execution.refactored_executor._execute_navigation_action_return_126:
+    id: src.nlp2cmd.execution.refactored_executor._execute_navigation_action_return_126
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._execute_navigation_action
+    line: 126
+  src.nlp2cmd.execution.refactored_executor.execute_plan_step_return_158:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_step_return_158
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan_step
+    line: 158
+  src.nlp2cmd.execution.refactored_executor.execute_plan_entry:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+  src.nlp2cmd.execution.refactored_executor.execute_plan_exit:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+  src.nlp2cmd.execution.refactored_executor.execute_plan_loop_165:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_loop_165
+    type: FOR
+    label: for
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+    line: 165
+  src.nlp2cmd.execution.refactored_executor.execute_plan_if_169:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_if_169
+    type: IF
+    label: if
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+    line: 169
+  src.nlp2cmd.execution.refactored_executor.execute_plan_if_171:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_if_171
+    type: IF
+    label: if
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+    line: 171
+  src.nlp2cmd.execution.refactored_executor.execute_plan_merge_171:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_merge_171
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+  src.nlp2cmd.execution.refactored_executor.execute_plan_merge_169:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_merge_169
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+  src.nlp2cmd.execution.refactored_executor.execute_plan_return_174:
+    id: src.nlp2cmd.execution.refactored_executor.execute_plan_return_174
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor.execute_plan
+    line: 174
+  src.nlp2cmd.execution.refactored_executor.get_execution_stats_entry:
+    id: src.nlp2cmd.execution.refactored_executor.get_execution_stats_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor.get_execution_stats
+  src.nlp2cmd.execution.refactored_executor.get_execution_stats_exit:
+    id: src.nlp2cmd.execution.refactored_executor.get_execution_stats_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor.get_execution_stats
+  src.nlp2cmd.execution.refactored_executor.get_execution_stats_loop_184:
+    id: src.nlp2cmd.execution.refactored_executor.get_execution_stats_loop_184
+    type: FOR
+    label: for
+    function: src.nlp2cmd.execution.refactored_executor.get_execution_stats
+    line: 184
+  src.nlp2cmd.execution.refactored_executor.get_execution_stats_return_187:
+    id: src.nlp2cmd.execution.refactored_executor.get_execution_stats_return_187
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor.get_execution_stats
+    line: 187
+  src.nlp2cmd.execution.refactored_executor._get_timestamp_entry:
+    id: src.nlp2cmd.execution.refactored_executor._get_timestamp_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._get_timestamp
+  src.nlp2cmd.execution.refactored_executor._get_timestamp_exit:
+    id: src.nlp2cmd.execution.refactored_executor._get_timestamp_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._get_timestamp
+  src.nlp2cmd.execution.refactored_executor._get_timestamp_return_196:
+    id: src.nlp2cmd.execution.refactored_executor._get_timestamp_return_196
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._get_timestamp
+    line: 196
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate_entry:
+    id: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate_exit:
+    id: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate_if_200:
+    id: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_if_200
+    type: IF
+    label: if
+    function: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+    line: 200
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate_return_201:
+    id: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_return_201
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+    line: 201
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate_merge_200:
+    id: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_merge_200
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate_return_204:
+    id: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_return_204
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+    line: 204

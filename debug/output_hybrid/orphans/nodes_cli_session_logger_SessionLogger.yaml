@@ -1,0 +1,206 @@
+module: cli.session_logger.SessionLogger
+type: orphan_nodes
+count: 38
+nodes:
+  cli.session_logger.SessionLogger.__init___entry:
+    id: cli.session_logger.SessionLogger.__init___entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.__init__
+  cli.session_logger.SessionLogger.__init___exit:
+    id: cli.session_logger.SessionLogger.__init___exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.__init__
+  cli.session_logger.SessionLogger.__init___if_71:
+    id: cli.session_logger.SessionLogger.__init___if_71
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.__init__
+    line: 71
+  cli.session_logger.SessionLogger.__init___merge_71:
+    id: cli.session_logger.SessionLogger.__init___merge_71
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.__init__
+  cli.session_logger.SessionLogger.start_entry:
+    id: cli.session_logger.SessionLogger.start_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.start
+  cli.session_logger.SessionLogger.start_exit:
+    id: cli.session_logger.SessionLogger.start_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.start
+  cli.session_logger.SessionLogger.start_if_82:
+    id: cli.session_logger.SessionLogger.start_if_82
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.start
+    line: 82
+  cli.session_logger.SessionLogger.start_merge_82:
+    id: cli.session_logger.SessionLogger.start_merge_82
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.start
+  cli.session_logger.SessionLogger.step_entry:
+    id: cli.session_logger.SessionLogger.step_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.step
+  cli.session_logger.SessionLogger.step_exit:
+    id: cli.session_logger.SessionLogger.step_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.step
+  cli.session_logger.SessionLogger.step_if_106:
+    id: cli.session_logger.SessionLogger.step_if_106
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.step
+    line: 106
+  cli.session_logger.SessionLogger.step_merge_106:
+    id: cli.session_logger.SessionLogger.step_merge_106
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.step
+  cli.session_logger.SessionLogger.step_if_112:
+    id: cli.session_logger.SessionLogger.step_if_112
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.step
+    line: 112
+  cli.session_logger.SessionLogger.step_if_114:
+    id: cli.session_logger.SessionLogger.step_if_114
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.step
+    line: 114
+  cli.session_logger.SessionLogger.step_merge_114:
+    id: cli.session_logger.SessionLogger.step_merge_114
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.step
+  cli.session_logger.SessionLogger.step_merge_112:
+    id: cli.session_logger.SessionLogger.step_merge_112
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.step
+  cli.session_logger.SessionLogger.step_if_127:
+    id: cli.session_logger.SessionLogger.step_if_127
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.step
+    line: 127
+  cli.session_logger.SessionLogger.step_loop_129:
+    id: cli.session_logger.SessionLogger.step_loop_129
+    type: FOR
+    label: for
+    function: cli.session_logger.SessionLogger.step
+    line: 129
+  cli.session_logger.SessionLogger.step_merge_127:
+    id: cli.session_logger.SessionLogger.step_merge_127
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.step
+  cli.session_logger.SessionLogger.info_entry:
+    id: cli.session_logger.SessionLogger.info_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.info
+  cli.session_logger.SessionLogger.info_exit:
+    id: cli.session_logger.SessionLogger.info_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.info
+  cli.session_logger.SessionLogger.warning_entry:
+    id: cli.session_logger.SessionLogger.warning_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.warning
+  cli.session_logger.SessionLogger.warning_exit:
+    id: cli.session_logger.SessionLogger.warning_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.warning
+  cli.session_logger.SessionLogger.code_entry:
+    id: cli.session_logger.SessionLogger.code_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.code
+  cli.session_logger.SessionLogger.code_exit:
+    id: cli.session_logger.SessionLogger.code_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.code
+  cli.session_logger.SessionLogger.section_entry:
+    id: cli.session_logger.SessionLogger.section_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.section
+  cli.session_logger.SessionLogger.section_exit:
+    id: cli.session_logger.SessionLogger.section_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.section
+  cli.session_logger.SessionLogger.end_entry:
+    id: cli.session_logger.SessionLogger.end_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.end
+  cli.session_logger.SessionLogger.end_exit:
+    id: cli.session_logger.SessionLogger.end_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.end
+  cli.session_logger.SessionLogger.end_if_164:
+    id: cli.session_logger.SessionLogger.end_if_164
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.end
+    line: 164
+  cli.session_logger.SessionLogger.end_loop_165:
+    id: cli.session_logger.SessionLogger.end_loop_165
+    type: FOR
+    label: for
+    function: cli.session_logger.SessionLogger.end
+    line: 165
+  cli.session_logger.SessionLogger.end_merge_164:
+    id: cli.session_logger.SessionLogger.end_merge_164
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.end
+  cli.session_logger.SessionLogger.end_if_168:
+    id: cli.session_logger.SessionLogger.end_if_168
+    type: IF
+    label: if
+    function: cli.session_logger.SessionLogger.end
+    line: 168
+  cli.session_logger.SessionLogger.end_merge_168:
+    id: cli.session_logger.SessionLogger.end_merge_168
+    type: FUNC
+    label: merge
+    function: cli.session_logger.SessionLogger.end
+  cli.session_logger.SessionLogger.end_return_175:
+    id: cli.session_logger.SessionLogger.end_return_175
+    type: RETURN
+    label: return
+    function: cli.session_logger.SessionLogger.end
+    line: 175
+  cli.session_logger.SessionLogger.get_markdown_entry:
+    id: cli.session_logger.SessionLogger.get_markdown_entry
+    type: ENTRY
+    label: entry
+    function: cli.session_logger.SessionLogger.get_markdown
+  cli.session_logger.SessionLogger.get_markdown_exit:
+    id: cli.session_logger.SessionLogger.get_markdown_exit
+    type: EXIT
+    label: exit
+    function: cli.session_logger.SessionLogger.get_markdown
+  cli.session_logger.SessionLogger.get_markdown_return_179:
+    id: cli.session_logger.SessionLogger.get_markdown_return_179
+    type: RETURN
+    label: return
+    function: cli.session_logger.SessionLogger.get_markdown
+    line: 179

@@ -1,0 +1,20 @@
+module: adapters.shell_generators.GitGenerator
+type: orphan_nodes
+count: 3
+nodes:
+  adapters.shell_generators.GitGenerator.generate_git_entry:
+    id: adapters.shell_generators.GitGenerator.generate_git_entry
+    type: ENTRY
+    label: entry
+    function: adapters.shell_generators.GitGenerator.generate_git
+  adapters.shell_generators.GitGenerator.generate_git_exit:
+    id: adapters.shell_generators.GitGenerator.generate_git_exit
+    type: EXIT
+    label: exit
+    function: adapters.shell_generators.GitGenerator.generate_git
+  adapters.shell_generators.GitGenerator.generate_git_return_270:
+    id: adapters.shell_generators.GitGenerator.generate_git_return_270
+    type: RETURN
+    label: return
+    function: adapters.shell_generators.GitGenerator.generate_git
+    line: 270

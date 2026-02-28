@@ -1,0 +1,270 @@
+module: automation.complex_planner.ComplexCommandPlanner
+type: orphan_nodes
+count: 48
+nodes:
+  automation.complex_planner.ComplexCommandPlanner.__init___entry:
+    id: automation.complex_planner.ComplexCommandPlanner.__init___entry
+    type: ENTRY
+    label: entry
+    function: automation.complex_planner.ComplexCommandPlanner.__init__
+  automation.complex_planner.ComplexCommandPlanner.__init___exit:
+    id: automation.complex_planner.ComplexCommandPlanner.__init___exit
+    type: EXIT
+    label: exit
+    function: automation.complex_planner.ComplexCommandPlanner.__init__
+  automation.complex_planner.ComplexCommandPlanner.plan_entry:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_entry
+    type: ENTRY
+    label: entry
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+  automation.complex_planner.ComplexCommandPlanner.plan_exit:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_exit
+    type: EXIT
+    label: exit
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+  automation.complex_planner.ComplexCommandPlanner.plan_if_307:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_if_307
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 307
+  automation.complex_planner.ComplexCommandPlanner.plan_return_309:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_return_309
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 309
+  automation.complex_planner.ComplexCommandPlanner.plan_merge_307:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_merge_307
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+  automation.complex_planner.ComplexCommandPlanner.plan_if_312:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_if_312
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 312
+  automation.complex_planner.ComplexCommandPlanner.plan_if_314:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_if_314
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 314
+  automation.complex_planner.ComplexCommandPlanner.plan_return_316:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_return_316
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 316
+  automation.complex_planner.ComplexCommandPlanner.plan_merge_314:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_merge_314
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+  automation.complex_planner.ComplexCommandPlanner.plan_merge_312:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_merge_312
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+  automation.complex_planner.ComplexCommandPlanner.plan_if_320:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_if_320
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 320
+  automation.complex_planner.ComplexCommandPlanner.plan_return_321:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_return_321
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 321
+  automation.complex_planner.ComplexCommandPlanner.plan_merge_320:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_merge_320
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+  automation.complex_planner.ComplexCommandPlanner.plan_return_327:
+    id: automation.complex_planner.ComplexCommandPlanner.plan_return_327
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner.plan
+    line: 327
+  automation.complex_planner.ComplexCommandPlanner._match_template_entry:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_entry
+    type: ENTRY
+    label: entry
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+  automation.complex_planner.ComplexCommandPlanner._match_template_exit:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_exit
+    type: EXIT
+    label: exit
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+  automation.complex_planner.ComplexCommandPlanner._match_template_loop_337:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_loop_337
+    type: FOR
+    label: for
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 337
+  automation.complex_planner.ComplexCommandPlanner._match_template_if_339:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_if_339
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 339
+  automation.complex_planner.ComplexCommandPlanner._match_template_loop_341:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_loop_341
+    type: FOR
+    label: for
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 341
+  automation.complex_planner.ComplexCommandPlanner._match_template_if_373:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_if_373
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 373
+  automation.complex_planner.ComplexCommandPlanner._match_template_loop_374:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_loop_374
+    type: FOR
+    label: for
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 374
+  automation.complex_planner.ComplexCommandPlanner._match_template_merge_373:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_merge_373
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+  automation.complex_planner.ComplexCommandPlanner._match_template_return_379:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_return_379
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 379
+  automation.complex_planner.ComplexCommandPlanner._match_template_merge_339:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_merge_339
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+  automation.complex_planner.ComplexCommandPlanner._match_template_return_386:
+    id: automation.complex_planner.ComplexCommandPlanner._match_template_return_386
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._match_template
+    line: 386
+  automation.complex_planner.ComplexCommandPlanner._llm_plan_entry:
+    id: automation.complex_planner.ComplexCommandPlanner._llm_plan_entry
+    type: ENTRY
+    label: entry
+    function: automation.complex_planner.ComplexCommandPlanner._llm_plan
+  automation.complex_planner.ComplexCommandPlanner._llm_plan_exit:
+    id: automation.complex_planner.ComplexCommandPlanner._llm_plan_exit
+    type: EXIT
+    label: exit
+    function: automation.complex_planner.ComplexCommandPlanner._llm_plan
+  automation.complex_planner.ComplexCommandPlanner._extract_url_entry:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_entry
+    type: ENTRY
+    label: entry
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+  automation.complex_planner.ComplexCommandPlanner._extract_url_exit:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_exit
+    type: EXIT
+    label: exit
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+  automation.complex_planner.ComplexCommandPlanner._extract_url_if_453:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_if_453
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+    line: 453
+  automation.complex_planner.ComplexCommandPlanner._extract_url_return_454:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_return_454
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+    line: 454
+  automation.complex_planner.ComplexCommandPlanner._extract_url_merge_453:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_merge_453
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+  automation.complex_planner.ComplexCommandPlanner._extract_url_if_459:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_if_459
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+    line: 459
+  automation.complex_planner.ComplexCommandPlanner._extract_url_return_460:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_return_460
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+    line: 460
+  automation.complex_planner.ComplexCommandPlanner._extract_url_merge_459:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_merge_459
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+  automation.complex_planner.ComplexCommandPlanner._extract_url_return_461:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_url_return_461
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._extract_url
+    line: 461
+  automation.complex_planner.ComplexCommandPlanner._extract_color_entry:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_entry
+    type: ENTRY
+    label: entry
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+  automation.complex_planner.ComplexCommandPlanner._extract_color_exit:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_exit
+    type: EXIT
+    label: exit
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+  automation.complex_planner.ComplexCommandPlanner._extract_color_loop_480:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_loop_480
+    type: FOR
+    label: for
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+    line: 480
+  automation.complex_planner.ComplexCommandPlanner._extract_color_if_481:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_if_481
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+    line: 481
+  automation.complex_planner.ComplexCommandPlanner._extract_color_return_482:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_return_482
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+    line: 482
+  automation.complex_planner.ComplexCommandPlanner._extract_color_merge_481:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_merge_481
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+  automation.complex_planner.ComplexCommandPlanner._extract_color_if_485:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_if_485
+    type: IF
+    label: if
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+    line: 485
+  automation.complex_planner.ComplexCommandPlanner._extract_color_return_486:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_return_486
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+    line: 486
+  automation.complex_planner.ComplexCommandPlanner._extract_color_merge_485:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_merge_485
+    type: FUNC
+    label: merge
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+  automation.complex_planner.ComplexCommandPlanner._extract_color_return_487:
+    id: automation.complex_planner.ComplexCommandPlanner._extract_color_return_487
+    type: RETURN
+    label: return
+    function: automation.complex_planner.ComplexCommandPlanner._extract_color
+    line: 487

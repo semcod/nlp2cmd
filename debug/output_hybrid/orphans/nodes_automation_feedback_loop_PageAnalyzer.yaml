@@ -1,0 +1,46 @@
+module: automation.feedback_loop.PageAnalyzer
+type: orphan_nodes
+count: 8
+nodes:
+  automation.feedback_loop.PageAnalyzer.extract_page_context_entry:
+    id: automation.feedback_loop.PageAnalyzer.extract_page_context_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.PageAnalyzer.extract_page_context
+  automation.feedback_loop.PageAnalyzer.extract_page_context_exit:
+    id: automation.feedback_loop.PageAnalyzer.extract_page_context_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.PageAnalyzer.extract_page_context
+  automation.feedback_loop.PageAnalyzer.find_api_keys_section_entry:
+    id: automation.feedback_loop.PageAnalyzer.find_api_keys_section_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.PageAnalyzer.find_api_keys_section
+  automation.feedback_loop.PageAnalyzer.find_api_keys_section_exit:
+    id: automation.feedback_loop.PageAnalyzer.find_api_keys_section_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.PageAnalyzer.find_api_keys_section
+  automation.feedback_loop.PageAnalyzer.find_api_keys_section_return_197:
+    id: automation.feedback_loop.PageAnalyzer.find_api_keys_section_return_197
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.PageAnalyzer.find_api_keys_section
+    line: 197
+  automation.feedback_loop.PageAnalyzer.find_clickable_for_text_entry:
+    id: automation.feedback_loop.PageAnalyzer.find_clickable_for_text_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.PageAnalyzer.find_clickable_for_text
+  automation.feedback_loop.PageAnalyzer.find_clickable_for_text_exit:
+    id: automation.feedback_loop.PageAnalyzer.find_clickable_for_text_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.PageAnalyzer.find_clickable_for_text
+  automation.feedback_loop.PageAnalyzer.find_clickable_for_text_return_220:
+    id: automation.feedback_loop.PageAnalyzer.find_clickable_for_text_return_220
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.PageAnalyzer.find_clickable_for_text
+    line: 220

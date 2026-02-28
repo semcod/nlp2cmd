@@ -1,0 +1,173 @@
+module: streams.libvirt_stream
+type: functions
+count: 13
+functions:
+  streams.libvirt_stream.__init__:
+    name: __init__
+    qualified_name: streams.libvirt_stream.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 63
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream.__init___entry
+    calls:
+    - None.__init__
+    - self._build_libvirt_uri
+    - super
+  streams.libvirt_stream._build_libvirt_uri:
+    name: _build_libvirt_uri
+    qualified_name: streams.libvirt_stream._build_libvirt_uri
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 67
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._build_libvirt_uri_entry
+    calls:
+    - self.source.params.get
+  streams.libvirt_stream._virsh:
+    name: _virsh
+    qualified_name: streams.libvirt_stream._virsh
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 77
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._virsh_entry
+    calls:
+    - subprocess.run
+    - list
+  streams.libvirt_stream.connect:
+    name: connect
+    qualified_name: streams.libvirt_stream.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 81
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream.connect_entry
+    calls:
+    - self._virsh
+    - StreamResult
+    - r.stderr.strip
+    - r.stdout.strip
+    - str
+  streams.libvirt_stream.execute:
+    name: execute
+    qualified_name: streams.libvirt_stream.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 95
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream.execute_entry
+    calls:
+    - task.lower
+    - any
+    - self._list_vms
+    - self._create_vm
+    - self._start_vm
+    - self._stop_vm
+    - self._delete_vm
+    - self._vm_info
+    - self._connect_display
+    - StreamResult
+  streams.libvirt_stream._list_vms:
+    name: _list_vms
+    qualified_name: streams.libvirt_stream._list_vms
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 120
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._list_vms_entry
+    calls:
+    - self._virsh
+    - StreamResult
+    - r.stderr.strip
+    - r.stdout.strip
+  streams.libvirt_stream._extract_vm_name:
+    name: _extract_vm_name
+    qualified_name: streams.libvirt_stream._extract_vm_name
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 126
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._extract_vm_name_entry
+    calls:
+    - re.search
+    - task.split
+    - task.lower
+    - m.group
+  streams.libvirt_stream._create_vm:
+    name: _create_vm
+    qualified_name: streams.libvirt_stream._create_vm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 134
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._create_vm_entry
+    calls:
+    - re.search
+    - kwargs.get
+    - _VM_XML_TEMPLATE.format
+    - self._virsh
+    - StreamResult
+    - self._extract_vm_name
+    - int
+    - subprocess.run
+    - tempfile.NamedTemporaryFile
+    - f.write
+    - f.flush
+    - m_cpu.group
+    - r.stderr.strip
+    - m_ram.group
+  streams.libvirt_stream._start_vm:
+    name: _start_vm
+    qualified_name: streams.libvirt_stream._start_vm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 180
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._start_vm_entry
+    calls:
+    - self._extract_vm_name
+    - self._virsh
+    - StreamResult
+    - r.stderr.strip
+  streams.libvirt_stream._stop_vm:
+    name: _stop_vm
+    qualified_name: streams.libvirt_stream._stop_vm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 187
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._stop_vm_entry
+    calls:
+    - self._extract_vm_name
+    - self._virsh
+    - StreamResult
+    - r.stderr.strip
+  streams.libvirt_stream._delete_vm:
+    name: _delete_vm
+    qualified_name: streams.libvirt_stream._delete_vm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 194
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._delete_vm_entry
+    calls:
+    - self._extract_vm_name
+    - self._virsh
+    - StreamResult
+    - r.stderr.strip
+  streams.libvirt_stream._vm_info:
+    name: _vm_info
+    qualified_name: streams.libvirt_stream._vm_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 202
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._vm_info_entry
+    calls:
+    - self._extract_vm_name
+    - self._virsh
+    - StreamResult
+    - r.stderr.strip
+    - r.stdout.strip
+  streams.libvirt_stream._connect_display:
+    name: _connect_display
+    qualified_name: streams.libvirt_stream._connect_display
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/libvirt_stream.py
+    line: 209
+    module: streams.libvirt_stream
+    cfg_entry: streams.libvirt_stream._connect_display_entry
+    calls:
+    - self._extract_vm_name
+    - self._virsh
+    - StreamResult
+    - r.stdout.strip
+    - r.stderr.strip

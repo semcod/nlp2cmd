@@ -1,0 +1,422 @@
+module: execution.shell_executor
+type: orphan_nodes
+count: 75
+nodes:
+  execution.shell_executor.__init___entry:
+    id: execution.shell_executor.__init___entry
+    type: ENTRY
+    label: entry
+    function: execution.shell_executor.__init__
+  execution.shell_executor.__init___exit:
+    id: execution.shell_executor.__init___exit
+    type: EXIT
+    label: exit
+    function: execution.shell_executor.__init__
+  execution.shell_executor.execute_entry:
+    id: execution.shell_executor.execute_entry
+    type: ENTRY
+    label: entry
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_exit:
+    id: execution.shell_executor.execute_exit
+    type: EXIT
+    label: exit
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_55:
+    id: execution.shell_executor.execute_if_55
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 55
+  execution.shell_executor.execute_return_56:
+    id: execution.shell_executor.execute_return_56
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 56
+  execution.shell_executor.execute_merge_55:
+    id: execution.shell_executor.execute_merge_55
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_59:
+    id: execution.shell_executor.execute_if_59
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 59
+  execution.shell_executor.execute_if_61:
+    id: execution.shell_executor.execute_if_61
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 61
+  execution.shell_executor.execute_return_62:
+    id: execution.shell_executor.execute_return_62
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 62
+  execution.shell_executor.execute_merge_61:
+    id: execution.shell_executor.execute_merge_61
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_66:
+    id: execution.shell_executor.execute_if_66
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 66
+  execution.shell_executor.execute_return_67:
+    id: execution.shell_executor.execute_return_67
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 67
+  execution.shell_executor.execute_merge_66:
+    id: execution.shell_executor.execute_merge_66
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_merge_59:
+    id: execution.shell_executor.execute_merge_59
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_75:
+    id: execution.shell_executor.execute_if_75
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 75
+  execution.shell_executor.execute_return_76:
+    id: execution.shell_executor.execute_return_76
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 76
+  execution.shell_executor.execute_merge_75:
+    id: execution.shell_executor.execute_merge_75
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_80:
+    id: execution.shell_executor.execute_if_80
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 80
+  execution.shell_executor.execute_return_81:
+    id: execution.shell_executor.execute_return_81
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 81
+  execution.shell_executor.execute_merge_80:
+    id: execution.shell_executor.execute_merge_80
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_88:
+    id: execution.shell_executor.execute_if_88
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 88
+  execution.shell_executor.execute_return_89:
+    id: execution.shell_executor.execute_return_89
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 89
+  execution.shell_executor.execute_merge_88:
+    id: execution.shell_executor.execute_merge_88
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_if_91:
+    id: execution.shell_executor.execute_if_91
+    type: IF
+    label: if
+    function: execution.shell_executor.execute
+    line: 91
+  execution.shell_executor.execute_return_92:
+    id: execution.shell_executor.execute_return_92
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 92
+  execution.shell_executor.execute_merge_91:
+    id: execution.shell_executor.execute_merge_91
+    type: FUNC
+    label: merge
+    function: execution.shell_executor.execute
+  execution.shell_executor.execute_return_97:
+    id: execution.shell_executor.execute_return_97
+    type: RETURN
+    label: return
+    function: execution.shell_executor.execute
+    line: 97
+  execution.shell_executor._parse_command_entry:
+    id: execution.shell_executor._parse_command_entry
+    type: ENTRY
+    label: entry
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_exit:
+    id: execution.shell_executor._parse_command_exit
+    type: EXIT
+    label: exit
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_if_109:
+    id: execution.shell_executor._parse_command_if_109
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 109
+  execution.shell_executor._parse_command_if_110:
+    id: execution.shell_executor._parse_command_if_110
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 110
+  execution.shell_executor._parse_command_return_111:
+    id: execution.shell_executor._parse_command_return_111
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 111
+  execution.shell_executor._parse_command_merge_110:
+    id: execution.shell_executor._parse_command_merge_110
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_if_113:
+    id: execution.shell_executor._parse_command_if_113
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 113
+  execution.shell_executor._parse_command_return_116:
+    id: execution.shell_executor._parse_command_return_116
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 116
+  execution.shell_executor._parse_command_merge_113:
+    id: execution.shell_executor._parse_command_merge_113
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_if_118:
+    id: execution.shell_executor._parse_command_if_118
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 118
+  execution.shell_executor._parse_command_return_119:
+    id: execution.shell_executor._parse_command_return_119
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 119
+  execution.shell_executor._parse_command_merge_118:
+    id: execution.shell_executor._parse_command_merge_118
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_loop_121:
+    id: execution.shell_executor._parse_command_loop_121
+    type: FOR
+    label: for
+    function: execution.shell_executor._parse_command
+    line: 121
+  execution.shell_executor._parse_command_if_122:
+    id: execution.shell_executor._parse_command_if_122
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 122
+  execution.shell_executor._parse_command_return_123:
+    id: execution.shell_executor._parse_command_return_123
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 123
+  execution.shell_executor._parse_command_merge_122:
+    id: execution.shell_executor._parse_command_merge_122
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_merge_109:
+    id: execution.shell_executor._parse_command_merge_109
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_if_137:
+    id: execution.shell_executor._parse_command_if_137
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 137
+  execution.shell_executor._parse_command_return_138:
+    id: execution.shell_executor._parse_command_return_138
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 138
+  execution.shell_executor._parse_command_merge_137:
+    id: execution.shell_executor._parse_command_merge_137
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_if_141:
+    id: execution.shell_executor._parse_command_if_141
+    type: IF
+    label: if
+    function: execution.shell_executor._parse_command
+    line: 141
+  execution.shell_executor._parse_command_return_142:
+    id: execution.shell_executor._parse_command_return_142
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 142
+  execution.shell_executor._parse_command_merge_141:
+    id: execution.shell_executor._parse_command_merge_141
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._parse_command
+  execution.shell_executor._parse_command_return_144:
+    id: execution.shell_executor._parse_command_return_144
+    type: RETURN
+    label: return
+    function: execution.shell_executor._parse_command
+    line: 144
+  execution.shell_executor._check_safety_policy_entry:
+    id: execution.shell_executor._check_safety_policy_entry
+    type: ENTRY
+    label: entry
+    function: execution.shell_executor._check_safety_policy
+  execution.shell_executor._check_safety_policy_exit:
+    id: execution.shell_executor._check_safety_policy_exit
+    type: EXIT
+    label: exit
+    function: execution.shell_executor._check_safety_policy
+  execution.shell_executor._check_safety_policy_if_151:
+    id: execution.shell_executor._check_safety_policy_if_151
+    type: IF
+    label: if
+    function: execution.shell_executor._check_safety_policy
+    line: 151
+  execution.shell_executor._check_safety_policy_return_152:
+    id: execution.shell_executor._check_safety_policy_return_152
+    type: RETURN
+    label: return
+    function: execution.shell_executor._check_safety_policy
+    line: 152
+  execution.shell_executor._check_safety_policy_merge_151:
+    id: execution.shell_executor._check_safety_policy_merge_151
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._check_safety_policy
+  execution.shell_executor._check_safety_policy_loop_154:
+    id: execution.shell_executor._check_safety_policy_loop_154
+    type: FOR
+    label: for
+    function: execution.shell_executor._check_safety_policy
+    line: 154
+  execution.shell_executor._check_safety_policy_if_155:
+    id: execution.shell_executor._check_safety_policy_if_155
+    type: IF
+    label: if
+    function: execution.shell_executor._check_safety_policy
+    line: 155
+  execution.shell_executor._check_safety_policy_return_156:
+    id: execution.shell_executor._check_safety_policy_return_156
+    type: RETURN
+    label: return
+    function: execution.shell_executor._check_safety_policy
+    line: 156
+  execution.shell_executor._check_safety_policy_merge_155:
+    id: execution.shell_executor._check_safety_policy_merge_155
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._check_safety_policy
+  execution.shell_executor._check_safety_policy_return_166:
+    id: execution.shell_executor._check_safety_policy_return_166
+    type: RETURN
+    label: return
+    function: execution.shell_executor._check_safety_policy
+    line: 166
+  execution.shell_executor._execute_with_recovery_entry:
+    id: execution.shell_executor._execute_with_recovery_entry
+    type: ENTRY
+    label: entry
+    function: execution.shell_executor._execute_with_recovery
+  execution.shell_executor._execute_with_recovery_exit:
+    id: execution.shell_executor._execute_with_recovery_exit
+    type: EXIT
+    label: exit
+    function: execution.shell_executor._execute_with_recovery
+  execution.shell_executor._execute_with_recovery_loop_180:
+    id: execution.shell_executor._execute_with_recovery_loop_180
+    type: WHILE
+    label: while
+    function: execution.shell_executor._execute_with_recovery
+    line: 180
+  execution.shell_executor._execute_with_recovery_if_190:
+    id: execution.shell_executor._execute_with_recovery_if_190
+    type: IF
+    label: if
+    function: execution.shell_executor._execute_with_recovery
+    line: 190
+  execution.shell_executor._execute_with_recovery_return_191:
+    id: execution.shell_executor._execute_with_recovery_return_191
+    type: RETURN
+    label: return
+    function: execution.shell_executor._execute_with_recovery
+    line: 191
+  execution.shell_executor._execute_with_recovery_merge_190:
+    id: execution.shell_executor._execute_with_recovery_merge_190
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._execute_with_recovery
+  execution.shell_executor._execute_with_recovery_if_201:
+    id: execution.shell_executor._execute_with_recovery_if_201
+    type: IF
+    label: if
+    function: execution.shell_executor._execute_with_recovery
+    line: 201
+  execution.shell_executor._execute_with_recovery_if_207:
+    id: execution.shell_executor._execute_with_recovery_if_207
+    type: IF
+    label: if
+    function: execution.shell_executor._execute_with_recovery
+    line: 207
+  execution.shell_executor._execute_with_recovery_merge_207:
+    id: execution.shell_executor._execute_with_recovery_merge_207
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._execute_with_recovery
+  execution.shell_executor._execute_with_recovery_merge_201:
+    id: execution.shell_executor._execute_with_recovery_merge_201
+    type: FUNC
+    label: merge
+    function: execution.shell_executor._execute_with_recovery
+  execution.shell_executor._execute_with_recovery_return_215:
+    id: execution.shell_executor._execute_with_recovery_return_215
+    type: RETURN
+    label: return
+    function: execution.shell_executor._execute_with_recovery
+    line: 215
+  execution.shell_executor._get_resource_discovery_entry:
+    id: execution.shell_executor._get_resource_discovery_entry
+    type: ENTRY
+    label: entry
+    function: execution.shell_executor._get_resource_discovery
+  execution.shell_executor._get_resource_discovery_exit:
+    id: execution.shell_executor._get_resource_discovery_exit
+    type: EXIT
+    label: exit
+    function: execution.shell_executor._get_resource_discovery

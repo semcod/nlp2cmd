@@ -1,0 +1,603 @@
+module: automation.step_validator
+type: orphan_nodes
+count: 109
+nodes:
+  automation.step_validator.__init___entry:
+    id: automation.step_validator.__init___entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.__init__
+  automation.step_validator.__init___exit:
+    id: automation.step_validator.__init___exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.__init__
+  automation.step_validator.start_step_entry:
+    id: automation.step_validator.start_step_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.start_step
+  automation.step_validator.start_step_exit:
+    id: automation.step_validator.start_step_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.start_step
+  automation.step_validator.start_step_return_71:
+    id: automation.step_validator.start_step_return_71
+    type: RETURN
+    label: return
+    function: automation.step_validator.start_step
+    line: 71
+  automation.step_validator.finish_step_entry:
+    id: automation.step_validator.finish_step_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.finish_step
+  automation.step_validator.finish_step_exit:
+    id: automation.step_validator.finish_step_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.finish_step
+  automation.step_validator.get_clipboard_entry:
+    id: automation.step_validator.get_clipboard_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.get_clipboard
+  automation.step_validator.get_clipboard_exit:
+    id: automation.step_validator.get_clipboard_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.get_clipboard
+  automation.step_validator.get_clipboard_loop_87:
+    id: automation.step_validator.get_clipboard_loop_87
+    type: FOR
+    label: for
+    function: automation.step_validator.get_clipboard
+    line: 87
+  automation.step_validator.get_clipboard_return_96:
+    id: automation.step_validator.get_clipboard_return_96
+    type: RETURN
+    label: return
+    function: automation.step_validator.get_clipboard
+    line: 96
+  automation.step_validator.set_clipboard_entry:
+    id: automation.step_validator.set_clipboard_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.set_clipboard
+  automation.step_validator.set_clipboard_exit:
+    id: automation.step_validator.set_clipboard_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.set_clipboard
+  automation.step_validator.set_clipboard_loop_101:
+    id: automation.step_validator.set_clipboard_loop_101
+    type: FOR
+    label: for
+    function: automation.step_validator.set_clipboard
+    line: 101
+  automation.step_validator.set_clipboard_return_110:
+    id: automation.step_validator.set_clipboard_return_110
+    type: RETURN
+    label: return
+    function: automation.step_validator.set_clipboard
+    line: 110
+  automation.step_validator.snapshot_clipboard_entry:
+    id: automation.step_validator.snapshot_clipboard_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.snapshot_clipboard
+  automation.step_validator.snapshot_clipboard_exit:
+    id: automation.step_validator.snapshot_clipboard_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.snapshot_clipboard
+  automation.step_validator.snapshot_clipboard_return_115:
+    id: automation.step_validator.snapshot_clipboard_return_115
+    type: RETURN
+    label: return
+    function: automation.step_validator.snapshot_clipboard
+    line: 115
+  automation.step_validator.clipboard_changed_entry:
+    id: automation.step_validator.clipboard_changed_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.clipboard_changed
+  automation.step_validator.clipboard_changed_exit:
+    id: automation.step_validator.clipboard_changed_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.clipboard_changed
+  automation.step_validator.clipboard_changed_return_121:
+    id: automation.step_validator.clipboard_changed_return_121
+    type: RETURN
+    label: return
+    function: automation.step_validator.clipboard_changed
+    line: 121
+  automation.step_validator.validate_pre_navigate_entry:
+    id: automation.step_validator.validate_pre_navigate_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_pre_navigate
+  automation.step_validator.validate_pre_navigate_exit:
+    id: automation.step_validator.validate_pre_navigate_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_pre_navigate
+  automation.step_validator.validate_pre_navigate_if_129:
+    id: automation.step_validator.validate_pre_navigate_if_129
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_navigate
+    line: 129
+  automation.step_validator.validate_pre_navigate_return_130:
+    id: automation.step_validator.validate_pre_navigate_return_130
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_navigate
+    line: 130
+  automation.step_validator.validate_pre_navigate_merge_129:
+    id: automation.step_validator.validate_pre_navigate_merge_129
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_navigate
+  automation.step_validator.validate_pre_navigate_if_131:
+    id: automation.step_validator.validate_pre_navigate_if_131
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_navigate
+    line: 131
+  automation.step_validator.validate_pre_navigate_return_132:
+    id: automation.step_validator.validate_pre_navigate_return_132
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_navigate
+    line: 132
+  automation.step_validator.validate_pre_navigate_merge_131:
+    id: automation.step_validator.validate_pre_navigate_merge_131
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_navigate
+  automation.step_validator.validate_pre_navigate_return_133:
+    id: automation.step_validator.validate_pre_navigate_return_133
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_navigate
+    line: 133
+  automation.step_validator.validate_pre_check_session_entry:
+    id: automation.step_validator.validate_pre_check_session_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_pre_check_session
+  automation.step_validator.validate_pre_check_session_exit:
+    id: automation.step_validator.validate_pre_check_session_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_pre_check_session
+  automation.step_validator.validate_pre_check_session_if_137:
+    id: automation.step_validator.validate_pre_check_session_if_137
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_check_session
+    line: 137
+  automation.step_validator.validate_pre_check_session_return_138:
+    id: automation.step_validator.validate_pre_check_session_return_138
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_check_session
+    line: 138
+  automation.step_validator.validate_pre_check_session_merge_137:
+    id: automation.step_validator.validate_pre_check_session_merge_137
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_check_session
+  automation.step_validator.validate_pre_check_session_return_151:
+    id: automation.step_validator.validate_pre_check_session_return_151
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_check_session
+    line: 151
+  automation.step_validator.validate_pre_extract_key_entry:
+    id: automation.step_validator.validate_pre_extract_key_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_pre_extract_key
+  automation.step_validator.validate_pre_extract_key_exit:
+    id: automation.step_validator.validate_pre_extract_key_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_pre_extract_key
+  automation.step_validator.validate_pre_extract_key_if_155:
+    id: automation.step_validator.validate_pre_extract_key_if_155
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_extract_key
+    line: 155
+  automation.step_validator.validate_pre_extract_key_return_156:
+    id: automation.step_validator.validate_pre_extract_key_return_156
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_extract_key
+    line: 156
+  automation.step_validator.validate_pre_extract_key_merge_155:
+    id: automation.step_validator.validate_pre_extract_key_merge_155
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_extract_key
+  automation.step_validator.validate_pre_extract_key_return_169:
+    id: automation.step_validator.validate_pre_extract_key_return_169
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_extract_key
+    line: 169
+  automation.step_validator.validate_pre_prompt_secret_entry:
+    id: automation.step_validator.validate_pre_prompt_secret_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_pre_prompt_secret
+  automation.step_validator.validate_pre_prompt_secret_exit:
+    id: automation.step_validator.validate_pre_prompt_secret_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_pre_prompt_secret
+  automation.step_validator.validate_pre_prompt_secret_if_177:
+    id: automation.step_validator.validate_pre_prompt_secret_if_177
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 177
+  automation.step_validator.validate_pre_prompt_secret_if_178:
+    id: automation.step_validator.validate_pre_prompt_secret_if_178
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 178
+  automation.step_validator.validate_pre_prompt_secret_return_179:
+    id: automation.step_validator.validate_pre_prompt_secret_return_179
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 179
+  automation.step_validator.validate_pre_prompt_secret_merge_178:
+    id: automation.step_validator.validate_pre_prompt_secret_merge_178
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_prompt_secret
+  automation.step_validator.validate_pre_prompt_secret_return_185:
+    id: automation.step_validator.validate_pre_prompt_secret_return_185
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 185
+  automation.step_validator.validate_pre_prompt_secret_merge_177:
+    id: automation.step_validator.validate_pre_prompt_secret_merge_177
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_prompt_secret
+  automation.step_validator.validate_pre_prompt_secret_loop_190:
+    id: automation.step_validator.validate_pre_prompt_secret_loop_190
+    type: FOR
+    label: for
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 190
+  automation.step_validator.validate_pre_prompt_secret_if_191:
+    id: automation.step_validator.validate_pre_prompt_secret_if_191
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 191
+  automation.step_validator.validate_pre_prompt_secret_return_192:
+    id: automation.step_validator.validate_pre_prompt_secret_return_192
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 192
+  automation.step_validator.validate_pre_prompt_secret_merge_191:
+    id: automation.step_validator.validate_pre_prompt_secret_merge_191
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre_prompt_secret
+  automation.step_validator.validate_pre_prompt_secret_return_196:
+    id: automation.step_validator.validate_pre_prompt_secret_return_196
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre_prompt_secret
+    line: 196
+  automation.step_validator.validate_post_navigate_entry:
+    id: automation.step_validator.validate_post_navigate_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_post_navigate
+  automation.step_validator.validate_post_navigate_exit:
+    id: automation.step_validator.validate_post_navigate_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_post_navigate
+  automation.step_validator.validate_post_navigate_if_203:
+    id: automation.step_validator.validate_post_navigate_if_203
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_navigate
+    line: 203
+  automation.step_validator.validate_post_navigate_return_204:
+    id: automation.step_validator.validate_post_navigate_return_204
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_navigate
+    line: 204
+  automation.step_validator.validate_post_navigate_merge_203:
+    id: automation.step_validator.validate_post_navigate_merge_203
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_navigate
+  automation.step_validator.validate_post_check_session_entry:
+    id: automation.step_validator.validate_post_check_session_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_post_check_session
+  automation.step_validator.validate_post_check_session_exit:
+    id: automation.step_validator.validate_post_check_session_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_post_check_session
+  automation.step_validator.validate_post_check_session_if_225:
+    id: automation.step_validator.validate_post_check_session_if_225
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_check_session
+    line: 225
+  automation.step_validator.validate_post_check_session_return_226:
+    id: automation.step_validator.validate_post_check_session_return_226
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_check_session
+    line: 226
+  automation.step_validator.validate_post_check_session_merge_225:
+    id: automation.step_validator.validate_post_check_session_merge_225
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_check_session
+  automation.step_validator.validate_post_check_session_if_227:
+    id: automation.step_validator.validate_post_check_session_if_227
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_check_session
+    line: 227
+  automation.step_validator.validate_post_check_session_return_229:
+    id: automation.step_validator.validate_post_check_session_return_229
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_check_session
+    line: 229
+  automation.step_validator.validate_post_check_session_merge_227:
+    id: automation.step_validator.validate_post_check_session_merge_227
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_check_session
+  automation.step_validator.validate_post_check_session_return_234:
+    id: automation.step_validator.validate_post_check_session_return_234
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_check_session
+    line: 234
+  automation.step_validator.validate_post_extract_key_entry:
+    id: automation.step_validator.validate_post_extract_key_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_exit:
+    id: automation.step_validator.validate_post_extract_key_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_if_244:
+    id: automation.step_validator.validate_post_extract_key_if_244
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_extract_key
+    line: 244
+  automation.step_validator.validate_post_extract_key_if_245:
+    id: automation.step_validator.validate_post_extract_key_if_245
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_extract_key
+    line: 245
+  automation.step_validator.validate_post_extract_key_return_246:
+    id: automation.step_validator.validate_post_extract_key_return_246
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_extract_key
+    line: 246
+  automation.step_validator.validate_post_extract_key_if_250:
+    id: automation.step_validator.validate_post_extract_key_if_250
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_extract_key
+    line: 250
+  automation.step_validator.validate_post_extract_key_return_251:
+    id: automation.step_validator.validate_post_extract_key_return_251
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_extract_key
+    line: 251
+  automation.step_validator.validate_post_extract_key_merge_250:
+    id: automation.step_validator.validate_post_extract_key_merge_250
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_merge_245:
+    id: automation.step_validator.validate_post_extract_key_merge_245
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_return_256:
+    id: automation.step_validator.validate_post_extract_key_return_256
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_extract_key
+    line: 256
+  automation.step_validator.validate_post_extract_key_merge_244:
+    id: automation.step_validator.validate_post_extract_key_merge_244
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_if_262:
+    id: automation.step_validator.validate_post_extract_key_if_262
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_extract_key
+    line: 262
+  automation.step_validator.validate_post_extract_key_if_263:
+    id: automation.step_validator.validate_post_extract_key_if_263
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_extract_key
+    line: 263
+  automation.step_validator.validate_post_extract_key_return_264:
+    id: automation.step_validator.validate_post_extract_key_return_264
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_extract_key
+    line: 264
+  automation.step_validator.validate_post_extract_key_if_268:
+    id: automation.step_validator.validate_post_extract_key_if_268
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_extract_key
+    line: 268
+  automation.step_validator.validate_post_extract_key_return_269:
+    id: automation.step_validator.validate_post_extract_key_return_269
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_extract_key
+    line: 269
+  automation.step_validator.validate_post_extract_key_merge_268:
+    id: automation.step_validator.validate_post_extract_key_merge_268
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_merge_263:
+    id: automation.step_validator.validate_post_extract_key_merge_263
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_merge_262:
+    id: automation.step_validator.validate_post_extract_key_merge_262
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_extract_key
+  automation.step_validator.validate_post_extract_key_return_274:
+    id: automation.step_validator.validate_post_extract_key_return_274
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_extract_key
+    line: 274
+  automation.step_validator.validate_post_save_env_entry:
+    id: automation.step_validator.validate_post_save_env_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_post_save_env
+  automation.step_validator.validate_post_save_env_exit:
+    id: automation.step_validator.validate_post_save_env_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_post_save_env
+  automation.step_validator.validate_post_save_env_if_284:
+    id: automation.step_validator.validate_post_save_env_if_284
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post_save_env
+    line: 284
+  automation.step_validator.validate_post_save_env_return_285:
+    id: automation.step_validator.validate_post_save_env_return_285
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post_save_env
+    line: 285
+  automation.step_validator.validate_post_save_env_merge_284:
+    id: automation.step_validator.validate_post_save_env_merge_284
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post_save_env
+  automation.step_validator.validate_pre_entry:
+    id: automation.step_validator.validate_pre_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_pre
+  automation.step_validator.validate_pre_exit:
+    id: automation.step_validator.validate_pre_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_pre
+  automation.step_validator.validate_pre_if_325:
+    id: automation.step_validator.validate_pre_if_325
+    type: IF
+    label: if
+    function: automation.step_validator.validate_pre
+    line: 325
+  automation.step_validator.validate_pre_return_326:
+    id: automation.step_validator.validate_pre_return_326
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre
+    line: 326
+  automation.step_validator.validate_pre_merge_325:
+    id: automation.step_validator.validate_pre_merge_325
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_pre
+  automation.step_validator.validate_pre_return_327:
+    id: automation.step_validator.validate_pre_return_327
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_pre
+    line: 327
+  automation.step_validator.validate_post_entry:
+    id: automation.step_validator.validate_post_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.validate_post
+  automation.step_validator.validate_post_exit:
+    id: automation.step_validator.validate_post_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.validate_post
+  automation.step_validator.validate_post_if_340:
+    id: automation.step_validator.validate_post_if_340
+    type: IF
+    label: if
+    function: automation.step_validator.validate_post
+    line: 340
+  automation.step_validator.validate_post_return_341:
+    id: automation.step_validator.validate_post_return_341
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post
+    line: 341
+  automation.step_validator.validate_post_merge_340:
+    id: automation.step_validator.validate_post_merge_340
+    type: FUNC
+    label: merge
+    function: automation.step_validator.validate_post
+  automation.step_validator.validate_post_return_342:
+    id: automation.step_validator.validate_post_return_342
+    type: RETURN
+    label: return
+    function: automation.step_validator.validate_post
+    line: 342
+  automation.step_validator.summary_entry:
+    id: automation.step_validator.summary_entry
+    type: ENTRY
+    label: entry
+    function: automation.step_validator.summary
+  automation.step_validator.summary_exit:
+    id: automation.step_validator.summary_exit
+    type: EXIT
+    label: exit
+    function: automation.step_validator.summary
+  automation.step_validator.summary_return_353:
+    id: automation.step_validator.summary_return_353
+    type: RETURN
+    label: return
+    function: automation.step_validator.summary
+    line: 353

@@ -1,0 +1,403 @@
+module: automation.action_planner.ActionPlanner
+type: functions
+count: 21
+functions:
+  automation.action_planner.ActionPlanner.__init__:
+    name: __init__
+    qualified_name: automation.action_planner.ActionPlanner.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 467
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner.__init___entry
+    calls:
+    - os.getenv
+  automation.action_planner.ActionPlanner.decompose:
+    name: decompose
+    qualified_name: automation.action_planner.ActionPlanner.decompose
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 478
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner.decompose_entry
+    calls:
+    - self._try_rule_decomposition
+    - self._try_multi_tab_decomposition
+    - self._try_canvas_decomposition
+    - self._heuristic_decomposition
+    - log.debug
+    - self._call_llm
+    - log.warning
+  automation.action_planner.ActionPlanner.decompose_sync:
+    name: decompose_sync
+    qualified_name: automation.action_planner.ActionPlanner.decompose_sync
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 514
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner.decompose_sync_entry
+    calls:
+    - self._try_rule_decomposition
+    - self._try_multi_tab_decomposition
+    - self._try_canvas_decomposition
+    - self._heuristic_decomposition
+    - self._call_llm_sync
+    - log.warning
+  automation.action_planner.ActionPlanner._try_rule_decomposition:
+    name: _try_rule_decomposition
+    qualified_name: automation.action_planner.ActionPlanner._try_rule_decomposition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 544
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._try_rule_decomposition_entry
+    calls:
+    - query.lower
+    - self._resolve_service
+    - log.info
+    - self._wants_new_tab
+    - self._wants_existing_firefox
+    - self._wants_create_key
+    - any
+    - steps.append
+    - steps.extend
+    - ActionPlan
+    - svc.get
+    - None.lower
+    - ActionStep
+    - self._build_navigation_steps
+    - self._build_session_check_steps
+    - len
+    - self._build_create_key_steps
+    - self._build_manual_key_steps
+    - None.strip
+    - os.environ.get
+    - svc_name.upper
+  automation.action_planner.ActionPlanner._resolve_service:
+    name: _resolve_service
+    qualified_name: automation.action_planner.ActionPlanner._resolve_service
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 675
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._resolve_service_entry
+    calls:
+    - SERVICE_ALIASES.items
+    - KNOWN_SERVICES.items
+    called_by:
+    - generation.evolutionary_cache.EvolutionaryCache.lookup_multistep
+    - generation.evolutionary_cache.EvolutionaryCache.store_multistep
+    - generation.evolutionary_cache.lookup_multistep
+    - generation.evolutionary_cache.store_multistep
+  automation.action_planner.ActionPlanner._wants_new_tab:
+    name: _wants_new_tab
+    qualified_name: automation.action_planner.ActionPlanner._wants_new_tab
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 689
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._wants_new_tab_entry
+    calls:
+    - any
+  automation.action_planner.ActionPlanner._wants_existing_firefox:
+    name: _wants_existing_firefox
+    qualified_name: automation.action_planner.ActionPlanner._wants_existing_firefox
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 696
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._wants_existing_firefox_entry
+    calls:
+    - any
+  automation.action_planner.ActionPlanner._wants_create_key:
+    name: _wants_create_key
+    qualified_name: automation.action_planner.ActionPlanner._wants_create_key
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 706
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._wants_create_key_entry
+    calls:
+    - any
+  automation.action_planner.ActionPlanner._build_navigation_steps:
+    name: _build_navigation_steps
+    qualified_name: automation.action_planner.ActionPlanner._build_navigation_steps
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 722
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._build_navigation_steps_entry
+    calls:
+    - log.info
+    - steps.append
+    - ActionStep
+    - svc.get
+  automation.action_planner.ActionPlanner._build_session_check_steps:
+    name: _build_session_check_steps
+    qualified_name: automation.action_planner.ActionPlanner._build_session_check_steps
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 776
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._build_session_check_steps_entry
+    calls:
+    - svc.get
+    - steps.append
+    - ActionStep
+    - None.join
+  automation.action_planner.ActionPlanner._build_create_key_steps:
+    name: _build_create_key_steps
+    qualified_name: automation.action_planner.ActionPlanner._build_create_key_steps
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 818
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._build_create_key_steps_entry
+    calls:
+    - svc.get
+    - log.info
+    - steps.append
+    - None.items
+    - create_cfg.get
+    - self._build_manual_key_steps
+    - len
+    - ActionStep
+    - field_cfg.get
+    - list
+    - None.keys
+  automation.action_planner.ActionPlanner._build_manual_key_steps:
+    name: _build_manual_key_steps
+    qualified_name: automation.action_planner.ActionPlanner._build_manual_key_steps
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 921
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._build_manual_key_steps_entry
+    calls:
+    - steps.append
+    - ActionStep
+    - svc.get
+  automation.action_planner.ActionPlanner._try_canvas_decomposition:
+    name: _try_canvas_decomposition
+    qualified_name: automation.action_planner.ActionPlanner._try_canvas_decomposition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 978
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._try_canvas_decomposition_entry
+    calls:
+    - query.lower
+    - any
+    - re.search
+    - self._search_vector_db_for_pattern
+    - self._generate_canvas_plan_with_llm
+    - self._generate_rule_based_canvas_plan
+    - automation.drawing_blueprints.lookup_blueprint
+    - log.info
+    - ActionPlan
+    - len
+    - url_match.group
+    - ActionStep
+    - steps.append
+    - s.action.startswith
+    - generation.thermodynamic_components._NumpyStub.sum
+    - dict
+  automation.action_planner.ActionPlanner._generate_canvas_plan_with_llm:
+    name: _generate_canvas_plan_with_llm
+    qualified_name: automation.action_planner.ActionPlanner._generate_canvas_plan_with_llm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1093
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._generate_canvas_plan_with_llm_entry
+    calls:
+    - re.search
+    - None.strip
+    - log.info
+    - ActionPlan
+    - float
+    - int
+    - range
+    - re.sub
+    - raw.strip
+    - raw.startswith
+    - raw.endswith
+    - json.loads
+    - ActionStep
+    - s.get
+    - any
+    - steps.append
+    - os.getenv
+    - log.warning
+    - isinstance
+    - obj_match.group
+    - requests.post
+    - None.get
+    - len
+    - url_match.group
+    - time.sleep
+    - object_name.replace
+    - resp.json
+  automation.action_planner.ActionPlanner._generate_rule_based_canvas_plan:
+    name: _generate_rule_based_canvas_plan
+    qualified_name: automation.action_planner.ActionPlanner._generate_rule_based_canvas_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1291
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._generate_rule_based_canvas_plan_entry
+    calls:
+    - re.search
+    - None.strip
+    - object_name.lower
+    - any
+    - ActionPlan
+    - ActionStep
+    - steps.extend
+    - re.sub
+    - obj_match.group
+    - len
+    - min
+    - object_name.replace
+  automation.action_planner.ActionPlanner._search_vector_db_for_pattern:
+    name: _search_vector_db_for_pattern
+    qualified_name: automation.action_planner.ActionPlanner._search_vector_db_for_pattern
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1426
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._search_vector_db_for_pattern_entry
+    calls:
+    - log.debug
+    - automation.vector_store.get_vector_store
+    - re.search
+    - None.strip
+    - log.info
+    - search_query.lower
+    - store.list_patterns
+    - ActionPlan
+    - store.is_available
+    - query_lower.endswith
+    - re.sub
+    - store.get_pattern
+    - store.search
+    - ActionStep
+    - step_data.get
+    - log.warning
+    - steps.append
+    - obj_match.group
+    - len
+  automation.action_planner.ActionPlanner._try_multi_tab_decomposition:
+    name: _try_multi_tab_decomposition
+    qualified_name: automation.action_planner.ActionPlanner._try_multi_tab_decomposition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1513
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._try_multi_tab_decomposition_entry
+    calls:
+    - query.lower
+    - re.search
+    - re.findall
+    - enumerate
+    - steps.append
+    - ActionPlan
+    - ActionStep
+    - len
+  automation.action_planner.ActionPlanner._call_llm:
+    name: _call_llm
+    qualified_name: automation.action_planner.ActionPlanner._call_llm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1549
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._call_llm_entry
+    calls:
+    - httpx.AsyncClient
+    - self._parse_llm_response
+    - log.debug
+    - self._call_llm_sync
+    - client.post
+    - log.warning
+    - None.get
+    - resp.json
+  automation.action_planner.ActionPlanner._call_llm_sync:
+    name: _call_llm_sync
+    qualified_name: automation.action_planner.ActionPlanner._call_llm_sync
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1574
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._call_llm_sync_entry
+    calls:
+    - requests.post
+    - self._parse_llm_response
+    - log.debug
+    - None.get
+    - log.warning
+    - resp.json
+  automation.action_planner.ActionPlanner._parse_llm_response:
+    name: _parse_llm_response
+    qualified_name: automation.action_planner.ActionPlanner._parse_llm_response
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1601
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._parse_llm_response_entry
+    calls:
+    - re.sub
+    - ActionPlan
+    - raw.strip
+    - json.loads
+    - isinstance
+    - steps.append
+    - log.warning
+    - s.get
+    - None.get
+    - KNOWN_SERVICES.items
+    - ActionStep
+    - s.setdefault
+    - None.setdefault
+    - len
+    - svc.get
+    - query.lower
+  automation.action_planner.ActionPlanner._heuristic_decomposition:
+    name: _heuristic_decomposition
+    qualified_name: automation.action_planner.ActionPlanner._heuristic_decomposition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 1658
+    module: automation.action_planner
+    class: ActionPlanner
+    is_method: true
+    cfg_entry: automation.action_planner.ActionPlanner._heuristic_decomposition_entry
+    calls:
+    - query.lower
+    - re.search
+    - any
+    - ActionPlan
+    - None.rstrip
+    - steps.append
+    - ActionStep
+    - url_match.group
+    - len
+    - domain_match.group

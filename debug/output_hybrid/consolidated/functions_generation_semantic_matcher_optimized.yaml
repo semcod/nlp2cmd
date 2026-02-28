@@ -1,0 +1,387 @@
+module: generation.semantic_matcher_optimized
+type: functions
+count: 30
+functions:
+  generation.semantic_matcher_optimized._check_sentence_transformers:
+    name: _check_sentence_transformers
+    qualified_name: generation.semantic_matcher_optimized._check_sentence_transformers
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 70
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._check_sentence_transformers_entry
+    called_by:
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._get_model
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._get_polish_model
+    - generation.semantic_matcher_optimized.get_optimized_semantic_matcher
+    - generation.semantic_matcher_optimized.preload_models
+    - generation.semantic_matcher_optimized._get_model
+    - generation.semantic_matcher_optimized._get_polish_model
+  generation.semantic_matcher_optimized._check_torch:
+    name: _check_torch
+    qualified_name: generation.semantic_matcher_optimized._check_torch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 81
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._check_torch_entry
+    called_by:
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._load_model
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._encode_text
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._encode_batch
+    - generation.semantic_matcher_optimized._load_model
+    - generation.semantic_matcher_optimized._encode_text
+    - generation.semantic_matcher_optimized._encode_batch
+  generation.semantic_matcher_optimized._check_ctranslate2:
+    name: _check_ctranslate2
+    qualified_name: generation.semantic_matcher_optimized._check_ctranslate2
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 92
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._check_ctranslate2_entry
+    called_by:
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._load_model
+    - generation.semantic_matcher_optimized._load_model
+  generation.semantic_matcher_optimized._get_cache_dir:
+    name: _get_cache_dir
+    qualified_name: generation.semantic_matcher_optimized._get_cache_dir
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 103
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._get_cache_dir_entry
+    calls:
+    - os.environ.get
+    - Path
+    - Path.home
+    called_by:
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._load_model
+    - generation.semantic_matcher_optimized._load_model
+  generation.semantic_matcher_optimized._compute_cache_key:
+    name: _compute_cache_key
+    qualified_name: generation.semantic_matcher_optimized._compute_cache_key
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 111
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._compute_cache_key_entry
+    calls:
+    - None.hexdigest
+    - hashlib.md5
+    - None.encode
+    called_by:
+    - generation.semantic_matcher_optimized.OptimizedSemanticMatcher._encode_with_cache
+    - generation.semantic_matcher_optimized._encode_with_cache
+  generation.semantic_matcher_optimized._cleanup_models:
+    name: _cleanup_models
+    qualified_name: generation.semantic_matcher_optimized._cleanup_models
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 117
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._cleanup_models_entry
+    calls:
+    - _model_cache.clear
+    - _embedding_cache.clear
+  generation.semantic_matcher_optimized.create_optimized_matcher_from_phrases:
+    name: create_optimized_matcher_from_phrases
+    qualified_name: generation.semantic_matcher_optimized.create_optimized_matcher_from_phrases
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 620
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.create_optimized_matcher_from_phrases_entry
+    calls:
+    - OptimizedSemanticMatcher
+    - data.get
+    - phrases_path.exists
+    - open
+    - json.load
+    - phrase_entry.get
+    - intents.append
+    - matcher.add_intents_batch
+    called_by:
+    - generation.semantic_matcher_optimized.get_optimized_semantic_matcher
+  generation.semantic_matcher_optimized.get_optimized_semantic_matcher:
+    name: get_optimized_semantic_matcher
+    qualified_name: generation.semantic_matcher_optimized.get_optimized_semantic_matcher
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 655
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.get_optimized_semantic_matcher_entry
+    calls:
+    - OptimizedSemanticMatcher
+    - cache_path_pkl.exists
+    - cache_path_json.exists
+    - phrases_path.exists
+    - generation.semantic_matcher_optimized._check_sentence_transformers
+    - _optimized_matcher_instance.load
+    - _optimized_matcher_instance.save_binary
+    - generation.semantic_matcher_optimized.create_optimized_matcher_from_phrases
+    - _optimized_matcher_instance.save
+    - Path
+    called_by:
+    - generation.semantic_matcher_optimized.preload_models
+  generation.semantic_matcher_optimized.preload_models:
+    name: preload_models
+    qualified_name: generation.semantic_matcher_optimized.preload_models
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 711
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.preload_models_entry
+    calls:
+    - generation.semantic_matcher_optimized.get_optimized_semantic_matcher
+    - generation.semantic_matcher_optimized._check_sentence_transformers
+    - matcher.match
+  generation.semantic_matcher_optimized.clear_embedding_cache:
+    name: clear_embedding_cache
+    qualified_name: generation.semantic_matcher_optimized.clear_embedding_cache
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 732
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.clear_embedding_cache_entry
+    calls:
+    - _embedding_cache.clear
+  generation.semantic_matcher_optimized.get_cache_stats:
+    name: get_cache_stats
+    qualified_name: generation.semantic_matcher_optimized.get_cache_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 738
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.get_cache_stats_entry
+    calls:
+    - len
+  generation.semantic_matcher_optimized.__init__:
+    name: __init__
+    qualified_name: generation.semantic_matcher_optimized.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 170
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.__init___entry
+    calls:
+    - self._preload_models
+  generation.semantic_matcher_optimized._preload_models:
+    name: _preload_models
+    qualified_name: generation.semantic_matcher_optimized._preload_models
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 197
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._preload_models_entry
+    calls:
+    - self._get_model
+    - self._get_polish_model
+  generation.semantic_matcher_optimized._get_model:
+    name: _get_model
+    qualified_name: generation.semantic_matcher_optimized._get_model
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 203
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._get_model_entry
+    calls:
+    - generation.semantic_matcher_optimized._check_sentence_transformers
+    - self._load_model
+  generation.semantic_matcher_optimized._get_polish_model:
+    name: _get_polish_model
+    qualified_name: generation.semantic_matcher_optimized._get_polish_model
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 227
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._get_polish_model_entry
+    calls:
+    - generation.semantic_matcher_optimized._check_sentence_transformers
+    - self._load_model
+  generation.semantic_matcher_optimized._load_model:
+    name: _load_model
+    qualified_name: generation.semantic_matcher_optimized._load_model
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 252
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._load_model_entry
+    calls:
+    - generation.semantic_matcher_optimized._get_cache_dir
+    - SentenceTransformer
+    - generation.semantic_matcher_optimized._check_ctranslate2
+    - None.get
+    - generation.semantic_matcher_optimized._check_torch
+    - str
+    - torch.cuda.is_available
+    - MODEL_CONFIGS.get
+    - hasattr
+    - auto_model.half
+    - model._first_module
+  generation.semantic_matcher_optimized.add_intent:
+    name: add_intent
+    qualified_name: generation.semantic_matcher_optimized.add_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 287
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.add_intent_entry
+    calls:
+    - self._get_model
+    - self._encode_text
+    - self.intent_embeddings.append
+    - IntentEmbedding
+  generation.semantic_matcher_optimized.add_intents_batch:
+    name: add_intents_batch
+    qualified_name: generation.semantic_matcher_optimized.add_intents_batch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 307
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.add_intents_batch_entry
+    calls:
+    - self._get_model
+    - self._encode_batch
+    - zip
+    - self.intent_embeddings.append
+    - IntentEmbedding
+  generation.semantic_matcher_optimized._encode_text:
+    name: _encode_text
+    qualified_name: generation.semantic_matcher_optimized._encode_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 333
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._encode_text_entry
+    calls:
+    - generation.semantic_matcher_optimized._check_torch
+    - model.encode
+    - torch.no_grad
+  generation.semantic_matcher_optimized._encode_batch:
+    name: _encode_batch
+    qualified_name: generation.semantic_matcher_optimized._encode_batch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 341
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._encode_batch_entry
+    calls:
+    - generation.semantic_matcher_optimized._check_torch
+    - model.encode
+    - torch.no_grad
+  generation.semantic_matcher_optimized._encode_with_cache:
+    name: _encode_with_cache
+    qualified_name: generation.semantic_matcher_optimized._encode_with_cache
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 349
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._encode_with_cache_entry
+    calls:
+    - generation.semantic_matcher_optimized._compute_cache_key
+    - self._encode_text
+    - len
+    - list
+    - _embedding_cache.pop
+    - _embedding_cache.keys
+  generation.semantic_matcher_optimized._get_embedding_matrix:
+    name: _get_embedding_matrix
+    qualified_name: generation.semantic_matcher_optimized._get_embedding_matrix
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 370
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._get_embedding_matrix_entry
+    calls:
+    - np.vstack
+  generation.semantic_matcher_optimized._detect_language:
+    name: _detect_language
+    qualified_name: generation.semantic_matcher_optimized._detect_language
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 381
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._detect_language_entry
+    calls:
+    - executor.ExecutionContext.set
+    - text.lower
+    - any
+    - text_lower.split
+  generation.semantic_matcher_optimized.match:
+    name: match
+    qualified_name: generation.semantic_matcher_optimized.match
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 399
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.match_entry
+    calls:
+    - self._get_model
+    - self._detect_language
+    - self._encode_with_cache
+    - self._get_embedding_matrix
+    - self._cosine_similarity
+    - np.argmax
+    - SemanticMatch
+    - self._match_with_polish_model
+    - float
+  generation.semantic_matcher_optimized._match_with_polish_model:
+    name: _match_with_polish_model
+    qualified_name: generation.semantic_matcher_optimized._match_with_polish_model
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 452
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._match_with_polish_model_entry
+    calls:
+    - self._get_polish_model
+    - self._encode_with_cache
+    - self._cosine_similarity
+    - np.argmax
+    - SemanticMatch
+    - self._encode_batch
+    - float
+  generation.semantic_matcher_optimized.match_all:
+    name: match_all
+    qualified_name: generation.semantic_matcher_optimized.match_all
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 495
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.match_all_entry
+    calls:
+    - self._get_model
+    - self._encode_with_cache
+    - self._get_embedding_matrix
+    - self._cosine_similarity
+    - results.append
+    - np.argsort
+    - SemanticMatch
+    - float
+  generation.semantic_matcher_optimized._cosine_similarity:
+    name: _cosine_similarity
+    qualified_name: generation.semantic_matcher_optimized._cosine_similarity
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 528
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized._cosine_similarity_entry
+    calls:
+    - np.dot
+    - np.linalg.norm
+  generation.semantic_matcher_optimized.save:
+    name: save
+    qualified_name: generation.semantic_matcher_optimized.save
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 534
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.save_entry
+    calls:
+    - Path
+    - path.parent.mkdir
+    - open
+    - json.dump
+    - ie.embedding.tolist
+  generation.semantic_matcher_optimized.save_binary:
+    name: save_binary
+    qualified_name: generation.semantic_matcher_optimized.save_binary
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 557
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.save_binary_entry
+    calls:
+    - Path
+    - path.parent.mkdir
+    - open
+    - pickle.dump
+  generation.semantic_matcher_optimized.load:
+    name: load
+    qualified_name: generation.semantic_matcher_optimized.load
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_matcher_optimized.py
+    line: 580
+    module: generation.semantic_matcher_optimized
+    cfg_entry: generation.semantic_matcher_optimized.load_entry
+    calls:
+    - Path
+    - path.exists
+    - data.get
+    - IntentEmbedding
+    - open
+    - pickle.load
+    - json.load
+    - np.array
+    - ie.get

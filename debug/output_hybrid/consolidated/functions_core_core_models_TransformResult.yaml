@@ -1,0 +1,43 @@
+module: core.core_models.TransformResult
+type: functions
+count: 3
+functions:
+  core.core_models.TransformResult.to_dict:
+    name: to_dict
+    qualified_name: core.core_models.TransformResult.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 207
+    module: core.core_models
+    class: TransformResult
+    is_method: true
+    cfg_entry: core.core_models.TransformResult.to_dict_entry
+    calls:
+    - self.execution_plan.model_dump
+  core.core_models.TransformResult.copy:
+    name: copy
+    qualified_name: core.core_models.TransformResult.copy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 221
+    module: core.core_models
+    class: TransformResult
+    is_method: true
+    cfg_entry: core.core_models.TransformResult.copy_entry
+    calls:
+    - TransformResult
+    - self.entities.copy
+    - self.errors.copy
+    - self.warnings.copy
+    - self.metadata.copy
+    - self.execution_plan.model_copy
+  core.core_models.TransformResult.is_valid:
+    name: is_valid
+    qualified_name: core.core_models.TransformResult.is_valid
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 236
+    module: core.core_models
+    class: TransformResult
+    is_method: true
+    cfg_entry: core.core_models.TransformResult.is_valid_entry
+    calls:
+    - len
+    - self.command.strip

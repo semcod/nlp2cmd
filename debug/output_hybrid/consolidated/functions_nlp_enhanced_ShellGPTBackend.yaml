@@ -1,0 +1,164 @@
+module: nlp_enhanced.ShellGPTBackend
+type: functions
+count: 10
+functions:
+  nlp_enhanced.ShellGPTBackend.__init__:
+    name: __init__
+    qualified_name: nlp_enhanced.ShellGPTBackend.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 29
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend.__init___entry
+    calls:
+    - None.__init__
+    - DynamicSchemaRegistry
+    - self._find_shell_gpt
+    - nlp.config.get
+    - super
+  nlp_enhanced.ShellGPTBackend._find_shell_gpt:
+    name: _find_shell_gpt
+    qualified_name: nlp_enhanced.ShellGPTBackend._find_shell_gpt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 45
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend._find_shell_gpt_entry
+    calls:
+    - subprocess.run
+    - result.stdout.strip
+  nlp_enhanced.ShellGPTBackend.extract_entities:
+    name: extract_entities
+    qualified_name: nlp_enhanced.ShellGPTBackend.extract_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 76
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend.extract_entities_entry
+    calls:
+    - self._fallback_entity_extraction
+    - self.registry.search_commands
+    - self._build_shell_gpt_context
+    - subprocess.run
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - json.loads
+    - data.get
+    - parameters.items
+    - result.stdout.strip
+    - entities.append
+    - self._infer_entity_type
+    - Entity
+  nlp_enhanced.ShellGPTBackend.extract_intent:
+    name: extract_intent
+    qualified_name: nlp_enhanced.ShellGPTBackend.extract_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 145
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend.extract_intent_entry
+    calls:
+    - self._fallback_intent_extraction
+    - self.registry.search_commands
+    - self._build_shell_gpt_context
+    - subprocess.run
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - json.loads
+    - data.get
+    - float
+    - result.stdout.strip
+  nlp_enhanced.ShellGPTBackend.generate_plan:
+    name: generate_plan
+    qualified_name: nlp_enhanced.ShellGPTBackend.generate_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 192
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend.generate_plan_entry
+    calls:
+    - self._fallback_plan_generation
+    - self.registry.search_commands
+    - self._build_shell_gpt_context
+    - subprocess.run
+    - json.dumps
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - json.loads
+    - ExecutionPlan
+    - result.stdout.strip
+    - data.get
+    - float
+  nlp_enhanced.ShellGPTBackend._build_shell_gpt_context:
+    name: _build_shell_gpt_context
+    qualified_name: nlp_enhanced.ShellGPTBackend._build_shell_gpt_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 254
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend._build_shell_gpt_context_entry
+    calls:
+    - None.join
+    - context_lines.append
+    - param_descs.append
+  nlp_enhanced.ShellGPTBackend._infer_entity_type:
+    name: _infer_entity_type
+    qualified_name: nlp_enhanced.ShellGPTBackend._infer_entity_type
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 280
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend._infer_entity_type_entry
+    calls:
+    - isinstance
+    - value.startswith
+    - value.endswith
+    - re.match
+  nlp_enhanced.ShellGPTBackend._fallback_entity_extraction:
+    name: _fallback_entity_extraction
+    qualified_name: nlp_enhanced.ShellGPTBackend._fallback_entity_extraction
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 307
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend._fallback_entity_extraction_entry
+    calls:
+    - re.finditer
+    - entities.append
+    - Entity
+    - match.group
+    - match.start
+    - match.end
+    - int
+  nlp_enhanced.ShellGPTBackend._fallback_intent_extraction:
+    name: _fallback_intent_extraction
+    qualified_name: nlp_enhanced.ShellGPTBackend._fallback_intent_extraction
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 361
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend._fallback_intent_extraction_entry
+    calls:
+    - self.registry.search_commands
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - generation.thermodynamic_components._NumpyStub.max
+    - len
+  nlp_enhanced.ShellGPTBackend._fallback_plan_generation:
+    name: _fallback_plan_generation
+    qualified_name: nlp_enhanced.ShellGPTBackend._fallback_plan_generation
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp_enhanced/__init__.py
+    line: 378
+    module: nlp_enhanced
+    class: ShellGPTBackend
+    is_method: true
+    cfg_entry: nlp_enhanced.ShellGPTBackend._fallback_plan_generation_entry
+    calls:
+    - self.extract_intent
+    - self.extract_entities
+    - ExecutionPlan

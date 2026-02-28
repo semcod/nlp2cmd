@@ -1,0 +1,33 @@
+module: automation.service_configs
+type: functions
+count: 2
+functions:
+  automation.service_configs._load_known_services:
+    name: _load_known_services
+    qualified_name: automation.service_configs._load_known_services
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/service_configs.py
+    line: 297
+    module: automation.service_configs
+    cfg_entry: automation.service_configs._load_known_services_entry
+    calls:
+    - dict
+    - nlp.config.get_service_registry
+    - _HARDCODED_SERVICES.items
+    - len
+    - registry.as_planner_dict
+    - yaml_dict.items
+    - log.debug
+    - None.update
+  automation.service_configs._can_use_desktop_automation:
+    name: _can_use_desktop_automation
+    qualified_name: automation.service_configs._can_use_desktop_automation
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/service_configs.py
+    line: 374
+    module: automation.service_configs
+    cfg_entry: automation.service_configs._can_use_desktop_automation_entry
+    calls:
+    - None.lower
+    - bool
+    - shutil.which
+    - log.debug
+    - os.environ.get

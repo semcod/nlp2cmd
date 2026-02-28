@@ -1,0 +1,183 @@
+module: exploration.disk.DiskExplorer
+type: functions
+count: 12
+functions:
+  exploration.disk.DiskExplorer.__init__:
+    name: __init__
+    qualified_name: exploration.disk.DiskExplorer.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 33
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer.__init___entry
+    calls:
+    - None.__init__
+    - super
+  exploration.disk.DiskExplorer.explore:
+    name: explore
+    qualified_name: exploration.disk.DiskExplorer.explore
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 47
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer.explore_entry
+    calls:
+    - None.resolve
+    - executor.ExecutionContext.set
+    - scored.sort
+    - ExplorationResult
+    - root_path.exists
+    - self._walk
+    - None.expanduser
+    - candidates.append
+    - self._score_file
+    - len
+    - str
+    - Path
+  exploration.disk.DiskExplorer._walk:
+    name: _walk
+    qualified_name: exploration.disk.DiskExplorer._walk
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 108
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._walk_entry
+    calls:
+    - self._should_stop
+    - str
+    - self._visited.add
+    - len
+    - path.is_symlink
+    - path.stat
+    - FileInfo
+    - self._matches_context
+    - path.is_dir
+    - path.iterdir
+    - child.name.startswith
+    - self._walk
+  exploration.disk.DiskExplorer._matches_context:
+    name: _matches_context
+    qualified_name: exploration.disk.DiskExplorer._matches_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 153
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._matches_context_entry
+    calls:
+    - self._match_file_intent
+    - self._matches_search_term
+    - self._match_config_intent
+    - self._match_code_intent
+    - self._match_data_intent
+  exploration.disk.DiskExplorer._match_file_intent:
+    name: _match_file_intent
+    qualified_name: exploration.disk.DiskExplorer._match_file_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 171
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._match_file_intent_entry
+    calls:
+    - self._matches_search_term
+  exploration.disk.DiskExplorer._match_config_intent:
+    name: _match_config_intent
+    qualified_name: exploration.disk.DiskExplorer._match_config_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 178
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._match_config_intent_entry
+    calls:
+    - any
+    - fnmatch.fnmatch
+    - info.path.lower
+    - info.name.lower
+    - context.search_term.lower
+  exploration.disk.DiskExplorer._match_code_intent:
+    name: _match_code_intent
+    qualified_name: exploration.disk.DiskExplorer._match_code_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 196
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._match_code_intent_entry
+    calls:
+    - any
+    - info.name.endswith
+    - context.search_term.lower
+    - info.path.lower
+  exploration.disk.DiskExplorer._match_data_intent:
+    name: _match_data_intent
+    qualified_name: exploration.disk.DiskExplorer._match_data_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 211
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._match_data_intent_entry
+    calls:
+    - any
+    - fnmatch.fnmatch
+    - info.name.lower
+    - context.search_term.lower
+    - info.path.lower
+  exploration.disk.DiskExplorer._matches_search_term:
+    name: _matches_search_term
+    qualified_name: exploration.disk.DiskExplorer._matches_search_term
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 225
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._matches_search_term_entry
+    calls:
+    - search_term.lower
+    - info.name.lower
+    - info.path.lower
+    - fnmatch.fnmatch
+  exploration.disk.DiskExplorer._score_file:
+    name: _score_file
+    qualified_name: exploration.disk.DiskExplorer._score_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 246
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer._score_file_entry
+    calls:
+    - None._score_relevance
+    - context.search_term.lower
+    - info.name.lower
+    - super
+    - name_lower.startswith
+  exploration.disk.DiskExplorer.find_file:
+    name: find_file
+    qualified_name: exploration.disk.DiskExplorer.find_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 272
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer.find_file_entry
+    calls:
+    - ExplorationContext
+    - self.explore
+  exploration.disk.DiskExplorer.find_config:
+    name: find_config
+    qualified_name: exploration.disk.DiskExplorer.find_config
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/disk.py
+    line: 286
+    module: exploration.disk
+    class: DiskExplorer
+    is_method: true
+    cfg_entry: exploration.disk.DiskExplorer.find_config_entry
+    calls:
+    - ExplorationContext
+    - self.explore

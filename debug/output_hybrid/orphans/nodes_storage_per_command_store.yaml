@@ -1,0 +1,337 @@
+module: storage.per_command_store
+type: orphan_nodes
+count: 62
+nodes:
+  storage.per_command_store.test_per_command_store_entry:
+    id: storage.per_command_store.test_per_command_store_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.test_per_command_store
+  storage.per_command_store.test_per_command_store_exit:
+    id: storage.per_command_store.test_per_command_store_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.test_per_command_store
+  storage.per_command_store.test_per_command_store_loop_366:
+    id: storage.per_command_store.test_per_command_store_loop_366
+    type: FOR
+    label: for
+    function: storage.per_command_store.test_per_command_store
+    line: 366
+  storage.per_command_store.test_per_command_store_if_372:
+    id: storage.per_command_store.test_per_command_store_if_372
+    type: IF
+    label: if
+    function: storage.per_command_store.test_per_command_store
+    line: 372
+  storage.per_command_store.test_per_command_store_merge_372:
+    id: storage.per_command_store.test_per_command_store_merge_372
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.test_per_command_store
+  storage.per_command_store.test_per_command_store_if_388:
+    id: storage.per_command_store.test_per_command_store_if_388
+    type: IF
+    label: if
+    function: storage.per_command_store.test_per_command_store
+    line: 388
+  storage.per_command_store.test_per_command_store_merge_388:
+    id: storage.per_command_store.test_per_command_store_merge_388
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.test_per_command_store
+  storage.per_command_store.test_per_command_store_if_390:
+    id: storage.per_command_store.test_per_command_store_if_390
+    type: IF
+    label: if
+    function: storage.per_command_store.test_per_command_store
+    line: 390
+  storage.per_command_store.test_per_command_store_merge_390:
+    id: storage.per_command_store.test_per_command_store_merge_390
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.test_per_command_store
+  storage.per_command_store.__init___entry:
+    id: storage.per_command_store.__init___entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.__init__
+  storage.per_command_store.__init___exit:
+    id: storage.per_command_store.__init___exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.__init__
+  storage.per_command_store._load_index_entry:
+    id: storage.per_command_store._load_index_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store._load_index
+  storage.per_command_store._load_index_exit:
+    id: storage.per_command_store._load_index_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store._load_index
+  storage.per_command_store._load_index_if_39:
+    id: storage.per_command_store._load_index_if_39
+    type: IF
+    label: if
+    function: storage.per_command_store._load_index
+    line: 39
+  storage.per_command_store._load_index_merge_39:
+    id: storage.per_command_store._load_index_merge_39
+    type: FUNC
+    label: merge
+    function: storage.per_command_store._load_index
+  storage.per_command_store._load_index_return_46:
+    id: storage.per_command_store._load_index_return_46
+    type: RETURN
+    label: return
+    function: storage.per_command_store._load_index
+    line: 46
+  storage.per_command_store._save_index_entry:
+    id: storage.per_command_store._save_index_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store._save_index
+  storage.per_command_store._save_index_exit:
+    id: storage.per_command_store._save_index_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store._save_index
+  storage.per_command_store._get_command_path_entry:
+    id: storage.per_command_store._get_command_path_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store._get_command_path
+  storage.per_command_store._get_command_path_exit:
+    id: storage.per_command_store._get_command_path_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store._get_command_path
+  storage.per_command_store._get_command_path_return_71:
+    id: storage.per_command_store._get_command_path_return_71
+    type: RETURN
+    label: return
+    function: storage.per_command_store._get_command_path
+    line: 71
+  storage.per_command_store._get_category_path_entry:
+    id: storage.per_command_store._get_category_path_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store._get_category_path
+  storage.per_command_store._get_category_path_exit:
+    id: storage.per_command_store._get_category_path_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store._get_category_path
+  storage.per_command_store._get_category_path_return_75:
+    id: storage.per_command_store._get_category_path_return_75
+    type: RETURN
+    label: return
+    function: storage.per_command_store._get_category_path
+    line: 75
+  storage.per_command_store.store_schema_entry:
+    id: storage.per_command_store.store_schema_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.store_schema
+  storage.per_command_store.store_schema_exit:
+    id: storage.per_command_store.store_schema_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.store_schema
+  storage.per_command_store.load_schema_entry:
+    id: storage.per_command_store.load_schema_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.load_schema
+  storage.per_command_store.load_schema_exit:
+    id: storage.per_command_store.load_schema_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.load_schema
+  storage.per_command_store.load_schema_if_167:
+    id: storage.per_command_store.load_schema_if_167
+    type: IF
+    label: if
+    function: storage.per_command_store.load_schema
+    line: 167
+  storage.per_command_store.load_schema_return_168:
+    id: storage.per_command_store.load_schema_return_168
+    type: RETURN
+    label: return
+    function: storage.per_command_store.load_schema
+    line: 168
+  storage.per_command_store.load_schema_merge_167:
+    id: storage.per_command_store.load_schema_merge_167
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.load_schema
+  storage.per_command_store.list_commands_entry:
+    id: storage.per_command_store.list_commands_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.list_commands
+  storage.per_command_store.list_commands_exit:
+    id: storage.per_command_store.list_commands_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.list_commands
+  storage.per_command_store.list_commands_if_209:
+    id: storage.per_command_store.list_commands_if_209
+    type: IF
+    label: if
+    function: storage.per_command_store.list_commands
+    line: 209
+  storage.per_command_store.list_commands_return_210:
+    id: storage.per_command_store.list_commands_return_210
+    type: RETURN
+    label: return
+    function: storage.per_command_store.list_commands
+    line: 210
+  storage.per_command_store.list_commands_merge_209:
+    id: storage.per_command_store.list_commands_merge_209
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.list_commands
+  storage.per_command_store.list_commands_return_211:
+    id: storage.per_command_store.list_commands_return_211
+    type: RETURN
+    label: return
+    function: storage.per_command_store.list_commands
+    line: 211
+  storage.per_command_store.list_categories_entry:
+    id: storage.per_command_store.list_categories_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.list_categories
+  storage.per_command_store.list_categories_exit:
+    id: storage.per_command_store.list_categories_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.list_categories
+  storage.per_command_store.list_categories_return_215:
+    id: storage.per_command_store.list_categories_return_215
+    type: RETURN
+    label: return
+    function: storage.per_command_store.list_categories
+    line: 215
+  storage.per_command_store.get_stats_entry:
+    id: storage.per_command_store.get_stats_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.get_stats
+  storage.per_command_store.get_stats_exit:
+    id: storage.per_command_store.get_stats_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.get_stats
+  storage.per_command_store.get_stats_loop_225:
+    id: storage.per_command_store.get_stats_loop_225
+    type: FOR
+    label: for
+    function: storage.per_command_store.get_stats
+    line: 225
+  storage.per_command_store.get_stats_return_232:
+    id: storage.per_command_store.get_stats_return_232
+    type: RETURN
+    label: return
+    function: storage.per_command_store.get_stats
+    line: 232
+  storage.per_command_store.delete_schema_entry:
+    id: storage.per_command_store.delete_schema_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_exit:
+    id: storage.per_command_store.delete_schema_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_if_245:
+    id: storage.per_command_store.delete_schema_if_245
+    type: IF
+    label: if
+    function: storage.per_command_store.delete_schema
+    line: 245
+  storage.per_command_store.delete_schema_if_249:
+    id: storage.per_command_store.delete_schema_if_249
+    type: IF
+    label: if
+    function: storage.per_command_store.delete_schema
+    line: 249
+  storage.per_command_store.delete_schema_if_254:
+    id: storage.per_command_store.delete_schema_if_254
+    type: IF
+    label: if
+    function: storage.per_command_store.delete_schema
+    line: 254
+  storage.per_command_store.delete_schema_if_255:
+    id: storage.per_command_store.delete_schema_if_255
+    type: IF
+    label: if
+    function: storage.per_command_store.delete_schema
+    line: 255
+  storage.per_command_store.delete_schema_merge_255:
+    id: storage.per_command_store.delete_schema_merge_255
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_if_259:
+    id: storage.per_command_store.delete_schema_if_259
+    type: IF
+    label: if
+    function: storage.per_command_store.delete_schema
+    line: 259
+  storage.per_command_store.delete_schema_merge_259:
+    id: storage.per_command_store.delete_schema_merge_259
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_merge_254:
+    id: storage.per_command_store.delete_schema_merge_254
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_merge_249:
+    id: storage.per_command_store.delete_schema_merge_249
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_return_263:
+    id: storage.per_command_store.delete_schema_return_263
+    type: RETURN
+    label: return
+    function: storage.per_command_store.delete_schema
+    line: 263
+  storage.per_command_store.delete_schema_merge_245:
+    id: storage.per_command_store.delete_schema_merge_245
+    type: FUNC
+    label: merge
+    function: storage.per_command_store.delete_schema
+  storage.per_command_store.delete_schema_return_265:
+    id: storage.per_command_store.delete_schema_return_265
+    type: RETURN
+    label: return
+    function: storage.per_command_store.delete_schema
+    line: 265
+  storage.per_command_store.backup_entry:
+    id: storage.per_command_store.backup_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.backup
+  storage.per_command_store.backup_exit:
+    id: storage.per_command_store.backup_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.backup
+  storage.per_command_store.restore_entry:
+    id: storage.per_command_store.restore_entry
+    type: ENTRY
+    label: entry
+    function: storage.per_command_store.restore
+  storage.per_command_store.restore_exit:
+    id: storage.per_command_store.restore_exit
+    type: EXIT
+    label: exit
+    function: storage.per_command_store.restore

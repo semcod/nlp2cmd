@@ -1,0 +1,455 @@
+module: utils.external_cache
+type: orphan_nodes
+count: 83
+nodes:
+  utils.external_cache.main_entry:
+    id: utils.external_cache.main_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.main
+  utils.external_cache.main_exit:
+    id: utils.external_cache.main_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.main
+  utils.external_cache.main_if_271:
+    id: utils.external_cache.main_if_271
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 271
+  utils.external_cache.main_if_272:
+    id: utils.external_cache.main_if_272
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 272
+  utils.external_cache.main_merge_272:
+    id: utils.external_cache.main_merge_272
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_if_278:
+    id: utils.external_cache.main_if_278
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 278
+  utils.external_cache.main_if_279:
+    id: utils.external_cache.main_if_279
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 279
+  utils.external_cache.main_if_280:
+    id: utils.external_cache.main_if_280
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 280
+  utils.external_cache.main_merge_280:
+    id: utils.external_cache.main_merge_280
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_merge_279:
+    id: utils.external_cache.main_merge_279
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_if_289:
+    id: utils.external_cache.main_if_289
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 289
+  utils.external_cache.main_loop_294:
+    id: utils.external_cache.main_loop_294
+    type: FOR
+    label: for
+    function: utils.external_cache.main
+    line: 294
+  utils.external_cache.main_if_299:
+    id: utils.external_cache.main_if_299
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 299
+  utils.external_cache.main_if_300:
+    id: utils.external_cache.main_if_300
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 300
+  utils.external_cache.main_merge_300:
+    id: utils.external_cache.main_merge_300
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_if_307:
+    id: utils.external_cache.main_if_307
+    type: IF
+    label: if
+    function: utils.external_cache.main
+    line: 307
+  utils.external_cache.main_merge_307:
+    id: utils.external_cache.main_merge_307
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_merge_299:
+    id: utils.external_cache.main_merge_299
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_merge_289:
+    id: utils.external_cache.main_merge_289
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_merge_278:
+    id: utils.external_cache.main_merge_278
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.main_merge_271:
+    id: utils.external_cache.main_merge_271
+    type: FUNC
+    label: merge
+    function: utils.external_cache.main
+  utils.external_cache.__init___entry:
+    id: utils.external_cache.__init___entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.__init__
+  utils.external_cache.__init___exit:
+    id: utils.external_cache.__init___exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.__init__
+  utils.external_cache.__init___if_21:
+    id: utils.external_cache.__init___if_21
+    type: IF
+    label: if
+    function: utils.external_cache.__init__
+    line: 21
+  utils.external_cache.__init___merge_21:
+    id: utils.external_cache.__init___merge_21
+    type: FUNC
+    label: merge
+    function: utils.external_cache.__init__
+  utils.external_cache._load_manifest_entry:
+    id: utils.external_cache._load_manifest_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache._load_manifest
+  utils.external_cache._load_manifest_exit:
+    id: utils.external_cache._load_manifest_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache._load_manifest
+  utils.external_cache._load_manifest_if_39:
+    id: utils.external_cache._load_manifest_if_39
+    type: IF
+    label: if
+    function: utils.external_cache._load_manifest
+    line: 39
+  utils.external_cache._load_manifest_merge_39:
+    id: utils.external_cache._load_manifest_merge_39
+    type: FUNC
+    label: merge
+    function: utils.external_cache._load_manifest
+  utils.external_cache._load_manifest_return_45:
+    id: utils.external_cache._load_manifest_return_45
+    type: RETURN
+    label: return
+    function: utils.external_cache._load_manifest
+    line: 45
+  utils.external_cache._save_manifest_entry:
+    id: utils.external_cache._save_manifest_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache._save_manifest
+  utils.external_cache._save_manifest_exit:
+    id: utils.external_cache._save_manifest_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache._save_manifest
+  utils.external_cache._get_package_hash_entry:
+    id: utils.external_cache._get_package_hash_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache._get_package_hash
+  utils.external_cache._get_package_hash_exit:
+    id: utils.external_cache._get_package_hash_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache._get_package_hash
+  utils.external_cache._get_package_hash_if_60:
+    id: utils.external_cache._get_package_hash_if_60
+    type: IF
+    label: if
+    function: utils.external_cache._get_package_hash
+    line: 60
+  utils.external_cache._get_package_hash_merge_60:
+    id: utils.external_cache._get_package_hash_merge_60
+    type: FUNC
+    label: merge
+    function: utils.external_cache._get_package_hash
+  utils.external_cache._get_package_hash_return_73:
+    id: utils.external_cache._get_package_hash_return_73
+    type: RETURN
+    label: return
+    function: utils.external_cache._get_package_hash
+    line: 73
+  utils.external_cache.setup_playwright_cache_entry:
+    id: utils.external_cache.setup_playwright_cache_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.setup_playwright_cache
+  utils.external_cache.setup_playwright_cache_exit:
+    id: utils.external_cache.setup_playwright_cache_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.setup_playwright_cache
+  utils.external_cache.is_playwright_cached_entry:
+    id: utils.external_cache.is_playwright_cached_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.is_playwright_cached
+  utils.external_cache.is_playwright_cached_exit:
+    id: utils.external_cache.is_playwright_cached_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.is_playwright_cached
+  utils.external_cache.is_playwright_cached_if_106:
+    id: utils.external_cache.is_playwright_cached_if_106
+    type: IF
+    label: if
+    function: utils.external_cache.is_playwright_cached
+    line: 106
+  utils.external_cache.is_playwright_cached_return_107:
+    id: utils.external_cache.is_playwright_cached_return_107
+    type: RETURN
+    label: return
+    function: utils.external_cache.is_playwright_cached
+    line: 107
+  utils.external_cache.is_playwright_cached_merge_106:
+    id: utils.external_cache.is_playwright_cached_merge_106
+    type: FUNC
+    label: merge
+    function: utils.external_cache.is_playwright_cached
+  utils.external_cache.is_playwright_cached_if_110:
+    id: utils.external_cache.is_playwright_cached_if_110
+    type: IF
+    label: if
+    function: utils.external_cache.is_playwright_cached
+    line: 110
+  utils.external_cache.is_playwright_cached_return_111:
+    id: utils.external_cache.is_playwright_cached_return_111
+    type: RETURN
+    label: return
+    function: utils.external_cache.is_playwright_cached
+    line: 111
+  utils.external_cache.is_playwright_cached_merge_110:
+    id: utils.external_cache.is_playwright_cached_merge_110
+    type: FUNC
+    label: merge
+    function: utils.external_cache.is_playwright_cached
+  utils.external_cache.is_playwright_cached_loop_115:
+    id: utils.external_cache.is_playwright_cached_loop_115
+    type: FOR
+    label: for
+    function: utils.external_cache.is_playwright_cached
+    line: 115
+  utils.external_cache.is_playwright_cached_if_116:
+    id: utils.external_cache.is_playwright_cached_if_116
+    type: IF
+    label: if
+    function: utils.external_cache.is_playwright_cached
+    line: 116
+  utils.external_cache.is_playwright_cached_loop_117:
+    id: utils.external_cache.is_playwright_cached_loop_117
+    type: FOR
+    label: for
+    function: utils.external_cache.is_playwright_cached
+    line: 117
+  utils.external_cache.is_playwright_cached_merge_116:
+    id: utils.external_cache.is_playwright_cached_merge_116
+    type: FUNC
+    label: merge
+    function: utils.external_cache.is_playwright_cached
+  utils.external_cache.is_playwright_cached_return_121:
+    id: utils.external_cache.is_playwright_cached_return_121
+    type: RETURN
+    label: return
+    function: utils.external_cache.is_playwright_cached
+    line: 121
+  utils.external_cache.install_playwright_if_needed_entry:
+    id: utils.external_cache.install_playwright_if_needed_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.install_playwright_if_needed
+  utils.external_cache.install_playwright_if_needed_exit:
+    id: utils.external_cache.install_playwright_if_needed_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.install_playwright_if_needed
+  utils.external_cache.install_playwright_if_needed_if_125:
+    id: utils.external_cache.install_playwright_if_needed_if_125
+    type: IF
+    label: if
+    function: utils.external_cache.install_playwright_if_needed
+    line: 125
+  utils.external_cache.install_playwright_if_needed_return_128:
+    id: utils.external_cache.install_playwright_if_needed_return_128
+    type: RETURN
+    label: return
+    function: utils.external_cache.install_playwright_if_needed
+    line: 128
+  utils.external_cache.install_playwright_if_needed_merge_125:
+    id: utils.external_cache.install_playwright_if_needed_merge_125
+    type: FUNC
+    label: merge
+    function: utils.external_cache.install_playwright_if_needed
+  utils.external_cache.install_playwright_if_needed_if_133:
+    id: utils.external_cache.install_playwright_if_needed_if_133
+    type: IF
+    label: if
+    function: utils.external_cache.install_playwright_if_needed
+    line: 133
+  utils.external_cache.install_playwright_if_needed_return_134:
+    id: utils.external_cache.install_playwright_if_needed_return_134
+    type: RETURN
+    label: return
+    function: utils.external_cache.install_playwright_if_needed
+    line: 134
+  utils.external_cache.install_playwright_if_needed_merge_133:
+    id: utils.external_cache.install_playwright_if_needed_merge_133
+    type: FUNC
+    label: merge
+    function: utils.external_cache.install_playwright_if_needed
+  utils.external_cache._get_installed_browsers_entry:
+    id: utils.external_cache._get_installed_browsers_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache._get_installed_browsers
+  utils.external_cache._get_installed_browsers_exit:
+    id: utils.external_cache._get_installed_browsers_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache._get_installed_browsers
+  utils.external_cache._get_installed_browsers_if_168:
+    id: utils.external_cache._get_installed_browsers_if_168
+    type: IF
+    label: if
+    function: utils.external_cache._get_installed_browsers
+    line: 168
+  utils.external_cache._get_installed_browsers_loop_169:
+    id: utils.external_cache._get_installed_browsers_loop_169
+    type: FOR
+    label: for
+    function: utils.external_cache._get_installed_browsers
+    line: 169
+  utils.external_cache._get_installed_browsers_if_170:
+    id: utils.external_cache._get_installed_browsers_if_170
+    type: IF
+    label: if
+    function: utils.external_cache._get_installed_browsers
+    line: 170
+  utils.external_cache._get_installed_browsers_merge_170:
+    id: utils.external_cache._get_installed_browsers_merge_170
+    type: FUNC
+    label: merge
+    function: utils.external_cache._get_installed_browsers
+  utils.external_cache._get_installed_browsers_merge_168:
+    id: utils.external_cache._get_installed_browsers_merge_168
+    type: FUNC
+    label: merge
+    function: utils.external_cache._get_installed_browsers
+  utils.external_cache._get_installed_browsers_return_172:
+    id: utils.external_cache._get_installed_browsers_return_172
+    type: RETURN
+    label: return
+    function: utils.external_cache._get_installed_browsers
+    line: 172
+  utils.external_cache.get_cache_info_entry:
+    id: utils.external_cache.get_cache_info_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.get_cache_info
+  utils.external_cache.get_cache_info_exit:
+    id: utils.external_cache.get_cache_info_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.get_cache_info
+  utils.external_cache.get_cache_info_if_183:
+    id: utils.external_cache.get_cache_info_if_183
+    type: IF
+    label: if
+    function: utils.external_cache.get_cache_info
+    line: 183
+  utils.external_cache.get_cache_info_merge_183:
+    id: utils.external_cache.get_cache_info_merge_183
+    type: FUNC
+    label: merge
+    function: utils.external_cache.get_cache_info
+  utils.external_cache.get_cache_info_return_189:
+    id: utils.external_cache.get_cache_info_return_189
+    type: RETURN
+    label: return
+    function: utils.external_cache.get_cache_info
+    line: 189
+  utils.external_cache._get_cache_size_entry:
+    id: utils.external_cache._get_cache_size_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache._get_cache_size
+  utils.external_cache._get_cache_size_exit:
+    id: utils.external_cache._get_cache_size_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache._get_cache_size
+  utils.external_cache._get_cache_size_return_200:
+    id: utils.external_cache._get_cache_size_return_200
+    type: RETURN
+    label: return
+    function: utils.external_cache._get_cache_size
+    line: 200
+  utils.external_cache.clear_cache_entry:
+    id: utils.external_cache.clear_cache_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.clear_cache
+  utils.external_cache.clear_cache_exit:
+    id: utils.external_cache.clear_cache_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.clear_cache
+  utils.external_cache.setup_environment_entry:
+    id: utils.external_cache.setup_environment_entry
+    type: ENTRY
+    label: entry
+    function: utils.external_cache.setup_environment
+  utils.external_cache.setup_environment_exit:
+    id: utils.external_cache.setup_environment_exit
+    type: EXIT
+    label: exit
+    function: utils.external_cache.setup_environment
+  utils.external_cache.setup_environment_if_235:
+    id: utils.external_cache.setup_environment_if_235
+    type: IF
+    label: if
+    function: utils.external_cache.setup_environment
+    line: 235
+  utils.external_cache.setup_environment_merge_235:
+    id: utils.external_cache.setup_environment_merge_235
+    type: FUNC
+    label: merge
+    function: utils.external_cache.setup_environment
+  utils.external_cache.setup_environment_return_238:
+    id: utils.external_cache.setup_environment_return_238
+    type: RETURN
+    label: return
+    function: utils.external_cache.setup_environment
+    line: 238

@@ -1,0 +1,597 @@
+module: core.toon_integration.ToonDataManager
+type: orphan_nodes
+count: 110
+nodes:
+  core.toon_integration.ToonDataManager.__init___entry:
+    id: core.toon_integration.ToonDataManager.__init___entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.__init__
+  core.toon_integration.ToonDataManager.__init___exit:
+    id: core.toon_integration.ToonDataManager.__init___exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.__init__
+  core.toon_integration.ToonDataManager._ensure_loaded_entry:
+    id: core.toon_integration.ToonDataManager._ensure_loaded_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager._ensure_loaded
+  core.toon_integration.ToonDataManager._ensure_loaded_exit:
+    id: core.toon_integration.ToonDataManager._ensure_loaded_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager._ensure_loaded
+  core.toon_integration.ToonDataManager._ensure_loaded_if_24:
+    id: core.toon_integration.ToonDataManager._ensure_loaded_if_24
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager._ensure_loaded
+    line: 24
+  core.toon_integration.ToonDataManager._ensure_loaded_if_26:
+    id: core.toon_integration.ToonDataManager._ensure_loaded_if_26
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager._ensure_loaded
+    line: 26
+  core.toon_integration.ToonDataManager._ensure_loaded_merge_26:
+    id: core.toon_integration.ToonDataManager._ensure_loaded_merge_26
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager._ensure_loaded
+  core.toon_integration.ToonDataManager._ensure_loaded_merge_24:
+    id: core.toon_integration.ToonDataManager._ensure_loaded_merge_24
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager._ensure_loaded
+  core.toon_integration.ToonDataManager.get_all_commands_entry:
+    id: core.toon_integration.ToonDataManager.get_all_commands_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_all_commands
+  core.toon_integration.ToonDataManager.get_all_commands_exit:
+    id: core.toon_integration.ToonDataManager.get_all_commands_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_all_commands
+  core.toon_integration.ToonDataManager.get_all_commands_return_34:
+    id: core.toon_integration.ToonDataManager.get_all_commands_return_34
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_all_commands
+    line: 34
+  core.toon_integration.ToonDataManager.get_shell_commands_entry:
+    id: core.toon_integration.ToonDataManager.get_shell_commands_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_shell_commands
+  core.toon_integration.ToonDataManager.get_shell_commands_exit:
+    id: core.toon_integration.ToonDataManager.get_shell_commands_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_shell_commands
+  core.toon_integration.ToonDataManager.get_shell_commands_return_38:
+    id: core.toon_integration.ToonDataManager.get_shell_commands_return_38
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_shell_commands
+    line: 38
+  core.toon_integration.ToonDataManager.get_browser_commands_entry:
+    id: core.toon_integration.ToonDataManager.get_browser_commands_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_browser_commands
+  core.toon_integration.ToonDataManager.get_browser_commands_exit:
+    id: core.toon_integration.ToonDataManager.get_browser_commands_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_browser_commands
+  core.toon_integration.ToonDataManager.get_browser_commands_return_42:
+    id: core.toon_integration.ToonDataManager.get_browser_commands_return_42
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_browser_commands
+    line: 42
+  core.toon_integration.ToonDataManager.get_command_by_name_entry:
+    id: core.toon_integration.ToonDataManager.get_command_by_name_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_by_name
+  core.toon_integration.ToonDataManager.get_command_by_name_exit:
+    id: core.toon_integration.ToonDataManager.get_command_by_name_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_by_name
+  core.toon_integration.ToonDataManager.get_command_by_name_return_58:
+    id: core.toon_integration.ToonDataManager.get_command_by_name_return_58
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_by_name
+    line: 58
+  core.toon_integration.ToonDataManager.search_commands_entry:
+    id: core.toon_integration.ToonDataManager.search_commands_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.search_commands
+  core.toon_integration.ToonDataManager.search_commands_exit:
+    id: core.toon_integration.ToonDataManager.search_commands_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.search_commands
+  core.toon_integration.ToonDataManager.search_commands_return_62:
+    id: core.toon_integration.ToonDataManager.search_commands_return_62
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.search_commands
+    line: 62
+  core.toon_integration.ToonDataManager.get_config_entry:
+    id: core.toon_integration.ToonDataManager.get_config_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_config
+  core.toon_integration.ToonDataManager.get_config_exit:
+    id: core.toon_integration.ToonDataManager.get_config_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_config
+  core.toon_integration.ToonDataManager.get_config_return_67:
+    id: core.toon_integration.ToonDataManager.get_config_return_67
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_config
+    line: 67
+  core.toon_integration.ToonDataManager.get_llm_config_entry:
+    id: core.toon_integration.ToonDataManager.get_llm_config_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_llm_config
+  core.toon_integration.ToonDataManager.get_llm_config_exit:
+    id: core.toon_integration.ToonDataManager.get_llm_config_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_llm_config
+  core.toon_integration.ToonDataManager.get_llm_config_return_71:
+    id: core.toon_integration.ToonDataManager.get_llm_config_return_71
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_llm_config
+    line: 71
+  core.toon_integration.ToonDataManager.get_test_commands_entry:
+    id: core.toon_integration.ToonDataManager.get_test_commands_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_test_commands
+  core.toon_integration.ToonDataManager.get_test_commands_exit:
+    id: core.toon_integration.ToonDataManager.get_test_commands_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_test_commands
+  core.toon_integration.ToonDataManager.get_test_commands_return_76:
+    id: core.toon_integration.ToonDataManager.get_test_commands_return_76
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_test_commands
+    line: 76
+  core.toon_integration.ToonDataManager.get_command_schema_entry:
+    id: core.toon_integration.ToonDataManager.get_command_schema_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_schema
+  core.toon_integration.ToonDataManager.get_command_schema_exit:
+    id: core.toon_integration.ToonDataManager.get_command_schema_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_schema
+  core.toon_integration.ToonDataManager.get_command_schema_return_81:
+    id: core.toon_integration.ToonDataManager.get_command_schema_return_81
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_schema
+    line: 81
+  core.toon_integration.ToonDataManager.get_browser_schema_entry:
+    id: core.toon_integration.ToonDataManager.get_browser_schema_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_browser_schema
+  core.toon_integration.ToonDataManager.get_browser_schema_exit:
+    id: core.toon_integration.ToonDataManager.get_browser_schema_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_browser_schema
+  core.toon_integration.ToonDataManager.get_browser_schema_return_85:
+    id: core.toon_integration.ToonDataManager.get_browser_schema_return_85
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_browser_schema
+    line: 85
+  core.toon_integration.ToonDataManager.validate_command_data_entry:
+    id: core.toon_integration.ToonDataManager.validate_command_data_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.validate_command_data
+  core.toon_integration.ToonDataManager.validate_command_data_exit:
+    id: core.toon_integration.ToonDataManager.validate_command_data_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.validate_command_data
+  core.toon_integration.ToonDataManager.validate_command_data_return_89:
+    id: core.toon_integration.ToonDataManager.validate_command_data_return_89
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.validate_command_data
+    line: 89
+  core.toon_integration.ToonDataManager.get_command_templates_entry:
+    id: core.toon_integration.ToonDataManager.get_command_templates_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_templates
+  core.toon_integration.ToonDataManager.get_command_templates_exit:
+    id: core.toon_integration.ToonDataManager.get_command_templates_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_templates
+  core.toon_integration.ToonDataManager.get_command_templates_return_94:
+    id: core.toon_integration.ToonDataManager.get_command_templates_return_94
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_templates
+    line: 94
+  core.toon_integration.ToonDataManager.get_browser_templates_entry:
+    id: core.toon_integration.ToonDataManager.get_browser_templates_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_browser_templates
+  core.toon_integration.ToonDataManager.get_browser_templates_exit:
+    id: core.toon_integration.ToonDataManager.get_browser_templates_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_browser_templates
+  core.toon_integration.ToonDataManager.get_browser_templates_return_98:
+    id: core.toon_integration.ToonDataManager.get_browser_templates_return_98
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_browser_templates
+    line: 98
+  core.toon_integration.ToonDataManager.get_error_templates_entry:
+    id: core.toon_integration.ToonDataManager.get_error_templates_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_error_templates
+  core.toon_integration.ToonDataManager.get_error_templates_exit:
+    id: core.toon_integration.ToonDataManager.get_error_templates_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_error_templates
+  core.toon_integration.ToonDataManager.get_error_templates_return_102:
+    id: core.toon_integration.ToonDataManager.get_error_templates_return_102
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_error_templates
+    line: 102
+  core.toon_integration.ToonDataManager.get_category_mappings_entry:
+    id: core.toon_integration.ToonDataManager.get_category_mappings_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_category_mappings
+  core.toon_integration.ToonDataManager.get_category_mappings_exit:
+    id: core.toon_integration.ToonDataManager.get_category_mappings_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_category_mappings
+  core.toon_integration.ToonDataManager.get_category_mappings_return_107:
+    id: core.toon_integration.ToonDataManager.get_category_mappings_return_107
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_category_mappings
+    line: 107
+  core.toon_integration.ToonDataManager.get_language_patterns_entry:
+    id: core.toon_integration.ToonDataManager.get_language_patterns_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_language_patterns
+  core.toon_integration.ToonDataManager.get_language_patterns_exit:
+    id: core.toon_integration.ToonDataManager.get_language_patterns_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_language_patterns
+  core.toon_integration.ToonDataManager.get_language_patterns_if_112:
+    id: core.toon_integration.ToonDataManager.get_language_patterns_if_112
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.get_language_patterns
+    line: 112
+  core.toon_integration.ToonDataManager.get_language_patterns_return_113:
+    id: core.toon_integration.ToonDataManager.get_language_patterns_return_113
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_language_patterns
+    line: 113
+  core.toon_integration.ToonDataManager.get_language_patterns_merge_112:
+    id: core.toon_integration.ToonDataManager.get_language_patterns_merge_112
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.get_language_patterns
+  core.toon_integration.ToonDataManager.get_language_patterns_return_114:
+    id: core.toon_integration.ToonDataManager.get_language_patterns_return_114
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_language_patterns
+    line: 114
+  core.toon_integration.ToonDataManager.get_command_aliases_entry:
+    id: core.toon_integration.ToonDataManager.get_command_aliases_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_aliases
+  core.toon_integration.ToonDataManager.get_command_aliases_exit:
+    id: core.toon_integration.ToonDataManager.get_command_aliases_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_aliases
+  core.toon_integration.ToonDataManager.get_command_aliases_return_118:
+    id: core.toon_integration.ToonDataManager.get_command_aliases_return_118
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_aliases
+    line: 118
+  core.toon_integration.ToonDataManager.get_project_metadata_entry:
+    id: core.toon_integration.ToonDataManager.get_project_metadata_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_project_metadata
+  core.toon_integration.ToonDataManager.get_project_metadata_exit:
+    id: core.toon_integration.ToonDataManager.get_project_metadata_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_project_metadata
+  core.toon_integration.ToonDataManager.get_project_metadata_return_123:
+    id: core.toon_integration.ToonDataManager.get_project_metadata_return_123
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_project_metadata
+    line: 123
+  core.toon_integration.ToonDataManager.get_project_version_entry:
+    id: core.toon_integration.ToonDataManager.get_project_version_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_project_version
+  core.toon_integration.ToonDataManager.get_project_version_exit:
+    id: core.toon_integration.ToonDataManager.get_project_version_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_project_version
+  core.toon_integration.ToonDataManager.get_project_version_return_127:
+    id: core.toon_integration.ToonDataManager.get_project_version_return_127
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_project_version
+    line: 127
+  core.toon_integration.ToonDataManager.get_statistics_entry:
+    id: core.toon_integration.ToonDataManager.get_statistics_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_statistics
+  core.toon_integration.ToonDataManager.get_statistics_exit:
+    id: core.toon_integration.ToonDataManager.get_statistics_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_statistics
+  core.toon_integration.ToonDataManager.get_statistics_return_131:
+    id: core.toon_integration.ToonDataManager.get_statistics_return_131
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_statistics
+    line: 131
+  core.toon_integration.ToonDataManager.reload_data_entry:
+    id: core.toon_integration.ToonDataManager.reload_data_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.reload_data
+  core.toon_integration.ToonDataManager.reload_data_exit:
+    id: core.toon_integration.ToonDataManager.reload_data_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.reload_data
+  core.toon_integration.ToonDataManager.export_category_entry:
+    id: core.toon_integration.ToonDataManager.export_category_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_exit:
+    id: core.toon_integration.ToonDataManager.export_category_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_if_148:
+    id: core.toon_integration.ToonDataManager.export_category_if_148
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 148
+  core.toon_integration.ToonDataManager.export_category_if_150:
+    id: core.toon_integration.ToonDataManager.export_category_if_150
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 150
+  core.toon_integration.ToonDataManager.export_category_if_152:
+    id: core.toon_integration.ToonDataManager.export_category_if_152
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 152
+  core.toon_integration.ToonDataManager.export_category_if_154:
+    id: core.toon_integration.ToonDataManager.export_category_if_154
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 154
+  core.toon_integration.ToonDataManager.export_category_if_156:
+    id: core.toon_integration.ToonDataManager.export_category_if_156
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 156
+  core.toon_integration.ToonDataManager.export_category_merge_156:
+    id: core.toon_integration.ToonDataManager.export_category_merge_156
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_merge_154:
+    id: core.toon_integration.ToonDataManager.export_category_merge_154
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_merge_152:
+    id: core.toon_integration.ToonDataManager.export_category_merge_152
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_merge_150:
+    id: core.toon_integration.ToonDataManager.export_category_merge_150
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_merge_148:
+    id: core.toon_integration.ToonDataManager.export_category_merge_148
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_if_161:
+    id: core.toon_integration.ToonDataManager.export_category_if_161
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 161
+  core.toon_integration.ToonDataManager.export_category_return_163:
+    id: core.toon_integration.ToonDataManager.export_category_return_163
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 163
+  core.toon_integration.ToonDataManager.export_category_if_164:
+    id: core.toon_integration.ToonDataManager.export_category_if_164
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 164
+  core.toon_integration.ToonDataManager.export_category_return_166:
+    id: core.toon_integration.ToonDataManager.export_category_return_166
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 166
+  core.toon_integration.ToonDataManager.export_category_return_168:
+    id: core.toon_integration.ToonDataManager.export_category_return_168
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.export_category
+    line: 168
+  core.toon_integration.ToonDataManager.export_category_merge_164:
+    id: core.toon_integration.ToonDataManager.export_category_merge_164
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.export_category_merge_161:
+    id: core.toon_integration.ToonDataManager.export_category_merge_161
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.export_category
+  core.toon_integration.ToonDataManager.get_command_examples_entry:
+    id: core.toon_integration.ToonDataManager.get_command_examples_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_examples
+  core.toon_integration.ToonDataManager.get_command_examples_exit:
+    id: core.toon_integration.ToonDataManager.get_command_examples_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_examples
+  core.toon_integration.ToonDataManager.get_command_examples_if_173:
+    id: core.toon_integration.ToonDataManager.get_command_examples_if_173
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.get_command_examples
+    line: 173
+  core.toon_integration.ToonDataManager.get_command_examples_return_174:
+    id: core.toon_integration.ToonDataManager.get_command_examples_return_174
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_examples
+    line: 174
+  core.toon_integration.ToonDataManager.get_command_examples_merge_173:
+    id: core.toon_integration.ToonDataManager.get_command_examples_merge_173
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.get_command_examples
+  core.toon_integration.ToonDataManager.get_command_examples_return_175:
+    id: core.toon_integration.ToonDataManager.get_command_examples_return_175
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_examples
+    line: 175
+  core.toon_integration.ToonDataManager.get_command_patterns_entry:
+    id: core.toon_integration.ToonDataManager.get_command_patterns_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_patterns
+  core.toon_integration.ToonDataManager.get_command_patterns_exit:
+    id: core.toon_integration.ToonDataManager.get_command_patterns_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_patterns
+  core.toon_integration.ToonDataManager.get_command_patterns_if_180:
+    id: core.toon_integration.ToonDataManager.get_command_patterns_if_180
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.get_command_patterns
+    line: 180
+  core.toon_integration.ToonDataManager.get_command_patterns_return_181:
+    id: core.toon_integration.ToonDataManager.get_command_patterns_return_181
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_patterns
+    line: 181
+  core.toon_integration.ToonDataManager.get_command_patterns_merge_180:
+    id: core.toon_integration.ToonDataManager.get_command_patterns_merge_180
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.get_command_patterns
+  core.toon_integration.ToonDataManager.get_command_patterns_return_182:
+    id: core.toon_integration.ToonDataManager.get_command_patterns_return_182
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_patterns
+    line: 182
+  core.toon_integration.ToonDataManager.get_command_template_entry:
+    id: core.toon_integration.ToonDataManager.get_command_template_entry
+    type: ENTRY
+    label: entry
+    function: core.toon_integration.ToonDataManager.get_command_template
+  core.toon_integration.ToonDataManager.get_command_template_exit:
+    id: core.toon_integration.ToonDataManager.get_command_template_exit
+    type: EXIT
+    label: exit
+    function: core.toon_integration.ToonDataManager.get_command_template
+  core.toon_integration.ToonDataManager.get_command_template_if_187:
+    id: core.toon_integration.ToonDataManager.get_command_template_if_187
+    type: IF
+    label: if
+    function: core.toon_integration.ToonDataManager.get_command_template
+    line: 187
+  core.toon_integration.ToonDataManager.get_command_template_return_188:
+    id: core.toon_integration.ToonDataManager.get_command_template_return_188
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_template
+    line: 188
+  core.toon_integration.ToonDataManager.get_command_template_merge_187:
+    id: core.toon_integration.ToonDataManager.get_command_template_merge_187
+    type: FUNC
+    label: merge
+    function: core.toon_integration.ToonDataManager.get_command_template
+  core.toon_integration.ToonDataManager.get_command_template_return_189:
+    id: core.toon_integration.ToonDataManager.get_command_template_return_189
+    type: RETURN
+    label: return
+    function: core.toon_integration.ToonDataManager.get_command_template
+    line: 189

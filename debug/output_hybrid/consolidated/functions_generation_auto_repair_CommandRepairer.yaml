@@ -1,0 +1,109 @@
+module: generation.auto_repair.CommandRepairer
+type: functions
+count: 8
+functions:
+  generation.auto_repair.CommandRepairer.repair_command:
+    name: repair_command
+    qualified_name: generation.auto_repair.CommandRepairer.repair_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 23
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer.repair_command_entry
+    calls:
+    - cli.helpers.print_yaml_block
+    - range
+    - self._attempt_repair
+    - repaired.get
+    - str
+  generation.auto_repair.CommandRepairer._attempt_repair:
+    name: _attempt_repair
+    qualified_name: generation.auto_repair.CommandRepairer._attempt_repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 82
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._attempt_repair_entry
+    calls:
+    - self._rule_based_repair
+    - self._llm_repair
+  generation.auto_repair.CommandRepairer._rule_based_repair:
+    name: _rule_based_repair
+    qualified_name: generation.auto_repair.CommandRepairer._rule_based_repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 106
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._rule_based_repair_entry
+    calls:
+    - repairs.items
+    - error_pattern.lower
+    - error.lower
+    - fixer
+  generation.auto_repair.CommandRepairer._fix_file_not_found:
+    name: _fix_file_not_found
+    qualified_name: generation.auto_repair.CommandRepairer._fix_file_not_found
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 135
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._fix_file_not_found_entry
+    calls:
+    - any
+    - command.replace
+    - command.startswith
+  generation.auto_repair.CommandRepairer._fix_permission_denied:
+    name: _fix_permission_denied
+    qualified_name: generation.auto_repair.CommandRepairer._fix_permission_denied
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 163
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._fix_permission_denied_entry
+    calls:
+    - command.startswith
+  generation.auto_repair.CommandRepairer._fix_command_not_found:
+    name: _fix_command_not_found
+    qualified_name: generation.auto_repair.CommandRepairer._fix_command_not_found
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 180
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._fix_command_not_found_entry
+    calls:
+    - alternatives.items
+    - command.startswith
+    - None.replace
+    - command.replace
+    - command.split
+  generation.auto_repair.CommandRepairer._fix_syntax_error:
+    name: _fix_syntax_error
+    qualified_name: generation.auto_repair.CommandRepairer._fix_syntax_error
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 210
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._fix_syntax_error_entry
+    calls:
+    - command.count
+  generation.auto_repair.CommandRepairer._llm_repair:
+    name: _llm_repair
+    qualified_name: generation.auto_repair.CommandRepairer._llm_repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/auto_repair.py
+    line: 265
+    module: generation.auto_repair
+    class: CommandRepairer
+    is_method: true
+    cfg_entry: generation.auto_repair.CommandRepairer._llm_repair_entry
+    calls:
+    - self.llm_client.generate
+    - response.strip
+    - json.dumps
+    - console.print

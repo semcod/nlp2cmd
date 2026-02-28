@@ -1,0 +1,75 @@
+module: registry.ActionSchema
+type: orphan_nodes
+count: 13
+nodes:
+  registry.ActionSchema.get_required_params_entry:
+    id: registry.ActionSchema.get_required_params_entry
+    type: ENTRY
+    label: entry
+    function: registry.ActionSchema.get_required_params
+  registry.ActionSchema.get_required_params_exit:
+    id: registry.ActionSchema.get_required_params_exit
+    type: EXIT
+    label: exit
+    function: registry.ActionSchema.get_required_params
+  registry.ActionSchema.get_required_params_return_70:
+    id: registry.ActionSchema.get_required_params_return_70
+    type: RETURN
+    label: return
+    function: registry.ActionSchema.get_required_params
+    line: 70
+  registry.ActionSchema.get_optional_params_entry:
+    id: registry.ActionSchema.get_optional_params_entry
+    type: ENTRY
+    label: entry
+    function: registry.ActionSchema.get_optional_params
+  registry.ActionSchema.get_optional_params_exit:
+    id: registry.ActionSchema.get_optional_params_exit
+    type: EXIT
+    label: exit
+    function: registry.ActionSchema.get_optional_params
+  registry.ActionSchema.get_optional_params_return_74:
+    id: registry.ActionSchema.get_optional_params_return_74
+    type: RETURN
+    label: return
+    function: registry.ActionSchema.get_optional_params
+    line: 74
+  registry.ActionSchema.get_param_entry:
+    id: registry.ActionSchema.get_param_entry
+    type: ENTRY
+    label: entry
+    function: registry.ActionSchema.get_param
+  registry.ActionSchema.get_param_exit:
+    id: registry.ActionSchema.get_param_exit
+    type: EXIT
+    label: exit
+    function: registry.ActionSchema.get_param
+  registry.ActionSchema.get_param_loop_78:
+    id: registry.ActionSchema.get_param_loop_78
+    type: FOR
+    label: for
+    function: registry.ActionSchema.get_param
+    line: 78
+  registry.ActionSchema.get_param_if_79:
+    id: registry.ActionSchema.get_param_if_79
+    type: IF
+    label: if
+    function: registry.ActionSchema.get_param
+    line: 79
+  registry.ActionSchema.get_param_return_80:
+    id: registry.ActionSchema.get_param_return_80
+    type: RETURN
+    label: return
+    function: registry.ActionSchema.get_param
+    line: 80
+  registry.ActionSchema.get_param_merge_79:
+    id: registry.ActionSchema.get_param_merge_79
+    type: FUNC
+    label: merge
+    function: registry.ActionSchema.get_param
+  registry.ActionSchema.get_param_return_81:
+    id: registry.ActionSchema.get_param_return_81
+    type: RETURN
+    label: return
+    function: registry.ActionSchema.get_param
+    line: 81

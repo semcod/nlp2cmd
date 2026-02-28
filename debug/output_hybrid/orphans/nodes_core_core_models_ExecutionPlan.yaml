@@ -1,0 +1,132 @@
+module: core.core_models.ExecutionPlan
+type: orphan_nodes
+count: 24
+nodes:
+  core.core_models.ExecutionPlan.with_confidence_entry:
+    id: core.core_models.ExecutionPlan.with_confidence_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_confidence
+  core.core_models.ExecutionPlan.with_confidence_exit:
+    id: core.core_models.ExecutionPlan.with_confidence_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_confidence
+  core.core_models.ExecutionPlan.with_confidence_return_138:
+    id: core.core_models.ExecutionPlan.with_confidence_return_138
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_confidence
+    line: 138
+  core.core_models.ExecutionPlan.with_entities_entry:
+    id: core.core_models.ExecutionPlan.with_entities_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_entities
+  core.core_models.ExecutionPlan.with_entities_exit:
+    id: core.core_models.ExecutionPlan.with_entities_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_entities
+  core.core_models.ExecutionPlan.with_entities_return_143:
+    id: core.core_models.ExecutionPlan.with_entities_return_143
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_entities
+    line: 143
+  core.core_models.ExecutionPlan.with_metadata_entry:
+    id: core.core_models.ExecutionPlan.with_metadata_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_metadata
+  core.core_models.ExecutionPlan.with_metadata_exit:
+    id: core.core_models.ExecutionPlan.with_metadata_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_metadata
+  core.core_models.ExecutionPlan.with_metadata_return_147:
+    id: core.core_models.ExecutionPlan.with_metadata_return_147
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_metadata
+    line: 147
+  core.core_models.ExecutionPlan.with_context_entry:
+    id: core.core_models.ExecutionPlan.with_context_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_context
+  core.core_models.ExecutionPlan.with_context_exit:
+    id: core.core_models.ExecutionPlan.with_context_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_context
+  core.core_models.ExecutionPlan.with_context_return_151:
+    id: core.core_models.ExecutionPlan.with_context_return_151
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_context
+    line: 151
+  core.core_models.ExecutionPlan.with_errors_entry:
+    id: core.core_models.ExecutionPlan.with_errors_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_errors
+  core.core_models.ExecutionPlan.with_errors_exit:
+    id: core.core_models.ExecutionPlan.with_errors_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_errors
+  core.core_models.ExecutionPlan.with_errors_return_155:
+    id: core.core_models.ExecutionPlan.with_errors_return_155
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_errors
+    line: 155
+  core.core_models.ExecutionPlan.with_security_entry:
+    id: core.core_models.ExecutionPlan.with_security_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_security
+  core.core_models.ExecutionPlan.with_security_exit:
+    id: core.core_models.ExecutionPlan.with_security_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_security
+  core.core_models.ExecutionPlan.with_security_return_159:
+    id: core.core_models.ExecutionPlan.with_security_return_159
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_security
+    line: 159
+  core.core_models.ExecutionPlan.with_performance_entry:
+    id: core.core_models.ExecutionPlan.with_performance_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.with_performance
+  core.core_models.ExecutionPlan.with_performance_exit:
+    id: core.core_models.ExecutionPlan.with_performance_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.with_performance
+  core.core_models.ExecutionPlan.with_performance_return_163:
+    id: core.core_models.ExecutionPlan.with_performance_return_163
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.with_performance
+    line: 163
+  core.core_models.ExecutionPlan.is_valid_entry:
+    id: core.core_models.ExecutionPlan.is_valid_entry
+    type: ENTRY
+    label: entry
+    function: core.core_models.ExecutionPlan.is_valid
+  core.core_models.ExecutionPlan.is_valid_exit:
+    id: core.core_models.ExecutionPlan.is_valid_exit
+    type: EXIT
+    label: exit
+    function: core.core_models.ExecutionPlan.is_valid
+  core.core_models.ExecutionPlan.is_valid_return_167:
+    id: core.core_models.ExecutionPlan.is_valid_return_167
+    type: RETURN
+    label: return
+    function: core.core_models.ExecutionPlan.is_valid
+    line: 167

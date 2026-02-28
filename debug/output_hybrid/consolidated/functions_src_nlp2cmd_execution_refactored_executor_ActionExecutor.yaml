@@ -1,0 +1,90 @@
+module: src.nlp2cmd.execution.refactored_executor.ActionExecutor
+type: functions
+count: 7
+functions:
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor.execute:
+    name: execute
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 44
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor.execute_entry
+    calls:
+    - self._execute_dom_action
+    - logger.error
+    - self._execute_shell_action
+    - str
+    - self._execute_mouse_action
+    - self._execute_keyboard_action
+    - self._execute_validation_action
+    - self._execute_navigation_action
+    - ValueError
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_dom_action:
+    name: _execute_dom_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_dom_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 72
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_dom_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_shell_action:
+    name: _execute_shell_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_shell_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 81
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_shell_action_entry
+    calls:
+    - src.nlp2cmd.validation.framework.validate_safety_policy
+    - action.get
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_mouse_action:
+    name: _execute_mouse_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_mouse_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 100
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_mouse_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_keyboard_action:
+    name: _execute_keyboard_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_keyboard_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 108
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_keyboard_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_validation_action:
+    name: _execute_validation_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_validation_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 116
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_validation_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_navigation_action:
+    name: _execute_navigation_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_navigation_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 124
+    module: src.nlp2cmd.execution.refactored_executor
+    class: ActionExecutor
+    is_method: true
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.ActionExecutor._execute_navigation_action_entry
+    calls:
+    - action.get

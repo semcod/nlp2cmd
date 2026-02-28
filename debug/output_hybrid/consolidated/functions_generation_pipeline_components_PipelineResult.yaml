@@ -1,0 +1,15 @@
+module: generation.pipeline_components.PipelineResult
+type: functions
+count: 1
+functions:
+  generation.pipeline_components.PipelineResult.to_plan:
+    name: to_plan
+    qualified_name: generation.pipeline_components.PipelineResult.to_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/pipeline_components.py
+    line: 61
+    module: generation.pipeline_components
+    class: PipelineResult
+    is_method: true
+    cfg_entry: generation.pipeline_components.PipelineResult.to_plan_entry
+    calls:
+    - SimpleExecutionPlan

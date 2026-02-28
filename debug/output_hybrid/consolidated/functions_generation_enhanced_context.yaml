@@ -1,0 +1,224 @@
+module: generation.enhanced_context
+type: functions
+count: 14
+functions:
+  generation.enhanced_context.get_enhanced_detector:
+    name: get_enhanced_detector
+    qualified_name: generation.enhanced_context.get_enhanced_detector
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 565
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context.get_enhanced_detector_entry
+    calls:
+    - EnhancedContextDetector
+  generation.enhanced_context.__init__:
+    name: __init__
+    qualified_name: generation.enhanced_context.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 100
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context.__init___entry
+    calls:
+    - executor.ExecutionContext.set
+    - self._initialize_nlp
+    - self._load_schemas_and_templates
+    - self._build_semantic_index
+  generation.enhanced_context._initialize_nlp:
+    name: _initialize_nlp
+    qualified_name: generation.enhanced_context._initialize_nlp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 116
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._initialize_nlp_entry
+    calls:
+    - nltk.download
+    - executor.ExecutionContext.set
+    - WordNetLemmatizer
+    - SentenceTransformer
+    - AutoTokenizer.from_pretrained
+    - AutoModel.from_pretrained
+    - stopwords.words
+    - self.stop_words.update
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  generation.enhanced_context._load_schemas_and_templates:
+    name: _load_schemas_and_templates
+    qualified_name: generation.enhanced_context._load_schemas_and_templates
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 159
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._load_schemas_and_templates_entry
+    calls:
+    - Path
+    - schemas_path.exists
+    - sites_path.exists
+    - templates_path.exists
+    - schemas_path.iterdir
+    - sites_path.glob
+    - domain_dir.is_dir
+    - domain_dir.glob
+    - open
+    - json.load
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  generation.enhanced_context._build_semantic_index:
+    name: _build_semantic_index
+    qualified_name: generation.enhanced_context._build_semantic_index
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 201
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._build_semantic_index_entry
+    calls:
+    - Path
+    - patterns_file.exists
+    - self.semantic_index.keys
+    - patterns.items
+    - None.items
+    - open
+    - json.load
+    - domain.startswith
+    - isinstance
+    - self.sentence_model.encode
+    - intents.items
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - action.get
+  generation.enhanced_context._preprocess_text:
+    name: _preprocess_text
+    qualified_name: generation.enhanced_context._preprocess_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 264
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._preprocess_text_entry
+    calls:
+    - text.lower
+    - polish_map.items
+    - re.sub
+    - None.strip
+    - isinstance
+    - text.replace
+  generation.enhanced_context._extract_entities:
+    name: _extract_entities
+    qualified_name: generation.enhanced_context._extract_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 284
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._extract_entities_entry
+    calls:
+    - RegexEntityExtractor
+    - regex_extractor.extract
+    - regex_entities.entities.items
+    - generation.multi_command.MultiCommandDetector.detect
+    - word_tokenize
+    - pos_tag
+    - ne_chunk
+    - any
+    - TextBlob
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - hasattr
+    - None.join
+    - named_entities.append
+    - pos.startswith
+    - keyword.lower
+    - entities.get
+    - subtree.label
+    - token.lower
+    - subtree.leaves
+  generation.enhanced_context._calculate_keyword_similarity:
+    name: _calculate_keyword_similarity
+    qualified_name: generation.enhanced_context._calculate_keyword_similarity
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 359
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._calculate_keyword_similarity_entry
+    calls:
+    - executor.ExecutionContext.set
+    - query_words.intersection
+    - query_words.union
+    - None.split
+    - len
+    - fuzz.ratio
+    - query.lower
+    - pattern.lower
+  generation.enhanced_context._calculate_semantic_similarity:
+    name: _calculate_semantic_similarity
+    qualified_name: generation.enhanced_context._calculate_semantic_similarity
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 387
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._calculate_semantic_similarity_entry
+    calls:
+    - Path
+    - patterns_file.exists
+    - patterns.get
+    - domain_patterns.get
+    - open
+    - json.load
+    - self.sentence_model.encode
+    - None.reshape
+    - similarities.append
+    - float
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - cosine_similarity
+    - generation.thermodynamic_components._NumpyStub.max
+    - len
+  generation.enhanced_context._calculate_context_score:
+    name: _calculate_context_score
+    qualified_name: generation.enhanced_context._calculate_context_score
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 439
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._calculate_context_score_entry
+    calls:
+    - min
+    - any
+    - entities.get
+    - query.lower
+  generation.enhanced_context.detect_intent_with_context:
+    name: detect_intent_with_context
+    qualified_name: generation.enhanced_context.detect_intent_with_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 470
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context.detect_intent_with_context_entry
+    calls:
+    - self._extract_entities
+    - self._preprocess_text
+    - self.templates.items
+    - matches.sort
+    - intents.items
+    - isinstance
+    - self._calculate_keyword_similarity
+    - self._calculate_semantic_similarity
+    - self._calculate_context_score
+    - ContextualMatch
+    - matches.append
+  generation.enhanced_context.get_best_match:
+    name: get_best_match
+    qualified_name: generation.enhanced_context.get_best_match
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 514
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context.get_best_match_entry
+    calls:
+    - self.detect_intent_with_context
+  generation.enhanced_context.explain_detection:
+    name: explain_detection
+    qualified_name: generation.enhanced_context.explain_detection
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 519
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context.explain_detection_entry
+    calls:
+    - self.detect_intent_with_context
+    - self._extract_entities
+    - None.append
+    - self._generate_reasoning
+  generation.enhanced_context._generate_reasoning:
+    name: _generate_reasoning
+    qualified_name: generation.enhanced_context._generate_reasoning
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/enhanced_context.py
+    line: 543
+    module: generation.enhanced_context
+    cfg_entry: generation.enhanced_context._generate_reasoning_entry
+    calls:
+    - reasons.append
+    - match.entities.get
+    - None.join

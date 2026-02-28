@@ -1,0 +1,18 @@
+module: generation.llm_simple.SimpleLLMShellGenerator
+type: functions
+count: 1
+functions:
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command:
+    name: extract_command
+    qualified_name: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 300
+    module: generation.llm_simple
+    class: SimpleLLMShellGenerator
+    is_method: true
+    cfg_entry: generation.llm_simple.SimpleLLMShellGenerator.extract_command_entry
+    calls:
+    - response.strip
+    - re.search
+    - None.strip
+    - match.group

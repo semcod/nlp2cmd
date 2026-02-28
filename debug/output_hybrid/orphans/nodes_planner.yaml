@@ -1,0 +1,204 @@
+module: planner
+type: orphan_nodes
+count: 37
+nodes:
+  planner.__init___entry:
+    id: planner.__init___entry
+    type: ENTRY
+    label: entry
+    function: planner.__init__
+  planner.__init___exit:
+    id: planner.__init___exit
+    type: EXIT
+    label: exit
+    function: planner.__init__
+  planner.plan_entry:
+    id: planner.plan_entry
+    type: ENTRY
+    label: entry
+    function: planner.plan
+  planner.plan_exit:
+    id: planner.plan_exit
+    type: EXIT
+    label: exit
+    function: planner.plan
+  planner._build_prompt_entry:
+    id: planner._build_prompt_entry
+    type: ENTRY
+    label: entry
+    function: planner._build_prompt
+  planner._build_prompt_exit:
+    id: planner._build_prompt_exit
+    type: EXIT
+    label: exit
+    function: planner._build_prompt
+  planner._build_prompt_if_290:
+    id: planner._build_prompt_if_290
+    type: IF
+    label: if
+    function: planner._build_prompt
+    line: 290
+  planner._build_prompt_merge_290:
+    id: planner._build_prompt_merge_290
+    type: FUNC
+    label: merge
+    function: planner._build_prompt
+  planner._build_prompt_if_301:
+    id: planner._build_prompt_if_301
+    type: IF
+    label: if
+    function: planner._build_prompt
+    line: 301
+  planner._build_prompt_loop_303:
+    id: planner._build_prompt_loop_303
+    type: FOR
+    label: for
+    function: planner._build_prompt
+    line: 303
+  planner._build_prompt_merge_301:
+    id: planner._build_prompt_merge_301
+    type: FUNC
+    label: merge
+    function: planner._build_prompt
+  planner._build_prompt_return_311:
+    id: planner._build_prompt_return_311
+    type: RETURN
+    label: return
+    function: planner._build_prompt
+    line: 311
+  planner._call_llm_entry:
+    id: planner._call_llm_entry
+    type: ENTRY
+    label: entry
+    function: planner._call_llm
+  planner._call_llm_exit:
+    id: planner._call_llm_exit
+    type: EXIT
+    label: exit
+    function: planner._call_llm
+  planner._call_llm_if_315:
+    id: planner._call_llm_if_315
+    type: IF
+    label: if
+    function: planner._call_llm
+    line: 315
+  planner._call_llm_return_323:
+    id: planner._call_llm_return_323
+    type: RETURN
+    label: return
+    function: planner._call_llm
+    line: 323
+  planner._call_llm_if_325:
+    id: planner._call_llm_if_325
+    type: IF
+    label: if
+    function: planner._call_llm
+    line: 325
+  planner._call_llm_return_333:
+    id: planner._call_llm_return_333
+    type: RETURN
+    label: return
+    function: planner._call_llm
+    line: 333
+  planner._call_llm_merge_325:
+    id: planner._call_llm_merge_325
+    type: FUNC
+    label: merge
+    function: planner._call_llm
+  planner._call_llm_merge_315:
+    id: planner._call_llm_merge_315
+    type: FUNC
+    label: merge
+    function: planner._call_llm
+  planner._parse_response_entry:
+    id: planner._parse_response_entry
+    type: ENTRY
+    label: entry
+    function: planner._parse_response
+  planner._parse_response_exit:
+    id: planner._parse_response_exit
+    type: EXIT
+    label: exit
+    function: planner._parse_response
+  planner._parse_response_if_351:
+    id: planner._parse_response_if_351
+    type: IF
+    label: if
+    function: planner._parse_response
+    line: 351
+  planner._parse_response_merge_351:
+    id: planner._parse_response_merge_351
+    type: FUNC
+    label: merge
+    function: planner._parse_response
+  planner._parse_response_if_359:
+    id: planner._parse_response_if_359
+    type: IF
+    label: if
+    function: planner._parse_response
+    line: 359
+  planner._parse_response_merge_359:
+    id: planner._parse_response_merge_359
+    type: FUNC
+    label: merge
+    function: planner._parse_response
+  planner._parse_response_return_365:
+    id: planner._parse_response_return_365
+    type: RETURN
+    label: return
+    function: planner._parse_response
+    line: 365
+  planner._rule_based_plan_entry:
+    id: planner._rule_based_plan_entry
+    type: ENTRY
+    label: entry
+    function: planner._rule_based_plan
+  planner._rule_based_plan_exit:
+    id: planner._rule_based_plan_exit
+    type: EXIT
+    label: exit
+    function: planner._rule_based_plan
+  planner._rule_based_plan_if_394:
+    id: planner._rule_based_plan_if_394
+    type: IF
+    label: if
+    function: planner._rule_based_plan
+    line: 394
+  planner._rule_based_plan_merge_394:
+    id: planner._rule_based_plan_merge_394
+    type: FUNC
+    label: merge
+    function: planner._rule_based_plan
+  planner._rule_based_plan_if_402:
+    id: planner._rule_based_plan_if_402
+    type: IF
+    label: if
+    function: planner._rule_based_plan
+    line: 402
+  planner._rule_based_plan_merge_402:
+    id: planner._rule_based_plan_merge_402
+    type: FUNC
+    label: merge
+    function: planner._rule_based_plan
+  planner._rule_based_plan_return_408:
+    id: planner._rule_based_plan_return_408
+    type: RETURN
+    label: return
+    function: planner._rule_based_plan
+    line: 408
+  planner.get_action_catalog_entry:
+    id: planner.get_action_catalog_entry
+    type: ENTRY
+    label: entry
+    function: planner.get_action_catalog
+  planner.get_action_catalog_exit:
+    id: planner.get_action_catalog_exit
+    type: EXIT
+    label: exit
+    function: planner.get_action_catalog
+  planner.get_action_catalog_return_412:
+    id: planner.get_action_catalog_return_412
+    type: RETURN
+    label: return
+    function: planner.get_action_catalog
+    line: 412

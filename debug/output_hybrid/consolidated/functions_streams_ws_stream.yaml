@@ -1,0 +1,73 @@
+module: streams.ws_stream
+type: functions
+count: 6
+functions:
+  streams.ws_stream.__init__:
+    name: __init__
+    qualified_name: streams.ws_stream.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ws_stream.py
+    line: 20
+    module: streams.ws_stream
+    cfg_entry: streams.ws_stream.__init___entry
+    calls:
+    - None.__init__
+    - super
+  streams.ws_stream.connect:
+    name: connect
+    qualified_name: streams.ws_stream.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ws_stream.py
+    line: 31
+    module: streams.ws_stream
+    cfg_entry: streams.ws_stream.connect_entry
+    calls:
+    - self._build_url
+    - websocket.create_connection
+    - StreamResult
+  streams.ws_stream.execute:
+    name: execute
+    qualified_name: streams.ws_stream.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ws_stream.py
+    line: 48
+    module: streams.ws_stream
+    cfg_entry: streams.ws_stream.execute_entry
+    calls:
+    - task.lower
+    - any
+    - self._send
+    - self._receive
+    - len
+    - task.split
+    - kwargs.get
+    - json.dumps
+  streams.ws_stream._send:
+    name: _send
+    qualified_name: streams.ws_stream._send
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ws_stream.py
+    line: 61
+    module: streams.ws_stream
+    cfg_entry: streams.ws_stream._send_entry
+    calls:
+    - StreamResult
+    - self._ws.send
+    - str
+  streams.ws_stream._receive:
+    name: _receive
+    qualified_name: streams.ws_stream._receive
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ws_stream.py
+    line: 70
+    module: streams.ws_stream
+    cfg_entry: streams.ws_stream._receive_entry
+    calls:
+    - StreamResult
+    - self._ws.settimeout
+    - self._ws.recv
+    - str
+  streams.ws_stream.disconnect:
+    name: disconnect
+    qualified_name: streams.ws_stream.disconnect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/ws_stream.py
+    line: 83
+    module: streams.ws_stream
+    cfg_entry: streams.ws_stream.disconnect_entry
+    calls:
+    - self._ws.close

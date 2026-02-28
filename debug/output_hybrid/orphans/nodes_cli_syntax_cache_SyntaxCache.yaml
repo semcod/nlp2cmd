@@ -1,0 +1,84 @@
+module: cli.syntax_cache.SyntaxCache
+type: orphan_nodes
+count: 15
+nodes:
+  cli.syntax_cache.SyntaxCache.__init___entry:
+    id: cli.syntax_cache.SyntaxCache.__init___entry
+    type: ENTRY
+    label: entry
+    function: cli.syntax_cache.SyntaxCache.__init__
+  cli.syntax_cache.SyntaxCache.__init___exit:
+    id: cli.syntax_cache.SyntaxCache.__init___exit
+    type: EXIT
+    label: exit
+    function: cli.syntax_cache.SyntaxCache.__init__
+  cli.syntax_cache.SyntaxCache.get_syntax_entry:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_entry
+    type: ENTRY
+    label: entry
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+  cli.syntax_cache.SyntaxCache.get_syntax_exit:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_exit
+    type: EXIT
+    label: exit
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+  cli.syntax_cache.SyntaxCache.get_syntax_if_43:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_if_43
+    type: IF
+    label: if
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+    line: 43
+  cli.syntax_cache.SyntaxCache.get_syntax_return_47:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_return_47
+    type: RETURN
+    label: return
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+    line: 47
+  cli.syntax_cache.SyntaxCache.get_syntax_merge_43:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_merge_43
+    type: FUNC
+    label: merge
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+  cli.syntax_cache.SyntaxCache.get_syntax_if_57:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_if_57
+    type: IF
+    label: if
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+    line: 57
+  cli.syntax_cache.SyntaxCache.get_syntax_merge_57:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_merge_57
+    type: FUNC
+    label: merge
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+  cli.syntax_cache.SyntaxCache.get_syntax_return_61:
+    id: cli.syntax_cache.SyntaxCache.get_syntax_return_61
+    type: RETURN
+    label: return
+    function: cli.syntax_cache.SyntaxCache.get_syntax
+    line: 61
+  cli.syntax_cache.SyntaxCache.clear_entry:
+    id: cli.syntax_cache.SyntaxCache.clear_entry
+    type: ENTRY
+    label: entry
+    function: cli.syntax_cache.SyntaxCache.clear
+  cli.syntax_cache.SyntaxCache.clear_exit:
+    id: cli.syntax_cache.SyntaxCache.clear_exit
+    type: EXIT
+    label: exit
+    function: cli.syntax_cache.SyntaxCache.clear
+  cli.syntax_cache.SyntaxCache.get_stats_entry:
+    id: cli.syntax_cache.SyntaxCache.get_stats_entry
+    type: ENTRY
+    label: entry
+    function: cli.syntax_cache.SyntaxCache.get_stats
+  cli.syntax_cache.SyntaxCache.get_stats_exit:
+    id: cli.syntax_cache.SyntaxCache.get_stats_exit
+    type: EXIT
+    label: exit
+    function: cli.syntax_cache.SyntaxCache.get_stats
+  cli.syntax_cache.SyntaxCache.get_stats_return_70:
+    id: cli.syntax_cache.SyntaxCache.get_stats_return_70
+    type: RETURN
+    label: return
+    function: cli.syntax_cache.SyntaxCache.get_stats
+    line: 70

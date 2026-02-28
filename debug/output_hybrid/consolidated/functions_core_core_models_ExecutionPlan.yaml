@@ -1,0 +1,93 @@
+module: core.core_models.ExecutionPlan
+type: functions
+count: 8
+functions:
+  core.core_models.ExecutionPlan.with_confidence:
+    name: with_confidence
+    qualified_name: core.core_models.ExecutionPlan.with_confidence
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 136
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_confidence_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.with_entities:
+    name: with_entities
+    qualified_name: core.core_models.ExecutionPlan.with_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 140
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_entities_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.with_metadata:
+    name: with_metadata
+    qualified_name: core.core_models.ExecutionPlan.with_metadata
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 145
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_metadata_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.with_context:
+    name: with_context
+    qualified_name: core.core_models.ExecutionPlan.with_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 149
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_context_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.with_errors:
+    name: with_errors
+    qualified_name: core.core_models.ExecutionPlan.with_errors
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 153
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_errors_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.with_security:
+    name: with_security
+    qualified_name: core.core_models.ExecutionPlan.with_security
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 157
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_security_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.with_performance:
+    name: with_performance
+    qualified_name: core.core_models.ExecutionPlan.with_performance
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 161
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.with_performance_entry
+    calls:
+    - self.model_copy
+  core.core_models.ExecutionPlan.is_valid:
+    name: is_valid
+    qualified_name: core.core_models.ExecutionPlan.is_valid
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 165
+    module: core.core_models
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: core.core_models.ExecutionPlan.is_valid_entry
+    calls:
+    - len
+    - self.intent.strip

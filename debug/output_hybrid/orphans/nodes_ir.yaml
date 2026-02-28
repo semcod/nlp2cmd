@@ -1,0 +1,20 @@
+module: ir
+type: orphan_nodes
+count: 3
+nodes:
+  ir.to_dict_entry:
+    id: ir.to_dict_entry
+    type: ENTRY
+    label: entry
+    function: ir.to_dict
+  ir.to_dict_exit:
+    id: ir.to_dict_exit
+    type: EXIT
+    label: exit
+    function: ir.to_dict
+  ir.to_dict_return_23:
+    id: ir.to_dict_return_23
+    type: RETURN
+    label: return
+    function: ir.to_dict
+    line: 23

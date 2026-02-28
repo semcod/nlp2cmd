@@ -1,0 +1,17 @@
+module: validators.CompositeValidator
+type: functions
+count: 1
+functions:
+  validators.CompositeValidator.validate:
+    name: validate
+    qualified_name: validators.CompositeValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 751
+    module: validators
+    class: CompositeValidator
+    is_method: true
+    cfg_entry: validators.CompositeValidator.validate_entry
+    calls:
+    - ValidationResult
+    - llm.validator.validate
+    - result.merge

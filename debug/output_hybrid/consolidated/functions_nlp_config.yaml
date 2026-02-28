@@ -1,0 +1,156 @@
+module: nlp.config
+type: functions
+count: 13
+functions:
+  nlp.config.get_service_registry:
+    name: get_service_registry
+    qualified_name: nlp.config.get_service_registry
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 213
+    module: nlp.config
+    cfg_entry: nlp.config.get_service_registry_entry
+    calls:
+    - ServiceRegistry
+    called_by:
+    - automation.service_configs._load_known_services
+    - automation.action_planner._load_known_services
+  nlp.config.get_intent_registry:
+    name: get_intent_registry
+    qualified_name: nlp.config.get_intent_registry
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 221
+    module: nlp.config
+    cfg_entry: nlp.config.get_intent_registry_entry
+    calls:
+    - IntentRegistry
+  nlp.config.to_planner_dict:
+    name: to_planner_dict
+    qualified_name: nlp.config.to_planner_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 48
+    module: nlp.config
+    cfg_entry: nlp.config.to_planner_dict_entry
+    calls:
+    - list
+  nlp.config.__init__:
+    name: __init__
+    qualified_name: nlp.config.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 146
+    module: nlp.config
+    cfg_entry: nlp.config.__init___entry
+    calls:
+    - self.load
+  nlp.config.load:
+    name: load
+    qualified_name: nlp.config.load
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 151
+    module: nlp.config
+    cfg_entry: nlp.config.load_entry
+    calls:
+    - data.items
+    - generation.thermodynamic_components._NumpyStub.sum
+    - log.debug
+    - path.exists
+    - log.warning
+    - intents.items
+    - len
+    - open
+    - log.error
+    - isinstance
+    - IntentConfig
+    - yaml.safe_load
+    - self._intents.values
+    - cfg.get
+  nlp.config.get:
+    name: get
+    qualified_name: nlp.config.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 182
+    module: nlp.config
+    cfg_entry: nlp.config.get_entry
+    calls:
+    - None.get
+    - self._intents.get
+    called_by:
+    - automation.password_store.FirefoxPasswordReader._find_profile
+    - automation.password_store._find_profile
+    - automation.firefox_sessions.FirefoxSessionImporter.find_default_profile
+    - automation.firefox_sessions.find_default_profile
+    - web_schema.form_data_loader.FormDataLoader._load_schema
+    - web_schema.form_data_loader._load_schema
+    - nlp_enhanced.ShellGPTBackend.__init__
+    - environment.EnvironmentAnalyzer.check_services
+    - environment.check_services
+  nlp.config.list_names:
+    name: list_names
+    qualified_name: nlp.config.list_names
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 100
+    module: nlp.config
+    cfg_entry: nlp.config.list_names_entry
+    calls:
+    - sorted
+    - self._services.keys
+  nlp.config.as_planner_dict:
+    name: as_planner_dict
+    qualified_name: nlp.config.as_planner_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 104
+    module: nlp.config
+    cfg_entry: nlp.config.as_planner_dict_entry
+    calls:
+    - svc.to_planner_dict
+    - self._services.items
+  nlp.config.get_examples:
+    name: get_examples
+    qualified_name: nlp.config.get_examples
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 131
+    module: nlp.config
+    cfg_entry: nlp.config.get_examples_entry
+    calls:
+    - self.examples.get
+  nlp.config.all_examples:
+    name: all_examples
+    qualified_name: nlp.config.all_examples
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 135
+    module: nlp.config
+    cfg_entry: nlp.config.all_examples_entry
+    calls:
+    - self.examples.values
+    - result.extend
+  nlp.config.get_domain:
+    name: get_domain
+    qualified_name: nlp.config.get_domain
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 186
+    module: nlp.config
+    cfg_entry: nlp.config.get_domain_entry
+    calls:
+    - dict
+    - self._intents.get
+  nlp.config.list_domains:
+    name: list_domains
+    qualified_name: nlp.config.list_domains
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 190
+    module: nlp.config
+    cfg_entry: nlp.config.list_domains_entry
+    calls:
+    - sorted
+    - self._intents.keys
+  nlp.config.all_examples_for_training:
+    name: all_examples_for_training
+    qualified_name: nlp.config.all_examples_for_training
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/config.py
+    line: 194
+    module: nlp.config
+    cfg_entry: nlp.config.all_examples_for_training_entry
+    calls:
+    - self._intents.items
+    - intents.items
+    - cfg.all_examples
+    - result.append

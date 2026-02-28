@@ -1,0 +1,60 @@
+module: generation.data_loader.PhraseDatabase
+type: functions
+count: 4
+functions:
+  generation.data_loader.PhraseDatabase.add_phrase:
+    name: add_phrase
+    qualified_name: generation.data_loader.PhraseDatabase.add_phrase
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/data_loader.py
+    line: 88
+    module: generation.data_loader
+    class: PhraseDatabase
+    is_method: true
+    cfg_entry: generation.data_loader.PhraseDatabase.add_phrase_entry
+    calls:
+    - self.phrases.append
+    - PhraseEntry
+  generation.data_loader.PhraseDatabase.to_dict:
+    name: to_dict
+    qualified_name: generation.data_loader.PhraseDatabase.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/data_loader.py
+    line: 121
+    module: generation.data_loader
+    class: PhraseDatabase
+    is_method: true
+    cfg_entry: generation.data_loader.PhraseDatabase.to_dict_entry
+    calls:
+    - p.to_dict
+  generation.data_loader.PhraseDatabase.from_dict:
+    name: from_dict
+    qualified_name: generation.data_loader.PhraseDatabase.from_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/data_loader.py
+    line: 130
+    module: generation.data_loader
+    class: PhraseDatabase
+    is_method: true
+    cfg_entry: generation.data_loader.PhraseDatabase.from_dict_entry
+    calls:
+    - cls
+    - data.get
+    - generation.data_loader.PhraseEntry.from_dict
+    called_by:
+    - generation.data_loader.DataLoader._load_json
+    - generation.data_loader.DataLoader._load_msgpack
+    - generation.data_loader._load_json
+    - generation.data_loader._load_msgpack
+  generation.data_loader.PhraseDatabase.get_stats:
+    name: get_stats
+    qualified_name: generation.data_loader.PhraseDatabase.get_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/data_loader.py
+    line: 138
+    module: generation.data_loader
+    class: PhraseDatabase
+    is_method: true
+    cfg_entry: generation.data_loader.PhraseDatabase.get_stats_entry
+    calls:
+    - generation.thermodynamic_components._NumpyStub.sum
+    - len
+    - domains.get
+    - intents.get
+    - languages.get

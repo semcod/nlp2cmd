@@ -1,0 +1,113 @@
+module: executor.ExecutionContext
+type: orphan_nodes
+count: 20
+nodes:
+  executor.ExecutionContext.set_entry:
+    id: executor.ExecutionContext.set_entry
+    type: ENTRY
+    label: entry
+    function: executor.ExecutionContext.set
+  executor.ExecutionContext.set_exit:
+    id: executor.ExecutionContext.set_exit
+    type: EXIT
+    label: exit
+    function: executor.ExecutionContext.set
+  executor.ExecutionContext.get_entry:
+    id: executor.ExecutionContext.get_entry
+    type: ENTRY
+    label: entry
+    function: executor.ExecutionContext.get
+  executor.ExecutionContext.get_exit:
+    id: executor.ExecutionContext.get_exit
+    type: EXIT
+    label: exit
+    function: executor.ExecutionContext.get
+  executor.ExecutionContext.get_return_134:
+    id: executor.ExecutionContext.get_return_134
+    type: RETURN
+    label: return
+    function: executor.ExecutionContext.get
+    line: 134
+  executor.ExecutionContext.resolve_reference_entry:
+    id: executor.ExecutionContext.resolve_reference_entry
+    type: ENTRY
+    label: entry
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_exit:
+    id: executor.ExecutionContext.resolve_reference_exit
+    type: EXIT
+    label: exit
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_if_146:
+    id: executor.ExecutionContext.resolve_reference_if_146
+    type: IF
+    label: if
+    function: executor.ExecutionContext.resolve_reference
+    line: 146
+  executor.ExecutionContext.resolve_reference_return_147:
+    id: executor.ExecutionContext.resolve_reference_return_147
+    type: RETURN
+    label: return
+    function: executor.ExecutionContext.resolve_reference
+    line: 147
+  executor.ExecutionContext.resolve_reference_merge_146:
+    id: executor.ExecutionContext.resolve_reference_merge_146
+    type: FUNC
+    label: merge
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_if_152:
+    id: executor.ExecutionContext.resolve_reference_if_152
+    type: IF
+    label: if
+    function: executor.ExecutionContext.resolve_reference
+    line: 152
+  executor.ExecutionContext.resolve_reference_merge_152:
+    id: executor.ExecutionContext.resolve_reference_merge_152
+    type: FUNC
+    label: merge
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_loop_158:
+    id: executor.ExecutionContext.resolve_reference_loop_158
+    type: FOR
+    label: for
+    function: executor.ExecutionContext.resolve_reference
+    line: 158
+  executor.ExecutionContext.resolve_reference_if_159:
+    id: executor.ExecutionContext.resolve_reference_if_159
+    type: IF
+    label: if
+    function: executor.ExecutionContext.resolve_reference
+    line: 159
+  executor.ExecutionContext.resolve_reference_if_161:
+    id: executor.ExecutionContext.resolve_reference_if_161
+    type: IF
+    label: if
+    function: executor.ExecutionContext.resolve_reference
+    line: 161
+  executor.ExecutionContext.resolve_reference_if_163:
+    id: executor.ExecutionContext.resolve_reference_if_163
+    type: IF
+    label: if
+    function: executor.ExecutionContext.resolve_reference
+    line: 163
+  executor.ExecutionContext.resolve_reference_merge_163:
+    id: executor.ExecutionContext.resolve_reference_merge_163
+    type: FUNC
+    label: merge
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_merge_161:
+    id: executor.ExecutionContext.resolve_reference_merge_161
+    type: FUNC
+    label: merge
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_merge_159:
+    id: executor.ExecutionContext.resolve_reference_merge_159
+    type: FUNC
+    label: merge
+    function: executor.ExecutionContext.resolve_reference
+  executor.ExecutionContext.resolve_reference_return_168:
+    id: executor.ExecutionContext.resolve_reference_return_168
+    type: RETURN
+    label: return
+    function: executor.ExecutionContext.resolve_reference
+    line: 168

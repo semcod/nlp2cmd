@@ -1,0 +1,75 @@
+module: generation.semantic_entities
+type: functions
+count: 6
+functions:
+  generation.semantic_entities._normalize_mode:
+    name: _normalize_mode
+    qualified_name: generation.semantic_entities._normalize_mode
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_entities.py
+    line: 13
+    module: generation.semantic_entities
+    cfg_entry: generation.semantic_entities._normalize_mode_entry
+    calls:
+    - None.lower
+    - value.strip
+    called_by:
+    - generation.semantic_entities.SemanticEntityExtractor.__init__
+    - generation.semantic_entities.__init__
+  generation.semantic_entities._parse_ab_ratio:
+    name: _parse_ab_ratio
+    qualified_name: generation.semantic_entities._parse_ab_ratio
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_entities.py
+    line: 20
+    module: generation.semantic_entities
+    cfg_entry: generation.semantic_entities._parse_ab_ratio_entry
+    calls:
+    - float
+    called_by:
+    - generation.semantic_entities.SemanticEntityExtractor.__init__
+    - generation.semantic_entities.__init__
+  generation.semantic_entities.__init__:
+    name: __init__
+    qualified_name: generation.semantic_entities.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_entities.py
+    line: 35
+    module: generation.semantic_entities
+    cfg_entry: generation.semantic_entities.__init___entry
+    calls:
+    - generation.semantic_entities._normalize_mode
+    - generation.semantic_entities._parse_ab_ratio
+    - RegexEntityExtractor
+    - os.environ.get
+  generation.semantic_entities.extract:
+    name: extract
+    qualified_name: generation.semantic_entities.extract
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_entities.py
+    line: 51
+    module: generation.semantic_entities
+    cfg_entry: generation.semantic_entities.extract_entry
+    calls:
+    - self._regex_extractor.extract
+    - self._select_mode
+    - self._extract_semantic
+    - self._merge_entities
+    - ExtractionResult
+  generation.semantic_entities._select_mode:
+    name: _select_mode
+    qualified_name: generation.semantic_entities._select_mode
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_entities.py
+    line: 76
+    module: generation.semantic_entities
+    cfg_entry: generation.semantic_entities._select_mode_entry
+    calls:
+    - random.random
+  generation.semantic_entities._merge_entities:
+    name: _merge_entities
+    qualified_name: generation.semantic_entities._merge_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/semantic_entities.py
+    line: 87
+    module: generation.semantic_entities
+    cfg_entry: generation.semantic_entities._merge_entities_entry
+    calls:
+    - dict
+    - extra.items
+    - isinstance
+    - merged.get

@@ -1,0 +1,14 @@
+module: execution.runner.Console
+type: orphan_nodes
+count: 2
+nodes:
+  execution.runner.Console.print_entry:
+    id: execution.runner.Console.print_entry
+    type: ENTRY
+    label: entry
+    function: execution.runner.Console.print
+  execution.runner.Console.print_exit:
+    id: execution.runner.Console.print_exit
+    type: EXIT
+    label: exit
+    function: execution.runner.Console.print

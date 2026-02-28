@@ -1,0 +1,160 @@
+module: thermodynamic.MajorityVoter
+type: orphan_nodes
+count: 28
+nodes:
+  thermodynamic.MajorityVoter.vote_entry:
+    id: thermodynamic.MajorityVoter.vote_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_exit:
+    id: thermodynamic.MajorityVoter.vote_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_if_400:
+    id: thermodynamic.MajorityVoter.vote_if_400
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter.vote
+    line: 400
+  thermodynamic.MajorityVoter.vote_merge_400:
+    id: thermodynamic.MajorityVoter.vote_merge_400
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_if_403:
+    id: thermodynamic.MajorityVoter.vote_if_403
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter.vote
+    line: 403
+  thermodynamic.MajorityVoter.vote_return_404:
+    id: thermodynamic.MajorityVoter.vote_return_404
+    type: RETURN
+    label: return
+    function: thermodynamic.MajorityVoter.vote
+    line: 404
+  thermodynamic.MajorityVoter.vote_merge_403:
+    id: thermodynamic.MajorityVoter.vote_merge_403
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_if_406:
+    id: thermodynamic.MajorityVoter.vote_if_406
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter.vote
+    line: 406
+  thermodynamic.MajorityVoter.vote_return_407:
+    id: thermodynamic.MajorityVoter.vote_return_407
+    type: RETURN
+    label: return
+    function: thermodynamic.MajorityVoter.vote
+    line: 407
+  thermodynamic.MajorityVoter.vote_if_409:
+    id: thermodynamic.MajorityVoter.vote_if_409
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter.vote
+    line: 409
+  thermodynamic.MajorityVoter.vote_return_410:
+    id: thermodynamic.MajorityVoter.vote_return_410
+    type: RETURN
+    label: return
+    function: thermodynamic.MajorityVoter.vote
+    line: 410
+  thermodynamic.MajorityVoter.vote_if_412:
+    id: thermodynamic.MajorityVoter.vote_if_412
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter.vote
+    line: 412
+  thermodynamic.MajorityVoter.vote_return_416:
+    id: thermodynamic.MajorityVoter.vote_return_416
+    type: RETURN
+    label: return
+    function: thermodynamic.MajorityVoter.vote
+    line: 416
+  thermodynamic.MajorityVoter.vote_if_418:
+    id: thermodynamic.MajorityVoter.vote_if_418
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter.vote
+    line: 418
+  thermodynamic.MajorityVoter.vote_return_419:
+    id: thermodynamic.MajorityVoter.vote_return_419
+    type: RETURN
+    label: return
+    function: thermodynamic.MajorityVoter.vote
+    line: 419
+  thermodynamic.MajorityVoter.vote_merge_418:
+    id: thermodynamic.MajorityVoter.vote_merge_418
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_merge_412:
+    id: thermodynamic.MajorityVoter.vote_merge_412
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_merge_409:
+    id: thermodynamic.MajorityVoter.vote_merge_409
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter.vote_merge_406:
+    id: thermodynamic.MajorityVoter.vote_merge_406
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter.vote
+  thermodynamic.MajorityVoter._cluster_vote_entry:
+    id: thermodynamic.MajorityVoter._cluster_vote_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.MajorityVoter._cluster_vote
+  thermodynamic.MajorityVoter._cluster_vote_exit:
+    id: thermodynamic.MajorityVoter._cluster_vote_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.MajorityVoter._cluster_vote
+  thermodynamic.MajorityVoter._cluster_vote_loop_429:
+    id: thermodynamic.MajorityVoter._cluster_vote_loop_429
+    type: FOR
+    label: for
+    function: thermodynamic.MajorityVoter._cluster_vote
+    line: 429
+  thermodynamic.MajorityVoter._cluster_vote_loop_431:
+    id: thermodynamic.MajorityVoter._cluster_vote_loop_431
+    type: FOR
+    label: for
+    function: thermodynamic.MajorityVoter._cluster_vote
+    line: 431
+  thermodynamic.MajorityVoter._cluster_vote_if_435:
+    id: thermodynamic.MajorityVoter._cluster_vote_if_435
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter._cluster_vote
+    line: 435
+  thermodynamic.MajorityVoter._cluster_vote_merge_435:
+    id: thermodynamic.MajorityVoter._cluster_vote_merge_435
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter._cluster_vote
+  thermodynamic.MajorityVoter._cluster_vote_if_440:
+    id: thermodynamic.MajorityVoter._cluster_vote_if_440
+    type: IF
+    label: if
+    function: thermodynamic.MajorityVoter._cluster_vote
+    line: 440
+  thermodynamic.MajorityVoter._cluster_vote_merge_440:
+    id: thermodynamic.MajorityVoter._cluster_vote_merge_440
+    type: FUNC
+    label: merge
+    function: thermodynamic.MajorityVoter._cluster_vote
+  thermodynamic.MajorityVoter._cluster_vote_return_447:
+    id: thermodynamic.MajorityVoter._cluster_vote_return_447
+    type: RETURN
+    label: return
+    function: thermodynamic.MajorityVoter._cluster_vote
+    line: 447

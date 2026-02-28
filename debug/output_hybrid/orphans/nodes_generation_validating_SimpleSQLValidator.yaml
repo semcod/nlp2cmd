@@ -1,0 +1,64 @@
+module: generation.validating.SimpleSQLValidator
+type: orphan_nodes
+count: 11
+nodes:
+  generation.validating.SimpleSQLValidator.validate_entry:
+    id: generation.validating.SimpleSQLValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: generation.validating.SimpleSQLValidator.validate
+  generation.validating.SimpleSQLValidator.validate_exit:
+    id: generation.validating.SimpleSQLValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: generation.validating.SimpleSQLValidator.validate
+  generation.validating.SimpleSQLValidator.validate_if_173:
+    id: generation.validating.SimpleSQLValidator.validate_if_173
+    type: IF
+    label: if
+    function: generation.validating.SimpleSQLValidator.validate
+    line: 173
+  generation.validating.SimpleSQLValidator.validate_merge_173:
+    id: generation.validating.SimpleSQLValidator.validate_merge_173
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleSQLValidator.validate
+  generation.validating.SimpleSQLValidator.validate_if_178:
+    id: generation.validating.SimpleSQLValidator.validate_if_178
+    type: IF
+    label: if
+    function: generation.validating.SimpleSQLValidator.validate
+    line: 178
+  generation.validating.SimpleSQLValidator.validate_merge_178:
+    id: generation.validating.SimpleSQLValidator.validate_merge_178
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleSQLValidator.validate
+  generation.validating.SimpleSQLValidator.validate_if_182:
+    id: generation.validating.SimpleSQLValidator.validate_if_182
+    type: IF
+    label: if
+    function: generation.validating.SimpleSQLValidator.validate
+    line: 182
+  generation.validating.SimpleSQLValidator.validate_merge_182:
+    id: generation.validating.SimpleSQLValidator.validate_merge_182
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleSQLValidator.validate
+  generation.validating.SimpleSQLValidator.validate_if_185:
+    id: generation.validating.SimpleSQLValidator.validate_if_185
+    type: IF
+    label: if
+    function: generation.validating.SimpleSQLValidator.validate
+    line: 185
+  generation.validating.SimpleSQLValidator.validate_merge_185:
+    id: generation.validating.SimpleSQLValidator.validate_merge_185
+    type: FUNC
+    label: merge
+    function: generation.validating.SimpleSQLValidator.validate
+  generation.validating.SimpleSQLValidator.validate_return_188:
+    id: generation.validating.SimpleSQLValidator.validate_return_188
+    type: RETURN
+    label: return
+    function: generation.validating.SimpleSQLValidator.validate
+    line: 188

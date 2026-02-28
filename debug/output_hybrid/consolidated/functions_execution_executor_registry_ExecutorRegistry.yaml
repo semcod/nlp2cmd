@@ -1,0 +1,40 @@
+module: execution.executor_registry.ExecutorRegistry
+type: functions
+count: 3
+functions:
+  execution.executor_registry.ExecutorRegistry.register:
+    name: register
+    qualified_name: execution.executor_registry.ExecutorRegistry.register
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/executor_registry.py
+    line: 34
+    module: execution.executor_registry
+    class: ExecutorRegistry
+    is_method: true
+    cfg_entry: execution.executor_registry.ExecutorRegistry.register_entry
+    calls:
+    - log.debug
+    - type
+  execution.executor_registry.ExecutorRegistry.get:
+    name: get
+    qualified_name: execution.executor_registry.ExecutorRegistry.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/executor_registry.py
+    line: 41
+    module: execution.executor_registry
+    class: ExecutorRegistry
+    is_method: true
+    cfg_entry: execution.executor_registry.ExecutorRegistry.get_entry
+    calls:
+    - self._executors.get
+  execution.executor_registry.ExecutorRegistry.dispatch:
+    name: dispatch
+    qualified_name: execution.executor_registry.ExecutorRegistry.dispatch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/executor_registry.py
+    line: 45
+    module: execution.executor_registry
+    class: ExecutorRegistry
+    is_method: true
+    cfg_entry: execution.executor_registry.ExecutorRegistry.dispatch_entry
+    calls:
+    - self._executors.get
+    - executor.execute
+    - ExecutorResult

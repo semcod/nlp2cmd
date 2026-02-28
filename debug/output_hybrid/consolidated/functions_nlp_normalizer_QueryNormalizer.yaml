@@ -1,0 +1,45 @@
+module: nlp.normalizer.QueryNormalizer
+type: functions
+count: 3
+functions:
+  nlp.normalizer.QueryNormalizer.__init__:
+    name: __init__
+    qualified_name: nlp.normalizer.QueryNormalizer.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/normalizer.py
+    line: 343
+    module: nlp.normalizer
+    class: QueryNormalizer
+    is_method: true
+    cfg_entry: nlp.normalizer.QueryNormalizer.__init___entry
+    calls:
+    - _VOCABULARY.extend
+    - _TYPO_MAP.update
+  nlp.normalizer.QueryNormalizer.normalize:
+    name: normalize
+    qualified_name: nlp.normalizer.QueryNormalizer.normalize
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/normalizer.py
+    line: 360
+    module: nlp.normalizer
+    class: QueryNormalizer
+    is_method: true
+    cfg_entry: nlp.normalizer.QueryNormalizer.normalize_entry
+    calls:
+    - nlp.normalizer.normalize_unicode
+    - nlp.normalizer.detect_language
+    - nlp.normalizer.tokenize
+    - NormalizedQuery
+    - raw.strip
+    - nlp.normalizer.correct_typos
+  nlp.normalizer.QueryNormalizer.normalize_for_matching:
+    name: normalize_for_matching
+    qualified_name: nlp.normalizer.QueryNormalizer.normalize_for_matching
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/normalizer.py
+    line: 393
+    module: nlp.normalizer
+    class: QueryNormalizer
+    is_method: true
+    cfg_entry: nlp.normalizer.QueryNormalizer.normalize_for_matching_entry
+    calls:
+    - self.normalize
+    - None.lower
+    - nlp.normalizer.fold_accents

@@ -1,0 +1,131 @@
+module: intelligent.version_aware_generator.VersionAwareCommandGenerator
+type: functions
+count: 9
+functions:
+  intelligent.version_aware_generator.VersionAwareCommandGenerator.generate_command:
+    name: generate_command
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator.generate_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 33
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator.generate_command_entry
+    calls:
+    - self._detect_base_command
+    - self._detect_command_version
+    - self.schema_store.load_schema_version
+    - SchemaBasedGenerator
+    - generation.schema.generator.learn_from_schema
+    - self._extract_context
+    - generation.schema.generator.generate_command
+    - self._post_process_command
+    - self._get_adaptations
+    - schema.metadata.get
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._detect_base_command:
+    name: _detect_base_command
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._detect_base_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 78
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._detect_base_command_entry
+    calls:
+    - query.lower
+    - self.command_mappings.items
+    - self.schema_store.list_commands
+    - query.split
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._detect_command_version:
+    name: _detect_command_version
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._detect_command_version
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 97
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._detect_command_version_entry
+    calls:
+    - self._run_version_command
+    - self._parse_version_output
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._run_version_command:
+    name: _run_version_command
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._run_version_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 116
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._run_version_command_entry
+    calls:
+    - version_commands.get
+    - subprocess.run
+    - RuntimeError
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._parse_version_output:
+    name: _parse_version_output
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._parse_version_output
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 159
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._parse_version_output_entry
+    calls:
+    - output.strip
+    - patterns.get
+    - re.search
+    - match.group
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._extract_context:
+    name: _extract_context
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._extract_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 190
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._extract_context_entry
+    calls:
+    - re.findall
+    - int
+    - query.lower
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._post_process_command:
+    name: _post_process_command
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._post_process_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 237
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._post_process_command_entry
+    calls:
+    - int
+    - command.replace
+    - map
+    - version.split
+    - subprocess.run
+    - version.startswith
+  intelligent.version_aware_generator.VersionAwareCommandGenerator._get_adaptations:
+    name: _get_adaptations
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator._get_adaptations
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 280
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator._get_adaptations_entry
+    calls:
+    - int
+    - adaptations.append
+    - version.split
+  intelligent.version_aware_generator.VersionAwareCommandGenerator.clear_version_cache:
+    name: clear_version_cache
+    qualified_name: intelligent.version_aware_generator.VersionAwareCommandGenerator.clear_version_cache
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/intelligent/version_aware_generator.py
+    line: 298
+    module: intelligent.version_aware_generator
+    class: VersionAwareCommandGenerator
+    is_method: true
+    cfg_entry: intelligent.version_aware_generator.VersionAwareCommandGenerator.clear_version_cache_entry
+    calls:
+    - self.version_cache.clear

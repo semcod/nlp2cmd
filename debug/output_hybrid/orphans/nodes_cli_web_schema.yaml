@@ -1,0 +1,256 @@
+module: cli.web_schema
+type: orphan_nodes
+count: 47
+nodes:
+  cli.web_schema.web_schema_group_entry:
+    id: cli.web_schema.web_schema_group_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.web_schema_group
+  cli.web_schema.web_schema_group_exit:
+    id: cli.web_schema.web_schema_group_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.web_schema_group
+  cli.web_schema.extract_schema_entry:
+    id: cli.web_schema.extract_schema_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.extract_schema
+  cli.web_schema.extract_schema_exit:
+    id: cli.web_schema.extract_schema_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.extract_schema
+  cli.web_schema.show_history_entry:
+    id: cli.web_schema.show_history_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.show_history
+  cli.web_schema.show_history_exit:
+    id: cli.web_schema.show_history_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.show_history
+  cli.web_schema.show_history_if_142:
+    id: cli.web_schema.show_history_if_142
+    type: IF
+    label: if
+    function: cli.web_schema.show_history
+    line: 142
+  cli.web_schema.show_history_if_152:
+    id: cli.web_schema.show_history_if_152
+    type: IF
+    label: if
+    function: cli.web_schema.show_history
+    line: 152
+  cli.web_schema.show_history_loop_154:
+    id: cli.web_schema.show_history_loop_154
+    type: FOR
+    label: for
+    function: cli.web_schema.show_history
+    line: 154
+  cli.web_schema.show_history_merge_152:
+    id: cli.web_schema.show_history_merge_152
+    type: FUNC
+    label: merge
+    function: cli.web_schema.show_history
+  cli.web_schema.show_history_if_157:
+    id: cli.web_schema.show_history_if_157
+    type: IF
+    label: if
+    function: cli.web_schema.show_history
+    line: 157
+  cli.web_schema.show_history_if_164:
+    id: cli.web_schema.show_history_if_164
+    type: IF
+    label: if
+    function: cli.web_schema.show_history
+    line: 164
+  cli.web_schema.show_history_merge_164:
+    id: cli.web_schema.show_history_merge_164
+    type: FUNC
+    label: merge
+    function: cli.web_schema.show_history
+  cli.web_schema.show_history_if_167:
+    id: cli.web_schema.show_history_if_167
+    type: IF
+    label: if
+    function: cli.web_schema.show_history
+    line: 167
+  cli.web_schema.show_history_return_169:
+    id: cli.web_schema.show_history_return_169
+    type: RETURN
+    label: return
+    function: cli.web_schema.show_history
+    line: 169
+  cli.web_schema.show_history_merge_167:
+    id: cli.web_schema.show_history_merge_167
+    type: FUNC
+    label: merge
+    function: cli.web_schema.show_history
+  cli.web_schema.show_history_loop_178:
+    id: cli.web_schema.show_history_loop_178
+    type: FOR
+    label: for
+    function: cli.web_schema.show_history
+    line: 178
+  cli.web_schema.show_history_merge_157:
+    id: cli.web_schema.show_history_merge_157
+    type: FUNC
+    label: merge
+    function: cli.web_schema.show_history
+  cli.web_schema.show_history_merge_142:
+    id: cli.web_schema.show_history_merge_142
+    type: FUNC
+    label: merge
+    function: cli.web_schema.show_history
+  cli.web_schema.export_learned_schema_entry:
+    id: cli.web_schema.export_learned_schema_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.export_learned_schema
+  cli.web_schema.export_learned_schema_exit:
+    id: cli.web_schema.export_learned_schema_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.export_learned_schema
+  cli.web_schema.export_learned_schema_if_211:
+    id: cli.web_schema.export_learned_schema_if_211
+    type: IF
+    label: if
+    function: cli.web_schema.export_learned_schema
+    line: 211
+  cli.web_schema.export_learned_schema_merge_211:
+    id: cli.web_schema.export_learned_schema_merge_211
+    type: FUNC
+    label: merge
+    function: cli.web_schema.export_learned_schema
+  cli.web_schema.clear_history_entry:
+    id: cli.web_schema.clear_history_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.clear_history
+  cli.web_schema.clear_history_exit:
+    id: cli.web_schema.clear_history_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.clear_history
+  cli.web_schema.clear_history_if_238:
+    id: cli.web_schema.clear_history_if_238
+    type: IF
+    label: if
+    function: cli.web_schema.clear_history
+    line: 238
+  cli.web_schema.clear_history_if_240:
+    id: cli.web_schema.clear_history_if_240
+    type: IF
+    label: if
+    function: cli.web_schema.clear_history
+    line: 240
+  cli.web_schema.clear_history_merge_240:
+    id: cli.web_schema.clear_history_merge_240
+    type: FUNC
+    label: merge
+    function: cli.web_schema.clear_history
+  cli.web_schema.clear_history_if_243:
+    id: cli.web_schema.clear_history_if_243
+    type: IF
+    label: if
+    function: cli.web_schema.clear_history
+    line: 243
+  cli.web_schema.clear_history_if_245:
+    id: cli.web_schema.clear_history_if_245
+    type: IF
+    label: if
+    function: cli.web_schema.clear_history
+    line: 245
+  cli.web_schema.clear_history_merge_245:
+    id: cli.web_schema.clear_history_merge_245
+    type: FUNC
+    label: merge
+    function: cli.web_schema.clear_history
+  cli.web_schema.clear_history_merge_243:
+    id: cli.web_schema.clear_history_merge_243
+    type: FUNC
+    label: merge
+    function: cli.web_schema.clear_history
+  cli.web_schema.clear_history_merge_238:
+    id: cli.web_schema.clear_history_merge_238
+    type: FUNC
+    label: merge
+    function: cli.web_schema.clear_history
+  cli.web_schema.group_entry:
+    id: cli.web_schema.group_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.group
+  cli.web_schema.group_exit:
+    id: cli.web_schema.group_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.group
+  cli.web_schema.group_return_21:
+    id: cli.web_schema.group_return_21
+    type: RETURN
+    label: return
+    function: cli.web_schema.group
+    line: 21
+  cli.web_schema.argument_entry:
+    id: cli.web_schema.argument_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.argument
+  cli.web_schema.argument_exit:
+    id: cli.web_schema.argument_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.argument
+  cli.web_schema.argument_return_25:
+    id: cli.web_schema.argument_return_25
+    type: RETURN
+    label: return
+    function: cli.web_schema.argument
+    line: 25
+  cli.web_schema.option_entry:
+    id: cli.web_schema.option_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.option
+  cli.web_schema.option_exit:
+    id: cli.web_schema.option_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.option
+  cli.web_schema.option_return_29:
+    id: cli.web_schema.option_return_29
+    type: RETURN
+    label: return
+    function: cli.web_schema.option
+    line: 29
+  cli.web_schema.print_entry:
+    id: cli.web_schema.print_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.print
+  cli.web_schema.print_exit:
+    id: cli.web_schema.print_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.print
+  cli.web_schema.command_entry:
+    id: cli.web_schema.command_entry
+    type: ENTRY
+    label: entry
+    function: cli.web_schema.command
+  cli.web_schema.command_exit:
+    id: cli.web_schema.command_exit
+    type: EXIT
+    label: exit
+    function: cli.web_schema.command
+  cli.web_schema.command_return_17:
+    id: cli.web_schema.command_return_17
+    type: RETURN
+    label: return
+    function: cli.web_schema.command
+    line: 17

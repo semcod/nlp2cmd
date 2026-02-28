@@ -1,0 +1,48 @@
+module: generation.llm_simple.SimpleLLMKubernetesGenerator
+type: orphan_nodes
+count: 8
+nodes:
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_entry:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_exit:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_if_372:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_if_372
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+    line: 372
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_if_374:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_if_374
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+    line: 374
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_return_375:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_return_375
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+    line: 375
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_merge_374:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_merge_374
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_merge_372:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_merge_372
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+  generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_return_377:
+    id: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command_return_377
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMKubernetesGenerator.extract_command
+    line: 377

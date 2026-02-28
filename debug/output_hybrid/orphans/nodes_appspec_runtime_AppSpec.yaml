@@ -1,0 +1,43 @@
+module: appspec_runtime.AppSpec
+type: orphan_nodes
+count: 7
+nodes:
+  appspec_runtime.AppSpec.get_action_entry:
+    id: appspec_runtime.AppSpec.get_action_entry
+    type: ENTRY
+    label: entry
+    function: appspec_runtime.AppSpec.get_action
+  appspec_runtime.AppSpec.get_action_exit:
+    id: appspec_runtime.AppSpec.get_action_exit
+    type: EXIT
+    label: exit
+    function: appspec_runtime.AppSpec.get_action
+  appspec_runtime.AppSpec.get_action_loop_27:
+    id: appspec_runtime.AppSpec.get_action_loop_27
+    type: FOR
+    label: for
+    function: appspec_runtime.AppSpec.get_action
+    line: 27
+  appspec_runtime.AppSpec.get_action_if_28:
+    id: appspec_runtime.AppSpec.get_action_if_28
+    type: IF
+    label: if
+    function: appspec_runtime.AppSpec.get_action
+    line: 28
+  appspec_runtime.AppSpec.get_action_return_29:
+    id: appspec_runtime.AppSpec.get_action_return_29
+    type: RETURN
+    label: return
+    function: appspec_runtime.AppSpec.get_action
+    line: 29
+  appspec_runtime.AppSpec.get_action_merge_28:
+    id: appspec_runtime.AppSpec.get_action_merge_28
+    type: FUNC
+    label: merge
+    function: appspec_runtime.AppSpec.get_action
+  appspec_runtime.AppSpec.get_action_return_30:
+    id: appspec_runtime.AppSpec.get_action_return_30
+    type: RETURN
+    label: return
+    function: appspec_runtime.AppSpec.get_action
+    line: 30

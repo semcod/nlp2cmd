@@ -1,0 +1,214 @@
+module: validators.SQLValidator
+type: orphan_nodes
+count: 38
+nodes:
+  validators.SQLValidator.validate_entry:
+    id: validators.SQLValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_exit:
+    id: validators.SQLValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_loop_194:
+    id: validators.SQLValidator.validate_loop_194
+    type: FOR
+    label: for
+    function: validators.SQLValidator.validate
+    line: 194
+  validators.SQLValidator.validate_if_195:
+    id: validators.SQLValidator.validate_if_195
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 195
+  validators.SQLValidator.validate_if_196:
+    id: validators.SQLValidator.validate_if_196
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 196
+  validators.SQLValidator.validate_merge_196:
+    id: validators.SQLValidator.validate_merge_196
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_195:
+    id: validators.SQLValidator.validate_merge_195
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_if_203:
+    id: validators.SQLValidator.validate_if_203
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 203
+  validators.SQLValidator.validate_merge_203:
+    id: validators.SQLValidator.validate_merge_203
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_if_208:
+    id: validators.SQLValidator.validate_if_208
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 208
+  validators.SQLValidator.validate_merge_208:
+    id: validators.SQLValidator.validate_merge_208
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_if_213:
+    id: validators.SQLValidator.validate_if_213
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 213
+  validators.SQLValidator.validate_if_214:
+    id: validators.SQLValidator.validate_if_214
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 214
+  validators.SQLValidator.validate_merge_214:
+    id: validators.SQLValidator.validate_merge_214
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_213:
+    id: validators.SQLValidator.validate_merge_213
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_if_219:
+    id: validators.SQLValidator.validate_if_219
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 219
+  validators.SQLValidator.validate_merge_219:
+    id: validators.SQLValidator.validate_merge_219
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_loop_226:
+    id: validators.SQLValidator.validate_loop_226
+    type: FOR
+    label: for
+    function: validators.SQLValidator.validate
+    line: 226
+  validators.SQLValidator.validate_if_227:
+    id: validators.SQLValidator.validate_if_227
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 227
+  validators.SQLValidator.validate_if_230:
+    id: validators.SQLValidator.validate_if_230
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 230
+  validators.SQLValidator.validate_if_231:
+    id: validators.SQLValidator.validate_if_231
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 231
+  validators.SQLValidator.validate_merge_231:
+    id: validators.SQLValidator.validate_merge_231
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_230:
+    id: validators.SQLValidator.validate_merge_230
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_227:
+    id: validators.SQLValidator.validate_merge_227
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_if_240:
+    id: validators.SQLValidator.validate_if_240
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 240
+  validators.SQLValidator.validate_if_242:
+    id: validators.SQLValidator.validate_if_242
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 242
+  validators.SQLValidator.validate_merge_242:
+    id: validators.SQLValidator.validate_merge_242
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_240:
+    id: validators.SQLValidator.validate_merge_240
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_if_246:
+    id: validators.SQLValidator.validate_if_246
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 246
+  validators.SQLValidator.validate_if_248:
+    id: validators.SQLValidator.validate_if_248
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 248
+  validators.SQLValidator.validate_merge_248:
+    id: validators.SQLValidator.validate_merge_248
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_246:
+    id: validators.SQLValidator.validate_merge_246
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_loop_253:
+    id: validators.SQLValidator.validate_loop_253
+    type: FOR
+    label: for
+    function: validators.SQLValidator.validate
+    line: 253
+  validators.SQLValidator.validate_if_254:
+    id: validators.SQLValidator.validate_if_254
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 254
+  validators.SQLValidator.validate_if_256:
+    id: validators.SQLValidator.validate_if_256
+    type: IF
+    label: if
+    function: validators.SQLValidator.validate
+    line: 256
+  validators.SQLValidator.validate_merge_256:
+    id: validators.SQLValidator.validate_merge_256
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_merge_254:
+    id: validators.SQLValidator.validate_merge_254
+    type: FUNC
+    label: merge
+    function: validators.SQLValidator.validate
+  validators.SQLValidator.validate_return_265:
+    id: validators.SQLValidator.validate_return_265
+    type: RETURN
+    label: return
+    function: validators.SQLValidator.validate
+    line: 265

@@ -1,0 +1,36 @@
+module: core.core_backends.SpaCyBackend
+type: orphan_nodes
+count: 6
+nodes:
+  core.core_backends.SpaCyBackend.__init___entry:
+    id: core.core_backends.SpaCyBackend.__init___entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.SpaCyBackend.__init__
+  core.core_backends.SpaCyBackend.__init___exit:
+    id: core.core_backends.SpaCyBackend.__init___exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.SpaCyBackend.__init__
+  core.core_backends.SpaCyBackend.extract_entities_entry:
+    id: core.core_backends.SpaCyBackend.extract_entities_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.SpaCyBackend.extract_entities
+  core.core_backends.SpaCyBackend.extract_entities_exit:
+    id: core.core_backends.SpaCyBackend.extract_entities_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.SpaCyBackend.extract_entities
+  core.core_backends.SpaCyBackend.extract_entities_loop_65:
+    id: core.core_backends.SpaCyBackend.extract_entities_loop_65
+    type: FOR
+    label: for
+    function: core.core_backends.SpaCyBackend.extract_entities
+    line: 65
+  core.core_backends.SpaCyBackend.extract_entities_return_74:
+    id: core.core_backends.SpaCyBackend.extract_entities_return_74
+    type: RETURN
+    label: return
+    function: core.core_backends.SpaCyBackend.extract_entities
+    line: 74

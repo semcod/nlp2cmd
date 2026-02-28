@@ -1,0 +1,71 @@
+module: adapters.appspec
+type: functions
+count: 6
+functions:
+  adapters.appspec.__init__:
+    name: __init__
+    qualified_name: adapters.appspec.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/appspec.py
+    line: 22
+    module: adapters.appspec
+    cfg_entry: adapters.appspec.__init___entry
+    calls:
+    - None.__init__
+    - self.set_spec
+    - super
+    - self.load_from_file
+  adapters.appspec.load_from_file:
+    name: load_from_file
+    qualified_name: adapters.appspec.load_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/appspec.py
+    line: 41
+    module: adapters.appspec
+    cfg_entry: adapters.appspec.load_from_file_entry
+    calls:
+    - appspec_runtime.load_appspec
+    - self.set_spec
+  adapters.appspec.set_spec:
+    name: set_spec
+    qualified_name: adapters.appspec.set_spec
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/appspec.py
+    line: 45
+    module: adapters.appspec
+    cfg_entry: adapters.appspec.set_spec_entry
+    calls:
+    - SchemaDrivenNLP2CMD
+  adapters.appspec.generate:
+    name: generate
+    qualified_name: adapters.appspec.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/appspec.py
+    line: 49
+    module: adapters.appspec
+    cfg_entry: adapters.appspec.generate_entry
+    calls:
+    - self._engine.transform
+    - ValueError
+    - plan.get
+    - str
+  adapters.appspec.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.appspec.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/appspec.py
+    line: 61
+    module: adapters.appspec
+    cfg_entry: adapters.appspec.validate_syntax_entry
+    calls:
+    - None.strip
+    - str
+  adapters.appspec.check_safety:
+    name: check_safety
+    qualified_name: adapters.appspec.check_safety
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/appspec.py
+    line: 66
+    module: adapters.appspec
+    cfg_entry: adapters.appspec.check_safety_entry
+    calls:
+    - getattr
+    - None.check_safety
+    - isinstance
+    - None.lower
+    - super
+    - pattern.lower

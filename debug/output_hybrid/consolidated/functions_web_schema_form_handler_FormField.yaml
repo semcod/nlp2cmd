@@ -1,0 +1,16 @@
+module: web_schema.form_handler.FormField
+type: functions
+count: 1
+functions:
+  web_schema.form_handler.FormField.get_display_name:
+    name: get_display_name
+    qualified_name: web_schema.form_handler.FormField.get_display_name
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 32
+    module: web_schema.form_handler
+    class: FormField
+    is_method: true
+    cfg_entry: web_schema.form_handler.FormField.get_display_name_entry
+    calls:
+    - isinstance
+    - candidate.strip

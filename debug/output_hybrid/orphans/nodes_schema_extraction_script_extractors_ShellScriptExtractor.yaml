@@ -1,0 +1,178 @@
+module: schema_extraction.script_extractors.ShellScriptExtractor
+type: orphan_nodes
+count: 31
+nodes:
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_entry:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_exit:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_if_41:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_if_41
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file
+    line: 41
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_merge_41:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_merge_41
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_return_45:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_return_45
+    type: RETURN
+    label: return
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file
+    line: 45
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_entry:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_exit:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_52:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_52
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 52
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_54:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_54
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 54
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_56:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_56
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 56
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_56:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_56
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_58:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_58
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 58
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_58:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_58
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_54:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_54
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_64:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_64
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 64
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_66:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_66
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 66
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_66:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_66
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_72:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_72
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 72
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_75:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_75
+    type: WHILE
+    label: while
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 75
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_77:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_77
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 77
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_77:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_77
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_93:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_93
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 93
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_96:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_96
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 96
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_107:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_107
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 107
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_119:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_119
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 119
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_125:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_loop_125
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 125
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_126:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_126
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 126
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_126:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_126
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_128:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_if_128
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 128
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_128:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_merge_128
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_return_165:
+    id: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_return_165
+    type: RETURN
+    label: return
+    function: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    line: 165

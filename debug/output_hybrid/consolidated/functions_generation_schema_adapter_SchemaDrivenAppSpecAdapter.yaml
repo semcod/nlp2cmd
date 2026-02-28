@@ -1,0 +1,139 @@
+module: generation.schema.adapter.SchemaDrivenAppSpecAdapter
+type: functions
+count: 10
+functions:
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter.__init__:
+    name: __init__
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 15
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter.__init___entry
+    calls:
+    - None.__init__
+    - SchemaRegistry
+    - self._load_schemas
+    - super
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter._load_schemas:
+    name: _load_schemas
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter._load_schemas
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 36
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter._load_schemas_entry
+    calls:
+    - Path
+    - p.exists
+    - self.schema_registry.load_from_file
+    - self._action_to_schema
+    - self.schema_registry.register_schema
+    - str
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter._action_to_schema:
+    name: _action_to_schema
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter._action_to_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 55
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter._action_to_schema_entry
+    calls:
+    - dsl.get
+    - CommandSchema
+    - ExtractedSchema
+    - self._infer_category
+    - action.match.get
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter._infer_category:
+    name: _infer_category
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter._infer_category
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 83
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter._infer_category_entry
+    calls:
+    - hasattr
+    - type_map.get
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter.generate:
+    name: generate
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 97
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter.generate_entry
+    calls:
+    - None.generate
+    - plan.get
+    - self.schema_registry.generate_command
+    - super
+    - action_id.split
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter.transform_ir:
+    name: transform_ir
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter.transform_ir
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 113
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter.transform_ir_entry
+    calls:
+    - self._engine.transform
+    - self._extract_command_from_text
+    - self._extract_context_from_text
+    - self.schema_registry.generate_command
+    - ActionIR
+    - ir.metadata.update
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter._extract_command_from_text:
+    name: _extract_command_from_text
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter._extract_command_from_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 148
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter._extract_command_from_text_entry
+    calls:
+    - text.lower
+    - mappings.items
+    - text.split
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter._extract_context_from_text:
+    name: _extract_context_from_text
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter._extract_context_from_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 182
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter._extract_context_from_text_entry
+    calls:
+    - re.findall
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter.learn_from_feedback:
+    name: learn_from_feedback
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter.learn_from_feedback
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 215
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter.learn_from_feedback_entry
+    calls:
+    - self._extract_command_from_text
+    - self.schema_registry.improve_from_feedback
+  generation.schema.adapter.SchemaDrivenAppSpecAdapter.save_improvements:
+    name: save_improvements
+    qualified_name: generation.schema.adapter.SchemaDrivenAppSpecAdapter.save_improvements
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/adapter.py
+    line: 220
+    module: generation.schema.adapter
+    class: SchemaDrivenAppSpecAdapter
+    is_method: true
+    cfg_entry: generation.schema.adapter.SchemaDrivenAppSpecAdapter.save_improvements_entry
+    calls:
+    - self.schema_registry.save_improvements

@@ -1,0 +1,141 @@
+letter: C
+type: orphan_functions
+count: 17
+functions:
+  generation.llm_simple.LLMClient.complete:
+    name: complete
+    qualified_name: generation.llm_simple.LLMClient.complete
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 19
+    module: generation.llm_simple
+    class: LLMClient
+    is_method: true
+    cfg_entry: generation.llm_simple.LLMClient.complete_entry
+  cli.web_schema.Group.command:
+    name: command
+    qualified_name: cli.web_schema.Group.command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/web_schema.py
+    line: 14
+    module: cli.web_schema
+    class: Group
+    is_method: true
+    cfg_entry: cli.web_schema.Group.command_entry
+  cli.web_schema.command:
+    name: command
+    qualified_name: cli.web_schema.command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/web_schema.py
+    line: 14
+    module: cli.web_schema
+    cfg_entry: cli.web_schema.command_entry
+  cli.history._ClickStub.command:
+    name: command
+    qualified_name: cli.history._ClickStub.command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/history.py
+    line: 15
+    module: cli.history
+    class: _ClickStub
+    is_method: true
+    cfg_entry: cli.history._ClickStub.command_entry
+  cli.history.command:
+    name: command
+    qualified_name: cli.history.command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/history.py
+    line: 15
+    module: cli.history
+    cfg_entry: cli.history.command_entry
+  cli.cache._ClickStub.confirm:
+    name: confirm
+    qualified_name: cli.cache._ClickStub.confirm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/cache.py
+    line: 32
+    module: cli.cache
+    class: _ClickStub
+    is_method: true
+    cfg_entry: cli.cache._ClickStub.confirm_entry
+  cli.cache.Group.command:
+    name: command
+    qualified_name: cli.cache.Group.command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/cache.py
+    line: 14
+    module: cli.cache
+    class: Group
+    is_method: true
+    cfg_entry: cli.cache.Group.command_entry
+  cli.cache.confirm:
+    name: confirm
+    qualified_name: cli.cache.confirm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/cache.py
+    line: 32
+    module: cli.cache
+    cfg_entry: cli.cache.confirm_entry
+  cli.cache.command:
+    name: command
+    qualified_name: cli.cache.command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/cache.py
+    line: 14
+    module: cli.cache
+    cfg_entry: cli.cache.command_entry
+  thermodynamic.EntropyProductionRegularizer.compute_regularization:
+    name: compute_regularization
+    qualified_name: thermodynamic.EntropyProductionRegularizer.compute_regularization
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 364
+    module: thermodynamic
+    class: EntropyProductionRegularizer
+    is_method: true
+    cfg_entry: thermodynamic.EntropyProductionRegularizer.compute_regularization_entry
+  thermodynamic.compute_regularization:
+    name: compute_regularization
+    qualified_name: thermodynamic.compute_regularization
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 364
+    module: thermodynamic
+    cfg_entry: thermodynamic.compute_regularization_entry
+  adapters.docker.DockerSafetyPolicy.check_command:
+    name: check_command
+    qualified_name: adapters.docker.DockerSafetyPolicy.check_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/docker.py
+    line: 31
+    module: adapters.docker
+    class: DockerSafetyPolicy
+    is_method: true
+    cfg_entry: adapters.docker.DockerSafetyPolicy.check_command_entry
+  adapters.docker.DockerAdapter.check_safety:
+    name: check_safety
+    qualified_name: adapters.docker.DockerAdapter.check_safety
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/docker.py
+    line: 593
+    module: adapters.docker
+    class: DockerAdapter
+    is_method: true
+    cfg_entry: adapters.docker.DockerAdapter.check_safety_entry
+  adapters.docker.check_command:
+    name: check_command
+    qualified_name: adapters.docker.check_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/docker.py
+    line: 31
+    module: adapters.docker
+    cfg_entry: adapters.docker.check_command_entry
+  adapters.docker.check_safety:
+    name: check_safety
+    qualified_name: adapters.docker.check_safety
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/docker.py
+    line: 593
+    module: adapters.docker
+    cfg_entry: adapters.docker.check_safety_entry
+  streams.base.StreamAdapter.connect:
+    name: connect
+    qualified_name: streams.base.StreamAdapter.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/base.py
+    line: 161
+    module: streams.base
+    class: StreamAdapter
+    is_method: true
+    cfg_entry: streams.base.StreamAdapter.connect_entry
+  streams.base.connect:
+    name: connect
+    qualified_name: streams.base.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/base.py
+    line: 161
+    module: streams.base
+    cfg_entry: streams.base.connect_entry

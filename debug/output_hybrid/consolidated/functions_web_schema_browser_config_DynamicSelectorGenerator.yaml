@@ -1,0 +1,38 @@
+module: web_schema.browser_config.DynamicSelectorGenerator
+type: functions
+count: 2
+functions:
+  web_schema.browser_config.DynamicSelectorGenerator.__init__:
+    name: __init__
+    qualified_name: web_schema.browser_config.DynamicSelectorGenerator.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/browser_config.py
+    line: 236
+    module: web_schema.browser_config
+    class: DynamicSelectorGenerator
+    is_method: true
+    cfg_entry: web_schema.browser_config.DynamicSelectorGenerator.__init___entry
+    calls:
+    - BrowserConfigLoader
+  web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors:
+    name: suggest_selectors
+    qualified_name: web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/browser_config.py
+    line: 245
+    module: web_schema.browser_config
+    class: DynamicSelectorGenerator
+    is_method: true
+    cfg_entry: web_schema.browser_config.DynamicSelectorGenerator.suggest_selectors_entry
+    calls:
+    - LiteLLMClient
+    - asyncio.run
+    - response.strip
+    - re.search
+    - _json.loads
+    - data.get
+    - len
+    - llm.generate
+    - m.group
+    - isinstance
+    - s.strip
+    - m2.group
+    - self.config_loader.save_learned_selector

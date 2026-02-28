@@ -1,0 +1,90 @@
+module: streams.vnc_stream
+type: functions
+count: 7
+functions:
+  streams.vnc_stream.__init__:
+    name: __init__
+    qualified_name: streams.vnc_stream.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 19
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream.__init___entry
+    calls:
+    - None.__init__
+    - super
+  streams.vnc_stream.connect:
+    name: connect
+    qualified_name: streams.vnc_stream.connect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 25
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream.connect_entry
+    calls:
+    - StreamResult
+    - None.start
+    - self._pw.chromium.launch
+    - self._browser.new_page
+    - self._page.goto
+    - self._page.wait_for_timeout
+    - self._page.wait_for_selector
+    - sync_playwright
+    - str
+  streams.vnc_stream.execute:
+    name: execute
+    qualified_name: streams.vnc_stream.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 56
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream.execute_entry
+    calls:
+    - task.lower
+    - any
+    - page.screenshot
+    - StreamResult
+    - page.keyboard.type
+    - page.wait_for_timeout
+    - self._extract_key
+    - page.keyboard.press
+    - len
+    - task.split
+  streams.vnc_stream.query:
+    name: query
+    qualified_name: streams.vnc_stream.query
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 89
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream.query_entry
+    calls:
+    - StreamResult
+    - self._page.screenshot
+  streams.vnc_stream.screenshot:
+    name: screenshot
+    qualified_name: streams.vnc_stream.screenshot
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 95
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream.screenshot_entry
+    calls:
+    - self._page.screenshot
+  streams.vnc_stream.disconnect:
+    name: disconnect
+    qualified_name: streams.vnc_stream.disconnect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 100
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream.disconnect_entry
+    calls:
+    - self._browser.close
+    - self._pw.stop
+  streams.vnc_stream._extract_key:
+    name: _extract_key
+    qualified_name: streams.vnc_stream._extract_key
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/streams/vnc_stream.py
+    line: 110
+    module: streams.vnc_stream
+    cfg_entry: streams.vnc_stream._extract_key_entry
+    calls:
+    - re.search
+    - None.replace
+    - text.lower
+    - m.group

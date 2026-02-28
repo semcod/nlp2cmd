@@ -1,0 +1,24 @@
+module: generation.llm_multi.LLMDomainRouter
+type: orphan_nodes
+count: 4
+nodes:
+  generation.llm_multi.LLMDomainRouter.__init___entry:
+    id: generation.llm_multi.LLMDomainRouter.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_multi.LLMDomainRouter.__init__
+  generation.llm_multi.LLMDomainRouter.__init___exit:
+    id: generation.llm_multi.LLMDomainRouter.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.llm_multi.LLMDomainRouter.__init__
+  generation.llm_multi.LLMDomainRouter.route_entry:
+    id: generation.llm_multi.LLMDomainRouter.route_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_multi.LLMDomainRouter.route
+  generation.llm_multi.LLMDomainRouter.route_exit:
+    id: generation.llm_multi.LLMDomainRouter.route_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_multi.LLMDomainRouter.route

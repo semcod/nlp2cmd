@@ -1,0 +1,52 @@
+module: generation.llm_simple.LiteLLMClient
+type: orphan_nodes
+count: 9
+nodes:
+  generation.llm_simple.LiteLLMClient.__init___entry:
+    id: generation.llm_simple.LiteLLMClient.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.LiteLLMClient.__init__
+  generation.llm_simple.LiteLLMClient.__init___exit:
+    id: generation.llm_simple.LiteLLMClient.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.LiteLLMClient.__init__
+  generation.llm_simple.LiteLLMClient.complete_entry:
+    id: generation.llm_simple.LiteLLMClient.complete_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.LiteLLMClient.complete
+  generation.llm_simple.LiteLLMClient.complete_exit:
+    id: generation.llm_simple.LiteLLMClient.complete_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.LiteLLMClient.complete
+  generation.llm_simple.LiteLLMClient.complete_if_59:
+    id: generation.llm_simple.LiteLLMClient.complete_if_59
+    type: IF
+    label: if
+    function: generation.llm_simple.LiteLLMClient.complete
+    line: 59
+  generation.llm_simple.LiteLLMClient.complete_merge_59:
+    id: generation.llm_simple.LiteLLMClient.complete_merge_59
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.LiteLLMClient.complete
+  generation.llm_simple.LiteLLMClient.complete_if_64:
+    id: generation.llm_simple.LiteLLMClient.complete_if_64
+    type: IF
+    label: if
+    function: generation.llm_simple.LiteLLMClient.complete
+    line: 64
+  generation.llm_simple.LiteLLMClient.complete_merge_64:
+    id: generation.llm_simple.LiteLLMClient.complete_merge_64
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.LiteLLMClient.complete
+  generation.llm_simple.LiteLLMClient.complete_return_80:
+    id: generation.llm_simple.LiteLLMClient.complete_return_80
+    type: RETURN
+    label: return
+    function: generation.llm_simple.LiteLLMClient.complete
+    line: 80

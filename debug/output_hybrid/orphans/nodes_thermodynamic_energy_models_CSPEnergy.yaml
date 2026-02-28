@@ -1,0 +1,58 @@
+module: thermodynamic.energy_models.CSPEnergy
+type: orphan_nodes
+count: 10
+nodes:
+  thermodynamic.energy_models.CSPEnergy.add_constraint_entry:
+    id: thermodynamic.energy_models.CSPEnergy.add_constraint_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.CSPEnergy.add_constraint
+  thermodynamic.energy_models.CSPEnergy.add_constraint_exit:
+    id: thermodynamic.energy_models.CSPEnergy.add_constraint_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.CSPEnergy.add_constraint
+  thermodynamic.energy_models.CSPEnergy.energy_entry:
+    id: thermodynamic.energy_models.CSPEnergy.energy_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.CSPEnergy.energy
+  thermodynamic.energy_models.CSPEnergy.energy_exit:
+    id: thermodynamic.energy_models.CSPEnergy.energy_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.CSPEnergy.energy
+  thermodynamic.energy_models.CSPEnergy.energy_loop_596:
+    id: thermodynamic.energy_models.CSPEnergy.energy_loop_596
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.CSPEnergy.energy
+    line: 596
+  thermodynamic.energy_models.CSPEnergy.energy_return_599:
+    id: thermodynamic.energy_models.CSPEnergy.energy_return_599
+    type: RETURN
+    label: return
+    function: thermodynamic.energy_models.CSPEnergy.energy
+    line: 599
+  thermodynamic.energy_models.CSPEnergy.gradient_entry:
+    id: thermodynamic.energy_models.CSPEnergy.gradient_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.CSPEnergy.gradient
+  thermodynamic.energy_models.CSPEnergy.gradient_exit:
+    id: thermodynamic.energy_models.CSPEnergy.gradient_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.CSPEnergy.gradient
+  thermodynamic.energy_models.CSPEnergy.gradient_loop_606:
+    id: thermodynamic.energy_models.CSPEnergy.gradient_loop_606
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.CSPEnergy.gradient
+    line: 606
+  thermodynamic.energy_models.CSPEnergy.gradient_return_614:
+    id: thermodynamic.energy_models.CSPEnergy.gradient_return_614
+    type: RETURN
+    label: return
+    function: thermodynamic.energy_models.CSPEnergy.gradient
+    line: 614

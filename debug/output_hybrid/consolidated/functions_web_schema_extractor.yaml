@@ -1,0 +1,135 @@
+module: web_schema.extractor
+type: functions
+count: 8
+functions:
+  web_schema.extractor.extract_web_schema:
+    name: extract_web_schema
+    qualified_name: web_schema.extractor.extract_web_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 351
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor.extract_web_schema_entry
+    calls:
+    - WebSchemaExtractor
+    - web_schema.extractor.extract
+    - schema.save
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - ExternalCacheManager
+    - cache_manager.setup_environment
+    - Path
+    - cache_manager.is_playwright_cached
+    - cache_manager.install_playwright_if_needed
+    called_by:
+    - cli.web_schema.extract_schema
+  web_schema.extractor.to_appspec:
+    name: to_appspec
+    qualified_name: web_schema.extractor.to_appspec
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 56
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor.to_appspec_entry
+    calls:
+    - actions.append
+    - self.metadata.get
+    - len
+  web_schema.extractor.save:
+    name: save
+    qualified_name: web_schema.extractor.save
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 119
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor.save_entry
+    calls:
+    - output_dir.mkdir
+    - re.sub
+    - open
+    - json.dump
+    - self.to_appspec
+  web_schema.extractor.extract:
+    name: extract
+    qualified_name: web_schema.extractor.extract
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 144
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor.extract_entry
+    calls:
+    - urlparse
+    - WebPageSchema
+    - url.startswith
+    - sync_playwright
+    - p.chromium.launch
+    - browser.new_context
+    - context.new_page
+    - page.goto
+    - page.wait_for_timeout
+    - page.title
+    - self._extract_inputs
+    - self._extract_buttons
+    - self._extract_links
+    - self._extract_forms
+    - execution.browser.close
+    - RuntimeError
+    - None.isoformat
+    - datetime.datetime.now
+    called_by:
+    - generation.pipeline.RuleBasedPipeline._process_with_detection
+    - generation.pipeline._process_with_detection
+    - web_schema.extractor.extract_web_schema
+  web_schema.extractor._extract_inputs:
+    name: _extract_inputs
+    qualified_name: web_schema.extractor._extract_inputs
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 209
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor._extract_inputs_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - elem.get_attribute
+    - elem.evaluate
+    - inputs.append
+    - WebElement
+  web_schema.extractor._extract_buttons:
+    name: _extract_buttons
+    qualified_name: web_schema.extractor._extract_buttons
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 253
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor._extract_buttons_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - elem.get_attribute
+    - buttons.append
+    - elem.inner_text
+    - None.strip
+    - WebElement
+  web_schema.extractor._extract_links:
+    name: _extract_links
+    qualified_name: web_schema.extractor._extract_links
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 292
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor._extract_links_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - elem.get_attribute
+    - links.append
+    - elem.inner_text
+    - None.strip
+    - WebElement
+  web_schema.extractor._extract_forms:
+    name: _extract_forms
+    qualified_name: web_schema.extractor._extract_forms
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 321
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor._extract_forms_entry
+    calls:
+    - page.query_selector_all
+    - enumerate
+    - form.get_attribute
+    - form.query_selector_all
+    - forms.append
+    - inp.get_attribute

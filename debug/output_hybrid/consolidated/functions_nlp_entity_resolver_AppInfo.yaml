@@ -1,0 +1,16 @@
+module: nlp.entity_resolver.AppInfo
+type: functions
+count: 1
+functions:
+  nlp.entity_resolver.AppInfo.all_aliases:
+    name: all_aliases
+    qualified_name: nlp.entity_resolver.AppInfo.all_aliases
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/nlp/entity_resolver.py
+    line: 49
+    module: nlp.entity_resolver
+    class: AppInfo
+    is_method: true
+    cfg_entry: nlp.entity_resolver.AppInfo.all_aliases_entry
+    calls:
+    - self.aliases.values
+    - result.extend

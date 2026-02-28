@@ -1,0 +1,37 @@
+module: pipeline_runner.PipelineRunner
+type: functions
+count: 2
+functions:
+  pipeline_runner.PipelineRunner.__init__:
+    name: __init__
+    qualified_name: pipeline_runner.PipelineRunner.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner.py
+    line: 45
+    module: pipeline_runner
+    class: PipelineRunner
+    is_method: true
+    cfg_entry: pipeline_runner.PipelineRunner.__init___entry
+    calls:
+    - ShellExecutionPolicy
+    - self.shell_policy.load_from_data
+    - os.getenv
+    - execution.executor_registry.create_default_registry
+    - InteractionHistory
+  pipeline_runner.PipelineRunner.run:
+    name: run
+    qualified_name: pipeline_runner.PipelineRunner.run
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner.py
+    line: 89
+    module: pipeline_runner
+    class: PipelineRunner
+    is_method: true
+    cfg_entry: pipeline_runner.PipelineRunner.run_entry
+    calls:
+    - time.time
+    - ExecutorContext
+    - self._executor_registry.dispatch
+    - executor_result.to_runner_result
+    - RunnerResult
+    - self._run_shell
+    - self._run_dom_dql
+    - str

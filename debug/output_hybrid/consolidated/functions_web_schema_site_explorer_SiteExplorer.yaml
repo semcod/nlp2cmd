@@ -1,0 +1,520 @@
+module: web_schema.site_explorer.SiteExplorer
+type: functions
+count: 27
+functions:
+  web_schema.site_explorer.SiteExplorer.__init__:
+    name: __init__
+    qualified_name: web_schema.site_explorer.SiteExplorer.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 170
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer.__init___entry
+    calls:
+    - executor.ExecutionContext.set
+  web_schema.site_explorer.SiteExplorer._setup_resource_blocking:
+    name: _setup_resource_blocking
+    qualified_name: web_schema.site_explorer.SiteExplorer._setup_resource_blocking
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 193
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._setup_resource_blocking_entry
+    calls:
+    - pipeline_runner_utils._debug
+    - route.abort
+    - context.route
+  web_schema.site_explorer.SiteExplorer._resolve_platform_url:
+    name: _resolve_platform_url
+    qualified_name: web_schema.site_explorer.SiteExplorer._resolve_platform_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 209
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._resolve_platform_url_entry
+    calls:
+    - urlparse
+    - parsed.netloc.lower
+    - self.PLATFORM_DOCS_URLS.items
+    - handlers.get
+    - handler
+    - pipeline_runner_utils._debug
+  web_schema.site_explorer.SiteExplorer._goto_with_retry:
+    name: _goto_with_retry
+    qualified_name: web_schema.site_explorer.SiteExplorer._goto_with_retry
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 228
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._goto_with_retry_entry
+    calls:
+    - range
+    - page.goto
+    - page.wait_for_timeout
+    - None.lower
+    - any
+    - min
+    - pipeline_runner_utils._debug
+    - str
+  web_schema.site_explorer.SiteExplorer._try_github_api:
+    name: _try_github_api
+    qualified_name: web_schema.site_explorer.SiteExplorer._try_github_api
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 253
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._try_github_api_entry
+    calls:
+    - urlparse
+    - len
+    - Request
+    - None.split
+    - urlopen
+    - None.decode
+    - pipeline_runner_utils._debug
+    - parsed.path.strip
+    - resp.read
+  web_schema.site_explorer.SiteExplorer._detect_docs_framework:
+    name: _detect_docs_framework
+    qualified_name: web_schema.site_explorer.SiteExplorer._detect_docs_framework
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 278
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._detect_docs_framework_entry
+    calls:
+    - url.lower
+    - self.DOCS_FRAMEWORKS.items
+    - page_html.lower
+    - any
+    - pipeline_runner_utils._debug
+  web_schema.site_explorer.SiteExplorer._record_timing:
+    name: _record_timing
+    qualified_name: web_schema.site_explorer.SiteExplorer._record_timing
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 291
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._record_timing_entry
+    calls:
+    - self._timing_stats.append
+    - round
+    - pipeline_runner_utils._debug
+  web_schema.site_explorer.SiteExplorer.get_timing_stats:
+    name: get_timing_stats
+    qualified_name: web_schema.site_explorer.SiteExplorer.get_timing_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 300
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer.get_timing_stats_entry
+    calls:
+    - list
+  web_schema.site_explorer.SiteExplorer._fallback_static_scrape:
+    name: _fallback_static_scrape
+    qualified_name: web_schema.site_explorer.SiteExplorer._fallback_static_scrape
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 306
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._fallback_static_scrape_entry
+    calls:
+    - Request
+    - PageInfo
+    - re.search
+    - len
+    - re.finditer
+    - pipeline_runner_utils._debug
+    - urlopen
+    - None.decode
+    - None.strip
+    - re.findall
+    - m.group
+    - href.startswith
+    - info.links.append
+    - resp.read
+    - urljoin
+  web_schema.site_explorer.SiteExplorer.find_content:
+    name: find_content
+    qualified_name: web_schema.site_explorer.SiteExplorer.find_content
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 341
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer.find_content_entry
+    calls:
+    - time.perf_counter
+    - self._resolve_platform_url
+    - self._try_github_api
+    - executor.ExecutionContext.set
+    - self._explore_recursive
+    - pipeline_runner_utils._debug
+    - self._find_best_content_candidate
+    - ExplorationResult
+    - PageInfo
+    - self._record_timing
+    - None.start
+    - p.chromium.launch
+    - browser.new_context
+    - context.new_page
+    - self._has_content_type
+    - context.close
+    - urlparse
+    - self._setup_resource_blocking
+    - len
+    - link.lower
+    - self._is_contact_url
+    - page.context.browser.close
+    - sync_playwright
+    - self._normalize_url
+    - contact_links.append
+    - other_links.append
+    - urljoin
+  web_schema.site_explorer.SiteExplorer.find_form:
+    name: find_form
+    qualified_name: web_schema.site_explorer.SiteExplorer.find_form
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 554
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer.find_form_entry
+    calls:
+    - time.perf_counter
+    - executor.ExecutionContext.set
+    - self._find_best_form_candidate
+    - ExplorationResult
+    - None.start
+    - p.chromium.launch
+    - browser.new_context
+    - context.new_page
+    - self._get_sitemap_urls
+    - pipeline_runner_utils._debug
+    - self._explore_recursive
+    - context.close
+    - self._setup_resource_blocking
+    - urlparse
+    - page.context.browser.close
+    - sync_playwright
+    - self._normalize_url
+    - u.lower
+    - any
+    - len
+    - link.lower
+    - self._is_contact_url
+    - urljoin
+    - contact_sitemap_urls.append
+    - other_sitemap_urls.append
+    - contact_links.append
+    - other_links.append
+    - u_lower.endswith
+    - u_lower.startswith
+    - u_lower.split
+  web_schema.site_explorer.SiteExplorer._explore_recursive:
+    name: _explore_recursive
+    qualified_name: web_schema.site_explorer.SiteExplorer._explore_recursive
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 858
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._explore_recursive_entry
+    calls:
+    - self._normalize_url
+    - urlparse
+    - self._explored_urls.add
+    - len
+    - time.perf_counter
+    - self._goto_with_retry
+    - self._dismiss_popups
+    - self._analyze_page
+    - self._record_timing
+    - explored_pages.append
+    - self._has_content_type
+    - pipeline_runner_utils._debug
+    - self._fallback_static_scrape
+    - self._is_contact_url
+    - self._explore_recursive
+    - url.lower
+  web_schema.site_explorer.SiteExplorer._analyze_page:
+    name: _analyze_page
+    qualified_name: web_schema.site_explorer.SiteExplorer._analyze_page
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 952
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._analyze_page_entry
+    calls:
+    - PageInfo
+    - self._score_page
+    - executor.ExecutionContext.set
+    - page.query_selector_all
+    - self._normalize_url
+    - page.title
+    - len
+    - field_nodes.extend
+    - None.lower
+    - None.join
+    - web_schema.site_explorer._is_junk_desc
+    - any
+    - web_schema.site_explorer._is_contact_desc
+    - enumerate
+    - seen.add
+    - unique_links.append
+    - i.startswith
+    - n.startswith
+    - str
+    - None.strip
+    - node.get_attribute
+    - iframe.content_frame
+    - link.get_attribute
+    - frame.query_selector_all
+    - urljoin
+    - urlparse
+    - info.links.append
+    - node.evaluate
+    - absolute_url.endswith
+  web_schema.site_explorer.SiteExplorer._dismiss_popups:
+    name: _dismiss_popups
+    qualified_name: web_schema.site_explorer.SiteExplorer._dismiss_popups
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1143
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._dismiss_popups_entry
+    calls:
+    - page.wait_for_selector
+    - page.click
+    - page.wait_for_timeout
+  web_schema.site_explorer.SiteExplorer._score_page:
+    name: _score_page
+    qualified_name: web_schema.site_explorer.SiteExplorer._score_page
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1170
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._score_page_entry
+    calls:
+    - url.lower
+    - info.title.lower
+    - None.lower
+    - page.content
+  web_schema.site_explorer.SiteExplorer._is_contact_url:
+    name: _is_contact_url
+    qualified_name: web_schema.site_explorer.SiteExplorer._is_contact_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1244
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._is_contact_url_entry
+    calls:
+    - any
+    - url_lower.endswith
+  web_schema.site_explorer.SiteExplorer._find_best_form_candidate:
+    name: _find_best_form_candidate
+    qualified_name: web_schema.site_explorer.SiteExplorer._find_best_form_candidate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1259
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._find_best_form_candidate_entry
+    calls:
+    - form_pages.sort
+    - self._is_contact_url
+    - p.url.lower
+  web_schema.site_explorer.SiteExplorer._normalize_url:
+    name: _normalize_url
+    qualified_name: web_schema.site_explorer.SiteExplorer._normalize_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1281
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._normalize_url_entry
+    calls:
+    - url.rstrip
+    - url.split
+    called_by:
+    - generation.keywords.keyword_detector.KeywordIntentDetector.detect
+    - generation.keywords.keyword_detector.KeywordIntentDetector._fast_path_detection
+    - generation.keywords.keyword_detector.KeywordIntentDetector._keyword_detection
+    - generation.keywords.keyword_detector.detect
+    - generation.keywords.keyword_detector._fast_path_detection
+    - generation.keywords.keyword_detector._keyword_detection
+  web_schema.site_explorer.SiteExplorer._get_sitemap_urls:
+    name: _get_sitemap_urls
+    qualified_name: web_schema.site_explorer.SiteExplorer._get_sitemap_urls
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1289
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._get_sitemap_urls_entry
+    calls:
+    - urlparse
+    - root.tag.endswith
+    - sorted
+    - ET.fromstring
+    - root.tag.startswith
+    - root.findall
+    - u.lower
+    - any
+    - urlopen
+    - resp.read
+    - sm.find
+    - None.strip
+    - sm_root.findall
+    - u.find
+    - urls.append
+    - root.tag.split
+    - sm_root.tag.startswith
+    - len
+    - generation.thermodynamic_components._NumpyStub.max
+    - int
+    - sm_root.tag.split
+  web_schema.site_explorer.SiteExplorer._has_content_type:
+    name: _has_content_type
+    qualified_name: web_schema.site_explorer.SiteExplorer._has_content_type
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1376
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._has_content_type_entry
+    calls:
+    - intent_keywords.get
+    - page_info.url.lower
+    - page_info.title.lower
+  web_schema.site_explorer.SiteExplorer._find_best_content_candidate:
+    name: _find_best_content_candidate
+    qualified_name: web_schema.site_explorer.SiteExplorer._find_best_content_candidate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1395
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._find_best_content_candidate_entry
+    calls:
+    - intent_keywords.get
+    - p.url.lower
+    - p.title.lower
+    - search_term.lower
+  web_schema.site_explorer.SiteExplorer.find_content_twophase:
+    name: find_content_twophase
+    qualified_name: web_schema.site_explorer.SiteExplorer.find_content_twophase
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1437
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer.find_content_twophase_entry
+    calls:
+    - time.perf_counter
+    - pipeline_runner_utils._debug
+    - SiteExplorer
+    - quick_explorer.find_content
+    - self._record_timing
+    - executor.ExecutionContext.set
+    - ExplorationResult
+    - candidate_urls.extend
+    - self._normalize_url
+    - deep_explorer.find_content
+    - seen.add
+    - unique_candidates.append
+    - len
+  web_schema.site_explorer.SiteExplorer._explore_links_parallel:
+    name: _explore_links_parallel
+    qualified_name: web_schema.site_explorer.SiteExplorer._explore_links_parallel
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1519
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._explore_links_parallel_entry
+    calls:
+    - pipeline_runner_utils._debug
+    - ThreadPoolExecutor
+    - as_completed
+    - pool.submit
+    - future.result
+    - len
+    - results.append
+  web_schema.site_explorer.SiteExplorer.explore:
+    name: explore
+    qualified_name: web_schema.site_explorer.SiteExplorer.explore
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1541
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer.explore_entry
+    calls:
+    - self._detect_intent_from_query
+    - self.find_form
+    - self.find_content
+    - self._explore_generic
+  web_schema.site_explorer.SiteExplorer._detect_intent_from_query:
+    name: _detect_intent_from_query
+    qualified_name: web_schema.site_explorer.SiteExplorer._detect_intent_from_query
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1559
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._detect_intent_from_query_entry
+    calls:
+    - query.lower
+    - generation.thermodynamic_components._NumpyStub.sum
+    - generation.thermodynamic_components._NumpyStub.max
+    - intent_keywords.items
+  web_schema.site_explorer.SiteExplorer._explore_generic:
+    name: _explore_generic
+    qualified_name: web_schema.site_explorer.SiteExplorer._explore_generic
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1579
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._explore_generic_entry
+    calls:
+    - executor.ExecutionContext.set
+    - self._explore_recursive
+    - intent_keywords.get
+    - generation.thermodynamic_components._NumpyStub.max
+    - ExplorationResult
+    - None.start
+    - p.chromium.launch
+    - browser.new_context
+    - context.new_page
+    - context.close
+    - self._setup_resource_blocking
+    - sync_playwright
+    - urlparse
+    - self._score_for_intent
+  web_schema.site_explorer.SiteExplorer._score_for_intent:
+    name: _score_for_intent
+    qualified_name: web_schema.site_explorer.SiteExplorer._score_for_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/site_explorer.py
+    line: 1631
+    module: web_schema.site_explorer
+    class: SiteExplorer
+    is_method: true
+    cfg_entry: web_schema.site_explorer.SiteExplorer._score_for_intent_entry
+    calls:
+    - page_info.url.lower
+    - page_info.title.lower

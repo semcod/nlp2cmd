@@ -1,0 +1,29 @@
+module: adapters.shell_generators.ProcessManagementGenerator
+type: functions
+count: 2
+functions:
+  adapters.shell_generators.ProcessManagementGenerator.generate_process_management:
+    name: generate_process_management
+    qualified_name: adapters.shell_generators.ProcessManagementGenerator.generate_process_management
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 113
+    module: adapters.shell_generators
+    class: ProcessManagementGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.ProcessManagementGenerator.generate_process_management_entry
+    calls:
+    - entities.get
+    - actions.get
+    - systemctl_actions.get
+    - shlex.quote
+  adapters.shell_generators.ProcessManagementGenerator.generate_process_monitoring:
+    name: generate_process_monitoring
+    qualified_name: adapters.shell_generators.ProcessManagementGenerator.generate_process_monitoring
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 154
+    module: adapters.shell_generators
+    class: ProcessManagementGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.ProcessManagementGenerator.generate_process_monitoring_entry
+    calls:
+    - entities.get

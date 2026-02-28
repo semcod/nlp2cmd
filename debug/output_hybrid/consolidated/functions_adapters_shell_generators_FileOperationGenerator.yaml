@@ -1,0 +1,52 @@
+module: adapters.shell_generators.FileOperationGenerator
+type: functions
+count: 3
+functions:
+  adapters.shell_generators.FileOperationGenerator.generate_file_search:
+    name: generate_file_search
+    qualified_name: adapters.shell_generators.FileOperationGenerator.generate_file_search
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 16
+    module: adapters.shell_generators
+    class: FileOperationGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.FileOperationGenerator.generate_file_search_entry
+    calls:
+    - entities.get
+    - cmd_parts.extend
+    - any
+    - None.join
+    - isinstance
+    - filter_item.get
+    - None.replace
+    - self._extract_size
+    - shlex.quote
+    - str
+  adapters.shell_generators.FileOperationGenerator.generate_file_operation:
+    name: generate_file_operation
+    qualified_name: adapters.shell_generators.FileOperationGenerator.generate_file_operation
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 69
+    module: adapters.shell_generators
+    class: FileOperationGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.FileOperationGenerator.generate_file_operation_entry
+    calls:
+    - entities.get
+    - operations.get
+    - shlex.quote
+  adapters.shell_generators.FileOperationGenerator._extract_size:
+    name: _extract_size
+    qualified_name: adapters.shell_generators.FileOperationGenerator._extract_size
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 91
+    module: adapters.shell_generators
+    class: FileOperationGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.FileOperationGenerator._extract_size_entry
+    calls:
+    - re.search
+    - int
+    - size_match.group
+    - unit.upper
+    - str

@@ -1,0 +1,230 @@
+letter: T
+type: orphan_functions
+count: 28
+functions:
+  ir.ActionIR.to_dict:
+    name: to_dict
+    qualified_name: ir.ActionIR.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/ir.py
+    line: 22
+    module: ir
+    class: ActionIR
+    is_method: true
+    cfg_entry: ir.ActionIR.to_dict_entry
+  ir.to_dict:
+    name: to_dict
+    qualified_name: ir.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/ir.py
+    line: 22
+    module: ir
+    cfg_entry: ir.to_dict_entry
+  automation.complex_planner.ActionStep.to_dict:
+    name: to_dict
+    qualified_name: automation.complex_planner.ActionStep.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 40
+    module: automation.complex_planner
+    class: ActionStep
+    is_method: true
+    cfg_entry: automation.complex_planner.ActionStep.to_dict_entry
+  automation.action_planner.ActionStep.to_dict:
+    name: to_dict
+    qualified_name: automation.action_planner.ActionStep.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 56
+    module: automation.action_planner
+    class: ActionStep
+    is_method: true
+    cfg_entry: automation.action_planner.ActionStep.to_dict_entry
+  automation.action_planner.to_dict:
+    name: to_dict
+    qualified_name: automation.action_planner.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/action_planner.py
+    line: 56
+    module: automation.action_planner
+    cfg_entry: automation.action_planner.to_dict_entry
+  automation.vector_store.DrawingPattern.to_dict:
+    name: to_dict
+    qualified_name: automation.vector_store.DrawingPattern.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/vector_store.py
+    line: 29
+    module: automation.vector_store
+    class: DrawingPattern
+    is_method: true
+    cfg_entry: automation.vector_store.DrawingPattern.to_dict_entry
+  automation.vector_store.to_dict:
+    name: to_dict
+    qualified_name: automation.vector_store.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/vector_store.py
+    line: 29
+    module: automation.vector_store
+    cfg_entry: automation.vector_store.to_dict_entry
+  generation.thermodynamic_components.OptimizationProblem.to_condition:
+    name: to_condition
+    qualified_name: generation.thermodynamic_components.OptimizationProblem.to_condition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 125
+    module: generation.thermodynamic_components
+    class: OptimizationProblem
+    is_method: true
+    cfg_entry: generation.thermodynamic_components.OptimizationProblem.to_condition_entry
+  generation.thermodynamic_components.to_condition:
+    name: to_condition
+    qualified_name: generation.thermodynamic_components.to_condition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic_components.py
+    line: 125
+    module: generation.thermodynamic_components
+    cfg_entry: generation.thermodynamic_components.to_condition_entry
+  generation.hybrid.HybridStats.to_dict:
+    name: to_dict
+    qualified_name: generation.hybrid.HybridStats.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/hybrid.py
+    line: 74
+    module: generation.hybrid
+    class: HybridStats
+    is_method: true
+    cfg_entry: generation.hybrid.HybridStats.to_dict_entry
+  generation.hybrid.to_dict:
+    name: to_dict
+    qualified_name: generation.hybrid.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/hybrid.py
+    line: 74
+    module: generation.hybrid
+    cfg_entry: generation.hybrid.to_dict_entry
+  generation.structured.StructuredPlan.to_adapter_plan:
+    name: to_adapter_plan
+    qualified_name: generation.structured.StructuredPlan.to_adapter_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/structured.py
+    line: 76
+    module: generation.structured
+    class: StructuredPlan
+    is_method: true
+    cfg_entry: generation.structured.StructuredPlan.to_adapter_plan_entry
+  generation.structured.to_adapter_plan:
+    name: to_adapter_plan
+    qualified_name: generation.structured.to_adapter_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/structured.py
+    line: 76
+    module: generation.structured
+    cfg_entry: generation.structured.to_adapter_plan_entry
+  service.ServiceConfig.to_dict:
+    name: to_dict
+    qualified_name: service.ServiceConfig.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 80
+    module: service
+    class: ServiceConfig
+    is_method: true
+    cfg_entry: service.ServiceConfig.to_dict_entry
+  service.to_dict:
+    name: to_dict
+    qualified_name: service.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 80
+    module: service
+    cfg_entry: service.to_dict_entry
+  validators.ValidationResult.to_dict:
+    name: to_dict
+    qualified_name: validators.ValidationResult.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 37
+    module: validators
+    class: ValidationResult
+    is_method: true
+    cfg_entry: validators.ValidationResult.to_dict_entry
+  validators.to_dict:
+    name: to_dict
+    qualified_name: validators.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/validators/__init__.py
+    line: 37
+    module: validators
+    cfg_entry: validators.to_dict_entry
+  web_schema.extractor.WebElement.to_dict:
+    name: to_dict
+    qualified_name: web_schema.extractor.WebElement.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 30
+    module: web_schema.extractor
+    class: WebElement
+    is_method: true
+    cfg_entry: web_schema.extractor.WebElement.to_dict_entry
+  web_schema.extractor.to_dict:
+    name: to_dict
+    qualified_name: web_schema.extractor.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 30
+    module: web_schema.extractor
+    cfg_entry: web_schema.extractor.to_dict_entry
+  web_schema.history.InteractionRecord.to_dict:
+    name: to_dict
+    qualified_name: web_schema.history.InteractionRecord.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/history.py
+    line: 29
+    module: web_schema.history
+    class: InteractionRecord
+    is_method: true
+    cfg_entry: web_schema.history.InteractionRecord.to_dict_entry
+  web_schema.history.to_dict:
+    name: to_dict
+    qualified_name: web_schema.history.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/history.py
+    line: 29
+    module: web_schema.history
+    cfg_entry: web_schema.history.to_dict_entry
+  executor.ExecutionPlan.to_dict:
+    name: to_dict
+    qualified_name: executor.ExecutionPlan.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 98
+    module: executor
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: executor.ExecutionPlan.to_dict_entry
+  executor.to_dict:
+    name: to_dict
+    qualified_name: executor.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 98
+    module: executor
+    cfg_entry: executor.to_dict_entry
+  feedback.FeedbackResult.to_dict:
+    name: to_dict
+    qualified_name: feedback.FeedbackResult.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 59
+    module: feedback
+    class: FeedbackResult
+    is_method: true
+    cfg_entry: feedback.FeedbackResult.to_dict_entry
+  feedback.to_dict:
+    name: to_dict
+    qualified_name: feedback.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/feedback/__init__.py
+    line: 59
+    module: feedback
+    cfg_entry: feedback.to_dict_entry
+  schema_extraction.extractors.ExtractedSchema.to_dict:
+    name: to_dict
+    qualified_name: schema_extraction.extractors.ExtractedSchema.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/extractors.py
+    line: 59
+    module: schema_extraction.extractors
+    class: ExtractedSchema
+    is_method: true
+    cfg_entry: schema_extraction.extractors.ExtractedSchema.to_dict_entry
+  schema_extraction.extractors.to_dict:
+    name: to_dict
+    qualified_name: schema_extraction.extractors.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/extractors.py
+    line: 59
+    module: schema_extraction.extractors
+    cfg_entry: schema_extraction.extractors.to_dict_entry
+  history.tracker.SchemaUsage.to_dict:
+    name: to_dict
+    qualified_name: history.tracker.SchemaUsage.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 28
+    module: history.tracker
+    class: SchemaUsage
+    is_method: true
+    cfg_entry: history.tracker.SchemaUsage.to_dict_entry

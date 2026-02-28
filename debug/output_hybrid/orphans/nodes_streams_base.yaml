@@ -1,0 +1,169 @@
+module: streams.base
+type: orphan_nodes
+count: 31
+nodes:
+  streams.base.parse_source_uri_entry:
+    id: streams.base.parse_source_uri_entry
+    type: ENTRY
+    label: entry
+    function: streams.base.parse_source_uri
+  streams.base.parse_source_uri_exit:
+    id: streams.base.parse_source_uri_exit
+    type: EXIT
+    label: exit
+    function: streams.base.parse_source_uri
+  streams.base.parse_source_uri_if_84:
+    id: streams.base.parse_source_uri_if_84
+    type: IF
+    label: if
+    function: streams.base.parse_source_uri
+    line: 84
+  streams.base.parse_source_uri_return_85:
+    id: streams.base.parse_source_uri_return_85
+    type: RETURN
+    label: return
+    function: streams.base.parse_source_uri
+    line: 85
+  streams.base.parse_source_uri_merge_84:
+    id: streams.base.parse_source_uri_merge_84
+    type: FUNC
+    label: merge
+    function: streams.base.parse_source_uri
+  streams.base.parse_source_uri_if_106:
+    id: streams.base.parse_source_uri_if_106
+    type: IF
+    label: if
+    function: streams.base.parse_source_uri
+    line: 106
+  streams.base.parse_source_uri_loop_107:
+    id: streams.base.parse_source_uri_loop_107
+    type: FOR
+    label: for
+    function: streams.base.parse_source_uri
+    line: 107
+  streams.base.parse_source_uri_merge_106:
+    id: streams.base.parse_source_uri_merge_106
+    type: FUNC
+    label: merge
+    function: streams.base.parse_source_uri
+  streams.base.parse_source_uri_return_110:
+    id: streams.base.parse_source_uri_return_110
+    type: RETURN
+    label: return
+    function: streams.base.parse_source_uri
+    line: 110
+  streams.base._parse_libvirt_uri_entry:
+    id: streams.base._parse_libvirt_uri_entry
+    type: ENTRY
+    label: entry
+    function: streams.base._parse_libvirt_uri
+  streams.base._parse_libvirt_uri_exit:
+    id: streams.base._parse_libvirt_uri_exit
+    type: EXIT
+    label: exit
+    function: streams.base._parse_libvirt_uri
+  streams.base._parse_libvirt_uri_if_127:
+    id: streams.base._parse_libvirt_uri_if_127
+    type: IF
+    label: if
+    function: streams.base._parse_libvirt_uri
+    line: 127
+  streams.base._parse_libvirt_uri_return_128:
+    id: streams.base._parse_libvirt_uri_return_128
+    type: RETURN
+    label: return
+    function: streams.base._parse_libvirt_uri
+    line: 128
+  streams.base._parse_libvirt_uri_merge_127:
+    id: streams.base._parse_libvirt_uri_merge_127
+    type: FUNC
+    label: merge
+    function: streams.base._parse_libvirt_uri
+  streams.base._parse_libvirt_uri_return_135:
+    id: streams.base._parse_libvirt_uri_return_135
+    type: RETURN
+    label: return
+    function: streams.base._parse_libvirt_uri
+    line: 135
+  streams.base.__init___entry:
+    id: streams.base.__init___entry
+    type: ENTRY
+    label: entry
+    function: streams.base.__init__
+  streams.base.__init___exit:
+    id: streams.base.__init___exit
+    type: EXIT
+    label: exit
+    function: streams.base.__init__
+  streams.base.connect_entry:
+    id: streams.base.connect_entry
+    type: ENTRY
+    label: entry
+    function: streams.base.connect
+  streams.base.connect_exit:
+    id: streams.base.connect_exit
+    type: EXIT
+    label: exit
+    function: streams.base.connect
+  streams.base.execute_entry:
+    id: streams.base.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.base.execute
+  streams.base.execute_exit:
+    id: streams.base.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.base.execute
+  streams.base.query_entry:
+    id: streams.base.query_entry
+    type: ENTRY
+    label: entry
+    function: streams.base.query
+  streams.base.query_exit:
+    id: streams.base.query_exit
+    type: EXIT
+    label: exit
+    function: streams.base.query
+  streams.base.screenshot_entry:
+    id: streams.base.screenshot_entry
+    type: ENTRY
+    label: entry
+    function: streams.base.screenshot
+  streams.base.screenshot_exit:
+    id: streams.base.screenshot_exit
+    type: EXIT
+    label: exit
+    function: streams.base.screenshot
+  streams.base.screenshot_return_175:
+    id: streams.base.screenshot_return_175
+    type: RETURN
+    label: return
+    function: streams.base.screenshot
+    line: 175
+  streams.base.disconnect_entry:
+    id: streams.base.disconnect_entry
+    type: ENTRY
+    label: entry
+    function: streams.base.disconnect
+  streams.base.disconnect_exit:
+    id: streams.base.disconnect_exit
+    type: EXIT
+    label: exit
+    function: streams.base.disconnect
+  streams.base.__enter___entry:
+    id: streams.base.__enter___entry
+    type: ENTRY
+    label: entry
+    function: streams.base.__enter__
+  streams.base.__enter___exit:
+    id: streams.base.__enter___exit
+    type: EXIT
+    label: exit
+    function: streams.base.__enter__
+  streams.base.__enter___return_183:
+    id: streams.base.__enter___return_183
+    type: RETURN
+    label: return
+    function: streams.base.__enter__
+    line: 183

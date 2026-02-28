@@ -1,0 +1,358 @@
+letter: G
+type: orphan_functions
+count: 44
+functions:
+  appspec_runtime.AppSpec.get_action:
+    name: get_action
+    qualified_name: appspec_runtime.AppSpec.get_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/appspec_runtime.py
+    line: 26
+    module: appspec_runtime
+    class: AppSpec
+    is_method: true
+    cfg_entry: appspec_runtime.AppSpec.get_action_entry
+  appspec_runtime.get_action:
+    name: get_action
+    qualified_name: appspec_runtime.get_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/appspec_runtime.py
+    line: 26
+    module: appspec_runtime
+    cfg_entry: appspec_runtime.get_action_entry
+  monitoring.resources.get_monitor:
+    name: get_monitor
+    qualified_name: monitoring.resources.get_monitor
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 145
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.get_monitor_entry
+  polish_support.get_polish_support:
+    name: get_polish_support
+    qualified_name: polish_support.get_polish_support
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/polish_support.py
+    line: 316
+    module: polish_support
+    cfg_entry: polish_support.get_polish_support_entry
+  generation.multi_command.MultiCommandResult.get_domains:
+    name: get_domains
+    qualified_name: generation.multi_command.MultiCommandResult.get_domains
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 28
+    module: generation.multi_command
+    class: MultiCommandResult
+    is_method: true
+    cfg_entry: generation.multi_command.MultiCommandResult.get_domains_entry
+  generation.multi_command.MultiCommandResult.get_intents:
+    name: get_intents
+    qualified_name: generation.multi_command.MultiCommandResult.get_intents
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 32
+    module: generation.multi_command
+    class: MultiCommandResult
+    is_method: true
+    cfg_entry: generation.multi_command.MultiCommandResult.get_intents_entry
+  generation.multi_command.get_domains:
+    name: get_domains
+    qualified_name: generation.multi_command.get_domains
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 28
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.get_domains_entry
+  generation.multi_command.get_intents:
+    name: get_intents
+    qualified_name: generation.multi_command.get_intents
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 32
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.get_intents_entry
+  generation.pipeline_components.PipelineMetrics.get_success_rate:
+    name: get_success_rate
+    qualified_name: generation.pipeline_components.PipelineMetrics.get_success_rate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/pipeline_components.py
+    line: 124
+    module: generation.pipeline_components
+    class: PipelineMetrics
+    is_method: true
+    cfg_entry: generation.pipeline_components.PipelineMetrics.get_success_rate_entry
+  generation.pipeline_components.PipelineMetrics.get_average_latency:
+    name: get_average_latency
+    qualified_name: generation.pipeline_components.PipelineMetrics.get_average_latency
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/pipeline_components.py
+    line: 130
+    module: generation.pipeline_components
+    class: PipelineMetrics
+    is_method: true
+    cfg_entry: generation.pipeline_components.PipelineMetrics.get_average_latency_entry
+  generation.pipeline_components.get_success_rate:
+    name: get_success_rate
+    qualified_name: generation.pipeline_components.get_success_rate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/pipeline_components.py
+    line: 124
+    module: generation.pipeline_components
+    cfg_entry: generation.pipeline_components.get_success_rate_entry
+  generation.pipeline_components.get_average_latency:
+    name: get_average_latency
+    qualified_name: generation.pipeline_components.get_average_latency
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/pipeline_components.py
+    line: 130
+    module: generation.pipeline_components
+    cfg_entry: generation.pipeline_components.get_average_latency_entry
+  generation.llm_simple.BaseLLMGenerator.get_system_prompt:
+    name: get_system_prompt
+    qualified_name: generation.llm_simple.BaseLLMGenerator.get_system_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 121
+    module: generation.llm_simple
+    class: BaseLLMGenerator
+    is_method: true
+    cfg_entry: generation.llm_simple.BaseLLMGenerator.get_system_prompt_entry
+  generation.hybrid.HybridGenerator.get_stats:
+    name: get_stats
+    qualified_name: generation.hybrid.HybridGenerator.get_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/hybrid.py
+    line: 285
+    module: generation.hybrid
+    class: HybridGenerator
+    is_method: true
+    cfg_entry: generation.hybrid.HybridGenerator.get_stats_entry
+  generation.hybrid.get_stats:
+    name: get_stats
+    qualified_name: generation.hybrid.get_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/hybrid.py
+    line: 285
+    module: generation.hybrid
+    cfg_entry: generation.hybrid.get_stats_entry
+  core.core_backends.NLPBackend.generate_plan:
+    name: generate_plan
+    qualified_name: core.core_backends.NLPBackend.generate_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 34
+    module: core.core_backends
+    class: NLPBackend
+    is_method: true
+    cfg_entry: core.core_backends.NLPBackend.generate_plan_entry
+  cli.web_schema._ClickStub.group:
+    name: group
+    qualified_name: cli.web_schema._ClickStub.group
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/web_schema.py
+    line: 18
+    module: cli.web_schema
+    class: _ClickStub
+    is_method: true
+    cfg_entry: cli.web_schema._ClickStub.group_entry
+  cli.web_schema.group:
+    name: group
+    qualified_name: cli.web_schema.group
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/web_schema.py
+    line: 18
+    module: cli.web_schema
+    cfg_entry: cli.web_schema.group_entry
+  cli.history._ClickStub.group:
+    name: group
+    qualified_name: cli.history._ClickStub.group
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/history.py
+    line: 11
+    module: cli.history
+    class: _ClickStub
+    is_method: true
+    cfg_entry: cli.history._ClickStub.group_entry
+  cli.history.group:
+    name: group
+    qualified_name: cli.history.group
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/history.py
+    line: 11
+    module: cli.history
+    cfg_entry: cli.history.group_entry
+  cli.cache._ClickStub.group:
+    name: group
+    qualified_name: cli.cache._ClickStub.group
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/cache.py
+    line: 18
+    module: cli.cache
+    class: _ClickStub
+    is_method: true
+    cfg_entry: cli.cache._ClickStub.group_entry
+  cli.cache.group:
+    name: group
+    qualified_name: cli.cache.group
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/cache.py
+    line: 18
+    module: cli.cache
+    cfg_entry: cli.cache.group_entry
+  execution.media_recorder.MediaRecorder.get_context_options:
+    name: get_context_options
+    qualified_name: execution.media_recorder.MediaRecorder.get_context_options
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 136
+    module: execution.media_recorder
+    class: MediaRecorder
+    is_method: true
+    cfg_entry: execution.media_recorder.MediaRecorder.get_context_options_entry
+  execution.media_recorder.get_context_options:
+    name: get_context_options
+    qualified_name: execution.media_recorder.get_context_options
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 136
+    module: execution.media_recorder
+    cfg_entry: execution.media_recorder.get_context_options_entry
+  web_schema.history.InteractionHistory.get_recent_interactions:
+    name: get_recent_interactions
+    qualified_name: web_schema.history.InteractionHistory.get_recent_interactions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/history.py
+    line: 260
+    module: web_schema.history
+    class: InteractionHistory
+    is_method: true
+    cfg_entry: web_schema.history.InteractionHistory.get_recent_interactions_entry
+  registry.ActionSchema.get_required_params:
+    name: get_required_params
+    qualified_name: registry.ActionSchema.get_required_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 68
+    module: registry
+    class: ActionSchema
+    is_method: true
+    cfg_entry: registry.ActionSchema.get_required_params_entry
+  registry.ActionSchema.get_optional_params:
+    name: get_optional_params
+    qualified_name: registry.ActionSchema.get_optional_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 72
+    module: registry
+    class: ActionSchema
+    is_method: true
+    cfg_entry: registry.ActionSchema.get_optional_params_entry
+  registry.ActionSchema.get_param:
+    name: get_param
+    qualified_name: registry.ActionSchema.get_param
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 76
+    module: registry
+    class: ActionSchema
+    is_method: true
+    cfg_entry: registry.ActionSchema.get_param_entry
+  registry.get_required_params:
+    name: get_required_params
+    qualified_name: registry.get_required_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 68
+    module: registry
+    cfg_entry: registry.get_required_params_entry
+  registry.get_optional_params:
+    name: get_optional_params
+    qualified_name: registry.get_optional_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 72
+    module: registry
+    cfg_entry: registry.get_optional_params_entry
+  registry.get_param:
+    name: get_param
+    qualified_name: registry.get_param
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 76
+    module: registry
+    cfg_entry: registry.get_param_entry
+  adapters.base.BaseDSLAdapter.generate:
+    name: generate
+    qualified_name: adapters.base.BaseDSLAdapter.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/base.py
+    line: 104
+    module: adapters.base
+    class: BaseDSLAdapter
+    is_method: true
+    cfg_entry: adapters.base.BaseDSLAdapter.generate_entry
+  adapters.base.BaseDSLAdapter.get_schema_context:
+    name: get_schema_context
+    qualified_name: adapters.base.BaseDSLAdapter.get_schema_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/base.py
+    line: 209
+    module: adapters.base
+    class: BaseDSLAdapter
+    is_method: true
+    cfg_entry: adapters.base.BaseDSLAdapter.get_schema_context_entry
+  adapters.base.generate:
+    name: generate
+    qualified_name: adapters.base.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/base.py
+    line: 104
+    module: adapters.base
+    cfg_entry: adapters.base.generate_entry
+  adapters.base.get_schema_context:
+    name: get_schema_context
+    qualified_name: adapters.base.get_schema_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/base.py
+    line: 209
+    module: adapters.base
+    cfg_entry: adapters.base.get_schema_context_entry
+  thermodynamic.EnergyModel.gradient:
+    name: gradient
+    qualified_name: thermodynamic.EnergyModel.gradient
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 120
+    module: thermodynamic
+    class: EnergyModel
+    is_method: true
+    cfg_entry: thermodynamic.EnergyModel.gradient_entry
+  adapters.sql.SQLAdapter.get_schema_context:
+    name: get_schema_context
+    qualified_name: adapters.sql.SQLAdapter.get_schema_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 472
+    module: adapters.sql
+    class: SQLAdapter
+    is_method: true
+    cfg_entry: adapters.sql.SQLAdapter.get_schema_context_entry
+  adapters.sql.get_schema_context:
+    name: get_schema_context
+    qualified_name: adapters.sql.get_schema_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/sql.py
+    line: 472
+    module: adapters.sql
+    cfg_entry: adapters.sql.get_schema_context_entry
+  history.tracker.CommandHistory.get_recent:
+    name: get_recent
+    qualified_name: history.tracker.CommandHistory.get_recent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 173
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.get_recent_entry
+  history.tracker.CommandHistory.get_by_dsl:
+    name: get_by_dsl
+    qualified_name: history.tracker.CommandHistory.get_by_dsl
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 177
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.get_by_dsl_entry
+  history.tracker.CommandHistory.get_failed_commands:
+    name: get_failed_commands
+    qualified_name: history.tracker.CommandHistory.get_failed_commands
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 281
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.get_failed_commands_entry
+  history.tracker.get_recent:
+    name: get_recent
+    qualified_name: history.tracker.get_recent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 173
+    module: history.tracker
+    cfg_entry: history.tracker.get_recent_entry
+  history.tracker.get_by_dsl:
+    name: get_by_dsl
+    qualified_name: history.tracker.get_by_dsl
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 177
+    module: history.tracker
+    cfg_entry: history.tracker.get_by_dsl_entry
+  history.tracker.get_failed_commands:
+    name: get_failed_commands
+    qualified_name: history.tracker.get_failed_commands
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 281
+    module: history.tracker
+    cfg_entry: history.tracker.get_failed_commands_entry

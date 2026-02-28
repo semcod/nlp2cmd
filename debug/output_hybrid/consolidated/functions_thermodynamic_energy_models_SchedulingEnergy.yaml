@@ -1,0 +1,113 @@
+module: thermodynamic.energy_models.SchedulingEnergy
+type: functions
+count: 7
+functions:
+  thermodynamic.energy_models.SchedulingEnergy.energy:
+    name: energy
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy.energy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 80
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy.energy_entry
+    calls:
+    - range
+    - condition.get
+    - len
+    - ValueError
+    - self._overlap_penalty
+    - self._deadline_penalty
+    - self._precedence_penalty
+    - self._makespan
+    - Task
+    - tasks.append
+    - z.reshape
+    - None.astype
+    - np.argmax
+  thermodynamic.energy_models.SchedulingEnergy.gradient:
+    name: gradient
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy.gradient
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 141
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy.gradient_entry
+    calls:
+    - np.zeros_like
+    - range
+    - len
+    - z.copy
+    - self.energy
+  thermodynamic.energy_models.SchedulingEnergy._decode_assignments:
+    name: _decode_assignments
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy._decode_assignments
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 160
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy._decode_assignments_entry
+    calls:
+    - z.reshape
+    - range
+    - int
+    - len
+    - np.argmax
+    - assignments.append
+    - np.sqrt
+  thermodynamic.energy_models.SchedulingEnergy._overlap_penalty:
+    name: _overlap_penalty
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy._overlap_penalty
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 186
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy._overlap_penalty_entry
+    calls:
+    - enumerate
+    - assignments.get
+    - generation.thermodynamic_components._NumpyStub.max
+    - len
+    - min
+  thermodynamic.energy_models.SchedulingEnergy._deadline_penalty:
+    name: _deadline_penalty
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy._deadline_penalty
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 217
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy._deadline_penalty_entry
+    calls:
+    - enumerate
+    - generation.thermodynamic_components._NumpyStub.max
+  thermodynamic.energy_models.SchedulingEnergy._precedence_penalty:
+    name: _precedence_penalty
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy._precedence_penalty
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 229
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy._precedence_penalty_entry
+    calls:
+    - condition.get
+    - precedence.items
+    - enumerate
+    - generation.thermodynamic_components._NumpyStub.max
+  thermodynamic.energy_models.SchedulingEnergy._makespan:
+    name: _makespan
+    qualified_name: thermodynamic.energy_models.SchedulingEnergy._makespan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/energy_models.py
+    line: 261
+    module: thermodynamic.energy_models
+    class: SchedulingEnergy
+    is_method: true
+    cfg_entry: thermodynamic.energy_models.SchedulingEnergy._makespan_entry
+    calls:
+    - generation.thermodynamic_components._NumpyStub.max
+    - range
+    - len

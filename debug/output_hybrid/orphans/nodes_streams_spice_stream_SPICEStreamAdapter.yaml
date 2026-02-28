@@ -1,0 +1,69 @@
+module: streams.spice_stream.SPICEStreamAdapter
+type: orphan_nodes
+count: 12
+nodes:
+  streams.spice_stream.SPICEStreamAdapter.connect_entry:
+    id: streams.spice_stream.SPICEStreamAdapter.connect_entry
+    type: ENTRY
+    label: entry
+    function: streams.spice_stream.SPICEStreamAdapter.connect
+  streams.spice_stream.SPICEStreamAdapter.connect_exit:
+    id: streams.spice_stream.SPICEStreamAdapter.connect_exit
+    type: EXIT
+    label: exit
+    function: streams.spice_stream.SPICEStreamAdapter.connect
+  streams.spice_stream.SPICEStreamAdapter.connect_return_32:
+    id: streams.spice_stream.SPICEStreamAdapter.connect_return_32
+    type: RETURN
+    label: return
+    function: streams.spice_stream.SPICEStreamAdapter.connect
+    line: 32
+  streams.spice_stream.SPICEStreamAdapter.execute_entry:
+    id: streams.spice_stream.SPICEStreamAdapter.execute_entry
+    type: ENTRY
+    label: entry
+    function: streams.spice_stream.SPICEStreamAdapter.execute
+  streams.spice_stream.SPICEStreamAdapter.execute_exit:
+    id: streams.spice_stream.SPICEStreamAdapter.execute_exit
+    type: EXIT
+    label: exit
+    function: streams.spice_stream.SPICEStreamAdapter.execute
+  streams.spice_stream.SPICEStreamAdapter.execute_if_42:
+    id: streams.spice_stream.SPICEStreamAdapter.execute_if_42
+    type: IF
+    label: if
+    function: streams.spice_stream.SPICEStreamAdapter.execute
+    line: 42
+  streams.spice_stream.SPICEStreamAdapter.execute_return_43:
+    id: streams.spice_stream.SPICEStreamAdapter.execute_return_43
+    type: RETURN
+    label: return
+    function: streams.spice_stream.SPICEStreamAdapter.execute
+    line: 43
+  streams.spice_stream.SPICEStreamAdapter.execute_merge_42:
+    id: streams.spice_stream.SPICEStreamAdapter.execute_merge_42
+    type: FUNC
+    label: merge
+    function: streams.spice_stream.SPICEStreamAdapter.execute
+  streams.spice_stream.SPICEStreamAdapter.execute_return_54:
+    id: streams.spice_stream.SPICEStreamAdapter.execute_return_54
+    type: RETURN
+    label: return
+    function: streams.spice_stream.SPICEStreamAdapter.execute
+    line: 54
+  streams.spice_stream.SPICEStreamAdapter.query_entry:
+    id: streams.spice_stream.SPICEStreamAdapter.query_entry
+    type: ENTRY
+    label: entry
+    function: streams.spice_stream.SPICEStreamAdapter.query
+  streams.spice_stream.SPICEStreamAdapter.query_exit:
+    id: streams.spice_stream.SPICEStreamAdapter.query_exit
+    type: EXIT
+    label: exit
+    function: streams.spice_stream.SPICEStreamAdapter.query
+  streams.spice_stream.SPICEStreamAdapter.query_return_61:
+    id: streams.spice_stream.SPICEStreamAdapter.query_return_61
+    type: RETURN
+    label: return
+    function: streams.spice_stream.SPICEStreamAdapter.query
+    line: 61

@@ -1,0 +1,32 @@
+module: generation.llm_multi.LLMDomainRouter
+type: functions
+count: 2
+functions:
+  generation.llm_multi.LLMDomainRouter.__init__:
+    name: __init__
+    qualified_name: generation.llm_multi.LLMDomainRouter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_multi.py
+    line: 56
+    module: generation.llm_multi
+    class: LLMDomainRouter
+    is_method: true
+    cfg_entry: generation.llm_multi.LLMDomainRouter.__init___entry
+    calls:
+    - LLMConfig
+  generation.llm_multi.LLMDomainRouter.route:
+    name: route
+    qualified_name: generation.llm_multi.LLMDomainRouter.route
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_multi.py
+    line: 64
+    module: generation.llm_multi
+    class: LLMDomainRouter
+    is_method: true
+    cfg_entry: generation.llm_multi.LLMDomainRouter.route_entry
+    calls:
+    - self.CLASSIFICATION_PROMPT.format
+    - None.lower
+    - RoutingResult
+    - self.llm.complete
+    - response.strip
+    - domain.split
+    - str

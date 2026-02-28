@@ -1,0 +1,47 @@
+module: generation.validating
+type: functions
+count: 3
+functions:
+  generation.validating.create_default_validators:
+    name: create_default_validators
+    qualified_name: generation.validating.create_default_validators
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/validating.py
+    line: 290
+    module: generation.validating
+    cfg_entry: generation.validating.create_default_validators_entry
+    calls:
+    - SimpleSQLValidator
+    - SimpleShellValidator
+    - SimpleDockerValidator
+    - SimpleKubernetesValidator
+  generation.validating.validate:
+    name: validate
+    qualified_name: generation.validating.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/validating.py
+    line: 266
+    module: generation.validating
+    cfg_entry: generation.validating.validate_entry
+    calls:
+    - ValidationResult
+    - None.startswith
+    - errors.append
+    - command.strip
+    - command.lower
+    - warnings.append
+    - len
+  generation.validating.generate:
+    name: generate
+    qualified_name: generation.validating.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/validating.py
+    line: 74
+    module: generation.validating
+    cfg_entry: generation.validating.generate_entry
+    calls:
+    - range
+    - ValidatingGeneratorResult
+    - self.validators.get
+    - llm.validator.validate
+    - errors_history.extend
+    - context.copy
+    - self.generator.generate
+    - errors_history.append

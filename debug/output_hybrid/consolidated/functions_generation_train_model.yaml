@@ -1,0 +1,148 @@
+module: generation.train_model
+type: functions
+count: 7
+functions:
+  generation.train_model.load_expanded_phrases:
+    name: load_expanded_phrases
+    qualified_name: generation.train_model.load_expanded_phrases
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 38
+    module: generation.train_model
+    cfg_entry: generation.train_model.load_expanded_phrases_entry
+    calls:
+    - data.get
+    - path.exists
+    - open
+    - json.load
+    - entry.get
+    - samples.append
+    - TrainingSample
+    called_by:
+    - generation.train_model.train_all_models
+  generation.train_model.load_patterns:
+    name: load_patterns
+    qualified_name: generation.train_model.load_patterns
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 75
+    module: generation.train_model
+    cfg_entry: generation.train_model.load_patterns_entry
+    calls:
+    - data.items
+    - path.exists
+    - open
+    - json.load
+    - domain.startswith
+    - isinstance
+    - intents.items
+    - samples.append
+    - len
+    - TrainingSample
+    called_by:
+    - generation.train_model.train_all_models
+  generation.train_model.load_command_schemas:
+    name: load_command_schemas
+    qualified_name: generation.train_model.load_command_schemas
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 104
+    module: generation.train_model
+    cfg_entry: generation.train_model.load_command_schemas_entry
+    calls:
+    - schemas_dir.glob
+    - schemas_dir.exists
+    - data.get
+    - samples.append
+    - open
+    - json.load
+    - TrainingSample
+    - isinstance
+    - None.strip
+    - len
+    - pattern.split
+    - example.split
+    called_by:
+    - generation.train_model.train_all_models
+  generation.train_model.generate_augmented_samples:
+    name: generate_augmented_samples
+    qualified_name: generation.train_model.generate_augmented_samples
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 156
+    module: generation.train_model
+    cfg_entry: generation.train_model.generate_augmented_samples_entry
+    calls:
+    - entities.items
+    - augmented.append
+    - TrainingSample
+    called_by:
+    - generation.train_model.train_all_models
+  generation.train_model.deduplicate_samples:
+    name: deduplicate_samples
+    qualified_name: generation.train_model.deduplicate_samples
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 209
+    module: generation.train_model
+    cfg_entry: generation.train_model.deduplicate_samples_entry
+    calls:
+    - executor.ExecutionContext.set
+    - None.strip
+    - seen.add
+    - unique.append
+    - len
+    - sample.text.lower
+    - sample.text.strip
+    called_by:
+    - generation.train_model.train_all_models
+  generation.train_model.train_all_models:
+    name: train_all_models
+    qualified_name: generation.train_model.train_all_models
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 223
+    module: generation.train_model
+    cfg_entry: generation.train_model.train_all_models_entry
+    calls:
+    - time.time
+    - generation.ml_intent_classifier.create_default_training_data
+    - all_samples.extend
+    - len
+    - expanded_path.exists
+    - legacy_path.exists
+    - patterns_path.exists
+    - schemas_dir.exists
+    - generation.train_model.deduplicate_samples
+    - Counter
+    - dict
+    - MLIntentClassifier
+    - classifier.train
+    - str
+    - DataLoader
+    - PhraseDatabase
+    - loader.save_phrases
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - generation.train_model.load_expanded_phrases
+    - generation.ml_intent_classifier.generate_training_data_from_phrases
+    - generation.train_model.load_patterns
+    - generation.train_model.load_command_schemas
+    - generation.train_model.generate_augmented_samples
+    - model_path.stat
+    - db.add
+    - db_json_path.stat
+    - db_pkl_path.stat
+    - generation.data_loader.benchmark_formats
+    - PhraseEntry
+    - time.strftime
+    - Path
+    called_by:
+    - generation.train_model.quick_test
+  generation.train_model.quick_test:
+    name: quick_test
+    qualified_name: generation.train_model.quick_test
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/train_model.py
+    line: 402
+    module: generation.train_model
+    cfg_entry: generation.train_model.quick_test_entry
+    calls:
+    - MLIntentClassifier
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - model_path.exists
+    - generation.train_model.train_all_models
+    - classifier.predict
+    - Path

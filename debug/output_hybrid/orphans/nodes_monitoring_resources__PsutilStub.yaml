@@ -1,0 +1,20 @@
+module: monitoring.resources._PsutilStub
+type: orphan_nodes
+count: 3
+nodes:
+  monitoring.resources._PsutilStub.Process_entry:
+    id: monitoring.resources._PsutilStub.Process_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.resources._PsutilStub.Process
+  monitoring.resources._PsutilStub.Process_exit:
+    id: monitoring.resources._PsutilStub.Process_exit
+    type: EXIT
+    label: exit
+    function: monitoring.resources._PsutilStub.Process
+  monitoring.resources._PsutilStub.Process_return_28:
+    id: monitoring.resources._PsutilStub.Process_return_28
+    type: RETURN
+    label: return
+    function: monitoring.resources._PsutilStub.Process
+    line: 28

@@ -1,0 +1,134 @@
+module: history.tracker.CommandHistory
+type: functions
+count: 9
+functions:
+  history.tracker.CommandHistory.__init__:
+    name: __init__
+    qualified_name: history.tracker.CommandHistory.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 104
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.__init___entry
+    calls:
+    - Path
+    - self.history_file.parent.mkdir
+    - self._load
+    - Path.home
+  history.tracker.CommandHistory._load:
+    name: _load
+    qualified_name: history.tracker.CommandHistory._load
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 114
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory._load_entry
+    calls:
+    - self.history_file.exists
+    - open
+    - json.load
+    - history.tracker.CommandRecord.from_dict
+    - data.get
+  history.tracker.CommandHistory._save:
+    name: _save
+    qualified_name: history.tracker.CommandHistory._save
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 124
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory._save_entry
+    calls:
+    - open
+    - json.dump
+    - None.isoformat
+    - len
+    - r.to_dict
+    - datetime.now
+  history.tracker.CommandHistory.record:
+    name: record
+    qualified_name: history.tracker.CommandHistory.record
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 142
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.record_entry
+    calls:
+    - CommandRecord
+    - self.records.append
+    - self._save
+    - None.isoformat
+    - datetime.now
+  history.tracker.CommandHistory.get_stats:
+    name: get_stats
+    qualified_name: history.tracker.CommandHistory.get_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 182
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.get_stats_entry
+    calls:
+    - generation.thermodynamic_components._NumpyStub.sum
+    - dsl_counts.items
+    - len
+    - dsl_counts.get
+    - dsl_success.get
+  history.tracker.CommandHistory.get_schema_usage_stats:
+    name: get_schema_usage_stats
+    qualified_name: history.tracker.CommandHistory.get_schema_usage_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 224
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.get_schema_usage_stats_entry
+    calls:
+    - schema_counts.values
+    - len
+  history.tracker.CommandHistory.get_popular_queries:
+    name: get_popular_queries
+    qualified_name: history.tracker.CommandHistory.get_popular_queries
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 267
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.get_popular_queries_entry
+    calls:
+    - sorted
+    - query_counts.items
+    - query_counts.get
+  history.tracker.CommandHistory.clear:
+    name: clear
+    qualified_name: history.tracker.CommandHistory.clear
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 286
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.clear_entry
+    calls:
+    - self._save
+  history.tracker.CommandHistory.export_analytics:
+    name: export_analytics
+    qualified_name: history.tracker.CommandHistory.export_analytics
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/history/tracker.py
+    line: 291
+    module: history.tracker
+    class: CommandHistory
+    is_method: true
+    cfg_entry: history.tracker.CommandHistory.export_analytics_entry
+    calls:
+    - None.isoformat
+    - self.get_stats
+    - self.get_schema_usage_stats
+    - self.get_popular_queries
+    - open
+    - json.dump
+    - r.to_dict
+    - datetime.now
+    - self.get_failed_commands

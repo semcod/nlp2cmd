@@ -1,0 +1,16 @@
+module: adapters.shell_generators.DockerGenerator
+type: functions
+count: 1
+functions:
+  adapters.shell_generators.DockerGenerator.generate_docker:
+    name: generate_docker
+    qualified_name: adapters.shell_generators.DockerGenerator.generate_docker
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 276
+    module: adapters.shell_generators
+    class: DockerGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.DockerGenerator.generate_docker_entry
+    calls:
+    - entities.get
+    - commands.get

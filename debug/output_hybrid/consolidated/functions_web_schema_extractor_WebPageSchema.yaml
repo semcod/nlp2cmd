@@ -1,0 +1,32 @@
+module: web_schema.extractor.WebPageSchema
+type: functions
+count: 2
+functions:
+  web_schema.extractor.WebPageSchema.to_appspec:
+    name: to_appspec
+    qualified_name: web_schema.extractor.WebPageSchema.to_appspec
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 56
+    module: web_schema.extractor
+    class: WebPageSchema
+    is_method: true
+    cfg_entry: web_schema.extractor.WebPageSchema.to_appspec_entry
+    calls:
+    - actions.append
+    - self.metadata.get
+    - len
+  web_schema.extractor.WebPageSchema.save:
+    name: save
+    qualified_name: web_schema.extractor.WebPageSchema.save
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/extractor.py
+    line: 119
+    module: web_schema.extractor
+    class: WebPageSchema
+    is_method: true
+    cfg_entry: web_schema.extractor.WebPageSchema.save_entry
+    calls:
+    - output_dir.mkdir
+    - re.sub
+    - open
+    - json.dump
+    - self.to_appspec

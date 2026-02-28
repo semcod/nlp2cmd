@@ -1,0 +1,20 @@
+module: execution.base.ExecutorResult
+type: orphan_nodes
+count: 3
+nodes:
+  execution.base.ExecutorResult.to_runner_result_entry:
+    id: execution.base.ExecutorResult.to_runner_result_entry
+    type: ENTRY
+    label: entry
+    function: execution.base.ExecutorResult.to_runner_result
+  execution.base.ExecutorResult.to_runner_result_exit:
+    id: execution.base.ExecutorResult.to_runner_result_exit
+    type: EXIT
+    label: exit
+    function: execution.base.ExecutorResult.to_runner_result
+  execution.base.ExecutorResult.to_runner_result_return_29:
+    id: execution.base.ExecutorResult.to_runner_result_return_29
+    type: RETURN
+    label: return
+    function: execution.base.ExecutorResult.to_runner_result
+    line: 29

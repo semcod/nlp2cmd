@@ -1,0 +1,185 @@
+module: registry
+type: functions
+count: 17
+functions:
+  registry.get_registry:
+    name: get_registry
+    qualified_name: registry.get_registry
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 626
+    module: registry
+    cfg_entry: registry.get_registry_entry
+    calls:
+    - ActionRegistry
+    called_by:
+    - planner.LLMPlanner.__init__
+    - planner.__init__
+    - executor.PlanExecutor.__init__
+    - executor.__init__
+  registry.ok:
+    name: ok
+    qualified_name: registry.ok
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 94
+    module: registry
+    cfg_entry: registry.ok_entry
+    calls:
+    - cls
+  registry.fail:
+    name: fail
+    qualified_name: registry.fail
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 99
+    module: registry
+    cfg_entry: registry.fail_entry
+    calls:
+    - cls
+  registry.validate_params:
+    name: validate_params
+    qualified_name: registry.validate_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 110
+    module: registry
+    cfg_entry: registry.validate_params_entry
+    calls:
+    - self.schema.get_required_params
+    - params.items
+    - self.schema.get_param
+    - errors.append
+    - self._validate_type
+    - len
+    - validator
+    - type
+  registry._validate_type:
+    name: _validate_type
+    qualified_name: registry._validate_type
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 168
+    module: registry
+    cfg_entry: registry._validate_type_entry
+    calls:
+    - type_map.get
+    - isinstance
+  registry.execute:
+    name: execute
+    qualified_name: registry.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 190
+    module: registry
+    cfg_entry: registry.execute_entry
+    calls:
+    - NotImplementedError
+  registry.__init__:
+    name: __init__
+    qualified_name: registry.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 210
+    module: registry
+    cfg_entry: registry.__init___entry
+    calls:
+    - self._register_builtin_actions
+  registry._register_builtin_actions:
+    name: _register_builtin_actions
+    qualified_name: registry._register_builtin_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 216
+    module: registry
+    cfg_entry: registry._register_builtin_actions_entry
+    calls:
+    - self.register
+    - ActionSchema
+    - ParamSchema
+  registry.register:
+    name: register
+    qualified_name: registry.register
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 505
+    module: registry
+    cfg_entry: registry.register_entry
+    calls:
+    - logger.debug
+    - None.append
+    called_by:
+    - execution.executor_registry.create_default_registry
+  registry.get:
+    name: get
+    qualified_name: registry.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 530
+    module: registry
+    cfg_entry: registry.get_entry
+    calls:
+    - self._actions.get
+  registry.get_handler:
+    name: get_handler
+    qualified_name: registry.get_handler
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 534
+    module: registry
+    cfg_entry: registry.get_handler_entry
+    calls:
+    - self._handlers.get
+  registry.list_actions:
+    name: list_actions
+    qualified_name: registry.list_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 542
+    module: registry
+    cfg_entry: registry.list_actions_entry
+    calls:
+    - list
+    - self._domains.get
+    - self._actions.keys
+  registry.list_domains:
+    name: list_domains
+    qualified_name: registry.list_domains
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 548
+    module: registry
+    cfg_entry: registry.list_domains_entry
+    calls:
+    - list
+    - self._domains.keys
+  registry.get_by_tag:
+    name: get_by_tag
+    qualified_name: registry.get_by_tag
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 552
+    module: registry
+    cfg_entry: registry.get_by_tag_entry
+    calls:
+    - self._actions.values
+  registry.get_destructive_actions:
+    name: get_destructive_actions
+    qualified_name: registry.get_destructive_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 556
+    module: registry
+    cfg_entry: registry.get_destructive_actions_entry
+    calls:
+    - self._actions.items
+  registry.validate_action:
+    name: validate_action
+    qualified_name: registry.validate_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 560
+    module: registry
+    cfg_entry: registry.validate_action_entry
+    calls:
+    - ActionHandler
+    - handler.validate_params
+    - self.has
+  registry.to_llm_prompt:
+    name: to_llm_prompt
+    qualified_name: registry.to_llm_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 584
+    module: registry
+    cfg_entry: registry.to_llm_prompt_entry
+    calls:
+    - self.list_actions
+    - sorted
+    - None.join
+    - schema.get_required_params
+    - schema.get_optional_params
+    - lines.append

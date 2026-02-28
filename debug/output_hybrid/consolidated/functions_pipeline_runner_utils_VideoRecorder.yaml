@@ -1,0 +1,40 @@
+module: pipeline_runner_utils.VideoRecorder
+type: functions
+count: 3
+functions:
+  pipeline_runner_utils.VideoRecorder.__init__:
+    name: __init__
+    qualified_name: pipeline_runner_utils.VideoRecorder.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 405
+    module: pipeline_runner_utils
+    class: VideoRecorder
+    is_method: true
+    cfg_entry: pipeline_runner_utils.VideoRecorder.__init___entry
+    calls:
+    - Path
+  pipeline_runner_utils.VideoRecorder.start_recording:
+    name: start_recording
+    qualified_name: pipeline_runner_utils.VideoRecorder.start_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 416
+    module: pipeline_runner_utils
+    class: VideoRecorder
+    is_method: true
+    cfg_entry: pipeline_runner_utils.VideoRecorder.start_recording_entry
+    calls:
+    - pipeline_runner_utils.get_timestamp
+    - str
+    - pipeline_runner_utils.ensure_dir
+  pipeline_runner_utils.VideoRecorder.stop_recording:
+    name: stop_recording
+    qualified_name: pipeline_runner_utils.VideoRecorder.stop_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 439
+    module: pipeline_runner_utils
+    class: VideoRecorder
+    is_method: true
+    cfg_entry: pipeline_runner_utils.VideoRecorder.stop_recording_entry
+    calls:
+    - str
+    - console.print

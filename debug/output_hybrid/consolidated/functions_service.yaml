@@ -1,0 +1,221 @@
+module: service
+type: functions
+count: 15
+functions:
+  service._ensure_service_deps:
+    name: _ensure_service_deps
+    qualified_name: service._ensure_service_deps
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 33
+    module: service
+    cfg_entry: service._ensure_service_deps_entry
+    called_by:
+    - service.NLP2CMDService._create_app
+    - service.NLP2CMDService.run
+    - service.create_app
+    - service._create_app
+    - service.run
+  service.create_app:
+    name: create_app
+    qualified_name: service.create_app
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 369
+    module: service
+    cfg_entry: service.create_app_entry
+    calls:
+    - service._ensure_service_deps
+    - ServiceConfig
+    - NLP2CMDService
+    - service._create_app
+    - service._setup_routes
+  service.create_service_config_from_args:
+    name: create_service_config_from_args
+    qualified_name: service.create_service_config_from_args
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 380
+    module: service
+    cfg_entry: service.create_service_config_from_args_entry
+    calls:
+    - ServiceConfig
+    - isinstance
+    - cors_origins.split
+    - config.save_to_env
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    called_by:
+    - service.cli.add_service_command
+    - service.cli.service
+    - service.cli.config_service
+  service.__init__:
+    name: __init__
+    qualified_name: service.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 164
+    module: service
+    cfg_entry: service.__init___entry
+    calls:
+    - self._setup_logging
+    - ServiceConfig
+  service.save_to_env:
+    name: save_to_env
+    qualified_name: service.save_to_env
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 98
+    module: service
+    cfg_entry: service.save_to_env_entry
+    calls:
+    - Path
+    - env_path.exists
+    - existing_vars.update
+    - str
+    - None.lower
+    - None.join
+    - open
+    - f.write
+    - sorted
+    - existing_vars.items
+    - line.strip
+    - line.split
+    - line.startswith
+  service._setup_logging:
+    name: _setup_logging
+    qualified_name: service._setup_logging
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 170
+    module: service
+    cfg_entry: service._setup_logging_entry
+    calls:
+    - logging.basicConfig
+    - logging.getLogger
+    - getattr
+    - self.config.log_level.upper
+  service._create_app:
+    name: _create_app
+    qualified_name: service._create_app
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 178
+    module: service
+    cfg_entry: service._create_app_entry
+    calls:
+    - service._ensure_service_deps
+    - FastAPI
+    - RuleBasedPipeline
+    - app.add_middleware
+    called_by:
+    - service.create_app
+  service._setup_routes:
+    name: _setup_routes
+    qualified_name: service._setup_routes
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 204
+    module: service
+    cfg_entry: service._setup_routes_entry
+    calls:
+    - app.get
+    - app.post
+    - self.config.to_dict
+    - bool
+    - self.pipeline.process
+    - QueryResponse
+    - config_updates.items
+    - self.config.save_to_env
+    - self.logger.error
+    - HTTPException
+    - hasattr
+    - ExecutionRunner
+    - execution.runner.run_with_recovery
+    - setattr
+    - str
+    - key.upper
+    called_by:
+    - service.create_app
+  service.run:
+    name: run
+    qualified_name: service.run
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 314
+    module: service
+    cfg_entry: service.run_entry
+    calls:
+    - service._ensure_service_deps
+    - self._create_app
+    - self._setup_routes
+    - self.logger.info
+    - os.environ.get
+    - None.lower
+    - str
+    - uvicorn.run
+    - os.environ.pop
+  service.root:
+    name: root
+    qualified_name: service.root
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 208
+    module: service
+    cfg_entry: service.root_entry
+    calls:
+    - app.get
+    - self.config.to_dict
+  service.health_check:
+    name: health_check
+    qualified_name: service.health_check
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 218
+    module: service
+    cfg_entry: service.health_check_entry
+    calls:
+    - app.get
+  service.process_query:
+    name: process_query
+    qualified_name: service.process_query
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 223
+    module: service
+    cfg_entry: service.process_query_entry
+    calls:
+    - app.post
+    - bool
+    - self.pipeline.process
+    - QueryResponse
+    - self.logger.error
+    - HTTPException
+    - ExecutionRunner
+    - execution.runner.run_with_recovery
+    - str
+  service.get_config:
+    name: get_config
+    qualified_name: service.get_config
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 287
+    module: service
+    cfg_entry: service.get_config_entry
+    calls:
+    - app.get
+    - self.config.to_dict
+  service.update_config:
+    name: update_config
+    qualified_name: service.update_config
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 292
+    module: service
+    cfg_entry: service.update_config_entry
+    calls:
+    - app.post
+    - config_updates.items
+    - hasattr
+    - self.config.to_dict
+    - HTTPException
+    - setattr
+    - str
+    - key.upper
+  service.save_config:
+    name: save_config
+    qualified_name: service.save_config
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/service/__init__.py
+    line: 306
+    module: service
+    cfg_entry: service.save_config_entry
+    calls:
+    - app.post
+    - self.config.save_to_env
+    - HTTPException
+    - str

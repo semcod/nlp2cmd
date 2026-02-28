@@ -1,0 +1,34 @@
+module: core.core_backends.NLPBackend
+type: orphan_nodes
+count: 6
+nodes:
+  core.core_backends.NLPBackend.extract_intent_entry:
+    id: core.core_backends.NLPBackend.extract_intent_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.NLPBackend.extract_intent
+  core.core_backends.NLPBackend.extract_intent_exit:
+    id: core.core_backends.NLPBackend.extract_intent_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.NLPBackend.extract_intent
+  core.core_backends.NLPBackend.extract_entities_entry:
+    id: core.core_backends.NLPBackend.extract_entities_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.NLPBackend.extract_entities
+  core.core_backends.NLPBackend.extract_entities_exit:
+    id: core.core_backends.NLPBackend.extract_entities_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.NLPBackend.extract_entities
+  core.core_backends.NLPBackend.generate_plan_entry:
+    id: core.core_backends.NLPBackend.generate_plan_entry
+    type: ENTRY
+    label: entry
+    function: core.core_backends.NLPBackend.generate_plan
+  core.core_backends.NLPBackend.generate_plan_exit:
+    id: core.core_backends.NLPBackend.generate_plan_exit
+    type: EXIT
+    label: exit
+    function: core.core_backends.NLPBackend.generate_plan

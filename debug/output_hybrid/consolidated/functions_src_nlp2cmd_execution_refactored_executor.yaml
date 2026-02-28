@@ -1,0 +1,155 @@
+module: src.nlp2cmd.execution.refactored_executor
+type: functions
+count: 14
+functions:
+  src.nlp2cmd.execution.refactored_executor.execute_plan_step:
+    name: execute_plan_step
+    qualified_name: src.nlp2cmd.execution.refactored_executor.execute_plan_step
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 143
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.execute_plan_step_entry
+    calls:
+    - ActionType
+    - executor.execute
+    - self.execution_history.append
+    - step.get
+    - self._get_timestamp
+  src.nlp2cmd.execution.refactored_executor.run_dom_multi_action:
+    name: run_dom_multi_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 214
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.run_dom_multi_action_entry
+    calls:
+    - RefactoredPlanExecutor
+    - executor.execute_plan
+  src.nlp2cmd.execution.refactored_executor.__init__:
+    name: __init__
+    qualified_name: src.nlp2cmd.execution.refactored_executor.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 136
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.__init___entry
+    calls:
+    - ActionExecutor
+  src.nlp2cmd.execution.refactored_executor.execute:
+    name: execute
+    qualified_name: src.nlp2cmd.execution.refactored_executor.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 44
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.execute_entry
+    calls:
+    - self._execute_dom_action
+    - logger.error
+    - self._execute_shell_action
+    - str
+    - self._execute_mouse_action
+    - self._execute_keyboard_action
+    - self._execute_validation_action
+    - self._execute_navigation_action
+    - ValueError
+  src.nlp2cmd.execution.refactored_executor._execute_dom_action:
+    name: _execute_dom_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor._execute_dom_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 72
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._execute_dom_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor._execute_shell_action:
+    name: _execute_shell_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor._execute_shell_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 81
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._execute_shell_action_entry
+    calls:
+    - src.nlp2cmd.validation.framework.validate_safety_policy
+    - action.get
+  src.nlp2cmd.execution.refactored_executor._execute_mouse_action:
+    name: _execute_mouse_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor._execute_mouse_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 100
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._execute_mouse_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor._execute_keyboard_action:
+    name: _execute_keyboard_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 108
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._execute_keyboard_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor._execute_validation_action:
+    name: _execute_validation_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor._execute_validation_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 116
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._execute_validation_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor._execute_navigation_action:
+    name: _execute_navigation_action
+    qualified_name: src.nlp2cmd.execution.refactored_executor._execute_navigation_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 124
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._execute_navigation_action_entry
+    calls:
+    - action.get
+  src.nlp2cmd.execution.refactored_executor.execute_plan:
+    name: execute_plan
+    qualified_name: src.nlp2cmd.execution.refactored_executor.execute_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 160
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.execute_plan_entry
+    calls:
+    - enumerate
+    - self.execute_plan_step
+    - results.append
+    - len
+    - errors.append
+    - step.get
+    - result.get
+  src.nlp2cmd.execution.refactored_executor.get_execution_stats:
+    name: get_execution_stats
+    qualified_name: src.nlp2cmd.execution.refactored_executor.get_execution_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 181
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor.get_execution_stats_entry
+    calls:
+    - self.executors.items
+    - generation.thermodynamic_components._NumpyStub.sum
+    - self._calculate_success_rate
+    - stats.values
+  src.nlp2cmd.execution.refactored_executor._get_timestamp:
+    name: _get_timestamp
+    qualified_name: src.nlp2cmd.execution.refactored_executor._get_timestamp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 193
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._get_timestamp_entry
+    calls:
+    - None.isoformat
+    - datetime.now
+  src.nlp2cmd.execution.refactored_executor._calculate_success_rate:
+    name: _calculate_success_rate
+    qualified_name: src.nlp2cmd.execution.refactored_executor._calculate_success_rate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py
+    line: 198
+    module: src.nlp2cmd.execution.refactored_executor
+    cfg_entry: src.nlp2cmd.execution.refactored_executor._calculate_success_rate_entry
+    calls:
+    - generation.thermodynamic_components._NumpyStub.sum
+    - len

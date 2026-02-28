@@ -1,0 +1,52 @@
+letter: R
+type: orphan_functions
+count: 6
+functions:
+  exploration.base.ExplorerRegistry.register:
+    name: register
+    qualified_name: exploration.base.ExplorerRegistry.register
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 147
+    module: exploration.base
+    class: ExplorerRegistry
+    is_method: true
+    cfg_entry: exploration.base.ExplorerRegistry.register_entry
+  exploration.base.register:
+    name: register
+    qualified_name: exploration.base.register
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 147
+    module: exploration.base
+    cfg_entry: exploration.base.register_entry
+  executor.PlanExecutor.register_handler:
+    name: register_handler
+    qualified_name: executor.PlanExecutor.register_handler
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 660
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor.register_handler_entry
+  executor.register_handler:
+    name: register_handler
+    qualified_name: executor.register_handler
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 660
+    module: executor
+    cfg_entry: executor.register_handler_entry
+  router.DecisionRouter.register_intent_mapping:
+    name: register_intent_mapping
+    qualified_name: router.DecisionRouter.register_intent_mapping
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 332
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter.register_intent_mapping_entry
+  router.register_intent_mapping:
+    name: register_intent_mapping
+    qualified_name: router.register_intent_mapping
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 332
+    module: router
+    cfg_entry: router.register_intent_mapping_entry

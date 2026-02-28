@@ -1,0 +1,221 @@
+module: execution.browser
+type: functions
+count: 14
+functions:
+  execution.browser.get_os_open_command:
+    name: get_os_open_command
+    qualified_name: execution.browser.get_os_open_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 29
+    module: execution.browser
+    cfg_entry: execution.browser.get_os_open_command_entry
+    calls:
+    - None.lower
+    - platform.system
+    called_by:
+    - execution.browser.open_url
+    - execution.browser.generate_shell_command
+  execution.browser.normalize_url:
+    name: normalize_url
+    qualified_name: execution.browser.normalize_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 42
+    module: execution.browser
+    cfg_entry: execution.browser.normalize_url_entry
+    calls:
+    - url.strip
+    - url.startswith
+    called_by:
+    - execution.browser.open_url
+    - execution.browser.BrowserExecutor.new_tab
+    - execution.browser.BrowserExecutor.execute
+    - execution.browser.generate_shell_command
+    - execution.browser.new_tab
+    - execution.browser.execute
+  execution.browser.open_url:
+    name: open_url
+    qualified_name: execution.browser.open_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 50
+    module: execution.browser
+    cfg_entry: execution.browser.open_url_entry
+    calls:
+    - execution.browser.normalize_url
+    - webbrowser.open
+    - BrowserResult
+    - execution.browser.get_os_open_command
+    - subprocess.Popen
+    - str
+    called_by:
+    - cli.helpers._fallback_open_url
+    - cli.helpers._fallback_open_url_from_query
+    - execution.browser.search_web
+    - execution.browser.BrowserExecutor.execute_simple
+    - execution.browser.execute_simple
+  execution.browser.search_web:
+    name: search_web
+    qualified_name: execution.browser.search_web
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 95
+    module: execution.browser
+    cfg_entry: execution.browser.search_web_entry
+    calls:
+    - search_urls.get
+    - execution.browser.open_url
+    - engine.lower
+    - quote_plus
+    called_by:
+    - execution.browser.BrowserExecutor.execute_simple
+    - execution.browser.execute_simple
+  execution.browser.generate_shell_command:
+    name: generate_shell_command
+    qualified_name: execution.browser.generate_shell_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 488
+    module: execution.browser
+    cfg_entry: execution.browser.generate_shell_command_entry
+    calls:
+    - execution.browser.get_os_open_command
+    - execution.browser.normalize_url
+    - params.get
+    - search_urls.get
+    - engine.lower
+    - quote_plus
+  execution.browser._ensure_playwright:
+    name: _ensure_playwright
+    qualified_name: execution.browser._ensure_playwright
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 145
+    module: execution.browser
+    cfg_entry: execution.browser._ensure_playwright_entry
+    calls:
+    - None.start
+    - self._playwright.chromium.launch
+    - self._browser.new_page
+    - RuntimeError
+    - async_playwright
+  execution.browser._ensure_persistent_context:
+    name: _ensure_persistent_context
+    qualified_name: execution.browser._ensure_persistent_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 163
+    module: execution.browser
+    cfg_entry: execution.browser._ensure_persistent_context_entry
+    calls:
+    - user_data_dir.mkdir
+    - None.start
+    - self._playwright.chromium.launch_persistent_context
+    - RuntimeError
+    - Path.home
+    - self._context.new_page
+    - async_playwright
+    - str
+  execution.browser.new_tab:
+    name: new_tab
+    qualified_name: execution.browser.new_tab
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 197
+    module: execution.browser
+    cfg_entry: execution.browser.new_tab_entry
+    calls:
+    - self._ensure_playwright
+    - BrowserResult
+    - context.new_page
+    - execution.browser.normalize_url
+    - new_page.goto
+    - str
+  execution.browser.switch_tab:
+    name: switch_tab
+    qualified_name: execution.browser.switch_tab
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 224
+    module: execution.browser
+    cfg_entry: execution.browser.switch_tab_entry
+    calls:
+    - self._ensure_playwright
+    - BrowserResult
+    - len
+    - None.bring_to_front
+    - title_filter.lower
+    - None.lower
+    - str
+    - page.bring_to_front
+    - page.title
+    - None.title
+  execution.browser.close_tab:
+    name: close_tab
+    qualified_name: execution.browser.close_tab
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 274
+    module: execution.browser
+    cfg_entry: execution.browser.close_tab_entry
+    calls:
+    - self._ensure_playwright
+    - BrowserResult
+    - page_to_close.close
+    - len
+    - str
+  execution.browser.list_tabs:
+    name: list_tabs
+    qualified_name: execution.browser.list_tabs
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 315
+    module: execution.browser
+    cfg_entry: execution.browser.list_tabs_entry
+    calls:
+    - enumerate
+    - self._ensure_playwright
+    - tabs.append
+    - str
+    - page.title
+  execution.browser.close:
+    name: close
+    qualified_name: execution.browser.close
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 329
+    module: execution.browser
+    cfg_entry: execution.browser.close_entry
+    calls:
+    - self._browser.close
+    - self._playwright.stop
+    called_by:
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_dql
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_dql
+    - pipeline_runner_browser._run_dom_multi_action
+    - web_schema.extractor.WebSchemaExtractor.extract
+    - web_schema.extractor.extract
+    - utils.playwright_installer.is_playwright_browsers_installed
+    - cli.commands.generate._execute_multi_step_with_video
+  execution.browser.execute_simple:
+    name: execute_simple
+    qualified_name: execution.browser.execute_simple
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 339
+    module: execution.browser
+    cfg_entry: execution.browser.execute_simple_entry
+    calls:
+    - params.get
+    - execution.browser.open_url
+    - BrowserResult
+    - execution.browser.search_web
+  execution.browser.execute:
+    name: execute
+    qualified_name: execution.browser.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/browser.py
+    line: 378
+    module: execution.browser
+    cfg_entry: execution.browser.execute_entry
+    calls:
+    - self.execute_simple
+    - BrowserResult
+    - self._ensure_playwright
+    - execution.browser.normalize_url
+    - params.get
+    - self._page.goto
+    - str
+    - self._page.fill
+    - self._page.keyboard.type
+    - self._page.click
+    - self._page.keyboard.press
+    - self._page.screenshot

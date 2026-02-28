@@ -1,0 +1,216 @@
+module: monitoring.token_costs.TokenCostEstimator
+type: orphan_nodes
+count: 39
+nodes:
+  monitoring.token_costs.TokenCostEstimator.__init___entry:
+    id: monitoring.token_costs.TokenCostEstimator.__init___entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator.__init__
+  monitoring.token_costs.TokenCostEstimator.__init___exit:
+    id: monitoring.token_costs.TokenCostEstimator.__init___exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator.__init__
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_entry:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_exit:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_89:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_89
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+    line: 89
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_89:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_89
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_98:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_98
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+    line: 98
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_98:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_98
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_103:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_103
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+    line: 103
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_103:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_103
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_105:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_if_105
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+    line: 105
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_105:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_merge_105
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+  monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_return_120:
+    id: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics_return_120
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator.estimate_from_metrics
+    line: 120
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu_entry:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu_exit:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu_exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu_return_139:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu_return_139
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_cpu
+    line: 139
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory_entry:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory_exit:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory_exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory_return_150:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory_return_150
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_memory
+    line: 150
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy_entry:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy_exit:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy_exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy
+  monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy_return_157:
+    id: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy_return_157
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._estimate_tokens_from_energy
+    line: 157
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_entry:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_exit:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_if_170:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_if_170
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 170
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_171:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_171
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 171
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_if_172:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_if_172
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 172
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_173:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_173
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 173
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_if_174:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_if_174
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 174
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_175:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_175
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 175
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_177:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_return_177
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+    line: 177
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_merge_174:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_merge_174
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_merge_172:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_merge_172
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+  monitoring.token_costs.TokenCostEstimator._determine_model_tier_merge_170:
+    id: monitoring.token_costs.TokenCostEstimator._determine_model_tier_merge_170
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator._determine_model_tier
+  monitoring.token_costs.TokenCostEstimator.format_estimate_entry:
+    id: monitoring.token_costs.TokenCostEstimator.format_estimate_entry
+    type: ENTRY
+    label: entry
+    function: monitoring.token_costs.TokenCostEstimator.format_estimate
+  monitoring.token_costs.TokenCostEstimator.format_estimate_exit:
+    id: monitoring.token_costs.TokenCostEstimator.format_estimate_exit
+    type: EXIT
+    label: exit
+    function: monitoring.token_costs.TokenCostEstimator.format_estimate
+  monitoring.token_costs.TokenCostEstimator.format_estimate_if_190:
+    id: monitoring.token_costs.TokenCostEstimator.format_estimate_if_190
+    type: IF
+    label: if
+    function: monitoring.token_costs.TokenCostEstimator.format_estimate
+    line: 190
+  monitoring.token_costs.TokenCostEstimator.format_estimate_merge_190:
+    id: monitoring.token_costs.TokenCostEstimator.format_estimate_merge_190
+    type: FUNC
+    label: merge
+    function: monitoring.token_costs.TokenCostEstimator.format_estimate
+  monitoring.token_costs.TokenCostEstimator.format_estimate_return_193:
+    id: monitoring.token_costs.TokenCostEstimator.format_estimate_return_193
+    type: RETURN
+    label: return
+    function: monitoring.token_costs.TokenCostEstimator.format_estimate
+    line: 193

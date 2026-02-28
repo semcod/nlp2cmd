@@ -1,0 +1,154 @@
+module: executor.PlanExecutor
+type: functions
+count: 8
+functions:
+  executor.PlanExecutor.__init__:
+    name: __init__
+    qualified_name: executor.PlanExecutor.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 315
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor.__init___entry
+    calls:
+    - PlanValidator
+    - self._register_default_handlers
+    - registry.get_registry
+  executor.PlanExecutor._register_default_handlers:
+    name: _register_default_handlers
+    qualified_name: executor.PlanExecutor._register_default_handlers
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 334
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor._register_default_handlers_entry
+    calls:
+    - isinstance
+    - sorted
+    - len
+    - x.get
+  executor.PlanExecutor.execute:
+    name: execute
+    qualified_name: executor.PlanExecutor.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 356
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor.execute_entry
+    calls:
+    - time.time
+    - self.validator.validate
+    - ExecutionContext
+    - logger.info
+    - enumerate
+    - all
+    - reversed
+    - ExecutionResult
+    - ctx.variables.update
+    - self._execute_step
+    - ctx.results.append
+    - len
+    - on_step_complete
+    - logger.exception
+    - logger.error
+    - StepResult
+    - None.join
+    - logger.warning
+    - str
+  executor.PlanExecutor._execute_step:
+    name: _execute_step
+    qualified_name: executor.PlanExecutor._execute_step
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 450
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor._execute_step_entry
+    calls:
+    - time.time
+    - logger.debug
+    - self._resolve_params
+    - range
+    - StepResult
+    - self._execute_foreach
+    - self._evaluate_condition
+    - self._call_action
+    - ctx.set
+    - str
+    - logger.warning
+    - time.sleep
+  executor.PlanExecutor._execute_foreach:
+    name: _execute_foreach
+    qualified_name: executor.PlanExecutor._execute_foreach
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 527
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor._execute_foreach_entry
+    calls:
+    - time.time
+    - enumerate
+    - ctx.variables.pop
+    - StepResult
+    - ctx.resolve_reference
+    - isinstance
+    - ctx.set
+    - self._resolve_params
+    - self._call_action
+    - results.append
+    - len
+    - logger.warning
+    - str
+    - type
+  executor.PlanExecutor._resolve_params:
+    name: _resolve_params
+    qualified_name: executor.PlanExecutor._resolve_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 592
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor._resolve_params_entry
+    calls:
+    - params.items
+    - isinstance
+    - value.startswith
+    - ctx.resolve_reference
+    - self._resolve_params
+    - v.startswith
+  executor.PlanExecutor._evaluate_condition:
+    name: _evaluate_condition
+    qualified_name: executor.PlanExecutor._evaluate_condition
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 615
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor._evaluate_condition_entry
+    calls:
+    - re.finditer
+    - match.group
+    - eval
+    - ctx.resolve_reference
+    - isinstance
+    - expr.replace
+    - str
+  executor.PlanExecutor._call_action:
+    name: _call_action
+    qualified_name: executor.PlanExecutor._call_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 639
+    module: executor
+    class: PlanExecutor
+    is_method: true
+    cfg_entry: executor.PlanExecutor._call_action_entry
+    calls:
+    - self.registry.get_handler
+    - NotImplementedError
+    - handler
+    - registry_handler.execute
+    - RuntimeError

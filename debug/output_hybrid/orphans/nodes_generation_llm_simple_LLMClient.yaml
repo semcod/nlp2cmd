@@ -1,0 +1,14 @@
+module: generation.llm_simple.LLMClient
+type: orphan_nodes
+count: 2
+nodes:
+  generation.llm_simple.LLMClient.complete_entry:
+    id: generation.llm_simple.LLMClient.complete_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.LLMClient.complete
+  generation.llm_simple.LLMClient.complete_exit:
+    id: generation.llm_simple.LLMClient.complete_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.LLMClient.complete

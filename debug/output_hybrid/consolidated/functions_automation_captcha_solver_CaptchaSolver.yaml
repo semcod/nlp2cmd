@@ -1,0 +1,164 @@
+module: automation.captcha_solver.CaptchaSolver
+type: functions
+count: 9
+functions:
+  automation.captcha_solver.CaptchaSolver.__init__:
+    name: __init__
+    qualified_name: automation.captcha_solver.CaptchaSolver.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 55
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver.__init___entry
+    calls:
+    - os.getenv
+  automation.captcha_solver.CaptchaSolver.detect_captcha:
+    name: detect_captcha
+    qualified_name: automation.captcha_solver.CaptchaSolver.detect_captcha
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 70
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver.detect_captcha_entry
+    calls:
+    - page.query_selector
+    - pipeline_runner_utils._debug
+    - CaptchaInfo
+  automation.captcha_solver.CaptchaSolver.solve:
+    name: solve
+    qualified_name: automation.captcha_solver.CaptchaSolver.solve
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 156
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver.solve_entry
+    calls:
+    - pipeline_runner_utils._debug
+    - handlers.get
+    - handler
+    - str
+  automation.captcha_solver.CaptchaSolver._solve_image_captcha:
+    name: _solve_image_captcha
+    qualified_name: automation.captcha_solver.CaptchaSolver._solve_image_captcha
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 206
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver._solve_image_captcha_entry
+    calls:
+    - None.decode
+    - None.strip
+    - pipeline_runner_utils._debug
+    - element.screenshot
+    - self._ask_llm_vision
+    - page.query_selector
+    - base64.b64encode
+    - answer.strip
+    - input_field.fill
+  automation.captcha_solver.CaptchaSolver._solve_recaptcha_v2:
+    name: _solve_recaptcha_v2
+    qualified_name: automation.captcha_solver.CaptchaSolver._solve_recaptcha_v2
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 263
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver._solve_recaptcha_v2_entry
+    calls:
+    - content_frame.query_selector
+    - pipeline_runner_utils._debug
+    - page.query_selector
+    - self._solve_tile_challenge
+    - frame_element.content_frame
+    - checkbox.click
+    - page.wait_for_timeout
+    - challenge_frame.content_frame
+  automation.captcha_solver.CaptchaSolver._solve_tile_challenge:
+    name: _solve_tile_challenge
+    qualified_name: automation.captcha_solver.CaptchaSolver._solve_tile_challenge
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 302
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver._solve_tile_challenge_entry
+    calls:
+    - range
+    - pipeline_runner_utils._debug
+    - None.decode
+    - challenge_frame.query_selector
+    - challenge_area.screenshot
+    - self._ask_llm_vision
+    - challenge_frame.query_selector_all
+    - page.query_selector
+    - base64.b64encode
+    - tiles_answer.strip
+    - len
+    - verify_btn.click
+    - page.wait_for_timeout
+    - int
+    - tiles_answer.split
+    - None.isdigit
+    - None.click
+    - t.strip
+  automation.captcha_solver.CaptchaSolver._solve_hcaptcha:
+    name: _solve_hcaptcha
+    qualified_name: automation.captcha_solver.CaptchaSolver._solve_hcaptcha
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 373
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver._solve_hcaptcha_entry
+    calls:
+    - content_frame.query_selector
+    - page.query_selector
+    - frame_element.content_frame
+    - pipeline_runner_utils._debug
+    - checkbox.click
+    - page.wait_for_timeout
+    - challenge_frame.content_frame
+    - self._solve_tile_challenge
+  automation.captcha_solver.CaptchaSolver._solve_slider_captcha:
+    name: _solve_slider_captcha
+    qualified_name: automation.captcha_solver.CaptchaSolver._solve_slider_captcha
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 404
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver._solve_slider_captcha_entry
+    calls:
+    - None.decode
+    - pipeline_runner_utils._debug
+    - MouseController
+    - Point
+    - element.screenshot
+    - self._ask_llm_vision
+    - int
+    - slider_handle.bounding_box
+    - mouse.drag
+    - page.wait_for_timeout
+    - base64.b64encode
+    - None.group
+    - page.query_selector
+    - re.search
+  automation.captcha_solver.CaptchaSolver._ask_llm_vision:
+    name: _ask_llm_vision
+    qualified_name: automation.captcha_solver.CaptchaSolver._ask_llm_vision
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/captcha_solver.py
+    line: 473
+    module: automation.captcha_solver
+    class: CaptchaSolver
+    is_method: true
+    cfg_entry: automation.captcha_solver.CaptchaSolver._ask_llm_vision_entry
+    calls:
+    - pipeline_runner_utils._debug
+    - httpx.AsyncClient
+    - resp.json
+    - None.strip
+    - client.post

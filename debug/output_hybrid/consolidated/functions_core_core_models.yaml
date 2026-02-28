@@ -1,0 +1,169 @@
+module: core.core_models
+type: functions
+count: 16
+functions:
+  core.core_models.with_confidence:
+    name: with_confidence
+    qualified_name: core.core_models.with_confidence
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 136
+    module: core.core_models
+    cfg_entry: core.core_models.with_confidence_entry
+    calls:
+    - self.model_copy
+  core.core_models.with_entities:
+    name: with_entities
+    qualified_name: core.core_models.with_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 140
+    module: core.core_models
+    cfg_entry: core.core_models.with_entities_entry
+    calls:
+    - self.model_copy
+  core.core_models.with_metadata:
+    name: with_metadata
+    qualified_name: core.core_models.with_metadata
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 145
+    module: core.core_models
+    cfg_entry: core.core_models.with_metadata_entry
+    calls:
+    - self.model_copy
+  core.core_models.with_context:
+    name: with_context
+    qualified_name: core.core_models.with_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 149
+    module: core.core_models
+    cfg_entry: core.core_models.with_context_entry
+    calls:
+    - self.model_copy
+  core.core_models.with_errors:
+    name: with_errors
+    qualified_name: core.core_models.with_errors
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 153
+    module: core.core_models
+    cfg_entry: core.core_models.with_errors_entry
+    calls:
+    - self.model_copy
+  core.core_models.with_security:
+    name: with_security
+    qualified_name: core.core_models.with_security
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 157
+    module: core.core_models
+    cfg_entry: core.core_models.with_security_entry
+    calls:
+    - self.model_copy
+  core.core_models.with_performance:
+    name: with_performance
+    qualified_name: core.core_models.with_performance
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 161
+    module: core.core_models
+    cfg_entry: core.core_models.with_performance_entry
+    calls:
+    - self.model_copy
+  core.core_models.is_valid:
+    name: is_valid
+    qualified_name: core.core_models.is_valid
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 236
+    module: core.core_models
+    cfg_entry: core.core_models.is_valid_entry
+    calls:
+    - len
+    - self.command.strip
+  core.core_models.to_dict:
+    name: to_dict
+    qualified_name: core.core_models.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 207
+    module: core.core_models
+    cfg_entry: core.core_models.to_dict_entry
+    calls:
+    - self.execution_plan.model_dump
+  core.core_models.copy:
+    name: copy
+    qualified_name: core.core_models.copy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 221
+    module: core.core_models
+    cfg_entry: core.core_models.copy_entry
+    calls:
+    - TransformResult
+    - self.entities.copy
+    - self.errors.copy
+    - self.warnings.copy
+    - self.metadata.copy
+    - self.execution_plan.model_copy
+  core.core_models.Field:
+    name: Field
+    qualified_name: core.core_models.Field
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 30
+    module: core.core_models
+    cfg_entry: core.core_models.Field_entry
+    calls:
+    - _FieldInfo
+  core.core_models.__init__:
+    name: __init__
+    qualified_name: core.core_models.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 39
+    module: core.core_models
+    cfg_entry: core.core_models.__init___entry
+    calls:
+    - getattr
+    - annotations.keys
+    - setattr
+    - isinstance
+    - TypeError
+    - default_value.default_factory
+  core.core_models.__eq__:
+    name: __eq__
+    qualified_name: core.core_models.__eq__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 59
+    module: core.core_models
+    cfg_entry: core.core_models.__eq___entry
+    calls:
+    - isinstance
+    - self.model_dump
+    - other.model_dump
+  core.core_models.__repr__:
+    name: __repr__
+    qualified_name: core.core_models.__repr__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 64
+    module: core.core_models
+    cfg_entry: core.core_models.__repr___entry
+    calls:
+    - self.model_dump
+    - None.join
+    - data.keys
+  core.core_models.model_dump:
+    name: model_dump
+    qualified_name: core.core_models.model_dump
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 72
+    module: core.core_models
+    cfg_entry: core.core_models.model_dump_entry
+    calls:
+    - getattr
+    - annotations.keys
+    - isinstance
+    - value.model_dump
+  core.core_models.model_copy:
+    name: model_copy
+    qualified_name: core.core_models.model_copy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_models.py
+    line: 83
+    module: core.core_models
+    cfg_entry: core.core_models.model_copy_entry
+    calls:
+    - self.model_dump
+    - self.__class__
+    - data.update
+    - copy.deepcopy

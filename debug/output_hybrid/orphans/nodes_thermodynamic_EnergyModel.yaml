@@ -1,0 +1,46 @@
+module: thermodynamic.EnergyModel
+type: orphan_nodes
+count: 8
+nodes:
+  thermodynamic.EnergyModel.energy_entry:
+    id: thermodynamic.EnergyModel.energy_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.EnergyModel.energy
+  thermodynamic.EnergyModel.energy_exit:
+    id: thermodynamic.EnergyModel.energy_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.EnergyModel.energy
+  thermodynamic.EnergyModel.gradient_entry:
+    id: thermodynamic.EnergyModel.gradient_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.EnergyModel.gradient
+  thermodynamic.EnergyModel.gradient_exit:
+    id: thermodynamic.EnergyModel.gradient_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.EnergyModel.gradient
+  thermodynamic.EnergyModel.numerical_gradient_entry:
+    id: thermodynamic.EnergyModel.numerical_gradient_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.EnergyModel.numerical_gradient
+  thermodynamic.EnergyModel.numerical_gradient_exit:
+    id: thermodynamic.EnergyModel.numerical_gradient_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.EnergyModel.numerical_gradient
+  thermodynamic.EnergyModel.numerical_gradient_loop_134:
+    id: thermodynamic.EnergyModel.numerical_gradient_loop_134
+    type: FOR
+    label: for
+    function: thermodynamic.EnergyModel.numerical_gradient
+    line: 134
+  thermodynamic.EnergyModel.numerical_gradient_return_140:
+    id: thermodynamic.EnergyModel.numerical_gradient_return_140
+    type: RETURN
+    label: return
+    function: thermodynamic.EnergyModel.numerical_gradient
+    line: 140

@@ -1,0 +1,122 @@
+module: src.nlp2cmd.validation.framework.ValidationFramework
+type: orphan_nodes
+count: 22
+nodes:
+  src.nlp2cmd.validation.framework.ValidationFramework.__init___entry:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.__init___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.ValidationFramework.__init__
+  src.nlp2cmd.validation.framework.ValidationFramework.__init___exit:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.__init___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.ValidationFramework.__init__
+  src.nlp2cmd.validation.framework.ValidationFramework.validate_entry:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.validate_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.ValidationFramework.validate
+  src.nlp2cmd.validation.framework.ValidationFramework.validate_exit:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.validate_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.ValidationFramework.validate
+  src.nlp2cmd.validation.framework.ValidationFramework.validate_if_149:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.validate_if_149
+    type: IF
+    label: if
+    function: src.nlp2cmd.validation.framework.ValidationFramework.validate
+    line: 149
+  src.nlp2cmd.validation.framework.ValidationFramework.validate_merge_149:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.validate_merge_149
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.validation.framework.ValidationFramework.validate
+  src.nlp2cmd.validation.framework.ValidationFramework.validate_return_161:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.validate_return_161
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.validation.framework.ValidationFramework.validate
+    line: 161
+  src.nlp2cmd.validation.framework.ValidationFramework.add_validator_entry:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.add_validator_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.ValidationFramework.add_validator
+  src.nlp2cmd.validation.framework.ValidationFramework.add_validator_exit:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.add_validator_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.ValidationFramework.add_validator
+  src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats_entry:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats
+  src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats_exit:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats
+  src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats_return_172:
+    id: src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats_return_172
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.validation.framework.ValidationFramework.get_validation_stats
+    line: 172
+  src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp_entry:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp
+  src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp_exit:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp
+  src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp_return_182:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp_return_182
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_timestamp
+    line: 182
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_entry:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_exit:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_if_186:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_if_186
+    type: IF
+    label: if
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+    line: 186
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_return_187:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_return_187
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+    line: 187
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_merge_186:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_merge_186
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_loop_190:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_loop_190
+    type: FOR
+    label: for
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+    line: 190
+  src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_return_193:
+    id: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type_return_193
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.validation.framework.ValidationFramework._get_most_common_type
+    line: 193

@@ -1,0 +1,14 @@
+module: generation.validating.DSLValidator
+type: orphan_nodes
+count: 2
+nodes:
+  generation.validating.DSLValidator.validate_entry:
+    id: generation.validating.DSLValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: generation.validating.DSLValidator.validate
+  generation.validating.DSLValidator.validate_exit:
+    id: generation.validating.DSLValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: generation.validating.DSLValidator.validate

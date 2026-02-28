@@ -1,0 +1,275 @@
+module: src.nlp2cmd.processing.framework
+type: orphan_nodes
+count: 50
+nodes:
+  src.nlp2cmd.processing.framework.create_filter_entry:
+    id: src.nlp2cmd.processing.framework.create_filter_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.create_filter
+  src.nlp2cmd.processing.framework.create_filter_exit:
+    id: src.nlp2cmd.processing.framework.create_filter_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.create_filter
+  src.nlp2cmd.processing.framework.create_filter_return_199:
+    id: src.nlp2cmd.processing.framework.create_filter_return_199
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.create_filter
+    line: 199
+  src.nlp2cmd.processing.framework.create_map_entry:
+    id: src.nlp2cmd.processing.framework.create_map_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.create_map
+  src.nlp2cmd.processing.framework.create_map_exit:
+    id: src.nlp2cmd.processing.framework.create_map_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.create_map
+  src.nlp2cmd.processing.framework.create_map_return_204:
+    id: src.nlp2cmd.processing.framework.create_map_return_204
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.create_map
+    line: 204
+  src.nlp2cmd.processing.framework.create_transform_entry:
+    id: src.nlp2cmd.processing.framework.create_transform_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.create_transform
+  src.nlp2cmd.processing.framework.create_transform_exit:
+    id: src.nlp2cmd.processing.framework.create_transform_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.create_transform
+  src.nlp2cmd.processing.framework.create_transform_return_209:
+    id: src.nlp2cmd.processing.framework.create_transform_return_209
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.create_transform
+    line: 209
+  src.nlp2cmd.processing.framework.create_reduce_entry:
+    id: src.nlp2cmd.processing.framework.create_reduce_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.create_reduce
+  src.nlp2cmd.processing.framework.create_reduce_exit:
+    id: src.nlp2cmd.processing.framework.create_reduce_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.create_reduce
+  src.nlp2cmd.processing.framework.create_reduce_return_214:
+    id: src.nlp2cmd.processing.framework.create_reduce_return_214
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.create_reduce
+    line: 214
+  src.nlp2cmd.processing.framework.create_aggregate_entry:
+    id: src.nlp2cmd.processing.framework.create_aggregate_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.create_aggregate
+  src.nlp2cmd.processing.framework.create_aggregate_exit:
+    id: src.nlp2cmd.processing.framework.create_aggregate_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.create_aggregate
+  src.nlp2cmd.processing.framework.create_aggregate_return_219:
+    id: src.nlp2cmd.processing.framework.create_aggregate_return_219
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.create_aggregate
+    line: 219
+  src.nlp2cmd.processing.framework.pipeline_entry:
+    id: src.nlp2cmd.processing.framework.pipeline_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.pipeline
+  src.nlp2cmd.processing.framework.pipeline_exit:
+    id: src.nlp2cmd.processing.framework.pipeline_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.pipeline
+  src.nlp2cmd.processing.framework.pipeline_return_224:
+    id: src.nlp2cmd.processing.framework.pipeline_return_224
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.pipeline
+    line: 224
+  src.nlp2cmd.processing.framework.filter_form_fields_entry:
+    id: src.nlp2cmd.processing.framework.filter_form_fields_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.filter_form_fields
+  src.nlp2cmd.processing.framework.filter_form_fields_exit:
+    id: src.nlp2cmd.processing.framework.filter_form_fields_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.filter_form_fields
+  src.nlp2cmd.processing.framework.filter_form_fields_return_233:
+    id: src.nlp2cmd.processing.framework.filter_form_fields_return_233
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.filter_form_fields
+    line: 233
+  src.nlp2cmd.processing.framework.map_field_attributes_entry:
+    id: src.nlp2cmd.processing.framework.map_field_attributes_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.map_field_attributes
+  src.nlp2cmd.processing.framework.map_field_attributes_exit:
+    id: src.nlp2cmd.processing.framework.map_field_attributes_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.map_field_attributes
+  src.nlp2cmd.processing.framework.map_field_attributes_return_241:
+    id: src.nlp2cmd.processing.framework.map_field_attributes_return_241
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.map_field_attributes
+    line: 241
+  src.nlp2cmd.processing.framework.aggregate_field_stats_entry:
+    id: src.nlp2cmd.processing.framework.aggregate_field_stats_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.aggregate_field_stats
+  src.nlp2cmd.processing.framework.aggregate_field_stats_exit:
+    id: src.nlp2cmd.processing.framework.aggregate_field_stats_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.aggregate_field_stats
+  src.nlp2cmd.processing.framework.aggregate_field_stats_return_253:
+    id: src.nlp2cmd.processing.framework.aggregate_field_stats_return_253
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.aggregate_field_stats
+    line: 253
+  src.nlp2cmd.processing.framework.__init___entry:
+    id: src.nlp2cmd.processing.framework.__init___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.__init__
+  src.nlp2cmd.processing.framework.__init___exit:
+    id: src.nlp2cmd.processing.framework.__init___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.__init__
+  src.nlp2cmd.processing.framework.process_entry:
+    id: src.nlp2cmd.processing.framework.process_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.process
+  src.nlp2cmd.processing.framework.process_exit:
+    id: src.nlp2cmd.processing.framework.process_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.process
+  src.nlp2cmd.processing.framework.__call___entry:
+    id: src.nlp2cmd.processing.framework.__call___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.__call__
+  src.nlp2cmd.processing.framework.__call___exit:
+    id: src.nlp2cmd.processing.framework.__call___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.__call__
+  src.nlp2cmd.processing.framework.process_return_80:
+    id: src.nlp2cmd.processing.framework.process_return_80
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.process
+    line: 80
+  src.nlp2cmd.processing.framework.process_return_92:
+    id: src.nlp2cmd.processing.framework.process_return_92
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.process
+    line: 92
+  src.nlp2cmd.processing.framework.process_return_104:
+    id: src.nlp2cmd.processing.framework.process_return_104
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.process
+    line: 104
+  src.nlp2cmd.processing.framework.process_loop_118:
+    id: src.nlp2cmd.processing.framework.process_loop_118
+    type: FOR
+    label: for
+    function: src.nlp2cmd.processing.framework.process
+    line: 118
+  src.nlp2cmd.processing.framework.process_return_120:
+    id: src.nlp2cmd.processing.framework.process_return_120
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.process
+    line: 120
+  src.nlp2cmd.processing.framework.process_loop_133:
+    id: src.nlp2cmd.processing.framework.process_loop_133
+    type: FOR
+    label: for
+    function: src.nlp2cmd.processing.framework.process
+    line: 133
+  src.nlp2cmd.processing.framework.process_return_138:
+    id: src.nlp2cmd.processing.framework.process_return_138
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.process
+    line: 138
+  src.nlp2cmd.processing.framework.add_processor_entry:
+    id: src.nlp2cmd.processing.framework.add_processor_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.add_processor
+  src.nlp2cmd.processing.framework.add_processor_exit:
+    id: src.nlp2cmd.processing.framework.add_processor_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.add_processor
+  src.nlp2cmd.processing.framework.add_processor_return_152:
+    id: src.nlp2cmd.processing.framework.add_processor_return_152
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.add_processor
+    line: 152
+  src.nlp2cmd.processing.framework.process_loop_160:
+    id: src.nlp2cmd.processing.framework.process_loop_160
+    type: FOR
+    label: for
+    function: src.nlp2cmd.processing.framework.process
+    line: 160
+  src.nlp2cmd.processing.framework.process_if_163:
+    id: src.nlp2cmd.processing.framework.process_if_163
+    type: IF
+    label: if
+    function: src.nlp2cmd.processing.framework.process
+    line: 163
+  src.nlp2cmd.processing.framework.process_merge_163:
+    id: src.nlp2cmd.processing.framework.process_merge_163
+    type: FUNC
+    label: merge
+    function: src.nlp2cmd.processing.framework.process
+  src.nlp2cmd.processing.framework.process_return_180:
+    id: src.nlp2cmd.processing.framework.process_return_180
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.process
+    line: 180
+  src.nlp2cmd.processing.framework.get_stats_entry:
+    id: src.nlp2cmd.processing.framework.get_stats_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.get_stats
+  src.nlp2cmd.processing.framework.get_stats_exit:
+    id: src.nlp2cmd.processing.framework.get_stats_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.get_stats
+  src.nlp2cmd.processing.framework.get_stats_return_189:
+    id: src.nlp2cmd.processing.framework.get_stats_return_189
+    type: RETURN
+    label: return
+    function: src.nlp2cmd.processing.framework.get_stats
+    line: 189

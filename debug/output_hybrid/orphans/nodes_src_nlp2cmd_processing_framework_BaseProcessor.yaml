@@ -1,0 +1,34 @@
+module: src.nlp2cmd.processing.framework.BaseProcessor
+type: orphan_nodes
+count: 6
+nodes:
+  src.nlp2cmd.processing.framework.BaseProcessor.__init___entry:
+    id: src.nlp2cmd.processing.framework.BaseProcessor.__init___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.BaseProcessor.__init__
+  src.nlp2cmd.processing.framework.BaseProcessor.__init___exit:
+    id: src.nlp2cmd.processing.framework.BaseProcessor.__init___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.BaseProcessor.__init__
+  src.nlp2cmd.processing.framework.BaseProcessor.process_entry:
+    id: src.nlp2cmd.processing.framework.BaseProcessor.process_entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.BaseProcessor.process
+  src.nlp2cmd.processing.framework.BaseProcessor.process_exit:
+    id: src.nlp2cmd.processing.framework.BaseProcessor.process_exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.BaseProcessor.process
+  src.nlp2cmd.processing.framework.BaseProcessor.__call___entry:
+    id: src.nlp2cmd.processing.framework.BaseProcessor.__call___entry
+    type: ENTRY
+    label: entry
+    function: src.nlp2cmd.processing.framework.BaseProcessor.__call__
+  src.nlp2cmd.processing.framework.BaseProcessor.__call___exit:
+    id: src.nlp2cmd.processing.framework.BaseProcessor.__call___exit
+    type: EXIT
+    label: exit
+    function: src.nlp2cmd.processing.framework.BaseProcessor.__call__

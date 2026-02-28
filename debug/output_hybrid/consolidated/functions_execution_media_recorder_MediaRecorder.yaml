@@ -1,0 +1,74 @@
+module: execution.media_recorder.MediaRecorder
+type: functions
+count: 5
+functions:
+  execution.media_recorder.MediaRecorder.execute:
+    name: execute
+    qualified_name: execution.media_recorder.MediaRecorder.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 31
+    module: execution.media_recorder
+    class: MediaRecorder
+    is_method: true
+    cfg_entry: execution.media_recorder.MediaRecorder.execute_entry
+    calls:
+    - params.get
+    - ExecutorResult
+    - self.start_recording
+    - self.stop_recording
+    - self.take_screenshot
+  execution.media_recorder.MediaRecorder.start_recording:
+    name: start_recording
+    qualified_name: execution.media_recorder.MediaRecorder.start_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 48
+    module: execution.media_recorder
+    class: MediaRecorder
+    is_method: true
+    cfg_entry: execution.media_recorder.MediaRecorder.start_recording_entry
+    calls:
+    - params.get
+    - VideoRecorder
+    - self._video_recorder.start_recording
+    - ExecutorResult
+    - str
+  execution.media_recorder.MediaRecorder.stop_recording:
+    name: stop_recording
+    qualified_name: execution.media_recorder.MediaRecorder.stop_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 77
+    module: execution.media_recorder
+    class: MediaRecorder
+    is_method: true
+    cfg_entry: execution.media_recorder.MediaRecorder.stop_recording_entry
+    calls:
+    - ExecutorResult
+    - self._video_recorder.stop_recording
+  execution.media_recorder.MediaRecorder.take_screenshot:
+    name: take_screenshot
+    qualified_name: execution.media_recorder.MediaRecorder.take_screenshot
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 101
+    module: execution.media_recorder
+    class: MediaRecorder
+    is_method: true
+    cfg_entry: execution.media_recorder.MediaRecorder.take_screenshot_entry
+    calls:
+    - params.get
+    - ExecutorResult
+    - pipeline_runner_utils.ensure_dir
+    - page.screenshot
+    - pipeline_runner_utils.get_timestamp
+  execution.media_recorder.MediaRecorder.should_record_interactive:
+    name: should_record_interactive
+    qualified_name: execution.media_recorder.MediaRecorder.should_record_interactive
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/execution/media_recorder.py
+    line: 146
+    module: execution.media_recorder
+    class: MediaRecorder
+    is_method: true
+    cfg_entry: execution.media_recorder.MediaRecorder.should_record_interactive_entry
+    calls:
+    - bool
+    - pipeline_runner_utils.ask_for_video_recording
+    - getattr

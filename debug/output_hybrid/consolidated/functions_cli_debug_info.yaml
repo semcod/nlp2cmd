@@ -1,0 +1,79 @@
+module: cli.debug_info
+type: functions
+count: 3
+functions:
+  cli.debug_info.show_schema_info:
+    name: show_schema_info
+    qualified_name: cli.debug_info.show_schema_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/debug_info.py
+    line: 17
+    module: cli.debug_info
+    cfg_entry: cli.debug_info.show_schema_info_entry
+    calls:
+    - IntentMatcher
+    - TemplateGenerator
+    - utils.data_files.find_data_file
+    - console.print
+    - matcher.list_intents
+    - entities_data.get
+    - apps.items
+    - getattr
+    - templates.items
+    - Console
+    - entities_path.exists
+    - matcher.get_intent
+    - app_data.get
+    - aliases.items
+    - intent_def.labels.items
+    - None.join
+    - list
+    - len
+    - open
+    - domain_templates.keys
+    - yaml.safe_load
+    - e.get
+    called_by:
+    - cli.main.main
+  cli.debug_info.show_decision_tree_info:
+    name: show_decision_tree_info
+    qualified_name: cli.debug_info.show_decision_tree_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/debug_info.py
+    line: 103
+    module: cli.debug_info
+    cfg_entry: cli.debug_info.show_decision_tree_info_entry
+    calls:
+    - console.print
+    - IntentMatcher
+    - matcher.match
+    - enumerate
+    - RuleBasedPipeline
+    - generation.pipeline.process
+    - Console
+    - result.entities.items
+    - result.metadata.items
+    - hasattr
+    - getattr
+    - len
+    called_by:
+    - cli.debug_info.generate_debug_log_md
+    - cli.main.main
+  cli.debug_info.generate_debug_log_md:
+    name: generate_debug_log_md
+    qualified_name: cli.debug_info.generate_debug_log_md
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/cli/debug_info.py
+    line: 199
+    module: cli.debug_info
+    cfg_entry: cli.debug_info.generate_debug_log_md_entry
+    calls:
+    - io.StringIO
+    - Console
+    - console.print
+    - cli.debug_info.show_decision_tree_info
+    - buffer.getvalue
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    - open
+    - f.write
+    - None.isoformat
+    - datetime.now
+    called_by:
+    - cli.commands.generate.handle_generate_query

@@ -1,0 +1,43 @@
+module: adapters.desktop.DesktopSafetyPolicy
+type: orphan_nodes
+count: 7
+nodes:
+  adapters.desktop.DesktopSafetyPolicy.validate_entry:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+  adapters.desktop.DesktopSafetyPolicy.validate_exit:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_exit
+    type: EXIT
+    label: exit
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+  adapters.desktop.DesktopSafetyPolicy.validate_loop_74:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_loop_74
+    type: FOR
+    label: for
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+    line: 74
+  adapters.desktop.DesktopSafetyPolicy.validate_if_75:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_if_75
+    type: IF
+    label: if
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+    line: 75
+  adapters.desktop.DesktopSafetyPolicy.validate_return_76:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_return_76
+    type: RETURN
+    label: return
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+    line: 76
+  adapters.desktop.DesktopSafetyPolicy.validate_merge_75:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_merge_75
+    type: FUNC
+    label: merge
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+  adapters.desktop.DesktopSafetyPolicy.validate_return_81:
+    id: adapters.desktop.DesktopSafetyPolicy.validate_return_81
+    type: RETURN
+    label: return
+    function: adapters.desktop.DesktopSafetyPolicy.validate
+    line: 81

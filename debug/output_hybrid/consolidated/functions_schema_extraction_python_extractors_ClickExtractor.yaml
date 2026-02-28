@@ -1,0 +1,16 @@
+module: schema_extraction.python_extractors.ClickExtractor
+type: functions
+count: 1
+functions:
+  schema_extraction.python_extractors.ClickExtractor.extract_from_file:
+    name: extract_from_file
+    qualified_name: schema_extraction.python_extractors.ClickExtractor.extract_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/python_extractors.py
+    line: 405
+    module: schema_extraction.python_extractors
+    class: ClickExtractor
+    is_method: true
+    cfg_entry: schema_extraction.python_extractors.ClickExtractor.extract_from_file_entry
+    calls:
+    - self.python_extractor.extract_from_file
+    - ExtractedSchema

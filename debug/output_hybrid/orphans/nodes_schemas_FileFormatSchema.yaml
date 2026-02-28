@@ -1,0 +1,240 @@
+module: schemas.FileFormatSchema
+type: orphan_nodes
+count: 43
+nodes:
+  schemas.FileFormatSchema.validate_entry:
+    id: schemas.FileFormatSchema.validate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.FileFormatSchema.validate
+  schemas.FileFormatSchema.validate_exit:
+    id: schemas.FileFormatSchema.validate_exit
+    type: EXIT
+    label: exit
+    function: schemas.FileFormatSchema.validate
+  schemas.FileFormatSchema.validate_if_41:
+    id: schemas.FileFormatSchema.validate_if_41
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.validate
+    line: 41
+  schemas.FileFormatSchema.validate_return_42:
+    id: schemas.FileFormatSchema.validate_return_42
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.validate
+    line: 42
+  schemas.FileFormatSchema.validate_merge_41:
+    id: schemas.FileFormatSchema.validate_merge_41
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.validate
+  schemas.FileFormatSchema.validate_return_43:
+    id: schemas.FileFormatSchema.validate_return_43
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.validate
+    line: 43
+  schemas.FileFormatSchema.parse_entry:
+    id: schemas.FileFormatSchema.parse_entry
+    type: ENTRY
+    label: entry
+    function: schemas.FileFormatSchema.parse
+  schemas.FileFormatSchema.parse_exit:
+    id: schemas.FileFormatSchema.parse_exit
+    type: EXIT
+    label: exit
+    function: schemas.FileFormatSchema.parse
+  schemas.FileFormatSchema.parse_if_47:
+    id: schemas.FileFormatSchema.parse_if_47
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.parse
+    line: 47
+  schemas.FileFormatSchema.parse_return_48:
+    id: schemas.FileFormatSchema.parse_return_48
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.parse
+    line: 48
+  schemas.FileFormatSchema.parse_merge_47:
+    id: schemas.FileFormatSchema.parse_merge_47
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.parse
+  schemas.FileFormatSchema.parse_return_49:
+    id: schemas.FileFormatSchema.parse_return_49
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.parse
+    line: 49
+  schemas.FileFormatSchema.generate_entry:
+    id: schemas.FileFormatSchema.generate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.FileFormatSchema.generate
+  schemas.FileFormatSchema.generate_exit:
+    id: schemas.FileFormatSchema.generate_exit
+    type: EXIT
+    label: exit
+    function: schemas.FileFormatSchema.generate
+  schemas.FileFormatSchema.generate_if_53:
+    id: schemas.FileFormatSchema.generate_if_53
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.generate
+    line: 53
+  schemas.FileFormatSchema.generate_return_54:
+    id: schemas.FileFormatSchema.generate_return_54
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.generate
+    line: 54
+  schemas.FileFormatSchema.generate_merge_53:
+    id: schemas.FileFormatSchema.generate_merge_53
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.generate
+  schemas.FileFormatSchema.generate_return_55:
+    id: schemas.FileFormatSchema.generate_return_55
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.generate
+    line: 55
+  schemas.FileFormatSchema.matches_extension_entry:
+    id: schemas.FileFormatSchema.matches_extension_entry
+    type: ENTRY
+    label: entry
+    function: schemas.FileFormatSchema.matches_extension
+  schemas.FileFormatSchema.matches_extension_exit:
+    id: schemas.FileFormatSchema.matches_extension_exit
+    type: EXIT
+    label: exit
+    function: schemas.FileFormatSchema.matches_extension
+  schemas.FileFormatSchema.matches_extension_loop_61:
+    id: schemas.FileFormatSchema.matches_extension_loop_61
+    type: FOR
+    label: for
+    function: schemas.FileFormatSchema.matches_extension
+    line: 61
+  schemas.FileFormatSchema.matches_extension_if_64:
+    id: schemas.FileFormatSchema.matches_extension_if_64
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.matches_extension
+    line: 64
+  schemas.FileFormatSchema.matches_extension_return_65:
+    id: schemas.FileFormatSchema.matches_extension_return_65
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.matches_extension
+    line: 65
+  schemas.FileFormatSchema.matches_extension_merge_64:
+    id: schemas.FileFormatSchema.matches_extension_merge_64
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.matches_extension
+  schemas.FileFormatSchema.matches_extension_return_66:
+    id: schemas.FileFormatSchema.matches_extension_return_66
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.matches_extension
+    line: 66
+  schemas.FileFormatSchema.matches_mime_type_entry:
+    id: schemas.FileFormatSchema.matches_mime_type_entry
+    type: ENTRY
+    label: entry
+    function: schemas.FileFormatSchema.matches_mime_type
+  schemas.FileFormatSchema.matches_mime_type_exit:
+    id: schemas.FileFormatSchema.matches_mime_type_exit
+    type: EXIT
+    label: exit
+    function: schemas.FileFormatSchema.matches_mime_type
+  schemas.FileFormatSchema.matches_mime_type_return_70:
+    id: schemas.FileFormatSchema.matches_mime_type_return_70
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.matches_mime_type
+    line: 70
+  schemas.FileFormatSchema.self_validate_entry:
+    id: schemas.FileFormatSchema.self_validate_entry
+    type: ENTRY
+    label: entry
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_exit:
+    id: schemas.FileFormatSchema.self_validate_exit
+    type: EXIT
+    label: exit
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_if_77:
+    id: schemas.FileFormatSchema.self_validate_if_77
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.self_validate
+    line: 77
+  schemas.FileFormatSchema.self_validate_merge_77:
+    id: schemas.FileFormatSchema.self_validate_merge_77
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_if_80:
+    id: schemas.FileFormatSchema.self_validate_if_80
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.self_validate
+    line: 80
+  schemas.FileFormatSchema.self_validate_merge_80:
+    id: schemas.FileFormatSchema.self_validate_merge_80
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_if_83:
+    id: schemas.FileFormatSchema.self_validate_if_83
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.self_validate
+    line: 83
+  schemas.FileFormatSchema.self_validate_merge_83:
+    id: schemas.FileFormatSchema.self_validate_merge_83
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_if_86:
+    id: schemas.FileFormatSchema.self_validate_if_86
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.self_validate
+    line: 86
+  schemas.FileFormatSchema.self_validate_merge_86:
+    id: schemas.FileFormatSchema.self_validate_merge_86
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_if_89:
+    id: schemas.FileFormatSchema.self_validate_if_89
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.self_validate
+    line: 89
+  schemas.FileFormatSchema.self_validate_merge_89:
+    id: schemas.FileFormatSchema.self_validate_merge_89
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_if_92:
+    id: schemas.FileFormatSchema.self_validate_if_92
+    type: IF
+    label: if
+    function: schemas.FileFormatSchema.self_validate
+    line: 92
+  schemas.FileFormatSchema.self_validate_merge_92:
+    id: schemas.FileFormatSchema.self_validate_merge_92
+    type: FUNC
+    label: merge
+    function: schemas.FileFormatSchema.self_validate
+  schemas.FileFormatSchema.self_validate_return_95:
+    id: schemas.FileFormatSchema.self_validate_return_95
+    type: RETURN
+    label: return
+    function: schemas.FileFormatSchema.self_validate
+    line: 95

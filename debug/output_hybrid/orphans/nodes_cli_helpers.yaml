@@ -1,0 +1,620 @@
+module: cli.helpers
+type: orphan_nodes
+count: 112
+nodes:
+  cli.helpers._system_beep_entry:
+    id: cli.helpers._system_beep_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._system_beep
+  cli.helpers._system_beep_exit:
+    id: cli.helpers._system_beep_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._system_beep
+  cli.helpers._timed_default_yes_entry:
+    id: cli.helpers._timed_default_yes_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._timed_default_yes
+  cli.helpers._timed_default_yes_exit:
+    id: cli.helpers._timed_default_yes_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._timed_default_yes
+  cli.helpers._timed_default_yes_if_86:
+    id: cli.helpers._timed_default_yes_if_86
+    type: IF
+    label: if
+    function: cli.helpers._timed_default_yes
+    line: 86
+  cli.helpers._timed_default_yes_return_87:
+    id: cli.helpers._timed_default_yes_return_87
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_yes
+    line: 87
+  cli.helpers._timed_default_yes_merge_86:
+    id: cli.helpers._timed_default_yes_merge_86
+    type: FUNC
+    label: merge
+    function: cli.helpers._timed_default_yes
+  cli.helpers._timed_default_yes_if_96:
+    id: cli.helpers._timed_default_yes_if_96
+    type: IF
+    label: if
+    function: cli.helpers._timed_default_yes
+    line: 96
+  cli.helpers._timed_default_yes_return_98:
+    id: cli.helpers._timed_default_yes_return_98
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_yes
+    line: 98
+  cli.helpers._timed_default_yes_merge_96:
+    id: cli.helpers._timed_default_yes_merge_96
+    type: FUNC
+    label: merge
+    function: cli.helpers._timed_default_yes
+  cli.helpers._timed_default_yes_if_106:
+    id: cli.helpers._timed_default_yes_if_106
+    type: IF
+    label: if
+    function: cli.helpers._timed_default_yes
+    line: 106
+  cli.helpers._timed_default_yes_return_107:
+    id: cli.helpers._timed_default_yes_return_107
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_yes
+    line: 107
+  cli.helpers._timed_default_yes_merge_106:
+    id: cli.helpers._timed_default_yes_merge_106
+    type: FUNC
+    label: merge
+    function: cli.helpers._timed_default_yes
+  cli.helpers._timed_default_yes_return_110:
+    id: cli.helpers._timed_default_yes_return_110
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_yes
+    line: 110
+  cli.helpers._timed_default_no_entry:
+    id: cli.helpers._timed_default_no_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._timed_default_no
+  cli.helpers._timed_default_no_exit:
+    id: cli.helpers._timed_default_no_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._timed_default_no
+  cli.helpers._timed_default_no_if_119:
+    id: cli.helpers._timed_default_no_if_119
+    type: IF
+    label: if
+    function: cli.helpers._timed_default_no
+    line: 119
+  cli.helpers._timed_default_no_return_120:
+    id: cli.helpers._timed_default_no_return_120
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_no
+    line: 120
+  cli.helpers._timed_default_no_merge_119:
+    id: cli.helpers._timed_default_no_merge_119
+    type: FUNC
+    label: merge
+    function: cli.helpers._timed_default_no
+  cli.helpers._timed_default_no_if_129:
+    id: cli.helpers._timed_default_no_if_129
+    type: IF
+    label: if
+    function: cli.helpers._timed_default_no
+    line: 129
+  cli.helpers._timed_default_no_return_131:
+    id: cli.helpers._timed_default_no_return_131
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_no
+    line: 131
+  cli.helpers._timed_default_no_merge_129:
+    id: cli.helpers._timed_default_no_merge_129
+    type: FUNC
+    label: merge
+    function: cli.helpers._timed_default_no
+  cli.helpers._timed_default_no_if_139:
+    id: cli.helpers._timed_default_no_if_139
+    type: IF
+    label: if
+    function: cli.helpers._timed_default_no
+    line: 139
+  cli.helpers._timed_default_no_return_140:
+    id: cli.helpers._timed_default_no_return_140
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_no
+    line: 140
+  cli.helpers._timed_default_no_merge_139:
+    id: cli.helpers._timed_default_no_merge_139
+    type: FUNC
+    label: merge
+    function: cli.helpers._timed_default_no
+  cli.helpers._timed_default_no_return_143:
+    id: cli.helpers._timed_default_no_return_143
+    type: RETURN
+    label: return
+    function: cli.helpers._timed_default_no
+    line: 143
+  cli.helpers._shell_env_context_entry:
+    id: cli.helpers._shell_env_context_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._shell_env_context
+  cli.helpers._shell_env_context_exit:
+    id: cli.helpers._shell_env_context_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._shell_env_context
+  cli.helpers._shell_env_context_if_152:
+    id: cli.helpers._shell_env_context_if_152
+    type: IF
+    label: if
+    function: cli.helpers._shell_env_context
+    line: 152
+  cli.helpers._shell_env_context_merge_152:
+    id: cli.helpers._shell_env_context_merge_152
+    type: FUNC
+    label: merge
+    function: cli.helpers._shell_env_context
+  cli.helpers._shell_env_context_return_157:
+    id: cli.helpers._shell_env_context_return_157
+    type: RETURN
+    label: return
+    function: cli.helpers._shell_env_context
+    line: 157
+  cli.helpers.get_adapter_entry:
+    id: cli.helpers.get_adapter_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers.get_adapter
+  cli.helpers.get_adapter_exit:
+    id: cli.helpers.get_adapter_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers.get_adapter
+  cli.helpers.get_adapter_if_188:
+    id: cli.helpers.get_adapter_if_188
+    type: IF
+    label: if
+    function: cli.helpers.get_adapter
+    line: 188
+  cli.helpers.get_adapter_return_190:
+    id: cli.helpers.get_adapter_return_190
+    type: RETURN
+    label: return
+    function: cli.helpers.get_adapter
+    line: 190
+  cli.helpers.get_adapter_merge_188:
+    id: cli.helpers.get_adapter_merge_188
+    type: FUNC
+    label: merge
+    function: cli.helpers.get_adapter
+  cli.helpers.get_adapter_if_193:
+    id: cli.helpers.get_adapter_if_193
+    type: IF
+    label: if
+    function: cli.helpers.get_adapter
+    line: 193
+  cli.helpers.get_adapter_return_194:
+    id: cli.helpers.get_adapter_return_194
+    type: RETURN
+    label: return
+    function: cli.helpers.get_adapter
+    line: 194
+  cli.helpers.get_adapter_merge_193:
+    id: cli.helpers.get_adapter_merge_193
+    type: FUNC
+    label: merge
+    function: cli.helpers.get_adapter
+  cli.helpers._looks_like_log_input_entry:
+    id: cli.helpers._looks_like_log_input_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_exit:
+    id: cli.helpers._looks_like_log_input_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_200:
+    id: cli.helpers._looks_like_log_input_if_200
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 200
+  cli.helpers._looks_like_log_input_return_201:
+    id: cli.helpers._looks_like_log_input_return_201
+    type: RETURN
+    label: return
+    function: cli.helpers._looks_like_log_input
+    line: 201
+  cli.helpers._looks_like_log_input_merge_200:
+    id: cli.helpers._looks_like_log_input_merge_200
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_203:
+    id: cli.helpers._looks_like_log_input_if_203
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 203
+  cli.helpers._looks_like_log_input_return_204:
+    id: cli.helpers._looks_like_log_input_return_204
+    type: RETURN
+    label: return
+    function: cli.helpers._looks_like_log_input
+    line: 204
+  cli.helpers._looks_like_log_input_merge_203:
+    id: cli.helpers._looks_like_log_input_merge_203
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_207:
+    id: cli.helpers._looks_like_log_input_if_207
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 207
+  cli.helpers._looks_like_log_input_return_208:
+    id: cli.helpers._looks_like_log_input_return_208
+    type: RETURN
+    label: return
+    function: cli.helpers._looks_like_log_input
+    line: 208
+  cli.helpers._looks_like_log_input_merge_207:
+    id: cli.helpers._looks_like_log_input_merge_207
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_loop_211:
+    id: cli.helpers._looks_like_log_input_loop_211
+    type: FOR
+    label: for
+    function: cli.helpers._looks_like_log_input
+    line: 211
+  cli.helpers._looks_like_log_input_if_214:
+    id: cli.helpers._looks_like_log_input_if_214
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 214
+  cli.helpers._looks_like_log_input_merge_214:
+    id: cli.helpers._looks_like_log_input_merge_214
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_216:
+    id: cli.helpers._looks_like_log_input_if_216
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 216
+  cli.helpers._looks_like_log_input_merge_216:
+    id: cli.helpers._looks_like_log_input_merge_216
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_218:
+    id: cli.helpers._looks_like_log_input_if_218
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 218
+  cli.helpers._looks_like_log_input_merge_218:
+    id: cli.helpers._looks_like_log_input_merge_218
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_220:
+    id: cli.helpers._looks_like_log_input_if_220
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 220
+  cli.helpers._looks_like_log_input_merge_220:
+    id: cli.helpers._looks_like_log_input_merge_220
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_222:
+    id: cli.helpers._looks_like_log_input_if_222
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 222
+  cli.helpers._looks_like_log_input_merge_222:
+    id: cli.helpers._looks_like_log_input_merge_222
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_if_224:
+    id: cli.helpers._looks_like_log_input_if_224
+    type: IF
+    label: if
+    function: cli.helpers._looks_like_log_input
+    line: 224
+  cli.helpers._looks_like_log_input_merge_224:
+    id: cli.helpers._looks_like_log_input_merge_224
+    type: FUNC
+    label: merge
+    function: cli.helpers._looks_like_log_input
+  cli.helpers._looks_like_log_input_return_227:
+    id: cli.helpers._looks_like_log_input_return_227
+    type: RETURN
+    label: return
+    function: cli.helpers._looks_like_log_input
+    line: 227
+  cli.helpers._is_playwright_error_entry:
+    id: cli.helpers._is_playwright_error_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._is_playwright_error
+  cli.helpers._is_playwright_error_exit:
+    id: cli.helpers._is_playwright_error_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._is_playwright_error
+  cli.helpers._is_playwright_error_if_232:
+    id: cli.helpers._is_playwright_error_if_232
+    type: IF
+    label: if
+    function: cli.helpers._is_playwright_error
+    line: 232
+  cli.helpers._is_playwright_error_return_233:
+    id: cli.helpers._is_playwright_error_return_233
+    type: RETURN
+    label: return
+    function: cli.helpers._is_playwright_error
+    line: 233
+  cli.helpers._is_playwright_error_merge_232:
+    id: cli.helpers._is_playwright_error_merge_232
+    type: FUNC
+    label: merge
+    function: cli.helpers._is_playwright_error
+  cli.helpers._is_playwright_error_return_234:
+    id: cli.helpers._is_playwright_error_return_234
+    type: RETURN
+    label: return
+    function: cli.helpers._is_playwright_error
+    line: 234
+  cli.helpers._maybe_install_playwright_entry:
+    id: cli.helpers._maybe_install_playwright_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_exit:
+    id: cli.helpers._maybe_install_playwright_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_if_246:
+    id: cli.helpers._maybe_install_playwright_if_246
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 246
+  cli.helpers._maybe_install_playwright_return_247:
+    id: cli.helpers._maybe_install_playwright_return_247
+    type: RETURN
+    label: return
+    function: cli.helpers._maybe_install_playwright
+    line: 247
+  cli.helpers._maybe_install_playwright_merge_246:
+    id: cli.helpers._maybe_install_playwright_merge_246
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_if_249:
+    id: cli.helpers._maybe_install_playwright_if_249
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 249
+  cli.helpers._maybe_install_playwright_if_251:
+    id: cli.helpers._maybe_install_playwright_if_251
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 251
+  cli.helpers._maybe_install_playwright_return_252:
+    id: cli.helpers._maybe_install_playwright_return_252
+    type: RETURN
+    label: return
+    function: cli.helpers._maybe_install_playwright
+    line: 252
+  cli.helpers._maybe_install_playwright_merge_251:
+    id: cli.helpers._maybe_install_playwright_merge_251
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_merge_249:
+    id: cli.helpers._maybe_install_playwright_merge_249
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_if_258:
+    id: cli.helpers._maybe_install_playwright_if_258
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 258
+  cli.helpers._maybe_install_playwright_if_259:
+    id: cli.helpers._maybe_install_playwright_if_259
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 259
+  cli.helpers._maybe_install_playwright_return_260:
+    id: cli.helpers._maybe_install_playwright_return_260
+    type: RETURN
+    label: return
+    function: cli.helpers._maybe_install_playwright
+    line: 260
+  cli.helpers._maybe_install_playwright_merge_259:
+    id: cli.helpers._maybe_install_playwright_merge_259
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_merge_258:
+    id: cli.helpers._maybe_install_playwright_merge_258
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_if_263:
+    id: cli.helpers._maybe_install_playwright_if_263
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 263
+  cli.helpers._maybe_install_playwright_return_264:
+    id: cli.helpers._maybe_install_playwright_return_264
+    type: RETURN
+    label: return
+    function: cli.helpers._maybe_install_playwright
+    line: 264
+  cli.helpers._maybe_install_playwright_merge_263:
+    id: cli.helpers._maybe_install_playwright_merge_263
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_if_266:
+    id: cli.helpers._maybe_install_playwright_if_266
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 266
+  cli.helpers._maybe_install_playwright_if_267:
+    id: cli.helpers._maybe_install_playwright_if_267
+    type: IF
+    label: if
+    function: cli.helpers._maybe_install_playwright
+    line: 267
+  cli.helpers._maybe_install_playwright_return_268:
+    id: cli.helpers._maybe_install_playwright_return_268
+    type: RETURN
+    label: return
+    function: cli.helpers._maybe_install_playwright
+    line: 268
+  cli.helpers._maybe_install_playwright_merge_267:
+    id: cli.helpers._maybe_install_playwright_merge_267
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_merge_266:
+    id: cli.helpers._maybe_install_playwright_merge_266
+    type: FUNC
+    label: merge
+    function: cli.helpers._maybe_install_playwright
+  cli.helpers._maybe_install_playwright_return_271:
+    id: cli.helpers._maybe_install_playwright_return_271
+    type: RETURN
+    label: return
+    function: cli.helpers._maybe_install_playwright
+    line: 271
+  cli.helpers._fallback_open_url_entry:
+    id: cli.helpers._fallback_open_url_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._fallback_open_url
+  cli.helpers._fallback_open_url_exit:
+    id: cli.helpers._fallback_open_url_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._fallback_open_url
+  cli.helpers._fallback_open_url_if_288:
+    id: cli.helpers._fallback_open_url_if_288
+    type: IF
+    label: if
+    function: cli.helpers._fallback_open_url
+    line: 288
+  cli.helpers._fallback_open_url_if_290:
+    id: cli.helpers._fallback_open_url_if_290
+    type: IF
+    label: if
+    function: cli.helpers._fallback_open_url
+    line: 290
+  cli.helpers._fallback_open_url_if_292:
+    id: cli.helpers._fallback_open_url_if_292
+    type: IF
+    label: if
+    function: cli.helpers._fallback_open_url
+    line: 292
+  cli.helpers._fallback_open_url_merge_292:
+    id: cli.helpers._fallback_open_url_merge_292
+    type: FUNC
+    label: merge
+    function: cli.helpers._fallback_open_url
+  cli.helpers._fallback_open_url_merge_290:
+    id: cli.helpers._fallback_open_url_merge_290
+    type: FUNC
+    label: merge
+    function: cli.helpers._fallback_open_url
+  cli.helpers._fallback_open_url_merge_288:
+    id: cli.helpers._fallback_open_url_merge_288
+    type: FUNC
+    label: merge
+    function: cli.helpers._fallback_open_url
+  cli.helpers._fallback_open_url_from_query_entry:
+    id: cli.helpers._fallback_open_url_from_query_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers._fallback_open_url_from_query
+  cli.helpers._fallback_open_url_from_query_exit:
+    id: cli.helpers._fallback_open_url_from_query_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers._fallback_open_url_from_query
+  cli.helpers._fallback_open_url_from_query_if_304:
+    id: cli.helpers._fallback_open_url_from_query_if_304
+    type: IF
+    label: if
+    function: cli.helpers._fallback_open_url_from_query
+    line: 304
+  cli.helpers._fallback_open_url_from_query_if_306:
+    id: cli.helpers._fallback_open_url_from_query_if_306
+    type: IF
+    label: if
+    function: cli.helpers._fallback_open_url_from_query
+    line: 306
+  cli.helpers._fallback_open_url_from_query_merge_306:
+    id: cli.helpers._fallback_open_url_from_query_merge_306
+    type: FUNC
+    label: merge
+    function: cli.helpers._fallback_open_url_from_query
+  cli.helpers._fallback_open_url_from_query_merge_304:
+    id: cli.helpers._fallback_open_url_from_query_merge_304
+    type: FUNC
+    label: merge
+    function: cli.helpers._fallback_open_url_from_query
+  cli.helpers.get_cached_syntax_entry:
+    id: cli.helpers.get_cached_syntax_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers.get_cached_syntax
+  cli.helpers.get_cached_syntax_exit:
+    id: cli.helpers.get_cached_syntax_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers.get_cached_syntax
+  cli.helpers.print_yaml_block_entry:
+    id: cli.helpers.print_yaml_block_entry
+    type: ENTRY
+    label: entry
+    function: cli.helpers.print_yaml_block
+  cli.helpers.print_yaml_block_exit:
+    id: cli.helpers.print_yaml_block_exit
+    type: EXIT
+    label: exit
+    function: cli.helpers.print_yaml_block

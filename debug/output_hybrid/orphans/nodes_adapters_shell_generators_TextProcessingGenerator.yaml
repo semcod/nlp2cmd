@@ -1,0 +1,88 @@
+module: adapters.shell_generators.TextProcessingGenerator
+type: orphan_nodes
+count: 15
+nodes:
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_entry:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_entry
+    type: ENTRY
+    label: entry
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_exit:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_exit
+    type: EXIT
+    label: exit
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_311:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_311
+    type: IF
+    label: if
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 311
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_312:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_312
+    type: IF
+    label: if
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 312
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_313:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_313
+    type: RETURN
+    label: return
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 313
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_315:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_315
+    type: RETURN
+    label: return
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 315
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_312:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_312
+    type: FUNC
+    label: merge
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_316:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_316
+    type: IF
+    label: if
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 316
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_317:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_317
+    type: RETURN
+    label: return
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 317
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_318:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_if_318
+    type: IF
+    label: if
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 318
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_319:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_319
+    type: RETURN
+    label: return
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 319
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_321:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_return_321
+    type: RETURN
+    label: return
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+    line: 321
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_318:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_318
+    type: FUNC
+    label: merge
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_316:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_316
+    type: FUNC
+    label: merge
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing
+  adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_311:
+    id: adapters.shell_generators.TextProcessingGenerator.generate_text_processing_merge_311
+    type: FUNC
+    label: merge
+    function: adapters.shell_generators.TextProcessingGenerator.generate_text_processing

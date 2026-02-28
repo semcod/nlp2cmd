@@ -1,0 +1,300 @@
+module: cli.commands.generate
+type: orphan_nodes
+count: 55
+nodes:
+  cli.commands.generate.handle_generate_query_entry:
+    id: cli.commands.generate.handle_generate_query_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_exit:
+    id: cli.commands.generate.handle_generate_query_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_55:
+    id: cli.commands.generate.handle_generate_query_if_55
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 55
+  cli.commands.generate.handle_generate_query_merge_55:
+    id: cli.commands.generate.handle_generate_query_merge_55
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_77:
+    id: cli.commands.generate.handle_generate_query_if_77
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 77
+  cli.commands.generate.handle_generate_query_if_79:
+    id: cli.commands.generate.handle_generate_query_if_79
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 79
+  cli.commands.generate.handle_generate_query_merge_79:
+    id: cli.commands.generate.handle_generate_query_merge_79
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_81:
+    id: cli.commands.generate.handle_generate_query_if_81
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 81
+  cli.commands.generate.handle_generate_query_loop_82:
+    id: cli.commands.generate.handle_generate_query_loop_82
+    type: FOR
+    label: for
+    function: cli.commands.generate.handle_generate_query
+    line: 82
+  cli.commands.generate.handle_generate_query_merge_81:
+    id: cli.commands.generate.handle_generate_query_merge_81
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_return_84:
+    id: cli.commands.generate.handle_generate_query_return_84
+    type: RETURN
+    label: return
+    function: cli.commands.generate.handle_generate_query
+    line: 84
+  cli.commands.generate.handle_generate_query_merge_77:
+    id: cli.commands.generate.handle_generate_query_merge_77
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_100:
+    id: cli.commands.generate.handle_generate_query_if_100
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 100
+  cli.commands.generate.handle_generate_query_merge_100:
+    id: cli.commands.generate.handle_generate_query_merge_100
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_102:
+    id: cli.commands.generate.handle_generate_query_if_102
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 102
+  cli.commands.generate.handle_generate_query_merge_102:
+    id: cli.commands.generate.handle_generate_query_merge_102
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_140:
+    id: cli.commands.generate.handle_generate_query_if_140
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 140
+  cli.commands.generate.handle_generate_query_merge_140:
+    id: cli.commands.generate.handle_generate_query_merge_140
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_167:
+    id: cli.commands.generate.handle_generate_query_if_167
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 167
+  cli.commands.generate.handle_generate_query_merge_167:
+    id: cli.commands.generate.handle_generate_query_merge_167
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_172:
+    id: cli.commands.generate.handle_generate_query_if_172
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 172
+  cli.commands.generate.handle_generate_query_if_175:
+    id: cli.commands.generate.handle_generate_query_if_175
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 175
+  cli.commands.generate.handle_generate_query_merge_175:
+    id: cli.commands.generate.handle_generate_query_merge_175
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_merge_172:
+    id: cli.commands.generate.handle_generate_query_merge_172
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_generate_query_if_193:
+    id: cli.commands.generate.handle_generate_query_if_193
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_generate_query
+    line: 193
+  cli.commands.generate.handle_generate_query_merge_193:
+    id: cli.commands.generate.handle_generate_query_merge_193
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_generate_query
+  cli.commands.generate.handle_appspec_query_entry:
+    id: cli.commands.generate.handle_appspec_query_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate.handle_appspec_query
+  cli.commands.generate.handle_appspec_query_exit:
+    id: cli.commands.generate.handle_appspec_query_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate.handle_appspec_query
+  cli.commands.generate.handle_appspec_query_if_232:
+    id: cli.commands.generate.handle_appspec_query_if_232
+    type: IF
+    label: if
+    function: cli.commands.generate.handle_appspec_query
+    line: 232
+  cli.commands.generate.handle_appspec_query_merge_232:
+    id: cli.commands.generate.handle_appspec_query_merge_232
+    type: FUNC
+    label: merge
+    function: cli.commands.generate.handle_appspec_query
+  cli.commands.generate._record_cli_session_entry:
+    id: cli.commands.generate._record_cli_session_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._record_cli_session
+  cli.commands.generate._record_cli_session_exit:
+    id: cli.commands.generate._record_cli_session_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._record_cli_session
+  cli.commands.generate._execute_multi_step_with_video_entry:
+    id: cli.commands.generate._execute_multi_step_with_video_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._execute_multi_step_with_video
+  cli.commands.generate._execute_multi_step_with_video_exit:
+    id: cli.commands.generate._execute_multi_step_with_video_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._execute_multi_step_with_video
+  cli.commands.generate._js_set_color_entry:
+    id: cli.commands.generate._js_set_color_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_set_color
+  cli.commands.generate._js_set_color_exit:
+    id: cli.commands.generate._js_set_color_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_set_color
+  cli.commands.generate._js_set_color_return_372:
+    id: cli.commands.generate._js_set_color_return_372
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_set_color
+    line: 372
+  cli.commands.generate._js_select_tool_entry:
+    id: cli.commands.generate._js_select_tool_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_select_tool
+  cli.commands.generate._js_select_tool_exit:
+    id: cli.commands.generate._js_select_tool_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_select_tool
+  cli.commands.generate._js_select_tool_return_421:
+    id: cli.commands.generate._js_select_tool_return_421
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_select_tool
+    line: 421
+  cli.commands.generate._js_draw_filled_circle_entry:
+    id: cli.commands.generate._js_draw_filled_circle_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_draw_filled_circle
+  cli.commands.generate._js_draw_filled_circle_exit:
+    id: cli.commands.generate._js_draw_filled_circle_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_draw_filled_circle
+  cli.commands.generate._js_draw_filled_circle_return_436:
+    id: cli.commands.generate._js_draw_filled_circle_return_436
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_draw_filled_circle
+    line: 436
+  cli.commands.generate._js_draw_filled_ellipse_entry:
+    id: cli.commands.generate._js_draw_filled_ellipse_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_draw_filled_ellipse
+  cli.commands.generate._js_draw_filled_ellipse_exit:
+    id: cli.commands.generate._js_draw_filled_ellipse_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_draw_filled_ellipse
+  cli.commands.generate._js_draw_filled_ellipse_return_459:
+    id: cli.commands.generate._js_draw_filled_ellipse_return_459
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_draw_filled_ellipse
+    line: 459
+  cli.commands.generate._js_draw_line_entry:
+    id: cli.commands.generate._js_draw_line_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_draw_line
+  cli.commands.generate._js_draw_line_exit:
+    id: cli.commands.generate._js_draw_line_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_draw_line
+  cli.commands.generate._js_draw_line_return_483:
+    id: cli.commands.generate._js_draw_line_return_483
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_draw_line
+    line: 483
+  cli.commands.generate._js_draw_polygon_entry:
+    id: cli.commands.generate._js_draw_polygon_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_draw_polygon
+  cli.commands.generate._js_draw_polygon_exit:
+    id: cli.commands.generate._js_draw_polygon_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_draw_polygon
+  cli.commands.generate._js_draw_polygon_return_506:
+    id: cli.commands.generate._js_draw_polygon_return_506
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_draw_polygon
+    line: 506
+  cli.commands.generate._js_draw_bezier_entry:
+    id: cli.commands.generate._js_draw_bezier_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.generate._js_draw_bezier
+  cli.commands.generate._js_draw_bezier_exit:
+    id: cli.commands.generate._js_draw_bezier_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.generate._js_draw_bezier
+  cli.commands.generate._js_draw_bezier_return_540:
+    id: cli.commands.generate._js_draw_bezier_return_540
+    type: RETURN
+    label: return
+    function: cli.commands.generate._js_draw_bezier
+    line: 540

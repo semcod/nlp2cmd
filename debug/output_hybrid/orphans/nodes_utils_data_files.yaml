@@ -1,0 +1,180 @@
+module: utils.data_files
+type: orphan_nodes
+count: 32
+nodes:
+  utils.data_files.get_user_config_dir_entry:
+    id: utils.data_files.get_user_config_dir_entry
+    type: ENTRY
+    label: entry
+    function: utils.data_files.get_user_config_dir
+  utils.data_files.get_user_config_dir_exit:
+    id: utils.data_files.get_user_config_dir_exit
+    type: EXIT
+    label: exit
+    function: utils.data_files.get_user_config_dir
+  utils.data_files.get_user_config_dir_if_18:
+    id: utils.data_files.get_user_config_dir_if_18
+    type: IF
+    label: if
+    function: utils.data_files.get_user_config_dir
+    line: 18
+  utils.data_files.get_user_config_dir_return_19:
+    id: utils.data_files.get_user_config_dir_return_19
+    type: RETURN
+    label: return
+    function: utils.data_files.get_user_config_dir
+    line: 19
+  utils.data_files.get_user_config_dir_merge_18:
+    id: utils.data_files.get_user_config_dir_merge_18
+    type: FUNC
+    label: merge
+    function: utils.data_files.get_user_config_dir
+  utils.data_files.get_user_config_dir_if_22:
+    id: utils.data_files.get_user_config_dir_if_22
+    type: IF
+    label: if
+    function: utils.data_files.get_user_config_dir
+    line: 22
+  utils.data_files.get_user_config_dir_return_23:
+    id: utils.data_files.get_user_config_dir_return_23
+    type: RETURN
+    label: return
+    function: utils.data_files.get_user_config_dir
+    line: 23
+  utils.data_files.get_user_config_dir_merge_22:
+    id: utils.data_files.get_user_config_dir_merge_22
+    type: FUNC
+    label: merge
+    function: utils.data_files.get_user_config_dir
+  utils.data_files.get_user_config_dir_return_25:
+    id: utils.data_files.get_user_config_dir_return_25
+    type: RETURN
+    label: return
+    function: utils.data_files.get_user_config_dir
+    line: 25
+  utils.data_files._package_data_dir_entry:
+    id: utils.data_files._package_data_dir_entry
+    type: ENTRY
+    label: entry
+    function: utils.data_files._package_data_dir
+  utils.data_files._package_data_dir_exit:
+    id: utils.data_files._package_data_dir_exit
+    type: EXIT
+    label: exit
+    function: utils.data_files._package_data_dir
+  utils.data_files._package_data_dir_if_43:
+    id: utils.data_files._package_data_dir_if_43
+    type: IF
+    label: if
+    function: utils.data_files._package_data_dir
+    line: 43
+  utils.data_files._package_data_dir_return_44:
+    id: utils.data_files._package_data_dir_return_44
+    type: RETURN
+    label: return
+    function: utils.data_files._package_data_dir
+    line: 44
+  utils.data_files._package_data_dir_merge_43:
+    id: utils.data_files._package_data_dir_merge_43
+    type: FUNC
+    label: merge
+    function: utils.data_files._package_data_dir
+  utils.data_files._package_data_dir_return_55:
+    id: utils.data_files._package_data_dir_return_55
+    type: RETURN
+    label: return
+    function: utils.data_files._package_data_dir
+    line: 55
+  utils.data_files.find_data_files_entry:
+    id: utils.data_files.find_data_files_entry
+    type: ENTRY
+    label: entry
+    function: utils.data_files.find_data_files
+  utils.data_files.find_data_files_exit:
+    id: utils.data_files.find_data_files_exit
+    type: EXIT
+    label: exit
+    function: utils.data_files.find_data_files
+  utils.data_files.find_data_files_if_86:
+    id: utils.data_files.find_data_files_if_86
+    type: IF
+    label: if
+    function: utils.data_files.find_data_files
+    line: 86
+  utils.data_files.find_data_files_merge_86:
+    id: utils.data_files.find_data_files_merge_86
+    type: FUNC
+    label: merge
+    function: utils.data_files.find_data_files
+  utils.data_files.find_data_files_loop_90:
+    id: utils.data_files.find_data_files_loop_90
+    type: FOR
+    label: for
+    function: utils.data_files.find_data_files
+    line: 90
+  utils.data_files.find_data_files_if_95:
+    id: utils.data_files.find_data_files_if_95
+    type: IF
+    label: if
+    function: utils.data_files.find_data_files
+    line: 95
+  utils.data_files.find_data_files_merge_95:
+    id: utils.data_files.find_data_files_merge_95
+    type: FUNC
+    label: merge
+    function: utils.data_files.find_data_files
+  utils.data_files.find_data_files_return_105:
+    id: utils.data_files.find_data_files_return_105
+    type: RETURN
+    label: return
+    function: utils.data_files.find_data_files
+    line: 105
+  utils.data_files.find_data_file_entry:
+    id: utils.data_files.find_data_file_entry
+    type: ENTRY
+    label: entry
+    function: utils.data_files.find_data_file
+  utils.data_files.find_data_file_exit:
+    id: utils.data_files.find_data_file_exit
+    type: EXIT
+    label: exit
+    function: utils.data_files.find_data_file
+  utils.data_files.find_data_file_return_122:
+    id: utils.data_files.find_data_file_return_122
+    type: RETURN
+    label: return
+    function: utils.data_files.find_data_file
+    line: 122
+  utils.data_files.data_file_write_path_entry:
+    id: utils.data_files.data_file_write_path_entry
+    type: ENTRY
+    label: entry
+    function: utils.data_files.data_file_write_path
+  utils.data_files.data_file_write_path_exit:
+    id: utils.data_files.data_file_write_path_exit
+    type: EXIT
+    label: exit
+    function: utils.data_files.data_file_write_path
+  utils.data_files.data_file_write_path_if_132:
+    id: utils.data_files.data_file_write_path_if_132
+    type: IF
+    label: if
+    function: utils.data_files.data_file_write_path
+    line: 132
+  utils.data_files.data_file_write_path_return_133:
+    id: utils.data_files.data_file_write_path_return_133
+    type: RETURN
+    label: return
+    function: utils.data_files.data_file_write_path
+    line: 133
+  utils.data_files.data_file_write_path_merge_132:
+    id: utils.data_files.data_file_write_path_merge_132
+    type: FUNC
+    label: merge
+    function: utils.data_files.data_file_write_path
+  utils.data_files.data_file_write_path_return_134:
+    id: utils.data_files.data_file_write_path_return_134
+    type: RETURN
+    label: return
+    function: utils.data_files.data_file_write_path
+    line: 134

@@ -1,0 +1,102 @@
+module: generation.validating.ValidatingGenerator
+type: orphan_nodes
+count: 18
+nodes:
+  generation.validating.ValidatingGenerator.__init___entry:
+    id: generation.validating.ValidatingGenerator.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.validating.ValidatingGenerator.__init__
+  generation.validating.ValidatingGenerator.__init___exit:
+    id: generation.validating.ValidatingGenerator.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.validating.ValidatingGenerator.__init__
+  generation.validating.ValidatingGenerator.generate_entry:
+    id: generation.validating.ValidatingGenerator.generate_entry
+    type: ENTRY
+    label: entry
+    function: generation.validating.ValidatingGenerator.generate
+  generation.validating.ValidatingGenerator.generate_exit:
+    id: generation.validating.ValidatingGenerator.generate_exit
+    type: EXIT
+    label: exit
+    function: generation.validating.ValidatingGenerator.generate
+  generation.validating.ValidatingGenerator.generate_loop_93:
+    id: generation.validating.ValidatingGenerator.generate_loop_93
+    type: FOR
+    label: for
+    function: generation.validating.ValidatingGenerator.generate
+    line: 93
+  generation.validating.ValidatingGenerator.generate_if_96:
+    id: generation.validating.ValidatingGenerator.generate_if_96
+    type: IF
+    label: if
+    function: generation.validating.ValidatingGenerator.generate
+    line: 96
+  generation.validating.ValidatingGenerator.generate_merge_96:
+    id: generation.validating.ValidatingGenerator.generate_merge_96
+    type: FUNC
+    label: merge
+    function: generation.validating.ValidatingGenerator.generate
+  generation.validating.ValidatingGenerator.generate_if_102:
+    id: generation.validating.ValidatingGenerator.generate_if_102
+    type: IF
+    label: if
+    function: generation.validating.ValidatingGenerator.generate
+    line: 102
+  generation.validating.ValidatingGenerator.generate_merge_102:
+    id: generation.validating.ValidatingGenerator.generate_merge_102
+    type: FUNC
+    label: merge
+    function: generation.validating.ValidatingGenerator.generate
+  generation.validating.ValidatingGenerator.generate_if_109:
+    id: generation.validating.ValidatingGenerator.generate_if_109
+    type: IF
+    label: if
+    function: generation.validating.ValidatingGenerator.generate
+    line: 109
+  generation.validating.ValidatingGenerator.generate_return_111:
+    id: generation.validating.ValidatingGenerator.generate_return_111
+    type: RETURN
+    label: return
+    function: generation.validating.ValidatingGenerator.generate
+    line: 111
+  generation.validating.ValidatingGenerator.generate_merge_109:
+    id: generation.validating.ValidatingGenerator.generate_merge_109
+    type: FUNC
+    label: merge
+    function: generation.validating.ValidatingGenerator.generate
+  generation.validating.ValidatingGenerator.generate_if_124:
+    id: generation.validating.ValidatingGenerator.generate_if_124
+    type: IF
+    label: if
+    function: generation.validating.ValidatingGenerator.generate
+    line: 124
+  generation.validating.ValidatingGenerator.generate_return_125:
+    id: generation.validating.ValidatingGenerator.generate_return_125
+    type: RETURN
+    label: return
+    function: generation.validating.ValidatingGenerator.generate
+    line: 125
+  generation.validating.ValidatingGenerator.generate_merge_124:
+    id: generation.validating.ValidatingGenerator.generate_merge_124
+    type: FUNC
+    label: merge
+    function: generation.validating.ValidatingGenerator.generate
+  generation.validating.ValidatingGenerator.generate_return_139:
+    id: generation.validating.ValidatingGenerator.generate_return_139
+    type: RETURN
+    label: return
+    function: generation.validating.ValidatingGenerator.generate
+    line: 139
+  generation.validating.ValidatingGenerator.add_validator_entry:
+    id: generation.validating.ValidatingGenerator.add_validator_entry
+    type: ENTRY
+    label: entry
+    function: generation.validating.ValidatingGenerator.add_validator
+  generation.validating.ValidatingGenerator.add_validator_exit:
+    id: generation.validating.ValidatingGenerator.add_validator_exit
+    type: EXIT
+    label: exit
+    function: generation.validating.ValidatingGenerator.add_validator

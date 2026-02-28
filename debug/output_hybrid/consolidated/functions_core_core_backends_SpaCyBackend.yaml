@@ -1,0 +1,29 @@
+module: core.core_backends.SpaCyBackend
+type: functions
+count: 2
+functions:
+  core.core_backends.SpaCyBackend.__init__:
+    name: __init__
+    qualified_name: core.core_backends.SpaCyBackend.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 42
+    module: core.core_backends
+    class: SpaCyBackend
+    is_method: true
+    cfg_entry: core.core_backends.SpaCyBackend.__init___entry
+    calls:
+    - None.__init__
+    - super
+  core.core_backends.SpaCyBackend.extract_entities:
+    name: extract_entities
+    qualified_name: core.core_backends.SpaCyBackend.extract_entities
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/core/core_backends.py
+    line: 60
+    module: core.core_backends
+    class: SpaCyBackend
+    is_method: true
+    cfg_entry: core.core_backends.SpaCyBackend.extract_entities_entry
+    calls:
+    - self.nlp
+    - Entity
+    - entities.append

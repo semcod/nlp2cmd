@@ -1,0 +1,43 @@
+module: src.nlp2cmd.processing.framework.ProcessingPipeline
+type: functions
+count: 3
+functions:
+  src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor:
+    name: add_processor
+    qualified_name: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 149
+    module: src.nlp2cmd.processing.framework
+    class: ProcessingPipeline
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.ProcessingPipeline.add_processor_entry
+    calls:
+    - self.processors.append
+  src.nlp2cmd.processing.framework.ProcessingPipeline.process:
+    name: process
+    qualified_name: src.nlp2cmd.processing.framework.ProcessingPipeline.process
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 154
+    module: src.nlp2cmd.processing.framework
+    class: ProcessingPipeline
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.ProcessingPipeline.process_entry
+    calls:
+    - enumerate
+    - ProcessResult
+    - processor
+    - None.append
+    - errors.extend
+    - len
+  src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats:
+    name: get_stats
+    qualified_name: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/src/nlp2cmd/processing/framework.py
+    line: 187
+    module: src.nlp2cmd.processing.framework
+    class: ProcessingPipeline
+    is_method: true
+    cfg_entry: src.nlp2cmd.processing.framework.ProcessingPipeline.get_stats_entry
+    calls:
+    - len
+    - generation.thermodynamic_components._NumpyStub.sum

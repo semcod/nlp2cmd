@@ -1,0 +1,627 @@
+module: validators.DockerValidator
+type: orphan_nodes
+count: 112
+nodes:
+  validators.DockerValidator._iter_publish_ports_entry:
+    id: validators.DockerValidator._iter_publish_ports_entry
+    type: ENTRY
+    label: entry
+    function: validators.DockerValidator._iter_publish_ports
+  validators.DockerValidator._iter_publish_ports_exit:
+    id: validators.DockerValidator._iter_publish_ports_exit
+    type: EXIT
+    label: exit
+    function: validators.DockerValidator._iter_publish_ports
+  validators.DockerValidator._iter_publish_ports_loop_378:
+    id: validators.DockerValidator._iter_publish_ports_loop_378
+    type: WHILE
+    label: while
+    function: validators.DockerValidator._iter_publish_ports
+    line: 378
+  validators.DockerValidator._iter_publish_ports_if_380:
+    id: validators.DockerValidator._iter_publish_ports_if_380
+    type: IF
+    label: if
+    function: validators.DockerValidator._iter_publish_ports
+    line: 380
+  validators.DockerValidator._iter_publish_ports_if_381:
+    id: validators.DockerValidator._iter_publish_ports_if_381
+    type: IF
+    label: if
+    function: validators.DockerValidator._iter_publish_ports
+    line: 381
+  validators.DockerValidator._iter_publish_ports_merge_381:
+    id: validators.DockerValidator._iter_publish_ports_merge_381
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._iter_publish_ports
+  validators.DockerValidator._iter_publish_ports_merge_380:
+    id: validators.DockerValidator._iter_publish_ports_merge_380
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._iter_publish_ports
+  validators.DockerValidator._iter_publish_ports_if_386:
+    id: validators.DockerValidator._iter_publish_ports_if_386
+    type: IF
+    label: if
+    function: validators.DockerValidator._iter_publish_ports
+    line: 386
+  validators.DockerValidator._iter_publish_ports_merge_386:
+    id: validators.DockerValidator._iter_publish_ports_merge_386
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._iter_publish_ports
+  validators.DockerValidator._iter_publish_ports_return_390:
+    id: validators.DockerValidator._iter_publish_ports_return_390
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._iter_publish_ports
+    line: 390
+  validators.DockerValidator._parse_ports_from_spec_entry:
+    id: validators.DockerValidator._parse_ports_from_spec_entry
+    type: ENTRY
+    label: entry
+    function: validators.DockerValidator._parse_ports_from_spec
+  validators.DockerValidator._parse_ports_from_spec_exit:
+    id: validators.DockerValidator._parse_ports_from_spec_exit
+    type: EXIT
+    label: exit
+    function: validators.DockerValidator._parse_ports_from_spec
+  validators.DockerValidator._parse_ports_from_spec_if_398:
+    id: validators.DockerValidator._parse_ports_from_spec_if_398
+    type: IF
+    label: if
+    function: validators.DockerValidator._parse_ports_from_spec
+    line: 398
+  validators.DockerValidator._parse_ports_from_spec_return_399:
+    id: validators.DockerValidator._parse_ports_from_spec_return_399
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._parse_ports_from_spec
+    line: 399
+  validators.DockerValidator._parse_ports_from_spec_merge_398:
+    id: validators.DockerValidator._parse_ports_from_spec_merge_398
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._parse_ports_from_spec
+  validators.DockerValidator._parse_ports_from_spec_loop_403:
+    id: validators.DockerValidator._parse_ports_from_spec_loop_403
+    type: FOR
+    label: for
+    function: validators.DockerValidator._parse_ports_from_spec
+    line: 403
+  validators.DockerValidator._parse_ports_from_spec_if_404:
+    id: validators.DockerValidator._parse_ports_from_spec_if_404
+    type: IF
+    label: if
+    function: validators.DockerValidator._parse_ports_from_spec
+    line: 404
+  validators.DockerValidator._parse_ports_from_spec_merge_404:
+    id: validators.DockerValidator._parse_ports_from_spec_merge_404
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._parse_ports_from_spec
+  validators.DockerValidator._parse_ports_from_spec_return_409:
+    id: validators.DockerValidator._parse_ports_from_spec_return_409
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._parse_ports_from_spec
+    line: 409
+  validators.DockerValidator._is_valid_image_name_entry:
+    id: validators.DockerValidator._is_valid_image_name_entry
+    type: ENTRY
+    label: entry
+    function: validators.DockerValidator._is_valid_image_name
+  validators.DockerValidator._is_valid_image_name_exit:
+    id: validators.DockerValidator._is_valid_image_name_exit
+    type: EXIT
+    label: exit
+    function: validators.DockerValidator._is_valid_image_name
+  validators.DockerValidator._is_valid_image_name_if_413:
+    id: validators.DockerValidator._is_valid_image_name_if_413
+    type: IF
+    label: if
+    function: validators.DockerValidator._is_valid_image_name
+    line: 413
+  validators.DockerValidator._is_valid_image_name_return_414:
+    id: validators.DockerValidator._is_valid_image_name_return_414
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._is_valid_image_name
+    line: 414
+  validators.DockerValidator._is_valid_image_name_merge_413:
+    id: validators.DockerValidator._is_valid_image_name_merge_413
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._is_valid_image_name
+  validators.DockerValidator._is_valid_image_name_if_415:
+    id: validators.DockerValidator._is_valid_image_name_if_415
+    type: IF
+    label: if
+    function: validators.DockerValidator._is_valid_image_name
+    line: 415
+  validators.DockerValidator._is_valid_image_name_return_416:
+    id: validators.DockerValidator._is_valid_image_name_return_416
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._is_valid_image_name
+    line: 416
+  validators.DockerValidator._is_valid_image_name_merge_415:
+    id: validators.DockerValidator._is_valid_image_name_merge_415
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._is_valid_image_name
+  validators.DockerValidator._is_valid_image_name_return_417:
+    id: validators.DockerValidator._is_valid_image_name_return_417
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._is_valid_image_name
+    line: 417
+  validators.DockerValidator._find_docker_image_entry:
+    id: validators.DockerValidator._find_docker_image_entry
+    type: ENTRY
+    label: entry
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_exit:
+    id: validators.DockerValidator._find_docker_image_exit
+    type: EXIT
+    label: exit
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_421:
+    id: validators.DockerValidator._find_docker_image_if_421
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 421
+  validators.DockerValidator._find_docker_image_return_422:
+    id: validators.DockerValidator._find_docker_image_return_422
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 422
+  validators.DockerValidator._find_docker_image_merge_421:
+    id: validators.DockerValidator._find_docker_image_merge_421
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_424:
+    id: validators.DockerValidator._find_docker_image_if_424
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 424
+  validators.DockerValidator._find_docker_image_return_425:
+    id: validators.DockerValidator._find_docker_image_return_425
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 425
+  validators.DockerValidator._find_docker_image_merge_424:
+    id: validators.DockerValidator._find_docker_image_merge_424
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_428:
+    id: validators.DockerValidator._find_docker_image_if_428
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 428
+  validators.DockerValidator._find_docker_image_loop_429:
+    id: validators.DockerValidator._find_docker_image_loop_429
+    type: FOR
+    label: for
+    function: validators.DockerValidator._find_docker_image
+    line: 429
+  validators.DockerValidator._find_docker_image_if_430:
+    id: validators.DockerValidator._find_docker_image_if_430
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 430
+  validators.DockerValidator._find_docker_image_merge_430:
+    id: validators.DockerValidator._find_docker_image_merge_430
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_return_432:
+    id: validators.DockerValidator._find_docker_image_return_432
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 432
+  validators.DockerValidator._find_docker_image_return_433:
+    id: validators.DockerValidator._find_docker_image_return_433
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 433
+  validators.DockerValidator._find_docker_image_merge_428:
+    id: validators.DockerValidator._find_docker_image_merge_428
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_435:
+    id: validators.DockerValidator._find_docker_image_if_435
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 435
+  validators.DockerValidator._find_docker_image_return_436:
+    id: validators.DockerValidator._find_docker_image_return_436
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 436
+  validators.DockerValidator._find_docker_image_merge_435:
+    id: validators.DockerValidator._find_docker_image_merge_435
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_loop_471:
+    id: validators.DockerValidator._find_docker_image_loop_471
+    type: WHILE
+    label: while
+    function: validators.DockerValidator._find_docker_image
+    line: 471
+  validators.DockerValidator._find_docker_image_if_475:
+    id: validators.DockerValidator._find_docker_image_if_475
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 475
+  validators.DockerValidator._find_docker_image_merge_475:
+    id: validators.DockerValidator._find_docker_image_merge_475
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_479:
+    id: validators.DockerValidator._find_docker_image_if_479
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 479
+  validators.DockerValidator._find_docker_image_if_480:
+    id: validators.DockerValidator._find_docker_image_if_480
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 480
+  validators.DockerValidator._find_docker_image_merge_480:
+    id: validators.DockerValidator._find_docker_image_merge_480
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_483:
+    id: validators.DockerValidator._find_docker_image_if_483
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 483
+  validators.DockerValidator._find_docker_image_merge_483:
+    id: validators.DockerValidator._find_docker_image_merge_483
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_if_486:
+    id: validators.DockerValidator._find_docker_image_if_486
+    type: IF
+    label: if
+    function: validators.DockerValidator._find_docker_image
+    line: 486
+  validators.DockerValidator._find_docker_image_merge_486:
+    id: validators.DockerValidator._find_docker_image_merge_486
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_merge_479:
+    id: validators.DockerValidator._find_docker_image_merge_479
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator._find_docker_image
+  validators.DockerValidator._find_docker_image_return_492:
+    id: validators.DockerValidator._find_docker_image_return_492
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 492
+  validators.DockerValidator._find_docker_image_return_493:
+    id: validators.DockerValidator._find_docker_image_return_493
+    type: RETURN
+    label: return
+    function: validators.DockerValidator._find_docker_image
+    line: 493
+  validators.DockerValidator.validate_entry:
+    id: validators.DockerValidator.validate_entry
+    type: ENTRY
+    label: entry
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_exit:
+    id: validators.DockerValidator.validate_exit
+    type: EXIT
+    label: exit
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_514:
+    id: validators.DockerValidator.validate_if_514
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 514
+  validators.DockerValidator.validate_return_515:
+    id: validators.DockerValidator.validate_return_515
+    type: RETURN
+    label: return
+    function: validators.DockerValidator.validate
+    line: 515
+  validators.DockerValidator.validate_merge_514:
+    id: validators.DockerValidator.validate_merge_514
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_loop_527:
+    id: validators.DockerValidator.validate_loop_527
+    type: FOR
+    label: for
+    function: validators.DockerValidator.validate
+    line: 527
+  validators.DockerValidator.validate_if_528:
+    id: validators.DockerValidator.validate_if_528
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 528
+  validators.DockerValidator.validate_if_529:
+    id: validators.DockerValidator.validate_if_529
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 529
+  validators.DockerValidator.validate_merge_529:
+    id: validators.DockerValidator.validate_merge_529
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_merge_528:
+    id: validators.DockerValidator.validate_merge_528
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_532:
+    id: validators.DockerValidator.validate_if_532
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 532
+  validators.DockerValidator.validate_merge_532:
+    id: validators.DockerValidator.validate_merge_532
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_535:
+    id: validators.DockerValidator.validate_if_535
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 535
+  validators.DockerValidator.validate_merge_535:
+    id: validators.DockerValidator.validate_merge_535
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_539:
+    id: validators.DockerValidator.validate_if_539
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 539
+  validators.DockerValidator.validate_merge_539:
+    id: validators.DockerValidator.validate_merge_539
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_543:
+    id: validators.DockerValidator.validate_if_543
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 543
+  validators.DockerValidator.validate_merge_543:
+    id: validators.DockerValidator.validate_merge_543
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_547:
+    id: validators.DockerValidator.validate_if_547
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 547
+  validators.DockerValidator.validate_loop_550:
+    id: validators.DockerValidator.validate_loop_550
+    type: FOR
+    label: for
+    function: validators.DockerValidator.validate
+    line: 550
+  validators.DockerValidator.validate_if_551:
+    id: validators.DockerValidator.validate_if_551
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 551
+  validators.DockerValidator.validate_merge_551:
+    id: validators.DockerValidator.validate_merge_551
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_554:
+    id: validators.DockerValidator.validate_if_554
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 554
+  validators.DockerValidator.validate_merge_554:
+    id: validators.DockerValidator.validate_merge_554
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_merge_547:
+    id: validators.DockerValidator.validate_merge_547
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_loop_559:
+    id: validators.DockerValidator.validate_loop_559
+    type: FOR
+    label: for
+    function: validators.DockerValidator.validate
+    line: 559
+  validators.DockerValidator.validate_if_560:
+    id: validators.DockerValidator.validate_if_560
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 560
+  validators.DockerValidator.validate_merge_560:
+    id: validators.DockerValidator.validate_merge_560
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_564:
+    id: validators.DockerValidator.validate_if_564
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 564
+  validators.DockerValidator.validate_if_566:
+    id: validators.DockerValidator.validate_if_566
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 566
+  validators.DockerValidator.validate_merge_566:
+    id: validators.DockerValidator.validate_merge_566
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_568:
+    id: validators.DockerValidator.validate_if_568
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 568
+  validators.DockerValidator.validate_if_570:
+    id: validators.DockerValidator.validate_if_570
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 570
+  validators.DockerValidator.validate_merge_570:
+    id: validators.DockerValidator.validate_merge_570
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_merge_568:
+    id: validators.DockerValidator.validate_merge_568
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_merge_564:
+    id: validators.DockerValidator.validate_merge_564
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_574:
+    id: validators.DockerValidator.validate_if_574
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 574
+  validators.DockerValidator.validate_merge_574:
+    id: validators.DockerValidator.validate_merge_574
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_579:
+    id: validators.DockerValidator.validate_if_579
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 579
+  validators.DockerValidator.validate_merge_579:
+    id: validators.DockerValidator.validate_merge_579
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_loop_584:
+    id: validators.DockerValidator.validate_loop_584
+    type: FOR
+    label: for
+    function: validators.DockerValidator.validate
+    line: 584
+  validators.DockerValidator.validate_if_585:
+    id: validators.DockerValidator.validate_if_585
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 585
+  validators.DockerValidator.validate_if_586:
+    id: validators.DockerValidator.validate_if_586
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 586
+  validators.DockerValidator.validate_merge_586:
+    id: validators.DockerValidator.validate_merge_586
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_merge_585:
+    id: validators.DockerValidator.validate_merge_585
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_if_592:
+    id: validators.DockerValidator.validate_if_592
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 592
+  validators.DockerValidator.validate_merge_592:
+    id: validators.DockerValidator.validate_merge_592
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_loop_597:
+    id: validators.DockerValidator.validate_loop_597
+    type: FOR
+    label: for
+    function: validators.DockerValidator.validate
+    line: 597
+  validators.DockerValidator.validate_if_598:
+    id: validators.DockerValidator.validate_if_598
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 598
+  validators.DockerValidator.validate_if_600:
+    id: validators.DockerValidator.validate_if_600
+    type: IF
+    label: if
+    function: validators.DockerValidator.validate
+    line: 600
+  validators.DockerValidator.validate_merge_600:
+    id: validators.DockerValidator.validate_merge_600
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_merge_598:
+    id: validators.DockerValidator.validate_merge_598
+    type: FUNC
+    label: merge
+    function: validators.DockerValidator.validate
+  validators.DockerValidator.validate_return_604:
+    id: validators.DockerValidator.validate_return_604
+    type: RETURN
+    label: return
+    function: validators.DockerValidator.validate
+    line: 604

@@ -1,0 +1,435 @@
+module: cli.commands.interactive.InteractiveSession
+type: orphan_nodes
+count: 79
+nodes:
+  cli.commands.interactive.InteractiveSession.__init___entry:
+    id: cli.commands.interactive.InteractiveSession.__init___entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession.__init__
+  cli.commands.interactive.InteractiveSession.__init___exit:
+    id: cli.commands.interactive.InteractiveSession.__init___exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession.__init__
+  cli.commands.interactive.InteractiveSession._analyze_environment_entry:
+    id: cli.commands.interactive.InteractiveSession._analyze_environment_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession._analyze_environment
+  cli.commands.interactive.InteractiveSession._analyze_environment_exit:
+    id: cli.commands.interactive.InteractiveSession._analyze_environment_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession._analyze_environment
+  cli.commands.interactive.InteractiveSession.process_entry:
+    id: cli.commands.interactive.InteractiveSession.process_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession.process
+  cli.commands.interactive.InteractiveSession.process_exit:
+    id: cli.commands.interactive.InteractiveSession.process_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession.process
+  cli.commands.interactive.InteractiveSession.process_if_90:
+    id: cli.commands.interactive.InteractiveSession.process_if_90
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.process
+    line: 90
+  cli.commands.interactive.InteractiveSession.process_if_92:
+    id: cli.commands.interactive.InteractiveSession.process_if_92
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.process
+    line: 92
+  cli.commands.interactive.InteractiveSession.process_merge_92:
+    id: cli.commands.interactive.InteractiveSession.process_merge_92
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.process
+  cli.commands.interactive.InteractiveSession.process_if_158:
+    id: cli.commands.interactive.InteractiveSession.process_if_158
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.process
+    line: 158
+  cli.commands.interactive.InteractiveSession.process_if_212:
+    id: cli.commands.interactive.InteractiveSession.process_if_212
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.process
+    line: 212
+  cli.commands.interactive.InteractiveSession.process_merge_212:
+    id: cli.commands.interactive.InteractiveSession.process_merge_212
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.process
+  cli.commands.interactive.InteractiveSession.process_merge_158:
+    id: cli.commands.interactive.InteractiveSession.process_merge_158
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.process
+  cli.commands.interactive.InteractiveSession.process_merge_90:
+    id: cli.commands.interactive.InteractiveSession.process_merge_90
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.process
+  cli.commands.interactive.InteractiveSession.process_return_240:
+    id: cli.commands.interactive.InteractiveSession.process_return_240
+    type: RETURN
+    label: return
+    function: cli.commands.interactive.InteractiveSession.process
+    line: 240
+  cli.commands.interactive.InteractiveSession.display_feedback_entry:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+  cli.commands.interactive.InteractiveSession.display_feedback_exit:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+  cli.commands.interactive.InteractiveSession.display_feedback_if_260:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_if_260
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+    line: 260
+  cli.commands.interactive.InteractiveSession.display_feedback_if_270:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_if_270
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+    line: 270
+  cli.commands.interactive.InteractiveSession.display_feedback_merge_270:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_merge_270
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+  cli.commands.interactive.InteractiveSession.display_feedback_merge_260:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_merge_260
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+  cli.commands.interactive.InteractiveSession.display_feedback_if_273:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_if_273
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+    line: 273
+  cli.commands.interactive.InteractiveSession.display_feedback_merge_273:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_merge_273
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+  cli.commands.interactive.InteractiveSession.display_feedback_if_278:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_if_278
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+    line: 278
+  cli.commands.interactive.InteractiveSession.display_feedback_merge_278:
+    id: cli.commands.interactive.InteractiveSession.display_feedback_merge_278
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession.display_feedback
+  cli.commands.interactive.InteractiveSession.run_entry:
+    id: cli.commands.interactive.InteractiveSession.run_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession.run
+  cli.commands.interactive.InteractiveSession.run_exit:
+    id: cli.commands.interactive.InteractiveSession.run_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession.run
+  cli.commands.interactive.InteractiveSession.run_loop_345:
+    id: cli.commands.interactive.InteractiveSession.run_loop_345
+    type: WHILE
+    label: while
+    function: cli.commands.interactive.InteractiveSession.run
+    line: 345
+  cli.commands.interactive.InteractiveSession._show_help_entry:
+    id: cli.commands.interactive.InteractiveSession._show_help_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession._show_help
+  cli.commands.interactive.InteractiveSession._show_help_exit:
+    id: cli.commands.interactive.InteractiveSession._show_help_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession._show_help
+  cli.commands.interactive.InteractiveSession._handle_command_entry:
+    id: cli.commands.interactive.InteractiveSession._handle_command_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_exit:
+    id: cli.commands.interactive.InteractiveSession._handle_command_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_if_400:
+    id: cli.commands.interactive.InteractiveSession._handle_command_if_400
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 400
+  cli.commands.interactive.InteractiveSession._handle_command_if_413:
+    id: cli.commands.interactive.InteractiveSession._handle_command_if_413
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 413
+  cli.commands.interactive.InteractiveSession._handle_command_loop_420:
+    id: cli.commands.interactive.InteractiveSession._handle_command_loop_420
+    type: FOR
+    label: for
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 420
+  cli.commands.interactive.InteractiveSession._handle_command_if_425:
+    id: cli.commands.interactive.InteractiveSession._handle_command_if_425
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 425
+  cli.commands.interactive.InteractiveSession._handle_command_loop_431:
+    id: cli.commands.interactive.InteractiveSession._handle_command_loop_431
+    type: FOR
+    label: for
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 431
+  cli.commands.interactive.InteractiveSession._handle_command_if_438:
+    id: cli.commands.interactive.InteractiveSession._handle_command_if_438
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 438
+  cli.commands.interactive.InteractiveSession._handle_command_if_439:
+    id: cli.commands.interactive.InteractiveSession._handle_command_if_439
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 439
+  cli.commands.interactive.InteractiveSession._handle_command_merge_439:
+    id: cli.commands.interactive.InteractiveSession._handle_command_merge_439
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_if_445:
+    id: cli.commands.interactive.InteractiveSession._handle_command_if_445
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._handle_command
+    line: 445
+  cli.commands.interactive.InteractiveSession._handle_command_merge_445:
+    id: cli.commands.interactive.InteractiveSession._handle_command_merge_445
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_merge_438:
+    id: cli.commands.interactive.InteractiveSession._handle_command_merge_438
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_merge_425:
+    id: cli.commands.interactive.InteractiveSession._handle_command_merge_425
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_merge_413:
+    id: cli.commands.interactive.InteractiveSession._handle_command_merge_413
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._handle_command_merge_400:
+    id: cli.commands.interactive.InteractiveSession._handle_command_merge_400
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._handle_command
+  cli.commands.interactive.InteractiveSession._correction_loop_entry:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_entry
+    type: ENTRY
+    label: entry
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_exit:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_exit
+    type: EXIT
+    label: exit
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_if_456:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_456
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 456
+  cli.commands.interactive.InteractiveSession._correction_loop_return_457:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_return_457
+    type: RETURN
+    label: return
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 457
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_456:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_456
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_if_459:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_459
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 459
+  cli.commands.interactive.InteractiveSession._correction_loop_if_462:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_462
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 462
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_462:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_462
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_loop_466:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_loop_466
+    type: FOR
+    label: for
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 466
+  cli.commands.interactive.InteractiveSession._correction_loop_if_468:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_468
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 468
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_468:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_468
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_if_472:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_472
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 472
+  cli.commands.interactive.InteractiveSession._correction_loop_return_474:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_return_474
+    type: RETURN
+    label: return
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 474
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_472:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_472
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_if_476:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_476
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 476
+  cli.commands.interactive.InteractiveSession._correction_loop_if_481:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_481
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 481
+  cli.commands.interactive.InteractiveSession._correction_loop_if_482:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_482
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 482
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_482:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_482
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_481:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_481
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_return_484:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_return_484
+    type: RETURN
+    label: return
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 484
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_476:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_476
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_if_486:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_486
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 486
+  cli.commands.interactive.InteractiveSession._correction_loop_if_488:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_488
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 488
+  cli.commands.interactive.InteractiveSession._correction_loop_loop_489:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_loop_489
+    type: FOR
+    label: for
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 489
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_488:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_488
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_486:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_486
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_459:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_459
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_if_493:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_493
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 493
+  cli.commands.interactive.InteractiveSession._correction_loop_if_496:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_496
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 496
+  cli.commands.interactive.InteractiveSession._correction_loop_if_507:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_if_507
+    type: IF
+    label: if
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+    line: 507
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_507:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_507
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_496:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_496
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop
+  cli.commands.interactive.InteractiveSession._correction_loop_merge_493:
+    id: cli.commands.interactive.InteractiveSession._correction_loop_merge_493
+    type: FUNC
+    label: merge
+    function: cli.commands.interactive.InteractiveSession._correction_loop

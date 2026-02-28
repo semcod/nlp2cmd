@@ -1,0 +1,328 @@
+module: cli.cache
+type: orphan_nodes
+count: 61
+nodes:
+  cli.cache._clear_path_entry:
+    id: cli.cache._clear_path_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache._clear_path
+  cli.cache._clear_path_exit:
+    id: cli.cache._clear_path_exit
+    type: EXIT
+    label: exit
+    function: cli.cache._clear_path
+  cli.cache.cache_group_entry:
+    id: cli.cache.cache_group_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.cache_group
+  cli.cache.cache_group_exit:
+    id: cli.cache.cache_group_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.cache_group
+  cli.cache.setup_cache_entry:
+    id: cli.cache.setup_cache_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.setup_cache
+  cli.cache.setup_cache_exit:
+    id: cli.cache.setup_cache_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.setup_cache
+  cli.cache.install_package_entry:
+    id: cli.cache.install_package_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.install_package
+  cli.cache.install_package_exit:
+    id: cli.cache.install_package_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.install_package
+  cli.cache.install_package_if_158:
+    id: cli.cache.install_package_if_158
+    type: IF
+    label: if
+    function: cli.cache.install_package
+    line: 158
+  cli.cache.install_package_merge_158:
+    id: cli.cache.install_package_merge_158
+    type: FUNC
+    label: merge
+    function: cli.cache.install_package
+  cli.cache.show_cache_info_entry:
+    id: cli.cache.show_cache_info_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.show_cache_info
+  cli.cache.show_cache_info_exit:
+    id: cli.cache.show_cache_info_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.show_cache_info
+  cli.cache.show_cache_info_if_206:
+    id: cli.cache.show_cache_info_if_206
+    type: IF
+    label: if
+    function: cli.cache.show_cache_info
+    line: 206
+  cli.cache.show_cache_info_loop_212:
+    id: cli.cache.show_cache_info_loop_212
+    type: FOR
+    label: for
+    function: cli.cache.show_cache_info
+    line: 212
+  cli.cache.show_cache_info_if_217:
+    id: cli.cache.show_cache_info_if_217
+    type: IF
+    label: if
+    function: cli.cache.show_cache_info
+    line: 217
+  cli.cache.show_cache_info_merge_217:
+    id: cli.cache.show_cache_info_merge_217
+    type: FUNC
+    label: merge
+    function: cli.cache.show_cache_info
+  cli.cache.show_cache_info_merge_206:
+    id: cli.cache.show_cache_info_merge_206
+    type: FUNC
+    label: merge
+    function: cli.cache.show_cache_info
+  cli.cache.check_cache_entry:
+    id: cli.cache.check_cache_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.check_cache
+  cli.cache.check_cache_exit:
+    id: cli.cache.check_cache_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.check_cache
+  cli.cache.check_cache_if_245:
+    id: cli.cache.check_cache_if_245
+    type: IF
+    label: if
+    function: cli.cache.check_cache
+    line: 245
+  cli.cache.check_cache_if_246:
+    id: cli.cache.check_cache_if_246
+    type: IF
+    label: if
+    function: cli.cache.check_cache
+    line: 246
+  cli.cache.check_cache_if_251:
+    id: cli.cache.check_cache_if_251
+    type: IF
+    label: if
+    function: cli.cache.check_cache
+    line: 251
+  cli.cache.check_cache_merge_251:
+    id: cli.cache.check_cache_merge_251
+    type: FUNC
+    label: merge
+    function: cli.cache.check_cache
+  cli.cache.check_cache_merge_246:
+    id: cli.cache.check_cache_merge_246
+    type: FUNC
+    label: merge
+    function: cli.cache.check_cache
+  cli.cache.check_cache_merge_245:
+    id: cli.cache.check_cache_merge_245
+    type: FUNC
+    label: merge
+    function: cli.cache.check_cache
+  cli.cache.clear_cache_entry:
+    id: cli.cache.clear_cache_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.clear_cache
+  cli.cache.clear_cache_exit:
+    id: cli.cache.clear_cache_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.clear_cache
+  cli.cache.clear_cache_if_290:
+    id: cli.cache.clear_cache_if_290
+    type: IF
+    label: if
+    function: cli.cache.clear_cache
+    line: 290
+  cli.cache.clear_cache_merge_290:
+    id: cli.cache.clear_cache_merge_290
+    type: FUNC
+    label: merge
+    function: cli.cache.clear_cache
+  cli.cache.full_clear_cache_entry:
+    id: cli.cache.full_clear_cache_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.full_clear_cache
+  cli.cache.full_clear_cache_exit:
+    id: cli.cache.full_clear_cache_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.full_clear_cache
+  cli.cache.full_clear_cache_loop_349:
+    id: cli.cache.full_clear_cache_loop_349
+    type: FOR
+    label: for
+    function: cli.cache.full_clear_cache
+    line: 349
+  cli.cache.full_clear_cache_if_350:
+    id: cli.cache.full_clear_cache_if_350
+    type: IF
+    label: if
+    function: cli.cache.full_clear_cache
+    line: 350
+  cli.cache.full_clear_cache_merge_350:
+    id: cli.cache.full_clear_cache_merge_350
+    type: FUNC
+    label: merge
+    function: cli.cache.full_clear_cache
+  cli.cache.full_clear_cache_if_354:
+    id: cli.cache.full_clear_cache_if_354
+    type: IF
+    label: if
+    function: cli.cache.full_clear_cache
+    line: 354
+  cli.cache.full_clear_cache_merge_354:
+    id: cli.cache.full_clear_cache_merge_354
+    type: FUNC
+    label: merge
+    function: cli.cache.full_clear_cache
+  cli.cache.auto_setup_entry:
+    id: cli.cache.auto_setup_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.auto_setup
+  cli.cache.auto_setup_exit:
+    id: cli.cache.auto_setup_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.auto_setup
+  cli.cache.auto_setup_if_381:
+    id: cli.cache.auto_setup_if_381
+    type: IF
+    label: if
+    function: cli.cache.auto_setup
+    line: 381
+  cli.cache.auto_setup_merge_381:
+    id: cli.cache.auto_setup_merge_381
+    type: FUNC
+    label: merge
+    function: cli.cache.auto_setup
+  cli.cache.auto_setup_if_386:
+    id: cli.cache.auto_setup_if_386
+    type: IF
+    label: if
+    function: cli.cache.auto_setup
+    line: 386
+  cli.cache.auto_setup_if_389:
+    id: cli.cache.auto_setup_if_389
+    type: IF
+    label: if
+    function: cli.cache.auto_setup
+    line: 389
+  cli.cache.auto_setup_merge_389:
+    id: cli.cache.auto_setup_merge_389
+    type: FUNC
+    label: merge
+    function: cli.cache.auto_setup
+  cli.cache.auto_setup_merge_386:
+    id: cli.cache.auto_setup_merge_386
+    type: FUNC
+    label: merge
+    function: cli.cache.auto_setup
+  cli.cache.group_entry:
+    id: cli.cache.group_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.group
+  cli.cache.group_exit:
+    id: cli.cache.group_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.group
+  cli.cache.group_return_21:
+    id: cli.cache.group_return_21
+    type: RETURN
+    label: return
+    function: cli.cache.group
+    line: 21
+  cli.cache.option_entry:
+    id: cli.cache.option_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.option
+  cli.cache.option_exit:
+    id: cli.cache.option_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.option
+  cli.cache.option_return_25:
+    id: cli.cache.option_return_25
+    type: RETURN
+    label: return
+    function: cli.cache.option
+    line: 25
+  cli.cache.argument_entry:
+    id: cli.cache.argument_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.argument
+  cli.cache.argument_exit:
+    id: cli.cache.argument_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.argument
+  cli.cache.argument_return_29:
+    id: cli.cache.argument_return_29
+    type: RETURN
+    label: return
+    function: cli.cache.argument
+    line: 29
+  cli.cache.confirm_entry:
+    id: cli.cache.confirm_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.confirm
+  cli.cache.confirm_exit:
+    id: cli.cache.confirm_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.confirm
+  cli.cache.confirm_return_35:
+    id: cli.cache.confirm_return_35
+    type: RETURN
+    label: return
+    function: cli.cache.confirm
+    line: 35
+  cli.cache.print_entry:
+    id: cli.cache.print_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.print
+  cli.cache.print_exit:
+    id: cli.cache.print_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.print
+  cli.cache.command_entry:
+    id: cli.cache.command_entry
+    type: ENTRY
+    label: entry
+    function: cli.cache.command
+  cli.cache.command_exit:
+    id: cli.cache.command_exit
+    type: EXIT
+    label: exit
+    function: cli.cache.command
+  cli.cache.command_return_17:
+    id: cli.cache.command_return_17
+    type: RETURN
+    label: return
+    function: cli.cache.command
+    line: 17

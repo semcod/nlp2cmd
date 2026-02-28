@@ -1,0 +1,160 @@
+module: schema_extraction.script_extractors.MakefileExtractor
+type: orphan_nodes
+count: 28
+nodes:
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_file_entry:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_file_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_file
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_file_exit:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_file_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_file
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_file_if_182:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_file_if_182
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_file
+    line: 182
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_file_merge_182:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_file_merge_182
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_file
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_file_return_186:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_file_return_186
+    type: RETURN
+    label: return
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_file
+    line: 186
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_entry:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_entry
+    type: ENTRY
+    label: entry
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_exit:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_exit
+    type: EXIT
+    label: exit
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_193:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_193
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 193
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_195:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_195
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 195
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_197:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_197
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 197
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_197:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_197
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_199:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_199
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 199
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_199:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_199
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_195:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_195
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_206:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_206
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 206
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_208:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_208
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 208
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_208:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_208
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_213:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_213
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 213
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_215:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_215
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 215
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_215:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_215
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_220:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_220
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 220
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_222:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_222
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 222
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_227:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_if_227
+    type: IF
+    label: if
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 227
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_227:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_227
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_232:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_232
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 232
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_241:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_loop_241
+    type: FOR
+    label: for
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 241
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_222:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_merge_222
+    type: FUNC
+    label: merge
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+  schema_extraction.script_extractors.MakefileExtractor.extract_from_source_return_270:
+    id: schema_extraction.script_extractors.MakefileExtractor.extract_from_source_return_270
+    type: RETURN
+    label: return
+    function: schema_extraction.script_extractors.MakefileExtractor.extract_from_source
+    line: 270

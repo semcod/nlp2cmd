@@ -1,0 +1,20 @@
+module: nlp.config.ServiceConfig
+type: orphan_nodes
+count: 3
+nodes:
+  nlp.config.ServiceConfig.to_planner_dict_entry:
+    id: nlp.config.ServiceConfig.to_planner_dict_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.ServiceConfig.to_planner_dict
+  nlp.config.ServiceConfig.to_planner_dict_exit:
+    id: nlp.config.ServiceConfig.to_planner_dict_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.ServiceConfig.to_planner_dict
+  nlp.config.ServiceConfig.to_planner_dict_return_50:
+    id: nlp.config.ServiceConfig.to_planner_dict_return_50
+    type: RETURN
+    label: return
+    function: nlp.config.ServiceConfig.to_planner_dict
+    line: 50

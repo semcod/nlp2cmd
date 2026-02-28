@@ -1,0 +1,45 @@
+module: registry.ActionHandler
+type: functions
+count: 3
+functions:
+  registry.ActionHandler.validate_params:
+    name: validate_params
+    qualified_name: registry.ActionHandler.validate_params
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 110
+    module: registry
+    class: ActionHandler
+    is_method: true
+    cfg_entry: registry.ActionHandler.validate_params_entry
+    calls:
+    - self.schema.get_required_params
+    - params.items
+    - self.schema.get_param
+    - errors.append
+    - self._validate_type
+    - len
+    - validator
+    - type
+  registry.ActionHandler._validate_type:
+    name: _validate_type
+    qualified_name: registry.ActionHandler._validate_type
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 168
+    module: registry
+    class: ActionHandler
+    is_method: true
+    cfg_entry: registry.ActionHandler._validate_type_entry
+    calls:
+    - type_map.get
+    - isinstance
+  registry.ActionHandler.execute:
+    name: execute
+    qualified_name: registry.ActionHandler.execute
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/registry/__init__.py
+    line: 190
+    module: registry
+    class: ActionHandler
+    is_method: true
+    cfg_entry: registry.ActionHandler.execute_entry
+    calls:
+    - NotImplementedError

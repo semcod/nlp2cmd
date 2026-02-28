@@ -1,0 +1,474 @@
+module: polish_support
+type: orphan_nodes
+count: 85
+nodes:
+  polish_support.get_polish_support_entry:
+    id: polish_support.get_polish_support_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.get_polish_support
+  polish_support.get_polish_support_exit:
+    id: polish_support.get_polish_support_exit
+    type: EXIT
+    label: exit
+    function: polish_support.get_polish_support
+  polish_support.get_polish_support_return_318:
+    id: polish_support.get_polish_support_return_318
+    type: RETURN
+    label: return
+    function: polish_support.get_polish_support
+    line: 318
+  polish_support.__init___entry:
+    id: polish_support.__init___entry
+    type: ENTRY
+    label: entry
+    function: polish_support.__init__
+  polish_support.__init___exit:
+    id: polish_support.__init___exit
+    type: EXIT
+    label: exit
+    function: polish_support.__init__
+  polish_support._load_patterns_entry:
+    id: polish_support._load_patterns_entry
+    type: ENTRY
+    label: entry
+    function: polish_support._load_patterns
+  polish_support._load_patterns_exit:
+    id: polish_support._load_patterns_exit
+    type: EXIT
+    label: exit
+    function: polish_support._load_patterns
+  polish_support.normalize_polish_text_entry:
+    id: polish_support.normalize_polish_text_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.normalize_polish_text
+  polish_support.normalize_polish_text_exit:
+    id: polish_support.normalize_polish_text_exit
+    type: EXIT
+    label: exit
+    function: polish_support.normalize_polish_text
+  polish_support.normalize_polish_text_loop_132:
+    id: polish_support.normalize_polish_text_loop_132
+    type: FOR
+    label: for
+    function: polish_support.normalize_polish_text
+    line: 132
+  polish_support.normalize_polish_text_return_135:
+    id: polish_support.normalize_polish_text_return_135
+    type: RETURN
+    label: return
+    function: polish_support.normalize_polish_text
+    line: 135
+  polish_support.normalize_stt_errors_entry:
+    id: polish_support.normalize_stt_errors_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_exit:
+    id: polish_support.normalize_stt_errors_exit
+    type: EXIT
+    label: exit
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_if_155:
+    id: polish_support.normalize_stt_errors_if_155
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 155
+  polish_support.normalize_stt_errors_loop_158:
+    id: polish_support.normalize_stt_errors_loop_158
+    type: FOR
+    label: for
+    function: polish_support.normalize_stt_errors
+    line: 158
+  polish_support.normalize_stt_errors_if_159:
+    id: polish_support.normalize_stt_errors_if_159
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 159
+  polish_support.normalize_stt_errors_return_161:
+    id: polish_support.normalize_stt_errors_return_161
+    type: RETURN
+    label: return
+    function: polish_support.normalize_stt_errors
+    line: 161
+  polish_support.normalize_stt_errors_merge_159:
+    id: polish_support.normalize_stt_errors_merge_159
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_return_162:
+    id: polish_support.normalize_stt_errors_return_162
+    type: RETURN
+    label: return
+    function: polish_support.normalize_stt_errors
+    line: 162
+  polish_support.normalize_stt_errors_merge_155:
+    id: polish_support.normalize_stt_errors_merge_155
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_loop_165:
+    id: polish_support.normalize_stt_errors_loop_165
+    type: FOR
+    label: for
+    function: polish_support.normalize_stt_errors
+    line: 165
+  polish_support.normalize_stt_errors_if_166:
+    id: polish_support.normalize_stt_errors_if_166
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 166
+  polish_support.normalize_stt_errors_return_168:
+    id: polish_support.normalize_stt_errors_return_168
+    type: RETURN
+    label: return
+    function: polish_support.normalize_stt_errors
+    line: 168
+  polish_support.normalize_stt_errors_merge_166:
+    id: polish_support.normalize_stt_errors_merge_166
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_if_171:
+    id: polish_support.normalize_stt_errors_if_171
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 171
+  polish_support.normalize_stt_errors_return_172:
+    id: polish_support.normalize_stt_errors_return_172
+    type: RETURN
+    label: return
+    function: polish_support.normalize_stt_errors
+    line: 172
+  polish_support.normalize_stt_errors_merge_171:
+    id: polish_support.normalize_stt_errors_merge_171
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_if_193:
+    id: polish_support.normalize_stt_errors_if_193
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 193
+  polish_support.normalize_stt_errors_if_197:
+    id: polish_support.normalize_stt_errors_if_197
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 197
+  polish_support.normalize_stt_errors_return_198:
+    id: polish_support.normalize_stt_errors_return_198
+    type: RETURN
+    label: return
+    function: polish_support.normalize_stt_errors
+    line: 198
+  polish_support.normalize_stt_errors_merge_197:
+    id: polish_support.normalize_stt_errors_merge_197
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_merge_193:
+    id: polish_support.normalize_stt_errors_merge_193
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_if_201:
+    id: polish_support.normalize_stt_errors_if_201
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 201
+  polish_support.normalize_stt_errors_loop_203:
+    id: polish_support.normalize_stt_errors_loop_203
+    type: FOR
+    label: for
+    function: polish_support.normalize_stt_errors
+    line: 203
+  polish_support.normalize_stt_errors_if_204:
+    id: polish_support.normalize_stt_errors_if_204
+    type: IF
+    label: if
+    function: polish_support.normalize_stt_errors
+    line: 204
+  polish_support.normalize_stt_errors_merge_204:
+    id: polish_support.normalize_stt_errors_merge_204
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_loop_208:
+    id: polish_support.normalize_stt_errors_loop_208
+    type: FOR
+    label: for
+    function: polish_support.normalize_stt_errors
+    line: 208
+  polish_support.normalize_stt_errors_merge_201:
+    id: polish_support.normalize_stt_errors_merge_201
+    type: FUNC
+    label: merge
+    function: polish_support.normalize_stt_errors
+  polish_support.normalize_stt_errors_return_219:
+    id: polish_support.normalize_stt_errors_return_219
+    type: RETURN
+    label: return
+    function: polish_support.normalize_stt_errors
+    line: 219
+  polish_support._find_best_phrase_match_entry:
+    id: polish_support._find_best_phrase_match_entry
+    type: ENTRY
+    label: entry
+    function: polish_support._find_best_phrase_match
+  polish_support._find_best_phrase_match_exit:
+    id: polish_support._find_best_phrase_match_exit
+    type: EXIT
+    label: exit
+    function: polish_support._find_best_phrase_match
+  polish_support._find_best_phrase_match_loop_227:
+    id: polish_support._find_best_phrase_match_loop_227
+    type: FOR
+    label: for
+    function: polish_support._find_best_phrase_match
+    line: 227
+  polish_support._find_best_phrase_match_if_230:
+    id: polish_support._find_best_phrase_match_if_230
+    type: IF
+    label: if
+    function: polish_support._find_best_phrase_match
+    line: 230
+  polish_support._find_best_phrase_match_merge_230:
+    id: polish_support._find_best_phrase_match_merge_230
+    type: FUNC
+    label: merge
+    function: polish_support._find_best_phrase_match
+  polish_support._find_best_phrase_match_return_234:
+    id: polish_support._find_best_phrase_match_return_234
+    type: RETURN
+    label: return
+    function: polish_support._find_best_phrase_match
+    line: 234
+  polish_support._similar_entry:
+    id: polish_support._similar_entry
+    type: ENTRY
+    label: entry
+    function: polish_support._similar
+  polish_support._similar_exit:
+    id: polish_support._similar_exit
+    type: EXIT
+    label: exit
+    function: polish_support._similar
+  polish_support._similar_if_239:
+    id: polish_support._similar_if_239
+    type: IF
+    label: if
+    function: polish_support._similar
+    line: 239
+  polish_support._similar_return_240:
+    id: polish_support._similar_return_240
+    type: RETURN
+    label: return
+    function: polish_support._similar
+    line: 240
+  polish_support._similar_merge_239:
+    id: polish_support._similar_merge_239
+    type: FUNC
+    label: merge
+    function: polish_support._similar
+  polish_support._similar_return_241:
+    id: polish_support._similar_return_241
+    type: RETURN
+    label: return
+    function: polish_support._similar
+    line: 241
+  polish_support.match_polish_patterns_entry:
+    id: polish_support.match_polish_patterns_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.match_polish_patterns
+  polish_support.match_polish_patterns_exit:
+    id: polish_support.match_polish_patterns_exit
+    type: EXIT
+    label: exit
+    function: polish_support.match_polish_patterns
+  polish_support.match_polish_patterns_if_245:
+    id: polish_support.match_polish_patterns_if_245
+    type: IF
+    label: if
+    function: polish_support.match_polish_patterns
+    line: 245
+  polish_support.match_polish_patterns_return_246:
+    id: polish_support.match_polish_patterns_return_246
+    type: RETURN
+    label: return
+    function: polish_support.match_polish_patterns
+    line: 246
+  polish_support.match_polish_patterns_merge_245:
+    id: polish_support.match_polish_patterns_merge_245
+    type: FUNC
+    label: merge
+    function: polish_support.match_polish_patterns
+  polish_support.match_polish_patterns_loop_251:
+    id: polish_support.match_polish_patterns_loop_251
+    type: FOR
+    label: for
+    function: polish_support.match_polish_patterns
+    line: 251
+  polish_support.match_polish_patterns_loop_252:
+    id: polish_support.match_polish_patterns_loop_252
+    type: FOR
+    label: for
+    function: polish_support.match_polish_patterns
+    line: 252
+  polish_support.match_polish_patterns_return_263:
+    id: polish_support.match_polish_patterns_return_263
+    type: RETURN
+    label: return
+    function: polish_support.match_polish_patterns
+    line: 263
+  polish_support.translate_polish_intent_entry:
+    id: polish_support.translate_polish_intent_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.translate_polish_intent
+  polish_support.translate_polish_intent_exit:
+    id: polish_support.translate_polish_intent_exit
+    type: EXIT
+    label: exit
+    function: polish_support.translate_polish_intent
+  polish_support.translate_polish_intent_loop_269:
+    id: polish_support.translate_polish_intent_loop_269
+    type: FOR
+    label: for
+    function: polish_support.translate_polish_intent
+    line: 269
+  polish_support.translate_polish_intent_if_270:
+    id: polish_support.translate_polish_intent_if_270
+    type: IF
+    label: if
+    function: polish_support.translate_polish_intent
+    line: 270
+  polish_support.translate_polish_intent_return_271:
+    id: polish_support.translate_polish_intent_return_271
+    type: RETURN
+    label: return
+    function: polish_support.translate_polish_intent
+    line: 271
+  polish_support.translate_polish_intent_merge_270:
+    id: polish_support.translate_polish_intent_merge_270
+    type: FUNC
+    label: merge
+    function: polish_support.translate_polish_intent
+  polish_support.translate_polish_intent_return_273:
+    id: polish_support.translate_polish_intent_return_273
+    type: RETURN
+    label: return
+    function: polish_support.translate_polish_intent
+    line: 273
+  polish_support.translate_polish_table_entry:
+    id: polish_support.translate_polish_table_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.translate_polish_table
+  polish_support.translate_polish_table_exit:
+    id: polish_support.translate_polish_table_exit
+    type: EXIT
+    label: exit
+    function: polish_support.translate_polish_table
+  polish_support.translate_polish_table_loop_279:
+    id: polish_support.translate_polish_table_loop_279
+    type: FOR
+    label: for
+    function: polish_support.translate_polish_table
+    line: 279
+  polish_support.translate_polish_table_return_286:
+    id: polish_support.translate_polish_table_return_286
+    type: RETURN
+    label: return
+    function: polish_support.translate_polish_table
+    line: 286
+  polish_support.get_domain_weight_entry:
+    id: polish_support.get_domain_weight_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.get_domain_weight
+  polish_support.get_domain_weight_exit:
+    id: polish_support.get_domain_weight_exit
+    type: EXIT
+    label: exit
+    function: polish_support.get_domain_weight
+  polish_support.get_domain_weight_return_290:
+    id: polish_support.get_domain_weight_return_290
+    type: RETURN
+    label: return
+    function: polish_support.get_domain_weight
+    line: 290
+  polish_support.enhance_domain_detection_entry:
+    id: polish_support.enhance_domain_detection_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.enhance_domain_detection
+  polish_support.enhance_domain_detection_exit:
+    id: polish_support.enhance_domain_detection_exit
+    type: EXIT
+    label: exit
+    function: polish_support.enhance_domain_detection
+  polish_support.enhance_domain_detection_if_297:
+    id: polish_support.enhance_domain_detection_if_297
+    type: IF
+    label: if
+    function: polish_support.enhance_domain_detection
+    line: 297
+  polish_support.enhance_domain_detection_return_299:
+    id: polish_support.enhance_domain_detection_return_299
+    type: RETURN
+    label: return
+    function: polish_support.enhance_domain_detection
+    line: 299
+  polish_support.enhance_domain_detection_merge_297:
+    id: polish_support.enhance_domain_detection_merge_297
+    type: FUNC
+    label: merge
+    function: polish_support.enhance_domain_detection
+  polish_support.enhance_domain_detection_return_301:
+    id: polish_support.enhance_domain_detection_return_301
+    type: RETURN
+    label: return
+    function: polish_support.enhance_domain_detection
+    line: 301
+  polish_support.enhance_intent_detection_entry:
+    id: polish_support.enhance_intent_detection_entry
+    type: ENTRY
+    label: entry
+    function: polish_support.enhance_intent_detection
+  polish_support.enhance_intent_detection_exit:
+    id: polish_support.enhance_intent_detection_exit
+    type: EXIT
+    label: exit
+    function: polish_support.enhance_intent_detection
+  polish_support.enhance_intent_detection_if_308:
+    id: polish_support.enhance_intent_detection_if_308
+    type: IF
+    label: if
+    function: polish_support.enhance_intent_detection
+    line: 308
+  polish_support.enhance_intent_detection_return_309:
+    id: polish_support.enhance_intent_detection_return_309
+    type: RETURN
+    label: return
+    function: polish_support.enhance_intent_detection
+    line: 309
+  polish_support.enhance_intent_detection_merge_308:
+    id: polish_support.enhance_intent_detection_merge_308
+    type: FUNC
+    label: merge
+    function: polish_support.enhance_intent_detection
+  polish_support.enhance_intent_detection_return_311:
+    id: polish_support.enhance_intent_detection_return_311
+    type: RETURN
+    label: return
+    function: polish_support.enhance_intent_detection
+    line: 311

@@ -1,0 +1,198 @@
+module: web_schema.form_handler
+type: functions
+count: 12
+functions:
+  web_schema.form_handler.get_display_name:
+    name: get_display_name
+    qualified_name: web_schema.form_handler.get_display_name
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 32
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.get_display_name_entry
+    calls:
+    - isinstance
+    - candidate.strip
+  web_schema.form_handler.__init__:
+    name: __init__
+    qualified_name: web_schema.form_handler.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 54
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.__init___entry
+    calls:
+    - Console
+  web_schema.form_handler._print:
+    name: _print
+    qualified_name: web_schema.form_handler._print
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 58
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler._print_entry
+    calls:
+    - cli.markdown_output.print_markdown_block
+    - self.console.print
+  web_schema.form_handler._print_yaml:
+    name: _print_yaml
+    qualified_name: web_schema.form_handler._print_yaml
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 66
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler._print_yaml_entry
+    calls:
+    - cli.helpers.print_yaml_block
+    - self.console.print
+    - None.rstrip
+    - yaml.safe_dump
+  web_schema.form_handler.detect_form_fields:
+    name: detect_form_fields
+    qualified_name: web_schema.form_handler.detect_form_fields
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 74
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.detect_form_fields_entry
+    calls:
+    - page.query_selector_all
+    - self._print_yaml
+    - fields.append
+    - el.evaluate
+    - FormField
+    - len
+    - inp.get_attribute
+    - web_schema.form_handler._add_field
+    - ta.get_attribute
+    - ce.get_attribute
+    - div.get_attribute
+    - sel.get_attribute
+    - sel.query_selector_all
+    - page.query_selector
+    - web_schema.form_handler._css_path
+    - f.query_selector_all
+    - None.strip
+    - options.append
+    - opt.inner_text
+    - label_elem.inner_text
+    - ce_class.replace
+    called_by:
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+  web_schema.form_handler.detect_submit_button:
+    name: detect_submit_button
+    qualified_name: web_schema.form_handler.detect_submit_button
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 444
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.detect_submit_button_entry
+    calls:
+    - loader.get_submit_selectors
+    - FormDataLoader
+    - page.query_selector
+  web_schema.form_handler.automatic_fill:
+    name: automatic_fill
+    qualified_name: web_schema.form_handler.automatic_fill
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 459
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.automatic_fill_entry
+    calls:
+    - FormData
+    - loader.get_skip_fields
+    - self._print
+    - FormDataLoader
+    - None.lower
+    - web_schema.form_handler._looks_like_honeypot_or_search
+    - loader.get_value_for_field
+    - self._print_yaml
+    - name.endswith
+    - filled_rows.append
+    - None.strip
+    - loader.get_env_value
+    - len
+    - consent_value.lower
+    - f.get_display_name
+  web_schema.form_handler.interactive_fill:
+    name: interactive_fill
+    qualified_name: web_schema.form_handler.interactive_fill
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 596
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.interactive_fill_entry
+    calls:
+    - self.console.print
+    - self._print_yaml
+    - FormData
+    - f.get_display_name
+    - None.strip
+    - len
+    - prefill.get
+    - self.console.input
+    - bool
+    - enumerate
+    - None.join
+  web_schema.form_handler.fill_form:
+    name: fill_form
+    qualified_name: web_schema.form_handler.fill_form
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 665
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler.fill_form_entry
+    calls:
+    - form_data.fields.items
+    - page.query_selector
+    - elem.evaluate
+    - page.wait_for_timeout
+    - self.console.print
+    - page.click
+    - elem.get_attribute
+    - elem.is_checked
+    - elem.select_option
+    - self._print_yaml
+    - elem.click
+    - elem.fill
+    - str
+    - elem.type
+    - elem.scroll_into_view_if_needed
+  web_schema.form_handler._css_path:
+    name: _css_path
+    qualified_name: web_schema.form_handler._css_path
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 86
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler._css_path_entry
+    calls:
+    - el.evaluate
+    called_by:
+    - web_schema.form_handler.FormHandler.detect_form_fields
+    - web_schema.form_handler.detect_form_fields
+    - web_schema.form_handler._add_field
+  web_schema.form_handler._add_field:
+    name: _add_field
+    qualified_name: web_schema.form_handler._add_field
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 120
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler._add_field_entry
+    calls:
+    - fields.append
+    - FormField
+    - page.query_selector
+    - web_schema.form_handler._css_path
+    - None.strip
+    - el.evaluate
+    - label_elem.inner_text
+    called_by:
+    - web_schema.form_handler.FormHandler.detect_form_fields
+    - web_schema.form_handler.detect_form_fields
+  web_schema.form_handler._looks_like_honeypot_or_search:
+    name: _looks_like_honeypot_or_search
+    qualified_name: web_schema.form_handler._looks_like_honeypot_or_search
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/web_schema/form_handler.py
+    line: 484
+    module: web_schema.form_handler
+    cfg_entry: web_schema.form_handler._looks_like_honeypot_or_search_entry
+    calls:
+    - None.lower
+    - name.endswith
+    - None.strip
+    called_by:
+    - web_schema.form_handler.FormHandler.automatic_fill
+    - web_schema.form_handler.automatic_fill

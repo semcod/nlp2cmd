@@ -1,0 +1,213 @@
+module: thermodynamic
+type: functions
+count: 19
+functions:
+  thermodynamic.energy:
+    name: energy
+    qualified_name: thermodynamic.energy
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 193
+    module: thermodynamic
+    cfg_entry: thermodynamic.energy_entry
+    calls:
+    - condition.get
+    - self.penalties.items
+    - penalty_fn
+  thermodynamic.gradient:
+    name: gradient
+    qualified_name: thermodynamic.gradient
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 202
+    module: thermodynamic
+    cfg_entry: thermodynamic.gradient_entry
+    calls:
+    - np.zeros_like
+    - condition.get
+    - self.penalties.items
+    - gradient_fn
+  thermodynamic.numerical_gradient:
+    name: numerical_gradient
+    qualified_name: thermodynamic.numerical_gradient
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 124
+    module: thermodynamic
+    cfg_entry: thermodynamic.numerical_gradient_entry
+    calls:
+    - np.zeros_like
+    - range
+    - len
+    - z.copy
+    - self.energy
+  thermodynamic.sample:
+    name: sample
+    qualified_name: thermodynamic.sample
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 236
+    module: thermodynamic
+    cfg_entry: thermodynamic.sample_entry
+    calls:
+    - self._sample_single
+    - range
+  thermodynamic._sample_single:
+    name: _sample_single
+    qualified_name: thermodynamic._sample_single
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 258
+    module: thermodynamic
+    cfg_entry: thermodynamic._sample_single_entry
+    calls:
+    - math.sqrt
+    - range
+    - self.energy.energy
+    - SamplerResult
+    - np.random.seed
+    - initial_state.copy
+    - np.random.randn
+    - self.energy.gradient
+    - z.copy
+    - np.dot
+    - trajectory.append
+    - np.array
+  thermodynamic.sample_parallel:
+    name: sample_parallel
+    qualified_name: thermodynamic.sample_parallel
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 330
+    module: thermodynamic
+    cfg_entry: thermodynamic.sample_parallel_entry
+    calls:
+    - ThreadPoolExecutor
+    - executor.submit
+    - f.result
+    - range
+    - as_completed
+  thermodynamic.vote:
+    name: vote
+    qualified_name: thermodynamic.vote
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 398
+    module: thermodynamic
+    cfg_entry: thermodynamic.vote_entry
+    calls:
+    - ValueError
+    - len
+    - min
+    - self._cluster_vote
+  thermodynamic._cluster_vote:
+    name: _cluster_vote
+    qualified_name: thermodynamic._cluster_vote
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 424
+    module: thermodynamic
+    cfg_entry: thermodynamic._cluster_vote_entry
+    calls:
+    - generation.thermodynamic_components._NumpyStub.max
+    - min
+    - np.mean
+    - np.linalg.norm
+    - clusters.append
+    - cluster.append
+  thermodynamic.route:
+    name: route
+    qualified_name: thermodynamic.route
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 486
+    module: thermodynamic
+    cfg_entry: thermodynamic.route_entry
+    calls:
+    - None.strip
+    - intent.lower
+  thermodynamic.estimate_complexity:
+    name: estimate_complexity
+    qualified_name: thermodynamic.estimate_complexity
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 513
+    module: thermodynamic
+    cfg_entry: thermodynamic.estimate_complexity_entry
+    calls:
+    - len
+    - min
+    - any
+    - entities.get
+    - problem_description.lower
+  thermodynamic.__getattr__:
+    name: __getattr__
+    qualified_name: thermodynamic.__getattr__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 24
+    module: thermodynamic
+    cfg_entry: thermodynamic.__getattr___entry
+    calls:
+    - ImportError
+  thermodynamic.array:
+    name: array
+    qualified_name: thermodynamic.array
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 28
+    module: thermodynamic
+    cfg_entry: thermodynamic.array_entry
+    calls:
+    - ImportError
+  thermodynamic.zeros_like:
+    name: zeros_like
+    qualified_name: thermodynamic.zeros_like
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 32
+    module: thermodynamic
+    cfg_entry: thermodynamic.zeros_like_entry
+    calls:
+    - ImportError
+  thermodynamic.sum:
+    name: sum
+    qualified_name: thermodynamic.sum
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 36
+    module: thermodynamic
+    cfg_entry: thermodynamic.sum_entry
+    calls:
+    - ImportError
+  thermodynamic.exp:
+    name: exp
+    qualified_name: thermodynamic.exp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 40
+    module: thermodynamic
+    cfg_entry: thermodynamic.exp_entry
+    calls:
+    - ImportError
+  thermodynamic.random:
+    name: random
+    qualified_name: thermodynamic.random
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 44
+    module: thermodynamic
+    cfg_entry: thermodynamic.random_entry
+    calls:
+    - ImportError
+  thermodynamic.sqrt:
+    name: sqrt
+    qualified_name: thermodynamic.sqrt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 48
+    module: thermodynamic
+    cfg_entry: thermodynamic.sqrt_entry
+    calls:
+    - ImportError
+  thermodynamic.mean:
+    name: mean
+    qualified_name: thermodynamic.mean
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 52
+    module: thermodynamic
+    cfg_entry: thermodynamic.mean_entry
+    calls:
+    - ImportError
+  thermodynamic.std:
+    name: std
+    qualified_name: thermodynamic.std
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/thermodynamic/__init__.py
+    line: 56
+    module: thermodynamic
+    cfg_entry: thermodynamic.std_entry
+    calls:
+    - ImportError

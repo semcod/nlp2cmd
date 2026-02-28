@@ -1,0 +1,225 @@
+module: llm.vision.VisionAnalyzer
+type: orphan_nodes
+count: 41
+nodes:
+  llm.vision.VisionAnalyzer.__init___entry:
+    id: llm.vision.VisionAnalyzer.__init___entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer.__init__
+  llm.vision.VisionAnalyzer.__init___exit:
+    id: llm.vision.VisionAnalyzer.__init___exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer.__init__
+  llm.vision.VisionAnalyzer._get_client_entry:
+    id: llm.vision.VisionAnalyzer._get_client_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer._get_client
+  llm.vision.VisionAnalyzer._get_client_exit:
+    id: llm.vision.VisionAnalyzer._get_client_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer._get_client
+  llm.vision.VisionAnalyzer._get_client_return_60:
+    id: llm.vision.VisionAnalyzer._get_client_return_60
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer._get_client
+    line: 60
+  llm.vision.VisionAnalyzer._encode_image_entry:
+    id: llm.vision.VisionAnalyzer._encode_image_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer._encode_image
+  llm.vision.VisionAnalyzer._encode_image_exit:
+    id: llm.vision.VisionAnalyzer._encode_image_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer._encode_image
+  llm.vision.VisionAnalyzer._encode_image_if_65:
+    id: llm.vision.VisionAnalyzer._encode_image_if_65
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer._encode_image
+    line: 65
+  llm.vision.VisionAnalyzer._encode_image_merge_65:
+    id: llm.vision.VisionAnalyzer._encode_image_merge_65
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer._encode_image
+  llm.vision.VisionAnalyzer._encode_image_if_67:
+    id: llm.vision.VisionAnalyzer._encode_image_if_67
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer._encode_image
+    line: 67
+  llm.vision.VisionAnalyzer._encode_image_merge_67:
+    id: llm.vision.VisionAnalyzer._encode_image_merge_67
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer._encode_image
+  llm.vision.VisionAnalyzer._encode_image_return_69:
+    id: llm.vision.VisionAnalyzer._encode_image_return_69
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer._encode_image
+    line: 69
+  llm.vision.VisionAnalyzer.describe_screenshot_entry:
+    id: llm.vision.VisionAnalyzer.describe_screenshot_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer.describe_screenshot
+  llm.vision.VisionAnalyzer.describe_screenshot_exit:
+    id: llm.vision.VisionAnalyzer.describe_screenshot_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer.describe_screenshot
+  llm.vision.VisionAnalyzer.describe_screenshot_if_90:
+    id: llm.vision.VisionAnalyzer.describe_screenshot_if_90
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.describe_screenshot
+    line: 90
+  llm.vision.VisionAnalyzer.describe_screenshot_merge_90:
+    id: llm.vision.VisionAnalyzer.describe_screenshot_merge_90
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.describe_screenshot
+  llm.vision.VisionAnalyzer.describe_screenshot_return_94:
+    id: llm.vision.VisionAnalyzer.describe_screenshot_return_94
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer.describe_screenshot
+    line: 94
+  llm.vision.VisionAnalyzer.find_ui_element_entry:
+    id: llm.vision.VisionAnalyzer.find_ui_element_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer.find_ui_element
+  llm.vision.VisionAnalyzer.find_ui_element_exit:
+    id: llm.vision.VisionAnalyzer.find_ui_element_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer.find_ui_element
+  llm.vision.VisionAnalyzer.find_ui_element_if_139:
+    id: llm.vision.VisionAnalyzer.find_ui_element_if_139
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.find_ui_element
+    line: 139
+  llm.vision.VisionAnalyzer.find_ui_element_merge_139:
+    id: llm.vision.VisionAnalyzer.find_ui_element_merge_139
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.find_ui_element
+  llm.vision.VisionAnalyzer.find_ui_element_return_149:
+    id: llm.vision.VisionAnalyzer.find_ui_element_return_149
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer.find_ui_element
+    line: 149
+  llm.vision.VisionAnalyzer.read_text_from_image_entry:
+    id: llm.vision.VisionAnalyzer.read_text_from_image_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer.read_text_from_image
+  llm.vision.VisionAnalyzer.read_text_from_image_exit:
+    id: llm.vision.VisionAnalyzer.read_text_from_image_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer.read_text_from_image
+  llm.vision.VisionAnalyzer.read_text_from_image_if_170:
+    id: llm.vision.VisionAnalyzer.read_text_from_image_if_170
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.read_text_from_image
+    line: 170
+  llm.vision.VisionAnalyzer.read_text_from_image_merge_170:
+    id: llm.vision.VisionAnalyzer.read_text_from_image_merge_170
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.read_text_from_image
+  llm.vision.VisionAnalyzer.read_text_from_image_return_174:
+    id: llm.vision.VisionAnalyzer.read_text_from_image_return_174
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer.read_text_from_image
+    line: 174
+  llm.vision.VisionAnalyzer.verify_drawing_entry:
+    id: llm.vision.VisionAnalyzer.verify_drawing_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer.verify_drawing
+  llm.vision.VisionAnalyzer.verify_drawing_exit:
+    id: llm.vision.VisionAnalyzer.verify_drawing_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer.verify_drawing
+  llm.vision.VisionAnalyzer.verify_drawing_if_218:
+    id: llm.vision.VisionAnalyzer.verify_drawing_if_218
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.verify_drawing
+    line: 218
+  llm.vision.VisionAnalyzer.verify_drawing_merge_218:
+    id: llm.vision.VisionAnalyzer.verify_drawing_merge_218
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.verify_drawing
+  llm.vision.VisionAnalyzer.verify_drawing_return_228:
+    id: llm.vision.VisionAnalyzer.verify_drawing_return_228
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer.verify_drawing
+    line: 228
+  llm.vision.VisionAnalyzer.analyze_captcha_entry:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_entry
+    type: ENTRY
+    label: entry
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+  llm.vision.VisionAnalyzer.analyze_captcha_exit:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_exit
+    type: EXIT
+    label: exit
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+  llm.vision.VisionAnalyzer.analyze_captcha_if_248:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_if_248
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+    line: 248
+  llm.vision.VisionAnalyzer.analyze_captcha_if_253:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_if_253
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+    line: 253
+  llm.vision.VisionAnalyzer.analyze_captcha_if_259:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_if_259
+    type: IF
+    label: if
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+    line: 259
+  llm.vision.VisionAnalyzer.analyze_captcha_merge_259:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_merge_259
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+  llm.vision.VisionAnalyzer.analyze_captcha_merge_253:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_merge_253
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+  llm.vision.VisionAnalyzer.analyze_captcha_merge_248:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_merge_248
+    type: FUNC
+    label: merge
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+  llm.vision.VisionAnalyzer.analyze_captcha_return_275:
+    id: llm.vision.VisionAnalyzer.analyze_captcha_return_275
+    type: RETURN
+    label: return
+    function: llm.vision.VisionAnalyzer.analyze_captcha
+    line: 275

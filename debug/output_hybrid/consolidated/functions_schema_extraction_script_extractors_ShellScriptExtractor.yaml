@@ -1,0 +1,61 @@
+module: schema_extraction.script_extractors.ShellScriptExtractor
+type: functions
+count: 2
+functions:
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file:
+    name: extract_from_file
+    qualified_name: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/script_extractors.py
+    line: 39
+    module: schema_extraction.script_extractors
+    class: ShellScriptExtractor
+    is_method: true
+    cfg_entry: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_file_entry
+    calls:
+    - Path
+    - file_path.read_text
+    - self.extract_from_source
+    - file_path.exists
+    - FileNotFoundError
+    - str
+  schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source:
+    name: extract_from_source
+    qualified_name: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/script_extractors.py
+    line: 47
+    module: schema_extraction.script_extractors
+    class: ShellScriptExtractor
+    is_method: true
+    cfg_entry: schema_extraction.script_extractors.ShellScriptExtractor.extract_from_source_entry
+    calls:
+    - source_code.splitlines
+    - None.join
+    - self._re_getopts.finditer
+    - executor.ExecutionContext.set
+    - self._re_long_opt_value.finditer
+    - sorted
+    - self._re_short_opt.finditer
+    - schema_extraction.script_extractors._dedupe_params
+    - CommandSchema
+    - ExtractedSchema
+    - None.strip
+    - line.strip
+    - s.startswith
+    - self._re_usage.search
+    - m.group
+    - long_opts_with_value.add
+    - params.append
+    - None.startswith
+    - usage_lines.append
+    - len
+    - self._re_long_opt.findall
+    - CommandParameter
+    - shlex.split
+    - Path
+    - description_lines.append
+    - u.split
+    - t.startswith
+    - t.endswith
+    - t.strip
+    - s.lstrip
+    - _shell_opt_to_param_name

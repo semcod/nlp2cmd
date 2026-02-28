@@ -1,0 +1,513 @@
+module: schemas
+type: functions
+count: 40
+functions:
+  schemas.validate:
+    name: validate
+    qualified_name: schemas.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 474
+    module: schemas
+    cfg_entry: schemas.validate_entry
+    calls:
+    - self.get
+    - schema.validator
+  schemas.parse:
+    name: parse
+    qualified_name: schemas.parse
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 45
+    module: schemas
+    cfg_entry: schemas.parse_entry
+    calls:
+    - self.parser
+  schemas.generate:
+    name: generate
+    qualified_name: schemas.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 51
+    module: schemas
+    cfg_entry: schemas.generate_entry
+    calls:
+    - self.generator
+    - str
+    - data.get
+  schemas.matches_extension:
+    name: matches_extension
+    qualified_name: schemas.matches_extension
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 57
+    module: schemas
+    cfg_entry: schemas.matches_extension_entry
+    calls:
+    - filename.lower
+    - pattern.lower
+    - fnmatch.fnmatch
+  schemas.self_validate:
+    name: self_validate
+    qualified_name: schemas.self_validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 72
+    module: schemas
+    cfg_entry: schemas.self_validate_entry
+    calls:
+    - errors.append
+    - len
+  schemas.__init__:
+    name: __init__
+    qualified_name: schemas.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 105
+    module: schemas
+    cfg_entry: schemas.__init___entry
+    calls:
+    - self._register_builtin_schemas
+  schemas._register_builtin_schemas:
+    name: _register_builtin_schemas
+    qualified_name: schemas._register_builtin_schemas
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 110
+    module: schemas
+    cfg_entry: schemas._register_builtin_schemas_entry
+    calls:
+    - FileFormatSchema
+    - yaml.safe_load
+    - yaml.dump
+    - json.dumps
+    - c.strip
+    - json.loads
+    - None.upper
+    - m.start
+    - m.group
+  schemas.register:
+    name: register
+    qualified_name: schemas.register
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 239
+    module: schemas
+    cfg_entry: schemas.register_entry
+    calls:
+    - isinstance
+    - str
+    - key.lower
+  schemas.get:
+    name: get
+    qualified_name: schemas.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 248
+    module: schemas
+    cfg_entry: schemas.get_entry
+    calls:
+    - self._schemas.get
+    - name.lower
+  schemas.has_schema:
+    name: has_schema
+    qualified_name: schemas.has_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 252
+    module: schemas
+    cfg_entry: schemas.has_schema_entry
+    calls:
+    - name.lower
+  schemas.list_schemas:
+    name: list_schemas
+    qualified_name: schemas.list_schemas
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 256
+    module: schemas
+    cfg_entry: schemas.list_schemas_entry
+    calls:
+    - list
+    - self._schemas.keys
+  schemas.unregister:
+    name: unregister
+    qualified_name: schemas.unregister
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 260
+    module: schemas
+    cfg_entry: schemas.unregister_entry
+    calls:
+    - name.lower
+    - ValueError
+  schemas.find_schema_for_file:
+    name: find_schema_for_file
+    qualified_name: schemas.find_schema_for_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 271
+    module: schemas
+    cfg_entry: schemas.find_schema_for_file_entry
+    calls:
+    - Path
+    - self.detect_format
+  schemas.find_schema_by_mime_type:
+    name: find_schema_by_mime_type
+    qualified_name: schemas.find_schema_by_mime_type
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 276
+    module: schemas
+    cfg_entry: schemas.find_schema_by_mime_type_entry
+    calls:
+    - self._schemas.values
+  schemas.find_extension_conflicts:
+    name: find_extension_conflicts
+    qualified_name: schemas.find_extension_conflicts
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 283
+    module: schemas
+    cfg_entry: schemas.find_extension_conflicts_entry
+    calls:
+    - self._schemas.items
+    - extension_map.items
+    - None.append
+    - len
+  schemas.validate_integrity:
+    name: validate_integrity
+    qualified_name: schemas.validate_integrity
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 300
+    module: schemas
+    cfg_entry: schemas.validate_integrity_entry
+    calls:
+    - self._schemas.items
+    - self.find_extension_conflicts
+    - isinstance
+    - ValueError
+  schemas.get_dependencies:
+    name: get_dependencies
+    qualified_name: schemas.get_dependencies
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 311
+    module: schemas
+    cfg_entry: schemas.get_dependencies_entry
+    calls:
+    - self.get
+    - list
+  schemas.get_version:
+    name: get_version
+    qualified_name: schemas.get_version
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 320
+    module: schemas
+    cfg_entry: schemas.get_version_entry
+    calls:
+    - self.get
+  schemas.export_schema:
+    name: export_schema
+    qualified_name: schemas.export_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 327
+    module: schemas
+    cfg_entry: schemas.export_schema_entry
+    calls:
+    - self.get
+    - KeyError
+    - list
+  schemas.import_schema:
+    name: import_schema
+    qualified_name: schemas.import_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 345
+    module: schemas
+    cfg_entry: schemas.import_schema_entry
+    calls:
+    - FileFormatSchema
+    - self.register
+    - str
+    - list
+    - int
+    - bool
+    - exported.get
+  schemas.load_from_file:
+    name: load_from_file
+    qualified_name: schemas.load_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 361
+    module: schemas
+    cfg_entry: schemas.load_from_file_entry
+    calls:
+    - Path
+    - FileFormatSchema
+    - self.register
+    - isinstance
+    - ValueError
+    - open
+    - json.load
+    - yaml.safe_load
+    - list
+    - str
+    - path.read_text
+    - d.get
+    - data.get
+  schemas.load_from_directory:
+    name: load_from_directory
+    qualified_name: schemas.load_from_directory
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 397
+    module: schemas
+    cfg_entry: schemas.load_from_directory_entry
+    calls:
+    - Path
+    - path.glob
+    - self.load_from_file
+    - str
+  schemas.detect_format:
+    name: detect_format
+    qualified_name: schemas.detect_format
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 425
+    module: schemas
+    cfg_entry: schemas.detect_format_entry
+    calls:
+    - str
+    - self._schemas.values
+    - self._detect_by_content
+    - generation.thermodynamic_components._NumpyStub.max
+    - self._match_pattern
+    - matching_schemas.append
+  schemas._match_pattern:
+    name: _match_pattern
+    qualified_name: schemas._match_pattern
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 448
+    module: schemas
+    cfg_entry: schemas._match_pattern_entry
+    calls:
+    - fnmatch.fnmatch
+    - text.lower
+    - pattern.lower
+  schemas._detect_by_content:
+    name: _detect_by_content
+    qualified_name: schemas._detect_by_content
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 454
+    module: schemas
+    cfg_entry: schemas._detect_by_content_entry
+    calls:
+    - None.startswith
+    - file_path.read_text
+    - self._schemas.get
+    - content.strip
+  schemas.repair:
+    name: repair
+    qualified_name: schemas.repair
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 482
+    module: schemas
+    cfg_entry: schemas.repair_entry
+    calls:
+    - self.get
+    - any
+    - self._apply_pattern_rule
+    - changes.extend
+    - self._apply_path_rule
+    - c.get
+  schemas._apply_pattern_rule:
+    name: _apply_pattern_rule
+    qualified_name: schemas._apply_pattern_rule
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 514
+    module: schemas
+    cfg_entry: schemas._apply_pattern_rule_entry
+    calls:
+    - list
+    - reversed
+    - re.finditer
+    - rule.get
+    - check_fn
+    - changes.append
+    - re.sub
+    - match.group
+    - match.start
+    - match.end
+  schemas._apply_path_rule:
+    name: _apply_path_rule
+    qualified_name: schemas._apply_path_rule
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 553
+    module: schemas
+    cfg_entry: schemas._apply_path_rule_entry
+    calls:
+    - schema.parser
+    - self._check_path
+    - path.split
+    - self._apply_path_fix
+    - schema.generator
+    - changes.extend
+    - changes.append
+    - str
+  schemas._check_path:
+    name: _check_path
+    qualified_name: schemas._check_path
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 581
+    module: schemas
+    cfg_entry: schemas._check_path_entry
+    calls:
+    - isinstance
+    - data.items
+    - issues.extend
+    - enumerate
+    - rule.get
+    - issues.append
+    - self._check_path
+    - check_fn
+  schemas._apply_path_fix:
+    name: _apply_path_fix
+    qualified_name: schemas._apply_path_fix
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 638
+    module: schemas
+    cfg_entry: schemas._apply_path_fix_entry
+    calls:
+    - isinstance
+    - self._apply_path_fix
+    - range
+    - len
+  schemas._validate_dockerfile:
+    name: _validate_dockerfile
+    qualified_name: schemas._validate_dockerfile
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 670
+    module: schemas
+    cfg_entry: schemas._validate_dockerfile_entry
+    calls:
+    - None.split
+    - enumerate
+    - line.strip
+    - line.startswith
+    - errors.append
+    - any
+    - all
+    - content.strip
+    - warnings.append
+    - len
+    - line.lower
+    - None.startswith
+    - None.strip
+  schemas._validate_docker_compose:
+    name: _validate_docker_compose
+    qualified_name: schemas._validate_docker_compose
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 722
+    module: schemas
+    cfg_entry: schemas._validate_docker_compose_entry
+    calls:
+    - data.get
+    - services.items
+    - yaml.safe_load
+    - isinstance
+    - errors.append
+    - warnings.append
+    - len
+  schemas._validate_k8s_deployment:
+    name: _validate_k8s_deployment
+    qualified_name: schemas._validate_k8s_deployment
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 756
+    module: schemas
+    cfg_entry: schemas._validate_k8s_deployment_entry
+    calls:
+    - data.get
+    - spec.get
+    - template.get
+    - template_spec.get
+    - enumerate
+    - yaml.safe_load
+    - warnings.append
+    - errors.append
+    - len
+  schemas._validate_github_workflow:
+    name: _validate_github_workflow
+    qualified_name: schemas._validate_github_workflow
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 795
+    module: schemas
+    cfg_entry: schemas._validate_github_workflow_entry
+    calls:
+    - None.items
+    - yaml.safe_load
+    - errors.append
+    - data.get
+    - len
+  schemas._validate_env_file:
+    name: _validate_env_file
+    qualified_name: schemas._validate_env_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 822
+    module: schemas
+    cfg_entry: schemas._validate_env_file_entry
+    calls:
+    - enumerate
+    - content.split
+    - line.strip
+    - line.partition
+    - line.startswith
+    - errors.append
+    - key.isupper
+    - warnings.append
+    - value.startswith
+    - len
+    - value.endswith
+  schemas._parse_dockerfile:
+    name: _parse_dockerfile
+    qualified_name: schemas._parse_dockerfile
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 850
+    module: schemas
+    cfg_entry: schemas._parse_dockerfile_entry
+    calls:
+    - content.split
+    - line.strip
+    - line.split
+    - line.startswith
+    - instructions.append
+    - len
+  schemas._generate_dockerfile:
+    name: _generate_dockerfile
+    qualified_name: schemas._generate_dockerfile
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 865
+    module: schemas
+    cfg_entry: schemas._generate_dockerfile_entry
+    calls:
+    - data.get
+    - None.join
+    - lines.append
+    - inst.get
+  schemas._parse_env_file:
+    name: _parse_env_file
+    qualified_name: schemas._parse_env_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 872
+    module: schemas
+    cfg_entry: schemas._parse_env_file_entry
+    calls:
+    - content.split
+    - line.strip
+    - line.startswith
+    - line.partition
+    - value.strip
+    - value.startswith
+    - value.endswith
+    - key.strip
+  schemas._generate_env_file:
+    name: _generate_env_file
+    qualified_name: schemas._generate_env_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 890
+    module: schemas
+    cfg_entry: schemas._generate_env_file_entry
+    calls:
+    - data.items
+    - None.join
+    - lines.append
+  schemas._validate_json:
+    name: _validate_json
+    qualified_name: schemas._validate_json
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schemas/__init__.py
+    line: 899
+    module: schemas
+    cfg_entry: schemas._validate_json_entry
+    calls:
+    - json.loads
+    - str

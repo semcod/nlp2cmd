@@ -1,0 +1,17 @@
+module: generation.llm_simple.MockLLMClient
+type: functions
+count: 1
+functions:
+  generation.llm_simple.MockLLMClient.complete:
+    name: complete
+    qualified_name: generation.llm_simple.MockLLMClient.complete
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/llm_simple.py
+    line: 389
+    module: generation.llm_simple
+    class: MockLLMClient
+    is_method: true
+    cfg_entry: generation.llm_simple.MockLLMClient.complete_entry
+    calls:
+    - self.responses.items
+    - user.lower
+    - key.lower

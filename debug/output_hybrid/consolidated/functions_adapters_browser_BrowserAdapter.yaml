@@ -1,0 +1,347 @@
+module: adapters.browser.BrowserAdapter
+type: functions
+count: 22
+functions:
+  adapters.browser.BrowserAdapter.__init__:
+    name: __init__
+    qualified_name: adapters.browser.BrowserAdapter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 52
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter.__init___entry
+    calls:
+    - None.__init__
+    - SiteExplorer
+    - super
+    - BrowserSafetyPolicy
+  adapters.browser.BrowserAdapter._extract_url:
+    name: _extract_url
+    qualified_name: adapters.browser.BrowserAdapter._extract_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 62
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._extract_url_entry
+    calls:
+    - None.strip
+    - re.search
+    - None.rstrip
+    - m.group
+    called_by:
+    - cli.helpers._fallback_open_url_from_query
+  adapters.browser.BrowserAdapter._extract_type_text:
+    name: _extract_type_text
+    qualified_name: adapters.browser.BrowserAdapter._extract_type_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 86
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._extract_type_text_entry
+    calls:
+    - None.get_type_text_patterns
+    - re.search
+    - FormDataLoader
+    - None.strip
+    - re.sub
+    - m.group
+    - extracted.rstrip
+  adapters.browser.BrowserAdapter._has_type_action:
+    name: _has_type_action
+    qualified_name: adapters.browser.BrowserAdapter._has_type_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 102
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_type_action_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._should_explore_for_content:
+    name: _should_explore_for_content
+    qualified_name: adapters.browser.BrowserAdapter._should_explore_for_content
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 109
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._should_explore_for_content_entry
+    calls:
+    - text.lower
+    - content_patterns.items
+    - any
+  adapters.browser.BrowserAdapter._should_explore_for_forms:
+    name: _should_explore_for_forms
+    qualified_name: adapters.browser.BrowserAdapter._should_explore_for_forms
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 134
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._should_explore_for_forms_entry
+    calls:
+    - text.lower
+    - any
+  adapters.browser.BrowserAdapter._has_fill_form_action:
+    name: _has_fill_form_action
+    qualified_name: adapters.browser.BrowserAdapter._has_fill_form_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 151
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_fill_form_action_entry
+    calls:
+    - None.lower
+    - None.get_nlp_keywords
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._has_press_enter:
+    name: _has_press_enter
+    qualified_name: adapters.browser.BrowserAdapter._has_press_enter
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 157
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_press_enter_entry
+    calls:
+    - None.lower
+    - None.get_nlp_keywords
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._has_form_action:
+    name: _has_form_action
+    qualified_name: adapters.browser.BrowserAdapter._has_form_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 163
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_form_action_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._has_submit_action:
+    name: _has_submit_action
+    qualified_name: adapters.browser.BrowserAdapter._has_submit_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 170
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_submit_action_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._has_extract_article_action:
+    name: _has_extract_article_action
+    qualified_name: adapters.browser.BrowserAdapter._has_extract_article_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 177
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_extract_article_action_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._is_plural_article_request:
+    name: _is_plural_article_request
+    qualified_name: adapters.browser.BrowserAdapter._is_plural_article_request
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 185
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._is_plural_article_request_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - any
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._extract_article_topic:
+    name: _extract_article_topic
+    qualified_name: adapters.browser.BrowserAdapter._extract_article_topic
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 192
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._extract_article_topic_entry
+    calls:
+    - None.get_article_topic_patterns
+    - re.search
+    - FormDataLoader
+    - None.strip
+    - m.group
+    - re.sub
+  adapters.browser.BrowserAdapter._has_extract_companies_action:
+    name: _has_extract_companies_action
+    qualified_name: adapters.browser.BrowserAdapter._has_extract_companies_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 205
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_extract_companies_action_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - bool
+    - pipeline_runner_utils._debug
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._has_save_to_file_action:
+    name: _has_save_to_file_action
+    qualified_name: adapters.browser.BrowserAdapter._has_save_to_file_action
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 215
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_save_to_file_action_entry
+    calls:
+    - None.get_nlp_keywords
+    - text.lower
+    - bool
+    - pipeline_runner_utils._debug
+    - FormDataLoader
+  adapters.browser.BrowserAdapter._extract_save_filename:
+    name: _extract_save_filename
+    qualified_name: adapters.browser.BrowserAdapter._extract_save_filename
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 225
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._extract_save_filename_entry
+    calls:
+    - None.get_save_filename_patterns
+    - re.search
+    - None.strip
+    - pipeline_runner_utils._debug
+    - FormDataLoader
+    - m.group
+  adapters.browser.BrowserAdapter._has_deep_website_extraction:
+    name: _has_deep_website_extraction
+    qualified_name: adapters.browser.BrowserAdapter._has_deep_website_extraction
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 243
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_deep_website_extraction_entry
+    calls:
+    - text.lower
+    - bool
+    - pipeline_runner_utils._debug
+  adapters.browser.BrowserAdapter._has_csv_format:
+    name: _has_csv_format
+    qualified_name: adapters.browser.BrowserAdapter._has_csv_format
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 262
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._has_csv_format_entry
+    calls:
+    - text.lower
+    - any
+  adapters.browser.BrowserAdapter._wants_clipboard:
+    name: _wants_clipboard
+    qualified_name: adapters.browser.BrowserAdapter._wants_clipboard
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 269
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._wants_clipboard_entry
+    calls:
+    - None.lower
+    - any
+  adapters.browser.BrowserAdapter._wants_print_terminal:
+    name: _wants_print_terminal
+    qualified_name: adapters.browser.BrowserAdapter._wants_print_terminal
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 285
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter._wants_print_terminal_entry
+    calls:
+    - None.lower
+    - any
+  adapters.browser.BrowserAdapter.generate:
+    name: generate
+    qualified_name: adapters.browser.BrowserAdapter.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 303
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter.generate_entry
+    calls:
+    - str
+    - pipeline_runner_utils._debug
+    - isinstance
+    - self._has_fill_form_action
+    - self._should_explore_for_forms
+    - self._should_explore_for_content
+    - self._has_type_action
+    - self._has_press_enter
+    - self._has_submit_action
+    - self._has_extract_article_action
+    - self._has_extract_companies_action
+    - self._has_deep_website_extraction
+    - self._has_save_to_file_action
+    - self._has_csv_format
+    - self._extract_save_filename
+    - self._extract_type_text
+    - ActionIR
+    - plan.get
+    - self._extract_url
+    - bool
+    - actions.append
+    - self._is_plural_article_request
+    - self._extract_article_topic
+    - self._wants_clipboard
+    - self._wants_print_terminal
+    - len
+    - entities.get
+    - u.strip
+    - urlparse
+    - json.dumps
+    - float
+    - None.netloc.replace
+    - params.get
+    - a.get
+    - _urlparse
+  adapters.browser.BrowserAdapter.validate_syntax:
+    name: validate_syntax
+    qualified_name: adapters.browser.BrowserAdapter.validate_syntax
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/browser.py
+    line: 519
+    module: adapters.browser
+    class: BrowserAdapter
+    is_method: true
+    cfg_entry: adapters.browser.BrowserAdapter.validate_syntax_entry
+    calls:
+    - payload.get
+    - isinstance
+    - json.loads
+    - enumerate
+    - str
+    - errors.append
+    - a.get

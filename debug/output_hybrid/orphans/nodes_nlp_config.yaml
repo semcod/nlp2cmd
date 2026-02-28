@@ -1,0 +1,326 @@
+module: nlp.config
+type: orphan_nodes
+count: 59
+nodes:
+  nlp.config.get_service_registry_entry:
+    id: nlp.config.get_service_registry_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.get_service_registry
+  nlp.config.get_service_registry_exit:
+    id: nlp.config.get_service_registry_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.get_service_registry
+  nlp.config.get_service_registry_if_216:
+    id: nlp.config.get_service_registry_if_216
+    type: IF
+    label: if
+    function: nlp.config.get_service_registry
+    line: 216
+  nlp.config.get_service_registry_merge_216:
+    id: nlp.config.get_service_registry_merge_216
+    type: FUNC
+    label: merge
+    function: nlp.config.get_service_registry
+  nlp.config.get_service_registry_return_218:
+    id: nlp.config.get_service_registry_return_218
+    type: RETURN
+    label: return
+    function: nlp.config.get_service_registry
+    line: 218
+  nlp.config.get_intent_registry_entry:
+    id: nlp.config.get_intent_registry_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.get_intent_registry
+  nlp.config.get_intent_registry_exit:
+    id: nlp.config.get_intent_registry_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.get_intent_registry
+  nlp.config.get_intent_registry_if_224:
+    id: nlp.config.get_intent_registry_if_224
+    type: IF
+    label: if
+    function: nlp.config.get_intent_registry
+    line: 224
+  nlp.config.get_intent_registry_merge_224:
+    id: nlp.config.get_intent_registry_merge_224
+    type: FUNC
+    label: merge
+    function: nlp.config.get_intent_registry
+  nlp.config.get_intent_registry_return_226:
+    id: nlp.config.get_intent_registry_return_226
+    type: RETURN
+    label: return
+    function: nlp.config.get_intent_registry
+    line: 226
+  nlp.config.to_planner_dict_entry:
+    id: nlp.config.to_planner_dict_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.to_planner_dict
+  nlp.config.to_planner_dict_exit:
+    id: nlp.config.to_planner_dict_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.to_planner_dict
+  nlp.config.to_planner_dict_return_50:
+    id: nlp.config.to_planner_dict_return_50
+    type: RETURN
+    label: return
+    function: nlp.config.to_planner_dict
+    line: 50
+  nlp.config.__init___entry:
+    id: nlp.config.__init___entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.__init__
+  nlp.config.__init___exit:
+    id: nlp.config.__init___exit
+    type: EXIT
+    label: exit
+    function: nlp.config.__init__
+  nlp.config.load_entry:
+    id: nlp.config.load_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.load
+  nlp.config.load_exit:
+    id: nlp.config.load_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.load
+  nlp.config.load_if_70:
+    id: nlp.config.load_if_70
+    type: IF
+    label: if
+    function: nlp.config.load
+    line: 70
+  nlp.config.load_return_72:
+    id: nlp.config.load_return_72
+    type: RETURN
+    label: return
+    function: nlp.config.load
+    line: 72
+  nlp.config.load_merge_70:
+    id: nlp.config.load_merge_70
+    type: FUNC
+    label: merge
+    function: nlp.config.load
+  nlp.config.load_loop_82:
+    id: nlp.config.load_loop_82
+    type: FOR
+    label: for
+    function: nlp.config.load
+    line: 82
+  nlp.config.get_entry:
+    id: nlp.config.get_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.get
+  nlp.config.get_exit:
+    id: nlp.config.get_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.get
+  nlp.config.get_return_98:
+    id: nlp.config.get_return_98
+    type: RETURN
+    label: return
+    function: nlp.config.get
+    line: 98
+  nlp.config.list_names_entry:
+    id: nlp.config.list_names_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.list_names
+  nlp.config.list_names_exit:
+    id: nlp.config.list_names_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.list_names
+  nlp.config.list_names_return_102:
+    id: nlp.config.list_names_return_102
+    type: RETURN
+    label: return
+    function: nlp.config.list_names
+    line: 102
+  nlp.config.as_planner_dict_entry:
+    id: nlp.config.as_planner_dict_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.as_planner_dict
+  nlp.config.as_planner_dict_exit:
+    id: nlp.config.as_planner_dict_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.as_planner_dict
+  nlp.config.as_planner_dict_return_106:
+    id: nlp.config.as_planner_dict_return_106
+    type: RETURN
+    label: return
+    function: nlp.config.as_planner_dict
+    line: 106
+  nlp.config.get_examples_entry:
+    id: nlp.config.get_examples_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.get_examples
+  nlp.config.get_examples_exit:
+    id: nlp.config.get_examples_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.get_examples
+  nlp.config.get_examples_return_133:
+    id: nlp.config.get_examples_return_133
+    type: RETURN
+    label: return
+    function: nlp.config.get_examples
+    line: 133
+  nlp.config.all_examples_entry:
+    id: nlp.config.all_examples_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.all_examples
+  nlp.config.all_examples_exit:
+    id: nlp.config.all_examples_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.all_examples
+  nlp.config.all_examples_loop_138:
+    id: nlp.config.all_examples_loop_138
+    type: FOR
+    label: for
+    function: nlp.config.all_examples
+    line: 138
+  nlp.config.all_examples_return_140:
+    id: nlp.config.all_examples_return_140
+    type: RETURN
+    label: return
+    function: nlp.config.all_examples
+    line: 140
+  nlp.config.load_if_154:
+    id: nlp.config.load_if_154
+    type: IF
+    label: if
+    function: nlp.config.load
+    line: 154
+  nlp.config.load_return_156:
+    id: nlp.config.load_return_156
+    type: RETURN
+    label: return
+    function: nlp.config.load
+    line: 156
+  nlp.config.load_merge_154:
+    id: nlp.config.load_merge_154
+    type: FUNC
+    label: merge
+    function: nlp.config.load
+  nlp.config.load_loop_165:
+    id: nlp.config.load_loop_165
+    type: FOR
+    label: for
+    function: nlp.config.load
+    line: 165
+  nlp.config.load_if_166:
+    id: nlp.config.load_if_166
+    type: IF
+    label: if
+    function: nlp.config.load
+    line: 166
+  nlp.config.load_merge_166:
+    id: nlp.config.load_merge_166
+    type: FUNC
+    label: merge
+    function: nlp.config.load
+  nlp.config.load_loop_169:
+    id: nlp.config.load_loop_169
+    type: FOR
+    label: for
+    function: nlp.config.load
+    line: 169
+  nlp.config.load_if_170:
+    id: nlp.config.load_if_170
+    type: IF
+    label: if
+    function: nlp.config.load
+    line: 170
+  nlp.config.load_merge_170:
+    id: nlp.config.load_merge_170
+    type: FUNC
+    label: merge
+    function: nlp.config.load
+  nlp.config.get_return_184:
+    id: nlp.config.get_return_184
+    type: RETURN
+    label: return
+    function: nlp.config.get
+    line: 184
+  nlp.config.get_domain_entry:
+    id: nlp.config.get_domain_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.get_domain
+  nlp.config.get_domain_exit:
+    id: nlp.config.get_domain_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.get_domain
+  nlp.config.get_domain_return_188:
+    id: nlp.config.get_domain_return_188
+    type: RETURN
+    label: return
+    function: nlp.config.get_domain
+    line: 188
+  nlp.config.list_domains_entry:
+    id: nlp.config.list_domains_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.list_domains
+  nlp.config.list_domains_exit:
+    id: nlp.config.list_domains_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.list_domains
+  nlp.config.list_domains_return_192:
+    id: nlp.config.list_domains_return_192
+    type: RETURN
+    label: return
+    function: nlp.config.list_domains
+    line: 192
+  nlp.config.all_examples_for_training_entry:
+    id: nlp.config.all_examples_for_training_entry
+    type: ENTRY
+    label: entry
+    function: nlp.config.all_examples_for_training
+  nlp.config.all_examples_for_training_exit:
+    id: nlp.config.all_examples_for_training_exit
+    type: EXIT
+    label: exit
+    function: nlp.config.all_examples_for_training
+  nlp.config.all_examples_for_training_loop_197:
+    id: nlp.config.all_examples_for_training_loop_197
+    type: FOR
+    label: for
+    function: nlp.config.all_examples_for_training
+    line: 197
+  nlp.config.all_examples_for_training_loop_198:
+    id: nlp.config.all_examples_for_training_loop_198
+    type: FOR
+    label: for
+    function: nlp.config.all_examples_for_training
+    line: 198
+  nlp.config.all_examples_for_training_loop_200:
+    id: nlp.config.all_examples_for_training_loop_200
+    type: FOR
+    label: for
+    function: nlp.config.all_examples_for_training
+    line: 200
+  nlp.config.all_examples_for_training_return_202:
+    id: nlp.config.all_examples_for_training_return_202
+    type: RETURN
+    label: return
+    function: nlp.config.all_examples_for_training
+    line: 202

@@ -1,0 +1,20 @@
+module: generation.validating.SimpleSQLValidator
+type: functions
+count: 1
+functions:
+  generation.validating.SimpleSQLValidator.validate:
+    name: validate
+    qualified_name: generation.validating.SimpleSQLValidator.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/validating.py
+    line: 165
+    module: generation.validating
+    class: SimpleSQLValidator
+    is_method: true
+    cfg_entry: generation.validating.SimpleSQLValidator.validate_entry
+    calls:
+    - command.upper
+    - ValidationResult
+    - command.count
+    - errors.append
+    - warnings.append
+    - len

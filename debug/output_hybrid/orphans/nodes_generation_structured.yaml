@@ -1,0 +1,193 @@
+module: generation.structured
+type: orphan_nodes
+count: 35
+nodes:
+  generation.structured.to_adapter_plan_entry:
+    id: generation.structured.to_adapter_plan_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.to_adapter_plan
+  generation.structured.to_adapter_plan_exit:
+    id: generation.structured.to_adapter_plan_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.to_adapter_plan
+  generation.structured.to_adapter_plan_return_78:
+    id: generation.structured.to_adapter_plan_return_78
+    type: RETURN
+    label: return
+    function: generation.structured.to_adapter_plan
+    line: 78
+  generation.structured.__init___entry:
+    id: generation.structured.__init___entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.__init__
+  generation.structured.__init___exit:
+    id: generation.structured.__init___exit
+    type: EXIT
+    label: exit
+    function: generation.structured.__init__
+  generation.structured.plan_entry:
+    id: generation.structured.plan_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.plan
+  generation.structured.plan_exit:
+    id: generation.structured.plan_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.plan
+  generation.structured._parse_response_entry:
+    id: generation.structured._parse_response_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured._parse_response
+  generation.structured._parse_response_exit:
+    id: generation.structured._parse_response_exit
+    type: EXIT
+    label: exit
+    function: generation.structured._parse_response
+  generation.structured._parse_response_if_214:
+    id: generation.structured._parse_response_if_214
+    type: IF
+    label: if
+    function: generation.structured._parse_response
+    line: 214
+  generation.structured._parse_response_merge_214:
+    id: generation.structured._parse_response_merge_214
+    type: FUNC
+    label: merge
+    function: generation.structured._parse_response
+  generation.structured._parse_response_if_223:
+    id: generation.structured._parse_response_if_223
+    type: IF
+    label: if
+    function: generation.structured._parse_response
+    line: 223
+  generation.structured._parse_response_merge_223:
+    id: generation.structured._parse_response_merge_223
+    type: FUNC
+    label: merge
+    function: generation.structured._parse_response
+  generation.structured._parse_response_if_225:
+    id: generation.structured._parse_response_if_225
+    type: IF
+    label: if
+    function: generation.structured._parse_response
+    line: 225
+  generation.structured._parse_response_merge_225:
+    id: generation.structured._parse_response_merge_225
+    type: FUNC
+    label: merge
+    function: generation.structured._parse_response
+  generation.structured._parse_response_return_228:
+    id: generation.structured._parse_response_return_228
+    type: RETURN
+    label: return
+    function: generation.structured._parse_response
+    line: 228
+  generation.structured.plan_with_retry_entry:
+    id: generation.structured.plan_with_retry_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.plan_with_retry
+  generation.structured.plan_with_retry_exit:
+    id: generation.structured.plan_with_retry_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.plan_with_retry
+  generation.structured.plan_with_retry_loop_245:
+    id: generation.structured.plan_with_retry_loop_245
+    type: FOR
+    label: for
+    function: generation.structured.plan_with_retry
+    line: 245
+  generation.structured.plan_with_retry_if_248:
+    id: generation.structured.plan_with_retry_if_248
+    type: IF
+    label: if
+    function: generation.structured.plan_with_retry
+    line: 248
+  generation.structured.plan_with_retry_return_250:
+    id: generation.structured.plan_with_retry_return_250
+    type: RETURN
+    label: return
+    function: generation.structured.plan_with_retry
+    line: 250
+  generation.structured.plan_with_retry_merge_248:
+    id: generation.structured.plan_with_retry_merge_248
+    type: FUNC
+    label: merge
+    function: generation.structured.plan_with_retry
+  generation.structured.plan_with_retry_return_254:
+    id: generation.structured.plan_with_retry_return_254
+    type: RETURN
+    label: return
+    function: generation.structured.plan_with_retry
+    line: 254
+  generation.structured.get_execution_order_entry:
+    id: generation.structured.get_execution_order_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.get_execution_order
+  generation.structured.get_execution_order_exit:
+    id: generation.structured.get_execution_order_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.get_execution_order
+  generation.structured.get_execution_order_loop_282:
+    id: generation.structured.get_execution_order_loop_282
+    type: FOR
+    label: for
+    function: generation.structured.get_execution_order
+    line: 282
+  generation.structured.get_execution_order_return_285:
+    id: generation.structured.get_execution_order_return_285
+    type: RETURN
+    label: return
+    function: generation.structured.get_execution_order
+    line: 285
+  generation.structured.decompose_entry:
+    id: generation.structured.decompose_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.decompose
+  generation.structured.decompose_exit:
+    id: generation.structured.decompose_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.decompose
+  generation.structured.visit_entry:
+    id: generation.structured.visit_entry
+    type: ENTRY
+    label: entry
+    function: generation.structured.visit
+  generation.structured.visit_exit:
+    id: generation.structured.visit_exit
+    type: EXIT
+    label: exit
+    function: generation.structured.visit
+  generation.structured.visit_if_275:
+    id: generation.structured.visit_if_275
+    type: IF
+    label: if
+    function: generation.structured.visit
+    line: 275
+  generation.structured.visit_return_276:
+    id: generation.structured.visit_return_276
+    type: RETURN
+    label: return
+    function: generation.structured.visit
+    line: 276
+  generation.structured.visit_merge_275:
+    id: generation.structured.visit_merge_275
+    type: FUNC
+    label: merge
+    function: generation.structured.visit
+  generation.structured.visit_loop_278:
+    id: generation.structured.visit_loop_278
+    type: FOR
+    label: for
+    function: generation.structured.visit
+    line: 278

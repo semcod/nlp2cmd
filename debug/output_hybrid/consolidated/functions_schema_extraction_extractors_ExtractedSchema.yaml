@@ -1,0 +1,25 @@
+module: schema_extraction.extractors.ExtractedSchema
+type: functions
+count: 1
+functions:
+  schema_extraction.extractors.ExtractedSchema.from_dict:
+    name: from_dict
+    qualified_name: schema_extraction.extractors.ExtractedSchema.from_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/schema_extraction/extractors.py
+    line: 95
+    module: schema_extraction.extractors
+    class: ExtractedSchema
+    is_method: true
+    cfg_entry: schema_extraction.extractors.ExtractedSchema.from_dict_entry
+    calls:
+    - data.get
+    - cls
+    - cmd_data.get
+    - CommandSchema
+    - commands.append
+    - CommandParameter
+    - parameters.append
+    - p_data.get
+    called_by:
+    - schema_extraction.registry.SchemaRegistry.load_cache
+    - schema_extraction.registry.load_cache

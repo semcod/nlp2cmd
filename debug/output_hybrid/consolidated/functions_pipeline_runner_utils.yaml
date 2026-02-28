@@ -1,0 +1,380 @@
+module: pipeline_runner_utils
+type: functions
+count: 19
+functions:
+  pipeline_runner_utils._debug:
+    name: _debug
+    qualified_name: pipeline_runner_utils._debug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 32
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._debug_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+    called_by:
+    - pipeline_runner_utils._with_epipe_retry
+    - pipeline_runner_desktop.DesktopExecutionMixin._execute_desktop_plan_step
+    - pipeline_runner_desktop._execute_desktop_plan_step
+    - automation.complex_planner.ComplexCommandPlanner.plan
+    - automation.complex_planner.ComplexCommandPlanner._llm_plan
+    - automation.complex_planner.plan
+    - automation.complex_planner._llm_plan
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+    - automation.captcha_solver.CaptchaSolver.detect_captcha
+    - automation.captcha_solver.CaptchaSolver.solve
+    - automation.captcha_solver.CaptchaSolver._solve_image_captcha
+    - automation.captcha_solver.CaptchaSolver._solve_recaptcha_v2
+    - automation.captcha_solver.CaptchaSolver._solve_tile_challenge
+    - automation.captcha_solver.CaptchaSolver._solve_hcaptcha
+    - automation.captcha_solver.CaptchaSolver._solve_slider_captcha
+    - automation.captcha_solver.CaptchaSolver._ask_llm_vision
+    - automation.captcha_solver.detect_captcha
+    - automation.captcha_solver.solve
+    - automation.captcha_solver._solve_image_captcha
+    - automation.captcha_solver._solve_recaptcha_v2
+    - automation.captcha_solver._solve_tile_challenge
+    - automation.captcha_solver._solve_hcaptcha
+    - automation.captcha_solver._solve_slider_captcha
+    - automation.captcha_solver._ask_llm_vision
+    - automation.env_extractor.EnvExtractor.extract_and_save
+    - automation.env_extractor.EnvExtractor._extract_key_from_page
+    - automation.env_extractor.EnvExtractor._llm_ocr_extract
+    - automation.env_extractor.EnvExtractor._save_to_env
+    - automation.env_extractor.extract_and_save
+    - automation.env_extractor._extract_key_from_page
+    - automation.env_extractor._llm_ocr_extract
+    - automation.env_extractor._save_to_env
+    - pipeline_runner_plans.PlanExecutionMixin._sanitize_replacement_steps
+    - pipeline_runner_plans.PlanExecutionMixin.execute_action_plan
+    - pipeline_runner_plans.PlanExecutionMixin._execute_plan_step
+    - pipeline_runner_plans.PlanExecutionMixin._do_verify_env
+    - pipeline_runner_plans._sanitize_replacement_steps
+    - pipeline_runner_plans.execute_action_plan
+    - pipeline_runner_plans._execute_plan_step
+    - pipeline_runner_plans._do_verify_env
+    - pipeline_runner_plans._copy_key_to_clipboard
+    - llm.vision.VisionAnalyzer.find_ui_element
+    - llm.vision.VisionAnalyzer.verify_drawing
+    - llm.vision.find_ui_element
+    - llm.vision.verify_drawing
+    - llm.openrouter.OpenRouterClient._request
+    - llm.openrouter._request
+    - llm.repair.LLMRepair.repair
+    - llm.repair.LLMRepair._call_openrouter
+    - llm.repair.LLMRepair._parse_and_apply
+    - llm.repair.LLMRepair._apply_patterns_patch
+    - llm.repair.LLMRepair._apply_templates_patch
+    - llm.repair.repair
+    - llm.repair._call_openrouter
+    - llm.repair._parse_and_apply
+    - llm.repair._apply_patterns_patch
+    - llm.repair._apply_templates_patch
+    - llm.repair._find_and_patch
+    - llm.validator.LLMValidator.validate
+    - llm.validator.LLMValidator._sanity_check_verdict
+    - llm.validator.LLMValidator._call_ollama
+    - llm.validator.LLMValidator._parse_response
+    - llm.validator.validate
+    - llm.validator._sanity_check_verdict
+    - llm.validator._call_ollama
+    - llm.validator._parse_response
+    - web_schema.site_explorer.SiteExplorer._setup_resource_blocking
+    - web_schema.site_explorer.SiteExplorer._resolve_platform_url
+    - web_schema.site_explorer.SiteExplorer._goto_with_retry
+    - web_schema.site_explorer.SiteExplorer._try_github_api
+    - web_schema.site_explorer.SiteExplorer._detect_docs_framework
+    - web_schema.site_explorer.SiteExplorer._record_timing
+    - web_schema.site_explorer.SiteExplorer._fallback_static_scrape
+    - web_schema.site_explorer.SiteExplorer.find_content
+    - web_schema.site_explorer.SiteExplorer.find_form
+    - web_schema.site_explorer.SiteExplorer._explore_recursive
+    - web_schema.site_explorer.SiteExplorer.find_content_twophase
+    - web_schema.site_explorer.SiteExplorer._explore_links_parallel
+    - web_schema.site_explorer._setup_resource_blocking
+    - web_schema.site_explorer._resolve_platform_url
+    - web_schema.site_explorer._goto_with_retry
+    - web_schema.site_explorer._try_github_api
+    - web_schema.site_explorer._detect_docs_framework
+    - web_schema.site_explorer._record_timing
+    - web_schema.site_explorer._fallback_static_scrape
+    - web_schema.site_explorer.find_content
+    - web_schema.site_explorer.find_form
+    - web_schema.site_explorer._explore_recursive
+    - web_schema.site_explorer.find_content_twophase
+    - web_schema.site_explorer._explore_links_parallel
+    - adapters.browser.BrowserAdapter._has_extract_companies_action
+    - adapters.browser.BrowserAdapter._has_save_to_file_action
+    - adapters.browser.BrowserAdapter._extract_save_filename
+    - adapters.browser.BrowserAdapter._has_deep_website_extraction
+    - adapters.browser.BrowserAdapter.generate
+    - adapters.browser._has_extract_companies_action
+    - adapters.browser._has_save_to_file_action
+    - adapters.browser._extract_save_filename
+    - adapters.browser._has_deep_website_extraction
+    - adapters.browser.generate
+    - adapters.desktop.DesktopAdapter.generate
+    - adapters.desktop.DesktopAdapter._build_actions
+    - adapters.desktop.generate
+    - adapters.desktop._build_actions
+    - adapters.canvas.CanvasAdapter.generate
+    - adapters.canvas.generate
+  pipeline_runner_utils._with_epipe_retry:
+    name: _with_epipe_retry
+    qualified_name: pipeline_runner_utils._with_epipe_retry
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 38
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._with_epipe_retry_entry
+    calls:
+    - range
+    - RuntimeError
+    - func
+    - None.lower
+    - min
+    - pipeline_runner_utils._debug
+    - time.sleep
+    - str
+  pipeline_runner_utils._field_attrs:
+    name: _field_attrs
+    qualified_name: pipeline_runner_utils._field_attrs
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 81
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._field_attrs_entry
+    calls:
+    - None.lower
+    - None.strip
+    - str
+    - getattr
+    called_by:
+    - pipeline_runner_utils._is_junk_field
+    - pipeline_runner_utils._is_contact_relevant_field
+    - pipeline_runner_utils._looks_like_comment_form
+    - pipeline_runner_utils._filter_form_fields
+  pipeline_runner_utils._is_junk_field:
+    name: _is_junk_field
+    qualified_name: pipeline_runner_utils._is_junk_field
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 98
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._is_junk_field_entry
+    calls:
+    - pipeline_runner_utils._field_attrs
+    - None.join
+    - fid.startswith
+    - name.startswith
+    called_by:
+    - pipeline_runner_utils._is_contact_relevant_field
+    - pipeline_runner_utils._filter_form_fields
+  pipeline_runner_utils._is_contact_relevant_field:
+    name: _is_contact_relevant_field
+    qualified_name: pipeline_runner_utils._is_contact_relevant_field
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 126
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._is_contact_relevant_field_entry
+    calls:
+    - pipeline_runner_utils._is_junk_field
+    - pipeline_runner_utils._field_attrs
+    - None.join
+    - any
+    called_by:
+    - pipeline_runner_utils._filter_form_fields
+  pipeline_runner_utils._looks_like_comment_form:
+    name: _looks_like_comment_form
+    qualified_name: pipeline_runner_utils._looks_like_comment_form
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 145
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._looks_like_comment_form_entry
+    calls:
+    - pipeline_runner_utils._field_attrs
+    - None.lower
+    - None.join
+    - None.strip
+    - str
+    - getattr
+    called_by:
+    - pipeline_runner_utils._filter_form_fields
+  pipeline_runner_utils._filter_form_fields:
+    name: _filter_form_fields
+    qualified_name: pipeline_runner_utils._filter_form_fields
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 159
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils._filter_form_fields_entry
+    calls:
+    - pipeline_runner_utils._looks_like_comment_form
+    - pipeline_runner_utils._is_contact_relevant_field
+    - any
+    - console_wrapper.print
+    - pipeline_runner_utils._is_junk_field
+    - pipeline_runner_utils._field_attrs
+    - None.rstrip
+    - relaxed.append
+    - yaml.safe_dump
+    - len
+    called_by:
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+  pipeline_runner_utils.get_timestamp:
+    name: get_timestamp
+    qualified_name: pipeline_runner_utils.get_timestamp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 334
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.get_timestamp_entry
+    calls:
+    - None.strftime
+    - datetime.now
+    called_by:
+    - pipeline_runner_utils.VideoRecorder.start_recording
+    - pipeline_runner_utils.start_recording
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+    - pipeline_runner_plans.PlanExecutionMixin.execute_action_plan
+    - pipeline_runner_plans.execute_action_plan
+    - execution.media_recorder.MediaRecorder.take_screenshot
+    - execution.media_recorder.take_screenshot
+  pipeline_runner_utils.ensure_dir:
+    name: ensure_dir
+    qualified_name: pipeline_runner_utils.ensure_dir
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 340
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.ensure_dir_entry
+    calls:
+    - path.mkdir
+    called_by:
+    - pipeline_runner_utils.take_screenshot
+    - pipeline_runner_utils.VideoRecorder.start_recording
+    - pipeline_runner_utils.start_recording
+    - execution.media_recorder.MediaRecorder.take_screenshot
+    - execution.media_recorder.take_screenshot
+  pipeline_runner_utils.ask_for_screenshot:
+    name: ask_for_screenshot
+    qualified_name: pipeline_runner_utils.ask_for_screenshot
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 346
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.ask_for_screenshot_entry
+    calls:
+    - None.lower
+    - None.strip
+    - console.input
+    called_by:
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+  pipeline_runner_utils.take_screenshot:
+    name: take_screenshot
+    qualified_name: pipeline_runner_utils.take_screenshot
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 372
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.take_screenshot_entry
+    calls:
+    - Path
+    - pipeline_runner_utils.ensure_dir
+    - page.screenshot
+    - str
+    - console.print
+    - filepath.resolve
+    called_by:
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+  pipeline_runner_utils.ask_for_video_recording:
+    name: ask_for_video_recording
+    qualified_name: pipeline_runner_utils.ask_for_video_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 467
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.ask_for_video_recording_entry
+    calls:
+    - None.lower
+    - None.strip
+    - console.input
+    called_by:
+    - pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
+    - pipeline_runner_browser._run_dom_multi_action
+    - pipeline_runner_plans.PlanExecutionMixin.execute_action_plan
+    - pipeline_runner_plans.execute_action_plan
+    - execution.media_recorder.MediaRecorder.should_record_interactive
+    - execution.media_recorder.should_record_interactive
+  pipeline_runner_utils.__init__:
+    name: __init__
+    qualified_name: pipeline_runner_utils.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 405
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.__init___entry
+    calls:
+    - Path
+  pipeline_runner_utils.print:
+    name: print
+    qualified_name: pipeline_runner_utils.print
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 234
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.print_entry
+    calls:
+    - self.print_markdown_block
+    - self.console.print
+  pipeline_runner_utils.capture:
+    name: capture
+    qualified_name: pipeline_runner_utils.capture
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 240
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.capture_entry
+    calls:
+    - _Capture
+    - wrapper.print_markdown_block
+    - None.join
+    - wrapper.console.print
+  pipeline_runner_utils.load_from_data:
+    name: load_from_data
+    qualified_name: pipeline_runner_utils.load_from_data
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 286
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.load_from_data_entry
+    calls:
+    - utils.data_files.find_data_file
+    - raw.get
+    - isinstance
+    - json.loads
+    - p.read_text
+    - x.strip
+  pipeline_runner_utils.start_recording:
+    name: start_recording
+    qualified_name: pipeline_runner_utils.start_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 416
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.start_recording_entry
+    calls:
+    - pipeline_runner_utils.get_timestamp
+    - str
+    - pipeline_runner_utils.ensure_dir
+  pipeline_runner_utils.stop_recording:
+    name: stop_recording
+    qualified_name: pipeline_runner_utils.stop_recording
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 439
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.stop_recording_entry
+    calls:
+    - str
+    - console.print
+  pipeline_runner_utils.__exit__:
+    name: __exit__
+    qualified_name: pipeline_runner_utils.__exit__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/pipeline_runner_utils.py
+    line: 249
+    module: pipeline_runner_utils
+    cfg_entry: pipeline_runner_utils.__exit___entry
+    calls:
+    - wrapper.print_markdown_block
+    - None.join
+    - wrapper.console.print

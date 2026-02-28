@@ -1,0 +1,136 @@
+module: generation.ml_intent_classifier.MLIntentClassifier
+type: functions
+count: 8
+functions:
+  generation.ml_intent_classifier.MLIntentClassifier.__init__:
+    name: __init__
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 83
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier.__init___entry
+    calls:
+    - model_path.exists
+    - self.load
+  generation.ml_intent_classifier.MLIntentClassifier._get_nlp:
+    name: _get_nlp
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier._get_nlp
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 94
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier._get_nlp_entry
+    calls:
+    - generation.ml_intent_classifier._check_spacy
+    - spacy.load
+  generation.ml_intent_classifier.MLIntentClassifier._normalize_text:
+    name: _normalize_text
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier._normalize_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 107
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier._normalize_text_entry
+    calls:
+    - None.strip
+    - unicodedata.normalize
+    - None.join
+    - self._get_nlp
+    - nlp
+    - text.lower
+    - unicodedata.combining
+  generation.ml_intent_classifier.MLIntentClassifier._extract_features:
+    name: _extract_features
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier._extract_features
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 123
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier._extract_features_entry
+    calls:
+    - self._normalize_text
+    - normalized.split
+    - text.lower
+    - len
+    - range
+  generation.ml_intent_classifier.MLIntentClassifier.train:
+    name: train
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier.train
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 140
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier.train_entry
+    calls:
+    - sorted
+    - Counter
+    - min
+    - Pipeline
+    - self.pipeline.fit
+    - generation.ml_intent_classifier._check_sklearn
+    - ImportError
+    - self._extract_features
+    - executor.ExecutionContext.set
+    - label_counts.values
+    - CalibratedClassifierCV
+    - LinearSVC
+    - self.save
+    - enumerate
+    - TfidfVectorizer
+  generation.ml_intent_classifier.MLIntentClassifier.predict:
+    name: predict
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier.predict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 205
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier.predict_entry
+    calls:
+    - self._extract_features
+    - hasattr
+    - IntentPrediction
+    - top_label.split
+    - self.pipeline.predict_proba
+    - probs.argsort
+    - alternatives.append
+    - self.pipeline.predict
+    - float
+    - label.split
+    - self.pipeline.decision_function
+    - min
+    - generation.thermodynamic_components._NumpyStub.max
+  generation.ml_intent_classifier.MLIntentClassifier.save:
+    name: save
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier.save
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 266
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier.save_entry
+    calls:
+    - Path
+    - path.parent.mkdir
+    - open
+    - pickle.dump
+  generation.ml_intent_classifier.MLIntentClassifier.load:
+    name: load
+    qualified_name: generation.ml_intent_classifier.MLIntentClassifier.load
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/ml_intent_classifier.py
+    line: 278
+    module: generation.ml_intent_classifier
+    class: MLIntentClassifier
+    is_method: true
+    cfg_entry: generation.ml_intent_classifier.MLIntentClassifier.load_entry
+    calls:
+    - Path
+    - path.exists
+    - open
+    - pickle.load

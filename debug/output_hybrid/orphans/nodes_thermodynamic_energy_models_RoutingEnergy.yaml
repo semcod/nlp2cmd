@@ -1,0 +1,114 @@
+module: thermodynamic.energy_models.RoutingEnergy
+type: orphan_nodes
+count: 20
+nodes:
+  thermodynamic.energy_models.RoutingEnergy.__init___entry:
+    id: thermodynamic.energy_models.RoutingEnergy.__init___entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.RoutingEnergy.__init__
+  thermodynamic.energy_models.RoutingEnergy.__init___exit:
+    id: thermodynamic.energy_models.RoutingEnergy.__init___exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.RoutingEnergy.__init__
+  thermodynamic.energy_models.RoutingEnergy.energy_entry:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+  thermodynamic.energy_models.RoutingEnergy.energy_exit:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+  thermodynamic.energy_models.RoutingEnergy.energy_loop_472:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_loop_472
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+    line: 472
+  thermodynamic.energy_models.RoutingEnergy.energy_loop_473:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_loop_473
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+    line: 473
+  thermodynamic.energy_models.RoutingEnergy.energy_loop_474:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_loop_474
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+    line: 474
+  thermodynamic.energy_models.RoutingEnergy.energy_loop_478:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_loop_478
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+    line: 478
+  thermodynamic.energy_models.RoutingEnergy.energy_loop_479:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_loop_479
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+    line: 479
+  thermodynamic.energy_models.RoutingEnergy.energy_return_496:
+    id: thermodynamic.energy_models.RoutingEnergy.energy_return_496
+    type: RETURN
+    label: return
+    function: thermodynamic.energy_models.RoutingEnergy.energy
+    line: 496
+  thermodynamic.energy_models.RoutingEnergy.gradient_entry:
+    id: thermodynamic.energy_models.RoutingEnergy.gradient_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.RoutingEnergy.gradient
+  thermodynamic.energy_models.RoutingEnergy.gradient_exit:
+    id: thermodynamic.energy_models.RoutingEnergy.gradient_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.RoutingEnergy.gradient
+  thermodynamic.energy_models.RoutingEnergy.gradient_loop_503:
+    id: thermodynamic.energy_models.RoutingEnergy.gradient_loop_503
+    type: FOR
+    label: for
+    function: thermodynamic.energy_models.RoutingEnergy.gradient
+    line: 503
+  thermodynamic.energy_models.RoutingEnergy.gradient_return_511:
+    id: thermodynamic.energy_models.RoutingEnergy.gradient_return_511
+    type: RETURN
+    label: return
+    function: thermodynamic.energy_models.RoutingEnergy.gradient
+    line: 511
+  thermodynamic.energy_models.RoutingEnergy._softmax_matrix_entry:
+    id: thermodynamic.energy_models.RoutingEnergy._softmax_matrix_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.RoutingEnergy._softmax_matrix
+  thermodynamic.energy_models.RoutingEnergy._softmax_matrix_exit:
+    id: thermodynamic.energy_models.RoutingEnergy._softmax_matrix_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.RoutingEnergy._softmax_matrix
+  thermodynamic.energy_models.RoutingEnergy._softmax_matrix_return_516:
+    id: thermodynamic.energy_models.RoutingEnergy._softmax_matrix_return_516
+    type: RETURN
+    label: return
+    function: thermodynamic.energy_models.RoutingEnergy._softmax_matrix
+    line: 516
+  thermodynamic.energy_models.RoutingEnergy.decode_route_entry:
+    id: thermodynamic.energy_models.RoutingEnergy.decode_route_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.energy_models.RoutingEnergy.decode_route
+  thermodynamic.energy_models.RoutingEnergy.decode_route_exit:
+    id: thermodynamic.energy_models.RoutingEnergy.decode_route_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.energy_models.RoutingEnergy.decode_route
+  thermodynamic.energy_models.RoutingEnergy.decode_route_return_560:
+    id: thermodynamic.energy_models.RoutingEnergy.decode_route_return_560
+    type: RETURN
+    label: return
+    function: thermodynamic.energy_models.RoutingEnergy.decode_route
+    line: 560

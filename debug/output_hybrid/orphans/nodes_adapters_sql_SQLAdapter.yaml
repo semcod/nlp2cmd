@@ -1,0 +1,819 @@
+module: adapters.sql.SQLAdapter
+type: orphan_nodes
+count: 147
+nodes:
+  adapters.sql.SQLAdapter.__init___entry:
+    id: adapters.sql.SQLAdapter.__init___entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter.__init__
+  adapters.sql.SQLAdapter.__init___exit:
+    id: adapters.sql.SQLAdapter.__init___exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter.__init__
+  adapters.sql.SQLAdapter.__init___if_115:
+    id: adapters.sql.SQLAdapter.__init___if_115
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.__init__
+    line: 115
+  adapters.sql.SQLAdapter.__init___merge_115:
+    id: adapters.sql.SQLAdapter.__init___merge_115
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.__init__
+  adapters.sql.SQLAdapter._parse_schema_context_entry:
+    id: adapters.sql.SQLAdapter._parse_schema_context_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._parse_schema_context
+  adapters.sql.SQLAdapter._parse_schema_context_exit:
+    id: adapters.sql.SQLAdapter._parse_schema_context_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._parse_schema_context
+  adapters.sql.SQLAdapter._parse_schema_context_return_123:
+    id: adapters.sql.SQLAdapter._parse_schema_context_return_123
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._parse_schema_context
+    line: 123
+  adapters.sql.SQLAdapter.generate_entry:
+    id: adapters.sql.SQLAdapter.generate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter.generate
+  adapters.sql.SQLAdapter.generate_exit:
+    id: adapters.sql.SQLAdapter.generate_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter.generate
+  adapters.sql.SQLAdapter.generate_return_147:
+    id: adapters.sql.SQLAdapter.generate_return_147
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.generate
+    line: 147
+  adapters.sql.SQLAdapter._generate_select_entry:
+    id: adapters.sql.SQLAdapter._generate_select_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_exit:
+    id: adapters.sql.SQLAdapter._generate_select_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_if_159:
+    id: adapters.sql.SQLAdapter._generate_select_if_159
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 159
+  adapters.sql.SQLAdapter._generate_select_merge_159:
+    id: adapters.sql.SQLAdapter._generate_select_merge_159
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_loop_168:
+    id: adapters.sql.SQLAdapter._generate_select_loop_168
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 168
+  adapters.sql.SQLAdapter._generate_select_if_175:
+    id: adapters.sql.SQLAdapter._generate_select_if_175
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 175
+  adapters.sql.SQLAdapter._generate_select_loop_177:
+    id: adapters.sql.SQLAdapter._generate_select_loop_177
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 177
+  adapters.sql.SQLAdapter._generate_select_merge_175:
+    id: adapters.sql.SQLAdapter._generate_select_merge_175
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_if_185:
+    id: adapters.sql.SQLAdapter._generate_select_if_185
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 185
+  adapters.sql.SQLAdapter._generate_select_loop_187:
+    id: adapters.sql.SQLAdapter._generate_select_loop_187
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 187
+  adapters.sql.SQLAdapter._generate_select_if_188:
+    id: adapters.sql.SQLAdapter._generate_select_if_188
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 188
+  adapters.sql.SQLAdapter._generate_select_merge_188:
+    id: adapters.sql.SQLAdapter._generate_select_merge_188
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_merge_185:
+    id: adapters.sql.SQLAdapter._generate_select_merge_185
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_if_195:
+    id: adapters.sql.SQLAdapter._generate_select_if_195
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 195
+  adapters.sql.SQLAdapter._generate_select_merge_195:
+    id: adapters.sql.SQLAdapter._generate_select_merge_195
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_select
+  adapters.sql.SQLAdapter._generate_select_return_198:
+    id: adapters.sql.SQLAdapter._generate_select_return_198
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._generate_select
+    line: 198
+  adapters.sql.SQLAdapter._generate_insert_entry:
+    id: adapters.sql.SQLAdapter._generate_insert_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._generate_insert
+  adapters.sql.SQLAdapter._generate_insert_exit:
+    id: adapters.sql.SQLAdapter._generate_insert_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._generate_insert
+  adapters.sql.SQLAdapter._generate_insert_if_205:
+    id: adapters.sql.SQLAdapter._generate_insert_if_205
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_insert
+    line: 205
+  adapters.sql.SQLAdapter._generate_insert_return_206:
+    id: adapters.sql.SQLAdapter._generate_insert_return_206
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._generate_insert
+    line: 206
+  adapters.sql.SQLAdapter._generate_insert_merge_205:
+    id: adapters.sql.SQLAdapter._generate_insert_merge_205
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_insert
+  adapters.sql.SQLAdapter._generate_insert_return_211:
+    id: adapters.sql.SQLAdapter._generate_insert_return_211
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._generate_insert
+    line: 211
+  adapters.sql.SQLAdapter._generate_update_entry:
+    id: adapters.sql.SQLAdapter._generate_update_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._generate_update
+  adapters.sql.SQLAdapter._generate_update_exit:
+    id: adapters.sql.SQLAdapter._generate_update_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._generate_update
+  adapters.sql.SQLAdapter._generate_update_if_222:
+    id: adapters.sql.SQLAdapter._generate_update_if_222
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_update
+    line: 222
+  adapters.sql.SQLAdapter._generate_update_merge_222:
+    id: adapters.sql.SQLAdapter._generate_update_merge_222
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_update
+  adapters.sql.SQLAdapter._generate_update_if_228:
+    id: adapters.sql.SQLAdapter._generate_update_if_228
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_update
+    line: 228
+  adapters.sql.SQLAdapter._generate_update_loop_230:
+    id: adapters.sql.SQLAdapter._generate_update_loop_230
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_update
+    line: 230
+  adapters.sql.SQLAdapter._generate_update_merge_228:
+    id: adapters.sql.SQLAdapter._generate_update_merge_228
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_update
+  adapters.sql.SQLAdapter._generate_update_return_237:
+    id: adapters.sql.SQLAdapter._generate_update_return_237
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._generate_update
+    line: 237
+  adapters.sql.SQLAdapter._generate_delete_entry:
+    id: adapters.sql.SQLAdapter._generate_delete_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._generate_delete
+  adapters.sql.SQLAdapter._generate_delete_exit:
+    id: adapters.sql.SQLAdapter._generate_delete_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._generate_delete
+  adapters.sql.SQLAdapter._generate_delete_if_246:
+    id: adapters.sql.SQLAdapter._generate_delete_if_246
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_delete
+    line: 246
+  adapters.sql.SQLAdapter._generate_delete_loop_248:
+    id: adapters.sql.SQLAdapter._generate_delete_loop_248
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_delete
+    line: 248
+  adapters.sql.SQLAdapter._generate_delete_merge_246:
+    id: adapters.sql.SQLAdapter._generate_delete_merge_246
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_delete
+  adapters.sql.SQLAdapter._generate_delete_return_255:
+    id: adapters.sql.SQLAdapter._generate_delete_return_255
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._generate_delete
+    line: 255
+  adapters.sql.SQLAdapter._generate_aggregate_entry:
+    id: adapters.sql.SQLAdapter._generate_aggregate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_exit:
+    id: adapters.sql.SQLAdapter._generate_aggregate_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_loop_270:
+    id: adapters.sql.SQLAdapter._generate_aggregate_loop_270
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 270
+  adapters.sql.SQLAdapter._generate_aggregate_loop_274:
+    id: adapters.sql.SQLAdapter._generate_aggregate_loop_274
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 274
+  adapters.sql.SQLAdapter._generate_aggregate_if_280:
+    id: adapters.sql.SQLAdapter._generate_aggregate_if_280
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 280
+  adapters.sql.SQLAdapter._generate_aggregate_merge_280:
+    id: adapters.sql.SQLAdapter._generate_aggregate_merge_280
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_loop_286:
+    id: adapters.sql.SQLAdapter._generate_aggregate_loop_286
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 286
+  adapters.sql.SQLAdapter._generate_aggregate_if_293:
+    id: adapters.sql.SQLAdapter._generate_aggregate_if_293
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 293
+  adapters.sql.SQLAdapter._generate_aggregate_loop_295:
+    id: adapters.sql.SQLAdapter._generate_aggregate_loop_295
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 295
+  adapters.sql.SQLAdapter._generate_aggregate_merge_293:
+    id: adapters.sql.SQLAdapter._generate_aggregate_merge_293
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_if_303:
+    id: adapters.sql.SQLAdapter._generate_aggregate_if_303
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 303
+  adapters.sql.SQLAdapter._generate_aggregate_merge_303:
+    id: adapters.sql.SQLAdapter._generate_aggregate_merge_303
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_if_307:
+    id: adapters.sql.SQLAdapter._generate_aggregate_if_307
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 307
+  adapters.sql.SQLAdapter._generate_aggregate_loop_309:
+    id: adapters.sql.SQLAdapter._generate_aggregate_loop_309
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 309
+  adapters.sql.SQLAdapter._generate_aggregate_if_310:
+    id: adapters.sql.SQLAdapter._generate_aggregate_if_310
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 310
+  adapters.sql.SQLAdapter._generate_aggregate_merge_310:
+    id: adapters.sql.SQLAdapter._generate_aggregate_merge_310
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_merge_307:
+    id: adapters.sql.SQLAdapter._generate_aggregate_merge_307
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._generate_aggregate
+  adapters.sql.SQLAdapter._generate_aggregate_return_316:
+    id: adapters.sql.SQLAdapter._generate_aggregate_return_316
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._generate_aggregate
+    line: 316
+  adapters.sql.SQLAdapter._format_value_entry:
+    id: adapters.sql.SQLAdapter._format_value_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_exit:
+    id: adapters.sql.SQLAdapter._format_value_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_if_320:
+    id: adapters.sql.SQLAdapter._format_value_if_320
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._format_value
+    line: 320
+  adapters.sql.SQLAdapter._format_value_return_321:
+    id: adapters.sql.SQLAdapter._format_value_return_321
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 321
+  adapters.sql.SQLAdapter._format_value_merge_320:
+    id: adapters.sql.SQLAdapter._format_value_merge_320
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_if_322:
+    id: adapters.sql.SQLAdapter._format_value_if_322
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._format_value
+    line: 322
+  adapters.sql.SQLAdapter._format_value_return_323:
+    id: adapters.sql.SQLAdapter._format_value_return_323
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 323
+  adapters.sql.SQLAdapter._format_value_merge_322:
+    id: adapters.sql.SQLAdapter._format_value_merge_322
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_if_324:
+    id: adapters.sql.SQLAdapter._format_value_if_324
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._format_value
+    line: 324
+  adapters.sql.SQLAdapter._format_value_return_325:
+    id: adapters.sql.SQLAdapter._format_value_return_325
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 325
+  adapters.sql.SQLAdapter._format_value_merge_324:
+    id: adapters.sql.SQLAdapter._format_value_merge_324
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_if_326:
+    id: adapters.sql.SQLAdapter._format_value_if_326
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._format_value
+    line: 326
+  adapters.sql.SQLAdapter._format_value_if_328:
+    id: adapters.sql.SQLAdapter._format_value_if_328
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._format_value
+    line: 328
+  adapters.sql.SQLAdapter._format_value_return_329:
+    id: adapters.sql.SQLAdapter._format_value_return_329
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 329
+  adapters.sql.SQLAdapter._format_value_merge_328:
+    id: adapters.sql.SQLAdapter._format_value_merge_328
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_if_330:
+    id: adapters.sql.SQLAdapter._format_value_if_330
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._format_value
+    line: 330
+  adapters.sql.SQLAdapter._format_value_return_331:
+    id: adapters.sql.SQLAdapter._format_value_return_331
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 331
+  adapters.sql.SQLAdapter._format_value_merge_330:
+    id: adapters.sql.SQLAdapter._format_value_merge_330
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_return_334:
+    id: adapters.sql.SQLAdapter._format_value_return_334
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 334
+  adapters.sql.SQLAdapter._format_value_merge_326:
+    id: adapters.sql.SQLAdapter._format_value_merge_326
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._format_value
+  adapters.sql.SQLAdapter._format_value_return_335:
+    id: adapters.sql.SQLAdapter._format_value_return_335
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._format_value
+    line: 335
+  adapters.sql.SQLAdapter._interval_expr_entry:
+    id: adapters.sql.SQLAdapter._interval_expr_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._interval_expr
+  adapters.sql.SQLAdapter._interval_expr_exit:
+    id: adapters.sql.SQLAdapter._interval_expr_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._interval_expr
+  adapters.sql.SQLAdapter._interval_expr_if_339:
+    id: adapters.sql.SQLAdapter._interval_expr_if_339
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 339
+  adapters.sql.SQLAdapter._interval_expr_return_340:
+    id: adapters.sql.SQLAdapter._interval_expr_return_340
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 340
+  adapters.sql.SQLAdapter._interval_expr_if_341:
+    id: adapters.sql.SQLAdapter._interval_expr_if_341
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 341
+  adapters.sql.SQLAdapter._interval_expr_return_342:
+    id: adapters.sql.SQLAdapter._interval_expr_return_342
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 342
+  adapters.sql.SQLAdapter._interval_expr_if_343:
+    id: adapters.sql.SQLAdapter._interval_expr_if_343
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 343
+  adapters.sql.SQLAdapter._interval_expr_return_344:
+    id: adapters.sql.SQLAdapter._interval_expr_return_344
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 344
+  adapters.sql.SQLAdapter._interval_expr_return_346:
+    id: adapters.sql.SQLAdapter._interval_expr_return_346
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._interval_expr
+    line: 346
+  adapters.sql.SQLAdapter._interval_expr_merge_343:
+    id: adapters.sql.SQLAdapter._interval_expr_merge_343
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._interval_expr
+  adapters.sql.SQLAdapter._interval_expr_merge_341:
+    id: adapters.sql.SQLAdapter._interval_expr_merge_341
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._interval_expr
+  adapters.sql.SQLAdapter._interval_expr_merge_339:
+    id: adapters.sql.SQLAdapter._interval_expr_merge_339
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._interval_expr
+  adapters.sql.SQLAdapter._year_start_expr_entry:
+    id: adapters.sql.SQLAdapter._year_start_expr_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._year_start_expr
+  adapters.sql.SQLAdapter._year_start_expr_exit:
+    id: adapters.sql.SQLAdapter._year_start_expr_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._year_start_expr
+  adapters.sql.SQLAdapter._year_start_expr_if_350:
+    id: adapters.sql.SQLAdapter._year_start_expr_if_350
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 350
+  adapters.sql.SQLAdapter._year_start_expr_return_351:
+    id: adapters.sql.SQLAdapter._year_start_expr_return_351
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 351
+  adapters.sql.SQLAdapter._year_start_expr_if_352:
+    id: adapters.sql.SQLAdapter._year_start_expr_if_352
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 352
+  adapters.sql.SQLAdapter._year_start_expr_return_353:
+    id: adapters.sql.SQLAdapter._year_start_expr_return_353
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 353
+  adapters.sql.SQLAdapter._year_start_expr_if_354:
+    id: adapters.sql.SQLAdapter._year_start_expr_if_354
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 354
+  adapters.sql.SQLAdapter._year_start_expr_return_355:
+    id: adapters.sql.SQLAdapter._year_start_expr_return_355
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 355
+  adapters.sql.SQLAdapter._year_start_expr_return_357:
+    id: adapters.sql.SQLAdapter._year_start_expr_return_357
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter._year_start_expr
+    line: 357
+  adapters.sql.SQLAdapter._year_start_expr_merge_354:
+    id: adapters.sql.SQLAdapter._year_start_expr_merge_354
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._year_start_expr
+  adapters.sql.SQLAdapter._year_start_expr_merge_352:
+    id: adapters.sql.SQLAdapter._year_start_expr_merge_352
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._year_start_expr
+  adapters.sql.SQLAdapter._year_start_expr_merge_350:
+    id: adapters.sql.SQLAdapter._year_start_expr_merge_350
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter._year_start_expr
+  adapters.sql.SQLAdapter.validate_syntax_entry:
+    id: adapters.sql.SQLAdapter.validate_syntax_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter.validate_syntax
+  adapters.sql.SQLAdapter.validate_syntax_exit:
+    id: adapters.sql.SQLAdapter.validate_syntax_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter.validate_syntax
+  adapters.sql.SQLAdapter.validate_syntax_if_365:
+    id: adapters.sql.SQLAdapter.validate_syntax_if_365
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.validate_syntax
+    line: 365
+  adapters.sql.SQLAdapter.validate_syntax_merge_365:
+    id: adapters.sql.SQLAdapter.validate_syntax_merge_365
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.validate_syntax
+  adapters.sql.SQLAdapter.validate_syntax_if_370:
+    id: adapters.sql.SQLAdapter.validate_syntax_if_370
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.validate_syntax
+    line: 370
+  adapters.sql.SQLAdapter.validate_syntax_merge_370:
+    id: adapters.sql.SQLAdapter.validate_syntax_merge_370
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.validate_syntax
+  adapters.sql.SQLAdapter.validate_syntax_if_376:
+    id: adapters.sql.SQLAdapter.validate_syntax_if_376
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.validate_syntax
+    line: 376
+  adapters.sql.SQLAdapter.validate_syntax_merge_376:
+    id: adapters.sql.SQLAdapter.validate_syntax_merge_376
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.validate_syntax
+  adapters.sql.SQLAdapter.validate_syntax_if_379:
+    id: adapters.sql.SQLAdapter.validate_syntax_if_379
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.validate_syntax
+    line: 379
+  adapters.sql.SQLAdapter.validate_syntax_merge_379:
+    id: adapters.sql.SQLAdapter.validate_syntax_merge_379
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.validate_syntax
+  adapters.sql.SQLAdapter.validate_syntax_return_392:
+    id: adapters.sql.SQLAdapter.validate_syntax_return_392
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.validate_syntax
+    line: 392
+  adapters.sql.SQLAdapter.check_safety_entry:
+    id: adapters.sql.SQLAdapter.check_safety_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_exit:
+    id: adapters.sql.SQLAdapter.check_safety_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_if_405:
+    id: adapters.sql.SQLAdapter.check_safety_if_405
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 405
+  adapters.sql.SQLAdapter.check_safety_return_406:
+    id: adapters.sql.SQLAdapter.check_safety_return_406
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 406
+  adapters.sql.SQLAdapter.check_safety_merge_405:
+    id: adapters.sql.SQLAdapter.check_safety_merge_405
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_if_413:
+    id: adapters.sql.SQLAdapter.check_safety_if_413
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 413
+  adapters.sql.SQLAdapter.check_safety_return_414:
+    id: adapters.sql.SQLAdapter.check_safety_return_414
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 414
+  adapters.sql.SQLAdapter.check_safety_merge_413:
+    id: adapters.sql.SQLAdapter.check_safety_merge_413
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_if_420:
+    id: adapters.sql.SQLAdapter.check_safety_if_420
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 420
+  adapters.sql.SQLAdapter.check_safety_return_421:
+    id: adapters.sql.SQLAdapter.check_safety_return_421
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 421
+  adapters.sql.SQLAdapter.check_safety_merge_420:
+    id: adapters.sql.SQLAdapter.check_safety_merge_420
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_if_427:
+    id: adapters.sql.SQLAdapter.check_safety_if_427
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 427
+  adapters.sql.SQLAdapter.check_safety_return_432:
+    id: adapters.sql.SQLAdapter.check_safety_return_432
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 432
+  adapters.sql.SQLAdapter.check_safety_merge_427:
+    id: adapters.sql.SQLAdapter.check_safety_merge_427
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_if_438:
+    id: adapters.sql.SQLAdapter.check_safety_if_438
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 438
+  adapters.sql.SQLAdapter.check_safety_return_443:
+    id: adapters.sql.SQLAdapter.check_safety_return_443
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 443
+  adapters.sql.SQLAdapter.check_safety_merge_438:
+    id: adapters.sql.SQLAdapter.check_safety_merge_438
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_loop_449:
+    id: adapters.sql.SQLAdapter.check_safety_loop_449
+    type: FOR
+    label: for
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 449
+  adapters.sql.SQLAdapter.check_safety_if_450:
+    id: adapters.sql.SQLAdapter.check_safety_if_450
+    type: IF
+    label: if
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 450
+  adapters.sql.SQLAdapter.check_safety_return_451:
+    id: adapters.sql.SQLAdapter.check_safety_return_451
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 451
+  adapters.sql.SQLAdapter.check_safety_merge_450:
+    id: adapters.sql.SQLAdapter.check_safety_merge_450
+    type: FUNC
+    label: merge
+    function: adapters.sql.SQLAdapter.check_safety
+  adapters.sql.SQLAdapter.check_safety_return_456:
+    id: adapters.sql.SQLAdapter.check_safety_return_456
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.check_safety
+    line: 456
+  adapters.sql.SQLAdapter._pretty_format_entry:
+    id: adapters.sql.SQLAdapter._pretty_format_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter._pretty_format
+  adapters.sql.SQLAdapter._pretty_format_exit:
+    id: adapters.sql.SQLAdapter._pretty_format_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter._pretty_format
+  adapters.sql.SQLAdapter.get_schema_context_entry:
+    id: adapters.sql.SQLAdapter.get_schema_context_entry
+    type: ENTRY
+    label: entry
+    function: adapters.sql.SQLAdapter.get_schema_context
+  adapters.sql.SQLAdapter.get_schema_context_exit:
+    id: adapters.sql.SQLAdapter.get_schema_context_exit
+    type: EXIT
+    label: exit
+    function: adapters.sql.SQLAdapter.get_schema_context
+  adapters.sql.SQLAdapter.get_schema_context_return_474:
+    id: adapters.sql.SQLAdapter.get_schema_context_return_474
+    type: RETURN
+    label: return
+    function: adapters.sql.SQLAdapter.get_schema_context
+    line: 474

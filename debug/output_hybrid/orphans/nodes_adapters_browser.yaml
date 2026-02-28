@@ -1,0 +1,1002 @@
+module: adapters.browser
+type: orphan_nodes
+count: 182
+nodes:
+  adapters.browser._debug_entry:
+    id: adapters.browser._debug_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._debug
+  adapters.browser._debug_exit:
+    id: adapters.browser._debug_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._debug
+  adapters.browser._debug_if_20:
+    id: adapters.browser._debug_if_20
+    type: IF
+    label: if
+    function: adapters.browser._debug
+    line: 20
+  adapters.browser._debug_merge_20:
+    id: adapters.browser._debug_merge_20
+    type: FUNC
+    label: merge
+    function: adapters.browser._debug
+  adapters.browser.__init___entry:
+    id: adapters.browser.__init___entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser.__init__
+  adapters.browser.__init___exit:
+    id: adapters.browser.__init___exit
+    type: EXIT
+    label: exit
+    function: adapters.browser.__init__
+  adapters.browser._extract_url_entry:
+    id: adapters.browser._extract_url_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._extract_url
+  adapters.browser._extract_url_exit:
+    id: adapters.browser._extract_url_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._extract_url
+  adapters.browser._extract_url_if_64:
+    id: adapters.browser._extract_url_if_64
+    type: IF
+    label: if
+    function: adapters.browser._extract_url
+    line: 64
+  adapters.browser._extract_url_return_65:
+    id: adapters.browser._extract_url_return_65
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_url
+    line: 65
+  adapters.browser._extract_url_merge_64:
+    id: adapters.browser._extract_url_merge_64
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_url
+  adapters.browser._extract_url_if_69:
+    id: adapters.browser._extract_url_if_69
+    type: IF
+    label: if
+    function: adapters.browser._extract_url
+    line: 69
+  adapters.browser._extract_url_return_70:
+    id: adapters.browser._extract_url_return_70
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_url
+    line: 70
+  adapters.browser._extract_url_merge_69:
+    id: adapters.browser._extract_url_merge_69
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_url
+  adapters.browser._extract_url_if_78:
+    id: adapters.browser._extract_url_if_78
+    type: IF
+    label: if
+    function: adapters.browser._extract_url
+    line: 78
+  adapters.browser._extract_url_return_81:
+    id: adapters.browser._extract_url_return_81
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_url
+    line: 81
+  adapters.browser._extract_url_merge_78:
+    id: adapters.browser._extract_url_merge_78
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_url
+  adapters.browser._extract_url_return_83:
+    id: adapters.browser._extract_url_return_83
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_url
+    line: 83
+  adapters.browser._extract_type_text_entry:
+    id: adapters.browser._extract_type_text_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._extract_type_text
+  adapters.browser._extract_type_text_exit:
+    id: adapters.browser._extract_type_text_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._extract_type_text
+  adapters.browser._extract_type_text_loop_90:
+    id: adapters.browser._extract_type_text_loop_90
+    type: FOR
+    label: for
+    function: adapters.browser._extract_type_text
+    line: 90
+  adapters.browser._extract_type_text_if_92:
+    id: adapters.browser._extract_type_text_if_92
+    type: IF
+    label: if
+    function: adapters.browser._extract_type_text
+    line: 92
+  adapters.browser._extract_type_text_return_97:
+    id: adapters.browser._extract_type_text_return_97
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_type_text
+    line: 97
+  adapters.browser._extract_type_text_merge_92:
+    id: adapters.browser._extract_type_text_merge_92
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_type_text
+  adapters.browser._extract_type_text_return_99:
+    id: adapters.browser._extract_type_text_return_99
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_type_text
+    line: 99
+  adapters.browser._has_type_action_entry:
+    id: adapters.browser._has_type_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_type_action
+  adapters.browser._has_type_action_exit:
+    id: adapters.browser._has_type_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_type_action
+  adapters.browser._has_type_action_return_106:
+    id: adapters.browser._has_type_action_return_106
+    type: RETURN
+    label: return
+    function: adapters.browser._has_type_action
+    line: 106
+  adapters.browser._should_explore_for_content_entry:
+    id: adapters.browser._should_explore_for_content_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._should_explore_for_content
+  adapters.browser._should_explore_for_content_exit:
+    id: adapters.browser._should_explore_for_content_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._should_explore_for_content
+  adapters.browser._should_explore_for_content_loop_128:
+    id: adapters.browser._should_explore_for_content_loop_128
+    type: FOR
+    label: for
+    function: adapters.browser._should_explore_for_content
+    line: 128
+  adapters.browser._should_explore_for_content_if_129:
+    id: adapters.browser._should_explore_for_content_if_129
+    type: IF
+    label: if
+    function: adapters.browser._should_explore_for_content
+    line: 129
+  adapters.browser._should_explore_for_content_return_130:
+    id: adapters.browser._should_explore_for_content_return_130
+    type: RETURN
+    label: return
+    function: adapters.browser._should_explore_for_content
+    line: 130
+  adapters.browser._should_explore_for_content_merge_129:
+    id: adapters.browser._should_explore_for_content_merge_129
+    type: FUNC
+    label: merge
+    function: adapters.browser._should_explore_for_content
+  adapters.browser._should_explore_for_content_return_131:
+    id: adapters.browser._should_explore_for_content_return_131
+    type: RETURN
+    label: return
+    function: adapters.browser._should_explore_for_content
+    line: 131
+  adapters.browser._should_explore_for_forms_entry:
+    id: adapters.browser._should_explore_for_forms_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._should_explore_for_forms
+  adapters.browser._should_explore_for_forms_exit:
+    id: adapters.browser._should_explore_for_forms_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._should_explore_for_forms
+  adapters.browser._should_explore_for_forms_return_148:
+    id: adapters.browser._should_explore_for_forms_return_148
+    type: RETURN
+    label: return
+    function: adapters.browser._should_explore_for_forms
+    line: 148
+  adapters.browser._has_fill_form_action_entry:
+    id: adapters.browser._has_fill_form_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_fill_form_action
+  adapters.browser._has_fill_form_action_exit:
+    id: adapters.browser._has_fill_form_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_fill_form_action
+  adapters.browser._has_fill_form_action_return_154:
+    id: adapters.browser._has_fill_form_action_return_154
+    type: RETURN
+    label: return
+    function: adapters.browser._has_fill_form_action
+    line: 154
+  adapters.browser._has_press_enter_entry:
+    id: adapters.browser._has_press_enter_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_press_enter
+  adapters.browser._has_press_enter_exit:
+    id: adapters.browser._has_press_enter_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_press_enter
+  adapters.browser._has_press_enter_return_160:
+    id: adapters.browser._has_press_enter_return_160
+    type: RETURN
+    label: return
+    function: adapters.browser._has_press_enter
+    line: 160
+  adapters.browser._has_form_action_entry:
+    id: adapters.browser._has_form_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_form_action
+  adapters.browser._has_form_action_exit:
+    id: adapters.browser._has_form_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_form_action
+  adapters.browser._has_form_action_return_167:
+    id: adapters.browser._has_form_action_return_167
+    type: RETURN
+    label: return
+    function: adapters.browser._has_form_action
+    line: 167
+  adapters.browser._has_submit_action_entry:
+    id: adapters.browser._has_submit_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_submit_action
+  adapters.browser._has_submit_action_exit:
+    id: adapters.browser._has_submit_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_submit_action
+  adapters.browser._has_submit_action_return_174:
+    id: adapters.browser._has_submit_action_return_174
+    type: RETURN
+    label: return
+    function: adapters.browser._has_submit_action
+    line: 174
+  adapters.browser._has_extract_article_action_entry:
+    id: adapters.browser._has_extract_article_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_extract_article_action
+  adapters.browser._has_extract_article_action_exit:
+    id: adapters.browser._has_extract_article_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_extract_article_action
+  adapters.browser._has_extract_article_action_return_182:
+    id: adapters.browser._has_extract_article_action_return_182
+    type: RETURN
+    label: return
+    function: adapters.browser._has_extract_article_action
+    line: 182
+  adapters.browser._is_plural_article_request_entry:
+    id: adapters.browser._is_plural_article_request_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._is_plural_article_request
+  adapters.browser._is_plural_article_request_exit:
+    id: adapters.browser._is_plural_article_request_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._is_plural_article_request
+  adapters.browser._is_plural_article_request_return_189:
+    id: adapters.browser._is_plural_article_request_return_189
+    type: RETURN
+    label: return
+    function: adapters.browser._is_plural_article_request
+    line: 189
+  adapters.browser._extract_article_topic_entry:
+    id: adapters.browser._extract_article_topic_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._extract_article_topic
+  adapters.browser._extract_article_topic_exit:
+    id: adapters.browser._extract_article_topic_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._extract_article_topic
+  adapters.browser._extract_article_topic_loop_195:
+    id: adapters.browser._extract_article_topic_loop_195
+    type: FOR
+    label: for
+    function: adapters.browser._extract_article_topic
+    line: 195
+  adapters.browser._extract_article_topic_if_197:
+    id: adapters.browser._extract_article_topic_if_197
+    type: IF
+    label: if
+    function: adapters.browser._extract_article_topic
+    line: 197
+  adapters.browser._extract_article_topic_return_201:
+    id: adapters.browser._extract_article_topic_return_201
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_article_topic
+    line: 201
+  adapters.browser._extract_article_topic_merge_197:
+    id: adapters.browser._extract_article_topic_merge_197
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_article_topic
+  adapters.browser._extract_article_topic_return_202:
+    id: adapters.browser._extract_article_topic_return_202
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_article_topic
+    line: 202
+  adapters.browser._has_extract_companies_action_entry:
+    id: adapters.browser._has_extract_companies_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_extract_companies_action
+  adapters.browser._has_extract_companies_action_exit:
+    id: adapters.browser._has_extract_companies_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_extract_companies_action
+  adapters.browser._has_extract_companies_action_if_210:
+    id: adapters.browser._has_extract_companies_action_if_210
+    type: IF
+    label: if
+    function: adapters.browser._has_extract_companies_action
+    line: 210
+  adapters.browser._has_extract_companies_action_merge_210:
+    id: adapters.browser._has_extract_companies_action_merge_210
+    type: FUNC
+    label: merge
+    function: adapters.browser._has_extract_companies_action
+  adapters.browser._has_extract_companies_action_return_212:
+    id: adapters.browser._has_extract_companies_action_return_212
+    type: RETURN
+    label: return
+    function: adapters.browser._has_extract_companies_action
+    line: 212
+  adapters.browser._has_save_to_file_action_entry:
+    id: adapters.browser._has_save_to_file_action_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_save_to_file_action
+  adapters.browser._has_save_to_file_action_exit:
+    id: adapters.browser._has_save_to_file_action_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_save_to_file_action
+  adapters.browser._has_save_to_file_action_if_220:
+    id: adapters.browser._has_save_to_file_action_if_220
+    type: IF
+    label: if
+    function: adapters.browser._has_save_to_file_action
+    line: 220
+  adapters.browser._has_save_to_file_action_merge_220:
+    id: adapters.browser._has_save_to_file_action_merge_220
+    type: FUNC
+    label: merge
+    function: adapters.browser._has_save_to_file_action
+  adapters.browser._has_save_to_file_action_return_222:
+    id: adapters.browser._has_save_to_file_action_return_222
+    type: RETURN
+    label: return
+    function: adapters.browser._has_save_to_file_action
+    line: 222
+  adapters.browser._extract_save_filename_entry:
+    id: adapters.browser._extract_save_filename_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._extract_save_filename
+  adapters.browser._extract_save_filename_exit:
+    id: adapters.browser._extract_save_filename_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._extract_save_filename
+  adapters.browser._extract_save_filename_loop_228:
+    id: adapters.browser._extract_save_filename_loop_228
+    type: FOR
+    label: for
+    function: adapters.browser._extract_save_filename
+    line: 228
+  adapters.browser._extract_save_filename_if_230:
+    id: adapters.browser._extract_save_filename_if_230
+    type: IF
+    label: if
+    function: adapters.browser._extract_save_filename
+    line: 230
+  adapters.browser._extract_save_filename_return_233:
+    id: adapters.browser._extract_save_filename_return_233
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_save_filename
+    line: 233
+  adapters.browser._extract_save_filename_merge_230:
+    id: adapters.browser._extract_save_filename_merge_230
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_save_filename
+  adapters.browser._extract_save_filename_if_236:
+    id: adapters.browser._extract_save_filename_if_236
+    type: IF
+    label: if
+    function: adapters.browser._extract_save_filename
+    line: 236
+  adapters.browser._extract_save_filename_return_239:
+    id: adapters.browser._extract_save_filename_return_239
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_save_filename
+    line: 239
+  adapters.browser._extract_save_filename_merge_236:
+    id: adapters.browser._extract_save_filename_merge_236
+    type: FUNC
+    label: merge
+    function: adapters.browser._extract_save_filename
+  adapters.browser._extract_save_filename_return_240:
+    id: adapters.browser._extract_save_filename_return_240
+    type: RETURN
+    label: return
+    function: adapters.browser._extract_save_filename
+    line: 240
+  adapters.browser._has_deep_website_extraction_entry:
+    id: adapters.browser._has_deep_website_extraction_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_deep_website_extraction
+  adapters.browser._has_deep_website_extraction_exit:
+    id: adapters.browser._has_deep_website_extraction_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_deep_website_extraction
+  adapters.browser._has_deep_website_extraction_if_257:
+    id: adapters.browser._has_deep_website_extraction_if_257
+    type: IF
+    label: if
+    function: adapters.browser._has_deep_website_extraction
+    line: 257
+  adapters.browser._has_deep_website_extraction_merge_257:
+    id: adapters.browser._has_deep_website_extraction_merge_257
+    type: FUNC
+    label: merge
+    function: adapters.browser._has_deep_website_extraction
+  adapters.browser._has_deep_website_extraction_return_259:
+    id: adapters.browser._has_deep_website_extraction_return_259
+    type: RETURN
+    label: return
+    function: adapters.browser._has_deep_website_extraction
+    line: 259
+  adapters.browser._has_csv_format_entry:
+    id: adapters.browser._has_csv_format_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._has_csv_format
+  adapters.browser._has_csv_format_exit:
+    id: adapters.browser._has_csv_format_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._has_csv_format
+  adapters.browser._has_csv_format_return_266:
+    id: adapters.browser._has_csv_format_return_266
+    type: RETURN
+    label: return
+    function: adapters.browser._has_csv_format
+    line: 266
+  adapters.browser._wants_clipboard_entry:
+    id: adapters.browser._wants_clipboard_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._wants_clipboard
+  adapters.browser._wants_clipboard_exit:
+    id: adapters.browser._wants_clipboard_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._wants_clipboard
+  adapters.browser._wants_clipboard_return_271:
+    id: adapters.browser._wants_clipboard_return_271
+    type: RETURN
+    label: return
+    function: adapters.browser._wants_clipboard
+    line: 271
+  adapters.browser._wants_print_terminal_entry:
+    id: adapters.browser._wants_print_terminal_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser._wants_print_terminal
+  adapters.browser._wants_print_terminal_exit:
+    id: adapters.browser._wants_print_terminal_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser._wants_print_terminal
+  adapters.browser._wants_print_terminal_return_287:
+    id: adapters.browser._wants_print_terminal_return_287
+    type: RETURN
+    label: return
+    function: adapters.browser._wants_print_terminal
+    line: 287
+  adapters.browser.generate_entry:
+    id: adapters.browser.generate_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser.generate
+  adapters.browser.generate_exit:
+    id: adapters.browser.generate_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser.generate
+  adapters.browser.generate_if_310:
+    id: adapters.browser.generate_if_310
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 310
+  adapters.browser.generate_if_312:
+    id: adapters.browser.generate_if_312
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 312
+  adapters.browser.generate_merge_312:
+    id: adapters.browser.generate_merge_312
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_merge_310:
+    id: adapters.browser.generate_merge_310
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_316:
+    id: adapters.browser.generate_if_316
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 316
+  adapters.browser.generate_return_319:
+    id: adapters.browser.generate_return_319
+    type: RETURN
+    label: return
+    function: adapters.browser.generate
+    line: 319
+  adapters.browser.generate_merge_316:
+    id: adapters.browser.generate_merge_316
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_352:
+    id: adapters.browser.generate_if_352
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 352
+  adapters.browser.generate_if_360:
+    id: adapters.browser.generate_if_360
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 360
+  adapters.browser.generate_merge_360:
+    id: adapters.browser.generate_merge_360
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_371:
+    id: adapters.browser.generate_if_371
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 371
+  adapters.browser.generate_merge_371:
+    id: adapters.browser.generate_merge_371
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_merge_352:
+    id: adapters.browser.generate_merge_352
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_378:
+    id: adapters.browser.generate_if_378
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 378
+  adapters.browser.generate_merge_378:
+    id: adapters.browser.generate_merge_378
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_385:
+    id: adapters.browser.generate_if_385
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 385
+  adapters.browser.generate_if_392:
+    id: adapters.browser.generate_if_392
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 392
+  adapters.browser.generate_merge_392:
+    id: adapters.browser.generate_merge_392
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_merge_385:
+    id: adapters.browser.generate_merge_385
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_400:
+    id: adapters.browser.generate_if_400
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 400
+  adapters.browser.generate_if_403:
+    id: adapters.browser.generate_if_403
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 403
+  adapters.browser.generate_merge_403:
+    id: adapters.browser.generate_merge_403
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_merge_400:
+    id: adapters.browser.generate_merge_400
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_410:
+    id: adapters.browser.generate_if_410
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 410
+  adapters.browser.generate_merge_410:
+    id: adapters.browser.generate_merge_410
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_416:
+    id: adapters.browser.generate_if_416
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 416
+  adapters.browser.generate_merge_416:
+    id: adapters.browser.generate_merge_416
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_422:
+    id: adapters.browser.generate_if_422
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 422
+  adapters.browser.generate_if_427:
+    id: adapters.browser.generate_if_427
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 427
+  adapters.browser.generate_merge_427:
+    id: adapters.browser.generate_merge_427
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_430:
+    id: adapters.browser.generate_if_430
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 430
+  adapters.browser.generate_merge_430:
+    id: adapters.browser.generate_merge_430
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_437:
+    id: adapters.browser.generate_if_437
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 437
+  adapters.browser.generate_merge_437:
+    id: adapters.browser.generate_merge_437
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_444:
+    id: adapters.browser.generate_if_444
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 444
+  adapters.browser.generate_merge_444:
+    id: adapters.browser.generate_merge_444
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_merge_422:
+    id: adapters.browser.generate_merge_422
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_448:
+    id: adapters.browser.generate_if_448
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 448
+  adapters.browser.generate_if_451:
+    id: adapters.browser.generate_if_451
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 451
+  adapters.browser.generate_merge_451:
+    id: adapters.browser.generate_merge_451
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_458:
+    id: adapters.browser.generate_if_458
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 458
+  adapters.browser.generate_merge_458:
+    id: adapters.browser.generate_merge_458
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_472:
+    id: adapters.browser.generate_if_472
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 472
+  adapters.browser.generate_merge_472:
+    id: adapters.browser.generate_merge_472
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_474:
+    id: adapters.browser.generate_if_474
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 474
+  adapters.browser.generate_merge_474:
+    id: adapters.browser.generate_merge_474
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_merge_448:
+    id: adapters.browser.generate_merge_448
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_if_483:
+    id: adapters.browser.generate_if_483
+    type: IF
+    label: if
+    function: adapters.browser.generate
+    line: 483
+  adapters.browser.generate_merge_483:
+    id: adapters.browser.generate_merge_483
+    type: FUNC
+    label: merge
+    function: adapters.browser.generate
+  adapters.browser.generate_return_508:
+    id: adapters.browser.generate_return_508
+    type: RETURN
+    label: return
+    function: adapters.browser.generate
+    line: 508
+  adapters.browser.validate_syntax_entry:
+    id: adapters.browser.validate_syntax_entry
+    type: ENTRY
+    label: entry
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_exit:
+    id: adapters.browser.validate_syntax_exit
+    type: EXIT
+    label: exit
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_525:
+    id: adapters.browser.validate_syntax_if_525
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 525
+  adapters.browser.validate_syntax_return_526:
+    id: adapters.browser.validate_syntax_return_526
+    type: RETURN
+    label: return
+    function: adapters.browser.validate_syntax
+    line: 526
+  adapters.browser.validate_syntax_merge_525:
+    id: adapters.browser.validate_syntax_merge_525
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_528:
+    id: adapters.browser.validate_syntax_if_528
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 528
+  adapters.browser.validate_syntax_return_529:
+    id: adapters.browser.validate_syntax_return_529
+    type: RETURN
+    label: return
+    function: adapters.browser.validate_syntax
+    line: 529
+  adapters.browser.validate_syntax_merge_528:
+    id: adapters.browser.validate_syntax_merge_528
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_532:
+    id: adapters.browser.validate_syntax_if_532
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 532
+  adapters.browser.validate_syntax_if_534:
+    id: adapters.browser.validate_syntax_if_534
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 534
+  adapters.browser.validate_syntax_merge_534:
+    id: adapters.browser.validate_syntax_merge_534
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_loop_536:
+    id: adapters.browser.validate_syntax_loop_536
+    type: FOR
+    label: for
+    function: adapters.browser.validate_syntax
+    line: 536
+  adapters.browser.validate_syntax_if_537:
+    id: adapters.browser.validate_syntax_if_537
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 537
+  adapters.browser.validate_syntax_merge_537:
+    id: adapters.browser.validate_syntax_merge_537
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_541:
+    id: adapters.browser.validate_syntax_if_541
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 541
+  adapters.browser.validate_syntax_merge_541:
+    id: adapters.browser.validate_syntax_merge_541
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_543:
+    id: adapters.browser.validate_syntax_if_543
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 543
+  adapters.browser.validate_syntax_if_544:
+    id: adapters.browser.validate_syntax_if_544
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 544
+  adapters.browser.validate_syntax_merge_544:
+    id: adapters.browser.validate_syntax_merge_544
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_546:
+    id: adapters.browser.validate_syntax_if_546
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 546
+  adapters.browser.validate_syntax_merge_546:
+    id: adapters.browser.validate_syntax_merge_546
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_548:
+    id: adapters.browser.validate_syntax_if_548
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 548
+  adapters.browser.validate_syntax_merge_548:
+    id: adapters.browser.validate_syntax_merge_548
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_merge_543:
+    id: adapters.browser.validate_syntax_merge_543
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_553:
+    id: adapters.browser.validate_syntax_if_553
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 553
+  adapters.browser.validate_syntax_return_554:
+    id: adapters.browser.validate_syntax_return_554
+    type: RETURN
+    label: return
+    function: adapters.browser.validate_syntax
+    line: 554
+  adapters.browser.validate_syntax_merge_553:
+    id: adapters.browser.validate_syntax_merge_553
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_return_556:
+    id: adapters.browser.validate_syntax_return_556
+    type: RETURN
+    label: return
+    function: adapters.browser.validate_syntax
+    line: 556
+  adapters.browser.validate_syntax_merge_532:
+    id: adapters.browser.validate_syntax_merge_532
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_if_558:
+    id: adapters.browser.validate_syntax_if_558
+    type: IF
+    label: if
+    function: adapters.browser.validate_syntax
+    line: 558
+  adapters.browser.validate_syntax_return_559:
+    id: adapters.browser.validate_syntax_return_559
+    type: RETURN
+    label: return
+    function: adapters.browser.validate_syntax
+    line: 559
+  adapters.browser.validate_syntax_merge_558:
+    id: adapters.browser.validate_syntax_merge_558
+    type: FUNC
+    label: merge
+    function: adapters.browser.validate_syntax
+  adapters.browser.validate_syntax_return_561:
+    id: adapters.browser.validate_syntax_return_561
+    type: RETURN
+    label: return
+    function: adapters.browser.validate_syntax
+    line: 561

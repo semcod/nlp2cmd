@@ -1,0 +1,48 @@
+module: generation.llm_simple.SimpleLLMDockerGenerator
+type: orphan_nodes
+count: 8
+nodes:
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_entry:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_exit:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_if_341:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_if_341
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+    line: 341
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_if_343:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_if_343
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+    line: 343
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_return_344:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_return_344
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+    line: 344
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_merge_343:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_merge_343
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_merge_341:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_merge_341
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+  generation.llm_simple.SimpleLLMDockerGenerator.extract_command_return_346:
+    id: generation.llm_simple.SimpleLLMDockerGenerator.extract_command_return_346
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMDockerGenerator.extract_command
+    line: 346

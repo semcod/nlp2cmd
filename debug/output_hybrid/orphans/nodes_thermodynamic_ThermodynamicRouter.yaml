@@ -1,0 +1,109 @@
+module: thermodynamic.ThermodynamicRouter
+type: orphan_nodes
+count: 19
+nodes:
+  thermodynamic.ThermodynamicRouter.route_entry:
+    id: thermodynamic.ThermodynamicRouter.route_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.ThermodynamicRouter.route
+  thermodynamic.ThermodynamicRouter.route_exit:
+    id: thermodynamic.ThermodynamicRouter.route_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.ThermodynamicRouter.route
+  thermodynamic.ThermodynamicRouter.route_if_500:
+    id: thermodynamic.ThermodynamicRouter.route_if_500
+    type: IF
+    label: if
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 500
+  thermodynamic.ThermodynamicRouter.route_if_501:
+    id: thermodynamic.ThermodynamicRouter.route_if_501
+    type: IF
+    label: if
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 501
+  thermodynamic.ThermodynamicRouter.route_return_502:
+    id: thermodynamic.ThermodynamicRouter.route_return_502
+    type: RETURN
+    label: return
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 502
+  thermodynamic.ThermodynamicRouter.route_return_504:
+    id: thermodynamic.ThermodynamicRouter.route_return_504
+    type: RETURN
+    label: return
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 504
+  thermodynamic.ThermodynamicRouter.route_merge_501:
+    id: thermodynamic.ThermodynamicRouter.route_merge_501
+    type: FUNC
+    label: merge
+    function: thermodynamic.ThermodynamicRouter.route
+  thermodynamic.ThermodynamicRouter.route_if_506:
+    id: thermodynamic.ThermodynamicRouter.route_if_506
+    type: IF
+    label: if
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 506
+  thermodynamic.ThermodynamicRouter.route_return_507:
+    id: thermodynamic.ThermodynamicRouter.route_return_507
+    type: RETURN
+    label: return
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 507
+  thermodynamic.ThermodynamicRouter.route_return_511:
+    id: thermodynamic.ThermodynamicRouter.route_return_511
+    type: RETURN
+    label: return
+    function: thermodynamic.ThermodynamicRouter.route
+    line: 511
+  thermodynamic.ThermodynamicRouter.route_merge_506:
+    id: thermodynamic.ThermodynamicRouter.route_merge_506
+    type: FUNC
+    label: merge
+    function: thermodynamic.ThermodynamicRouter.route
+  thermodynamic.ThermodynamicRouter.route_merge_500:
+    id: thermodynamic.ThermodynamicRouter.route_merge_500
+    type: FUNC
+    label: merge
+    function: thermodynamic.ThermodynamicRouter.route
+  thermodynamic.ThermodynamicRouter.estimate_complexity_entry:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_entry
+    type: ENTRY
+    label: entry
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+  thermodynamic.ThermodynamicRouter.estimate_complexity_exit:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_exit
+    type: EXIT
+    label: exit
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+  thermodynamic.ThermodynamicRouter.estimate_complexity_if_530:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_if_530
+    type: IF
+    label: if
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+    line: 530
+  thermodynamic.ThermodynamicRouter.estimate_complexity_merge_530:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_merge_530
+    type: FUNC
+    label: merge
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+  thermodynamic.ThermodynamicRouter.estimate_complexity_if_535:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_if_535
+    type: IF
+    label: if
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+    line: 535
+  thermodynamic.ThermodynamicRouter.estimate_complexity_merge_535:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_merge_535
+    type: FUNC
+    label: merge
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+  thermodynamic.ThermodynamicRouter.estimate_complexity_return_538:
+    id: thermodynamic.ThermodynamicRouter.estimate_complexity_return_538
+    type: RETURN
+    label: return
+    function: thermodynamic.ThermodynamicRouter.estimate_complexity
+    line: 538

@@ -1,0 +1,29 @@
+module: generation.structured.MultiStepPlanner
+type: functions
+count: 1
+functions:
+  generation.structured.MultiStepPlanner.decompose:
+    name: decompose
+    qualified_name: generation.structured.MultiStepPlanner.decompose
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/structured.py
+    line: 319
+    module: generation.structured
+    class: MultiStepPlanner
+    is_method: true
+    cfg_entry: generation.structured.MultiStepPlanner.decompose_entry
+    calls:
+    - response.strip
+    - response.startswith
+    - json.loads
+    - data.get
+    - enumerate
+    - self.llm.complete
+    - response.split
+    - None.join
+    - StructuredPlan
+    - steps.append
+    - MultiStepPlan
+    - step_data.get
+    - isinstance
+    - str
+    - l.startswith

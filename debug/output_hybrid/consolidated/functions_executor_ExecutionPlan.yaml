@@ -1,0 +1,22 @@
+module: executor.ExecutionPlan
+type: functions
+count: 1
+functions:
+  executor.ExecutionPlan.from_dict:
+    name: from_dict
+    qualified_name: executor.ExecutionPlan.from_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/executor/__init__.py
+    line: 78
+    module: executor
+    class: ExecutionPlan
+    is_method: true
+    cfg_entry: executor.ExecutionPlan.from_dict_entry
+    calls:
+    - data.get
+    - cls
+    - steps.append
+    - PlanStep
+    - step_data.get
+    called_by:
+    - planner.LLMPlanner.plan
+    - planner.plan

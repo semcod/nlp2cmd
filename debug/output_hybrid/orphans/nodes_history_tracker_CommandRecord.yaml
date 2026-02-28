@@ -1,0 +1,47 @@
+module: history.tracker.CommandRecord
+type: orphan_nodes
+count: 8
+nodes:
+  history.tracker.CommandRecord.to_dict_entry:
+    id: history.tracker.CommandRecord.to_dict_entry
+    type: ENTRY
+    label: entry
+    function: history.tracker.CommandRecord.to_dict
+  history.tracker.CommandRecord.to_dict_exit:
+    id: history.tracker.CommandRecord.to_dict_exit
+    type: EXIT
+    label: exit
+    function: history.tracker.CommandRecord.to_dict
+  history.tracker.CommandRecord.to_dict_return_62:
+    id: history.tracker.CommandRecord.to_dict_return_62
+    type: RETURN
+    label: return
+    function: history.tracker.CommandRecord.to_dict
+    line: 62
+  history.tracker.CommandRecord.from_dict_entry:
+    id: history.tracker.CommandRecord.from_dict_entry
+    type: ENTRY
+    label: entry
+    function: history.tracker.CommandRecord.from_dict
+  history.tracker.CommandRecord.from_dict_exit:
+    id: history.tracker.CommandRecord.from_dict_exit
+    type: EXIT
+    label: exit
+    function: history.tracker.CommandRecord.from_dict
+  history.tracker.CommandRecord.from_dict_if_79:
+    id: history.tracker.CommandRecord.from_dict_if_79
+    type: IF
+    label: if
+    function: history.tracker.CommandRecord.from_dict
+    line: 79
+  history.tracker.CommandRecord.from_dict_merge_79:
+    id: history.tracker.CommandRecord.from_dict_merge_79
+    type: FUNC
+    label: merge
+    function: history.tracker.CommandRecord.from_dict
+  history.tracker.CommandRecord.from_dict_return_82:
+    id: history.tracker.CommandRecord.from_dict_return_82
+    type: RETURN
+    label: return
+    function: history.tracker.CommandRecord.from_dict
+    line: 82

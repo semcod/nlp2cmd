@@ -1,0 +1,76 @@
+module: generation.llm_simple.SimpleLLMShellGenerator
+type: orphan_nodes
+count: 13
+nodes:
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_entry:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_entry
+    type: ENTRY
+    label: entry
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_exit:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_exit
+    type: EXIT
+    label: exit
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_305:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_305
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 305
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_307:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_307
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 307
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_return_308:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_return_308
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 308
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_307:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_307
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_305:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_305
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_310:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_310
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 310
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_312:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_if_312
+    type: IF
+    label: if
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 312
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_return_313:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_return_313
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 313
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_312:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_312
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_310:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_merge_310
+    type: FUNC
+    label: merge
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+  generation.llm_simple.SimpleLLMShellGenerator.extract_command_return_315:
+    id: generation.llm_simple.SimpleLLMShellGenerator.extract_command_return_315
+    type: RETURN
+    label: return
+    function: generation.llm_simple.SimpleLLMShellGenerator.extract_command
+    line: 315

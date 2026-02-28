@@ -1,0 +1,62 @@
+module: service.ServiceConfig
+type: orphan_nodes
+count: 11
+nodes:
+  service.ServiceConfig.__init___entry:
+    id: service.ServiceConfig.__init___entry
+    type: ENTRY
+    label: entry
+    function: service.ServiceConfig.__init__
+  service.ServiceConfig.__init___exit:
+    id: service.ServiceConfig.__init___exit
+    type: EXIT
+    label: exit
+    function: service.ServiceConfig.__init__
+  service.ServiceConfig.to_dict_entry:
+    id: service.ServiceConfig.to_dict_entry
+    type: ENTRY
+    label: entry
+    function: service.ServiceConfig.to_dict
+  service.ServiceConfig.to_dict_exit:
+    id: service.ServiceConfig.to_dict_exit
+    type: EXIT
+    label: exit
+    function: service.ServiceConfig.to_dict
+  service.ServiceConfig.to_dict_return_82:
+    id: service.ServiceConfig.to_dict_return_82
+    type: RETURN
+    label: return
+    function: service.ServiceConfig.to_dict
+    line: 82
+  service.ServiceConfig.save_to_env_entry:
+    id: service.ServiceConfig.save_to_env_entry
+    type: ENTRY
+    label: entry
+    function: service.ServiceConfig.save_to_env
+  service.ServiceConfig.save_to_env_exit:
+    id: service.ServiceConfig.save_to_env_exit
+    type: EXIT
+    label: exit
+    function: service.ServiceConfig.save_to_env
+  service.ServiceConfig.save_to_env_if_100:
+    id: service.ServiceConfig.save_to_env_if_100
+    type: IF
+    label: if
+    function: service.ServiceConfig.save_to_env
+    line: 100
+  service.ServiceConfig.save_to_env_merge_100:
+    id: service.ServiceConfig.save_to_env_merge_100
+    type: FUNC
+    label: merge
+    function: service.ServiceConfig.save_to_env
+  service.ServiceConfig.save_to_env_if_107:
+    id: service.ServiceConfig.save_to_env_if_107
+    type: IF
+    label: if
+    function: service.ServiceConfig.save_to_env
+    line: 107
+  service.ServiceConfig.save_to_env_merge_107:
+    id: service.ServiceConfig.save_to_env_merge_107
+    type: FUNC
+    label: merge
+    function: service.ServiceConfig.save_to_env

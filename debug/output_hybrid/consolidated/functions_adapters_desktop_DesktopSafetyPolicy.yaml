@@ -1,0 +1,16 @@
+module: adapters.desktop.DesktopSafetyPolicy
+type: functions
+count: 1
+functions:
+  adapters.desktop.DesktopSafetyPolicy.validate:
+    name: validate
+    qualified_name: adapters.desktop.DesktopSafetyPolicy.validate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/desktop.py
+    line: 72
+    module: adapters.desktop
+    class: DesktopSafetyPolicy
+    is_method: true
+    cfg_entry: adapters.desktop.DesktopSafetyPolicy.validate_entry
+    calls:
+    - command.lower
+    - re.search

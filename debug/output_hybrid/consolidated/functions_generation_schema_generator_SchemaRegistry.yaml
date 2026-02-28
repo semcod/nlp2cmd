@@ -1,0 +1,93 @@
+module: generation.schema.generator.SchemaRegistry
+type: functions
+count: 7
+functions:
+  generation.schema.generator.SchemaRegistry.__init__:
+    name: __init__
+    qualified_name: generation.schema.generator.SchemaRegistry.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 182
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry.__init___entry
+    calls:
+    - SchemaBasedGenerator
+  generation.schema.generator.SchemaRegistry.register_schema:
+    name: register_schema
+    qualified_name: generation.schema.generator.SchemaRegistry.register_schema
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 187
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry.register_schema_entry
+    calls:
+    - self.generator.learn_from_schema
+  generation.schema.generator.SchemaRegistry.load_from_file:
+    name: load_from_file
+    qualified_name: generation.schema.generator.SchemaRegistry.load_from_file
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 192
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry.load_from_file_entry
+    calls:
+    - None.items
+    - open
+    - json.load
+    - self._convert_from_json
+    - self.register_schema
+    - data.get
+  generation.schema.generator.SchemaRegistry._convert_from_json:
+    name: _convert_from_json
+    qualified_name: generation.schema.generator.SchemaRegistry._convert_from_json
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 202
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry._convert_from_json_entry
+    calls:
+    - data.get
+    - ExtractedSchema
+    - CommandSchema
+    - commands.append
+    - cmd_data.get
+  generation.schema.generator.SchemaRegistry.generate_command:
+    name: generate_command
+    qualified_name: generation.schema.generator.SchemaRegistry.generate_command
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 226
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry.generate_command_entry
+    calls:
+    - self.generator.generate_command
+  generation.schema.generator.SchemaRegistry.improve_from_feedback:
+    name: improve_from_feedback
+    qualified_name: generation.schema.generator.SchemaRegistry.improve_from_feedback
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 230
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry.improve_from_feedback_entry
+    calls:
+    - self.generator.improve_from_usage
+  generation.schema.generator.SchemaRegistry.save_improvements:
+    name: save_improvements
+    qualified_name: generation.schema.generator.SchemaRegistry.save_improvements
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/schema/generator.py
+    line: 234
+    module: generation.schema.generator
+    class: SchemaRegistry
+    is_method: true
+    cfg_entry: generation.schema.generator.SchemaRegistry.save_improvements_entry
+    calls:
+    - self.schemas.items
+    - open
+    - json.dump
+    - len

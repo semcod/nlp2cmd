@@ -1,0 +1,267 @@
+module: service
+type: orphan_nodes
+count: 50
+nodes:
+  service._ensure_service_deps_entry:
+    id: service._ensure_service_deps_entry
+    type: ENTRY
+    label: entry
+    function: service._ensure_service_deps
+  service._ensure_service_deps_exit:
+    id: service._ensure_service_deps_exit
+    type: EXIT
+    label: exit
+    function: service._ensure_service_deps
+  service._ensure_service_deps_if_37:
+    id: service._ensure_service_deps_if_37
+    type: IF
+    label: if
+    function: service._ensure_service_deps
+    line: 37
+  service._ensure_service_deps_return_38:
+    id: service._ensure_service_deps_return_38
+    type: RETURN
+    label: return
+    function: service._ensure_service_deps
+    line: 38
+  service._ensure_service_deps_merge_37:
+    id: service._ensure_service_deps_merge_37
+    type: FUNC
+    label: merge
+    function: service._ensure_service_deps
+  service.create_app_entry:
+    id: service.create_app_entry
+    type: ENTRY
+    label: entry
+    function: service.create_app
+  service.create_app_exit:
+    id: service.create_app_exit
+    type: EXIT
+    label: exit
+    function: service.create_app
+  service.create_app_return_377:
+    id: service.create_app_return_377
+    type: RETURN
+    label: return
+    function: service.create_app
+    line: 377
+  service.create_service_config_from_args_entry:
+    id: service.create_service_config_from_args_entry
+    type: ENTRY
+    label: entry
+    function: service.create_service_config_from_args
+  service.create_service_config_from_args_exit:
+    id: service.create_service_config_from_args_exit
+    type: EXIT
+    label: exit
+    function: service.create_service_config_from_args
+  service.create_service_config_from_args_if_406:
+    id: service.create_service_config_from_args_if_406
+    type: IF
+    label: if
+    function: service.create_service_config_from_args
+    line: 406
+  service.create_service_config_from_args_merge_406:
+    id: service.create_service_config_from_args_merge_406
+    type: FUNC
+    label: merge
+    function: service.create_service_config_from_args
+  service.create_service_config_from_args_return_410:
+    id: service.create_service_config_from_args_return_410
+    type: RETURN
+    label: return
+    function: service.create_service_config_from_args
+    line: 410
+  service.__init___entry:
+    id: service.__init___entry
+    type: ENTRY
+    label: entry
+    function: service.__init__
+  service.__init___exit:
+    id: service.__init___exit
+    type: EXIT
+    label: exit
+    function: service.__init__
+  service.to_dict_entry:
+    id: service.to_dict_entry
+    type: ENTRY
+    label: entry
+    function: service.to_dict
+  service.to_dict_exit:
+    id: service.to_dict_exit
+    type: EXIT
+    label: exit
+    function: service.to_dict
+  service.to_dict_return_82:
+    id: service.to_dict_return_82
+    type: RETURN
+    label: return
+    function: service.to_dict
+    line: 82
+  service.save_to_env_entry:
+    id: service.save_to_env_entry
+    type: ENTRY
+    label: entry
+    function: service.save_to_env
+  service.save_to_env_exit:
+    id: service.save_to_env_exit
+    type: EXIT
+    label: exit
+    function: service.save_to_env
+  service.save_to_env_if_100:
+    id: service.save_to_env_if_100
+    type: IF
+    label: if
+    function: service.save_to_env
+    line: 100
+  service.save_to_env_merge_100:
+    id: service.save_to_env_merge_100
+    type: FUNC
+    label: merge
+    function: service.save_to_env
+  service.save_to_env_if_107:
+    id: service.save_to_env_if_107
+    type: IF
+    label: if
+    function: service.save_to_env
+    line: 107
+  service.save_to_env_merge_107:
+    id: service.save_to_env_merge_107
+    type: FUNC
+    label: merge
+    function: service.save_to_env
+  service._setup_logging_entry:
+    id: service._setup_logging_entry
+    type: ENTRY
+    label: entry
+    function: service._setup_logging
+  service._setup_logging_exit:
+    id: service._setup_logging_exit
+    type: EXIT
+    label: exit
+    function: service._setup_logging
+  service._create_app_entry:
+    id: service._create_app_entry
+    type: ENTRY
+    label: entry
+    function: service._create_app
+  service._create_app_exit:
+    id: service._create_app_exit
+    type: EXIT
+    label: exit
+    function: service._create_app
+  service._create_app_if_190:
+    id: service._create_app_if_190
+    type: IF
+    label: if
+    function: service._create_app
+    line: 190
+  service._create_app_merge_190:
+    id: service._create_app_merge_190
+    type: FUNC
+    label: merge
+    function: service._create_app
+  service._create_app_return_202:
+    id: service._create_app_return_202
+    type: RETURN
+    label: return
+    function: service._create_app
+    line: 202
+  service._setup_routes_entry:
+    id: service._setup_routes_entry
+    type: ENTRY
+    label: entry
+    function: service._setup_routes
+  service._setup_routes_exit:
+    id: service._setup_routes_exit
+    type: EXIT
+    label: exit
+    function: service._setup_routes
+  service.run_entry:
+    id: service.run_entry
+    type: ENTRY
+    label: entry
+    function: service.run
+  service.run_exit:
+    id: service.run_exit
+    type: EXIT
+    label: exit
+    function: service.run
+  service.root_entry:
+    id: service.root_entry
+    type: ENTRY
+    label: entry
+    function: service.root
+  service.root_exit:
+    id: service.root_exit
+    type: EXIT
+    label: exit
+    function: service.root
+  service.root_return_210:
+    id: service.root_return_210
+    type: RETURN
+    label: return
+    function: service.root
+    line: 210
+  service.health_check_entry:
+    id: service.health_check_entry
+    type: ENTRY
+    label: entry
+    function: service.health_check
+  service.health_check_exit:
+    id: service.health_check_exit
+    type: EXIT
+    label: exit
+    function: service.health_check
+  service.health_check_return_220:
+    id: service.health_check_return_220
+    type: RETURN
+    label: return
+    function: service.health_check
+    line: 220
+  service.process_query_entry:
+    id: service.process_query_entry
+    type: ENTRY
+    label: entry
+    function: service.process_query
+  service.process_query_exit:
+    id: service.process_query_exit
+    type: EXIT
+    label: exit
+    function: service.process_query
+  service.get_config_entry:
+    id: service.get_config_entry
+    type: ENTRY
+    label: entry
+    function: service.get_config
+  service.get_config_exit:
+    id: service.get_config_exit
+    type: EXIT
+    label: exit
+    function: service.get_config
+  service.get_config_return_289:
+    id: service.get_config_return_289
+    type: RETURN
+    label: return
+    function: service.get_config
+    line: 289
+  service.update_config_entry:
+    id: service.update_config_entry
+    type: ENTRY
+    label: entry
+    function: service.update_config
+  service.update_config_exit:
+    id: service.update_config_exit
+    type: EXIT
+    label: exit
+    function: service.update_config
+  service.save_config_entry:
+    id: service.save_config_entry
+    type: ENTRY
+    label: entry
+    function: service.save_config
+  service.save_config_exit:
+    id: service.save_config_exit
+    type: EXIT
+    label: exit
+    function: service.save_config

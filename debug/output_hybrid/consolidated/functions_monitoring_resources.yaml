@@ -1,0 +1,138 @@
+module: monitoring.resources
+type: functions
+count: 12
+functions:
+  monitoring.resources.measure_resources:
+    name: measure_resources
+    qualified_name: monitoring.resources.measure_resources
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 151
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.measure_resources_entry
+    calls:
+    - _monitor.measure_execution
+    called_by:
+    - cli.commands.interactive.InteractiveSession.process
+    - cli.commands.interactive.process
+    - cli.commands.generate.handle_generate_query
+  monitoring.resources.get_last_metrics:
+    name: get_last_metrics
+    qualified_name: monitoring.resources.get_last_metrics
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 117
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.get_last_metrics_entry
+    calls:
+    - getattr
+  monitoring.resources.format_last_metrics:
+    name: format_last_metrics
+    qualified_name: monitoring.resources.format_last_metrics
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 162
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.format_last_metrics_entry
+    calls:
+    - monitoring.resources.ResourceMonitor.get_last_metrics
+    - _monitor.format_metrics
+    called_by:
+    - cli.commands.interactive.InteractiveSession.display_feedback
+    - cli.commands.interactive.display_feedback
+    - cli.commands.generate.handle_generate_query
+  monitoring.resources.get_system_info:
+    name: get_system_info
+    qualified_name: monitoring.resources.get_system_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 170
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.get_system_info_entry
+    calls:
+    - psutil.cpu_count
+    - platform.system
+    - psutil.virtual_memory
+  monitoring.resources.__init__:
+    name: __init__
+    qualified_name: monitoring.resources.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 48
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.__init___entry
+    calls:
+    - psutil.Process
+    - int
+    - psutil.cpu_count
+  monitoring.resources._process_cpu_time_seconds:
+    name: _process_cpu_time_seconds
+    qualified_name: monitoring.resources._process_cpu_time_seconds
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 55
+    module: monitoring.resources
+    cfg_entry: monitoring.resources._process_cpu_time_seconds_entry
+    calls:
+    - self.process.cpu_times
+    - float
+    - getattr
+  monitoring.resources.get_current_metrics:
+    name: get_current_metrics
+    qualified_name: monitoring.resources.get_current_metrics
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 63
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.get_current_metrics_entry
+    calls:
+    - ResourceMetrics
+    - self.process.memory_percent
+    - self.process.memory_info
+  monitoring.resources.measure_execution:
+    name: measure_execution
+    qualified_name: monitoring.resources.measure_execution
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 73
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.measure_execution_entry
+    calls:
+    - time.perf_counter
+    - self._process_cpu_time_seconds
+    - self.get_current_metrics
+    - generation.thermodynamic_components._NumpyStub.max
+    - ResourceMetrics
+    - min
+    - float
+  monitoring.resources.format_metrics:
+    name: format_metrics
+    qualified_name: monitoring.resources.format_metrics
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 121
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.format_metrics_entry
+    calls:
+    - None.join
+    - lines.append
+  monitoring.resources.Process:
+    name: Process
+    qualified_name: monitoring.resources.Process
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 15
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.Process_entry
+    calls:
+    - _ProcessStub
+    - _MemInfo
+    - _CpuTimes
+  monitoring.resources.memory_info:
+    name: memory_info
+    qualified_name: monitoring.resources.memory_info
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 17
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.memory_info_entry
+    calls:
+    - _MemInfo
+  monitoring.resources.cpu_times:
+    name: cpu_times
+    qualified_name: monitoring.resources.cpu_times
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 23
+    module: monitoring.resources
+    cfg_entry: monitoring.resources.cpu_times_entry
+    calls:
+    - _CpuTimes

@@ -1,0 +1,76 @@
+module: exploration.base
+type: functions
+count: 7
+functions:
+  exploration.base.__init__:
+    name: __init__
+    qualified_name: exploration.base.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 51
+    module: exploration.base
+    cfg_entry: exploration.base.__init___entry
+    calls:
+    - executor.ExecutionContext.set
+  exploration.base._score_relevance:
+    name: _score_relevance
+    qualified_name: exploration.base._score_relevance
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 93
+    module: exploration.base
+    cfg_entry: exploration.base._score_relevance_entry
+    calls:
+    - self._get_intent_keywords
+    - None.lower
+    - context.search_term.lower
+    - search_lower.split
+    - str
+    - len
+  exploration.base._get_intent_keywords:
+    name: _get_intent_keywords
+    qualified_name: exploration.base._get_intent_keywords
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 123
+    module: exploration.base
+    cfg_entry: exploration.base._get_intent_keywords_entry
+    calls:
+    - keywords.get
+  exploration.base.reset:
+    name: reset
+    qualified_name: exploration.base.reset
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 136
+    module: exploration.base
+    cfg_entry: exploration.base.reset_entry
+    calls:
+    - executor.ExecutionContext.set
+  exploration.base.get:
+    name: get
+    qualified_name: exploration.base.get
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 152
+    module: exploration.base
+    cfg_entry: exploration.base.get_entry
+    calls:
+    - cls._explorers.get
+  exploration.base.list_supported:
+    name: list_supported
+    qualified_name: exploration.base.list_supported
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 157
+    module: exploration.base
+    cfg_entry: exploration.base.list_supported_entry
+    calls:
+    - list
+    - cls._explorers.keys
+  exploration.base.auto_detect:
+    name: auto_detect
+    qualified_name: exploration.base.auto_detect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/exploration/base.py
+    line: 162
+    module: exploration.base
+    cfg_entry: exploration.base.auto_detect_entry
+    calls:
+    - str
+    - root_str.startswith
+    - any
+    - isinstance

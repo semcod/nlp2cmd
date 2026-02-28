@@ -1,0 +1,16 @@
+module: generation.evolutionary_cache.CacheEntry
+type: functions
+count: 1
+functions:
+  generation.evolutionary_cache.CacheEntry.touch:
+    name: touch
+    qualified_name: generation.evolutionary_cache.CacheEntry.touch
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/evolutionary_cache.py
+    line: 208
+    module: generation.evolutionary_cache
+    class: CacheEntry
+    is_method: true
+    cfg_entry: generation.evolutionary_cache.CacheEntry.touch_entry
+    calls:
+    - None.isoformat
+    - datetime.now

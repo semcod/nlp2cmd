@@ -1,0 +1,173 @@
+module: aggregator.ResultAggregator
+type: functions
+count: 10
+functions:
+  aggregator.ResultAggregator.aggregate:
+    name: aggregate
+    qualified_name: aggregator.ResultAggregator.aggregate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 64
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator.aggregate_entry
+    calls:
+    - self._generate_summary
+    - self._format_data
+    - AggregatedResult
+    - details.append
+    - len
+    - self._format_step_detail
+  aggregator.ResultAggregator._format_step_detail:
+    name: _format_step_detail
+    qualified_name: aggregator.ResultAggregator._format_step_detail
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 107
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._format_step_detail_entry
+    calls:
+    - isinstance
+    - json.dumps
+    - len
+  aggregator.ResultAggregator._generate_summary:
+    name: _generate_summary
+    qualified_name: aggregator.ResultAggregator._generate_summary
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 136
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._generate_summary_entry
+    calls:
+    - lines.append
+    - generation.thermodynamic_components._NumpyStub.sum
+    - None.join
+    - self._preview_result
+    - preview.split
+  aggregator.ResultAggregator._preview_result:
+    name: _preview_result
+    qualified_name: aggregator.ResultAggregator._preview_result
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 168
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._preview_result_entry
+    calls:
+    - isinstance
+    - str
+    - enumerate
+    - len
+    - list
+    - result.keys
+    - json.dumps
+  aggregator.ResultAggregator._format_data:
+    name: _format_data
+    qualified_name: aggregator.ResultAggregator._format_data
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 201
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._format_data_entry
+    calls:
+    - self._to_text
+    - self._to_table
+    - self._to_markdown
+    - self._to_summary
+  aggregator.ResultAggregator._to_text:
+    name: _to_text
+    qualified_name: aggregator.ResultAggregator._to_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 221
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._to_text_entry
+    calls:
+    - isinstance
+    - str
+    - enumerate
+    - None.join
+    - data.items
+    - len
+    - lines.append
+    - json.dumps
+  aggregator.ResultAggregator._to_table:
+    name: _to_table
+    qualified_name: aggregator.ResultAggregator._to_table
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 244
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._to_table_entry
+    calls:
+    - list
+    - None.join
+    - lines.append
+    - self._to_text
+    - isinstance
+    - None.keys
+    - len
+    - str
+    - generation.thermodynamic_components._NumpyStub.max
+    - col.ljust
+    - row.get
+    - None.ljust
+  aggregator.ResultAggregator._to_markdown:
+    name: _to_markdown
+    qualified_name: aggregator.ResultAggregator._to_markdown
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 282
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._to_markdown_entry
+    calls:
+    - list
+    - lines.append
+    - None.join
+    - isinstance
+    - None.keys
+    - len
+    - str
+    - self._to_text
+    - row.get
+  aggregator.ResultAggregator._to_summary:
+    name: _to_summary
+    qualified_name: aggregator.ResultAggregator._to_summary
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 311
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator._to_summary_entry
+    calls:
+    - isinstance
+    - len
+    - None.join
+    - str
+    - None.items
+    - data.keys
+    - row.get
+    - min
+    - generation.thermodynamic_components._NumpyStub.max
+    - generation.thermodynamic_components._NumpyStub.sum
+  aggregator.ResultAggregator.to_llm_context:
+    name: to_llm_context
+    qualified_name: aggregator.ResultAggregator.to_llm_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/aggregator/__init__.py
+    line: 342
+    module: aggregator
+    class: ResultAggregator
+    is_method: true
+    cfg_entry: aggregator.ResultAggregator.to_llm_context_entry
+    calls:
+    - lines.append
+    - None.join
+    - isinstance
+    - json.dumps
+    - len

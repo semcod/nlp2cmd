@@ -1,0 +1,113 @@
+module: automation.complex_planner
+type: functions
+count: 8
+functions:
+  automation.complex_planner._debug:
+    name: _debug
+    qualified_name: automation.complex_planner._debug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 26
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner._debug_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  automation.complex_planner.to_dict:
+    name: to_dict
+    qualified_name: automation.complex_planner.to_dict
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 59
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner.to_dict_entry
+    calls:
+    - s.to_dict
+  automation.complex_planner.__init__:
+    name: __init__
+    qualified_name: automation.complex_planner.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 285
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner.__init___entry
+    calls:
+    - os.getenv
+  automation.complex_planner.plan:
+    name: plan
+    qualified_name: automation.complex_planner.plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 293
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner.plan_entry
+    calls:
+    - pipeline_runner_utils._debug
+    - self._match_template
+    - self._extract_url
+    - ExecutionPlan
+    - self._llm_plan
+    - ActionStep
+    - plan.metadata.get
+    - len
+  automation.complex_planner._match_template:
+    name: _match_template
+    qualified_name: automation.complex_planner._match_template
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 333
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner._match_template_entry
+    calls:
+    - query.lower
+    - re.search
+    - self._extract_color
+    - ExecutionPlan
+    - dict
+    - params.items
+    - steps.append
+    - self._extract_url
+    - ActionStep
+    - isinstance
+    - None.replace
+    - step.params.get
+    - m.group
+    - value.replace
+    - int
+  automation.complex_planner._llm_plan:
+    name: _llm_plan
+    qualified_name: automation.complex_planner._llm_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 388
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner._llm_plan_entry
+    calls:
+    - httpx.AsyncClient
+    - resp.json
+    - None.strip
+    - re.sub
+    - json.loads
+    - ExecutionPlan
+    - pipeline_runner_utils._debug
+    - client.post
+    - isinstance
+    - steps.append
+    - ActionStep
+    - sd.get
+  automation.complex_planner._extract_url:
+    name: _extract_url
+    qualified_name: automation.complex_planner._extract_url
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 450
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner._extract_url_entry
+    calls:
+    - re.search
+    - None.rstrip
+    - m.group
+  automation.complex_planner._extract_color:
+    name: _extract_color
+    qualified_name: automation.complex_planner._extract_color
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/complex_planner.py
+    line: 464
+    module: automation.complex_planner
+    cfg_entry: automation.complex_planner._extract_color_entry
+    calls:
+    - text.lower
+    - color_map.items
+    - re.search
+    - m.group

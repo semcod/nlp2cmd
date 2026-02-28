@@ -1,0 +1,818 @@
+module: aggregator.ResultAggregator
+type: orphan_nodes
+count: 146
+nodes:
+  aggregator.ResultAggregator.__init___entry:
+    id: aggregator.ResultAggregator.__init___entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator.__init__
+  aggregator.ResultAggregator.__init___exit:
+    id: aggregator.ResultAggregator.__init___exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator.__init__
+  aggregator.ResultAggregator.aggregate_entry:
+    id: aggregator.ResultAggregator.aggregate_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator.aggregate
+  aggregator.ResultAggregator.aggregate_exit:
+    id: aggregator.ResultAggregator.aggregate_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator.aggregate
+  aggregator.ResultAggregator.aggregate_if_85:
+    id: aggregator.ResultAggregator.aggregate_if_85
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator.aggregate
+    line: 85
+  aggregator.ResultAggregator.aggregate_loop_86:
+    id: aggregator.ResultAggregator.aggregate_loop_86
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator.aggregate
+    line: 86
+  aggregator.ResultAggregator.aggregate_merge_85:
+    id: aggregator.ResultAggregator.aggregate_merge_85
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator.aggregate
+  aggregator.ResultAggregator.aggregate_return_95:
+    id: aggregator.ResultAggregator.aggregate_return_95
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator.aggregate
+    line: 95
+  aggregator.ResultAggregator._format_step_detail_entry:
+    id: aggregator.ResultAggregator._format_step_detail_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_exit:
+    id: aggregator.ResultAggregator._format_step_detail_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_if_116:
+    id: aggregator.ResultAggregator._format_step_detail_if_116
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 116
+  aggregator.ResultAggregator._format_step_detail_if_118:
+    id: aggregator.ResultAggregator._format_step_detail_if_118
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 118
+  aggregator.ResultAggregator._format_step_detail_if_120:
+    id: aggregator.ResultAggregator._format_step_detail_if_120
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 120
+  aggregator.ResultAggregator._format_step_detail_if_121:
+    id: aggregator.ResultAggregator._format_step_detail_if_121
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 121
+  aggregator.ResultAggregator._format_step_detail_if_123:
+    id: aggregator.ResultAggregator._format_step_detail_if_123
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 123
+  aggregator.ResultAggregator._format_step_detail_merge_123:
+    id: aggregator.ResultAggregator._format_step_detail_merge_123
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_merge_121:
+    id: aggregator.ResultAggregator._format_step_detail_merge_121
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_merge_120:
+    id: aggregator.ResultAggregator._format_step_detail_merge_120
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_merge_118:
+    id: aggregator.ResultAggregator._format_step_detail_merge_118
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_merge_116:
+    id: aggregator.ResultAggregator._format_step_detail_merge_116
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_if_131:
+    id: aggregator.ResultAggregator._format_step_detail_if_131
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 131
+  aggregator.ResultAggregator._format_step_detail_merge_131:
+    id: aggregator.ResultAggregator._format_step_detail_merge_131
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_step_detail
+  aggregator.ResultAggregator._format_step_detail_return_134:
+    id: aggregator.ResultAggregator._format_step_detail_return_134
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_step_detail
+    line: 134
+  aggregator.ResultAggregator._generate_summary_entry:
+    id: aggregator.ResultAggregator._generate_summary_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._generate_summary
+  aggregator.ResultAggregator._generate_summary_exit:
+    id: aggregator.ResultAggregator._generate_summary_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._generate_summary
+  aggregator.ResultAggregator._generate_summary_if_154:
+    id: aggregator.ResultAggregator._generate_summary_if_154
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._generate_summary
+    line: 154
+  aggregator.ResultAggregator._generate_summary_loop_155:
+    id: aggregator.ResultAggregator._generate_summary_loop_155
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._generate_summary
+    line: 155
+  aggregator.ResultAggregator._generate_summary_if_156:
+    id: aggregator.ResultAggregator._generate_summary_if_156
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._generate_summary
+    line: 156
+  aggregator.ResultAggregator._generate_summary_merge_156:
+    id: aggregator.ResultAggregator._generate_summary_merge_156
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._generate_summary
+  aggregator.ResultAggregator._generate_summary_merge_154:
+    id: aggregator.ResultAggregator._generate_summary_merge_154
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._generate_summary
+  aggregator.ResultAggregator._generate_summary_if_160:
+    id: aggregator.ResultAggregator._generate_summary_if_160
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._generate_summary
+    line: 160
+  aggregator.ResultAggregator._generate_summary_loop_163:
+    id: aggregator.ResultAggregator._generate_summary_loop_163
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._generate_summary
+    line: 163
+  aggregator.ResultAggregator._generate_summary_merge_160:
+    id: aggregator.ResultAggregator._generate_summary_merge_160
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._generate_summary
+  aggregator.ResultAggregator._generate_summary_return_166:
+    id: aggregator.ResultAggregator._generate_summary_return_166
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._generate_summary
+    line: 166
+  aggregator.ResultAggregator._preview_result_entry:
+    id: aggregator.ResultAggregator._preview_result_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_exit:
+    id: aggregator.ResultAggregator._preview_result_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_if_170:
+    id: aggregator.ResultAggregator._preview_result_if_170
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 170
+  aggregator.ResultAggregator._preview_result_return_171:
+    id: aggregator.ResultAggregator._preview_result_return_171
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 171
+  aggregator.ResultAggregator._preview_result_merge_170:
+    id: aggregator.ResultAggregator._preview_result_merge_170
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_if_173:
+    id: aggregator.ResultAggregator._preview_result_if_173
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 173
+  aggregator.ResultAggregator._preview_result_if_174:
+    id: aggregator.ResultAggregator._preview_result_if_174
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 174
+  aggregator.ResultAggregator._preview_result_return_175:
+    id: aggregator.ResultAggregator._preview_result_return_175
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 175
+  aggregator.ResultAggregator._preview_result_merge_174:
+    id: aggregator.ResultAggregator._preview_result_merge_174
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_loop_180:
+    id: aggregator.ResultAggregator._preview_result_loop_180
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._preview_result
+    line: 180
+  aggregator.ResultAggregator._preview_result_if_181:
+    id: aggregator.ResultAggregator._preview_result_if_181
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 181
+  aggregator.ResultAggregator._preview_result_merge_181:
+    id: aggregator.ResultAggregator._preview_result_merge_181
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_if_186:
+    id: aggregator.ResultAggregator._preview_result_if_186
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 186
+  aggregator.ResultAggregator._preview_result_merge_186:
+    id: aggregator.ResultAggregator._preview_result_merge_186
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_return_189:
+    id: aggregator.ResultAggregator._preview_result_return_189
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 189
+  aggregator.ResultAggregator._preview_result_merge_173:
+    id: aggregator.ResultAggregator._preview_result_merge_173
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_if_191:
+    id: aggregator.ResultAggregator._preview_result_if_191
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 191
+  aggregator.ResultAggregator._preview_result_return_192:
+    id: aggregator.ResultAggregator._preview_result_return_192
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 192
+  aggregator.ResultAggregator._preview_result_merge_191:
+    id: aggregator.ResultAggregator._preview_result_merge_191
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_if_194:
+    id: aggregator.ResultAggregator._preview_result_if_194
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 194
+  aggregator.ResultAggregator._preview_result_if_195:
+    id: aggregator.ResultAggregator._preview_result_if_195
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._preview_result
+    line: 195
+  aggregator.ResultAggregator._preview_result_return_196:
+    id: aggregator.ResultAggregator._preview_result_return_196
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 196
+  aggregator.ResultAggregator._preview_result_merge_195:
+    id: aggregator.ResultAggregator._preview_result_merge_195
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_return_197:
+    id: aggregator.ResultAggregator._preview_result_return_197
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 197
+  aggregator.ResultAggregator._preview_result_merge_194:
+    id: aggregator.ResultAggregator._preview_result_merge_194
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._preview_result
+  aggregator.ResultAggregator._preview_result_return_199:
+    id: aggregator.ResultAggregator._preview_result_return_199
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._preview_result
+    line: 199
+  aggregator.ResultAggregator._format_data_entry:
+    id: aggregator.ResultAggregator._format_data_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_exit:
+    id: aggregator.ResultAggregator._format_data_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_if_203:
+    id: aggregator.ResultAggregator._format_data_if_203
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_data
+    line: 203
+  aggregator.ResultAggregator._format_data_return_204:
+    id: aggregator.ResultAggregator._format_data_return_204
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_data
+    line: 204
+  aggregator.ResultAggregator._format_data_merge_203:
+    id: aggregator.ResultAggregator._format_data_merge_203
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_if_206:
+    id: aggregator.ResultAggregator._format_data_if_206
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_data
+    line: 206
+  aggregator.ResultAggregator._format_data_return_207:
+    id: aggregator.ResultAggregator._format_data_return_207
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_data
+    line: 207
+  aggregator.ResultAggregator._format_data_merge_206:
+    id: aggregator.ResultAggregator._format_data_merge_206
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_if_209:
+    id: aggregator.ResultAggregator._format_data_if_209
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_data
+    line: 209
+  aggregator.ResultAggregator._format_data_return_210:
+    id: aggregator.ResultAggregator._format_data_return_210
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_data
+    line: 210
+  aggregator.ResultAggregator._format_data_merge_209:
+    id: aggregator.ResultAggregator._format_data_merge_209
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_if_212:
+    id: aggregator.ResultAggregator._format_data_if_212
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_data
+    line: 212
+  aggregator.ResultAggregator._format_data_return_213:
+    id: aggregator.ResultAggregator._format_data_return_213
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_data
+    line: 213
+  aggregator.ResultAggregator._format_data_merge_212:
+    id: aggregator.ResultAggregator._format_data_merge_212
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_if_215:
+    id: aggregator.ResultAggregator._format_data_if_215
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._format_data
+    line: 215
+  aggregator.ResultAggregator._format_data_return_216:
+    id: aggregator.ResultAggregator._format_data_return_216
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_data
+    line: 216
+  aggregator.ResultAggregator._format_data_merge_215:
+    id: aggregator.ResultAggregator._format_data_merge_215
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._format_data
+  aggregator.ResultAggregator._format_data_return_219:
+    id: aggregator.ResultAggregator._format_data_return_219
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._format_data
+    line: 219
+  aggregator.ResultAggregator._to_text_entry:
+    id: aggregator.ResultAggregator._to_text_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._to_text
+  aggregator.ResultAggregator._to_text_exit:
+    id: aggregator.ResultAggregator._to_text_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._to_text
+  aggregator.ResultAggregator._to_text_if_223:
+    id: aggregator.ResultAggregator._to_text_if_223
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_text
+    line: 223
+  aggregator.ResultAggregator._to_text_if_224:
+    id: aggregator.ResultAggregator._to_text_if_224
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_text
+    line: 224
+  aggregator.ResultAggregator._to_text_return_225:
+    id: aggregator.ResultAggregator._to_text_return_225
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_text
+    line: 225
+  aggregator.ResultAggregator._to_text_merge_224:
+    id: aggregator.ResultAggregator._to_text_merge_224
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_text
+  aggregator.ResultAggregator._to_text_loop_228:
+    id: aggregator.ResultAggregator._to_text_loop_228
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_text
+    line: 228
+  aggregator.ResultAggregator._to_text_if_229:
+    id: aggregator.ResultAggregator._to_text_if_229
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_text
+    line: 229
+  aggregator.ResultAggregator._to_text_merge_229:
+    id: aggregator.ResultAggregator._to_text_merge_229
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_text
+  aggregator.ResultAggregator._to_text_return_234:
+    id: aggregator.ResultAggregator._to_text_return_234
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_text
+    line: 234
+  aggregator.ResultAggregator._to_text_merge_223:
+    id: aggregator.ResultAggregator._to_text_merge_223
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_text
+  aggregator.ResultAggregator._to_text_if_236:
+    id: aggregator.ResultAggregator._to_text_if_236
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_text
+    line: 236
+  aggregator.ResultAggregator._to_text_loop_238:
+    id: aggregator.ResultAggregator._to_text_loop_238
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_text
+    line: 238
+  aggregator.ResultAggregator._to_text_return_240:
+    id: aggregator.ResultAggregator._to_text_return_240
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_text
+    line: 240
+  aggregator.ResultAggregator._to_text_merge_236:
+    id: aggregator.ResultAggregator._to_text_merge_236
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_text
+  aggregator.ResultAggregator._to_text_return_242:
+    id: aggregator.ResultAggregator._to_text_return_242
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_text
+    line: 242
+  aggregator.ResultAggregator._to_table_entry:
+    id: aggregator.ResultAggregator._to_table_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._to_table
+  aggregator.ResultAggregator._to_table_exit:
+    id: aggregator.ResultAggregator._to_table_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._to_table
+  aggregator.ResultAggregator._to_table_if_246:
+    id: aggregator.ResultAggregator._to_table_if_246
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_table
+    line: 246
+  aggregator.ResultAggregator._to_table_return_247:
+    id: aggregator.ResultAggregator._to_table_return_247
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_table
+    line: 247
+  aggregator.ResultAggregator._to_table_merge_246:
+    id: aggregator.ResultAggregator._to_table_merge_246
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_table
+  aggregator.ResultAggregator._to_table_if_249:
+    id: aggregator.ResultAggregator._to_table_if_249
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_table
+    line: 249
+  aggregator.ResultAggregator._to_table_return_250:
+    id: aggregator.ResultAggregator._to_table_return_250
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_table
+    line: 250
+  aggregator.ResultAggregator._to_table_merge_249:
+    id: aggregator.ResultAggregator._to_table_merge_249
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_table
+  aggregator.ResultAggregator._to_table_loop_257:
+    id: aggregator.ResultAggregator._to_table_loop_257
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_table
+    line: 257
+  aggregator.ResultAggregator._to_table_loop_258:
+    id: aggregator.ResultAggregator._to_table_loop_258
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_table
+    line: 258
+  aggregator.ResultAggregator._to_table_loop_273:
+    id: aggregator.ResultAggregator._to_table_loop_273
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_table
+    line: 273
+  aggregator.ResultAggregator._to_table_return_280:
+    id: aggregator.ResultAggregator._to_table_return_280
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_table
+    line: 280
+  aggregator.ResultAggregator._to_markdown_entry:
+    id: aggregator.ResultAggregator._to_markdown_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._to_markdown
+  aggregator.ResultAggregator._to_markdown_exit:
+    id: aggregator.ResultAggregator._to_markdown_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._to_markdown
+  aggregator.ResultAggregator._to_markdown_if_284:
+    id: aggregator.ResultAggregator._to_markdown_if_284
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_markdown
+    line: 284
+  aggregator.ResultAggregator._to_markdown_return_285:
+    id: aggregator.ResultAggregator._to_markdown_return_285
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_markdown
+    line: 285
+  aggregator.ResultAggregator._to_markdown_merge_284:
+    id: aggregator.ResultAggregator._to_markdown_merge_284
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_markdown
+  aggregator.ResultAggregator._to_markdown_if_287:
+    id: aggregator.ResultAggregator._to_markdown_if_287
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_markdown
+    line: 287
+  aggregator.ResultAggregator._to_markdown_loop_289:
+    id: aggregator.ResultAggregator._to_markdown_loop_289
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_markdown
+    line: 289
+  aggregator.ResultAggregator._to_markdown_return_292:
+    id: aggregator.ResultAggregator._to_markdown_return_292
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_markdown
+    line: 292
+  aggregator.ResultAggregator._to_markdown_merge_287:
+    id: aggregator.ResultAggregator._to_markdown_merge_287
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_markdown
+  aggregator.ResultAggregator._to_markdown_loop_305:
+    id: aggregator.ResultAggregator._to_markdown_loop_305
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_markdown
+    line: 305
+  aggregator.ResultAggregator._to_markdown_return_309:
+    id: aggregator.ResultAggregator._to_markdown_return_309
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_markdown
+    line: 309
+  aggregator.ResultAggregator._to_summary_entry:
+    id: aggregator.ResultAggregator._to_summary_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_exit:
+    id: aggregator.ResultAggregator._to_summary_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_if_313:
+    id: aggregator.ResultAggregator._to_summary_if_313
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_summary
+    line: 313
+  aggregator.ResultAggregator._to_summary_return_314:
+    id: aggregator.ResultAggregator._to_summary_return_314
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_summary
+    line: 314
+  aggregator.ResultAggregator._to_summary_merge_313:
+    id: aggregator.ResultAggregator._to_summary_merge_313
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_if_316:
+    id: aggregator.ResultAggregator._to_summary_if_316
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_summary
+    line: 316
+  aggregator.ResultAggregator._to_summary_if_317:
+    id: aggregator.ResultAggregator._to_summary_if_317
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_summary
+    line: 317
+  aggregator.ResultAggregator._to_summary_return_318:
+    id: aggregator.ResultAggregator._to_summary_return_318
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_summary
+    line: 318
+  aggregator.ResultAggregator._to_summary_merge_317:
+    id: aggregator.ResultAggregator._to_summary_merge_317
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_if_322:
+    id: aggregator.ResultAggregator._to_summary_if_322
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_summary
+    line: 322
+  aggregator.ResultAggregator._to_summary_if_329:
+    id: aggregator.ResultAggregator._to_summary_if_329
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_summary
+    line: 329
+  aggregator.ResultAggregator._to_summary_loop_331:
+    id: aggregator.ResultAggregator._to_summary_loop_331
+    type: FOR
+    label: for
+    function: aggregator.ResultAggregator._to_summary
+    line: 331
+  aggregator.ResultAggregator._to_summary_merge_329:
+    id: aggregator.ResultAggregator._to_summary_merge_329
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_merge_322:
+    id: aggregator.ResultAggregator._to_summary_merge_322
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_return_335:
+    id: aggregator.ResultAggregator._to_summary_return_335
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_summary
+    line: 335
+  aggregator.ResultAggregator._to_summary_merge_316:
+    id: aggregator.ResultAggregator._to_summary_merge_316
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_if_337:
+    id: aggregator.ResultAggregator._to_summary_if_337
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator._to_summary
+    line: 337
+  aggregator.ResultAggregator._to_summary_return_338:
+    id: aggregator.ResultAggregator._to_summary_return_338
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_summary
+    line: 338
+  aggregator.ResultAggregator._to_summary_merge_337:
+    id: aggregator.ResultAggregator._to_summary_merge_337
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator._to_summary
+  aggregator.ResultAggregator._to_summary_return_340:
+    id: aggregator.ResultAggregator._to_summary_return_340
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator._to_summary
+    line: 340
+  aggregator.ResultAggregator.to_llm_context_entry:
+    id: aggregator.ResultAggregator.to_llm_context_entry
+    type: ENTRY
+    label: entry
+    function: aggregator.ResultAggregator.to_llm_context
+  aggregator.ResultAggregator.to_llm_context_exit:
+    id: aggregator.ResultAggregator.to_llm_context_exit
+    type: EXIT
+    label: exit
+    function: aggregator.ResultAggregator.to_llm_context
+  aggregator.ResultAggregator.to_llm_context_if_359:
+    id: aggregator.ResultAggregator.to_llm_context_if_359
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator.to_llm_context
+    line: 359
+  aggregator.ResultAggregator.to_llm_context_if_363:
+    id: aggregator.ResultAggregator.to_llm_context_if_363
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator.to_llm_context
+    line: 363
+  aggregator.ResultAggregator.to_llm_context_merge_363:
+    id: aggregator.ResultAggregator.to_llm_context_merge_363
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator.to_llm_context
+  aggregator.ResultAggregator.to_llm_context_if_371:
+    id: aggregator.ResultAggregator.to_llm_context_if_371
+    type: IF
+    label: if
+    function: aggregator.ResultAggregator.to_llm_context
+    line: 371
+  aggregator.ResultAggregator.to_llm_context_merge_371:
+    id: aggregator.ResultAggregator.to_llm_context_merge_371
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator.to_llm_context
+  aggregator.ResultAggregator.to_llm_context_merge_359:
+    id: aggregator.ResultAggregator.to_llm_context_merge_359
+    type: FUNC
+    label: merge
+    function: aggregator.ResultAggregator.to_llm_context
+  aggregator.ResultAggregator.to_llm_context_return_376:
+    id: aggregator.ResultAggregator.to_llm_context_return_376
+    type: RETURN
+    label: return
+    function: aggregator.ResultAggregator.to_llm_context
+    line: 376

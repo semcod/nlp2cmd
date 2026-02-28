@@ -1,0 +1,87 @@
+module: llm.openrouter
+type: functions
+count: 7
+functions:
+  llm.openrouter._debug:
+    name: _debug
+    qualified_name: llm.openrouter._debug
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 26
+    module: llm.openrouter
+    cfg_entry: llm.openrouter._debug_entry
+    calls:
+    - pipeline_runner_utils._MarkdownConsoleWrapper.print
+  llm.openrouter.__init__:
+    name: __init__
+    qualified_name: llm.openrouter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 73
+    module: llm.openrouter
+    cfg_entry: llm.openrouter.__init___entry
+    calls:
+    - os.getenv
+  llm.openrouter.complete:
+    name: complete
+    qualified_name: llm.openrouter.complete
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 102
+    module: llm.openrouter
+    cfg_entry: llm.openrouter.complete_entry
+    calls:
+    - messages.append
+    - LLMResponse
+    - self._request
+  llm.openrouter.vision:
+    name: vision
+    qualified_name: llm.openrouter.vision
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 145
+    module: llm.openrouter
+    cfg_entry: llm.openrouter.vision_entry
+    calls:
+    - messages.append
+    - LLMResponse
+    - self._request
+  llm.openrouter.plan_actions:
+    name: plan_actions
+    qualified_name: llm.openrouter.plan_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 195
+    module: llm.openrouter
+    cfg_entry: llm.openrouter.plan_actions_entry
+    calls:
+    - self.complete
+    - None.join
+  llm.openrouter._request:
+    name: _request
+    qualified_name: llm.openrouter._request
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 227
+    module: llm.openrouter
+    cfg_entry: llm.openrouter._request_entry
+    calls:
+    - pipeline_runner_utils._debug
+    - httpx.AsyncClient
+    - resp.json
+    - choice.get
+    - LLMResponse
+    - client.post
+    - data.get
+    - body.get
+    - None.strip
+    - str
+    - self._headers
+    - message.get
+  llm.openrouter.check_balance:
+    name: check_balance
+    qualified_name: llm.openrouter.check_balance
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/llm/openrouter.py
+    line: 271
+    module: llm.openrouter
+    cfg_entry: llm.openrouter.check_balance_entry
+    calls:
+    - httpx.AsyncClient
+    - client.get
+    - resp.json
+    - str
+    - self._headers

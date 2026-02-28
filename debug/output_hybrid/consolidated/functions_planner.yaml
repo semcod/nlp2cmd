@@ -1,0 +1,87 @@
+module: planner
+type: functions
+count: 7
+functions:
+  planner.__init__:
+    name: __init__
+    qualified_name: planner.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 179
+    module: planner
+    cfg_entry: planner.__init___entry
+    calls:
+    - PlanValidator
+    - registry.get_registry
+    - PlannerConfig
+  planner.plan:
+    name: plan
+    qualified_name: planner.plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 198
+    module: planner
+    cfg_entry: planner.plan_entry
+    calls:
+    - self._build_prompt
+    - self._parse_response
+    - executor.ExecutionPlan.from_dict
+    - self.validator.validate
+    - PlanningResult
+    - self._call_llm
+    - self._rule_based_plan
+    - logger.exception
+    - str
+  planner._build_prompt:
+    name: _build_prompt
+    qualified_name: planner._build_prompt
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 271
+    module: planner
+    cfg_entry: planner._build_prompt_entry
+    calls:
+    - self.registry.to_llm_prompt
+    - None.replace
+    - json.dumps
+    - self.SYSTEM_PROMPT.replace
+  planner._call_llm:
+    name: _call_llm
+    qualified_name: planner._call_llm
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 313
+    module: planner
+    cfg_entry: planner._call_llm_entry
+    calls:
+    - hasattr
+    - self.llm_client.messages.create
+    - self.llm_client.chat.completions.create
+    - ValueError
+  planner._parse_response:
+    name: _parse_response
+    qualified_name: planner._parse_response
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 338
+    module: planner
+    cfg_entry: planner._parse_response_entry
+    calls:
+    - re.search
+    - json.loads
+    - json_match.group
+  planner._rule_based_plan:
+    name: _rule_based_plan
+    qualified_name: planner._rule_based_plan
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 367
+    module: planner
+    cfg_entry: planner._rule_based_plan_entry
+    calls:
+    - intent_action_map.get
+    - json.dumps
+    - steps.append
+  planner.get_action_catalog:
+    name: get_action_catalog
+    qualified_name: planner.get_action_catalog
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/planner/__init__.py
+    line: 410
+    module: planner
+    cfg_entry: planner.get_action_catalog_entry
+    calls:
+    - self.registry.to_llm_prompt

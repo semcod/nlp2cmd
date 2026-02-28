@@ -1,0 +1,134 @@
+module: generation.thermodynamic.ThermodynamicGenerator
+type: functions
+count: 8
+functions:
+  generation.thermodynamic.ThermodynamicGenerator.__init__:
+    name: __init__
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 73
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator.__init___entry
+    calls:
+    - kwargs.get
+    - ThermodynamicProblemDetector
+    - ThermodynamicRouter
+    - EnergyEstimator
+    - LangevinConfig
+    - ThermodynamicConfig
+  generation.thermodynamic.ThermodynamicGenerator.generate:
+    name: generate
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator.generate
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 135
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator.generate_entry
+    calls:
+    - time.time
+    - len
+    - LangevinConfig
+    - LangevinSampler
+    - self._create_tasks_from_problem
+    - sampler.sample
+    - isinstance
+    - self._decode_result
+    - hasattr
+    - self._calculate_entropy_production
+    - self.validate_solution
+    - ThermodynamicResult
+    - self.problem_detector.detect_problem
+    - self.config.adapt_to_problem_size
+    - self._create_energy_model
+    - self.energy_estimator.estimate
+    - float
+    - generation.thermodynamic_components._NumpyStub.max
+    - condition.pop
+  generation.thermodynamic.ThermodynamicGenerator._create_energy_model:
+    name: _create_energy_model
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator._create_energy_model
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 295
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator._create_energy_model_entry
+    calls:
+    - SchedulingEnergy
+    - AllocationEnergy
+    - RoutingEnergy
+    - CSPEnergy
+  generation.thermodynamic.ThermodynamicGenerator._create_tasks_from_problem:
+    name: _create_tasks_from_problem
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator._create_tasks_from_problem
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 316
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator._create_tasks_from_problem_entry
+    calls:
+    - range
+    - Task
+    - tasks.append
+    - var.lower
+    - re.search
+    - int
+    - match.group
+  generation.thermodynamic.ThermodynamicGenerator.validate_solution:
+    name: validate_solution
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator.validate_solution
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 368
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator.validate_solution_entry
+    calls:
+    - isinstance
+    - solution.get
+    - SolutionQuality
+    - hasattr
+    - len
+    - executor.ExecutionContext.set
+  generation.thermodynamic.ThermodynamicGenerator._rule_based_parse:
+    name: _rule_based_parse
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator._rule_based_parse
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 449
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator._rule_based_parse_entry
+    calls:
+    - self.problem_detector.detect_problem
+  generation.thermodynamic.ThermodynamicGenerator._format_output:
+    name: _format_output
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator._format_output
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 453
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator._format_output_entry
+    calls:
+    - isinstance
+    - hasattr
+    - str
+  generation.thermodynamic.ThermodynamicGenerator._get_sampling_config:
+    name: _get_sampling_config
+    qualified_name: generation.thermodynamic.ThermodynamicGenerator._get_sampling_config
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/thermodynamic.py
+    line: 471
+    module: generation.thermodynamic
+    class: ThermodynamicGenerator
+    is_method: true
+    cfg_entry: generation.thermodynamic.ThermodynamicGenerator._get_sampling_config_entry
+    calls:
+    - len
+    - getattr
+    - LangevinConfig
+    - self.config.adapt_to_problem_size

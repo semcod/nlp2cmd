@@ -1,0 +1,500 @@
+module: automation.feedback_loop
+type: orphan_nodes
+count: 90
+nodes:
+  automation.feedback_loop.extract_page_context_entry:
+    id: automation.feedback_loop.extract_page_context_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.extract_page_context
+  automation.feedback_loop.extract_page_context_exit:
+    id: automation.feedback_loop.extract_page_context_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.extract_page_context
+  automation.feedback_loop.find_api_keys_section_entry:
+    id: automation.feedback_loop.find_api_keys_section_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.find_api_keys_section
+  automation.feedback_loop.find_api_keys_section_exit:
+    id: automation.feedback_loop.find_api_keys_section_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.find_api_keys_section
+  automation.feedback_loop.find_api_keys_section_return_197:
+    id: automation.feedback_loop.find_api_keys_section_return_197
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.find_api_keys_section
+    line: 197
+  automation.feedback_loop.find_clickable_for_text_entry:
+    id: automation.feedback_loop.find_clickable_for_text_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.find_clickable_for_text
+  automation.feedback_loop.find_clickable_for_text_exit:
+    id: automation.feedback_loop.find_clickable_for_text_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.find_clickable_for_text
+  automation.feedback_loop.find_clickable_for_text_return_220:
+    id: automation.feedback_loop.find_clickable_for_text_return_220
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.find_clickable_for_text
+    line: 220
+  automation.feedback_loop.__init___entry:
+    id: automation.feedback_loop.__init___entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.__init__
+  automation.feedback_loop.__init___exit:
+    id: automation.feedback_loop.__init___exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.__init__
+  automation.feedback_loop.classify_failure_entry:
+    id: automation.feedback_loop.classify_failure_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_exit:
+    id: automation.feedback_loop.classify_failure_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_276:
+    id: automation.feedback_loop.classify_failure_if_276
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 276
+  automation.feedback_loop.classify_failure_return_277:
+    id: automation.feedback_loop.classify_failure_return_277
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 277
+  automation.feedback_loop.classify_failure_merge_276:
+    id: automation.feedback_loop.classify_failure_merge_276
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_284:
+    id: automation.feedback_loop.classify_failure_if_284
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 284
+  automation.feedback_loop.classify_failure_return_285:
+    id: automation.feedback_loop.classify_failure_return_285
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 285
+  automation.feedback_loop.classify_failure_merge_284:
+    id: automation.feedback_loop.classify_failure_merge_284
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_291:
+    id: automation.feedback_loop.classify_failure_if_291
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 291
+  automation.feedback_loop.classify_failure_return_292:
+    id: automation.feedback_loop.classify_failure_return_292
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 292
+  automation.feedback_loop.classify_failure_merge_291:
+    id: automation.feedback_loop.classify_failure_merge_291
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_300:
+    id: automation.feedback_loop.classify_failure_if_300
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 300
+  automation.feedback_loop.classify_failure_if_303:
+    id: automation.feedback_loop.classify_failure_if_303
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 303
+  automation.feedback_loop.classify_failure_if_306:
+    id: automation.feedback_loop.classify_failure_if_306
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 306
+  automation.feedback_loop.classify_failure_merge_306:
+    id: automation.feedback_loop.classify_failure_merge_306
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_merge_303:
+    id: automation.feedback_loop.classify_failure_merge_303
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_return_309:
+    id: automation.feedback_loop.classify_failure_return_309
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 309
+  automation.feedback_loop.classify_failure_merge_300:
+    id: automation.feedback_loop.classify_failure_merge_300
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_317:
+    id: automation.feedback_loop.classify_failure_if_317
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 317
+  automation.feedback_loop.classify_failure_return_318:
+    id: automation.feedback_loop.classify_failure_return_318
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 318
+  automation.feedback_loop.classify_failure_merge_317:
+    id: automation.feedback_loop.classify_failure_merge_317
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_324:
+    id: automation.feedback_loop.classify_failure_if_324
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 324
+  automation.feedback_loop.classify_failure_return_325:
+    id: automation.feedback_loop.classify_failure_return_325
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 325
+  automation.feedback_loop.classify_failure_merge_324:
+    id: automation.feedback_loop.classify_failure_merge_324
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_333:
+    id: automation.feedback_loop.classify_failure_if_333
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 333
+  automation.feedback_loop.classify_failure_return_334:
+    id: automation.feedback_loop.classify_failure_return_334
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 334
+  automation.feedback_loop.classify_failure_merge_333:
+    id: automation.feedback_loop.classify_failure_merge_333
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_if_340:
+    id: automation.feedback_loop.classify_failure_if_340
+    type: IF
+    label: if
+    function: automation.feedback_loop.classify_failure
+    line: 340
+  automation.feedback_loop.classify_failure_return_341:
+    id: automation.feedback_loop.classify_failure_return_341
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 341
+  automation.feedback_loop.classify_failure_merge_340:
+    id: automation.feedback_loop.classify_failure_merge_340
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.classify_failure
+  automation.feedback_loop.classify_failure_return_348:
+    id: automation.feedback_loop.classify_failure_return_348
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.classify_failure
+    line: 348
+  automation.feedback_loop.diagnose_with_llm_entry:
+    id: automation.feedback_loop.diagnose_with_llm_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.diagnose_with_llm
+  automation.feedback_loop.diagnose_with_llm_exit:
+    id: automation.feedback_loop.diagnose_with_llm_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.diagnose_with_llm
+  automation.feedback_loop.diagnose_with_llm_if_384:
+    id: automation.feedback_loop.diagnose_with_llm_if_384
+    type: IF
+    label: if
+    function: automation.feedback_loop.diagnose_with_llm
+    line: 384
+  automation.feedback_loop.diagnose_with_llm_merge_384:
+    id: automation.feedback_loop.diagnose_with_llm_merge_384
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.diagnose_with_llm
+  automation.feedback_loop.diagnose_with_llm_if_386:
+    id: automation.feedback_loop.diagnose_with_llm_if_386
+    type: IF
+    label: if
+    function: automation.feedback_loop.diagnose_with_llm
+    line: 386
+  automation.feedback_loop.diagnose_with_llm_merge_386:
+    id: automation.feedback_loop.diagnose_with_llm_merge_386
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.diagnose_with_llm
+  automation.feedback_loop.diagnose_with_llm_if_390:
+    id: automation.feedback_loop.diagnose_with_llm_if_390
+    type: IF
+    label: if
+    function: automation.feedback_loop.diagnose_with_llm
+    line: 390
+  automation.feedback_loop.diagnose_with_llm_merge_390:
+    id: automation.feedback_loop.diagnose_with_llm_merge_390
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.diagnose_with_llm
+  automation.feedback_loop.diagnose_with_llm_return_415:
+    id: automation.feedback_loop.diagnose_with_llm_return_415
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.diagnose_with_llm
+    line: 415
+  automation.feedback_loop.generate_repair_params_entry:
+    id: automation.feedback_loop.generate_repair_params_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_exit:
+    id: automation.feedback_loop.generate_repair_params_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_if_431:
+    id: automation.feedback_loop.generate_repair_params_if_431
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 431
+  automation.feedback_loop.generate_repair_params_if_432:
+    id: automation.feedback_loop.generate_repair_params_if_432
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 432
+  automation.feedback_loop.generate_repair_params_if_435:
+    id: automation.feedback_loop.generate_repair_params_if_435
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 435
+  automation.feedback_loop.generate_repair_params_if_437:
+    id: automation.feedback_loop.generate_repair_params_if_437
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 437
+  automation.feedback_loop.generate_repair_params_merge_437:
+    id: automation.feedback_loop.generate_repair_params_merge_437
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_merge_435:
+    id: automation.feedback_loop.generate_repair_params_merge_435
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_return_439:
+    id: automation.feedback_loop.generate_repair_params_return_439
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.generate_repair_params
+    line: 439
+  automation.feedback_loop.generate_repair_params_merge_432:
+    id: automation.feedback_loop.generate_repair_params_merge_432
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_merge_431:
+    id: automation.feedback_loop.generate_repair_params_merge_431
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_if_441:
+    id: automation.feedback_loop.generate_repair_params_if_441
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 441
+  automation.feedback_loop.generate_repair_params_if_442:
+    id: automation.feedback_loop.generate_repair_params_if_442
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 442
+  automation.feedback_loop.generate_repair_params_return_444:
+    id: automation.feedback_loop.generate_repair_params_return_444
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.generate_repair_params
+    line: 444
+  automation.feedback_loop.generate_repair_params_merge_442:
+    id: automation.feedback_loop.generate_repair_params_merge_442
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_if_445:
+    id: automation.feedback_loop.generate_repair_params_if_445
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 445
+  automation.feedback_loop.generate_repair_params_if_447:
+    id: automation.feedback_loop.generate_repair_params_if_447
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 447
+  automation.feedback_loop.generate_repair_params_return_449:
+    id: automation.feedback_loop.generate_repair_params_return_449
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.generate_repair_params
+    line: 449
+  automation.feedback_loop.generate_repair_params_merge_447:
+    id: automation.feedback_loop.generate_repair_params_merge_447
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_merge_445:
+    id: automation.feedback_loop.generate_repair_params_merge_445
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_merge_441:
+    id: automation.feedback_loop.generate_repair_params_merge_441
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_if_451:
+    id: automation.feedback_loop.generate_repair_params_if_451
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 451
+  automation.feedback_loop.generate_repair_params_if_452:
+    id: automation.feedback_loop.generate_repair_params_if_452
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 452
+  automation.feedback_loop.generate_repair_params_if_454:
+    id: automation.feedback_loop.generate_repair_params_if_454
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 454
+  automation.feedback_loop.generate_repair_params_return_456:
+    id: automation.feedback_loop.generate_repair_params_return_456
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.generate_repair_params
+    line: 456
+  automation.feedback_loop.generate_repair_params_merge_454:
+    id: automation.feedback_loop.generate_repair_params_merge_454
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_merge_452:
+    id: automation.feedback_loop.generate_repair_params_merge_452
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_merge_451:
+    id: automation.feedback_loop.generate_repair_params_merge_451
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_if_458:
+    id: automation.feedback_loop.generate_repair_params_if_458
+    type: IF
+    label: if
+    function: automation.feedback_loop.generate_repair_params
+    line: 458
+  automation.feedback_loop.generate_repair_params_return_459:
+    id: automation.feedback_loop.generate_repair_params_return_459
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.generate_repair_params
+    line: 459
+  automation.feedback_loop.generate_repair_params_merge_458:
+    id: automation.feedback_loop.generate_repair_params_merge_458
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop.generate_repair_params
+  automation.feedback_loop.generate_repair_params_return_461:
+    id: automation.feedback_loop.generate_repair_params_return_461
+    type: RETURN
+    label: return
+    function: automation.feedback_loop.generate_repair_params
+    line: 461
+  automation.feedback_loop._call_ollama_entry:
+    id: automation.feedback_loop._call_ollama_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop._call_ollama
+  automation.feedback_loop._call_ollama_exit:
+    id: automation.feedback_loop._call_ollama_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop._call_ollama
+  automation.feedback_loop._call_cloud_entry:
+    id: automation.feedback_loop._call_cloud_entry
+    type: ENTRY
+    label: entry
+    function: automation.feedback_loop._call_cloud
+  automation.feedback_loop._call_cloud_exit:
+    id: automation.feedback_loop._call_cloud_exit
+    type: EXIT
+    label: exit
+    function: automation.feedback_loop._call_cloud
+  automation.feedback_loop._call_cloud_if_488:
+    id: automation.feedback_loop._call_cloud_if_488
+    type: IF
+    label: if
+    function: automation.feedback_loop._call_cloud
+    line: 488
+  automation.feedback_loop._call_cloud_return_489:
+    id: automation.feedback_loop._call_cloud_return_489
+    type: RETURN
+    label: return
+    function: automation.feedback_loop._call_cloud
+    line: 489
+  automation.feedback_loop._call_cloud_merge_488:
+    id: automation.feedback_loop._call_cloud_merge_488
+    type: FUNC
+    label: merge
+    function: automation.feedback_loop._call_cloud
+  automation.feedback_loop._call_cloud_return_517:
+    id: automation.feedback_loop._call_cloud_return_517
+    type: RETURN
+    label: return
+    function: automation.feedback_loop._call_cloud
+    line: 517

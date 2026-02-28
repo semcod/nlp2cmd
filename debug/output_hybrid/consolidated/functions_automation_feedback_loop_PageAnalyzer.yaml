@@ -1,0 +1,83 @@
+module: automation.feedback_loop.PageAnalyzer
+type: functions
+count: 3
+functions:
+  automation.feedback_loop.PageAnalyzer.extract_page_context:
+    name: extract_page_context
+    qualified_name: automation.feedback_loop.PageAnalyzer.extract_page_context
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 108
+    module: automation.feedback_loop
+    class: PageAnalyzer
+    is_method: true
+    cfg_entry: automation.feedback_loop.PageAnalyzer.extract_page_context_entry
+    calls:
+    - page.title
+    - page.query_selector_all
+    - page.inner_text
+    - btn.evaluate
+    - inputs.append
+    - None.join
+    - None.strip
+    - btn.get_attribute
+    - buttons.append
+    - inp.get_attribute
+    - link.get_attribute
+    - nav_links.append
+    - btn.inner_text
+    - link.inner_text
+    called_by:
+    - automation.schema_fallback.SchemaFallback._build_replan_prompt
+    - automation.schema_fallback._build_replan_prompt
+  automation.feedback_loop.PageAnalyzer.find_api_keys_section:
+    name: find_api_keys_section
+    qualified_name: automation.feedback_loop.PageAnalyzer.find_api_keys_section
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 170
+    module: automation.feedback_loop
+    class: PageAnalyzer
+    is_method: true
+    cfg_entry: automation.feedback_loop.PageAnalyzer.find_api_keys_section_entry
+    calls:
+    - page.query_selector_all
+    - None.lower
+    - candidates.sort
+    - link.get_attribute
+    - candidates.append
+    - best_href.startswith
+    - None.strip
+    - re.search
+    - page.url.split
+    - None.join
+    - href.lower
+    - link.inner_text
+    called_by:
+    - automation.schema_fallback.SchemaFallback._try_page_analysis
+    - automation.schema_fallback._try_page_analysis
+    - pipeline_runner_plans.PlanExecutionMixin._execute_plan_step
+    - pipeline_runner_plans._execute_plan_step
+  automation.feedback_loop.PageAnalyzer.find_clickable_for_text:
+    name: find_clickable_for_text
+    qualified_name: automation.feedback_loop.PageAnalyzer.find_clickable_for_text
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/automation/feedback_loop.py
+    line: 200
+    module: automation.feedback_loop
+    class: PageAnalyzer
+    is_method: true
+    cfg_entry: automation.feedback_loop.PageAnalyzer.find_clickable_for_text_entry
+    calls:
+    - page.query_selector_all
+    - None.strip
+    - target_text.lower
+    - text.lower
+    - el.get_attribute
+    - selectors.append
+    - el.inner_text
+    - None.split
+    - el_class.strip
+    - None.join
+    called_by:
+    - automation.feedback_loop.FeedbackLoop.classify_failure
+    - automation.feedback_loop.classify_failure
+    - automation.schema_fallback.SchemaFallback._try_page_analysis
+    - automation.schema_fallback._try_page_analysis

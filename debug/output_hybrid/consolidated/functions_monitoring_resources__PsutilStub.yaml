@@ -1,0 +1,17 @@
+module: monitoring.resources._PsutilStub
+type: functions
+count: 1
+functions:
+  monitoring.resources._PsutilStub.Process:
+    name: Process
+    qualified_name: monitoring.resources._PsutilStub.Process
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/monitoring/resources.py
+    line: 15
+    module: monitoring.resources
+    class: _PsutilStub
+    is_method: true
+    cfg_entry: monitoring.resources._PsutilStub.Process_entry
+    calls:
+    - _ProcessStub
+    - _MemInfo
+    - _CpuTimes

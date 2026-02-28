@@ -1,0 +1,114 @@
+module: router.DecisionRouter
+type: functions
+count: 8
+functions:
+  router.DecisionRouter.__init__:
+    name: __init__
+    qualified_name: router.DecisionRouter.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 88
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter.__init___entry
+    calls:
+    - self._register_default_mappings
+    - RouterConfig
+    - self._load_config_from_data
+  router.DecisionRouter._load_config_from_data:
+    name: _load_config_from_data
+    qualified_name: router.DecisionRouter._load_config_from_data
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 131
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter._load_config_from_data_entry
+    calls:
+    - router._candidate_paths
+    - isinstance
+    - raw.get
+    - json.loads
+    - float
+    - intent_map.items
+    - cfg_path.read_text
+    - str
+    - Path
+    - p.exists
+    - p.is_file
+    - k.strip
+    - v.strip
+    - None.resolve
+    - x.strip
+  router.DecisionRouter.route:
+    name: route
+    qualified_name: router.DecisionRouter.route
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 194
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter.route_entry
+    calls:
+    - text.lower
+    - self._has_multi_step_indicators
+    - self._has_complex_indicators
+    - RoutingResult
+    - len
+    - self._intent_action_map.get
+    - self._suggest_actions
+  router.DecisionRouter._has_multi_step_indicators:
+    name: _has_multi_step_indicators
+    qualified_name: router.DecisionRouter._has_multi_step_indicators
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 300
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter._has_multi_step_indicators_entry
+    calls:
+    - any
+  router.DecisionRouter._has_complex_indicators:
+    name: _has_complex_indicators
+    qualified_name: router.DecisionRouter._has_complex_indicators
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 304
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter._has_complex_indicators_entry
+    calls:
+    - any
+  router.DecisionRouter._suggest_actions:
+    name: _suggest_actions
+    qualified_name: router.DecisionRouter._suggest_actions
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 308
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter._suggest_actions_entry
+    calls:
+    - actions.append
+  router.DecisionRouter.add_simple_intent:
+    name: add_simple_intent
+    qualified_name: router.DecisionRouter.add_simple_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 342
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter.add_simple_intent_entry
+    calls:
+    - self.config.simple_intents.append
+  router.DecisionRouter.add_complex_intent:
+    name: add_complex_intent
+    qualified_name: router.DecisionRouter.add_complex_intent
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/router/__init__.py
+    line: 347
+    module: router
+    class: DecisionRouter
+    is_method: true
+    cfg_entry: router.DecisionRouter.add_complex_intent_entry
+    calls:
+    - self.config.complex_intents.append

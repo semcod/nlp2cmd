@@ -1,0 +1,17 @@
+module: adapters.shell_generators.DevelopmentGenerator
+type: functions
+count: 1
+functions:
+  adapters.shell_generators.DevelopmentGenerator.generate_development:
+    name: generate_development
+    qualified_name: adapters.shell_generators.DevelopmentGenerator.generate_development
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/adapters/shell_generators.py
+    line: 221
+    module: adapters.shell_generators
+    class: DevelopmentGenerator
+    is_method: true
+    cfg_entry: adapters.shell_generators.DevelopmentGenerator.generate_development_entry
+    calls:
+    - entities.get
+    - actions.get
+    - shlex.quote

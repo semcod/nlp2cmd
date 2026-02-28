@@ -1,0 +1,69 @@
+module: generation.multi_command
+type: functions
+count: 6
+functions:
+  generation.multi_command.get_multi_command_detector:
+    name: get_multi_command_detector
+    qualified_name: generation.multi_command.get_multi_command_detector
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 157
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.get_multi_command_detector_entry
+    calls:
+    - MultiCommandDetector
+    called_by:
+    - generation.multi_command.detect_multi_commands
+  generation.multi_command.detect_multi_commands:
+    name: detect_multi_commands
+    qualified_name: generation.multi_command.detect_multi_commands
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 165
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.detect_multi_commands_entry
+    calls:
+    - None.detect_with_fallback
+    - generation.multi_command.get_multi_command_detector
+  generation.multi_command.__init__:
+    name: __init__
+    qualified_name: generation.multi_command.__init__
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 70
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.__init___entry
+    calls:
+    - KeywordIntentDetector
+  generation.multi_command.split_commands:
+    name: split_commands
+    qualified_name: generation.multi_command.split_commands
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 79
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.split_commands_entry
+    calls:
+    - re.split
+    - new_parts.extend
+    - p.strip
+  generation.multi_command.detect:
+    name: detect
+    qualified_name: generation.multi_command.detect
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 101
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.detect_entry
+    calls:
+    - self.split_commands
+    - MultiCommandResult
+    - self.detector.detect
+    - results.append
+    - len
+  generation.multi_command.detect_with_fallback:
+    name: detect_with_fallback
+    qualified_name: generation.multi_command.detect_with_fallback
+    file: /home/tom/github/wronai/nlp2cmd/src/nlp2cmd/generation/multi_command.py
+    line: 125
+    module: generation.multi_command
+    cfg_entry: generation.multi_command.detect_with_fallback_entry
+    calls:
+    - self.detect
+    - self.detector.detect
+    - MultiCommandResult
