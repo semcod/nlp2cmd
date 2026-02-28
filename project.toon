@@ -1,15 +1,7 @@
-# nlp2cmd | 538f 136766L | python:537/sql:1
+# nlp2cmd | 496f 139994L | python:495/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[538]:
-  fix_fox_vector_pl.py,4
-  fix_vector_search.py,24
-  test_add_fox.py,58
-  test_add_fox2.py,10
-  add_fox.py,55
-  add_fox_to_vector_store.py,20
+M[496]:
   benchmarks/thermodynamic_benchmark.py,318
-  browser_test.py,41
-  check_image.py,16
   demos/demo_enhanced.py,95
   demos/demo_intelligent_nlp2cmd.py,200
   demos/demo_persistent_storage.py,115
@@ -135,27 +127,11 @@ M[538]:
   examples/_example_helpers.py,20
   examples/benchmark_learning.py,502
   examples/benchmark_nlp2cmd.py,998
-  fix_braces.py,50
-  fix_canvas_all.py,4
-  fix_colors.py,10
-  fix_fox_regex.py,8
-  fix_fox_vector.py,48
-  fix_fox_vector2.py,11
-  fix_fox_vector3.py,3
-  fix_fox_vector4.py,7
-  fix_llm_json.py,22
-  fix_syntax.py,26
-  jspaint_app_test2.py,19
-  jspaint_app_test3.py,22
-  oferteo_test.py,48
-  patch_action_planner.py,88
-  patch_run_web.py,26
-  remove_fox.py,8
+  jspaint_app_test4.py,15
   scripts/bump_version.py,45
   scripts/maintenance/apply_complexity_refactors.py,38
   scripts/maintenance/apply_nlp2cmd_fixes.py,67
   scripts/maintenance/apply_polish_integration.py,87
-  scripts/maintenance/apply_polish_integration_fixed.py,87
   scripts/maintenance/apply_refactors_to_source.py,155
   scripts/maintenance/auto_apply_refactors.py,203
   scripts/maintenance/final_analysis_and_next_steps.py,414
@@ -168,6 +144,7 @@ M[538]:
   scripts/maintenance/refactor_shell_entities.py,180
   scripts/maintenance/refactoring_summary.py,76
   scripts/maintenance/restore_system.py,87
+  scripts/maintenance/split_pipeline_runner.py,126
   scripts/setup_external.py,45
   scripts/test-scripts/test_automated_monitoring.py,339
   scripts/test-scripts/test_comprehensive_commands.py,406
@@ -211,7 +188,7 @@ M[538]:
   src/nlp2cmd/aggregator/__init__.py,274
   src/nlp2cmd/appspec_runtime.py,45
   src/nlp2cmd/automation/__init__.py,30
-  src/nlp2cmd/automation/action_planner.py,1401
+  src/nlp2cmd/automation/action_planner.py,1127
   src/nlp2cmd/automation/captcha_solver.py,420
   src/nlp2cmd/automation/complex_planner.py,417
   src/nlp2cmd/automation/drawing_blueprints.py,562
@@ -219,14 +196,10 @@ M[538]:
   src/nlp2cmd/automation/firefox_sessions.py,367
   src/nlp2cmd/automation/mouse_controller.py,284
   src/nlp2cmd/automation/schema_fallback.py,364
+  src/nlp2cmd/automation/service_configs.py,329
   src/nlp2cmd/automation/shape_planner.py,91
   src/nlp2cmd/automation/step_validator.py,305
   src/nlp2cmd/automation/vector_store.py,462
-  src/nlp2cmd/clean_duplicates.py,25
-  src/nlp2cmd/clean_duplicates2.py,25
-  src/nlp2cmd/clean_duplicates3.py,23
-  src/nlp2cmd/clean_duplicates4.py,22
-  src/nlp2cmd/clean_duplicates5.py,22
   src/nlp2cmd/cli/__init__.py,2
   src/nlp2cmd/cli/auto_repair.py,470
   src/nlp2cmd/cli/cache.py,329
@@ -269,15 +242,6 @@ M[538]:
   src/nlp2cmd/exploration/resource_discovery.py,374
   src/nlp2cmd/exploration/service.py,264
   src/nlp2cmd/feedback/__init__.py,511
-  src/nlp2cmd/fix_canvas.py,11
-  src/nlp2cmd/fix_canvas_duplicate.py,4
-  src/nlp2cmd/fix_canvas_wait.py,4
-  src/nlp2cmd/fix_loop.py,14
-  src/nlp2cmd/fix_status.py,14
-  src/nlp2cmd/fix_summary.py,22
-  src/nlp2cmd/fix_validation_status.py,34
-  src/nlp2cmd/fix_validation_status2.py,43
-  src/nlp2cmd/fix_wait.py,16
   src/nlp2cmd/generation/__init__.py,137
   src/nlp2cmd/generation/auto_repair.py,267
   src/nlp2cmd/generation/complex_detector.py,168
@@ -331,7 +295,6 @@ M[538]:
   src/nlp2cmd/intelligent/dynamic_generator.py,210
   src/nlp2cmd/intelligent/version_aware_generator.py,253
   src/nlp2cmd/ir.py,28
-  src/nlp2cmd/jspaint_app_test.py,20
   src/nlp2cmd/llm/__init__.py,14
   src/nlp2cmd/llm/openrouter.py,242
   src/nlp2cmd/llm/vision.py,234
@@ -347,7 +310,11 @@ M[538]:
   src/nlp2cmd/nlp_light/__init__.py,3
   src/nlp2cmd/nlp_light/semantic_shell.py,276
   src/nlp2cmd/parsing/toon_parser.py,342
-  src/nlp2cmd/pipeline_runner.py,3745
+  src/nlp2cmd/pipeline_runner.py,3862
+  src/nlp2cmd/pipeline_runner_browser.py,1283
+  src/nlp2cmd/pipeline_runner_desktop.py,333
+  src/nlp2cmd/pipeline_runner_plans.py,2013
+  src/nlp2cmd/pipeline_runner_shell.py,175
   src/nlp2cmd/pipeline_runner_utils.py,380
   src/nlp2cmd/planner/__init__.py,340
   src/nlp2cmd/polish_support.py,240
@@ -381,10 +348,6 @@ M[538]:
   src/nlp2cmd/streams/ssh_stream.py,91
   src/nlp2cmd/streams/vnc_stream.py,102
   src/nlp2cmd/streams/ws_stream.py,74
-  src/nlp2cmd/test_canvas_draw.py,2
-  src/nlp2cmd/test_jspaint.py,34
-  src/nlp2cmd/test_jspaint_canvases.py,27
-  src/nlp2cmd/test_jspaint_mouse.py,28
   src/nlp2cmd/thermodynamic/__init__.py,448
   src/nlp2cmd/thermodynamic/energy_models.py,436
   src/nlp2cmd/utils/__init__.py,18
@@ -399,13 +362,9 @@ M[538]:
   src/nlp2cmd/web_schema/form_data_loader.py,670
   src/nlp2cmd/web_schema/form_handler.py,644
   src/nlp2cmd/web_schema/history.py,288
-  src/nlp2cmd/web_schema/site_explorer.py,1409
-  test_canvas.py,10
-  test_colors.py,14
-  test_colors2.py,12
-  test_colors3.py,15
-  test_colors4.py,15
-  test_runner_success.py,12
+  src/nlp2cmd/web_schema/site_explorer.py,1381
+  test_action_planner_logic.py,25
+  test_colors5.py,15
   test_screenshots/analyze_screenshots.py,157
   test_screenshots/compare_screenshots.py,99
   tests/__init__.py,1
@@ -538,12 +497,7 @@ M[538]:
   tools/schema/non_llm_schema_extractor.py,553
   tools/schema/update_schemas.py,128
   tools/schema/validate_schemas.py,91
-  update_canvas_all.py,30
 D:
-  test_add_fox.py:
-    i: sys,os,nlp2cmd.automation.vector_store.{DrawingPattern,get_vector_store}
-    e: add_fox
-    add_fox()
   benchmarks/thermodynamic_benchmark.py:
     i: asyncio,time,sys,numpy,dataclasses.dataclass,nlp2cmd.generation.thermodynamic.create_thermodynamic_generator,pathlib.Path,typing.{Any,Dict,List}
     e: BenchmarkResult,benchmark_langevin_sampler,benchmark_parallel_vs_sequential,benchmark_adaptive_steps,benchmark_generator_problems,benchmark_energy_savings,print_benchmark_result,main
@@ -555,10 +509,6 @@ D:
     benchmark_energy_savings()->Dict[str, Any]
     print_benchmark_result(result:BenchmarkResult)
     main()
-  check_image.py:
-    i: sys,PIL.Image
-    e: check_image
-    check_image(path)
   demos/demo_enhanced.py:
     i: sys,os,json,tempfile,app2schema.extract_appspec_to_file,nlp2cmd.enhanced.EnhancedNLP2CMD,nlp2cmd.pipeline_runner.{PipelineRunner,ShellExecutionPolicy},pathlib.Path
     e: main
@@ -1325,12 +1275,8 @@ D:
     _default_models()->list[dict[str, str]]
     clean_command(raw:str)->str
     run_benchmark()->BenchmarkResults
-  jspaint_app_test2.py:
-    i: sys,nlp2cmd.automation.action_planner.{ActionPlan,ActionStep},nlp2cmd.pipeline_runner.PipelineRunner
-    e: run
-    run()
-  jspaint_app_test3.py:
-    i: sys,nlp2cmd.automation.action_planner.{ActionPlan,ActionStep},nlp2cmd.pipeline_runner.PipelineRunner
+  jspaint_app_test4.py:
+    i: sys,logging,nlp2cmd.automation.action_planner.ActionPlanner,nlp2cmd.pipeline_runner.PipelineRunner
     e: run
     run()
   scripts/bump_version.py:
@@ -1350,13 +1296,6 @@ D:
     load_domain_weights()
     apply_fixes()
   scripts/maintenance/apply_polish_integration.py:
-    i: shutil,sys,pathlib.Path
-    e: apply_core_patch,apply_adapter_patches,verify_integration,main
-    apply_core_patch()
-    apply_adapter_patches()
-    verify_integration()
-    main()
-  scripts/maintenance/apply_polish_integration_fixed.py:
     i: shutil,sys,pathlib.Path
     e: apply_core_patch,apply_adapter_patches,verify_integration,main
     apply_core_patch()
@@ -1437,6 +1376,11 @@ D:
     restore_adapters()
     verify_restoration()
     main()
+  scripts/maintenance/split_pipeline_runner.py:
+    i: pathlib.Path
+    e: SRC,RUNNER,find_line,COMMON_IMPORTS,write_mixin
+    find_line(pattern;start=0)
+    write_mixin(filename;classname;docstring;body_lines;extra_imports='')
   scripts/setup_external.py:
     i: sys,os,pathlib.Path
     e: main
@@ -1669,12 +1613,10 @@ D:
     load_appspec(path:Any)->AppSpec
   src/nlp2cmd/automation/action_planner.py:
     i: json,logging,os,re,shutil,dataclasses.{dataclass,field},nlp2cmd.automation.vector_store.get_vector_store,typing.{Any,Optional}
-    e: ActionStep,ActionPlan,_HARDCODED_SERVICES,EMAIL_CLIENTS,EMAIL_ALIASES,KNOWN_SERVICES,SERVICE_ALIASES,_SYSTEM_PROMPT
+    e: ActionStep,ActionPlan,ActionPlanner
     ActionStep: to_dict(0)  # Single step in an execution plan.
     ActionPlan: to_cache_dict(0),from_cache_dict(1)  # Complete execution plan for a complex...
     ActionPlanner: __init__(2),decompose(2),decompose_sync(2),_try_rule_decomposition(1),_resolve_service(1)  # Decomposes complex NL commands into A...
-    _load_known_services()->dict[str, dict[str, Any]]
-    _can_use_desktop_automation()->bool
   src/nlp2cmd/automation/captcha_solver.py:
     i: base64,os,re,sys,dataclasses.dataclass,typing.{Any,Optional}
     e: _DEBUG,CaptchaInfo,CaptchaSolver
@@ -1721,6 +1663,11 @@ D:
     FallbackContext:   # Context collected when a step fails,...
     FallbackResult:   # Result of a fallback attempt.
     SchemaFallback: __init__(1),generate_fallback(2),_try_rule_based(2),_try_dom_extraction(2),_try_clipboard(1)  # Generate alternative action schemas w...
+  src/nlp2cmd/automation/service_configs.py:
+    i: logging,os,shutil,typing.Any
+    e: _HARDCODED_SERVICES,EMAIL_CLIENTS,EMAIL_ALIASES,SERVICE_ALIASES,KNOWN_SERVICES,_SYSTEM_PROMPT
+    _load_known_services()->dict[str, dict[str, Any]]
+    _can_use_desktop_automation()->bool
   src/nlp2cmd/automation/shape_planner.py:
     i: json,logging,os,re,nlp2cmd.automation.action_planner.ActionStep,pathlib.Path,typing.{Any,Dict,List,Optional}
     e: ShapePlanner
@@ -2244,10 +2191,6 @@ D:
     i: dataclasses.{dataclass,field},typing.{Any,Literal}
     e: ActionIR
     ActionIR: to_dict(0)
-  src/nlp2cmd/jspaint_app_test.py:
-    i: sys,nlp2cmd.automation.action_planner.{ActionPlan,ActionStep},nlp2cmd.pipeline_runner.PipelineRunner
-    e: run
-    run()
   src/nlp2cmd/llm/openrouter.py:
     i: json,os,re,sys,dataclasses.{dataclass,field},typing.{Any,Optional}
     e: _DEBUG,LLMResponse,OpenRouterClient
@@ -2333,6 +2276,22 @@ D:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: PipelineRunner
     PipelineRunner: __init__(0),run(1),_run_shell(1),_parse_shell_command(1),_check_against_safety_policy(2)
+  src/nlp2cmd/pipeline_runner_browser.py:
+    i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
+    e: BrowserExecutionMixin
+    BrowserExecutionMixin: _run_dom_dql(1),_run_dom_multi_action(1)  # DOM/browser execution methods for Pip...
+  src/nlp2cmd/pipeline_runner_desktop.py:
+    i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
+    e: DesktopExecutionMixin
+    DesktopExecutionMixin: _dismiss_popups(2),_extract_json_from_llm_response(1),_detect_desktop_backend(0),_execute_desktop_plan_step(2),_xdotool_keys_to_ydotool(1)  # Desktop automation and static utility...
+  src/nlp2cmd/pipeline_runner_plans.py:
+    i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
+    e: PlanExecutionMixin
+    PlanExecutionMixin: execute_action_plan(1),_execute_plan_step(4),_resolve_plan_variables(2),_do_verify_env(4),_llm_suggest_article_selectors(1)  # Multi-step ActionPlan execution metho...
+  src/nlp2cmd/pipeline_runner_shell.py:
+    i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
+    e: ShellExecutionMixin
+    ShellExecutionMixin: _run_shell(1),_parse_shell_command(1),_check_against_safety_policy(2)  # Shell command execution methods for P...
   src/nlp2cmd/pipeline_runner_utils.py:
     i: json,os,sys,time,dataclasses.{dataclass,field},nlp2cmd.adapters.base.SafetyPolicy,pathlib.Path,typing.{Any,Optional}
     e: _DEBUG,ShellExecutionPolicy,RunnerResult,get_timestamp,ensure_dir,ask_for_screenshot,take_screenshot,VideoRecorder
@@ -2488,18 +2447,6 @@ D:
     i: json,nlp2cmd.streams.base.{SourceURI,StreamAdapter,StreamResult},typing.{Any,Optional}
     e: WSStreamAdapter
     WSStreamAdapter: __init__(1),_build_url(0),connect(0),execute(1),_send(1)
-  src/nlp2cmd/test_jspaint.py:
-    i: time,playwright.sync_api.sync_playwright
-    e: run
-    run()
-  src/nlp2cmd/test_jspaint_canvases.py:
-    i: time,playwright.sync_api.sync_playwright
-    e: run
-    run()
-  src/nlp2cmd/test_jspaint_mouse.py:
-    i: time,playwright.sync_api.sync_playwright
-    e: run
-    run()
   src/nlp2cmd/thermodynamic/__init__.py:
     i: math,uuid,abc.{ABC,abstractmethod},dataclasses.{dataclass,field},typing.{Any,Callable,Dict,List}
     e: LangevinConfig,SamplerResult,EnergyModel,QuadraticEnergy,ConstraintEnergy,LangevinSampler,EntropyProductionRegularizer,MajorityVoter
@@ -2591,23 +2538,7 @@ D:
     _pypi_to_docs_url(url:str)->Optional[str]
     quick_find_content(url:str;content_type:str='article';search_term:Optional[str]=None;headless:bool=True)->Optional[str]
     quick_find_form(url:str;intent:str='contact';headless:bool=True)->Optional[str]
-  test_canvas.py:
-    i: asyncio,nlp2cmd.automation.complex_planner.ComplexCommandPlanner
-    e: test
-    test()
-  test_colors.py:
-    i: sys,PIL.Image
-    e: analyze
-    analyze(path)
-  test_colors2.py:
-    i: sys,PIL.Image
-    e: analyze
-    analyze(path)
-  test_colors3.py:
-    i: sys,PIL.Image
-    e: analyze
-    analyze(path)
-  test_colors4.py:
+  test_colors5.py:
     i: sys,PIL.Image
     e: analyze
     analyze(path)

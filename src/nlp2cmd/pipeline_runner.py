@@ -4155,6 +4155,103 @@ class PipelineRunner:
                 _debug(f"check_session error: {e}")
                 return "error"
 
+        elif action == "submit_and_extract_key":
+            # Composite action: non-blocking JS click on submit + poll for key
+            # Solves: blocking click (91s) causes key reveal dialog to close before capture
+            submit_selector = params.get("selector", "")
+            key_pattern = params.get("key_pattern", "")
+            poll_timeout = params.get("timeout", 60000)  # ms
+            key_selectors = params.get("selectors", [
+                "code", "pre", "input[readonly]", "[data-testid*='key']",
+            ])
+
+            console.print(f"  [dim]🔑 Klikam submit i szukam klucza...[/dim]")
+
+            # Click submit (non-blocking — no_wait_after skips navigation wait)
+            click_ok = False
+            if submit_selector:
+                # Try each selector in comma-separated list
+                for sel_candidate in submit_selector.split(","):
+                    sel_candidate = sel_candidate.strip()
+                    if not sel_candidate:
+                        continue
+                    try:
+                        loc = page.locator(sel_candidate).first
+                        if loc.is_visible(timeout=2000):
+                            loc.click(no_wait_after=True, timeout=5000)
+                            _debug(f"submit_and_extract_key: clicked '{sel_candidate}'")
+                            click_ok = True
+                            break
+                    except Exception as e:
+                        _debug(f"submit_and_extract_key: selector '{sel_candidate}' failed: {e}")
+                        continue
+
+            if not click_ok:
+                _debug("submit_and_extract_key: all selectors failed, trying JS fallback")
+                try:
+                    # JS fallback: find all buttons with "Create" text, click the enabled one
+                    page.evaluate("""
+                        (() => {
+                            const btns = [...document.querySelectorAll('button')];
+                            const create = btns.find(b => b.textContent.trim() === 'Create' && !b.disabled);
+                            if (create) create.click();
+                        })()
+                    """)
+                    _debug("submit_and_extract_key: JS fallback clicked Create button")
+                except Exception as js_err:
+                    _debug(f"submit_and_extract_key: JS fallback failed: {js_err}")
+
+            # Poll page body for key pattern
+            poll_interval = 500  # ms
+            elapsed = 0
+            found_key = None
+            while elapsed < poll_timeout:
+                page.wait_for_timeout(poll_interval)
+                elapsed += poll_interval
+
+                # Check DOM selectors first (faster, more precise)
+                for sel in key_selectors:
+                    try:
+                        elements = page.query_selector_all(sel)
+                        for el in elements:
+                            text = (el.text_content() or "").strip()
+                            if text and key_pattern and re.search(key_pattern, text):
+                                found_key = re.search(key_pattern, text).group(0)
+                                break
+                            elif text and not key_pattern and len(text) > 30 and re.match(r'^[a-zA-Z0-9_\-]+$', text):
+                                found_key = text
+                                break
+                    except Exception:
+                        continue
+                    if found_key:
+                        break
+
+                # Fallback: full body regex
+                if not found_key and key_pattern:
+                    try:
+                        body = page.text_content("body") or ""
+                        m = re.search(key_pattern, body)
+                        if m:
+                            found_key = m.group(0)
+                    except Exception:
+                        pass
+
+                if found_key:
+                    console.print(f"  [green]✓[/green] Klucz przechwycony! ({len(found_key)} znaków, {elapsed}ms)")
+                    # Copy to clipboard via JS
+                    try:
+                        page.evaluate(f"navigator.clipboard.writeText({json.dumps(found_key)})")
+                    except Exception:
+                        pass
+                    return found_key
+
+                # Progress indicator every 5s
+                if elapsed % 5000 == 0:
+                    _debug(f"submit_and_extract_key: polling... {elapsed}ms / {poll_timeout}ms")
+
+            console.print(f"  [yellow]⚠[/yellow] Klucz nie pojawił się w ciągu {poll_timeout/1000:.0f}s")
+            return None
+
         elif action == "extract_key":
             # Try to extract API key from page DOM + clipboard
             key_pattern = params.get("key_pattern", "")

@@ -206,26 +206,24 @@ class SchemaFallback:
                         })
                 steps.append({"action": "wait", "params": {"ms": 500}})
 
-                # 3. Click submit button inside modal
+                # 3. Submit form + capture key (non-blocking click + polling)
+                #    Key reveal dialog may auto-close — polling captures it in time
                 submit_sel = create_cfg.get("submit_selector", btn_selector)
                 steps.append({
-                    "action": "click",
-                    "params": {"selector": submit_sel, "timeout": 30000},
-                    "description": "Kliknij Create w formularzu",
+                    "action": "submit_and_extract_key",
+                    "params": {
+                        "selector": submit_sel,
+                        "key_pattern": svc.get("key_pattern", ""),
+                        "timeout": 60000,
+                        "selectors": create_cfg.get(
+                            "key_reveal_selector", "code, pre"
+                        ).split(", "),
+                    },
+                    "store_as": "extracted_key",
+                    "description": "Kliknij Create i przechwytuj klucz",
                 })
 
-                # 4. Extract key IMMEDIATELY (key reveal dialog may auto-close)
-                #    extract_key auto-copies found keys to clipboard via JS
-                steps.append({"action": "wait", "params": {"ms": 1000}})
-                steps.append({"action": "extract_key", "params": ctx.failed_params})
-
-                # 5. Fallback: check clipboard (extract_key copies found keys)
-                steps.append({"action": "check_clipboard", "params": {
-                    "key_pattern": svc.get("key_pattern", ""),
-                    "env_var": svc.get("env_var", ""),
-                }})
-
-                # 6. Save to .env
+                # 4. Save captured key to .env
                 steps.append({"action": "save_env", "params": {
                     "var_name": svc.get("env_var", "API_KEY"),
                     "value": "$extracted_key",

@@ -1256,43 +1256,6 @@ class SiteExplorer:
         ) and not any(w in url_lower for w in ["informacje", "platform", "transform", "perform", "reform"])
         return has_form_word
 
-    def _has_content_type(self, page_info: PageInfo, content_type: str) -> bool:
-        """Check if page contains the target content type."""
-        if content_type == "contact":
-            return page_info.contact_field_count > 0
-        elif content_type in ["article", "product", "docs"]:
-            # For non-contact content, check if page has relevant content indicators
-            # Lower threshold for docs since documentation pages might not have high scores
-            threshold = 0.5 if content_type == "docs" else 1.0
-            return page_info.score > threshold
-        return False
-    
-    def _find_best_content_candidate(
-        self,
-        pages: list[PageInfo],
-        content_type: str,
-        search_term: Optional[str] = None,
-    ) -> Optional[PageInfo]:
-        """Find the best page with content based on scores."""
-        # Filter pages with relevant content
-        relevant_pages = [p for p in pages if self._has_content_type(p, content_type)]
-        if not relevant_pages:
-            return None
-        
-        # If search term provided, prioritize pages containing it
-        if search_term:
-            for page in relevant_pages:
-                try:
-                    page_content = f"{page.title} {page.url}".lower()
-                    if search_term.lower() in page_content:
-                        page.score += 2.0  # Boost for matching search term
-                except Exception:
-                    pass
-        
-        # Sort by score descending
-        relevant_pages.sort(key=lambda p: p.score, reverse=True)
-        return relevant_pages[0]
-
     def _find_best_form_candidate(
         self,
         pages: list[PageInfo],

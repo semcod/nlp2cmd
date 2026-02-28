@@ -5,13 +5,12 @@ This script extracts logical sections from the monolithic pipeline_runner.py
 into separate mixin files, then rewrites the main file to compose them.
 
 Mixin files created:
-- pipeline_runner_shell.py   — ShellExecutionMixin  (lines 138-311)
-- pipeline_runner_browser.py — BrowserExecutionMixin (lines 312-1831)
-- pipeline_runner_desktop.py — DesktopExecutionMixin (lines 1832-2179)
-- pipeline_runner_plans.py   — PlanExecutionMixin    (lines 2180-4414)
+- pipeline_runner_shell.py   — ShellExecutionMixin
+- pipeline_runner_browser.py — BrowserExecutionMixin
+- pipeline_runner_desktop.py — DesktopExecutionMixin
+- pipeline_runner_plans.py   — PlanExecutionMixin
 """
 
-import re
 from pathlib import Path
 
 SRC = Path(__file__).resolve().parents[2] / "src" / "nlp2cmd"
@@ -19,11 +18,6 @@ RUNNER = SRC / "pipeline_runner.py"
 
 lines = RUNNER.read_text().splitlines(keepends=True)
 
-# --- Identify method boundaries (0-indexed) ---
-# Shell: _run_shell .. _check_against_safety_policy (ends before _run_dom_dql)
-# Browser: _run_dom_dql .. _dismiss_popups end (ends before _extract_json_from_llm_response)
-# Desktop: _extract_json_from_llm_response .. _collect_page_links_for_llm end
-# Plans: execute_action_plan .. end of file
 
 def find_line(pattern, start=0):
     for i in range(start, len(lines)):
@@ -31,13 +25,24 @@ def find_line(pattern, start=0):
             return i
     raise ValueError(f"Pattern not found: {pattern}")
 
-# Key boundary lines (0-indexed)
-shell_start = find_line("def _run_shell(")
-browser_start = find_line("def _run_dom_dql(")
-desktop_start = find_line("def _dismiss_popups(")
-plans_start = find_line("# ═══ Multi-Step ActionPlan Execution")
 
-# Common imports needed across mixins
+# Key boundary lines (0-indexed)
+shell_start = find_line("    def _run_shell(")
+browser_start = find_line("    def _run_dom_dql(")
+# _dismiss_popups is preceded by @staticmethod decorator on previous line
+dismiss_static_line = find_line("    @staticmethod", browser_start + 100)
+# Verify this is the _dismiss_popups static
+while "_dismiss_popups" not in lines[dismiss_static_line + 1]:
+    dismiss_static_line = find_line("    @staticmethod", dismiss_static_line + 1)
+desktop_start = dismiss_static_line  # starts at @staticmethod before _dismiss_popups
+
+# Plans start at the comment separator
+plans_start = find_line("    # ═══ Multi-Step ActionPlan Execution")
+
+print(f"Boundaries: shell={shell_start}, browser={browser_start}, "
+      f"desktop={desktop_start}, plans={plans_start}")
+
+# Common imports
 COMMON_IMPORTS = '''\
 from __future__ import annotations
 
@@ -77,83 +82,82 @@ from nlp2cmd.pipeline_runner_utils import (
 from nlp2cmd.utils.yaml_compat import yaml
 '''
 
+
+def write_mixin(filename, classname, docstring, body_lines, extra_imports=""):
+    """Write a mixin file. body_lines are already indented with 4 spaces (class methods)."""
+    body = "".join(body_lines)
+    content = f'''{COMMON_IMPORTS}{extra_imports}
+
+class {classname}:
+    """{docstring}"""
+
+{body}'''
+    path = SRC / filename
+    path.write_text(content)
+    print(f"Created {filename} ({len(body_lines)} lines)")
+
+
 # ====== 1. Shell mixin ======
-shell_body = "".join(lines[shell_start:browser_start])
-# Dedent one level (remove 4 spaces from method bodies to keep as mixin methods)
-shell_file = f'''{COMMON_IMPORTS}
-from nlp2cmd.adapters.base import SafetyPolicy
-
-
-class ShellExecutionMixin:
-    """Mixin providing shell command execution for PipelineRunner."""
-
-{shell_body}'''
-
-(SRC / "pipeline_runner_shell.py").write_text(shell_file)
-print(f"Created pipeline_runner_shell.py ({len(shell_body.splitlines())} lines body)")
+write_mixin(
+    "pipeline_runner_shell.py",
+    "ShellExecutionMixin",
+    "Shell command execution methods for PipelineRunner.",
+    lines[shell_start:browser_start],
+    extra_imports="\nfrom nlp2cmd.adapters.base import SafetyPolicy\n",
+)
 
 # ====== 2. Browser mixin ======
-browser_body = "".join(lines[browser_start:desktop_start])
-browser_file = f'''{COMMON_IMPORTS}
-
-
-class BrowserExecutionMixin:
-    """Mixin providing DOM/browser execution for PipelineRunner."""
-
-{browser_body}'''
-
-(SRC / "pipeline_runner_browser.py").write_text(browser_file)
-print(f"Created pipeline_runner_browser.py ({len(browser_body.splitlines())} lines body)")
+write_mixin(
+    "pipeline_runner_browser.py",
+    "BrowserExecutionMixin",
+    "DOM/browser execution methods for PipelineRunner.",
+    lines[browser_start:desktop_start],
+)
 
 # ====== 3. Desktop mixin ======
-desktop_body = "".join(lines[desktop_start:plans_start])
-desktop_file = f'''{COMMON_IMPORTS}
-
-
-class DesktopExecutionMixin:
-    """Mixin providing desktop automation and static utilities for PipelineRunner."""
-
-{desktop_body}'''
-
-(SRC / "pipeline_runner_desktop.py").write_text(desktop_file)
-print(f"Created pipeline_runner_desktop.py ({len(desktop_body.splitlines())} lines body)")
+write_mixin(
+    "pipeline_runner_desktop.py",
+    "DesktopExecutionMixin",
+    "Desktop automation and static utility methods for PipelineRunner.",
+    lines[desktop_start:plans_start],
+)
 
 # ====== 4. Plans mixin ======
-plans_body = "".join(lines[plans_start:])
-plans_file = f'''{COMMON_IMPORTS}
-
-from nlp2cmd.adapters.base import SafetyPolicy
-
-
-class PlanExecutionMixin:
-    """Mixin providing multi-step ActionPlan execution for PipelineRunner."""
-
-{plans_body}'''
-
-(SRC / "pipeline_runner_plans.py").write_text(plans_file)
-print(f"Created pipeline_runner_plans.py ({len(plans_body.splitlines())} lines body)")
+write_mixin(
+    "pipeline_runner_plans.py",
+    "PlanExecutionMixin",
+    "Multi-step ActionPlan execution methods for PipelineRunner.",
+    lines[plans_start:],
+    extra_imports="\nfrom nlp2cmd.adapters.base import SafetyPolicy\n",
+)
 
 # ====== 5. Rewrite main pipeline_runner.py ======
-# Keep: imports, class definition, __init__, run method
-core_body = "".join(lines[:shell_start])
+# Keep everything up to _run_shell: imports + PipelineRunner.__init__ + run
+core = "".join(lines[:shell_start])
 
-new_main = f'''{core_body.rstrip()}
+new_main = f'''{core.rstrip()}
 
-# --- Mixin imports ---
+    # --- Method bodies are in mixin modules ---
+    # See: pipeline_runner_shell.py, pipeline_runner_browser.py,
+    #      pipeline_runner_desktop.py, pipeline_runner_plans.py
+
+
+# Compose PipelineRunner from mixins via class re-definition.
+# This preserves backward compatibility: all imports of PipelineRunner still work.
 from nlp2cmd.pipeline_runner_shell import ShellExecutionMixin  # noqa: E402
 from nlp2cmd.pipeline_runner_browser import BrowserExecutionMixin  # noqa: E402
 from nlp2cmd.pipeline_runner_desktop import DesktopExecutionMixin  # noqa: E402
 from nlp2cmd.pipeline_runner_plans import PlanExecutionMixin  # noqa: E402
 
+_BasePipelineRunner = PipelineRunner
 
-# Re-open the class to add mixin methods via multiple inheritance
-# We use a wrapper pattern to preserve backward compatibility
+
 class PipelineRunner(  # type: ignore[no-redef]
     ShellExecutionMixin,
     BrowserExecutionMixin,
     DesktopExecutionMixin,
     PlanExecutionMixin,
-    PipelineRunner,
+    _BasePipelineRunner,
 ):
     """PipelineRunner composed from execution mixins.
 
