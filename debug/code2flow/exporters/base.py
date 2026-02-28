@@ -2,9 +2,9 @@
 
 import json
 import yaml
-from typing import Dict, Any
+import os
 from pathlib import Path
-
+from typing import Any, Dict, List, Optional
 from collections import defaultdict
 from ..core.models import AnalysisResult
 
@@ -282,23 +282,181 @@ class MermaidExporter:
             
     def export_call_graph(self, result: AnalysisResult, filepath: str):
         """Export call graph as Mermaid diagram."""
+        split_enabled = os.getenv('CODE2FLOW_CALLS_SPLIT', '0').strip() not in {'0', 'false', 'False', ''}
+        keep_main = os.getenv('CODE2FLOW_CALLS_KEEP_MAIN', '0').strip() not in {'0', 'false', 'False', ''}
+        try:
+            min_nodes = int(os.getenv('CODE2FLOW_CALLS_MIN_NODES', '20'))
+        except Exception:
+            min_nodes = 20
+        try:
+            target_parts = int(os.getenv('CODE2FLOW_CALLS_TARGET_PARTS', '0'))
+        except Exception:
+            target_parts = 0
+        try:
+            max_nodes = int(os.getenv('CODE2FLOW_CALLS_MAX_NODES', '250'))
+        except Exception:
+            max_nodes = 250
+        try:
+            max_parts = int(os.getenv('CODE2FLOW_CALLS_MAX_PARTS', '20'))
+        except Exception:
+            max_parts = 20
+        include_singletons = os.getenv('CODE2FLOW_CALLS_INCLUDE_SINGLETONS', '0').strip() not in {'0', 'false', 'False', ''}
+
+        if not split_enabled:
+            lines = self._render_call_graph_mermaid(result, funcs=set(result.functions.keys()))
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines))
+            return
+
+        parts = self._partition_call_graph(
+            result,
+            min_nodes=min_nodes,
+            max_nodes=max_nodes,
+            max_parts=max_parts,
+            target_parts=target_parts,
+            include_singletons=include_singletons,
+        )
+
+        base = Path(filepath)
+        out_dir = base.parent
+        stem = base.stem
+
+        if keep_main:
+            lines = self._render_call_graph_mermaid(result, funcs=set(result.functions.keys()))
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines))
+
+        for idx, funcs in enumerate(parts, 1):
+            part_path = out_dir / f"{stem}_part_{idx:02d}.mmd"
+            lines = self._render_call_graph_mermaid(result, funcs=funcs)
+            with open(part_path, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines))
+
+    def _render_call_graph_mermaid(self, result: AnalysisResult, funcs: set) -> List[str]:
         lines = ['graph LR']
-        
-        # Add function nodes
-        for func_name in result.functions:
+
+        for func_name in sorted(funcs):
             short_name = func_name.split('.')[-1][:30]
             safe_id = self._safe_id(func_name)
             lines.append(f'    {safe_id}["{short_name}"]')
-            
-        # Add call edges
-        for func_name, func_info in result.functions.items():
+
+        for func_name in sorted(funcs):
+            func_info = result.functions.get(func_name)
+            if not func_info:
+                continue
             caller_id = self._safe_id(func_name)
-            for callee in func_info.calls:
-                callee_id = self._safe_id(callee)
-                lines.append(f'    {caller_id} --> {callee_id}')
-                
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(lines))
+            for callee in sorted(func_info.calls):
+                if callee in funcs:
+                    callee_id = self._safe_id(callee)
+                    lines.append(f'    {caller_id} --> {callee_id}')
+
+        return lines
+
+    def _partition_call_graph(
+        self,
+        result: AnalysisResult,
+        *,
+        min_nodes: int,
+        max_nodes: int,
+        max_parts: int,
+        target_parts: int,
+        include_singletons: bool,
+    ) -> List[set]:
+        import networkx as nx
+
+        funcs = set(result.functions.keys())
+        g = nx.Graph()
+        g.add_nodes_from(funcs)
+
+        for caller, info in result.functions.items():
+            for callee in info.calls:
+                if caller in funcs and callee in funcs:
+                    g.add_edge(caller, callee)
+
+        comps = [set(c) for c in nx.connected_components(g)]
+        comps.sort(key=lambda s: len(s), reverse=True)
+
+        parts: List[set] = []
+
+        if target_parts and target_parts > 0:
+            # Heuristic: aim for N parts by sizing max_nodes accordingly.
+            # Respect explicit max_parts if it's smaller.
+            effective_parts = min(max_parts, target_parts)
+            if effective_parts > 0:
+                # Ceiling division
+                derived = (len(funcs) + effective_parts - 1) // effective_parts
+                # Keep it within sane bounds
+                max_nodes = max(min_nodes, min(max_nodes, max(30, derived)))
+
+        def add_part(p: set) -> None:
+            if len(parts) >= max_parts:
+                return
+            if len(p) == 1 and not include_singletons:
+                return
+            parts.append(p)
+
+        # Pack small components together so we don't end up with only a single part
+        # when the graph is highly disconnected.
+        packed: set = set()
+        def flush_packed(force: bool = False) -> None:
+            nonlocal packed
+            if not packed:
+                return
+            if force or len(packed) >= min_nodes or include_singletons:
+                add_part(set(packed))
+                packed = set()
+
+        for comp in comps:
+            if len(parts) >= max_parts:
+                break
+
+            if len(comp) <= max_nodes:
+                # Pack small comps into larger bins
+                if len(comp) < min_nodes and not include_singletons:
+                    if len(packed) + len(comp) > max_nodes:
+                        flush_packed(force=True)
+                    packed |= comp
+                    if len(packed) >= min_nodes:
+                        flush_packed(force=True)
+                else:
+                    flush_packed(force=True)
+                    add_part(comp)
+                continue
+
+            sub = g.subgraph(comp)
+            remaining = set(sub.nodes())
+
+            while remaining and len(parts) < max_parts:
+                start = next(iter(remaining))
+                chunk: set = set()
+                q: List[str] = [start]
+                seen_local: set = set()
+
+                while q and len(chunk) < max_nodes:
+                    cur = q.pop(0)
+                    if cur in seen_local:
+                        continue
+                    seen_local.add(cur)
+                    if cur not in remaining:
+                        continue
+                    chunk.add(cur)
+                    for nxt in sub.neighbors(cur):
+                        if nxt in remaining and nxt not in seen_local and len(chunk) < max_nodes:
+                            q.append(nxt)
+
+                if len(chunk) < min_nodes and len(remaining) > min_nodes:
+                    for n in list(remaining):
+                        if len(chunk) >= min_nodes:
+                            break
+                        if n not in chunk:
+                            chunk.add(n)
+
+                remaining -= chunk
+                add_part(chunk)
+
+        flush_packed(force=False)
+
+        return parts
             
     def export_compact(self, result: AnalysisResult, filepath: str):
         """Export using compact format with deduplication."""

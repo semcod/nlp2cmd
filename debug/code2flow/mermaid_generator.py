@@ -7,6 +7,7 @@ import os
 import sys
 import subprocess
 import tempfile
+import json
 from pathlib import Path
 from typing import List, Optional
 
@@ -28,7 +29,30 @@ def validate_mermaid_file(mmd_path: Path) -> List[str]:
         if not lines or not any(line.strip().startswith(('graph', 'flowchart')) for line in lines):
             errors.append("Missing graph declaration (should start with 'graph' or 'flowchart')")
         
-        # Check for unmatched brackets/parentheses - but be smarter about it
+        def strip_label_segments(s: str) -> str:
+            """Remove label segments that frequently contain Mermaid syntax chars.
+
+            We ignore bracket/paren balancing inside:
+            - edge labels: -->|...|
+            - node labels: N1["..."] or N1[/'...'/] etc.
+            """
+            import re
+
+            # Remove edge labels |...|
+            s = re.sub(r"\|[^|]*\|", "||", s)
+
+            # Remove common node label forms: ["..."], ("..."), {"..."}
+            s = re.sub(r"\[\"[^\"]*\"\]", "[]", s)
+            s = re.sub(r"\(\"[^\"]*\"\)", "()", s)
+            s = re.sub(r"\{\"[^\"]*\"\}", "{}", s)
+
+            # Remove Mermaid special bracket label variants like [/'...'/]
+            s = re.sub(r"\[/[^\]]*?/\]", "[]", s)
+            s = re.sub(r"\(/[^)]*?/\)", "()", s)
+
+            return s
+
+        # Check for unmatched brackets/parentheses (outside label segments)
         bracket_stack = []
         paren_stack = []
         
@@ -46,8 +70,9 @@ def validate_mermaid_file(mmd_path: Path) -> List[str]:
                 # but don't count parentheses inside the node content
                 continue
                 
-            # Count brackets and parentheses only for non-node-definition lines
-            for char in line:
+            # Count brackets and parentheses (ignoring those inside label segments)
+            check_line = strip_label_segments(line)
+            for char in check_line:
                 if char == '[':
                     bracket_stack.append((']', line_num))
                 elif char == ']':
@@ -113,21 +138,39 @@ def fix_mermaid_file(mmd_path: Path) -> bool:
         content = mmd_path.read_text(encoding='utf-8')
         lines = content.split('\n')
         fixed_lines = []
+
+        import re
+
+        def sanitize_label_text(txt: str) -> str:
+            # Mermaid labels frequently break parsing when they contain Mermaid syntax chars.
+            # Replace with HTML entities.
+            return (
+                txt.replace('&', '&amp;')
+                .replace('"', '&quot;')
+                .replace('[', '&#91;')
+                .replace(']', '&#93;')
+                .replace('(', '&#40;')
+                .replace(')', '&#41;')
+                .replace('{', '&#123;')
+                .replace('}', '&#125;')
+                .replace('|', '&#124;')
+            )
+
+        def sanitize_node_id(node_id: str) -> str:
+            """Make a Mermaid-safe node identifier.
+
+            Mermaid node IDs should avoid characters like '[', ']', '(', ')', '{', '}', '"', '|'.
+            For call-graph exports, we only need stable-ish identifiers.
+            """
+            node_id = (node_id or '').strip()
+            # Cut off at first clearly dangerous Mermaid syntax char.
+            node_id = re.split(r"[\[\]\(\)\{\}\"\|\s]", node_id, maxsplit=1)[0]
+            # Replace remaining non-word chars just in case.
+            node_id = re.sub(r"[^A-Za-z0-9_]", "_", node_id)
+            return node_id or "N"
         
         for line in lines:
             original_line = line
-            
-            # 1. Remove problematic HTML entities that break Mermaid parsing
-            if '&quot;' in line or '&apos;' in line or '&#40;' in line or '&#41;' in line:
-                # Replace HTML entities back to regular characters
-                line = line.replace('&quot;', '"')
-                line = line.replace('&apos;', "'")
-                line = line.replace('&#40;', '(')
-                line = line.replace('&#41;', ')')
-                line = line.replace('&#91;', '[')
-                line = line.replace('&#93;', ']')
-                line = line.replace('&lt;', '<')
-                line = line.replace('&gt;', '>')
             
             # 2. Fix edge labels that might have pipe issues
             if '-->' in line and '|' in line:
@@ -152,12 +195,31 @@ def fix_mermaid_file(mmd_path: Path) -> bool:
                                     label_content += ')' * missing_parens
                                 line = f"{parts[0]}-->|{label_content}|{target}"
             
-            # 3. Fix malformed condition labels
-            if '-->|' in line and not line.endswith('|'):
-                # Fix missing closing quote
-                line = line.rstrip() + '|'
+            # 2b. Fix stray trailing '|' after node IDs (common breakage: N123|)
+            # Only apply to edge lines to avoid touching other Mermaid constructs.
+            if '-->' in line:
+                line = re.sub(r"(\b[A-Za-z]\w*)\|\s*$", r"\1", line)
+
+            # 2c. Sanitize edge label content inside |...|
+            # Example bad line: N1 -->|"char == '('"| N2
+            def _sanitize_edge_label(m: re.Match) -> str:
+                inner = m.group(1)
+                return f"|{sanitize_label_text(inner)}|"
+
+            if '-->' in line and '|' in line:
+                line = re.sub(r"\|([^|]{1,200})\|", _sanitize_edge_label, line)
+
+            # 2d. Sanitize edge endpoints for simple call-graph lines: A --> B
+            # This fixes cases where a node ID contains '[' which Mermaid treats as a label start.
+            if '-->' in line and '|' not in line:
+                m = re.match(r"^(\s*)([^\s-]+)\s*-->\s*([^\s]+)\s*$", line)
+                if m:
+                    indent, src, dst = m.groups()
+                    src_id = sanitize_node_id(src)
+                    dst_id = sanitize_node_id(dst)
+                    line = f"{indent}{src_id} --> {dst_id}"
             
-            # 4. Fix malformed subgraph IDs
+            # 3. Fix malformed subgraph IDs
             if line.strip().startswith('subgraph '):
                 subgraph_part = line.strip()[9:].split('(', 1)
                 if len(subgraph_part) == 2:
@@ -232,40 +294,99 @@ def generate_single_png(mmd_file: Path, output_file: Path, timeout: int = 60) ->
     # Create output directory
     output_file.parent.mkdir(parents=True, exist_ok=True)
     
-    # Try different renderers in order of preference
-    renderers = [
-        ('mmdc', ['mmdc', '-i', str(mmd_file), '-o', str(output_file), '-t', 'default', '-b', 'white']),
-        ('npx', ['npx', '-y', '@mermaid-js/mermaid-cli', '-i', str(mmd_file), '-o', str(output_file), '-t', 'default', '-b', 'white']),
-        ('puppeteer', None)  # Special handling
-    ]
+    # Mermaid's default maxTextSize is often too low for large projects,
+    # resulting in placeholder PNGs that say "Maximum text size in diagram exceeded".
+    # Provide a temporary config with a higher limit.
+    cfg_path: Optional[str] = None
+    try:
+        cfg = {
+            "maxTextSize": 2000000,
+            "theme": "default",
+        }
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as tmp_cfg:
+            tmp_cfg.write(json.dumps(cfg))
+            cfg_path = tmp_cfg.name
+
+        # Try different renderers in order of preference
+        renderers = [
+            (
+                'mmdc',
+                [
+                    'mmdc',
+                    '-i',
+                    str(mmd_file),
+                    '-o',
+                    str(output_file),
+                    '-t',
+                    'default',
+                    '-b',
+                    'white',
+                    '-c',
+                    cfg_path,
+                ],
+            ),
+            (
+                'npx',
+                [
+                    'npx',
+                    '-y',
+                    '@mermaid-js/mermaid-cli',
+                    '-i',
+                    str(mmd_file),
+                    '-o',
+                    str(output_file),
+                    '-t',
+                    'default',
+                    '-b',
+                    'white',
+                    '-c',
+                    cfg_path,
+                ],
+            ),
+            ('puppeteer', None),  # Special handling
+        ]
+    except Exception:
+        # If creating config fails for any reason, fall back to renderer defaults.
+        renderers = [
+            ('mmdc', ['mmdc', '-i', str(mmd_file), '-o', str(output_file), '-t', 'default', '-b', 'white']),
+            ('npx', ['npx', '-y', '@mermaid-js/mermaid-cli', '-i', str(mmd_file), '-o', str(output_file)]),
+            ('puppeteer', None),
+        ]
     
-    for renderer_name, cmd in renderers:
-        try:
-            if renderer_name == 'puppeteer':
-                # Special puppeteer handling
-                if generate_with_puppeteer(mmd_file, output_file, timeout):
-                    return True
-                continue
-            
-            # Run command
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
-            
-            if result.returncode == 0:
-                return True
-            else:
-                print(f"    {renderer_name} failed: {result.stderr.strip()}")
+    try:
+        for renderer_name, cmd in renderers:
+            try:
+                if renderer_name == 'puppeteer':
+                    # Special puppeteer handling
+                    if generate_with_puppeteer(mmd_file, output_file, timeout, max_text_size=2000000):
+                        return True
+                    continue
                 
-        except subprocess.TimeoutExpired:
-            print(f"    {renderer_name} timed out")
-        except FileNotFoundError:
-            print(f"    {renderer_name} not available")
-        except Exception as e:
-            print(f"    {renderer_name} error: {e}")
-    
-    return False
+                # Run command
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+                
+                if result.returncode == 0:
+                    return True
+                else:
+                    print(f"    {renderer_name} failed: {result.stderr.strip()}")
+                    
+            except subprocess.TimeoutExpired:
+                print(f"    {renderer_name} timed out")
+            except FileNotFoundError:
+                print(f"    {renderer_name} not available")
+            except Exception as e:
+                print(f"    {renderer_name} error: {e}")
+        
+        return False
+    finally:
+        if cfg_path:
+            try:
+                os.unlink(cfg_path)
+            except Exception:
+                pass
 
 
-def generate_with_puppeteer(mmd_file: Path, output_file: Path, timeout: int = 60) -> bool:
+def generate_with_puppeteer(mmd_file: Path, output_file: Path, timeout: int = 60, max_text_size: int = 2000000) -> bool:
     """Generate PNG using Puppeteer with HTML template."""
     try:
         mmd_content = mmd_file.read_text(encoding='utf-8')
@@ -286,7 +407,7 @@ def generate_with_puppeteer(mmd_file: Path, output_file: Path, timeout: int = 60
 {mmd_content}
     </div>
     <script>
-        mermaid.initialize({{ startOnLoad: true, theme: 'default' }});
+        mermaid.initialize({{ startOnLoad: true, theme: 'default', maxTextSize: {max_text_size} }});
     </script>
 </body>
 </html>

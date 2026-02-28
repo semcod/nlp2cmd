@@ -26,9 +26,11 @@ Examples:
   code2flow /path/to/project
   code2flow /path/to/project -m static -o ./analysis
   code2flow /path/to/project --format yaml,json,mermaid
+  code2flow llm-flow  # Generate LLM flow summary
         '''
     )
     
+    # Add backward compatibility source argument first
     parser.add_argument(
         'source',
         nargs='?',
@@ -90,56 +92,27 @@ Examples:
         action='version',
         version='%(prog)s 0.1.0'
     )
-
-    subparsers = parser.add_subparsers(dest='command')
-
-    llm_flow = subparsers.add_parser(
-        'llm-flow',
-        help='Generate compact LLM-friendly flow summary from analysis.yaml'
-    )
-    llm_flow.add_argument(
-        '-i', '--input',
-        default='./output/analysis.yaml',
-        help='Path to analysis.yaml (default: ./output/analysis.yaml)'
-    )
-    llm_flow.add_argument(
-        '-o', '--output',
-        default='./output/llm_flow.yaml',
-        help='Output llm_flow.yaml path (default: ./output/llm_flow.yaml)'
-    )
-    llm_flow.add_argument(
-        '--md',
-        default=None,
-        help='Optional output Markdown summary path (e.g. ./output/llm_flow.md)'
-    )
-    llm_flow.add_argument('--max-functions', type=int, default=40)
-    llm_flow.add_argument('--limit-decisions', type=int, default=8)
-    llm_flow.add_argument('--limit-calls', type=int, default=12)
     
     return parser
 
 
 def main():
     """Main CLI entry point."""
+    # Handle special case for llm-flow command
+    if len(sys.argv) > 1 and sys.argv[1] == 'llm-flow':
+        # Parse only llm-flow specific args
+        from .llm_flow_generator import main as llm_flow_main
+        return llm_flow_main(sys.argv[2:])
+    
+    # For all other cases, use the regular parser
     parser = create_parser()
     args = parser.parse_args()
-
-    if args.command == 'llm-flow':
-        from .llm_flow_generator import main as llm_flow_main
-
-        argv = [
-            '--input', args.input,
-            '--output', args.output,
-            '--max-functions', str(args.max_functions),
-            '--limit-decisions', str(args.limit_decisions),
-            '--limit-calls', str(args.limit_calls),
-        ]
-        if args.md:
-            argv += ['--md', args.md]
-        return llm_flow_main(argv)
     
+    # Handle analysis (default behavior)
     if not args.source:
         print("Error: missing required argument: source", file=sys.stderr)
+        print("Usage: code2flow <source> [options]", file=sys.stderr)
+        print("   or: code2flow llm-flow [options]", file=sys.stderr)
         sys.exit(2)
 
     # Validate source path
