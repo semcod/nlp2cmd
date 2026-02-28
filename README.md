@@ -198,17 +198,23 @@ nlp2cmd web-schema history --stats
 nlp2cmd -r "owtorz tab w już otwartym oknie przegladarki firefox wyciągnij klucz API z OpenRouter i zapisz do .env"
 ```
 
-Expected multi-step plan for the command above:
+Expected multi-step plan for the command above (v1.0.91+: fully automated via Playwright):
 
 ```yaml
 status: multistep_plan_detected
 intent: rule_decomposer
 steps:
-  - new_tab
-  - navigate
-  - echo
-  - prompt_secret
-  - save_env
+  - echo           # Plan summary
+  - navigate       # Open OpenRouter keys page
+  - check_session  # Verify login state
+  - click          # Click "Create" button
+  - wait           # Wait for form
+  - type_text      # Fill key name
+  - click          # Submit form
+  - wait           # Wait for key generation
+  - screenshot     # Capture result
+  - prompt_secret  # Enter generated key
+  - save_env       # Save to .env
 ```
 
 ### 🏢 Deep Company Extraction (NEW!)

@@ -553,11 +553,13 @@ class ActionPlanner:
             wants_new_tab, wants_existing_firefox, wants_create, wants_save,
         )
 
-        # When automation (click/type_text) is needed, force Playwright path
-        # because desktop executor can't interact with page DOM.
-        if wants_create and wants_existing_firefox:
+        # Any API-key workflow needs DOM access (check_session reads page,
+        # click/type_text fill forms).  Desktop executor can only open tabs
+        # via CLI — it cannot read page content or interact with forms.
+        # Force Playwright path whenever existing Firefox was requested.
+        if wants_existing_firefox:
             log.info(
-                "[ActionPlanner] Key creation requires Playwright — "
+                "[ActionPlanner] API-key workflow requires DOM access — "
                 "switching from Firefox desktop to Playwright browser"
             )
             wants_existing_firefox = False

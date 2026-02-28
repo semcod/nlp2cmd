@@ -114,17 +114,19 @@ class TestActionPlanner:
         assert len(save_steps) == 1
         assert save_steps[0].params["var_name"] == "GITHUB_TOKEN"
 
-    def test_openrouter_with_tab_intent_adds_new_tab_step(self):
+    def test_openrouter_with_tab_intent_forces_playwright(self):
+        """API-key workflows force Playwright even with existing Firefox,
+        because check_session/click/type_text need DOM access."""
         plan = self.planner._try_rule_decomposition(
             "owtorz tab w już otwartym oknie przegladarki firefox wyciągnij klucz API z OpenRouter i zapisz do .env"
         )
         assert plan is not None
         assert len(plan.steps) >= 4
-        # Query mentions "already open Firefox" → generates open_firefox_tab
-        # (uses `firefox --new-tab URL`, works on both X11 and Wayland)
-        ff_steps = [s for s in plan.steps if s.action == "open_firefox_tab"]
-        assert len(ff_steps) >= 1, (
-            f"Expected open_firefox_tab for existing Firefox query, got actions: {[s.action for s in plan.steps]}"
+        # Playwright path: navigate (not open_firefox_tab)
+        actions = [s.action for s in plan.steps]
+        assert "navigate" in actions
+        assert "open_firefox_tab" not in actions, (
+            f"Expected Playwright navigate, not open_firefox_tab: {actions}"
         )
         assert any(s.action == "prompt_secret" for s in plan.steps)
         assert any(s.action == "save_env" for s in plan.steps)

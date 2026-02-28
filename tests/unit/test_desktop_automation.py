@@ -100,24 +100,26 @@ class TestDetectDesktopBackend:
 # ── Firefox tab opening ─────────────────────────────────────────────────
 
 class TestActionPlannerFirefoxTab:
-    def test_existing_firefox_query_uses_open_firefox_tab(self):
-        """open_firefox_tab works on both X11 and Wayland (firefox --new-tab CLI)."""
+    def test_existing_firefox_query_forces_playwright(self):
+        """API-key workflows force Playwright even with existing Firefox,
+        because check_session/click/type_text need DOM access."""
         planner = ActionPlanner()
         plan = planner.decompose_sync(
             "otwórz tab w już otwartym oknie przeglądarki firefox "
             "wyciągnij klucz API z OpenRouter i zapisz do .env"
         )
         actions = [s.action for s in plan.steps]
-        assert "open_firefox_tab" in actions
+        # Playwright path: navigate, not open_firefox_tab
+        assert "navigate" in actions
+        assert "open_firefox_tab" not in actions
         assert "prompt_secret" in actions
         assert "save_env" in actions
-        # No desktop_focus/type/key steps — open_firefox_tab replaces them
-        # (desktop_wait is just a sleep helper, not real desktop automation)
-        desktop_interaction_steps = [
+        # No desktop interaction steps at all
+        desktop_steps = [
             s for s in plan.steps
-            if s.action.startswith("desktop_") and s.action != "desktop_wait"
+            if s.action.startswith("desktop_") or s.action == "open_firefox_tab"
         ]
-        assert len(desktop_interaction_steps) == 0
+        assert len(desktop_steps) == 0
 
     def test_non_firefox_query_uses_navigate(self):
         planner = ActionPlanner()
