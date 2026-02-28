@@ -1,4 +1,4 @@
-.PHONY: install dev-install test lint format clean help analyze run docker mermaid-png install-mermaid check-mermaid clean-png
+.PHONY: install dev-install test lint format clean help analyze run docker mermaid-png install-mermaid check-mermaid clean-png publish bump-patch
 
 # Default target
 help:
@@ -18,6 +18,8 @@ help:
 	@echo "  make mermaid-png   - Generate PNG from all Mermaid files"
 	@echo "  make install-mermaid - Install Mermaid CLI renderer"
 	@echo "  make check-mermaid - Check available Mermaid renderers"
+	@echo "  make publish       - Publish to PyPI (with automatic patch bump)"
+	@echo "  make bump-patch    - Bump patch version (X.Y.Z -> X.Y.Z+1)"
 	@echo ""
 
 # Installation
@@ -94,3 +96,20 @@ check-mermaid:
 clean-png:
 	rm -f output/*.png
 	@echo "✓ Cleaned PNG files"
+
+# Publishing
+publish: build ## Publish to PyPI (with version bump)
+	@echo "Bumping patch version..."
+	$(MAKE) bump-patch
+	@echo "Rebuilding package with new version..."
+	$(MAKE) build
+	@echo "Publishing to PyPI..."
+	@echo "Creating temporary virtual environment for twine..."
+	python -m venv publish-env
+	publish-env/bin/pip install twine
+	publish-env/bin/python -m twine upload dist/*
+	rm -rf publish-env
+
+bump-patch: ## Bump patch version (X.Y.Z -> X.Y.Z+1)
+	@echo "Bumping patch version..."
+	python ../bump_version.py patch

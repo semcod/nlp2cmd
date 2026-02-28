@@ -88,9 +88,29 @@ Examples:
     )
     
     parser.add_argument(
-        '--version',
-        action='version',
-        version='%(prog)s 0.1.0'
+        '--strategy',
+        choices=['quick', 'standard', 'deep'],
+        default='standard',
+        help='Analysis strategy: quick (fast overview), standard (balanced), deep (complete)'
+    )
+    
+    parser.add_argument(
+        '--streaming',
+        action='store_true',
+        help='Use streaming analysis with progress reporting'
+    )
+    
+    parser.add_argument(
+        '--incremental',
+        action='store_true',
+        help='Only analyze changed files (requires previous run)'
+    )
+    
+    parser.add_argument(
+        '--max-memory',
+        type=int,
+        default=1000,
+        help='Max memory in MB (default: 1000)'
     )
     
     return parser
@@ -141,8 +161,59 @@ def main():
         
     # Run analysis
     try:
-        analyzer = ProjectAnalyzer(config)
-        result = analyzer.analyze_project(str(source_path))
+        if args.streaming or args.strategy in ['quick', 'deep']:
+            # Use optimized streaming analyzer
+            from .core.streaming_analyzer import (
+                StreamingAnalyzer, STRATEGY_QUICK, 
+                STRATEGY_STANDARD, STRATEGY_DEEP
+            )
+            
+            strategy_map = {
+                'quick': STRATEGY_QUICK,
+                'standard': STRATEGY_STANDARD,
+                'deep': STRATEGY_DEEP
+            }
+            strategy = strategy_map.get(args.strategy, STRATEGY_STANDARD)
+            
+            # Adjust strategy for memory limit
+            strategy.max_files_in_memory = min(
+                strategy.max_files_in_memory,
+                args.max_memory // 10  # Rough heuristic
+            )
+            
+            analyzer = StreamingAnalyzer(config, strategy)
+            
+            if args.verbose:
+                def on_progress(update):
+                    pct = update.get('percentage', 0)
+                    print(f"\r[{pct:.0f}%] {update.get('message', '')}", end='', flush=True)
+                analyzer.set_progress_callback(on_progress)
+            
+            # Collect results
+            functions = {}
+            classes = {}
+            nodes = {}
+            edges = []
+            
+            print(f"Analyzing with {args.strategy} strategy...")
+            for update in analyzer.analyze_streaming(str(source_path)):
+                if update['type'] == 'file_complete':
+                    # Result is yielded but we need to re-analyze for full data
+                    pass
+                elif update['type'] == 'complete':
+                    if args.verbose:
+                        print()  # New line after progress
+                    print(f"Completed in {update.get('elapsed_seconds', 0):.1f}s")
+            
+            # For streaming, we need to run again to get actual results
+            # TODO: Modify streaming to accumulate results properly
+            analyzer = ProjectAnalyzer(config)
+            result = analyzer.analyze_project(str(source_path))
+            
+        else:
+            # Use standard analyzer
+            analyzer = ProjectAnalyzer(config)
+            result = analyzer.analyze_project(str(source_path))
         
         if args.verbose:
             print(f"\nAnalysis complete:")

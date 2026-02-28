@@ -1,0 +1,86 @@
+# NLP Pipeline Configuration Example
+# Supports multilingual processing with fuzzy matching
+
+normalization:
+  # 1a. Lowercase conversion
+  lowercase: true
+  
+  # 1b. Punctuation removal
+  remove_punctuation: true
+  
+  # 1c. Whitespace normalization
+  normalize_whitespace: true
+  
+  # 1d. Unicode normalization (NFKC)
+  unicode_normalize: true
+  
+  # 1e. Stopword removal
+  remove_stopwords: false
+  
+  # Language-specific stopwords
+  stopwords:
+    en: ["the", "a", "an", "is", "are", "was", "were", "be", "been"]
+    pl: ["w", "z", "do", "na", "jest", "są", "był", "była", "ten", "ta"]
+
+intent_matching:
+  # 2a. Fuzzy matching threshold (0.0-1.0)
+  fuzzy_threshold: 0.8
+  
+  # 2b. Semantic similarity threshold
+  semantic_threshold: 0.85
+  
+  # 2c. Keyword matching weight
+  keyword_weight: 0.6
+  
+  # 2d. Context window size
+  context_window: 3
+  
+  # 2e. Multi-intent resolution strategy
+  multi_intent_strategy: "best_match"  # best_match, combine, sequential
+  
+  # Fuzzy matching algorithm
+  fuzzy_algorithm: "token_sort_ratio"  # ratio, partial_ratio, token_sort_ratio
+
+entity_resolution:
+  # 3a. Entity types to extract
+  entity_types:
+    - function
+    - class
+    - module
+    - variable
+    - file
+  
+  # 3b. Name matching threshold
+  name_match_threshold: 0.9
+  
+  # 3c. Context-aware disambiguation
+  context_disambiguation: true
+  
+  # 3d. Hierarchical resolution (class.method -> method)
+  hierarchical_resolution: true
+  
+  # 3e. Alias resolution (short names -> qualified names)
+  alias_resolution: true
+
+multilingual:
+  # Supported languages
+  languages:
+    - en
+    - pl
+  
+  # Default language
+  default_language: en
+  
+  # Language detection confidence threshold
+  lang_detect_threshold: 0.7
+  
+  # Cross-language matching
+  cross_language_matching: true
+
+# Pipeline stages
+enable_normalization: true
+enable_intent_matching: true
+enable_entity_resolution: true
+
+# Logging
+verbose: false
