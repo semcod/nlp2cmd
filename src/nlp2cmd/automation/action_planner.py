@@ -471,6 +471,11 @@ class ActionPlanner:
         if multi_plan:
             return multi_plan
 
+        # Tier 0c: Canvas/drawing pattern (from ComplexCommandPlanner templates)
+        canvas_plan = self._try_canvas_decomposition(query)
+        if canvas_plan:
+            return canvas_plan
+
         # Tier 1: LLM decomposition
         try:
             plan = await self._call_llm(query)
@@ -495,6 +500,10 @@ class ActionPlanner:
         multi_plan = self._try_multi_tab_decomposition(query)
         if multi_plan:
             return multi_plan
+
+        canvas_plan = self._try_canvas_decomposition(query)
+        if canvas_plan:
+            return canvas_plan
 
         try:
             plan = self._call_llm_sync(query)
@@ -652,13 +661,17 @@ class ActionPlanner:
 
     @staticmethod
     def _wants_create_key(text: str) -> bool:
-        return any(p in text for p in [
+        """Detect intent to CREATE a new key (not extract/copy existing one)."""
+        create_keywords = [
             "stwórz", "stworz", "utwórz", "utworz", "wygeneruj",
-            "wyciągnij", "wyciagnij", "pobierz", "zapisz",
             "nowy klucz", "nowy key", "nowy token",
-            "create", "generate", "new key", "new token",
-            "extract", "get key", "fetch",
-        ])
+            "create key", "create token", "create new",
+            "generate key", "generate token", "generate api",
+            "new key", "new token",
+        ]
+        # Exclude: "wyciągnij", "pobierz", "zapisz", "extract", "get key"
+        # — these mean "get existing key", not "create new key"
+        return any(p in text for p in create_keywords)
 
     # ------------------------------------------------------------------
     # Step builders
@@ -893,6 +906,91 @@ class ActionPlanner:
         ))
 
         return steps
+
+    def _try_canvas_decomposition(self, query: str) -> Optional[ActionPlan]:
+        """Bridge ComplexCommandPlanner drawing templates into ActionPlanner.
+
+        Handles queries like 'wejdź na jspaint.app i narysuj biedronkę'.
+        """
+        try:
+            from nlp2cmd.automation.complex_planner import (
+                ComplexCommandPlanner,
+                DRAWING_PATTERNS,
+            )
+        except ImportError:
+            return None
+
+        text = query.lower()
+
+        # Check if this is a drawing/canvas query
+        has_draw = any(
+            w in text for w in [
+                "narysuj", "rysuj", "namaluj", "maluj", "naszkicuj",
+                "draw", "paint", "sketch",
+            ]
+        )
+        if not has_draw:
+            return None
+
+        # Match against ComplexCommandPlanner templates
+        for template in DRAWING_PATTERNS:
+            if re.search(template["pattern"], text):
+                log.info(
+                    "[ActionPlanner] Canvas template match: %s",
+                    template["description"],
+                )
+
+                # Convert ComplexCommandPlanner ActionSteps to our ActionSteps
+                steps: list[ActionStep] = []
+                for cstep in template["steps"]:
+                    steps.append(ActionStep(
+                        action=cstep.action,
+                        params=dict(cstep.params) if cstep.params else {},
+                        description=cstep.description,
+                    ))
+
+                return ActionPlan(
+                    query=query,
+                    steps=steps,
+                    confidence=0.92,
+                    source="canvas_template",
+                    estimated_time_ms=sum(
+                        s.wait_after_ms for s in template["steps"]
+                    ) + len(steps) * 500,
+                )
+
+        # Generic canvas: navigate + echo instruction
+        url_match = re.search(
+            r'\b([a-zA-Z0-9][\w\-]*\.(?:app|com|io))\b', text,
+        )
+        url = f"https://{url_match.group(1)}" if url_match else "https://jspaint.app"
+
+        return ActionPlan(
+            query=query,
+            steps=[
+                ActionStep(
+                    action="navigate",
+                    params={"url": url},
+                    description=f"Otwórz {url}",
+                ),
+                ActionStep(
+                    action="wait", params={"ms": 3000},
+                    description="Poczekaj na załadowanie canvas",
+                ),
+                ActionStep(
+                    action="echo",
+                    params={"text": (
+                        f"🎨 Otwarto {url}. Rysowanie wymaga adaptera canvas.\n"
+                        f"   Użyj: python3 examples/06_desktop_automation/"
+                        f"09_complex_commands/run.py --query \"{query}\""
+                    )},
+                    description="Instrukcja rysowania",
+                ),
+            ],
+            confidence=0.75,
+            source="canvas_heuristic",
+            estimated_time_ms=5000,
+        )
 
     def _try_multi_tab_decomposition(self, query: str) -> Optional[ActionPlan]:
         """Rule-based decomposition for 'open N tabs' pattern."""

@@ -143,6 +143,56 @@ for cmd in dangerous_commands:
     adapter.save_improvements("./learned_schemas.json")
     print("\n✅ Saved learned improvements to learned_schemas.json")
 
+# Example commands
+commands = [
+    "Find files larger than 100MB modified in the last week",
+    "Show top 10 processes by memory usage",
+    "List all running Docker containers",
+    "Count lines of Python code in current directory",
+    "Show disk usage sorted by size",
+    "Find all TODO comments in source files",
+    "Compress the logs directory",
+    "Show git commits from last week by author",
+]
+
+print_separator("NLP2CMD Shell Examples", leading_newline=True, width=60)
+
+for cmd in commands:
+    print(f"\n📝 Request: {cmd}")
+    print_rule(width=40)
+
+    ir = nlp.transform_ir(cmd)
+
+    print(f"Action: {ir.action_id}")
+    print(f"\nGenerated command:")
+    print(f"   $ {ir.dsl}")
+    
+    # Ask for feedback (optional)
+    if input("\nIs this correct? (Y/n): ").lower() == 'n':
+        correction = input("What should it be? ")
+        adapter.learn_from_feedback(cmd, ir.dsl, correction)
+        print("Thanks! I've learned from that.")
+
+# Safety policy demo
+print_separator("Safety Policy Demo", leading_newline=True, width=60)
+
+dangerous_commands = [
+    "Delete everything in root directory",
+    "Run command with sudo",
+]
+
+for cmd in dangerous_commands:
+    print(f"\n📝 Request: {cmd}")
+    try:
+        ir = nlp.transform_ir(cmd)
+        print(f"Generated: {ir.dsl}")
+    except Exception as e:
+        print(f"❌ Blocked: {e}")
+    
+    # Save learned improvements
+    adapter.save_improvements("./learned_schemas.json")
+    print("\n✅ Saved learned improvements to learned_schemas.json")
+
 # Safety policy demo
 print_separator("Safety Policy Demo", leading_newline=True, width=60)
 

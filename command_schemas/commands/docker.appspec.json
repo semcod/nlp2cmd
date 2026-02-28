@@ -17,11 +17,11 @@
       "dsl": {
         "kind": "shell",
         "output_format": "raw",
-        "template": "docker {subcommand} {options}"
+        "template": null
       },
       "params": {
         "config": {
-          "type": "boolean",
+          "type": "string",
           "required": false,
           "description": "string      Location of client config files (default \"/home/tom/.docker\")",
           "default": null,
@@ -29,8 +29,44 @@
           "pattern": null,
           "location": "option"
         },
+        "c": {
+          "type": "string",
+          "required": false,
+          "description": ", --context string     Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with \"docker context use\")",
+          "default": null,
+          "enum": [],
+          "pattern": null,
+          "location": "option"
+        },
+        "D": {
+          "type": "string",
+          "required": false,
+          "description": ", --debug              Enable debug mode",
+          "default": null,
+          "enum": [],
+          "pattern": null,
+          "location": "option"
+        },
+        "H": {
+          "type": "string",
+          "required": false,
+          "description": ", --host string        Daemon socket to connect to",
+          "default": null,
+          "enum": [],
+          "pattern": null,
+          "location": "option"
+        },
+        "l": {
+          "type": "string",
+          "required": false,
+          "description": ", --log-level string   Set the logging level (\"debug\", \"info\", \"warn\", \"error\", \"fatal\") (default \"info\")",
+          "default": null,
+          "enum": [],
+          "pattern": null,
+          "location": "option"
+        },
         "tls": {
-          "type": "boolean",
+          "type": "string",
           "required": false,
           "description": "Use TLS; implied by --tlsverify",
           "default": null,
@@ -39,7 +75,7 @@
           "location": "option"
         },
         "tlscacert": {
-          "type": "boolean",
+          "type": "string",
           "required": false,
           "description": "string   Trust certs signed only by this CA (default \"/home/tom/.docker/ca.pem\")",
           "default": null,
@@ -48,7 +84,7 @@
           "location": "option"
         },
         "tlscert": {
-          "type": "boolean",
+          "type": "string",
           "required": false,
           "description": "string     Path to TLS certificate file (default \"/home/tom/.docker/cert.pem\")",
           "default": null,
@@ -57,7 +93,7 @@
           "location": "option"
         },
         "tlskey": {
-          "type": "boolean",
+          "type": "string",
           "required": false,
           "description": "string      Path to TLS key file (default \"/home/tom/.docker/key.pem\")",
           "default": null,
@@ -66,9 +102,18 @@
           "location": "option"
         },
         "tlsverify": {
-          "type": "boolean",
+          "type": "string",
           "required": false,
           "description": "Use TLS and verify the remote",
+          "default": null,
+          "enum": [],
+          "pattern": null,
+          "location": "option"
+        },
+        "v": {
+          "type": "string",
+          "required": false,
+          "description": ", --version            Print version information and quit",
           "default": null,
           "enum": [],
           "pattern": null,
@@ -77,13 +122,11 @@
       },
       "schema": {
         "command": "docker",
-        "help_lines": 82,
         "text": "docker"
       },
       "match": {
         "patterns": [
-          "docker [OPTIONS] COMMAND",
-          "a self-sufficient runtime for containers"
+          "docker"
         ],
         "examples": [
           "docker [OPTIONS] COMMAND"
@@ -95,7 +138,7 @@
       },
       "metadata": {
         "source": "docker",
-        "source_type": "shell_help"
+        "source_type": "shell"
       },
       "tags": []
     }

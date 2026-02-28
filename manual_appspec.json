@@ -1,0 +1,160 @@
+{
+  "format": "app2schema.appspec",
+  "version": 1,
+  "app": {
+    "name": "demo",
+    "kind": "mixed",
+    "source": "manual",
+    "metadata": {}
+  },
+  "actions": [
+    {
+      "id": "sql.query",
+      "type": "sql",
+      "description": "SQL query",
+      "dsl": {
+        "kind": "sql",
+        "dialect": "postgres",
+        "output_format": "table",
+        "template": "SELECT id, name, email FROM users WHERE email LIKE '%@{domain}';"
+      },
+      "params": {
+        "domain": {
+          "type": "string",
+          "required": true,
+          "location": "unknown"
+        }
+      },
+      "schema": {
+        "tables": {
+          "users": [
+            "id",
+            "name",
+            "email",
+            "created_at"
+          ],
+          "orders": [
+            "id",
+            "user_id",
+            "amount",
+            "status"
+          ]
+        }
+      },
+      "match": {
+        "patterns": [
+          "pokaż użytkowników",
+          "show users"
+        ],
+        "examples": []
+      },
+      "executor": {
+        "kind": "sql",
+        "config": {
+          "db": "postgres"
+        }
+      },
+      "metadata": {}
+    },
+    {
+      "id": "graphql.query",
+      "type": "graphql",
+      "description": "GraphQL query",
+      "dsl": {
+        "kind": "graphql",
+        "output_format": "json",
+        "template": "query { users(filter: {name_starts_with: \"{prefix}\"}) { id name email } }"
+      },
+      "params": {
+        "prefix": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "schema": {
+        "endpoint": "https://api.example.com/graphql",
+        "types": {
+          "User": [
+            "id",
+            "name",
+            "email"
+          ]
+        }
+      },
+      "match": {
+        "patterns": [
+          "pobierz użytkowników"
+        ],
+        "examples": []
+      },
+      "executor": {
+        "kind": "graphql",
+        "config": {}
+      },
+      "metadata": {}
+    },
+    {
+      "id": "dom.query",
+      "type": "dom",
+      "description": "DOM selector",
+      "dsl": {
+        "kind": "dom",
+        "output_format": "raw",
+        "template": "#login-section button:first-of-type"
+      },
+      "params": {},
+      "schema": {
+        "supports": [
+          "css",
+          "xpath"
+        ]
+      },
+      "match": {
+        "patterns": [
+          "kliknij pierwszy przycisk"
+        ],
+        "examples": []
+      },
+      "executor": {
+        "kind": "playwright",
+        "config": {
+          "action": "click"
+        }
+      },
+      "metadata": {}
+    },
+    {
+      "id": "shell.run",
+      "type": "shell",
+      "description": "Shell command",
+      "dsl": {
+        "kind": "shell",
+        "output_format": "raw",
+        "template": "ls -lS | head -n {n}"
+      },
+      "params": {
+        "n": {
+          "type": "integer",
+          "required": true
+        }
+      },
+      "schema": {
+        "shell": "bash"
+      },
+      "match": {
+        "patterns": [
+          "10 największych"
+        ],
+        "examples": []
+      },
+      "executor": {
+        "kind": "shell",
+        "config": {
+          "shell": "bash"
+        }
+      },
+      "metadata": {}
+    }
+  ],
+  "metadata": {}
+}

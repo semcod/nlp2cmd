@@ -169,11 +169,27 @@ def handle_generate_query(
         generate_debug_log_md(query, debug_log_md)
 
     # Record session video if requested
-    if record_session:
-        try:
-            _record_cli_session(record_session, query, out)
-        except Exception as e:
-            console.print(f"[yellow]Session recording failed: {e}[/yellow]")
+    if record_video:
+        # Check if we have a multi-step action plan to execute with video
+        action_plan = getattr(pipeline_result, 'action_plan', None)
+        if action_plan and execute_web:
+            try:
+                _execute_multi_step_with_video(record_video, query, action_plan, pipeline_result)
+            except Exception as e:
+                console.print(f"[yellow]Browser execution with video failed: {e}[/yellow]")
+                # Fallback to CLI recording
+                try:
+                    _record_cli_session(record_video, query, out)
+                except Exception as e2:
+                    console.print(f"[yellow]CLI recording also failed: {e2}[/yellow]")
+        else:
+            # Just record CLI session
+            try:
+                _record_cli_session(record_video, query, out)
+            except Exception as e:
+                console.print(f"[yellow]Session recording failed: {e}[/yellow]")
+
+    # Execute in browser if requested (single-step or multi-step)
     if execute_web and dsl == "browser":
         try:
             from nlp2cmd import NLP2CMD
@@ -303,3 +319,189 @@ def _record_cli_session(output_path: str, query: str, result_data: dict) -> None
             console.print(f"[blue]Session log saved to: {log_path}[/blue]")
         except subprocess.TimeoutExpired:
             console.print(f"[yellow]Video recording timed out[/yellow]")
+
+
+def _execute_multi_step_with_video(
+    output_path: str,
+    query: str,
+    action_plan: Any,
+    pipeline_result: Any,
+) -> None:
+    """Execute multi-step action plan in browser with video recording.
+
+    Records browser session and saves final screenshot showing the result.
+    """
+    from pathlib import Path
+
+    console.print(f"[blue]Starting browser execution with video recording...[/blue]")
+    console.print(f"[dim]Video will be saved to: {output_path}[/dim]")
+
+    try:
+        from playwright.sync_api import sync_playwright
+
+        steps = getattr(action_plan, 'steps', [])
+        if not steps:
+            console.print("[yellow]No steps to execute[/yellow]")
+            return
+
+        with sync_playwright() as p:
+            # Launch browser with video recording
+            video_dir = Path(output_path).parent if output_path else Path("/tmp")
+            video_dir.mkdir(parents=True, exist_ok=True)
+
+            browser = p.chromium.launch(headless=False)
+            context = browser.new_context(
+                viewport={"width": 1280, "height": 720},
+                record_video_dir=str(video_dir),
+                record_video_size={"width": 1280, "height": 720},
+            )
+
+            page = context.new_page()
+
+            console.print(f"[blue]Executing {len(steps)} steps...[/blue]")
+
+            screenshot_path = None
+            canvas_center = {"x": 640, "y": 360}  # Default center
+
+            for i, step in enumerate(steps, 1):
+                action = getattr(step, 'action', '')
+                params = getattr(step, 'params', {}) or {}
+                target = getattr(step, 'target', None)
+
+                console.print(f"  Step {i}/{len(steps)}: {action}")
+
+                try:
+                    if action == 'navigate':
+                        url = params.get('url', target) or 'https://jspaint.app'
+                        if not url.startswith('http'):
+                            url = 'https://' + url
+                        page.goto(url, wait_until='networkidle')
+                        page.wait_for_timeout(1000)
+
+                    elif action == 'wait_for_canvas':
+                        # Wait for canvas element
+                        try:
+                            page.wait_for_selector('canvas', timeout=5000)
+                        except:
+                            pass
+                        page.wait_for_timeout(1000)
+
+                    elif action == 'get_canvas_center':
+                        # Get canvas center for drawing
+                        try:
+                            canvas = page.locator('canvas').first
+                            if canvas.is_visible():
+                                box = canvas.bounding_box()
+                                if box:
+                                    canvas_center['x'] = box['x'] + box['width'] // 2
+                                    canvas_center['y'] = box['y'] + box['height'] // 2
+                                    console.print(f"    Canvas center: {canvas_center}")
+                        except Exception as e:
+                            console.print(f"    [dim]Could not get canvas center: {e}[/dim]")
+
+                    elif action == 'select_tool':
+                        tool = params.get('tool', '')
+                        console.print(f"    Selecting tool: {tool}")
+                        # Try to select tool in jspaint
+                        try:
+                            if tool == 'ellipse':
+                                # Look for ellipse/circle tool button
+                                page.locator('button:has-text("ellipse"), button[title*="circle"], button[aria-label*="ellipse"]').first.click(timeout=1000)
+                            elif tool == 'brush':
+                                page.locator('button:has-text("brush"), button[title*="brush"], button[aria-label*="brush"]').first.click(timeout=1000)
+                        except:
+                            pass
+                        page.wait_for_timeout(500)
+
+                    elif action == 'set_color':
+                        color = params.get('color', '#000000')
+                        console.print(f"    Setting color: {color}")
+                        page.wait_for_timeout(300)
+
+                    elif action == 'draw_filled_ellipse':
+                        rx = params.get('rx', 50)
+                        ry = params.get('ry', 50)
+                        relative = params.get('relative_to', '')
+
+                        x = canvas_center['x']
+                        y = canvas_center['y']
+
+                        console.print(f"    Drawing filled ellipse at ({x}, {y}) rx={rx}, ry={ry}")
+
+                        # Draw ellipse using mouse
+                        page.mouse.move(x - rx, y - ry)
+                        page.mouse.down()
+                        page.mouse.move(x + rx, y + ry, steps=10)
+                        page.mouse.up()
+                        page.wait_for_timeout(500)
+
+                    elif action == 'draw_circle':
+                        radius = params.get('radius', 10)
+                        offset = params.get('offset', [0, 0])
+
+                        x = canvas_center['x'] + offset[0]
+                        y = canvas_center['y'] + offset[1]
+
+                        console.print(f"    Drawing circle at ({x}, {y}) radius={radius}")
+
+                        # Draw small circle
+                        page.mouse.move(x - radius, y - radius)
+                        page.mouse.down()
+                        page.mouse.move(x + radius, y + radius, steps=5)
+                        page.mouse.up()
+                        page.wait_for_timeout(300)
+
+                    elif action == 'draw_line':
+                        from_offset = params.get('from_offset', [0, 0])
+                        to_offset = params.get('to_offset', [0, 0])
+
+                        x1 = canvas_center['x'] + from_offset[0]
+                        y1 = canvas_center['y'] + from_offset[1]
+                        x2 = canvas_center['x'] + to_offset[0]
+                        y2 = canvas_center['y'] + to_offset[1]
+
+                        console.print(f"    Drawing line from ({x1}, {y1}) to ({x2}, {y2})")
+
+                        page.mouse.move(x1, y1)
+                        page.mouse.down()
+                        page.mouse.move(x2, y2, steps=10)
+                        page.mouse.up()
+                        page.wait_for_timeout(300)
+
+                    elif action == 'screenshot':
+                        suffix = params.get('suffix', 'final')
+                        screenshot_path = str(video_dir / f"screenshot_{suffix}.png")
+                        page.screenshot(path=screenshot_path, full_page=False)
+                        console.print(f"[green]  Screenshot saved: {screenshot_path}[/green]")
+
+                    else:
+                        console.print(f"    [dim]Unknown action: {action}[/dim]")
+
+                except Exception as e:
+                    console.print(f"    [yellow]Step {i} error: {e}[/yellow]")
+                    continue
+
+            # Close context and browser
+            context.close()
+            browser.close()
+
+        # Find the video file created by Playwright
+        video_files = list(video_dir.glob('*.webm')) + list(video_dir.glob('*.mp4'))
+        if video_files:
+            # Rename the most recent video to the desired output path
+            latest_video = max(video_files, key=lambda p: p.stat().st_mtime)
+            import shutil
+            shutil.move(str(latest_video), output_path)
+            console.print(f"[green]✅ Browser video saved to: {output_path}[/green]")
+        else:
+            console.print(f"[yellow]No video file found in {video_dir}[/yellow]")
+
+        if screenshot_path and Path(screenshot_path).exists():
+            console.print(f"[green]✅ Screenshot showing ladybug: {screenshot_path}[/green]")
+
+    except ImportError:
+        console.print("[red]Playwright not installed. Install with: pip install playwright[/red]")
+        raise
+    except Exception as e:
+        console.print(f"[red]Browser execution error: {e}[/red]")
+        raise

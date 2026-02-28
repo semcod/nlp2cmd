@@ -459,7 +459,7 @@ def main(
                     script_start_time=ctx.obj.get("script_start_time", time.time()),
                     verbose=verbose,
                     debug_log_md=debug_log_md,
-                    record_session=record_session,
+                    record_video=record_session,
                 )
         elif interactive:
             session = InteractiveSession(

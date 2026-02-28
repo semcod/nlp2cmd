@@ -1,0 +1,47 @@
+{
+  "format": "app2schema.appspec",
+  "version": 1,
+  "app": {
+    "name": "app",
+    "kind": "shell",
+    "source": "git",
+    "metadata": {
+      "target": "git"
+    }
+  },
+  "actions": [
+    {
+      "id": "shell.git",
+      "type": "shell",
+      "description": "usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]",
+      "dsl": {
+        "kind": "shell",
+        "output_format": "raw",
+        "template": null
+      },
+      "params": {},
+      "schema": {
+        "command": "git",
+        "text": "git"
+      },
+      "match": {
+        "patterns": [
+          "git"
+        ],
+        "examples": [
+          "git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]"
+        ]
+      },
+      "executor": {
+        "kind": "shell",
+        "config": {}
+      },
+      "metadata": {
+        "source": "git",
+        "source_type": "shell"
+      },
+      "tags": []
+    }
+  ],
+  "metadata": {}
+}

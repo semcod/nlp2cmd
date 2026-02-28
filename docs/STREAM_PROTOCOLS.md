@@ -148,6 +148,53 @@ nlp2cmd --source ftp://user:pass@fileserver/data -q "list files"
 nlp2cmd --source sftp://admin@backup/mnt -q "download latest.tar.gz"
 ```
 
+## CLI Flags for Stream Mode
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--source <URI>` | Stream source URI | `--source novnc://localhost:6080` |
+| `--log-dir <path>` | Directory for session logs | `--log-dir ./logs` |
+| `--screenshot` | Save PNG screenshot after action | `--screenshot` |
+| `--video <fmt>` | Record short video (`mp4` or `webm`) | `--video mp4` |
+| `--duration <sec>` | Video recording duration (default: 3) | `--duration 5` |
+| `--md` | Generate Markdown log with base64 thumbnails | `--md` |
+
+### Combined usage
+
+```bash
+# Run command on noVNC desktop, take screenshot, generate markdown log
+nlp2cmd --source novnc://localhost:6080 --run --log-dir ./logs --md --screenshot \
+    -q "open terminal and type hello"
+
+# Record video of RTSP stream analysis
+nlp2cmd --source rtsp://cam:554/stream --video mp4 --duration 5 \
+    -q "detect motion"
+
+# Full lifecycle with logs
+for step in "open terminal" "type ls -la" "press Enter"; do
+    nlp2cmd --source novnc://localhost:6080 --run --log-dir ./logs --md \
+        -q "$step"
+    sleep 1
+done
+```
+
+### Markdown session logs
+
+When `--md` and `--log-dir` are set, each command appends a step to `<log-dir>/session.md`:
+
+```markdown
+## Step 3: type ls -la (12:34:56)
+
+- **Source:** novnc://localhost:6080
+- **Status:** ✅ success
+- **Output:** Typed text via noVNC
+
+### Screenshot
+![step_003](data:image/png;base64,iVBOR...)
+```
+
+Thumbnails are 256px wide, base64-encoded inline — no external image files needed.
+
 ## Python API
 
 ```python
