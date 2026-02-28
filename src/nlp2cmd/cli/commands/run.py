@@ -321,17 +321,32 @@ def handle_run_mode(
                         console=console,
                     )
 
-                from nlp2cmd.utils.playwright_installer import ensure_playwright_installed
-                if not ensure_playwright_installed(console=console, auto_install=auto_install):
-                    if not only_output:
-                        print_yaml_block(
-                            {
-                                "status": "browser_automation_skipped",
-                                "reason": "playwright_not_available",
-                            },
-                            console=console,
-                        )
-                    return
+                # If the plan contains desktop actions (e.g. open_firefox_tab),
+                # do NOT force Playwright installation. PipelineRunner will
+                # execute it in desktop mode without launching Chromium.
+                try:
+                    steps_iter = getattr(result.action_plan, "steps", None) or []
+                    _DESKTOP_ACTIONS = {"open_firefox_tab"}
+                    has_desktop_steps = any(
+                        str(getattr(s, "action", "")).startswith("desktop_")
+                        or str(getattr(s, "action", "")) in _DESKTOP_ACTIONS
+                        for s in steps_iter
+                    )
+                except Exception:
+                    has_desktop_steps = False
+
+                if not has_desktop_steps:
+                    from nlp2cmd.utils.playwright_installer import ensure_playwright_installed
+                    if not ensure_playwright_installed(console=console, auto_install=auto_install):
+                        if not only_output:
+                            print_yaml_block(
+                                {
+                                    "status": "browser_automation_skipped",
+                                    "reason": "playwright_not_available",
+                                },
+                                console=console,
+                            )
+                        return
 
                 try:
                     from nlp2cmd.pipeline_runner import PipelineRunner

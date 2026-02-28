@@ -566,13 +566,13 @@ class ActionPlanner:
             wants_new_tab, wants_existing_firefox, wants_create, wants_save,
         )
 
-        # Any API-key workflow needs DOM access (check_session reads page,
-        # click/type_text fill forms).  Desktop executor can only open tabs
-        # via CLI — it cannot read page content or interact with forms.
-        # Force Playwright path whenever existing Firefox was requested.
-        if wants_existing_firefox:
+        # Only the "create new key" flow requires DOM interaction (click/type_text).
+        # When the user asks to *extract/copy* a key from an already-open Firefox session,
+        # keep the desktop path: open the keys page in the user's real Firefox and ask
+        # them to paste the key.
+        if wants_create and wants_existing_firefox:
             log.info(
-                "[ActionPlanner] API-key workflow requires DOM access — "
+                "[ActionPlanner] Create-key flow requires DOM access — "
                 "switching from Firefox desktop to Playwright browser"
             )
             wants_existing_firefox = False
