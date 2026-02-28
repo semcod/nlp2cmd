@@ -130,9 +130,9 @@ class TestTyposAndVariations:
             ("plik skopiuj", "shell", "copy", "cp "),
             
             # Delete operations
-            ("usuń plik", "shell", "delete", "rm "),
-            ("usun plik", "shell", "delete", "rm "),
-            ("plik usuń", "shell", "delete", "rm "),
+            ("usuń plik", "shell", "remove", "rm "),
+            ("usun plik", "shell", "remove", "rm "),
+            ("plik usuń", "shell", "remove", "rm "),
             
             # Find operations
             ("znajdź plik", "shell", "find", "find . -name "),
@@ -146,7 +146,7 @@ class TestTyposAndVariations:
             
             # Typos
             ("kopij plik", "shell", "file_operation", "ls -la ."),  # file_operation due to typo handling
-            ("usun plik", "shell", "delete", "rm "),
+            ("usun plik", "shell", "remove", "rm "),
             ("znajdz plik", "shell", "find", "find . -name "),
         ]
         
@@ -251,7 +251,7 @@ class TestTyposAndVariations:
         test_cases = [
             ("uruchomienie usługi nginx", "shell", "service_start"),
             ("restartowanie systemu", "shell", "reboot"),
-            ("usuwanie pliku", "shell", "delete"),
+            ("usuwanie pliku", "shell", "remove"),
             ("tworzenie katalogu", "shell", "create"),
             ("pokaz foldery", "shell", "list_dirs"),
         ]

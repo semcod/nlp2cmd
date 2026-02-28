@@ -106,6 +106,7 @@ class DrawingVectorStore:
                 ids=[pattern.name],
                 documents=[search_text],
                 metadatas=[{
+                    "name": pattern.name,
                     "category": pattern.category,
                     "complexity": pattern.complexity,
                     "source": pattern.source,
@@ -273,7 +274,7 @@ def initialize_default_patterns() -> bool:
     default_patterns = [
         DrawingPattern(
             name="ladybug",
-            description="small red beetle with black spots round body black head six legs insects",
+            description="biedronka ladybug small red beetle with black spots round body black head six legs insects owad chrząszcz czerwona kropki",
             category="animal",
             steps=[
                 {"action": "set_color", "params": {"color": "#FF0000"}},
@@ -291,7 +292,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="rabbit",
-            description="fluffy bunny with long ears small round body cute animal mammal hop",
+            description="królik zajączek zając rabbit bunny fluffy with long ears small round body cute animal mammal hop",
             category="animal",
             steps=[
                 {"action": "set_color", "params": {"color": "#D2B48C"}},
@@ -312,7 +313,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="cat",
-            description="domestic feline pet whiskers pointy ears tail fur meow animal",
+            description="kot kotek kotka cat kitten domestic feline pet whiskers pointy ears tail fur meow animal",
             category="animal",
             steps=[
                 {"action": "set_color", "params": {"color": "#808080"}},
@@ -335,7 +336,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="car",
-            description="automobile vehicle four wheels driving transportation motor engine",
+            description="samochód auto car automobile vehicle four wheels driving transportation motor engine pojazd koła",
             category="vehicle",
             steps=[
                 {"action": "set_color", "params": {"color": "#FF4444"}},
@@ -356,7 +357,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="tree",
-            description="tall plant with trunk branches leaves green nature forest wood",
+            description="drzewo drzewko tree tall plant with trunk branches leaves green nature forest wood las roślina",
             category="nature",
             steps=[
                 {"action": "set_color", "params": {"color": "#8B4513"}},
@@ -374,7 +375,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="sun",
-            description="bright star in sky yellow orange hot light day sunshine warm",
+            description="słońce słoneczko sun bright star in sky yellow orange hot light day sunshine warm ciepło niebo",
             category="nature",
             steps=[
                 {"action": "set_color", "params": {"color": "#FFD700"}},
@@ -396,7 +397,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="house",
-            description="home building with roof walls door windows shelter residence",
+            description="dom domek house home building with roof walls door windows shelter residence budynek dach",
             category="building",
             steps=[
                 {"action": "set_color", "params": {"color": "#F4A460"}},
@@ -415,7 +416,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="flower",
-            description="colorful plant with petals bloom blossom garden nature pretty",
+            description="kwiat kwiatek flower colorful plant with petals bloom blossom garden nature pretty roślina ogród",
             category="nature",
             steps=[
                 {"action": "set_color", "params": {"color": "#228B22"}},
@@ -437,7 +438,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="cloud",
-            description="white fluffy sky weather soft cotton atmosphere moisture",
+            description="chmura chmurka cloud white fluffy sky weather soft cotton atmosphere moisture niebo pogoda",
             category="nature",
             steps=[
                 {"action": "set_color", "params": {"color": "#FFFFFF"}},
@@ -454,7 +455,7 @@ def initialize_default_patterns() -> bool:
         ),
         DrawingPattern(
             name="star",
-            description="pointy night sky shining celestial sparkle twinkle bright",
+            description="gwiazda gwiazdka star pointy night sky shining celestial sparkle twinkle bright noc niebo",
             category="nature",
             steps=[
                 {"action": "set_color", "params": {"color": "#FFD700"}},

@@ -478,8 +478,8 @@ class KeywordIntentDetector:
             ("zrestartuj komputer", "shell", "reboot", "zrestartuj komputer"),
             ("zrestartuj system", "shell", "reboot", "zrestartuj system"),
             # File operations — shell
-            ("usuwanie pliku", "shell", "delete", "usuwanie pliku"),
-            ("usuwanie plik", "shell", "delete", "usuwanie pliku"),
+            ("usuwanie pliku", "shell", "remove", "usuwanie pliku"),
+            ("usuwanie plik", "shell", "remove", "usuwanie pliku"),
             ("tworzenie katalogu", "shell", "create", "tworzenie katalogu"),
             ("uruchomienie usługi", "shell", "service_start", "uruchomienie usługi"),
             ("restartowanie systemu", "shell", "reboot", "restartowanie systemu"),
@@ -489,9 +489,9 @@ class KeywordIntentDetector:
             ("skopiuj plik", "shell", "copy", "skopiuj plik"),
             ("kopiuj plik", "shell", "copy", "kopiuj plik"),
             ("plik skopiuj", "shell", "copy", "plik skopiuj"),
-            ("usuń plik", "shell", "delete", "usuń plik"),
-            ("usun plik", "shell", "delete", "usun plik"),
-            ("plik usuń", "shell", "delete", "plik usuń"),
+            ("usuń plik", "shell", "remove", "usuń plik"),
+            ("usun plik", "shell", "remove", "usun plik"),
+            ("plik usuń", "shell", "remove", "plik usuń"),
             # Shell list processes
             ("lista procesów", "shell", "list_processes", "lista procesów"),
             ("lista procesow", "shell", "list_processes", "lista procesow"),
@@ -684,17 +684,27 @@ class KeywordIntentDetector:
             "znajdź słowo": "search", "szukaj w logach": "search",
             "skopiuj plik": "copy", "copy file": "copy", "skopiuj ": "copy",
             "przenieś plik": "move", "move file": "move", "przenieś ": "move",
-            "usuń plik": "delete", "delete file": "delete", "usuń stary": "delete",
-            "usun plik": "delete", "skasuj plik": "delete", "skasuj": "delete",
-            "zmień uprawnienia": "chmod", "uprawnienia pliku": "chmod",
-            "change permissions": "chmod",
-            "spakuj folder": "compress", "spakuj ": "compress",
-            "compress folder": "compress", "skompresuj": "compress",
+            "usuń plik": "remove", "delete file": "remove", "usuń stary": "remove",
+            "usun plik": "remove", "skasuj plik": "remove", "skasuj": "remove",
+            "zmień uprawnienia": "permissions_chmod", "uprawnienia pliku": "permissions_chmod",
+            "change permissions": "permissions_chmod", "chmod ": "permissions_chmod",
+            "spakuj folder": "compress_tar", "spakuj ": "compress_tar",
+            "compress folder": "compress_tar", "skompresuj": "compress_tar",
+            "utwórz katalog": "create_dir", "utwórz folder": "create_dir",
+            "stwórz katalog": "create_dir", "stwórz folder": "create_dir",
+            "create directory": "create_dir", "make directory": "create_dir",
+            "mkdir ": "create_dir",
+            "zabij proces": "process_kill", "zakończ proces": "process_kill",
+            "kill process": "process_kill", "terminate process": "process_kill",
+            "kill ": "process_kill",
+            "interfejsy sieciowe": "network_interfaces", "network interfaces": "network_interfaces",
+            "show network": "network_interfaces", "adresy ip": "network_interfaces",
+            "ip addr": "network_interfaces", "ifconfig": "network_interfaces",
         }
         for kw, intent in _SHELL_TERMS.items():
             if kw in text_lower:
                 # Skip shell match if browser signals present (e.g. "skopiuj klucz API")
-                if _has_browser_context and intent in ("copy", "move", "delete"):
+                if _has_browser_context and intent in ("copy", "move", "remove"):
                     continue
                 entities = {}
                 # Extract file patterns for find operations
@@ -711,6 +721,37 @@ class KeywordIntentDetector:
                     elif ".json" in text_lower:
                         entities["pattern"] = "*.json"
                 
+                # Extract PID for kill operations
+                if intent == "process_kill":
+                    import re as _re
+                    pid_match = _re.search(r'(?:pid\s*)?(\d{2,})', text_lower)
+                    if pid_match:
+                        entities["pid"] = pid_match.group(1)
+
+                # Extract directory name for mkdir operations
+                if intent == "create_dir":
+                    import re as _re
+                    dir_match = _re.search(r'(?:katalog|folder|directory)\s+([\w./_-]+)', text_lower)
+                    if dir_match:
+                        entities["directory"] = dir_match.group(1)
+
+                # Extract permissions and file for chmod operations
+                if intent == "permissions_chmod":
+                    import re as _re
+                    perm_match = _re.search(r'\b(\d{3,4})\b', text_lower)
+                    if perm_match:
+                        entities["permissions"] = perm_match.group(1)
+                    file_match = _re.search(r'(?:pliku?\s+|of\s+|file\s+)([\w./_-]+)', text_lower)
+                    if file_match:
+                        entities["file"] = file_match.group(1)
+
+                # Extract source for compress/tar operations
+                if intent == "compress_tar":
+                    import re as _re
+                    src_match = _re.search(r'(?:folder|katalog|directory)\s+([\w./_-]+)', text_lower)
+                    if src_match:
+                        entities["source"] = src_match.group(1)
+
                 return DetectionResult(domain="shell", intent=intent, confidence=0.88, entities=entities)
 
         # SQL natural language fast-path (after docker/k8s/shell)

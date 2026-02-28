@@ -38,6 +38,13 @@ try:
 except Exception:
     load_dotenv = None
 
+# Import auto-repair system
+try:
+    from nlp2cmd.cli.auto_repair import execute_with_auto_recovery, with_auto_repair
+    HAS_AUTO_REPAIR = True
+except ImportError:
+    HAS_AUTO_REPAIR = False
+
 # ---------------------------------------------------------------------------
 # Backward-compatible re-exports (tests & external code import from here)
 # ---------------------------------------------------------------------------
@@ -144,20 +151,37 @@ def version(*args, **kwargs):
     pass
 
 
-def _run_preflight_checks(console, verbose: bool = False):
+def _run_preflight_checks(console, verbose: bool = False, auto_fix: bool = False, execute_web: bool = False) -> bool:
     """Run quick pre-flight checks before executing commands.
     
     Warns about common issues that will cause problems later.
+    Outputs actionable tasks in nlp2cmd format.
+    
+    Args:
+        console: Rich console for output
+        verbose: Show verbose output
+        auto_fix: Automatically fix issues without prompting
+        execute_web: Whether --execute-web is enabled (can use browser)
+    
+    Returns:
+        True if checks passed or issues were fixed, False if user aborted
     """
     warnings = []
+    actionable_tasks = []
+    needs_token = False
+    needs_ollama = False
     
     # Check HF_TOKEN
     hf_token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN")
     if not hf_token:
+        needs_token = True
         warnings.append(
-            "[yellow]⚠ HF_TOKEN not set - HF Hub requests will be unauthenticated (rate limits)[/yellow]\n"
-            "   Set with: export HF_TOKEN=your_token  # from https://huggingface.co/settings/tokens"
+            "[yellow]⚠ HF_TOKEN not set - HF Hub requests will be unauthenticated (rate limits)[/yellow]"
         )
+        if execute_web:
+            actionable_tasks.append(
+                "[cyan]📋 Auto-fix available:[/cyan] I can open browser to get HF_TOKEN for you"
+            )
     
     # Check Ollama for canvas/web commands (only if we might need it)
     ollama_host = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
@@ -169,9 +193,14 @@ def _run_preflight_checks(console, verbose: bool = False):
         result = sock.connect_ex((host, 11434))
         sock.close()
         if result != 0:
+            needs_ollama = True
             warnings.append(
-                "[yellow]⚠ Ollama not running on port 11434 - canvas drawing commands will use fallback[/yellow]\n"
-                "   Start with: ollama serve"
+                "[yellow]⚠ Ollama not running on port 11434 - canvas drawing commands will use fallback[/yellow]"
+            )
+            actionable_tasks.append(
+                "[cyan]📋 Task: Start Ollama Server[/cyan]\n"
+                "   Auto-fix: nlp2cmd doctor --fix\n"
+                "   Manual: ollama serve"
             )
     except Exception:
         pass
@@ -181,8 +210,58 @@ def _run_preflight_checks(console, verbose: bool = False):
             console.print("\n[dim]--- Pre-flight checks ---[/dim]")
         for warning in warnings:
             console.print(warning)
+        # Print actionable tasks
+        for task in actionable_tasks:
+            console.print(task)
         if verbose:
             console.print("[dim]-------------------------[/dim]\n")
+        
+        # Interactive auto-fix for HF_TOKEN if execute_web is enabled
+        if needs_token and execute_web:
+            if auto_fix:
+                should_fix = True
+            else:
+                console.print("\n[cyan]💡 I can automatically open browser to get HF_TOKEN from Hugging Face.[/cyan]")
+                try:
+                    response = input("   Do you want me to do this now? [Y/n]: ").strip().lower()
+                    should_fix = response in ('', 'y', 'yes')
+                except (EOFError, KeyboardInterrupt):
+                    should_fix = False
+            
+            if should_fix:
+                console.print("[cyan]🌐 Opening browser to get HF_TOKEN...[/cyan]")
+                try:
+                    from nlp2cmd.cli.commands.doctor import get_hf_token_via_browser
+                    token = get_hf_token_via_browser(console)
+                    if token:
+                        # Save token
+                        env_file = Path(".env")
+                        if env_file.exists():
+                            content = env_file.read_text()
+                            if "HF_TOKEN=" in content:
+                                lines = content.split("\n")
+                                new_lines = [f"HF_TOKEN={token}" if l.startswith("HF_TOKEN=") else l for l in lines]
+                                content = "\n".join(new_lines)
+                            else:
+                                content += f"\nHF_TOKEN={token}\n"
+                            env_file.write_text(content)
+                        else:
+                            env_file.write_text(f"HF_TOKEN={token}\n")
+                        
+                        os.environ["HF_TOKEN"] = token
+                        console.print(f"[green]✓ HF_TOKEN saved! Continuing with your task...[/green]\n")
+                        return True
+                    else:
+                        console.print("[yellow]⚠ Could not get HF_TOKEN. Continuing without it (may hit rate limits)...[/yellow]\n")
+                        return True  # Continue anyway
+                except Exception as e:
+                    console.print(f"[red]✗ Error getting HF_TOKEN: {e}[/red]")
+                    console.print("[yellow]   Continuing anyway...[/yellow]\n")
+                    return True
+            else:
+                console.print("[dim]   Skipping auto-fix. You can run 'nlp2cmd doctor --get-token' later.[/dim]\n")
+    
+    return True  # Continue with task
 
 
 # Add command methods to main when click is not available
@@ -325,7 +404,9 @@ def main(
     
     # Pre-flight health check for critical issues
     if not show_schema and not show_decision_tree and not version:
-        _run_preflight_checks(console, verbose)
+        checks_passed = _run_preflight_checks(console, verbose, auto_fix=auto_confirm, execute_web=execute_web)
+        if not checks_passed:
+            return  # User aborted
     
     ctx.ensure_object(dict)
     ctx.obj["dsl"] = dsl
@@ -475,46 +556,84 @@ def main(
             router.close_all()
             return
         if run and query:
-            _handle_run_query(
-                query,
-                dsl=dsl,
-                appspec=appspec,
-                auto_confirm=auto_confirm,
-                no_submit=no_submit,
-                execute_web=execute_web,
-                auto_install=auto_install,
-                auto_repair=auto_repair,
-                only_output=only_output,
-                verbose=verbose,
-                video_fmt=video_fmt,
-                video_duration=video_duration,
-            )
+            # Wrap with auto-repair for automatic error recovery
+            def _execute_run():
+                _handle_run_query(
+                    query,
+                    dsl=dsl,
+                    appspec=appspec,
+                    auto_confirm=auto_confirm,
+                    no_submit=no_submit,
+                    execute_web=execute_web,
+                    auto_install=auto_install,
+                    auto_repair=auto_repair,
+                    only_output=only_output,
+                    verbose=verbose,
+                    video_fmt=video_fmt,
+                    video_duration=video_duration,
+                )
+            
+            if HAS_AUTO_REPAIR and auto_repair:
+                execute_with_auto_recovery(
+                    _execute_run,
+                    auto_confirm=auto_confirm,
+                    console=console,
+                    execute_web=execute_web,
+                )
+            else:
+                _execute_run()
         elif query:
             if dsl == "appspec":
                 from nlp2cmd.cli.commands.generate import handle_appspec_query
-                handle_appspec_query(
-                    query,
-                    dsl=dsl,
-                    appspec=appspec,
-                    auto_repair=auto_repair,
-                    explain=explain,
-                    execute_web=execute_web,
-                    verbose=verbose,
-                )
+                
+                # Wrap with auto-repair for automatic error recovery
+                def _execute_appspec():
+                    handle_appspec_query(
+                        query,
+                        dsl=dsl,
+                        appspec=appspec,
+                        auto_repair=auto_repair,
+                        explain=explain,
+                        execute_web=execute_web,
+                        verbose=verbose,
+                    )
+                
+                if HAS_AUTO_REPAIR and auto_repair:
+                    execute_with_auto_recovery(
+                        _execute_appspec,
+                        auto_confirm=auto_confirm,
+                        console=console,
+                        execute_web=execute_web,
+                    )
+                else:
+                    _execute_appspec()
             elif dsl == "auto":
                 from nlp2cmd.cli.commands.generate import handle_generate_query
-                handle_generate_query(
-                    query,
-                    dsl=dsl,
-                    appspec=appspec,
-                    explain=explain,
-                    execute_web=execute_web,
-                    stdout_only=stdout_only,
-                    script_start_time=ctx.obj.get("script_start_time", time.time()),
-                    verbose=verbose,
-                    debug_log_md=debug_log_md,
-                    record_video=record_session,
-                )
+                
+                # Wrap with auto-repair for automatic error recovery
+                def _execute_generate():
+                    return handle_generate_query(
+                        query,
+                        dsl=dsl,
+                        appspec=appspec,
+                        explain=explain,
+                        execute_web=execute_web,
+                        stdout_only=stdout_only,
+                        script_start_time=ctx.obj.get("script_start_time", time.time()),
+                        verbose=verbose,
+                        debug_log_md=debug_log_md,
+                        record_video=record_session,
+                    )
+                
+                if HAS_AUTO_REPAIR and auto_repair:
+                    result = execute_with_auto_recovery(
+                        _execute_generate,
+                        auto_confirm=auto_confirm,
+                        console=console,
+                        execute_web=execute_web,
+                    )
+                else:
+                    _execute_generate()
         elif interactive:
             session = InteractiveSession(
                 dsl=dsl,

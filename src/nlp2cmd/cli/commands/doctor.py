@@ -529,13 +529,127 @@ def run_doctor(auto_fix: bool = False, output_json: bool = False, fix_script: Op
     return not has_errors
 
 
+def get_hf_token_via_browser(console: Optional[Console] = None) -> Optional[str]:
+    """Open browser to help user get HF_TOKEN from Hugging Face.
+    
+    Uses existing Firefox if available, otherwise Playwright.
+    Returns the token if successfully retrieved.
+    """
+    if console:
+        console.print("[cyan]🌐 Opening Hugging Face in browser...[/cyan]")
+        console.print("[dim]   If not logged in, please login first.[/dim]")
+        console.print("[dim]   Then create a token at: https://huggingface.co/settings/tokens[/dim]")
+    else:
+        print("🌐 Opening Hugging Face in browser...")
+        print("   If not logged in, please login first.")
+        print("   Then create a token at: https://huggingface.co/settings/tokens")
+    
+    try:
+        from playwright.sync_api import sync_playwright
+        
+        with sync_playwright() as p:
+            # Try to connect to existing Firefox first
+            browser = None
+            try:
+                # Try connecting to existing Firefox via CDP
+                browser = p.firefox.connect_over_cdp("http://localhost:9222")
+                if console:
+                    console.print("[green]✓ Connected to existing Firefox[/green]")
+                else:
+                    print("✓ Connected to existing Firefox")
+            except Exception:
+                # Launch new Firefox instance
+                if console:
+                    console.print("[yellow]   Launching new Firefox instance...[/yellow]")
+                else:
+                    print("   Launching new Firefox instance...")
+                browser = p.firefox.launch(headless=False)
+            
+            context = browser.new_context()
+            page = context.new_page()
+            
+            # Navigate to tokens page
+            page.goto("https://huggingface.co/settings/tokens")
+            
+            if console:
+                console.print("[cyan]📋 Instructions:[/cyan]")
+                console.print("   1. Login to Hugging Face if needed")
+                console.print("   2. Click 'New token' button")
+                console.print("   3. Set name: 'nlp2cmd'")
+                console.print("   4. Select 'Read' role")
+                console.print("   5. Click 'Generate token'")
+                console.print("   6. Copy the token and paste it here")
+            else:
+                print("\n📋 Instructions:")
+                print("   1. Login to Hugging Face if needed")
+                print("   2. Click 'New token' button")
+                print("   3. Set name: 'nlp2cmd'")
+                print("   4. Select 'Read' role")
+                print("   5. Click 'Generate token'")
+                print("   6. Copy the token and paste it here")
+            
+            # Interactive prompt for token
+            try:
+                token = input("\n🔑 Paste HF_TOKEN here (hidden): ").strip()
+                if token:
+                    return token
+            except (EOFError, KeyboardInterrupt):
+                pass
+            
+            browser.close()
+            
+    except ImportError:
+        if console:
+            console.print("[yellow]⚠ Playwright not installed. Open browser manually:[/yellow]")
+        else:
+            print("⚠ Playwright not installed. Open browser manually:")
+        print("   https://huggingface.co/settings/tokens")
+    except Exception as e:
+        if console:
+            console.print(f"[red]✗ Browser error: {e}[/red]")
+        else:
+            print(f"✗ Browser error: {e}")
+        print("   Please open manually: https://huggingface.co/settings/tokens")
+    
+    return None
+
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="NLP2CMD System Doctor")
     parser.add_argument("--fix", action="store_true", help="Auto-fix issues where possible")
     parser.add_argument("--json", action="store_true", help="Output JSON instead of formatted text")
     parser.add_argument("--fix-script", type=str, help="Generate fix script to file")
+    parser.add_argument("--get-token", action="store_true", help="Open browser to get HF_TOKEN")
     args = parser.parse_args()
+
+    if args.get_token:
+        console = Console() if HAS_RICH else None
+        token = get_hf_token_via_browser(console)
+        if token:
+            # Save token
+            env_file = Path(".env")
+            if env_file.exists():
+                content = env_file.read_text()
+                if "HF_TOKEN=" in content:
+                    lines = content.split("\n")
+                    new_lines = [f"HF_TOKEN={token}" if l.startswith("HF_TOKEN=") else l for l in lines]
+                    content = "\n".join(new_lines)
+                else:
+                    content += f"\nHF_TOKEN={token}\n"
+                env_file.write_text(content)
+            else:
+                env_file.write_text(f"HF_TOKEN={token}\n")
+            
+            os.environ["HF_TOKEN"] = token
+            if console:
+                console.print(f"[green]✓ HF_TOKEN saved to {env_file}[/green]")
+            else:
+                print(f"✓ HF_TOKEN saved to {env_file}")
+            sys.exit(0)
+        else:
+            print("✗ Failed to get token")
+            sys.exit(1)
 
     success = run_doctor(auto_fix=args.fix, output_json=args.json, fix_script=args.fix_script)
     sys.exit(0 if success else 1)
@@ -550,9 +664,39 @@ try:
     @click.option("--json", "output_json", is_flag=True, help="Output JSON instead of formatted text")
     @click.option("--fix-script", type=click.Path(), help="Generate fix script to file")
     @click.option("--set-token", help="Set HF_TOKEN to .env file")
+    @click.option("--get-token", is_flag=True, help="Open browser to get HF_TOKEN from Hugging Face")
     @click.pass_context
-    def doctor_command(ctx, fix: bool, output_json: bool, fix_script: Optional[str], set_token: Optional[str]):
+    def doctor_command(ctx, fix: bool, output_json: bool, fix_script: Optional[str], set_token: Optional[str], get_token: bool):
         """Diagnose and fix nlp2cmd system issues."""
+        console = Console() if HAS_RICH else None
+        
+        if get_token:
+            token = get_hf_token_via_browser(console)
+            if token:
+                # Save token
+                env_file = Path(".env")
+                if env_file.exists():
+                    content = env_file.read_text()
+                    if "HF_TOKEN=" in content:
+                        lines = content.split("\n")
+                        new_lines = [f"HF_TOKEN={token}" if l.startswith("HF_TOKEN=") else l for l in lines]
+                        content = "\n".join(new_lines)
+                    else:
+                        content += f"\nHF_TOKEN={token}\n"
+                    env_file.write_text(content)
+                else:
+                    env_file.write_text(f"HF_TOKEN={token}\n")
+                
+                os.environ["HF_TOKEN"] = token
+                if console:
+                    console.print(f"[green]✓ HF_TOKEN saved to {env_file}[/green]")
+                else:
+                    print(f"✓ HF_TOKEN saved to {env_file}")
+                ctx.exit(0)
+            else:
+                print("✗ Failed to get token")
+                ctx.exit(1)
+        
         if set_token:
             # Write token to .env file
             env_file = Path(".env")
@@ -579,8 +723,7 @@ try:
             # Also set for current session
             os.environ["HF_TOKEN"] = set_token
             
-            if HAS_RICH and Console:
-                console = Console()
+            if console:
                 console.print(f"[green]✓ HF_TOKEN saved to {env_file} and set for current session[/green]")
             else:
                 print(f"✓ HF_TOKEN saved to {env_file}")

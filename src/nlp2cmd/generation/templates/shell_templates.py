@@ -75,6 +75,7 @@ SHELL_TEMPLATES = {
     'network_download': "curl -O {url}",
     'netstat': "netstat -tuln",
     'ss': "ss -tuln",
+    'network_interfaces': "ip addr show",
     # System monitoring
     'system_uptime': "uptime",
     'system_free': "free -h",

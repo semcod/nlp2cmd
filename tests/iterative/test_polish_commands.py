@@ -209,10 +209,10 @@ class TestSinglePolishCommands:
         assert result.intent == expected_intent
     
     @pytest.mark.parametrize("input_text,expected_domain,expected_intent", [
-        ("usuń plik", "shell", "delete"),
-        ("usun plik", "shell", "delete"),
-        ("delete file", "shell", "delete"),
-        ("skasuj plik", "shell", "delete"),
+        ("usuń plik", "shell", "remove"),
+        ("usun plik", "shell", "remove"),
+        ("delete file", "shell", "remove"),
+        ("skasuj plik", "shell", "remove"),
     ])
     def test_shell_delete(self, input_text, expected_domain, expected_intent):
         result = self.detector.detect(input_text)
@@ -356,7 +356,7 @@ class TestMultiSentenceDetection:
 
         intents = [r[1].intent for r in results]
         assert "list" in intents
-        assert "delete" in intents
+        assert "remove" in intents
 
     def test_two_sentences_mixed_domains(self):
         """Test: 'Pokaż kontenery. Pokaż pliki.'"""

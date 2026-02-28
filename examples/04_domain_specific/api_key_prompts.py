@@ -191,7 +191,7 @@ COMPLEX_PROMPTS = [
     PromptExample(
         query="otwórz tab w już otwartym Firefox, przejdź na OpenRouter, stwórz nowy klucz API i zapisz do .env",
         provider="openrouter",
-        expects_firefox=True,
+        expects_firefox=False,  # v1.0.91: forced to Playwright path (navigate, not open_firefox_tab)
         expects_create=True,
         expects_save=True,
         description="Firefox + create + save (full flow)",

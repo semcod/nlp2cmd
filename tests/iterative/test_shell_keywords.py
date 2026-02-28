@@ -69,16 +69,16 @@ class TestShellKeywords:
         """Test shell delete detection."""
         result = detector.detect("Usuń stary plik")
         assert result.domain == 'shell'
-        assert result.intent == 'delete'
+        assert result.intent == 'remove'
     
     def test_shell_permissions(self, detector):
         """Test shell permissions detection."""
         result = detector.detect("Zmień uprawnienia pliku")
         assert result.domain == 'shell'
-        assert result.intent == 'chmod'
+        assert result.intent == 'permissions_chmod'
     
     def test_shell_compress(self, detector):
         """Test shell compress detection."""
         result = detector.detect("Spakuj folder do archiwum")
         assert result.domain == 'shell'
-        assert result.intent == 'compress'
+        assert result.intent == 'compress_tar'
