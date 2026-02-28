@@ -570,11 +570,15 @@ class ActionPlanner:
         wants_existing_firefox = self._wants_existing_firefox(text)
         wants_create = self._wants_create_key(text)
         wants_save = any(w in text for w in [".env", "zapisz", "save"])
+        dynamic_schema_only = os.environ.get(
+            "NLP2CMD_DYNAMIC_SCHEMA_ONLY", "",
+        ).strip().lower() in {"1", "true", "yes", "on"}
 
         log.info(
             "[ActionPlanner] Flags: new_tab=%s, existing_firefox=%s, "
-            "create_key=%s, save_to_env=%s",
+            "create_key=%s, save_to_env=%s, dynamic_schema_only=%s",
             wants_new_tab, wants_existing_firefox, wants_create, wants_save,
+            dynamic_schema_only,
         )
 
         # ALL API-key workflows need DOM access for proper validation:
@@ -605,6 +609,16 @@ class ActionPlanner:
             description=f"Podsumowanie planu dla {svc_name}",
         ))
 
+        if dynamic_schema_only:
+            steps.append(ActionStep(
+                action="echo",
+                params={"text": (
+                    "🧠 Dynamic schema mode: bez twardych template create-flow.\n"
+                    "   Używam generycznych kroków + auto-naprawy LLM."
+                )},
+                description="Log: dynamic schema mode",
+            ))
+
         # --- Step 1: Open browser / navigate ---
         steps.extend(self._build_navigation_steps(
             svc_name, svc, wants_existing_firefox, wants_new_tab,
@@ -614,7 +628,7 @@ class ActionPlanner:
         steps.extend(self._build_session_check_steps(svc_name, svc))
 
         # --- Step 3: Create key or manual prompt ---
-        if wants_create:
+        if wants_create and not dynamic_schema_only:
             steps.extend(self._build_create_key_steps(svc_name, svc))
         else:
             steps.extend(self._build_manual_key_steps(svc_name, svc, wants_existing_firefox))
@@ -738,6 +752,18 @@ class ActionPlanner:
                 action="navigate",
                 params={"url": svc["keys_url"]},
                 description=f"Przejdź na stronę kluczy {svc_name}",
+            ))
+            steps.append(ActionStep(
+                action="discover_service_section",
+                params={
+                    "service": svc_name,
+                    "section": "keys",
+                    "base_url": svc.get("base_url", ""),
+                    "keys_url": svc.get("keys_url", ""),
+                    "hints": svc.get("section_hints", svc.get("session_indicators", [])),
+                },
+                description=f"Znajdź sekcję kluczy API na {svc_name}",
+                store_as="resolved_keys_url",
             ))
             steps.append(ActionStep(
                 action="echo",

@@ -694,6 +694,15 @@ If the command syntax was wrong, provide the corrected command.
                             print_yaml_block(repair_info, console=self.console)
 
                         if repair.success and repair.improved_command:
+                            # Dedup: if repair returns the same command, the
+                            # validator was likely wrong — stop retrying.
+                            if repair.improved_command.strip() == current_command.strip():
+                                if not self.plain_output:
+                                    self.console.print(
+                                        "[dim]Repair returned same command — "
+                                        "skipping further retries[/dim]"
+                                    )
+                                break
                             # Offer / auto-use improved command on next attempt
                             if attempt < self.max_retries:
                                 current_command = repair.improved_command
@@ -701,6 +710,31 @@ If the command syntax was wrong, provide the corrected command.
                                 continue
 
             if result.success:
+                # Feed validated command back to evolutionary cache
+                if _validator and original_query:
+                    try:
+                        from nlp2cmd.generation.evolutionary_cache import (
+                            EvolutionaryCache, fingerprint, fuzzy_fingerprint,
+                            detect_domain,
+                        )
+                        from datetime import datetime
+                        _ec = EvolutionaryCache(enable_llm=False)
+                        fp = fingerprint(original_query)
+                        if fp not in _ec.entries:
+                            now = datetime.now().isoformat()
+                            _ec.entries[fp] = {
+                                "query": original_query,
+                                "domain": detect_domain(original_query),
+                                "command": current_command,
+                                "model": "validated_run",
+                                "hits": 1,
+                                "created": now,
+                                "last_used": now,
+                            }
+                            _ec.fuzzy_index[fuzzy_fingerprint(original_query)] = fp
+                            _ec.save()
+                    except Exception:
+                        pass
                 return result
             
             attempts.append(current_command)

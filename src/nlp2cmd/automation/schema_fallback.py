@@ -64,6 +64,15 @@ class SchemaFallback:
     def __init__(self, llm_model: str = "deepseek-r1:1.5b") -> None:
         self._llm_model = llm_model
         self._llm_available: Optional[bool] = None
+        mode = os.environ.get("NLP2CMD_LLM_SCHEMA_MODE", "llm_first").strip().lower()
+        self._prefer_llm = mode in {"llm_first", "always", "1", "true"}
+        try:
+            self._llm_repair_rounds = max(
+                1,
+                int(os.environ.get("NLP2CMD_LLM_REPLAN_ROUNDS", "2")),
+            )
+        except ValueError:
+            self._llm_repair_rounds = 2
 
     # ------------------------------------------------------------------
     # Main entry point
@@ -88,6 +97,13 @@ class SchemaFallback:
             ctx.failed_action, ctx.step_index, ctx.total_steps,
         )
 
+        # Prefer generic LLM-generated schemas first (provider-agnostic),
+        # then use deterministic fallbacks only as a safety net.
+        if self._prefer_llm:
+            result = self._run_llm_repair_rounds(ctx, page)
+            if result and result.success:
+                return result
+
         # Strategy 1: Rule-based heuristics
         result = self._try_rule_based(ctx, page)
         if result and result.success:
@@ -110,21 +126,38 @@ class SchemaFallback:
         if result and result.success:
             return result
 
-        # Strategy 4: Local LLM re-planning
-        result = self._try_llm_replan(ctx, page=page, use_cloud=False)
-        if result and result.success:
-            return result
-
-        # Strategy 5: Cloud LLM escalation (larger model)
-        result = self._try_llm_replan(ctx, page=page, use_cloud=True)
-        if result and result.success:
-            return result
+        # Strategy 4+5: LLM re-planning (only if not already attempted first)
+        if not self._prefer_llm:
+            result = self._run_llm_repair_rounds(ctx, page)
+            if result and result.success:
+                return result
 
         return FallbackResult(
             success=False,
             strategy="none",
             message=f"All fallback strategies exhausted for '{ctx.failed_action}'",
         )
+
+    def _run_llm_repair_rounds(
+        self,
+        ctx: FallbackContext,
+        page: Any = None,
+    ) -> Optional[FallbackResult]:
+        """Run iterative LLM repair rounds (local first, cloud escalation)."""
+        # Local rounds
+        for idx in range(self._llm_repair_rounds):
+            result = self._try_llm_replan(ctx, page=page, use_cloud=False)
+            if result and result.success:
+                if idx > 0:
+                    result.message = f"{result.message} (round {idx + 1})"
+                return result
+
+        # Single cloud escalation pass (if key available)
+        result = self._try_llm_replan(ctx, page=page, use_cloud=True)
+        if result and result.success:
+            return result
+
+        return None
 
     # ------------------------------------------------------------------
     # Strategy 1: Rule-based heuristics
@@ -631,8 +664,8 @@ class SchemaFallback:
                 page_context = f"URL: {ctx.page_url}\nTitle: {ctx.page_title}"
 
         return (
-            f"You are a browser automation planner. A step failed and needs repair.\n"
-            f"Generate alternative steps as a JSON array.\n\n"
+            f"You are a browser automation planner and schema repair engine.\n"
+            f"A step failed and you must auto-generate a robust replacement schema.\n\n"
             f"Failed action: {ctx.failed_action}\n"
             f"Parameters: {json.dumps(ctx.failed_params, default=str)[:300]}\n"
             f"Error: {ctx.error_message[:300]}\n"
@@ -641,32 +674,71 @@ class SchemaFallback:
             f"Current page state:\n{page_context}\n\n"
             f"Available actions: navigate, click, type_text, wait, extract_text, "
             f"check_session, extract_key, prompt_secret, save_env, verify_env, "
-            f"echo, dismiss_overlay, open_tab, select\n\n"
+            f"echo, dismiss_overlay, open_tab, select, discover_service_section, submit_and_extract_key\n\n"
             f"Rules:\n"
-            f"- Respond with ONLY a JSON array of step objects.\n"
-            f"- Each step: {{\"action\": \"...\", \"params\": {{...}}, \"description\": \"...\"}}\n"
+            f"- Respond with ONLY JSON (no markdown).\n"
+            f"- Preferred format:\n"
+            f"  {{\"diagnosis\": {{\"root_cause\": \"schema_definition_error|schema_execution_error|schema_data_error\","
+            f" \"reason\": \"...\"}}, \"steps\": [ ... ]}}\n"
+            f"- Allowed fallback format: JSON array of steps.\n"
+            f"- Each step: {{\"action\": \"...\", \"params\": {{...}}, \"description\": \"...\", \"store_as\": \"optional\"}}\n"
             f"- Use actual selectors visible on the page, not guesses.\n"
             f"- If the page is on a different URL than expected, add a navigate step first.\n"
+            f"- For SaaS key flows, prefer discover_service_section before create/extract if section is unclear.\n"
             f"- Maximum 5 steps.\n"
         )
 
     @staticmethod
     def _parse_llm_steps(response: str) -> list[dict[str, Any]]:
         """Parse LLM response into step dictionaries."""
-        # Try to find JSON array in response
-        match = re.search(r'\[.*\]', response, re.DOTALL)
-        if not match:
-            return []
+        # 1) Try full response as JSON
+        payload: Any = None
         try:
-            steps = json.loads(match.group())
-            if isinstance(steps, list):
-                return [
-                    s for s in steps
-                    if isinstance(s, dict) and "action" in s
-                ]
-        except json.JSONDecodeError:
-            pass
-        return []
+            payload = json.loads(response)
+        except Exception:
+            payload = None
+
+        # 2) Fallback: extract JSON object or array from noisy output
+        if payload is None:
+            for pattern in (r'\{.*\}', r'\[.*\]'):
+                match = re.search(pattern, response, re.DOTALL)
+                if not match:
+                    continue
+                try:
+                    payload = json.loads(match.group())
+                    break
+                except Exception:
+                    continue
+
+        if payload is None:
+            return []
+
+        # Support both:
+        # - [{"action": ...}, ...]
+        # - {"diagnosis": {...}, "steps": [{"action": ...}, ...]}
+        if isinstance(payload, dict):
+            maybe_steps = payload.get("steps") or payload.get("replacement_steps") or []
+        else:
+            maybe_steps = payload
+
+        if not isinstance(maybe_steps, list):
+            return []
+
+        parsed: list[dict[str, Any]] = []
+        for s in maybe_steps:
+            if not isinstance(s, dict) or "action" not in s:
+                continue
+            step = {
+                "action": str(s.get("action", "")).strip(),
+                "params": s.get("params", {}) if isinstance(s.get("params", {}), dict) else {},
+            }
+            if s.get("description"):
+                step["description"] = str(s.get("description"))
+            if s.get("store_as"):
+                step["store_as"] = str(s.get("store_as"))
+            if step["action"]:
+                parsed.append(step)
+        return parsed
 
     # ------------------------------------------------------------------
     # Helpers

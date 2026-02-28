@@ -12,10 +12,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.92,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains relevant results matching the request.",
-      "elapsed_s": 0.54
+      "reason": "Camera/webcam data found in nmap output",
+      "elapsed_s": 0.0
     },
     {
       "name": "list_files_success",
@@ -23,10 +23,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.92,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains file paths and details matching the user's request.",
-      "elapsed_s": 0.57
+      "reason": "Directory listing produced",
+      "elapsed_s": 0.0
     },
     {
       "name": "find_large_files",
@@ -36,8 +36,8 @@
       "verdict_match": true,
       "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains relevant file paths matching the size criteria.",
-      "elapsed_s": 0.51
+      "reason": "Found 2 matching path(s)",
+      "elapsed_s": 0.0
     },
     {
       "name": "process_list",
@@ -45,10 +45,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.92,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains process information sorted by memory usage.",
-      "elapsed_s": 0.54
+      "reason": "Process listing shown",
+      "elapsed_s": 0.0
     },
     {
       "name": "ping_success",
@@ -56,10 +56,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.92,
+      "score": 0.9,
       "score_ok": true,
-      "reason": "Command output contains relevant ping statistics for google.com.",
-      "elapsed_s": 0.56
+      "reason": "Ping reply received",
+      "elapsed_s": 0.0
     },
     {
       "name": "empty_output",
@@ -78,10 +78,10 @@
       "verdict": "fail",
       "expected": "fail",
       "verdict_match": true,
-      "score": 0.0,
+      "score": 0.05,
       "score_ok": true,
-      "reason": "Command not found nmap",
-      "elapsed_s": 0.42
+      "reason": "Output contains only error messages",
+      "elapsed_s": 0.0
     },
     {
       "name": "permission_denied",
@@ -89,10 +89,10 @@
       "verdict": "fail",
       "expected": "fail",
       "verdict_match": true,
-      "score": 0.0,
+      "score": 0.05,
       "score_ok": true,
-      "reason": "Error: Permission denied",
-      "elapsed_s": 0.4
+      "reason": "Output contains only error messages",
+      "elapsed_s": 0.0
     },
     {
       "name": "unrelated_output",
@@ -102,8 +102,8 @@
       "verdict_match": true,
       "score": 0.0,
       "score_ok": true,
-      "reason": "Output contains irrelevant file information and does not mention network cameras or ports.",
-      "elapsed_s": 0.57
+      "reason": "Output contains no information related to cameras or local network.",
+      "elapsed_s": 0.44
     },
     {
       "name": "network_scan_no_cameras",
@@ -111,10 +111,10 @@
       "verdict": "fail",
       "expected": "fail",
       "verdict_match": true,
-      "score": 0.0,
+      "score": 0.2,
       "score_ok": true,
-      "reason": "No relevant information about network cameras found.",
-      "elapsed_s": 0.49
+      "reason": "Nmap scan succeeded but no camera keywords in output",
+      "elapsed_s": 0.0
     },
     {
       "name": "timeout_error",
@@ -122,10 +122,10 @@
       "verdict": "fail",
       "expected": "fail",
       "verdict_match": true,
-      "score": 0.0,
+      "score": 0.05,
       "score_ok": true,
-      "reason": "Connection timed out after 30001 milliseconds",
-      "elapsed_s": 0.5
+      "reason": "Output contains only error messages",
+      "elapsed_s": 0.0
     },
     {
       "name": "partial_output_camera",
@@ -133,10 +133,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.92,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains relevant results matching the request.",
-      "elapsed_s": 0.5
+      "reason": "Camera/webcam data found in nmap output",
+      "elapsed_s": 0.0
     },
     {
       "name": "multiple_cameras",
@@ -144,10 +144,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.9,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains relevant results matching the request.",
-      "elapsed_s": 0.49
+      "reason": "Camera/webcam data found in nmap output",
+      "elapsed_s": 0.0
     },
     {
       "name": "warning_but_success",
@@ -155,10 +155,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.9,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Output contains disk usage information matching the user's request.",
-      "elapsed_s": 0.54
+      "reason": "Disk usage data shown",
+      "elapsed_s": 0.0
     },
     {
       "name": "polish_special_chars",
@@ -166,10 +166,10 @@
       "verdict": "pass",
       "expected": "pass",
       "verdict_match": true,
-      "score": 0.8,
+      "score": 0.85,
       "score_ok": true,
-      "reason": "Command output contains file paths matching the user's request.",
-      "elapsed_s": 0.51
+      "reason": "Found 3 matching path(s)",
+      "elapsed_s": 0.0
     }
   ]
 }

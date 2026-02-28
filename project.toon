@@ -1,6 +1,6 @@
-# nlp2cmd | 492f 139297L | python:495/sql:1
+# nlp2cmd | 510f 140823L | python:509/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[492]:
+M[510]:
   benchmarks/thermodynamic_benchmark.py,318
   demos/demo_enhanced.py,95
   demos/demo_intelligent_nlp2cmd.py,200
@@ -38,7 +38,7 @@ M[492]:
   examples/03_integrations/toon_format/08_memory_usage/demo.py,74
   examples/03_integrations/toon_format/11_basic_integration/demo.py,42
   examples/03_integrations/toon_format/12_advanced_integration/demo.py,45
-  examples/03_integrations/toon_format/13_query_system/demo.py,52
+  examples/03_integrations/toon_format/13_query_system/demo.py,55
   examples/03_integrations/toon_format/14_batch_processing/demo.py,66
   examples/03_integrations/toon_format/comparison_demo.py,313
   examples/03_integrations/toon_format/practical_usage.py,320
@@ -124,6 +124,14 @@ M[492]:
   examples/07_stream_protocols/example_multi_stream.py,68
   examples/07_stream_protocols/example_rtsp.py,66
   examples/07_stream_protocols/example_ssh.py,37
+  examples/08_api_key_management/01_diagnose_credentials/run.py,49
+  examples/08_api_key_management/02_openrouter_key/run.py,89
+  examples/08_api_key_management/03_github_token/run.py,76
+  examples/08_api_key_management/04_huggingface_token/run.py,80
+  examples/08_api_key_management/05_openai_key/run.py,70
+  examples/08_api_key_management/06_multi_provider/run.py,122
+  examples/08_llm_validation/test_feedback_loop.py,350
+  examples/08_llm_validation/test_validator.py,266
   examples/_example_helpers.py,20
   examples/benchmark_learning.py,502
   examples/benchmark_nlp2cmd.py,998
@@ -188,15 +196,17 @@ M[492]:
   src/nlp2cmd/aggregator/__init__.py,274
   src/nlp2cmd/appspec_runtime.py,45
   src/nlp2cmd/automation/__init__.py,30
-  src/nlp2cmd/automation/action_planner.py,1393
-  src/nlp2cmd/automation/service_configs.py,368
+  src/nlp2cmd/automation/action_planner.py,1401
   src/nlp2cmd/automation/captcha_solver.py,420
   src/nlp2cmd/automation/complex_planner.py,417
   src/nlp2cmd/automation/drawing_blueprints.py,562
   src/nlp2cmd/automation/env_extractor.py,367
+  src/nlp2cmd/automation/feedback_loop.py,443
   src/nlp2cmd/automation/firefox_sessions.py,367
   src/nlp2cmd/automation/mouse_controller.py,284
-  src/nlp2cmd/automation/schema_fallback.py,364
+  src/nlp2cmd/automation/password_store.py,705
+  src/nlp2cmd/automation/schema_fallback.py,579
+  src/nlp2cmd/automation/service_configs.py,332
   src/nlp2cmd/automation/shape_planner.py,91
   src/nlp2cmd/automation/step_validator.py,305
   src/nlp2cmd/automation/vector_store.py,462
@@ -232,7 +242,7 @@ M[492]:
   src/nlp2cmd/execution/browser.py,435
   src/nlp2cmd/execution/executor_registry.py,77
   src/nlp2cmd/execution/media_recorder.py,139
-  src/nlp2cmd/execution/runner.py,608
+  src/nlp2cmd/execution/runner.py,664
   src/nlp2cmd/execution/shell_executor.py,192
   src/nlp2cmd/executor/__init__.py,526
   src/nlp2cmd/exploration/__init__.py,85
@@ -266,7 +276,7 @@ M[492]:
   src/nlp2cmd/generation/semantic_entities.py,77
   src/nlp2cmd/generation/semantic_matcher_optimized.py,565
   src/nlp2cmd/generation/structured.py,297
-  src/nlp2cmd/generation/template_generator.py,927
+  src/nlp2cmd/generation/template_generator.py,960
   src/nlp2cmd/generation/templates/__init__.py,40
   src/nlp2cmd/generation/templates/api_templates.py,48
   src/nlp2cmd/generation/templates/browser_templates.py,62
@@ -295,8 +305,10 @@ M[492]:
   src/nlp2cmd/intelligent/dynamic_generator.py,210
   src/nlp2cmd/intelligent/version_aware_generator.py,253
   src/nlp2cmd/ir.py,28
-  src/nlp2cmd/llm/__init__.py,14
+  src/nlp2cmd/llm/__init__.py,22
   src/nlp2cmd/llm/openrouter.py,242
+  src/nlp2cmd/llm/repair.py,345
+  src/nlp2cmd/llm/validator.py,329
   src/nlp2cmd/llm/vision.py,234
   src/nlp2cmd/monitoring/__init__.py,31
   src/nlp2cmd/monitoring/resources.py,137
@@ -310,11 +322,11 @@ M[492]:
   src/nlp2cmd/nlp_light/__init__.py,3
   src/nlp2cmd/nlp_light/semantic_shell.py,276
   src/nlp2cmd/parsing/toon_parser.py,342
-  src/nlp2cmd/pipeline_runner.py,170
-  src/nlp2cmd/pipeline_runner_shell.py,217
-  src/nlp2cmd/pipeline_runner_browser.py,1561
-  src/nlp2cmd/pipeline_runner_desktop.py,389
-  src/nlp2cmd/pipeline_runner_plans.py,2277
+  src/nlp2cmd/pipeline_runner.py,145
+  src/nlp2cmd/pipeline_runner_browser.py,1283
+  src/nlp2cmd/pipeline_runner_desktop.py,333
+  src/nlp2cmd/pipeline_runner_plans.py,2374
+  src/nlp2cmd/pipeline_runner_shell.py,175
   src/nlp2cmd/pipeline_runner_utils.py,380
   src/nlp2cmd/planner/__init__.py,340
   src/nlp2cmd/polish_support.py,240
@@ -422,7 +434,7 @@ M[492]:
   tests/unit/simple_shell_commands.py,83
   tests/unit/test_adapters.py,347
   tests/unit/test_adapters_comprehensive.py,222
-  tests/unit/test_api_key_workflow.py,354
+  tests/unit/test_api_key_workflow.py,368
   tests/unit/test_app2schema.py,123
   tests/unit/test_auto_repair.py,186
   tests/unit/test_automation.py,402
@@ -449,6 +461,7 @@ M[492]:
   tests/unit/test_multistep_browser.py,270
   tests/unit/test_nlp_integration.py,111
   tests/unit/test_normalizer.py,180
+  tests/unit/test_password_store.py,243
   tests/unit/test_pipeline_runner_step_errors.py,29
   tests/unit/test_planner_aggregator.py,412
   tests/unit/test_refactored_methods.py,107
@@ -457,6 +470,7 @@ M[492]:
   tests/unit/test_rule_based_backend_extractor_modes.py,30
   tests/unit/test_rule_based_pipeline_shadow_metadata.py,25
   tests/unit/test_run_mode_sql.py,43
+  tests/unit/test_schema_fallback.py,63
   tests/unit/test_schema_loading.py,223
   tests/unit/test_schema_management.py,263
   tests/unit/test_schema_validation.py,261
@@ -1249,6 +1263,60 @@ D:
     i: sys,nlp2cmd.streams.{StreamRouter,parse_source_uri},pathlib.Path
     e: main
     main()
+  examples/08_api_key_management/01_diagnose_credentials/run.py:
+    i: argparse,sys,pathlib.Path
+    e: main
+    main()
+  examples/08_api_key_management/02_openrouter_key/run.py:
+    i: argparse,os,sys,pathlib.Path
+    e: SERVICE,ENV_VAR,KEYS_URL,check_credentials,run_flow,main
+    check_credentials()
+    run_flow(dry_run:bool=False)
+    main()
+  examples/08_api_key_management/03_github_token/run.py:
+    i: argparse,os,sys,pathlib.Path
+    e: SERVICE,ENV_VAR,KEYS_URL,check,run_flow,main
+    check()
+    run_flow(dry_run:bool)
+    main()
+  examples/08_api_key_management/04_huggingface_token/run.py:
+    i: argparse,os,sys,pathlib.Path
+    e: SERVICE,ENV_VAR,KEYS_URL,check,run_flow,main
+    check()
+    run_flow(dry_run:bool)
+    main()
+  examples/08_api_key_management/05_openai_key/run.py:
+    i: argparse,os,sys,pathlib.Path
+    e: SERVICE,ENV_VAR,KEYS_URL,check,run_flow,main
+    check()
+    run_flow(dry_run:bool)
+    main()
+  examples/08_api_key_management/06_multi_provider/run.py:
+    i: argparse,os,sys,pathlib.Path
+    e: scan,plan_all,setup_providers,setup_all,main
+    scan()
+    plan_all()
+    setup_providers(providers:list[str])
+    setup_all()
+    main()
+  examples/08_llm_validation/test_feedback_loop.py:
+    i: json,os,sys,time,dataclasses.dataclass,nlp2cmd.automation.feedback_loop.FeedbackLoop,pathlib.Path,typing.Optional,unittest.mock.{MagicMock,PropertyMock}
+    e: MockElement,MockPage,TestCase,test_failure_classification,test_page_analyzer_section_finder,test_page_analyzer_clickable_finder,test_multi_provider_classification,test_llm_diagnosis
+    MockElement: __init__(4),inner_text(0),text_content(0),get_attribute(1),evaluate(1)
+    MockPage: __init__(4),url(0),title(0),inner_text(1),query_selector_all(1)  # Mock Playwright page for testing with...
+    TestCase: 
+    test_failure_classification()
+    test_page_analyzer_section_finder()
+    test_page_analyzer_clickable_finder()
+    test_multi_provider_classification()
+    test_llm_diagnosis()
+    run_all_tests()
+  examples/08_llm_validation/test_validator.py:
+    i: json,os,sys,time,dataclasses.dataclass,nlp2cmd.llm.validator.{LLMValidator,ValidationVerdict},pathlib.Path,typing.Optional
+    e: TestCase,TESTS,run_tests,main
+    TestCase:   # A single validator test case.
+    run_tests(validator:LLMValidator)->dict
+    main()
   examples/_example_helpers.py:
     e: print_separator,print_rule
     print_separator(title:str)->None
@@ -1613,10 +1681,12 @@ D:
     load_appspec(path:Any)->AppSpec
   src/nlp2cmd/automation/action_planner.py:
     i: json,logging,os,re,shutil,dataclasses.{dataclass,field},nlp2cmd.automation.vector_store.get_vector_store,typing.{Any,Optional}
-    e: ActionStep,ActionPlan,ActionPlanner
+    e: ActionStep,ActionPlan,_HARDCODED_SERVICES,EMAIL_CLIENTS,EMAIL_ALIASES,KNOWN_SERVICES,SERVICE_ALIASES,_SYSTEM_PROMPT
     ActionStep: to_dict(0)  # Single step in an execution plan.
     ActionPlan: to_cache_dict(0),from_cache_dict(1)  # Complete execution plan for a complex...
     ActionPlanner: __init__(2),decompose(2),decompose_sync(2),_try_rule_decomposition(1),_resolve_service(1)  # Decomposes complex NL commands into A...
+    _load_known_services()->dict[str, dict[str, Any]]
+    _can_use_desktop_automation()->bool
   src/nlp2cmd/automation/captcha_solver.py:
     i: base64,os,re,sys,dataclasses.dataclass,typing.{Any,Optional}
     e: _DEBUG,CaptchaInfo,CaptchaSolver
@@ -1648,6 +1718,14 @@ D:
     ServiceConfig:   # Configuration for a known API service.
     EnvExtractor: __init__(1),detect_service(1),detect_env_path(2),get_service_config(1),list_services(0)  # Extracts API keys from browser sessio...
     _debug(msg:str)->None
+  src/nlp2cmd/automation/feedback_loop.py:
+    i: json,logging,os,re,time,dataclasses.{dataclass,field},enum.Enum,typing.{Any,Optional}
+    e: FailureType,StepDiagnosis,RepairAttempt,FeedbackResult,PageAnalyzer,FeedbackLoop
+    FailureType:   # Classification of step failure root c...
+    StepDiagnosis:   # Result of analyzing a step failure.
+    RepairAttempt:   # Record of a single repair attempt.
+    FeedbackResult:   # Result of the feedback loop for a sin...
+    PageAnalyzer: extract_page_context(2),find_api_keys_section(1),find_clickable_for_text(2)  # Analyzes page DOM to find correct sec...
   src/nlp2cmd/automation/firefox_sessions.py:
     i: configparser,logging,os,shutil,sqlite3,time,pathlib.Path,typing.{Any,Optional}
     e: _SESSION_FILES,_SESSION_DIRS,_FIREFOX_ROOTS,FirefoxSessionImporter
@@ -1657,6 +1735,15 @@ D:
     e: Point,MouseController
     Point: __add__(1),__sub__(1),__mul__(1),distance_to(1)  # 2D point for mouse operations.
     MouseController: __init__(2),_jitter(2),_human_delay(2),click(3),double_click(2)  # Advanced mouse control via Playwright...
+  src/nlp2cmd/automation/password_store.py:
+    i: ctypes,json,logging,os,shutil,sqlite3,subprocess,tempfile,base64.b64decode,ctypes.util
+    e: Credential,FirefoxPasswordReader,KeePassXCReader,BitwardenReader,EnvPasswordReader,SessionPasswordStore,get_password_store
+    Credential: matches_domain(1)  # Single credential entry.
+    FirefoxPasswordReader: __init__(1),_find_profile(0),_init_nss(1),_decrypt_field(1),_shutdown_nss(0)  # Read saved passwords from Firefox pro...
+    KeePassXCReader: __init__(2),available(0),read_passwords(1),search(2),_read_entry(2)  # Read passwords from KeePassXC databas...
+    BitwardenReader: __init__(1),available(0),search(1)  # Read passwords from Bitwarden via CLI.
+    EnvPasswordReader: get_credentials(1)  # Read credentials from environment var...
+    get_password_store()->SessionPasswordStore
   src/nlp2cmd/automation/schema_fallback.py:
     i: json,logging,os,re,dataclasses.{dataclass,field},typing.{Any,Optional}
     e: FallbackContext,FallbackResult,SchemaFallback
@@ -2124,7 +2211,7 @@ D:
     MultiStepPlan: get_execution_order(0)  # Multi-step execution plan.
     MultiStepPlanner: decompose(2)  # Iteration 8: Multi-Step Plans.
   src/nlp2cmd/generation/template_generator.py:
-    i: getpass,json,os,re,dataclasses.dataclass,nlp2cmd.generation.templates.SQL_TEMPLATES,nlp2cmd.utils.data_files.find_data_files,pathlib.Path,typing.{Any,Optional}
+    i: getpass,json,os,re,dataclasses.{dataclass,field},nlp2cmd.utils.data_files.find_data_files,pathlib.Path,typing.{Any,Optional}
     e: TemplateResult,TemplateGenerator
     TemplateResult:   # Result of template generation.
     TemplateGenerator: __init__(1),_load_defaults_from_json(0),_load_templates_from_json(0),_get_default(2),generate(4)  # Generate DSL commands from templates.
@@ -2196,6 +2283,18 @@ D:
     e: _DEBUG,LLMResponse,OpenRouterClient
     LLMResponse: tokens_used(0)  # Response from OpenRouter API.
     OpenRouterClient: __init__(3),is_configured(0),_headers(0),complete(1),vision(2)  # OpenRouter API client with text and v...
+    _debug(msg:str)->None
+  src/nlp2cmd/llm/repair.py:
+    i: json,os,sys,dataclasses.{dataclass,field},pathlib.Path,typing.{Any,Optional}
+    e: _DEBUG,RepairResult,_SYSTEM_PROMPT,_USER_TEMPLATE,LLMRepair
+    RepairResult:   # Result from LLM repair.
+    LLMRepair: __init__(7),is_configured(0),repair(5),_call_openrouter(1),_parse_and_apply(1)  # Repairs failed commands and optionall...
+    _debug(msg:str)->None
+  src/nlp2cmd/llm/validator.py:
+    i: json,os,re,sys,dataclasses.dataclass,typing.Optional
+    e: _DEBUG,ValidationVerdict,_SYSTEM_PROMPT,_USER_TEMPLATE,LLMValidator
+    ValidationVerdict: passed(0)  # Result from LLM validator.
+    LLMValidator: __init__(5),is_available(0),validate(3),_build_dynamic_hints(3),_sanity_check_verdict(2)  # Validates command output against user...
     _debug(msg:str)->None
   src/nlp2cmd/llm/vision.py:
     i: base64,os,sys,dataclasses.{dataclass,field},pathlib.Path,typing.{Any,Optional}
@@ -2274,8 +2373,9 @@ D:
     reload_parser(file_path:Optional[str]=None)->ToonParser
   src/nlp2cmd/pipeline_runner.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
-    e: PipelineRunner
-    PipelineRunner: __init__(0),run(1),_run_shell(1),_parse_shell_command(1),_check_against_safety_policy(2)
+    e: PipelineRunner,PipelineRunner
+    PipelineRunner: __init__(0),run(1)
+    PipelineRunner:   # PipelineRunner composed from executio...
   src/nlp2cmd/pipeline_runner_browser.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: BrowserExecutionMixin
@@ -3023,6 +3123,14 @@ D:
     TestFoldAccents: test_polish_diacritics(0),test_german_umlaut(0),test_no_accents(0),test_mixed(0)
     TestDetectLanguage: test_polish_diacritics(0),test_polish_keywords(0),test_english_pure(0),test_english_commands(0),test_german_diacritics(0)
     TestCorrectTypos: test_docker_typo_direct(0),test_doker_typo(0),test_kubernetes_typo(0),test_polish_diacritics_missing(0),test_no_correction_needed(0)
+  tests/unit/test_password_store.py:
+    i: os,pytest,nlp2cmd.automation.password_store,unittest.mock.{MagicMock,patch}
+    e: TestCredentialMatching,TestEnvPasswordReader,TestKeePassXCReader,TestBitwardenReader,TestSessionPasswordStore,TestFirefoxPasswordReader,TestProviderScenarios
+    TestCredentialMatching: test_exact_hostname_match(0),test_subdomain_match(0),test_partial_match(0),test_no_match(0),test_url_in_domain(0)
+    TestEnvPasswordReader: test_reads_service_credentials(0),test_reads_username_variant(0),test_no_credentials_returns_none(0),test_huggingface_hf_prefix(0)
+    TestKeePassXCReader: test_not_available_without_db(0),test_not_available_without_cli(0),test_returns_empty_when_unavailable(0)
+    TestBitwardenReader: test_not_available_without_session(0),test_not_available_without_cli(0),test_returns_empty_when_unavailable(0)
+    TestSessionPasswordStore: test_env_backend_always_available(0),test_get_credentials_from_env(0),test_no_credentials_returns_none(0),test_cached_count(0),test_diagnose_providers_returns_list(0)
   tests/unit/test_pipeline_runner_step_errors.py:
     i: pytest
     e: test_execute_plan_step_set_color_raises_on_evaluate_error,test_execute_plan_step_draw_filled_circle_raises_on_evaluate_error
@@ -3075,6 +3183,12 @@ D:
     e: test_run_mode_sql_does_not_execute_shell,test_run_mode_sql_only_multistep_does_not_execute_shell
     test_run_mode_sql_does_not_execute_shell(monkeypatch)
     test_run_mode_sql_only_multistep_does_not_execute_shell(monkeypatch)
+  tests/unit/test_schema_fallback.py:
+    i: nlp2cmd.automation.schema_fallback.{FallbackContext,SchemaFallback}
+    e: test_rule_based_navigate_fallback_injects_section_discovery,test_extract_key_rule_based_fallback_starts_with_section_discovery_before_create
+    _svc_cfg()->dict
+    test_rule_based_navigate_fallback_injects_section_discovery()
+    test_extract_key_rule_based_fallback_starts_with_section_discovery_before_create()
   tests/unit/test_schema_loading.py:
     i: pytest,tempfile,os,nlp2cmd.schemas.{FileFormatSchema,SchemaRegistry},pathlib.Path
     e: TestSchemaRegistry,TestFileFormatSchema

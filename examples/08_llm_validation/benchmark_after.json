@@ -1,0 +1,495 @@
+{
+  "label": "after",
+  "model": "qwen2.5:3b",
+  "total_cases": 15,
+  "runs_per_case": 3,
+  "accuracy": 15,
+  "accuracy_pct": 100.0,
+  "consistency": 15,
+  "consistency_pct": 100.0,
+  "deterministic": 13,
+  "deterministic_pct": 86.7,
+  "avg_latency_ms": 11.9,
+  "results": [
+    {
+      "name": "nmap_camera_found",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Camera/webcam data found in nmap output",
+        "Camera/webcam data found in nmap output",
+        "Camera/webcam data found in nmap output"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.1,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "nmap_multiple_cameras",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Camera/webcam data found in nmap output",
+        "Camera/webcam data found in nmap output",
+        "Camera/webcam data found in nmap output"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "ping_success",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "reasons": [
+        "Ping reply received",
+        "Ping reply received",
+        "Ping reply received"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "find_large_files",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Found 2 matching path(s)",
+        "Found 2 matching path(s)",
+        "Found 2 matching path(s)"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "ls_files",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Directory listing produced",
+        "Directory listing produced",
+        "Directory listing produced"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "df_disk_usage",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Disk usage data shown",
+        "Disk usage data shown",
+        "Disk usage data shown"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "ps_processes",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Process listing shown",
+        "Process listing shown",
+        "Process listing shown"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.1,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "nmap_partial_camera",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Camera/webcam data found in nmap output",
+        "Camera/webcam data found in nmap output",
+        "Camera/webcam data found in nmap output"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "empty_output",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Command produced no output",
+        "Command produced no output",
+        "Command produced no output"
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "command_not_found",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "reasons": [
+        "Output contains only error messages",
+        "Output contains only error messages",
+        "Output contains only error messages"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "permission_denied",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "reasons": [
+        "Output contains only error messages",
+        "Output contains only error messages",
+        "Output contains only error messages"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "timeout_error",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "reasons": [
+        "Output contains only error messages",
+        "Output contains only error messages",
+        "Output contains only error messages"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "unrelated_output",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Output contains no relevant information about local network cameras.",
+        "Output contains no relevant information about local network cameras.",
+        "Output contains no relevant information about local network cameras."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        534.2,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "nmap_no_cameras",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "reasons": [
+        "Nmap scan succeeded but no camera keywords in output",
+        "Nmap scan succeeded but no camera keywords in output",
+        "Nmap scan succeeded but no camera keywords in output"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    },
+    {
+      "name": "polish_find_files",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Found 3 matching path(s)",
+        "Found 3 matching path(s)",
+        "Found 3 matching path(s)"
+      ],
+      "models": [
+        "deterministic",
+        "deterministic",
+        "deterministic"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": true
+    }
+  ]
+}

@@ -1,0 +1,495 @@
+{
+  "label": "before",
+  "model": "qwen2.5:3b",
+  "total_cases": 15,
+  "runs_per_case": 3,
+  "accuracy": 15,
+  "accuracy_pct": 100.0,
+  "consistency": 15,
+  "consistency_pct": 100.0,
+  "deterministic": 0,
+  "deterministic_pct": 0.0,
+  "avg_latency_ms": 467.4,
+  "results": [
+    {
+      "name": "nmap_camera_found",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Command output contains relevant results matching the request.",
+        "Command output contains relevant results matching the request.",
+        "Command output contains relevant results matching the request."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        2400.2,
+        431.3,
+        408.5
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "nmap_multiple_cameras",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Command output contains relevant results matching the request.",
+        "Output contains relevant camera-related information matching the user's request.",
+        "Command output contains relevant results matching the request."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        482.8,
+        446.3,
+        422.1
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "ping_success",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.92,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Output contains relevant ping results for google.com.",
+        "Output contains relevant ping results for google.com.",
+        "Output contains relevant ping results for google.com."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        477.4,
+        415.9,
+        408.9
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "find_large_files",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Output contains file paths matching the size criteria.",
+        "Command output contains relevant file paths matching the size criteria.",
+        "Command output contains relevant file paths matching the size criteria."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        467.4,
+        463.9,
+        448.7
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "ls_files",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Output contains file information matching the user's request.",
+        "Output contains file information matching the user's request.",
+        "Output contains relevant file information matching the user's request."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        482.4,
+        418.1,
+        439.5
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "df_disk_usage",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Output contains disk usage information matching the user's request.",
+        "Output contains disk usage information matching the user's request.",
+        "Output contains disk usage information matching the user's request."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        490.2,
+        441.6,
+        430.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "ps_processes",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Output contains process information matching memory usage criteria.",
+        "Output contains process information matching the user's request.",
+        "Output contains process information matching the user's request."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        487.1,
+        428.6,
+        428.9
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "nmap_partial_camera",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "reasons": [
+        "Output contains relevant information about open rtsp port on a local network.",
+        "Output contains relevant information about open rtsp port on a local network.",
+        "Output contains relevant information about open rtsp port on a local network."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        574.7,
+        512.3,
+        492.9
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "empty_output",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Command produced no output",
+        "Command produced no output",
+        "Command produced no output"
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "command_not_found",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Command not found indicates failure to execute nmap.",
+        "Command not found indicates failure to execute nmap.",
+        "Command not found indicates failure to execute nmap."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        472.7,
+        435.6,
+        436.2
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "permission_denied",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Output contains permission denied error message.",
+        "Output contains permission denied error message.",
+        "Output contains permission denied error message."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        434.7,
+        384.6,
+        396.4
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "timeout_error",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Output contains a timeout error indicating failure.",
+        "Output contains a timeout error indicating failure.",
+        "Output contains a timeout error indicating failure."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        439.9,
+        402.5,
+        410.1
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "unrelated_output",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Output contains no information related to cameras or local network.",
+        "Output contains no relevant information about local network cameras.",
+        "Output contains no relevant information about local network cameras."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        479.7,
+        421.1,
+        421.4
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "nmap_no_cameras",
+      "expected": "fail",
+      "verdicts": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reasons": [
+        "Output contains no relevant information about cameras or network devices.",
+        "No relevant information about cameras detected.",
+        "Output contains no relevant information about cameras or network devices."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        492.7,
+        387.9,
+        440.2
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    },
+    {
+      "name": "polish_find_files",
+      "expected": "pass",
+      "verdicts": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "scores": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "reasons": [
+        "Output contains file paths matching the user's request for modified files in the last 7 days.",
+        "Output contains file paths matching the user's request for modified files in the last 7 days.",
+        "Output contains file paths matching the user's request for modified files in the last 7 days."
+      ],
+      "models": [
+        "qwen2.5:3b",
+        "qwen2.5:3b",
+        "qwen2.5:3b"
+      ],
+      "latencies_ms": [
+        586.4,
+        542.0,
+        549.0
+      ],
+      "correct": true,
+      "consistent": true,
+      "deterministic": false
+    }
+  ]
+}

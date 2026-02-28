@@ -304,6 +304,19 @@ class TestRuleDecomposition:
         assert "save_env" in actions
         assert "screenshot" in actions  # Screenshot after creation
 
+    def test_dynamic_schema_mode_avoids_manual_create_templates(self):
+        with patch.dict("os.environ", {"NLP2CMD_DYNAMIC_SCHEMA_ONLY": "1"}):
+            planner = ActionPlanner()
+            plan = planner.decompose_sync("stwórz nowy klucz API na openrouter i zapisz do .env")
+
+        actions = [s.action for s in plan.steps]
+        # In dynamic mode we avoid hardcoded create-form templates in initial plan
+        assert "extract_key" in actions
+        assert "check_clipboard" in actions
+        assert "prompt_secret" in actions
+        assert "click" not in actions
+        assert "screenshot" not in actions
+
     def test_anthropic_create_key(self, planner):
         plan = planner.decompose_sync("wygeneruj nowy klucz claude i zapisz")
         actions = [s.action for s in plan.steps]
