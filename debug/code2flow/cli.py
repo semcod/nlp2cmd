@@ -149,7 +149,7 @@ def main():
             print(f"  - Functions: {len(result.functions)}")
             print(f"  - Classes: {len(result.classes)}")
             print(f"  - CFG nodes: {len(result.nodes)}")
-            print(f"  - CFG edges: {len(result.cfg_edges)}")
+            print(f"  - CFG edges: {len(result.edges)}")
             
     except Exception as e:
         print(f"Error during analysis: {e}", file=sys.stderr)

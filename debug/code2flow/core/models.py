@@ -1,44 +1,15 @@
-"""Core data structures for code2flow."""
+"""Data models for code2flow analysis."""
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Set
-from enum import Enum
-
-# Colors for visualization
-NODE_COLORS = {
-    'FUNC': '#4CAF50',
-    'CALL': '#2196F3',
-    'IF': '#FF9800',
-    'FOR': '#9C27B0',
-    'WHILE': '#9C27B0',
-    'ASSIGN': '#607D8B',
-    'RETURN': '#E91E63',
-    'ENTRY': '#00BCD4',
-    'EXIT': '#F44336',
-}
-
-
-class NodeType(Enum):
-    """Types of flow nodes."""
-    FUNCTION = "FUNC"
-    CALL = "CALL"
-    CONDITIONAL = "IF"
-    LOOP_FOR = "FOR"
-    LOOP_WHILE = "WHILE"
-    ASSIGNMENT = "ASSIGN"
-    RETURN = "RETURN"
-    ENTRY = "ENTRY"
-    EXIT = "EXIT"
-    CLASS = "CLASS"
-    TRY = "TRY"
-    EXCEPT = "EXCEPT"
+from typing import List, Dict, Set, Optional, Any
+from pathlib import Path
 
 
 @dataclass
 class FlowNode:
     """Represents a node in the control flow graph."""
-    id: int
-    type: str
+    id: str
+    type: str  # FUNC, CALL, IF, FOR, WHILE, ASSIGN, RETURN, ENTRY, EXIT
     label: str
     function: Optional[str] = None
     file: Optional[str] = None
@@ -48,150 +19,267 @@ class FlowNode:
     data_flow: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
     
-    def to_dict(self, include_defaults: bool = False) -> Dict:
-        """Convert node to dictionary. Skip empty values by default."""
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert to dictionary, optionally skipping empty fields."""
         result = {
-            'id': self.id,
-            'type': self.type,
-            'label': self.label,
+            "id": self.id,
+            "type": self.type,
+            "label": self.label,
         }
+        if self.function:
+            result["function"] = self.function
+        if self.file:
+            result["file"] = self.file
+        if self.line is not None:
+            result["line"] = self.line
         
-        # Only include non-empty values unless include_defaults=True
-        if include_defaults or self.function is not None:
-            result['function'] = self.function
-        if include_defaults or self.file is not None:
-            result['file'] = self.file
-        if include_defaults or self.line is not None:
-            result['line'] = self.line
-        if include_defaults or self.column is not None:
-            result['column'] = self.column
-        if include_defaults or self.conditions:
-            result['conditions'] = self.conditions
-        if include_defaults or self.data_flow:
-            result['data_flow'] = self.data_flow
-        if include_defaults or self.metadata:
-            result['metadata'] = self.metadata
-            
-        return result
-
-
-@dataclass 
-class FlowEdge:
-    """Represents an edge in the flow graph."""
-    source: int
-    target: int
-    edge_type: str = "control"  # control, data, call
-    condition: Optional[str] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
-    def to_dict(self, include_defaults: bool = False) -> Dict:
-        """Convert edge to dictionary. Skip empty values by default."""
-        result = {
-            'source': self.source,
-            'target': self.target,
-        }
+        if not compact:
+            if self.column is not None:
+                result["column"] = self.column
+            if self.conditions:
+                result["conditions"] = self.conditions
+            if self.data_flow:
+                result["data_flow"] = self.data_flow
+            if self.metadata:
+                result["metadata"] = self.metadata
+        else:
+            if self.conditions:
+                result["conditions"] = self.conditions
+            if self.data_flow:
+                result["data_flow"] = self.data_flow
         
-        if include_defaults or self.edge_type != "control":
-            result['type'] = self.edge_type
-        if include_defaults or self.condition is not None:
-            result['condition'] = self.condition
-        if include_defaults or self.metadata:
-            result['metadata'] = self.metadata
-            
         return result
 
 
 @dataclass
-class DataFlow:
-    """Represents data flow information."""
-    variable: str
-    defined_at: Optional[int] = None
-    used_at: List[int] = field(default_factory=list)
-    dependencies: Set[str] = field(default_factory=set)
+class FlowEdge:
+    """Represents an edge in the control flow graph."""
+    source: str
+    target: str
+    edge_type: str = "control"  # control, data, call
+    label: Optional[str] = None
+    conditions: List[str] = field(default_factory=list)
     
-    def to_dict(self, include_defaults: bool = False) -> Dict:
-        """Convert data flow to dictionary. Skip empty values by default."""
-        result = {'variable': self.variable}
-        
-        if include_defaults or self.defined_at is not None:
-            result['defined_at'] = self.defined_at
-        if include_defaults or self.used_at:
-            result['used_at'] = self.used_at
-        if include_defaults or self.dependencies:
-            result['dependencies'] = list(self.dependencies)
-            
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert to dictionary."""
+        result = {
+            "source": self.source,
+            "target": self.target,
+        }
+        if self.edge_type != "control":
+            result["type"] = self.edge_type
+        if self.label:
+            result["label"] = self.label
+        if self.conditions and not compact:
+            result["conditions"] = self.conditions
         return result
 
 
 @dataclass
 class FunctionInfo:
-    """Information about a function."""
+    """Information about a function/method."""
     name: str
     qualified_name: str
     file: str
-    line_start: int
-    line_end: int
+    line: int
+    column: int = 0
+    module: str = ""
+    class_name: Optional[str] = None
+    is_method: bool = False
+    is_private: bool = False
+    is_property: bool = False
+    docstring: Optional[str] = None
     args: List[str] = field(default_factory=list)
     returns: Optional[str] = None
-    calls: Set[str] = field(default_factory=set)
-    called_by: Set[str] = field(default_factory=set)
-    complexity: int = 1  # Cyclomatic complexity
+    decorators: List[str] = field(default_factory=list)
     
-    def to_dict(self, include_defaults: bool = False) -> Dict:
-        """Convert function info to dictionary. Skip empty values by default."""
+    # CFG info
+    cfg_entry: Optional[str] = None
+    cfg_exit: Optional[str] = None
+    cfg_nodes: List[str] = field(default_factory=list)
+    calls: List[str] = field(default_factory=list)
+    called_by: List[str] = field(default_factory=list)
+    
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert to dictionary."""
         result = {
-            'name': self.name,
-            'qualified_name': self.qualified_name,
-            'file': self.file,
-            'line_start': self.line_start,
-            'line_end': self.line_end,
+            "name": self.name,
+            "qualified_name": self.qualified_name,
+            "file": self.file,
+            "line": self.line,
         }
+        if self.module:
+            result["module"] = self.module
+        if self.class_name:
+            result["class"] = self.class_name
+        if self.is_method:
+            result["is_method"] = True
         
-        if include_defaults or self.args:
-            result['args'] = self.args
-        if include_defaults or self.returns is not None:
-            result['returns'] = self.returns
-        if include_defaults or self.calls:
-            result['calls'] = list(self.calls)
-        if include_defaults or self.called_by:
-            result['called_by'] = list(self.called_by)
-        if include_defaults or self.complexity != 1:
-            result['complexity'] = self.complexity
-            
+        if not compact:
+            if self.column:
+                result["column"] = self.column
+            if self.is_private:
+                result["is_private"] = True
+            if self.is_property:
+                result["is_property"] = True
+            if self.docstring:
+                result["docstring"] = self.docstring
+            if self.args:
+                result["args"] = self.args
+            if self.returns:
+                result["returns"] = self.returns
+            if self.decorators:
+                result["decorators"] = self.decorators
+        
+        if self.cfg_entry:
+            result["cfg_entry"] = self.cfg_entry
+        if self.calls:
+            result["calls"] = self.calls
+        if self.called_by:
+            result["called_by"] = self.called_by
+        
+        return result
+
+
+@dataclass
+class ClassInfo:
+    """Information about a class."""
+    name: str
+    qualified_name: str
+    file: str
+    line: int
+    module: str = ""
+    bases: List[str] = field(default_factory=list)
+    methods: List[str] = field(default_factory=list)
+    docstring: Optional[str] = None
+    is_state_machine: bool = False
+    
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert to dictionary."""
+        result = {
+            "name": self.name,
+            "qualified_name": self.qualified_name,
+            "file": self.file,
+            "line": self.line,
+        }
+        if self.module:
+            result["module"] = self.module
+        if self.bases:
+            result["bases"] = self.bases
+        if self.methods:
+            result["methods"] = self.methods
+        if self.is_state_machine:
+            result["is_state_machine"] = True
+        if not compact and self.docstring:
+            result["docstring"] = self.docstring
+        return result
+
+
+@dataclass
+class ModuleInfo:
+    """Information about a module/package."""
+    name: str
+    file: str
+    is_package: bool = False
+    imports: List[str] = field(default_factory=list)
+    functions: List[str] = field(default_factory=list)
+    classes: List[str] = field(default_factory=list)
+    
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert to dictionary."""
+        result = {
+            "name": self.name,
+            "file": self.file,
+        }
+        if self.is_package:
+            result["is_package"] = True
+        if self.functions:
+            result["functions"] = self.functions
+        if self.classes:
+            result["classes"] = self.classes
+        if not compact and self.imports:
+            result["imports"] = self.imports
+        return result
+
+
+@dataclass
+class Pattern:
+    """Detected behavioral pattern."""
+    name: str
+    type: str  # recursion, state_machine, factory, singleton, strategy, loop
+    confidence: float  # 0.0 to 1.0
+    functions: List[str] = field(default_factory=list)
+    entry_points: List[str] = field(default_factory=list)
+    exit_points: List[str] = field(default_factory=list)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert to dictionary."""
+        result = {
+            "name": self.name,
+            "type": self.type,
+            "confidence": round(self.confidence, 2),
+        }
+        if self.functions:
+            result["functions"] = self.functions
+        if self.entry_points:
+            result["entry_points"] = self.entry_points
+        if self.exit_points:
+            result["exit_points"] = self.exit_points
+        if not compact and self.metadata:
+            result["metadata"] = self.metadata
         return result
 
 
 @dataclass
 class AnalysisResult:
-    """Complete analysis result."""
-    nodes: Dict[int, FlowNode] = field(default_factory=dict)
-    cfg_edges: List[FlowEdge] = field(default_factory=list)
-    dfg_edges: List[FlowEdge] = field(default_factory=list)
-    call_edges: List[FlowEdge] = field(default_factory=list)
-    functions: Dict[str, FunctionInfo] = field(default_factory=dict)
-    data_flows: Dict[str, DataFlow] = field(default_factory=dict)
-    imports: Dict[str, str] = field(default_factory=dict)
-    classes: Dict[str, Dict] = field(default_factory=dict)
+    """Complete analysis result for a project."""
+    project_path: str
+    analysis_mode: str
+    stats: Dict[str, int] = field(default_factory=dict)
     
-    def to_dict(self, include_defaults: bool = False) -> Dict:
-        """Convert result to dictionary. Skip empty values by default."""
-        result = {}
-        
-        if self.nodes:
-            result['nodes'] = {k: v.to_dict(include_defaults) for k, v in self.nodes.items()}
-        if self.cfg_edges:
-            result['cfg_edges'] = [e.to_dict(include_defaults) for e in self.cfg_edges]
-        if self.dfg_edges:
-            result['dfg_edges'] = [e.to_dict(include_defaults) for e in self.dfg_edges]
-        if self.call_edges:
-            result['call_edges'] = [e.to_dict(include_defaults) for e in self.call_edges]
-        if self.functions:
-            result['functions'] = {k: v.to_dict(include_defaults) for k, v in self.functions.items()}
-        if self.data_flows:
-            result['data_flows'] = {k: v.to_dict(include_defaults) for k, v in self.data_flows.items()}
-        if include_defaults or self.imports:
-            result['imports'] = self.imports
-        if include_defaults or self.classes:
-            result['classes'] = self.classes
-            
-        return result
+    # Graph data
+    nodes: Dict[str, FlowNode] = field(default_factory=dict)
+    edges: List[FlowEdge] = field(default_factory=list)
+    
+    # Code structure
+    modules: Dict[str, ModuleInfo] = field(default_factory=dict)
+    classes: Dict[str, ClassInfo] = field(default_factory=dict)
+    functions: Dict[str, FunctionInfo] = field(default_factory=dict)
+    
+    # Analysis results
+    patterns: List[Pattern] = field(default_factory=list)
+    call_graph: Dict[str, List[str]] = field(default_factory=dict)
+    entry_points: List[str] = field(default_factory=list)
+    
+    def to_dict(self, compact: bool = True) -> dict:
+        """Convert entire result to dictionary."""
+        return {
+            "project_path": self.project_path,
+            "analysis_mode": self.analysis_mode,
+            "stats": self.stats,
+            "nodes": {k: v.to_dict(compact) for k, v in self.nodes.items()} if self.nodes else {},
+            "edges": [e.to_dict(compact) for e in self.edges] if self.edges else [],
+            "modules": {k: v.to_dict(compact) for k, v in self.modules.items()} if self.modules else {},
+            "classes": {k: v.to_dict(compact) for k, v in self.classes.items()} if self.classes else {},
+            "functions": {k: v.to_dict(compact) for k, v in self.functions.items()} if self.functions else {},
+            "patterns": [p.to_dict(compact) for p in self.patterns] if self.patterns else [],
+            "call_graph": self.call_graph,
+            "entry_points": self.entry_points,
+        }
+    
+    def get_function_count(self) -> int:
+        """Get total function count."""
+        return len(self.functions)
+    
+    def get_class_count(self) -> int:
+        """Get total class count."""
+        return len(self.classes)
+    
+    def get_node_count(self) -> int:
+        """Get total CFG node count."""
+        return len(self.nodes)
+    
+    def get_edge_count(self) -> int:
+        """Get total edge count."""
+        return len(self.edges)

@@ -1,23 +1,23 @@
 """
-code2flow - Python Code Flow Analysis Tool
+code2flow - Optimized Python Code Flow Analysis Tool
 
-A comprehensive tool for analyzing Python code control flow, data flow,
-and call graphs for reverse engineering and code understanding.
+A high-performance tool for analyzing Python code control flow, data flow,
+and call graphs with caching and parallel processing.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "STTS Project"
 
 from .core.analyzer import ProjectAnalyzer
-from .core.config import Config
-from .extractors.cfg_extractor import CFGExtractor
-from .extractors.dfg_extractor import DFGExtractor
-from .extractors.call_graph import CallGraphExtractor
+from .core.config import Config, FAST_CONFIG
+from .core.models import AnalysisResult, FunctionInfo, ClassInfo, Pattern
 
 __all__ = [
     "ProjectAnalyzer",
-    "Config", 
-    "CFGExtractor",
-    "DFGExtractor",
-    "CallGraphExtractor",
+    "Config",
+    "FAST_CONFIG",
+    "AnalysisResult",
+    "FunctionInfo",
+    "ClassInfo",
+    "Pattern",
 ]

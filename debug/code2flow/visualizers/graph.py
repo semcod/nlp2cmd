@@ -6,7 +6,8 @@ import networkx as nx
 from typing import Dict
 from pathlib import Path
 
-from ..core.models import AnalysisResult, NODE_COLORS
+from ..core.models import AnalysisResult
+from ..core.config import NODE_COLORS
 
 
 class GraphVisualizer:
