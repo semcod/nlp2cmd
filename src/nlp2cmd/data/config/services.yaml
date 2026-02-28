@@ -67,6 +67,9 @@ services:
     env_var: HF_TOKEN
     key_selectors:
       - .token-value
+      - "input[readonly]"
+      - "input[type='text'][readonly]"
+      - "[data-testid*='token']"
       - code
       - "input[type='text']"
     instructions: Navigate to Hugging Face → Settings → Access Tokens.

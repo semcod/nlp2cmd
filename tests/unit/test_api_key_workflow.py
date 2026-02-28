@@ -90,6 +90,12 @@ class TestKnownServices:
         assert "submit_selector" in ck
         assert "form_fields" in ck
 
+    def test_huggingface_has_robust_key_selectors(self):
+        svc = KNOWN_SERVICES["huggingface"]
+        sels = svc.get("key_selectors", [])
+        assert "input[readonly]" in sels
+        assert ".token-value" in sels
+
     @pytest.mark.parametrize("provider", EXPECTED_PROVIDERS)
     def test_provider_key_pattern_is_valid_regex(self, provider):
         svc = KNOWN_SERVICES[provider]

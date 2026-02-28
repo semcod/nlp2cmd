@@ -397,6 +397,7 @@ class PlanExecutionMixin:
                             break
                         if headless_try:
                             raise
+
                         _debug(f"Firefox headed launch failed: {ff_err}, trying headless")
 
             # --- Chromium path (default or fallback from Firefox) ---
@@ -508,6 +509,7 @@ class PlanExecutionMixin:
                         details = pre_result.details or {}
                         already_extracted = bool(details.get("already_extracted"))
                         already_set = bool(details.get("already_set"))
+                        already_set_invalid = bool(details.get("already_set_invalid"))
                         if already_extracted or already_set:
                             existing_val = ""
                             source = ""
@@ -522,7 +524,7 @@ class PlanExecutionMixin:
                                     existing_val = os.environ.get(env_var, "")
                                     source = f"os.environ[{env_var}]"
 
-                            if existing_val:
+                            if existing_val and not already_set_invalid:
                                 console.print(
                                     f"  [green]✓[/green] Klucz już dostępny "
                                     f"({source}, {len(existing_val)} znaków) — pomijam prompt"
@@ -1097,6 +1099,15 @@ class PlanExecutionMixin:
             text = params.get("text")
             timeout = int(params.get("timeout", 10000))
             max_retries = int(params.get("retries", 3))
+
+            # Normalize common LLM selector mistake: CSS :contains('...') is not valid.
+            # Convert to text-based click when possible.
+            if (not text) and isinstance(selector, str) and ":contains(" in selector:
+                m = re.search(r":contains\((['\"])(.+?)\1\)", selector)
+                if m:
+                    text = m.group(2)
+                    selector = None
+                    _debug(f"click: normalized :contains() -> text={text!r}")
 
             # Wait for page to stabilize (SPA re-renders)
             try:
@@ -2178,6 +2189,8 @@ class PlanExecutionMixin:
             for _var_name in ("extracted_key", "api_key", "clipboard_key"):
                 _existing = variables.get(_var_name, "")
                 if _existing and len(_existing) >= 10:
+                    if key_pattern and (not re.match(key_pattern, str(_existing).strip())):
+                        continue
                     _debug(f"prompt_secret: SKIP — key already in ${_var_name} ({len(_existing)} chars)")
                     console.print(f"  [green]✓[/green] Klucz już pobrany (${_var_name}, {len(_existing)} znaków) — pomijam prompt")
                     return _existing
@@ -2664,6 +2677,11 @@ class PlanExecutionMixin:
                     if key_pattern and re.match(key_pattern, clipboard):
                         console.print(f"  [green]✓[/green] Klucz w schowku pasuje do wzorca ({len(clipboard)} znaków)")
                         return clipboard
+                    elif key_pattern:
+                        console.print(
+                            f"  [yellow]⚠[/yellow] Schowek ma {len(clipboard)} znaków, ale NIE pasuje do wzorca"
+                        )
+                        return None
                     elif clipboard and len(clipboard) >= 20:
                         console.print(f"  [dim]   Schowek zawiera {len(clipboard)} znaków (brak wzorca do walidacji)[/dim]")
                         return clipboard

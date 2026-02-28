@@ -170,7 +170,14 @@ _HARDCODED_SERVICES: dict[str, dict[str, Any]] = {
         "login_url": "https://huggingface.co/login",
         "key_pattern": r"hf_[a-zA-Z0-9]{34,}",
         "env_var": "HF_TOKEN",
-        "key_selectors": ["code", "pre"],
+        "key_selectors": [
+            "input[readonly]",
+            "input[type='text'][readonly]",
+            ".token-value",
+            "[data-testid*='token']",
+            "code",
+            "pre",
+        ],
         "session_indicators": ["Access Tokens", "New token", "User Access Tokens"],
         "login_indicators": ["Sign In", "Log In"],
         "create_key": {
