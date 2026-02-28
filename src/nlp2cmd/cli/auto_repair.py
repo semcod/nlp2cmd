@@ -84,32 +84,67 @@ class AutoRepairSystem:
         error_type = type(error).__name__
         
         # Check for token/auth issues
-        if any(x in error_str for x in ['token', 'hf_token', 'huggingface', 'authentication', 'unauthenticated']):
+        if any(x in error_str for x in [
+            'token', 'hf_token', 'huggingface', 'authentication', 'unauthenticated',
+            '401', '403', 'unauthorized', 'access denied', 'api key', 'api_key'
+        ]):
             return ErrorCategory.MISSING_TOKEN
         
         # Check for missing dependencies
-        if any(x in error_str for x in ['modulenotfound', 'importerror', 'no module named']):
+        if any(x in error_str for x in [
+            'modulenotfound', 'importerror', 'no module named', 'cannot import',
+            'modulenotfounderror', 'package not found', 'distribution not found'
+        ]) or error_type in ['ModuleNotFoundError', 'ImportError']:
             return ErrorCategory.MISSING_DEPENDENCY
         
         # Check for service unavailable
-        if any(x in error_str for x in ['connection', 'refused', 'timeout', 'unreachable', 'ollama']):
+        if any(x in error_str for x in [
+            'connection', 'refused', 'unreachable', 'ollama', 'service unavailable',
+            'connectionerror', 'connecttimeout', 'refused', '111', 'port 11434'
+        ]) or error_type in ['ConnectionError', 'ConnectionRefusedError']:
             return ErrorCategory.SERVICE_UNAVAILABLE
         
         # Check for network errors
-        if any(x in error_str for x in ['network', 'dns', 'internet', 'offline']):
+        if any(x in error_str for x in [
+            'network', 'dns', 'internet', 'offline', 'name resolution',
+            'getaddrinfo', 'temporary failure', 'name not known'
+        ]):
             return ErrorCategory.NETWORK_ERROR
         
         # Check for permissions
-        if any(x in error_str for x in ['permission', 'access denied', 'forbidden', '401', '403']):
+        if any(x in error_str for x in [
+            'permission', 'access denied', 'forbidden', '401', '403',
+            'permission denied', 'not allowed', 'unauthorized access'
+        ]):
             return ErrorCategory.PERMISSION_DENIED
         
         # Check for configuration errors
-        if any(x in error_str for x in ['config', 'configuration', 'env', 'variable']):
+        if any(x in error_str for x in [
+            'config', 'configuration', 'env', 'variable', 'setting',
+            '.env', 'not set', 'undefined', 'missing config'
+        ]):
             return ErrorCategory.CONFIGURATION_ERROR
         
         # Check for resource not found
-        if any(x in error_str for x in ['not found', '404', 'missing', 'does not exist']):
+        if any(x in error_str for x in [
+            'not found', '404', 'missing', 'does not exist', 'no such file',
+            'file not found', 'resource not found', 'cannot find'
+        ]):
             return ErrorCategory.RESOURCE_NOT_FOUND
+        
+        # Check for timeout errors
+        if any(x in error_str for x in [
+            'timeout', 'timed out', 'took too long', 'deadline exceeded',
+            'socket.timeout', 'read timeout', 'connect timeout'
+        ]) or error_type in ['TimeoutError', 'socket.timeout']:
+            return ErrorCategory.TIMEOUT
+        
+        # Check for rate limiting
+        if any(x in error_str for x in [
+            'rate limit', 'too many requests', '429', 'throttled',
+            'quota exceeded', 'limit exceeded'
+        ]):
+            return ErrorCategory.MISSING_TOKEN  # Usually needs better auth
         
         return ErrorCategory.UNKNOWN
     
