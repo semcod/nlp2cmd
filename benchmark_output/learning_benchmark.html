@@ -35,27 +35,27 @@
 <body>
 <div class="container">
   <h1>🧠 NLP2CMD Learning Benchmark</h1>
-  <p class="subtitle">Multi-teacher • 3 modele • 2026-02-26T21:37:34</p>
+  <p class="subtitle">Multi-teacher • 3 modele • 2026-02-28T09:30:33</p>
   <details open><summary>Teacher: qwen2.5:3b</summary>
   <div class="cards">
     <div class="card green">
       <div class="label">Przyspieszenie</div>
-      <div class="value">14727.9×</div>
+      <div class="value">48699.6×</div>
       <div class="detail">Round 1 vs Round 3</div>
     </div>
     <div class="card">
       <div class="label">Śr. czas Round 1 (cold)</div>
-      <div class="value">206.2ms</div>
+      <div class="value">925.3ms</div>
       <div class="detail">LLM teacher generuje</div>
     </div>
     <div class="card green">
       <div class="label">Śr. czas Round 3 (hot)</div>
-      <div class="value">0.014ms</div>
+      <div class="value">0.019ms</div>
       <div class="detail">Cache instant lookup</div>
     </div>
     <div class="card yellow">
       <div class="label">Zaoszczędzony czas</div>
-      <div class="value">6598ms</div>
+      <div class="value">29609ms</div>
       <div class="detail">Cache hit rate: 66.7%</div>
     </div>
   </div>
@@ -85,7 +85,7 @@
   </div>
 
   <div class="footer">
-    NLP2CMD Learning Benchmark · 2026-02-26T21:37:34 · Teacher: qwen2.5:3b
+    NLP2CMD Learning Benchmark · 2026-02-28T09:30:33 · Teacher: qwen2.5:3b
   </div>
 </div>
 
@@ -96,7 +96,7 @@ new Chart(document.getElementById('t0_chartAvgTime'), {
     labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
     datasets: [{
       label: 'Avg time (ms)',
-      data: [206.19, 0.015, 0.014],
+      data: [925.292, 0.018, 0.019],
       backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"],
       borderRadius: 6,
     }]
@@ -117,7 +117,7 @@ new Chart(document.getElementById('t0_chartHitsVsLLM'), {
     labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
     datasets: [
       { label: 'Cache hits', data: [0, 32, 32], backgroundColor: '#22c55e', borderRadius: 6 },
-      { label: 'LLM calls', data: [11, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
+      { label: 'LLM calls', data: [15, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
     ]
   },
   options: {
@@ -134,7 +134,7 @@ new Chart(document.getElementById('t0_chartDomainTime'), {
   type: 'bar',
   data: {
     labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
-    datasets: [{"label": "COLD (LLM teacher)", "data": [92.66, 98.16, 127.79, 26.38, 56.59, 141.31, 146.33, 30.71, 277.05, 231.56, 200.07, 109.45, 156.96, 105.59, 343.57, 1154.84], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.03, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02, 0.01, 0.02, 0.01, 0.01, 0.01], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.01, 0.02, 0.01, 0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02, 0.01, 0.01], "backgroundColor": "#22c55e"}]
+    datasets: [{"label": "COLD (LLM teacher)", "data": [96.19, 106.61, 126.43, 14.92, 2904.69, 225.14, 2607.36, 4775.89, 354.0, 262.88, 264.93, 1825.87, 227.14, 131.73, 391.26, 489.64], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01, 0.02, 0.02], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02], "backgroundColor": "#22c55e"}]
   },
   options: {
     responsive: true,
@@ -151,22 +151,22 @@ new Chart(document.getElementById('t0_chartDomainTime'), {
   <div class="cards">
     <div class="card green">
       <div class="label">Przyspieszenie</div>
-      <div class="value">10994.5×</div>
+      <div class="value">50252.1×</div>
       <div class="detail">Round 1 vs Round 3</div>
     </div>
     <div class="card">
       <div class="label">Śr. czas Round 1 (cold)</div>
-      <div class="value">186.9ms</div>
+      <div class="value">954.8ms</div>
       <div class="detail">LLM teacher generuje</div>
     </div>
     <div class="card green">
       <div class="label">Śr. czas Round 3 (hot)</div>
-      <div class="value">0.017ms</div>
+      <div class="value">0.019ms</div>
       <div class="detail">Cache instant lookup</div>
     </div>
     <div class="card yellow">
       <div class="label">Zaoszczędzony czas</div>
-      <div class="value">5980ms</div>
+      <div class="value">30553ms</div>
       <div class="detail">Cache hit rate: 66.7%</div>
     </div>
   </div>
@@ -196,7 +196,7 @@ new Chart(document.getElementById('t0_chartDomainTime'), {
   </div>
 
   <div class="footer">
-    NLP2CMD Learning Benchmark · 2026-02-26T21:37:41 · Teacher: qwen2.5-coder:3b
+    NLP2CMD Learning Benchmark · 2026-02-28T09:31:02 · Teacher: qwen2.5-coder:3b
   </div>
 </div>
 
@@ -207,7 +207,7 @@ new Chart(document.getElementById('t1_chartAvgTime'), {
     labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
     datasets: [{
       label: 'Avg time (ms)',
-      data: [186.906, 0.018, 0.017],
+      data: [954.789, 0.019, 0.019],
       backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"],
       borderRadius: 6,
     }]
@@ -228,7 +228,7 @@ new Chart(document.getElementById('t1_chartHitsVsLLM'), {
     labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
     datasets: [
       { label: 'Cache hits', data: [0, 32, 32], backgroundColor: '#22c55e', borderRadius: 6 },
-      { label: 'LLM calls', data: [11, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
+      { label: 'LLM calls', data: [15, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
     ]
   },
   options: {
@@ -245,7 +245,7 @@ new Chart(document.getElementById('t1_chartDomainTime'), {
   type: 'bar',
   data: {
     labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
-    datasets: [{"label": "COLD (LLM teacher)", "data": [59.05, 100.98, 123.21, 17.86, 58.4, 144.44, 109.22, 20.06, 227.51, 199.84, 197.53, 86.68, 163.12, 80.53, 323.97, 1078.07], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.03, 0.02, 0.02], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01, 0.02, 0.01, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02], "backgroundColor": "#22c55e"}]
+    datasets: [{"label": "COLD (LLM teacher)", "data": [95.91, 111.66, 137.07, 15.59, 3073.96, 189.86, 2369.08, 5376.46, 294.94, 290.73, 250.23, 1950.41, 239.08, 130.33, 393.35, 357.98], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.02, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.03, 0.02, 0.01, 0.02, 0.02], "backgroundColor": "#22c55e"}]
   },
   options: {
     responsive: true,
@@ -262,22 +262,22 @@ new Chart(document.getElementById('t1_chartDomainTime'), {
   <div class="cards">
     <div class="card green">
       <div class="label">Przyspieszenie</div>
-      <div class="value">13696.7×</div>
+      <div class="value">36171.2×</div>
       <div class="detail">Round 1 vs Round 3</div>
     </div>
     <div class="card">
       <div class="label">Śr. czas Round 1 (cold)</div>
-      <div class="value">232.8ms</div>
+      <div class="value">759.6ms</div>
       <div class="detail">LLM teacher generuje</div>
     </div>
     <div class="card green">
       <div class="label">Śr. czas Round 3 (hot)</div>
-      <div class="value">0.017ms</div>
+      <div class="value">0.021ms</div>
       <div class="detail">Cache instant lookup</div>
     </div>
     <div class="card yellow">
       <div class="label">Zaoszczędzony czas</div>
-      <div class="value">7450ms</div>
+      <div class="value">24306ms</div>
       <div class="detail">Cache hit rate: 66.7%</div>
     </div>
   </div>
@@ -307,7 +307,7 @@ new Chart(document.getElementById('t1_chartDomainTime'), {
   </div>
 
   <div class="footer">
-    NLP2CMD Learning Benchmark · 2026-02-26T21:37:47 · Teacher: gemma2:2b
+    NLP2CMD Learning Benchmark · 2026-02-28T09:31:33 · Teacher: gemma2:2b
   </div>
 </div>
 
@@ -318,7 +318,7 @@ new Chart(document.getElementById('t2_chartAvgTime'), {
     labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
     datasets: [{
       label: 'Avg time (ms)',
-      data: [232.844, 0.017, 0.017],
+      data: [759.595, 0.018, 0.021],
       backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"],
       borderRadius: 6,
     }]
@@ -339,7 +339,7 @@ new Chart(document.getElementById('t2_chartHitsVsLLM'), {
     labels: ["COLD (LLM teacher)", "WARM (mixed)", "HOT (all cached)"],
     datasets: [
       { label: 'Cache hits', data: [0, 32, 32], backgroundColor: '#22c55e', borderRadius: 6 },
-      { label: 'LLM calls', data: [11, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
+      { label: 'LLM calls', data: [15, 0, 0], backgroundColor: '#ef4444', borderRadius: 6 },
     ]
   },
   options: {
@@ -356,7 +356,7 @@ new Chart(document.getElementById('t2_chartDomainTime'), {
   type: 'bar',
   data: {
     labels: ["shell", "docker", "sql", "kubernetes", "browser", "git", "devops", "api", "ffmpeg", "media", "data", "remote", "iot", "package_mgmt", "rag", "presentation"],
-    datasets: [{"label": "COLD (LLM teacher)", "data": [58.13, 132.12, 152.02, 18.0, 64.18, 180.64, 141.21, 21.54, 264.02, 214.47, 232.94, 86.39, 168.82, 82.8, 341.74, 1566.49], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01, 0.02, 0.02, 0.02, 0.02, 0.01, 0.02, 0.02], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.04, 0.01, 0.03, 0.02, 0.01, 0.02, 0.01, 0.01, 0.02, 0.02, 0.01, 0.02, 0.02, 0.02, 0.01, 0.01], "backgroundColor": "#22c55e"}]
+    datasets: [{"label": "COLD (LLM teacher)", "data": [69.15, 131.09, 174.54, 14.42, 2144.72, 195.56, 1825.48, 3415.03, 291.37, 286.09, 277.23, 2172.29, 233.38, 98.54, 387.02, 437.6], "backgroundColor": "#ef4444"}, {"label": "WARM (mixed)", "data": [0.03, 0.02, 0.02, 0.01, 0.01, 0.02, 0.01, 0.02, 0.01, 0.02, 0.02, 0.02, 0.01, 0.02, 0.02, 0.02], "backgroundColor": "#f59e0b"}, {"label": "HOT (all cached)", "data": [0.02, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02], "backgroundColor": "#22c55e"}]
   },
   options: {
     responsive: true,

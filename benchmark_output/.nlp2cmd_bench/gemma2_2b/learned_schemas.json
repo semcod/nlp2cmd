@@ -1,0 +1,302 @@
+{
+  "version": 2,
+  "entries": {
+    "dbbe489f47fc63f6": {
+      "query": "zainstaluj requests przez pip",
+      "domain": "package_mgmt",
+      "command": "sudo apt-get install -y requests",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:33.531108",
+      "last_used": "2026-02-28T09:31:57.790608"
+    },
+    "2e52b7ff1c82f76c": {
+      "query": "wyszukaj w ChromaDB dokumenty o machine learning",
+      "domain": "rag",
+      "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:33.630694",
+      "last_used": "2026-02-28T09:31:57.784416"
+    },
+    "4e642f4ec7d0ee27": {
+      "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
+      "domain": "sql",
+      "command": "CREATE TABLE produkty (*);",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:33.643774",
+      "last_used": "2026-02-28T09:31:57.784886"
+    },
+    "436fc14b3af375c8": {
+      "query": "przeskaluj deployment webapp do 5 replik",
+      "domain": "kubernetes",
+      "command": "kubectl scale deployment/ --replicas=5",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:33.652979",
+      "last_used": "2026-02-28T09:31:57.785505"
+    },
+    "d11d442a213a276c": {
+      "query": "zsynchronizuj /var/www na zdalny serwer",
+      "domain": "remote",
+      "command": "rsync -avz /var/www admin@server:/var/www/",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:37.895990",
+      "last_used": "2026-02-28T09:31:57.788208"
+    },
+    "ac8ace4c1248294a": {
+      "query": "sprawdź status usługi nginx",
+      "domain": "devops",
+      "command": "systemctl status nginx",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:37.933860",
+      "last_used": "2026-02-28T09:31:57.787512"
+    },
+    "7657ad106796353d": {
+      "query": "pokaż historię ostatnich 10 commitów",
+      "domain": "git",
+      "command": "git log --oneline -n 10",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:38.075035",
+      "last_used": "2026-02-28T09:31:57.791335"
+    },
+    "a86175f79fd49513": {
+      "query": "pokaż procesy zużywające najwięcej pamięci",
+      "domain": "shell",
+      "command": "ps aux",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:38.116391",
+      "last_used": "2026-02-28T09:31:57.788432"
+    },
+    "7f9a3b7e355df08c": {
+      "query": "zmień rozmiar photo.jpg na 800x600",
+      "domain": "media",
+      "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:38.309743",
+      "last_used": "2026-02-28T09:31:57.786710"
+    },
+    "4fa837fc5fc905e5": {
+      "query": "wyrenderuj diagram Mermaid do PNG",
+      "domain": "presentation",
+      "command": "mmdc -i diagram.mmd -o diagram.png",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:38.802212",
+      "last_used": "2026-02-28T09:31:57.785765"
+    },
+    "9412e34aa816dc7f": {
+      "query": "pokaż statystyki pliku CSV dane.csv",
+      "domain": "data",
+      "command": "csvstat dane.csv",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:38.951509",
+      "last_used": "2026-02-28T09:31:57.788877"
+    },
+    "ecb09c19aa92b868": {
+      "query": "pokaż pody w namespace production",
+      "domain": "kubernetes",
+      "command": "kubectl get pods production",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:38.972072",
+      "last_used": "2026-02-28T09:31:57.786473"
+    },
+    "7b84535ca19a9b50": {
+      "query": "otwórz stronę https://github.com",
+      "domain": "browser",
+      "command": "xdg-open 'https://github.com'",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:43.112829",
+      "last_used": "2026-02-28T09:31:57.792415"
+    },
+    "4929e9e2b56a8e78": {
+      "query": "wyodrębnij audio z film.mkv do mp3",
+      "domain": "ffmpeg",
+      "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:43.600538",
+      "last_used": "2026-02-28T09:31:57.793495"
+    },
+    "39bfebe9ac650a28": {
+      "query": "konwertuj README.md do PDF",
+      "domain": "presentation",
+      "command": "pandoc README.md -o README.pdf",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:43.984220",
+      "last_used": "2026-02-28T09:31:57.786003"
+    },
+    "b69276e4b5c4b715": {
+      "query": "wykryj urządzenia I2C na magistrali 1",
+      "domain": "iot",
+      "command": "i2cdetect -y 1",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:44.346198",
+      "last_used": "2026-02-28T09:31:57.784658"
+    },
+    "4b49e2d37d4f9d54": {
+      "query": "uruchom playbook Ansible deploy.yml",
+      "domain": "devops",
+      "command": "ansible-playbook deploy.yml",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:47.960451",
+      "last_used": "2026-02-28T09:31:57.793135"
+    },
+    "fa5d944a6693e0bf": {
+      "query": "konwertuj video.mp4 do webm",
+      "domain": "ffmpeg",
+      "command": "ffmpeg -i video.mp4 video_out.mp4",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:48.056302",
+      "last_used": "2026-02-28T09:31:57.786244"
+    },
+    "d3ee8264a8dd697a": {
+      "query": "znajdź wszystkie pliki PDF większe niż 10MB",
+      "domain": "shell",
+      "command": "find .",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:48.154685",
+      "last_used": "2026-02-28T09:31:57.790963"
+    },
+    "763b872a528d8002": {
+      "query": "sprawdź kod HTTP serwera https://example.com",
+      "domain": "api",
+      "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:51.542144",
+      "last_used": "2026-02-28T09:31:57.792781"
+    },
+    "cfb589ef063b8c88": {
+      "query": "utwórz miniaturkę 150x150 z header.png",
+      "domain": "media",
+      "command": "convert header.png -thumbnail 150x150 thumb.png",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:51.922240",
+      "last_used": "2026-02-28T09:31:57.788649"
+    },
+    "953bbb4fe18b28bf": {
+      "query": "zainstaluj nodejs przez apt",
+      "domain": "package_mgmt",
+      "command": "sudo apt-get install -y nodejs",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:52.015925",
+      "last_used": "2026-02-28T09:31:57.789180"
+    },
+    "5f786aad1db5d55d": {
+      "query": "zbuduj obraz Docker z tagiem myapp:latest",
+      "domain": "docker",
+      "command": "docker build -t myapp:latest .",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:52.289091",
+      "last_used": "2026-02-28T09:31:57.789536"
+    },
+    "751bbb294997e501": {
+      "query": "wygeneruj embeddingi przez Ollama",
+      "domain": "rag",
+      "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learning\"}'",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:52.964339",
+      "last_used": "2026-02-28T09:31:57.790264"
+    },
+    "56f38306a4c59756": {
+      "query": "przefiltruj JSON users.json po age > 30",
+      "domain": "data",
+      "command": "'.[] | select(.age > 30)' users.json",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:53.370464",
+      "last_used": "2026-02-28T09:31:57.785139"
+    },
+    "d1945a82cc360177": {
+      "query": "utwórz branch feature/login",
+      "domain": "git",
+      "command": "git checkout -b feature/login",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:53.621388",
+      "last_used": "2026-02-28T09:31:57.787254"
+    },
+    "994e11b00204c308": {
+      "query": "wyślij GET na https://api.example.com/users",
+      "domain": "api",
+      "command": "curl -s https://api.example.com/users",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:57.065023",
+      "last_used": "2026-02-28T09:31:57.786969"
+    },
+    "70aa7788a0591ae0": {
+      "query": "pokaż użytkowników z Warszawy",
+      "domain": "sql",
+      "command": "SELECT * FROM users WHERE city = 'Warszawa';",
+      "model": "gemma2:2b",
+      "hits": 3,
+      "created": "2026-02-28T09:31:57.402693",
+      "last_used": "2026-02-28T09:31:57.787739"
+    },
+    "07daf343e8b9eb1b": {
+      "query": "odczytaj temperaturę z Raspberry Pi",
+      "domain": "iot",
+      "command": "vcgencmd measure_temp",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:57.508779",
+      "last_used": "2026-02-28T09:31:57.789897"
+    },
+    "9b980913ae2aebb3": {
+      "query": "połącz SSH do 192.168.1.100 jako admin",
+      "domain": "remote",
+      "command": "ssh admin@192.168.1.100",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:57.611349",
+      "last_used": "2026-02-28T09:31:57.787963"
+    },
+    "ba544063737bff7a": {
+      "query": "wyszukaj w Google 'python tutorial'",
+      "domain": "browser",
+      "command": "xdg-open 'https://www.google.com/search?q=w Google'",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:57.761019",
+      "last_used": "2026-02-28T09:31:57.791706"
+    },
+    "77f3cc8fb4d9049d": {
+      "query": "pokaż wszystkie uruchomione kontenery Docker",
+      "domain": "docker",
+      "command": "docker ps",
+      "model": "template",
+      "hits": 3,
+      "created": "2026-02-28T09:31:57.776207",
+      "last_used": "2026-02-28T09:31:57.792059"
+    }
+  },
+  "stats": {
+    "total_queries": 96,
+    "cache_hits": 64,
+    "llm_calls": 15,
+    "template_hits": 17,
+    "similarity_hits": 0,
+    "total_saved_ms": 0.0
+  },
+  "updated": "2026-02-28T09:31:57.793500"
+}

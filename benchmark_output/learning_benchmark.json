@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-26T21:37:34.866212",
+  "timestamp": "2026-02-28T09:30:33.181221",
   "config": {
     "teacher_models": [
       "qwen2.5:3b",
@@ -12,7 +12,7 @@
   },
   "teachers": {
     "qwen2.5:3b": {
-      "timestamp": "2026-02-26T21:37:34.867182",
+      "timestamp": "2026-02-28T09:30:33.182363",
       "config": {
         "domains": 16,
         "queries_per_domain": 2,
@@ -32,7 +32,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "template",
-              "elapsed_ms": 131.733,
+              "elapsed_ms": 128.668,
               "cached": false
             },
             {
@@ -41,7 +41,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "template",
-              "elapsed_ms": 143.503,
+              "elapsed_ms": 97.438,
               "cached": false
             },
             {
@@ -50,7 +50,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "template",
-              "elapsed_ms": 38.36,
+              "elapsed_ms": 11.769,
               "cached": false
             },
             {
@@ -59,16 +59,16 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "template",
-              "elapsed_ms": 34.049,
+              "elapsed_ms": 7.967,
               "cached": false
             },
             {
               "round": 1,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
-              "source": "template",
-              "elapsed_ms": 137.339,
+              "command": "rsync -avz /var/www/ admin@server:/var/www/",
+              "source": "llm_teacher",
+              "elapsed_ms": 3545.533,
               "cached": false
             },
             {
@@ -77,7 +77,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "template",
-              "elapsed_ms": 51.684,
+              "elapsed_ms": 127.126,
               "cached": false
             },
             {
@@ -86,7 +86,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "template",
-              "elapsed_ms": 86.095,
+              "elapsed_ms": 103.907,
               "cached": false
             },
             {
@@ -95,7 +95,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "template",
-              "elapsed_ms": 34.402,
+              "elapsed_ms": 27.713,
               "cached": false
             },
             {
@@ -104,7 +104,7 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "template",
-              "elapsed_ms": 83.258,
+              "elapsed_ms": 121.047,
               "cached": false
             },
             {
@@ -113,7 +113,7 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "llm_teacher",
-              "elapsed_ms": 2054.456,
+              "elapsed_ms": 358.321,
               "cached": false
             },
             {
@@ -122,7 +122,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "template",
-              "elapsed_ms": 97.45,
+              "elapsed_ms": 130.907,
               "cached": false
             },
             {
@@ -131,7 +131,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "template",
-              "elapsed_ms": 18.707,
+              "elapsed_ms": 21.864,
               "cached": false
             },
             {
@@ -139,8 +139,8 @@
               "domain": "browser",
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
-              "source": "template",
-              "elapsed_ms": 17.245,
+              "source": "llm_teacher",
+              "elapsed_ms": 5695.648,
               "cached": false
             },
             {
@@ -149,7 +149,7 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "llm_teacher",
-              "elapsed_ms": 401.991,
+              "elapsed_ms": 548.515,
               "cached": false
             },
             {
@@ -158,7 +158,7 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "llm_teacher",
-              "elapsed_ms": 255.218,
+              "elapsed_ms": 620.963,
               "cached": false
             },
             {
@@ -167,7 +167,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "llm_teacher",
-              "elapsed_ms": 234.098,
+              "elapsed_ms": 361.702,
               "cached": false
             },
             {
@@ -176,7 +176,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "llm_teacher",
-              "elapsed_ms": 240.978,
+              "elapsed_ms": 5087.603,
               "cached": false
             },
             {
@@ -185,7 +185,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "template",
-              "elapsed_ms": 152.118,
+              "elapsed_ms": 159.48,
               "cached": false
             },
             {
@@ -194,16 +194,16 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "template",
-              "elapsed_ms": 150.92,
+              "elapsed_ms": 164.671,
               "cached": false
             },
             {
               "round": 1,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
-              "source": "template",
-              "elapsed_ms": 42.097,
+              "command": "curl -o /dev/null -s -w \"%{http_code}\" https://example.com",
+              "source": "llm_teacher",
+              "elapsed_ms": 4985.287,
               "cached": false
             },
             {
@@ -212,7 +212,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "llm_teacher",
-              "elapsed_ms": 379.865,
+              "elapsed_ms": 404.714,
               "cached": false
             },
             {
@@ -221,7 +221,7 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "template",
-              "elapsed_ms": 79.45,
+              "elapsed_ms": 134.791,
               "cached": false
             },
             {
@@ -230,7 +230,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "llm_teacher",
-              "elapsed_ms": 174.073,
+              "elapsed_ms": 200.772,
               "cached": false
             },
             {
@@ -239,7 +239,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "llm_teacher",
-              "elapsed_ms": 543.638,
+              "elapsed_ms": 685.084,
               "cached": false
             },
             {
@@ -248,7 +248,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "jq '.[] | select(.age > 30)' users.json",
               "source": "llm_teacher",
-              "elapsed_ms": 302.693,
+              "elapsed_ms": 398.943,
               "cached": false
             },
             {
@@ -257,16 +257,16 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "llm_teacher",
-              "elapsed_ms": 196.534,
+              "elapsed_ms": 346.379,
               "cached": false
             },
             {
               "round": 1,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
-              "source": "template",
-              "elapsed_ms": 19.332,
+              "command": "curl -s https://api.example.com/users",
+              "source": "llm_teacher",
+              "elapsed_ms": 4566.488,
               "cached": false
             },
             {
@@ -275,7 +275,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa';",
               "source": "llm_teacher",
-              "elapsed_ms": 217.226,
+              "elapsed_ms": 241.099,
               "cached": false
             },
             {
@@ -284,7 +284,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "template",
-              "elapsed_ms": 79.825,
+              "elapsed_ms": 92.582,
               "cached": false
             },
             {
@@ -293,7 +293,7 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "template",
-              "elapsed_ms": 81.563,
+              "elapsed_ms": 106.202,
               "cached": false
             },
             {
@@ -302,7 +302,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "template",
-              "elapsed_ms": 95.938,
+              "elapsed_ms": 113.727,
               "cached": false
             },
             {
@@ -311,14 +311,14 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "template",
-              "elapsed_ms": 22.253,
+              "elapsed_ms": 12.441,
               "cached": false
             }
           ],
-          "total_time_ms": 6598.1,
+          "total_time_ms": 29609.4,
           "cache_hits": 0,
-          "llm_calls": 11,
-          "avg_time_ms": 206.19
+          "llm_calls": 15,
+          "avg_time_ms": 925.292
         },
         {
           "round": 2,
@@ -330,7 +330,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "cache_exact",
-              "elapsed_ms": 0.038,
+              "elapsed_ms": 0.036,
               "cached": true
             },
             {
@@ -339,7 +339,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "cache_exact",
-              "elapsed_ms": 0.029,
+              "elapsed_ms": 0.026,
               "cached": true
             },
             {
@@ -348,16 +348,16 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
               "round": 2,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
+              "command": "curl -s https://api.example.com/users",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -366,7 +366,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -375,7 +375,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -384,16 +384,16 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
               "round": 2,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
+              "command": "curl -o /dev/null -s -w \"%{http_code}\" https://example.com",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -402,7 +402,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -411,7 +411,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -420,7 +420,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -429,7 +429,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa';",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -438,7 +438,7 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
@@ -447,7 +447,7 @@
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -456,7 +456,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -465,7 +465,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -474,7 +474,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -483,7 +483,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "jq '.[] | select(.age > 30)' users.json",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -492,7 +492,7 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.02,
               "cached": true
             },
             {
@@ -501,16 +501,16 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
               "round": 2,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
+              "command": "rsync -avz /var/www/ admin@server:/var/www/",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -519,7 +519,7 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -528,7 +528,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -537,7 +537,7 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -546,7 +546,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -555,7 +555,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -564,7 +564,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "cache_exact",
-              "elapsed_ms": 0.025,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -573,7 +573,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -582,7 +582,7 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -591,7 +591,7 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -600,7 +600,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "cache_exact",
-              "elapsed_ms": 0.011,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -609,14 +609,14 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.014,
               "cached": true
             }
           ],
-          "total_time_ms": 0.5,
+          "total_time_ms": 0.6,
           "cache_hits": 32,
           "llm_calls": 0,
-          "avg_time_ms": 0.015
+          "avg_time_ms": 0.018
         },
         {
           "round": 3,
@@ -628,7 +628,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -637,7 +637,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -646,7 +646,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -655,7 +655,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "jq '.[] | select(.age > 30)' users.json",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.021,
               "cached": true
             },
             {
@@ -664,7 +664,7 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
@@ -673,7 +673,7 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -682,7 +682,7 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "cache_exact",
-              "elapsed_ms": 0.011,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
@@ -691,7 +691,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "cache_exact",
-              "elapsed_ms": 0.011,
+              "elapsed_ms": 0.021,
               "cached": true
             },
             {
@@ -700,7 +700,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
@@ -709,16 +709,16 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
               "round": 3,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
+              "command": "curl -s https://api.example.com/users",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -727,7 +727,7 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -736,7 +736,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -745,7 +745,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa';",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -754,16 +754,16 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
               "round": 3,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
+              "command": "rsync -avz /var/www/ admin@server:/var/www/",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -772,7 +772,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.02,
               "cached": true
             },
             {
@@ -781,7 +781,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -790,7 +790,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -799,7 +799,7 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "cache_exact",
-              "elapsed_ms": 0.021,
+              "elapsed_ms": 0.02,
               "cached": true
             },
             {
@@ -808,7 +808,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -817,7 +817,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -826,7 +826,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.021,
               "cached": true
             },
             {
@@ -835,7 +835,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "cache_exact",
-              "elapsed_ms": 0.011,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -844,7 +844,7 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -853,7 +853,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -862,7 +862,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -871,7 +871,7 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -880,16 +880,16 @@
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.027,
               "cached": true
             },
             {
               "round": 3,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
+              "command": "curl -o /dev/null -s -w \"%{http_code}\" https://example.com",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -898,7 +898,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -907,14 +907,14 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.016,
               "cached": true
             }
           ],
-          "total_time_ms": 0.4,
+          "total_time_ms": 0.6,
           "cache_hits": 32,
           "llm_calls": 0,
-          "avg_time_ms": 0.014
+          "avg_time_ms": 0.019
         }
       ],
       "per_query": [
@@ -924,7 +924,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "template",
-          "elapsed_ms": 131.733,
+          "elapsed_ms": 128.668,
           "cached": false
         },
         {
@@ -933,7 +933,7 @@
           "query": "wyszukaj w ChromaDB dokumenty o machine learning",
           "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
           "source": "template",
-          "elapsed_ms": 143.503,
+          "elapsed_ms": 97.438,
           "cached": false
         },
         {
@@ -942,7 +942,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "template",
-          "elapsed_ms": 38.36,
+          "elapsed_ms": 11.769,
           "cached": false
         },
         {
@@ -951,16 +951,16 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "template",
-          "elapsed_ms": 34.049,
+          "elapsed_ms": 7.967,
           "cached": false
         },
         {
           "round": 1,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
-          "source": "template",
-          "elapsed_ms": 137.339,
+          "command": "rsync -avz /var/www/ admin@server:/var/www/",
+          "source": "llm_teacher",
+          "elapsed_ms": 3545.533,
           "cached": false
         },
         {
@@ -969,7 +969,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "template",
-          "elapsed_ms": 51.684,
+          "elapsed_ms": 127.126,
           "cached": false
         },
         {
@@ -978,7 +978,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "template",
-          "elapsed_ms": 86.095,
+          "elapsed_ms": 103.907,
           "cached": false
         },
         {
@@ -987,7 +987,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "template",
-          "elapsed_ms": 34.402,
+          "elapsed_ms": 27.713,
           "cached": false
         },
         {
@@ -996,7 +996,7 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "template",
-          "elapsed_ms": 83.258,
+          "elapsed_ms": 121.047,
           "cached": false
         },
         {
@@ -1005,7 +1005,7 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "llm_teacher",
-          "elapsed_ms": 2054.456,
+          "elapsed_ms": 358.321,
           "cached": false
         },
         {
@@ -1014,7 +1014,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "template",
-          "elapsed_ms": 97.45,
+          "elapsed_ms": 130.907,
           "cached": false
         },
         {
@@ -1023,7 +1023,7 @@
           "query": "pokaż pody w namespace production",
           "command": "kubectl get pods production",
           "source": "template",
-          "elapsed_ms": 18.707,
+          "elapsed_ms": 21.864,
           "cached": false
         },
         {
@@ -1031,8 +1031,8 @@
           "domain": "browser",
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
-          "source": "template",
-          "elapsed_ms": 17.245,
+          "source": "llm_teacher",
+          "elapsed_ms": 5695.648,
           "cached": false
         },
         {
@@ -1041,7 +1041,7 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "llm_teacher",
-          "elapsed_ms": 401.991,
+          "elapsed_ms": 548.515,
           "cached": false
         },
         {
@@ -1050,7 +1050,7 @@
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
           "source": "llm_teacher",
-          "elapsed_ms": 255.218,
+          "elapsed_ms": 620.963,
           "cached": false
         },
         {
@@ -1059,7 +1059,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "llm_teacher",
-          "elapsed_ms": 234.098,
+          "elapsed_ms": 361.702,
           "cached": false
         },
         {
@@ -1068,7 +1068,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "llm_teacher",
-          "elapsed_ms": 240.978,
+          "elapsed_ms": 5087.603,
           "cached": false
         },
         {
@@ -1077,7 +1077,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "template",
-          "elapsed_ms": 152.118,
+          "elapsed_ms": 159.48,
           "cached": false
         },
         {
@@ -1086,16 +1086,16 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "template",
-          "elapsed_ms": 150.92,
+          "elapsed_ms": 164.671,
           "cached": false
         },
         {
           "round": 1,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
-          "source": "template",
-          "elapsed_ms": 42.097,
+          "command": "curl -o /dev/null -s -w \"%{http_code}\" https://example.com",
+          "source": "llm_teacher",
+          "elapsed_ms": 4985.287,
           "cached": false
         },
         {
@@ -1104,7 +1104,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "llm_teacher",
-          "elapsed_ms": 379.865,
+          "elapsed_ms": 404.714,
           "cached": false
         },
         {
@@ -1113,7 +1113,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "template",
-          "elapsed_ms": 79.45,
+          "elapsed_ms": 134.791,
           "cached": false
         },
         {
@@ -1122,7 +1122,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "llm_teacher",
-          "elapsed_ms": 174.073,
+          "elapsed_ms": 200.772,
           "cached": false
         },
         {
@@ -1131,7 +1131,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "llm_teacher",
-          "elapsed_ms": 543.638,
+          "elapsed_ms": 685.084,
           "cached": false
         },
         {
@@ -1140,7 +1140,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "jq '.[] | select(.age > 30)' users.json",
           "source": "llm_teacher",
-          "elapsed_ms": 302.693,
+          "elapsed_ms": 398.943,
           "cached": false
         },
         {
@@ -1149,16 +1149,16 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "llm_teacher",
-          "elapsed_ms": 196.534,
+          "elapsed_ms": 346.379,
           "cached": false
         },
         {
           "round": 1,
           "domain": "api",
           "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
-          "source": "template",
-          "elapsed_ms": 19.332,
+          "command": "curl -s https://api.example.com/users",
+          "source": "llm_teacher",
+          "elapsed_ms": 4566.488,
           "cached": false
         },
         {
@@ -1167,7 +1167,7 @@
           "query": "pokaż użytkowników z Warszawy",
           "command": "SELECT * FROM users WHERE city = 'Warszawa';",
           "source": "llm_teacher",
-          "elapsed_ms": 217.226,
+          "elapsed_ms": 241.099,
           "cached": false
         },
         {
@@ -1176,7 +1176,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "template",
-          "elapsed_ms": 79.825,
+          "elapsed_ms": 92.582,
           "cached": false
         },
         {
@@ -1185,7 +1185,7 @@
           "query": "połącz SSH do 192.168.1.100 jako admin",
           "command": "ssh admin@192.168.1.100",
           "source": "template",
-          "elapsed_ms": 81.563,
+          "elapsed_ms": 106.202,
           "cached": false
         },
         {
@@ -1194,7 +1194,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "template",
-          "elapsed_ms": 95.938,
+          "elapsed_ms": 113.727,
           "cached": false
         },
         {
@@ -1203,7 +1203,7 @@
           "query": "pokaż wszystkie uruchomione kontenery Docker",
           "command": "docker ps",
           "source": "template",
-          "elapsed_ms": 22.253,
+          "elapsed_ms": 12.441,
           "cached": false
         },
         {
@@ -1212,7 +1212,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "cache_exact",
-          "elapsed_ms": 0.038,
+          "elapsed_ms": 0.036,
           "cached": true
         },
         {
@@ -1221,7 +1221,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "cache_exact",
-          "elapsed_ms": 0.029,
+          "elapsed_ms": 0.026,
           "cached": true
         },
         {
@@ -1230,16 +1230,16 @@
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.022,
           "cached": true
         },
         {
           "round": 2,
           "domain": "api",
           "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
+          "command": "curl -s https://api.example.com/users",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -1248,7 +1248,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -1257,7 +1257,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "cache_exact",
-          "elapsed_ms": 0.012,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -1266,16 +1266,16 @@
           "query": "pokaż wszystkie uruchomione kontenery Docker",
           "command": "docker ps",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.022,
           "cached": true
         },
         {
           "round": 2,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
+          "command": "curl -o /dev/null -s -w \"%{http_code}\" https://example.com",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.019,
           "cached": true
         },
         {
@@ -1284,7 +1284,7 @@
           "query": "wyszukaj w ChromaDB dokumenty o machine learning",
           "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1293,7 +1293,7 @@
           "query": "pokaż pody w namespace production",
           "command": "kubectl get pods production",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1302,7 +1302,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -1311,7 +1311,7 @@
           "query": "pokaż użytkowników z Warszawy",
           "command": "SELECT * FROM users WHERE city = 'Warszawa';",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -1320,7 +1320,7 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.022,
           "cached": true
         },
         {
@@ -1329,7 +1329,7 @@
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1338,7 +1338,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1347,7 +1347,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1356,7 +1356,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1365,7 +1365,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "jq '.[] | select(.age > 30)' users.json",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1374,7 +1374,7 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.02,
           "cached": true
         },
         {
@@ -1383,16 +1383,16 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
           "round": 2,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
+          "command": "rsync -avz /var/www/ admin@server:/var/www/",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1401,7 +1401,7 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1410,7 +1410,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -1419,7 +1419,7 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -1428,7 +1428,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -1437,7 +1437,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1446,7 +1446,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "cache_exact",
-          "elapsed_ms": 0.025,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1455,7 +1455,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "cache_exact",
-          "elapsed_ms": 0.012,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -1464,7 +1464,7 @@
           "query": "połącz SSH do 192.168.1.100 jako admin",
           "command": "ssh admin@192.168.1.100",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1473,7 +1473,7 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1482,7 +1482,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "cache_exact",
-          "elapsed_ms": 0.011,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1491,7 +1491,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "cache_exact",
-          "elapsed_ms": 0.012,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -1500,7 +1500,7 @@
           "query": "wyszukaj w ChromaDB dokumenty o machine learning",
           "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -1509,7 +1509,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1518,7 +1518,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1526,161 +1526,161 @@
           "domain": "data",
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "jq '.[] | select(.age > 30)' users.json",
-          "source": "cache_exact",
-          "elapsed_ms": 0.012,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "kubernetes",
-          "query": "przeskaluj deployment webapp do 5 replik",
-          "command": "kubectl scale deployment/ --replicas=5",
-          "source": "cache_exact",
-          "elapsed_ms": 0.012,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "presentation",
-          "query": "wyrenderuj diagram Mermaid do PNG",
-          "command": "mmdc -i diagram.mmd -o diagram.png",
-          "source": "cache_exact",
-          "elapsed_ms": 0.012,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "presentation",
-          "query": "konwertuj README.md do PDF",
-          "command": "pandoc README.md -o README.pdf",
-          "source": "cache_exact",
-          "elapsed_ms": 0.011,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "ffmpeg",
-          "query": "konwertuj video.mp4 do webm",
-          "command": "ffmpeg -i video.mp4 video_out.mp4",
-          "source": "cache_exact",
-          "elapsed_ms": 0.011,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "kubernetes",
-          "query": "pokaż pody w namespace production",
-          "command": "kubectl get pods production",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "media",
-          "query": "zmień rozmiar photo.jpg na 800x600",
-          "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
-          "source": "cache_exact",
-          "elapsed_ms": 0.013,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "api",
-          "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "git",
-          "query": "utwórz branch feature/login",
-          "command": "git checkout -b feature/login",
-          "source": "cache_exact",
-          "elapsed_ms": 0.013,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "devops",
-          "query": "sprawdź status usługi nginx",
-          "command": "systemctl status nginx",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "sql",
-          "query": "pokaż użytkowników z Warszawy",
-          "command": "SELECT * FROM users WHERE city = 'Warszawa';",
-          "source": "cache_exact",
-          "elapsed_ms": 0.013,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "remote",
-          "query": "połącz SSH do 192.168.1.100 jako admin",
-          "command": "ssh admin@192.168.1.100",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "remote",
-          "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
-          "source": "cache_exact",
-          "elapsed_ms": 0.012,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "shell",
-          "query": "pokaż procesy zużywające najwięcej pamięci",
-          "command": "ps aux",
-          "source": "cache_exact",
-          "elapsed_ms": 0.013,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "media",
-          "query": "utwórz miniaturkę 150x150 z header.png",
-          "command": "convert header.png -thumbnail 150x150 thumb.png",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "data",
-          "query": "pokaż statystyki pliku CSV dane.csv",
-          "command": "csvstat dane.csv",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "package_mgmt",
-          "query": "zainstaluj nodejs przez apt",
-          "command": "sudo apt-get install -y nodejs",
           "source": "cache_exact",
           "elapsed_ms": 0.021,
           "cached": true
         },
         {
           "round": 3,
+          "domain": "kubernetes",
+          "query": "przeskaluj deployment webapp do 5 replik",
+          "command": "kubectl scale deployment/ --replicas=5",
+          "source": "cache_exact",
+          "elapsed_ms": 0.022,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "presentation",
+          "query": "wyrenderuj diagram Mermaid do PNG",
+          "command": "mmdc -i diagram.mmd -o diagram.png",
+          "source": "cache_exact",
+          "elapsed_ms": 0.023,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "presentation",
+          "query": "konwertuj README.md do PDF",
+          "command": "pandoc README.md -o README.pdf",
+          "source": "cache_exact",
+          "elapsed_ms": 0.022,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "ffmpeg",
+          "query": "konwertuj video.mp4 do webm",
+          "command": "ffmpeg -i video.mp4 video_out.mp4",
+          "source": "cache_exact",
+          "elapsed_ms": 0.021,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "kubernetes",
+          "query": "pokaż pody w namespace production",
+          "command": "kubectl get pods production",
+          "source": "cache_exact",
+          "elapsed_ms": 0.022,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "media",
+          "query": "zmień rozmiar photo.jpg na 800x600",
+          "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
+          "source": "cache_exact",
+          "elapsed_ms": 0.018,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "api",
+          "query": "wyślij GET na https://api.example.com/users",
+          "command": "curl -s https://api.example.com/users",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "git",
+          "query": "utwórz branch feature/login",
+          "command": "git checkout -b feature/login",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "devops",
+          "query": "sprawdź status usługi nginx",
+          "command": "systemctl status nginx",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "sql",
+          "query": "pokaż użytkowników z Warszawy",
+          "command": "SELECT * FROM users WHERE city = 'Warszawa';",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "remote",
+          "query": "połącz SSH do 192.168.1.100 jako admin",
+          "command": "ssh admin@192.168.1.100",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "remote",
+          "query": "zsynchronizuj /var/www na zdalny serwer",
+          "command": "rsync -avz /var/www/ admin@server:/var/www/",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "shell",
+          "query": "pokaż procesy zużywające najwięcej pamięci",
+          "command": "ps aux",
+          "source": "cache_exact",
+          "elapsed_ms": 0.02,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "media",
+          "query": "utwórz miniaturkę 150x150 z header.png",
+          "command": "convert header.png -thumbnail 150x150 thumb.png",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "data",
+          "query": "pokaż statystyki pliku CSV dane.csv",
+          "command": "csvstat dane.csv",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "package_mgmt",
+          "query": "zainstaluj nodejs przez apt",
+          "command": "sudo apt-get install -y nodejs",
+          "source": "cache_exact",
+          "elapsed_ms": 0.02,
+          "cached": true
+        },
+        {
+          "round": 3,
           "domain": "docker",
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1689,7 +1689,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -1698,7 +1698,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "cache_exact",
-          "elapsed_ms": 0.012,
+          "elapsed_ms": 0.021,
           "cached": true
         },
         {
@@ -1707,7 +1707,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "cache_exact",
-          "elapsed_ms": 0.011,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1716,7 +1716,7 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.019,
           "cached": true
         },
         {
@@ -1725,7 +1725,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -1734,7 +1734,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -1743,7 +1743,7 @@
           "query": "pokaż wszystkie uruchomione kontenery Docker",
           "command": "docker ps",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -1752,16 +1752,16 @@
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
           "source": "cache_exact",
-          "elapsed_ms": 0.02,
+          "elapsed_ms": 0.027,
           "cached": true
         },
         {
           "round": 3,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
+          "command": "curl -o /dev/null -s -w \"%{http_code}\" https://example.com",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -1770,7 +1770,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -1779,31 +1779,31 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.016,
           "cached": true
         }
       ],
       "cache_stats": {
         "total_queries": 96,
         "cache_hits": 64,
-        "llm_calls": 11,
-        "template_hits": 21,
+        "llm_calls": 15,
+        "template_hits": 17,
         "similarity_hits": 0,
         "total_saved_ms": 0.0,
         "cached_entries": 32,
         "hit_rate_pct": 66.7
       },
       "summary": {
-        "round1_avg_ms": 206.19,
-        "round3_avg_ms": 0.014,
-        "speedup_factor": 14727.9,
+        "round1_avg_ms": 925.292,
+        "round3_avg_ms": 0.019,
+        "speedup_factor": 48699.6,
         "cache_hit_rate_pct": 66.7,
         "cached_entries": 32,
-        "total_time_saved_ms": 6597.7
+        "total_time_saved_ms": 29608.8
       }
     },
     "qwen2.5-coder:3b": {
-      "timestamp": "2026-02-26T21:37:41.507235",
+      "timestamp": "2026-02-28T09:31:02.833294",
       "config": {
         "domains": 16,
         "queries_per_domain": 2,
@@ -1823,7 +1823,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "template",
-              "elapsed_ms": 79.359,
+              "elapsed_ms": 97.544,
               "cached": false
             },
             {
@@ -1832,7 +1832,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "template",
-              "elapsed_ms": 82.216,
+              "elapsed_ms": 105.645,
               "cached": false
             },
             {
@@ -1841,7 +1841,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "template",
-              "elapsed_ms": 21.051,
+              "elapsed_ms": 14.628,
               "cached": false
             },
             {
@@ -1850,16 +1850,16 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "template",
-              "elapsed_ms": 18.048,
+              "elapsed_ms": 14.177,
               "cached": false
             },
             {
               "round": 1,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
-              "source": "template",
-              "elapsed_ms": 80.45,
+              "command": "rsync -avz /var/www/ user@remote_server:/path/to/destination/",
+              "source": "llm_teacher",
+              "elapsed_ms": 3749.875,
               "cached": false
             },
             {
@@ -1868,7 +1868,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "template",
-              "elapsed_ms": 28.794,
+              "elapsed_ms": 33.31,
               "cached": false
             },
             {
@@ -1877,7 +1877,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "template",
-              "elapsed_ms": 81.851,
+              "elapsed_ms": 141.745,
               "cached": false
             },
             {
@@ -1886,7 +1886,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "template",
-              "elapsed_ms": 32.237,
+              "elapsed_ms": 44.24,
               "cached": false
             },
             {
@@ -1895,7 +1895,7 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "template",
-              "elapsed_ms": 79.831,
+              "elapsed_ms": 144.381,
               "cached": false
             },
             {
@@ -1904,7 +1904,7 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "llm_teacher",
-              "elapsed_ms": 1906.339,
+              "elapsed_ms": 389.802,
               "cached": false
             },
             {
@@ -1913,7 +1913,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "template",
-              "elapsed_ms": 81.58,
+              "elapsed_ms": 139.29,
               "cached": false
             },
             {
@@ -1922,7 +1922,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "template",
-              "elapsed_ms": 17.675,
+              "elapsed_ms": 17.01,
               "cached": false
             },
             {
@@ -1930,8 +1930,8 @@
               "domain": "browser",
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
-              "source": "template",
-              "elapsed_ms": 17.149,
+              "source": "llm_teacher",
+              "elapsed_ms": 6017.098,
               "cached": false
             },
             {
@@ -1940,7 +1940,7 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "llm_teacher",
-              "elapsed_ms": 374.694,
+              "elapsed_ms": 483.04,
               "cached": false
             },
             {
@@ -1949,7 +1949,7 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "llm_teacher",
-              "elapsed_ms": 249.809,
+              "elapsed_ms": 326.149,
               "cached": false
             },
             {
@@ -1958,7 +1958,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "llm_teacher",
-              "elapsed_ms": 237.865,
+              "elapsed_ms": 332.882,
               "cached": false
             },
             {
@@ -1967,7 +1967,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "llm_teacher",
-              "elapsed_ms": 189.654,
+              "elapsed_ms": 4704.844,
               "cached": false
             },
             {
@@ -1976,7 +1976,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "template",
-              "elapsed_ms": 80.321,
+              "elapsed_ms": 106.831,
               "cached": false
             },
             {
@@ -1985,16 +1985,16 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "template",
-              "elapsed_ms": 85.861,
+              "elapsed_ms": 147.573,
               "cached": false
             },
             {
               "round": 1,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
-              "source": "template",
-              "elapsed_ms": 19.381,
+              "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+              "source": "llm_teacher",
+              "elapsed_ms": 5410.366,
               "cached": false
             },
             {
@@ -2003,7 +2003,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "llm_teacher",
-              "elapsed_ms": 319.847,
+              "elapsed_ms": 437.075,
               "cached": false
             },
             {
@@ -2012,7 +2012,7 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "template",
-              "elapsed_ms": 81.711,
+              "elapsed_ms": 163.108,
               "cached": false
             },
             {
@@ -2021,7 +2021,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "llm_teacher",
-              "elapsed_ms": 178.924,
+              "elapsed_ms": 209.243,
               "cached": false
             },
             {
@@ -2030,7 +2030,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "llm_teacher",
-              "elapsed_ms": 565.717,
+              "elapsed_ms": 681.062,
               "cached": false
             },
             {
@@ -2039,7 +2039,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "jq '.[] | select(.age > 30)' users.json",
               "source": "llm_teacher",
-              "elapsed_ms": 313.48,
+              "elapsed_ms": 361.162,
               "cached": false
             },
             {
@@ -2048,16 +2048,16 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "llm_teacher",
-              "elapsed_ms": 207.034,
+              "elapsed_ms": 237.965,
               "cached": false
             },
             {
               "round": 1,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
-              "source": "template",
-              "elapsed_ms": 20.747,
+              "command": "curl -s https://api.example.com/users",
+              "source": "llm_teacher",
+              "elapsed_ms": 5342.545,
               "cached": false
             },
             {
@@ -2066,7 +2066,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa'",
               "source": "llm_teacher",
-              "elapsed_ms": 225.376,
+              "elapsed_ms": 259.52,
               "cached": false
             },
             {
@@ -2075,7 +2075,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "template",
-              "elapsed_ms": 88.377,
+              "elapsed_ms": 145.28,
               "cached": false
             },
             {
@@ -2084,7 +2084,7 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "template",
-              "elapsed_ms": 92.913,
+              "elapsed_ms": 150.951,
               "cached": false
             },
             {
@@ -2093,7 +2093,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "template",
-              "elapsed_ms": 99.647,
+              "elapsed_ms": 130.821,
               "cached": false
             },
             {
@@ -2102,14 +2102,14 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "template",
-              "elapsed_ms": 23.045,
+              "elapsed_ms": 14.076,
               "cached": false
             }
           ],
-          "total_time_ms": 5981.0,
+          "total_time_ms": 30553.2,
           "cache_hits": 0,
-          "llm_calls": 11,
-          "avg_time_ms": 186.906
+          "llm_calls": 15,
+          "avg_time_ms": 954.789
         },
         {
           "round": 2,
@@ -2121,7 +2121,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "cache_exact",
-              "elapsed_ms": 0.031,
+              "elapsed_ms": 0.032,
               "cached": true
             },
             {
@@ -2130,7 +2130,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "cache_exact",
-              "elapsed_ms": 0.023,
+              "elapsed_ms": 0.027,
               "cached": true
             },
             {
@@ -2139,16 +2139,16 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
               "round": 2,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
+              "command": "curl -s https://api.example.com/users",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -2157,7 +2157,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2166,7 +2166,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -2175,16 +2175,16 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.032,
               "cached": true
             },
             {
               "round": 2,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
+              "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.024,
               "cached": true
             },
             {
@@ -2202,7 +2202,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -2211,7 +2211,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.02,
               "cached": true
             },
             {
@@ -2229,7 +2229,7 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2238,7 +2238,7 @@
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -2247,7 +2247,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2256,7 +2256,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2265,7 +2265,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -2274,7 +2274,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "jq '.[] | select(.age > 30)' users.json",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -2283,7 +2283,7 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.026,
               "cached": true
             },
             {
@@ -2292,14 +2292,14 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
               "round": 2,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
+              "command": "rsync -avz /var/www/ user@remote_server:/path/to/destination/",
               "source": "cache_exact",
               "elapsed_ms": 0.015,
               "cached": true
@@ -2310,7 +2310,7 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -2319,7 +2319,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -2328,7 +2328,7 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2337,7 +2337,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -2346,7 +2346,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.025,
               "cached": true
             },
             {
@@ -2355,7 +2355,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2364,7 +2364,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.024,
               "cached": true
             },
             {
@@ -2373,7 +2373,7 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -2382,7 +2382,7 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -2400,14 +2400,14 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "cache_exact",
-              "elapsed_ms": 0.045,
+              "elapsed_ms": 0.014,
               "cached": true
             }
           ],
           "total_time_ms": 0.6,
           "cache_hits": 32,
           "llm_calls": 0,
-          "avg_time_ms": 0.018
+          "avg_time_ms": 0.019
         },
         {
           "round": 3,
@@ -2419,7 +2419,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "cache_exact",
-              "elapsed_ms": 0.026,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -2428,7 +2428,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "cache_exact",
-              "elapsed_ms": 0.026,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2437,7 +2437,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "cache_exact",
-              "elapsed_ms": 0.025,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -2455,7 +2455,7 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.021,
               "cached": true
             },
             {
@@ -2473,7 +2473,7 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2482,7 +2482,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2500,14 +2500,14 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "cache_exact",
-              "elapsed_ms": 0.022,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
               "round": 3,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
+              "command": "curl -s https://api.example.com/users",
               "source": "cache_exact",
               "elapsed_ms": 0.016,
               "cached": true
@@ -2518,7 +2518,7 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -2527,7 +2527,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.03,
               "cached": true
             },
             {
@@ -2536,7 +2536,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa'",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.03,
               "cached": true
             },
             {
@@ -2545,16 +2545,16 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
               "round": 3,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
+              "command": "rsync -avz /var/www/ user@remote_server:/path/to/destination/",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.032,
               "cached": true
             },
             {
@@ -2563,7 +2563,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.025,
               "cached": true
             },
             {
@@ -2572,7 +2572,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -2581,7 +2581,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2590,7 +2590,7 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -2599,7 +2599,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.02,
               "cached": true
             },
             {
@@ -2608,7 +2608,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.028,
               "cached": true
             },
             {
@@ -2617,7 +2617,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2626,7 +2626,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -2635,7 +2635,7 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "cache_exact",
-              "elapsed_ms": 0.023,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2644,7 +2644,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2653,7 +2653,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -2671,16 +2671,16 @@
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
               "round": 3,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
+              "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -2689,7 +2689,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -2698,14 +2698,14 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.017,
               "cached": true
             }
           ],
           "total_time_ms": 0.6,
           "cache_hits": 32,
           "llm_calls": 0,
-          "avg_time_ms": 0.017
+          "avg_time_ms": 0.019
         }
       ],
       "per_query": [
@@ -2715,7 +2715,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "template",
-          "elapsed_ms": 79.359,
+          "elapsed_ms": 97.544,
           "cached": false
         },
         {
@@ -2724,7 +2724,7 @@
           "query": "wyszukaj w ChromaDB dokumenty o machine learning",
           "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
           "source": "template",
-          "elapsed_ms": 82.216,
+          "elapsed_ms": 105.645,
           "cached": false
         },
         {
@@ -2733,7 +2733,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "template",
-          "elapsed_ms": 21.051,
+          "elapsed_ms": 14.628,
           "cached": false
         },
         {
@@ -2742,16 +2742,16 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "template",
-          "elapsed_ms": 18.048,
+          "elapsed_ms": 14.177,
           "cached": false
         },
         {
           "round": 1,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
-          "source": "template",
-          "elapsed_ms": 80.45,
+          "command": "rsync -avz /var/www/ user@remote_server:/path/to/destination/",
+          "source": "llm_teacher",
+          "elapsed_ms": 3749.875,
           "cached": false
         },
         {
@@ -2760,7 +2760,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "template",
-          "elapsed_ms": 28.794,
+          "elapsed_ms": 33.31,
           "cached": false
         },
         {
@@ -2769,7 +2769,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "template",
-          "elapsed_ms": 81.851,
+          "elapsed_ms": 141.745,
           "cached": false
         },
         {
@@ -2778,7 +2778,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "template",
-          "elapsed_ms": 32.237,
+          "elapsed_ms": 44.24,
           "cached": false
         },
         {
@@ -2787,7 +2787,7 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "template",
-          "elapsed_ms": 79.831,
+          "elapsed_ms": 144.381,
           "cached": false
         },
         {
@@ -2796,7 +2796,7 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "llm_teacher",
-          "elapsed_ms": 1906.339,
+          "elapsed_ms": 389.802,
           "cached": false
         },
         {
@@ -2805,7 +2805,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "template",
-          "elapsed_ms": 81.58,
+          "elapsed_ms": 139.29,
           "cached": false
         },
         {
@@ -2814,7 +2814,7 @@
           "query": "pokaż pody w namespace production",
           "command": "kubectl get pods production",
           "source": "template",
-          "elapsed_ms": 17.675,
+          "elapsed_ms": 17.01,
           "cached": false
         },
         {
@@ -2822,8 +2822,8 @@
           "domain": "browser",
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
-          "source": "template",
-          "elapsed_ms": 17.149,
+          "source": "llm_teacher",
+          "elapsed_ms": 6017.098,
           "cached": false
         },
         {
@@ -2832,7 +2832,7 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "llm_teacher",
-          "elapsed_ms": 374.694,
+          "elapsed_ms": 483.04,
           "cached": false
         },
         {
@@ -2841,7 +2841,7 @@
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
           "source": "llm_teacher",
-          "elapsed_ms": 249.809,
+          "elapsed_ms": 326.149,
           "cached": false
         },
         {
@@ -2850,7 +2850,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "llm_teacher",
-          "elapsed_ms": 237.865,
+          "elapsed_ms": 332.882,
           "cached": false
         },
         {
@@ -2859,7 +2859,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "llm_teacher",
-          "elapsed_ms": 189.654,
+          "elapsed_ms": 4704.844,
           "cached": false
         },
         {
@@ -2868,7 +2868,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "template",
-          "elapsed_ms": 80.321,
+          "elapsed_ms": 106.831,
           "cached": false
         },
         {
@@ -2877,16 +2877,16 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "template",
-          "elapsed_ms": 85.861,
+          "elapsed_ms": 147.573,
           "cached": false
         },
         {
           "round": 1,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
-          "source": "template",
-          "elapsed_ms": 19.381,
+          "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+          "source": "llm_teacher",
+          "elapsed_ms": 5410.366,
           "cached": false
         },
         {
@@ -2895,7 +2895,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "llm_teacher",
-          "elapsed_ms": 319.847,
+          "elapsed_ms": 437.075,
           "cached": false
         },
         {
@@ -2904,7 +2904,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "template",
-          "elapsed_ms": 81.711,
+          "elapsed_ms": 163.108,
           "cached": false
         },
         {
@@ -2913,7 +2913,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "llm_teacher",
-          "elapsed_ms": 178.924,
+          "elapsed_ms": 209.243,
           "cached": false
         },
         {
@@ -2922,7 +2922,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "llm_teacher",
-          "elapsed_ms": 565.717,
+          "elapsed_ms": 681.062,
           "cached": false
         },
         {
@@ -2931,7 +2931,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "jq '.[] | select(.age > 30)' users.json",
           "source": "llm_teacher",
-          "elapsed_ms": 313.48,
+          "elapsed_ms": 361.162,
           "cached": false
         },
         {
@@ -2940,16 +2940,16 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "llm_teacher",
-          "elapsed_ms": 207.034,
+          "elapsed_ms": 237.965,
           "cached": false
         },
         {
           "round": 1,
           "domain": "api",
           "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
-          "source": "template",
-          "elapsed_ms": 20.747,
+          "command": "curl -s https://api.example.com/users",
+          "source": "llm_teacher",
+          "elapsed_ms": 5342.545,
           "cached": false
         },
         {
@@ -2958,7 +2958,7 @@
           "query": "pokaż użytkowników z Warszawy",
           "command": "SELECT * FROM users WHERE city = 'Warszawa'",
           "source": "llm_teacher",
-          "elapsed_ms": 225.376,
+          "elapsed_ms": 259.52,
           "cached": false
         },
         {
@@ -2967,7 +2967,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "template",
-          "elapsed_ms": 88.377,
+          "elapsed_ms": 145.28,
           "cached": false
         },
         {
@@ -2976,7 +2976,7 @@
           "query": "połącz SSH do 192.168.1.100 jako admin",
           "command": "ssh admin@192.168.1.100",
           "source": "template",
-          "elapsed_ms": 92.913,
+          "elapsed_ms": 150.951,
           "cached": false
         },
         {
@@ -2985,7 +2985,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "template",
-          "elapsed_ms": 99.647,
+          "elapsed_ms": 130.821,
           "cached": false
         },
         {
@@ -2994,7 +2994,7 @@
           "query": "pokaż wszystkie uruchomione kontenery Docker",
           "command": "docker ps",
           "source": "template",
-          "elapsed_ms": 23.045,
+          "elapsed_ms": 14.076,
           "cached": false
         },
         {
@@ -3003,7 +3003,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "cache_exact",
-          "elapsed_ms": 0.031,
+          "elapsed_ms": 0.032,
           "cached": true
         },
         {
@@ -3011,89 +3011,89 @@
           "domain": "data",
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
+          "source": "cache_exact",
+          "elapsed_ms": 0.027,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "presentation",
+          "query": "konwertuj README.md do PDF",
+          "command": "pandoc README.md -o README.pdf",
+          "source": "cache_exact",
+          "elapsed_ms": 0.019,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "api",
+          "query": "wyślij GET na https://api.example.com/users",
+          "command": "curl -s https://api.example.com/users",
+          "source": "cache_exact",
+          "elapsed_ms": 0.019,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "devops",
+          "query": "uruchom playbook Ansible deploy.yml",
+          "command": "ansible-playbook deploy.yml",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "rag",
+          "query": "wygeneruj embeddingi przez Ollama",
+          "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
+          "source": "cache_exact",
+          "elapsed_ms": 0.019,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "docker",
+          "query": "pokaż wszystkie uruchomione kontenery Docker",
+          "command": "docker ps",
+          "source": "cache_exact",
+          "elapsed_ms": 0.032,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "api",
+          "query": "sprawdź kod HTTP serwera https://example.com",
+          "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+          "source": "cache_exact",
+          "elapsed_ms": 0.024,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "rag",
+          "query": "wyszukaj w ChromaDB dokumenty o machine learning",
+          "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
+          "source": "cache_exact",
+          "elapsed_ms": 0.02,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "kubernetes",
+          "query": "pokaż pody w namespace production",
+          "command": "kubectl get pods production",
           "source": "cache_exact",
           "elapsed_ms": 0.023,
           "cached": true
         },
         {
           "round": 2,
-          "domain": "presentation",
-          "query": "konwertuj README.md do PDF",
-          "command": "pandoc README.md -o README.pdf",
-          "source": "cache_exact",
-          "elapsed_ms": 0.016,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "api",
-          "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.015,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "devops",
-          "query": "uruchom playbook Ansible deploy.yml",
-          "command": "ansible-playbook deploy.yml",
-          "source": "cache_exact",
-          "elapsed_ms": 0.013,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "rag",
-          "query": "wygeneruj embeddingi przez Ollama",
-          "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
-          "source": "cache_exact",
-          "elapsed_ms": 0.013,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "docker",
-          "query": "pokaż wszystkie uruchomione kontenery Docker",
-          "command": "docker ps",
-          "source": "cache_exact",
-          "elapsed_ms": 0.015,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "api",
-          "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.02,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "rag",
-          "query": "wyszukaj w ChromaDB dokumenty o machine learning",
-          "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.02,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "kubernetes",
-          "query": "pokaż pody w namespace production",
-          "command": "kubectl get pods production",
-          "source": "cache_exact",
-          "elapsed_ms": 0.019,
-          "cached": true
-        },
-        {
-          "round": 2,
           "domain": "git",
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.02,
           "cached": true
         },
         {
@@ -3111,7 +3111,7 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -3120,7 +3120,7 @@
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -3129,7 +3129,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3138,7 +3138,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3147,7 +3147,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -3156,7 +3156,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "jq '.[] | select(.age > 30)' users.json",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -3165,7 +3165,7 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.026,
           "cached": true
         },
         {
@@ -3174,14 +3174,14 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
           "round": 2,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
+          "command": "rsync -avz /var/www/ user@remote_server:/path/to/destination/",
           "source": "cache_exact",
           "elapsed_ms": 0.015,
           "cached": true
@@ -3192,7 +3192,7 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -3201,7 +3201,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -3210,7 +3210,7 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3219,92 +3219,11 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
           "round": 2,
-          "domain": "sql",
-          "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
-          "command": "CREATE TABLE produkty (*);",
-          "source": "cache_exact",
-          "elapsed_ms": 0.018,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "docker",
-          "query": "zbuduj obraz Docker z tagiem myapp:latest",
-          "command": "docker build -t myapp:latest .",
-          "source": "cache_exact",
-          "elapsed_ms": 0.016,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "package_mgmt",
-          "query": "zainstaluj requests przez pip",
-          "command": "sudo apt-get install -y requests",
-          "source": "cache_exact",
-          "elapsed_ms": 0.019,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "remote",
-          "query": "połącz SSH do 192.168.1.100 jako admin",
-          "command": "ssh admin@192.168.1.100",
-          "source": "cache_exact",
-          "elapsed_ms": 0.018,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "ffmpeg",
-          "query": "wyodrębnij audio z film.mkv do mp3",
-          "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
-          "source": "cache_exact",
-          "elapsed_ms": 0.017,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "ffmpeg",
-          "query": "konwertuj video.mp4 do webm",
-          "command": "ffmpeg -i video.mp4 video_out.mp4",
-          "source": "cache_exact",
-          "elapsed_ms": 0.014,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "package_mgmt",
-          "query": "zainstaluj nodejs przez apt",
-          "command": "sudo apt-get install -y nodejs",
-          "source": "cache_exact",
-          "elapsed_ms": 0.045,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "rag",
-          "query": "wyszukaj w ChromaDB dokumenty o machine learning",
-          "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.026,
-          "cached": true
-        },
-        {
-          "round": 3,
-          "domain": "iot",
-          "query": "wykryj urządzenia I2C na magistrali 1",
-          "command": "i2cdetect -y 1",
-          "source": "cache_exact",
-          "elapsed_ms": 0.026,
-          "cached": true
-        },
-        {
-          "round": 3,
           "domain": "sql",
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
@@ -3313,6 +3232,87 @@
           "cached": true
         },
         {
+          "round": 2,
+          "domain": "docker",
+          "query": "zbuduj obraz Docker z tagiem myapp:latest",
+          "command": "docker build -t myapp:latest .",
+          "source": "cache_exact",
+          "elapsed_ms": 0.018,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "package_mgmt",
+          "query": "zainstaluj requests przez pip",
+          "command": "sudo apt-get install -y requests",
+          "source": "cache_exact",
+          "elapsed_ms": 0.024,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "remote",
+          "query": "połącz SSH do 192.168.1.100 jako admin",
+          "command": "ssh admin@192.168.1.100",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "ffmpeg",
+          "query": "wyodrębnij audio z film.mkv do mp3",
+          "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
+          "source": "cache_exact",
+          "elapsed_ms": 0.015,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "ffmpeg",
+          "query": "konwertuj video.mp4 do webm",
+          "command": "ffmpeg -i video.mp4 video_out.mp4",
+          "source": "cache_exact",
+          "elapsed_ms": 0.014,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "package_mgmt",
+          "query": "zainstaluj nodejs przez apt",
+          "command": "sudo apt-get install -y nodejs",
+          "source": "cache_exact",
+          "elapsed_ms": 0.014,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "rag",
+          "query": "wyszukaj w ChromaDB dokumenty o machine learning",
+          "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "iot",
+          "query": "wykryj urządzenia I2C na magistrali 1",
+          "command": "i2cdetect -y 1",
+          "source": "cache_exact",
+          "elapsed_ms": 0.018,
+          "cached": true
+        },
+        {
+          "round": 3,
+          "domain": "sql",
+          "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
+          "command": "CREATE TABLE produkty (*);",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
           "round": 3,
           "domain": "data",
           "query": "przefiltruj JSON users.json po age > 30",
@@ -3327,7 +3327,7 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.021,
           "cached": true
         },
         {
@@ -3345,7 +3345,7 @@
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3354,7 +3354,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -3372,14 +3372,14 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "cache_exact",
-          "elapsed_ms": 0.022,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
           "round": 3,
           "domain": "api",
           "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
+          "command": "curl -s https://api.example.com/users",
           "source": "cache_exact",
           "elapsed_ms": 0.016,
           "cached": true
@@ -3390,7 +3390,7 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -3399,7 +3399,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.03,
           "cached": true
         },
         {
@@ -3408,7 +3408,7 @@
           "query": "pokaż użytkowników z Warszawy",
           "command": "SELECT * FROM users WHERE city = 'Warszawa'",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.03,
           "cached": true
         },
         {
@@ -3417,16 +3417,16 @@
           "query": "połącz SSH do 192.168.1.100 jako admin",
           "command": "ssh admin@192.168.1.100",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
           "round": 3,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
+          "command": "rsync -avz /var/www/ user@remote_server:/path/to/destination/",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.032,
           "cached": true
         },
         {
@@ -3435,7 +3435,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.025,
           "cached": true
         },
         {
@@ -3444,7 +3444,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.019,
           "cached": true
         },
         {
@@ -3453,7 +3453,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -3462,7 +3462,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -3471,7 +3471,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.02,
           "cached": true
         },
         {
@@ -3480,7 +3480,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.028,
           "cached": true
         },
         {
@@ -3489,7 +3489,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3498,7 +3498,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -3507,7 +3507,7 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "cache_exact",
-          "elapsed_ms": 0.023,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -3516,7 +3516,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "cache_exact",
-          "elapsed_ms": 0.02,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3525,7 +3525,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "cache_exact",
-          "elapsed_ms": 0.02,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -3543,16 +3543,16 @@
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
           "round": 3,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
+          "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -3561,7 +3561,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -3570,31 +3570,31 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.017,
           "cached": true
         }
       ],
       "cache_stats": {
         "total_queries": 96,
         "cache_hits": 64,
-        "llm_calls": 11,
-        "template_hits": 21,
+        "llm_calls": 15,
+        "template_hits": 17,
         "similarity_hits": 0,
         "total_saved_ms": 0.0,
         "cached_entries": 32,
         "hit_rate_pct": 66.7
       },
       "summary": {
-        "round1_avg_ms": 186.906,
-        "round3_avg_ms": 0.017,
-        "speedup_factor": 10994.5,
+        "round1_avg_ms": 954.789,
+        "round3_avg_ms": 0.019,
+        "speedup_factor": 50252.1,
         "cache_hit_rate_pct": 66.7,
         "cached_entries": 32,
-        "total_time_saved_ms": 5980.4
+        "total_time_saved_ms": 30552.6
       }
     },
     "gemma2:2b": {
-      "timestamp": "2026-02-26T21:37:47.534926",
+      "timestamp": "2026-02-28T09:31:33.427184",
       "config": {
         "domains": 16,
         "queries_per_domain": 2,
@@ -3614,7 +3614,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "template",
-              "elapsed_ms": 83.961,
+              "elapsed_ms": 103.805,
               "cached": false
             },
             {
@@ -3623,7 +3623,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "template",
-              "elapsed_ms": 83.567,
+              "elapsed_ms": 99.303,
               "cached": false
             },
             {
@@ -3632,7 +3632,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "template",
-              "elapsed_ms": 20.405,
+              "elapsed_ms": 12.739,
               "cached": false
             },
             {
@@ -3641,16 +3641,16 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "template",
-              "elapsed_ms": 17.658,
+              "elapsed_ms": 8.852,
               "cached": false
             },
             {
               "round": 1,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
-              "source": "template",
-              "elapsed_ms": 83.118,
+              "command": "rsync -avz /var/www admin@server:/var/www/",
+              "source": "llm_teacher",
+              "elapsed_ms": 4242.623,
               "cached": false
             },
             {
@@ -3659,7 +3659,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "template",
-              "elapsed_ms": 36.238,
+              "elapsed_ms": 37.233,
               "cached": false
             },
             {
@@ -3668,7 +3668,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "template",
-              "elapsed_ms": 87.239,
+              "elapsed_ms": 140.666,
               "cached": false
             },
             {
@@ -3677,7 +3677,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "template",
-              "elapsed_ms": 32.731,
+              "elapsed_ms": 40.34,
               "cached": false
             },
             {
@@ -3686,7 +3686,7 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "template",
-              "elapsed_ms": 83.358,
+              "elapsed_ms": 192.514,
               "cached": false
             },
             {
@@ -3695,7 +3695,7 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "llm_teacher",
-              "elapsed_ms": 2854.155,
+              "elapsed_ms": 491.967,
               "cached": false
             },
             {
@@ -3704,7 +3704,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "template",
-              "elapsed_ms": 86.292,
+              "elapsed_ms": 148.785,
               "cached": false
             },
             {
@@ -3713,7 +3713,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "template",
-              "elapsed_ms": 18.349,
+              "elapsed_ms": 19.993,
               "cached": false
             },
             {
@@ -3721,8 +3721,8 @@
               "domain": "browser",
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
-              "source": "template",
-              "elapsed_ms": 19.416,
+              "source": "llm_teacher",
+              "elapsed_ms": 4140.253,
               "cached": false
             },
             {
@@ -3731,7 +3731,7 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "llm_teacher",
-              "elapsed_ms": 443.651,
+              "elapsed_ms": 487.281,
               "cached": false
             },
             {
@@ -3740,7 +3740,7 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "llm_teacher",
-              "elapsed_ms": 278.815,
+              "elapsed_ms": 383.242,
               "cached": false
             },
             {
@@ -3749,7 +3749,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "llm_teacher",
-              "elapsed_ms": 250.575,
+              "elapsed_ms": 361.312,
               "cached": false
             },
             {
@@ -3758,7 +3758,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "llm_teacher",
-              "elapsed_ms": 246.189,
+              "elapsed_ms": 3613.72,
               "cached": false
             },
             {
@@ -3767,7 +3767,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "template",
-              "elapsed_ms": 84.383,
+              "elapsed_ms": 95.451,
               "cached": false
             },
             {
@@ -3776,16 +3776,16 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "template",
-              "elapsed_ms": 83.531,
+              "elapsed_ms": 97.955,
               "cached": false
             },
             {
               "round": 1,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
-              "source": "template",
-              "elapsed_ms": 19.651,
+              "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+              "source": "llm_teacher",
+              "elapsed_ms": 3386.911,
               "cached": false
             },
             {
@@ -3794,7 +3794,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "llm_teacher",
-              "elapsed_ms": 345.585,
+              "elapsed_ms": 379.672,
               "cached": false
             },
             {
@@ -3803,7 +3803,7 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "template",
-              "elapsed_ms": 81.639,
+              "elapsed_ms": 93.273,
               "cached": false
             },
             {
@@ -3812,7 +3812,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "llm_teacher",
-              "elapsed_ms": 240.935,
+              "elapsed_ms": 247.48,
               "cached": false
             },
             {
@@ -3821,7 +3821,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "llm_teacher",
-              "elapsed_ms": 599.909,
+              "elapsed_ms": 674.745,
               "cached": false
             },
             {
@@ -3830,7 +3830,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "'.[] | select(.age > 30)' users.json",
               "source": "llm_teacher",
-              "elapsed_ms": 379.581,
+              "elapsed_ms": 405.673,
               "cached": false
             },
             {
@@ -3839,16 +3839,16 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "llm_teacher",
-              "elapsed_ms": 274.04,
+              "elapsed_ms": 250.457,
               "cached": false
             },
             {
               "round": 1,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
-              "source": "template",
-              "elapsed_ms": 23.427,
+              "command": "curl -s https://api.example.com/users",
+              "source": "llm_teacher",
+              "elapsed_ms": 3443.159,
               "cached": false
             },
             {
@@ -3857,7 +3857,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa';",
               "source": "llm_teacher",
-              "elapsed_ms": 283.634,
+              "elapsed_ms": 336.345,
               "cached": false
             },
             {
@@ -3866,7 +3866,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "template",
-              "elapsed_ms": 87.067,
+              "elapsed_ms": 105.451,
               "cached": false
             },
             {
@@ -3875,7 +3875,7 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "template",
-              "elapsed_ms": 89.663,
+              "elapsed_ms": 101.962,
               "cached": false
             },
             {
@@ -3884,7 +3884,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "template",
-              "elapsed_ms": 108.949,
+              "elapsed_ms": 149.188,
               "cached": false
             },
             {
@@ -3893,14 +3893,14 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "template",
-              "elapsed_ms": 23.304,
+              "elapsed_ms": 14.691,
               "cached": false
             }
           ],
-          "total_time_ms": 7451.0,
+          "total_time_ms": 24307.0,
           "cache_hits": 0,
-          "llm_calls": 11,
-          "avg_time_ms": 232.844
+          "llm_calls": 15,
+          "avg_time_ms": 759.595
         },
         {
           "round": 2,
@@ -3912,7 +3912,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "cache_exact",
-              "elapsed_ms": 0.029,
+              "elapsed_ms": 0.042,
               "cached": true
             },
             {
@@ -3921,7 +3921,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.03,
               "cached": true
             },
             {
@@ -3930,16 +3930,16 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
               "round": 2,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
+              "command": "curl -s https://api.example.com/users",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -3948,7 +3948,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -3957,7 +3957,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.02,
               "cached": true
             },
             {
@@ -3966,16 +3966,16 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
               "round": 2,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
+              "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -3984,7 +3984,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -3993,7 +3993,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "cache_exact",
-              "elapsed_ms": 0.023,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4002,7 +4002,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -4020,7 +4020,7 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -4029,7 +4029,7 @@
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4038,7 +4038,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -4047,7 +4047,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -4065,7 +4065,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "'.[] | select(.age > 30)' users.json",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -4074,7 +4074,7 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4083,14 +4083,14 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
               "round": 2,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
+              "command": "rsync -avz /var/www admin@server:/var/www/",
               "source": "cache_exact",
               "elapsed_ms": 0.014,
               "cached": true
@@ -4101,7 +4101,7 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4110,7 +4110,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -4119,7 +4119,7 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -4128,7 +4128,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -4137,7 +4137,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4146,7 +4146,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.015,
               "cached": true
             },
             {
@@ -4155,7 +4155,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
@@ -4182,7 +4182,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.014,
               "cached": true
             },
             {
@@ -4191,14 +4191,14 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.014,
               "cached": true
             }
           ],
           "total_time_ms": 0.6,
           "cache_hits": 32,
           "llm_calls": 0,
-          "avg_time_ms": 0.017
+          "avg_time_ms": 0.018
         },
         {
           "round": 3,
@@ -4210,7 +4210,7 @@
               "query": "wyszukaj w ChromaDB dokumenty o machine learning",
               "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4219,7 +4219,7 @@
               "query": "wykryj urządzenia I2C na magistrali 1",
               "command": "i2cdetect -y 1",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -4228,7 +4228,7 @@
               "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
               "command": "CREATE TABLE produkty (*);",
               "source": "cache_exact",
-              "elapsed_ms": 0.022,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -4237,7 +4237,7 @@
               "query": "przefiltruj JSON users.json po age > 30",
               "command": "'.[] | select(.age > 30)' users.json",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4246,7 +4246,7 @@
               "query": "przeskaluj deployment webapp do 5 replik",
               "command": "kubectl scale deployment/ --replicas=5",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -4255,7 +4255,7 @@
               "query": "wyrenderuj diagram Mermaid do PNG",
               "command": "mmdc -i diagram.mmd -o diagram.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -4264,7 +4264,7 @@
               "query": "konwertuj README.md do PDF",
               "command": "pandoc README.md -o README.pdf",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4273,7 +4273,7 @@
               "query": "konwertuj video.mp4 do webm",
               "command": "ffmpeg -i video.mp4 video_out.mp4",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4282,7 +4282,7 @@
               "query": "pokaż pody w namespace production",
               "command": "kubectl get pods production",
               "source": "cache_exact",
-              "elapsed_ms": 0.031,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -4291,16 +4291,16 @@
               "query": "zmień rozmiar photo.jpg na 800x600",
               "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
               "round": 3,
               "domain": "api",
               "query": "wyślij GET na https://api.example.com/users",
-              "command": "xdg-open 'https://api.example.com/users'",
+              "command": "curl -s https://api.example.com/users",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.019,
               "cached": true
             },
             {
@@ -4309,7 +4309,7 @@
               "query": "utwórz branch feature/login",
               "command": "git checkout -b feature/login",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -4318,7 +4318,7 @@
               "query": "sprawdź status usługi nginx",
               "command": "systemctl status nginx",
               "source": "cache_exact",
-              "elapsed_ms": 0.016,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -4327,7 +4327,7 @@
               "query": "pokaż użytkowników z Warszawy",
               "command": "SELECT * FROM users WHERE city = 'Warszawa';",
               "source": "cache_exact",
-              "elapsed_ms": 0.028,
+              "elapsed_ms": 0.021,
               "cached": true
             },
             {
@@ -4336,16 +4336,16 @@
               "query": "połącz SSH do 192.168.1.100 jako admin",
               "command": "ssh admin@192.168.1.100",
               "source": "cache_exact",
-              "elapsed_ms": 0.017,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
               "round": 3,
               "domain": "remote",
               "query": "zsynchronizuj /var/www na zdalny serwer",
-              "command": "rsync -av",
+              "command": "rsync -avz /var/www admin@server:/var/www/",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.018,
               "cached": true
             },
             {
@@ -4354,7 +4354,7 @@
               "query": "pokaż procesy zużywające najwięcej pamięci",
               "command": "ps aux",
               "source": "cache_exact",
-              "elapsed_ms": 0.018,
+              "elapsed_ms": 0.021,
               "cached": true
             },
             {
@@ -4363,7 +4363,7 @@
               "query": "utwórz miniaturkę 150x150 z header.png",
               "command": "convert header.png -thumbnail 150x150 thumb.png",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.016,
               "cached": true
             },
             {
@@ -4372,7 +4372,7 @@
               "query": "pokaż statystyki pliku CSV dane.csv",
               "command": "csvstat dane.csv",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.017,
               "cached": true
             },
             {
@@ -4381,7 +4381,7 @@
               "query": "zainstaluj nodejs przez apt",
               "command": "sudo apt-get install -y nodejs",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -4390,7 +4390,7 @@
               "query": "zbuduj obraz Docker z tagiem myapp:latest",
               "command": "docker build -t myapp:latest .",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.025,
               "cached": true
             },
             {
@@ -4399,7 +4399,7 @@
               "query": "odczytaj temperaturę z Raspberry Pi",
               "command": "vcgencmd measure_temp",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.028,
               "cached": true
             },
             {
@@ -4408,7 +4408,7 @@
               "query": "wygeneruj embeddingi przez Ollama",
               "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
               "source": "cache_exact",
-              "elapsed_ms": 0.012,
+              "elapsed_ms": 0.024,
               "cached": true
             },
             {
@@ -4417,7 +4417,7 @@
               "query": "zainstaluj requests przez pip",
               "command": "sudo apt-get install -y requests",
               "source": "cache_exact",
-              "elapsed_ms": 0.019,
+              "elapsed_ms": 0.022,
               "cached": true
             },
             {
@@ -4426,7 +4426,7 @@
               "query": "znajdź wszystkie pliki PDF większe niż 10MB",
               "command": "find .",
               "source": "cache_exact",
-              "elapsed_ms": 0.056,
+              "elapsed_ms": 0.027,
               "cached": true
             },
             {
@@ -4435,7 +4435,7 @@
               "query": "pokaż historię ostatnich 10 commitów",
               "command": "git log --oneline -n 10",
               "source": "cache_exact",
-              "elapsed_ms": 0.015,
+              "elapsed_ms": 0.026,
               "cached": true
             },
             {
@@ -4444,7 +4444,7 @@
               "query": "wyszukaj w Google 'python tutorial'",
               "command": "xdg-open 'https://www.google.com/search?q=w Google'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
@@ -4453,7 +4453,7 @@
               "query": "pokaż wszystkie uruchomione kontenery Docker",
               "command": "docker ps",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.025,
               "cached": true
             },
             {
@@ -4462,16 +4462,16 @@
               "query": "otwórz stronę https://github.com",
               "command": "xdg-open 'https://github.com'",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.023,
               "cached": true
             },
             {
               "round": 3,
               "domain": "api",
               "query": "sprawdź kod HTTP serwera https://example.com",
-              "command": "xdg-open 'https://example.com'",
+              "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
               "source": "cache_exact",
-              "elapsed_ms": 0.014,
+              "elapsed_ms": 0.027,
               "cached": true
             },
             {
@@ -4480,7 +4480,7 @@
               "query": "uruchom playbook Ansible deploy.yml",
               "command": "ansible-playbook deploy.yml",
               "source": "cache_exact",
-              "elapsed_ms": 0.013,
+              "elapsed_ms": 0.024,
               "cached": true
             },
             {
@@ -4489,14 +4489,14 @@
               "query": "wyodrębnij audio z film.mkv do mp3",
               "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
               "source": "cache_exact",
-              "elapsed_ms": 0.02,
+              "elapsed_ms": 0.025,
               "cached": true
             }
           ],
-          "total_time_ms": 0.6,
+          "total_time_ms": 0.7,
           "cache_hits": 32,
           "llm_calls": 0,
-          "avg_time_ms": 0.017
+          "avg_time_ms": 0.021
         }
       ],
       "per_query": [
@@ -4506,7 +4506,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "template",
-          "elapsed_ms": 83.961,
+          "elapsed_ms": 103.805,
           "cached": false
         },
         {
@@ -4515,7 +4515,7 @@
           "query": "wyszukaj w ChromaDB dokumenty o machine learning",
           "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
           "source": "template",
-          "elapsed_ms": 83.567,
+          "elapsed_ms": 99.303,
           "cached": false
         },
         {
@@ -4524,7 +4524,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "template",
-          "elapsed_ms": 20.405,
+          "elapsed_ms": 12.739,
           "cached": false
         },
         {
@@ -4533,16 +4533,16 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "template",
-          "elapsed_ms": 17.658,
+          "elapsed_ms": 8.852,
           "cached": false
         },
         {
           "round": 1,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
-          "source": "template",
-          "elapsed_ms": 83.118,
+          "command": "rsync -avz /var/www admin@server:/var/www/",
+          "source": "llm_teacher",
+          "elapsed_ms": 4242.623,
           "cached": false
         },
         {
@@ -4551,7 +4551,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "template",
-          "elapsed_ms": 36.238,
+          "elapsed_ms": 37.233,
           "cached": false
         },
         {
@@ -4560,7 +4560,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "template",
-          "elapsed_ms": 87.239,
+          "elapsed_ms": 140.666,
           "cached": false
         },
         {
@@ -4569,7 +4569,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "template",
-          "elapsed_ms": 32.731,
+          "elapsed_ms": 40.34,
           "cached": false
         },
         {
@@ -4578,7 +4578,7 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "template",
-          "elapsed_ms": 83.358,
+          "elapsed_ms": 192.514,
           "cached": false
         },
         {
@@ -4587,7 +4587,7 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "llm_teacher",
-          "elapsed_ms": 2854.155,
+          "elapsed_ms": 491.967,
           "cached": false
         },
         {
@@ -4596,7 +4596,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "template",
-          "elapsed_ms": 86.292,
+          "elapsed_ms": 148.785,
           "cached": false
         },
         {
@@ -4605,7 +4605,7 @@
           "query": "pokaż pody w namespace production",
           "command": "kubectl get pods production",
           "source": "template",
-          "elapsed_ms": 18.349,
+          "elapsed_ms": 19.993,
           "cached": false
         },
         {
@@ -4613,8 +4613,8 @@
           "domain": "browser",
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
-          "source": "template",
-          "elapsed_ms": 19.416,
+          "source": "llm_teacher",
+          "elapsed_ms": 4140.253,
           "cached": false
         },
         {
@@ -4623,7 +4623,7 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "llm_teacher",
-          "elapsed_ms": 443.651,
+          "elapsed_ms": 487.281,
           "cached": false
         },
         {
@@ -4632,7 +4632,7 @@
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
           "source": "llm_teacher",
-          "elapsed_ms": 278.815,
+          "elapsed_ms": 383.242,
           "cached": false
         },
         {
@@ -4641,7 +4641,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "llm_teacher",
-          "elapsed_ms": 250.575,
+          "elapsed_ms": 361.312,
           "cached": false
         },
         {
@@ -4650,7 +4650,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "llm_teacher",
-          "elapsed_ms": 246.189,
+          "elapsed_ms": 3613.72,
           "cached": false
         },
         {
@@ -4659,7 +4659,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "template",
-          "elapsed_ms": 84.383,
+          "elapsed_ms": 95.451,
           "cached": false
         },
         {
@@ -4668,16 +4668,16 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "template",
-          "elapsed_ms": 83.531,
+          "elapsed_ms": 97.955,
           "cached": false
         },
         {
           "round": 1,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
-          "source": "template",
-          "elapsed_ms": 19.651,
+          "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+          "source": "llm_teacher",
+          "elapsed_ms": 3386.911,
           "cached": false
         },
         {
@@ -4686,7 +4686,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "llm_teacher",
-          "elapsed_ms": 345.585,
+          "elapsed_ms": 379.672,
           "cached": false
         },
         {
@@ -4695,7 +4695,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "template",
-          "elapsed_ms": 81.639,
+          "elapsed_ms": 93.273,
           "cached": false
         },
         {
@@ -4704,7 +4704,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "llm_teacher",
-          "elapsed_ms": 240.935,
+          "elapsed_ms": 247.48,
           "cached": false
         },
         {
@@ -4713,7 +4713,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "llm_teacher",
-          "elapsed_ms": 599.909,
+          "elapsed_ms": 674.745,
           "cached": false
         },
         {
@@ -4722,7 +4722,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "'.[] | select(.age > 30)' users.json",
           "source": "llm_teacher",
-          "elapsed_ms": 379.581,
+          "elapsed_ms": 405.673,
           "cached": false
         },
         {
@@ -4731,16 +4731,16 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "llm_teacher",
-          "elapsed_ms": 274.04,
+          "elapsed_ms": 250.457,
           "cached": false
         },
         {
           "round": 1,
           "domain": "api",
           "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
-          "source": "template",
-          "elapsed_ms": 23.427,
+          "command": "curl -s https://api.example.com/users",
+          "source": "llm_teacher",
+          "elapsed_ms": 3443.159,
           "cached": false
         },
         {
@@ -4749,7 +4749,7 @@
           "query": "pokaż użytkowników z Warszawy",
           "command": "SELECT * FROM users WHERE city = 'Warszawa';",
           "source": "llm_teacher",
-          "elapsed_ms": 283.634,
+          "elapsed_ms": 336.345,
           "cached": false
         },
         {
@@ -4758,7 +4758,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "template",
-          "elapsed_ms": 87.067,
+          "elapsed_ms": 105.451,
           "cached": false
         },
         {
@@ -4767,7 +4767,7 @@
           "query": "połącz SSH do 192.168.1.100 jako admin",
           "command": "ssh admin@192.168.1.100",
           "source": "template",
-          "elapsed_ms": 89.663,
+          "elapsed_ms": 101.962,
           "cached": false
         },
         {
@@ -4776,7 +4776,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "template",
-          "elapsed_ms": 108.949,
+          "elapsed_ms": 149.188,
           "cached": false
         },
         {
@@ -4785,7 +4785,7 @@
           "query": "pokaż wszystkie uruchomione kontenery Docker",
           "command": "docker ps",
           "source": "template",
-          "elapsed_ms": 23.304,
+          "elapsed_ms": 14.691,
           "cached": false
         },
         {
@@ -4794,7 +4794,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "cache_exact",
-          "elapsed_ms": 0.029,
+          "elapsed_ms": 0.042,
           "cached": true
         },
         {
@@ -4803,7 +4803,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "cache_exact",
-          "elapsed_ms": 0.02,
+          "elapsed_ms": 0.03,
           "cached": true
         },
         {
@@ -4811,80 +4811,80 @@
           "domain": "presentation",
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
-          "source": "cache_exact",
-          "elapsed_ms": 0.02,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "api",
-          "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.02,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "devops",
-          "query": "uruchom playbook Ansible deploy.yml",
-          "command": "ansible-playbook deploy.yml",
-          "source": "cache_exact",
-          "elapsed_ms": 0.018,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "rag",
-          "query": "wygeneruj embeddingi przez Ollama",
-          "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
-          "source": "cache_exact",
-          "elapsed_ms": 0.017,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "docker",
-          "query": "pokaż wszystkie uruchomione kontenery Docker",
-          "command": "docker ps",
-          "source": "cache_exact",
-          "elapsed_ms": 0.02,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "api",
-          "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.016,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "rag",
-          "query": "wyszukaj w ChromaDB dokumenty o machine learning",
-          "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
-          "source": "cache_exact",
-          "elapsed_ms": 0.017,
-          "cached": true
-        },
-        {
-          "round": 2,
-          "domain": "kubernetes",
-          "query": "pokaż pody w namespace production",
-          "command": "kubectl get pods production",
           "source": "cache_exact",
           "elapsed_ms": 0.023,
           "cached": true
         },
         {
           "round": 2,
+          "domain": "api",
+          "query": "wyślij GET na https://api.example.com/users",
+          "command": "curl -s https://api.example.com/users",
+          "source": "cache_exact",
+          "elapsed_ms": 0.018,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "devops",
+          "query": "uruchom playbook Ansible deploy.yml",
+          "command": "ansible-playbook deploy.yml",
+          "source": "cache_exact",
+          "elapsed_ms": 0.015,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "rag",
+          "query": "wygeneruj embeddingi przez Ollama",
+          "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
+          "source": "cache_exact",
+          "elapsed_ms": 0.02,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "docker",
+          "query": "pokaż wszystkie uruchomione kontenery Docker",
+          "command": "docker ps",
+          "source": "cache_exact",
+          "elapsed_ms": 0.019,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "api",
+          "query": "sprawdź kod HTTP serwera https://example.com",
+          "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
+          "source": "cache_exact",
+          "elapsed_ms": 0.017,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "rag",
+          "query": "wyszukaj w ChromaDB dokumenty o machine learning",
+          "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
+          "source": "cache_exact",
+          "elapsed_ms": 0.015,
+          "cached": true
+        },
+        {
+          "round": 2,
+          "domain": "kubernetes",
+          "query": "pokaż pody w namespace production",
+          "command": "kubectl get pods production",
+          "source": "cache_exact",
+          "elapsed_ms": 0.016,
+          "cached": true
+        },
+        {
+          "round": 2,
           "domain": "git",
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -4902,7 +4902,7 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -4911,7 +4911,7 @@
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -4920,7 +4920,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -4929,7 +4929,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -4947,7 +4947,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "'.[] | select(.age > 30)' users.json",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.019,
           "cached": true
         },
         {
@@ -4956,7 +4956,7 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -4965,14 +4965,14 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
           "round": 2,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
+          "command": "rsync -avz /var/www admin@server:/var/www/",
           "source": "cache_exact",
           "elapsed_ms": 0.014,
           "cached": true
@@ -4983,7 +4983,7 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -4992,7 +4992,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -5001,7 +5001,7 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -5010,7 +5010,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -5019,7 +5019,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -5028,7 +5028,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.015,
           "cached": true
         },
         {
@@ -5037,7 +5037,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.022,
           "cached": true
         },
         {
@@ -5064,7 +5064,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -5073,7 +5073,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.014,
           "cached": true
         },
         {
@@ -5082,7 +5082,7 @@
           "query": "wyszukaj w ChromaDB dokumenty o machine learning",
           "command": "xdg-open 'https://www.google.com/search?q=w ChromaDB dokumenty o machine learning'",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -5091,7 +5091,7 @@
           "query": "wykryj urządzenia I2C na magistrali 1",
           "command": "i2cdetect -y 1",
           "source": "cache_exact",
-          "elapsed_ms": 0.02,
+          "elapsed_ms": 0.019,
           "cached": true
         },
         {
@@ -5100,7 +5100,7 @@
           "query": "utwórz tabelę produkty z kolumnami id, nazwa, cena",
           "command": "CREATE TABLE produkty (*);",
           "source": "cache_exact",
-          "elapsed_ms": 0.022,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -5109,7 +5109,7 @@
           "query": "przefiltruj JSON users.json po age > 30",
           "command": "'.[] | select(.age > 30)' users.json",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -5118,7 +5118,7 @@
           "query": "przeskaluj deployment webapp do 5 replik",
           "command": "kubectl scale deployment/ --replicas=5",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -5127,7 +5127,7 @@
           "query": "wyrenderuj diagram Mermaid do PNG",
           "command": "mmdc -i diagram.mmd -o diagram.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -5136,7 +5136,7 @@
           "query": "konwertuj README.md do PDF",
           "command": "pandoc README.md -o README.pdf",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -5145,7 +5145,7 @@
           "query": "konwertuj video.mp4 do webm",
           "command": "ffmpeg -i video.mp4 video_out.mp4",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -5154,7 +5154,7 @@
           "query": "pokaż pody w namespace production",
           "command": "kubectl get pods production",
           "source": "cache_exact",
-          "elapsed_ms": 0.031,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -5163,16 +5163,16 @@
           "query": "zmień rozmiar photo.jpg na 800x600",
           "command": "convert photo.jpg -resize 800x600 photo_out.jpg",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
           "round": 3,
           "domain": "api",
           "query": "wyślij GET na https://api.example.com/users",
-          "command": "xdg-open 'https://api.example.com/users'",
+          "command": "curl -s https://api.example.com/users",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.019,
           "cached": true
         },
         {
@@ -5181,7 +5181,7 @@
           "query": "utwórz branch feature/login",
           "command": "git checkout -b feature/login",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -5190,7 +5190,7 @@
           "query": "sprawdź status usługi nginx",
           "command": "systemctl status nginx",
           "source": "cache_exact",
-          "elapsed_ms": 0.016,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -5199,7 +5199,7 @@
           "query": "pokaż użytkowników z Warszawy",
           "command": "SELECT * FROM users WHERE city = 'Warszawa';",
           "source": "cache_exact",
-          "elapsed_ms": 0.028,
+          "elapsed_ms": 0.021,
           "cached": true
         },
         {
@@ -5208,16 +5208,16 @@
           "query": "połącz SSH do 192.168.1.100 jako admin",
           "command": "ssh admin@192.168.1.100",
           "source": "cache_exact",
-          "elapsed_ms": 0.017,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
           "round": 3,
           "domain": "remote",
           "query": "zsynchronizuj /var/www na zdalny serwer",
-          "command": "rsync -av",
+          "command": "rsync -avz /var/www admin@server:/var/www/",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.018,
           "cached": true
         },
         {
@@ -5226,7 +5226,7 @@
           "query": "pokaż procesy zużywające najwięcej pamięci",
           "command": "ps aux",
           "source": "cache_exact",
-          "elapsed_ms": 0.018,
+          "elapsed_ms": 0.021,
           "cached": true
         },
         {
@@ -5235,7 +5235,7 @@
           "query": "utwórz miniaturkę 150x150 z header.png",
           "command": "convert header.png -thumbnail 150x150 thumb.png",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.016,
           "cached": true
         },
         {
@@ -5244,7 +5244,7 @@
           "query": "pokaż statystyki pliku CSV dane.csv",
           "command": "csvstat dane.csv",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.017,
           "cached": true
         },
         {
@@ -5253,7 +5253,7 @@
           "query": "zainstaluj nodejs przez apt",
           "command": "sudo apt-get install -y nodejs",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -5262,7 +5262,7 @@
           "query": "zbuduj obraz Docker z tagiem myapp:latest",
           "command": "docker build -t myapp:latest .",
           "source": "cache_exact",
-          "elapsed_ms": 0.012,
+          "elapsed_ms": 0.025,
           "cached": true
         },
         {
@@ -5271,7 +5271,7 @@
           "query": "odczytaj temperaturę z Raspberry Pi",
           "command": "vcgencmd measure_temp",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.028,
           "cached": true
         },
         {
@@ -5280,7 +5280,7 @@
           "query": "wygeneruj embeddingi przez Ollama",
           "command": "curl -s http://localhost:11434/api/embed -d '{\"model\": \"nomic-embed-text\", \"input\": \"machine learnin",
           "source": "cache_exact",
-          "elapsed_ms": 0.012,
+          "elapsed_ms": 0.024,
           "cached": true
         },
         {
@@ -5289,7 +5289,7 @@
           "query": "zainstaluj requests przez pip",
           "command": "sudo apt-get install -y requests",
           "source": "cache_exact",
-          "elapsed_ms": 0.019,
+          "elapsed_ms": 0.022,
           "cached": true
         },
         {
@@ -5298,7 +5298,7 @@
           "query": "znajdź wszystkie pliki PDF większe niż 10MB",
           "command": "find .",
           "source": "cache_exact",
-          "elapsed_ms": 0.056,
+          "elapsed_ms": 0.027,
           "cached": true
         },
         {
@@ -5307,7 +5307,7 @@
           "query": "pokaż historię ostatnich 10 commitów",
           "command": "git log --oneline -n 10",
           "source": "cache_exact",
-          "elapsed_ms": 0.015,
+          "elapsed_ms": 0.026,
           "cached": true
         },
         {
@@ -5316,7 +5316,7 @@
           "query": "wyszukaj w Google 'python tutorial'",
           "command": "xdg-open 'https://www.google.com/search?q=w Google'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
@@ -5325,7 +5325,7 @@
           "query": "pokaż wszystkie uruchomione kontenery Docker",
           "command": "docker ps",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.025,
           "cached": true
         },
         {
@@ -5334,16 +5334,16 @@
           "query": "otwórz stronę https://github.com",
           "command": "xdg-open 'https://github.com'",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.023,
           "cached": true
         },
         {
           "round": 3,
           "domain": "api",
           "query": "sprawdź kod HTTP serwera https://example.com",
-          "command": "xdg-open 'https://example.com'",
+          "command": "curl -o /dev/null -s -w '%{http_code}' https://example.com",
           "source": "cache_exact",
-          "elapsed_ms": 0.014,
+          "elapsed_ms": 0.027,
           "cached": true
         },
         {
@@ -5352,7 +5352,7 @@
           "query": "uruchom playbook Ansible deploy.yml",
           "command": "ansible-playbook deploy.yml",
           "source": "cache_exact",
-          "elapsed_ms": 0.013,
+          "elapsed_ms": 0.024,
           "cached": true
         },
         {
@@ -5361,27 +5361,27 @@
           "query": "wyodrębnij audio z film.mkv do mp3",
           "command": "ffmpeg -i film.mkv -vn -acodec libmp3lame audio.mp3",
           "source": "cache_exact",
-          "elapsed_ms": 0.02,
+          "elapsed_ms": 0.025,
           "cached": true
         }
       ],
       "cache_stats": {
         "total_queries": 96,
         "cache_hits": 64,
-        "llm_calls": 11,
-        "template_hits": 21,
+        "llm_calls": 15,
+        "template_hits": 17,
         "similarity_hits": 0,
         "total_saved_ms": 0.0,
         "cached_entries": 32,
         "hit_rate_pct": 66.7
       },
       "summary": {
-        "round1_avg_ms": 232.844,
-        "round3_avg_ms": 0.017,
-        "speedup_factor": 13696.7,
+        "round1_avg_ms": 759.595,
+        "round3_avg_ms": 0.021,
+        "speedup_factor": 36171.2,
         "cache_hit_rate_pct": 66.7,
         "cached_entries": 32,
-        "total_time_saved_ms": 7450.4
+        "total_time_saved_ms": 24306.3
       }
     }
   }
