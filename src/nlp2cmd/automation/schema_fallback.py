@@ -163,33 +163,80 @@ class SchemaFallback:
             svc = ctx.service_config
             create_cfg = svc.get("create_key", {})
             if create_cfg and create_cfg.get("button_selector"):
+                steps: list[dict[str, Any]] = []
+
+                steps.append({"action": "echo", "params": {"text": (
+                    "🔑 Nie znaleziono istniejącego klucza.\n"
+                    "   Próbuję utworzyć nowy klucz API..."
+                )}})
+
+                # 0. Dismiss cookie consent banners that block interaction
+                steps.append({
+                    "action": "dismiss_overlay",
+                    "params": {},
+                    "description": "Zamknij banery cookie/consent",
+                })
+
+                # 1. Click page-level "Create" button to open modal
                 btn_selector = create_cfg["button_selector"]
-                # Extract text from selector for text-based click (more SPA-safe)
-                # e.g. "button:has-text('Create')" → text="Create"
                 btn_text = None
                 if "has-text(" in btn_selector:
                     m = re.search(r"has-text\(['\"](.+?)['\"]\)", btn_selector)
                     if m:
                         btn_text = m.group(1)
-                click_params: dict[str, Any] = {"timeout": 15000, "retries": 3}
+                open_params: dict[str, Any] = {"timeout": 15000, "retries": 3}
                 if btn_text:
-                    click_params["text"] = btn_text
+                    open_params["text"] = btn_text
                 else:
-                    click_params["selector"] = btn_selector
+                    open_params["selector"] = btn_selector
+                steps.append({"action": "click", "params": open_params})
+                steps.append({"action": "wait", "params": {"ms": 1500}})
+
+                # 2. Fill form fields (e.g. Name = "nlp2cmd")
+                form_fields = create_cfg.get("form_fields", {})
+                for _fname, field_cfg in form_fields.items():
+                    if field_cfg.get("default"):
+                        steps.append({
+                            "action": "type_text",
+                            "params": {
+                                "selector": field_cfg["selector"],
+                                "text": field_cfg["default"],
+                            },
+                            "description": f"Wypełnij pole: {_fname}",
+                        })
+                steps.append({"action": "wait", "params": {"ms": 500}})
+
+                # 3. Click submit button inside modal
+                submit_sel = create_cfg.get("submit_selector", btn_selector)
+                steps.append({
+                    "action": "click",
+                    "params": {"selector": submit_sel, "timeout": 30000},
+                    "description": "Kliknij Create w formularzu",
+                })
+
+                # 4. Extract key IMMEDIATELY (key reveal dialog may auto-close)
+                #    extract_key auto-copies found keys to clipboard via JS
+                steps.append({"action": "wait", "params": {"ms": 1000}})
+                steps.append({"action": "extract_key", "params": ctx.failed_params})
+
+                # 5. Fallback: check clipboard (extract_key copies found keys)
+                steps.append({"action": "check_clipboard", "params": {
+                    "key_pattern": svc.get("key_pattern", ""),
+                    "env_var": svc.get("env_var", ""),
+                }})
+
+                # 6. Save to .env
+                steps.append({"action": "save_env", "params": {
+                    "var_name": svc.get("env_var", "API_KEY"),
+                    "value": "$extracted_key",
+                    "file": ".env",
+                }})
+
                 return FallbackResult(
                     success=True,
                     strategy="rule_based",
-                    message="No existing key found — attempting to create new key",
-                    replacement_steps=[
-                        {"action": "echo", "params": {"text": (
-                            "🔑 Nie znaleziono istniejącego klucza.\n"
-                            "   Próbuję utworzyć nowy klucz API..."
-                        )}},
-                        {"action": "wait", "params": {"ms": 2000}},
-                        {"action": "click", "params": click_params},
-                        {"action": "wait", "params": {"ms": 3000}},
-                        {"action": "extract_key", "params": ctx.failed_params},
-                    ],
+                    message="No existing key found — filling form and creating new key",
+                    replacement_steps=steps,
                 )
 
         # prompt_secret failed (user didn't provide key) → try clipboard

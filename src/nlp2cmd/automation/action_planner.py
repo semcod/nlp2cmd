@@ -1019,11 +1019,11 @@ class ActionPlanner:
         if vector_plan:
             # Quality check: vector plan must be detailed enough (minimum 12 drawing steps)
             drawing_steps = [s for s in vector_plan.steps if s.action.startswith('draw_')]
-            if len(drawing_steps) >= 8:  # Require at least 8 drawing steps
+            if len(drawing_steps) >= 12:  # Require at least 12 drawing steps for quality
                 log.info("[ActionPlanner] Using vector DB plan with %d drawing steps", len(drawing_steps))
                 return vector_plan
             else:
-                log.info("[ActionPlanner] Vector DB plan too simple (%d steps), trying LLM", len(drawing_steps))
+                log.info("[ActionPlanner] Vector DB plan too simple (%d steps, need 12+), using LLM", len(drawing_steps))
                 # Fall through to LLM generation
 
         # --- Tier 3: LLM-generated drawing plan ---
@@ -1215,7 +1215,23 @@ class ActionPlanner:
             # Simple heuristic for fixing trailing commas in lists/dicts
             raw = re.sub(r",(\s*[\}\]])", r"\1", raw)
 
-            steps_data = json.loads(raw)
+            try:
+                steps_data = json.loads(raw)
+            except json.JSONDecodeError:
+                # Attempt to fix truncated JSON list
+                if raw.strip().startswith("[") and not raw.strip().endswith("]"):
+                    # Find last complete object
+                    last_brace = raw.rfind("}")
+                    if last_brace != -1:
+                        raw = raw[:last_brace+1] + "]"
+                        try:
+                            steps_data = json.loads(raw)
+                        except json.JSONDecodeError:
+                            raise
+                    else:
+                        raise
+                else:
+                    raise
             if not isinstance(steps_data, list) or len(steps_data) < 2:
                 log.warning("Canvas LLM returned invalid plan")
                 return None
@@ -1415,24 +1431,58 @@ class ActionPlanner:
             
             # Extract object description from query
             obj_match = re.search(
-                r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*\$)",
+                r"(?:narysuj|rysuj|namaluj|maluj|naszkicuj|draw|paint|sketch)\s+(.+?)(?:\s+na\s+|\s+w\s+|\s*$)",
                 text,
             )
             search_query = obj_match.group(1).strip() if obj_match else text
             search_query = re.sub(r"\s*https?://\S+", "", search_query).strip()
             
-            # Search vector database
-            log.info("[ActionPlanner] Searching vector DB for: %s", search_query)
-            results = store.search(search_query, n_results=3, min_confidence=0.6)
             
-            if not results:
+            # Search vector database
+            log.info("[ActionPlanner] Searching vector DB for raw query: '%s'", search_query)
+            
+            best_pattern = None
+            confidence = 0.0
+            
+            # 1. First try exact/fuzzy match on tags (helps with non-English queries)
+            query_lower = search_query.lower()
+            
+            # More robust stemming for Polish
+            base_query = query_lower
+            for suffix in ["a", "ek", "kiem", "ka", "y", "iego"]:
+                if query_lower.endswith(suffix) and len(query_lower) > 3:
+                    base_query = query_lower[:-len(suffix)]
+                    break
+                    
+            log.debug("[ActionPlanner] Tag matching bases: %s, %s", query_lower, base_query)
+                
+            all_patterns = store.list_patterns()
+            for p_name in all_patterns:
+                p = store.get_pattern(p_name)
+                if p:
+                    # Check tags and name
+                    if base_query in p.tags or query_lower in p.tags or base_query == p.name or query_lower == p.name:
+                        best_pattern = p
+                        confidence = 0.95
+                        log.info("[ActionPlanner] Vector DB exact tag match: %s", p.name)
+                        break
+            
+            # 2. Fallback to semantic search
+            if not best_pattern:
+                results = store.search(search_query, n_results=3, min_confidence=0.85)
+                if results:
+                    # If the semantic score is very low, let's not trust it
+                    if results[0][1] >= 0.6:
+                        best_pattern, confidence = results[0]
+                        log.info("[ActionPlanner] Vector DB semantic match: %s (confidence: %.2f)", 
+                                 best_pattern.name, confidence)
+                    else:
+                        log.debug("[ActionPlanner] Vector DB match %s too low confidence: %.2f", 
+                                  results[0][0].name, results[0][1])
+
+            if not best_pattern:
                 log.debug("No matching patterns in vector DB")
                 return None
-            
-            # Use best match
-            best_pattern, confidence = results[0]
-            log.info("[ActionPlanner] Vector DB match: %s (confidence: %.2f)", 
-                     best_pattern.name, confidence)
             
             # Build ActionPlan from pattern steps
             steps: list[ActionStep] = [
@@ -1555,7 +1605,23 @@ class ActionPlanner:
         raw = re.sub(r"\s*```$", "", raw)
 
         try:
-            steps_data = json.loads(raw)
+            try:
+                steps_data = json.loads(raw)
+            except json.JSONDecodeError:
+                # Attempt to fix truncated JSON list
+                if raw.strip().startswith("[") and not raw.strip().endswith("]"):
+                    # Find last complete object
+                    last_brace = raw.rfind("}")
+                    if last_brace != -1:
+                        raw = raw[:last_brace+1] + "]"
+                        try:
+                            steps_data = json.loads(raw)
+                        except json.JSONDecodeError:
+                            raise
+                    else:
+                        raise
+                else:
+                    raise
         except json.JSONDecodeError:
             log.warning("Failed to parse LLM response as JSON")
             return None

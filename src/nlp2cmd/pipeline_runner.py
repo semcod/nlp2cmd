@@ -2998,6 +2998,40 @@ class PipelineRunner:
             if last_err:
                 raise last_err
 
+        elif action == "dismiss_overlay":
+            # Try to dismiss cookie consent banners and overlay dialogs
+            _debug("dismiss_overlay: scanning for overlay buttons")
+            dismissed = False
+            # Common cookie/consent button texts
+            dismiss_texts = ["Accept", "Decline", "OK", "Got it", "Close",
+                             "Akceptuję", "Zamknij", "Zgadzam się"]
+            for txt in dismiss_texts:
+                try:
+                    btn = page.get_by_text(txt, exact=True).first
+                    if btn.is_visible(timeout=500):
+                        btn.click(timeout=2000)
+                        _debug(f"dismiss_overlay: clicked '{txt}'")
+                        dismissed = True
+                        page.wait_for_timeout(300)
+                        break
+                except Exception:
+                    continue
+            # Fallback: try common CSS selectors for close buttons
+            if not dismissed:
+                for sel in ["[aria-label='Close']", "[aria-label='Dismiss']",
+                            "button.close", ".cookie-banner button", "[id*='cookie'] button"]:
+                    try:
+                        el = page.query_selector(sel)
+                        if el and el.is_visible():
+                            el.click()
+                            _debug(f"dismiss_overlay: clicked selector '{sel}'")
+                            dismissed = True
+                            break
+                    except Exception:
+                        continue
+            if not dismissed:
+                _debug("dismiss_overlay: no overlay found to dismiss")
+
         elif action == "type_text":
             page.fill(params.get("selector", "input"), params.get("text", ""))
 
@@ -4132,6 +4166,14 @@ class PipelineRunner:
             service = params.get("service", "")
             console.print(f"  [dim]🔍 Szukam klucza API na stronie {service}...[/dim]")
 
+            def _copy_key_to_clipboard(found_key: str) -> None:
+                """Copy extracted key to clipboard via JS."""
+                try:
+                    page.evaluate(f"navigator.clipboard.writeText({json.dumps(found_key)})")
+                    _debug(f"extract_key: copied key to clipboard ({len(found_key)} chars)")
+                except Exception as ce:
+                    _debug(f"extract_key: clipboard copy failed: {ce}")
+
             # Strategy 1: Search DOM elements
             for sel in key_selectors:
                 try:
@@ -4143,9 +4185,11 @@ class PipelineRunner:
                         if key_pattern and re.match(key_pattern, text):
                             console.print(f"  [green]✓[/green] Znaleziono klucz w DOM ({sel}, {len(text)} znaków)")
                             _debug(f"extract_key: found via DOM selector {sel}")
+                            _copy_key_to_clipboard(text)
                             return text
                         if not key_pattern and re.match(r'^[a-zA-Z0-9_\-]{20,}$', text):
                             console.print(f"  [green]✓[/green] Potencjalny klucz w DOM ({sel}, {len(text)} znaków)")
+                            _copy_key_to_clipboard(text)
                             return text
                 except Exception:
                     continue
@@ -4172,6 +4216,7 @@ class PipelineRunner:
                     if match:
                         found = match.group(0)
                         console.print(f"  [green]✓[/green] Klucz znaleziony w treści strony ({len(found)} znaków)")
+                        _copy_key_to_clipboard(found)
                         return found
             except Exception as e:
                 _debug(f"extract_key: body scan failed: {e}")
