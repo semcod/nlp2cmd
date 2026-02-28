@@ -2523,16 +2523,18 @@ class PipelineRunner:
         elif action == "draw_filled_ellipse":
             rx = float(params.get("rx", 10))
             ry = float(params.get("ry", 10))
+            offset = params.get("offset", [0, 0])
+            rotation = float(params.get("rotation", 0))
             try:
                 page.evaluate(f'''() => {{
                     const canvas = document.querySelector('canvas');
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
-                    const cx = rect.width / 2;
-                    const cy = rect.height / 2;
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
                     ctx.beginPath();
-                    ctx.ellipse(cx, cy, {rx}, {ry}, 0, 0, 2 * Math.PI);
+                    ctx.ellipse(cx, cy, {rx}, {ry}, {rotation}, 0, 2 * Math.PI);
                     if (window.colors && window.colors.foreground) {{
                         ctx.fillStyle = window.colors.foreground;
                     }}
@@ -2541,6 +2543,217 @@ class PipelineRunner:
                 page.wait_for_timeout(200)
             except Exception as e:
                 _debug(f"Draw filled ellipse error: {e}")
+
+        elif action == "draw_filled_circle":
+            radius = float(params.get("radius", 10))
+            offset = params.get("offset", [0, 0])
+            try:
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, {radius}, 0, 2 * Math.PI);
+                    if (window.colors && window.colors.foreground) {{
+                        ctx.fillStyle = window.colors.foreground;
+                    }}
+                    ctx.fill();
+                }}''')
+                page.wait_for_timeout(200)
+            except Exception as e:
+                _debug(f"Draw filled circle error: {e}")
+
+        elif action == "draw_filled_rectangle":
+            w = float(params.get("width", 50))
+            h = float(params.get("height", 50))
+            offset = params.get("offset", [0, 0])
+            try:
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
+                    if (window.colors && window.colors.foreground) {{
+                        ctx.fillStyle = window.colors.foreground;
+                    }}
+                    ctx.fillRect(cx - {w}/2, cy - {h}/2, {w}, {h});
+                }}''')
+                page.wait_for_timeout(200)
+            except Exception as e:
+                _debug(f"Draw filled rectangle error: {e}")
+
+        elif action == "draw_arc":
+            radius = float(params.get("radius", 50))
+            start_angle = float(params.get("start_angle", 0))
+            end_angle = float(params.get("end_angle", 3.14159))
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", False)
+            line_width = float(params.get("line_width", 2))
+            try:
+                fill_js = "true" if fill else "false"
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, {radius}, {start_angle}, {end_angle});
+                    ctx.lineWidth = {line_width};
+                    if (window.colors && window.colors.foreground) {{
+                        ctx.strokeStyle = window.colors.foreground;
+                        ctx.fillStyle = window.colors.foreground;
+                    }}
+                    if ({fill_js}) {{
+                        ctx.lineTo(cx, cy);
+                        ctx.closePath();
+                        ctx.fill();
+                    }} else {{
+                        ctx.stroke();
+                    }}
+                }}''')
+                page.wait_for_timeout(200)
+            except Exception as e:
+                _debug(f"Draw arc error: {e}")
+
+        elif action == "draw_polygon":
+            points = params.get("points", [])
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", True)
+            line_width = float(params.get("line_width", 2))
+            if len(points) >= 3:
+                try:
+                    fill_js = "true" if fill else "false"
+                    pts_js = ",".join(f"[{p[0]},{p[1]}]" for p in points)
+                    page.evaluate(f'''() => {{
+                        const canvas = document.querySelector('canvas');
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) return;
+                        const rect = canvas.getBoundingClientRect();
+                        const cx = rect.width / 2 + {offset[0]};
+                        const cy = rect.height / 2 + {offset[1]};
+                        const pts = [{pts_js}];
+                        ctx.beginPath();
+                        ctx.moveTo(cx + pts[0][0], cy + pts[0][1]);
+                        for (let i = 1; i < pts.length; i++) {{
+                            ctx.lineTo(cx + pts[i][0], cy + pts[i][1]);
+                        }}
+                        ctx.closePath();
+                        ctx.lineWidth = {line_width};
+                        if (window.colors && window.colors.foreground) {{
+                            ctx.strokeStyle = window.colors.foreground;
+                            ctx.fillStyle = window.colors.foreground;
+                        }}
+                        if ({fill_js}) {{
+                            ctx.fill();
+                        }} else {{
+                            ctx.stroke();
+                        }}
+                    }}''')
+                    page.wait_for_timeout(200)
+                except Exception as e:
+                    _debug(f"Draw polygon error: {e}")
+
+        elif action == "draw_bezier":
+            curves = params.get("curves", [])
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", False)
+            close = params.get("close", False)
+            line_width = float(params.get("line_width", 2))
+            if curves:
+                try:
+                    fill_js = "true" if fill else "false"
+                    close_js = "true" if close else "false"
+                    curves_js = json.dumps(curves)
+                    page.evaluate(f'''() => {{
+                        const canvas = document.querySelector('canvas');
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) return;
+                        const rect = canvas.getBoundingClientRect();
+                        const cx = rect.width / 2 + {offset[0]};
+                        const cy = rect.height / 2 + {offset[1]};
+                        const curves = {curves_js};
+                        ctx.beginPath();
+                        for (let i = 0; i < curves.length; i++) {{
+                            const c = curves[i];
+                            if (c.type === 'M' || (i === 0 && !c.type)) {{
+                                ctx.moveTo(cx + c.x, cy + c.y);
+                            }} else if (c.type === 'L') {{
+                                ctx.lineTo(cx + c.x, cy + c.y);
+                            }} else if (c.type === 'Q') {{
+                                ctx.quadraticCurveTo(cx + c.cpx, cy + c.cpy, cx + c.x, cy + c.y);
+                            }} else if (c.type === 'C') {{
+                                ctx.bezierCurveTo(cx + c.cp1x, cy + c.cp1y, cx + c.cp2x, cy + c.cp2y, cx + c.x, cy + c.y);
+                            }}
+                        }}
+                        if ({close_js}) ctx.closePath();
+                        ctx.lineWidth = {line_width};
+                        if (window.colors && window.colors.foreground) {{
+                            ctx.strokeStyle = window.colors.foreground;
+                            ctx.fillStyle = window.colors.foreground;
+                        }}
+                        if ({fill_js}) {{
+                            ctx.fill();
+                        }} else {{
+                            ctx.stroke();
+                        }}
+                    }}''')
+                    page.wait_for_timeout(200)
+                except Exception as e:
+                    _debug(f"Draw bezier error: {e}")
+
+        elif action == "draw_svg_path":
+            path_d = params.get("d", "")
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", True)
+            scale = float(params.get("scale", 1.0))
+            line_width = float(params.get("line_width", 2))
+            if path_d:
+                try:
+                    fill_js = "true" if fill else "false"
+                    page.evaluate(f'''() => {{
+                        const canvas = document.querySelector('canvas');
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) return;
+                        const rect = canvas.getBoundingClientRect();
+                        const cx = rect.width / 2 + {offset[0]};
+                        const cy = rect.height / 2 + {offset[1]};
+                        ctx.save();
+                        ctx.translate(cx, cy);
+                        ctx.scale({scale}, {scale});
+                        const p = new Path2D('{path_d}');
+                        ctx.lineWidth = {line_width} / {scale};
+                        if (window.colors && window.colors.foreground) {{
+                            ctx.strokeStyle = window.colors.foreground;
+                            ctx.fillStyle = window.colors.foreground;
+                        }}
+                        if ({fill_js}) {{
+                            ctx.fill(p);
+                        }} else {{
+                            ctx.stroke(p);
+                        }}
+                        ctx.restore();
+                    }}''')
+                    page.wait_for_timeout(200)
+                except Exception as e:
+                    _debug(f"Draw SVG path error: {e}")
+
+        elif action == "set_line_width":
+            width = float(params.get("width", 2))
+            try:
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) ctx.lineWidth = {width};
+                }}''')
+            except Exception as e:
+                _debug(f"Set line width error: {e}")
 
         elif action == "draw_rectangle":
             w = float(params.get("width", 50))
@@ -2852,16 +3065,18 @@ class PipelineRunner:
         elif action == "draw_filled_ellipse":
             rx = float(params.get("rx", 10))
             ry = float(params.get("ry", 10))
+            offset = params.get("offset", [0, 0])
+            rotation = float(params.get("rotation", 0))
             try:
                 page.evaluate(f'''() => {{
                     const canvas = document.querySelector('canvas');
                     const ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     const rect = canvas.getBoundingClientRect();
-                    const cx = rect.width / 2;
-                    const cy = rect.height / 2;
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
                     ctx.beginPath();
-                    ctx.ellipse(cx, cy, {rx}, {ry}, 0, 0, 2 * Math.PI);
+                    ctx.ellipse(cx, cy, {rx}, {ry}, {rotation}, 0, 2 * Math.PI);
                     if (window.colors && window.colors.foreground) {{
                         ctx.fillStyle = window.colors.foreground;
                     }}
@@ -2870,6 +3085,217 @@ class PipelineRunner:
                 page.wait_for_timeout(200)
             except Exception as e:
                 _debug(f"Draw filled ellipse error: {e}")
+
+        elif action == "draw_filled_circle":
+            radius = float(params.get("radius", 10))
+            offset = params.get("offset", [0, 0])
+            try:
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, {radius}, 0, 2 * Math.PI);
+                    if (window.colors && window.colors.foreground) {{
+                        ctx.fillStyle = window.colors.foreground;
+                    }}
+                    ctx.fill();
+                }}''')
+                page.wait_for_timeout(200)
+            except Exception as e:
+                _debug(f"Draw filled circle error: {e}")
+
+        elif action == "draw_filled_rectangle":
+            w = float(params.get("width", 50))
+            h = float(params.get("height", 50))
+            offset = params.get("offset", [0, 0])
+            try:
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
+                    if (window.colors && window.colors.foreground) {{
+                        ctx.fillStyle = window.colors.foreground;
+                    }}
+                    ctx.fillRect(cx - {w}/2, cy - {h}/2, {w}, {h});
+                }}''')
+                page.wait_for_timeout(200)
+            except Exception as e:
+                _debug(f"Draw filled rectangle error: {e}")
+
+        elif action == "draw_arc":
+            radius = float(params.get("radius", 50))
+            start_angle = float(params.get("start_angle", 0))
+            end_angle = float(params.get("end_angle", 3.14159))
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", False)
+            line_width = float(params.get("line_width", 2))
+            try:
+                fill_js = "true" if fill else "false"
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const cx = rect.width / 2 + {offset[0]};
+                    const cy = rect.height / 2 + {offset[1]};
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, {radius}, {start_angle}, {end_angle});
+                    ctx.lineWidth = {line_width};
+                    if (window.colors && window.colors.foreground) {{
+                        ctx.strokeStyle = window.colors.foreground;
+                        ctx.fillStyle = window.colors.foreground;
+                    }}
+                    if ({fill_js}) {{
+                        ctx.lineTo(cx, cy);
+                        ctx.closePath();
+                        ctx.fill();
+                    }} else {{
+                        ctx.stroke();
+                    }}
+                }}''')
+                page.wait_for_timeout(200)
+            except Exception as e:
+                _debug(f"Draw arc error: {e}")
+
+        elif action == "draw_polygon":
+            points = params.get("points", [])
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", True)
+            line_width = float(params.get("line_width", 2))
+            if len(points) >= 3:
+                try:
+                    fill_js = "true" if fill else "false"
+                    pts_js = ",".join(f"[{p[0]},{p[1]}]" for p in points)
+                    page.evaluate(f'''() => {{
+                        const canvas = document.querySelector('canvas');
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) return;
+                        const rect = canvas.getBoundingClientRect();
+                        const cx = rect.width / 2 + {offset[0]};
+                        const cy = rect.height / 2 + {offset[1]};
+                        const pts = [{pts_js}];
+                        ctx.beginPath();
+                        ctx.moveTo(cx + pts[0][0], cy + pts[0][1]);
+                        for (let i = 1; i < pts.length; i++) {{
+                            ctx.lineTo(cx + pts[i][0], cy + pts[i][1]);
+                        }}
+                        ctx.closePath();
+                        ctx.lineWidth = {line_width};
+                        if (window.colors && window.colors.foreground) {{
+                            ctx.strokeStyle = window.colors.foreground;
+                            ctx.fillStyle = window.colors.foreground;
+                        }}
+                        if ({fill_js}) {{
+                            ctx.fill();
+                        }} else {{
+                            ctx.stroke();
+                        }}
+                    }}''')
+                    page.wait_for_timeout(200)
+                except Exception as e:
+                    _debug(f"Draw polygon error: {e}")
+
+        elif action == "draw_bezier":
+            curves = params.get("curves", [])
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", False)
+            close = params.get("close", False)
+            line_width = float(params.get("line_width", 2))
+            if curves:
+                try:
+                    fill_js = "true" if fill else "false"
+                    close_js = "true" if close else "false"
+                    curves_js = json.dumps(curves)
+                    page.evaluate(f'''() => {{
+                        const canvas = document.querySelector('canvas');
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) return;
+                        const rect = canvas.getBoundingClientRect();
+                        const cx = rect.width / 2 + {offset[0]};
+                        const cy = rect.height / 2 + {offset[1]};
+                        const curves = {curves_js};
+                        ctx.beginPath();
+                        for (let i = 0; i < curves.length; i++) {{
+                            const c = curves[i];
+                            if (c.type === 'M' || (i === 0 && !c.type)) {{
+                                ctx.moveTo(cx + c.x, cy + c.y);
+                            }} else if (c.type === 'L') {{
+                                ctx.lineTo(cx + c.x, cy + c.y);
+                            }} else if (c.type === 'Q') {{
+                                ctx.quadraticCurveTo(cx + c.cpx, cy + c.cpy, cx + c.x, cy + c.y);
+                            }} else if (c.type === 'C') {{
+                                ctx.bezierCurveTo(cx + c.cp1x, cy + c.cp1y, cx + c.cp2x, cy + c.cp2y, cx + c.x, cy + c.y);
+                            }}
+                        }}
+                        if ({close_js}) ctx.closePath();
+                        ctx.lineWidth = {line_width};
+                        if (window.colors && window.colors.foreground) {{
+                            ctx.strokeStyle = window.colors.foreground;
+                            ctx.fillStyle = window.colors.foreground;
+                        }}
+                        if ({fill_js}) {{
+                            ctx.fill();
+                        }} else {{
+                            ctx.stroke();
+                        }}
+                    }}''')
+                    page.wait_for_timeout(200)
+                except Exception as e:
+                    _debug(f"Draw bezier error: {e}")
+
+        elif action == "draw_svg_path":
+            path_d = params.get("d", "")
+            offset = params.get("offset", [0, 0])
+            fill = params.get("fill", True)
+            scale = float(params.get("scale", 1.0))
+            line_width = float(params.get("line_width", 2))
+            if path_d:
+                try:
+                    fill_js = "true" if fill else "false"
+                    page.evaluate(f'''() => {{
+                        const canvas = document.querySelector('canvas');
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) return;
+                        const rect = canvas.getBoundingClientRect();
+                        const cx = rect.width / 2 + {offset[0]};
+                        const cy = rect.height / 2 + {offset[1]};
+                        ctx.save();
+                        ctx.translate(cx, cy);
+                        ctx.scale({scale}, {scale});
+                        const p = new Path2D('{path_d}');
+                        ctx.lineWidth = {line_width} / {scale};
+                        if (window.colors && window.colors.foreground) {{
+                            ctx.strokeStyle = window.colors.foreground;
+                            ctx.fillStyle = window.colors.foreground;
+                        }}
+                        if ({fill_js}) {{
+                            ctx.fill(p);
+                        }} else {{
+                            ctx.stroke(p);
+                        }}
+                        ctx.restore();
+                    }}''')
+                    page.wait_for_timeout(200)
+                except Exception as e:
+                    _debug(f"Draw SVG path error: {e}")
+
+        elif action == "set_line_width":
+            width = float(params.get("width", 2))
+            try:
+                page.evaluate(f'''() => {{
+                    const canvas = document.querySelector('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) ctx.lineWidth = {width};
+                }}''')
+            except Exception as e:
+                _debug(f"Set line width error: {e}")
 
         elif action == "draw_rectangle":
             w = float(params.get("width", 50))
