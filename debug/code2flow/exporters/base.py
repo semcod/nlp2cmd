@@ -308,17 +308,77 @@ class LLMPromptExporter:
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lines))
     
-    def _trace_flow(self, func_name: str, func, result: AnalysisResult, depth: int) -> str:
-        """Trace execution flow from a function."""
-        if depth <= 0 or not func.calls:
+    def _trace_flow(self, func_name: str, func, result: AnalysisResult, depth: int, visited: set = None) -> str:
+        """Trace execution flow from a function with cycle detection."""
+        if visited is None:
+            visited = set()
+        
+        # Prevent cycles
+        if func_name in visited or depth <= 0:
             return func_name.split('.')[-1]
         
-        lines = [func_name.split('.')[-1]]
-        for called in func.calls[:3]:
-            called_func = result.functions.get(called)
-            if called_func:
-                sub_flow = self._trace_flow(called, called_func, result, depth - 1)
-                for line in sub_flow.split('\n'):
-                    lines.append("  → " + line)
+        visited.add(func_name)
+        
+        short_name = func_name.split('.')[-1]
+        module = func_name.rsplit('.', 1)[0] if '.' in func_name else 'root'
+        
+        lines = [f"{short_name} [{module}"]
+        
+        # Group calls by module to show cross-module flows
+        calls_by_module = {}
+        for called in func.calls[:5]:  # Top 5 calls
+            called_module = called.rsplit('.', 1)[0] if '.' in called else 'root'
+            if called_module not in calls_by_module:
+                calls_by_module[called_module] = []
+            calls_by_module[called_module].append(called)
+        
+        # Show calls, prioritizing cross-module flows
+        shown = 0
+        for called_module, calls in sorted(calls_by_module.items(), 
+                                           key=lambda x: x[0] != module):  # Cross-module first
+            for called in calls[:2]:  # Max 2 per module
+                if shown >= 3:
+                    break
+                    
+                called_func = result.functions.get(called)
+                if called_func and called not in visited:
+                    sub_flow = self._trace_flow(called, called_func, result, depth - 1, visited.copy())
+                    called_short = called.split('.')[-1]
+                    cross_indicator = " →" if called_module != module else ""
+                    lines.append(f"  └─{cross_indicator}> {called_short}")
+                    
+                    # Add indented sub-flow
+                    sub_lines = sub_flow.split('\n')[1:]  # Skip first line (already shown)
+                    for sub_line in sub_lines[:3]:  # Limit depth display
+                        lines.append("    " + sub_line)
+                    shown += 1
         
         return '\n'.join(lines)
+    
+    def _analyze_call_patterns(self, result: AnalysisResult) -> dict:
+        """Analyze common call patterns in the codebase."""
+        patterns = {
+            'entry_to_api': [],
+            'api_to_internal': [],
+            'cross_module': [],
+        }
+        
+        # Find entry points that call public API
+        for ep_name in result.entry_points[:20]:
+            ep_func = result.functions.get(ep_name)
+            if not ep_func:
+                continue
+                
+            for called in ep_func.calls:
+                called_func = result.functions.get(called)
+                if called_func:
+                    # Check if called function is public API
+                    if not called_func.name.startswith('_'):
+                        patterns['entry_to_api'].append((ep_name, called))
+                    # Check if cross-module
+                    ep_module = ep_name.rsplit('.', 1)[0] if '.' in ep_name else ''
+                    called_module = called.rsplit('.', 1)[0] if '.' in called else ''
+                    if ep_module != called_module:
+                        patterns['cross_module'].append((ep_name, called))
+        
+        return patterns
