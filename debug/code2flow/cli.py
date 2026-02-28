@@ -79,6 +79,12 @@ Examples:
     )
     
     parser.add_argument(
+        '--no-png',
+        action='store_true',
+        help='Skip automatic PNG generation from Mermaid files'
+    )
+    
+    parser.add_argument(
         '--version',
         action='version',
         version='%(prog)s 0.1.0'
@@ -161,27 +167,30 @@ def main():
             if args.verbose:
                 print(f"  - Mermaid: {output_dir / '*.mmd'}")
                 
-            # Auto-generate PNG from Mermaid files
-            try:
-                from .mermaid_generator import generate_pngs
-                png_count = generate_pngs(output_dir, output_dir)
-                if args.verbose and png_count > 0:
-                    print(f"  - PNG: {png_count} files generated")
-            except ImportError:
-                # Fallback to external script
+            # Auto-generate PNG from Mermaid files (unless disabled)
+            if not args.no_png:
                 try:
-                    import subprocess
-                    script_path = Path(__file__).parent.parent / 'mermaid_to_png.py'
-                    if script_path.exists():
-                        result = subprocess.run([
-                            'python', str(script_path), 
-                            '--batch', str(output_dir), str(output_dir)
-                        ], capture_output=True, text=True, timeout=60)
-                        if result.returncode == 0 and args.verbose:
-                            print(f"  - PNG: {output_dir / '*.png'}")
-                except Exception as png_error:
-                    if args.verbose:
-                        print(f"  - PNG: Skipped (install with: make install-mermaid)")
+                    from .mermaid_generator import generate_pngs
+                    png_count = generate_pngs(output_dir, output_dir)
+                    if args.verbose and png_count > 0:
+                        print(f"  - PNG: {png_count} files generated")
+                except ImportError:
+                    # Fallback to external script
+                    try:
+                        import subprocess
+                        script_path = Path(__file__).parent.parent / 'mermaid_to_png.py'
+                        if script_path.exists():
+                            result = subprocess.run([
+                                'python', str(script_path), 
+                                '--batch', str(output_dir), str(output_dir)
+                            ], capture_output=True, text=True, timeout=60)
+                            if result.returncode == 0 and args.verbose:
+                                print(f"  - PNG: {output_dir / '*.png'}")
+                    except Exception as png_error:
+                        if args.verbose:
+                            print(f"  - PNG: Skipped (install with: make install-mermaid)")
+            elif args.verbose:
+                print(f"  - PNG: Skipped (--no-png)")
                 
         if 'png' in formats:
             visualizer = GraphVisualizer(result)
