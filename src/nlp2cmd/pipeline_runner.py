@@ -2022,27 +2022,55 @@ class PipelineRunner:
             return None
 
         if action == "prompt_secret":
-            # Delegate to existing safe prompt handler via the normal executor
-            class _Tmp:
-                pass
-
-            tmp_step = _Tmp()
-            tmp_step.action = "prompt_secret"
-            tmp_step.params = params
-            tmp_step.store_as = getattr(step, "store_as", None)
-            tmp_step.retry_on_fail = getattr(step, "retry_on_fail", False)
-            return self._execute_plan_step(page=None, context=None, step=tmp_step, variables=variables)
+            from nlp2cmd.automation.action_planner import ActionStep as _ActionStep
+            _step = _ActionStep(
+                action="prompt_secret",
+                params=params,
+                store_as=getattr(step, "store_as", None),
+                retry_on_fail=getattr(step, "retry_on_fail", False),
+            )
+            console = Console()
+            console.print(f"  [dim]🔐 prompt_secret: env_var={params.get('env_var', '?')}[/dim]")
+            result = self._execute_plan_step(page=None, context=None, step=_step, variables=variables)
+            if result:
+                console.print(f"  [dim]   ✓ Otrzymano klucz ({len(result)} znaków)[/dim]")
+                # Validate key pattern if available in variables
+                key_pattern = variables.get("_key_pattern", "")
+                if key_pattern:
+                    import re as _re
+                    if _re.match(key_pattern, result):
+                        console.print(f"  [green]   ✓ Klucz pasuje do wzorca: {key_pattern}[/green]")
+                    else:
+                        console.print(f"  [yellow]   ⚠ Klucz NIE pasuje do wzorca: {key_pattern}[/yellow]")
+                        console.print(f"  [yellow]     Kontynuuję mimo to — sprawdź poprawność klucza.[/yellow]")
+            else:
+                console.print(f"  [red]   ✗ Nie otrzymano klucza![/red]")
+            return result
 
         if action == "save_env":
-            class _Tmp:
-                pass
+            from nlp2cmd.automation.action_planner import ActionStep as _ActionStep
+            _step = _ActionStep(
+                action="save_env",
+                params=params,
+                store_as=getattr(step, "store_as", None),
+                retry_on_fail=getattr(step, "retry_on_fail", False),
+            )
+            console = Console()
+            var_name = params.get("var_name", "?")
+            file_path = params.get("file", ".env")
+            console.print(f"  [dim]💾 save_env: {var_name} → {file_path}[/dim]")
+            result = self._execute_plan_step(page=None, context=None, step=_step, variables=variables)
+            if result:
+                console.print(f"  [green]   ✓ Zapisano {var_name} ({len(result)} znaków) do {file_path}[/green]")
+            else:
+                console.print(f"  [red]   ✗ Nie zapisano wartości![/red]")
+            return result
 
-            tmp_step = _Tmp()
-            tmp_step.action = "save_env"
-            tmp_step.params = params
-            tmp_step.store_as = getattr(step, "store_as", None)
-            tmp_step.retry_on_fail = getattr(step, "retry_on_fail", False)
-            return self._execute_plan_step(page=None, context=None, step=tmp_step, variables=variables)
+        if action == "verify_env":
+            console = Console()
+            var_name = params.get("var_name", "UNKNOWN")
+            file_path = params.get("file", ".env")
+            return self._do_verify_env(console, var_name, file_path, variables)
 
         raise ValueError(f"Unsupported desktop plan action: {action}")
 
@@ -2218,57 +2246,130 @@ class PipelineRunner:
         if has_desktop_steps:
             variables: dict[str, str] = {}
             results_log: list[dict] = []
+            # Store key pattern in variables so validation steps can access it
+            try:
+                from nlp2cmd.automation.action_planner import KNOWN_SERVICES
+                for _svc_name, _svc in KNOWN_SERVICES.items():
+                    if _svc_name in (getattr(plan, "query", "") or "").lower():
+                        variables["_key_pattern"] = _svc.get("key_pattern", "")
+                        break
+            except Exception:
+                pass
+
+            # Critical actions — if these fail, abort the plan
+            _CRITICAL_ACTIONS = frozenset({"prompt_secret", "save_env"})
+            plan_aborted = False
 
             try:
                 for i, step in enumerate(plan.steps):
                     step_desc = step.description or step.action
-                    console.print(f"\n[cyan]▸ Krok {i+1}/{len(plan.steps)}:[/cyan] {step_desc}")
+                    step_start = time.time()
+                    console.print(
+                        f"\n[cyan]▸ Krok {i+1}/{len(plan.steps)}:[/cyan] {step_desc}"
+                        f"  [dim]({step.action})[/dim]"
+                    )
+                    if step.params:
+                        # Log params (mask secrets)
+                        safe_params = {
+                            k: ("***" if "secret" in k or "password" in k or "key" in k.lower() else v)
+                            for k, v in step.params.items()
+                        }
+                        _debug(f"  params: {safe_params}")
 
                     try:
                         result = self._execute_desktop_plan_step(step, variables)
+                        elapsed_ms = (time.time() - step_start) * 1000
+
                         if step.store_as and result:
                             variables[step.store_as] = result
                             console.print(f"  [green]✓[/green] Zapisano jako ${step.store_as}")
                         else:
                             console.print(f"  [green]✓[/green] OK")
 
+                        console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
+
                         results_log.append({
                             "step": i + 1,
                             "action": step.action,
                             "status": "ok",
                             "stored": step.store_as,
+                            "elapsed_ms": round(elapsed_ms),
                         })
 
                     except Exception as e:
+                        elapsed_ms = (time.time() - step_start) * 1000
                         console.print(f"  [red]✗[/red] Błąd: {e}")
+                        console.print(f"  [dim]   ⏱ {elapsed_ms:.0f}ms[/dim]")
+
                         results_log.append({
                             "step": i + 1,
                             "action": step.action,
                             "status": "error",
                             "error": str(e),
+                            "elapsed_ms": round(elapsed_ms),
                         })
 
                         if step.retry_on_fail:
-                            console.print(f"  [yellow]↻[/yellow] Retry...")
+                            console.print("  [yellow]↻[/yellow] Retry...")
                             time.sleep(1)
                             try:
                                 result = self._execute_desktop_plan_step(step, variables)
                                 if step.store_as and result:
                                     variables[step.store_as] = result
-                                console.print(f"  [green]✓[/green] Retry OK")
+                                console.print("  [green]✓[/green] Retry OK")
                                 results_log[-1]["status"] = "ok_retry"
                             except Exception as e2:
                                 console.print(f"  [red]✗[/red] Retry failed: {e2}")
                                 results_log[-1]["status"] = "failed"
 
+                        # Abort on critical failures
+                        if step.action in _CRITICAL_ACTIONS and results_log[-1]["status"] == "failed":
+                            console.print(
+                                f"\n  [bold red]⛔ PRZERWANIE PLANU[/bold red]: "
+                                f"Krytyczny krok '{step.action}' nie powiódł się.\n"
+                                f"  [dim]Nie ma sensu kontynuować — napraw problem i uruchom ponownie.[/dim]"
+                            )
+                            plan_aborted = True
+                            break
+
+                    # Status assessment after each step
+                    if step.action == "prompt_secret" and step.store_as:
+                        val = variables.get(step.store_as, "")
+                        if not val:
+                            console.print(
+                                f"  [bold yellow]⚠ STATUS[/bold yellow]: "
+                                f"Brak klucza po kroku prompt_secret. "
+                                f"Następny krok (save_env) nie będzie miał co zapisać."
+                            )
+                    if step.action == "check_session":
+                        session_val = variables.get("session_status", "")
+                        if session_val == "needs_login":
+                            console.print(
+                                f"  [bold yellow]⚠ STATUS[/bold yellow]: "
+                                f"Niezalogowany. Zaloguj się w przeglądarce, potem kontynuuj."
+                            )
+
                 if video_recorder and video_recorder.is_recording:
-                    video_recorder.stop_recording(None)  # discard dummy path since no playwright
+                    video_recorder.stop_recording(None)
                     console.print("[dim]⚠️ Uwaga: Nagrywanie wideo jest niedostępne w trybie 'desktop' (wymaga pełnego silnika Playwright).[/dim]")
+
+                # Final summary
+                ok_count = sum(1 for r in results_log if r["status"] in ("ok", "ok_retry"))
+                fail_count = sum(1 for r in results_log if r["status"] == "failed")
+                err_count = sum(1 for r in results_log if r["status"] == "error")
+                total_ms = sum(r.get("elapsed_ms", 0) for r in results_log)
+
+                console.print(f"\n[bold]📊 Podsumowanie planu:[/bold]")
+                console.print(
+                    f"  Kroki: {ok_count}✓ {err_count}⚠ {fail_count}✗ "
+                    f"z {len(plan.steps)} | Czas: {total_ms/1000:.1f}s"
+                    f"{' | PRZERWANY' if plan_aborted else ''}"
+                )
 
                 result_data = {"steps": results_log, "variables": variables, "mode": "desktop"}
 
                 return RunnerResult(
-                    success=all(r["status"] != "failed" for r in results_log),
+                    success=(not plan_aborted and all(r["status"] != "failed" for r in results_log)),
                     kind="action_plan",
                     data=result_data,
                 )
@@ -2912,14 +3013,18 @@ class PipelineRunner:
             value = params.get("value", "")
             file_path = params.get("file", ".env")
 
+            _debug(f"save_env: var_name={var_name}, file={file_path}, value_src={'$ref' if isinstance(value, str) and value.startswith('$') else 'direct'}")
+
             # Resolve $variable references
             if isinstance(value, str) and value.startswith("$"):
-                value = variables.get(value[1:], "")
+                ref_name = value[1:]
+                value = variables.get(ref_name, "")
+                _debug(f"save_env: resolved ${ref_name} → {'<empty>' if not value else f'{len(value)} chars'}")
 
             if not value:
-                raise ValueError(f"Brak wartości do zapisania dla {var_name}")
+                raise ValueError(f"Brak wartości do zapisania dla {var_name} (zmienna nie zawiera klucza)")
 
-            env_path = Path(file_path)
+            env_path = Path(file_path).resolve()
             existing = env_path.read_text() if env_path.exists() else ""
 
             if f"{var_name}=" in existing:
@@ -2929,47 +3034,100 @@ class PipelineRunner:
                     existing,
                 )
                 env_path.write_text(updated)
+                _debug(f"save_env: updated existing {var_name} in {env_path}")
             else:
                 with open(env_path, "a") as f:
                     f.write(f'\n{var_name}="{value}"\n')
+                _debug(f"save_env: appended {var_name} to {env_path}")
+
+            # Also set in current process environment so subsequent steps can use it
+            os.environ[var_name] = value
+            _debug(f"save_env: os.environ[{var_name}] set ({len(value)} chars)")
+
+            # Verify the file was actually written
+            try:
+                verify_content = env_path.read_text()
+                if f'{var_name}="{value}"' not in verify_content and f"{var_name}={value}" not in verify_content:
+                    console.print(f"  [red]⚠ Weryfikacja: {var_name} NIE znaleziony w {env_path}![/red]")
+                else:
+                    _debug(f"save_env: verified {var_name} present in {env_path}")
+            except Exception as ve:
+                _debug(f"save_env: verification read failed: {ve}")
 
             return value
 
         elif action == "prompt_secret":
             prompt = str(params.get("prompt") or "Enter secret: ")
             env_var = str(params.get("env_var") or "").strip()
+            key_pattern = str(params.get("key_pattern") or "").strip()
 
-            # Non-interactive support: allow providing secret via environment.
-            if env_var:
-                try:
-                    env_val = os.environ.get(env_var)
-                except Exception:
-                    env_val = None
-                if isinstance(env_val, str) and env_val.strip():
-                    return env_val.strip()
-
-            # If stdin is not a TTY, prompting will fail (EOF). Provide a clear instruction.
+            # Check if stdin is a TTY
             try:
                 is_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
             except Exception:
                 is_tty = False
+
+            # Non-interactive fallback: use env var ONLY when no TTY available
             if not is_tty:
                 if env_var:
+                    try:
+                        env_val = os.environ.get(env_var)
+                    except Exception:
+                        env_val = None
+                    if isinstance(env_val, str) and env_val.strip():
+                        _debug(f"prompt_secret: non-TTY, using {env_var} from environment")
+                        console.print(f"  [dim]ℹ Użyto istniejącej wartości {env_var} z os.environ (brak TTY)[/dim]")
+                        return env_val.strip()
                     raise ValueError(
                         f"prompt_secret requires interactive TTY or {env_var} in environment"
                     )
                 raise ValueError("prompt_secret requires interactive TTY")
 
-            try:
-                import getpass
-                val = getpass.getpass(prompt)
-            except Exception:
-                # Fallback (echoed) if getpass is unavailable
-                val = console.input(prompt)
+            # Interactive mode — always prompt the user
+            _debug(f"prompt_secret: TTY available, prompting user (env_var={env_var})")
 
-            val = str(val or "").strip()
-            if not val:
-                raise ValueError("No secret provided")
+            max_attempts = 3
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    import getpass
+                    val = getpass.getpass(prompt)
+                except Exception:
+                    val = console.input(prompt)
+
+                val = str(val or "").strip()
+                if not val:
+                    if attempt < max_attempts:
+                        console.print(f"  [yellow]⚠ Pusty klucz. Próba {attempt}/{max_attempts}. Spróbuj ponownie.[/yellow]")
+                        continue
+                    raise ValueError("Nie podano klucza API (3 próby)")
+
+                # Validate against key pattern if provided
+                if key_pattern:
+                    if re.match(key_pattern, val):
+                        _debug(f"prompt_secret: key matches pattern {key_pattern}")
+                        console.print(f"  [green]✓ Klucz pasuje do wzorca {key_pattern}[/green]")
+                    else:
+                        console.print(f"  [yellow]⚠ Klucz nie pasuje do oczekiwanego wzorca: {key_pattern}[/yellow]")
+                        if attempt < max_attempts:
+                            console.print(f"  [yellow]  Próba {attempt}/{max_attempts}. Wklej poprawny klucz lub Enter aby użyć tego.[/yellow]")
+                            try:
+                                retry = getpass.getpass("  Wklej ponownie (lub Enter aby zachować): ")
+                            except Exception:
+                                retry = ""
+                            if retry.strip():
+                                val = retry.strip()
+                                if re.match(key_pattern, val):
+                                    console.print(f"  [green]✓ Klucz pasuje do wzorca[/green]")
+                                    break
+                            else:
+                                console.print(f"  [dim]  Używam podanego klucza mimo niezgodności wzorca.[/dim]")
+                                break
+                        else:
+                            console.print(f"  [dim]  Używam podanego klucza mimo niezgodności wzorca.[/dim]")
+
+                _debug(f"prompt_secret: got {len(val)} chars")
+                return val
+
             return val
 
         elif action == "screenshot":
@@ -3519,6 +3677,11 @@ class PipelineRunner:
                 _debug(f"check_session error: {e}")
                 return "error"
 
+        elif action == "verify_env":
+            var_name = params.get("var_name", "UNKNOWN")
+            file_path = params.get("file", ".env")
+            return self._do_verify_env(console, var_name, file_path, variables)
+
         elif action == "echo":
             msg = params.get("message", "") or params.get("text", "")
             if msg:
@@ -3539,6 +3702,66 @@ class PipelineRunner:
             else:
                 resolved[k] = v
         return resolved
+
+    def _do_verify_env(self, console, var_name: str, file_path: str, variables: dict) -> str:
+        """Verify that an env var was saved to .env and is accessible.
+
+        Returns a status string: 'verified', 'file_missing', 'var_missing', 'error'.
+        """
+        env_path = Path(file_path).resolve()
+        _debug(f"verify_env: checking {var_name} in {env_path}")
+
+        results = []
+
+        # 1. Check .env file exists and contains the variable
+        if env_path.exists():
+            try:
+                content = env_path.read_text()
+                if f"{var_name}=" in content:
+                    # Extract value (handle quoted and unquoted)
+                    match = re.search(rf'{re.escape(var_name)}="?([^"\n]*)"?', content)
+                    val_preview = ""
+                    if match:
+                        val = match.group(1)
+                        val_preview = f"{val[:8]}...{val[-4:]}" if len(val) > 16 else f"{len(val)} chars"
+                    console.print(f"  [green]✓[/green] Plik {env_path}: {var_name} znaleziony ({val_preview})")
+                    results.append("file_ok")
+                else:
+                    console.print(f"  [red]✗[/red] Plik {env_path}: {var_name} NIE znaleziony!")
+                    results.append("var_missing")
+            except Exception as e:
+                console.print(f"  [red]✗[/red] Błąd odczytu {env_path}: {e}")
+                results.append("error")
+        else:
+            console.print(f"  [red]✗[/red] Plik {env_path} nie istnieje!")
+            results.append("file_missing")
+
+        # 2. Check os.environ
+        env_val = os.environ.get(var_name)
+        if env_val:
+            console.print(f"  [green]✓[/green] os.environ[{var_name}]: ustawiony ({len(env_val)} znaków)")
+            results.append("env_ok")
+        else:
+            console.print(f"  [yellow]![/yellow] os.environ[{var_name}]: nie ustawiony (wymaga: source {file_path})")
+            results.append("env_missing")
+
+        # 3. Check variables dict (pipeline internal)
+        api_key_val = variables.get("api_key", "")
+        if api_key_val:
+            _debug(f"verify_env: pipeline variable 'api_key' has {len(api_key_val)} chars")
+        else:
+            _debug("verify_env: pipeline variable 'api_key' is empty")
+
+        # 4. Final summary
+        if "file_ok" in results:
+            console.print(f"\n  [bold green]✅ WERYFIKACJA POZYTYWNA[/bold green]: {var_name} zapisany w {file_path}")
+            console.print(f"  [dim]   Aby załadować w bieżącej sesji: source {file_path}[/dim]")
+            console.print(f"  [dim]   Aby sprawdzić: echo ${var_name}[/dim]")
+            return "verified"
+        else:
+            console.print(f"\n  [bold red]❌ WERYFIKACJA NEGATYWNA[/bold red]: {var_name} nie został zapisany!")
+            console.print(f"  [dim]   Status: {', '.join(results)}[/dim]")
+            return "failed"
 
     def _llm_suggest_article_selectors(self, page) -> Optional[dict[str, list[str]]]:
         try:

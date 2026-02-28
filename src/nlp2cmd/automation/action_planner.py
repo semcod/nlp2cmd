@@ -619,13 +619,15 @@ class ActionPlanner:
                 },
                 description=f"Zapisz {svc['env_var']} do .env",
             ))
+            # --- Step 5: Verify the save ---
             steps.append(ActionStep(
-                action="echo",
-                params={"text": (
-                    f"✅ Klucz {svc['env_var']} zapisany do .env\n"
-                    f"   Aby załadować: source .env"
-                )},
-                description="Potwierdzenie zapisu",
+                action="verify_env",
+                params={
+                    "var_name": svc["env_var"],
+                    "file": ".env",
+                },
+                description=f"Weryfikacja zapisu {svc['env_var']}",
+                store_as="verify_status",
             ))
 
         log.info(
@@ -871,6 +873,7 @@ class ActionPlanner:
             params={
                 "prompt": f"Wklej nowo utworzony klucz API {svc_name} (nie będzie wyświetlany): ",
                 "env_var": svc["env_var"],
+                "key_pattern": svc.get("key_pattern", ""),
             },
             description=f"Wprowadź nowy klucz API {svc_name}",
             store_as="api_key",
@@ -916,6 +919,7 @@ class ActionPlanner:
             params={
                 "prompt": f"Wklej klucz API dla {svc_name} (nie będzie wyświetlany): ",
                 "env_var": svc["env_var"],
+                "key_pattern": svc.get("key_pattern", ""),
             },
             description=f"Wprowadź klucz API {svc_name}",
             store_as="api_key",
