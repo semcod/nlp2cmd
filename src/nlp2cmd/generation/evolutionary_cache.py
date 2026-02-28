@@ -933,19 +933,40 @@ class EvolutionaryCache:
         self._init_multistep()
         from nlp2cmd.automation.action_planner import ActionPlan
 
+        # In dynamic schema mode, prefer regenerating schemas rather than
+        # reusing fuzzy/similar cached plans (they can be stale or cross-service).
+        dynamic_schema_only = os.environ.get(
+            "NLP2CMD_DYNAMIC_SCHEMA_ONLY", "",
+        ).strip().lower() in {"1", "true", "yes", "on"}
+
+        # Infer intended service from the query (if any)
+        wanted_service = None
+        try:
+            from nlp2cmd.automation.action_planner import ActionPlanner
+            wanted_service, _ = ActionPlanner._resolve_service(str(query or "").lower())
+        except Exception:
+            wanted_service = None
+
         fp = fingerprint(query)
 
         # Tier 1a: exact
         if fp in self._multistep_exact:
             entry = self._multistep_exact[fp]
+            if wanted_service and entry.get("service") and entry.get("service") != wanted_service:
+                return None
             entry["hits"] = entry.get("hits", 0) + 1
             self._save_multistep()
             return ActionPlan.from_cache_dict(entry["plan"])
+
+        if dynamic_schema_only:
+            return None
 
         # Tier 1b: fuzzy
         ffp = fuzzy_fingerprint(query)
         if ffp in self._multistep_fuzzy:
             entry = self._multistep_fuzzy[ffp]
+            if wanted_service and entry.get("service") and entry.get("service") != wanted_service:
+                return None
             entry["hits"] = entry.get("hits", 0) + 1
             self._save_multistep()
             return ActionPlan.from_cache_dict(entry["plan"])
@@ -962,6 +983,15 @@ class EvolutionaryCache:
                     best_plan = entry["plan"]
 
             if best_plan:
+                # Find entry for best_plan to check service.
+                try:
+                    for _fp, entry in self._multistep_exact.items():
+                        if entry.get("plan") == best_plan:
+                            if wanted_service and entry.get("service") and entry.get("service") != wanted_service:
+                                return None
+                            break
+                except Exception:
+                    pass
                 return ActionPlan.from_cache_dict(best_plan)
 
         return None
@@ -973,11 +1003,20 @@ class EvolutionaryCache:
         fp = fingerprint(query)
         ffp = fuzzy_fingerprint(query)
 
+        # Infer service name for cross-service cache safety
+        svc_name = None
+        try:
+            from nlp2cmd.automation.action_planner import ActionPlanner
+            svc_name, _ = ActionPlanner._resolve_service(str(query or "").lower())
+        except Exception:
+            svc_name = None
+
         entry = {
             "original_query": query,
             "plan": plan.to_cache_dict(),
             "created": time.time(),
             "hits": 0,
+            "service": svc_name,
         }
 
         self._multistep_exact[fp] = entry

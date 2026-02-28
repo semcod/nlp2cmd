@@ -171,9 +171,17 @@ class StepValidator:
     def validate_pre_prompt_secret(self, variables: dict, params: dict) -> ValidationResult:
         """Validate before prompting for secret — check if already available."""
         env_var = params.get("env_var", "")
+        key_pattern = str(params.get("key_pattern") or "").strip()
         # Check if key is already in environment
         existing = os.environ.get(env_var, "")
         if existing:
+            if key_pattern and not re.match(key_pattern, existing.strip()):
+                return ValidationResult(
+                    True,
+                    f"{env_var} already set but does NOT match expected pattern",
+                    details={"already_set_invalid": True, "length": len(existing)},
+                    suggestion="Existing value looks stale/invalid — will prompt user",
+                )
             return ValidationResult(
                 True, f"{env_var} already set in environment ({len(existing)} chars)",
                 details={"already_set": True, "length": len(existing)},

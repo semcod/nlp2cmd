@@ -1,78 +1,171 @@
 import ast
+import os
 import json
 from collections import defaultdict
 
-# -----------------------------
-#  Analyzer
-# -----------------------------
+# =====================================================
+# helpers
+# =====================================================
+
+def module_name_from_path(root, path):
+    rel = os.path.relpath(path, root)
+    rel = rel.replace(os.sep, ".")
+    if rel.endswith(".py"):
+        rel = rel[:-3]
+    if rel.endswith(".__init__"):
+        rel = rel[:-9]
+    return rel
+
+
+# =====================================================
+# main extractor
+# =====================================================
 
 class FlowExtractor(ast.NodeVisitor):
 
-    def __init__(self):
+    def __init__(self, module_name):
+        self.module = module_name
+
         self.cfg = defaultdict(list)
         self.node_map = {}
+        self.node_function = {}
+
         self.node_id = 0
-
         self.current_node = None
-        self.current_function = "__global__"
 
-        # function -> entry node
+        self.class_stack = []
+        self.current_function = None
+
+        # fq_function -> entry node
         self.function_entries = {}
 
-        # call graph: caller -> set(callee)
+        # fq_caller -> set(fq_callee)
         self.call_graph = defaultdict(set)
 
-        # per function CFG roots
-        self.function_cfg_roots = defaultdict(list)
+        # local name -> fully qualified name (imports)
+        self.imports = {}
 
-    # -------- basic graph --------
+    # -------------------------------------------------
+
+    def fq_name(self, name):
+        parts = []
+        if self.class_stack:
+            parts.append(self.class_stack[-1])
+        parts.append(name)
+        return f"{self.module}." + ".".join(parts)
+
+    # -------------------------------------------------
 
     def new_node(self, label):
         nid = self.node_id
-        self.node_map[nid] = label
         self.node_id += 1
+        self.node_map[nid] = label
+        self.node_function[nid] = self.current_function
         return nid
 
     def connect(self, a, b):
         if a is not None:
             self.cfg[a].append(b)
 
-    # -------- functions --------
+    # =================================================
+    # imports
+    # =================================================
+
+    def visit_Import(self, node):
+        for n in node.names:
+            asname = n.asname or n.name
+            self.imports[asname] = n.name
+
+    def visit_ImportFrom(self, node):
+        if node.module:
+            for n in node.names:
+                asname = n.asname or n.name
+                self.imports[asname] = node.module + "." + n.name
+
+    # =================================================
+    # class / function
+    # =================================================
+
+    def visit_ClassDef(self, node):
+        self.class_stack.append(node.name)
+        for stmt in node.body:
+            self.visit(stmt)
+        self.class_stack.pop()
 
     def visit_FunctionDef(self, node):
-        prev_func = self.current_function
+
+        prev_fn = self.current_function
         prev_node = self.current_node
 
-        self.current_function = node.name
+        fq = self.fq_name(node.name)
+        self.current_function = fq
 
-        entry = self.new_node(f"FUNC:{node.name}")
-        self.function_entries[node.name] = entry
-        self.function_cfg_roots[node.name].append(entry)
-
+        entry = self.new_node(f"FUNC:{fq}")
+        self.function_entries[fq] = entry
         self.current_node = entry
 
         for stmt in node.body:
             self.visit(stmt)
 
-        self.current_function = prev_func
+        self.current_function = prev_fn
         self.current_node = prev_node
 
-    # -------- calls --------
+    # =================================================
+    # calls
+    # =================================================
+
+    def resolve_call_name(self, node):
+
+        # foo()
+        if isinstance(node, ast.Name):
+            name = node.id
+            if name in self.imports:
+                return self.imports[name]
+            return self.module + "." + name
+
+        # a.b.c()
+        if isinstance(node, ast.Attribute):
+            parts = []
+            cur = node
+            while isinstance(cur, ast.Attribute):
+                parts.append(cur.attr)
+                cur = cur.value
+
+            if isinstance(cur, ast.Name):
+                parts.append(cur.id)
+                parts.reverse()
+
+                root = parts[0]
+                rest = parts[1:]
+
+                if root in self.imports:
+                    return self.imports[root] + "." + ".".join(rest)
+
+                return self.module + "." + ".".join(parts)
+
+        return None
 
     def visit_Call(self, node):
+
         nid = self.new_node("CALL")
         self.connect(self.current_node, nid)
 
-        if isinstance(node.func, ast.Name):
-            callee = node.func.id
-            self.call_graph[self.current_function].add(callee)
+        if self.current_function:
+            callee = self.resolve_call_name(node.func)
+            if callee:
+                self.call_graph[self.current_function].add(callee)
 
+        prev = self.current_node
         self.current_node = nid
         self.generic_visit(node)
+        self.current_node = prev
 
-    # -------- decisions --------
+    # =================================================
+    # decisions
+    # =================================================
 
     def visit_If(self, node):
+
         nid = self.new_node("IF")
         self.connect(self.current_node, nid)
 
@@ -81,15 +174,20 @@ class FlowExtractor(ast.NodeVisitor):
 
         for stmt in node.body:
             self.visit(stmt)
-
         for stmt in node.orelse:
             self.visit(stmt)
 
         self.current_node = parent
 
-    # -------- generic --------
+    # =================================================
+    # generic
+    # =================================================
 
     def generic_visit(self, node):
+
+        if isinstance(node, (ast.If, ast.Call, ast.FunctionDef, ast.ClassDef)):
+            return super().generic_visit(node)
+
         nid = self.new_node(type(node).__name__)
         self.connect(self.current_node, nid)
 
@@ -99,17 +197,56 @@ class FlowExtractor(ast.NodeVisitor):
         self.current_node = prev
 
 
-# -----------------------------
-#  CFG paths
-# -----------------------------
+# =====================================================
+# project-level merge
+# =====================================================
 
-def enumerate_paths(cfg, start, max_depth=30):
+class ProjectModel:
+
+    def __init__(self):
+        self.cfg = defaultdict(list)
+        self.node_map = {}
+        self.node_function = {}
+
+        self.function_entries = {}
+        self.call_graph = defaultdict(set)
+
+        self._node_offset = 0
+
+    def merge(self, fe: FlowExtractor):
+
+        mapping = {}
+
+        for old_id in fe.node_map:
+            new_id = old_id + self._node_offset
+            mapping[old_id] = new_id
+            self.node_map[new_id] = fe.node_map[old_id]
+            self.node_function[new_id] = fe.node_function[old_id]
+
+        for a, bs in fe.cfg.items():
+            for b in bs:
+                self.cfg[mapping[a]].append(mapping[b])
+
+        for fn, entry in fe.function_entries.items():
+            self.function_entries[fn] = mapping[entry]
+
+        for k, v in fe.call_graph.items():
+            self.call_graph[k].update(v)
+
+        self._node_offset += len(fe.node_map)
+
+
+# =====================================================
+# paths
+# =====================================================
+
+def enumerate_paths(cfg, start, max_depth=40):
+
     paths = []
 
     def dfs(n, path, depth):
         if depth > max_depth:
             return
-
         path.append(n)
 
         if n not in cfg or not cfg[n]:
@@ -124,29 +261,28 @@ def enumerate_paths(cfg, start, max_depth=30):
     return paths
 
 
-# -----------------------------
-#  Interprocedural composition
-# -----------------------------
+def build_interprocedural_decision_paths(model: ProjectModel):
 
-def build_interprocedural_decision_paths(fe: FlowExtractor):
-
-    # local decision paths per function
     local_paths = {}
 
-    for fn, entry in fe.function_entries.items():
-        all_paths = enumerate_paths(fe.cfg, entry)
+    for fn, entry in model.function_entries.items():
+        all_paths = enumerate_paths(model.cfg, entry)
 
         filtered = []
         for p in all_paths:
-            filtered.append([
-                fe.node_map[n] for n in p
-                if fe.node_map[n] in ("IF", "CALL")
-            ])
+            seq = []
+            for n in p:
+                lbl = model.node_map[n]
+                if lbl == "IF":
+                    seq.append("IF")
+                elif lbl == "CALL":
+                    seq.append("CALL")
+            filtered.append(seq)
 
         local_paths[fn] = filtered
 
-    # recursively expand CALL nodes
-    def expand_path(fn, path, depth=0, max_depth=5):
+    def expand(fn, path, depth=0, max_depth=4):
+
         if depth > max_depth:
             return [path]
 
@@ -154,77 +290,86 @@ def build_interprocedural_decision_paths(fe: FlowExtractor):
 
         for token in path:
             if token == "CALL":
+
                 expanded = []
+                callees = list(model.call_graph.get(fn, []))
 
-                for callee in fe.call_graph.get(fn, []):
-                    for sub in local_paths.get(callee, [[]]):
-                        for r in results:
-                            for e in expand_path(callee, sub, depth + 1):
-                                expanded.append(r + [f"CALL:{callee}"] + e)
-
-                if expanded:
-                    results = expanded
+                if not callees:
+                    for r in results:
+                        expanded.append(r + ["CALL:?"])
                 else:
-                    results = [r + ["CALL:?"] for r in results]
-
+                    for callee in callees:
+                        sub = local_paths.get(callee, [[]])
+                        for sp in sub:
+                            for r in results:
+                                for e in expand(callee, sp, depth + 1):
+                                    expanded.append(
+                                        r + [f"CALL:{callee}"] + e
+                                    )
+                results = expanded
             else:
-                results = [r + [token] for r in results]
+                results = [r + ["IF"] for r in results]
 
         return results
 
-    all_composed = []
+    composed = []
 
     for fn, paths in local_paths.items():
-        if fn == "__global__":
-            continue
         for p in paths:
-            for ep in expand_path(fn, p):
-                all_composed.append({
+            for ep in expand(fn, p):
+                composed.append({
                     "entry_function": fn,
                     "decision_path": ep
                 })
 
-    return all_composed
+    return composed
 
 
-# -----------------------------
-#  MAIN
-# -----------------------------
+# =====================================================
+# main
+# =====================================================
 
-def generate(source):
+def analyze_project(src_root):
 
-    with open(source, "r", encoding="utf8") as f:
-        code = f.read()
+    project = ProjectModel()
 
-    tree = ast.parse(code)
+    for root, _, files in os.walk(src_root):
+        for f in files:
+            if not f.endswith(".py"):
+                continue
 
-    fe = FlowExtractor()
-    fe.visit(tree)
+            path = os.path.join(root, f)
+            module = module_name_from_path(src_root, path)
 
-    # call graph
-    call_graph_out = {
-        k: list(v) for k, v in fe.call_graph.items()
-    }
+            try:
+                with open(path, "r", encoding="utf8") as fh:
+                    code = fh.read()
 
-    # interprocedural decision paths
-    composed_paths = build_interprocedural_decision_paths(fe)
+                tree = ast.parse(code, filename=path)
+                fe = FlowExtractor(module)
+                fe.visit(tree)
+                project.merge(fe)
 
-    # raw cfg (optional, useful for debug)
-    cfg_out = {
-        "nodes": fe.node_map,
-        "edges": fe.cfg,
-        "function_entries": fe.function_entries
-    }
+            except Exception as e:
+                print("[WARN]", path, e)
 
     with open("out_call_graph.json", "w", encoding="utf8") as f:
-        json.dump(call_graph_out, f, indent=2)
+        json.dump(
+            {k: sorted(v) for k, v in project.call_graph.items()},
+            f, indent=2
+        )
 
     with open("out_interprocedural_decision_paths.json", "w", encoding="utf8") as f:
-        json.dump(composed_paths, f, indent=2)
+        json.dump(
+            build_interprocedural_decision_paths(project),
+            f, indent=2
+        )
 
-    with open("out_cfg_full.json", "w", encoding="utf8") as f:
-        json.dump(cfg_out, f, indent=2)
+    with open("out_function_entries.json", "w", encoding="utf8") as f:
+        json.dump(project.function_entries, f, indent=2)
+
+    print("Done.")
 
 
 if __name__ == "__main__":
-    generate("input.py")
+    analyze_project("src/app2schema")

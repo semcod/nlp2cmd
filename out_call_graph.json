@@ -1,0 +1,166 @@
+{
+  "cli.main": [
+    "app2schema.extract.extract_appspec_to_file",
+    "app2schema.extract.extract_schema_to_file",
+    "cli.str",
+    "click.UsageError",
+    "click.echo"
+  ],
+  "extract.validate_app2schema_export": [
+    "extract.ValueError",
+    "extract.payload.get",
+    "extract.sources.items"
+  ],
+  "extract.validate_appspec": [
+    "extract.ValueError",
+    "extract.list",
+    "extract.payload.get",
+    "extract.sorted",
+    "extract.str",
+    "extract.validator.iter_errors",
+    "jsonschema.Draft7Validator"
+  ],
+  "extract._slugify": [
+    "extract.txt.encode",
+    "re.sub",
+    "unicodedata.normalize"
+  ],
+  "extract._SimpleDomParser.__init__": [
+    "extract.super"
+  ],
+  "extract._SimpleDomParser.handle_starttag": [
+    "extract.self._stack.append",
+    "extract.tag.lower"
+  ],
+  "extract._SimpleDomParser.handle_endtag": [
+    "extract.self._stack.pop",
+    "extract.self.elements.append"
+  ],
+  "extract._extract_web_dom_schema": [
+    "extract.ImportError",
+    "extract._SimpleDomParser",
+    "extract._slugify",
+    "extract.add_command",
+    "extract.attrs.get",
+    "extract.browser.close",
+    "extract.browser.new_page",
+    "extract.dict",
+    "extract.el.get",
+    "extract.http.close",
+    "extract.http.get",
+    "extract.p.chromium.launch",
+    "extract.p.read_text",
+    "extract.p.resolve",
+    "extract.page.content",
+    "extract.page.goto",
+    "extract.page.wait_for_timeout",
+    "extract.parser.feed",
+    "extract.resp.raise_for_status",
+    "extract.set",
+    "extract.str",
+    "extract.title.lower",
+    "httpx.Client",
+    "nlp2cmd.schema_extraction.CommandParameter",
+    "nlp2cmd.schema_extraction.CommandSchema",
+    "nlp2cmd.schema_extraction.ExtractedSchema",
+    "pathlib.Path",
+    "playwright.sync_api.sync_playwright"
+  ],
+  "extract.add_command": [
+    "extract.commands.append",
+    "extract.seen_names.add"
+  ],
+  "extract.App2SchemaResult.to_appspec_dict": [
+    "extract.actions.append",
+    "extract.cmd.metadata.get",
+    "extract.dict",
+    "extract.extracted.metadata.get",
+    "extract.list",
+    "extract.schema_payload.setdefault",
+    "extract.self.metadata.get",
+    "extract.str"
+  ],
+  "extract._normalize_base_url": [
+    "extract.url.rstrip"
+  ],
+  "extract.discover_openapi_spec_url": [
+    "extract._normalize_base_url",
+    "extract.http.close",
+    "extract.http.get",
+    "extract.resp.headers.get",
+    "extract.resp.json",
+    "httpx.Client"
+  ],
+  "extract.extract_schema": [
+    "extract.App2SchemaResult",
+    "extract.FileNotFoundError",
+    "extract.ValueError",
+    "extract._extract_web_dom_schema",
+    "extract._get_openapi_extractor",
+    "extract.discover_openapi_spec_url",
+    "extract.extract_python_package",
+    "extract.makefile_extractor.extract_from_file",
+    "extract.openapi_extractor.extract_from_file",
+    "extract.openapi_extractor.extract_from_url",
+    "extract.python_extractor.extract_from_file",
+    "extract.python_extractor.extract_from_source",
+    "extract.shell_extractor.extract_from_command",
+    "extract.shell_script_extractor.extract_from_file",
+    "extract.str",
+    "nlp2cmd.schema_extraction.MakefileExtractor",
+    "nlp2cmd.schema_extraction.PythonCodeExtractor",
+    "nlp2cmd.schema_extraction.ShellHelpExtractor",
+    "nlp2cmd.schema_extraction.ShellScriptExtractor",
+    "pathlib.Path"
+  ],
+  "extract._get_openapi_extractor": [
+    "nlp2cmd.schema_extraction.OpenAPISchemaExtractor"
+  ],
+  "extract.extract_python_package": [
+    "extract.App2SchemaResult",
+    "extract.dir_path.rglob",
+    "extract.len",
+    "extract.python_extractor.extract_from_file",
+    "extract.schemas.append",
+    "extract.sorted",
+    "extract.str"
+  ],
+  "extract.extract_appspec_to_file": [
+    "extract.dict",
+    "extract.existing.get",
+    "extract.existing_app.get",
+    "extract.extract_schema",
+    "extract.int",
+    "extract.isinstance",
+    "extract.list",
+    "extract.merged_app.setdefault",
+    "extract.merged_by_id.values",
+    "extract.new_app.get",
+    "extract.out_path.parent.mkdir",
+    "extract.out_path.read_text",
+    "extract.out_path.write_text",
+    "extract.payload.get",
+    "extract.result.to_appspec_dict",
+    "extract.str",
+    "extract.validate_appspec",
+    "json.dumps",
+    "json.loads",
+    "pathlib.Path"
+  ],
+  "extract.extract_schema_to_file": [
+    "extract.existing.get",
+    "extract.extract_schema",
+    "extract.int",
+    "extract.isinstance",
+    "extract.out_path.parent.mkdir",
+    "extract.out_path.read_text",
+    "extract.out_path.write_text",
+    "extract.payload.get",
+    "extract.result.to_export_dict",
+    "extract.str",
+    "extract.validate_app2schema_export",
+    "json.dumps",
+    "json.loads",
+    "pathlib.Path"
+  ]
+}
