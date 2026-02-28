@@ -223,7 +223,6 @@
     "json_jq_keys": "jq 'keys' {file}",
     "xargs": "xargs -I {} {command}",
     "xargs_parallel": "xargs -P {jobs} -I {} {command}",
-    
     "cat": "cat {file}",
     "cat_number": "cat -n {file}",
     "cat_multiple": "cat {files}",
@@ -260,7 +259,6 @@
     "patch_reverse": "patch -R {file} < {patchfile}",
     "tee": "tee {file}",
     "tee_append": "tee -a {file}",
-    
     "touch": "touch {file}",
     "touch_multiple": "touch {files}",
     "ln_symbolic": "ln -s {source} {link}",
@@ -285,7 +283,6 @@
     "locate": "locate {pattern}",
     "locate_ignore_case": "locate -i {pattern}",
     "updatedb": "sudo updatedb",
-    
     "rsync": "rsync -av {source} {destination}",
     "rsync_delete": "rsync -av --delete {source} {destination}",
     "rsync_remote": "rsync -avz {source} {user}@{host}:{destination}",
@@ -304,7 +301,6 @@
     "7z_extract": "7z x {archive}",
     "rar_compress": "rar a {archive} {files}",
     "unrar": "unrar x {archive}",
-    
     "htop": "htop",
     "pgrep": "pgrep {pattern}",
     "pgrep_full": "pgrep -f {pattern}",
@@ -334,7 +330,6 @@
     "strace_output": "strace -o {output} {command}",
     "ltrace": "ltrace {command}",
     "time": "time {command}",
-    
     "vmstat": "vmstat {interval}",
     "vmstat_count": "vmstat {interval} {count}",
     "iostat": "iostat {interval}",
@@ -368,7 +363,6 @@
     "at": "at {time}",
     "atq": "atq",
     "atrm": "atrm {job}",
-    
     "hostname": "hostname",
     "hostname_fqdn": "hostname -f",
     "hostname_ip": "hostname -I",
@@ -411,7 +405,6 @@
     "sudo_command": "sudo {command}",
     "sudo_user": "sudo -u {user} {command}",
     "sudo_shell": "sudo -i",
-    
     "ip_addr": "ip addr",
     "ip_addr_show": "ip addr show {interface}",
     "ip_link": "ip link",
@@ -474,7 +467,6 @@
     "nmcli_connections": "nmcli connection show",
     "nmcli_wifi_list": "nmcli device wifi list",
     "nmcli_wifi_connect": "nmcli device wifi connect {ssid} password {password}",
-    
     "apt_update": "sudo apt update",
     "apt_upgrade": "sudo apt upgrade -y",
     "apt_install": "sudo apt install -y {package}",
@@ -522,7 +514,6 @@
     "virtualenv_create": "virtualenv {name}",
     "venv_create": "python -m venv {name}",
     "venv_activate": "source {name}/bin/activate",
-    
     "env": "env",
     "printenv": "printenv",
     "printenv_var": "printenv {variable}",
@@ -541,7 +532,6 @@
     "source": "source {file}",
     "bash_script": "bash {script}",
     "sh_script": "sh {script}",
-    
     "man": "man {command}",
     "man_section": "man {section} {command}",
     "info": "info {command}",
@@ -556,7 +546,6 @@
     "shutdown_time": "sudo shutdown -h {time}",
     "shutdown_cancel": "sudo shutdown -c",
     "poweroff": "sudo poweroff",
-    
     "mount": "mount",
     "mount_device": "sudo mount {device} {mountpoint}",
     "mount_options": "sudo mount -o {options} {device} {mountpoint}",
@@ -575,7 +564,6 @@
     "blkid_device": "blkid {device}",
     "lsblk_tree": "lsblk",
     "lsblk_full": "lsblk -f",
-    
     "lscpu": "lscpu",
     "lspci": "lspci",
     "lspci_verbose": "lspci -v",
@@ -590,7 +578,6 @@
     "hdparm_test": "sudo hdparm -tT {device}",
     "smartctl": "sudo smartctl -a {device}",
     "smartctl_health": "sudo smartctl -H {device}",
-    
     "modprobe": "sudo modprobe {module}",
     "modprobe_remove": "sudo modprobe -r {module}",
     "lsmod": "lsmod",
@@ -600,7 +587,6 @@
     "sysctl_list": "sysctl -a",
     "sysctl_get": "sysctl {parameter}",
     "sysctl_set": "sudo sysctl -w {parameter}={value}",
-    
     "screen_new": "screen -S {name}",
     "screen_list": "screen -ls",
     "screen_attach": "screen -r {name}",
@@ -609,7 +595,6 @@
     "tmux_list": "tmux ls",
     "tmux_attach": "tmux attach -t {name}",
     "tmux_kill": "tmux kill-session -t {name}",
-    
     "nano": "nano {file}",
     "vim": "vim {file}",
     "vi": "vi {file}",
@@ -622,7 +607,6 @@
     "jq_pretty": "jq . {file}",
     "jq_raw": "jq -r '{filter}' {file}",
     "yq_parse": "yq '{filter}' {file}",
-    
     "column_table": "column -t {file}",
     "column_separator": "column -t -s'{separator}' {file}",
     "paste_files": "paste {file1} {file2}",
@@ -641,7 +625,6 @@
     "shuf_lines": "shuf -n {count} {file}",
     "comm": "comm {file1} {file2}",
     "cmp": "cmp {file1} {file2}",
-    
     "md5sum": "md5sum {file}",
     "md5sum_check": "md5sum -c {checksumfile}",
     "sha256sum": "sha256sum {file}",
@@ -656,7 +639,6 @@
     "hexdump": "hexdump -C {file}",
     "strings": "strings {file}",
     "strings_min": "strings -n {min_length} {file}",
-    
     "objdump": "objdump -d {file}",
     "objdump_all": "objdump -D {file}",
     "readelf": "readelf -a {file}",
@@ -668,7 +650,6 @@
     "ar_create": "ar rcs {archive} {files}",
     "ar_extract": "ar x {archive}",
     "ar_list": "ar t {archive}",
-    
     "gdb": "gdb {program}",
     "gdb_core": "gdb {program} {corefile}",
     "gdb_attach": "gdb -p {pid}",
@@ -869,5 +850,6 @@
     "config_list": "git config --list",
     "config_get": "git config {key}",
     "config_set": "git config {scope} {key} '{value}'"
-  }
+  },
+  "find_network_cameras": "nmap -sn {network_range} | grep -E 'camera|Camera|CAMERA'"
 }

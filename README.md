@@ -101,6 +101,23 @@ nlp2cmd -r "zminimalizuj wszystko"
 
 Supported API services for key extraction: OpenRouter, Anthropic, OpenAI, Groq, Mistral, DeepSeek, Together, GitHub, HuggingFace, Replicate.
 
+## Video Recording
+
+![img_10.png](img_10.png)
+
+Record entire browser automation sessions with video output:
+
+```bash
+# Full session recording (WebM format)
+nlp2cmd -r "otwórz tab w firefox wyciągnij klucz API z OpenRouter i zapisz do .env" --video webm --execute-web
+
+# Short video clips (3-10 seconds)
+nlp2cmd -r "wejdź na jspaint.app i narysuj koło" --video webm --duration 5
+```
+
+
+**Demo Recording**: [nlp2cmd-operouter-token.mp4](nlp2cmd-operouter-token.mp4) - Firefox automation with API key extraction
+
 ### Web Form Filling & Site Exploration
 
 ```bash
@@ -170,6 +187,9 @@ nlp2cmd -r "list files" --auto-confirm
 
 # Multi-step with video
 nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę" --video webm
+
+# Full session recording
+nlp2cmd -r "otwórz tab w firefox wyciągnij klucz API z OpenRouter i zapisz do .env" --video webm --execute-web
 
 # Interactive mode
 nlp2cmd --interactive

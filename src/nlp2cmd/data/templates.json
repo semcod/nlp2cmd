@@ -97,6 +97,7 @@
     "network_ip": "ip addr show",
     "network_config": "ifconfig -a",
     "network_scan": "nmap -sn {cidr}",
+    "camera_scan": "nmap -p 80,8080,554,8554,8000,8081,8082,8083,8084,8085,5000,5001,5002,5003 --open -sV {cidr} | grep -E '(camera|webcam|rtsp|dcs|foscam|hikvision|axis)'",
     "network_speed": "curl -o /dev/null -s -w '%{time_total}' {url}",
     "network_connections": "ss -tulpn",
     "disk_health": "fsck -n {device}",

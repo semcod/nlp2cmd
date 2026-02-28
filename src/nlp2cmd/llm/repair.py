@@ -230,8 +230,13 @@ class LLMRepair:
         try:
             import urllib.request
 
+            # Strip LiteLLM prefix if present (e.g. "openrouter/foo" → "foo")
+            model_name = self.model
+            if model_name.startswith("openrouter/"):
+                model_name = model_name[len("openrouter/"):]
+
             body = json.dumps({
-                "model": self.model,
+                "model": model_name,
                 "messages": [
                     {"role": "system", "content": _SYSTEM_PROMPT},
                     {"role": "user", "content": user_message},
