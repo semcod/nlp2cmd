@@ -767,6 +767,131 @@ class SessionPasswordStore:
         """Number of credentials in session cache."""
         return len(self._cache)
 
+    def diagnose_providers(
+        self,
+        providers: Optional[dict[str, dict[str, Any]]] = None,
+    ) -> list[dict[str, Any]]:
+        """Check credential availability for known API providers.
+
+        Returns a list of dicts with provider status info, sorted by availability.
+        """
+        if providers is None:
+            try:
+                from nlp2cmd.automation.service_configs import KNOWN_SERVICES
+                providers = KNOWN_SERVICES
+            except ImportError:
+                providers = {}
+
+        results: list[dict[str, Any]] = []
+        for svc_name, svc_config in sorted(providers.items()):
+            env_var = svc_config.get("env_var", "")
+            base_url = svc_config.get("base_url", "")
+            keys_url = svc_config.get("keys_url", "")
+
+            has_api_key = bool(os.environ.get(env_var, ""))
+            cred = self.get_credentials(svc_name)
+
+            has_login = bool(cred and cred.username and cred.password)
+            has_user_only = bool(cred and cred.username and not cred.password)
+
+            can_auto_login = has_login
+            can_extract_key = has_api_key or has_login
+
+            results.append({
+                "service": svc_name,
+                "base_url": base_url,
+                "keys_url": keys_url,
+                "env_var": env_var,
+                "has_api_key": has_api_key,
+                "has_login": has_login,
+                "has_user_only": has_user_only,
+                "login_source": cred.source if cred else None,
+                "login_user": cred.username if cred else None,
+                "can_auto_login": can_auto_login,
+                "can_extract_key": can_extract_key,
+            })
+
+        # Sort: fully available first, then partial, then none
+        results.sort(key=lambda r: (
+            -(2 if r["has_api_key"] else 0)
+            - (1 if r["has_login"] else 0)
+        ))
+        return results
+
+    def print_diagnosis(self, *, verbose: bool = False) -> None:
+        """Print a human-readable credential diagnosis to console."""
+        from rich.console import Console
+        from rich.table import Table
+
+        console = Console()
+        self._ensure_loaded()
+
+        # Backends table
+        backends = self.list_backends()
+        console.print("\n[bold]🔐 Password Store — Backends[/bold]")
+        for name, active in backends.items():
+            icon = "[green]✓[/green]" if active else "[dim]✗[/dim]"
+            extra = ""
+            if name == "firefox" and active:
+                extra = f" ({self.cached_count} haseł)"
+            elif name == "keepassxc" and not active:
+                extra = " [dim](ustaw NLP2CMD_KEEPASSXC_DB)[/dim]"
+            elif name == "bitwarden" and not active:
+                extra = " [dim](ustaw BW_SESSION)[/dim]"
+            console.print(f"  {icon} {name}{extra}")
+
+        # Provider table
+        results = self.diagnose_providers()
+        table = Table(title="\n🌐 API Provider Credentials", show_lines=False)
+        table.add_column("Status", width=3)
+        table.add_column("Provider", style="bold")
+        table.add_column("API Key")
+        table.add_column("Login (auto)")
+        table.add_column("Source")
+
+        for r in results:
+            if r["has_api_key"] and r["has_login"]:
+                status = "🟢"
+            elif r["has_api_key"] or r["has_login"]:
+                status = "🟡"
+            else:
+                status = "🔴"
+
+            key_col = f"[green]✓ ${r['env_var']}[/green]" if r["has_api_key"] else "[dim]—[/dim]"
+
+            if r["has_login"]:
+                user_short = (r["login_user"] or "")[:25]
+                login_col = f"[green]✓ {user_short}[/green]"
+            elif r["has_user_only"]:
+                user_short = (r["login_user"] or "")[:25]
+                login_col = f"[yellow]½ {user_short} (no pass)[/yellow]"
+            else:
+                login_col = "[dim]—[/dim]"
+
+            source_col = r["login_source"] or "[dim]—[/dim]"
+
+            table.add_row(status, r["service"], key_col, login_col, source_col)
+
+        console.print(table)
+
+        # Summary
+        total = len(results)
+        full = sum(1 for r in results if r["has_api_key"] and r["has_login"])
+        partial = sum(1 for r in results if (r["has_api_key"] or r["has_login"]) and not (r["has_api_key"] and r["has_login"]))
+        none_ = sum(1 for r in results if not r["has_api_key"] and not r["has_login"])
+
+        console.print(f"\n  [bold]Podsumowanie:[/bold] {full}🟢 {partial}🟡 {none_}🔴 z {total} providerów")
+
+        # Actionable suggestions
+        if none_ > 0:
+            no_cred = [r["service"] for r in results if not r["has_api_key"] and not r["has_login"]]
+            console.print(f"  [dim]Brak danych: {', '.join(no_cred)}[/dim]")
+            console.print(f"  [dim]Tip: Zaloguj się na te serwisy w Firefox, aby nlp2cmd mógł użyć auto-login.[/dim]")
+
+        if verbose:
+            console.print(f"\n  [dim]Łącznie haseł w cache: {self.cached_count}[/dim]")
+            console.print(f"  [dim]Konfiguracja: NLP2CMD_PASSWORD_BACKEND={self._backend}[/dim]")
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Module-level singleton

@@ -1,3 +1,44 @@
+## [1.1.1] - 2026-02-28
+
+### Summary
+
+fix(examples): configuration management system
+
+### Core
+
+- update src/nlp2cmd/automation/password_store.py
+- update src/nlp2cmd/generation/template_generator.py
+- update src/nlp2cmd/llm/validator.py
+
+### Docs
+
+- docs: update README
+- docs: update README
+- docs: update README
+
+### Test
+
+- update tests/unit/test_password_store.py
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update data/templates.json
+- update examples/08_api_key_management/01_diagnose_credentials/run.py
+- update examples/08_api_key_management/02_openrouter_key/run.py
+- update examples/08_api_key_management/03_github_token/run.py
+- update examples/08_api_key_management/04_huggingface_token/run.py
+- update examples/08_api_key_management/05_openai_key/run.py
+- update examples/08_api_key_management/06_multi_provider/run.py
+- scripts: update demo_validation.sh
+- update examples/08_llm_validation/test_results.json
+- update examples/08_llm_validation/test_validator.py
+- ... and 2 more
+
+
 ## [1.1.0] - 2026-02-28
 
 ### Summary

@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-02-28 12:43:21
+# Generated: 2026-02-28 15:57:29
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -24,7 +24,7 @@ versioning:
   files:
   - VERSION
   - pyproject.toml:version
-  - test-env/lib/python3.12/site-packages/triton/__init__.py:__version__
+  - venv/lib/python3.13/site-packages/httpcore/__init__.py:__version__
   bump_rules:
     patch: 10
     minor: 50

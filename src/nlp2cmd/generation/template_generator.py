@@ -6,7 +6,7 @@ Generate DSL commands from templates using detected intent and entities.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional
 import getpass
 import json
@@ -45,6 +45,8 @@ class TemplateResult:
     missing_entities: list[str]
     success: bool
     confidence: Optional[float] = None  # Backward compatibility
+    errors: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
 
 
 class TemplateGenerator:

@@ -399,6 +399,18 @@ class ActionPlanner:
                 description=f"Przejdź na stronę kluczy {svc_name}",
             ))
             steps.append(ActionStep(
+                action="discover_service_section",
+                params={
+                    "service": svc_name,
+                    "section": "keys",
+                    "base_url": svc.get("base_url", ""),
+                    "keys_url": svc.get("keys_url", ""),
+                    "hints": svc.get("section_hints", svc.get("session_indicators", [])),
+                },
+                description=f"Znajdź sekcję kluczy API na {svc_name}",
+                store_as="resolved_keys_url",
+            ))
+            steps.append(ActionStep(
                 action="echo",
                 params={"text": f"🌐 Otwieram stronę: {svc['keys_url']}"},
                 description="Log: nawigacja",

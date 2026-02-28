@@ -1,0 +1,175 @@
+{
+  "model": "qwen2.5:3b",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "errors": 0,
+  "accuracy_pct": 100.0,
+  "results": [
+    {
+      "name": "camera_scan_1_device",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.9,
+      "score_ok": true,
+      "reason": "Command output contains relevant results matching the request.",
+      "elapsed_s": 0.51
+    },
+    {
+      "name": "list_files_success",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.92,
+      "score_ok": true,
+      "reason": "Command output contains file paths and details matching the user's request.",
+      "elapsed_s": 0.57
+    },
+    {
+      "name": "find_large_files",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.85,
+      "score_ok": true,
+      "reason": "Command output contains file paths matching the user's request for files larger than 100MB.",
+      "elapsed_s": 0.65
+    },
+    {
+      "name": "process_list",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.9,
+      "score_ok": true,
+      "reason": "Output contains process information sorted by memory usage.",
+      "elapsed_s": 0.51
+    },
+    {
+      "name": "ping_success",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.92,
+      "score_ok": true,
+      "reason": "Command output contains relevant ping statistics for google.com.",
+      "elapsed_s": 0.53
+    },
+    {
+      "name": "empty_output",
+      "ok": true,
+      "verdict": "fail",
+      "expected": "fail",
+      "verdict_match": true,
+      "score": 0.0,
+      "score_ok": true,
+      "reason": "Command produced no output",
+      "elapsed_s": 0.0
+    },
+    {
+      "name": "command_not_found",
+      "ok": true,
+      "verdict": "fail",
+      "expected": "fail",
+      "verdict_match": true,
+      "score": 0.0,
+      "score_ok": true,
+      "reason": "Command not found - nmap",
+      "elapsed_s": 0.43
+    },
+    {
+      "name": "permission_denied",
+      "ok": true,
+      "verdict": "fail",
+      "expected": "fail",
+      "verdict_match": true,
+      "score": 0.0,
+      "score_ok": true,
+      "reason": "Output contains permission denied error message.",
+      "elapsed_s": 0.44
+    },
+    {
+      "name": "unrelated_output",
+      "ok": true,
+      "verdict": "fail",
+      "expected": "fail",
+      "verdict_match": true,
+      "score": 0.0,
+      "score_ok": true,
+      "reason": "Output contains only file system information and no network camera data.",
+      "elapsed_s": 0.53
+    },
+    {
+      "name": "network_scan_no_cameras",
+      "ok": true,
+      "verdict": "fail",
+      "expected": "fail",
+      "verdict_match": true,
+      "score": 0.0,
+      "score_ok": true,
+      "reason": "Output contains no information related to network cameras or local network devices.",
+      "elapsed_s": 0.55
+    },
+    {
+      "name": "timeout_error",
+      "ok": true,
+      "verdict": "fail",
+      "expected": "fail",
+      "verdict_match": true,
+      "score": 0.0,
+      "score_ok": true,
+      "reason": "Connection timed out after 30001 milliseconds",
+      "elapsed_s": 0.52
+    },
+    {
+      "name": "partial_output_camera",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.85,
+      "score_ok": true,
+      "reason": "Command output contains relevant results matching the request.",
+      "elapsed_s": 0.51
+    },
+    {
+      "name": "multiple_cameras",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.9,
+      "score_ok": true,
+      "reason": "Command output contains relevant results matching the request.",
+      "elapsed_s": 0.49
+    },
+    {
+      "name": "warning_but_success",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.9,
+      "score_ok": true,
+      "reason": "Output contains disk usage information matching the user's request.",
+      "elapsed_s": 0.51
+    },
+    {
+      "name": "polish_special_chars",
+      "ok": true,
+      "verdict": "pass",
+      "expected": "pass",
+      "verdict_match": true,
+      "score": 0.9,
+      "score_ok": true,
+      "reason": "Output contains file paths matching the user's request.",
+      "elapsed_s": 0.48
+    }
+  ]
+}

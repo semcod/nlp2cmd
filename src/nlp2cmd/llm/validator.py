@@ -53,12 +53,21 @@ Rules:
 - Reply with ONLY valid JSON, no markdown, no explanation outside the JSON.
 - "verdict" must be exactly "pass" or "fail".
 - "score" must be a float between 0.0 and 1.0.
-- "reason" must be a single concise sentence (max 120 chars).
+- "reason" must be a single factually accurate sentence (max 120 chars).
+- Be precise: count items in the output carefully. Do NOT guess or hallucinate counts.
 - "pass" means: the output clearly addresses what the user asked for.
 - "fail" means: the output is empty, contains errors, or is unrelated to the user's request.
+- If the command succeeded but the output is only partial, use score 0.5-0.8.
 
-Response format:
-{"verdict": "pass", "score": 0.9, "reason": "Found 2 cameras on the local network."}
+Domain knowledge (use these to judge output relevance):
+- Network cameras use RTSP protocol (port 554), HTTP (port 80/8080). Keywords: rtsp, webcam, camera, dcs, hikvision, axis, foscam, onvif.
+- "find" command outputs file paths — each line is one found file. If paths appear, the search succeeded. When "find" uses "-size +100M", the listed paths ARE files matching that size criteria — no separate size column is needed.
+- "nmap" outputs host/port info. Open ports with service names indicate discovered services.
+- Error indicators: "command not found", "Permission denied", "No such file", "Connection refused", "timed out".
+- Success indicators: actual data rows, file paths, table output, statistics summaries.
+
+Response format (example only — do NOT copy these values, analyze the actual output):
+{"verdict": "pass", "score": 0.85, "reason": "Command output contains relevant results matching the request."}
 """
 
 _USER_TEMPLATE = """\
@@ -66,10 +75,15 @@ User request: {query}
 
 Command executed: {command}
 
-Command output:
+Command output (analyze carefully, count items precisely):
 {output}
 
-Does the output satisfy the user's request? Respond with JSON only.
+Instructions:
+1. Read the output line by line. Each non-empty line with data is a result.
+2. Check: does the output contain information related to the user's request?
+3. If file paths, port numbers, process info, or other data rows appear, the command likely succeeded.
+4. If error messages ("not found", "denied", "timeout") appear, the command failed.
+5. Respond with JSON only — no markdown, no extra text.
 """
 
 

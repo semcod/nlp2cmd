@@ -78,6 +78,40 @@ r = cache.lookup("znajdź pliki PDF większe niż 10MB")  # template: ~15ms, cac
 r = cache.lookup("znajdz pliki PDF wieksze niz 10MB")  # typo → similarity hit!
 ```
 
+### LLM Validation & Self-Repair
+
+Every command result is automatically validated by a local LLM (`qwen2.5:3b` via Ollama). If the validator marks a result as **fail**, a cloud LLM (OpenRouter) suggests an improved command and optionally patches `patterns.json`/`templates.json` so the pipeline learns from the mistake.
+
+```
+Execute command → stdout/stderr
+       ↓
+LLM_VALIDATOR (local, ~0.5s)
+  query + command + output → pass/fail + score + reason
+       ↓ fail?
+LLM_REPAIR (OpenRouter cloud)
+  full context → improved_command + JSON patches
+       ↓
+Retry + update data files
+```
+
+```bash
+# Example output after command execution:
+llm_validator: pass
+score: 0.90
+reason: Found 1 camera with RTSP on the local network.
+model: qwen2.5:3b
+```
+
+Configuration in `.env`:
+```bash
+LLM_VALIDATOR_ENABLED=true          # enabled by default
+LLM_VALIDATOR_MODEL=qwen2.5:3b     # local Ollama model
+LLM_REPAIR_ENABLED=true            # cloud repair on fail
+LLM_REPAIR_MODEL=qwen/qwen-2.5-coder-32b-instruct
+```
+
+Test suite: `python3 examples/08_llm_validation/test_validator.py` — 15 test cases, 100% accuracy with `qwen2.5:3b`.
+
 ### Polish Language Support
 
 Native Polish NLP with 87%+ accuracy: lemmatization, fuzzy matching, diacritic normalization.
@@ -269,8 +303,8 @@ pytest --cov=nlp2cmd --cov-report=html  # With coverage
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE) for details.
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
 
 ## Author
 
-Created by **Tom Sapletta** — [tom@sapletta.com](mailto:tom@sapletta.com)
+Created by **Tom Sapletta** - [tom@sapletta.com](mailto:tom@sapletta.com)
