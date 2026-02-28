@@ -28,6 +28,165 @@ class YAMLExporter:
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         with open(output_path, 'w', encoding='utf-8') as f:
             yaml.dump(data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    
+    def export_grouped(self, result: AnalysisResult, output_path: str) -> None:
+        """Export with grouped CFG flows by function - more readable format."""
+        # Group CFG nodes by function
+        from collections import defaultdict
+        
+        func_flows = defaultdict(list)
+        
+        # Group nodes by their function
+        for node_id, node in result.nodes.items():
+            if hasattr(node, 'function') and node.function:
+                func_flows[node.function].append({
+                    'id': node_id,
+                    'type': getattr(node, 'type', 'unknown'),
+                    'label': getattr(node, 'label', ''),
+                    'line': getattr(node, 'line', None),
+                })
+        
+        # Build flow sequences
+        grouped_data = {
+            'project': result.project_path,
+            'analysis_mode': result.analysis_mode,
+            'summary': {
+                'functions': len(result.functions),
+                'classes': len(result.classes),
+                'modules': len(result.modules),
+            },
+            'control_flows': {}
+        }
+        
+        for func_name, nodes in sorted(func_flows.items()):
+            if len(nodes) < 2:
+                continue
+                
+            # Sort nodes to create logical flow
+            sorted_nodes = sorted(nodes, key=lambda n: (n['line'] or 0, n['id']))
+            
+            # Create flow sequence
+            flow_sequence = []
+            for i, node in enumerate(sorted_nodes):
+                flow_sequence.append({
+                    'step': i + 1,
+                    'node_type': node['type'],
+                    'label': node['label'][:50] if node['label'] else node['type'],
+                    'line': node['line'],
+                })
+            
+            grouped_data['control_flows'][func_name] = {
+                'node_count': len(nodes),
+                'flow_sequence': flow_sequence,
+                'entry_point': sorted_nodes[0]['id'] if sorted_nodes else None,
+                'exit_point': sorted_nodes[-1]['id'] if sorted_nodes else None,
+            }
+        
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, 'w', encoding='utf-8') as f:
+            yaml.dump(grouped_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    
+    def export_split(self, result: AnalysisResult, output_dir: str, compact: bool = True, include_defaults: bool = False) -> None:
+        """Export analysis split into multiple files for large repositories.
+        
+        Creates:
+        - summary.yaml - project overview and stats
+        - functions.yaml - all functions with their calls
+        - classes.yaml - all classes with methods
+        - modules.yaml - all modules
+        - cfg_nodes.yaml - control flow graph nodes (optional, can be large)
+        - entry_points.yaml - main entry points
+        """
+        output_path = Path(output_dir)
+        output_path.mkdir(parents=True, exist_ok=True)
+        
+        compact_mode = compact and not include_defaults
+        
+        # 1. Summary file
+        summary = {
+            'project': result.project_path,
+            'analysis_mode': result.analysis_mode,
+            'stats': result.stats,
+            'overview': {
+                'total_functions': len(result.functions),
+                'total_classes': len(result.classes),
+                'total_modules': len(result.modules),
+                'total_nodes': len(result.nodes),
+                'total_edges': len(result.edges),
+                'entry_points_count': len(result.entry_points),
+            }
+        }
+        with open(output_path / 'summary.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(summary, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # 2. Functions file
+        functions_data = {
+            'count': len(result.functions),
+            'functions': {k: v.to_dict(compact_mode) for k, v in result.functions.items()}
+        }
+        with open(output_path / 'functions.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(functions_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # 3. Classes file
+        classes_data = {
+            'count': len(result.classes),
+            'classes': {k: v.to_dict(compact_mode) for k, v in result.classes.items()}
+        }
+        with open(output_path / 'classes.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(classes_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # 4. Modules file
+        modules_data = {
+            'count': len(result.modules),
+            'modules': {k: v.to_dict(compact_mode) for k, v in result.modules.items()}
+        }
+        with open(output_path / 'modules.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(modules_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # 5. Entry points file
+        entry_data = {
+            'count': len(result.entry_points),
+            'entry_points': result.entry_points,
+            'important_entries': []
+        }
+        # Add detailed info for top entry points
+        for ep in result.entry_points[:50]:
+            func = result.functions.get(ep)
+            if func:
+                entry_data['important_entries'].append({
+                    'name': ep,
+                    'calls_count': len(func.calls),
+                    'called_by_count': len(func.called_by),
+                    'file': func.file,
+                    'line': func.line,
+                })
+        with open(output_path / 'entry_points.yaml', 'w', encoding='utf-8') as f:
+            yaml.dump(entry_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # 6. CFG nodes (only if not compact mode, can be very large)
+        if not compact_mode:
+            nodes_data = {
+                'count': len(result.nodes),
+                'nodes': {k: v.to_dict(compact_mode) for k, v in result.nodes.items()}
+            }
+            with open(output_path / 'cfg_nodes.yaml', 'w', encoding='utf-8') as f:
+                yaml.dump(nodes_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+        
+        # Print summary with file sizes
+        summary_size = (output_path / 'summary.yaml').stat().st_size // 1024
+        functions_size = (output_path / 'functions.yaml').stat().st_size // 1024
+        classes_size = (output_path / 'classes.yaml').stat().st_size // 1024
+        modules_size = (output_path / 'modules.yaml').stat().st_size // 1024
+        entry_size = (output_path / 'entry_points.yaml').stat().st_size // 1024
+        
+        print(f"✓ Split export created in {output_dir}:")
+        print(f"  - summary.yaml ({summary_size}KB)")
+        print(f"  - functions.yaml ({functions_size}KB)")
+        print(f"  - classes.yaml ({classes_size}KB)")
+        print(f"  - modules.yaml ({modules_size}KB)")
+        print(f"  - entry_points.yaml ({entry_size}KB)")
+        if not compact_mode:
+            print(f"  - cfg_nodes.yaml")
 
 
 class MermaidExporter:
@@ -172,15 +331,34 @@ class LLMPromptExporter:
         
         # Find call chains from entry points
         flow_id = 1
-        for ep_name, _, ep_func in important_entries[:10]:
+        seen_flows = set()  # Deduplicate flows
+        seen_base_names = set()  # Track base function names
+        
+        for ep_name, _, ep_func in important_entries[:20]:  # More entries to find unique ones
+            # Skip if we've seen this base name (handles class methods vs module functions)
+            base_name = ep_name.split('.')[-1]
+            module_name = ep_name.rsplit('.', 1)[0] if '.' in ep_name else ''
+            
+            # Prefer class methods over module functions (more specific)
+            is_class_method = '.' in module_name and not module_name.endswith('__init__')
+            
+            if base_name in seen_base_names:
+                # Already seen - skip unless this is a class method and we haven't recorded it
+                continue
+            
+            seen_base_names.add(base_name)
+            
             flow = self._trace_flow(ep_name, ep_func, result, depth=3)
-            if flow:
-                lines.append(f"### Flow {flow_id}: {ep_name.split('.')[-1]}")
+            if flow and flow not in seen_flows:
+                seen_flows.add(flow)
+                lines.append(f"### Flow {flow_id}: {base_name}")
                 lines.append(f"```")
                 lines.append(flow)
                 lines.append(f"```")
                 lines.append("")
                 flow_id += 1
+                if flow_id > 10:  # Limit to 10 unique flows
+                    break
         
         # Key Classes and Their Responsibilities
         if result.classes:
@@ -322,7 +500,7 @@ class LLMPromptExporter:
         short_name = func_name.split('.')[-1]
         module = func_name.rsplit('.', 1)[0] if '.' in func_name else 'root'
         
-        lines = [f"{short_name} [{module}"]
+        lines = [f"{short_name} [{module}]"]
         
         # Group calls by module to show cross-module flows
         calls_by_module = {}
@@ -364,7 +542,13 @@ class LLMPromptExporter:
         }
         
         # Find entry points that call public API
-        for ep_name in result.entry_points[:20]:
+        seen_functions = set()  # Deduplicate
+        for ep_name in result.entry_points[:30]:
+            # Skip duplicates (class methods vs module functions)
+            base_name = ep_name.split('.')[-1]
+            if base_name in seen_functions:
+                continue
+            seen_functions.add(base_name)
             ep_func = result.functions.get(ep_name)
             if not ep_func:
                 continue

@@ -134,9 +134,13 @@ class FunctionInfo:
         if self.cfg_entry:
             result["cfg_entry"] = self.cfg_entry
         if self.calls:
-            result["calls"] = self.calls
+            # Remove duplicates while preserving order
+            unique_calls = list(dict.fromkeys(self.calls))
+            result["calls"] = unique_calls
         if self.called_by:
-            result["called_by"] = self.called_by
+            # Remove duplicates while preserving order
+            unique_called_by = list(dict.fromkeys(self.called_by))
+            result["called_by"] = unique_called_by
         
         return result
 

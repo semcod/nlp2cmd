@@ -1,0 +1,1990 @@
+flowchart TD
+    subgraph adapters
+        adapters_dql_DQLAdapter___init__["__init__"]
+        adapters_dql_DQLAdap_1587["_parse_entity_context"]
+        adapters_dql_DQLAdapter__get_entity_fqcn["_get_entity_fqcn"]
+        adapters_dql_DQLAdapter_generate["generate"]
+        adapters_dql_DQLAdap_2110["_generate_query_builder"]
+        adapters_dql_DQLAdap_3960["_generate_qb_select"]
+        adapters_dql_DQLAdap_556["_generate_qb_count"]
+        adapters_dql_DQLAdap_9010["_generate_qb_aggregate"]
+        adapters_dql_DQLAdap_4126["_generate_raw_dql"]
+        adapters_dql_DQLAdapter__php_value["_php_value"]
+        adapters_dql_DQLAdapter__dql_value["_dql_value"]
+        adapters_dql_DQLAdapter_validate_syntax["validate_syntax"]
+        adapters_dql_DQLAdapter_check_safety["check_safety"]
+        adapters_dql___init__["__init__"]
+        adapters_dql__parse_entity_context["_parse_entity_context"]
+        adapters_dql__get_entity_fqcn["_get_entity_fqcn"]
+        adapters_dql_generate["generate"]
+        adapters_dql__generate_query_builder["_generate_query_builder"]
+        adapters_dql__generate_qb_select["_generate_qb_select"]
+        adapters_dql__generate_qb_count["_generate_qb_count"]
+        adapters_dql__generate_qb_aggregate["_generate_qb_aggregate"]
+        adapters_dql__generate_raw_dql["_generate_raw_dql"]
+        adapters_dql__php_value["_php_value"]
+        adapters_dql__dql_value["_dql_value"]
+        adapters_dql_validate_syntax["validate_syntax"]
+        adapters_dql_check_safety["check_safety"]
+        adapters_base_BaseDSLAdapter___init__["__init__"]
+        adapters_base_BaseDS_3821["_coerce_safety_policy"]
+        adapters_base_BaseDS_7644["_coerce_adapter_config"]
+        adapters_base_BaseDSLAdapter_generate["generate"]
+        adapters_base_BaseDS_9099["validate_syntax"]
+        adapters_base_BaseDS_4194["check_safety"]
+        adapters_base_BaseDSLAdapter_get_intents["get_intents"]
+        adapters_base_BaseDS_7467["suggest_intent"]
+        adapters_base_BaseDS_6087["format_output"]
+        adapters_base_BaseDS_8691["_pretty_format"]
+        adapters_base_BaseDS_1416["get_schema_context"]
+        adapters_base___init__["__init__"]
+        adapters_base__coerce_safety_policy["_coerce_safety_policy"]
+        adapters_base__coerce_adapter_config["_coerce_adapter_config"]
+        adapters_base_generate["generate"]
+        adapters_base_validate_syntax["validate_syntax"]
+        adapters_base_check_safety["check_safety"]
+        adapters_base_get_intents["get_intents"]
+        adapters_base_suggest_intent["suggest_intent"]
+        adapters_base_format_output["format_output"]
+        adapters_base__pretty_format["_pretty_format"]
+        adapters_base_get_schema_context["get_schema_context"]
+        adapters_docker_Dock_8339["check_command"]
+        adapters_docker_DockerAdapter___init__["__init__"]
+    end
+    subgraph aggregator
+        aggregator_ResultAggregator___init__["__init__"]
+        aggregator_ResultAggregator_aggregate["aggregate"]
+        aggregator_ResultAgg_209["_format_step_detail"]
+        aggregator_ResultAgg_3849["_generate_summary"]
+        aggregator_ResultAgg_5712["_preview_result"]
+        aggregator_ResultAggregator__format_data["_format_data"]
+        aggregator_ResultAggregator__to_text["_to_text"]
+        aggregator_ResultAggregator__to_table["_to_table"]
+        aggregator_ResultAggregator__to_markdown["_to_markdown"]
+        aggregator_ResultAggregator__to_summary["_to_summary"]
+        aggregator_ResultAgg_3013["to_llm_context"]
+        aggregator___init__["__init__"]
+        aggregator_aggregate["aggregate"]
+        aggregator__format_step_detail["_format_step_detail"]
+        aggregator__generate_summary["_generate_summary"]
+        aggregator__preview_result["_preview_result"]
+        aggregator__format_data["_format_data"]
+        aggregator__to_text["_to_text"]
+        aggregator__to_table["_to_table"]
+        aggregator__to_markdown["_to_markdown"]
+        aggregator__to_summary["_to_summary"]
+        aggregator_to_llm_context["to_llm_context"]
+    end
+    subgraph appspec_runtime
+        appspec_runtime_AppSpec_get_action["get_action"]
+        appspec_runtime_load_appspec["load_appspec"]
+        appspec_runtime_get_action["get_action"]
+    end
+    subgraph automation
+        automation_drawing_b_3171["_rabbit_steps"]
+        automation_drawing_blueprints__cat_steps["_cat_steps"]
+        automation_drawing_blueprints__dog_steps["_dog_steps"]
+        automation_drawing_blueprints__car_steps["_car_steps"]
+        automation_drawing_b_3938["_house_steps"]
+        automation_drawing_b_2068["_tree_steps"]
+        automation_drawing_blueprints__sun_steps["_sun_steps"]
+        automation_drawing_b_1059["_flower_steps"]
+        automation_drawing_b_7767["_star_steps"]
+        automation_drawing_b_1934["_heart_steps"]
+        automation_drawing_b_6819["_fish_steps"]
+        automation_drawing_b_1898["_butterfly_steps"]
+        automation_drawing_b_9772["_snowman_steps"]
+        automation_drawing_b_2487["_ladybug_steps"]
+        automation_drawing_b_371["lookup_blueprint"]
+        automation_drawing_b_6619["get_blueprint_steps"]
+        automation_drawing_b_2146["list_available_blueprints"]
+        automation_complex_planner__debug["_debug"]
+        automation_complex_p_7537["to_dict"]
+        automation_complex_p_6912["to_dict"]
+        automation_complex_p_4953["__init__"]
+        automation_complex_p_6482["plan"]
+        automation_complex_p_337["_match_template"]
+        automation_complex_p_1293["_llm_plan"]
+        automation_complex_p_5451["_extract_url"]
+        automation_complex_p_5658["_extract_color"]
+        automation_complex_planner_to_dict["to_dict"]
+        automation_complex_planner___init__["__init__"]
+        automation_complex_planner_plan["plan"]
+        automation_complex_p_9300["_match_template"]
+        automation_complex_planner__llm_plan["_llm_plan"]
+        automation_complex_planner__extract_url["_extract_url"]
+        automation_complex_p_7988["_extract_color"]
+        automation_action_pl_5039["to_dict"]
+        automation_action_pl_4827["to_cache_dict"]
+        automation_action_pl_2626["from_cache_dict"]
+        automation_action_pl_5486["_load_known_services"]
+        automation_action_pl_2253["_can_use_desktop_automation"]
+        automation_action_pl_9921["__init__"]
+        automation_action_pl_7274["decompose"]
+        automation_action_pl_5578["decompose_sync"]
+        automation_action_pl_2934["_try_rule_decomposition"]
+        automation_action_pl_7540["_resolve_service"]
+        automation_action_pl_6453["_wants_new_tab"]
+        automation_action_pl_7593["_wants_existing_firefox"]
+        automation_action_pl_4002["_wants_create_key"]
+        automation_action_pl_7978["_build_navigation_steps"]
+        automation_action_pl_2005["_build_session_check_steps"]
+        automation_action_pl_6658["_build_create_key_steps"]
+        automation_action_pl_7061["_build_manual_key_steps"]
+    end
+    subgraph cli
+        cli_display_display_command_result["display_command_result"]
+        cli_display_display_table["display_table"]
+        cli_display_display_panel["display_panel"]
+        cli_display_display_info["display_info"]
+        cli_display_display_success["display_success"]
+        cli_display_display_error["display_error"]
+        cli_display_display_warning["display_warning"]
+        cli_display_display_debug["display_debug"]
+        cli_display_display_progress["display_progress"]
+        cli_display_display_section["display_section"]
+        cli_display_display_list["display_list"]
+        cli_display_display_kv_pairs["display_kv_pairs"]
+        cli_web_schema_web_schema_group["web_schema_group"]
+        cli_web_schema_extract_schema["extract_schema"]
+        cli_web_schema_show_history["show_history"]
+        cli_web_schema_export_learned_schema["export_learned_schema"]
+        cli_web_schema_clear_history["clear_history"]
+        cli_web_schema__ClickStub_group["group"]
+        cli_web_schema__ClickStub_argument["argument"]
+        cli_web_schema__ClickStub_option["option"]
+        cli_web_schema_Console_print["print"]
+        cli_web_schema_Group_command["command"]
+        cli_web_schema_group["group"]
+        cli_web_schema_argument["argument"]
+        cli_web_schema_option["option"]
+        cli_web_schema_print["print"]
+        cli_web_schema_command["command"]
+        cli_helpers__system_beep["_system_beep"]
+        cli_helpers__timed_default_yes["_timed_default_yes"]
+        cli_helpers__timed_default_no["_timed_default_no"]
+        cli_helpers__shell_env_context["_shell_env_context"]
+        cli_helpers_get_adapter["get_adapter"]
+        cli_helpers__looks_like_log_input["_looks_like_log_input"]
+        cli_helpers__is_playwright_error["_is_playwright_error"]
+        cli_helpers__maybe_install_playwright["_maybe_install_playwright"]
+        cli_helpers__fallback_open_url["_fallback_open_url"]
+        cli_helpers__fallbac_3360["_fallback_open_url_from_query"]
+        cli_helpers_get_cached_syntax["get_cached_syntax"]
+        cli_helpers_print_yaml_block["print_yaml_block"]
+        cli_syntax_cache_SyntaxCache___init__["__init__"]
+        cli_syntax_cache_SyntaxCache_get_syntax["get_syntax"]
+        cli_syntax_cache_SyntaxCache_clear["clear"]
+        cli_syntax_cache_SyntaxCache_get_stats["get_stats"]
+        cli_syntax_cache_get_syntax_cache["get_syntax_cache"]
+        cli_syntax_cache_get_cached_syntax["get_cached_syntax"]
+        cli_syntax_cache_clear_syntax_cache["clear_syntax_cache"]
+        cli_syntax_cache_get_cache_stats["get_cache_stats"]
+        cli_syntax_cache___init__["__init__"]
+        cli_syntax_cache_get_syntax["get_syntax"]
+        cli_syntax_cache_clear["clear"]
+    end
+    subgraph context
+        context_disambiguato_5749["__init__"]
+        context_disambiguato_6599["find_similar_queries"]
+        context_disambiguato_1541["_calculate_similarity"]
+        context_disambiguato_4010["disambiguate"]
+        context_disambiguato_1895["get_context_suggestions"]
+        context_disambiguator___init__["__init__"]
+        context_disambiguato_3051["find_similar_queries"]
+        context_disambiguato_9500["_calculate_similarity"]
+        context_disambiguator_disambiguate["disambiguate"]
+        context_disambiguato_5523["get_context_suggestions"]
+        context_disambiguator_print_yaml_block["print_yaml_block"]
+    end
+    subgraph core
+        core_core_models_Exe_7952["with_confidence"]
+        core_core_models_Exe_8884["with_entities"]
+        core_core_models_Exe_5190["with_metadata"]
+        core_core_models_Exe_7131["with_context"]
+        core_core_models_Exe_2882["with_errors"]
+        core_core_models_Exe_2152["with_security"]
+        core_core_models_Exe_9959["with_performance"]
+        core_core_models_ExecutionPlan_is_valid["is_valid"]
+        core_core_models_Tra_478["__post_init__"]
+        core_core_models_TransformResult_to_dict["to_dict"]
+        core_core_models_TransformResult_copy["copy"]
+        core_core_models_Tra_2269["is_valid"]
+        core_core_models_with_confidence["with_confidence"]
+        core_core_models_with_entities["with_entities"]
+        core_core_models_with_metadata["with_metadata"]
+        core_core_models_with_context["with_context"]
+        core_core_models_with_errors["with_errors"]
+        core_core_models_with_security["with_security"]
+        core_core_models_with_performance["with_performance"]
+        core_core_models_is_valid["is_valid"]
+        core_core_models___post_init__["__post_init__"]
+        core_core_models_to_dict["to_dict"]
+        core_core_models_copy["copy"]
+        core_core_models_Field["Field"]
+        core_core_models_BaseModel___init__["__init__"]
+        core_core_models_BaseModel___eq__["__eq__"]
+        core_core_models_BaseModel___repr__["__repr__"]
+        core_core_models_BaseModel_model_dump["model_dump"]
+        core_core_models_BaseModel_model_copy["model_copy"]
+        core_core_models___init__["__init__"]
+        core_core_models___eq__["__eq__"]
+        core_core_models___repr__["__repr__"]
+        core_core_models_model_dump["model_dump"]
+        core_core_models_model_copy["model_copy"]
+        core_core_backends_N_648["extract_intent"]
+        core_core_backends_N_6180["extract_entities"]
+        core_core_backends_N_5910["generate_plan"]
+        core_core_backends_SpaCyBackend___init__["__init__"]
+        core_core_backends_S_8029["extract_entities"]
+        core_core_backends_LLMBackend___init__["__init__"]
+        core_core_backends_L_4453["generate_plan"]
+        core_core_backends_R_1787["__init__"]
+        core_core_backends_R_2377["extract_entities"]
+        core_core_backends_R_9572["extract_intent"]
+        core_core_backends_R_2847["generate_plan"]
+        core_core_backends_extract_intent["extract_intent"]
+        core_core_backends_extract_entities["extract_entities"]
+        core_core_backends_generate_plan["generate_plan"]
+        core_core_backends___init__["__init__"]
+        core_core_transform_NLP2CMD___init__["__init__"]
+    end
+    subgraph enhanced
+        enhanced_EnhancedNLP2CMD___init__["__init__"]
+        enhanced_EnhancedNLP_8899["get_available_commands"]
+        enhanced_EnhancedNLP2CMD_search_commands["search_commands"]
+        enhanced_EnhancedNLP_7495["transform_with_explanation"]
+        enhanced_EnhancedNLP2CMD_transform_ir["transform_ir"]
+        enhanced_EnhancedNLP2CMD_analyze_query["analyze_query"]
+        enhanced_create_enhanced_nlp2cmd["create_enhanced_nlp2cmd"]
+        enhanced___init__["__init__"]
+        enhanced_get_available_commands["get_available_commands"]
+        enhanced_search_commands["search_commands"]
+        enhanced_transform_with_explanation["transform_with_explanation"]
+        enhanced_transform_ir["transform_ir"]
+        enhanced_analyze_query["analyze_query"]
+    end
+    subgraph environment
+        environment_EnvironmentAnalyzer_analyze["analyze"]
+        environment_Environm_4734["_get_os_info"]
+        environment_Environm_2180["_get_shell_info"]
+        environment_Environm_940["_get_user_info"]
+        environment_Environm_8036["_get_relevant_env_vars"]
+        environment_Environm_3445["detect_tools"]
+        environment_Environm_7195["check_services"]
+        environment_Environm_4112["_check_port"]
+        environment_Environm_4319["_check_docker_daemon"]
+        environment_Environm_955["find_config_files"]
+        environment_Environm_8116["validate_command"]
+        environment_Environm_6117["full_report"]
+        environment_Environm_8426["_get_resources"]
+        environment_Environm_5317["_generate_recommendations"]
+        environment_analyze["analyze"]
+        environment__get_os_info["_get_os_info"]
+        environment__get_shell_info["_get_shell_info"]
+        environment__get_user_info["_get_user_info"]
+        environment__get_relevant_env_vars["_get_relevant_env_vars"]
+        environment_detect_tools["detect_tools"]
+        environment_check_services["check_services"]
+        environment__check_port["_check_port"]
+        environment__check_docker_daemon["_check_docker_daemon"]
+        environment_find_config_files["find_config_files"]
+        environment_validate_command["validate_command"]
+        environment_full_report["full_report"]
+        environment__get_resources["_get_resources"]
+        environment__generate_recommendations["_generate_recommendations"]
+    end
+    subgraph execution
+        execution_media_reco_3365["__init__"]
+        execution_media_reco_1286["execute"]
+        execution_media_reco_1973["start_recording"]
+        execution_media_reco_5664["stop_recording"]
+        execution_media_reco_5516["take_screenshot"]
+        execution_media_reco_8969["get_context_options"]
+        execution_media_reco_9342["should_record_interactive"]
+        execution_media_recorder___init__["__init__"]
+        execution_media_recorder_execute["execute"]
+        execution_media_recorder_start_recording["start_recording"]
+        execution_media_recorder_stop_recording["stop_recording"]
+        execution_media_recorder_take_screenshot["take_screenshot"]
+        execution_media_reco_4089["get_context_options"]
+        execution_media_reco_954["should_record_interactive"]
+        execution_base_Execu_3308["to_runner_result"]
+        execution_base_BaseExecutor_execute["execute"]
+        execution_base_to_runner_result["to_runner_result"]
+        execution_base_execute["execute"]
+        execution_executor_r_7728["register"]
+        execution_executor_r_6697["get"]
+        execution_executor_r_9["dispatch"]
+        execution_executor_r_4623["create_default_registry"]
+        execution_executor_registry_register["register"]
+        execution_executor_registry_get["get"]
+        execution_executor_registry_dispatch["dispatch"]
+        execution_browser_get_os_open_command["get_os_open_command"]
+        execution_browser_normalize_url["normalize_url"]
+        execution_browser_open_url["open_url"]
+        execution_browser_search_web["search_web"]
+        execution_browser_Br_4868["__init__"]
+        execution_browser_Br_6096["_ensure_playwright"]
+        execution_browser_Br_902["_ensure_persistent_context"]
+        execution_browser_Br_1054["new_tab"]
+        execution_browser_Br_8788["switch_tab"]
+        execution_browser_Br_2447["close_tab"]
+        execution_browser_Br_1008["list_tabs"]
+        execution_browser_BrowserExecutor_close["close"]
+        execution_browser_Br_7710["execute_simple"]
+        execution_browser_Br_8205["execute"]
+        execution_browser_generate_shell_command["generate_shell_command"]
+        execution_browser___init__["__init__"]
+        execution_browser__ensure_playwright["_ensure_playwright"]
+        execution_browser__e_364["_ensure_persistent_context"]
+        execution_browser_new_tab["new_tab"]
+        execution_browser_switch_tab["switch_tab"]
+        execution_browser_close_tab["close_tab"]
+        execution_browser_list_tabs["list_tabs"]
+        execution_browser_close["close"]
+        execution_browser_execute_simple["execute_simple"]
+        execution_browser_execute["execute"]
+    end
+    subgraph executor
+        executor_PlanStep___post_init__["__post_init__"]
+        executor_ExecutionPlan_from_dict["from_dict"]
+        executor_ExecutionPlan_to_dict["to_dict"]
+        executor_ExecutionContext_set["set"]
+        executor_ExecutionContext_get["get"]
+        executor_ExecutionCo_7797["resolve_reference"]
+        executor_PlanValidator_validate["validate"]
+        executor_PlanValidator__validate_step["_validate_step"]
+        executor_PlanExecutor___init__["__init__"]
+        executor_PlanExecuto_3915["_register_default_handlers"]
+        executor_PlanExecutor_execute["execute"]
+        executor_PlanExecutor__execute_step["_execute_step"]
+        executor_PlanExecutor__execute_foreach["_execute_foreach"]
+        executor_PlanExecutor__resolve_params["_resolve_params"]
+        executor_PlanExecuto_1682["_evaluate_condition"]
+        executor_PlanExecutor__call_action["_call_action"]
+        executor_PlanExecutor_register_handler["register_handler"]
+        executor___post_init__["__post_init__"]
+        executor_from_dict["from_dict"]
+        executor_to_dict["to_dict"]
+        executor_set["set"]
+        executor_get["get"]
+        executor_resolve_reference["resolve_reference"]
+        executor_validate["validate"]
+        executor__validate_step["_validate_step"]
+        executor___init__["__init__"]
+        executor__register_default_handlers["_register_default_handlers"]
+        executor_execute["execute"]
+        executor__execute_step["_execute_step"]
+        executor__execute_foreach["_execute_foreach"]
+        executor__resolve_params["_resolve_params"]
+        executor__evaluate_condition["_evaluate_condition"]
+        executor__call_action["_call_action"]
+        executor_register_handler["register_handler"]
+        executor_summarize_results["summarize_results"]
+        executor_filter_results["filter_results"]
+        executor_sort_results["sort_results"]
+    end
+    subgraph exploration
+        exploration_base_BaseExplorer___init__["__init__"]
+        exploration_base_BaseExplorer_explore["explore"]
+        exploration_base_BaseExplorer_supports["supports"]
+        exploration_base_Bas_3045["_should_stop"]
+        exploration_base_Bas_9539["_score_relevance"]
+        exploration_base_Bas_5963["_get_intent_keywords"]
+        exploration_base_BaseExplorer_reset["reset"]
+        exploration_base_Exp_3137["register"]
+        exploration_base_ExplorerRegistry_get["get"]
+        exploration_base_Exp_1951["list_supported"]
+        exploration_base_Exp_3938["auto_detect"]
+        exploration_base_explore["explore"]
+        exploration_base___init__["__init__"]
+        exploration_base_supports["supports"]
+        exploration_base__should_stop["_should_stop"]
+        exploration_base__score_relevance["_score_relevance"]
+        exploration_base__get_intent_keywords["_get_intent_keywords"]
+        exploration_base_reset["reset"]
+        exploration_base_register["register"]
+        exploration_base_get["get"]
+        exploration_base_list_supported["list_supported"]
+        exploration_base_auto_detect["auto_detect"]
+        exploration_disk_DiskExplorer___init__["__init__"]
+        exploration_disk_DiskExplorer_explore["explore"]
+        exploration_disk_DiskExplorer__walk["_walk"]
+        exploration_disk_Dis_7681["_matches_context"]
+        exploration_disk_Dis_9092["_match_file_intent"]
+        exploration_disk_Dis_8496["_match_config_intent"]
+        exploration_disk_Dis_6118["_match_code_intent"]
+        exploration_disk_Dis_2411["_match_data_intent"]
+        exploration_disk_Dis_8265["_matches_search_term"]
+        exploration_disk_Dis_6430["_score_file"]
+        exploration_disk_DiskExplorer_find_file["find_file"]
+        exploration_disk_Dis_6103["find_config"]
+        exploration_disk_quick_find_file["quick_find_file"]
+        exploration_disk___init__["__init__"]
+        exploration_disk_explore["explore"]
+        exploration_disk__walk["_walk"]
+        exploration_disk__matches_context["_matches_context"]
+        exploration_disk__match_file_intent["_match_file_intent"]
+        exploration_disk__match_config_intent["_match_config_intent"]
+        exploration_disk__match_code_intent["_match_code_intent"]
+        exploration_disk__match_data_intent["_match_data_intent"]
+        exploration_disk__matches_search_term["_matches_search_term"]
+        exploration_disk__score_file["_score_file"]
+        exploration_disk_find_file["find_file"]
+        exploration_disk_find_config["find_config"]
+        exploration_resource_2343["__init__"]
+        exploration_resource_3695["analyze_error"]
+        exploration_resource_3811["should_attempt_discovery"]
+    end
+    subgraph feedback
+        feedback_FeedbackResult_to_dict["to_dict"]
+        feedback_FeedbackAnalyzer___init__["__init__"]
+        feedback_FeedbackAna_8178["_register_default_rules"]
+        feedback_FeedbackAnalyzer_analyze["analyze"]
+        feedback_FeedbackAna_6796["_detect_missing_tool"]
+        feedback_FeedbackAna_2728["_detect_placeholders"]
+        feedback_FeedbackAnalyzer__analyze_error["_analyze_error"]
+        feedback_FeedbackAnalyzer__is_ambiguous["_is_ambiguous"]
+        feedback_FeedbackAna_9621["_generate_clarification_questi"]
+        feedback_FeedbackAna_6018["_calculate_confidence"]
+        feedback_FeedbackAnalyzer_check_syntax["check_syntax"]
+        feedback_FeedbackAna_9134["analyze_exception"]
+        feedback_CorrectionE_4074["register_correction"]
+        feedback_CorrectionEngine_suggest["suggest"]
+        feedback_CorrectionE_993["_suggest_balance_fix"]
+        feedback_CorrectionE_3551["_suggest_quote_fix"]
+        feedback_CorrectionE_6180["_suggest_missing_element"]
+        feedback_CorrectionE_3725["apply_correction"]
+        feedback_to_dict["to_dict"]
+        feedback___init__["__init__"]
+        feedback__register_default_rules["_register_default_rules"]
+        feedback_analyze["analyze"]
+        feedback__detect_missing_tool["_detect_missing_tool"]
+        feedback__detect_placeholders["_detect_placeholders"]
+        feedback__analyze_error["_analyze_error"]
+        feedback__is_ambiguous["_is_ambiguous"]
+        feedback__generate_c_803["_generate_clarification_questi"]
+        feedback__calculate_confidence["_calculate_confidence"]
+        feedback_check_syntax["check_syntax"]
+        feedback_analyze_exception["analyze_exception"]
+        feedback_register_correction["register_correction"]
+        feedback_suggest["suggest"]
+        feedback__suggest_balance_fix["_suggest_balance_fix"]
+        feedback__suggest_quote_fix["_suggest_quote_fix"]
+        feedback__suggest_missing_element["_suggest_missing_element"]
+        feedback_apply_correction["apply_correction"]
+    end
+    subgraph generation
+        generation_train_mod_7054["load_expanded_phrases"]
+        generation_train_model_load_patterns["load_patterns"]
+        generation_train_mod_8673["load_command_schemas"]
+        generation_train_mod_5789["generate_augmented_samples"]
+        generation_train_mod_3966["deduplicate_samples"]
+        generation_train_model_train_all_models["train_all_models"]
+        generation_train_model_quick_test["quick_test"]
+        generation_semantic__2204["_check_sentence_transformers"]
+        generation_semantic__3533["_check_torch"]
+        generation_semantic__5506["_check_ctranslate2"]
+        generation_semantic__2272["_get_cache_dir"]
+        generation_semantic__5226["_compute_cache_key"]
+        generation_semantic__1181["_cleanup_models"]
+        generation_semantic__7682["__init__"]
+        generation_semantic__9279["_preload_models"]
+        generation_semantic__4738["_get_model"]
+        generation_semantic__3100["_get_polish_model"]
+        generation_semantic__1768["_load_model"]
+        generation_semantic__2639["add_intent"]
+        generation_semantic__3353["add_intents_batch"]
+        generation_semantic__8964["_encode_text"]
+        generation_semantic__3035["_encode_batch"]
+        generation_semantic__7767["_encode_with_cache"]
+        generation_semantic__1329["_get_embedding_matrix"]
+        generation_semantic__7657["_detect_language"]
+        generation_semantic__6277["match"]
+        generation_semantic__8726["_match_with_polish_model"]
+        generation_semantic__110["match_all"]
+        generation_semantic__1618["_cosine_similarity"]
+        generation_semantic__7754["save"]
+        generation_semantic__5659["save_binary"]
+        generation_semantic__2176["load"]
+        generation_semantic__9233["create_optimized_matcher_from_"]
+        generation_semantic__4262["get_optimized_semantic_matcher"]
+        generation_semantic__7568["preload_models"]
+        generation_semantic__4405["clear_embedding_cache"]
+        generation_semantic__936["get_cache_stats"]
+        generation_semantic__1911["__init__"]
+        generation_semantic__7366["_preload_models"]
+        generation_semantic__8628["_get_model"]
+        generation_semantic__6453["_get_polish_model"]
+        generation_semantic__9480["_load_model"]
+        generation_semantic__5351["add_intent"]
+        generation_semantic__9061["add_intents_batch"]
+        generation_semantic__4952["_encode_text"]
+        generation_semantic__3106["_encode_batch"]
+        generation_semantic__2135["_encode_with_cache"]
+        generation_semantic__1879["_get_embedding_matrix"]
+        generation_semantic__2553["_detect_language"]
+        generation_semantic__9923["match"]
+    end
+    subgraph history
+        history_tracker_SchemaUsage_to_dict["to_dict"]
+        history_tracker_SchemaUsage_from_dict["from_dict"]
+        history_tracker_CommandRecord_to_dict["to_dict"]
+        history_tracker_CommandRecord_from_dict["from_dict"]
+        history_tracker_CommandHistory___init__["__init__"]
+        history_tracker_CommandHistory__load["_load"]
+        history_tracker_CommandHistory__save["_save"]
+        history_tracker_CommandHistory_record["record"]
+        history_tracker_Comm_4881["get_recent"]
+        history_tracker_Comm_1247["get_by_dsl"]
+        history_tracker_CommandHistory_get_stats["get_stats"]
+        history_tracker_Comm_79["get_schema_usage_stats"]
+        history_tracker_Comm_5771["get_popular_queries"]
+        history_tracker_Comm_4110["get_failed_commands"]
+        history_tracker_CommandHistory_clear["clear"]
+        history_tracker_Comm_6211["export_analytics"]
+        history_tracker_get_global_history["get_global_history"]
+        history_tracker_record_command["record_command"]
+        history_tracker_to_dict["to_dict"]
+        history_tracker_from_dict["from_dict"]
+        history_tracker___init__["__init__"]
+        history_tracker__load["_load"]
+        history_tracker__save["_save"]
+        history_tracker_record["record"]
+        history_tracker_get_recent["get_recent"]
+        history_tracker_get_by_dsl["get_by_dsl"]
+        history_tracker_get_stats["get_stats"]
+        history_tracker_get_schema_usage_stats["get_schema_usage_stats"]
+        history_tracker_get_popular_queries["get_popular_queries"]
+        history_tracker_get_failed_commands["get_failed_commands"]
+        history_tracker_clear["clear"]
+        history_tracker_export_analytics["export_analytics"]
+    end
+    subgraph intelligent
+        intelligent_dynamic__8520["__init__"]
+        intelligent_dynamic__3260["generate_schema"]
+        intelligent_dynamic__3449["_generate_template"]
+        intelligent_dynamic__3340["_generate_description"]
+        intelligent_dynamic__7178["_infer_category"]
+        intelligent_dynamic__8282["test_dynamic_generation"]
+        intelligent_dynamic_generator___init__["__init__"]
+        intelligent_dynamic__2917["generate_schema"]
+        intelligent_dynamic__4169["_generate_template"]
+        intelligent_dynamic__9598["_generate_description"]
+        intelligent_dynamic__6378["_infer_category"]
+        intelligent_version__9220["__init__"]
+        intelligent_version__1064["generate_command"]
+        intelligent_version__5240["_detect_base_command"]
+        intelligent_version__6567["_detect_command_version"]
+        intelligent_version__8106["_run_version_command"]
+        intelligent_version__5098["_parse_version_output"]
+        intelligent_version__500["_extract_context"]
+        intelligent_version__791["_post_process_command"]
+        intelligent_version__1270["_get_adaptations"]
+        intelligent_version__136["clear_version_cache"]
+        intelligent_version__8335["test_version_aware_generation"]
+        intelligent_version__7593["__init__"]
+        intelligent_version__8819["generate_command"]
+        intelligent_version__5329["_detect_base_command"]
+        intelligent_version__368["_detect_command_version"]
+        intelligent_version__7144["_run_version_command"]
+        intelligent_version__7039["_parse_version_output"]
+        intelligent_version__1240["_extract_context"]
+        intelligent_version__9154["_post_process_command"]
+        intelligent_version__7724["_get_adaptations"]
+        intelligent_version__1587["clear_version_cache"]
+        intelligent_command__8839["__init__"]
+        intelligent_command__2590["_load_config_from_json"]
+        intelligent_command__9078["detect_command"]
+        intelligent_command__7619["_extract_context"]
+        intelligent_command__7506["test_command_detector"]
+        intelligent_command_detector___init__["__init__"]
+        intelligent_command__1291["_load_config_from_json"]
+        intelligent_command__2429["detect_command"]
+        intelligent_command__2868["_extract_context"]
+    end
+    subgraph ir
+        ir_ActionIR_to_dict["to_dict"]
+        ir_to_dict["to_dict"]
+    end
+    subgraph llm
+        llm_vision__debug["_debug"]
+        llm_vision_VisionAnalyzer___init__["__init__"]
+        llm_vision_VisionAnalyzer__get_client["_get_client"]
+        llm_vision_VisionAnalyzer__encode_image["_encode_image"]
+        llm_vision_VisionAna_3570["describe_screenshot"]
+        llm_vision_VisionAna_3252["find_ui_element"]
+        llm_vision_VisionAna_2634["read_text_from_image"]
+        llm_vision_VisionAnalyzer_verify_drawing["verify_drawing"]
+        llm_vision_VisionAna_867["analyze_captcha"]
+        llm_vision___init__["__init__"]
+        llm_vision__get_client["_get_client"]
+        llm_vision__encode_image["_encode_image"]
+        llm_vision_describe_screenshot["describe_screenshot"]
+        llm_vision_find_ui_element["find_ui_element"]
+        llm_vision_read_text_from_image["read_text_from_image"]
+        llm_vision_verify_drawing["verify_drawing"]
+        llm_vision_analyze_captcha["analyze_captcha"]
+        llm_openrouter__debug["_debug"]
+        llm_openrouter_OpenRouterClient___init__["__init__"]
+        llm_openrouter_OpenRouterClient__headers["_headers"]
+        llm_openrouter_OpenRouterClient_complete["complete"]
+        llm_openrouter_OpenRouterClient_vision["vision"]
+        llm_openrouter_OpenR_2374["plan_actions"]
+        llm_openrouter_OpenRouterClient__request["_request"]
+        llm_openrouter_OpenR_5498["check_balance"]
+        llm_openrouter___init__["__init__"]
+        llm_openrouter__headers["_headers"]
+        llm_openrouter_complete["complete"]
+        llm_openrouter_vision["vision"]
+        llm_openrouter_plan_actions["plan_actions"]
+        llm_openrouter__request["_request"]
+        llm_openrouter_check_balance["check_balance"]
+        llm_repair__debug["_debug"]
+        llm_repair_LLMRepair___init__["__init__"]
+        llm_repair_LLMRepair_repair["repair"]
+        llm_repair_LLMRepair__call_openrouter["_call_openrouter"]
+        llm_repair_LLMRepair__parse_and_apply["_parse_and_apply"]
+        llm_repair_LLMRepair_9443["_apply_patterns_patch"]
+        llm_repair_LLMRepair_9101["_apply_templates_patch"]
+        llm_repair___init__["__init__"]
+        llm_repair_repair["repair"]
+        llm_repair__call_openrouter["_call_openrouter"]
+        llm_repair__parse_and_apply["_parse_and_apply"]
+        llm_repair__apply_patterns_patch["_apply_patterns_patch"]
+        llm_repair__apply_templates_patch["_apply_templates_patch"]
+        llm_repair__find_and_patch["_find_and_patch"]
+        llm_validator__debug["_debug"]
+        llm_validator_LLMValidator___init__["__init__"]
+        llm_validator_LLMValidator_validate["validate"]
+        llm_validator_LLMValidator__cache_key["_cache_key"]
+    end
+    subgraph monitoring
+        monitoring_resources_8539["__init__"]
+        monitoring_resources_8932["_process_cpu_time_seconds"]
+        monitoring_resources_9041["get_current_metrics"]
+        monitoring_resources_1895["measure_execution"]
+        monitoring_resources_2882["get_last_metrics"]
+        monitoring_resources_1851["format_metrics"]
+        monitoring_resources_get_monitor["get_monitor"]
+        monitoring_resources_measure_resources["measure_resources"]
+        monitoring_resources_get_last_metrics["get_last_metrics"]
+        monitoring_resources_format_last_metrics["format_last_metrics"]
+        monitoring_resources_get_system_info["get_system_info"]
+        monitoring_resources___init__["__init__"]
+        monitoring_resources_5450["_process_cpu_time_seconds"]
+        monitoring_resources_get_current_metrics["get_current_metrics"]
+        monitoring_resources_measure_execution["measure_execution"]
+        monitoring_resources_format_metrics["format_metrics"]
+        monitoring_resources__PsutilStub_Process["Process"]
+        monitoring_resources_Process["Process"]
+        monitoring_resources_6571["memory_info"]
+        monitoring_resources_5090["cpu_times"]
+        monitoring_resources_memory_info["memory_info"]
+        monitoring_resources_cpu_times["cpu_times"]
+        monitoring_token_cos_3540["__init__"]
+        monitoring_token_cos_23["estimate_from_metrics"]
+        monitoring_token_cos_999["_estimate_tokens_from_cpu"]
+        monitoring_token_cos_4606["_estimate_tokens_from_memory"]
+        monitoring_token_cos_2498["_estimate_tokens_from_energy"]
+        monitoring_token_cos_2520["_determine_model_tier"]
+        monitoring_token_cos_5220["format_estimate"]
+        monitoring_token_cos_5966["estimate_token_cost"]
+        monitoring_token_cos_4594["format_token_estimate"]
+        monitoring_token_cos_6231["parse_metrics_string"]
+        monitoring_token_costs___init__["__init__"]
+        monitoring_token_cos_2111["estimate_from_metrics"]
+        monitoring_token_cos_4678["_estimate_tokens_from_cpu"]
+        monitoring_token_cos_8347["_estimate_tokens_from_memory"]
+        monitoring_token_cos_4791["_estimate_tokens_from_energy"]
+        monitoring_token_cos_505["_determine_model_tier"]
+        monitoring_token_costs_format_estimate["format_estimate"]
+    end
+    subgraph nlp
+        nlp_normalizer__score_chars["_score_chars"]
+        nlp_normalizer__score_words["_score_words"]
+        nlp_normalizer_detect_language["detect_language"]
+        nlp_normalizer_normalize_unicode["normalize_unicode"]
+        nlp_normalizer_fold_accents["fold_accents"]
+        nlp_normalizer__preserve_case["_preserve_case"]
+        nlp_normalizer__try_direct_lookup["_try_direct_lookup"]
+        nlp_normalizer__try_fuzzy_match["_try_fuzzy_match"]
+        nlp_normalizer_correct_typos["correct_typos"]
+        nlp_normalizer_tokenize["tokenize"]
+        nlp_normalizer_QueryNormalizer___init__["__init__"]
+        nlp_normalizer_QueryNormalizer_normalize["normalize"]
+        nlp_normalizer_Query_8350["normalize_for_matching"]
+        nlp_normalizer___init__["__init__"]
+        nlp_normalizer_normalize["normalize"]
+        nlp_normalizer_normalize_for_matching["normalize_for_matching"]
+        nlp_config_ServiceConfig_to_planner_dict["to_planner_dict"]
+        nlp_config_ServiceRegistry___init__["__init__"]
+        nlp_config_ServiceRegistry_load["load"]
+        nlp_config_ServiceRegistry_get["get"]
+        nlp_config_ServiceRegistry_list_names["list_names"]
+        nlp_config_ServiceRe_230["as_planner_dict"]
+        nlp_config_IntentConfig_get_examples["get_examples"]
+        nlp_config_IntentConfig_all_examples["all_examples"]
+        nlp_config_IntentRegistry___init__["__init__"]
+        nlp_config_IntentRegistry_load["load"]
+        nlp_config_IntentRegistry_get["get"]
+        nlp_config_IntentRegistry_get_domain["get_domain"]
+        nlp_config_IntentRegistry_list_domains["list_domains"]
+        nlp_config_IntentReg_350["all_examples_for_training"]
+        nlp_config_get_service_registry["get_service_registry"]
+        nlp_config_get_intent_registry["get_intent_registry"]
+        nlp_config_to_planner_dict["to_planner_dict"]
+        nlp_config___init__["__init__"]
+        nlp_config_load["load"]
+        nlp_config_get["get"]
+        nlp_config_list_names["list_names"]
+        nlp_config_as_planner_dict["as_planner_dict"]
+        nlp_config_get_examples["get_examples"]
+        nlp_config_all_examples["all_examples"]
+        nlp_config_get_domain["get_domain"]
+        nlp_config_list_domains["list_domains"]
+        nlp_config_all_examples_for_training["all_examples_for_training"]
+        nlp_intent_matcher_IntentDef_all_labels["all_labels"]
+        nlp_intent_matcher_I_8342["all_examples"]
+        nlp_intent_matcher_I_6432["__init__"]
+        nlp_intent_matcher_IntentMatcher_load["load"]
+        nlp_intent_matcher_IntentMatcher_match["match"]
+        nlp_intent_matcher_I_1943["match_best"]
+        nlp_intent_matcher_I_8724["get_intent"]
+    end
+    subgraph nlp_enhanced
+        nlp_enhanced_ShellGPTBackend___init__["__init__"]
+        nlp_enhanced_ShellGP_3965["_find_shell_gpt"]
+        nlp_enhanced_ShellGP_1261["extract_entities"]
+        nlp_enhanced_ShellGP_9050["extract_intent"]
+        nlp_enhanced_ShellGP_1447["generate_plan"]
+        nlp_enhanced_ShellGP_5247["_build_shell_gpt_context"]
+        nlp_enhanced_ShellGP_7491["_infer_entity_type"]
+        nlp_enhanced_ShellGP_9810["_fallback_entity_extraction"]
+        nlp_enhanced_ShellGP_5684["_fallback_intent_extraction"]
+        nlp_enhanced_ShellGP_3972["_fallback_plan_generation"]
+        nlp_enhanced_HybridNLPBackend___init__["__init__"]
+        nlp_enhanced_HybridN_3805["extract_entities"]
+        nlp_enhanced_HybridN_1684["extract_intent"]
+        nlp_enhanced_HybridN_9000["generate_plan"]
+        nlp_enhanced___init__["__init__"]
+        nlp_enhanced__find_shell_gpt["_find_shell_gpt"]
+        nlp_enhanced_extract_entities["extract_entities"]
+        nlp_enhanced_extract_intent["extract_intent"]
+        nlp_enhanced_generate_plan["generate_plan"]
+        nlp_enhanced__build_shell_gpt_context["_build_shell_gpt_context"]
+        nlp_enhanced__infer_entity_type["_infer_entity_type"]
+        nlp_enhanced__fallback_entity_extraction["_fallback_entity_extraction"]
+        nlp_enhanced__fallback_intent_extraction["_fallback_intent_extraction"]
+        nlp_enhanced__fallback_plan_generation["_fallback_plan_generation"]
+    end
+    subgraph nlp_light
+        nlp_light_semantic_s_6126["__init__"]
+        nlp_light_semantic_s_8073["_maybe_warm_spacy"]
+        nlp_light_semantic_s_3051["extract_intent"]
+        nlp_light_semantic_s_1682["generate_plan"]
+        nlp_light_semantic_s_6124["_infer_target"]
+        nlp_light_semantic_s_8906["_extract_scope"]
+        nlp_light_semantic_s_4525["_extract_extension"]
+        nlp_light_semantic_s_1235["_extract_size_filter"]
+        nlp_light_semantic_s_6661["_infer_size_operator"]
+        nlp_light_semantic_s_6779["_extract_age_filter"]
+        nlp_light_semantic_s_2372["_extract_first_size"]
+        nlp_light_semantic_s_7324["_format_size_for_find"]
+        nlp_light_semantic_s_2834["_extract_username_with_nlp"]
+        nlp_light_semantic_shell___init__["__init__"]
+        nlp_light_semantic_s_6819["_maybe_warm_spacy"]
+        nlp_light_semantic_shell_extract_intent["extract_intent"]
+        nlp_light_semantic_shell_generate_plan["generate_plan"]
+        nlp_light_semantic_shell__infer_target["_infer_target"]
+        nlp_light_semantic_shell__extract_scope["_extract_scope"]
+        nlp_light_semantic_s_7724["_extract_extension"]
+        nlp_light_semantic_s_1266["_extract_size_filter"]
+        nlp_light_semantic_s_4108["_infer_size_operator"]
+        nlp_light_semantic_s_4413["_extract_age_filter"]
+        nlp_light_semantic_s_7862["_extract_first_size"]
+        nlp_light_semantic_s_8290["_format_size_for_find"]
+        nlp_light_semantic_s_3145["_extract_username_with_nlp"]
+    end
+    subgraph parsing
+        parsing_toon_parser_ToonParser___init__["__init__"]
+        parsing_toon_parser__2844["parse_file"]
+        parsing_toon_parser__6291["parse_content"]
+        parsing_toon_parser__7189["_parse_lines"]
+        parsing_toon_parser__4971["_parse_array_node"]
+        parsing_toon_parser__7267["_parse_object_node"]
+        parsing_toon_parser__7075["_parse_key_value"]
+        parsing_toon_parser__6339["_parse_value"]
+        parsing_toon_parser__102["_extract_categories"]
+        parsing_toon_parser__1041["get_category"]
+        parsing_toon_parser__8892["get_commands"]
+        parsing_toon_parser__9781["get_config"]
+        parsing_toon_parser__4927["get_schemas"]
+        parsing_toon_parser__2815["get_templates"]
+        parsing_toon_parser__5572["get_mappings"]
+        parsing_toon_parser__3587["get_metadata"]
+        parsing_toon_parser__6742["_get_nested_value"]
+        parsing_toon_parser__2581["_node_to_dict"]
+        parsing_toon_parser__2954["search_commands"]
+        parsing_toon_parser__4174["validate_schema"]
+        parsing_toon_parser_get_parser["get_parser"]
+        parsing_toon_parser_reload_parser["reload_parser"]
+        parsing_toon_parser___init__["__init__"]
+        parsing_toon_parser_parse_file["parse_file"]
+        parsing_toon_parser_parse_content["parse_content"]
+        parsing_toon_parser__parse_lines["_parse_lines"]
+        parsing_toon_parser__parse_array_node["_parse_array_node"]
+        parsing_toon_parser__parse_object_node["_parse_object_node"]
+        parsing_toon_parser__parse_key_value["_parse_key_value"]
+        parsing_toon_parser__parse_value["_parse_value"]
+        parsing_toon_parser__extract_categories["_extract_categories"]
+        parsing_toon_parser_get_category["get_category"]
+        parsing_toon_parser_get_commands["get_commands"]
+        parsing_toon_parser_get_config["get_config"]
+        parsing_toon_parser_get_schemas["get_schemas"]
+        parsing_toon_parser_get_templates["get_templates"]
+        parsing_toon_parser_get_mappings["get_mappings"]
+        parsing_toon_parser_get_metadata["get_metadata"]
+        parsing_toon_parser__get_nested_value["_get_nested_value"]
+        parsing_toon_parser__node_to_dict["_node_to_dict"]
+        parsing_toon_parser_search_commands["search_commands"]
+        parsing_toon_parser_validate_schema["validate_schema"]
+        parsing_toon_parser_search_recursive["search_recursive"]
+    end
+    subgraph pipeline_runner
+        pipeline_runner_PipelineRunner___init__["__init__"]
+        pipeline_runner_PipelineRunner_run["run"]
+        pipeline_runner___init__["__init__"]
+        pipeline_runner_run["run"]
+    end
+    subgraph pipeline_runner_browser
+        pipeline_runner_brow_1318["_run_dom_dql"]
+        pipeline_runner_brow_4089["_run_dom_multi_action"]
+        pipeline_runner_browser__run_dom_dql["_run_dom_dql"]
+        pipeline_runner_brow_3928["_run_dom_multi_action"]
+        pipeline_runner_browser__abort_heavy["_abort_heavy"]
+        pipeline_runner_brow_3291["_collect_company_links"]
+        pipeline_runner_browser__is_bad_website["_is_bad_website"]
+    end
+    subgraph pipeline_runner_desktop
+        pipeline_runner_desk_5991["_dismiss_popups"]
+        pipeline_runner_desk_8031["_extract_json_from_llm_respons"]
+        pipeline_runner_desk_4000["_detect_desktop_backend"]
+        pipeline_runner_desk_1194["_execute_desktop_plan_step"]
+        pipeline_runner_desk_9815["_xdotool_keys_to_ydotool"]
+        pipeline_runner_desk_8671["_normalize_llm_article_selecto"]
+        pipeline_runner_desk_4607["_collect_page_links_for_llm"]
+        pipeline_runner_desktop__dismiss_popups["_dismiss_popups"]
+        pipeline_runner_desk_4243["_extract_json_from_llm_respons"]
+        pipeline_runner_desk_435["_detect_desktop_backend"]
+        pipeline_runner_desk_203["_execute_desktop_plan_step"]
+        pipeline_runner_desk_1746["_xdotool_keys_to_ydotool"]
+        pipeline_runner_desk_2149["_normalize_llm_article_selecto"]
+        pipeline_runner_desk_2405["_collect_page_links_for_llm"]
+        pipeline_runner_desktop__clean_list["_clean_list"]
+    end
+    subgraph pipeline_runner_plans
+        pipeline_runner_plan_1713["_sanitize_replacement_steps"]
+        pipeline_runner_plan_5354["execute_action_plan"]
+        pipeline_runner_plan_1242["_execute_plan_step"]
+        pipeline_runner_plan_7194["_resolve_plan_variables"]
+        pipeline_runner_plan_3370["_do_verify_env"]
+        pipeline_runner_plan_6749["_llm_suggest_article_selectors"]
+        pipeline_runner_plan_9226["_sanitize_replacement_steps"]
+        pipeline_runner_plan_55["execute_action_plan"]
+        pipeline_runner_plans__execute_plan_step["_execute_plan_step"]
+        pipeline_runner_plan_8032["_resolve_plan_variables"]
+        pipeline_runner_plans__do_verify_env["_do_verify_env"]
+        pipeline_runner_plan_9192["_llm_suggest_article_selectors"]
+        pipeline_runner_plan_5069["_getpass_with_timeout"]
+        pipeline_runner_plans__reader["_reader"]
+        pipeline_runner_plan_6562["_copy_key_to_clipboard"]
+    end
+    subgraph pipeline_runner_shell
+        pipeline_runner_shel_3919["_run_shell"]
+        pipeline_runner_shel_6615["_parse_shell_command"]
+        pipeline_runner_shel_6412["_check_against_safety_policy"]
+        pipeline_runner_shell__run_shell["_run_shell"]
+        pipeline_runner_shel_5008["_parse_shell_command"]
+        pipeline_runner_shel_2126["_check_against_safety_policy"]
+    end
+    subgraph pipeline_runner_utils
+        pipeline_runner_utils__debug["_debug"]
+        pipeline_runner_utils__with_epipe_retry["_with_epipe_retry"]
+        pipeline_runner_utils__field_attrs["_field_attrs"]
+        pipeline_runner_utils__is_junk_field["_is_junk_field"]
+        pipeline_runner_util_2050["_is_contact_relevant_field"]
+        pipeline_runner_util_6980["_looks_like_comment_form"]
+        pipeline_runner_util_8170["_filter_form_fields"]
+        pipeline_runner_util_1925["__init__"]
+        pipeline_runner_util_3339["print"]
+        pipeline_runner_util_6671["capture"]
+        pipeline_runner_util_7465["load_from_data"]
+        pipeline_runner_utils_get_timestamp["get_timestamp"]
+        pipeline_runner_utils_ensure_dir["ensure_dir"]
+        pipeline_runner_utils_ask_for_screenshot["ask_for_screenshot"]
+        pipeline_runner_utils_take_screenshot["take_screenshot"]
+        pipeline_runner_util_9904["__init__"]
+        pipeline_runner_util_3408["start_recording"]
+        pipeline_runner_util_7720["stop_recording"]
+        pipeline_runner_util_5423["ask_for_video_recording"]
+        pipeline_runner_utils___init__["__init__"]
+        pipeline_runner_utils_print["print"]
+        pipeline_runner_utils_capture["capture"]
+        pipeline_runner_utils_load_from_data["load_from_data"]
+        pipeline_runner_utils_start_recording["start_recording"]
+        pipeline_runner_utils_stop_recording["stop_recording"]
+        pipeline_runner_utils__Capture___enter__["__enter__"]
+        pipeline_runner_utils__Capture___exit__["__exit__"]
+        pipeline_runner_utils___enter__["__enter__"]
+        pipeline_runner_utils___exit__["__exit__"]
+    end
+    subgraph planner
+        planner_LLMPlanner___init__["__init__"]
+        planner_LLMPlanner_plan["plan"]
+        planner_LLMPlanner__build_prompt["_build_prompt"]
+        planner_LLMPlanner__call_llm["_call_llm"]
+        planner_LLMPlanner__parse_response["_parse_response"]
+        planner_LLMPlanner__rule_based_plan["_rule_based_plan"]
+        planner_LLMPlanner_get_action_catalog["get_action_catalog"]
+        planner___init__["__init__"]
+        planner_plan["plan"]
+        planner__build_prompt["_build_prompt"]
+        planner__call_llm["_call_llm"]
+        planner__parse_response["_parse_response"]
+        planner__rule_based_plan["_rule_based_plan"]
+        planner_get_action_catalog["get_action_catalog"]
+    end
+    subgraph polish_support
+        polish_support_Polis_9383["__init__"]
+        polish_support_Polis_1674["_load_patterns"]
+        polish_support_Polis_775["normalize_polish_text"]
+        polish_support_Polis_3275["normalize_stt_errors"]
+        polish_support_Polis_7495["_find_best_phrase_match"]
+        polish_support_Polis_7332["_similar"]
+        polish_support_Polis_8371["match_polish_patterns"]
+        polish_support_Polis_5482["translate_polish_intent"]
+        polish_support_Polis_2388["translate_polish_table"]
+        polish_support_Polis_6294["get_domain_weight"]
+        polish_support_Polis_2193["enhance_domain_detection"]
+        polish_support_Polis_7564["enhance_intent_detection"]
+        polish_support_get_polish_support["get_polish_support"]
+        polish_support___init__["__init__"]
+        polish_support__load_patterns["_load_patterns"]
+        polish_support_normalize_polish_text["normalize_polish_text"]
+        polish_support_normalize_stt_errors["normalize_stt_errors"]
+        polish_support__find_best_phrase_match["_find_best_phrase_match"]
+        polish_support__similar["_similar"]
+        polish_support_match_polish_patterns["match_polish_patterns"]
+        polish_support_translate_polish_intent["translate_polish_intent"]
+        polish_support_translate_polish_table["translate_polish_table"]
+        polish_support_get_domain_weight["get_domain_weight"]
+        polish_support_enhance_domain_detection["enhance_domain_detection"]
+        polish_support_enhance_intent_detection["enhance_intent_detection"]
+    end
+    subgraph registry
+        registry_ActionSchem_6068["get_required_params"]
+        registry_ActionSchem_1030["get_optional_params"]
+        registry_ActionSchema_get_param["get_param"]
+        registry_ActionResult_ok["ok"]
+        registry_ActionResult_fail["fail"]
+        registry_ActionHandler_validate_params["validate_params"]
+        registry_ActionHandler__validate_type["_validate_type"]
+        registry_ActionHandler_execute["execute"]
+        registry_ActionRegistry___init__["__init__"]
+        registry_ActionRegis_7472["_register_builtin_actions"]
+        registry_ActionRegistry_register["register"]
+        registry_ActionRegistry_get["get"]
+        registry_ActionRegistry_get_handler["get_handler"]
+        registry_ActionRegistry_has["has"]
+        registry_ActionRegistry_list_actions["list_actions"]
+        registry_ActionRegistry_list_domains["list_domains"]
+        registry_ActionRegistry_get_by_tag["get_by_tag"]
+        registry_ActionRegis_9901["get_destructive_actions"]
+        registry_ActionRegistry_validate_action["validate_action"]
+        registry_ActionRegistry_to_llm_prompt["to_llm_prompt"]
+        registry_get_registry["get_registry"]
+        registry_get_required_params["get_required_params"]
+        registry_get_optional_params["get_optional_params"]
+        registry_get_param["get_param"]
+        registry_ok["ok"]
+        registry_fail["fail"]
+        registry_validate_params["validate_params"]
+        registry__validate_type["_validate_type"]
+        registry_execute["execute"]
+        registry___init__["__init__"]
+        registry__register_builtin_actions["_register_builtin_actions"]
+        registry_register["register"]
+        registry_get["get"]
+        registry_get_handler["get_handler"]
+        registry_has["has"]
+        registry_list_actions["list_actions"]
+        registry_list_domains["list_domains"]
+        registry_get_by_tag["get_by_tag"]
+        registry_get_destructive_actions["get_destructive_actions"]
+        registry_validate_action["validate_action"]
+        registry_to_llm_prompt["to_llm_prompt"]
+    end
+    subgraph router
+        router_DecisionRouter___init__["__init__"]
+        router_DecisionRoute_8608["_register_default_mappings"]
+        router_DecisionRoute_4203["_load_config_from_data"]
+        router_DecisionRouter_route["route"]
+        router_DecisionRoute_5548["_has_multi_step_indicators"]
+        router_DecisionRoute_2467["_has_complex_indicators"]
+        router_DecisionRouter__suggest_actions["_suggest_actions"]
+        router_DecisionRoute_6955["register_intent_mapping"]
+        router_DecisionRouter_add_simple_intent["add_simple_intent"]
+        router_DecisionRouter_add_complex_intent["add_complex_intent"]
+        router___init__["__init__"]
+        router__register_default_mappings["_register_default_mappings"]
+        router__load_config_from_data["_load_config_from_data"]
+        router_route["route"]
+        router__has_multi_step_indicators["_has_multi_step_indicators"]
+        router__has_complex_indicators["_has_complex_indicators"]
+        router__suggest_actions["_suggest_actions"]
+        router_register_intent_mapping["register_intent_mapping"]
+        router_add_simple_intent["add_simple_intent"]
+        router_add_complex_intent["add_complex_intent"]
+        router__candidate_paths["_candidate_paths"]
+    end
+    subgraph schema_driven
+        schema_driven_Schema_7494["transform"]
+        schema_driven_Schema_1022["_select_action"]
+        schema_driven_Schema_9787["_extract_params"]
+        schema_driven_Schema_3357["_render_dsl"]
+        schema_driven_Schema_7985["_render_dom"]
+        schema_driven_Schema_8323["_render_http"]
+        schema_driven_Schema_3274["_render_shell"]
+        schema_driven_transform["transform"]
+        schema_driven__select_action["_select_action"]
+        schema_driven__extract_params["_extract_params"]
+        schema_driven__render_dsl["_render_dsl"]
+        schema_driven__render_dom["_render_dom"]
+        schema_driven__render_http["_render_http"]
+        schema_driven__render_shell["_render_shell"]
+    end
+    subgraph schema_extraction
+        schema_extraction_re_9829["__init__"]
+        schema_extraction_re_8248["_auto_save"]
+        schema_extraction_re_6486["_load_from_storage"]
+        schema_extraction_re_4658["_save_to_storage"]
+        schema_extraction_re_7789["register_openapi_schema"]
+        schema_extraction_re_3189["register_shell_help"]
+        schema_extraction_re_658["save_cache"]
+        schema_extraction_re_4389["load_cache"]
+        schema_extraction_re_4628["get_schema"]
+        schema_extraction_re_3602["list_schemas"]
+        schema_extraction_re_2167["clear"]
+        schema_extraction_registry___init__["__init__"]
+        schema_extraction_registry__auto_save["_auto_save"]
+        schema_extraction_re_5475["_load_from_storage"]
+        schema_extraction_re_47["_save_to_storage"]
+        schema_extraction_re_4236["register_openapi_schema"]
+        schema_extraction_re_8630["register_shell_help"]
+        schema_extraction_registry_save_cache["save_cache"]
+        schema_extraction_registry_load_cache["load_cache"]
+        schema_extraction_registry_get_schema["get_schema"]
+        schema_extraction_registry_list_schemas["list_schemas"]
+        schema_extraction_registry_clear["clear"]
+        schema_extraction_ex_7942["to_dict"]
+        schema_extraction_ex_2717["from_dict"]
+        schema_extraction_ex_8102["__init__"]
+        schema_extraction_ex_9413["extract_from_url"]
+        schema_extraction_ex_4921["extract_from_file"]
+        schema_extraction_ex_520["_parse_openapi_spec"]
+        schema_extraction_ex_7995["_extract_operation_command"]
+        schema_extraction_ex_1844["extract_from_command"]
+        schema_extraction_ex_817["_parse_help_output"]
+        schema_extraction_extractors_to_dict["to_dict"]
+        schema_extraction_extractors_from_dict["from_dict"]
+        schema_extraction_extractors___init__["__init__"]
+        schema_extraction_ex_4758["extract_from_url"]
+        schema_extraction_ex_7176["extract_from_file"]
+        schema_extraction_ex_4627["_parse_openapi_spec"]
+        schema_extraction_ex_1016["_extract_operation_command"]
+        schema_extraction_ex_9832["extract_from_command"]
+        schema_extraction_ex_996["_parse_help_output"]
+        schema_extraction_py_216["_ast_unparse"]
+        schema_extraction_py_629["_python_annotation_to_param_ty"]
+        schema_extraction_py_2788["extract_from_file"]
+        schema_extraction_py_5044["extract_from_source"]
+        schema_extraction_py_4967["_extract_typer_command"]
+        schema_extraction_py_8395["_extract_click_command"]
+        schema_extraction_py_4329["_extract_generic_command"]
+        schema_extraction_py_3029["_extract_plain_function"]
+        schema_extraction_py_9602["_extract_argparse_cli"]
+        schema_extraction_py_4738["extract_from_file"]
+    end
+    subgraph schemas
+        schemas_FileFormatSchema_validate["validate"]
+        schemas_FileFormatSchema_parse["parse"]
+        schemas_FileFormatSchema_generate["generate"]
+        schemas_FileFormatSc_3641["matches_extension"]
+        schemas_FileFormatSc_6218["matches_mime_type"]
+        schemas_FileFormatSchema_self_validate["self_validate"]
+        schemas_SchemaRegistry___init__["__init__"]
+        schemas_SchemaRegist_6388["_register_builtin_schemas"]
+        schemas_SchemaRegistry_register["register"]
+        schemas_SchemaRegistry_get["get"]
+        schemas_SchemaRegistry_has_schema["has_schema"]
+        schemas_SchemaRegistry_list_schemas["list_schemas"]
+        schemas_SchemaRegistry_unregister["unregister"]
+        schemas_SchemaRegist_5663["find_schema_for_file"]
+        schemas_SchemaRegist_6554["find_schema_by_mime_type"]
+        schemas_SchemaRegist_9577["find_extension_conflicts"]
+        schemas_SchemaRegist_9937["validate_integrity"]
+        schemas_SchemaRegistry_get_dependencies["get_dependencies"]
+        schemas_SchemaRegistry_get_version["get_version"]
+        schemas_SchemaRegistry_export_schema["export_schema"]
+        schemas_SchemaRegistry_import_schema["import_schema"]
+        schemas_SchemaRegistry_load_from_file["load_from_file"]
+        schemas_SchemaRegist_9945["load_from_directory"]
+        schemas_SchemaRegistry_detect_format["detect_format"]
+        schemas_SchemaRegistry__match_pattern["_match_pattern"]
+        schemas_SchemaRegist_3338["_detect_by_content"]
+        schemas_SchemaRegistry_validate["validate"]
+        schemas_SchemaRegistry_repair["repair"]
+        schemas_SchemaRegist_7561["_apply_pattern_rule"]
+        schemas_SchemaRegistry__apply_path_rule["_apply_path_rule"]
+        schemas_SchemaRegistry__check_path["_check_path"]
+        schemas_SchemaRegistry__apply_path_fix["_apply_path_fix"]
+        schemas_SchemaRegist_1989["_validate_dockerfile"]
+        schemas_SchemaRegist_844["_validate_docker_compose"]
+        schemas_SchemaRegist_6536["_validate_k8s_deployment"]
+        schemas_SchemaRegist_139["_validate_github_workflow"]
+        schemas_SchemaRegist_3489["_validate_env_file"]
+        schemas_SchemaRegistry__parse_dockerfile["_parse_dockerfile"]
+        schemas_SchemaRegist_4109["_generate_dockerfile"]
+        schemas_SchemaRegistry__parse_env_file["_parse_env_file"]
+        schemas_SchemaRegist_4577["_generate_env_file"]
+        schemas_SchemaRegistry__validate_json["_validate_json"]
+        schemas_validate["validate"]
+        schemas_parse["parse"]
+        schemas_generate["generate"]
+        schemas_matches_extension["matches_extension"]
+        schemas_matches_mime_type["matches_mime_type"]
+        schemas_self_validate["self_validate"]
+        schemas___init__["__init__"]
+        schemas__register_builtin_schemas["_register_builtin_schemas"]
+    end
+    subgraph service
+        service_cli_add_service_command["add_service_command"]
+        service_cli_service["service"]
+        service_cli_config_service["config_service"]
+        service__ensure_service_deps["_ensure_service_deps"]
+        service_ServiceConfig___init__["__init__"]
+        service_ServiceConfig_to_dict["to_dict"]
+        service_ServiceConfig_save_to_env["save_to_env"]
+        service_NLP2CMDService___init__["__init__"]
+        service_NLP2CMDService__setup_logging["_setup_logging"]
+        service_NLP2CMDService__create_app["_create_app"]
+        service_NLP2CMDService__setup_routes["_setup_routes"]
+        service_NLP2CMDService_run["run"]
+        service_create_app["create_app"]
+        service_create_service_config_from_args["create_service_config_from_arg"]
+        service___init__["__init__"]
+        service_to_dict["to_dict"]
+        service_save_to_env["save_to_env"]
+        service__setup_logging["_setup_logging"]
+        service__create_app["_create_app"]
+        service__setup_routes["_setup_routes"]
+        service_run["run"]
+        service_root["root"]
+        service_health_check["health_check"]
+        service_process_query["process_query"]
+        service_get_config["get_config"]
+        service_update_config["update_config"]
+        service_save_config["save_config"]
+    end
+    subgraph storage
+        storage_per_command__3124["__init__"]
+        storage_per_command__443["_load_index"]
+        storage_per_command__4421["_save_index"]
+        storage_per_command__4457["_get_command_path"]
+        storage_per_command__9691["_get_category_path"]
+        storage_per_command__9112["store_schema"]
+        storage_per_command__1675["load_schema"]
+        storage_per_command__7627["list_commands"]
+        storage_per_command__7832["list_categories"]
+        storage_per_command__7633["get_stats"]
+        storage_per_command__4654["delete_schema"]
+        storage_per_command__3617["backup"]
+        storage_per_command__6320["restore"]
+        storage_per_command__3914["test_per_command_store"]
+        storage_per_command_store___init__["__init__"]
+        storage_per_command_store__load_index["_load_index"]
+        storage_per_command_store__save_index["_save_index"]
+        storage_per_command__1809["_get_command_path"]
+        storage_per_command__9465["_get_category_path"]
+        storage_per_command_store_store_schema["store_schema"]
+        storage_per_command_store_load_schema["load_schema"]
+        storage_per_command_store_list_commands["list_commands"]
+        storage_per_command__5088["list_categories"]
+        storage_per_command_store_get_stats["get_stats"]
+        storage_per_command_store_delete_schema["delete_schema"]
+        storage_per_command_store_backup["backup"]
+        storage_per_command_store_restore["restore"]
+        storage_versioned_st_8024["__init__"]
+        storage_versioned_st_7021["_load_active_versions"]
+        storage_versioned_st_3526["_save_active_versions"]
+        storage_versioned_st_2525["_get_version_path"]
+        storage_versioned_st_1436["store_schema_version"]
+        storage_versioned_st_3086["load_schema_version"]
+        storage_versioned_st_2597["list_versions"]
+        storage_versioned_st_7339["get_active_version"]
+        storage_versioned_st_4827["set_active_version"]
+        storage_versioned_st_2825["compare_versions"]
+        storage_versioned_st_2056["_is_valid_version"]
+        storage_versioned_st_860["get_version_stats"]
+        storage_versioned_st_9794["demonstrate_version_management"]
+        storage_versioned_store___init__["__init__"]
+        storage_versioned_st_2806["_load_active_versions"]
+        storage_versioned_st_4057["_save_active_versions"]
+        storage_versioned_st_2210["_get_version_path"]
+        storage_versioned_st_2418["store_schema_version"]
+        storage_versioned_st_1537["load_schema_version"]
+        storage_versioned_store_list_versions["list_versions"]
+        storage_versioned_st_7421["get_active_version"]
+        storage_versioned_st_3223["set_active_version"]
+        storage_versioned_store_compare_versions["compare_versions"]
+    end
+    subgraph streams
+        streams_rdp_stream_R_5985["connect"]
+        streams_rdp_stream_R_2785["execute"]
+        streams_rdp_stream_connect["connect"]
+        streams_rdp_stream_execute["execute"]
+        streams_base_parse_source_uri["parse_source_uri"]
+        streams_base__parse_libvirt_uri["_parse_libvirt_uri"]
+        streams_base_StreamAdapter___init__["__init__"]
+        streams_base_StreamAdapter_connect["connect"]
+        streams_base_StreamAdapter_execute["execute"]
+        streams_base_StreamAdapter_query["query"]
+        streams_base_StreamAdapter_screenshot["screenshot"]
+        streams_base_StreamAdapter_disconnect["disconnect"]
+        streams_base_StreamAdapter___enter__["__enter__"]
+        streams_base___init__["__init__"]
+        streams_base_connect["connect"]
+        streams_base_execute["execute"]
+        streams_base_query["query"]
+        streams_base_screenshot["screenshot"]
+        streams_base_disconnect["disconnect"]
+        streams_base___enter__["__enter__"]
+        streams_ws_stream_WS_191["__init__"]
+        streams_ws_stream_WS_9433["_build_url"]
+        streams_ws_stream_WS_9928["connect"]
+        streams_ws_stream_WS_6156["execute"]
+        streams_ws_stream_WSStreamAdapter__send["_send"]
+        streams_ws_stream_WS_3789["_receive"]
+        streams_ws_stream_WS_5305["disconnect"]
+        streams_ws_stream___init__["__init__"]
+        streams_ws_stream__build_url["_build_url"]
+        streams_ws_stream_connect["connect"]
+        streams_ws_stream_execute["execute"]
+        streams_ws_stream__send["_send"]
+        streams_ws_stream__receive["_receive"]
+        streams_ws_stream_disconnect["disconnect"]
+        streams_router__load_adapter_class["_load_adapter_class"]
+        streams_router_StreamRouter___init__["__init__"]
+        streams_router_StreamRouter_get_adapter["get_adapter"]
+        streams_router_StreamRouter_execute["execute"]
+        streams_router_StreamRouter_query["query"]
+        streams_router_StreamRouter_close_all["close_all"]
+        streams_router___init__["__init__"]
+        streams_router_get_adapter["get_adapter"]
+        streams_router_execute["execute"]
+        streams_router_query["query"]
+        streams_router_close_all["close_all"]
+        streams_ssh_stream_S_1230["__init__"]
+        streams_ssh_stream_S_6798["_build_ssh_target"]
+        streams_ssh_stream_S_7749["_build_ssh_cmd"]
+        streams_ssh_stream_S_6386["connect"]
+        streams_ssh_stream_S_1744["execute"]
+    end
+    subgraph thermodynamic
+        thermodynamic_energy_3695["__init__"]
+        thermodynamic_energy_2811["energy"]
+        thermodynamic_energy_7040["gradient"]
+        thermodynamic_energy_9425["_decode_assignments"]
+        thermodynamic_energy_4842["_overlap_penalty"]
+        thermodynamic_energy_1981["_deadline_penalty"]
+        thermodynamic_energy_5143["_precedence_penalty"]
+        thermodynamic_energy_51["_makespan"]
+        thermodynamic_energy_8749["__init__"]
+        thermodynamic_energy_7763["energy"]
+        thermodynamic_energy_6457["gradient"]
+        thermodynamic_energy_3118["_decode_allocation"]
+        thermodynamic_energy_2774["__init__"]
+        thermodynamic_energy_1885["energy"]
+        thermodynamic_energy_381["gradient"]
+        thermodynamic_energy_811["_softmax_matrix"]
+        thermodynamic_energy_117["decode_route"]
+        thermodynamic_energy_6649["add_constraint"]
+        thermodynamic_energy_2310["energy"]
+        thermodynamic_energy_5169["gradient"]
+        thermodynamic_energy_models___init__["__init__"]
+        thermodynamic_energy_models_energy["energy"]
+        thermodynamic_energy_models_gradient["gradient"]
+        thermodynamic_energy_9087["_decode_assignments"]
+        thermodynamic_energy_943["_overlap_penalty"]
+        thermodynamic_energy_8270["_deadline_penalty"]
+        thermodynamic_energy_4873["_precedence_penalty"]
+        thermodynamic_energy_models__makespan["_makespan"]
+        thermodynamic_energy_6906["_decode_allocation"]
+        thermodynamic_energy_2288["_softmax_matrix"]
+        thermodynamic_energy_models_decode_route["decode_route"]
+        thermodynamic_energy_8066["add_constraint"]
+        thermodynamic_EnergyModel_energy["energy"]
+        thermodynamic_EnergyModel_gradient["gradient"]
+        thermodynamic_Energy_7433["numerical_gradient"]
+        thermodynamic_QuadraticEnergy_energy["energy"]
+        thermodynamic_QuadraticEnergy_gradient["gradient"]
+        thermodynamic_ConstraintEnergy___init__["__init__"]
+        thermodynamic_Constr_4331["add_penalty"]
+        thermodynamic_ConstraintEnergy_energy["energy"]
+        thermodynamic_ConstraintEnergy_gradient["gradient"]
+        thermodynamic_LangevinSampler___init__["__init__"]
+        thermodynamic_LangevinSampler_sample["sample"]
+        thermodynamic_Langev_6693["_sample_single"]
+        thermodynamic_Langev_8880["sample_parallel"]
+        thermodynamic_Entrop_1694["__init__"]
+        thermodynamic_Entrop_5651["compute_regularization"]
+        thermodynamic_Entrop_323["estimate_heat_dissipation"]
+        thermodynamic_MajorityVoter_vote["vote"]
+        thermodynamic_Majori_3551["_cluster_vote"]
+    end
+    subgraph utils
+        utils_playwright_ins_2474["_is_pep668_externally_managed_"]
+        utils_playwright_ins_3073["is_playwright_installed"]
+        utils_playwright_ins_8207["is_playwright_browsers_install"]
+        utils_playwright_ins_5241["install_playwright"]
+        utils_playwright_ins_8502["install_playwright_browsers"]
+        utils_playwright_ins_1837["ensure_playwright_installed"]
+        utils_playwright_ins_1116["print_yaml_block"]
+        utils_yaml_compat__parse_scalar["_parse_scalar"]
+        utils_yaml_compat__Frame___init__["__init__"]
+        utils_yaml_compat_safe_load["safe_load"]
+        utils_yaml_compat__dump_obj["_dump_obj"]
+        utils_yaml_compat___init__["__init__"]
+        utils_external_cache_2530["__init__"]
+        utils_external_cache_2903["_load_manifest"]
+        utils_external_cache_2805["_save_manifest"]
+        utils_external_cache_3740["_get_package_hash"]
+        utils_external_cache_5350["setup_playwright_cache"]
+        utils_external_cache_3896["is_playwright_cached"]
+        utils_external_cache_5310["install_playwright_if_needed"]
+        utils_external_cache_4030["_get_installed_browsers"]
+        utils_external_cache_9407["get_cache_info"]
+        utils_external_cache_1159["_get_cache_size"]
+        utils_external_cache_5167["clear_cache"]
+        utils_external_cache_1430["setup_environment"]
+        utils_external_cache_main["main"]
+        utils_external_cache___init__["__init__"]
+        utils_external_cache__load_manifest["_load_manifest"]
+        utils_external_cache__save_manifest["_save_manifest"]
+        utils_external_cache__get_package_hash["_get_package_hash"]
+        utils_external_cache_3120["setup_playwright_cache"]
+        utils_external_cache_4691["is_playwright_cached"]
+        utils_external_cache_4551["install_playwright_if_needed"]
+        utils_external_cache_1410["_get_installed_browsers"]
+        utils_external_cache_get_cache_info["get_cache_info"]
+        utils_external_cache__get_cache_size["_get_cache_size"]
+        utils_external_cache_clear_cache["clear_cache"]
+        utils_external_cache_setup_environment["setup_environment"]
+        utils_data_files_get_user_config_dir["get_user_config_dir"]
+        utils_data_files__package_data_dir["_package_data_dir"]
+        utils_data_files_find_data_files["find_data_files"]
+        utils_data_files_find_data_file["find_data_file"]
+        utils_data_files_data_file_write_path["data_file_write_path"]
+    end
+    subgraph validators
+        validators_ValidationResult_merge["merge"]
+        validators_ValidationResult_to_dict["to_dict"]
+        validators_ValidationResult_from_dict["from_dict"]
+        validators_ValidationResult_add_error["add_error"]
+        validators_ValidationResult_add_warning["add_warning"]
+        validators_ValidationResult_has_errors["has_errors"]
+        validators_ValidationResult_has_warnings["has_warnings"]
+        validators_ValidationResult_copy["copy"]
+        validators_ValidationResult___str__["__str__"]
+        validators_BaseValidator_validate["validate"]
+        validators_BaseValid_778["validate_with_context"]
+        validators_SyntaxValidator_validate["validate"]
+        validators_SQLValidator_validate["validate"]
+        validators_ShellValidator_validate["validate"]
+        validators_DockerVal_8211["_iter_publish_ports"]
+        validators_DockerVal_7779["_parse_ports_from_spec"]
+        validators_DockerVal_3660["_is_valid_image_name"]
+        validators_DockerVal_3702["_find_docker_image"]
+        validators_DockerValidator_validate["validate"]
+        validators_KubernetesValidator_validate["validate"]
+        validators_CompositeValidator_validate["validate"]
+        validators_merge["merge"]
+        validators_to_dict["to_dict"]
+        validators_from_dict["from_dict"]
+        validators_add_error["add_error"]
+        validators_add_warning["add_warning"]
+        validators_has_errors["has_errors"]
+        validators_has_warnings["has_warnings"]
+        validators_copy["copy"]
+        validators___str__["__str__"]
+        validators_validate["validate"]
+        validators_validate_with_context["validate_with_context"]
+        validators__iter_publish_ports["_iter_publish_ports"]
+        validators__parse_ports_from_spec["_parse_ports_from_spec"]
+        validators__is_valid_image_name["_is_valid_image_name"]
+        validators__find_docker_image["_find_docker_image"]
+    end
+    subgraph web_schema
+        web_schema_extractor_WebElement_to_dict["to_dict"]
+        web_schema_extractor_6730["to_appspec"]
+        web_schema_extractor_WebPageSchema_save["save"]
+        web_schema_extractor_9680["extract"]
+        web_schema_extractor_6166["_extract_inputs"]
+        web_schema_extractor_1587["_extract_buttons"]
+        web_schema_extractor_3514["_extract_links"]
+        web_schema_extractor_1835["_extract_forms"]
+        web_schema_extractor_extract_web_schema["extract_web_schema"]
+        web_schema_extractor_to_dict["to_dict"]
+        web_schema_extractor_to_appspec["to_appspec"]
+        web_schema_extractor_save["save"]
+        web_schema_extractor_extract["extract"]
+        web_schema_extractor__extract_inputs["_extract_inputs"]
+        web_schema_extractor__extract_buttons["_extract_buttons"]
+        web_schema_extractor__extract_links["_extract_links"]
+        web_schema_extractor__extract_forms["_extract_forms"]
+        web_schema_browser_c_5471["_find_config_dir"]
+        web_schema_browser_config__load_yaml["_load_yaml"]
+        web_schema_browser_c_2366["__init__"]
+        web_schema_browser_c_3717["_ensure_loaded"]
+        web_schema_browser_c_8558["get_dismiss_selectors"]
+        web_schema_browser_c_2666["get_submit_selectors"]
+        web_schema_browser_c_4117["get_type_selectors"]
+        web_schema_browser_c_7726["get_contact_page_link_selector"]
+        web_schema_browser_c_2101["get_common_contact_paths"]
+        web_schema_browser_c_8389["get_contact_url_keywords"]
+        web_schema_browser_c_278["get_contact_page_keywords"]
+        web_schema_browser_c_7375["get_junk_field_types"]
+        web_schema_browser_c_2714["get_junk_exact_names"]
+        web_schema_browser_c_922["get_junk_substring_matches"]
+        web_schema_browser_c_2704["get_junk_prefix_matches"]
+        web_schema_browser_c_8756["get_contact_field_types"]
+        web_schema_browser_c_7673["get_contact_allowed_field_type"]
+        web_schema_browser_c_496["get_contact_tokens"]
+        web_schema_browser_c_9520["get_domain_config"]
+        web_schema_browser_c_7096["save_learned_selector"]
+        web_schema_browser_c_2488["__init__"]
+        web_schema_browser_c_510["suggest_selectors"]
+        web_schema_browser_config__dedupe["_dedupe"]
+        web_schema_browser_config___init__["__init__"]
+        web_schema_browser_config__ensure_loaded["_ensure_loaded"]
+        web_schema_browser_c_6333["get_dismiss_selectors"]
+        web_schema_browser_c_570["get_submit_selectors"]
+        web_schema_browser_c_8323["get_type_selectors"]
+        web_schema_browser_c_4203["get_contact_page_link_selector"]
+        web_schema_browser_c_4709["get_common_contact_paths"]
+        web_schema_browser_c_460["get_contact_url_keywords"]
+        web_schema_browser_c_7595["get_contact_page_keywords"]
+        web_schema_browser_c_3525["get_junk_field_types"]
+    end
+    pipeline_runner_PipelineRunner___init__ --> execution_executor_r_4623
+    pipeline_runner___init__ --> execution_executor_r_4623
+    polish_support_Polis_1674 --> utils_data_files_find_data_file
+    polish_support_Polis_1674 --> utils_data_files_find_data_file
+    polish_support_Polis_1674 --> utils_data_files_find_data_file
+    polish_support_Polis_1674 --> utils_data_files_find_data_file
+    polish_support_Polis_1674 --> pipeline_runner_util_3339
+    polish_support__load_patterns --> utils_data_files_find_data_file
+    polish_support__load_patterns --> utils_data_files_find_data_file
+    polish_support__load_patterns --> utils_data_files_find_data_file
+    polish_support__load_patterns --> utils_data_files_find_data_file
+    polish_support__load_patterns --> pipeline_runner_util_3339
+    schema_driven_Schema_7494 --> generation_thermodyn_4808
+    schema_driven_transform --> generation_thermodyn_4808
+    pipeline_runner_utils__debug --> pipeline_runner_util_3339
+    pipeline_runner_utils__with_epipe_retry --> pipeline_runner_utils__debug
+    pipeline_runner_utils__is_junk_field --> pipeline_runner_utils__field_attrs
+    pipeline_runner_util_2050 --> pipeline_runner_utils__is_junk_field
+    pipeline_runner_util_2050 --> pipeline_runner_utils__field_attrs
+    pipeline_runner_util_6980 --> pipeline_runner_utils__field_attrs
+    pipeline_runner_util_8170 --> pipeline_runner_util_6980
+    pipeline_runner_util_8170 --> pipeline_runner_util_2050
+    pipeline_runner_util_8170 --> pipeline_runner_utils__is_junk_field
+    pipeline_runner_util_8170 --> pipeline_runner_utils__field_attrs
+    pipeline_runner_util_7465 --> utils_data_files_find_data_file
+    pipeline_runner_utils_take_screenshot --> pipeline_runner_utils_ensure_dir
+    pipeline_runner_util_3408 --> pipeline_runner_utils_get_timestamp
+    pipeline_runner_util_3408 --> pipeline_runner_utils_ensure_dir
+    pipeline_runner_utils_load_from_data --> utils_data_files_find_data_file
+    pipeline_runner_utils_start_recording --> pipeline_runner_utils_get_timestamp
+    pipeline_runner_utils_start_recording --> pipeline_runner_utils_ensure_dir
+    pipeline_runner_desk_8671 --> pipeline_runner_desktop__clean_list
+    pipeline_runner_desk_8671 --> pipeline_runner_desktop__clean_list
+    pipeline_runner_desk_2149 --> pipeline_runner_desktop__clean_list
+    pipeline_runner_desk_2149 --> pipeline_runner_desktop__clean_list
+    monitoring_resources_1895 --> generation_thermodyn_4808
+    monitoring_resources_1895 --> generation_thermodyn_4808
+    monitoring_resources_1895 --> generation_thermodyn_4808
+    monitoring_resources_format_last_metrics --> monitoring_resources_2882
+    monitoring_resources_measure_execution --> generation_thermodyn_4808
+    monitoring_resources_measure_execution --> generation_thermodyn_4808
+    monitoring_resources_measure_execution --> generation_thermodyn_4808
+    automation_drawing_b_6619 --> automation_drawing_b_371
+    schemas_SchemaRegistry_detect_format --> generation_thermodyn_4808
+    schemas_detect_format --> generation_thermodyn_4808
+    automation_complex_planner__debug --> pipeline_runner_util_3339
+    automation_complex_p_6482 --> pipeline_runner_utils__debug
+    automation_complex_p_6482 --> pipeline_runner_utils__debug
+    automation_complex_p_6482 --> pipeline_runner_utils__debug
+    automation_complex_p_1293 --> pipeline_runner_utils__debug
+    automation_complex_p_1293 --> pipeline_runner_utils__debug
+    automation_complex_planner_plan --> pipeline_runner_utils__debug
+    automation_complex_planner_plan --> pipeline_runner_utils__debug
+    automation_complex_planner_plan --> pipeline_runner_utils__debug
+    automation_complex_planner__llm_plan --> pipeline_runner_utils__debug
+    automation_complex_planner__llm_plan --> pipeline_runner_utils__debug
+    pipeline_runner_plan_1713 --> pipeline_runner_utils__debug
+    pipeline_runner_plan_1242 --> pipeline_runner_util_3339
+    pipeline_runner_plan_1242 --> pipeline_runner_utils__debug
+    pipeline_runner_plan_3370 --> pipeline_runner_utils__debug
+    pipeline_runner_plan_9226 --> pipeline_runner_utils__debug
+    pipeline_runner_plans__execute_plan_step --> pipeline_runner_util_3339
+    pipeline_runner_plans__execute_plan_step --> pipeline_runner_utils__debug
+    pipeline_runner_plans__do_verify_env --> pipeline_runner_utils__debug
+    pipeline_runner_plan_6562 --> pipeline_runner_utils__debug
+    pipeline_runner_plan_6562 --> pipeline_runner_utils__debug
+    automation_action_pl_5486 --> nlp_config_get_service_registry
+    automation_action_pl_9703 --> automation_drawing_b_371
+    automation_action_pl_881 --> automation_vector_store_get_vector_store
+    automation_action_pl_3157 --> automation_drawing_b_371
+    automation_action_pl_8170 --> automation_vector_store_get_vector_store
+    automation_schema_fa_9738 --> generation_thermodyn_4808
+    automation_schema_fa_2953 --> automation_step_vali_4320
+    automation_schema_fa_910 --> automation_feedback__1152
+    automation_schema_fa_910 --> automation_feedback__4555
+    automation_schema_fa_5574 --> automation_feedback__5176
+    automation_schema_fallback___init__ --> generation_thermodyn_4808
+    automation_schema_fa_8704 --> automation_step_vali_4320
+    automation_schema_fa_3031 --> automation_feedback__1152
+    automation_schema_fa_3031 --> automation_feedback__4555
+    automation_schema_fa_249 --> automation_feedback__5176
+    automation_step_vali_5143 --> generation_thermodyn_4510
+    automation_step_vali_5143 --> generation_thermodyn_4510
+    automation_step_vali_5143 --> generation_thermodyn_4510
+    automation_step_validator_summary --> generation_thermodyn_4510
+    automation_step_validator_summary --> generation_thermodyn_4510
+    automation_step_validator_summary --> generation_thermodyn_4510
+    automation_service_c_5956 --> nlp_config_get_service_registry
+    automation_vector_st_6251 --> automation_vector_store_get_vector_store
+    automation_vector_st_6722 --> automation_vector_store_get_vector_store
+    automation_vector_st_5967 --> automation_vector_store_get_vector_store
+    automation_vector_st_5967 --> automation_vector_st_571
+    automation_mouse_con_7432 --> generation_thermodyn_4808
+    automation_mouse_con_5410 --> generation_thermodyn_4808
+    automation_mouse_controller__human_delay --> generation_thermodyn_4808
+    automation_mouse_controller_human_move --> generation_thermodyn_4808
+    automation_env_extractor__debug --> pipeline_runner_util_3339
+    automation_env_extra_9850 --> pipeline_runner_utils__debug
+    automation_env_extra_9850 --> pipeline_runner_utils__debug
+    automation_env_extra_9850 --> pipeline_runner_utils__debug
+    automation_env_extra_5239 --> pipeline_runner_utils__debug
+    automation_env_extra_5239 --> pipeline_runner_utils__debug
+    automation_env_extra_5239 --> pipeline_runner_utils__debug
+    automation_env_extra_5239 --> pipeline_runner_utils__debug
+    automation_env_extra_7639 --> pipeline_runner_utils__debug
+    automation_env_extra_3019 --> pipeline_runner_utils__debug
+    automation_env_extra_6385 --> pipeline_runner_utils__debug
+    automation_env_extra_6385 --> pipeline_runner_utils__debug
+    automation_env_extra_6385 --> pipeline_runner_utils__debug
+    automation_env_extra_2406 --> pipeline_runner_utils__debug
+    automation_env_extra_2406 --> pipeline_runner_utils__debug
+    automation_env_extra_2406 --> pipeline_runner_utils__debug
+    automation_env_extra_2406 --> pipeline_runner_utils__debug
+    automation_env_extra_1642 --> pipeline_runner_utils__debug
+    automation_env_extractor__save_to_env --> pipeline_runner_utils__debug
+    automation_captcha_solver__debug --> pipeline_runner_util_3339
+    automation_captcha_s_588 --> pipeline_runner_utils__debug
+    automation_captcha_s_588 --> pipeline_runner_utils__debug
+    automation_captcha_s_588 --> pipeline_runner_utils__debug
+    automation_captcha_s_588 --> pipeline_runner_utils__debug
+    automation_captcha_s_588 --> pipeline_runner_utils__debug
+    automation_captcha_s_588 --> pipeline_runner_utils__debug
+    automation_captcha_s_5469 --> pipeline_runner_utils__debug
+    automation_captcha_s_996 --> pipeline_runner_utils__debug
+    automation_captcha_s_996 --> pipeline_runner_utils__debug
+    automation_captcha_s_996 --> pipeline_runner_utils__debug
+    automation_captcha_s_7428 --> pipeline_runner_utils__debug
+    automation_captcha_s_7428 --> pipeline_runner_utils__debug
+    automation_captcha_s_7428 --> pipeline_runner_utils__debug
+    automation_captcha_s_9779 --> pipeline_runner_utils__debug
+    automation_captcha_s_9779 --> pipeline_runner_utils__debug
+    automation_captcha_s_9779 --> pipeline_runner_utils__debug
+    automation_captcha_s_3848 --> pipeline_runner_utils__debug
+    automation_captcha_s_3848 --> pipeline_runner_utils__debug
+    automation_captcha_s_1034 --> pipeline_runner_utils__debug
+    automation_captcha_s_1034 --> pipeline_runner_utils__debug
+    automation_captcha_s_5709 --> pipeline_runner_utils__debug
+    automation_captcha_s_5709 --> pipeline_runner_utils__debug
+    automation_captcha_s_5709 --> pipeline_runner_utils__debug
+    automation_captcha_s_5709 --> pipeline_runner_utils__debug
+    automation_captcha_solver_detect_captcha --> pipeline_runner_utils__debug
+    automation_captcha_solver_detect_captcha --> pipeline_runner_utils__debug
+    automation_captcha_solver_detect_captcha --> pipeline_runner_utils__debug
+    automation_captcha_solver_detect_captcha --> pipeline_runner_utils__debug
+    automation_captcha_solver_detect_captcha --> pipeline_runner_utils__debug
+    automation_captcha_solver_detect_captcha --> pipeline_runner_utils__debug
+    automation_captcha_solver_solve --> pipeline_runner_utils__debug
+    automation_captcha_s_2001 --> pipeline_runner_utils__debug
+    automation_captcha_s_2001 --> pipeline_runner_utils__debug
+    automation_captcha_s_2001 --> pipeline_runner_utils__debug
+    automation_captcha_s_4759 --> pipeline_runner_utils__debug
+    automation_captcha_s_4759 --> pipeline_runner_utils__debug
+    automation_captcha_s_4759 --> pipeline_runner_utils__debug
+    automation_captcha_s_4525 --> pipeline_runner_utils__debug
+    automation_captcha_s_4525 --> pipeline_runner_utils__debug
+    automation_captcha_s_4525 --> pipeline_runner_utils__debug
+    automation_captcha_s_2789 --> pipeline_runner_utils__debug
+    automation_captcha_s_2789 --> pipeline_runner_utils__debug
+    automation_captcha_s_1621 --> pipeline_runner_utils__debug
+    automation_captcha_s_1621 --> pipeline_runner_utils__debug
+    automation_captcha_s_2832 --> pipeline_runner_utils__debug
+    automation_captcha_s_2832 --> pipeline_runner_utils__debug
+    automation_captcha_s_2832 --> pipeline_runner_utils__debug
+    automation_captcha_s_2832 --> pipeline_runner_utils__debug
+    generation_train_mod_3966 --> executor_ExecutionContext_set
+    generation_train_model_train_all_models --> generation_ml_intent_1427
+    generation_train_model_train_all_models --> generation_train_mod_3966
+    generation_train_model_quick_test --> pipeline_runner_util_3339
+    generation_train_model_quick_test --> pipeline_runner_util_3339
+    generation_train_model_quick_test --> generation_train_model_train_all_models
+    generation_train_model_quick_test --> pipeline_runner_util_3339
+    generation_train_model_quick_test --> pipeline_runner_util_3339
+    generation_semantic__4738 --> generation_semantic__2204
+    generation_semantic__3100 --> generation_semantic__2204
+    generation_semantic__1768 --> generation_semantic__2272
+    generation_semantic__1768 --> generation_semantic__5506
+    generation_semantic__1768 --> generation_semantic__3533
+    generation_semantic__8964 --> generation_semantic__3533
+    generation_semantic__3035 --> generation_semantic__3533
+    generation_semantic__7767 --> generation_semantic__5226
+    generation_semantic__7657 --> executor_ExecutionContext_set
+    generation_semantic__7657 --> executor_ExecutionContext_set
+    generation_semantic__4262 --> generation_semantic__2204
+    generation_semantic__4262 --> generation_semantic__9233
+    generation_semantic__7568 --> generation_semantic__4262
+    generation_semantic__7568 --> generation_semantic__2204
+    generation_semantic__8628 --> generation_semantic__2204
+    generation_semantic__6453 --> generation_semantic__2204
+    generation_semantic__9480 --> generation_semantic__2272
+    generation_semantic__9480 --> generation_semantic__5506
+    generation_semantic__9480 --> generation_semantic__3533
+    generation_semantic__4952 --> generation_semantic__3533
+    generation_semantic__3106 --> generation_semantic__3533
+    generation_semantic__2135 --> generation_semantic__5226
+    generation_semantic__2553 --> executor_ExecutionContext_set
+    generation_semantic__2553 --> executor_ExecutionContext_set
+    generation_regex_Reg_256 --> utils_data_files_find_data_file
+    generation_regex__lo_1773 --> utils_data_files_find_data_file
+    generation_fuzzy_sch_9406 --> generation_fuzzy_sch_6842
+    generation_fuzzy_sch_9406 --> generation_fuzzy_sch_679
+    generation_fuzzy_sch_9406 --> generation_thermodyn_4808
+    generation_fuzzy_sch_5068 --> generation_fuzzy_sch_6842
+    generation_fuzzy_sch_5068 --> generation_fuzzy_sch_679
+    generation_fuzzy_sch_3386 --> generation_fuzzy_sch_6842
+    generation_fuzzy_sch_9963 --> generation_thermodyn_4808
+    generation_fuzzy_sch_202 --> generation_fuzzy_sch_6842
+    generation_fuzzy_sch_202 --> generation_fuzzy_sch_679
+    generation_fuzzy_sch_202 --> generation_thermodyn_4808
+    generation_fuzzy_sch_3783 --> generation_fuzzy_sch_6842
+    generation_fuzzy_sch_3783 --> generation_fuzzy_sch_679
+    generation_fuzzy_sch_3163 --> generation_fuzzy_sch_6842
+    generation_fuzzy_sch_677 --> generation_thermodyn_4808
+    generation_evolution_2565 --> generation_thermodyn_4510
+    generation_evolution_2565 --> generation_thermodyn_4808
+    generation_evolution_8355 --> generation_evolution_759
+    generation_evolution_9249 --> generation_evolution_592
+    generation_evolution_9249 --> generation_evolution_759
+    generation_evolution_7141 --> generation_evolution_2565
+    generation_evolution_996 --> generation_evolution_592
+    generation_evolution_996 --> generation_evolution_759
+    generation_evolution_2299 --> generation_evolution_592
+    generation_evolution_2299 --> generation_evolution_759
+    generation_evolution_2299 --> automation_action_pl_7540
+    generation_evolution_2299 --> automation_action_pl_2626
+    generation_evolution_2299 --> automation_action_pl_2626
+    generation_evolution_1477 --> generation_evolution_592
+    generation_evolution_1477 --> generation_evolution_759
+    generation_evolution_1477 --> automation_action_pl_7540
+    generation_evolutionary_cache__load --> generation_evolution_759
+    generation_evolutionary_cache_lookup --> generation_evolution_592
+    generation_evolutionary_cache_lookup --> generation_evolution_759
+    generation_evolution_6792 --> generation_evolution_2565
+    generation_evolutionary_cache_prewarm --> generation_evolution_592
+    generation_evolutionary_cache_prewarm --> generation_evolution_759
+    generation_evolution_7276 --> generation_evolution_592
+    generation_evolution_7276 --> generation_evolution_759
+    generation_evolution_7276 --> automation_action_pl_7540
+    generation_evolution_7276 --> automation_action_pl_2626
+    generation_evolution_7276 --> automation_action_pl_2626
+    generation_evolution_5046 --> generation_evolution_592
+    generation_evolution_5046 --> generation_evolution_759
+    generation_evolution_5046 --> automation_action_pl_7540
+    generation_auto_repa_4964 --> cli_helpers_print_yaml_block
+    generation_auto_repa_4964 --> cli_helpers_print_yaml_block
+    generation_auto_repa_4964 --> cli_helpers_print_yaml_block
+    generation_auto_repa_4964 --> cli_helpers_print_yaml_block
+    generation_auto_repair_repair_command --> cli_helpers_print_yaml_block
+    generation_auto_repair_repair_command --> cli_helpers_print_yaml_block
+    generation_auto_repair_repair_command --> cli_helpers_print_yaml_block
+    generation_auto_repair_repair_command --> cli_helpers_print_yaml_block
+    generation_multi_com_6738 --> generation_multi_com_8540
+    generation_pipeline__8278 --> generation_pipeline__3683
+    generation_complex_d_9756 --> generation_thermodyn_4510
+    generation_complex_detector_analyze --> generation_thermodyn_4510
+    generation_ml_intent_6578 --> generation_ml_intent_2508
+    generation_ml_intent_768 --> generation_ml_intent_4914
+    generation_ml_intent_768 --> executor_ExecutionContext_set
+    generation_ml_intent_9461 --> generation_ml_intent_1784
+    generation_ml_intent_1918 --> generation_ml_intent_1427
+    generation_ml_intent_1918 --> generation_ml_intent_4914
+    generation_ml_intent_1918 --> generation_ml_intent_9461
+    generation_ml_intent_classifier__get_nlp --> generation_ml_intent_2508
+    generation_ml_intent_classifier_train --> generation_ml_intent_4914
+    generation_ml_intent_classifier_train --> executor_ExecutionContext_set
+    generation_semantic__4668 --> generation_semantic__8872
+    generation_semantic__4668 --> generation_semantic__73
+    generation_semantic_entities___init__ --> generation_semantic__8872
+    generation_semantic_entities___init__ --> generation_semantic__73
+    generation_enhanced__1408 --> executor_ExecutionContext_set
+    generation_enhanced__3965 --> executor_ExecutionContext_set
+    generation_enhanced__6600 --> generation_multi_com_9464
+    generation_enhanced__6600 --> pipeline_runner_util_3339
+    generation_enhanced__138 --> executor_ExecutionContext_set
+    generation_enhanced__138 --> executor_ExecutionContext_set
+    generation_enhanced_context___init__ --> executor_ExecutionContext_set
+    generation_enhanced__6820 --> executor_ExecutionContext_set
+    generation_enhanced__8798 --> generation_multi_com_9464
+    generation_enhanced__8798 --> pipeline_runner_util_3339
+    generation_enhanced__8723 --> executor_ExecutionContext_set
+    generation_enhanced__8723 --> executor_ExecutionContext_set
+    generation_thermodyn_1725 --> generation_thermodyn_4808
+    generation_thermodyn_1725 --> generation_thermodyn_4808
+    generation_thermodyn_2265 --> generation_thermodyn_4808
+    generation_thermodyn_2265 --> generation_thermodyn_4808
+    generation_data_load_1852 --> generation_data_load_9696
+    generation_data_load_3201 --> generation_thermodyn_4510
+    generation_data_load_175 --> generation_data_load_1852
+    generation_data_load_122 --> generation_data_load_1852
+    generation_data_load_122 --> generation_data_loader__check_msgpack
+    generation_data_load_5127 --> generation_data_loader__check_msgpack
+    generation_data_loader_merge_databases --> executor_ExecutionContext_set
+    generation_data_loader_benchmark_formats --> generation_data_loader__check_msgpack
+    generation_data_loader_from_dict --> generation_data_load_9696
+    generation_data_loader_get_stats --> generation_thermodyn_4510
+    generation_data_loader__load_json --> generation_data_load_1852
+    generation_data_loader__load_msgpack --> generation_data_load_1852
+    generation_data_loader__load_msgpack --> generation_data_loader__check_msgpack
+    generation_data_loader__save_msgpack --> generation_data_loader__check_msgpack
+    generation_pipeline__6215 --> generation_pipeline__8278
+    generation_pipeline__4617 --> generation_pipeline__3683
+    generation_pipeline__4617 --> web_schema_extractor_extract
+    generation_pipeline__4491 --> utils_data_files_data_file_write_path
+    generation_pipeline___init__ --> generation_pipeline__8278
+    generation_pipeline__5143 --> generation_pipeline__3683
+    generation_pipeline__5143 --> web_schema_extractor_extract
+    generation_pipeline__persist_result --> utils_data_files_data_file_write_path
+    generation_hybrid_Ad_7906 --> generation_thermodyn_4510
+    generation_hybrid_Ad_7906 --> generation_thermodyn_4808
+    generation_hybrid__adapt_threshold --> generation_thermodyn_4510
+    generation_hybrid__adapt_threshold --> generation_thermodyn_4808
+    generation_validatin_8447 --> llm_validator_validate
+    generation_validating_generate --> llm_validator_validate
+    generation_structure_2234 --> executor_ExecutionContext_set
+    generation_structure_2234 --> generation_structured_visit
+    generation_structure_2234 --> generation_structured_visit
+    generation_structure_9832 --> executor_ExecutionContext_set
+    generation_structure_9832 --> generation_structured_visit
+    generation_structure_9832 --> generation_structured_visit
+    generation_structured_visit --> generation_structured_visit
+    planner_LLMPlanner___init__ --> registry_get_registry
+    planner_LLMPlanner_plan --> executor_ExecutionPlan_from_dict
+    planner___init__ --> registry_get_registry
+    planner_plan --> executor_ExecutionPlan_from_dict
+    service_NLP2CMDService__create_app --> service__ensure_service_deps
+    service_NLP2CMDService_run --> service__ensure_service_deps
+    service_create_app --> service__ensure_service_deps
+    service_create_app --> service__create_app
+    service_create_app --> service__setup_routes
+    service_create_service_config_from_args --> pipeline_runner_util_3339
+    service__create_app --> service__ensure_service_deps
+    service_run --> service__ensure_service_deps
+    service_process_query --> execution_runner_run_with_recovery
+    core_core_backends_R_9572 --> executor_ExecutionContext_set
+    core_core_backends_extract_intent --> executor_ExecutionContext_set
+    core_core_transform_NLP2CMD___init__ --> pipeline_runner_util_3339
+    core_core_transform_NLP2CMD___init__ --> pipeline_runner_util_3339
+    core_core_transform_NLP2CMD___init__ --> pipeline_runner_util_3339
+    core_core_transform___init__ --> pipeline_runner_util_3339
+    core_core_transform___init__ --> pipeline_runner_util_3339
+    core_core_transform___init__ --> pipeline_runner_util_3339
+    core_toon_integratio_3886 --> parsing_toon_parser_get_parser
+    core_toon_integratio_8351 --> core_toon_integration_search_recursive
+    core_toon_integratio_8351 --> core_toon_integration_search_recursive
+    core_toon_integratio_9458 --> parsing_toon_parser_reload_parser
+    core_toon_integratio_4218 --> core_toon_integration_get_data_manager
+    core_toon_integration_load_config --> core_toon_integration_get_data_manager
+    core_toon_integration_get_project_info --> core_toon_integration_get_data_manager
+    core_toon_integration___init__ --> parsing_toon_parser_get_parser
+    core_toon_integratio_5645 --> core_toon_integration_search_recursive
+    core_toon_integratio_5645 --> core_toon_integration_search_recursive
+    core_toon_integration_reload_data --> parsing_toon_parser_reload_parser
+    core_toon_integration_search_recursive --> core_toon_integration_search_recursive
+    validators_DockerVal_8211 --> validators_DockerVal_7779
+    validators_DockerVal_8211 --> validators_DockerVal_7779
+    validators_CompositeValidator_validate --> llm_validator_validate
+    validators_validate --> llm_validator_validate
+    validators__iter_publish_ports --> validators_DockerVal_7779
+    validators__iter_publish_ports --> validators_DockerVal_7779
+    generation_template__6572 --> utils_data_files_find_data_files
+    generation_template__163 --> utils_data_files_find_data_files
+    generation_template__2815 --> utils_data_files_find_data_files
+    generation_template__3008 --> utils_data_files_find_data_files
+    nlp_normalizer__score_words --> executor_ExecutionContext_set
+    nlp_normalizer_detect_language --> nlp_normalizer__score_chars
+    nlp_normalizer_detect_language --> nlp_normalizer__score_words
+    nlp_normalizer_detect_language --> generation_thermodyn_4808
+    nlp_normalizer_correct_typos --> nlp_normalizer__try_direct_lookup
+    nlp_normalizer_correct_typos --> nlp_normalizer__try_fuzzy_match
+    nlp_normalizer_correct_typos --> nlp_normalizer__preserve_case
+    nlp_normalizer_QueryNormalizer_normalize --> nlp_normalizer_normalize_unicode
+    nlp_normalizer_QueryNormalizer_normalize --> nlp_normalizer_detect_language
+    nlp_normalizer_QueryNormalizer_normalize --> nlp_normalizer_tokenize
+    nlp_normalizer_QueryNormalizer_normalize --> nlp_normalizer_correct_typos
+    nlp_normalizer_Query_8350 --> nlp_normalizer_fold_accents
+    nlp_normalizer_normalize --> nlp_normalizer_normalize_unicode
+    nlp_normalizer_normalize --> nlp_normalizer_detect_language
+    nlp_normalizer_normalize --> nlp_normalizer_tokenize
+    nlp_normalizer_normalize --> nlp_normalizer_correct_typos
+    nlp_normalizer_normalize_for_matching --> nlp_normalizer_fold_accents
+    nlp_config_IntentRegistry_load --> generation_thermodyn_4510
+    nlp_config_load --> generation_thermodyn_4510
+    nlp_intent_matcher_IntentMatcher_match --> executor_ExecutionContext_set
+    nlp_intent_matcher_I_1205 --> executor_ExecutionContext_set
+    nlp_intent_matcher_match --> executor_ExecutionContext_set
+    nlp_intent_matcher__fuzzy_match --> executor_ExecutionContext_set
+    nlp_entity_resolver__50 --> executor_ExecutionContext_set
+    nlp_entity_resolver__4652 --> executor_ExecutionContext_set
+    nlp_entity_resolver_resolve_all_colors --> executor_ExecutionContext_set
+    nlp_entity_resolver_resolve_all_shapes --> executor_ExecutionContext_set
+    cli_display_display_command_result --> pipeline_runner_util_3339
+    cli_display_display_command_result --> cli_helpers_get_cached_syntax
+    cli_display_display_command_result --> pipeline_runner_util_3339
+    cli_display_display_command_result --> pipeline_runner_util_3339
+    storage_per_command__9112 --> pipeline_runner_util_3339
+    storage_per_command__1675 --> pipeline_runner_util_3339
+    storage_per_command__3617 --> pipeline_runner_util_3339
+    storage_per_command__6320 --> pipeline_runner_util_3339
+    storage_per_command__3914 --> pipeline_runner_util_3339
+    storage_per_command__3914 --> pipeline_runner_util_3339
+    storage_per_command__3914 --> pipeline_runner_util_3339
+    storage_per_command__3914 --> pipeline_runner_util_3339
+    storage_per_command__3914 --> pipeline_runner_util_3339
+    storage_per_command__3914 --> pipeline_runner_util_3339
+    storage_per_command_store_store_schema --> pipeline_runner_util_3339
+    storage_per_command_store_load_schema --> pipeline_runner_util_3339
+    storage_per_command_store_backup --> pipeline_runner_util_3339
+    storage_per_command_store_restore --> pipeline_runner_util_3339
+    storage_versioned_st_1436 --> pipeline_runner_util_3339
+    storage_versioned_st_1436 --> pipeline_runner_util_3339
+    storage_versioned_st_3086 --> pipeline_runner_util_3339
+    storage_versioned_st_9794 --> pipeline_runner_util_3339
+    storage_versioned_st_9794 --> pipeline_runner_util_3339
+    storage_versioned_st_9794 --> pipeline_runner_util_3339
+    storage_versioned_st_9794 --> pipeline_runner_util_3339
+    storage_versioned_st_9794 --> pipeline_runner_util_3339
+    storage_versioned_st_2418 --> pipeline_runner_util_3339
+    storage_versioned_st_2418 --> pipeline_runner_util_3339
+    storage_versioned_st_1537 --> pipeline_runner_util_3339
+    cli_web_schema_extract_schema --> web_schema_extractor_extract_web_schema
+    cli_web_schema_show_history --> web_schema_history_get_domain_stats
+    cli_web_schema_export_learned_schema --> web_schema_history_export_domain_schema
+    cli_web_schema_export_learned_schema --> web_schema_history_get_domain_stats
+    cli_web_schema_clear_history --> web_schema_history_clear_all
+    cli_helpers__timed_default_yes --> cli_helpers__system_beep
+    cli_helpers__timed_default_no --> cli_helpers__system_beep
+    cli_helpers__maybe_install_playwright --> execution_runner_run_command
+    cli_helpers__maybe_install_playwright --> execution_runner_run_command
+    cli_helpers__maybe_install_playwright --> cli_helpers__is_playwright_error
+    cli_helpers__maybe_install_playwright --> execution_runner_confirm_execution
+    cli_helpers__maybe_install_playwright --> execution_runner_confirm_execution
+    cli_helpers__fallback_open_url --> execution_browser_open_url
+    cli_helpers__fallbac_3360 --> adapters_browser_Bro_1339
+    cli_helpers__fallbac_3360 --> execution_browser_open_url
+    cli_syntax_cache_get_cached_syntax --> cli_syntax_cache_get_syntax_cache
+    cli_syntax_cache_clear_syntax_cache --> cli_syntax_cache_get_syntax_cache
+    cli_syntax_cache_get_cache_stats --> cli_syntax_cache_get_syntax_cache
+    cli_markdown_output_print_markdown_block --> cli_markdown_output__render_to_text
+    cli_markdown_output_print_markdown_block --> cli_markdown_output__2981
+    cli_markdown_output_print_yaml_block --> cli_markdown_output_print_markdown_block
+    cli_markdown_output__9647 --> cli_markdown_output_print_markdown_block
+    cli_markdown_output__7440 --> cli_markdown_output__2981
+    cli_markdown_output__7654 --> cli_markdown_output__render_to_text
+    cli_markdown_output_print --> cli_markdown_output__render_to_text
+    cli_markdown_output__ensure_open --> cli_markdown_output__2981
+    cli_session_logger__png_to_base64_md --> cli_session_logger__resize_to_thumbnail
+    cli_session_logger_SessionLogger_step --> cli_session_logger__png_to_base64_md
+    cli_session_logger_step --> cli_session_logger__png_to_base64_md
+    cli_history_show_history --> history_tracker_get_global_history
+    cli_history_show_stats --> history_tracker_get_global_history
+    cli_history_show_popular --> history_tracker_get_global_history
+    cli_history_export_analytics --> history_tracker_get_global_history
+    cli_history_export_analytics --> cli_history_export_analytics
+    cli_history_clear_history --> history_tracker_get_global_history
+    cli_auto_repair_AutoRepairSystem__print --> pipeline_runner_util_3339
+    cli_auto_repair_Auto_5670 --> cli_commands_doctor__1886
+    cli_auto_repair_Auto_6670 --> pipeline_runner_util_3339
+    cli_auto_repair__print --> pipeline_runner_util_3339
+    cli_auto_repair__repair_missing_token --> cli_commands_doctor__1886
+    cli_auto_repair_handle_error --> pipeline_runner_util_3339
+    cli_debug_info_show_schema_info --> utils_data_files_find_data_file
+    cli_debug_info_show_decision_tree_info --> generation_pipeline_process
+    cli_debug_info_generate_debug_log_md --> cli_debug_info_show_decision_tree_info
+    cli_debug_info_generate_debug_log_md --> pipeline_runner_util_3339
+    cli_main__register_subcommands_for_args --> service_cli_add_service_command
+    cli_main_repair --> cli_commands_tools_cmd_repair
+    cli_main_validate --> cli_commands_tools_cmd_validate
+    cli_main_analyze_env --> cli_commands_tools_cmd_analyze_env
+    cli_main_cli_entry_point --> cli_main__register_subcommands_for_args
+    cli_main_cli_entry_point --> cli_main_main
+    cli_main__execute_run --> cli_commands_run__handle_run_query
+    cli_main__execute_appspec --> cli_commands_generat_8071
+    cli_main__execute_generate --> cli_commands_generat_3194
+    web_schema_extractor_extract_web_schema --> web_schema_extractor_extract
+    web_schema_extractor_extract_web_schema --> pipeline_runner_util_3339
+    web_schema_browser_c_5471 --> utils_data_files_find_data_file
+    web_schema_browser_c_3717 --> web_schema_browser_c_5471
+    web_schema_browser_c_3717 --> web_schema_browser_config__load_yaml
+    web_schema_browser_c_3717 --> web_schema_browser_config__load_yaml
+    web_schema_browser_c_3717 --> web_schema_browser_config__load_yaml
+    web_schema_browser_c_3717 --> web_schema_browser_config__load_yaml
+    web_schema_browser_c_8558 --> web_schema_browser_config__dedupe
+    web_schema_browser_c_2666 --> web_schema_browser_config__dedupe
+    web_schema_browser_c_7096 --> web_schema_browser_c_5471
+    web_schema_browser_c_7096 --> web_schema_browser_config__load_yaml
+    web_schema_browser_config__dedupe --> executor_ExecutionContext_set
+    web_schema_browser_config__ensure_loaded --> web_schema_browser_c_5471
+    web_schema_browser_config__ensure_loaded --> web_schema_browser_config__load_yaml
+    web_schema_browser_config__ensure_loaded --> web_schema_browser_config__load_yaml
+    web_schema_browser_config__ensure_loaded --> web_schema_browser_config__load_yaml
+    web_schema_browser_config__ensure_loaded --> web_schema_browser_config__load_yaml
+    web_schema_browser_c_6333 --> web_schema_browser_config__dedupe
+    web_schema_browser_c_570 --> web_schema_browser_config__dedupe
+    web_schema_browser_c_8805 --> web_schema_browser_c_5471
+    web_schema_browser_c_8805 --> web_schema_browser_config__load_yaml
+    web_schema_history_I_3919 --> web_schema_history_I_7732
+    web_schema_history_I_7275 --> pipeline_runner_util_3339
+    web_schema_history_I_7836 --> generation_thermodyn_4510
+    web_schema_history_I_7764 --> generation_thermodyn_4808
+    web_schema_history__load --> web_schema_history_I_7732
+    web_schema_history__save --> pipeline_runner_util_3339

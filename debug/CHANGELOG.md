@@ -1,3 +1,36 @@
+## [0.2.1] - 2026-02-28
+
+### Summary
+
+refactor(docs): code analysis engine
+
+### Docs
+
+- docs: update TODO.md
+- docs: update context.md
+- docs: update context_final.md
+- docs: update context_fixed.md
+- docs: update fast_analysis_report.md
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update debug/.code2flow_cache/__init___067a3ea9a806bdcd.pkl
+- update debug/.code2flow_cache/__init___06ee3b304cbac344.pkl
+- update debug/.code2flow_cache/__init___07004ae5fc0b63a4.pkl
+- update debug/.code2flow_cache/__init___092c164e1ea3ed2a.pkl
+- update debug/.code2flow_cache/__init___1306939d2650ad0a.pkl
+- update debug/.code2flow_cache/__init___1435b739d4a93c01.pkl
+- update debug/.code2flow_cache/__init___1a3f34073e505d94.pkl
+- update debug/.code2flow_cache/__init___20b71d7ad5e01760.pkl
+- update debug/.code2flow_cache/__init___385814d063e205eb.pkl
+- update debug/.code2flow_cache/__init___563e1960e3f8fe02.pkl
+- ... and 222 more
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

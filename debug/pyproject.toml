@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "code2flow"
-version = "0.2.0"
+version = "0.2.1"
 description = "High-performance Python code flow analysis with NLP query processing - CFG, DFG, call graphs, and intelligent code queries"
 readme = "README.md"
 requires-python = ">=3.8"
-license = {text = "MIT"}
+license = "Apache-2.0"
 authors = [
-    {name = "STTS Project"}
+    {name = "STTS Project"},
+    "Tom Sapletta <tom@sapletta.com>",
 ]
 keywords = [
     "static-analysis",
@@ -25,7 +26,6 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",

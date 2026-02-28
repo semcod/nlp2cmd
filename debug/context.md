@@ -311,52 +311,54 @@ Key execution flows identified:
 
 ### Flow 1: execute_action_plan
 ```
-execute_action_plan
+execute_action_plan [pipeline_runner_plans.PlanExecutionMixin]
 ```
 
-### Flow 2: execute_action_plan
+### Flow 2: handle_run_mode
 ```
-execute_action_plan
-```
-
-### Flow 3: handle_run_mode
-```
-handle_run_mode
+handle_run_mode [cli.commands.run]
 ```
 
-### Flow 4: execute_drawing_plan
+### Flow 3: execute_drawing_plan
 ```
-execute_drawing_plan
-```
-
-### Flow 5: execute_drawing_plan
-```
-execute_drawing_plan
+execute_drawing_plan [adapters.canvas.CanvasAdapter]
 ```
 
-### Flow 6: run_command
+### Flow 4: run_command
 ```
-run_command
-```
-
-### Flow 7: run_command
-```
-run_command
+run_command [execution.runner.ExecutionRunner]
 ```
 
-### Flow 8: detect_form_fields
+### Flow 5: detect_form_fields
 ```
-detect_form_fields
-```
-
-### Flow 9: detect_form_fields
-```
-detect_form_fields
+detect_form_fields [web_schema.form_handler.FormHandler]
 ```
 
-### Flow 10: find_form
+### Flow 6: find_form
 ```
-find_form
+find_form [web_schema.site_explorer.SiteExplorer]
+```
+
+### Flow 7: generate
+```
+generate [adapters.browser.BrowserAdapter]
+```
+
+### Flow 8: find_content
+```
+find_content [web_schema.site_explorer.SiteExplorer]
+```
+
+### Flow 9: lookup
+```
+lookup [generation.evolutionary_cache.EvolutionaryCache]
+  └─ →> fingerprint
+  └─ →> fuzzy_fingerprint
+```
+
+### Flow 10: validate
+```
+validate [validators.DockerValidator]
 ```
 
 ## Key Classes

@@ -113,6 +113,12 @@ Examples:
         help='Max memory in MB (default: 1000)'
     )
     
+    parser.add_argument(
+        '--split-output',
+        action='store_true',
+        help='Split YAML output into multiple files (summary, functions, classes, modules, entry_points)'
+    )
+    
     return parser
 
 
@@ -235,10 +241,17 @@ def main():
     try:
         if 'yaml' in formats:
             exporter = YAMLExporter()
-            filepath = output_dir / 'analysis.yaml'
-            exporter.export(result, str(filepath), include_defaults=args.full)
-            if args.verbose:
-                print(f"  - YAML: {filepath}")
+            if args.split_output:
+                # Create split output for large projects
+                split_dir = output_dir / 'split'
+                exporter.export_split(result, str(split_dir), include_defaults=args.full)
+                if args.verbose:
+                    print(f"  - YAML (split): {split_dir}/")
+            else:
+                filepath = output_dir / 'analysis.yaml'
+                exporter.export(result, str(filepath), include_defaults=args.full)
+                if args.verbose:
+                    print(f"  - YAML: {filepath}")
                 
         if 'json' in formats:
             exporter = JSONExporter()

@@ -222,4 +222,8 @@ The analyzer is designed to be extensible. Key areas for enhancement:
 
 ## License
 
-This tool is part of the STTS project and follows the same license terms.
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
+
+## Author
+
+Created by **Tom Sapletta** - [tom@sapletta.com](mailto:tom@sapletta.com)
