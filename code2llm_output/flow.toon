@@ -1,0 +1,557 @@
+# nlp2cmd/flow | 6817 func | 12 pipelines | 15 hub-types | 2026-03-01
+
+PIPELINES[12] (Core:5, IO:4, NLP:2, Unknown:1):
+  Networkx-3 [Core]: G → ?
+              → algebraic_connectivity(G, weight, normalized, tol, method, seed) CC=6    pure ▶
+              → _rcm_estimate(G, nodelist)              CC=2    pure
+              → reverse_cuthill_mckee_ordering(G, heuristic) CC=1    pure
+              → cuthill_mckee_ordering(G, heuristic)    CC=2    pure
+              → connected_cuthill_mckee_ordering(G, heuristic) CC=4    mutation
+              → pseudo_peripheral_node(G)               CC=5    pure
+              → min()                                   CC=1    pure ■
+              PURITY: 6/7 pure  BOTTLENECK: algebraic_connectivity(CC=6)
+
+  Networkx-3 [Core]: G → ?
+              → fiedler_vector(G, weight, normalized, tol, method, seed) CC=5    pure ▶
+              → _rcm_estimate(G, nodelist)              CC=2    pure
+              → reverse_cuthill_mckee_ordering(G, heuristic) CC=1    pure
+              → cuthill_mckee_ordering(G, heuristic)    CC=2    pure
+              → connected_cuthill_mckee_ordering(G, heuristic) CC=4    mutation
+              → pseudo_peripheral_node(G)               CC=5    pure
+              → min()                                   CC=1    pure ■
+              PURITY: 6/7 pure  BOTTLENECK: fiedler_vector(CC=5)
+
+  Networkx-3 [Core]: G → ?
+              → spectral_ordering(G, weight, normalized, tol, method, seed) CC=6    mutation ▶
+              → _rcm_estimate(G, nodelist)              CC=2    pure
+              → reverse_cuthill_mckee_ordering(G, heuristic) CC=1    pure
+              → cuthill_mckee_ordering(G, heuristic)    CC=2    pure
+              → connected_cuthill_mckee_ordering(G, heuristic) CC=4    mutation
+              → pseudo_peripheral_node(G)               CC=5    pure
+              → min()                                   CC=1    pure ■
+              PURITY: 5/7 pure  BOTTLENECK: spectral_ordering(CC=6)
+
+  Networkx-3 [IO]: G → ?
+              → k_edge_augmentation(G, k, avail, weight, partial) CC=11   pure ▶
+              → bridge_augmentation(G, avail, weight)   CC=3    pure
+              → weighted_bridge_augmentation(G, avail, weight) CC=15   mutation  !!
+              → one_edge_augmentation(G, avail, weight, partial) CC=2    pure
+              → weighted_one_edge_augmentation(G, avail, weight, partial) CC=6    pure
+              → _lightest_meta_edges(mapping, avail_uv, avail_w) CC=4    pure
+              → min()                                   CC=1    pure ■
+              PURITY: 6/7 pure  BOTTLENECK: weighted_bridge_augmentation(CC=15)
+
+  Networkx-3 [IO]: G → None
+              → maximum_spanning_arborescence(G, attr, default, preserve_attrs, partition) CC=8    cache ▶
+              → is_arborescence(G)                      CC=3    pure
+              → is_tree(G)                              CC=4    pure
+              → is_connected(G)                         CC=2    pure
+              → connected_components(G)                 CC=3    mutation
+              → not_implemented_for(*graph_types)       CC=10   pure
+              → set(name:str, value:Any) → None         CC=1    pure ■
+              PURITY: 5/7 pure  BOTTLENECK: not_implemented_for(CC=10)
+
+  Networkx-3 [IO]: G → None
+              → minimum_spanning_arborescence(G, attr, default, preserve_attrs, partition) CC=2    pure ▶
+              → is_arborescence(G)                      CC=3    pure
+              → is_tree(G)                              CC=4    pure
+              → is_connected(G)                         CC=2    pure
+              → connected_components(G)                 CC=3    mutation
+              → not_implemented_for(*graph_types)       CC=10   pure
+              → set(name:str, value:Any) → None         CC=1    pure ■
+              PURITY: 6/7 pure  BOTTLENECK: not_implemented_for(CC=10)
+
+  Networkx-3 [NLP]: n → None
+              → hypercube_graph(n)                      CC=1    pure ▶
+              → grid_graph(dim, periodic)               CC=6    pure
+              → cartesian_product(G, H)                 CC=1    pure
+              → _node_product(G, H)                     CC=2    pure
+              → _dict_product(d1, d2)                   CC=2    pure
+              → set(name:str, value:Any) → None         CC=1    pure ■
+              PURITY: 6/6 pure  BOTTLENECK: grid_graph(CC=6)
+
+  Networkx-3 [Unknown]: n → ?
+              → random_unlabeled_tree(n)                CC=4    pure ▶
+              → _random_unlabeled_tree(n, cache_trees, cache_forests, seed) CC=4    mutation
+              → _random_unlabeled_rooted_forest(n, q, cache_trees, cache_forests, seed) CC=4    mutation
+              → _random_unlabeled_rooted_tree(n, cache_trees, seed) CC=6    mutation
+              → _select_jd_trees(n, cache_trees, seed)  CC=4    pure
+              → _num_rooted_trees(n, cache_trees)       CC=4    cache ■
+              PURITY: 2/6 pure  BOTTLENECK: _random_unlabeled_rooted_tree(CC=6)
+
+  Networkx-3 [Core]: G → None
+              → is_bipartite_node_set(G, nodes)         CC=8    pure ▶
+              → sets(G, top_nodes)                      CC=8    pure
+              → is_connected(G)                         CC=2    pure
+              → connected_components(G)                 CC=3    mutation
+              → not_implemented_for(*graph_types)       CC=10   pure
+              → set(name:str, value:Any) → None         CC=1    pure ■
+              PURITY: 5/6 pure  BOTTLENECK: not_implemented_for(CC=10)
+
+  Networkx-3 [IO]: G → ?
+              → k_components(G, min_density)            CC=15   pure  !! ▶
+              → node_connectivity(G, s, t)              CC=15   pure  !!
+              → local_node_connectivity(G, source, target, cutoff) CC=7    mutation
+              → _bidirectional_shortest_path(G, source, target, ignore_nodes, ignore_edges, weight) CC=3    mutation
+              → _bidirectional_pred_succ(G, source, target, ignore_nodes, ignore_edges) CC=20   mutation  !!
+              → nodes(G)                                CC=1    pure ■
+              PURITY: 3/6 pure  BOTTLENECK: _bidirectional_pred_succ(CC=20)
+
+  Networkx-3 [Core]: k → None
+              → k_edge_subgraphs(k)                     CC=7    pure ▶
+              → k_edge_subgraphs(G, k)                  CC=5    pure
+              → k_edge_components(G, k)                 CC=6    pure
+              → bridge_components(G)                    CC=1    pure
+              → not_implemented_for(*graph_types)       CC=10   pure
+              → set(name:str, value:Any) → None         CC=1    pure ■
+              PURITY: 6/6 pure  BOTTLENECK: not_implemented_for(CC=10)
+
+  Networkx-3 [NLP]: G1 → None
+              → vf2pp_is_isomorphic(G1, G2, node_label, default_label) CC=2    pure ▶
+              → vf2pp_isomorphism(G1, G2, node_label, default_label) CC=2    pure
+              → vf2pp_all_isomorphisms(G1, G2, node_label, default_label) CC=15   mutation  !!
+              → _feasibility(node1, node2, graph_params, state_params) CC=4    pure
+              → _cut_PT(u, v, graph_params, state_params) CC=28   pure  !!
+              → set(name:str, value:Any) → None         CC=1    pure ■
+              PURITY: 5/6 pure  BOTTLENECK: _cut_PT(CC=28)
+
+
+TRANSFORMS (fan-out ≥10):
+  _execute_plan_step(page, context, step, variables:dict) → Optional[str] fan=116  !! mutation-heavy
+  _run_dom_multi_action(payload:dict[str, Any]) → RunnerResult fan=108  !! mutation-heavy
+  execute_action_plan(plan) → RunnerResult                fan=78   !! mutation-heavy
+  handle_run_mode(query:str, dsl:str, appspec:Optional[Path], auto_confirm:bool, no_submit:bool, execute_web:bool, auto_install:bool, auto_repair:bool, only_output:bool, verbose:bool, video_fmt:Optional[str], video_duration:int) fan=75   !! mutation-heavy
+  _handle_run_query(query:str, dsl:str, appspec:Optional[Path], auto_confirm:bool, execute_web:bool, auto_install:bool, auto_repair:bool) fan=73   !! mutation-heavy
+  display(G, canvas, **kwargs)                            fan=65   !! mutation-heavy
+  max_weight_matching(G, maxcardinality, weight)          fan=62   !! mutation-heavy
+  optimize_edit_paths(G1, G2, node_match, edge_match, node_subst_cost, node_del_cost, node_ins_cost, edge_subst_cost, edge_del_cost, edge_ins_cost, upper_bound, strictly_decreasing, roots, timeout) fan=60   !! mutation-heavy
+  main(ctx, interactive:bool, dsl:str, appspec:Optional[Path], query:Optional[str], stdin_mode:bool, stdout_only:bool, only_output:bool, run:bool, auto_repair:bool, explain:bool, execute_web:bool, auto_confirm:bool, no_submit:bool, auto_install:bool, source_uri:Optional[str], log_dir:Optional[str], do_screenshot:bool, video_fmt:Optional[str], video_duration:int, do_md:bool, version:bool, verbose:bool, show_schema:bool, show_decision_tree:bool, debug_log_md:Optional[str], record_session:Optional[str]) fan=56   !! script-in-disguise
+  _execute_multi_step_with_video(output_path:str, query:str, action_plan:Any, pipeline_result:Any) → None fan=54   !! mutation-heavy
+  maximum_branching(G, attr, default, preserve_attrs, partition) fan=52   !! mutation-heavy
+  _run_dom_multi_action(payload:dict[str, Any]) → RunnerResult fan=52   !! mutation-heavy
+  parse_gml_lines(lines, label, destringizer) → dict      fan=51   !! mutation-heavy
+  draw_networkx_edges(G, pos, edgelist, width, edge_color, style, alpha, arrowstyle, arrowsize, edge_cmap, edge_vmin, edge_vmax, ax, arrows, label, node_size, nodelist, node_shape, connectionstyle, min_source_margin, min_target_margin, hide_ticks) fan=48   !! mutation-heavy
+  preflow_push_impl(G, s, t, capacity, residual, global_relabel_freq, value_only) fan=44   !! mutation-heavy
+
+CONTRACTS:
+  Pipeline: Networkx-3
+    algebraic_connectivity(G, weight, normalized, tol, method, seed)
+      IN:  G, weight, normalized, tol, method, seed
+      OUT: None
+
+    _rcm_estimate(G, nodelist)
+      IN:  G, nodelist
+      OUT: None
+
+    reverse_cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+
+    cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+
+    connected_cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+      SIDE-EFFECT: generator
+
+    pseudo_peripheral_node(G)
+      IN:  G
+      OUT: None
+
+    min()
+      IN:  ()
+      OUT: None
+
+  Pipeline: Networkx-3
+    fiedler_vector(G, weight, normalized, tol, method, seed)
+      IN:  G, weight, normalized, tol, method, seed
+      OUT: None
+
+    _rcm_estimate(G, nodelist)
+      IN:  G, nodelist
+      OUT: None
+
+    reverse_cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+
+    cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+
+    connected_cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+      SIDE-EFFECT: generator
+
+    pseudo_peripheral_node(G)
+      IN:  G
+      OUT: None
+
+    min()
+      IN:  ()
+      OUT: None
+
+  Pipeline: Networkx-3
+    spectral_ordering(G, weight, normalized, tol, method, seed)
+      IN:  G, weight, normalized, tol, method, seed
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _rcm_estimate(G, nodelist)
+      IN:  G, nodelist
+      OUT: None
+
+    reverse_cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+
+    cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+
+    connected_cuthill_mckee_ordering(G, heuristic)
+      IN:  G, heuristic
+      OUT: None
+      SIDE-EFFECT: generator
+
+    pseudo_peripheral_node(G)
+      IN:  G
+      OUT: None
+
+    min()
+      IN:  ()
+      OUT: None
+
+  Pipeline: Networkx-3
+    k_edge_augmentation(G, k, avail, weight, partial)
+      IN:  G, k, avail, weight, partial
+      OUT: None
+
+    bridge_augmentation(G, avail, weight)
+      IN:  G, avail, weight
+      OUT: None
+
+    weighted_bridge_augmentation(G, avail, weight)
+      IN:  G, avail, weight
+      OUT: None
+      SIDE-EFFECT: generator
+      SMELL: CC=15 → split
+
+    one_edge_augmentation(G, avail, weight, partial)
+      IN:  G, avail, weight, partial
+      OUT: None
+
+    weighted_one_edge_augmentation(G, avail, weight, partial)
+      IN:  G, avail, weight, partial
+      OUT: None
+
+    _lightest_meta_edges(mapping, avail_uv, avail_w)
+      IN:  mapping, avail_uv, avail_w
+      OUT: None
+
+    min()
+      IN:  ()
+      OUT: None
+
+  Pipeline: Networkx-3
+    maximum_spanning_arborescence(G, attr, default, preserve_attrs, partition)
+      IN:  G, attr, default, preserve_attrs, partition
+      OUT: None
+      SIDE-EFFECT: cache(nx._clear_cache, nx._clear_cache)
+
+    is_arborescence(G)
+      IN:  G
+      OUT: None
+
+    is_tree(G)
+      IN:  G
+      OUT: None
+
+    is_connected(G)
+      IN:  G
+      OUT: None
+
+    connected_components(G)
+      IN:  G
+      OUT: None
+      SIDE-EFFECT: generator
+
+    not_implemented_for(*graph_types)
+      IN:  *graph_types
+      OUT: None
+
+    set(name:str, value:Any) → None
+      IN:  name:str, value:Any
+      OUT: None
+
+  Pipeline: Networkx-3
+    minimum_spanning_arborescence(G, attr, default, preserve_attrs, partition)
+      IN:  G, attr, default, preserve_attrs, partition
+      OUT: None
+
+    is_arborescence(G)
+      IN:  G
+      OUT: None
+
+    is_tree(G)
+      IN:  G
+      OUT: None
+
+    is_connected(G)
+      IN:  G
+      OUT: None
+
+    connected_components(G)
+      IN:  G
+      OUT: None
+      SIDE-EFFECT: generator
+
+    not_implemented_for(*graph_types)
+      IN:  *graph_types
+      OUT: None
+
+    set(name:str, value:Any) → None
+      IN:  name:str, value:Any
+      OUT: None
+
+  Pipeline: Networkx-3
+    hypercube_graph(n)
+      IN:  n
+      OUT: None
+
+    grid_graph(dim, periodic)
+      IN:  dim, periodic
+      OUT: None
+
+    cartesian_product(G, H)
+      IN:  G, H
+      OUT: None
+
+    _node_product(G, H)
+      IN:  G, H
+      OUT: None
+
+    _dict_product(d1, d2)
+      IN:  d1, d2
+      OUT: None
+
+    set(name:str, value:Any) → None
+      IN:  name:str, value:Any
+      OUT: None
+
+  Pipeline: Networkx-3
+    random_unlabeled_tree(n)
+      IN:  n
+      OUT: None
+
+    _random_unlabeled_tree(n, cache_trees, cache_forests, seed)
+      IN:  n, cache_trees, cache_forests, seed
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _random_unlabeled_rooted_forest(n, q, cache_trees, cache_forests, seed)
+      IN:  n, q, cache_trees, cache_forests, seed
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _random_unlabeled_rooted_tree(n, cache_trees, seed)
+      IN:  n, cache_trees, seed
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _select_jd_trees(n, cache_trees, seed)
+      IN:  n, cache_trees, seed
+      OUT: None
+
+    _num_rooted_trees(n, cache_trees)
+      IN:  n, cache_trees
+      OUT: None
+      SIDE-EFFECT: cache(cache_trees.append)
+
+  Pipeline: Networkx-3
+    is_bipartite_node_set(G, nodes)
+      IN:  G, nodes
+      OUT: None
+
+    sets(G, top_nodes)
+      IN:  G, top_nodes
+      OUT: None
+
+    is_connected(G)
+      IN:  G
+      OUT: None
+
+    connected_components(G)
+      IN:  G
+      OUT: None
+      SIDE-EFFECT: generator
+
+    not_implemented_for(*graph_types)
+      IN:  *graph_types
+      OUT: None
+
+    set(name:str, value:Any) → None
+      IN:  name:str, value:Any
+      OUT: None
+
+  Pipeline: Networkx-3
+    k_components(G, min_density)
+      IN:  G, min_density
+      OUT: None
+      SMELL: CC=15 → split
+
+    node_connectivity(G, s, t)
+      IN:  G, s, t
+      OUT: None
+      SMELL: CC=15 → split
+
+    local_node_connectivity(G, source, target, cutoff)
+      IN:  G, source, target, cutoff
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _bidirectional_shortest_path(G, source, target, ignore_nodes, ignore_edges, weight)
+      IN:  G, source, target, ignore_nodes, ignore_edges, weight
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _bidirectional_pred_succ(G, source, target, ignore_nodes, ignore_edges)
+      IN:  G, source, target, ignore_nodes, ignore_edges
+      OUT: None
+      SIDE-EFFECT: generator
+      SMELL: CC=20 → split
+
+    nodes(G)
+      IN:  G
+      OUT: None
+
+  Pipeline: Networkx-3
+    k_edge_subgraphs(k)
+      IN:  k
+      OUT: None
+
+    k_edge_subgraphs(G, k)
+      IN:  G, k
+      OUT: None
+
+    k_edge_components(G, k)
+      IN:  G, k
+      OUT: None
+
+    bridge_components(G)
+      IN:  G
+      OUT: None
+
+    not_implemented_for(*graph_types)
+      IN:  *graph_types
+      OUT: None
+
+    set(name:str, value:Any) → None
+      IN:  name:str, value:Any
+      OUT: None
+
+  Pipeline: Networkx-3
+    vf2pp_is_isomorphic(G1, G2, node_label, default_label)
+      IN:  G1, G2, node_label, default_label
+      OUT: None
+
+    vf2pp_isomorphism(G1, G2, node_label, default_label)
+      IN:  G1, G2, node_label, default_label
+      OUT: None
+
+    vf2pp_all_isomorphisms(G1, G2, node_label, default_label)
+      IN:  G1, G2, node_label, default_label
+      OUT: None
+      SIDE-EFFECT: generator
+      SMELL: CC=15 → split
+
+    _feasibility(node1, node2, graph_params, state_params)
+      IN:  node1, node2, graph_params, state_params
+      OUT: None
+
+    _cut_PT(u, v, graph_params, state_params)
+      IN:  u, v, graph_params, state_params
+      OUT: None
+      SMELL: CC=28 → split
+
+    set(name:str, value:Any) → None
+      IN:  name:str, value:Any
+      OUT: None
+
+
+DATA_TYPES (by cross-function usage) [4133 annotated, 0 inferred / 6817 functions]:
+  str                  consumed:2483 produced:879  !! HUB-TYPE → split interface
+  dict[str, Any]       consumed:659 produced:296  !! HUB-TYPE → split interface
+  bool                 consumed:249 produced:251  !! HUB-TYPE → split interface
+  str, Any             consumed:156 produced:142  !! HUB-TYPE → split interface
+  float                consumed:179 produced:103  !! HUB-TYPE → split interface
+  int                  consumed:237 produced:25   !! HUB-TYPE → split interface
+  dict                 consumed:140 produced:79   !! HUB-TYPE → split interface
+  list[str]            consumed:71  produced:119  !! HUB-TYPE → split interface
+  Path                 consumed:124 produced:47   !! HUB-TYPE → split interface
+  np.ndarray           consumed:74  produced:29   !! HUB-TYPE → split interface
+  ExtractedSchema      consumed:16  produced:83   !! HUB-TYPE → split interface
+  ExecutionPlan        consumed:4   produced:53 
+  ValidationResult     consumed:2   produced:50 
+  StreamResult         consumed:0   produced:49   output-heavy
+  CommandSchema        consumed:26  produced:20   !! HUB-TYPE → split interface
+  Dict                 consumed:39  produced:5    !! HUB-TYPE → split interface
+  Union[str, Path]     consumed:42  produced:0    !! HUB-TYPE → split interface
+  AnalysisResult       consumed:0   produced:35   output-heavy
+  Console              consumed:31  produced:0    !! HUB-TYPE → split interface
+  DetectionResult      consumed:2   produced:27 
+
+  HUB TYPES (consumed ≥10):
+    str → 2483 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    dict[str, Any] → 659 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    bool → 249 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    str, Any → 156 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    float → 179 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    int → 237 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    dict → 140 consumers → split into:
+      - replace with typed alternatives (dataclass/TypedDict)
+    list[str] → 71 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    Path → 124 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    np.ndarray → 74 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    ExtractedSchema → 16 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    CommandSchema → 26 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    Dict → 39 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    Union[str, Path] → 42 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+    Console → 31 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+
+SIDE_EFFECTS:
+  IO:        print_separator, print_rule, run_learning_benchmark, _generate_single_teacher_fragment, print_summary, main, print_benchmark_result, main, ollama_available, ollama_model_exists
+  Cache:     IntelligentNLP2CMD.clear_cache, VoiceServiceManager._to_cached_result, VoiceServiceManager._cache_get, VoiceServiceManager._cache_set, set_node_attributes, set_edge_attributes, MultiDiGraph.add_edge, MultiDiGraph.remove_edge, Graph.name, Graph.add_node
+  Mutation:  generate_html, benchmark_langevin_sampler, benchmark_parallel_vs_sequential, benchmark_adaptive_steps, benchmark_generator_problems, benchmark_energy_savings, _get_benchmark_models, clean_command, run_benchmark, generate_refactoring_notes
+  Pure:      _teacher_models, _default_models, build_summary, IntelligentNLP2CMD.detect_and_adapt, IntelligentNLP2CMD._select_best_version, IntelligentNLP2CMD._increment_version, to_dict_of_lists, from_dict_of_lists, to_dict_of_dicts, to_edgelist
+
+  PIPELINE PURITY:
+    Networkx-3      ███░ 85% pure
+    Networkx-3      ███░ 85% pure
+    Networkx-3      ██░░ 71% pure
+    Networkx-3      ███░ 85% pure
+    Networkx-3      ██░░ 71% pure
+    Networkx-3      ███░ 85% pure
+    Networkx-3      ████ 100% pure
+    Networkx-3      █░░░ 33% pure
+    Networkx-3      ███░ 83% pure
+    Networkx-3      ██░░ 50% pure
+    Networkx-3      ████ 100% pure
+    Networkx-3      ███░ 83% pure

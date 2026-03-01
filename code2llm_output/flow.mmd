@@ -1,0 +1,1026 @@
+flowchart TD
+    subgraph benchmarks
+        benchmarks__benchmark_langevin_sampler["benchmark_langevin_sampler"]
+        benchmarks__benchmark_parallel_vs_sequential("benchmark_parallel_vs_sequential CC=9")
+        benchmarks__benchmark_adaptive_steps["benchmark_adaptive_steps"]
+        benchmarks__benchmark_generator_problems["benchmark_generator_problems"]
+        benchmarks__benchmark_energy_savings["benchmark_energy_savings"]
+        benchmarks__print_benchmark_result["print_benchmark_result"]
+        benchmarks__thermodynamic_benchmark__main("main CC=8")
+    end
+    subgraph demos
+        demos__simple_schema_demo__main["main"]
+        demos____init__["__init__"]
+        demos__transform["transform"]
+        demos__detect_and_adapt["detect_and_adapt"]
+        demos___select_best_version("_select_best_version CC=11")
+        demos___needs_update["_needs_update"]
+        demos__update_command_schema["update_command_schema"]
+        demos___increment_version["_increment_version"]
+        demos__clear_cache["clear_cache"]
+        demos__demo_intelligent_nlp2cmd("demo_intelligent_nlp2cmd CC=8")
+        demos__demonstrate_persistent_storage("demonstrate_persistent_storage CC=11")
+        demos__show_storage_benefits["show_storage_benefits"]
+        demos__demo_enhanced__main("main CC=12")
+        demos__migrate_existing_schemas["migrate_existing_schemas"]
+        demos__demonstrate_schema_updates("demonstrate_schema_updates CC=11")
+        demos__demonstrate_dual_versions["demonstrate_dual_versions"]
+        demos__demo_versioned_schemas__main["main"]
+        demos__demo_schema_flow__demonstrate_schema_flow["demonstrate_schema_flow"]
+        demos__demonstrate_multiple_commands["demonstrate_multiple_commands"]
+        demos__demo_schema_flow__show_schema_details["show_schema_details"]
+        demos__demo_schema_flow__main["main"]
+        demos__demonstrate_version_detection{{demonstrate_version_detection CC=15}}
+        demos__show_integration_example["show_integration_example"]
+        demos__show_version_mapping["show_version_mapping"]
+        demos__demo_version_detection__main["main"]
+        demos__show_schema_extraction_flow["show_schema_extraction_flow"]
+        demos__schema_flow_demo__show_file_locations["show_file_locations"]
+        demos__schema_flow_demo__show_api_usage["show_api_usage"]
+        demos__schema_flow_demo__main["main"]
+    end
+    subgraph docker
+        docker__ensure_playwright["ensure_playwright"]
+        docker__start_recording["start_recording"]
+        docker__stop_recording["stop_recording"]
+        docker___connect_novnc["_connect_novnc"]
+        docker__novnc__demos__demo_desktop_gui__run_demo("run_demo CC=9")
+        docker__novnc__demos__demo_desktop_gui__main["main"]
+    end
+    subgraph examples
+        examples___example_helpers__print_separator["print_separator"]
+        examples___example_helpers__print_rule["print_rule"]
+        examples__benchmark_learning___teacher_models["_teacher_models"]
+        examples__run_learning_benchmark{{run_learning_benchmark CC=15}}
+        examples___generate_single_teacher_fragment("_generate_single_teacher_fragment CC=12")
+        examples__benchmark_learning__generate_html["generate_html"]
+        examples__benchmark_learning__print_summary["print_summary"]
+        examples__benchmark_learning__main["main"]
+        examples__benchmark_nlp2cmd__ollama_available["ollama_available"]
+        examples__benchmark_nlp2cmd__ollama_model_exists["ollama_model_exists"]
+        examples__benchmark_nlp2cmd__ollama_create_bielik["ollama_create_bielik"]
+        examples__benchmark_nlp2cmd__ollama_generate["ollama_generate"]
+        examples__benchmark_nlp2cmd___get_benchmark_models["_get_benchmark_models"]
+        examples__benchmark_nlp2cmd___default_models["_default_models"]
+        examples__benchmark_nlp2cmd__clean_command{{clean_command CC=19}}
+        examples__benchmark_nlp2cmd__run_benchmark{{run_benchmark CC=22}}
+        examples__benchmark_nlp2cmd__build_summary{{build_summary CC=41}}
+        examples__benchmark_nlp2cmd__generate_html("generate_html CC=12")
+        examples__benchmark_nlp2cmd__print_summary["print_summary"]
+        examples__generate_refactoring_notes("generate_refactoring_notes CC=10")
+        examples__generate_command_errors_report("generate_command_errors_report CC=11")
+        examples__benchmark_nlp2cmd__main["main"]
+        examples__07_stream_protocols__example_ssh__main["main"]
+        examples__main["main"]
+        examples__main["main"]
+        examples__07_stream_protocols__example_rtsp__main["main"]
+        examples__main["main"]
+        examples__print_separator["print_separator"]
+        examples__print_rule["print_rule"]
+        examples__rule_line["rule_line"]
+        examples__print_demo_header["print_demo_header"]
+        examples__run_thermo_demo["run_thermo_demo"]
+        examples__print_metrics("print_metrics CC=9")
+        examples__print_simple_result["print_simple_result"]
+        examples__print_full_result["print_full_result"]
+        examples__sigmoid["sigmoid"]
+        examples__project_sample("project_sample CC=10")
+        examples__print_projected["print_projected"]
+        examples__print_fallback_note["print_fallback_note"]
+        examples__test_prompt{{test_prompt CC=15}}
+        examples__run_all_tests("run_all_tests CC=12")
+        examples__download_bielik["download_bielik"]
+        examples__run_all_demos["run_all_demos"]
+        examples__print_summary_table["print_summary_table"]
+        examples__demo_unit_commitment["demo_unit_commitment"]
+        examples__demo_renewable_integration["demo_renewable_integration"]
+        examples__demo_water_distribution["demo_water_distribution"]
+        examples__demo_gas_network["demo_gas_network"]
+        examples__demo_electric_vehicle_charging["demo_electric_vehicle_charging"]
+        examples__demo_demand_response["demo_demand_response"]
+        examples__demo_microgrid["demo_microgrid"]
+        examples__main["main"]
+        examples__run_benchmark{{run_benchmark CC=28}}
+        examples__compare_benchmarks{{compare_benchmarks CC=16}}
+        examples__main["main"]
+        examples__demo_lead_optimization["demo_lead_optimization"]
+        examples__demo_admet_balancing["demo_admet_balancing"]
+        examples__main["main"]
+        examples__demo_vehicle_routing["demo_vehicle_routing"]
+        examples__demo_warehouse_optimization["demo_warehouse_optimization"]
+    end
+    subgraph networkx_3
+        networkx-3__to_networkx_graph{{to_networkx_graph CC=25}}
+        networkx-3__to_dict_of_lists["to_dict_of_lists"]
+        networkx-3__from_dict_of_lists("from_dict_of_lists CC=8")
+        networkx-3__to_dict_of_dicts("to_dict_of_dicts CC=14")
+        networkx-3__from_dict_of_dicts{{from_dict_of_dicts CC=26}}
+        networkx-3__to_edgelist["to_edgelist"]
+        networkx-3__from_edgelist["from_edgelist"]
+        networkx-3____init__["__init__"]
+        networkx-3__relabel_nodes["relabel_nodes"]
+        networkx-3___relabel_inplace{{_relabel_inplace CC=25}}
+        networkx-3___relabel_copy("_relabel_copy CC=10")
+        networkx-3__convert_node_labels_to_integers("convert_node_labels_to_integers CC=11")
+        networkx-3__attach["attach"]
+        networkx-3____init__["__init__"]
+        networkx-3____getattr__["__getattr__"]
+        networkx-3___lazy_import["_lazy_import"]
+        networkx-3__to_pandas_adjacency["to_pandas_adjacency"]
+        networkx-3__from_pandas_adjacency["from_pandas_adjacency"]
+        networkx-3__to_pandas_edgelist("to_pandas_edgelist CC=13")
+        networkx-3__from_pandas_edgelist{{from_pandas_edgelist CC=20}}
+        networkx-3__to_scipy_sparse_array("to_scipy_sparse_array CC=14")
+        networkx-3___csr_gen_triples["_csr_gen_triples"]
+        networkx-3___csc_gen_triples["_csc_gen_triples"]
+        networkx-3___coo_gen_triples["_coo_gen_triples"]
+        networkx-3___dok_gen_triples["_dok_gen_triples"]
+        networkx-3___generate_weighted_edges["_generate_weighted_edges"]
+        networkx-3__from_scipy_sparse_array("from_scipy_sparse_array CC=11")
+        networkx-3__to_numpy_array{{to_numpy_array CC=20}}
+        networkx-3__from_numpy_array{{from_numpy_array CC=29}}
+        networkx-3__write_p2g["write_p2g"]
+        networkx-3__read_p2g["read_p2g"]
+        networkx-3__parse_p2g["parse_p2g"]
+        networkx-3__write_graphml_xml["write_graphml_xml"]
+        networkx-3__write_graphml_lxml["write_graphml_lxml"]
+        networkx-3__generate_graphml["generate_graphml"]
+        networkx-3__read_graphml["read_graphml"]
+        networkx-3__parse_graphml["parse_graphml"]
+        networkx-3__construct_types["construct_types"]
+        networkx-3__get_xml_type["get_xml_type"]
+        networkx-3____init__["__init__"]
+        networkx-3____str__["__str__"]
+        networkx-3__attr_type["attr_type"]
+        networkx-3__get_key["get_key"]
+        networkx-3__add_data["add_data"]
+        networkx-3__add_attributes["add_attributes"]
+        networkx-3__add_nodes["add_nodes"]
+        networkx-3__add_edges("add_edges CC=8")
+        networkx-3__add_graph_element["add_graph_element"]
+        networkx-3__add_graphs["add_graphs"]
+        networkx-3__dump["dump"]
+        networkx-3__indent("indent CC=12")
+        networkx-3____init__["__init__"]
+        networkx-3__append["append"]
+        networkx-3____init__["__init__"]
+        networkx-3__add_graph_element{{add_graph_element CC=21}}
+        networkx-3__add_attributes["add_attributes"]
+        networkx-3____str__["__str__"]
+        networkx-3__dump["dump"]
+        networkx-3____init__["__init__"]
+        networkx-3____call__["__call__"]
+    end
+    subgraph scripts
+        scripts__setup_external__main["main"]
+        scripts__bump_version__bump_version["bump_version"]
+        scripts__thermodynamic__termo1__main["main"]
+        scripts__thermodynamic__termo__demo_hybrid["demo_hybrid"]
+        scripts__thermodynamic__termo__demo_thermodynamic["demo_thermodynamic"]
+        scripts__demo_complete_hybrid["demo_complete_hybrid"]
+        scripts__thermodynamic__termo__main["main"]
+        scripts__thermodynamic__termo_demo__demo_hybrid["demo_hybrid"]
+        scripts__demo_thermodynamic_improved["demo_thermodynamic_improved"]
+        scripts__demo_hybrid_thermodynamic_improved["demo_hybrid_thermodynamic_improved"]
+        scripts__benchmark_latency["benchmark_latency"]
+        scripts__thermodynamic__termo_demo__main["main"]
+        scripts____init__["__init__"]
+        scripts__fix_shell_domain_detection["fix_shell_domain_detection"]
+        scripts__fix_polish_intent_patterns["fix_polish_intent_patterns"]
+        scripts__fix_sql_table_inference["fix_sql_table_inference"]
+        scripts__create_domain_weighting_config["create_domain_weighting_config"]
+        scripts__create_integration_script["create_integration_script"]
+        scripts__run_integration_script["run_integration_script"]
+        scripts__generate_fix_report["generate_fix_report"]
+        scripts__apply_all_fixes["apply_all_fixes"]
+        scripts__main["main"]
+        scripts____init__["__init__"]
+        scripts__load_all_results["load_all_results"]
+        scripts__analyze_fix_implementation("analyze_fix_implementation CC=9")
+        scripts__identify_root_causes["identify_root_causes"]
+        scripts__create_action_plan["create_action_plan"]
+        scripts__estimate_implementation_effort["estimate_implementation_effort"]
+        scripts__create_implementation_roadmap["create_implementation_roadmap"]
+        scripts__generate_final_recommendations["generate_final_recommendations"]
+        scripts__run_complete_analysis["run_complete_analysis"]
+        scripts__main["main"]
+        scripts____init__["__init__"]
+        scripts__load_polish_fixes["load_polish_fixes"]
+        scripts__enhance_domain_detection("enhance_domain_detection CC=9")
+        scripts__create_enhanced_intent_detector("create_enhanced_intent_detector CC=11")
+        scripts__create_polish_language_module["create_polish_language_module"]
+        scripts__create_core_integration_patch["create_core_integration_patch"]
+        scripts__create_adapter_patches["create_adapter_patches"]
+        scripts__create_integration_script["create_integration_script"]
+        scripts__run_integration("run_integration CC=8")
+        scripts__main["main"]
+        scripts__print_summary["print_summary"]
+        scripts__maintenance__restore_system__restore_core["restore_core"]
+        scripts__restore_adapters["restore_adapters"]
+        scripts__verify_restoration["verify_restoration"]
+        scripts__maintenance__restore_system__main("main CC=9")
+        scripts__apply_core_patch["apply_core_patch"]
+        scripts__apply_adapter_patches["apply_adapter_patches"]
+        scripts__verify_integration["verify_integration"]
+        scripts__main("main CC=9")
+        scripts__load_polish_patterns["load_polish_patterns"]
+        scripts__load_intent_mappings["load_intent_mappings"]
+        scripts__load_table_mappings["load_table_mappings"]
+        scripts__load_domain_weights["load_domain_weights"]
+        scripts__apply_fixes["apply_fixes"]
+        scripts__apply_keywords_refactor{{apply_keywords_refactor CC=20}}
+        scripts__apply_templates_refactor{{apply_templates_refactor CC=16}}
+        scripts__maintenance__auto_apply_refactors__main["main"]
+        scripts__find_line["find_line"]
+    end
+    subgraph src
+        src__nlp2cmd__pipeline_runner_utils___debug["_debug"]
+        src___with_epipe_retry["_with_epipe_retry"]
+        src__nlp2cmd__pipeline_runner_utils___field_attrs("_field_attrs CC=8")
+        src___is_junk_field{{_is_junk_field CC=20}}
+        src___is_contact_relevant_field["_is_contact_relevant_field"]
+        src___looks_like_comment_form["_looks_like_comment_form"]
+        src___filter_form_fields{{_filter_form_fields CC=18}}
+        src____init__["__init__"]
+        src__print["print"]
+        src__capture["capture"]
+        src__load_from_data{{load_from_data CC=18}}
+        src__nlp2cmd__pipeline_runner_utils__get_timestamp["get_timestamp"]
+        src__nlp2cmd__pipeline_runner_utils__ensure_dir["ensure_dir"]
+        src__ask_for_screenshot["ask_for_screenshot"]
+        src__take_screenshot["take_screenshot"]
+        src____init__["__init__"]
+        src__start_recording["start_recording"]
+        src__stop_recording["stop_recording"]
+        src__ask_for_video_recording["ask_for_video_recording"]
+        src____init__["__init__"]
+        src__transform["transform"]
+        src___select_action{{_select_action CC=41}}
+        src___extract_params{{_extract_params CC=17}}
+        src___render_dsl["_render_dsl"]
+        src___render_dom("_render_dom CC=9")
+        src___render_http{{_render_http CC=29}}
+        src___render_shell{{_render_shell CC=25}}
+        src____init__["__init__"]
+        src___load_patterns["_load_patterns"]
+        src__normalize_polish_text["normalize_polish_text"]
+        src__normalize_stt_errors{{normalize_stt_errors CC=20}}
+        src___find_best_phrase_match["_find_best_phrase_match"]
+        src___similar["_similar"]
+        src__match_polish_patterns["match_polish_patterns"]
+        src__translate_polish_intent["translate_polish_intent"]
+        src__translate_polish_table["translate_polish_table"]
+        src__get_domain_weight["get_domain_weight"]
+        src__enhance_domain_detection["enhance_domain_detection"]
+        src__enhance_intent_detection["enhance_intent_detection"]
+        src__nlp2cmd__polish_support__get_polish_support["get_polish_support"]
+        src__nlp2cmd__appspec_runtime__AppSpec__get_action["get_action"]
+        src__nlp2cmd__appspec_runtime__load_appspec("load_appspec CC=10")
+        src___dismiss_popups["_dismiss_popups"]
+        src___extract_json_from_llm_response("_extract_json_from_llm_response CC=10")
+        src___detect_desktop_backend["_detect_desktop_backend"]
+        src___execute_desktop_plan_step{{_execute_desktop_plan_step CC=44}}
+        src___xdotool_keys_to_ydotool["_xdotool_keys_to_ydotool"]
+        src___normalize_llm_article_selector_payload["_normalize_llm_article_selector_pay"]
+        src___collect_page_links_for_llm["_collect_page_links_for_llm"]
+        src___run_shell{{_run_shell CC=27}}
+        src___parse_shell_command{{_parse_shell_command CC=15}}
+        src___check_against_safety_policy["_check_against_safety_policy"]
+        src__nlp2cmd__ir__ActionIR__to_dict["to_dict"]
+        src__app2schema__cli__main["main"]
+        src___run_dom_dql{{_run_dom_dql CC=28}}
+        src___run_dom_multi_action{{_run_dom_multi_action CC=280}}
+        src____init__["__init__"]
+        src___process_cpu_time_seconds["_process_cpu_time_seconds"]
+        src__get_current_metrics["get_current_metrics"]
+        src__measure_execution["measure_execution"]
+    end
+    subgraph tools
+        tools__load_commands_from_files{{load_commands_from_files CC=16}}
+        tools__schema__update_schemas__update_all_schemas{{update_all_schemas CC=15}}
+        tools__schema__update_schemas__main["main"]
+        tools____init__["__init__"]
+        tools__extract_schema("extract_schema CC=8")
+        tools___extract_with_strategy["_extract_with_strategy"]
+        tools___extract_from_help["_extract_from_help"]
+        tools___extract_from_man["_extract_from_man"]
+        tools___extract_from_patterns["_extract_from_patterns"]
+        tools___extract_from_templates["_extract_from_templates"]
+        tools___enhance_schema["_enhance_schema"]
+        tools___evaluate_quality("_evaluate_quality CC=11")
+        tools___create_fallback_schema["_create_fallback_schema"]
+        tools___get_help_text["_get_help_text"]
+        tools___get_man_page["_get_man_page"]
+        tools___parse_description["_parse_description"]
+        tools___parse_parameters["_parse_parameters"]
+        tools___parse_examples["_parse_examples"]
+        tools___infer_template("_infer_template CC=8")
+        tools___detect_category["_detect_category"]
+        tools___parse_man_sections["_parse_man_sections"]
+        tools___parse_template_from_synopsis["_parse_template_from_synopsis"]
+        tools___load_command_patterns["_load_command_patterns"]
+        tools___load_template_library["_load_template_library"]
+        tools___create_parameters_from_pattern["_create_parameters_from_pattern"]
+        tools___find_matching_templates["_find_matching_templates"]
+        tools___get_common_parameters["_get_common_parameters"]
+        tools___generate_examples["_generate_examples"]
+        tools___improve_template["_improve_template"]
+        tools__batch_extract["batch_extract"]
+        tools__schema__non_llm_schema_extractor__main["main"]
+        tools____init__["__init__"]
+        tools__analyze_command["analyze_command"]
+        tools___get_help_text["_get_help_text"]
+        tools___extract_command_info["_extract_command_info"]
+        tools___detect_category["_detect_category"]
+        tools___extract_description("_extract_description CC=8")
+        tools___extract_options["_extract_options"]
+        tools___extract_examples("_extract_examples CC=8")
+        tools__generate_schema["generate_schema"]
+        tools___generate_parameters("_generate_parameters CC=12")
+        tools___generate_patterns["_generate_patterns"]
+        tools___generate_template["_generate_template"]
+        tools__batch_generate["batch_generate"]
+        tools__schema__intelligent_schema_generator__main{{main CC=17}}
+        tools____init__["__init__"]
+        tools__scan_command["scan_command"]
+        tools___parse_all_options("_parse_all_options CC=9")
+        tools___parse_options_from_text["_parse_options_from_text"]
+        tools___parse_option_line("_parse_option_line CC=12")
+        tools___detect_option_type("_detect_option_type CC=11")
+        tools___detect_relationships("_detect_relationships CC=8")
+        tools___create_parameters_from_options["_create_parameters_from_options"]
+        tools___map_option_type_to_param_type("_map_option_type_to_param_type CC=11")
+        tools___generate_comprehensive_examples{{_generate_comprehensive_examples CC=17}}
+        tools___generate_comprehensive_template("_generate_comprehensive_template CC=13")
+        tools___generate_patterns["_generate_patterns"]
+        tools___get_option_key["_get_option_key"]
+        tools___merge_options["_merge_options"]
+        tools___create_option_from_signature["_create_option_from_signature"]
+    end
+    subgraph webops
+        webops__docker_app__ShellExecutor____init__["__init__"]
+        webops__docker_app__ShellExecutor__execute_command["execute_command"]
+        webops__docker_app__VoiceServiceManager____init__["__init__"]
+        webops__docker_app__VoiceServiceManager__connect["connect"]
+        webops__disconnect["disconnect"]
+        webops__broadcast_log["broadcast_log"]
+        webops__process_voice_command("process_voice_command CC=10")
+        webops__docker_app__root["root"]
+        webops__docker_app__health_check["health_check"]
+        webops__docker_app__process_voice_command["process_voice_command"]
+        webops__docker_app__websocket_endpoint["websocket_endpoint"]
+        webops__docker_app__create_voice_app["create_voice_app"]
+        webops__voice_service__ShellExecutor____init__["__init__"]
+        webops__execute_command("execute_command CC=9")
+        webops____init__["__init__"]
+        webops___create_nlp2cmd_pipeline["_create_nlp2cmd_pipeline"]
+        webops___normalize_cache_key["_normalize_cache_key"]
+        webops___to_cached_result["_to_cached_result"]
+        webops___get_cache_lock["_get_cache_lock"]
+        webops___cache_get["_cache_get"]
+        webops___cache_set["_cache_set"]
+        webops__connect["connect"]
+        webops__disconnect["disconnect"]
+        webops__broadcast_log["broadcast_log"]
+        webops__process_voice_command("process_voice_command CC=13")
+        webops___process_with_mock_pipeline["_process_with_mock_pipeline"]
+        webops___process_with_nlp2cmd_service("_process_with_nlp2cmd_service CC=9")
+        webops__voice_service__root["root"]
+        webops__voice_service__health_check["health_check"]
+        webops__voice_service__process_voice_command["process_voice_command"]
+        webops__voice_service__websocket_endpoint["websocket_endpoint"]
+        webops__voice_service__create_webops_voice_app["create_webops_voice_app"]
+        webops____init__["__init__"]
+        webops__execute_command["execute_command"]
+        webops____init__["__init__"]
+        webops___create_nlp2cmd_pipeline["_create_nlp2cmd_pipeline"]
+        webops__connect["connect"]
+        webops__disconnect["disconnect"]
+        webops__broadcast_log["broadcast_log"]
+        webops__process_voice_command{{process_voice_command CC=22}}
+        webops__voice_service_clean__root["root"]
+        webops__voice_service_clean__health_check["health_check"]
+        webops__voice_service_clean__process_voice_command["process_voice_command"]
+        webops__voice_service_clean__websocket_endpoint["websocket_endpoint"]
+        webops____init__["__init__"]
+        webops__fix_shell_domain_detection["fix_shell_domain_detection"]
+        webops__fix_polish_intent_patterns["fix_polish_intent_patterns"]
+        webops__fix_sql_table_inference["fix_sql_table_inference"]
+        webops__create_domain_weighting_config["create_domain_weighting_config"]
+        webops__create_integration_script["create_integration_script"]
+        webops__run_integration_script["run_integration_script"]
+        webops__generate_fix_report["generate_fix_report"]
+        webops__apply_all_fixes["apply_all_fixes"]
+        webops__main["main"]
+        webops__nlp2cmd_repo__termo1__main["main"]
+        webops____init__["__init__"]
+        webops__load_polish_fixes["load_polish_fixes"]
+        webops__enhance_domain_detection("enhance_domain_detection CC=9")
+        webops__create_enhanced_intent_detector("create_enhanced_intent_detector CC=11")
+        webops__create_polish_language_module["create_polish_language_module"]
+    end
+    examples___example_helpers__print_separator --> webops__print
+    examples___example_helpers__print_rule --> webops__print
+    examples__benchmark_learning__generate_html --> examples___generate_single_teacher_fragment
+    examples__benchmark_learning__print_summary --> webops__print
+    examples__benchmark_learning__main --> examples__benchmark_learning___teacher_models
+    examples__benchmark_learning__main --> examples__benchmark_learning__generate_html
+    examples__benchmark_learning__main --> examples__run_learning_benchmark
+    examples__benchmark_learning__main --> webops__print
+    benchmarks__benchmark_adaptive_steps --> webops__create_thermodynamic_generator
+    benchmarks__benchmark_generator_problems --> webops__create_thermodynamic_generator
+    benchmarks__print_benchmark_result --> webops__print
+    benchmarks__thermodynamic_benchmark__main --> webops__print
+    benchmarks__thermodynamic_benchmark__main --> benchmarks__benchmark_parallel_vs_sequential
+    benchmarks__thermodynamic_benchmark__main --> benchmarks__print_benchmark_result
+    examples__benchmark_nlp2cmd___get_benchmark_models --> examples__benchmark_nlp2cmd___default_models
+    examples__benchmark_nlp2cmd__run_benchmark --> examples__benchmark_nlp2cmd__build_summary
+    examples__benchmark_nlp2cmd__run_benchmark --> examples__benchmark_nlp2cmd__ollama_available
+    examples__benchmark_nlp2cmd__run_benchmark --> examples__benchmark_nlp2cmd__ollama_model_exists
+    examples__benchmark_nlp2cmd__print_summary --> webops__print
+    examples__benchmark_nlp2cmd__main --> examples__benchmark_nlp2cmd__run_benchmark
+    examples__benchmark_nlp2cmd__main --> examples__benchmark_learning__generate_html
+    examples__benchmark_nlp2cmd__main --> examples__generate_refactoring_notes
+    examples__benchmark_nlp2cmd__main --> examples__generate_command_errors_report
+    examples__benchmark_nlp2cmd__main --> examples__benchmark_learning__print_summary
+    scripts__setup_external__main --> webops__print
+    scripts__bump_version__bump_version --> webops__print
+    demos__simple_schema_demo__main --> webops__print
+    demos__transform --> webops__print
+    demos___select_best_version --> networkx-3__min
+    demos__update_command_schema --> webops__print
+    demos__demo_intelligent_nlp2cmd --> webops__print
+    demos__demonstrate_persistent_storage --> webops__print
+    demos__show_storage_benefits --> webops__print
+    demos__demo_enhanced__main --> webops__print
+    demos__demo_enhanced__main --> webops__extract_appspec_to_file
+    demos__migrate_existing_schemas --> webops__print
+    demos__demonstrate_schema_updates --> webops__print
+    demos__demonstrate_dual_versions --> webops__print
+    demos__demo_versioned_schemas__main --> demos__migrate_existing_schemas
+    demos__demo_versioned_schemas__main --> demos__demonstrate_schema_updates
+    demos__demo_versioned_schemas__main --> demos__demonstrate_dual_versions
+    demos__demo_versioned_schemas__main --> webops__print
+    demos__demo_schema_flow__demonstrate_schema_flow --> webops__print
+    demos__demonstrate_multiple_commands --> webops__print
+    demos__demo_schema_flow__show_schema_details --> webops__print
+    demos__demo_schema_flow__main --> demos__demo_schema_flow__demonstrate_schema_flow
+    demos__demo_schema_flow__main --> demos__demonstrate_multiple_commands
+    demos__demo_schema_flow__main --> demos__demo_schema_flow__show_schema_details
+    demos__demo_schema_flow__main --> webops__print
+    demos__demonstrate_version_detection --> webops__print
+    demos__show_integration_example --> webops__print
+    demos__show_version_mapping --> webops__print
+    demos__demo_version_detection__main --> demos__demonstrate_version_detection
+    demos__demo_version_detection__main --> demos__show_integration_example
+    demos__demo_version_detection__main --> demos__show_version_mapping
+    demos__demo_version_detection__main --> webops__print
+    demos__show_schema_extraction_flow --> webops__print
+    demos__schema_flow_demo__show_file_locations --> webops__print
+    demos__schema_flow_demo__show_api_usage --> webops__print
+    demos__schema_flow_demo__main --> demos__show_schema_extraction_flow
+    demos__schema_flow_demo__main --> demos__schema_flow_demo__show_file_locations
+    demos__schema_flow_demo__main --> demos__schema_flow_demo__show_api_usage
+    demos__schema_flow_demo__main --> webops__print
+    networkx-3__to_networkx_graph --> networkx-3__from_dict_of_dicts
+    networkx-3__to_networkx_graph --> networkx-3__from_edgelist
+    networkx-3__from_dict_of_dicts --> webops__set
+    networkx-3__relabel_nodes --> networkx-3___relabel_copy
+    networkx-3__relabel_nodes --> networkx-3___relabel_inplace
+    networkx-3___relabel_inplace --> webops__set
+    networkx-3___relabel_copy --> webops__set
+    networkx-3__convert_node_labels_to_integers --> networkx-3__relabel_nodes
+    networkx-3__attach --> webops__set
+    networkx-3__attach --> networkx-3____getattr__
+    networkx-3__to_pandas_adjacency --> networkx-3__to_numpy_array
+    networkx-3__from_pandas_adjacency --> networkx-3__from_numpy_array
+    networkx-3__from_pandas_adjacency --> webops__set
+    networkx-3__to_pandas_edgelist --> webops__set
+    networkx-3__to_scipy_sparse_array --> webops__set
+    networkx-3___generate_weighted_edges --> networkx-3___coo_gen_triples
+    networkx-3___generate_weighted_edges --> networkx-3___csr_gen_triples
+    networkx-3___generate_weighted_edges --> networkx-3___csc_gen_triples
+    networkx-3___generate_weighted_edges --> networkx-3___dok_gen_triples
+    networkx-3__from_scipy_sparse_array --> networkx-3___generate_weighted_edges
+    networkx-3__to_numpy_array --> webops__set
+    networkx-3__write_p2g --> networkx-3__open_file
+    networkx-3__read_p2g --> networkx-3__open_file
+    networkx-3__read_p2g --> networkx-3__parse_p2g
+    webops____init__ --> webops__print
+    webops___create_nlp2cmd_pipeline --> webops__print
+    webops__process_voice_command --> webops__print
+    webops__voice_service__process_voice_command --> webops__print
+    webops__connect --> webops__print
+    webops__disconnect --> webops__print
+    webops__voice_service_clean__process_voice_command --> webops__print
+    webops__voice_service_clean__websocket_endpoint --> webops__print
+    networkx-3__write_graphml_xml --> networkx-3__open_file
+    networkx-3__write_graphml_lxml --> networkx-3__open_file
+    networkx-3__write_graphml_lxml --> networkx-3__write_graphml_xml
+    networkx-3__read_graphml --> networkx-3__open_file
+    networkx-3__generate_adjlist --> webops__set
+    networkx-3__write_adjlist --> networkx-3__open_file
+    networkx-3__write_adjlist --> networkx-3__generate_adjlist
+    networkx-3__read_adjlist --> networkx-3__open_file
+    networkx-3__read_adjlist --> networkx-3__parse_adjlist
+    networkx-3__read_leda --> networkx-3__open_file
+    networkx-3__read_leda --> networkx-3__parse_leda
+    networkx-3__write_pajek --> networkx-3__open_file
+    networkx-3__write_pajek --> networkx-3__generate_pajek
+    networkx-3__read_pajek --> networkx-3__open_file
+    networkx-3__read_pajek --> networkx-3__parse_pajek
+    networkx-3__generate_network_text --> webops__set
+    networkx-3__generate_network_text --> networkx-3___find_sources
+    networkx-3__write_network_text --> networkx-3__open_file
+    networkx-3__write_network_text --> networkx-3__generate_network_text
+    networkx-3___find_sources --> networkx-3__min
+    networkx-3___parse_network_text --> webops__set
+    networkx-3__write_edgelist --> networkx-3__open_file
+    networkx-3__write_edgelist --> networkx-3__generate_edgelist
+    networkx-3__read_edgelist --> networkx-3__open_file
+    networkx-3__read_edgelist --> networkx-3__parse_edgelist
+    networkx-3__write_weighted_edgelist --> networkx-3__write_edgelist
+    networkx-3__read_weighted_edgelist --> networkx-3__read_edgelist
+    networkx-3__write_gexf --> networkx-3__open_file
+    networkx-3__read_gexf --> networkx-3__open_file
+    networkx-3__read_gexf --> networkx-3__relabel_gexf_graph
+    networkx-3____init__ --> webops__set
+    networkx-3__relabel_gexf_graph --> webops__set
+    networkx-3___generate_sparse6_bytes --> networkx-3__n_to_data
+    networkx-3__from_sparse6_bytes --> networkx-3__data_to_n
+    networkx-3__to_sparse6_bytes --> networkx-3___generate_sparse6_bytes
+    networkx-3__read_sparse6 --> networkx-3__open_file
+    networkx-3__read_sparse6 --> networkx-3__from_sparse6_bytes
+    networkx-3__write_sparse6 --> networkx-3__not_implemented_for
+    networkx-3__write_sparse6 --> networkx-3__open_file
+    networkx-3__write_sparse6 --> networkx-3___generate_sparse6_bytes
+    networkx-3___generate_graph6_bytes --> networkx-3__n_to_data
+    networkx-3__from_graph6_bytes --> networkx-3__data_to_n
+    networkx-3__to_graph6_bytes --> networkx-3__not_implemented_for
+    networkx-3__to_graph6_bytes --> networkx-3___generate_graph6_bytes
+    networkx-3__read_graph6 --> networkx-3__open_file
+    networkx-3__read_graph6 --> networkx-3__from_graph6_bytes
+    networkx-3__write_graph6 --> networkx-3__not_implemented_for
+    networkx-3__write_graph6 --> networkx-3__open_file
+    networkx-3__write_graph6 --> networkx-3__write_graph6_file
+    networkx-3__write_graph6_file --> networkx-3__not_implemented_for
+    networkx-3__write_graph6_file --> networkx-3___generate_graph6_bytes
+    networkx-3__read_gml --> networkx-3__open_file
+    networkx-3__read_gml --> networkx-3__parse_gml_lines
+    networkx-3__parse_gml --> networkx-3__parse_gml_lines
+    networkx-3__parse_gml_lines --> src__nlp2cmd__nlp__normalizer__tokenize
+    networkx-3__parse_gml_lines --> webops__set
+    networkx-3__write_gml --> networkx-3__open_file
+    networkx-3__write_gml --> networkx-3__generate_gml
+    networkx-3__generate_multiline_adjlist --> webops__set
+    networkx-3__write_multiline_adjlist --> networkx-3__open_file
+    networkx-3__write_multiline_adjlist --> networkx-3__generate_multiline_adjlist
+    networkx-3__read_multiline_adjlist --> networkx-3__open_file
+    networkx-3__read_multiline_adjlist --> networkx-3__parse_multiline_adjlist
+    networkx-3__random_layout --> networkx-3__np_random_state
+    networkx-3__random_layout --> networkx-3___process_params
+    networkx-3__circular_layout --> networkx-3___process_params
+    networkx-3__circular_layout --> networkx-3__rescale_layout
+    networkx-3__shell_layout --> networkx-3___process_params
+    networkx-3__bipartite_layout --> networkx-3___process_params
+    networkx-3__bipartite_layout --> webops__set
+    networkx-3__spring_layout --> networkx-3__np_random_state
+    networkx-3__spring_layout --> networkx-3___process_params
+    networkx-3__spring_layout --> networkx-3___sparse_fruchterman_reingold
+    networkx-3__spring_layout --> networkx-3___fruchterman_reingold
+    networkx-3___fruchterman_reingold --> networkx-3__np_random_state
+    networkx-3___sparse_fruchterman_reingold --> networkx-3__np_random_state
+    networkx-3___sparse_fruchterman_reingold --> networkx-3___energy_fruchterman_reingold
+    networkx-3___energy_fruchterman_reingold --> networkx-3__min
+    networkx-3__kamada_kawai_layout --> networkx-3___process_params
+    networkx-3__kamada_kawai_layout --> networkx-3___kamada_kawai_solve
+    networkx-3__kamada_kawai_layout --> networkx-3__rescale_layout
+    networkx-3__kamada_kawai_layout --> networkx-3__random_layout
+    networkx-3__kamada_kawai_layout --> networkx-3__circular_layout
+    networkx-3__spectral_layout --> networkx-3___process_params
+    networkx-3__spectral_layout --> networkx-3___sparse_spectral
+    networkx-3__spectral_layout --> networkx-3__rescale_layout
+    networkx-3__planar_layout --> networkx-3___process_params
+    networkx-3__planar_layout --> networkx-3__rescale_layout
+    networkx-3__spiral_layout --> networkx-3___process_params
+    networkx-3__spiral_layout --> networkx-3__rescale_layout
+    networkx-3__multipartite_layout --> networkx-3___process_params
+    networkx-3__multipartite_layout --> networkx-3__rescale_layout
+    networkx-3__arf_layout --> networkx-3__np_random_state
+    networkx-3__forceatlas2_layout --> networkx-3__np_random_state
+    networkx-3__rescale_layout_dict --> networkx-3__rescale_layout
+    networkx-3__bfs_layout --> networkx-3___process_params
+    networkx-3__bfs_layout --> networkx-3__multipartite_layout
+    networkx-3__apply_matplotlib_colors --> networkx-3__min
+    networkx-3__draw --> networkx-3__draw_networkx
+    networkx-3__draw_networkx --> networkx-3__draw_networkx_nodes
+    networkx-3__draw_networkx --> networkx-3__draw_networkx_edges
+    networkx-3__draw_networkx --> networkx-3__draw_networkx_labels
+    networkx-3__draw_networkx --> networkx-3__signature
+    networkx-3__draw_networkx_nodes --> networkx-3__apply_alpha
+    networkx-3__draw_networkx_labels --> webops__set
+    networkx-3__draw_bipartite --> networkx-3__draw
+    networkx-3__draw_circular --> networkx-3__draw
+    networkx-3__draw_kamada_kawai --> networkx-3__draw
+    networkx-3__draw_random --> networkx-3__draw
+    networkx-3__draw_spectral --> networkx-3__draw
+    networkx-3__draw_spring --> networkx-3__draw
+    networkx-3__draw_shell --> networkx-3__draw
+    networkx-3__draw_planar --> networkx-3__draw
+    networkx-3__draw_forceatlas2 --> networkx-3__draw
+    networkx-3__to_latex --> networkx-3__to_latex_raw
+    networkx-3__write_latex --> networkx-3__to_latex
+    networkx-3__density --> networkx-3__number_of_nodes
+    networkx-3__density --> networkx-3__number_of_edges
+    networkx-3__add_path --> networkx-3__pairwise
+    networkx-3__add_cycle --> networkx-3__pairwise
+    networkx-3__edge_subgraph --> webops__set
+    networkx-3__non_edges --> webops__set
+    networkx-3__non_edges --> networkx-3__non_neighbors
+    networkx-3__common_neighbors --> networkx-3__not_implemented_for
+    networkx-3__is_weighted --> networkx-3__is_empty
+    networkx-3__path_weight --> networkx-3__min
+    networkx-3__describe --> networkx-3___create_describe_info_dict
+    networkx-3__describe --> webops__print
+    networkx-3___create_describe_info_dict --> networkx-3__min
+    networkx-3____iter__ --> webops__set
+    networkx-3__copy --> webops__set
+    networkx-3__reverse_view --> networkx-3__not_implemented_for
+    networkx-3__reverse_view --> networkx-3__generic_graph_view
+    networkx-3____init__ --> networkx-3____init__
+    networkx-3____init__ --> networkx-3__from_dict_of_dicts
+    networkx-3____init__ --> networkx-3__to_networkx_graph
+    networkx-3__subgraph --> networkx-3__subgraph
+    networkx-3__hide_nodes --> webops__set
+    networkx-3__hide_edges --> webops__set
+    networkx-3__hide_multiedges --> webops__set
+    networkx-3__show_edges --> webops__set
+    networkx-3__show_multiedges --> webops__set
+    networkx-3___from_iterable --> webops__set
+    networkx-3__line_graph --> networkx-3___lg_directed
+    networkx-3__line_graph --> networkx-3___lg_undirected
+    networkx-3___lg_undirected --> webops__set
+    networkx-3__inverse_line_graph --> networkx-3__not_implemented_for
+    networkx-3__inverse_line_graph --> networkx-3___select_starting_cell
+    networkx-3__inverse_line_graph --> networkx-3___find_partition
+    networkx-3___select_starting_cell --> networkx-3___triangles
+    networkx-3___select_starting_cell --> networkx-3__arbitrary_element
+    networkx-3___select_starting_cell --> networkx-3___odd_triangle
+    networkx-3__LCF_graph --> networkx-3__cycle_graph
+    networkx-3__LCF_graph --> networkx-3__empty_graph
+    networkx-3__desargues_graph --> networkx-3__LCF_graph
+    networkx-3__dodecahedral_graph --> networkx-3__LCF_graph
+    networkx-3__frucht_graph --> networkx-3__cycle_graph
+    networkx-3__heawood_graph --> networkx-3__LCF_graph
+    networkx-3__house_x_graph --> networkx-3__house_graph
+    networkx-3__moebius_kantor_graph --> networkx-3__LCF_graph
+    networkx-3__pappus_graph --> networkx-3__LCF_graph
+    networkx-3__sedgewick_maze_graph --> networkx-3__empty_graph
+    networkx-3__tetrahedral_graph --> networkx-3__complete_graph
+    networkx-3__truncated_tetrahedron_graph --> networkx-3__path_graph
+    networkx-3__spectral_graph_forge --> networkx-3__np_random_state
+    networkx-3__full_rary_tree --> networkx-3__empty_graph
+    networkx-3__full_rary_tree --> networkx-3___tree_edges
+    networkx-3__kneser_graph --> webops__set
+    networkx-3__balanced_tree --> networkx-3__full_rary_tree
+    networkx-3__barbell_graph --> networkx-3__complete_graph
+    networkx-3__barbell_graph --> networkx-3__pairwise
+    networkx-3__complete_graph --> networkx-3__nodes_or_number
+    networkx-3__complete_graph --> networkx-3__empty_graph
+    networkx-3__circular_ladder_graph --> networkx-3__ladder_graph
+    networkx-3__circulant_graph --> networkx-3__empty_graph
+    networkx-3__cycle_graph --> networkx-3__nodes_or_number
+    networkx-3__cycle_graph --> networkx-3__empty_graph
+    networkx-3__cycle_graph --> networkx-3__pairwise
+    networkx-3__dorogovtsev_goltsev_mendes_graph --> networkx-3__empty_graph
+    networkx-3__empty_graph --> networkx-3__nodes_or_number
+    networkx-3__ladder_graph --> networkx-3__empty_graph
+    networkx-3__ladder_graph --> networkx-3__pairwise
+    networkx-3__lollipop_graph --> networkx-3__nodes_or_number
+    networkx-3__lollipop_graph --> networkx-3__complete_graph
+    networkx-3__null_graph --> networkx-3__empty_graph
+    networkx-3__path_graph --> networkx-3__nodes_or_number
+    networkx-3__path_graph --> networkx-3__empty_graph
+    networkx-3__path_graph --> networkx-3__pairwise
+    networkx-3__star_graph --> networkx-3__nodes_or_number
+    networkx-3__star_graph --> networkx-3__empty_graph
+    networkx-3__tadpole_graph --> networkx-3__nodes_or_number
+    networkx-3__tadpole_graph --> networkx-3__cycle_graph
+    networkx-3__trivial_graph --> networkx-3__empty_graph
+    networkx-3__turan_graph --> networkx-3__complete_multipartite_graph
+    networkx-3__wheel_graph --> networkx-3__nodes_or_number
+    networkx-3__wheel_graph --> networkx-3__empty_graph
+    networkx-3__wheel_graph --> networkx-3__pairwise
+    networkx-3__complete_multipartite_graph --> networkx-3__pairwise
+    networkx-3__partial_duplication_graph --> networkx-3__py_random_state
+    networkx-3__partial_duplication_graph --> networkx-3__check_create_using
+    networkx-3__duplication_divergence_graph --> networkx-3__py_random_state
+    networkx-3__duplication_divergence_graph --> networkx-3__check_create_using
+    networkx-3__uniform_random_intersection_graph --> networkx-3__py_random_state
+    networkx-3__k_random_intersection_graph --> networkx-3__py_random_state
+    networkx-3__general_random_intersection_graph --> networkx-3__py_random_state
+    networkx-3__karate_club_graph --> webops__set
+    networkx-3__nonisomorphic_trees --> networkx-3___next_tree
+    networkx-3__nonisomorphic_trees --> networkx-3___next_rooted_tree
+    networkx-3__nonisomorphic_trees --> networkx-3___layout_to_graph
+    networkx-3__number_of_nonisomorphic_trees --> networkx-3___unlabeled_trees
+    networkx-3___unlabeled_trees --> networkx-3___rooted_trees
+    networkx-3___next_tree --> networkx-3___split_tree
+    networkx-3___next_tree --> networkx-3___next_rooted_tree
+    networkx-3___configuration_model --> networkx-3___to_stublist
+    networkx-3__configuration_model --> networkx-3__py_random_state
+    networkx-3__configuration_model --> networkx-3___configuration_model
+    networkx-3__directed_configuration_model --> networkx-3__py_random_state
+    networkx-3__directed_configuration_model --> networkx-3___configuration_model
+    networkx-3__expected_degree_graph --> networkx-3__py_random_state
+    networkx-3__expected_degree_graph --> networkx-3__min
+    networkx-3__random_degree_sequence_graph --> networkx-3__py_random_state
+    networkx-3__phase1 --> networkx-3__random_weighted_sample
+    networkx-3__stochastic_graph --> networkx-3__not_implemented_for
+    networkx-3__graph_atlas --> networkx-3___generate_graphs
+    networkx-3__graph_atlas_g --> networkx-3___generate_graphs
+    networkx-3__random_clustered_graph --> networkx-3__py_random_state
+    networkx-3__mycielskian --> networkx-3__not_implemented_for
+    networkx-3__mycielski_graph --> networkx-3__mycielskian
+    networkx-3__maybe_regular_expander_graph --> webops__set
+    networkx-3__maybe_regular_expander --> networkx-3__maybe_regular_expander_graph
+    networkx-3__is_regular_expander --> networkx-3__min
+    networkx-3__random_regular_expander_graph --> networkx-3__maybe_regular_expander_graph
+    networkx-3__random_regular_expander_graph --> networkx-3__is_regular_expander
+    networkx-3__random_cograph --> networkx-3__py_random_state
+    networkx-3__choose_pref_attach --> networkx-3__py_random_state
+    networkx-3____init__ --> networkx-3__py_random_state
+    networkx-3____init__ --> networkx-3__min
+    networkx-3__t_graph --> webops__set
+    networkx-3__choose_peer_pref_attach --> networkx-3__choose_pref_attach
+    networkx-3__choose_node_pref_attach --> networkx-3__choose_pref_attach
+    networkx-3__add_node --> webops__set
+    networkx-3__add_node --> networkx-3__uniform_int_from_avg
+    networkx-3__add_cp_peering_link --> webops__set
+    networkx-3__graph_regions --> webops__set
+    networkx-3__add_peering_links --> networkx-3__uniform_int_from_avg
+    networkx-3__generate --> webops__set
+    networkx-3__random_internet_as_graph --> networkx-3__py_random_state
+    networkx-3__geometric_edges --> networkx-3___geometric_edges
+    networkx-3__random_geometric_graph --> networkx-3__py_random_state
+    networkx-3__random_geometric_graph --> networkx-3___geometric_edges
+    networkx-3__soft_random_geometric_graph --> networkx-3__py_random_state
+    networkx-3__soft_random_geometric_graph --> networkx-3___geometric_edges
+    networkx-3__geographical_threshold_graph --> networkx-3__py_random_state
+    networkx-3__waxman_graph --> networkx-3__py_random_state
+    networkx-3__navigable_small_world_graph --> networkx-3__py_random_state
+    networkx-3__thresholded_random_geometric_graph --> networkx-3__py_random_state
+    networkx-3__thresholded_random_geometric_graph --> networkx-3___geometric_edges
+    networkx-3__geometric_soft_configuration_graph --> networkx-3__py_random_state
+    networkx-3__geometric_soft_configuration_graph --> networkx-3__min
+    networkx-3__grid_2d_graph --> networkx-3__nodes_or_number
+    networkx-3__grid_2d_graph --> networkx-3__empty_graph
+    networkx-3__grid_2d_graph --> networkx-3__pairwise
+    networkx-3__grid_graph --> networkx-3__relabel_nodes
+    networkx-3__grid_graph --> networkx-3__empty_graph
+    networkx-3__grid_graph --> networkx-3__cartesian_product
+    networkx-3__hypercube_graph --> networkx-3__grid_graph
+    networkx-3__triangular_lattice_graph --> networkx-3__empty_graph
+    networkx-3__triangular_lattice_graph --> networkx-3__set_node_attributes
+    networkx-3__hexagonal_lattice_graph --> networkx-3__empty_graph
+    networkx-3__hexagonal_lattice_graph --> networkx-3__set_node_attributes
+    networkx-3__random_labeled_tree --> networkx-3__py_random_state
+    networkx-3__random_labeled_rooted_tree --> networkx-3__py_random_state
+    networkx-3__random_labeled_rooted_tree --> networkx-3__random_labeled_tree
+    networkx-3__random_labeled_rooted_forest --> networkx-3__py_random_state
+    networkx-3__random_labeled_rooted_forest --> webops__set
+    networkx-3___select_jd_trees --> networkx-3___num_rooted_trees
+    networkx-3___random_unlabeled_rooted_tree --> networkx-3___select_jd_trees
+    networkx-3__random_unlabeled_rooted_tree --> networkx-3__py_random_state
+    networkx-3__random_unlabeled_rooted_tree --> networkx-3___to_nx
+    networkx-3__random_unlabeled_rooted_tree --> networkx-3___random_unlabeled_rooted_tree
+    networkx-3___num_rooted_forests --> networkx-3__min
+    networkx-3___select_jd_forests --> networkx-3___num_rooted_forests
+    networkx-3___random_unlabeled_rooted_forest --> networkx-3___select_jd_forests
+    networkx-3___random_unlabeled_rooted_forest --> networkx-3___random_unlabeled_rooted_tree
+    networkx-3__random_unlabeled_rooted_forest --> networkx-3__py_random_state
+    networkx-3__random_unlabeled_rooted_forest --> networkx-3___random_unlabeled_rooted_forest
+    networkx-3__random_unlabeled_rooted_forest --> networkx-3___to_nx
+    networkx-3__random_unlabeled_rooted_forest --> webops__set
+    networkx-3___num_trees --> networkx-3___num_rooted_trees
+    networkx-3___bicenter --> networkx-3___random_unlabeled_rooted_tree
+    networkx-3___bicenter --> networkx-3___num_rooted_trees
+    networkx-3___random_unlabeled_tree --> networkx-3___bicenter
+    networkx-3___random_unlabeled_tree --> networkx-3___random_unlabeled_rooted_forest
+    networkx-3___random_unlabeled_tree --> networkx-3___num_rooted_trees
+    networkx-3___random_unlabeled_tree --> networkx-3___num_trees
+    networkx-3__random_unlabeled_tree --> networkx-3__py_random_state
+    networkx-3__random_unlabeled_tree --> networkx-3___to_nx
+    networkx-3__random_unlabeled_tree --> networkx-3___random_unlabeled_tree
+    networkx-3__fast_gnp_random_graph --> networkx-3__py_random_state
+    networkx-3__fast_gnp_random_graph --> networkx-3__check_create_using
+    networkx-3__fast_gnp_random_graph --> networkx-3__empty_graph
+    networkx-3__gnp_random_graph --> networkx-3__py_random_state
+    networkx-3__gnp_random_graph --> networkx-3__check_create_using
+    networkx-3__gnp_random_graph --> networkx-3__complete_graph
+    networkx-3__dense_gnm_random_graph --> networkx-3__py_random_state
+    networkx-3__dense_gnm_random_graph --> networkx-3__check_create_using
+    networkx-3__dense_gnm_random_graph --> networkx-3__empty_graph
+    networkx-3__dense_gnm_random_graph --> networkx-3__complete_graph
+    networkx-3__gnm_random_graph --> networkx-3__py_random_state
+    networkx-3__gnm_random_graph --> networkx-3__check_create_using
+    networkx-3__gnm_random_graph --> networkx-3__complete_graph
+    networkx-3__newman_watts_strogatz_graph --> networkx-3__py_random_state
+    networkx-3__newman_watts_strogatz_graph --> networkx-3__check_create_using
+    networkx-3__newman_watts_strogatz_graph --> networkx-3__empty_graph
+    networkx-3__watts_strogatz_graph --> networkx-3__py_random_state
+    networkx-3__watts_strogatz_graph --> networkx-3__check_create_using
+    networkx-3__connected_watts_strogatz_graph --> networkx-3__py_random_state
+    networkx-3__connected_watts_strogatz_graph --> networkx-3__watts_strogatz_graph
+    networkx-3__random_regular_graph --> networkx-3__py_random_state
+    networkx-3__random_regular_graph --> networkx-3__check_create_using
+    networkx-3__random_regular_graph --> webops__set
+    networkx-3___random_subset --> webops__set
+    networkx-3__barabasi_albert_graph --> networkx-3__py_random_state
+    networkx-3__barabasi_albert_graph --> networkx-3__check_create_using
+    networkx-3__barabasi_albert_graph --> networkx-3__star_graph
+    networkx-3__barabasi_albert_graph --> networkx-3___random_subset
+    networkx-3__dual_barabasi_albert_graph --> networkx-3__py_random_state
+    networkx-3__dual_barabasi_albert_graph --> networkx-3__check_create_using
+    networkx-3__dual_barabasi_albert_graph --> networkx-3__barabasi_albert_graph
+    networkx-3__dual_barabasi_albert_graph --> networkx-3__star_graph
+    networkx-3__dual_barabasi_albert_graph --> networkx-3___random_subset
+    networkx-3__extended_barabasi_albert_graph --> networkx-3__py_random_state
+    networkx-3__extended_barabasi_albert_graph --> networkx-3__check_create_using
+    networkx-3__extended_barabasi_albert_graph --> networkx-3__empty_graph
+    networkx-3__powerlaw_cluster_graph --> networkx-3__py_random_state
+    networkx-3__powerlaw_cluster_graph --> networkx-3__check_create_using
+    networkx-3__powerlaw_cluster_graph --> networkx-3__empty_graph
+    networkx-3__powerlaw_cluster_graph --> networkx-3___random_subset
+    networkx-3__random_lobster_graph --> networkx-3__py_random_state
+    networkx-3__random_lobster_graph --> networkx-3__check_create_using
+    networkx-3__random_lobster_graph --> networkx-3__path_graph
+    networkx-3__random_lobster --> networkx-3__py_random_state
+    networkx-3__random_lobster --> networkx-3__random_lobster_graph
+    networkx-3__random_shell_graph --> networkx-3__py_random_state
+    networkx-3__random_shell_graph --> networkx-3__check_create_using
+    networkx-3__random_shell_graph --> networkx-3__empty_graph
+    networkx-3__random_shell_graph --> networkx-3__gnm_random_graph
+    networkx-3__random_powerlaw_tree --> networkx-3__py_random_state
+    networkx-3__random_powerlaw_tree --> networkx-3__check_create_using
+    networkx-3__random_powerlaw_tree --> networkx-3__random_powerlaw_tree_sequence
+    networkx-3__random_powerlaw_tree --> networkx-3__degree_sequence_tree
+    networkx-3__random_powerlaw_tree_sequence --> networkx-3__py_random_state
+    networkx-3__random_powerlaw_tree_sequence --> networkx-3__min
+    networkx-3__random_kernel_graph --> networkx-3__py_random_state
+    networkx-3__random_kernel_graph --> networkx-3__check_create_using
+    networkx-3__write_dot --> networkx-3__to_agraph
+    networkx-3__read_dot --> networkx-3__from_agraph
+    networkx-3__graphviz_layout --> networkx-3__pygraphviz_layout
+    networkx-3__pygraphviz_layout --> networkx-3__to_agraph
+    networkx-3__pygraphviz_layout --> webops__print
+    networkx-3__view_pygraphviz --> networkx-3__to_agraph
+    networkx-3__relaxed_caveman_graph --> networkx-3__py_random_state
+    networkx-3__random_partition_graph --> networkx-3__py_random_state
+    networkx-3__random_partition_graph --> networkx-3__stochastic_block_model
+    networkx-3__planted_partition_graph --> networkx-3__py_random_state
+    networkx-3__planted_partition_graph --> networkx-3__random_partition_graph
+    networkx-3__gaussian_random_partition_graph --> networkx-3__py_random_state
+    networkx-3__gaussian_random_partition_graph --> networkx-3__random_partition_graph
+    networkx-3__stochastic_block_model --> networkx-3__py_random_state
+    networkx-3___powerlaw_sequence --> networkx-3___zipf_rv_below
+    networkx-3___generate_min_degree --> networkx-3___hurwitz_zeta
+    networkx-3___generate_communities --> webops__set
+    networkx-3__LFR_benchmark_graph --> networkx-3__py_random_state
+    networkx-3__LFR_benchmark_graph --> networkx-3___powerlaw_sequence
+    networkx-3__LFR_benchmark_graph --> networkx-3___generate_communities
+    networkx-3__LFR_benchmark_graph --> networkx-3___generate_min_degree
+    networkx-3__LFR_benchmark_graph --> networkx-3__min
+    networkx-3__gn_graph --> networkx-3__py_random_state
+    networkx-3__gn_graph --> networkx-3__empty_graph
+    networkx-3__gn_graph --> networkx-3__discrete_sequence
+    networkx-3__gnr_graph --> networkx-3__py_random_state
+    networkx-3__gnr_graph --> networkx-3__empty_graph
+    networkx-3__gnc_graph --> networkx-3__py_random_state
+    networkx-3__gnc_graph --> networkx-3__empty_graph
+    networkx-3__scale_free_graph --> networkx-3__py_random_state
+    networkx-3__random_uniform_k_out_graph --> networkx-3__py_random_state
+    networkx-3__random_uniform_k_out_graph --> webops__set
+    networkx-3__random_uniform_k_out_graph --> networkx-3__sample
+    networkx-3__random_k_out_graph --> networkx-3___random_k_out_graph_numpy
+    networkx-3__random_k_out_graph --> networkx-3___random_k_out_graph_python
+    networkx-3___random_k_out_graph_numpy --> networkx-3__np_random_state
+    networkx-3___random_k_out_graph_python --> networkx-3__py_random_state
+    networkx-3___random_k_out_graph_python --> networkx-3__weighted_choice
+    networkx-3__joint_degree_graph --> networkx-3__py_random_state
+    networkx-3__joint_degree_graph --> networkx-3__is_valid_joint_degree
+    networkx-3__directed_joint_degree_graph --> networkx-3__py_random_state
+    networkx-3__directed_joint_degree_graph --> networkx-3__is_valid_directed_joint_degree
+    networkx-3____init__ --> src__count
+    networkx-3__dict_to_numpy_array --> networkx-3___dict_to_numpy_array2
+    networkx-3__dict_to_numpy_array --> networkx-3___dict_to_numpy_array1
+    networkx-3___dict_to_numpy_array2 --> webops__set
+    networkx-3___dict_to_numpy_array1 --> webops__set
+    networkx-3__powerlaw_sequence --> networkx-3__py_random_state
+    networkx-3__zipf_rv --> networkx-3__py_random_state
+    networkx-3__discrete_sequence --> networkx-3__py_random_state
+    networkx-3__discrete_sequence --> networkx-3__cumulative_distribution
+    networkx-3__random_weighted_sample --> networkx-3__py_random_state
+    networkx-3__random_weighted_sample --> webops__set
+    networkx-3__random_weighted_sample --> networkx-3__weighted_choice
+    networkx-3__weighted_choice --> networkx-3__py_random_state
+    networkx-3__to_sets --> networkx-3__groups
+    networkx-3__cuthill_mckee_ordering --> networkx-3__connected_cuthill_mckee_ordering
+    networkx-3__reverse_cuthill_mckee_ordering --> networkx-3__cuthill_mckee_ordering
+    networkx-3__connected_cuthill_mckee_ordering --> networkx-3__pseudo_peripheral_node
+    networkx-3__connected_cuthill_mckee_ordering --> webops__set
+    networkx-3__pseudo_peripheral_node --> networkx-3__arbitrary_element
+    networkx-3__pseudo_peripheral_node --> networkx-3__min
+    networkx-3__efficiency --> networkx-3__not_implemented_for
+    networkx-3__global_efficiency --> networkx-3__not_implemented_for
+    networkx-3__local_efficiency --> networkx-3__not_implemented_for
+    networkx-3__local_efficiency --> networkx-3__global_efficiency
+    networkx-3__find_asteroidal_triple --> networkx-3__not_implemented_for
+    networkx-3__find_asteroidal_triple --> webops__set
+    networkx-3__find_asteroidal_triple --> networkx-3__create_component_structure
+    networkx-3__is_at_free --> networkx-3__not_implemented_for
+    networkx-3__is_at_free --> networkx-3__find_asteroidal_triple
+    networkx-3__create_component_structure --> networkx-3__not_implemented_for
+    networkx-3__create_component_structure --> webops__set
+    networkx-3__not_implemented_for --> webops__set
+    networkx-3____call__ --> networkx-3___lazy_compile
+    networkx-3__compile --> networkx-3___indent
+    networkx-3__assemble --> webops__set
+    networkx-3___indent --> networkx-3___flatten
+    networkx-3___indent --> webops__set
+    networkx-3__min_edge_cover --> networkx-3__not_implemented_for
+    networkx-3__min_edge_cover --> webops__set
+    networkx-3__min_edge_cover --> networkx-3__arbitrary_element
+    networkx-3__is_edge_cover --> networkx-3__not_implemented_for
+    networkx-3__is_edge_cover --> webops__set
+    networkx-3__triadic_census --> networkx-3__not_implemented_for
+    networkx-3__triadic_census --> webops__set
+    networkx-3__all_triads --> networkx-3__not_implemented_for
+    networkx-3__triads_by_type --> networkx-3__not_implemented_for
+    networkx-3__triads_by_type --> networkx-3__all_triads
+    networkx-3__triads_by_type --> networkx-3__triad_type
+    networkx-3__triad_type --> networkx-3__not_implemented_for
+    networkx-3__triad_type --> networkx-3__is_triad
+    networkx-3__triad_type --> webops__set
+    networkx-3__is_perfect_graph --> networkx-3__not_implemented_for
+    networkx-3__is_tournament --> networkx-3__not_implemented_for
+    networkx-3__hamiltonian_path --> networkx-3__not_implemented_for
+    networkx-3__hamiltonian_path --> networkx-3__arbitrary_element
+    networkx-3__hamiltonian_path --> networkx-3__index_satisfying
+    networkx-3__hamiltonian_path --> webops__set
+    networkx-3__random_tournament --> networkx-3__py_random_state
+    networkx-3__score_sequence --> networkx-3__not_implemented_for
+    networkx-3__tournament_matrix --> networkx-3__not_implemented_for
+    networkx-3__is_reachable --> networkx-3__not_implemented_for
+    networkx-3__is_strongly_connected --> networkx-3__not_implemented_for
+    networkx-3__is_strongly_connected --> networkx-3__is_reachable
+    networkx-3__spanner --> networkx-3__not_implemented_for
+    networkx-3__spanner --> networkx-3__py_random_state
+    networkx-3__spanner --> networkx-3___setup_residual_graph
+    networkx-3__spanner --> webops__set
+    networkx-3___get_max_broadcast_value --> webops__set
+    networkx-3___get_broadcast_centers --> webops__set
+    networkx-3__tree_broadcast_center --> networkx-3__not_implemented_for
+    networkx-3__tree_broadcast_center --> networkx-3___get_max_broadcast_value
+    networkx-3__tree_broadcast_center --> networkx-3__min
+    networkx-3__tree_broadcast_time --> networkx-3__not_implemented_for
+    networkx-3__tree_broadcast_time --> networkx-3__tree_broadcast_center
+    networkx-3__harmonic_function --> networkx-3___get_label_info
+    networkx-3__local_and_global_consistency --> networkx-3___get_label_info
+    networkx-3__immediate_dominators --> networkx-3__not_implemented_for
+    networkx-3__dominance_frontiers --> networkx-3__not_implemented_for
+    networkx-3__dominance_frontiers --> webops__set
+    networkx-3__directed_edge_swap --> networkx-3__py_random_state
+    networkx-3__directed_edge_swap --> networkx-3__discrete_sequence
+    networkx-3__double_edge_swap --> networkx-3__py_random_state
+    networkx-3__double_edge_swap --> networkx-3__discrete_sequence
+    networkx-3__connected_double_edge_swap --> networkx-3__py_random_state
+    networkx-3__connected_double_edge_swap --> networkx-3__discrete_sequence
+    networkx-3__non_randomness --> networkx-3__not_implemented_for
+    networkx-3__moral_graph --> networkx-3__not_implemented_for
+    networkx-3___set_configs_from_environment --> networkx-3___comma_sep_to_list
+    networkx-3___set_configs_from_environment --> networkx-3___get_backends
+    networkx-3____new__ --> webops__set
+    networkx-3___call_if_any_backends_installed --> webops__set
+    networkx-3___does_backend_have --> networkx-3___load_backend
+    networkx-3___can_backend_run --> networkx-3___load_backend
+    networkx-3___should_backend_run --> networkx-3___load_backend
+    networkx-3___convert_graph --> networkx-3___get_cache_key
+    networkx-3___convert_graph --> networkx-3___get_from_cache
+    networkx-3___convert_graph --> networkx-3___load_backend
+    networkx-3___convert_graph --> networkx-3___set_to_cache
+    networkx-3___call_with_backend --> networkx-3___load_backend
+    networkx-3___convert_and_call --> networkx-3___load_backend
+    networkx-3___convert_and_call_for_tests --> networkx-3___load_backend
+    networkx-3__maximal_matching --> networkx-3__not_implemented_for
+    networkx-3__maximal_matching --> webops__set
+    networkx-3__matching_dict_to_set --> webops__set
+    networkx-3__is_matching --> webops__set
+    networkx-3__is_matching --> networkx-3__matching_dict_to_set
+    networkx-3__is_maximal_matching --> webops__set
+    networkx-3__is_maximal_matching --> networkx-3__matching_dict_to_set
+
+    classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
+    class examples__run_learning_benchmark,examples__benchmark_nlp2cmd__clean_command,examples__benchmark_nlp2cmd__run_benchmark,examples__benchmark_nlp2cmd__build_summary,demos__demonstrate_version_detection,networkx-3__to_networkx_graph,networkx-3__from_dict_of_dicts,networkx-3___relabel_inplace,networkx-3__from_pandas_edgelist,networkx-3__to_numpy_array,networkx-3__from_numpy_array,webops__process_voice_command,networkx-3__add_graph_element,networkx-3__decode_data_elements,networkx-3__parse_pajek,networkx-3__generate_network_text,networkx-3___parse_network_text,networkx-3__parse_edgelist,networkx-3__add_attributes,networkx-3__make_graph,networkx-3___generate_sparse6_bytes,networkx-3__parse_gml_lines,networkx-3__generate_multiline_adjlist,networkx-3__parse_multiline_adjlist,networkx-3__spring_layout,networkx-3__forceatlas2_layout,networkx-3__display,networkx-3__draw_networkx_nodes,networkx-3____call__,networkx-3__draw_networkx_edges highCC
+    class examples___generate_single_teacher_fragment,benchmarks__benchmark_parallel_vs_sequential,benchmarks__thermodynamic_benchmark__main,examples__benchmark_nlp2cmd__generate_html,examples__generate_refactoring_notes,examples__generate_command_errors_report,demos___select_best_version,demos__demo_intelligent_nlp2cmd,demos__demonstrate_persistent_storage,demos__demo_enhanced__main,demos__demonstrate_schema_updates,networkx-3__from_dict_of_lists,networkx-3__to_dict_of_dicts,webops__process_voice_command,networkx-3___relabel_copy,networkx-3__convert_node_labels_to_integers,networkx-3__to_pandas_edgelist,networkx-3__to_scipy_sparse_array,networkx-3__from_scipy_sparse_array,webops__execute_command,webops__process_voice_command,webops___process_with_nlp2cmd_service,networkx-3__add_edges,networkx-3__indent,networkx-3__make_graph,networkx-3__add_edge,networkx-3__parse_adjlist,networkx-3__parse_leda,networkx-3__generate_pajek,networkx-3__generate_edgelist medCC
