@@ -6,5 +6,5 @@ pip install code2llm --upgrade
 
 source venv/bin/activate && python -m code2logic ./ -f toon --compact --name project -o ./
 #source venv/bin/activate && python -m code2llm ./ -v -o ./project -m hybrid -f toon
-source venv/bin/activate && python -m code2llm -f all
+source venv/bin/activate && python -m code2llm ./ -f all
 #code2llm ./ -f all
