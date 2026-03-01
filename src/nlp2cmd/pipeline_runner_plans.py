@@ -1094,6 +1094,16 @@ class PlanExecutionMixin:
         elif action == "new_tab":
             page = context.new_page()
 
+        elif action == "click_radio":
+            # Special action for radio button selection (e.g., token type)
+            selector = params.get("selector")
+            timeout = int(params.get("timeout", 5000))
+            if selector:
+                page.wait_for_selector(selector, state="visible", timeout=timeout)
+                page.click(selector, timeout=timeout)
+            else:
+                raise ValueError("click_radio requires selector")
+
         elif action == "click":
             selector = params.get("selector")
             text = params.get("text")

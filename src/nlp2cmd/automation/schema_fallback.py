@@ -330,7 +330,7 @@ class SchemaFallback:
                         if field_cfg.get("action") == "click_radio":
                             log.info("[SchemaFallback] Adding radio button click for %s", _fname)
                             steps.append({
-                                "action": "click",
+                                "action": "click_radio",
                                 "params": {
                                     "selector": field_cfg["selector"],
                                     "timeout": 5000,

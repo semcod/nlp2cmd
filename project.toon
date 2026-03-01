@@ -1,6 +1,6 @@
-# nlp2cmd | 510f 140823L | python:509/sql:1
+# nlp2cmd | 518f 143397L | python:527/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[510]:
+M[518]:
   benchmarks/thermodynamic_benchmark.py,318
   demos/demo_enhanced.py,95
   demos/demo_intelligent_nlp2cmd.py,200
@@ -130,6 +130,7 @@ M[510]:
   examples/08_api_key_management/04_huggingface_token/run.py,80
   examples/08_api_key_management/05_openai_key/run.py,70
   examples/08_api_key_management/06_multi_provider/run.py,122
+  examples/08_llm_validation/benchmark_validator.py,349
   examples/08_llm_validation/test_feedback_loop.py,350
   examples/08_llm_validation/test_validator.py,266
   examples/_example_helpers.py,20
@@ -196,7 +197,7 @@ M[510]:
   src/nlp2cmd/aggregator/__init__.py,274
   src/nlp2cmd/appspec_runtime.py,45
   src/nlp2cmd/automation/__init__.py,30
-  src/nlp2cmd/automation/action_planner.py,1401
+  src/nlp2cmd/automation/action_planner.py,1426
   src/nlp2cmd/automation/captcha_solver.py,420
   src/nlp2cmd/automation/complex_planner.py,417
   src/nlp2cmd/automation/drawing_blueprints.py,562
@@ -205,10 +206,10 @@ M[510]:
   src/nlp2cmd/automation/firefox_sessions.py,367
   src/nlp2cmd/automation/mouse_controller.py,284
   src/nlp2cmd/automation/password_store.py,705
-  src/nlp2cmd/automation/schema_fallback.py,579
-  src/nlp2cmd/automation/service_configs.py,332
+  src/nlp2cmd/automation/schema_fallback.py,953
+  src/nlp2cmd/automation/service_configs.py,352
   src/nlp2cmd/automation/shape_planner.py,91
-  src/nlp2cmd/automation/step_validator.py,305
+  src/nlp2cmd/automation/step_validator.py,313
   src/nlp2cmd/automation/vector_store.py,462
   src/nlp2cmd/cli/__init__.py,2
   src/nlp2cmd/cli/auto_repair.py,470
@@ -242,7 +243,7 @@ M[510]:
   src/nlp2cmd/execution/browser.py,435
   src/nlp2cmd/execution/executor_registry.py,77
   src/nlp2cmd/execution/media_recorder.py,139
-  src/nlp2cmd/execution/runner.py,664
+  src/nlp2cmd/execution/runner.py,695
   src/nlp2cmd/execution/shell_executor.py,192
   src/nlp2cmd/executor/__init__.py,526
   src/nlp2cmd/exploration/__init__.py,85
@@ -257,11 +258,11 @@ M[510]:
   src/nlp2cmd/generation/complex_detector.py,168
   src/nlp2cmd/generation/data_loader.py,287
   src/nlp2cmd/generation/enhanced_context.py,418
-  src/nlp2cmd/generation/evolutionary_cache.py,824
+  src/nlp2cmd/generation/evolutionary_cache.py,854
   src/nlp2cmd/generation/fuzzy_schema_matcher.py,433
   src/nlp2cmd/generation/hybrid.py,296
   src/nlp2cmd/generation/keywords/__init__.py,14
-  src/nlp2cmd/generation/keywords/keyword_detector.py,939
+  src/nlp2cmd/generation/keywords/keyword_detector.py,965
   src/nlp2cmd/generation/keywords/keyword_patterns.py,167
   src/nlp2cmd/generation/llm_multi.py,207
   src/nlp2cmd/generation/llm_simple.py,316
@@ -308,7 +309,7 @@ M[510]:
   src/nlp2cmd/llm/__init__.py,22
   src/nlp2cmd/llm/openrouter.py,242
   src/nlp2cmd/llm/repair.py,345
-  src/nlp2cmd/llm/validator.py,329
+  src/nlp2cmd/llm/validator.py,545
   src/nlp2cmd/llm/vision.py,234
   src/nlp2cmd/monitoring/__init__.py,31
   src/nlp2cmd/monitoring/resources.py,137
@@ -325,7 +326,7 @@ M[510]:
   src/nlp2cmd/pipeline_runner.py,145
   src/nlp2cmd/pipeline_runner_browser.py,1283
   src/nlp2cmd/pipeline_runner_desktop.py,333
-  src/nlp2cmd/pipeline_runner_plans.py,2374
+  src/nlp2cmd/pipeline_runner_plans.py,2514
   src/nlp2cmd/pipeline_runner_shell.py,175
   src/nlp2cmd/pipeline_runner_utils.py,380
   src/nlp2cmd/planner/__init__.py,340
@@ -345,6 +346,9 @@ M[510]:
   src/nlp2cmd/schemas/__init__.py,743
   src/nlp2cmd/service/__init__.py,321
   src/nlp2cmd/service/cli.py,124
+  src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py,174
+  src/nlp2cmd/src/nlp2cmd/processing/framework.py,190
+  src/nlp2cmd/src/nlp2cmd/validation/framework.py,152
   src/nlp2cmd/storage/__init__.py,3
   src/nlp2cmd/storage/per_command_store.py,287
   src/nlp2cmd/storage/versioned_store.py,313
@@ -434,7 +438,7 @@ M[510]:
   tests/unit/simple_shell_commands.py,83
   tests/unit/test_adapters.py,347
   tests/unit/test_adapters_comprehensive.py,222
-  tests/unit/test_api_key_workflow.py,368
+  tests/unit/test_api_key_workflow.py,383
   tests/unit/test_app2schema.py,123
   tests/unit/test_auto_repair.py,186
   tests/unit/test_automation.py,402
@@ -458,19 +462,23 @@ M[510]:
   tests/unit/test_intent_matcher.py,192
   tests/unit/test_k8s_validators.py,117
   tests/unit/test_keyword_detector_missing_data.py,21
+  tests/unit/test_llm_step_sanitizer.py,15
   tests/unit/test_multistep_browser.py,270
+  tests/unit/test_multistep_cache_service_safety.py,25
   tests/unit/test_nlp_integration.py,111
   tests/unit/test_normalizer.py,180
   tests/unit/test_password_store.py,243
   tests/unit/test_pipeline_runner_step_errors.py,29
+  tests/unit/test_plan_step_robustness.py,55
   tests/unit/test_planner_aggregator.py,412
+  tests/unit/test_prompt_secret_skip_pattern.py,23
   tests/unit/test_refactored_methods.py,107
   tests/unit/test_registry.py,355
   tests/unit/test_router.py,249
   tests/unit/test_rule_based_backend_extractor_modes.py,30
   tests/unit/test_rule_based_pipeline_shadow_metadata.py,25
   tests/unit/test_run_mode_sql.py,43
-  tests/unit/test_schema_fallback.py,63
+  tests/unit/test_schema_fallback.py,248
   tests/unit/test_schema_loading.py,223
   tests/unit/test_schema_management.py,263
   tests/unit/test_schema_validation.py,261
@@ -1299,6 +1307,14 @@ D:
     setup_providers(providers:list[str])
     setup_all()
     main()
+  examples/08_llm_validation/benchmark_validator.py:
+    i: json,os,sys,time,dataclasses.{dataclass,field},nlp2cmd.llm.validator.{LLMValidator,ValidationVerdict},pathlib.Path,typing.Optional
+    e: BenchmarkCase,CaseResult,BENCHMARK_CASES,run_benchmark,compare_benchmarks,main
+    BenchmarkCase:   # A single benchmark test case.
+    CaseResult: verdict_correct(0),consistent(0),avg_latency_ms(0),deterministic(0)
+    run_benchmark(validator:LLMValidator;runs_per_case:int=3;label:str='benchmark')->dict
+    compare_benchmarks(before:dict;after:dict)->None
+    main()
   examples/08_llm_validation/test_feedback_loop.py:
     i: json,os,sys,time,dataclasses.dataclass,nlp2cmd.automation.feedback_loop.FeedbackLoop,pathlib.Path,typing.Optional,unittest.mock.{MagicMock,PropertyMock}
     e: MockElement,MockPage,TestCase,test_failure_classification,test_page_analyzer_section_finder,test_page_analyzer_clickable_finder,test_multi_provider_classification,test_llm_diagnosis
@@ -1749,7 +1765,7 @@ D:
     e: FallbackContext,FallbackResult,SchemaFallback
     FallbackContext:   # Context collected when a step fails,...
     FallbackResult:   # Result of a fallback attempt.
-    SchemaFallback: __init__(1),generate_fallback(2),_try_rule_based(2),_try_dom_extraction(2),_try_clipboard(1)  # Generate alternative action schemas w...
+    SchemaFallback: __init__(1),generate_fallback(2),_run_llm_repair_rounds(2),_try_rule_based(2),_try_dom_extraction(2)  # Generate alternative action schemas w...
   src/nlp2cmd/automation/service_configs.py:
     i: logging,os,shutil,typing.Any
     e: _HARDCODED_SERVICES,EMAIL_CLIENTS,EMAIL_ALIASES,SERVICE_ALIASES,KNOWN_SERVICES,_SYSTEM_PROMPT
@@ -2291,10 +2307,10 @@ D:
     LLMRepair: __init__(7),is_configured(0),repair(5),_call_openrouter(1),_parse_and_apply(1)  # Repairs failed commands and optionall...
     _debug(msg:str)->None
   src/nlp2cmd/llm/validator.py:
-    i: json,os,re,sys,dataclasses.dataclass,typing.Optional
+    i: hashlib,json,os,re,sys,dataclasses.dataclass,typing.Optional
     e: _DEBUG,ValidationVerdict,_SYSTEM_PROMPT,_USER_TEMPLATE,LLMValidator
     ValidationVerdict: passed(0)  # Result from LLM validator.
-    LLMValidator: __init__(5),is_available(0),validate(3),_build_dynamic_hints(3),_sanity_check_verdict(2)  # Validates command output against user...
+    LLMValidator: __init__(5),is_available(0),validate(3),_cache_key(3),_cache_put(2)  # Validates command output against user...
     _debug(msg:str)->None
   src/nlp2cmd/llm/vision.py:
     i: base64,os,sys,dataclasses.{dataclass,field},pathlib.Path,typing.{Any,Optional}
@@ -2385,9 +2401,9 @@ D:
     e: DesktopExecutionMixin
     DesktopExecutionMixin: _dismiss_popups(2),_extract_json_from_llm_response(1),_detect_desktop_backend(0),_execute_desktop_plan_step(2),_xdotool_keys_to_ydotool(1)  # Desktop automation and static utility...
   src/nlp2cmd/pipeline_runner_plans.py:
-    i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
-    e: PlanExecutionMixin
-    PlanExecutionMixin: execute_action_plan(1),_execute_plan_step(4),_resolve_plan_variables(2),_do_verify_env(4),_llm_suggest_article_selectors(1)  # Multi-step ActionPlan execution metho...
+    i: json,os,re,shlex,subprocess,shutil,sys,threading,time,pathlib.Path
+    e: _MAX_PLAN_STEPS,_MAX_FALLBACK_INJECTIONS,_PROMPT_TIMEOUT,PlanExecutionMixin
+    PlanExecutionMixin: _sanitize_replacement_steps(1),execute_action_plan(1),_execute_plan_step(4),_resolve_plan_variables(2),_do_verify_env(4)  # Multi-step ActionPlan execution metho...
   src/nlp2cmd/pipeline_runner_shell.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: ShellExecutionMixin
@@ -2488,6 +2504,41 @@ D:
     i: os,sys,click,pathlib.Path,typing.Optional
     e: add_service_command
     add_service_command(main_group)
+  src/nlp2cmd/src/nlp2cmd/execution/refactored_executor.py:
+    i: logging,dataclasses.dataclass,enum.Enum,typing.{Any,Dict,List,Optional,Union}
+    e: ActionType,ExecutionContext,ActionExecutor,RefactoredPlanExecutor,execute_plan_step,run_dom_multi_action
+    ActionType:   # Types of actions that can be executed.
+    ExecutionContext:   # Context for action execution.
+    ActionExecutor: __init__(1),execute(2),_execute_dom_action(2),_execute_shell_action(2),_execute_mouse_action(2)  # Specialized executor for different ac...
+    RefactoredPlanExecutor: __init__(0),execute_plan_step(2),execute_plan(2),get_execution_stats(0),_get_timestamp(0)  # Refactored plan executor with special...
+    execute_plan_step(step:Dict[str;Any];context:ExecutionContext)->Dict[str, Any]
+    run_dom_multi_action(actions:List[Dict[str;Any]];context:ExecutionContext)->Dict[str, Any]
+  src/nlp2cmd/src/nlp2cmd/processing/framework.py:
+    i: abc.{ABC,abstractmethod},typing
+    e: T,U,R,ProcessType,ProcessResult,BaseProcessor,FilterProcessor,MapProcessor
+    ProcessType:   # Types of data processing.
+    ProcessResult:   # Result of data processing operation.
+    BaseProcessor: __init__(2),process(1),__call__(1)  # Base class for data processors.
+    FilterProcessor: __init__(2),process(1)  # Generic filter processor.
+    MapProcessor: __init__(2),process(1)  # Generic map processor.
+    create_filter(predicate:Callable[Any;bool];name:str=None)->FilterProcessor
+    create_map(transform:Callable[Any;Any];name:str=None)->MapProcessor
+    create_transform(transform:Callable[Any;Any];name:str=None)->TransformProcessor
+    create_reduce(reducer:Callable[Any;Any];initial:Any;name:str=None)->ReduceProcessor
+    create_aggregate(aggregators:Dict[str;Callable];name:str=None)->AggregateProcessor
+    pipeline(name:str='pipeline')->ProcessingPipeline
+    filter_form_fields(fields:List[Dict])->List[Dict]
+    map_field_attributes(fields:List[Dict])->List[Dict]
+  src/nlp2cmd/src/nlp2cmd/validation/framework.py:
+    i: abc.{ABC,abstractmethod},dataclasses.dataclass,enum.Enum,typing.{Any,Dict,List,Optional,Union}
+    e: ValidationType,ValidationResult,BaseValidator,SafetyPolicyValidator,FormFieldValidator,ValidationFramework,validate_safety_policy,validate_form_field
+    ValidationType:   # Types of validation.
+    ValidationResult:   # Result of validation operation.
+    BaseValidator: __init__(1),validate(2),_create_result(3)  # Base class for all validators.
+    SafetyPolicyValidator: __init__(0),validate(2)  # Validates against safety policies.
+    FormFieldValidator: __init__(0),validate(2),_is_junk_field(1)  # Validates form fields.
+    validate_safety_policy(command:str;context:Optional[Dict]=None)->ValidationResult
+    validate_form_field(field_data:Dict[str;Any];context:Optional[Dict]=None)->ValidationResult
   src/nlp2cmd/storage/per_command_store.py:
     i: json,os,datetime,pathlib.Path,typing.{Any,Dict,List,Optional,TYPE_CHECKING}
     e: PerCommandSchemaStore,test_per_command_store
@@ -3103,6 +3154,10 @@ D:
     _empty_find_data_files(explicit_path;default_filename)
     test_keyword_detector_missing_data_non_strict(monkeypatch)
     test_keyword_detector_missing_data_strict_raises(monkeypatch)
+  tests/unit/test_llm_step_sanitizer.py:
+    i: nlp2cmd.pipeline_runner_plans.PlanExecutionMixin
+    e: test_sanitize_drops_invalid_save_env_and_verify_env_steps
+    test_sanitize_drops_invalid_save_env_and_verify_env_steps()
   tests/unit/test_multistep_browser.py:
     i: pytest
     e: TestComplexQueryDetector,TestActionPlanner,TestBrowserFastPath,TestAntiNetworkingOverride,TestMultistepCache,TestPipelineMultiStep,TestVideoRecordingWiring
@@ -3111,6 +3166,11 @@ D:
     TestBrowserFastPath: setup(0),_domain(1),test_critical_bug_fix(0),test_open_browser(0),test_open_browser_uruchom(0)  # Test Phase 1 bug fix: browser command...
     TestAntiNetworkingOverride: setup(0),test_strone_not_route(0),test_copy_api_key_not_shell(0)  # Ensure browser signals prevent false...
     TestMultistepCache: test_store_and_lookup(1),test_cache_miss(1)  # Test multi-step cache store/lookup in...
+  tests/unit/test_multistep_cache_service_safety.py:
+    i: json,nlp2cmd.automation.action_planner.ActionPlanner,nlp2cmd.generation.evolutionary_cache.EvolutionaryCache,pathlib.Path,unittest.mock.patch
+    e: test_multistep_cache_rejects_cross_service_hit,test_multistep_cache_disabled_in_dynamic_schema_mode
+    test_multistep_cache_rejects_cross_service_hit(tmp_path:Path)
+    test_multistep_cache_disabled_in_dynamic_schema_mode(tmp_path:Path)
   tests/unit/test_nlp_integration.py:
     i: pytest,nlp2cmd.core,unittest.mock.{Mock,patch}
     e: TestNLPIntegration
@@ -3138,6 +3198,15 @@ D:
     _DummyStep: __init__(2)
     test_execute_plan_step_set_color_raises_on_evaluate_error()
     test_execute_plan_step_draw_filled_circle_raises_on_evaluate_error()
+  tests/unit/test_plan_step_robustness.py:
+    i: pytest,dataclasses.dataclass,nlp2cmd.pipeline_runner_plans.PlanExecutionMixin,unittest.mock.patch
+    e: test_click_normalizes_contains_selector_to_text_click,test_check_clipboard_strict_when_key_pattern_provided
+    _Step: 
+    _FakeLocator: __init__(0),first(0),wait_for(0),click(0)
+    _FakePage: __init__(0),wait_for_load_state(0),get_by_text(1),wait_for_selector(0),click(0)
+    _Runner: 
+    test_click_normalizes_contains_selector_to_text_click()
+    test_check_clipboard_strict_when_key_pattern_provided()
   tests/unit/test_planner_aggregator.py:
     i: json,pytest,nlp2cmd.aggregator.{AggregatedResult,OutputFormat,ResultAggregator},nlp2cmd.executor.{ExecutionResult,StepResult},nlp2cmd.planner.{LLMPlanner,PlannerConfig,PlanningResult}
     e: TestPlannerConfig,TestPlanningResult,TestLLMPlanner,TestLLMPlannerExamples,TestOutputFormat,TestResultAggregator,TestResultAggregatorEdgeCases
@@ -3146,6 +3215,11 @@ D:
     TestLLMPlanner: planner(0),test_rule_based_plan_sql(1),test_rule_based_plan_shell(1),test_rule_based_plan_with_context(1),test_rule_based_plan_with_domain(1)  # Tests for LLMPlanner.
     TestLLMPlannerExamples: test_examples_have_valid_structure(0)  # Tests for LLM Planner examples.
     TestOutputFormat: test_all_formats_exist(0)  # Tests for OutputFormat enum.
+  tests/unit/test_prompt_secret_skip_pattern.py:
+    i: os,nlp2cmd.automation.step_validator.StepValidator,unittest.mock.patch
+    e: test_prompt_secret_not_skipped_when_env_var_invalid_for_pattern,test_prompt_secret_skipped_when_env_var_matches_pattern
+    test_prompt_secret_not_skipped_when_env_var_invalid_for_pattern()
+    test_prompt_secret_skipped_when_env_var_matches_pattern()
   tests/unit/test_refactored_methods.py:
     i: pytest,nlp2cmd.generation.keywords.{DetectionResult,KeywordIntentDetector},nlp2cmd.generation.template_generator.TemplateGenerator,unittest.mock.{Mock,patch}
     e: TestRefactoredKeywordDetector,TestRefactoredTemplateGenerator
@@ -3184,11 +3258,16 @@ D:
     test_run_mode_sql_does_not_execute_shell(monkeypatch)
     test_run_mode_sql_only_multistep_does_not_execute_shell(monkeypatch)
   tests/unit/test_schema_fallback.py:
-    i: nlp2cmd.automation.schema_fallback.{FallbackContext,SchemaFallback}
-    e: test_rule_based_navigate_fallback_injects_section_discovery,test_extract_key_rule_based_fallback_starts_with_section_discovery_before_create
+    i: os,nlp2cmd.automation.schema_fallback.{FallbackContext,FallbackResult,SchemaFallback},unittest.mock.patch
+    e: test_rule_based_navigate_fallback_injects_section_discovery,test_extract_key_rule_based_fallback_starts_with_section_discovery_before_create,test_parse_llm_steps_accepts_object_with_diagnosis_and_steps,test_generate_fallback_prefers_llm_first_mode_before_rules,test_extract_key_uses_rules_first_even_in_llm_first_mode,test_dynamic_page_schema_strategy_exists,test_github_extract_key_fallback_includes_pre_clicks,test_hf_extract_key_fallback_passes_alt_selectors
     _svc_cfg()->dict
+    _github_svc_cfg()->dict
     test_rule_based_navigate_fallback_injects_section_discovery()
     test_extract_key_rule_based_fallback_starts_with_section_discovery_before_create()
+    test_parse_llm_steps_accepts_object_with_diagnosis_and_steps()
+    test_generate_fallback_prefers_llm_first_mode_before_rules()
+    test_extract_key_uses_rules_first_even_in_llm_first_mode()
+    test_dynamic_page_schema_strategy_exists()
   tests/unit/test_schema_loading.py:
     i: pytest,tempfile,os,nlp2cmd.schemas.{FileFormatSchema,SchemaRegistry},pathlib.Path
     e: TestSchemaRegistry,TestFileFormatSchema
