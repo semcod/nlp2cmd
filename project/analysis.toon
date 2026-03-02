@@ -1,8 +1,8 @@
-# code2llm | 840f 293340L | py:840 | 2026-03-01
-# CC̄=5.7 | critical:1002/6817 | dups:173 | cycles:14
+# code2llm | 679f 261415L | py:679 | 2026-03-02
+# CC̄=5.9 | critical:941/6817 | dups:161 | cycles:14
 
 HEALTH[20]:
-  🔴 DUP   173 classes duplicated
+  🔴 DUP   161 classes duplicated
   🔴 GOD   webops/docker_app.py = 677L, 4 classes, 12m, max CC=10
   🔴 GOD   webops/voice_service.py = 1336L, 4 classes, 20m, max CC=13
   🔴 GOD   networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py = 1053L, 5 classes, 33m, max CC=21
@@ -15,16 +15,16 @@ HEALTH[20]:
   🔴 GOD   webops/nlp2cmd-repo/termo2/vehicle_routing.py = 514L, 4 classes, 21m, max CC=10
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/pipeline_runner.py = 673L, 4 classes, 12m, max CC=48
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py = 946L, 10 classes, 28m, max CC=64
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py = 942L, 10 classes, 28m, max CC=64
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core.py = 943L, 10 classes, 33m, max CC=64
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py = 560L, 4 classes, 23m, max CC=9
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py = 921L, 7 classes, 26m, max CC=36
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/generation/pipeline.py = 1029L, 4 classes, 26m, max CC=33
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
   🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/registry/__init__.py = 642L, 6 classes, 22m, max CC=15
-  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py = 942L, 10 classes, 28m, max CC=64
 
 REFACTOR[21]:
-  1. rm duplicates  (-173 dup classes)
+  1. rm duplicates  (-161 dup classes)
   2. split webops/docker_app.py  (god module)
   3. split webops/voice_service.py  (god module)
   4. split networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py  (god module)
@@ -37,52 +37,63 @@ REFACTOR[21]:
   11. split webops/nlp2cmd-repo/termo2/vehicle_routing.py  (god module)
   12. split webops/nlp2cmd-repo/src/nlp2cmd/pipeline_runner.py  (god module)
   13. split webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py  (god module)
-  14. split webops/nlp2cmd-repo/src/nlp2cmd/core.py  (god module)
-  15. split webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py  (god module)
-  16. split webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py  (god module)
-  17. split webops/nlp2cmd-repo/src/nlp2cmd/generation/pipeline.py  (god module)
-  18. split webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py  (god module)
-  19. split webops/nlp2cmd-repo/src/nlp2cmd/registry/__init__.py  (god module)
-  20. split webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py  (god module)
+  14. split webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py  (god module)
+  15. split webops/nlp2cmd-repo/src/nlp2cmd/core.py  (god module)
+  16. split webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py  (god module)
+  17. split webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py  (god module)
+  18. split webops/nlp2cmd-repo/src/nlp2cmd/generation/pipeline.py  (god module)
+  19. split webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py  (god module)
+  20. split webops/nlp2cmd-repo/src/nlp2cmd/registry/__init__.py  (god module)
   21. break 14 circular dependencies
 
 COUPLING:
-                  webops    examples     scripts  networkx-3         src       demos       tools  benchmarks      docker
-      webops          ──          17          31          53           5          12          14         ←41         ←30  hub
-    examples        2535          ──           5           4          16                                                  hub
-     scripts         685           5          ──           1                                                              hub
-  networkx-3         548          ←4          ←1          ──           8          ←1          ←2                          hub
-         src         510           1                      45          ──                       2                          hub
-       demos         363                                   1                      ──                                      hub
-       tools         260                                   2          ←2                      ──                          hub
-  benchmarks          41                                                                                  ──              !! fan-out
-      docker          30                                                                                              ──  !! fan-out
+                           webops.nlp2cmd-repo           networkx-3.6            src.nlp2cmd    scripts.maintenance                  demos  scripts.thermodynamic           tools.schema         tools.analysis                 webops       tools.generation             benchmarks           docker.novnc                scripts         src.app2schema
+    webops.nlp2cmd-repo                     ──                     53                      5                     13                     12                     13                      5                      5                    ←71                      4                    ←41                    ←30                    ←19                    ←14  hub
+           networkx-3.6                    548                     ──                      8                                            ←1                     ←1                     ←1                                                                   ←1                                                                                              hub
+            src.nlp2cmd                    495                     45                     ──                                                                                                                                                                                                                                                               hub
+    scripts.maintenance                    501                                                                   ──                                                                                                                                                                                                                                        hub
+                  demos                    363                      1                                                                   ──                                                                                                                                                                                                                 hub
+  scripts.thermodynamic                    165                      1                                                                                          ──                                                                                                                                                                                          hub
+           tools.schema                    130                      1                                                                                                                 ──                                                                                                                                                               ←2  hub
+         tools.analysis                     74                                                                                                                                                               ──                                                                                                                                            hub
+                 webops                     71                                                                                                                                                                                      ──                                                                                                                     !! fan-out
+       tools.generation                     56                      1                                                                                                                                                                                      ──                                                                                              !! fan-out
+             benchmarks                     41                                                                                                                                                                                                                                    ──                                                                       !! fan-out
+           docker.novnc                     30                                                                                                                                                                                                                                                           ──                                                !! fan-out
+                scripts                     19                                                                                                                                                                                                                                                                                  ──                         !! fan-out
+         src.app2schema                     14                                                                                                                                         2                                                                                                                                                               ──  !! fan-out
   CYCLES: 14
   HUB: demos/ (fan-in=12)
-  HUB: networkx-3/ (fan-in=106)
-  HUB: tools/ (fan-in=16)
-  HUB: webops/ (fan-in=4972)
-  HUB: examples/ (fan-in=23)
-  HUB: scripts/ (fan-in=36)
-  HUB: src/ (fan-in=29)
-  SMELL: demos/ fan-out=364 → split needed
-  SMELL: networkx-3/ fan-out=556 → split needed
-  SMELL: tools/ fan-out=262 → split needed
-  SMELL: webops/ fan-out=132 → split needed
+  HUB: src.nlp2cmd/ (fan-in=13)
+  HUB: scripts.maintenance/ (fan-in=13)
+  HUB: tools.schema/ (fan-in=7)
+  HUB: tools.analysis/ (fan-in=5)
+  HUB: webops.nlp2cmd-repo/ (fan-in=2507)
+  HUB: scripts.thermodynamic/ (fan-in=13)
+  HUB: networkx-3.6/ (fan-in=102)
+  SMELL: src.app2schema/ fan-out=16 → split needed
   SMELL: benchmarks/ fan-out=41 → split needed
-  SMELL: examples/ fan-out=2560 → split needed
-  SMELL: docker/ fan-out=30 → split needed
-  SMELL: scripts/ fan-out=691 → split needed
-  SMELL: src/ fan-out=558 → split needed
+  SMELL: demos/ fan-out=364 → split needed
+  SMELL: scripts/ fan-out=19 → split needed
+  SMELL: tools.generation/ fan-out=57 → split needed
+  SMELL: src.nlp2cmd/ fan-out=540 → split needed
+  SMELL: docker.novnc/ fan-out=30 → split needed
+  SMELL: scripts.maintenance/ fan-out=501 → split needed
+  SMELL: tools.schema/ fan-out=131 → split needed
+  SMELL: tools.analysis/ fan-out=74 → split needed
+  SMELL: webops/ fan-out=71 → split needed
+  SMELL: webops.nlp2cmd-repo/ fan-out=110 → split needed
+  SMELL: scripts.thermodynamic/ fan-out=166 → split needed
+  SMELL: networkx-3.6/ fan-out=556 → split needed
 
 LAYERS:
-  tools/                          CC̄=7.0    ←in:16  →out:262  !! split  ×DUP
+  tools/                          CC̄=7.0    ←in:0  →out:0  ×DUP
   │ !! comprehensive_command_scanner   853L  3C   24m  CC=17     ←0  ×DUP
   │ !! enhanced_schema_generator   811L  3C   37m  CC=11     ←0  ×DUP
   │ !! non_llm_schema_extractor   724L  3C   28m  CC=11     ←2  ×DUP
   │ !! generate_cmd_simple        578L  0C    4m  CC=187    ←1
-  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←3  ×DUP
-  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←0  ×DUP
+  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←1  ×DUP
+  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←2  ×DUP
   │ !! intelligent_schema_generator   473L  2C   14m  CC=17     ←0  ×DUP
   │ analyze_version_detection   334L  0C    6m  CC=9      ←1
   │ cmd2schema                 244L  1C    9m  CC=7      ←0  ×DUP
@@ -90,6 +101,162 @@ LAYERS:
   │ !  validate_schemas           123L  0C    1m  CC=14     ←0
   │ !! compare_batches             95L  0C    1m  CC=21     ←0
   │ !! compare_llm                 85L  0C    1m  CC=16     ←0
+  │
+  webops/                         CC̄=6.3    ←in:0  →out:71  !! split  ×DUP
+  │ !! main                      1967L  1C   27m  CC=123    ←3  ×DUP
+  │ !! __init__                  1960L  9C   45m  CC=55     ←2  ×DUP
+  │ !! shell                     1933L  3C   36m  CC=63     ←0  ×DUP
+  │ !! keywords                  1415L  2C   33m  CC=47     ←4
+  │ !! templates                 1380L  2C   17m  CC=164    ←0
+  │ !! voice_service             1336L  4C   20m  CC=13     ←0
+  │ !! shell_patched             1328L  3C   20m  CC=58     ←0  ×DUP
+  │ !! shell_backup              1318L  3C   24m  CC=58     ←0  ×DUP
+  │ !! pipeline                  1029L  4C   26m  CC=33     ←0
+  │ !! core_patched               946L  10C   28m  CC=64     ←0  ×DUP
+  │ !! core                       943L  10C   33m  CC=64     ←0  ×DUP
+  │ !! core_backup                942L  10C   28m  CC=64     ←0  ×DUP
+  │ !! extract                    942L  2C   15m  CC=45     ←20  ×DUP
+  │ !! thermodynamic              921L  7C   26m  CC=36     ←8  ×DUP
+  │ !! __init__                   909L  2C   43m  CC=26     ←0  ×DUP
+  │ !! comprehensive_command_scanner   853L  3C   24m  CC=17     ←0  ×DUP
+  │ !! enhanced_schema_generator   811L  3C   37m  CC=11     ←0  ×DUP
+  │ !! implement_core_integration   805L  1C   10m  CC=11     ←0  ×DUP
+  │ !! termo2                     776L  12C   38m  CC=8      ←0  ×DUP
+  │ !! __init__                   771L  8C   25m  CC=58     ←1  ×DUP
+  │ !! kubernetes_patched         740L  3C   23m  CC=12     ←0  ×DUP
+  │ !! kubernetes_backup          731L  3C   23m  CC=12     ←0  ×DUP
+  │ !! kubernetes                 731L  3C   23m  CC=12     ←0  ×DUP
+  │ !! non_llm_schema_extractor   724L  3C   28m  CC=11     ←0  ×DUP
+  │ !! form_data_loader           693L  1C   38m  CC=18     ←4  ×DUP
+  │ !! __init__                   678L  8C   18m  CC=16     ←206  ×DUP
+  │ !! docker_app                 677L  4C   12m  CC=10     ←0  ×DUP
+  │ !! regex                      677L  3C   11m  CC=33     ←0  ×DUP
+  │ !! pipeline_runner            673L  4C   12m  CC=48     ←304  ×DUP
+  │ !! dynamic                    650L  2C   21m  CC=25     ←0  ×DUP
+  │ !! __init__                   646L  5C   19m  CC=41     ←0  ×DUP
+  │ !! docker_patched             645L  3C   19m  CC=14     ←0  ×DUP
+  │ !! __init__                   642L  6C   22m  CC=15     ←10  ×DUP
+  │ !! docker                     635L  3C   19m  CC=14     ←0  ×DUP
+  │ !! docker_backup              635L  3C   19m  CC=14     ←0  ×DUP
+  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←4  ×DUP
+  │ !! __init__                   605L  10C   24m  CC=12     ←0  ×DUP
+  │ !! generate_cmd_simple        578L  0C    4m  CC=187    ←1
+  │ !! enhanced_context           570L  2C   14m  CC=22     ←1  ×DUP
+  │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←3  ×DUP
+  │ !! form_handler               527L  3C    8m  CC=34     ←0  ×DUP
+  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←1  ×DUP
+  │ !! __init__                   524L  4C   15m  CC=15     ←0  ×DUP
+  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←0  ×DUP
+  │ !! runner                     523L  3C    9m  CC=28     ←0  ×DUP
+  │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0  ×DUP
+  │ !! vehicle_routing            514L  4C   21m  CC=10     ←0
+  │ !! __init__                   508L  2C   14m  CC=12     ←0  ×DUP
+  │ !! voice_service_clean        498L  4C   12m  CC=22     ←0  ×DUP
+  │ !! sql_patched                488L  3C   14m  CC=15     ←0  ×DUP
+  │ !! sql_backup                 478L  3C   15m  CC=15     ←0  ×DUP
+  │ !! sql                        478L  3C   15m  CC=15     ←0  ×DUP
+  │ final_analysis_and_next_steps   476L  1C   10m  CC=9      ←0  ×DUP
+  │ !! intelligent_schema_generator   473L  2C   14m  CC=17     ←0  ×DUP
+  │ energy_models              462L  6C   18m  CC=6      ←0  ×DUP
+  │ final_project_summary      461L  1C   10m  CC=7      ←0  ×DUP
+  │ !  dependency_resolver        449L  4C   18m  CC=13     ←0
+  │ !! llm_extractor              443L  1C   11m  CC=15     ←0  ×DUP
+  │ !! dql                        431L  3C   13m  CC=22     ←0  ×DUP
+  │ !  versioned_store            421L  1C   13m  CC=14     ←0  ×DUP
+  │ !  llm_simple                 420L  10C   19m  CC=13     ←0  ×DUP
+  │ __init__                   419L  3C    7m  CC=6      ←0  ×DUP
+  │ !! command_detector           415L  2C    5m  CC=31     ←0  ×DUP
+  │ !  demo_versioned_schemas     395L  0C    4m  CC=11     ←1
+  │ per_command_store          395L  1C   14m  CC=7      ←0  ×DUP
+  │ __init__                   394L  4C   11m  CC=8      ←3  ×DUP
+  │ !! extractor                  389L  3C   10m  CC=15     ←2  ×DUP
+  │ !  __init__                   383L  3C   11m  CC=14     ←0  ×DUP
+  │ semantic_matcher           379L  3C   13m  CC=9      ←2
+  │ hybrid                     377L  4C   12m  CC=5      ←5  ×DUP
+  │ !  conceptual_commands        377L  2C   15m  CC=12     ←0
+  │ semantic_objects           374L  2C   11m  CC=7      ←0
+  │ structured                 371L  5C    7m  CC=9      ←0  ×DUP
+  │ data_loader                370L  3C   28m  CC=5      ←2  ×DUP
+  │ !! __init__                   358L  4C   10m  CC=34     ←0  ×DUP
+  │ !  browser                    356L  2C   10m  CC=13     ←3
+  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0  ×DUP
+  │ !  virtual_objects            351L  3C   20m  CC=10     ←0
+  │ !  history                    349L  2C   15m  CC=12     ←1  ×DUP
+  │ !! semantic_shell             349L  2C   14m  CC=32     ←0  ×DUP
+  │ !! toon_parser                340L  3C   22m  CC=15     ←4  ×DUP
+  │ analyze_version_detection   334L  0C    6m  CC=9      ←1
+  │ !  tracker                    325L  3C   18m  CC=13     ←10  ×DUP
+  │ !  generator                  324L  2C   16m  CC=12     ←0  ×DUP
+  │ cache                      318L  0C    7m  CC=5      ←0
+  │ !! external_cache             316L  1C   13m  CC=16     ←0  ×DUP
+  │ validating                 297L  8C    9m  CC=9      ←0  ×DUP
+  │ !  demo_intelligent_nlp2cmd   289L  1C    9m  CC=11     ←0  ×DUP
+  │ !! schema_driven              276L  2C    8m  CC=41     ←0  ×DUP
+  │ adapter                    273L  1C   11m  CC=6      ←0  ×DUP
+  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0  ×DUP
+  │ llm_multi                  267L  5C   10m  CC=6      ←0  ×DUP
+  │ history                    267L  0C    6m  CC=9      ←1
+  │ polish_support             262L  1C   13m  CC=9      ←3  ×DUP
+  │ !  token_costs                260L  2C   10m  CC=12     ←3  ×DUP
+  │ hyperparameter_optimization   259L  3C   11m  CC=7      ←0
+  │ demo_schema_flow           257L  0C    4m  CC=6      ←1
+  │ !  web_schema                 249L  0C    5m  CC=14     ←0
+  │ cmd2schema                 244L  1C    9m  CC=7      ←0  ×DUP
+  │ !! browser                    241L  2C   10m  CC=26     ←2
+  │ !! demo_version_detection     228L  0C    4m  CC=15     ←1
+  │ termo_demo                 226L  0C    5m  CC=6      ←0
+  │ toon_integration           223L  1C   32m  CC=9      ←3  ×DUP
+  │ base                       214L  3C   12m  CC=6      ←0  ×DUP
+  │ !  disambiguator              202L  2C    5m  CC=11     ←0  ×DUP
+  │ schema_flow_demo           192L  0C    4m  CC=7      ←1
+  │ environment                183L  2C   16m  CC=7      ←0
+  │ !! update_schemas             176L  0C    3m  CC=16     ←1
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ display                    170L  0C   12m  CC=7      ←3
+  │ !  playwright_installer       152L  0C    5m  CC=10     ←3
+  │ resources                  150L  2C   10m  CC=4      ←4  ×DUP
+  │ !  demo_persistent_storage    149L  0C    2m  CC=11     ←0
+  │ __init__                   147L  0C    2m  CC=2      ←0
+  │ __init__                   146L  0C    0m  CC=0.0    ←0
+  │ __init__                   145L  1C   11m  CC=9      ←0  ×DUP
+  │ cli                        143L  0C    1m  CC=2      ←2
+  │ data_files                 134L  0C    6m  CC=8      ←17
+  │ !  demo_enhanced              127L  0C    1m  CC=12     ←0
+  │ apply_polish_integration   124L  0C    4m  CC=9      ←0
+  │ apply_polish_integration_fixed   124L  0C    4m  CC=9      ←0
+  │ !  validate_schemas           123L  0C    1m  CC=14     ←0
+  │ !  base_solver                119L  1C   12m  CC=11     ←0
+  │ termo                      116L  0C    4m  CC=3      ←0
+  │ restore_system             115L  0C    4m  CC=9      ←0
+  │ simple_schema_demo         115L  0C    1m  CC=6      ←0
+  │ syntax_cache               115L  1C    8m  CC=3      ←8  ×DUP
+  │ markdown_output             97L  2C   12m  CC=4      ←14  ×DUP
+  │ !! compare_batches             95L  0C    1m  CC=21     ←0
+  │ !  appspec                     93L  2C    6m  CC=12     ←0  ×DUP
+  │ !! compare_llm                 85L  0C    1m  CC=16     ←0
+  │ apply_nlp2cmd_fixes         84L  0C    5m  CC=2      ←0
+  │ cli                         83L  0C    1m  CC=3      ←0
+  │ __init__                    70L  0C    0m  CC=0.0    ←0
+  │ setup_external              63L  0C    1m  CC=7      ←0
+  │ bump_version                62L  0C    1m  CC=6      ←0
+  │ !  appspec_runtime             56L  2C    2m  CC=10     ←6
+  │ ir                          34L  1C    1m  CC=1      ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ termo1                      25L  0C    1m  CC=3      ←0
+  │ __init__                    25L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ __init__                    18L  0C    0m  CC=0.0    ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ __init__                    12L  0C    0m  CC=0.0    ←0
+  │ __init__                    10L  0C    1m  CC=1      ←0
+  │ __init__                    10L  0C    0m  CC=0.0    ←0
+  │ __main__                     8L  0C    0m  CC=0.0    ←0
+  │ __main__                     7L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
   │
   networkx-3.6.1-py3-none-any/    CC̄=5.9    ←in:0  →out:0
   │ !! nx_pylab                  2978L  2C   25m  CC=60     ←0
@@ -369,211 +536,7 @@ LAYERS:
   │ __init__                     4L  0C    0m  CC=0.0    ←0
   │ __init__                     2L  0C    0m  CC=0.0    ←0
   │
-  webops/                         CC̄=5.9    ←in:4972  →out:132  !! split  ×DUP
-  │ !! main                      1967L  1C   27m  CC=123    ←3  ×DUP
-  │ !! __init__                  1960L  9C   45m  CC=55     ←2  ×DUP
-  │ !! shell                     1933L  3C   36m  CC=63     ←0  ×DUP
-  │ !! nlp2cmd_web_controller    1473L  8C   52m  CC=19     ←0  ×DUP
-  │ !! keywords                  1415L  2C   33m  CC=47     ←4
-  │ !! templates                 1380L  2C   17m  CC=164    ←0
-  │ !! voice_service             1336L  4C   20m  CC=13     ←0
-  │ !! shell_patched             1328L  3C   20m  CC=58     ←0  ×DUP
-  │ !! shell_backup              1318L  3C   24m  CC=58     ←0  ×DUP
-  │ !! pipeline                  1029L  4C   26m  CC=33     ←0
-  │ !! core_patched               946L  10C   28m  CC=64     ←0  ×DUP
-  │ !! core                       943L  10C   33m  CC=64     ←0  ×DUP
-  │ !! extract                    942L  2C   15m  CC=45     ←20  ×DUP
-  │ !! core_backup                942L  10C   28m  CC=64     ←0  ×DUP
-  │ !! thermodynamic              921L  7C   26m  CC=36     ←8  ×DUP
-  │ !! __init__                   909L  2C   43m  CC=26     ←0  ×DUP
-  │ !! comprehensive_command_scanner   853L  3C   24m  CC=17     ←0  ×DUP
-  │ !! enhanced_schema_generator   811L  3C   37m  CC=11     ←0  ×DUP
-  │ !! implement_core_integration   805L  1C   10m  CC=11     ←0  ×DUP
-  │ !! termo2                     776L  12C   38m  CC=8      ←0  ×DUP
-  │ !! __init__                   771L  8C   25m  CC=58     ←1  ×DUP
-  │ !! kubernetes_patched         740L  3C   23m  CC=12     ←0  ×DUP
-  │ !! kubernetes_backup          731L  3C   23m  CC=12     ←0  ×DUP
-  │ !! kubernetes                 731L  3C   23m  CC=12     ←0  ×DUP
-  │ !! non_llm_schema_extractor   724L  3C   28m  CC=11     ←0  ×DUP
-  │ !! shell_validation           703L  2C    7m  CC=16     ←0  ×DUP
-  │ !! form_data_loader           693L  1C   38m  CC=18     ←4  ×DUP
-  │ !! __init__                   678L  8C   18m  CC=16     ←206  ×DUP
-  │ !! docker_app                 677L  4C   12m  CC=10     ←0  ×DUP
-  │ !! regex                      677L  3C   11m  CC=33     ←0  ×DUP
-  │ !! pipeline_runner            673L  4C   12m  CC=48     ←304  ×DUP
-  │ !! dynamic                    650L  2C   21m  CC=25     ←0  ×DUP
-  │ !! __init__                   646L  5C   19m  CC=41     ←0  ×DUP
-  │ !! docker_patched             645L  3C   19m  CC=14     ←0  ×DUP
-  │ !! __init__                   642L  6C   22m  CC=15     ←10  ×DUP
-  │ !! docker                     635L  3C   19m  CC=14     ←0  ×DUP
-  │ !! docker_backup              635L  3C   19m  CC=14     ←0  ×DUP
-  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←4  ×DUP
-  │ !! __init__                   605L  10C   24m  CC=12     ←0  ×DUP
-  │ !! generate_cmd_simple        578L  0C    4m  CC=187    ←0
-  │ !! enhanced_context           570L  2C   14m  CC=22     ←1  ×DUP
-  │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←3  ×DUP
-  │ !! form_handler               527L  3C    8m  CC=34     ←0  ×DUP
-  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←0  ×DUP
-  │ !! __init__                   524L  4C   15m  CC=15     ←0  ×DUP
-  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←0  ×DUP
-  │ !! runner                     523L  3C    9m  CC=28     ←0  ×DUP
-  │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0  ×DUP
-  │ !! vehicle_routing            514L  4C   21m  CC=10     ←0
-  │ !! __init__                   508L  2C   14m  CC=12     ←0  ×DUP
-  │ !! voice_service_clean        498L  4C   12m  CC=22     ←0  ×DUP
-  │ !! sql_patched                488L  3C   14m  CC=15     ←0  ×DUP
-  │ !! sql_backup                 478L  3C   15m  CC=15     ←0  ×DUP
-  │ !! sql                        478L  3C   15m  CC=15     ←0  ×DUP
-  │ final_analysis_and_next_steps   476L  1C   10m  CC=9      ←0  ×DUP
-  │ !! intelligent_schema_generator   473L  2C   14m  CC=17     ←0  ×DUP
-  │ toon_practical_usage       469L  1C    8m  CC=2      ←0  ×DUP
-  │ energy_models              462L  6C   18m  CC=6      ←0  ×DUP
-  │ final_project_summary      461L  1C   10m  CC=7      ←0  ×DUP
-  │ !  dependency_resolver        449L  4C   18m  CC=13     ←0
-  │ !! llm_extractor              443L  1C   11m  CC=15     ←0  ×DUP
-  │ !! dql                        431L  3C   13m  CC=22     ←0  ×DUP
-  │ !  versioned_store            421L  1C   13m  CC=14     ←0  ×DUP
-  │ !  llm_simple                 420L  10C   19m  CC=13     ←0  ×DUP
-  │ __init__                   419L  3C    7m  CC=6      ←0  ×DUP
-  │ !! command_detector           415L  2C    5m  CC=31     ←0  ×DUP
-  │ !  end_to_end_demo            396L  0C    7m  CC=12     ←5
-  │ !  demo_versioned_schemas     395L  0C    4m  CC=11     ←0
-  │ per_command_store          395L  1C   14m  CC=7      ←0  ×DUP
-  │ !! toon_comparison_demo       394L  2C   16m  CC=17     ←2  ×DUP
-  │ __init__                   394L  4C   11m  CC=8      ←3  ×DUP
-  │ !! extractor                  389L  3C   10m  CC=15     ←2  ×DUP
-  │ !  __init__                   383L  3C   11m  CC=14     ←0  ×DUP
-  │ semantic_matcher           379L  3C   13m  CC=9      ←2
-  │ hybrid                     377L  4C   12m  CC=5      ←5  ×DUP
-  │ !  conceptual_commands        377L  2C   15m  CC=12     ←0
-  │ semantic_objects           374L  2C   11m  CC=7      ←0
-  │ structured                 371L  5C    7m  CC=9      ←0  ×DUP
-  │ data_loader                370L  3C   28m  CC=5      ←2  ×DUP
-  │ !! __init__                   358L  4C   10m  CC=34     ←0  ×DUP
-  │ !  browser                    356L  2C   10m  CC=13     ←3
-  │ !! demo_auto                  354L  0C    6m  CC=20     ←3
-  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0  ×DUP
-  │ !  virtual_objects            351L  3C   20m  CC=10     ←0
-  │ !  history                    349L  2C   15m  CC=12     ←1  ×DUP
-  │ !! semantic_shell             349L  2C   14m  CC=32     ←0  ×DUP
-  │ llm_integration            349L  1C    6m  CC=6      ←1
-  │ migration_guide            343L  0C    6m  CC=1      ←1
-  │ !! toon_parser                340L  3C   22m  CC=15     ←4  ×DUP
-  │ analyze_version_detection   334L  0C    6m  CC=9      ←0
-  │ advanced_sql               331L  0C    1m  CC=2      ←0
-  │ !  tracker                    325L  3C   18m  CC=13     ←10  ×DUP
-  │ !  generator                  324L  2C   16m  CC=12     ←0  ×DUP
-  │ config_validation          322L  0C    3m  CC=6      ←0
-  │ cache                      318L  0C    7m  CC=5      ←0
-  │ !! external_cache             316L  1C   13m  CC=16     ←0  ×DUP
-  │ !! demo                       315L  0C    3m  CC=42     ←1
-  │ !  sql_workflows              313L  0C    2m  CC=10     ←0
-  │ dsl_commands_demo          304L  0C   10m  CC=2      ←5
-  │ !  file_repair                302L  0C    4m  CC=11     ←1
-  │ !! environment_analysis       301L  0C    2m  CC=38     ←2
-  │ validating                 297L  8C    9m  CC=9      ←0  ×DUP
-  │ !  demo_intelligent_nlp2cmd   289L  1C    9m  CC=11     ←0  ×DUP
-  │ !! feedback_loop              288L  0C    1m  CC=17     ←0
-  │ !! infrastructure_health      277L  0C    6m  CC=19     ←0
-  │ !! schema_driven              276L  2C    8m  CC=41     ←0  ×DUP
-  │ adapter                    273L  1C   11m  CC=6      ←0  ×DUP
-  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0  ×DUP
-  │ complete_python_shell_examples   268L  0C    7m  CC=6      ←1
-  │ llm_multi                  267L  5C   10m  CC=6      ←0  ×DUP
-  │ history                    267L  0C    6m  CC=9      ←1
-  │ !! demo_batch                 265L  0C    5m  CC=32     ←1
-  │ toon_simple_demo           262L  0C    6m  CC=2      ←3
-  │ polish_support             262L  1C   13m  CC=9      ←3  ×DUP
-  │ !  token_costs                260L  2C   10m  CC=12     ←3  ×DUP
-  │ hyperparameter_optimization   259L  3C   11m  CC=7      ←0
-  │ demo_schema_flow           257L  0C    4m  CC=6      ←0
-  │ !  web_schema                 249L  0C    5m  CC=14     ←0
-  │ cmd2schema                 244L  1C    9m  CC=7      ←0  ×DUP
-  │ !! browser                    241L  2C   10m  CC=26     ←2
-  │ simple_demo_examples       239L  0C    7m  CC=2      ←3
-  │ !! demo_version_detection     228L  0C    4m  CC=15     ←0
-  │ termo_demo                 226L  0C    5m  CC=6      ←0
-  │ toon_integration           223L  1C   32m  CC=9      ←3  ×DUP
-  │ healthcare                 215L  0C    8m  CC=1      ←1
-  │ base                       214L  3C   12m  CC=6      ←0  ×DUP
-  │ smart_cities               213L  0C    8m  CC=1      ←1
-  │ education                  211L  0C    8m  CC=1      ←1
-  │ energy_utilities           209L  0C    8m  CC=1      ←1
-  │ physics_simulations        206L  0C    8m  CC=1      ←1
-  │ !  disambiguator              202L  2C    5m  CC=11     ←0  ×DUP
-  │ finance_trading            201L  0C    7m  CC=3      ←1
-  │ schema_flow_demo           192L  0C    4m  CC=7      ←0
-  │ !! log_analysis               184L  0C    4m  CC=15     ←0
-  │ environment                183L  2C   16m  CC=7      ←0
-  │ logistics_supply_chain     180L  0C    7m  CC=1      ←1
-  │ !! update_schemas             176L  0C    3m  CC=16     ←0
-  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
-  │ display                    170L  0C   12m  CC=7      ←3
-  │ bioinformatics             162L  0C    6m  CC=1      ←1
-  │ web_app_example            153L  3C    8m  CC=3      ←0
-  │ !  playwright_installer       152L  0C    5m  CC=10     ←3
-  │ resources                  150L  2C   10m  CC=4      ←4  ×DUP
-  │ data_science_ml            150L  0C    5m  CC=1      ←1
-  │ !  basic_shell                150L  0C    1m  CC=11     ←0
-  │ !  demo_persistent_storage    149L  0C    2m  CC=11     ←0
-  │ __init__                   147L  0C    2m  CC=2      ←0
-  │ __init__                   146L  0C    0m  CC=0.0    ←0
-  │ __init__                   145L  1C   11m  CC=9      ←0  ×DUP
-  │ cli                        143L  0C    1m  CC=2      ←2
-  │ debug_intents              136L  0C    1m  CC=8      ←0
-  │ run_all                    135L  0C    2m  CC=5      ←0
-  │ data_files                 134L  0C    6m  CC=8      ←17
-  │ !  demo_enhanced              127L  0C    1m  CC=12     ←0
-  │ apply_polish_integration   124L  0C    4m  CC=9      ←0
-  │ apply_polish_integration_fixed   124L  0C    4m  CC=9      ←0
-  │ !  validate_schemas           123L  0C    1m  CC=14     ←0
-  │ !  base_solver                119L  1C   12m  CC=11     ←0
-  │ !  basic_sql                  118L  0C    1m  CC=10     ←0
-  │ termo                      116L  0C    4m  CC=3      ←0
-  │ restore_system             115L  0C    4m  CC=9      ←0
-  │ toon_usage_example         115L  0C    1m  CC=8      ←0
-  │ simple_schema_demo         115L  0C    1m  CC=6      ←0
-  │ syntax_cache               115L  1C    8m  CC=3      ←8  ×DUP
-  │ basic_kubernetes           110L  0C    1m  CC=7      ←0
-  │ devops_automation          105L  0C    4m  CC=2      ←1
-  │ schema_driven_manual_appspec   102L  0C    1m  CC=1      ←0
-  │ markdown_output             97L  2C   12m  CC=4      ←14  ×DUP
-  │ !! compare_batches             95L  0C    1m  CC=21     ←0
-  │ !  appspec                     93L  2C    6m  CC=12     ←0  ×DUP
-  │ basic_docker                92L  0C    1m  CC=5      ←0
-  │ !! compare_llm                 85L  0C    1m  CC=16     ←0
-  │ apply_nlp2cmd_fixes         84L  0C    5m  CC=2      ←0
-  │ cli                         83L  0C    1m  CC=3      ←0
-  │ debug_generator             83L  0C    1m  CC=6      ←0
-  │ dynamic_sources_shell_script_and_makefile    70L  0C    1m  CC=1      ←0
-  │ __init__                    70L  0C    0m  CC=0.0    ←0
-  │ setup_external              63L  0C    1m  CC=7      ←0
-  │ bump_version                62L  0C    1m  CC=6      ←0
-  │ !  appspec_runtime             56L  2C    2m  CC=10     ←6
-  │ debug_keywords              53L  0C    1m  CC=3      ←0
-  │ __init__                    52L  0C    0m  CC=0.0    ←0
-  │ schema_cache_example        43L  0C    1m  CC=5      ←0
-  │ ir                          34L  1C    1m  CC=1      ←0
-  │ __init__                    33L  0C    0m  CC=0.0    ←0
-  │ schema_driven_mvp           26L  0C    1m  CC=1      ←0
-  │ termo1                      25L  0C    1m  CC=3      ←0
-  │ __init__                    25L  0C    0m  CC=0.0    ←0
-  │ app2schema_to_nlp2cmd_dynamic    24L  0C    1m  CC=1      ←0
-  │ __init__                    21L  0C    0m  CC=0.0    ←0
-  │ __init__                    20L  0C    0m  CC=0.0    ←0
-  │ __init__                    19L  0C    0m  CC=0.0    ←0
-  │ __init__                    18L  0C    0m  CC=0.0    ←0
-  │ __init__                    15L  0C    0m  CC=0.0    ←0
-  │ __init__                    12L  0C    0m  CC=0.0    ←0
-  │ __init__                    10L  0C    1m  CC=1      ←0
-  │ __init__                    10L  0C    0m  CC=0.0    ←0
-  │ __main__                     8L  0C    0m  CC=0.0    ←0
-  │ __main__                     7L  0C    0m  CC=0.0    ←0
-  │ __init__                     6L  0C    0m  CC=0.0    ←0
-  │ __init__                     5L  0C    0m  CC=0.0    ←0
-  │ __init__                     5L  0C    0m  CC=0.0    ←0
-  │
-  src/                            CC̄=5.8    ←in:29  →out:558  !! split  ×DUP
+  src/                            CC̄=5.8    ←in:0  →out:0  ×DUP
   │ !! pipeline_runner_plans     2869L  1C    6m  CC=344    ←0
   │ !! action_planner            1718L  3C   26m  CC=25     ←1
   │ !! site_explorer             1676L  3C   33m  CC=72     ←2
@@ -792,125 +755,10 @@ LAYERS:
   benchmarks/                     CC̄=4.6    ←in:0  →out:41  !! split
   │ thermodynamic_benchmark    395L  1C    7m  CC=9      ←0
   │
-  examples/                       CC̄=3.7    ←in:23  →out:2560  !! split  ×DUP
-  │ !! nlp2cmd_web_controller    1476L  8C   52m  CC=19     ←0  ×DUP
-  │ !! benchmark_nlp2cmd         1215L  2C   14m  CC=41     ←1
-  │ !! validation                 708L  2C    7m  CC=16     ←0  ×DUP
-  │ !! benchmark_learning         593L  0C    6m  CC=15     ←3
-  │ practical_usage            470L  1C    8m  CC=2      ←0  ×DUP
-  │ !! benchmark_validator        411L  2C    3m  CC=28     ←0
-  │ !  end_to_end_demo            402L  0C    7m  CC=12     ←0
-  │ !! example_pdf_search         397L  2C    9m  CC=25     ←0
-  │ !! comparison_demo            396L  2C   16m  CC=17     ←0  ×DUP
-  │ example                    368L  0C    1m  CC=7      ←0
-  │ !! demo_auto                  360L  0C    6m  CC=20     ←0
-  │ llm_integration            345L  1C    6m  CC=6      ←0
-  │ !! api_key_prompts            343L  1C    2m  CC=15     ←0
-  │ guide                      343L  0C    6m  CC=1      ←0
-  │ advanced                   334L  0C    1m  CC=2      ←0
-  │ config_validation          328L  0C    3m  CC=6      ←0
-  │ !  workflows                  319L  0C    2m  CC=10     ←0
-  │ !! demo                       318L  0C    3m  CC=42     ←0
-  │ !! environment_analysis       302L  0C    2m  CC=38     ←0
-  │ !  file_repair                299L  0C    4m  CC=11     ←0
-  │ !! feedback_loop              291L  0C    1m  CC=17     ←0
-  │ !! infrastructure_health      280L  0C    6m  CC=19     ←0
-  │ !! demo_batch                 274L  0C    5m  CC=32     ←0
-  │ example                    267L  0C    7m  CC=4      ←0
-  │ dsl_demo                   264L  0C   11m  CC=3      ←0
-  │ simple_demo                263L  0C    6m  CC=2      ←0
-  │ complete_examples          262L  0C    7m  CC=6      ←0
-  │ simple_demo                244L  0C    7m  CC=2      ←0
-  │ example                    192L  0C    8m  CC=1      ←0
-  │ example                    190L  0C    8m  CC=1      ←0
-  │ example                    188L  0C    8m  CC=1      ←0
-  │ !! log_analysis               187L  0C    4m  CC=15     ←0
-  │ example                    186L  0C    8m  CC=1      ←0
-  │ example                    183L  0C    7m  CC=3      ←0
-  │ example                    183L  0C    8m  CC=1      ←0
-  │ !  _demo_helpers              170L  0C   12m  CC=10     ←15
-  │ !  run                        165L  0C    5m  CC=10     ←0
-  │ example                    160L  0C    7m  CC=1      ←0
-  │ web_app_example            159L  3C    8m  CC=3      ←0
-  │ example                    145L  0C    6m  CC=1      ←0
-  │ example                    144L  0C    5m  CC=1      ←0
-  │ run_all                    139L  0C    2m  CC=5      ←0
-  │ intents                    139L  0C    1m  CC=8      ←0
-  │ demo                       134L  1C    5m  CC=6      ←0
-  │ demo                       132L  2C    9m  CC=4      ←0
-  │ demo                       128L  3C    6m  CC=5      ←0
-  │ !  run                        126L  0C    3m  CC=11     ←0
-  │ !  example                    121L  0C    1m  CC=10     ←0
-  │ usage_example              121L  0C    1m  CC=9      ←0
-  │ demo                       119L  2C    5m  CC=5      ←0
-  │ example                    117L  0C    3m  CC=1      ←0
-  │ example                    111L  0C    1m  CC=7      ←0
-  │ demo                       108L  4C    8m  CC=2      ←0
-  │ demo                       108L  1C    4m  CC=7      ←0
-  │ run                        108L  0C    3m  CC=7      ←0
-  │ manual_appspec             102L  0C    1m  CC=1      ←0
-  │ demo                       101L  0C    4m  CC=3      ←0
-  │ run                        101L  0C    3m  CC=8      ←0
-  │ example                    100L  0C    4m  CC=2      ←0
-  │ demo                       100L  1C    1m  CC=2      ←0
-  │ !! run                        100L  0C    1m  CC=15     ←0
-  │ demo                        99L  2C    1m  CC=4      ←0
-  │ demo                        97L  2C    5m  CC=4      ←0
-  │ demo                        97L  2C    2m  CC=4      ←0
-  │ demo                        96L  2C    3m  CC=6      ←0
-  │ demo                        95L  2C    2m  CC=5      ←0
-  │ demo                        94L  1C    5m  CC=3      ←0
-  │ example                     93L  0C    1m  CC=5      ←0
-  │ demo                        93L  1C    4m  CC=8      ←0  ×DUP
-  │ demo                        93L  0C    3m  CC=4      ←0
-  │ run                         93L  0C    3m  CC=8      ←3
-  │ demo                        91L  0C    3m  CC=4      ←0
-  │ run                         90L  0C    1m  CC=6      ←0
-  │ example_rtsp                89L  0C    1m  CC=3      ←0
-  │ example_multi_stream        88L  0C    1m  CC=7      ←0
-  │ run                         87L  0C    1m  CC=4      ←0
-  │ generator                   86L  0C    1m  CC=6      ←0
-  │ example_libvirt             85L  0C    1m  CC=3      ←0
-  │ demo                        83L  1C    2m  CC=5      ←0
-  │ demo                        77L  1C    1m  CC=2      ←0
-  │ demo                        76L  0C    1m  CC=1      ←0
-  │ demo                        75L  1C    1m  CC=2      ←0
-  │ demo                        75L  1C    1m  CC=2      ←0
-  │ demo                        75L  1C    1m  CC=2      ←0
-  │ demo                        74L  0C    1m  CC=1      ←0
-  │ download_bielik             71L  0C    1m  CC=6      ←0
-  │ demo                        71L  1C    1m  CC=2      ←0
-  │ demo                        71L  0C    1m  CC=1      ←0
-  │ demo                        70L  0C    1m  CC=1      ←0
-  │ example                     70L  0C    1m  CC=1      ←0
-  │ demo                        69L  0C    1m  CC=1      ←0
-  │ !! run                         68L  0C    1m  CC=18     ←0
-  │ demo                        66L  0C    1m  CC=1      ←0
-  │ demo                        65L  1C    1m  CC=3      ←0
-  │ demo                        64L  1C    1m  CC=2      ←0
-  │ demo                        64L  1C    1m  CC=2      ←0
-  │ demo                        64L  1C    1m  CC=2      ←0
-  │ demo                        63L  0C    1m  CC=1      ←0
-  │ demo                        61L  0C    1m  CC=1      ←0
-  │ run                         61L  0C    1m  CC=5      ←0
-  │ demo                        60L  0C    1m  CC=1      ←0
-  │ demo                        60L  0C    1m  CC=2      ←0
-  │ example_ssh                 59L  0C    1m  CC=3      ←0
-  │ demo                        59L  0C    1m  CC=2      ←0
-  │ keywords                    56L  0C    1m  CC=3      ←0
-  │ example_http_api            54L  0C    1m  CC=3      ←0
-  │ demo                        53L  0C    1m  CC=2      ←0
-  │ __init__                    52L  0C    0m  CC=0.0    ←0
-  │ demo                        51L  0C    1m  CC=2      ←0
-  │ schema_cache                43L  0C    1m  CC=5      ←0
-  │ mvp                         26L  0C    1m  CC=1      ←0
-  │ _example_helpers            24L  0C    2m  CC=2      ←46
-  │ example                     24L  0C    1m  CC=1      ←0
-  │
-  docker/                         CC̄=3.5    ←in:0  →out:30  !! split
+  docker/                         CC̄=3.5    ←in:0  →out:0
   │ demo_desktop_gui           283L  0C    6m  CC=9      ←0
   │
-  scripts/                        CC̄=3.3    ←in:36  →out:691  !! split  ×DUP
+  scripts/                        CC̄=3.3    ←in:0  →out:19  !! split  ×DUP
   │ !! implement_core_integration   805L  1C   10m  CC=11     ←0  ×DUP
   │ !! termo2                     776L  12C   38m  CC=8      ←11  ×DUP
   │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0  ×DUP
@@ -937,7 +785,7 @@ LAYERS:
   │ code2llm_workaround         10L  0C    0m  CC=0.0    ←0
   │
 
-DUPLICATES[173]:
+DUPLICATES[161]:
   IntelligentNLP2CMD  demos/demo_intelligent_nlp2cmd.py ↔ webops/nlp2cmd-repo/demos/demo_intelligent_nlp2cmd.py
     A: 8m  __init__ _increment_version _needs_update _select_best_version clear_cache detect_and_adapt transform update_command_schema
     B: 8m  __init__ _increment_version _needs_update _select_best_version clear_cache detect_and_adapt transform update_command_schema
@@ -950,13 +798,13 @@ DUPLICATES[173]:
     A: 9m  __init__ apply_all_fixes create_domain_weighting_config create_integration_script fix_polish_intent_patterns fix_shell_domain_detection fix_sql_table_inference generate_fix_report
     B: 9m  __init__ apply_all_fixes create_domain_weighting_config create_integration_script fix_polish_intent_patterns fix_shell_domain_detection fix_sql_table_inference generate_fix_report
     DIFF: IDENTICAL → rm B
-  FinalAnalyzer  scripts/maintenance/final_analysis_and_next_steps.py ↔ webops/nlp2cmd-repo/final_analysis_and_next_steps.py
-    A: 9m  __init__ analyze_fix_implementation create_action_plan create_implementation_roadmap estimate_implementation_effort generate_final_recommendations identify_root_causes load_all_results
-    B: 9m  __init__ analyze_fix_implementation create_action_plan create_implementation_roadmap estimate_implementation_effort generate_final_recommendations identify_root_causes load_all_results
-    DIFF: IDENTICAL → rm B
   CoreIntegrator  scripts/maintenance/implement_core_integration.py ↔ webops/nlp2cmd-repo/implement_core_integration.py
     A: 9m  __init__ create_adapter_patches create_core_integration_patch create_enhanced_intent_detector create_integration_script create_polish_language_module enhance_domain_detection load_polish_fixes
     B: 9m  __init__ create_adapter_patches create_core_integration_patch create_enhanced_intent_detector create_integration_script create_polish_language_module enhance_domain_detection load_polish_fixes
+    DIFF: IDENTICAL → rm B
+  FinalAnalyzer  scripts/maintenance/final_analysis_and_next_steps.py ↔ webops/nlp2cmd-repo/final_analysis_and_next_steps.py
+    A: 9m  __init__ analyze_fix_implementation create_action_plan create_implementation_roadmap estimate_implementation_effort generate_final_recommendations identify_root_causes load_all_results
+    B: 9m  __init__ analyze_fix_implementation create_action_plan create_implementation_roadmap estimate_implementation_effort generate_final_recommendations identify_root_causes load_all_results
     DIFF: IDENTICAL → rm B
   HyperparameterOptimizer  scripts/thermodynamic/termo2.py ↔ webops/nlp2cmd-repo/termo2.py
     A: 4m  __init__ _decode_params _evaluate optimize
@@ -990,41 +838,25 @@ DUPLICATES[173]:
     A: 23m  __init__ _clean_description _create_option_from_signature _create_parameters_from_options _detect_category _detect_option_type _detect_relationships _extract_description
     B: 23m  __init__ _clean_description _create_option_from_signature _create_parameters_from_options _detect_category _detect_option_type _detect_relationships _extract_description
     DIFF: IDENTICAL → rm B
-  EnhancedSchemaExtractor  tools/schema/enhanced_schema_generator.py ↔ webops/nlp2cmd-repo/tools/schema/enhanced_schema_generator.py
-    A: 36m  __init__ _calculate_confidence _call_llm _create_llm_prompt _create_schema_from_patterns _detect_category _detect_category_from_patterns _enhance_with_llm
-    B: 36m  __init__ _calculate_confidence _call_llm _create_llm_prompt _create_schema_from_patterns _detect_category _detect_category_from_patterns _enhance_with_llm
-    DIFF: IDENTICAL → rm B
   IntelligentSchemaExtractor  tools/schema/intelligent_schema_generator.py ↔ webops/nlp2cmd-repo/tools/schema/intelligent_schema_generator.py
     A: 13m  __init__ _detect_category _extract_command_info _extract_description _extract_examples _extract_options _generate_parameters _generate_patterns
     B: 13m  __init__ _detect_category _extract_command_info _extract_description _extract_examples _extract_options _generate_parameters _generate_patterns
     DIFF: IDENTICAL → rm B
-  CommandGenerator  tools/generation/generate_cmd_from_prompts.py ↔ webops/nlp2cmd-repo/tools/generation/generate_cmd_from_prompts.py
-    A: 3m  __init__ _generate_simple generate_command
-    B: 3m  __init__ _generate_simple generate_command
+  EnhancedSchemaExtractor  tools/schema/enhanced_schema_generator.py ↔ webops/nlp2cmd-repo/tools/schema/enhanced_schema_generator.py
+    A: 36m  __init__ _calculate_confidence _call_llm _create_llm_prompt _create_schema_from_patterns _detect_category _detect_category_from_patterns _enhance_with_llm
+    B: 36m  __init__ _calculate_confidence _call_llm _create_llm_prompt _create_schema_from_patterns _detect_category _detect_category_from_patterns _enhance_with_llm
     DIFF: IDENTICAL → rm B
   IntelligentCommandGenerator  tools/generation/intelligent_command_generator.py ↔ webops/nlp2cmd-repo/tools/generation/intelligent_command_generator.py
     A: 17m  __init__ _analyze_prompt_complexity _cache_failure _cache_success _enhance_command _generate_fallback _generate_hybrid _generate_llm_direct
     B: 17m  __init__ _analyze_prompt_complexity _cache_failure _cache_success _enhance_command _generate_fallback _generate_hybrid _generate_llm_direct
     DIFF: IDENTICAL → rm B
+  CommandGenerator  tools/generation/generate_cmd_from_prompts.py ↔ webops/nlp2cmd-repo/tools/generation/generate_cmd_from_prompts.py
+    A: 3m  __init__ _generate_simple generate_command
+    B: 3m  __init__ _generate_simple generate_command
+    DIFF: IDENTICAL → rm B
   CommandSchemaGenerator  tools/schema/cmd2schema.py ↔ webops/nlp2cmd-repo/tools/schema/cmd2schema.py
     A: 8m  __init__ _command_exists _create_placeholder_schema _create_template_schema _schema_to_dict generate_schema generate_schemas install_command
     B: 8m  __init__ _command_exists _create_placeholder_schema _create_template_schema _schema_to_dict generate_schema generate_schemas install_command
-    DIFF: IDENTICAL → rm B
-  ToonDemo  webops/nlp2cmd-repo/examples/toon_practical_usage.py ↔ examples/03_integrations/toon_format/practical_usage.py
-    A: 7m  __init__ _load_toon_data show_advanced_usage show_basic_usage show_integration_examples show_performance_tips show_real_world_examples
-    B: 7m  __init__ _load_toon_data show_advanced_usage show_basic_usage show_integration_examples show_performance_tips show_real_world_examples
-    DIFF: IDENTICAL → rm B
-  OldSystemLoader  webops/nlp2cmd-repo/examples/toon_comparison_demo.py ↔ examples/03_integrations/toon_format/comparison_demo.py
-    A: 5m  __init__ get_command_by_name load_command_schemas load_config search_commands
-    B: 5m  __init__ get_command_by_name load_command_schemas load_config search_commands
-    DIFF: IDENTICAL → rm B
-  OldSystemLoader  webops/nlp2cmd-repo/examples/toon_comparison_demo.py ↔ examples/03_integrations/toon_format/06_old_system_mock/demo.py
-    A: 5m  __init__ get_command_by_name load_command_schemas load_config search_commands
-    B: 3m  __init__ get_command_by_name load_command_schemas
-    DIFF: A has +load_config,search_commands → keep A
-  SimpleToonParser  webops/nlp2cmd-repo/examples/toon_comparison_demo.py ↔ examples/03_integrations/toon_format/comparison_demo.py
-    A: 6m  __init__ _parse_file get_command_by_name get_commands get_config search_commands
-    B: 6m  __init__ _parse_file get_command_by_name get_commands get_config search_commands
     DIFF: IDENTICAL → rm B
   PolishLanguageSupport  webops/nlp2cmd-repo/src/nlp2cmd/polish_support.py ↔ src/nlp2cmd/polish_support.py
     A: 12m  __init__ _find_best_phrase_match _load_patterns _similar enhance_domain_detection enhance_intent_detection get_domain_weight match_polish_patterns
@@ -1038,11 +870,11 @@ DUPLICATES[173]:
     A: 3m  __init__ capture print
     B: 3m  __init__ capture print
     DIFF: IDENTICAL → rm B
-  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
     A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     DIFF: IDENTICAL → rm B
-  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     DIFF: IDENTICAL → rm B
@@ -1050,11 +882,11 @@ DUPLICATES[173]:
     A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     DIFF: IDENTICAL → rm B
-  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
     A: 5m  copy is_blocked is_success is_valid to_dict
     B: 5m  copy is_blocked is_success is_valid to_dict
     DIFF: IDENTICAL → rm B
-  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 5m  copy is_blocked is_success is_valid to_dict
     B: 5m  copy is_blocked is_success is_valid to_dict
     DIFF: IDENTICAL → rm B
@@ -1062,11 +894,11 @@ DUPLICATES[173]:
     A: 5m  copy is_blocked is_success is_valid to_dict
     B: 6m  __post_init__ copy is_blocked is_success is_valid to_dict
     DIFF: B has +__post_init__ → keep B
-  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
     A: 4m  __init__ extract_entities extract_intent generate_plan
     B: 4m  __init__ extract_entities extract_intent generate_plan
     DIFF: IDENTICAL → rm B
-  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 4m  __init__ extract_entities extract_intent generate_plan
     B: 4m  __init__ extract_entities extract_intent generate_plan
     DIFF: IDENTICAL → rm B
@@ -1074,11 +906,11 @@ DUPLICATES[173]:
     A: 4m  __init__ extract_entities extract_intent generate_plan
     B: 4m  __init__ extract_entities extract_intent generate_plan
     DIFF: IDENTICAL → rm B
-  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
     A: 3m  __init__ extract_entities nlp
     B: 3m  __init__ extract_entities nlp
     DIFF: IDENTICAL → rm B
-  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 3m  __init__ extract_entities nlp
     B: 3m  __init__ extract_entities nlp
     DIFF: IDENTICAL → rm B
@@ -1086,11 +918,11 @@ DUPLICATES[173]:
     A: 3m  __init__ extract_entities nlp
     B: 3m  __init__ extract_entities nlp
     DIFF: IDENTICAL → rm B
-  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
     A: 4m  __init__ _default_system_prompt client generate_plan
     B: 4m  __init__ _default_system_prompt client generate_plan
     DIFF: IDENTICAL → rm B
-  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 4m  __init__ _default_system_prompt client generate_plan
     B: 4m  __init__ _default_system_prompt client generate_plan
     DIFF: IDENTICAL → rm B
@@ -1098,11 +930,11 @@ DUPLICATES[173]:
     A: 4m  __init__ _default_system_prompt client generate_plan
     B: 3m  __init__ client generate_plan
     DIFF: A has +_default_system_prompt → keep A
-  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
     A: 3m  __init__ extract_entities extract_intent
     B: 3m  __init__ extract_entities extract_intent
     DIFF: IDENTICAL → rm B
-  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 3m  __init__ extract_entities extract_intent
     B: 3m  __init__ extract_entities extract_intent
     DIFF: IDENTICAL → rm B
@@ -1114,58 +946,82 @@ DUPLICATES[173]:
     A: 4m  __init__ _normalize_entities dsl_name transform
     B: 4m  __init__ _normalize_entities dsl_name transform
     DIFF: IDENTICAL → rm B
-  ResourceMonitor  webops/nlp2cmd-repo/src/nlp2cmd/monitoring/resources.py ↔ src/nlp2cmd/monitoring/resources.py
-    A: 5m  __init__ format_metrics get_current_metrics get_last_metrics measure_execution
-    B: 6m  __init__ _process_cpu_time_seconds format_metrics get_current_metrics get_last_metrics measure_execution
-    DIFF: B has +_process_cpu_time_seconds → keep B
-  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
     A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     DIFF: IDENTICAL → rm B
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_models.py
+    A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    DIFF: IDENTICAL → rm B
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 5m  copy is_blocked is_success is_valid to_dict
+    B: 5m  copy is_blocked is_success is_valid to_dict
+    DIFF: IDENTICAL → rm B
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_models.py
+    A: 5m  copy is_blocked is_success is_valid to_dict
+    B: 6m  __post_init__ copy is_blocked is_success is_valid to_dict
+    DIFF: B has +__post_init__ → keep B
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 4m  __init__ extract_entities extract_intent generate_plan
+    B: 4m  __init__ extract_entities extract_intent generate_plan
+    DIFF: IDENTICAL → rm B
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
+    A: 4m  __init__ extract_entities extract_intent generate_plan
+    B: 4m  __init__ extract_entities extract_intent generate_plan
+    DIFF: IDENTICAL → rm B
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 3m  __init__ extract_entities nlp
+    B: 3m  __init__ extract_entities nlp
+    DIFF: IDENTICAL → rm B
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
+    A: 3m  __init__ extract_entities nlp
+    B: 3m  __init__ extract_entities nlp
+    DIFF: IDENTICAL → rm B
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 4m  __init__ _default_system_prompt client generate_plan
+    B: 4m  __init__ _default_system_prompt client generate_plan
+    DIFF: IDENTICAL → rm B
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
+    A: 4m  __init__ _default_system_prompt client generate_plan
+    B: 3m  __init__ client generate_plan
+    DIFF: A has +_default_system_prompt → keep A
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 3m  __init__ extract_entities extract_intent
+    B: 3m  __init__ extract_entities extract_intent
+    DIFF: IDENTICAL → rm B
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
+    A: 3m  __init__ extract_entities extract_intent
+    B: 4m  __init__ extract_entities extract_intent generate_plan
+    DIFF: B has +generate_plan → keep B
   ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ src/nlp2cmd/core/core_models.py
     A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
     B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
-    DIFF: IDENTICAL → rm B
-  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
-    A: 5m  copy is_blocked is_success is_valid to_dict
-    B: 5m  copy is_blocked is_success is_valid to_dict
     DIFF: IDENTICAL → rm B
   TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ src/nlp2cmd/core/core_models.py
     A: 5m  copy is_blocked is_success is_valid to_dict
     B: 6m  __post_init__ copy is_blocked is_success is_valid to_dict
     DIFF: B has +__post_init__ → keep B
-  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
-    A: 4m  __init__ extract_entities extract_intent generate_plan
-    B: 4m  __init__ extract_entities extract_intent generate_plan
-    DIFF: IDENTICAL → rm B
   NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ src/nlp2cmd/core/core_backends.py
     A: 4m  __init__ extract_entities extract_intent generate_plan
     B: 4m  __init__ extract_entities extract_intent generate_plan
-    DIFF: IDENTICAL → rm B
-  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
-    A: 3m  __init__ extract_entities nlp
-    B: 3m  __init__ extract_entities nlp
     DIFF: IDENTICAL → rm B
   SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ src/nlp2cmd/core/core_backends.py
     A: 3m  __init__ extract_entities nlp
     B: 3m  __init__ extract_entities nlp
     DIFF: IDENTICAL → rm B
-  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
-    A: 4m  __init__ _default_system_prompt client generate_plan
-    B: 4m  __init__ _default_system_prompt client generate_plan
-    DIFF: IDENTICAL → rm B
   LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ src/nlp2cmd/core/core_backends.py
     A: 4m  __init__ _default_system_prompt client generate_plan
     B: 3m  __init__ client generate_plan
     DIFF: A has +_default_system_prompt → keep A
-  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
-    A: 3m  __init__ extract_entities extract_intent
-    B: 3m  __init__ extract_entities extract_intent
-    DIFF: IDENTICAL → rm B
   RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ src/nlp2cmd/core/core_backends.py
     A: 3m  __init__ extract_entities extract_intent
     B: 4m  __init__ extract_entities extract_intent generate_plan
     DIFF: B has +generate_plan → keep B
+  ResourceMonitor  webops/nlp2cmd-repo/src/nlp2cmd/monitoring/resources.py ↔ src/nlp2cmd/monitoring/resources.py
+    A: 5m  __init__ format_metrics get_current_metrics get_last_metrics measure_execution
+    B: 6m  __init__ _process_cpu_time_seconds format_metrics get_current_metrics get_last_metrics measure_execution
+    DIFF: B has +_process_cpu_time_seconds → keep B
   TokenCostEstimator  webops/nlp2cmd-repo/src/nlp2cmd/monitoring/token_costs.py ↔ src/nlp2cmd/monitoring/token_costs.py
     A: 7m  __init__ _determine_model_tier _estimate_tokens_from_cpu _estimate_tokens_from_energy _estimate_tokens_from_memory estimate_from_metrics format_estimate
     B: 7m  __init__ _determine_model_tier _estimate_tokens_from_cpu _estimate_tokens_from_energy _estimate_tokens_from_memory estimate_from_metrics format_estimate
@@ -1174,6 +1030,10 @@ DUPLICATES[173]:
     A: 11m  __init__ _load_patterns_from_json _normalize_direction _normalize_time_unit _parse_columns _post_process _process_match add_pattern
     B: 11m  __init__ _load_patterns_from_json _normalize_direction _normalize_time_unit _parse_columns _post_process _process_match add_pattern
     DIFF: IDENTICAL → rm B
+  FuzzySchemaMatcher  webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py ↔ src/nlp2cmd/generation/fuzzy_schema_matcher.py
+    A: 19m  __init__ _boundary_shift_similarity _build_index _combined_similarity _get_ngrams _index_phrase _jaro_winkler_similarity _levenshtein_similarity
+    B: 19m  __init__ _boundary_shift_similarity _build_index _combined_similarity _get_ngrams _index_phrase _jaro_winkler_similarity _levenshtein_similarity
+    DIFF: IDENTICAL → rm B
   FileFormatSchema  webops/nlp2cmd-repo/src/nlp2cmd/schemas/__init__.py ↔ src/nlp2cmd/schemas/__init__.py
     A: 6m  generate matches_extension matches_mime_type parse self_validate validate
     B: 6m  generate matches_extension matches_mime_type parse self_validate validate
@@ -1181,10 +1041,6 @@ DUPLICATES[173]:
   SchemaRegistry  webops/nlp2cmd-repo/src/nlp2cmd/schemas/__init__.py ↔ src/nlp2cmd/schemas/__init__.py
     A: 37m  __init__ _apply_path_fix _apply_path_rule _apply_pattern_rule _check_path _detect_by_content _generate_dockerfile _generate_env_file
     B: 37m  __init__ _apply_path_fix _apply_path_rule _apply_pattern_rule _check_path _detect_by_content _generate_dockerfile _generate_env_file
-    DIFF: IDENTICAL → rm B
-  FuzzySchemaMatcher  webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py ↔ src/nlp2cmd/generation/fuzzy_schema_matcher.py
-    A: 19m  __init__ _boundary_shift_similarity _build_index _combined_similarity _get_ngrams _index_phrase _jaro_winkler_similarity _levenshtein_similarity
-    B: 19m  __init__ _boundary_shift_similarity _build_index _combined_similarity _get_ngrams _index_phrase _jaro_winkler_similarity _levenshtein_similarity
     DIFF: IDENTICAL → rm B
   _SimpleDomParser  webops/nlp2cmd-repo/src/app2schema/extract.py ↔ src/app2schema/extract.py
     A: 4m  __init__ handle_data handle_endtag handle_starttag
@@ -1214,14 +1070,6 @@ DUPLICATES[173]:
     A: 4m  __init__ _decode_allocation energy gradient
     B: 4m  __init__ _decode_allocation energy gradient
     DIFF: IDENTICAL → rm B
-  MultiDomainGenerator  webops/nlp2cmd-repo/src/nlp2cmd/generation/llm_multi.py ↔ src/nlp2cmd/generation/llm_multi.py
-    A: 5m  __init__ add_generator generate generate_batch get_supported_domains
-    B: 5m  __init__ add_generator generate generate_batch get_supported_domains
-    DIFF: IDENTICAL → rm B
-  CachedMultiDomainGenerator  webops/nlp2cmd-repo/src/nlp2cmd/generation/llm_multi.py ↔ src/nlp2cmd/generation/llm_multi.py
-    A: 4m  __init__ cache_stats clear_cache generate
-    B: 4m  __init__ cache_stats clear_cache generate
-    DIFF: IDENTICAL → rm B
   ValidatingGenerator  webops/nlp2cmd-repo/src/nlp2cmd/generation/validating.py ↔ src/nlp2cmd/generation/validating.py
     A: 3m  __init__ add_validator generate
     B: 3m  __init__ add_validator generate
@@ -1246,13 +1094,13 @@ DUPLICATES[173]:
     A: 4m  __init__ _parse_response plan plan_with_retry
     B: 4m  __init__ _parse_response plan plan_with_retry
     DIFF: IDENTICAL → rm B
-  ServiceConfig  webops/nlp2cmd-repo/src/nlp2cmd/service/__init__.py ↔ src/nlp2cmd/service/__init__.py
-    A: 3m  __init__ save_to_env to_dict
-    B: 3m  __init__ save_to_env to_dict
+  MultiDomainGenerator  webops/nlp2cmd-repo/src/nlp2cmd/generation/llm_multi.py ↔ src/nlp2cmd/generation/llm_multi.py
+    A: 5m  __init__ add_generator generate generate_batch get_supported_domains
+    B: 5m  __init__ add_generator generate generate_batch get_supported_domains
     DIFF: IDENTICAL → rm B
-  NLP2CMDService  webops/nlp2cmd-repo/src/nlp2cmd/service/__init__.py ↔ src/nlp2cmd/service/__init__.py
-    A: 5m  __init__ _create_app _setup_logging _setup_routes run
-    B: 5m  __init__ _create_app _setup_logging _setup_routes run
+  CachedMultiDomainGenerator  webops/nlp2cmd-repo/src/nlp2cmd/generation/llm_multi.py ↔ src/nlp2cmd/generation/llm_multi.py
+    A: 4m  __init__ cache_stats clear_cache generate
+    B: 4m  __init__ cache_stats clear_cache generate
     DIFF: IDENTICAL → rm B
   LLMPlanner  webops/nlp2cmd-repo/src/nlp2cmd/planner/__init__.py ↔ src/nlp2cmd/planner/__init__.py
     A: 7m  __init__ _build_prompt _call_llm _parse_response _rule_based_plan get_action_catalog plan
@@ -1282,10 +1130,6 @@ DUPLICATES[173]:
     A: 6m  __enter__ __exit__ __init__ _ensure_open close print
     B: 6m  __enter__ __exit__ __init__ _ensure_open close print
     DIFF: IDENTICAL → rm B
-  FormDataLoader  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/form_data_loader.py ↔ src/nlp2cmd/web_schema/form_data_loader.py
-    A: 36m  __init__ _add_selector_to_list _add_selector_to_type_selectors _build_field_values _dedupe_preserve_order _deep_merge _ensure_domain _load_env
-    B: 45m  __init__ _add_selector_to_list _add_selector_to_type_selectors _build_field_values _dedupe_preserve_order _deep_merge _ensure_domain _load_env
-    DIFF: B has +add_article_content_selector,add_article_link_selector,get_article_content_selectors,get_article_link_selectors,get_article_topic_patterns,get_company_link_selectors,get_company_listing_selectors,get_company_website_selectors,get_save_filename_patterns → keep B
   ValidationResult  webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py ↔ src/nlp2cmd/validators/__init__.py
     A: 9m  __str__ add_error add_warning copy from_dict has_errors has_warnings merge
     B: 9m  __str__ add_error add_warning copy from_dict has_errors has_warnings merge
@@ -1294,22 +1138,26 @@ DUPLICATES[173]:
     A: 5m  _find_docker_image _is_valid_image_name _iter_publish_ports _parse_ports_from_spec validate
     B: 5m  _find_docker_image _is_valid_image_name _iter_publish_ports _parse_ports_from_spec validate
     DIFF: IDENTICAL → rm B
-  InteractionHistory  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/history.py ↔ src/nlp2cmd/web_schema/history.py
-    A: 13m  __init__ _load _save clear_all clear_domain export_domain_schema get_domain_stats get_recent_interactions
-    B: 13m  __init__ _load _save clear_all clear_domain export_domain_schema get_domain_stats get_recent_interactions
-    DIFF: IDENTICAL → rm B
+  FormDataLoader  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/form_data_loader.py ↔ src/nlp2cmd/web_schema/form_data_loader.py
+    A: 36m  __init__ _add_selector_to_list _add_selector_to_type_selectors _build_field_values _dedupe_preserve_order _deep_merge _ensure_domain _load_env
+    B: 45m  __init__ _add_selector_to_list _add_selector_to_type_selectors _build_field_values _dedupe_preserve_order _deep_merge _ensure_domain _load_env
+    DIFF: B has +add_article_content_selector,add_article_link_selector,get_article_content_selectors,get_article_link_selectors,get_article_topic_patterns,get_company_link_selectors,get_company_listing_selectors,get_company_website_selectors,get_save_filename_patterns → keep B
   WebSchemaExtractor  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/extractor.py ↔ src/nlp2cmd/web_schema/extractor.py
     A: 6m  __init__ _extract_buttons _extract_forms _extract_inputs _extract_links extract
     B: 6m  __init__ _extract_buttons _extract_forms _extract_inputs _extract_links extract
     DIFF: IDENTICAL → rm B
-  ExecutionRunner  webops/nlp2cmd-repo/src/nlp2cmd/execution/runner.py ↔ src/nlp2cmd/execution/runner.py
-    A: 9m  __init__ _build_recovery_prompt _get_heuristic_suggestion _parse_recovery_response confirm_execution console get_recovery_suggestion run_command
-    B: 10m  __init__ _build_recovery_prompt _get_heuristic_suggestion _maybe_explore_missing_resource _parse_recovery_response confirm_execution console get_recovery_suggestion
-    DIFF: B has +_maybe_explore_missing_resource → keep B
+  InteractionHistory  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/history.py ↔ src/nlp2cmd/web_schema/history.py
+    A: 13m  __init__ _load _save clear_all clear_domain export_domain_schema get_domain_stats get_recent_interactions
+    B: 13m  __init__ _load _save clear_all clear_domain export_domain_schema get_domain_stats get_recent_interactions
+    DIFF: IDENTICAL → rm B
   FormHandler  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/form_handler.py ↔ src/nlp2cmd/web_schema/form_handler.py
     A: 7m  __init__ _print automatic_fill detect_form_fields detect_submit_button fill_form interactive_fill
     B: 8m  __init__ _print _print_yaml automatic_fill detect_form_fields detect_submit_button fill_form interactive_fill
     DIFF: B has +_print_yaml → keep B
+  ExecutionRunner  webops/nlp2cmd-repo/src/nlp2cmd/execution/runner.py ↔ src/nlp2cmd/execution/runner.py
+    A: 9m  __init__ _build_recovery_prompt _get_heuristic_suggestion _parse_recovery_response confirm_execution console get_recovery_suggestion run_command
+    B: 10m  __init__ _build_recovery_prompt _get_heuristic_suggestion _maybe_explore_missing_resource _parse_recovery_response confirm_execution console get_recovery_suggestion
+    DIFF: B has +_maybe_explore_missing_resource → keep B
   ResultAggregator  webops/nlp2cmd-repo/src/nlp2cmd/aggregator/__init__.py ↔ src/nlp2cmd/aggregator/__init__.py
     A: 11m  __init__ _format_data _format_step_detail _generate_summary _preview_result _to_markdown _to_summary _to_table
     B: 11m  __init__ _format_data _format_step_detail _generate_summary _preview_result _to_markdown _to_summary _to_table
@@ -1342,30 +1190,6 @@ DUPLICATES[173]:
     A: 8m  __init__ _analyze_environment _correction_loop _handle_command _show_help display_feedback process run
     B: 8m  __init__ _analyze_environment _correction_loop _handle_command _show_help display_feedback process run
     DIFF: IDENTICAL → rm B
-  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_models.py
-    A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
-    B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
-    DIFF: IDENTICAL → rm B
-  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_models.py
-    A: 5m  copy is_blocked is_success is_valid to_dict
-    B: 6m  __post_init__ copy is_blocked is_success is_valid to_dict
-    DIFF: B has +__post_init__ → keep B
-  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
-    A: 4m  __init__ extract_entities extract_intent generate_plan
-    B: 4m  __init__ extract_entities extract_intent generate_plan
-    DIFF: IDENTICAL → rm B
-  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
-    A: 3m  __init__ extract_entities nlp
-    B: 3m  __init__ extract_entities nlp
-    DIFF: IDENTICAL → rm B
-  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
-    A: 4m  __init__ _default_system_prompt client generate_plan
-    B: 3m  __init__ client generate_plan
-    DIFF: A has +_default_system_prompt → keep A
-  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py ↔ src/nlp2cmd/core/core_backends.py
-    A: 3m  __init__ extract_entities extract_intent
-    B: 4m  __init__ extract_entities extract_intent generate_plan
-    DIFF: B has +generate_plan → keep B
   SchedulingEnergy  webops/nlp2cmd-repo/src/nlp2cmd/thermodynamic/energy_models.py ↔ src/nlp2cmd/thermodynamic/energy_models.py
     A: 7m  __init__ _deadline_penalty _makespan _overlap_penalty _precedence_penalty energy gradient
     B: 8m  __init__ _deadline_penalty _decode_assignments _makespan _overlap_penalty _precedence_penalty energy gradient
@@ -1438,14 +1262,6 @@ DUPLICATES[173]:
     A: 19m  __init__ _find_matching_commands _generate_api_command _generate_from_schema _generate_from_template _generate_generic_command _generate_make_command _generate_python_command
     B: 19m  __init__ _find_matching_commands _generate_api_command _generate_from_schema _generate_from_template _generate_generic_command _generate_make_command _generate_python_command
     DIFF: IDENTICAL → rm B
-  BaseDSLAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/base.py ↔ src/nlp2cmd/adapters/base.py
-    A: 12m  __init__ __repr__ _coerce_adapter_config _coerce_safety_policy _pretty_format check_safety format_output generate
-    B: 12m  __init__ __repr__ _coerce_adapter_config _coerce_safety_policy _pretty_format check_safety format_output generate
-    DIFF: IDENTICAL → rm B
-  DQLAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/dql.py ↔ src/nlp2cmd/adapters/dql.py
-    A: 13m  __init__ _dql_value _generate_qb_aggregate _generate_qb_count _generate_qb_select _generate_query_builder _generate_raw_dql _get_entity_fqcn
-    B: 13m  __init__ _dql_value _generate_qb_aggregate _generate_qb_count _generate_qb_select _generate_query_builder _generate_raw_dql _get_entity_fqcn
-    DIFF: IDENTICAL → rm B
   KubernetesAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/kubernetes_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/adapters/kubernetes_patched.py
     A: 22m  __init__ _generate_apply _generate_configmap_manifest _generate_create _generate_delete _generate_deployment_manifest _generate_describe _generate_exec
     B: 22m  __init__ _generate_apply _generate_configmap_manifest _generate_create _generate_delete _generate_deployment_manifest _generate_describe _generate_exec
@@ -1457,6 +1273,14 @@ DUPLICATES[173]:
   KubernetesAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/kubernetes_backup.py ↔ src/nlp2cmd/adapters/kubernetes.py
     A: 22m  __init__ _generate_apply _generate_configmap_manifest _generate_create _generate_delete _generate_deployment_manifest _generate_describe _generate_exec
     B: 22m  __init__ _generate_apply _generate_configmap_manifest _generate_create _generate_delete _generate_deployment_manifest _generate_describe _generate_exec
+    DIFF: IDENTICAL → rm B
+  BaseDSLAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/base.py ↔ src/nlp2cmd/adapters/base.py
+    A: 12m  __init__ __repr__ _coerce_adapter_config _coerce_safety_policy _pretty_format check_safety format_output generate
+    B: 12m  __init__ __repr__ _coerce_adapter_config _coerce_safety_policy _pretty_format check_safety format_output generate
+    DIFF: IDENTICAL → rm B
+  DQLAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/dql.py ↔ src/nlp2cmd/adapters/dql.py
+    A: 13m  __init__ _dql_value _generate_qb_aggregate _generate_qb_count _generate_qb_select _generate_query_builder _generate_raw_dql _get_entity_fqcn
+    B: 13m  __init__ _dql_value _generate_qb_aggregate _generate_qb_count _generate_qb_select _generate_query_builder _generate_raw_dql _get_entity_fqcn
     DIFF: IDENTICAL → rm B
   DockerAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/docker_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/adapters/docker.py
     A: 18m  __init__ _generate_build _generate_compose_down _generate_compose_up _generate_container_management _generate_exec _generate_list _generate_logs
@@ -1502,14 +1326,6 @@ DUPLICATES[173]:
     A: 18m  __init__ _generate_build _generate_compose_down _generate_compose_up _generate_container_management _generate_exec _generate_list _generate_logs
     B: 18m  __init__ _generate_build _generate_compose_down _generate_compose_up _generate_container_management _generate_exec _generate_list _generate_logs
     DIFF: IDENTICAL → rm B
-  SQLAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/sql.py ↔ src/nlp2cmd/adapters/sql.py
-    A: 15m  __init__ _format_value _generate_aggregate _generate_delete _generate_insert _generate_select _generate_update _interval_expr
-    B: 15m  __init__ _format_value _generate_aggregate _generate_delete _generate_insert _generate_select _generate_update _interval_expr
-    DIFF: IDENTICAL → rm B
-  AppSpecAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/appspec.py ↔ src/nlp2cmd/adapters/appspec.py
-    A: 6m  __init__ check_safety generate load_from_file set_spec validate_syntax
-    B: 6m  __init__ check_safety generate load_from_file set_spec validate_syntax
-    DIFF: IDENTICAL → rm B
   ShellAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/shell_backup.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/adapters/shell_patched.py
     A: 24m  __init__ _generate_archive _generate_development _generate_disk _generate_docker _generate_docker_script _generate_file_operation _generate_file_search
     B: 20m  __init__ _generate_archive _generate_development _generate_disk _generate_docker _generate_docker_script _generate_file_operation _generate_file_search
@@ -1518,6 +1334,22 @@ DUPLICATES[173]:
     A: 24m  __init__ _generate_archive _generate_development _generate_disk _generate_docker _generate_docker_script _generate_file_operation _generate_file_search
     B: 36m  __init__ _generate_archive _generate_cat _generate_checksum _generate_development _generate_disk _generate_disk_management _generate_docker
     DIFF: B has +_generate_cat,_generate_checksum,_generate_disk_management,_generate_hardware_info,_generate_head_tail,_generate_list_dirs,_generate_package_management,_generate_service_management,_generate_terminal_session,_generate_text_file_ops,_generate_user_management,_generate_wc → keep B
+  SQLAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/sql.py ↔ src/nlp2cmd/adapters/sql.py
+    A: 15m  __init__ _format_value _generate_aggregate _generate_delete _generate_insert _generate_select _generate_update _interval_expr
+    B: 15m  __init__ _format_value _generate_aggregate _generate_delete _generate_insert _generate_select _generate_update _interval_expr
+    DIFF: IDENTICAL → rm B
+  ServiceConfig  webops/nlp2cmd-repo/src/nlp2cmd/service/__init__.py ↔ src/nlp2cmd/service/__init__.py
+    A: 3m  __init__ save_to_env to_dict
+    B: 3m  __init__ save_to_env to_dict
+    DIFF: IDENTICAL → rm B
+  NLP2CMDService  webops/nlp2cmd-repo/src/nlp2cmd/service/__init__.py ↔ src/nlp2cmd/service/__init__.py
+    A: 5m  __init__ _create_app _setup_logging _setup_routes run
+    B: 5m  __init__ _create_app _setup_logging _setup_routes run
+    DIFF: IDENTICAL → rm B
+  AppSpecAdapter  webops/nlp2cmd-repo/src/nlp2cmd/adapters/appspec.py ↔ src/nlp2cmd/adapters/appspec.py
+    A: 6m  __init__ check_safety generate load_from_file set_spec validate_syntax
+    B: 6m  __init__ check_safety generate load_from_file set_spec validate_syntax
+    DIFF: IDENTICAL → rm B
   ExternalCacheManager  webops/nlp2cmd-repo/src/nlp2cmd/utils/external_cache.py ↔ src/nlp2cmd/utils/external_cache.py
     A: 12m  __init__ _get_cache_size _get_installed_browsers _get_package_hash _load_manifest _save_manifest clear_cache get_cache_info
     B: 12m  __init__ _get_cache_size _get_installed_browsers _get_package_hash _load_manifest _save_manifest clear_cache get_cache_info
@@ -1538,6 +1370,10 @@ DUPLICATES[173]:
     A: 20m  __init__ _extract_categories _get_nested_value _node_to_dict _parse_array_node _parse_key_value _parse_lines _parse_object_node
     B: 20m  __init__ _extract_categories _get_nested_value _node_to_dict _parse_array_node _parse_key_value _parse_lines _parse_object_node
     DIFF: IDENTICAL → rm B
+  DecisionRouter  webops/nlp2cmd-repo/src/nlp2cmd/router/__init__.py ↔ src/nlp2cmd/router/__init__.py
+    A: 10m  __init__ _has_complex_indicators _has_multi_step_indicators _load_config_from_data _register_default_mappings _suggest_actions add_complex_intent add_simple_intent
+    B: 10m  __init__ _has_complex_indicators _has_multi_step_indicators _load_config_from_data _register_default_mappings _suggest_actions add_complex_intent add_simple_intent
+    DIFF: IDENTICAL → rm B
   FeedbackResult  webops/nlp2cmd-repo/src/nlp2cmd/feedback/__init__.py ↔ src/nlp2cmd/feedback/__init__.py
     A: 3m  can_auto_fix is_success to_dict
     B: 3m  can_auto_fix is_success to_dict
@@ -1549,10 +1385,6 @@ DUPLICATES[173]:
   CorrectionEngine  webops/nlp2cmd-repo/src/nlp2cmd/feedback/__init__.py ↔ src/nlp2cmd/feedback/__init__.py
     A: 7m  __init__ _suggest_balance_fix _suggest_missing_element _suggest_quote_fix apply_correction register_correction suggest
     B: 7m  __init__ _suggest_balance_fix _suggest_missing_element _suggest_quote_fix apply_correction register_correction suggest
-    DIFF: IDENTICAL → rm B
-  DecisionRouter  webops/nlp2cmd-repo/src/nlp2cmd/router/__init__.py ↔ src/nlp2cmd/router/__init__.py
-    A: 10m  __init__ _has_complex_indicators _has_multi_step_indicators _load_config_from_data _register_default_mappings _suggest_actions add_complex_intent add_simple_intent
-    B: 10m  __init__ _has_complex_indicators _has_multi_step_indicators _load_config_from_data _register_default_mappings _suggest_actions add_complex_intent add_simple_intent
     DIFF: IDENTICAL → rm B
   SchemaBasedGenerator  webops/nlp2cmd-repo/src/nlp2cmd/schema_based/generator.py ↔ src/nlp2cmd/generation/schema/generator.py
     A: 8m  __init__ _apply_pattern _extract_pattern _generate_fallback _generate_from_schema generate_command improve_from_usage learn_from_schema
@@ -1566,29 +1398,25 @@ DUPLICATES[173]:
     A: 12m  __init__ _load _save clear export_analytics get_by_dsl get_failed_commands get_popular_queries
     B: 12m  __init__ _load _save clear export_analytics get_by_dsl get_failed_commands get_popular_queries
     DIFF: IDENTICAL → rm B
-  SchemaDrivenAppSpecAdapter  webops/nlp2cmd-repo/src/nlp2cmd/schema_based/adapter.py ↔ src/nlp2cmd/generation/schema/adapter.py
-    A: 10m  __init__ _action_to_schema _extract_command_from_text _extract_context_from_text _infer_category _load_schemas generate learn_from_feedback
-    B: 10m  __init__ _action_to_schema _extract_command_from_text _extract_context_from_text _infer_category _load_schemas generate learn_from_feedback
+  DynamicSchemaGenerator  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/dynamic_generator.py ↔ src/nlp2cmd/intelligent/dynamic_generator.py
+    A: 5m  __init__ _generate_description _generate_template _infer_category generate_schema
+    B: 5m  __init__ _generate_description _generate_template _infer_category generate_schema
     DIFF: IDENTICAL → rm B
   LLMSchemaExtractor  webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/llm_extractor.py ↔ src/nlp2cmd/schema_extraction/llm_extractor.py
     A: 11m  __init__ _build_extraction_prompt _create_basic_schema _create_schema_with_template _generate_description _infer_category _intelligent_category_detection _intelligent_description_extraction
     B: 11m  __init__ _build_extraction_prompt _create_basic_schema _create_schema_with_template _generate_description _infer_category _intelligent_category_detection _intelligent_description_extraction
     DIFF: IDENTICAL → rm B
-  DynamicSchemaGenerator  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/dynamic_generator.py ↔ src/nlp2cmd/intelligent/dynamic_generator.py
-    A: 5m  __init__ _generate_description _generate_template _infer_category generate_schema
-    B: 5m  __init__ _generate_description _generate_template _infer_category generate_schema
-    DIFF: IDENTICAL → rm B
-  CommandDetector  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/command_detector.py ↔ src/nlp2cmd/intelligent/command_detector.py
-    A: 4m  __init__ _extract_context _load_config_from_json detect_command
-    B: 4m  __init__ _extract_context _load_config_from_json detect_command
+  SchemaDrivenAppSpecAdapter  webops/nlp2cmd-repo/src/nlp2cmd/schema_based/adapter.py ↔ src/nlp2cmd/generation/schema/adapter.py
+    A: 10m  __init__ _action_to_schema _extract_command_from_text _extract_context_from_text _infer_category _load_schemas generate learn_from_feedback
+    B: 10m  __init__ _action_to_schema _extract_command_from_text _extract_context_from_text _infer_category _load_schemas generate learn_from_feedback
     DIFF: IDENTICAL → rm B
   VersionAwareCommandGenerator  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/version_aware_generator.py ↔ src/nlp2cmd/intelligent/version_aware_generator.py
     A: 10m  __init__ _detect_base_command _detect_command_version _extract_context _get_adaptations _parse_version_output _post_process_command _run_version_command
     B: 10m  __init__ _detect_base_command _detect_command_version _extract_context _get_adaptations _parse_version_output _post_process_command _run_version_command
     DIFF: IDENTICAL → rm B
-  ShellCommandValidator  webops/nlp2cmd-repo/examples/use_cases/shell_validation.py ↔ examples/04_domain_specific/debugging/validation.py
-    A: 6m  __init__ _calculate_similarity generate_report get_test_cases validate_all validate_command
-    B: 6m  __init__ _calculate_similarity generate_report get_test_cases validate_all validate_command
+  CommandDetector  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/command_detector.py ↔ src/nlp2cmd/intelligent/command_detector.py
+    A: 4m  __init__ _extract_context _load_config_from_json detect_command
+    B: 4m  __init__ _extract_context _load_config_from_json detect_command
     DIFF: IDENTICAL → rm B
   OpenAPISchemaExtractor  webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/__init__.py ↔ src/nlp2cmd/schema_extraction/extractors.py
     A: 5m  __init__ _extract_operation_command _parse_openapi_spec extract_from_file extract_from_url
@@ -1602,36 +1430,8 @@ DUPLICATES[173]:
     A: 7m  _extract_argparse_cli _extract_click_command _extract_generic_command _extract_plain_function _extract_typer_command extract_from_file extract_from_source
     B: 7m  _extract_argparse_cli _extract_click_command _extract_generic_command _extract_plain_function _extract_typer_command extract_from_file extract_from_source
     DIFF: IDENTICAL → rm B
-  DeploymentPlan  webops/nlp2cmd-repo/examples/devops/nlp2cmd_web_controller.py ↔ examples/03_integrations/web_development/nlp2cmd_web_controller.py
-    A: 3m  _create_postgres_service _create_redis_service to_compose
-    B: 3m  _create_postgres_service _create_redis_service to_compose
-    DIFF: IDENTICAL → rm B
-  OutputFileManager  webops/nlp2cmd-repo/examples/devops/nlp2cmd_web_controller.py ↔ examples/03_integrations/web_development/nlp2cmd_web_controller.py
-    A: 4m  __init__ save_deployment_plan save_docker_compose save_service_config
-    B: 4m  __init__ save_deployment_plan save_docker_compose save_service_config
-    DIFF: IDENTICAL → rm B
-  DockerManager  webops/nlp2cmd-repo/examples/devops/nlp2cmd_web_controller.py ↔ examples/03_integrations/web_development/nlp2cmd_web_controller.py
-    A: 5m  __init__ get_container_status show_logs start_services stop_services
-    B: 5m  __init__ get_container_status show_logs start_services stop_services
-    DIFF: IDENTICAL → rm B
-  NLCommandParser  webops/nlp2cmd-repo/examples/devops/nlp2cmd_web_controller.py ↔ examples/03_integrations/web_development/nlp2cmd_web_controller.py
-    A: 4m  _detect_intent _detect_service_type _extract_entities parse
-    B: 4m  _detect_intent _detect_service_type _extract_entities parse
-    DIFF: IDENTICAL → rm B
-  NLP2CMDWebController  webops/nlp2cmd-repo/examples/devops/nlp2cmd_web_controller.py ↔ examples/03_integrations/web_development/nlp2cmd_web_controller.py
-    A: 30m  __init__ _configure_chat _configure_email _create_cache_template _create_chat_template _create_contact_template _create_database_template _create_email_template
-    B: 30m  __init__ _configure_chat _configure_email _create_cache_template _create_chat_template _create_contact_template _create_database_template _create_email_template
-    DIFF: IDENTICAL → rm B
-  NLP2CMDWebAPI  webops/nlp2cmd-repo/examples/devops/nlp2cmd_web_controller.py ↔ examples/03_integrations/web_development/nlp2cmd_web_controller.py
-    A: 5m  __init__ get_history get_services get_status process_command
-    B: 5m  __init__ get_history get_services get_status process_command
-    DIFF: IDENTICAL → rm B
-  OldSystemLoader  examples/03_integrations/toon_format/comparison_demo.py ↔ examples/03_integrations/toon_format/06_old_system_mock/demo.py
-    A: 5m  __init__ get_command_by_name load_command_schemas load_config search_commands
-    B: 3m  __init__ get_command_by_name load_command_schemas
-    DIFF: A has +load_config,search_commands → keep A
 
-FUNCTIONS (CC≥10, 1002 of 6817):
+FUNCTIONS (CC≥10, 941 of 6114):
   344.0  PlanExecutionMixin._execute_plan_step      50n   4exit  loops+cond+ret  !! split
   280.0  BrowserExecutionMixin._run_dom_multi_action   18n   4exit  loops+cond+ret  !! split
   198.0  PlanExecutionMixin.execute_action_plan     25n   3exit  loops+cond+ret  !! split
@@ -1684,8 +1484,8 @@ FUNCTIONS (CC≥10, 1002 of 6817):
    45.0  PythonCodeExtractor._extract_argparse_cli   32n   3exit  loops+cond+ret  ×DUP  !! split
 
   summary:
-    critical(≥10): 1002 | high(5-10): 1501 | medium(2-5): 2477 | low(<2): 1837
-    15% CC≥10  37% CC≥5
+    critical(≥10): 941 | high(5-10): 1421 | medium(2-5): 2270 | low(<2): 1482
+    15% CC≥10  39% CC≥5
 
 HOTSPOTS:
   #1  PlanExecutionMixin._execute_plan_step  fan=116  "PlanExecutionMixin method, fan-out=116"
@@ -1709,8 +1509,6 @@ CLASSES:
   EnhancedSchemaExtractor        ████████                  36m  CC̄=3.3   max=11    ×1
   FormDataLoader                 ████████                  36m  CC̄=5.9   max=18    !!  ×1
   ShellAdapter                   ████████                  36m  CC̄=21.4  max=63    !!  ×2
-  NLP2CMDWebController           ███████                   30m  CC̄=2.6   max=7     ×1
-  NLP2CMDWebController           ███████                   30m  CC̄=2.6   max=7     ×1
   DiGraph                        ██████                    29m  CC̄=2.6   max=9   
   NonLLMSchemaExtractor          ██████                    27m  CC̄=3.9   max=11    ×1
   NonLLMSchemaExtractor          ██████                    27m  CC̄=3.9   max=11    ×1
@@ -1771,8 +1569,8 @@ CLASSES:
   GraphMatcher                   ███                       14m  CC̄=5.4   max=32    !!
   SemanticShellBackend           ███                       14m  CC̄=8.9   max=32    !!  ×1
   SQLAdapter                     ███                       14m  CC̄=5.8   max=15    !!  ×6
-  VirtualObjectManager           ███                       14m  CC̄=3.4   max=10  
   ConceptualCommandGenerator     ███                       14m  CC̄=5.4   max=12  
+  VirtualObjectManager           ███                       14m  CC̄=3.4   max=10  
   RuleBasedPipeline              ███                       14m  CC̄=7.3   max=54    !!
   SemanticShellBackend           ███                       14m  CC̄=9.1   max=32    !!  ×1
   LibvirtStreamAdapter           ███                       14m  CC̄=3.6   max=17    !!
@@ -1821,8 +1619,8 @@ CLASSES:
   RegexEntityExtractor           ██                        11m  CC̄=9.1   max=33    !!  ×1
   ThermodynamicGenerator         ██                        11m  CC̄=9.8   max=36    !!
   ResultAggregator               ██                        11m  CC̄=7.7   max=14    ×1
-  FeedbackAnalyzer               ██                        11m  CC̄=9.6   max=41    !!  ×1
   SemanticObjectFactory          ██                        11m  CC̄=4.7   max=7   
+  FeedbackAnalyzer               ██                        11m  CC̄=9.6   max=41    !!  ×1
   LLMSchemaExtractor             ██                        11m  CC̄=6.2   max=15    !!  ×1
   FirefoxSessionImporter         ██                        11m  CC̄=6.7   max=14  
   RegexEntityExtractor           ██                        11m  CC̄=9.6   max=38    !!  ×1
@@ -1847,8 +1645,8 @@ CLASSES:
   SchemaDrivenAppSpecAdapter     ██                        10m  CC̄=3.3   max=6     ×1
   VersionAwareCommandGenerator   ██                        10m  CC̄=6.1   max=17    !!  ×1
   EnvExtractor                   ██                        10m  CC̄=4.9   max=13  
-  ThermodynamicGenerator         ██                        10m  CC̄=8.1   max=24    !!
   PhraseDatabase                 ██                        10m  CC̄=2.4   max=4     ×1
+  ThermodynamicGenerator         ██                        10m  CC̄=8.1   max=24    !!
   AutoRepairSystem               ██                        10m  CC̄=7.3   max=22    !!
   BrowserExecutor                ██                        10m  CC̄=4.8   max=13  
   ServiceExplorer                ██                        10m  CC̄=4.3   max=9   
@@ -1865,8 +1663,8 @@ CLASSES:
   MappedQueue                    ██                         9m  CC̄=3.0   max=6   
   DiGraphMatcher                 ██                         9m  CC̄=11.7  max=81    !!
   HighPriorityFixer              ██                         9m  CC̄=2.1   max=6     ×1
-  FinalAnalyzer                  ██                         9m  CC̄=3.7   max=9     ×1
   CoreIntegrator                 ██                         9m  CC̄=5.7   max=11    ×1
+  FinalAnalyzer                  ██                         9m  CC̄=3.7   max=9     ×1
   ORScheduler                    ██                         9m  CC̄=2.2   max=5     ×1
   ProjectSummary                 ██                         9m  CC̄=3.3   max=7     ×1
   HighPriorityFixer              ██                         9m  CC̄=2.1   max=6     ×1
@@ -1893,11 +1691,11 @@ CLASSES:
   PipelineRunner                 █                          8m  CC̄=16.1  max=48    !!
   ExecutionPlan                  █                          8m  CC̄=1.2   max=3     ×6
   ExecutionPlan                  █                          8m  CC̄=1.2   max=3     ×6
+  ExecutionPlan                  █                          8m  CC̄=1.2   max=3     ×6
   NLP2CMD                        █                          8m  CC̄=12.2  max=64    !!  ×1
   MLIntentClassifier             █                          8m  CC̄=4.9   max=9     ×1
   HybridGenerator                █                          8m  CC̄=2.5   max=5     ×1
   InteractiveSession             █                          8m  CC̄=10.0  max=24    !!  ×1
-  ExecutionPlan                  █                          8m  CC̄=1.2   max=3     ×6
   SchemaBasedGenerator           █                          8m  CC̄=5.6   max=12    ×1
   SchemaDrivenNLP2CMD            █                          8m  CC̄=16.4  max=41    !!  ×1
   MLIntentClassifier             █                          8m  CC̄=4.9   max=9     ×1
@@ -1914,12 +1712,10 @@ CLASSES:
   InteractiveSession             █                          8m  CC̄=10.4  max=24    !!  ×1
   ActionExecutor                 █                          8m  CC̄=2.1   max=8   
   SchemaBasedGenerator           █                          8m  CC̄=5.6   max=12    ×1
-  PlanExecutor                   █                          8m  CC̄=1.4   max=3     ×1
   GraphMLReader                  █                          7m  CC̄=7.4   max=17    !!
   DiDegreeView                   █                          7m  CC̄=3.3   max=6   
   _AntiGraph                     █                          7m  CC̄=1.9   max=4   
   InverseLaplacian               █                          7m  CC̄=1.6   max=3   
-  ToonDemo                       █                          7m  CC̄=1.1   max=2     ×1
   HyperparameterOptimizer        █                          7m  CC̄=2.6   max=7     ×1
   TokenCostEstimator             █                          7m  CC̄=2.9   max=10    ×1
   LLMPlanner                     █                          7m  CC̄=3.7   max=6     ×1
@@ -1939,7 +1735,6 @@ CLASSES:
   CorrectionEngine               █                          7m  CC̄=2.1   max=4     ×1
   PythonCodeExtractor            █                          7m  CC̄=14.9  max=30    !!  ×1
   SchemaRegistry                 █                          7m  CC̄=1.6   max=3     ×2
-  ToonDemo                       █                          7m  CC̄=1.1   max=2     ×1
   VoiceServiceManager            █                          6m  CC̄=5.0   max=22    !!  ×1
   FilterAtlas                    █                          6m  CC̄=3.2   max=7   
   FilterAdjacency                █                          6m  CC̄=3.2   max=7   
@@ -1950,20 +1745,18 @@ CLASSES:
   SpanningTreeIterator           █                          6m  CC̄=2.8   max=5   
   ArborescenceIterator           █                          6m  CC̄=5.0   max=11  
   _Node                          █                          6m  CC̄=2.0   max=3   
-  SimpleToonParser               █                          6m  CC̄=5.8   max=17    !!  ×1
   FileFormatSchema               █                          6m  CC̄=2.8   max=7     ×1
   MarkdownBlockStream            █                          6m  CC̄=2.0   max=3     ×1
   WebSchemaExtractor             █                          6m  CC̄=5.0   max=7     ×1
   AppSpecAdapter                 █                          6m  CC̄=4.3   max=12    ×1
   VirtualObject                  █                          6m  CC̄=2.2   max=5   
   EnvironmentContext             █                          6m  CC̄=2.8   max=6   
-  ShellCommandValidator          █                          6m  CC̄=5.3   max=16    !!  ×1
+  ResourceMonitor                █                          6m  CC̄=2.5   max=4     ×1
   PlanExecutionMixin             █                          6m  CC̄=98.2  max=344   !!
   ComplexCommandPlanner          █                          6m  CC̄=7.5   max=24    !!
-  ResourceMonitor                █                          6m  CC̄=2.5   max=4     ×1
   FeedbackLoop                   █                          6m  CC̄=10.0  max=21    !!
-  FirefoxPasswordReader          █                          6m  CC̄=8.3   max=16    !!
   FileFormatSchema               █                          6m  CC̄=2.8   max=7     ×1
+  FirefoxPasswordReader          █                          6m  CC̄=8.3   max=16    !!
   PipelineMetrics                █                          6m  CC̄=2.8   max=7   
   ThermodynamicProblemDetector   █                          6m  CC̄=7.2   max=16    !!
   IntentRegistry                 █                          6m  CC̄=3.0   max=9   
@@ -1975,9 +1768,7 @@ CLASSES:
   AppSpecAdapter                 █                          6m  CC̄=4.3   max=12    ×1
   StreamRouter                   █                          6m  CC̄=2.7   max=4   
   RefactoredPlanExecutor         █                          6m  CC̄=2.3   max=4   
-  ShellCommandValidator          █                          6m  CC̄=5.3   max=16    !!  ×1
   ValidationFramework            █                          6m  CC̄=2.0   max=4   
-  SimpleToonParser               █                          6m  CC̄=5.8   max=17    !!  ×1
   VoiceServiceManager            █                          5m  CC̄=3.4   max=10    ×1
   GraphMLWriterLxml              █                          5m  CC̄=5.4   max=21    !!
   InEdgeView                     █                          5m  CC̄=2.0   max=3   
@@ -1985,21 +1776,18 @@ CLASSES:
   BinaryHeap                     █                          5m  CC̄=3.4   max=5   
   UnionFind                      █                          5m  CC̄=2.8   max=4   
   CurrentEdge                    █                          5m  CC̄=1.4   max=2   
-  OldSystemLoader                █                          5m  CC̄=3.4   max=8     ×3
   ResourceMonitor                █                          5m  CC̄=1.6   max=4     ×1
   SchedulingEnergy               █                          5m  CC̄=3.2   max=9     ×1
-  PipelineMetrics                █                          5m  CC̄=2.6   max=5   
-  MultiDomainGenerator           █                          5m  CC̄=2.2   max=4     ×1
   BaseLLMGenerator               █                          5m  CC̄=2.2   max=5     ×1
-  NLP2CMDService                 █                          5m  CC̄=2.6   max=7     ×1
+  MultiDomainGenerator           █                          5m  CC̄=2.2   max=4     ×1
+  PipelineMetrics                █                          5m  CC̄=2.6   max=5   
   DockerValidator                █                          5m  CC̄=16.2  max=50    !!  ×1
   BrowserExecutor                █                          5m  CC̄=5.0   max=13  
+  NLP2CMDService                 █                          5m  CC̄=2.6   max=7     ×1
   CommandDisambiguator           █                          5m  CC̄=6.2   max=11    ×1
   DynamicSchemaGenerator         █                          5m  CC̄=6.4   max=15    !!  ×1
   OpenAPISchemaExtractor         █                          5m  CC̄=7.0   max=14    ×1
   ShellHelpExtractor             █                          5m  CC̄=8.2   max=23    !!  ×1
-  DockerManager                  █                          5m  CC̄=7.0   max=13    ×1
-  NLP2CMDWebAPI                  █                          5m  CC̄=1.4   max=2     ×1
   ShapePlanner                   █                          5m  CC̄=3.8   max=8   
   KeePassXCReader                █                          5m  CC̄=7.0   max=10  
   SemanticEntityExtractor        █                          5m  CC̄=4.0   max=9   
@@ -2009,13 +1797,8 @@ CLASSES:
   DockerValidator                █                          5m  CC̄=16.2  max=50    !!  ×1
   RoutingEnergy                  █                          5m  CC̄=3.8   max=9     ×1
   CommandDisambiguator           █                          5m  CC̄=6.2   max=11    ×1
-  OpenAPISchemaExtractor         █                          5m  CC̄=6.2   max=10    ×1
   DynamicSchemaGenerator         █                          5m  CC̄=6.4   max=15    !!  ×1
-  PolishPDFSearchLLM             █                          5m  CC̄=3.2   max=6   
-  OldSystemLoader                █                          5m  CC̄=3.4   max=8     ×3
-  DockerManager                  █                          5m  CC̄=7.0   max=13    ×1
-  NLP2CMDWebAPI                  █                          5m  CC̄=1.4   max=2     ×1
-  ResultAggregator               █                          5m  CC̄=3.2   max=5     ×1
+  OpenAPISchemaExtractor         █                          5m  CC̄=6.2   max=10    ×1
   CurvedArrowTextBase                                       4m  CC̄=4.8   max=14  
   PathBuffer                                                4m  CC̄=1.2   max=2   
   Interval                                                  4m  CC̄=1.5   max=2   
@@ -2023,6 +1806,7 @@ CLASSES:
   GlobalRelabelThreshold                                    4m  CC̄=1.2   max=2   
   HyperparameterOptimizer                                   4m  CC̄=1.5   max=3     ×1
   HyperparameterOptimizer                                   4m  CC̄=1.5   max=3     ×1
+  NLPBackend                                                4m  CC̄=1.2   max=2     ×6
   NLPBackend                                                4m  CC̄=1.2   max=2     ×6
   NLPBackend                                                4m  CC̄=1.2   max=2     ×6
   _SimpleDomParser                                          4m  CC̄=3.0   max=5     ×1
@@ -2033,14 +1817,11 @@ CLASSES:
   MarkdownConsoleProxy                                      4m  CC̄=1.0   max=1     ×1
   HybridNLPBackend                                          4m  CC̄=7.0   max=9     ×1
   ActionHandler                                             4m  CC̄=4.8   max=15    !!  ×1
-  NLPBackend                                                4m  CC̄=1.2   max=2     ×6
   RoutingEnergy                                             4m  CC̄=2.5   max=6     ×1
   CSPEnergy                                                 4m  CC̄=1.5   max=2     ×1
   ConstraintEnergy                                          4m  CC̄=2.0   max=3     ×1
   LangevinSampler                                           4m  CC̄=5.0   max=12    ×1
   CommandDetector                                           4m  CC̄=14.0  max=31    !!  ×1
-  OutputFileManager                                         4m  CC̄=1.0   max=1     ×1
-  NLCommandParser                                           4m  CC̄=10.0  max=19    !!  ×1
   _SimpleDomParser                                          4m  CC̄=3.0   max=5     ×1
   Point                                                     4m  CC̄=1.0   max=1   
   MultiCommandDetector                                      4m  CC̄=3.2   max=5   
@@ -2052,21 +1833,15 @@ CLASSES:
   MarkdownConsoleProxy                                      4m  CC̄=1.0   max=1     ×1
   ExplorerRegistry                                          4m  CC̄=2.2   max=6   
   HybridNLPBackend                                          4m  CC̄=7.0   max=9     ×1
+  AllocationEnergy                                          4m  CC̄=4.0   max=8     ×3
+  CSPEnergy                                                 4m  CC̄=1.5   max=2     ×1
   ActionHandler                                             4m  CC̄=4.8   max=15    !!  ×1
   EnergyModel                                               4m  CC̄=1.2   max=2     ×1
   ConstraintEnergy                                          4m  CC̄=2.0   max=3     ×1
   LangevinSampler                                           4m  CC̄=5.0   max=12    ×1
-  AllocationEnergy                                          4m  CC̄=4.0   max=8     ×3
-  CSPEnergy                                                 4m  CC̄=1.5   max=2     ×1
   FTPStreamAdapter                                          4m  CC̄=7.2   max=16    !!
   CommandDetector                                           4m  CC̄=14.0  max=31    !!  ×1
   ProcessingPipeline                                        4m  CC̄=2.0   max=3   
-  AdvancedValidator                                         4m  CC̄=2.2   max=4   
-  PDFExtractor                                              4m  CC̄=1.8   max=3   
-  ResultsRanker                                             4m  CC̄=2.0   max=3   
-  LLMSearcher                                               4m  CC̄=2.5   max=4   
-  OutputFileManager                                         4m  CC̄=1.0   max=1     ×1
-  NLCommandParser                                           4m  CC̄=10.0  max=19    !!  ×1
   FancyArrowFactory                                         3m  CC̄=9.7   max=22    !!
   EdgeDataView                                              3m  CC̄=3.7   max=5   
   EdgeView                                                  3m  CC̄=3.0   max=4   
@@ -2091,15 +1866,14 @@ CLASSES:
   TransformResult                                           3m  CC̄=2.0   max=4     ×6
   LLMBackend                                                3m  CC̄=2.3   max=4     ×6
   RuleBasedBackend                                          3m  CC̄=8.0   max=13    ×6
-  CachedMultiDomainGenerator                                3m  CC̄=1.7   max=3     ×1
-  ValidatingGenerator                                       3m  CC̄=4.0   max=9     ×1
-  SimpleLLMSQLGenerator                                     3m  CC̄=3.3   max=5     ×1
-  ServiceConfig                                             3m  CC̄=3.3   max=8     ×1
-  ActionSchema                                              3m  CC̄=3.0   max=3     ×1
+  NLP2CMD                                                   3m  CC̄=30.3  max=64    !!  ×1
   TransformResult                                           3m  CC̄=2.0   max=4     ×6
   LLMBackend                                                3m  CC̄=2.3   max=4     ×6
   RuleBasedBackend                                          3m  CC̄=8.0   max=13    ×6
-  NLP2CMD                                                   3m  CC̄=30.3  max=64    !!  ×1
+  ValidatingGenerator                                       3m  CC̄=4.0   max=9     ×1
+  SimpleLLMSQLGenerator                                     3m  CC̄=3.3   max=5     ×1
+  CachedMultiDomainGenerator                                3m  CC̄=1.7   max=3     ×1
+  ActionSchema                                              3m  CC̄=3.0   max=3     ×1
   AllocationEnergy                                          3m  CC̄=1.7   max=2     ×3
   EnergyModel                                               3m  CC̄=1.0   max=1     ×1
   QuadraticEnergy                                           3m  CC̄=1.7   max=2     ×1
@@ -2108,16 +1882,16 @@ CLASSES:
   ThermodynamicRouter                                       3m  CC̄=3.7   max=5     ×1
   ExecutionContext                                          3m  CC̄=3.3   max=8     ×1
   PlanValidator                                             3m  CC̄=7.3   max=16    !!  ×1
+  ServiceConfig                                             3m  CC̄=3.3   max=8     ×1
   MakefileExtractor                                         3m  CC̄=9.7   max=16    !!
   _MarkdownConsoleWrapper                                   3m  CC̄=1.7   max=3     ×1
   VideoRecorder                                             3m  CC̄=3.3   max=7   
-  DeploymentPlan                                            3m  CC̄=6.3   max=17    !!  ×1
   ShellExecutionMixin                                       3m  CC̄=16.3  max=27    !!
   PageAnalyzer                                              3m  CC̄=17.0  max=29    !!
   BitwardenReader                                           3m  CC̄=5.0   max=11  
   HybridThermodynamicGenerator                              3m  CC̄=1.7   max=2   
-  ValidatingGenerator                                       3m  CC̄=4.0   max=9     ×1
   CachedMultiDomainGenerator                                3m  CC̄=1.7   max=3     ×1
+  ValidatingGenerator                                       3m  CC̄=4.0   max=9     ×1
   SimpleLLMSQLGenerator                                     3m  CC̄=3.3   max=5     ×1
   ServiceConfig                                             3m  CC̄=3.3   max=8     ×1
   QueryNormalizer                                           3m  CC̄=2.3   max=3   
@@ -2133,13 +1907,9 @@ CLASSES:
   HTTPStreamAdapter                                         3m  CC̄=6.3   max=15    !!
   SPICEStreamAdapter                                        3m  CC̄=3.3   max=4   
   ShellHelpExtractor                                        3m  CC̄=7.7   max=16    !!  ×1
-  BaseProcessor                                             3m  CC̄=1.3   max=2   
-  PDFSearchPipeline                                         3m  CC̄=1.3   max=2   
-  TextChunker                                               3m  CC̄=3.3   max=7   
   BaseValidator                                             3m  CC̄=1.7   max=3   
   FormFieldValidator                                        3m  CC̄=2.7   max=4   
-  OldSystemLoader                                           3m  CC̄=3.3   max=8     ×3
-  DeploymentPlan                                            3m  CC̄=6.3   max=17    !!  ×1
+  BaseProcessor                                             3m  CC̄=1.3   max=2   
   ShellExecutor                                             2m  CC̄=4.0   max=7   
   DelayedImportErrorModule                                  2m  CC̄=2.0   max=3   
   ShellExecutor                                             2m  CC̄=5.0   max=9   
@@ -2175,25 +1945,25 @@ CLASSES:
   HyperparameterSpace                                       2m  CC̄=4.0   max=7   
   SpaCyBackend                                              2m  CC̄=1.5   max=2     ×6
   SpaCyBackend                                              2m  CC̄=1.5   max=2     ×6
+  SpaCyBackend                                              2m  CC̄=1.5   max=2     ×6
   App2SchemaResult                                          2m  CC̄=10.0  max=15    !!
   PhraseEntry                                               2m  CC̄=1.0   max=1   
-  PipelineResult                                            2m  CC̄=3.5   max=5   
-  LLMDomainRouter                                           2m  CC̄=4.0   max=6   
   AdaptiveHybridGenerator                                   2m  CC̄=3.0   max=5   
   LiteLLMClient                                             2m  CC̄=6.5   max=9   
   SimpleLLMShellGenerator                                   2m  CC̄=3.5   max=6   
   SimpleLLMDockerGenerator                                  2m  CC̄=2.0   max=3   
   SimpleLLMKubernetesGenerator                              2m  CC̄=2.0   max=3   
   MockLLMClient                                             2m  CC̄=7.5   max=13  
+  LLMDomainRouter                                           2m  CC̄=4.0   max=6   
+  PipelineResult                                            2m  CC̄=3.5   max=5   
   BaseValidator                                             2m  CC̄=1.0   max=1   
   SQLValidator                                              2m  CC̄=17.5  max=34    !!
   ShellValidator                                            2m  CC̄=16.0  max=31    !!
   KubernetesValidator                                       2m  CC̄=29.5  max=58    !!
   CompositeValidator                                        2m  CC̄=1.5   max=2   
-  InteractionRecord                                         2m  CC̄=1.0   max=1   
   WebPageSchema                                             2m  CC̄=8.0   max=15    !!
+  InteractionRecord                                         2m  CC̄=1.0   max=1   
   ActionResult                                              2m  CC̄=1.0   max=1   
-  SpaCyBackend                                              2m  CC̄=1.5   max=2     ×6
   ExecutionPlan                                             2m  CC̄=2.0   max=2     ×6
   DynamicSafetyPolicy                                       2m  CC̄=3.0   max=5   
   SchemaUsage                                               2m  CC̄=1.0   max=1   
@@ -2205,16 +1975,16 @@ CLASSES:
   DrawingPattern                                            2m  CC̄=1.0   max=1   
   MultiCommandResult                                        2m  CC̄=2.0   max=2   
   PipelineResult                                            2m  CC̄=3.5   max=5   
+  PhraseEntry                                               2m  CC̄=1.0   max=1   
   OptimizationProblem                                       2m  CC̄=19.5  max=38    !!
   ThermodynamicConfig                                       2m  CC̄=2.0   max=3   
-  PhraseEntry                                               2m  CC̄=1.0   max=1   
   LLMDomainRouter                                           2m  CC̄=4.0   max=6   
-  AdaptiveHybridGenerator                                   2m  CC̄=3.0   max=5   
   LiteLLMClient                                             2m  CC̄=6.5   max=9   
   SimpleLLMShellGenerator                                   2m  CC̄=3.5   max=6   
   SimpleLLMDockerGenerator                                  2m  CC̄=2.0   max=3   
   SimpleLLMKubernetesGenerator                              2m  CC̄=2.0   max=3   
   MockLLMClient                                             2m  CC̄=7.5   max=13  
+  AdaptiveHybridGenerator                                   2m  CC̄=3.0   max=5   
   BaseValidator                                             2m  CC̄=1.0   max=1   
   SQLValidator                                              2m  CC̄=17.5  max=34    !!
   ShellValidator                                            2m  CC̄=16.0  max=31    !!
@@ -2228,24 +1998,21 @@ CLASSES:
   InteractionRecord                                         2m  CC̄=1.0   max=1   
   DynamicSelectorGenerator                                  2m  CC̄=8.0   max=14  
   ActionResult                                              2m  CC̄=1.0   max=1   
-  ExecutionPlan                                             2m  CC̄=2.0   max=2     ×6
   DynamicSafetyPolicy                                       2m  CC̄=3.0   max=5   
+  ExecutionPlan                                             2m  CC̄=2.0   max=2     ×6
   ProcessManagementGenerator                                2m  CC̄=9.0   max=14  
   SchemaUsage                                               2m  CC̄=1.0   max=1   
   CommandRecord                                             2m  CC̄=2.0   max=2   
+  ClickExtractor                                            2m  CC̄=2.0   max=3   
   ShellScriptExtractor                                      2m  CC̄=16.0  max=30    !!
   MakefileExtractor                                         2m  CC̄=10.0  max=18    !!
   ExtractedSchema                                           2m  CC̄=3.0   max=3   
-  ClickExtractor                                            2m  CC̄=2.0   max=3   
+  SafetyPolicyValidator                                     2m  CC̄=3.5   max=6   
   FilterProcessor                                           2m  CC̄=2.0   max=3   
   MapProcessor                                              2m  CC̄=1.5   max=2   
   TransformProcessor                                        2m  CC̄=1.0   max=1   
   ReduceProcessor                                           2m  CC̄=1.5   max=2   
   AggregateProcessor                                        2m  CC̄=2.0   max=3   
-  MockPolishPDFSearchLLM                                    2m  CC̄=13.0  max=25    !!
-  TextChunker                                               2m  CC̄=1.5   max=2   
-  SafetyPolicyValidator                                     2m  CC̄=3.5   max=6   
-  DecisionRouter                                            2m  CC̄=3.5   max=6     ×1
   PowerIterationFailedConvergence                            1m  CC̄=1.0   max=1   
   BaseGlyphs                                                1m  CC̄=4.0   max=4   
   UnionMultiAdjacency                                       1m  CC̄=1.0   max=1   
@@ -2288,21 +2055,19 @@ CLASSES:
   KubernetesSafetyPolicy                                    1m  CC̄=12.0  max=12  
   DockerSafetyPolicy                                        1m  CC̄=11.0  max=11  
   FeedbackResult                                            1m  CC̄=1.0   max=1     ×1
+  ConceptualCommand                                         1m  CC̄=2.0   max=2   
   Dependency                                                1m  CC̄=2.0   max=2   
   DependencyResult                                          1m  CC̄=2.0   max=2   
-  ConceptualCommand                                         1m  CC̄=2.0   max=2   
-  MockLLMBackend                                            1m  CC̄=6.0   max=6   
   ShellExecutionPolicy                                      1m  CC̄=18.0  max=18    !!
   AppSpec                                                   1m  CC̄=3.0   max=3   
   ActionIR                                                  1m  CC̄=1.0   max=1   
   ActionStep                                                1m  CC̄=3.0   max=3   
   ActionStep                                                1m  CC̄=4.0   max=4   
   ExecutionPlan                                             1m  CC̄=2.0   max=2     ×6
-  Credential                                                1m  CC̄=4.0   max=4   
-  EnvPasswordReader                                         1m  CC̄=13.0  max=13  
   ExtractionResult                                          1m  CC̄=2.0   max=2   
   FuzzySchemaMatcherConfig                                  1m  CC̄=1.0   max=1   
-  CacheEntry                                                1m  CC̄=1.0   max=1   
+  Credential                                                1m  CC̄=4.0   max=4   
+  EnvPasswordReader                                         1m  CC̄=13.0  max=13  
   ComplexQueryDetector                                      1m  CC̄=14.0  max=14  
   ThermodynamicResult                                       1m  CC̄=7.0   max=7   
   DSLValidator                                              1m  CC̄=1.0   max=1   
@@ -2310,14 +2075,15 @@ CLASSES:
   SimpleShellValidator                                      1m  CC̄=6.0   max=6   
   SimpleDockerValidator                                     1m  CC̄=5.0   max=5   
   SimpleKubernetesValidator                                 1m  CC̄=6.0   max=6   
-  HybridStats                                               1m  CC̄=1.0   max=1     ×1
   LLMClient                                                 1m  CC̄=1.0   max=1   
+  HybridStats                                               1m  CC̄=1.0   max=1     ×1
   StructuredPlan                                            1m  CC̄=1.0   max=1   
   MultiStepPlan                                             1m  CC̄=2.0   max=2   
   MultiStepPlanner                                          1m  CC̄=9.0   max=9   
   SyntaxValidator                                           1m  CC̄=6.0   max=6   
   ServiceConfig                                             1m  CC̄=1.0   max=1     ×1
   AppInfo                                                   1m  CC̄=2.0   max=2   
+  CacheEntry                                                1m  CC̄=1.0   max=1   
   WebElement                                                1m  CC̄=1.0   max=1   
   ExecutorResult                                            1m  CC̄=1.0   max=1   
   BaseExecutor                                              1m  CC̄=1.0   max=1   
@@ -2335,14 +2101,7 @@ CLASSES:
   DesktopSafetyPolicy                                       1m  CC̄=3.0   max=3   
   FeedbackResult                                            1m  CC̄=1.0   max=1     ×1
   DetectionResult                                           1m  CC̄=3.0   max=3   
-  PDFExtractor                                              1m  CC̄=1.0   max=1   
-  LLMSearcher                                               1m  CC̄=2.0   max=2   
-  MockLLMBackend                                            1m  CC̄=6.0   max=6   
-  DeploymentPlan                                            1m  CC̄=5.0   max=5     ×1
-  LLMPlanner                                                1m  CC̄=4.0   max=4     ×1
   BenchmarkResult                                           0m  CC̄=0.0   max=0.0 
-  QueryResult                                               0m  CC̄=0.0   max=0.0 
-  BenchmarkResults                                          0m  CC̄=0.0   max=0.0 
   NetworkXException                                         0m  CC̄=0.0   max=0.0 
   NetworkXError                                             0m  CC̄=0.0   max=0.0 
   NetworkXPointlessConcept                                  0m  CC̄=0.0   max=0.0 
@@ -2387,9 +2146,9 @@ CLASSES:
   SchemaQuality                                             0m  CC̄=0.0   max=0.0 
   OptionType                                                0m  CC̄=0.0   max=0.0 
   ParsedOption                                              0m  CC̄=0.0   max=0.0 
+  CommandInfo                                               0m  CC̄=0.0   max=0.0 
   ExtractionStrategy                                        0m  CC̄=0.0   max=0.0 
   ExtractionResult                                          0m  CC̄=0.0   max=0.0 
-  CommandInfo                                               0m  CC̄=0.0   max=0.0 
   GenerationMethod                                          0m  CC̄=0.0   max=0.0 
   GenerationResult                                          0m  CC̄=0.0   max=0.0 
   HyperparameterSpace                                       0m  CC̄=0.0   max=0.0 
@@ -2403,10 +2162,10 @@ CLASSES:
   NonLLMStrategy                                            0m  CC̄=0.0   max=0.0 
   SchemaQuality                                             0m  CC̄=0.0   max=0.0 
   CommandInfo                                               0m  CC̄=0.0   max=0.0 
-  OptionType                                                0m  CC̄=0.0   max=0.0 
-  ParsedOption                                              0m  CC̄=0.0   max=0.0 
   ExtractionStrategy                                        0m  CC̄=0.0   max=0.0 
   ExtractionResult                                          0m  CC̄=0.0   max=0.0 
+  OptionType                                                0m  CC̄=0.0   max=0.0 
+  ParsedOption                                              0m  CC̄=0.0   max=0.0 
   GenerationMethod                                          0m  CC̄=0.0   max=0.0 
   GenerationResult                                          0m  CC̄=0.0   max=0.0 
   AppAction                                                 0m  CC̄=0.0   max=0.0 
@@ -2415,10 +2174,13 @@ CLASSES:
   TransformStatus                                           0m  CC̄=0.0   max=0.0 
   Intent                                                    0m  CC̄=0.0   max=0.0 
   Entity                                                    0m  CC̄=0.0   max=0.0 
-  ResourceMetrics                                           0m  CC̄=0.0   max=0.0 
   TransformStatus                                           0m  CC̄=0.0   max=0.0 
   Intent                                                    0m  CC̄=0.0   max=0.0 
   Entity                                                    0m  CC̄=0.0   max=0.0 
+  TransformStatus                                           0m  CC̄=0.0   max=0.0 
+  Intent                                                    0m  CC̄=0.0   max=0.0 
+  Entity                                                    0m  CC̄=0.0   max=0.0 
+  ResourceMetrics                                           0m  CC̄=0.0   max=0.0 
   TokenCostEstimate                                         0m  CC̄=0.0   max=0.0 
   ExtractedEntity                                           0m  CC̄=0.0   max=0.0 
   ExtractionResult                                          0m  CC̄=0.0   max=0.0 
@@ -2428,36 +2190,31 @@ CLASSES:
   TrainingSample                                            0m  CC̄=0.0   max=0.0 
   DetectionResult                                           0m  CC̄=0.0   max=0.0 
   ContextualMatch                                           0m  CC̄=0.0   max=0.0 
+  SemanticMatch                                             0m  CC̄=0.0   max=0.0 
+  IntentEmbedding                                           0m  CC̄=0.0   max=0.0 
   ThermodynamicResult                                       0m  CC̄=0.0   max=0.0 
   SolutionQuality                                           0m  CC̄=0.0   max=0.0 
-  SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
-  RoutingResult                                             0m  CC̄=0.0   max=0.0 
-  MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
   ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
   ValidatingGeneratorResult                                 0m  CC̄=0.0   max=0.0 
   HybridResult                                              0m  CC̄=0.0   max=0.0 
   LLMConfig                                                 0m  CC̄=0.0   max=0.0 
   LLMGenerationResult                                       0m  CC̄=0.0   max=0.0 
   StructuredPlanResult                                      0m  CC̄=0.0   max=0.0 
-  SemanticMatch                                             0m  CC̄=0.0   max=0.0 
-  IntentEmbedding                                           0m  CC̄=0.0   max=0.0 
   TemplateResult                                            0m  CC̄=0.0   max=0.0 
-  QueryRequest                                              0m  CC̄=0.0   max=0.0 
-  QueryResponse                                             0m  CC̄=0.0   max=0.0 
+  RoutingResult                                             0m  CC̄=0.0   max=0.0 
+  MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
   PlannerConfig                                             0m  CC̄=0.0   max=0.0 
   PlanningResult                                            0m  CC̄=0.0   max=0.0 
+  SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
+  FormData                                                  0m  CC̄=0.0   max=0.0 
   ExecutionResult                                           0m  CC̄=0.0   max=0.0 
   RecoveryContext                                           0m  CC̄=0.0   max=0.0 
-  FormData                                                  0m  CC̄=0.0   max=0.0 
   BrowserResult                                             0m  CC̄=0.0   max=0.0 
   OutputFormat                                              0m  CC̄=0.0   max=0.0 
   AggregatedResult                                          0m  CC̄=0.0   max=0.0 
   _ParsedSize                                               0m  CC̄=0.0   max=0.0 
   ParamType                                                 0m  CC̄=0.0   max=0.0 
   ParamSchema                                               0m  CC̄=0.0   max=0.0 
-  TransformStatus                                           0m  CC̄=0.0   max=0.0 
-  Intent                                                    0m  CC̄=0.0   max=0.0 
-  Entity                                                    0m  CC̄=0.0   max=0.0 
   Task                                                      0m  CC̄=0.0   max=0.0 
   Resource                                                  0m  CC̄=0.0   max=0.0 
   LangevinConfig                                            0m  CC̄=0.0   max=0.0 
@@ -2467,147 +2224,143 @@ CLASSES:
   StepStatus                                                0m  CC̄=0.0   max=0.0 
   StepResult                                                0m  CC̄=0.0   max=0.0 
   ExecutionResult                                           0m  CC̄=0.0   max=0.0 
+  ClusterContext                                            0m  CC̄=0.0   max=0.0 
   SafetyPolicy                                              0m  CC̄=0.0   max=0.0 
   AdapterConfig                                             0m  CC̄=0.0   max=0.0 
   DQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
   EntityContext                                             0m  CC̄=0.0   max=0.0 
-  ClusterContext                                            0m  CC̄=0.0   max=0.0 
+  ComposeContext                                            0m  CC̄=0.0   max=0.0 
+  SQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
+  SchemaContext                                             0m  CC̄=0.0   max=0.0 
+  ComposeContext                                            0m  CC̄=0.0   max=0.0 
   BrowserSafetyPolicy                                       0m  CC̄=0.0   max=0.0 
-  ComposeContext                                            0m  CC̄=0.0   max=0.0 
-  SQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
-  SchemaContext                                             0m  CC̄=0.0   max=0.0 
-  ComposeContext                                            0m  CC̄=0.0   max=0.0 
   ClusterContext                                            0m  CC̄=0.0   max=0.0 
   ClusterContext                                            0m  CC̄=0.0   max=0.0 
   ComposeContext                                            0m  CC̄=0.0   max=0.0 
+  ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
+  EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
   SQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
   SchemaContext                                             0m  CC̄=0.0   max=0.0 
+  QueryRequest                                              0m  CC̄=0.0   max=0.0 
+  QueryResponse                                             0m  CC̄=0.0   max=0.0 
   AppSpecAdapterConfig                                      0m  CC̄=0.0   max=0.0 
   ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
   EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
   DisambiguationResult                                      0m  CC̄=0.0   max=0.0 
-  ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
-  EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
   ToolInfo                                                  0m  CC̄=0.0   max=0.0 
   ServiceInfo                                               0m  CC̄=0.0   max=0.0 
   EnvironmentReport                                         0m  CC̄=0.0   max=0.0 
   ToonNodeType                                              0m  CC̄=0.0   max=0.0 
   ToonNode                                                  0m  CC̄=0.0   max=0.0 
-  FeedbackType                                              0m  CC̄=0.0   max=0.0 
-  CorrectionRule                                            0m  CC̄=0.0   max=0.0 
   RoutingDecision                                           0m  CC̄=0.0   max=0.0 
   RoutingResult                                             0m  CC̄=0.0   max=0.0 
   RouterConfig                                              0m  CC̄=0.0   max=0.0 
+  SemanticPattern                                           0m  CC̄=0.0   max=0.0 
+  FeedbackType                                              0m  CC̄=0.0   max=0.0 
+  CorrectionRule                                            0m  CC̄=0.0   max=0.0 
+  ObjectType                                                0m  CC̄=0.0   max=0.0 
   ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
   EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
-  ObjectType                                                0m  CC̄=0.0   max=0.0 
-  SemanticPattern                                           0m  CC̄=0.0   max=0.0 
   DependencyType                                            0m  CC̄=0.0   max=0.0 
   CommandMatch                                              0m  CC̄=0.0   max=0.0 
-  CommandTest                                               0m  CC̄=0.0   max=0.0 
   CommandParameter                                          0m  CC̄=0.0   max=0.0 
   CommandSchema                                             0m  CC̄=0.0   max=0.0 
   ExtractedSchema                                           0m  CC̄=0.0   max=0.0 
-  CommandRequest                                            0m  CC̄=0.0   max=0.0 
-  CommandResponse                                           0m  CC̄=0.0   max=0.0 
-  HistoryResponse                                           0m  CC̄=0.0   max=0.0 
-  RunnerResult                                              0m  CC̄=0.0   max=0.0 
-  ServiceType                                               0m  CC̄=0.0   max=0.0 
-  ServiceConfig                                             0m  CC̄=0.0   max=0.0   ×1
-  AppAction                                                 0m  CC̄=0.0   max=0.0 
-  TokenCostEstimate                                         0m  CC̄=0.0   max=0.0 
   MatchResult                                               0m  CC̄=0.0   max=0.0 
+  RunnerResult                                              0m  CC̄=0.0   max=0.0 
+  AppAction                                                 0m  CC̄=0.0   max=0.0 
   PipelineRunner                                            0m  CC̄=0.0   max=0.0 
-  DrawStep                                                  0m  CC̄=0.0   max=0.0 
-  FallbackContext                                           0m  CC̄=0.0   max=0.0 
-  FallbackResult                                            0m  CC̄=0.0   max=0.0 
   ResourceMetrics                                           0m  CC̄=0.0   max=0.0 
-  StepMetrics                                               0m  CC̄=0.0   max=0.0 
-  ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
+  TokenCostEstimate                                         0m  CC̄=0.0   max=0.0 
+  DrawStep                                                  0m  CC̄=0.0   max=0.0 
   FailureType                                               0m  CC̄=0.0   max=0.0 
   StepDiagnosis                                             0m  CC̄=0.0   max=0.0 
   RepairAttempt                                             0m  CC̄=0.0   max=0.0 
   FeedbackResult                                            0m  CC̄=0.0   max=0.0   ×1
+  StepMetrics                                               0m  CC̄=0.0   max=0.0 
+  ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
   CaptchaInfo                                               0m  CC̄=0.0   max=0.0 
   ServiceConfig                                             0m  CC̄=0.0   max=0.0   ×1
-  ExtractedEntity                                           0m  CC̄=0.0   max=0.0 
   SemanticMatch                                             0m  CC̄=0.0   max=0.0 
   IntentEmbedding                                           0m  CC̄=0.0   max=0.0 
+  ExtractedEntity                                           0m  CC̄=0.0   max=0.0 
+  FallbackContext                                           0m  CC̄=0.0   max=0.0 
+  FallbackResult                                            0m  CC̄=0.0   max=0.0 
   MatchResult                                               0m  CC̄=0.0   max=0.0 
   PhraseSchema                                              0m  CC̄=0.0   max=0.0 
-  LookupResult                                              0m  CC̄=0.0   max=0.0 
-  ComplexityAnalysis                                        0m  CC̄=0.0   max=0.0 
-  SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
   IntentPrediction                                          0m  CC̄=0.0   max=0.0 
   TrainingSample                                            0m  CC̄=0.0   max=0.0 
+  ComplexityAnalysis                                        0m  CC̄=0.0   max=0.0 
+  SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
   ContextualMatch                                           0m  CC̄=0.0   max=0.0 
   SchedulingEnergy                                          0m  CC̄=0.0   max=0.0   ×1
   AllocationEnergy                                          0m  CC̄=0.0   max=0.0   ×3
   RoutingEnergy                                             0m  CC̄=0.0   max=0.0   ×1
-  ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
-  ValidatingGeneratorResult                                 0m  CC̄=0.0   max=0.0 
   RoutingResult                                             0m  CC̄=0.0   max=0.0 
   MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
-  HybridResult                                              0m  CC̄=0.0   max=0.0 
+  ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
+  ValidatingGeneratorResult                                 0m  CC̄=0.0   max=0.0 
   LLMConfig                                                 0m  CC̄=0.0   max=0.0 
   LLMGenerationResult                                       0m  CC̄=0.0   max=0.0 
+  HybridResult                                              0m  CC̄=0.0   max=0.0 
   StructuredPlanResult                                      0m  CC̄=0.0   max=0.0 
-  QueryRequest                                              0m  CC̄=0.0   max=0.0 
-  QueryResponse                                             0m  CC̄=0.0   max=0.0 
   TemplateResult                                            0m  CC̄=0.0   max=0.0 
   PlannerConfig                                             0m  CC̄=0.0   max=0.0 
   PlanningResult                                            0m  CC̄=0.0   max=0.0 
+  QueryRequest                                              0m  CC̄=0.0   max=0.0 
+  QueryResponse                                             0m  CC̄=0.0   max=0.0 
   TransformStatus                                           0m  CC̄=0.0   max=0.0 
   Intent                                                    0m  CC̄=0.0   max=0.0 
   Entity                                                    0m  CC̄=0.0   max=0.0 
-  NormalizedQuery                                           0m  CC̄=0.0   max=0.0 
   IntentMatch                                               0m  CC̄=0.0   max=0.0 
+  NormalizedQuery                                           0m  CC̄=0.0   max=0.0 
+  LookupResult                                              0m  CC̄=0.0   max=0.0 
   ErrorCategory                                             0m  CC̄=0.0   max=0.0 
   RepairResult                                              0m  CC̄=0.0   max=0.0 
   ExecutorContext                                           0m  CC̄=0.0   max=0.0 
+  FormData                                                  0m  CC̄=0.0   max=0.0 
   PageInfo                                                  0m  CC̄=0.0   max=0.0 
   ExplorationResult                                         0m  CC̄=0.0   max=0.0 
-  FormData                                                  0m  CC̄=0.0   max=0.0 
   BrowserResult                                             0m  CC̄=0.0   max=0.0 
-  ExplorationResult                                         0m  CC̄=0.0   max=0.0 
-  ExplorationContext                                        0m  CC̄=0.0   max=0.0 
   ExecutionResult                                           0m  CC̄=0.0   max=0.0 
   RecoveryContext                                           0m  CC̄=0.0   max=0.0 
+  ExplorationResult                                         0m  CC̄=0.0   max=0.0 
+  ExplorationContext                                        0m  CC̄=0.0   max=0.0 
   MissingResource                                           0m  CC̄=0.0   max=0.0 
   DiscoveryDecision                                         0m  CC̄=0.0   max=0.0 
   FileInfo                                                  0m  CC̄=0.0   max=0.0 
   DataNode                                                  0m  CC̄=0.0   max=0.0 
   DataMatch                                                 0m  CC̄=0.0   max=0.0 
-  OutputFormat                                              0m  CC̄=0.0   max=0.0 
-  AggregatedResult                                          0m  CC̄=0.0   max=0.0 
   EndpointInfo                                              0m  CC̄=0.0   max=0.0 
   ServiceInfo                                               0m  CC̄=0.0   max=0.0 
+  OutputFormat                                              0m  CC̄=0.0   max=0.0 
+  AggregatedResult                                          0m  CC̄=0.0   max=0.0 
   VisionResult                                              0m  CC̄=0.0   max=0.0 
   LLMResponse                                               0m  CC̄=0.0   max=0.0 
   RepairResult                                              0m  CC̄=0.0   max=0.0 
   ValidationVerdict                                         0m  CC̄=0.0   max=0.0 
   _ParsedSize                                               0m  CC̄=0.0   max=0.0 
+  Task                                                      0m  CC̄=0.0   max=0.0 
+  Resource                                                  0m  CC̄=0.0   max=0.0 
   ParamType                                                 0m  CC̄=0.0   max=0.0 
   ParamSchema                                               0m  CC̄=0.0   max=0.0 
   LangevinConfig                                            0m  CC̄=0.0   max=0.0 
   SamplerResult                                             0m  CC̄=0.0   max=0.0 
+  SafetyPolicy                                              0m  CC̄=0.0   max=0.0 
+  AdapterConfig                                             0m  CC̄=0.0   max=0.0 
   StepStatus                                                0m  CC̄=0.0   max=0.0 
   StepResult                                                0m  CC̄=0.0   max=0.0 
   ExecutionResult                                           0m  CC̄=0.0   max=0.0 
-  SafetyPolicy                                              0m  CC̄=0.0   max=0.0 
-  AdapterConfig                                             0m  CC̄=0.0   max=0.0 
   DQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
   EntityContext                                             0m  CC̄=0.0   max=0.0 
-  Task                                                      0m  CC̄=0.0   max=0.0 
-  Resource                                                  0m  CC̄=0.0   max=0.0 
-  BrowserSafetyPolicy                                       0m  CC̄=0.0   max=0.0 
   ComposeContext                                            0m  CC̄=0.0   max=0.0 
+  BrowserSafetyPolicy                                       0m  CC̄=0.0   max=0.0 
   ClusterContext                                            0m  CC̄=0.0   max=0.0 
-  ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
-  EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
-  AppSpecAdapterConfig                                      0m  CC̄=0.0   max=0.0 
   SQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
   SchemaContext                                             0m  CC̄=0.0   max=0.0 
+  AppSpecAdapterConfig                                      0m  CC̄=0.0   max=0.0 
+  ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
+  EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
   DesktopAction                                             0m  CC̄=0.0   max=0.0 
   DisambiguationResult                                      0m  CC̄=0.0   max=0.0 
   StreamResult                                              0m  CC̄=0.0   max=0.0 
@@ -2618,11 +2371,11 @@ CLASSES:
   DrawingStep                                               0m  CC̄=0.0   max=0.0 
   DrawingPlan                                               0m  CC̄=0.0   max=0.0 
   CanvasSafetyPolicy                                        0m  CC̄=0.0   max=0.0 
-  ToonNodeType                                              0m  CC̄=0.0   max=0.0 
-  ToonNode                                                  0m  CC̄=0.0   max=0.0 
   RoutingDecision                                           0m  CC̄=0.0   max=0.0 
   RoutingResult                                             0m  CC̄=0.0   max=0.0 
   RouterConfig                                              0m  CC̄=0.0   max=0.0 
+  ToonNodeType                                              0m  CC̄=0.0   max=0.0 
+  ToonNode                                                  0m  CC̄=0.0   max=0.0 
   FeedbackType                                              0m  CC̄=0.0   max=0.0 
   CorrectionRule                                            0m  CC̄=0.0   max=0.0 
   CommandParameter                                          0m  CC̄=0.0   max=0.0 
@@ -2632,40 +2385,10 @@ CLASSES:
   CheckResult                                               0m  CC̄=0.0   max=0.0 
   ActionType                                                0m  CC̄=0.0   max=0.0 
   ExecutionContext                                          0m  CC̄=0.0   max=0.0   ×1
-  ProcessType                                               0m  CC̄=0.0   max=0.0 
-  ProcessResult                                             0m  CC̄=0.0   max=0.0 
-  BenchmarkCase                                             0m  CC̄=0.0   max=0.0 
-  CaseResult                                                0m  CC̄=0.0   max=0.0 
-  PromptExample                                             0m  CC̄=0.0   max=0.0 
-  FileOperationTest                                         0m  CC̄=0.0   max=0.0 
-  CommandTest                                               0m  CC̄=0.0   max=0.0 
-  ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
-  NetworkCommandTest                                        0m  CC̄=0.0   max=0.0 
-  SystemCommandTest                                         0m  CC̄=0.0   max=0.0 
-  BlastCommand                                              0m  CC̄=0.0   max=0.0 
-  SequenceCommand                                           0m  CC̄=0.0   max=0.0 
-  ConversionCommand                                         0m  CC̄=0.0   max=0.0 
-  PipelineStep                                              0m  CC̄=0.0   max=0.0 
-  FileCommand                                               0m  CC̄=0.0   max=0.0 
-  SearchResult                                              0m  CC̄=0.0   max=0.0 
   ValidationType                                            0m  CC̄=0.0   max=0.0 
   ValidationResult                                          0m  CC̄=0.0   max=0.0   ×1
-  CommandRequest                                            0m  CC̄=0.0   max=0.0 
-  CommandResponse                                           0m  CC̄=0.0   max=0.0 
-  HistoryResponse                                           0m  CC̄=0.0   max=0.0 
-  ServiceType                                               0m  CC̄=0.0   max=0.0 
-  ServiceConfig                                             0m  CC̄=0.0   max=0.0   ×1
-  DeployCommand                                             0m  CC̄=0.0   max=0.0 
-  Service                                                   0m  CC̄=0.0   max=0.0 
-  InfraCommand                                              0m  CC̄=0.0   max=0.0 
-  SimpleServiceConfig                                       0m  CC̄=0.0   max=0.0 
-  ServiceType                                               0m  CC̄=0.0   max=0.0 
-  ServiceConfig                                             0m  CC̄=0.0   max=0.0   ×1
-  RoutingDecision                                           0m  CC̄=0.0   max=0.0 
-  OutputFormat                                              0m  CC̄=0.0   max=0.0 
-  ExecutionResult                                           0m  CC̄=0.0   max=0.0 
-  PlanStep                                                  0m  CC̄=0.0   max=0.0 
-  ExecutionResult                                           0m  CC̄=0.0   max=0.0 
+  ProcessType                                               0m  CC̄=0.0   max=0.0 
+  ProcessResult                                             0m  CC̄=0.0   max=0.0 
 
 D:
   src/nlp2cmd/pipeline_runner_plans.py:
@@ -2850,7 +2573,7 @@ No LLM ...
       __init__(6)  CC=13.0
     enhanced_domain_detection(query,base_domain)
     enhanced_intent_detection(query,base_intent)
-  webops/nlp2cmd-repo/src/nlp2cmd/core.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py:
     e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult,NLPBackend,SpaCyBackend,LLMBackend,RuleBasedBackend,NLP2CMD,enhanced_domain_detection,enhanced_intent_detection
     TransformStatus  # Status of a transformation operation....
     Intent  # Represents a detected intent from natural language input....
@@ -2877,7 +2600,7 @@ No LLM ...
       __init__(6)  CC=13.0
     enhanced_domain_detection(query,base_domain)
     enhanced_intent_detection(query,base_intent)
-  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/core.py:
     e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult,NLPBackend,SpaCyBackend,LLMBackend,RuleBasedBackend,NLP2CMD,enhanced_domain_detection,enhanced_intent_detection
     TransformStatus  # Status of a transformation operation....
     Intent  # Represents a detected intent from natural language input....
@@ -3626,16 +3349,6 @@ Combines:
     group_degree_centrality(G,S)
     group_in_degree_centrality(G,S)
     group_out_degree_centrality(G,S)
-  src/nlp2cmd/schema_extraction/script_extractors.py:
-    e: ShellScriptExtractor,MakefileExtractor,_shell_opt_to_param_name,_dedupe_params
-    ShellScriptExtractor  # Extract schema from a shell script file using shlex/regex he...
-      extract_from_file(1)  CC=2.0
-        → extract_from_source(2)  CC=30.0  !
-    MakefileExtractor  # Extract schema from Makefile targets and variables....
-      extract_from_file(1)  CC=2.0
-        → extract_from_source(2)  CC=18.0  !
-    _shell_opt_to_param_name(opt)
-    _dedupe_params(params)
   src/nlp2cmd/schema_extraction/python_extractors.py:
     e: PythonCodeExtractor,ClickExtractor,_ast_unparse,_python_annotation_to_param_type
     PythonCodeExtractor  ×DUP  # Extract command schemas from Python source code with decorat...
@@ -3650,6 +3363,16 @@ Combines:
       __init__(0)  CC=1.0
     _ast_unparse(node)
     _python_annotation_to_param_type(annotation)
+  src/nlp2cmd/schema_extraction/script_extractors.py:
+    e: ShellScriptExtractor,MakefileExtractor,_shell_opt_to_param_name,_dedupe_params
+    ShellScriptExtractor  # Extract schema from a shell script file using shlex/regex he...
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=30.0  !
+    MakefileExtractor  # Extract schema from Makefile targets and variables....
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=18.0  !
+    _shell_opt_to_param_name(opt)
+    _dedupe_params(params)
   networkx-3.6.1-py3-none-any/networkx/convert_matrix.py:
     e: to_pandas_adjacency,from_pandas_adjacency,to_pandas_edgelist,from_pandas_edgelist,to_scipy_sparse_array,_csr_gen_triples,_csc_gen_triples,_coo_gen_triples,_dok_gen_triples,_generate_weighted_edges,from_scipy_sparse_array,to_numpy_array,from_numpy_array
     to_pandas_adjacency(G,nodelist,dtype,order,multigraph_weight,weight,nonedge)
@@ -4344,26 +4067,26 @@ Transforms natural la...
     e: ServiceType,ServiceConfig,DeploymentPlan,OutputFileManager,DockerManager,NLCommandParser,NLP2CMDWebController,NLP2CMDWebAPI,run_command
     ServiceType  # Types of services that can be managed....
     ServiceConfig  ×DUP  # Configuration for a managed service....
-    DeploymentPlan  ×DUP  # Plan for deploying services....
+    DeploymentPlan  # Plan for deploying services....
       to_compose(0)  CC=17.0  !
         → _create_redis_service(0)  CC=1.0
         → _create_postgres_service(0)  CC=1.0
-    OutputFileManager  ×DUP  # Manages saving generated configurations to files....
+    OutputFileManager  # Manages saving generated configurations to files....
       __init__(1)  CC=1.0
-    DockerManager  ×DUP  # Manages Docker Compose operations and container lifecycle....
+    DockerManager  # Manages Docker Compose operations and container lifecycle....
       __init__(2)  CC=1.0
-    NLCommandParser  ×DUP  # Parse natural language commands into structured actions.
+    NLCommandParser  # Parse natural language commands into structured actions.
 
 Su...
       parse(1)  CC=1.0
         → _detect_intent(1)  CC=19.0  !
         → _detect_service_type(1)  CC=4.0
         → _extract_entities(1)  CC=16.0  !
-    NLP2CMDWebController  ×DUP  # Main controller for NLP2CMD-powered web infrastructure.
+    NLP2CMDWebController  # Main controller for NLP2CMD-powered web infrastructure.
 
 Thi...
       __init__(3)  CC=4.0
-    NLP2CMDWebAPI  ×DUP  # Example web API integration for NLP2CMD.
+    NLP2CMDWebAPI  # Example web API integration for NLP2CMD.
 
 This class shows h...
       __init__(0)  CC=1.0
@@ -4399,26 +4122,26 @@ This class shows h...
     e: ServiceType,ServiceConfig,DeploymentPlan,OutputFileManager,DockerManager,NLCommandParser,NLP2CMDWebController,NLP2CMDWebAPI,run_command
     ServiceType  # Types of services that can be managed....
     ServiceConfig  ×DUP  # Configuration for a managed service....
-    DeploymentPlan  ×DUP  # Plan for deploying services....
+    DeploymentPlan  # Plan for deploying services....
       to_compose(0)  CC=17.0  !
         → _create_redis_service(0)  CC=1.0
         → _create_postgres_service(0)  CC=1.0
-    OutputFileManager  ×DUP  # Manages saving generated configurations to files....
+    OutputFileManager  # Manages saving generated configurations to files....
       __init__(1)  CC=1.0
-    DockerManager  ×DUP  # Manages Docker Compose operations and container lifecycle....
+    DockerManager  # Manages Docker Compose operations and container lifecycle....
       __init__(2)  CC=1.0
-    NLCommandParser  ×DUP  # Parse natural language commands into structured actions.
+    NLCommandParser  # Parse natural language commands into structured actions.
 
 Su...
       parse(1)  CC=1.0
         → _detect_intent(1)  CC=19.0  !
         → _detect_service_type(1)  CC=4.0
         → _extract_entities(1)  CC=16.0  !
-    NLP2CMDWebController  ×DUP  # Main controller for NLP2CMD-powered web infrastructure.
+    NLP2CMDWebController  # Main controller for NLP2CMD-powered web infrastructure.
 
 Thi...
       __init__(3)  CC=4.0
-    NLP2CMDWebAPI  ×DUP  # Example web API integration for NLP2CMD.
+    NLP2CMDWebAPI  # Example web API integration for NLP2CMD.
 
 This class shows h...
       __init__(0)  CC=1.0
@@ -4600,9 +4323,9 @@ The pl...
     main()
   webops/nlp2cmd-repo/examples/toon_comparison_demo.py:
     e: OldSystemLoader,SimpleToonParser,benchmark_performance,compare_usage_patterns,compare_data_structure,demonstrate_llm_friendly_format,main
-    OldSystemLoader  ×DUP  # Mock old system using separate JSON/YAML files...
+    OldSystemLoader  # Mock old system using separate JSON/YAML files...
       __init__(0)  CC=1.0
-    SimpleToonParser  ×DUP  # Simplified TOON parser for demo...
+    SimpleToonParser  # Simplified TOON parser for demo...
       __init__(1)  CC=1.0
         → _parse_file(0)  CC=17.0  !
     benchmark_performance()
@@ -4652,9 +4375,9 @@ The pl...
     simulate_interactive_session()
   examples/03_integrations/toon_format/comparison_demo.py:
     e: OldSystemLoader,SimpleToonParser,benchmark_performance,compare_usage_patterns,compare_data_structure,demonstrate_llm_friendly_format,main
-    OldSystemLoader  ×DUP  # Mock old system using separate JSON/YAML files...
+    OldSystemLoader  # Mock old system using separate JSON/YAML files...
       __init__(0)  CC=1.0
-    SimpleToonParser  ×DUP  # Simplified TOON parser for demo...
+    SimpleToonParser  # Simplified TOON parser for demo...
       __init__(1)  CC=1.0
         → _parse_file(0)  CC=17.0  !
     benchmark_performance()
@@ -4762,7 +4485,7 @@ Features:
   webops/nlp2cmd-repo/examples/use_cases/shell_validation.py:
     e: CommandTest,ShellCommandValidator,main
     CommandTest  # Test case dla komendy shell....
-    ShellCommandValidator  ×DUP  # Walidator komend shell....
+    ShellCommandValidator  # Walidator komend shell....
       __init__(0)  CC=1.0
     main()
   src/nlp2cmd/exploration/data_tree.py:
@@ -4815,7 +4538,7 @@ Features:
   examples/04_domain_specific/debugging/validation.py:
     e: CommandTest,ShellCommandValidator,main
     CommandTest  # Test case dla komendy shell....
-    ShellCommandValidator  ×DUP  # Walidator komend shell....
+    ShellCommandValidator  # Walidator komend shell....
       __init__(0)  CC=1.0
     main()
   examples/benchmark_learning.py:
@@ -5012,15 +4735,15 @@ Transfor...
       __init__(1)  CC=2.0
     get_parser(file_path)
     reload_parser(file_path)
-  webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/llm_extractor.py:
-    e: LLMSchemaExtractor
-    LLMSchemaExtractor  ×DUP  # Extract command schemas using LLM assistance....
-      __init__(1)  CC=4.0
   webops/nlp2cmd-repo/src/nlp2cmd/intelligent/dynamic_generator.py:
     e: DynamicSchemaGenerator,test_dynamic_generation
     DynamicSchemaGenerator  ×DUP  # Generates schemas dynamically without hardcoding....
       __init__(1)  CC=1.0
     test_dynamic_generation()
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/llm_extractor.py:
+    e: LLMSchemaExtractor
+    LLMSchemaExtractor  ×DUP  # Extract command schemas using LLM assistance....
+      __init__(1)  CC=4.0
   webops/nlp2cmd-repo/examples/pipelines/log_analysis.py:
     e: mock_find_logs,mock_count_pattern,mock_read_file,main
     mock_find_logs()
@@ -5122,23 +4845,6 @@ Transfor...
     e: kl_connected_subgraph,is_kl_connected
     kl_connected_subgraph(G,k,l,low_memory,same_as_graph)
     is_kl_connected(G,k,l,low_memory)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/generators.py:
-    e: complete_bipartite_graph,configuration_model,havel_hakimi_graph,reverse_havel_hakimi_graph,alternating_havel_hakimi_graph,preferential_attachment_graph,random_graph,gnmk_random_graph,_add_nodes_with_bipartite_label
-    complete_bipartite_graph(n1,n2,create_using)
-    configuration_model(aseq,bseq,create_using,seed)
-    havel_hakimi_graph(aseq,bseq,create_using)
-    reverse_havel_hakimi_graph(aseq,bseq,create_using)
-    alternating_havel_hakimi_graph(aseq,bseq,create_using)
-    preferential_attachment_graph(aseq,p,create_using,seed)
-    random_graph(n,m,p,seed,directed)
-    gnmk_random_graph(n,m,k,seed,directed)
-    _add_nodes_with_bipartite_label(G,lena,lenb)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/edgelist.py:
-    e: write_edgelist,generate_edgelist,parse_edgelist,read_edgelist
-    write_edgelist(G,path,comments,delimiter,data,encoding)
-    generate_edgelist(G,delimiter,data)
-    parse_edgelist(lines,comments,delimiter,create_using,nodetype,data)
-    read_edgelist(path,comments,delimiter,create_using,nodetype,data,edgetype,encoding)
   networkx-3.6.1-py3-none-any/networkx/algorithms/threshold.py:
     e: is_threshold_graph,is_threshold_sequence,creation_sequence,make_compact,uncompact,creation_sequence_to_weights,weights_to_creation_sequence,threshold_graph,find_alternating_4_cycle,find_threshold_graph,find_creation_sequence,triangles,triangle_sequence,cluster_sequence,degree_sequence,density,degree_correlation,shortest_path,shortest_path_length,betweenness_sequence,eigenvectors,spectral_projection,eigenvalues,random_threshold_sequence,right_d_threshold_sequence,left_d_threshold_sequence
     is_threshold_graph(G)
@@ -5167,6 +4873,23 @@ Transfor...
     random_threshold_sequence(n,p,seed)
     right_d_threshold_sequence(n,m)
     left_d_threshold_sequence(n,m)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/generators.py:
+    e: complete_bipartite_graph,configuration_model,havel_hakimi_graph,reverse_havel_hakimi_graph,alternating_havel_hakimi_graph,preferential_attachment_graph,random_graph,gnmk_random_graph,_add_nodes_with_bipartite_label
+    complete_bipartite_graph(n1,n2,create_using)
+    configuration_model(aseq,bseq,create_using,seed)
+    havel_hakimi_graph(aseq,bseq,create_using)
+    reverse_havel_hakimi_graph(aseq,bseq,create_using)
+    alternating_havel_hakimi_graph(aseq,bseq,create_using)
+    preferential_attachment_graph(aseq,p,create_using,seed)
+    random_graph(n,m,p,seed,directed)
+    gnmk_random_graph(n,m,k,seed,directed)
+    _add_nodes_with_bipartite_label(G,lena,lenb)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/edgelist.py:
+    e: write_edgelist,generate_edgelist,parse_edgelist,read_edgelist
+    write_edgelist(G,path,comments,delimiter,data,encoding)
+    generate_edgelist(G,delimiter,data)
+    parse_edgelist(lines,comments,delimiter,create_using,nodetype,data)
+    read_edgelist(path,comments,delimiter,create_using,nodetype,data,edgetype,encoding)
   networkx-3.6.1-py3-none-any/networkx/algorithms/centrality/trophic.py:
     e: trophic_levels,trophic_differences,trophic_incoherence_parameter
     trophic_levels(G,weight)
@@ -5670,6 +5393,12 @@ Tran...
         → __init__(0)  CC=3.0
         → set_spec(1)  CC=1.0
         → load_from_file(1)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/concepts/conceptual_commands.py:
+    e: ConceptualCommand,ConceptualCommandGenerator
+    ConceptualCommand  # Command generated from conceptual understanding....
+      __post_init__(0)  CC=2.0
+    ConceptualCommandGenerator  # Generates commands using conceptual understanding....
+      __init__(0)  CC=1.0
   webops/nlp2cmd-repo/src/nlp2cmd/schema_based/generator.py:
     e: SchemaBasedGenerator,SchemaRegistry,test_schema_based_generator
     SchemaBasedGenerator  ×DUP  # Generates commands using schemas instead of templates....
@@ -5677,12 +5406,6 @@ Tran...
     SchemaRegistry  ×DUP  # Registry for managing and improving schemas....
       __init__(1)  CC=1.0
     test_schema_based_generator()
-  webops/nlp2cmd-repo/src/nlp2cmd/concepts/conceptual_commands.py:
-    e: ConceptualCommand,ConceptualCommandGenerator
-    ConceptualCommand  # Command generated from conceptual understanding....
-      __post_init__(0)  CC=2.0
-    ConceptualCommandGenerator  # Generates commands using conceptual understanding....
-      __init__(0)  CC=1.0
   webops/nlp2cmd-repo/examples/architecture/end_to_end_demo.py:
     e: print_section,print_step,mock_sql_select,mock_shell_find,mock_shell_count_pattern,mock_k8s_get,main
     print_section(title)
@@ -6384,12 +6107,12 @@ The heuristic choo...
     project_sample(problem,raw_sample)
     print_projected(title,projected)
     print_fallback_note(problem_name)
+  examples/01_basics/sql_basics/example.py:
+    e: main
+    main()
   examples/01_basics/sql_basics/workflows.py:
     e: print_section,main
     print_section(title)
-    main()
-  examples/01_basics/sql_basics/example.py:
-    e: main
     main()
   examples/08_api_key_management/06_multi_provider/run.py:
     e: scan,plan_all,setup_providers,setup_all,main
@@ -6595,6 +6318,17 @@ Works w...
     _get_jellyfish()
     _get_rapidfuzz()
     create_multilingual_matcher(phrases_dict,schema_path)
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/semantic_matcher.py:
+    e: SemanticMatch,IntentEmbedding,SemanticMatcher,_check_sentence_transformers,create_semantic_matcher_from_phrases,get_semantic_matcher
+    SemanticMatch  # Result of semantic matching....
+    IntentEmbedding  # Stored embedding for an intent phrase....
+    SemanticMatcher  # Semantic similarity matcher using sentence embeddings.
+
+Feat...
+      __init__(3)  CC=2.0
+    _check_sentence_transformers()
+    create_semantic_matcher_from_phrases(phrases_path)
+    get_semantic_matcher()
   webops/nlp2cmd-repo/src/nlp2cmd/generation/validating.py:
     e: DSLValidator,ValidationResult,ValidatingGeneratorResult,ValidatingGenerator,SimpleSQLValidator,SimpleShellValidator,SimpleDockerValidator,SimpleKubernetesValidator,create_default_validators
     DSLValidator  # Protocol for DSL validators....
@@ -6629,17 +6363,6 @@ Uses JSON mode to ens...
 
 Decompose complex queries in...
       decompose(2)  CC=9.0
-  webops/nlp2cmd-repo/src/nlp2cmd/generation/semantic_matcher.py:
-    e: SemanticMatch,IntentEmbedding,SemanticMatcher,_check_sentence_transformers,create_semantic_matcher_from_phrases,get_semantic_matcher
-    SemanticMatch  # Result of semantic matching....
-    IntentEmbedding  # Stored embedding for an intent phrase....
-    SemanticMatcher  # Semantic similarity matcher using sentence embeddings.
-
-Feat...
-      __init__(3)  CC=2.0
-    _check_sentence_transformers()
-    create_semantic_matcher_from_phrases(phrases_path)
-    get_semantic_matcher()
   webops/nlp2cmd-repo/src/nlp2cmd/core/toon_integration.py:
     e: ToonDataManager,get_data_manager,reload_data_manager,load_command_schemas,load_config,get_project_info
     ToonDataManager  ×DUP  # Unified data manager using TOON format...
@@ -6937,9 +6660,6 @@ A Graph stores nodes and ...
     e: adjacency_data,adjacency_graph
     adjacency_data(G,attrs)
     adjacency_graph(data,directed,multigraph,attrs)
-  scripts/maintenance/generate_refactor_report.py:
-    e: generate_refactor_report
-    generate_refactor_report()
   scripts/thermodynamic/termo2.py:
     e: HyperparameterSpace,HyperparameterOptimizer,DeliveryPoint,VRPSolver,Surgery,OperatingRoom,ORScheduler,PowerPlant,UnitCommitmentSolver,GenomicSample,PipelineStep,GenomicPipelineScheduler,demo_devops_automation,demo_hyperparameter_optimization,demo_vehicle_routing,demo_or_scheduling,demo_unit_commitment,demo_genomic_pipeline,main
     HyperparameterSpace  # Przestrzeń hiperparametrów do optymalizacji....
@@ -6974,6 +6694,9 @@ Decyduje które elektro...
     demo_unit_commitment()
     demo_genomic_pipeline()
     main()
+  scripts/maintenance/generate_refactor_report.py:
+    e: generate_refactor_report
+    generate_refactor_report()
   webops/nlp2cmd-repo/examples/toon_usage_example.py:
     e: main
     main()
@@ -7034,11 +6757,6 @@ Decyduje które elektro...
   webops/nlp2cmd-repo/examples/use_cases/debug_intents.py:
     e: debug_intents
     debug_intents()
-  src/nlp2cmd/automation/shape_planner.py:
-    e: ShapePlanner
-    ShapePlanner  # Manages a knowledge base of shapes and generates new ones vi...
-      __init__(2)  CC=1.0
-        → _load_db(0)  CC=3.0
   src/nlp2cmd/automation/vector_store.py:
     e: DrawingPattern,DrawingVectorStore,get_vector_store,initialize_default_patterns,export_patterns_to_file,import_patterns_from_file
     DrawingPattern  # A drawing pattern with metadata and steps....
@@ -7049,6 +6767,11 @@ Decyduje które elektro...
     initialize_default_patterns()
     export_patterns_to_file(filepath)
     import_patterns_from_file(filepath)
+  src/nlp2cmd/automation/shape_planner.py:
+    e: ShapePlanner
+    ShapePlanner  # Manages a knowledge base of shapes and generates new ones vi...
+      __init__(2)  CC=1.0
+        → _load_db(0)  CC=3.0
   src/nlp2cmd/service/__init__.py:
     e: ServiceConfig,QueryRequest,QueryResponse,NLP2CMDService,_ensure_service_deps,create_app,create_service_config_from_args
     ServiceConfig  ×DUP  # Configuration for NLP2CMD service....
@@ -7100,7 +6823,7 @@ Implementations must...
     debug_intents()
   examples/03_integrations/toon_format/06_old_system_mock/demo.py:
     e: OldSystemLoader,main
-    OldSystemLoader  ×DUP  # Mock starego systemu używający osobnych plików JSON/YAML....
+    OldSystemLoader  # Mock starego systemu używający osobnych plików JSON/YAML....
       __init__(0)  CC=1.0
     main()
   examples/08_api_key_management/05_openai_key/run.py:
@@ -7202,6 +6925,9 @@ Multie...
     ProjectSummary  ×DUP  # Generates final project summary...
       __init__(0)  CC=1.0
     main()
+  webops/nlp2cmd-repo/scripts/setup_external.py:
+    e: main
+    main()
   webops/nlp2cmd-repo/termo2/hyperparameter_optimization.py:
     e: HyperparameterSpace,HyperparameterResult,HyperparameterOptimizer,demo_hyperparameter_optimization
     HyperparameterSpace  # Definition of hyperparameter search space....
@@ -7211,19 +6937,11 @@ Multie...
     HyperparameterOptimizer  ×DUP  # Hyperparameter optimizer using thermodynamic approach....
       __init__(2)  CC=1.0
     demo_hyperparameter_optimization()
-  webops/nlp2cmd-repo/scripts/setup_external.py:
-    e: main
-    main()
   webops/nlp2cmd-repo/demos/schema_flow_demo.py:
     e: show_schema_extraction_flow,show_file_locations,show_api_usage,main
     show_schema_extraction_flow()
     show_file_locations()
     show_api_usage()
-    main()
-  webops/nlp2cmd-repo/tools/schema/cmd2schema.py:
-    e: CommandSchemaGenerator,main
-    CommandSchemaGenerator  ×DUP  # Generate schemas for command-line tools....
-      __init__(2)  CC=3.0
     main()
   webops/nlp2cmd-repo/tools/generation/intelligent_command_generator.py:
     e: GenerationMethod,GenerationResult,IntelligentCommandGenerator,main
@@ -7231,6 +6949,11 @@ Multie...
     GenerationResult  # Result of command generation....
     IntelligentCommandGenerator  ×DUP  # Intelligent command generator with adaptive strategies....
       __init__(1)  CC=3.0
+    main()
+  webops/nlp2cmd-repo/tools/schema/cmd2schema.py:
+    e: CommandSchemaGenerator,main
+    CommandSchemaGenerator  ×DUP  # Generate schemas for command-line tools....
+      __init__(2)  CC=3.0
     main()
   webops/nlp2cmd-repo/src/nlp2cmd/storage/per_command_store.py:
     e: PerCommandSchemaStore,test_per_command_store
@@ -7652,6 +7375,22 @@ Usag...
       __init__(2)  CC=2.0
         → _coerce_adapter_config(1)  CC=6.0
         → _coerce_safety_policy(0)  CC=5.0
+  src/nlp2cmd/src/nlp2cmd/validation/framework.py:
+    e: ValidationType,ValidationResult,BaseValidator,SafetyPolicyValidator,FormFieldValidator,ValidationFramework,validate_safety_policy,validate_form_field
+    ValidationType  # Types of validation....
+    ValidationResult  ×DUP  # Result of validation operation....
+    BaseValidator  # Base class for all validators....
+      __init__(1)  CC=1.0
+    SafetyPolicyValidator  # Validates against safety policies....
+      __init__(0)  CC=1.0
+        → __init__(0)  CC=1.0
+    FormFieldValidator  # Validates form fields....
+      __init__(0)  CC=1.0
+        → __init__(0)  CC=1.0
+    ValidationFramework  # Main validation framework that coordinates all validators....
+      __init__(0)  CC=1.0
+    validate_safety_policy(command,context)
+    validate_form_field(field_data,context)
   src/nlp2cmd/src/nlp2cmd/processing/framework.py:
     e: ProcessType,ProcessResult,BaseProcessor,FilterProcessor,MapProcessor,TransformProcessor,ReduceProcessor,AggregateProcessor,ProcessingPipeline,create_filter,create_map,create_transform,create_reduce,create_aggregate,pipeline,filter_form_fields,map_field_attributes,aggregate_field_stats
     ProcessType  # Types of data processing....
@@ -7695,6 +7434,9 @@ Usag...
   examples/04_domain_specific/polish_llm_integration/download_bielik.py:
     e: download_bielik
     download_bielik()
+  examples/04_domain_specific/debugging/generator.py:
+    e: debug_generator
+    debug_generator()
   examples/04_domain_specific/bioinformatics/complete_examples.py:
     e: print_separator,print_result,demo_python_api,demo_shell_commands,demo_mixed_usage,demo_advanced_features,main
     print_separator(title)
@@ -7704,9 +7446,6 @@ Usag...
     demo_mixed_usage()
     demo_advanced_features()
     main()
-  examples/04_domain_specific/debugging/generator.py:
-    e: debug_generator
-    debug_generator()
   examples/04_domain_specific/polish_llm_integration/03_llm_search/demo.py:
     e: LLMSearcher,main
     LLMSearcher  # Wyszukiwanie informacji za pomocą LLM....
@@ -7725,22 +7464,6 @@ In production, replace w...
     demonstrate_real_llm_setup()
     demonstrate_hybrid_approach()
     main()
-  src/nlp2cmd/src/nlp2cmd/validation/framework.py:
-    e: ValidationType,ValidationResult,BaseValidator,SafetyPolicyValidator,FormFieldValidator,ValidationFramework,validate_safety_policy,validate_form_field
-    ValidationType  # Types of validation....
-    ValidationResult  ×DUP  # Result of validation operation....
-    BaseValidator  # Base class for all validators....
-      __init__(1)  CC=1.0
-    SafetyPolicyValidator  # Validates against safety policies....
-      __init__(0)  CC=1.0
-        → __init__(0)  CC=1.0
-    FormFieldValidator  # Validates form fields....
-      __init__(0)  CC=1.0
-        → __init__(0)  CC=1.0
-    ValidationFramework  # Main validation framework that coordinates all validators....
-      __init__(0)  CC=1.0
-    validate_safety_policy(command,context)
-    validate_form_field(field_data,context)
   examples/03_integrations/validation/config_validation.py:
     e: print_section,print_result,main
     print_section(title)
@@ -7971,7 +7694,7 @@ Models:...
   examples/03_integrations/web_development/02_deployment_planning/demo.py:
     e: SimpleServiceConfig,DeploymentPlan,main
     SimpleServiceConfig  # Uproszczona konfiguracja usługi....
-    DeploymentPlan  ×DUP  # Plan wdrożenia wielu usług....
+    DeploymentPlan  # Plan wdrożenia wielu usług....
       summary(0)  CC=5.0
     main()
   examples/05_advanced_features/schema_driven_architecture/05_result_aggregator/demo.py:
@@ -8129,17 +7852,17 @@ Wraps OpenRouterClien...
     example_routing()
     example_direct_problem()
     main()
-  examples/05_advanced_features/schema_driven_architecture/03_llm_planner/demo.py:
-    e: PlanStep,LLMPlanner,main
-    PlanStep  # Pojedynczy krok planu....
-    LLMPlanner  ×DUP  # Mock LLM Planner....
-      generate_plan(2)  CC=4.0
-    main()
   examples/05_advanced_features/schema_driven_architecture/04_plan_executor/demo.py:
     e: ExecutionResult,PlanExecutor,main
     ExecutionResult  # Wynik wykonania kroku....
     PlanExecutor  ×DUP  # Wykonawca planu....
       __init__(0)  CC=1.0
+    main()
+  examples/05_advanced_features/schema_driven_architecture/03_llm_planner/demo.py:
+    e: PlanStep,LLMPlanner,main
+    PlanStep  # Pojedynczy krok planu....
+    LLMPlanner  ×DUP  # Mock LLM Planner....
+      generate_plan(2)  CC=4.0
     main()
   networkx-3.6.1-py3-none-any/networkx/generators/cographs.py:
     e: random_cograph
@@ -8455,7 +8178,7 @@ Attach the set of node...
     main()
   webops/nlp2cmd-repo/examples/toon_practical_usage.py:
     e: ToonDemo,main
-    ToonDemo  ×DUP  # Demo class showing TOON usage patterns...
+    ToonDemo  # Demo class showing TOON usage patterns...
       __init__(0)  CC=1.0
         → _load_toon_data(0)  CC=2.0
     main()
@@ -8570,9 +8293,12 @@ Attach the set of node...
     PDFSearchPipeline  # Pełny pipeline wyszukiwania w PDF....
       __init__(0)  CC=1.0
     main()
+  examples/01_basics/sql_basics/advanced.py:
+    e: main
+    main()
   examples/03_integrations/toon_format/practical_usage.py:
     e: ToonDemo,main
-    ToonDemo  ×DUP  # Demo class showing TOON usage patterns...
+    ToonDemo  # Demo class showing TOON usage patterns...
       __init__(0)  CC=1.0
         → _load_toon_data(0)  CC=2.0
     main()
@@ -8590,9 +8316,6 @@ Attach the set of node...
   examples/03_integrations/web_development/05_infrastructure_management/demo.py:
     e: InfraCommand,main
     InfraCommand  # Komenda zarządzania infrastrukturą....
-    main()
-  examples/01_basics/sql_basics/advanced.py:
-    e: main
     main()
   networkx-3.6.1-py3-none-any/networkx/exception.py:
     e: NetworkXException,NetworkXError,NetworkXPointlessConcept,NetworkXAlgorithmError,NetworkXUnfeasible,NetworkXNoPath,NetworkXNoCycle,HasACycle,NetworkXUnbounded,NetworkXNotImplemented,NodeNotFound,AmbiguousSolution,ExceededMaxIterations,PowerIterationFailedConvergence
@@ -8626,10 +8349,10 @@ ins...
     apply_to_templates_py()
     create_patch_files()
     main()
-  webops/nlp2cmd-repo/examples/schema_driven_manual_appspec.py:
+  webops/nlp2cmd-repo/examples/app2schema_to_nlp2cmd_dynamic.py:
     e: main
     main()
-  webops/nlp2cmd-repo/examples/app2schema_to_nlp2cmd_dynamic.py:
+  webops/nlp2cmd-repo/examples/schema_driven_manual_appspec.py:
     e: main
     main()
   webops/nlp2cmd-repo/examples/schema_driven_mvp.py:
@@ -8764,13 +8487,6 @@ Subclasses implement ``exe...
     demo_supply_chain_network()
     demo_cross_docking()
     main()
-  examples/04_domain_specific/data_science/example.py:
-    e: demo_hyperparameter_optimization,demo_feature_selection,demo_experiment_scheduling,demo_model_ensemble_optimization,main
-    demo_hyperparameter_optimization()
-    demo_feature_selection()
-    demo_experiment_scheduling()
-    demo_model_ensemble_optimization()
-    main()
   examples/04_domain_specific/smart_cities/example.py:
     e: demo_traffic_optimization,demo_smart_grid,demo_waste_management,demo_public_transport,demo_parking_management,demo_air_quality,demo_water_management,main
     demo_traffic_optimization()
@@ -8780,6 +8496,13 @@ Subclasses implement ``exe...
     demo_parking_management()
     demo_air_quality()
     demo_water_management()
+    main()
+  examples/04_domain_specific/data_science/example.py:
+    e: demo_hyperparameter_optimization,demo_feature_selection,demo_experiment_scheduling,demo_model_ensemble_optimization,main
+    demo_hyperparameter_optimization()
+    demo_feature_selection()
+    demo_experiment_scheduling()
+    demo_model_ensemble_optimization()
     main()
   examples/04_domain_specific/physics/example.py:
     e: demo_particle_collision,demo_molecular_dynamics,demo_telescope_scheduling,demo_quantum_computing,demo_climate_modeling,demo_particle_physics,demo_materials_science,main
@@ -8809,6 +8532,9 @@ Subclasses implement ``exe...
     demo_proteomics_analysis()
     demo_drug_discovery()
     main()
+  examples/04_domain_specific/debugging/03_mixed_workflow/demo.py:
+    e: main
+    main()
   examples/04_domain_specific/education/example.py:
     e: demo_course_timetabling,demo_exam_scheduling,demo_learning_path,demo_classroom_allocation,demo_student_grouping,demo_resource_optimization,demo_curriculum_planning,main
     demo_course_timetabling()
@@ -8818,9 +8544,6 @@ Subclasses implement ``exe...
     demo_student_grouping()
     demo_resource_optimization()
     demo_curriculum_planning()
-    main()
-  examples/04_domain_specific/debugging/03_mixed_workflow/demo.py:
-    e: main
     main()
   examples/04_domain_specific/debugging/04_advanced_patterns/demo.py:
     e: main
@@ -8840,10 +8563,10 @@ Subclasses implement ``exe...
   examples/03_integrations/toon_format/01_basic_usage/demo.py:
     e: main
     main()
-  examples/03_integrations/toon_format/02_command_generator/demo.py:
+  examples/03_integrations/toon_format/03_data_manager/demo.py:
     e: main
     main()
-  examples/03_integrations/toon_format/03_data_manager/demo.py:
+  examples/03_integrations/toon_format/02_command_generator/demo.py:
     e: main
     main()
   examples/03_integrations/toon_format/11_basic_integration/demo.py:
@@ -8874,8 +8597,8 @@ Subclasses implement ``exe...
   networkx-3.6.1-py3-none-any/networkx/utils/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/linalg/__init__.py:
-  networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/components/__init__.py:
+  networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/connectivity/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/minors/__init__.py:
@@ -8908,8 +8631,8 @@ Subclasses implement ``exe...
   webops/nlp2cmd-repo/src/nlp2cmd/schema_based/__init__.py:
   webops/nlp2cmd-repo/src/nlp2cmd/history/__init__.py:
   webops/nlp2cmd-repo/examples/use_cases/__init__.py:
-  src/nlp2cmd/__init__.py:
   src/nlp2cmd/__main__.py:
+  src/nlp2cmd/__init__.py:
   src/app2schema/__init__.py:
   src/app2schema/__main__.py:
   src/nlp2cmd/monitoring/__init__.py:
@@ -8942,16 +8665,16 @@ Subclasses implement ``exe...
   src/nlp2cmd/generation/templates/shell_templates.py:
   src/nlp2cmd/generation/templates/package_mgmt_templates.py:
   src/nlp2cmd/generation/templates/git_templates.py:
-  src/nlp2cmd/generation/templates/sql_templates.py:
   src/nlp2cmd/generation/templates/ffmpeg_templates.py:
+  src/nlp2cmd/generation/templates/sql_templates.py:
   src/nlp2cmd/generation/templates/docker_templates.py:
   src/nlp2cmd/generation/templates/desktop_templates.py:
+  src/nlp2cmd/generation/templates/data_templates.py:
   src/nlp2cmd/generation/templates/browser_templates.py:
   src/nlp2cmd/generation/templates/media_templates.py:
   src/nlp2cmd/generation/templates/api_templates.py:
-  src/nlp2cmd/generation/templates/data_templates.py:
-  src/nlp2cmd/generation/templates/devops_templates.py:
   src/nlp2cmd/generation/templates/remote_templates.py:
+  src/nlp2cmd/generation/templates/devops_templates.py:
   src/nlp2cmd/generation/templates/presentation_templates.py:
   src/nlp2cmd/generation/keywords/__init__.py:
   examples/04_domain_specific/__init__.py:

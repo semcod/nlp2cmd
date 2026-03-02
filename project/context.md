@@ -3,7 +3,7 @@
 ## Overview
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
-- **Analysis Mode**: hybrid
+- **Analysis Mode**: static
 - **Total Functions**: 6817
 - **Total Classes**: 966
 - **Modules**: 840
