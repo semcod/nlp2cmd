@@ -1,3 +1,24 @@
+## [1.1.3] - 2026-03-02
+
+### Summary
+
+feat(goal): configuration management system
+
+### Docs
+
+- docs: update README
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update project/evolution.toon
+- update project/project.toon
+- update project/prompt.txt
+
+
 ## [1.1.1] - 2026-02-28
 
 ### Summary
