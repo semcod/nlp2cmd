@@ -4,111 +4,111 @@
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
 - **Analysis Mode**: static
-- **Total Functions**: 6817
-- **Total Classes**: 966
-- **Modules**: 840
-- **Entry Points**: 5893
+- **Total Functions**: 32234
+- **Total Classes**: 4869
+- **Modules**: 2689
+- **Entry Points**: 27234
 
 ## Architecture by Module
 
-### src.nlp2cmd.generation.template_generator
-- **Functions**: 100
-- **Classes**: 2
-- **File**: `template_generator.py`
+### fresh_env.lib.python3.13.site-packages.regex._regex_core
+- **Functions**: 353
+- **Classes**: 61
+- **File**: `_regex_core.py`
 
-### networkx-3.6.1-py3-none-any.networkx.classes.reportviews
-- **Functions**: 99
-- **Classes**: 23
-- **File**: `reportviews.py`
+### fresh_env.lib.python3.13.site-packages.astroid.nodes.node_classes
+- **Functions**: 283
+- **Classes**: 76
+- **File**: `node_classes.py`
 
-### webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller
-- **Functions**: 52
-- **Classes**: 8
-- **File**: `nlp2cmd_web_controller.py`
-
-### examples.03_integrations.web_development.nlp2cmd_web_controller
-- **Functions**: 52
-- **Classes**: 8
-- **File**: `nlp2cmd_web_controller.py`
-
-### networkx-3.6.1-py3-none-any.networkx.classes.coreviews
-- **Functions**: 49
-- **Classes**: 11
-- **File**: `coreviews.py`
-
-### src.nlp2cmd.web_schema.form_data_loader
-- **Functions**: 47
-- **Classes**: 1
-- **File**: `form_data_loader.py`
-
-### networkx-3.6.1-py3-none-any.networkx.algorithms.planarity
-- **Functions**: 46
-- **Classes**: 4
-- **File**: `planarity.py`
-
-### networkx-3.6.1-py3-none-any.networkx.classes.graph
-- **Functions**: 45
-- **Classes**: 3
-- **File**: `graph.py`
-
-### webops.nlp2cmd-repo.src.nlp2cmd.schema_extraction
-- **Functions**: 45
-- **Classes**: 9
-- **File**: `__init__.py`
-
-### webops.nlp2cmd-repo.src.nlp2cmd.schemas
-- **Functions**: 43
-- **Classes**: 2
-- **File**: `__init__.py`
-
-### src.nlp2cmd.schemas
-- **Functions**: 43
-- **Classes**: 2
-- **File**: `__init__.py`
-
-### networkx-3.6.1-py3-none-any.networkx.classes.function
-- **Functions**: 42
-- **File**: `function.py`
-
-### scripts.thermodynamic.termo2
-- **Functions**: 38
-- **Classes**: 12
-- **File**: `termo2.py`
-
-### webops.nlp2cmd-repo.termo2
-- **Functions**: 38
-- **Classes**: 12
-- **File**: `termo2.py`
-
-### webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader
-- **Functions**: 38
-- **Classes**: 1
-- **File**: `form_data_loader.py`
-
-### tools.schema.enhanced_schema_generator
-- **Functions**: 37
-- **Classes**: 3
-- **File**: `enhanced_schema_generator.py`
-
-### webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator
-- **Functions**: 37
-- **Classes**: 3
-- **File**: `enhanced_schema_generator.py`
-
-### webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell
-- **Functions**: 36
-- **Classes**: 3
-- **File**: `shell.py`
-
-### networkx-3.6.1-py3-none-any.networkx.readwrite.graphml
-- **Functions**: 33
-- **Classes**: 5
-- **File**: `graphml.py`
-
-### webops.nlp2cmd-repo.src.nlp2cmd.core
-- **Functions**: 33
-- **Classes**: 10
+### fresh_env.lib.python3.13.site-packages.pyparsing.core
+- **Functions**: 262
+- **Classes**: 56
 - **File**: `core.py`
+
+### fresh_env.lib.python3.13.site-packages.pip._vendor.pkg_resources
+- **Functions**: 256
+- **Classes**: 33
+- **File**: `__init__.py`
+
+### fresh_env.lib.python3.13.site-packages.numpy.ma.core
+- **Functions**: 240
+- **Classes**: 18
+- **File**: `core.py`
+
+### fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont
+- **Functions**: 232
+- **Classes**: 2
+- **File**: `ttFont.py`
+
+### fresh_env.lib.python3.13.site-packages.fontTools.cffLib
+- **Functions**: 215
+- **Classes**: 47
+- **File**: `__init__.py`
+
+### fresh_env.lib.python3.13.site-packages.fontTools.feaLib.ast
+- **Functions**: 200
+- **Classes**: 68
+- **File**: `ast.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches
+- **Functions**: 199
+- **Classes**: 22
+- **File**: `patches.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.transforms
+- **Functions**: 191
+- **Classes**: 25
+- **File**: `transforms.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.widgets
+- **Functions**: 184
+- **Classes**: 22
+- **File**: `widgets.py`
+
+### fresh_env.lib.python3.13.site-packages.fontTools.ttLib.tables.otConverters
+- **Functions**: 180
+- **Classes**: 57
+- **File**: `otConverters.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.pyplot
+- **Functions**: 179
+- **File**: `pyplot.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.backend_bases
+- **Functions**: 179
+- **Classes**: 20
+- **File**: `backend_bases.py`
+
+### fresh_env.lib.python3.13.site-packages.fontTools.misc.psCharStrings
+- **Functions**: 171
+- **Classes**: 9
+- **File**: `psCharStrings.py`
+
+### fresh_env.lib.python3.13.site-packages.fontTools.subset
+- **Functions**: 168
+- **Classes**: 2
+- **File**: `__init__.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axes._base
+- **Functions**: 168
+- **Classes**: 4
+- **File**: `_base.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axis
+- **Functions**: 163
+- **Classes**: 8
+- **File**: `axis.py`
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.ticker
+- **Functions**: 156
+- **Classes**: 31
+- **File**: `ticker.py`
+
+### fresh_env.lib.python3.13.site-packages.PIL.Image
+- **Functions**: 144
+- **Classes**: 16
+- **File**: `Image.py`
 
 ## Key Entry Points
 
@@ -116,7 +116,7 @@ Main execution flows into the system:
 
 ### src.nlp2cmd.pipeline_runner_plans.PlanExecutionMixin._execute_plan_step
 > Execute a single ActionPlan step. Returns extracted value or None.
-- **Calls**: self._resolve_plan_variables, Console, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, params.get, page.goto, page.wait_for_timeout, ValueError, url.startswith
+- **Calls**: self._resolve_plan_variables, Console, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, params.get, page.goto, page.wait_for_timeout, ValueError, url.startswith
 
 ### src.nlp2cmd.pipeline_runner_browser.BrowserExecutionMixin._run_dom_multi_action
 > Execute multiple browser actions in sequence.
@@ -128,7 +128,16 @@ Main execution flows into the system:
 Args:
     plan: ActionPlan instance with steps to execute
     dry_run: If True, only show the pl
-- **Calls**: Console, frozenset, console.print, console.print, enumerate, None.strip, RunnerResult, any
+- **Calls**: Console, frozenset, console.print, console.print, enumerate, None.strip, RunnerResult, fresh_env.lib.python3.13.site-packages.numpy._core.fromnumeric.any
+
+### fresh_env.lib.python3.13.site-packages.networkx.generators.social.les_miserables_graph
+> Returns coappearance network of characters in the novel Les Miserables.
+
+References
+----------
+.. [1] D. E. Knuth, 1993.
+   The Stanford GraphBase: a 
+- **Calls**: nx._dispatchable, nx.Graph, G.add_edge, G.add_edge, G.add_edge, G.add_edge, G.add_edge, G.add_edge
 
 ### networkx-3.6.1-py3-none-any.networkx.generators.social.les_miserables_graph
 > Returns coappearance network of characters in the novel Les Miserables.
@@ -143,18 +152,76 @@ References
 > Prepare shell entities.
 - **Calls**: entities.copy, entities.get, entities.get, entities.get, entities.get, str, entities.get, result.setdefault
 
+### fresh_env.lib.python3.13.site-packages.code2logic.cli.main
+- **Calls**: time.time, argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument
+
+### fresh_env.lib.python3.13.site-packages.networkx.drawing.nx_pylab.display
+> Draw the graph G.
+
+Draw the graph as a collection of nodes connected by edges.
+The exact details of what the graph looks like are controlled by the be
+- **Calls**: kwargs.get, kwargs.get, isinstance, G.subgraph, kwargs.get, fresh_env.lib.python3.13.site-packages.astroid.bases.Instance.callable, kwargs.get, kwargs.get
+
 ### networkx-3.6.1-py3-none-any.networkx.drawing.nx_pylab.display
 > Draw the graph G.
 
 Draw the graph as a collection of nodes connected by edges.
 The exact details of what the graph looks like are controlled by the be
-- **Calls**: kwargs.get, kwargs.get, isinstance, G.subgraph, kwargs.get, callable, kwargs.get, kwargs.get
+- **Calls**: kwargs.get, kwargs.get, isinstance, G.subgraph, kwargs.get, fresh_env.lib.python3.13.site-packages.astroid.bases.Instance.callable, kwargs.get, kwargs.get
+
+### fresh_env.lib.python3.13.site-packages.fontTools.varLib.interpolatable.main
+> Test for interpolatability issues between fonts
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument
+
+### networkx-3.6.1-py3-none-any.networkx.algorithms.similarity.optimize_edit_paths
+> GED (graph edit distance) calculation: advanced interface.
+
+Graph edit path is a sequence of node and edge edit operations
+transforming graph G1 to gr
+- **Calls**: nx._dispatchable, fresh_env.lib.python3.13.site-packages.matplotlib.animation.MovieWriterRegistry.list, fresh_env.lib.python3.13.site-packages.matplotlib.animation.MovieWriterRegistry.list, len, len, np.zeros, None.reshape, None.reshape
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.sankey.Sankey.add
+> Add a simple Sankey diagram with flows at the same hierarchical level.
+
+Parameters
+----------
+patchlabel : str
+    Label to be placed at the center of
+- **Calls**: fresh_env.lib.python3.13.site-packages.PIL.ImageStat.Stat.sum, fresh_env.lib.python3.13.site-packages.PIL.ImageStat.Stat.sum, enumerate, enumerate, np.iterable, np.zeros, np.zeros, enumerate
+
+### networkx-3.6.1-py3-none-any.networkx.algorithms.matching.max_weight_matching
+> Compute a maximum-weighted matching of G.
+
+A matching is a subset of edges in which no node occurs more than once.
+The weight of a matching is the sum
+- **Calls**: fresh_env.lib.python3.13.site-packages.networkx.utils.decorators.not_implemented_for, fresh_env.lib.python3.13.site-packages.networkx.utils.decorators.not_implemented_for, nx._dispatchable, fresh_env.lib.python3.13.site-packages.matplotlib.animation.MovieWriterRegistry.list, G.edges, dict, dict, dict
 
 ### webops.nlp2cmd-repo.examples.shell.environment_analysis.main
-- **Calls**: webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, EnvironmentAnalyzer, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, analyzer.analyze
+- **Calls**: fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, EnvironmentAnalyzer, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, analyzer.analyze
 
 ### examples.01_basics.shell_fundamentals.environment_analysis.main
-- **Calls**: examples._example_helpers.print_separator, EnvironmentAnalyzer, examples._example_helpers.print_rule, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, examples._example_helpers.print_rule, analyzer.analyze, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
+- **Calls**: examples._example_helpers.print_separator, EnvironmentAnalyzer, examples._example_helpers.print_rule, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, examples._example_helpers.print_rule, analyzer.analyze, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
+
+### fresh_env.lib.python3.13.site-packages.fontTools.pens.momentsPen.MomentsPen._curveToOne
+- **Calls**: cython.locals, cython.locals, cython.locals, cython.locals, cython.locals, cython.locals, cython.locals, cython.locals
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.hist
+> Compute and plot a histogram.
+
+This method uses `numpy.histogram` to bin the data in *x* and count the
+number of values in each bin, then draws the di
+- **Calls**: _api.make_keyword_only, fresh_env.lib.python3.13.site-packages.matplotlib._preprocess_data, fresh_env.lib.python3.13.site-packages.matplotlib.cbook.normalize_kwargs, np.isscalar, fresh_env.lib.python3.13.site-packages.matplotlib._api.check_in_list, fresh_env.lib.python3.13.site-packages.matplotlib._api.check_in_list, fresh_env.lib.python3.13.site-packages.matplotlib._api.check_in_list, fresh_env.lib.python3.13.site-packages.matplotlib.cbook._reshape_2D
+
+### fresh_env.lib.python3.13.site-packages.code2logic.cli._code2logic_llm_cli
+- **Calls**: argparse.ArgumentParser, parser.add_subparsers, sub.add_parser, sub.add_parser, p_config.add_subparsers, config_sub.add_parser, sub.add_parser, p_set_provider.add_argument
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.backends.backend_pdf.PdfFile.embedTTF
+> Embed the TTF font from the named file into the document.
+- **Calls**: fresh_env.lib.python3.13.site-packages.matplotlib.font_manager.get_font, self._get_subsetted_psname, ps_name.encode, Name, self.reserveObject, self.reserveObject, self.reserveObject, self.reserveObject
+
+### fresh_env.lib.python3.13.site-packages.code2logic.parsers.UniversalParser._parse_js_ts
+> Parse JS/TS using regex patterns.
+- **Calls**: re.finditer, re.finditer, re.finditer, re.finditer, re.finditer, re.finditer, re.finditer, re.finditer
 
 ### webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner.PipelineRunner._run_dom_multi_action
 > Execute multiple browser actions in sequence.
@@ -163,6 +230,20 @@ The exact details of what the graph looks like are controlled by the be
 ### src.nlp2cmd.cli.main.main
 > NLP2CMD - Natural Language to Domain-Specific Commands.
 - **Calls**: click.group, click.option, click.option, click.option, click.option, click.option, click.option, click.option
+
+### fresh_env.lib.python3.13.site-packages.numpy.f2py.symbolic._FromStringWorker.process
+> Parse string within the given context.
+
+The context may define the result in case of ambiguous
+expressions. For instance, consider expressions `f(x, y
+- **Calls**: isinstance, isinstance, fresh_env.lib.python3.13.site-packages.numpy.f2py.symbolic.replace_parenthesis, r.strip, re.match, re.match, re.split, re.split
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.hexbin
+> Make a 2D hexagonal binning plot of points *x*, *y*.
+
+If *C* is *None*, the value of the hexagon is determined by the number
+of points in the hexagon.
+- **Calls**: _api.make_keyword_only, fresh_env.lib.python3.13.site-packages.matplotlib._preprocess_data, self._process_unit_info, fresh_env.lib.python3.13.site-packages.matplotlib.cbook.delete_masked_points, np.iterable, np.asarray, np.asarray, None.astype
 
 ### src.nlp2cmd.execution.runner.ExecutionRunner.run_command
 > Execute a shell command with real-time output.
@@ -174,91 +255,26 @@ Args:
 
 - **Calls**: time.time, self.print_markdown_block, ExecutionResult, self.execution_history.append, subprocess.Popen, None.join, None.join, subprocess.run
 
+### fresh_env.lib.python3.13.site-packages.fontTools.subset.Subsetter._closure_glyphs
+- **Calls**: fresh_env.lib.python3.13.site-packages.matplotlib.dates.rrulewrapper.set, font.getGlyphOrder, fresh_env.lib.python3.13.site-packages.matplotlib.dates.rrulewrapper.set, self.glyphs_requested.update, self.glyphs_requested.update, fresh_env.lib.python3.13.site-packages.matplotlib.dates.rrulewrapper.set, self.glyphs_missing.update, self.glyphs_missing.update
+
+### fresh_env.lib.python3.13.site-packages.fontTools.varLib.interpolatablePlot.InterpolatablePlot.draw_glyph
+- **Calls**: fresh_env.lib.python3.13.site-packages.numpy._core.fromnumeric.any, fresh_env.lib.python3.13.site-packages.matplotlib.dates.rrulewrapper.set, RecordingPen, glyph.draw, DecomposingRecordingPen, glyph.draw, ControlBoundsPen, decomposedRecording.replay
+
 ### examples.03_integrations.web_development.demo.demo_nlp_commands
 > Interaktywna demonstracja poleceń NLP.
-- **Calls**: NLP2CMDWebController, examples._example_helpers.print_separator, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, None.strip, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, examples._example_helpers.print_rule, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
+- **Calls**: NLP2CMDWebController, examples._example_helpers.print_separator, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, None.strip, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, examples._example_helpers.print_rule, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.bxp
+> Draw a box and whisker plot from pre-computed statistics.
+
+The box extends from the first quartile *q1* to the third
+quartile *q3* of the data, with a
+- **Calls**: _api.make_keyword_only, merge_kw_rc, merge_kw_rc, merge_kw_rc, merge_kw_rc, merge_kw_rc, fresh_env.lib.python3.13.site-packages.matplotlib._api.check_in_list, len
 
 ### webops.nlp2cmd-repo.src.nlp2cmd.registry.ActionRegistry._register_builtin_actions
 > Register built-in actions.
 - **Calls**: self.register, self.register, self.register, self.register, self.register, self.register, self.register, self.register
-
-### src.nlp2cmd.registry.ActionRegistry._register_builtin_actions
-> Register built-in actions.
-- **Calls**: self.register, self.register, self.register, self.register, self.register, self.register, self.register, self.register
-
-### webops.nlp2cmd-repo.examples.devops.demo_batch.run_batch_demo
-> Run all commands from prompt.txt automatically.
-- **Calls**: webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
-
-### networkx-3.6.1-py3-none-any.networkx.utils.backends._dispatchable._convert_and_call_for_tests
-> Call this dispatchable function with a backend; for use with testing.
-- **Calls**: networkx-3.6.1-py3-none-any.networkx.utils.backends._load_backend, _logger.debug, self.name.endswith, backend.convert_to_nx, self._can_backend_run, hasattr, pytest.xfail, self._will_call_mutate_input
-
-### examples.03_integrations.web_development.demo_batch.run_batch_demo
-> Run all commands from prompt.txt automatically.
-- **Calls**: webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, examples._example_helpers.print_separator
-
-### src.nlp2cmd.pipeline_runner_desktop.DesktopExecutionMixin._execute_desktop_plan_step
-> Execute an ActionPlan step via local desktop automation.
-
-Supports three backends:
-- ydotool: works on Wayland (requires ydotoold daemon)
-- xdotool: w
-- **Calls**: self._resolve_plan_variables, str, self._detect_desktop_backend, ValueError, ValueError, str, str, int
-
-### src.nlp2cmd.automation.action_planner.ActionPlanner._generate_rule_based_canvas_plan
-> Generate a drawing plan for an arbitrary object using rules.
-
-This is a fallback when LLM is not available. Uses object name to determine
-shape compos
-- **Calls**: re.search, None.strip, object_name.lower, any, ActionPlan, None.strip, ActionStep, ActionStep
-
-### webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_file_search
-> Generate find command.
-- **Calls**: entities.get, entities.get, entities.get, None.join, entities.get, cmd_parts.append, cmd_parts.extend, isinstance
-
-### networkx-3.6.1-py3-none-any.networkx.utils.backends._dispatchable._call_if_any_backends_installed
-> Returns the result of the original function, or the backend function if
-the backend is specified and that backend implements `func`.
-- **Calls**: self.graphs.items, nx.config.backend_priority.get, graph_backend_names.discard, self._will_call_mutate_input, webops.nlp2cmd-repo.src.nlp2cmd.executor.ExecutionContext.set, list, enumerate, NotImplementedError
-
-### webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.main
-- **Calls**: webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_section, webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_step, DecisionRouter, webops.nlp2cmd-repo.src.nlp2cmd.registry.get_registry, LLMPlanner, PlanExecutor, executor.register_handler, executor.register_handler
-
-### examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main
-- **Calls**: webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_section, webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_step, DecisionRouter, webops.nlp2cmd-repo.src.nlp2cmd.registry.get_registry, LLMPlanner, PlanExecutor, executor.register_handler, executor.register_handler
-
-### webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_find
-> Generate find command using entities.
-- **Calls**: entities.get, entities.get, entities.get, None.lower, None.join, entities.get, cmd_parts.append, cmd_parts.extend
-
-### src.nlp2cmd.web_schema.form_handler.FormHandler.detect_form_fields
-> Detect all form fields on a page.
-
-Args:
-    page: Playwright page object
-
-Returns:
-    List of FormField objects
-- **Calls**: page.query_selector_all, self._print_yaml, page.query_selector_all, self._print_yaml, page.query_selector_all, self._print_yaml, page.query_selector_all, self._print_yaml
-
-### webops.nlp2cmd-repo.examples.shell.feedback_loop.simulate_interactive_session
-> Simulate an interactive session with feedback loop.
-- **Calls**: webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, SQLAdapter, FeedbackAnalyzer, SQLValidator, CorrectionEngine, NLP2CMD
-
-### webops.nlp2cmd-repo.src.nlp2cmd.cli.main.main
-> NLP2CMD - Natural Language to Domain-Specific Commands.
-- **Calls**: click.group, click.option, click.option, click.option, click.option, click.option, click.option, click.option
-
-### webops.nlp2cmd-repo.examples.sql.sql_workflows.main
-- **Calls**: webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_section, webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_section, SQLAdapter, adapter.generate, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
-
-### examples.01_basics.sql_basics.workflows.main
-- **Calls**: webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_section, webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.print_section, SQLAdapter, adapter.generate, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
-
-### webops.nlp2cmd-repo.examples.use_cases.shell_validation.ShellCommandValidator.get_test_cases
-> Zwróć listę przypadków testowych.
-- **Calls**: CommandTest, CommandTest, CommandTest, CommandTest, CommandTest, CommandTest, CommandTest, CommandTest
 
 ## Process Flows
 
@@ -282,7 +298,7 @@ execute_action_plan [src.nlp2cmd.pipeline_runner_plans.PlanExecutionMixin]
 
 ### Flow 4: les_miserables_graph
 ```
-les_miserables_graph [networkx-3.6.1-py3-none-any.networkx.generators.social]
+les_miserables_graph [fresh_env.lib.python3.13.site-packages.networkx.generators.social]
 ```
 
 ### Flow 5: _prepare_shell_entities
@@ -290,39 +306,80 @@ les_miserables_graph [networkx-3.6.1-py3-none-any.networkx.generators.social]
 _prepare_shell_entities [webops.nlp2cmd-repo.src.nlp2cmd.generation.templates.TemplateGenerator]
 ```
 
-### Flow 6: display
+### Flow 6: main
 ```
-display [networkx-3.6.1-py3-none-any.networkx.drawing.nx_pylab]
-```
-
-### Flow 7: main
-```
-main [webops.nlp2cmd-repo.examples.shell.environment_analysis]
-  └─ →> print
-  └─ →> print
+main [fresh_env.lib.python3.13.site-packages.code2logic.cli]
 ```
 
-### Flow 8: run_command
+### Flow 7: display
 ```
-run_command [src.nlp2cmd.execution.runner.ExecutionRunner]
-```
-
-### Flow 9: demo_nlp_commands
-```
-demo_nlp_commands [examples.03_integrations.web_development.demo]
-  └─ →> print_separator
-      └─ →> print
-      └─ →> print
-  └─ →> print
-  └─ →> print
+display [fresh_env.lib.python3.13.site-packages.networkx.drawing.nx_pylab]
 ```
 
-### Flow 10: _register_builtin_actions
+### Flow 8: optimize_edit_paths
 ```
-_register_builtin_actions [webops.nlp2cmd-repo.src.nlp2cmd.registry.ActionRegistry]
+optimize_edit_paths [networkx-3.6.1-py3-none-any.networkx.algorithms.similarity]
+  └─ →> list
+  └─ →> list
+```
+
+### Flow 9: add
+```
+add [fresh_env.lib.python3.13.site-packages.matplotlib.sankey.Sankey]
+  └─ →> sum
+      └─ →> range
+          └─ →> reversed
+          └─ →> list
+  └─ →> sum
+      └─ →> range
+          └─ →> reversed
+          └─ →> list
+```
+
+### Flow 10: max_weight_matching
+```
+max_weight_matching [networkx-3.6.1-py3-none-any.networkx.algorithms.matching]
+  └─ →> not_implemented_for
+      └─ →> set
+  └─ →> not_implemented_for
+      └─ →> set
+  └─ →> list
 ```
 
 ## Key Classes
+
+### fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont
+> Represents a TrueType font.
+
+The object manages file input and output, and offers a convenient way o
+- **Methods**: 213
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.__init__, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.__enter__, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.__exit__, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.close, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.save, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont._save, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.saveXML, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont._saveXML, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont._tableToXML, fresh_env.lib.python3.13.site-packages.fontTools.ttLib.ttFont.TTFont.importXML
+- **Inherits**: object
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase
+- **Methods**: 162
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase._axis_map, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.__str__, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.__init__, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.__init_subclass__, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.__getstate__, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.__setstate__, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.__repr__, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.get_subplotspec, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.set_subplotspec, fresh_env.lib.python3.13.site-packages.matplotlib.axes._base._AxesBase.get_gridspec
+- **Inherits**: martist.Artist
+
+### fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray
+> An array class with possibly masked values.
+
+Masked values of True exclude the corresponding element
+- **Methods**: 104
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.__new__, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray._update_from, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.__array_finalize__, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.__array_wrap__, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.view, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.__getitem__, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.__setitem__, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.dtype, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.dtype, fresh_env.lib.python3.13.site-packages.numpy.ma.core.MaskedArray.shape
+- **Inherits**: ndarray
+
+### fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis
+> Base class for `.XAxis` and `.YAxis`.
+
+Attributes
+----------
+isDefault_label : bool
+
+axes : `~matplo
+- **Methods**: 103
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.__str__, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.__init__, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_majloc, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_majloc, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_majfmt, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_majfmt, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_minloc, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_minloc, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_minfmt, fresh_env.lib.python3.13.site-packages.matplotlib.axis.Axis.isDefault_minfmt
+- **Inherits**: martist.Artist
 
 ### src.nlp2cmd.generation.template_generator.TemplateGenerator
 > Generate DSL commands from templates.
@@ -332,181 +389,122 @@ Fal
 - **Methods**: 100
 - **Key Methods**: src.nlp2cmd.generation.template_generator.TemplateGenerator.__init__, src.nlp2cmd.generation.template_generator.TemplateGenerator._load_defaults_from_json, src.nlp2cmd.generation.template_generator.TemplateGenerator._load_templates_from_json, src.nlp2cmd.generation.template_generator.TemplateGenerator._get_default, src.nlp2cmd.generation.template_generator.TemplateGenerator.generate, src.nlp2cmd.generation.template_generator.TemplateGenerator._find_alternative_template, src.nlp2cmd.generation.template_generator.TemplateGenerator._get_intent_aliases, src.nlp2cmd.generation.template_generator.TemplateGenerator._prepare_entities, src.nlp2cmd.generation.template_generator.TemplateGenerator._prepare_sql_entities, src.nlp2cmd.generation.template_generator.TemplateGenerator._prepare_shell_entities
 
-### src.nlp2cmd.web_schema.form_data_loader.FormDataLoader
-> Loads form field data from multiple sources:
-1. .env file (for sensitive data like email, name, phon
-- **Methods**: 45
-- **Key Methods**: src.nlp2cmd.web_schema.form_data_loader.FormDataLoader.__init__, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._dedupe_preserve_order, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader.dedupe_selectors, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._parse_domain, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._safe_domain_filename, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._user_sites_dir, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._project_sites_dir, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._site_profile_paths, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader.get_site_profile_write_path, src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._load_site_profile_payload
+### fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser
+> Initializes a Parser object.
 
-### networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph
-> Base class for undirected graphs.
+Example:
 
-A Graph stores nodes and edges with optional data, or attributes.
-- **Methods**: 44
-- **Key Methods**: networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.to_directed_class, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.to_undirected_class, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.__new__, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.__init__, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.adj, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.name, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.name, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.__str__, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.__iter__, networkx-3.6.1-py3-none-any.networkx.classes.graph.Graph.__contains__
+    .. code:: python
 
-### webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry
-> Registry for file format schemas with validation and repair capabilities.
-- **Methods**: 37
-- **Key Methods**: webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.__init__, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry._register_builtin_schemas, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.register, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.get, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.has_schema, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.list_schemas, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.unregister, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.find_schema_for_file, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.find_schema_by_mime_type, webops.nlp2cmd-repo.src.nlp2cmd.schemas.SchemaRegistry.find_extension_conflicts
+        from fontTools.feaLib.parser i
+- **Methods**: 98
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.__init__, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_anchor_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_anchor_marks_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_anchordef_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_anonymous_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_attach_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_enumerate_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_GlyphClassDef_, fresh_env.lib.python3.13.site-packages.fontTools.feaLib.parser.Parser.parse_glyphclass_definition_
+- **Inherits**: object
 
-### src.nlp2cmd.schemas.SchemaRegistry
-> Registry for file format schemas with validation and repair capabilities.
-- **Methods**: 37
-- **Key Methods**: src.nlp2cmd.schemas.SchemaRegistry.__init__, src.nlp2cmd.schemas.SchemaRegistry._register_builtin_schemas, src.nlp2cmd.schemas.SchemaRegistry.register, src.nlp2cmd.schemas.SchemaRegistry.get, src.nlp2cmd.schemas.SchemaRegistry.has_schema, src.nlp2cmd.schemas.SchemaRegistry.list_schemas, src.nlp2cmd.schemas.SchemaRegistry.unregister, src.nlp2cmd.schemas.SchemaRegistry.find_schema_for_file, src.nlp2cmd.schemas.SchemaRegistry.find_schema_by_mime_type, src.nlp2cmd.schemas.SchemaRegistry.find_extension_conflicts
+### fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor
+> Visitor to render an Astroid node as a valid python code string
+- **Methods**: 98
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor.__init__, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor.__call__, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor._docs_dedent, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor._stmt_list, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor._precedence_parens, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor._should_wrap, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor.visit_await, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor.visit_asyncwith, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor.visit_asyncfor, fresh_env.lib.python3.13.site-packages.astroid.nodes.as_string.AsStringVisitor.visit_arguments
 
-### tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor
-> Enhanced schema extractor with multiple strategies.
-- **Methods**: 36
-- **Key Methods**: tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor.__init__, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor.extract_schema, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._select_strategy, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_with_strategy, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_from_help, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_from_man, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_with_llm, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_hybrid, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_from_patterns, tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._get_help_text
+### fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D
+> 3D Axes object.
 
-### webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor
-> Enhanced schema extractor with multiple strategies.
-- **Methods**: 36
-- **Key Methods**: webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor.__init__, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor.extract_schema, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._select_strategy, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_with_strategy, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_from_help, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_from_man, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_with_llm, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_hybrid, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._extract_from_patterns, webops.nlp2cmd-repo.tools.schema.enhanced_schema_generator.EnhancedSchemaExtractor._get_help_text
+.. note::
 
-### webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader
-> Loads form field data from multiple sources:
-1. .env file (for sensitive data like email, name, phon
-- **Methods**: 36
-- **Key Methods**: webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader.__init__, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._dedupe_preserve_order, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader.dedupe_selectors, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._parse_domain, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._safe_domain_filename, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._user_sites_dir, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._project_sites_dir, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._site_profile_paths, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader.get_site_profile_write_path, webops.nlp2cmd-repo.src.nlp2cmd.web_schema.form_data_loader.FormDataLoader._load_site_profile_payload
+    As a user, you do not instantiate Axes directly, but use Axes creati
+- **Methods**: 94
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.__init__, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.set_axis_off, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.set_axis_on, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.convert_zunits, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.set_top_view, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D._init_axis, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.get_zaxis, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D._transformed_cube, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D.set_aspect, fresh_env.lib.python3.13.site-packages.mpl_toolkits.mplot3d.axes3d.Axes3D._equal_aspect_axis_indices
+- **Inherits**: Axes
 
-### webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter
-> Shell adapter supporting multiple shell types.
+### fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator
+- **Methods**: 93
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.__init__, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.optimized, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.fail, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.temporary_identifier, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.buffer, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.return_buffer_contents, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.indent, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.outdent, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.start_write, fresh_env.lib.python3.13.site-packages.jinja2.compiler.CodeGenerator.end_write
+- **Inherits**: NodeVisitor
 
-Transforms natural language into shell commands with
-- **Methods**: 36
-- **Key Methods**: webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter.__init__, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._parse_environment_context, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter.generate, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_file_search, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_find, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._normalize_find_size_value, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_file_operation, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_process_management, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_process_monitoring, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell.ShellAdapter._generate_network
-- **Inherits**: BaseDSLAdapter
+### fresh_env.lib.python3.13.site-packages.PIL.Image.Image
+> This class represents an image object.  To create
+:py:class:`~PIL.Image.Image` objects, use the appr
+- **Methods**: 83
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.PIL.Image.Image.__init__, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.im, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.im, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.width, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.height, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.size, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.mode, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.readonly, fresh_env.lib.python3.13.site-packages.PIL.Image.Image.readonly, fresh_env.lib.python3.13.site-packages.PIL.Image.Image._new
 
-### webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController
-> Main controller for NLP2CMD-powered web infrastructure.
+### fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist
+> Abstract base class for objects that render into a FigureCanvas.
 
-This class orchestrates the deployment and 
-- **Methods**: 30
-- **Key Methods**: webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController.__init__, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController.execute, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._handle_deploy, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._handle_configure, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._handle_scale, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._handle_status, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._handle_stop, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._handle_unknown, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._execute_with_nlp2cmd, webops.nlp2cmd-repo.examples.devops.nlp2cmd_web_controller.NLP2CMDWebController._try_llm_fallback
+Typically, all visible elements in
+- **Methods**: 79
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.__init_subclass__, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist._update_set_signature_and_docstring, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.__init__, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.__getstate__, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.remove, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.have_units, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.convert_xunits, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.convert_yunits, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.axes, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.axes
 
-### examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController
-> Main controller for NLP2CMD-powered web infrastructure.
+### fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes
+> An Axes object encapsulates all the elements of an individual (sub-)plot in
+a figure.
 
-This class orchestrates the deployment and 
-- **Methods**: 30
-- **Key Methods**: examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController.__init__, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController.execute, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._handle_deploy, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._handle_configure, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._handle_scale, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._handle_status, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._handle_stop, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._handle_unknown, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._execute_with_nlp2cmd, examples.03_integrations.web_development.nlp2cmd_web_controller.NLP2CMDWebController._try_llm_fallback
+It contains m
+- **Methods**: 78
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.get_title, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.set_title, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.get_legend_handles_labels, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.legend, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes._remove_legend, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.inset_axes, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.indicate_inset, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.indicate_inset_zoom, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.secondary_xaxis, fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.secondary_yaxis
+- **Inherits**: _AxesBase
 
-### networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph
-> Base class for directed graphs.
+### fresh_env.lib.python3.13.site-packages.matplotlib.text.Text
+> Handle storing and drawing of text in window or data coordinates.
+- **Methods**: 73
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.text.Text.__repr__, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text.__init__, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text._reset_visual_defaults, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text.update, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text.__getstate__, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text.contains, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text._get_xy_display, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text._get_multialignment, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text._char_index_at, fresh_env.lib.python3.13.site-packages.matplotlib.text.Text.get_rotation
+- **Inherits**: Artist
 
-A DiGraph stores nodes and edges with optional data, or attributes.
-- **Methods**: 29
-- **Key Methods**: networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.__new__, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.__init__, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.adj, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.succ, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.pred, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.add_node, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.add_nodes_from, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.remove_node, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.remove_nodes_from, networkx-3.6.1-py3-none-any.networkx.classes.digraph.DiGraph.add_edge
-- **Inherits**: Graph
+### fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement
+> Abstract base level parser element class.
+- **Methods**: 73
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.set_default_whitespace_chars, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.inline_literals_using, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.using_each, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.__init__, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.mayReturnEmpty, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.mayReturnEmpty, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.suppress_warning, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.visit_all, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.copy, fresh_env.lib.python3.13.site-packages.pyparsing.core.ParserElement.set_results_name
+- **Inherits**: ABC
 
-### tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor
-> Non-LLM schema extractor with multiple strategies.
-- **Methods**: 27
-- **Key Methods**: tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor.__init__, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor.extract_schema, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_with_strategy, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_help, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_man, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_patterns, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_templates, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._enhance_schema, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._evaluate_quality, tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._create_fallback_schema
+### fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase
+> An abstract base class for immutable series classes.
 
-### webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor
-> Non-LLM schema extractor with multiple strategies.
-- **Methods**: 27
-- **Key Methods**: webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor.__init__, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor.extract_schema, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_with_strategy, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_help, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_man, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_patterns, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._extract_from_templates, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._enhance_schema, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._evaluate_quality, webops.nlp2cmd-repo.tools.schema.non_llm_schema_extractor.NonLLMSchemaExtractor._create_fallback_schema
+ABCPolyBase provides the standard Python numer
+- **Methods**: 72
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase.symbol, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase.domain, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase.window, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase.basis_name, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase._add, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase._sub, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase._mul, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase._div, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase._pow, fresh_env.lib.python3.13.site-packages.numpy.polynomial._polybase.ABCPolyBase._val
+- **Inherits**: abc.ABC
 
-### webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector
-> Rule-based intent detection using keyword matching.
+### fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner
+- **Methods**: 71
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.__init__, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.check_token, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.peek_token, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.get_token, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.need_more_tokens, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.fetch_more_tokens, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.next_possible_simple_key, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.stale_possible_simple_keys, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.save_possible_simple_key, fresh_env.lib.python3.13.site-packages.yaml.scanner.Scanner.remove_possible_simple_key
 
-No LLM needed - uses predefined keyword pattern
-- **Methods**: 27
-- **Key Methods**: webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector.__init__, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._load_detector_config_from_json, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._load_patterns_from_json, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._match_keyword, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._normalize_text_lower, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._maybe_lemmatize_text_lower, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._normalize_intent, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._has_shell_file_context, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._detect_fast_path, webops.nlp2cmd-repo.src.nlp2cmd.generation.keywords.KeywordIntentDetector._detect_fast_path_docker_run_detached
+### fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console
+> A high level console interface.
 
-### webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager
-> Unified data manager using TOON format
-- **Methods**: 27
-- **Key Methods**: webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.__init__, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager._ensure_loaded, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_all_commands, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_shell_commands, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_browser_commands, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_command_by_name, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.search_commands, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_config, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_llm_config, webops.nlp2cmd-repo.src.nlp2cmd.core.toon_integration.ToonDataManager.get_test_commands
+Args:
+    color_system (str, optional): The color system supported 
+- **Methods**: 71
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console.__init__, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console.__repr__, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console.file, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console.file, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console._buffer, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console._buffer_index, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console._buffer_index, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console._theme_stack, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console._detect_color_system, fresh_env.lib.python3.13.site-packages.pip._vendor.rich.console.Console._enter_buffer
 
-### src.nlp2cmd.core.toon_integration.ToonDataManager
-> Unified data manager using TOON format
-- **Methods**: 27
-- **Key Methods**: src.nlp2cmd.core.toon_integration.ToonDataManager.__init__, src.nlp2cmd.core.toon_integration.ToonDataManager._ensure_loaded, src.nlp2cmd.core.toon_integration.ToonDataManager.get_all_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_shell_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_browser_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_command_by_name, src.nlp2cmd.core.toon_integration.ToonDataManager.search_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_config, src.nlp2cmd.core.toon_integration.ToonDataManager.get_llm_config, src.nlp2cmd.core.toon_integration.ToonDataManager.get_test_commands
+### fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle
+> A class representing marker types.
 
-### src.nlp2cmd.web_schema.site_explorer.SiteExplorer
-> Explores website to find forms, contact pages, and other content.
+Instances are immutable. If you need to change anything, create 
+- **Methods**: 64
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.__init__, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle._recache, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.__bool__, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.is_filled, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.get_fillstyle, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle._set_fillstyle, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.get_joinstyle, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.get_capstyle, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle.get_marker, fresh_env.lib.python3.13.site-packages.matplotlib.markers.MarkerStyle._set_marker
 
-Usage:
-    explorer = SiteExplore
-- **Methods**: 27
-- **Key Methods**: src.nlp2cmd.web_schema.site_explorer.SiteExplorer.__init__, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._setup_resource_blocking, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._resolve_platform_url, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._goto_with_retry, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._try_github_api, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._detect_docs_framework, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._record_timing, src.nlp2cmd.web_schema.site_explorer.SiteExplorer.get_timing_stats, src.nlp2cmd.web_schema.site_explorer.SiteExplorer._fallback_static_scrape, src.nlp2cmd.web_schema.site_explorer.SiteExplorer.find_content
+### fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D
+> A line - the line can have both a solid linestyle connecting all
+the vertices, and a marker at each 
+- **Methods**: 63
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.__str__, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.__init__, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.contains, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.get_pickradius, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.set_pickradius, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.get_fillstyle, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.set_fillstyle, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.set_markevery, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.get_markevery, fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.set_picker
+- **Inherits**: Artist
 
-### networkx-3.6.1-py3-none-any.networkx.utils.configs.Config
-> The base class for NetworkX configuration.
+### fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container
+> container(data, dtype=None, copy=True)
 
-There are two ways to use this to create configurations.
-- **Methods**: 24
-- **Key Methods**: networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__init_subclass__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__new__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config._on_setattr, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config._on_delattr, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__dir__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__setattr__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__delattr__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__contains__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__iter__, networkx-3.6.1-py3-none-any.networkx.utils.configs.Config.__len__
+Standard container-class for easy multiple-inheritance.
 
-### webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter
-> Shell adapter supporting multiple shell types.
-
-Transforms natural language into shell commands with
-- **Methods**: 24
-- **Key Methods**: webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter.__init__, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._parse_environment_context, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter.generate, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._generate_file_search, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._generate_find, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._normalize_find_size_value, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._generate_file_operation, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._generate_process_management, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._generate_process_monitoring, webops.nlp2cmd-repo.src.nlp2cmd.adapters.shell_backup.ShellAdapter._generate_network
-- **Inherits**: BaseDSLAdapter
+Met
+- **Methods**: 61
+- **Key Methods**: fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__init_subclass__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__init__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__repr__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__array__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__len__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__getitem__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__setitem__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__abs__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__neg__, fresh_env.lib.python3.13.site-packages.numpy.lib._user_array_impl.container.__add__
 
 ## Data Transformation Functions
 
 Key functions that process and transform data:
 
-### demos.demo_intelligent_nlp2cmd.IntelligentNLP2CMD.transform
-> Transform natural language to command with version detection.
-
-Args:
-    query: Natural language que
-- **Output to**: ActionIR, self.base_nlp.transform_ir, self.generator.generate_command, ActionIR, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
-
-### webops.docker_app.VoiceServiceManager.process_voice_command
-> Process voice command and return response.
-- **Output to**: self.pipeline.process, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse
-
-### webops.docker_app.process_voice_command
-> Process voice command and execute shell command.
-- **Output to**: app.post, voice_manager.process_voice_command
-
-### networkx-3.6.1-py3-none-any.networkx.relabel.convert_node_labels_to_integers
-> Returns a copy of the graph G with the nodes relabeled using
-consecutive integers.
-
-Parameters
------
-- **Output to**: nx._dispatchable, networkx-3.6.1-py3-none-any.networkx.relabel.relabel_nodes, G.number_of_nodes, dict, nx.set_node_attributes
-
-### networkx-3.6.1-py3-none-any.networkx.convert_matrix.to_scipy_sparse_array
-> Returns the graph adjacency matrix as a SciPy sparse array.
-
-Parameters
-----------
-G : graph
-    The
-- **Output to**: nx._dispatchable, dict, zip, G.is_directed, len
-
-### networkx-3.6.1-py3-none-any.networkx.convert_matrix.from_scipy_sparse_array
-> Creates a new graph from an adjacency matrix given as a SciPy sparse
-array.
-
-Parameters
-----------
-A
-- **Output to**: nx._dispatchable, nx.empty_graph, G.add_nodes_from, networkx-3.6.1-py3-none-any.networkx.convert_matrix._generate_weighted_edges, G.add_weighted_edges_from
-
-### networkx-3.6.1-py3-none-any.networkx.readwrite.p2g.parse_p2g
-> Parse p2g format graph from string or iterable.
-
-Returns
--------
-MultiDiGraph
-- **Output to**: nx._dispatchable, None.strip, nx.MultiDiGraph, map, range
-
 ### webops.voice_service.VoiceServiceManager.process_voice_command
 > Process voice command and return response.
-- **Output to**: webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, self._normalize_cache_key
+- **Output to**: fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, self._normalize_cache_key
 
 ### webops.voice_service.VoiceServiceManager._process_with_mock_pipeline
 > Process command using mock pipeline.
@@ -518,173 +516,174 @@ MultiDiGraph
 
 ### webops.voice_service.process_voice_command
 > Process voice command and execute shell command.
-- **Output to**: app.post, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
+- **Output to**: app.post, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
 
 ### webops.voice_service_clean.VoiceServiceManager.process_voice_command
 > Process voice command and return response.
-- **Output to**: webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
+- **Output to**: fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
 
 ### webops.voice_service_clean.process_voice_command
 > Process voice command and execute shell command.
-- **Output to**: app.post, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print, webops.nlp2cmd-repo.src.nlp2cmd.pipeline_runner._MarkdownConsoleWrapper.print
+- **Output to**: app.post, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.graphml.parse_graphml
-> Read graph in GraphML format from string.
+### webops.docker_app.VoiceServiceManager.process_voice_command
+> Process voice command and return response.
+- **Output to**: self.pipeline.process, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse
 
-Parameters
-----------
-graphml_string : string
-   String c
-- **Output to**: nx._dispatchable, GraphMLReader, list, reader, len
+### webops.docker_app.process_voice_command
+> Process voice command and execute shell command.
+- **Output to**: app.post, voice_manager.process_voice_command
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.graphml.GraphMLReader.decode_data_elements
-> Use the key information to decode the data XML if present.
-- **Output to**: obj_xml.findall, data_element.get, nx.NetworkXError, len, data_type
+### demos.demo_intelligent_nlp2cmd.IntelligentNLP2CMD.transform
+> Transform natural language to command with version detection.
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.adjlist.parse_adjlist
-> Parse lines of a graph adjacency list representation.
+Args:
+    query: Natural language que
+- **Output to**: ActionIR, self.base_nlp.transform_ir, self.generator.generate_command, ActionIR, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
 
-Parameters
-----------
-lines : list or iterato
-- **Output to**: nx._dispatchable, nx.empty_graph, line.find, None.split, vlist.pop
+### fresh_env.lib.python3.13.site-packages.matplotlib.category.StrCategoryConverter.convert
+> Convert strings in *value* to floats using mapping information stored
+in the *unit* object.
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.leda.parse_leda
-> Read graph in LEDA format from string or iterable.
+Paramet
+- **Output to**: fresh_env.lib.python3.13.site-packages.matplotlib.category.StrCategoryConverter._validate_unit, np.atleast_1d, unit.update, ValueError, np.array
 
-Parameters
-----------
-lines : string or iterable
-- **Output to**: nx._dispatchable, isinstance, iter, range, int
+### fresh_env.lib.python3.13.site-packages.matplotlib.category.StrCategoryConverter._validate_unit
+- **Output to**: hasattr, ValueError
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.pajek.parse_pajek
-> Parse Pajek format graph from string or iterable.
+### fresh_env.lib.python3.13.site-packages.matplotlib.category.StrCategoryFormatter.format_ticks
+- **Output to**: self._text, r_mapping.get, self._units.items, fresh_env.lib.python3.13.site-packages.fontTools.colorLib.geometry.Circle.round
 
-Parameters
-----------
-lines : string or iterable
+### fresh_env.lib.python3.13.site-packages.matplotlib.category.UnitData._str_is_convertible
+> Helper method to check whether a string can be parsed as float or date.
+- **Output to**: float, dateutil.parser.parse
 
-- **Output to**: nx._dispatchable, isinstance, iter, nx.MultiDiGraph, iter
+### fresh_env.lib.python3.13.site-packages.matplotlib.spines.Spine._recompute_transform
+> Notes
+-----
+This cannot be called until after this has been added to an Axes,
+otherwise unit convers
+- **Output to**: self.convert_xunits, self.convert_yunits, None.translate, self.convert_xunits, self.convert_yunits
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.text._parse_network_text
-> Reconstructs a graph from a network text representation.
+### fresh_env.lib.python3.13.site-packages.matplotlib.spines.Spine.get_patch_transform
+- **Output to**: self._recompute_transform, None.get_patch_transform, fresh_env.lib.python3.13.site-packages.jinja2.runtime.Context.super
 
-This is mainly used for testing.  Network 
-- **Output to**: iter, webops.nlp2cmd-repo.src.nlp2cmd.executor.ExecutionContext.set, webops.nlp2cmd-repo.src.nlp2cmd.executor.ExecutionContext.set, chain, object
+### fresh_env.lib.python3.13.site-packages.matplotlib.spines.Spine.get_spine_transform
+> Return the spine transform.
+- **Output to**: self._ensure_position_is_set, isinstance, fresh_env.lib.python3.13.site-packages.matplotlib._api.check_in_list, len, self.axes.get_yaxis_transform
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.edgelist.parse_edgelist
-> Parse lines of an edge list representation of a graph.
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Patch._process_radius
+- **Output to**: isinstance, self.get_linewidth, self.get_edgecolor
 
-Parameters
-----------
-lines : list or iterat
-- **Output to**: nx._dispatchable, nx.empty_graph, None.split, s.pop, s.pop
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Patch.get_transform
+> Return the `~.transforms.Transform` applied to the `Patch`.
+- **Output to**: self.get_patch_transform, fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.get_transform
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.gexf.GEXFWriter.alter_graph_mode_timeformat
-- **Output to**: isinstance, self.graph_element.set, isinstance, self.graph_element.get, self.graph_element.set
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Patch.get_data_transform
+> Return the `~.transforms.Transform` mapping data coordinates to
+physical coordinates.
+- **Output to**: fresh_env.lib.python3.13.site-packages.matplotlib.artist.Artist.get_transform
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.gexf.GEXFReader.decode_attr_elements
-- **Output to**: obj_xml.find, attr_element.findall, a.get, a.get, nx.NetworkXError
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Patch.get_patch_transform
+> Return the `~.transforms.Transform` instance mapping patch coordinates
+to data coordinates.
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.sparse6._generate_sparse6_bytes
-> Yield bytes in the sparse6 encoding of a graph.
+For exa
+- **Output to**: transforms.IdentityTransform
 
-`G` is an undirected simple graph. `nodes` is the l
-- **Output to**: len, networkx-3.6.1-py3-none-any.networkx.readwrite.graph6.n_to_data, sorted, ValueError, bits.append
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Patch._convert_xy_units
+> Convert x and y units for a tuple (x, y).
+- **Output to**: self.convert_xunits, self.convert_yunits
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.sparse6.from_sparse6_bytes
-> Read an undirected graph in sparse6 format from string.
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Shadow._update_transform
+- **Output to**: renderer.points_to_pixels, renderer.points_to_pixels, None.translate, self._shadow_transform.clear
 
-Parameters
-----------
-string : string
-   Da
-- **Output to**: nx._dispatchable, string.startswith, networkx-3.6.1-py3-none-any.networkx.readwrite.graph6.data_to_n, nx.MultiGraph, G.add_nodes_from
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Shadow.get_patch_transform
+- **Output to**: self.patch.get_patch_transform
 
-### networkx-3.6.1-py3-none-any.networkx.readwrite.sparse6.to_sparse6_bytes
-> Convert an undirected graph to bytes in sparse6 format.
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Rectangle._convert_units
+> Convert bounds of the rectangle.
+- **Output to**: self.convert_xunits, self.convert_yunits, self.convert_xunits, self.convert_yunits
 
-Parameters
-----------
-G : Graph (undirected
-- **Output to**: nx.convert_node_labels_to_integers, None.join, G.subgraph, networkx-3.6.1-py3-none-any.networkx.readwrite.sparse6._generate_sparse6_bytes
+### fresh_env.lib.python3.13.site-packages.matplotlib.patches.Rectangle.get_patch_transform
+- **Output to**: self.get_bbox, transforms.BboxTransformTo, None.translate, None.scale, None.rotate_deg
 
 ## Behavioral Patterns
 
-### recursion__select_starting_cell
+### recursion_plot_children
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.generators.line._select_starting_cell
-
-### recursion__rooted_trees
-- **Type**: recursion
-- **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.generators.nonisomorphic_trees._rooted_trees
-
-### recursion__random_unlabeled_rooted_tree
-- **Type**: recursion
-- **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.generators.trees._random_unlabeled_rooted_tree
-
-### recursion__random_unlabeled_rooted_forest
-- **Type**: recursion
-- **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.generators.trees._random_unlabeled_rooted_forest
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._layoutgrid.plot_children
 
 ### recursion_flatten
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.utils.misc.flatten
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib.cbook.flatten
 
-### recursion_compile
+### recursion_make_layoutgrids
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.utils.decorators.argmap.compile
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.make_layoutgrids
 
-### recursion__flatten
+### recursion_make_layoutgrids_gs
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.utils.decorators.argmap._flatten
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.make_layoutgrids_gs
 
-### recursion_hamiltonian_path
+### recursion_check_no_collapsed_axes
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.algorithms.tournament.hamiltonian_path
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.check_no_collapsed_axes
 
-### recursion_ramsey_R2
+### recursion_make_layout_margins
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.algorithms.approximation.ramsey.ramsey_R2
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.make_layout_margins
 
-### recursion_procedure_P
+### recursion_make_margin_suptitles
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.algorithms.coloring.equitable_coloring.procedure_P
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.make_margin_suptitles
 
-### recursion__dfbnb
+### recursion_match_submerged_margins
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.algorithms.centrality.group._dfbnb
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.match_submerged_margins
 
-### recursion_export_analytics
+### recursion_reposition_axes
 - **Type**: recursion
 - **Confidence**: 0.90
-- **Functions**: webops.nlp2cmd-repo.src.nlp2cmd.cli.history.export_analytics
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._constrained_layout.reposition_axes
 
-### state_machine_VoiceServiceManager
-- **Type**: state_machine
-- **Confidence**: 0.70
-- **Functions**: webops.docker_app.VoiceServiceManager.__init__, webops.docker_app.VoiceServiceManager.connect, webops.docker_app.VoiceServiceManager.disconnect, webops.docker_app.VoiceServiceManager.broadcast_log, webops.docker_app.VoiceServiceManager.process_voice_command
+### recursion_detrend
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib.mlab.detrend
 
-### state_machine_VoiceServiceManager
-- **Type**: state_machine
-- **Confidence**: 0.70
-- **Functions**: webops.voice_service.VoiceServiceManager.__init__, webops.voice_service.VoiceServiceManager._create_nlp2cmd_pipeline, webops.voice_service.VoiceServiceManager._normalize_cache_key, webops.voice_service.VoiceServiceManager._to_cached_result, webops.voice_service.VoiceServiceManager._get_cache_lock
+### recursion__normalize_stix_fontcodes
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib._mathtext_data._normalize_stix_fontcodes
 
-### state_machine_VoiceServiceManager
-- **Type**: state_machine
-- **Confidence**: 0.70
-- **Functions**: webops.voice_service_clean.VoiceServiceManager.__init__, webops.voice_service_clean.VoiceServiceManager._create_nlp2cmd_pipeline, webops.voice_service_clean.VoiceServiceManager.connect, webops.voice_service_clean.VoiceServiceManager.disconnect, webops.voice_service_clean.VoiceServiceManager.broadcast_log
+### recursion_switch_backend
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: fresh_env.lib.python3.13.site-packages.matplotlib.pyplot.switch_backend
+
+### recursion__py_expr_to_dotted_name
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: fresh_env.lib.python3.13.site-packages.code2logic.parsers._py_expr_to_dotted_name
+
+### recursion_pformat
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: fresh_env.lib.python3.13.site-packages.jinja2.utils.pformat
+
+### recursion_has_safe_repr
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: fresh_env.lib.python3.13.site-packages.jinja2.compiler.has_safe_repr
 
 ## Public API Surface
 
@@ -692,44 +691,44 @@ Functions exposed as public API (no underscore prefix):
 
 - `src.nlp2cmd.pipeline_runner_plans.PlanExecutionMixin.execute_action_plan` - 261 calls
 - `src.nlp2cmd.cli.commands.run.handle_run_mode` - 261 calls
+- `fresh_env.lib.python3.13.site-packages.networkx.generators.social.les_miserables_graph` - 256 calls
 - `networkx-3.6.1-py3-none-any.networkx.generators.social.les_miserables_graph` - 256 calls
+- `fresh_env.lib.python3.13.site-packages.numpy.f2py.crackfortran.analyzeline` - 237 calls
+- `fresh_env.lib.python3.13.site-packages.code2logic.cli.main` - 209 calls
 - `src.nlp2cmd.adapters.canvas.CanvasAdapter.execute_drawing_plan` - 193 calls
+- `fresh_env.lib.python3.13.site-packages.numpy.lib._npyio_impl.genfromtxt` - 192 calls
+- `fresh_env.lib.python3.13.site-packages.networkx.drawing.nx_pylab.display` - 188 calls
 - `networkx-3.6.1-py3-none-any.networkx.drawing.nx_pylab.display` - 188 calls
+- `fresh_env.lib.python3.13.site-packages.fontTools.varLib.interpolatable.main` - 168 calls
+- `fresh_env.lib.python3.13.site-packages.networkx.algorithms.similarity.optimize_edit_paths` - 168 calls
 - `networkx-3.6.1-py3-none-any.networkx.algorithms.similarity.optimize_edit_paths` - 168 calls
+- `fresh_env.lib.python3.13.site-packages.numpy.f2py.crackfortran.analyzevars` - 156 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.sankey.Sankey.add` - 151 calls
+- `fresh_env.lib.python3.13.site-packages.networkx.algorithms.matching.max_weight_matching` - 150 calls
 - `networkx-3.6.1-py3-none-any.networkx.algorithms.matching.max_weight_matching` - 150 calls
 - `webops.nlp2cmd-repo.examples.shell.environment_analysis.main` - 143 calls
 - `examples.01_basics.shell_fundamentals.environment_analysis.main` - 139 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.hist` - 134 calls
+- `fresh_env.lib.python3.13.site-packages.charset_normalizer.api.from_bytes` - 126 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.backends.backend_pdf.PdfFile.embedTTF` - 118 calls
 - `src.nlp2cmd.cli.main.main` - 115 calls
+- `fresh_env.lib.python3.13.site-packages.numpy.f2py.f90mod_rules.buildhooks` - 114 calls
+- `fresh_env.lib.python3.13.site-packages.numpy.f2py.symbolic._FromStringWorker.process` - 113 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.hexbin` - 113 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.backends.qt_editor.figureoptions.figure_edit` - 113 calls
 - `src.nlp2cmd.execution.runner.ExecutionRunner.run_command` - 109 calls
 - `webops.nlp2cmd-repo.examples.devops.demo.demo_nlp_commands` - 108 calls
+- `fresh_env.lib.python3.13.site-packages.fontTools.varLib.interpolatablePlot.InterpolatablePlot.draw_glyph` - 107 calls
 - `examples.03_integrations.web_development.demo.demo_nlp_commands` - 106 calls
+- `fresh_env.lib.python3.13.site-packages.pip._vendor.rich.pretty.traverse` - 104 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.bxp` - 104 calls
 - `docker.novnc.demos.demo_desktop_gui.run_demo` - 103 calls
+- `fresh_env.lib.python3.13.site-packages.numpy.f2py.rules.buildmodule` - 101 calls
 - `webops.nlp2cmd-repo.examples.devops.demo_batch.run_batch_demo` - 99 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.lines.Line2D.draw` - 97 calls
 - `examples.03_integrations.web_development.demo_batch.run_batch_demo` - 95 calls
-- `networkx-3.6.1-py3-none-any.networkx.readwrite.gml.parse_gml_lines` - 92 calls
-- `networkx-3.6.1-py3-none-any.networkx.algorithms.tree.branchings.maximum_branching` - 89 calls
-- `webops.nlp2cmd-repo.examples.architecture.end_to_end_demo.main` - 87 calls
-- `examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main` - 87 calls
-- `src.nlp2cmd.generation.train_model.train_all_models` - 86 calls
-- `src.nlp2cmd.web_schema.form_handler.FormHandler.detect_form_fields` - 83 calls
-- `webops.nlp2cmd-repo.examples.shell.feedback_loop.simulate_interactive_session` - 82 calls
-- `webops.nlp2cmd-repo.src.nlp2cmd.cli.main.main` - 81 calls
-- `webops.nlp2cmd-repo.examples.sql.sql_workflows.main` - 81 calls
-- `examples.01_basics.sql_basics.workflows.main` - 81 calls
-- `webops.nlp2cmd-repo.examples.use_cases.shell_validation.ShellCommandValidator.get_test_cases` - 79 calls
-- `examples.04_domain_specific.debugging.validation.ShellCommandValidator.get_test_cases` - 79 calls
-- `networkx-3.6.1-py3-none-any.networkx.algorithms.flow.networksimplex.network_simplex` - 78 calls
-- `examples.01_basics.shell_fundamentals.feedback_loop.simulate_interactive_session` - 78 calls
-- `examples.benchmark_nlp2cmd.generate_html` - 77 calls
-- `src.nlp2cmd.web_schema.site_explorer.SiteExplorer.find_form` - 77 calls
-- `examples.03_integrations.toon_format.usage_example.main` - 77 calls
-- `networkx-3.6.1-py3-none-any.networkx.drawing.nx_pylab.draw_networkx_edges` - 76 calls
-- `webops.nlp2cmd-repo.examples.toon_usage_example.main` - 73 calls
-- `scripts.maintenance.refactoring_summary.print_summary` - 72 calls
-- `networkx-3.6.1-py3-none-any.networkx.algorithms.approximation.traveling_salesman.held_karp_ascent` - 70 calls
-- `webops.nlp2cmd-repo.src.app2schema.extract.extract_schema` - 70 calls
-- `webops.nlp2cmd-repo.examples.docker.file_repair.main` - 70 calls
-- `src.app2schema.extract.extract_schema` - 70 calls
+- `fresh_env.lib.python3.13.site-packages.PIL.PdfParser.PdfParser.get_value` - 94 calls
+- `fresh_env.lib.python3.13.site-packages.code2logic.mcp_server.call_tool` - 92 calls
 
 ## System Interactions
 
@@ -755,18 +754,18 @@ graph TD
     les_miserables_graph --> add_edge
     _prepare_shell_entit --> copy
     _prepare_shell_entit --> get
+    main --> time
+    main --> ArgumentParser
+    main --> add_argument
     display --> get
     display --> isinstance
     display --> subgraph
-    main --> print
-    main --> EnvironmentAnalyzer
-    main --> print_separator
-    main --> print_rule
-    main --> group
-    main --> option
-    run_command --> time
-    run_command --> print_markdown_block
-    run_command --> ExecutionResult
+    optimize_edit_paths --> _dispatchable
+    optimize_edit_paths --> list
+    optimize_edit_paths --> len
+    add --> sum
+    add --> enumerate
+    add --> iterable
 ```
 
 ## Reverse Engineering Guidelines
