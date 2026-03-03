@@ -33,6 +33,7 @@ from nlp2cmd.orchestration.reflection import (
     ResultAnalyzer,
     ReflectionVerdict,
 )
+from nlp2cmd.orchestration.handlers import register_default_handlers
 
 __all__ = [
     "Orchestrator",
@@ -42,4 +43,5 @@ __all__ = [
     "StepDef",
     "ResultAnalyzer",
     "ReflectionVerdict",
+    "register_default_handlers",
 ]

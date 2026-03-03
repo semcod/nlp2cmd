@@ -43,6 +43,34 @@ python3 03_adaptive_code.py --query "create a JS function that reverses a string
 python3 03_adaptive_code.py --query "make a C++ program that sorts an array"
 ```
 
+### 04 — JSFiddle: Frontend code playground
+
+```bash
+python3 04_jsfiddle_frontend.py --preset hello
+python3 04_jsfiddle_frontend.py --preset particles
+python3 04_jsfiddle_frontend.py --preset calculator
+```
+
+### 05 — Dynamic executor: Fully LLM-driven (no hardcoded presets)
+
+```bash
+# English
+python3 05_dynamic_executor.py --prompt "write fibonacci in python" --verbose --headless
+
+# Polish
+python3 05_dynamic_executor.py --prompt "napisz program sortujący listę liczb" --headless
+
+# Custom language
+python3 05_dynamic_executor.py --prompt "create a factorial calculator" --lang javascript
+```
+
+The dynamic executor uses `nlp2cmd.orchestration.Orchestrator` for:
+1. **LLM planning** — decomposes prompt into steps dynamically
+2. **LLM code generation** — no hardcoded presets
+3. **Page-schema-aware injection** — CM5/CM6/Monaco/Ace/textarea
+4. **Auto-retry on error** — detects tracebacks, re-generates code
+5. **LLM validation** — verifies output matches intent
+
 ## Requirements
 
 ```bash

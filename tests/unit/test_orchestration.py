@@ -342,3 +342,160 @@ class TestRouterDecisionOrchestrator:
             confidence=0.95,
         )
         assert result.decision == RoutingDecision.DIRECT
+
+
+# =====================================================================
+# Handlers module tests
+# =====================================================================
+
+class TestHandlers:
+    def test_register_default_handlers(self):
+        from nlp2cmd.orchestration.handlers import register_default_handlers
+        orch = Orchestrator(router=None)
+        orch._router = None
+        register_default_handlers(orch)
+        expected = {
+            "shell_exec", "generate_code", "wait", "inspect",
+            "navigate", "dismiss_popups", "inject_code",
+            "find_and_click", "capture_output", "screenshot", "validate",
+        }
+        assert expected.issubset(set(orch._handlers.keys()))
+
+    @pytest.mark.asyncio
+    async def test_handle_wait(self):
+        from nlp2cmd.orchestration.handlers import handle_wait
+        import time
+        t0 = time.time()
+        result = await handle_wait(StepDef("wait", params={"seconds": 0.1}), {})
+        assert result.status == StepStatus.SUCCESS
+        assert time.time() - t0 >= 0.1
+
+    @pytest.mark.asyncio
+    async def test_handle_shell_exec_success(self):
+        from nlp2cmd.orchestration.handlers import handle_shell_exec
+        result = await handle_shell_exec(
+            StepDef("shell_exec", params={"command": "echo hello"}), {},
+        )
+        assert result.status == StepStatus.SUCCESS
+        assert "hello" in result.data.get("output", "")
+
+    @pytest.mark.asyncio
+    async def test_handle_shell_exec_failure(self):
+        from nlp2cmd.orchestration.handlers import handle_shell_exec
+        result = await handle_shell_exec(
+            StepDef("shell_exec", params={"command": "false"}), {},
+        )
+        assert result.status == StepStatus.FAILED
+        assert result.data.get("exit_code") != 0
+
+    @pytest.mark.asyncio
+    async def test_handle_shell_exec_no_command(self):
+        from nlp2cmd.orchestration.handlers import handle_shell_exec
+        result = await handle_shell_exec(
+            StepDef("shell_exec", params={}), {},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_handle_inspect_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_inspect
+        result = await handle_inspect(StepDef("inspect"), {})
+        assert result.status == StepStatus.SUCCESS
+        assert result.data.get("page_schema") == {}
+
+    @pytest.mark.asyncio
+    async def test_handle_navigate_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_navigate
+        result = await handle_navigate(
+            StepDef("navigate", params={"url": "https://example.com"}), {},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_handle_navigate_no_url(self):
+        from nlp2cmd.orchestration.handlers import handle_navigate
+        result = await handle_navigate(
+            StepDef("navigate", params={}), {"page": "mock"},
+        )
+        assert result.status == StepStatus.FAILED
+
+    @pytest.mark.asyncio
+    async def test_handle_inject_code_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_inject_code
+        result = await handle_inject_code(
+            StepDef("inject_code"), {"generated_code": "print(1)"},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_handle_inject_code_no_code(self):
+        from nlp2cmd.orchestration.handlers import handle_inject_code
+        from unittest.mock import AsyncMock, MagicMock
+        mock_page = MagicMock()
+        result = await handle_inject_code(StepDef("inject_code"), {"page": mock_page})
+        assert result.status == StepStatus.FAILED
+
+    @pytest.mark.asyncio
+    async def test_handle_screenshot_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_screenshot
+        result = await handle_screenshot(StepDef("screenshot"), {})
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_handle_dismiss_popups_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_dismiss_popups
+        result = await handle_dismiss_popups(StepDef("dismiss_popups"), {})
+        assert result.status == StepStatus.SUCCESS
+        assert result.data.get("popups_dismissed") == []
+
+    @pytest.mark.asyncio
+    async def test_handle_capture_output_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_capture_output
+        result = await handle_capture_output(StepDef("capture_output"), {})
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_handle_find_and_click_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_find_and_click
+        result = await handle_find_and_click(
+            StepDef("find_and_click", params={"purpose": "run"}), {},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    def test_normalize_purpose(self):
+        from nlp2cmd.orchestration.handlers import _normalize_purpose
+        assert _normalize_purpose("run") == "run"
+        assert _normalize_purpose("Run the code") == "run"
+        assert _normalize_purpose("execute program") == "run"
+        assert _normalize_purpose("uruchom") == "run"
+        assert _normalize_purpose("submit form") == "submit"
+        assert _normalize_purpose("unknown thing") == "run"  # default
+
+    def test_strip_code_fences(self):
+        from nlp2cmd.orchestration.handlers import _strip_code_fences
+        assert _strip_code_fences("```python\nprint(1)\n```") == "print(1)"
+        assert _strip_code_fences("print(1)") == "print(1)"
+        assert _strip_code_fences("```\ncode\n```") == "code"
+
+
+class TestComplexPlannerOrchestrator:
+    """Test that ComplexCommandPlanner now delegates to Orchestrator."""
+
+    @pytest.mark.asyncio
+    async def test_orchestrator_plan_called(self):
+        from nlp2cmd.automation.complex_planner import ComplexCommandPlanner
+        planner = ComplexCommandPlanner(api_key=None)
+        plan = await planner.plan("write fibonacci in python")
+        # Should get a plan from orchestrator or template fallback
+        assert plan is not None
+        assert len(plan.steps) > 0
+        assert plan.source in ("orchestrator", "template", "llm", "none")
+
+    @pytest.mark.asyncio
+    async def test_template_still_works_as_fallback(self):
+        from nlp2cmd.automation.complex_planner import ComplexCommandPlanner
+        planner = ComplexCommandPlanner(api_key=None)
+        # "narysuj okrąg" should match DRAWING_PATTERNS template
+        plan = await planner.plan("narysuj okrąg na jspaint")
+        assert plan is not None
+        assert len(plan.steps) > 0

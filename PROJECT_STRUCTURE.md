@@ -22,6 +22,10 @@ nlp2cmd/
 │   │   │   └── commands/         # Subcommands: generate, run, doctor, interactive, tools
 │   │   ├── core/                 # Core models, backends, transforms
 │   │   ├── execution/            # Modular executor framework
+│   │   ├── orchestration/        # Dynamic LLM-driven orchestration engine
+│   │   │   ├── engine.py         # Orchestrator: plan → execute → reflect
+│   │   │   ├── reflection.py     # ResultAnalyzer: LLM validation, error classification
+│   │   │   └── handlers.py       # 11 step handlers (shell, code gen, browser, etc.)
 │   │   ├── generation/           # NLP pipeline, keyword detection, templates, LLM integration
 │   │   │   ├── keywords/         # Keyword-based intent detector
 │   │   │   ├── schema/           # Schema-based generation

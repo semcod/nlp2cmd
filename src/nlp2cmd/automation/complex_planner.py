@@ -294,6 +294,12 @@ No explanations, no markdown, just JSON.
         """
         Create an execution plan for a complex command.
 
+        Routing priority:
+        1. Dynamic Orchestrator (LLM-driven, if available)
+        2. Template matching (hardcoded, deprecated — kept as fallback)
+        3. Direct LLM planning via OpenRouter
+        4. URL extraction fallback
+
         Args:
             query: Natural language command
 
@@ -302,10 +308,16 @@ No explanations, no markdown, just JSON.
         """
         _debug(f"Planning: {query[:100]}")
 
-        # Try template matching first
+        # [NEW] Try dynamic orchestrator first (LLM-driven planning with reflection)
+        plan = await self._orchestrator_plan(query)
+        if plan:
+            _debug(f"Orchestrator plan: {len(plan.steps)} steps")
+            return plan
+
+        # [DEPRECATED] Template matching — kept as fallback only
         plan = self._match_template(query)
         if plan:
-            _debug(f"Template match: {plan.metadata.get('pattern_desc', '?')}")
+            _debug(f"Template match (deprecated fallback): {plan.metadata.get('pattern_desc', '?')}")
             return plan
 
         # Fall back to LLM planning
@@ -329,6 +341,31 @@ No explanations, no markdown, just JSON.
             steps=[ActionStep("echo", {"message": f"Could not plan: {query}"}, "No plan")],
             source="none",
         )
+
+    async def _orchestrator_plan(self, query: str) -> Optional[ExecutionPlan]:
+        """Try to plan via the dynamic orchestration engine (LLM-driven)."""
+        try:
+            from nlp2cmd.orchestration import Orchestrator
+            orch = Orchestrator()
+            schema = await orch.plan(query)
+            if schema and schema.steps:
+                steps = [
+                    ActionStep(
+                        action=s.action,
+                        params=s.params,
+                        description=s.description,
+                    )
+                    for s in schema.steps
+                ]
+                return ExecutionPlan(
+                    query=query,
+                    steps=steps,
+                    source="orchestrator",
+                    metadata={"domain": schema.domain, "goal": schema.goal},
+                )
+        except Exception as exc:
+            _debug(f"Orchestrator planning unavailable: {exc}")
+        return None
 
     def _match_template(self, query: str) -> Optional[ExecutionPlan]:
         """Match query against known template patterns."""
