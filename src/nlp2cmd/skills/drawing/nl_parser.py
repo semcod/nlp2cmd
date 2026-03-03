@@ -62,6 +62,7 @@ class NLDrawingParser:
         "octagon":   r"(?:o[sś]miok[aą]t|octagon)",
         "cross":     r"(?:krzy[żz]|cross)",
         "crescent":  r"(?:p[oó][lł]ksi[eę][żz]yc|crescent|sierp)",
+        "submarine": r"(?:okr[eę]t|podwodn[ay]|submarine|sub|u-boat)",
         "cloud_detailed": r"(?:chmur[aęk]|chmurka|cloud)",
     }
 
