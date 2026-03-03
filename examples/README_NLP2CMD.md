@@ -63,16 +63,58 @@ python3 08_api_key_management/01_diagnose_credentials_nlp2cmd.py --service openr
 ### 🎨 09_online_drawing - Drawing Automation
 
 **01_draw_chat_shapes**
-- Draw geometric shapes on draw.chat whiteboard
-- Shapes: house, star, circle, rectangle, line, spiral
+- Draw geometric shapes on online whiteboards (draw.chat with fallback to jspaint.app)
+- Shapes: house, star, circle, rectangle, line, spiral, heart, flower, triangle, ellipse
 - Colors: any color name or hex value
+- Features: coordinate scaling, automatic fallback, color declensions
 - Script: `01_draw_chat_shapes_nlp2cmd.py`
 
 **03_adaptive_drawing**
-- LLM-guided drawing with adaptive routing
+- LLM-guided drawing with adaptive routing and vision verification
 - Natural language prompts for complex drawings
-- Automatic error detection and retry
+- Automatic error detection and retry with fallback mechanisms
+- Based on analysis findings: coordinate scaling, color handling, site discovery
 - Script: `03_adaptive_drawing_nlp2cmd.py`
+
+**Analysis-Based Features:**
+- **Coordinate Scaling**: Automatic scaling for different canvas sizes
+- **Color Handling**: Full support on jspaint.app (28-color palette), limited on kleki.com
+- **Site Discovery**: Automatic fallback from draw.chat → jspaint.app → kleki.com
+- **Polish Declensions**: Proper accusative forms (czerwoną, niebieską, etc.)
+- **Popup Dismissal**: Cookie banners, GDPR notices, login modals
+- **Canvas Polling**: Dynamic wait up to 10s for slow-loading sites
+
+**04_object_database**
+- Multi-object drawing with external database integration
+- Text-to-2DObject generation via LLM fallback for unknown shapes
+- Autonomous database fetching from HuggingFace, GitHub, FontAwesome
+- Scene composition with automatic layout
+- Local cache with TTL for offline operation
+- Script: `04_object_database_drawing.py`
+
+**Object Databases:**
+- **HuggingFace**: shapenet, geometric datasets
+- **GitHub**: geometric-shapes-db repository
+- **FontAwesome**: Icon shapes (star, heart, cloud, etc.)
+- **Built-in**: 7 basic shapes as fallback
+- **LLM Generated**: Dynamic shape generation for any description
+
+**Usage:**
+```bash
+# Show available databases
+python3 04_object_database_drawing.py --show-database
+./run_examples.sh 09_online_drawing 04_object_database --show-database
+
+# Draw scene with multiple objects
+python3 04_object_database_drawing.py --objects "tree,house,sun,car,cloud"
+./run_examples.sh 09_online_drawing 04_object_database --objects "tree,house,sun"
+
+# Use natural language scene description
+python3 04_object_database_drawing.py --scene "forest with trees and a house"
+
+# Disable LLM fallback (use only built-in + cached shapes)
+python3 04_object_database_drawing.py --objects "car,tree" --no-llm-fallback
+```
 
 ### 💻 10_online_code_editors - Code Editor Automation
 

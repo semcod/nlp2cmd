@@ -28,6 +28,7 @@ class NLDrawingParser:
     """
 
     SHAPE_PATTERNS: dict[str, str] = {
+        # Basic shapes
         "circle":    r"(?:okr[aąę]g|ko[lł][oa]|k[oó][lł]k[oaą]|circle)",
         "ellipse":   r"(?:elips[aeę]|ellipse|owal|oval)",
         "rectangle": r"(?:prostok[aą]t|rectangle|rect)",
@@ -44,6 +45,24 @@ class NLDrawingParser:
         "dot":       r"(?:kropk[aęi]|punkt|dot|point)",
         "grid":      r"(?:siatk[aęi]|grid|krat[aęi])",
         "wave":      r"(?:fal[aęi]|wave)",
+        # Complex shapes
+        "car":       r"(?:samoch[oó]d|auto|car)",
+        "bird":      r"(?:ptak|ptasz[eę]k|bird)",
+        "butterfly": r"(?:motyl|motylek|butterfly)",
+        "boat":      r"(?:ł[oó]d[zźkk]|łódka|statek|boat|ship)",
+        "mountain":  r"(?:g[oó]r[ayę]|mountain)",
+        "cat":       r"(?:kot|kotek|cat)",
+        "fish":      r"(?:ryb[aęk]|rybka|fish)",
+        "rocket":    r"(?:rakiet[aęy]|rocket)",
+        "castle":    r"(?:zamek|zamku|castle)",
+        "diamond":   r"(?:diament|brylant|diamond)",
+        "arrow":     r"(?:strza[lł][aęk]|strzałka|arrow)",
+        "pentagon":  r"(?:pi[eę]ciok[aą]t|pentagon)",
+        "hexagon":   r"(?:sze[sś]ciok[aą]t|hexagon)",
+        "octagon":   r"(?:o[sś]miok[aą]t|octagon)",
+        "cross":     r"(?:krzy[żz]|cross)",
+        "crescent":  r"(?:p[oó][lł]ksi[eę][żz]yc|crescent|sierp)",
+        "cloud_detailed": r"(?:chmur[aęk]|chmurka|cloud)",
     }
 
     CLEAR_PATTERNS = re.compile(

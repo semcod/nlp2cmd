@@ -1,0 +1,320 @@
+{
+  "example": "01_draw_chat",
+  "platform": {
+    "os": "Linux",
+    "os_version": "#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026",
+    "arch": "x86_64",
+    "python": "3.13.7",
+    "hostname": "nvidia"
+  },
+  "started": "2026-03-03T13:43:25.727551+00:00",
+  "duration_s": 65.397,
+  "entries": [
+    {
+      "time": "2026-03-03T13:43:25.727551+00:00",
+      "elapsed_s": 0.001,
+      "level": "INFO",
+      "message": "=== 01_draw_chat ==="
+    },
+    {
+      "time": "2026-03-03T13:43:25.727721+00:00",
+      "elapsed_s": 0.001,
+      "level": "INFO",
+      "message": "Platform: {\"os\": \"Linux\", \"os_version\": \"#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026\", \"arch\": \"x86_64\", \"python\": \"3.13.7\", \"hostname\": \"nvidia\"}"
+    },
+    {
+      "time": "2026-03-03T13:43:25.727779+00:00",
+      "elapsed_s": 0.001,
+      "level": "INFO",
+      "message": "Headless: True"
+    },
+    {
+      "time": "2026-03-03T13:43:28.297168+00:00",
+      "elapsed_s": 2.57,
+      "level": "SUCCESS",
+      "message": "Browser ready"
+    },
+    {
+      "time": "2026-03-03T13:43:28.297232+00:00",
+      "elapsed_s": 2.571,
+      "level": "STEP",
+      "message": "[1] Building drawing plan: star in red"
+    },
+    {
+      "time": "2026-03-03T13:43:28.297558+00:00",
+      "elapsed_s": 2.571,
+      "level": "INFO",
+      "message": "Events emitted: 2"
+    },
+    {
+      "time": "2026-03-03T13:43:28.297597+00:00",
+      "elapsed_s": 2.571,
+      "level": "INFO",
+      "message": "Available shapes: circle, dot, ellipse, flower, grid, heart, house, line, rectangle, spiral, square, star, sun, tree, triangle, wave"
+    },
+    {
+      "time": "2026-03-03T13:43:28.297631+00:00",
+      "elapsed_s": 2.571,
+      "level": "STEP",
+      "message": "[2] Navigating to draw.chat..."
+    },
+    {
+      "time": "2026-03-03T13:43:28.297674+00:00",
+      "elapsed_s": 2.571,
+      "level": "INFO",
+      "message": "URL discovery: trying 6 URLs for 'draw.chat'"
+    },
+    {
+      "time": "2026-03-03T13:43:28.297710+00:00",
+      "elapsed_s": 2.571,
+      "level": "DEBUG",
+      "message": "  [1/6] Trying: https://draw.chat/"
+    },
+    {
+      "time": "2026-03-03T13:43:29.538164+00:00",
+      "elapsed_s": 3.811,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:43:34.241089+00:00",
+      "elapsed_s": 8.514,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'Accept'"
+    },
+    {
+      "time": "2026-03-03T13:43:34.942669+00:00",
+      "elapsed_s": 9.216,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'I understand'"
+    },
+    {
+      "time": "2026-03-03T13:43:46.746523+00:00",
+      "elapsed_s": 21.02,
+      "level": "DEBUG",
+      "message": "Canvas not found after 10s polling"
+    },
+    {
+      "time": "2026-03-03T13:43:46.746620+00:00",
+      "elapsed_s": 21.02,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:43:46.746662+00:00",
+      "elapsed_s": 21.02,
+      "level": "DEBUG",
+      "message": "  [2/6] Trying: https://draw.chat/pl/index.html"
+    },
+    {
+      "time": "2026-03-03T13:43:47.519621+00:00",
+      "elapsed_s": 21.793,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:43:51.845693+00:00",
+      "elapsed_s": 26.119,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'OK'"
+    },
+    {
+      "time": "2026-03-03T13:44:03.709390+00:00",
+      "elapsed_s": 37.983,
+      "level": "DEBUG",
+      "message": "Canvas not found after 10s polling"
+    },
+    {
+      "time": "2026-03-03T13:44:03.709479+00:00",
+      "elapsed_s": 37.983,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:44:03.709518+00:00",
+      "elapsed_s": 37.983,
+      "level": "DEBUG",
+      "message": "  [3/6] Trying: https://draw.chat/pl/whiteboard.html"
+    },
+    {
+      "time": "2026-03-03T13:44:03.942081+00:00",
+      "elapsed_s": 38.215,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:44:03.942141+00:00",
+      "elapsed_s": 38.215,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:44:03.942176+00:00",
+      "elapsed_s": 38.215,
+      "level": "DEBUG",
+      "message": "  [4/6] Trying: https://draw.chat/en/index.html"
+    },
+    {
+      "time": "2026-03-03T13:44:04.172956+00:00",
+      "elapsed_s": 38.446,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:44:04.173022+00:00",
+      "elapsed_s": 38.446,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:44:04.173104+00:00",
+      "elapsed_s": 38.446,
+      "level": "DEBUG",
+      "message": "  [5/6] Trying: https://draw.chat/pl/"
+    },
+    {
+      "time": "2026-03-03T13:44:04.525140+00:00",
+      "elapsed_s": 38.798,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:44:08.375333+00:00",
+      "elapsed_s": 42.649,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'OK'"
+    },
+    {
+      "time": "2026-03-03T13:44:19.400945+00:00",
+      "elapsed_s": 53.674,
+      "level": "DEBUG",
+      "message": "Canvas not found after 10s polling"
+    },
+    {
+      "time": "2026-03-03T13:44:19.401020+00:00",
+      "elapsed_s": 53.674,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:44:19.401072+00:00",
+      "elapsed_s": 53.674,
+      "level": "DEBUG",
+      "message": "  [6/6] Trying: https://draw.chat/en/"
+    },
+    {
+      "time": "2026-03-03T13:44:19.719558+00:00",
+      "elapsed_s": 53.993,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:44:19.719906+00:00",
+      "elapsed_s": 53.993,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:44:19.720295+00:00",
+      "elapsed_s": 53.994,
+      "level": "ERROR",
+      "message": "No working URL found for 'draw.chat' after 6 attempts"
+    },
+    {
+      "time": "2026-03-03T13:44:19.720641+00:00",
+      "elapsed_s": 53.994,
+      "level": "ERROR",
+      "message": "Could not navigate to 'draw.chat': http_404"
+    },
+    {
+      "time": "2026-03-03T13:44:19.720733+00:00",
+      "elapsed_s": 53.994,
+      "level": "WARNING",
+      "message": "draw.chat unavailable — trying fallback sites..."
+    },
+    {
+      "time": "2026-03-03T13:44:19.720785+00:00",
+      "elapsed_s": 53.994,
+      "level": "INFO",
+      "message": "Trying fallback: jspaint"
+    },
+    {
+      "time": "2026-03-03T13:44:19.720838+00:00",
+      "elapsed_s": 53.994,
+      "level": "INFO",
+      "message": "URL discovery: trying 3 URLs for 'jspaint'"
+    },
+    {
+      "time": "2026-03-03T13:44:19.720874+00:00",
+      "elapsed_s": 53.994,
+      "level": "DEBUG",
+      "message": "  [1/3] Trying: https://jspaint.app"
+    },
+    {
+      "time": "2026-03-03T13:44:22.806871+00:00",
+      "elapsed_s": 57.08,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:44:27.343790+00:00",
+      "elapsed_s": 61.617,
+      "level": "SUCCESS",
+      "message": "Found working URL: https://jspaint.app/#local:b2acfb6e5cf618 (canvas: 683x384)"
+    },
+    {
+      "time": "2026-03-03T13:44:27.343915+00:00",
+      "elapsed_s": 61.617,
+      "level": "SUCCESS",
+      "message": "Fallback succeeded: jspaint → https://jspaint.app/#local:b2acfb6e5cf618"
+    },
+    {
+      "time": "2026-03-03T13:44:29.346330+00:00",
+      "elapsed_s": 63.62,
+      "level": "STEP",
+      "message": "[3] Rendering via PlaywrightRenderer..."
+    },
+    {
+      "time": "2026-03-03T13:44:30.611247+00:00",
+      "elapsed_s": 64.885,
+      "level": "INFO",
+      "message": "Canvas: 683x384"
+    },
+    {
+      "time": "2026-03-03T13:44:30.611315+00:00",
+      "elapsed_s": 64.885,
+      "level": "STEP",
+      "message": "[4] Saving screenshot..."
+    },
+    {
+      "time": "2026-03-03T13:44:30.896573+00:00",
+      "elapsed_s": 65.17,
+      "level": "SUCCESS",
+      "message": "Screenshot saved: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/01_draw_chat/screenshots/draw_chat_star_red.png"
+    },
+    {
+      "time": "2026-03-03T13:44:30.906915+00:00",
+      "elapsed_s": 65.18,
+      "level": "STEP",
+      "message": "[5] Saving session..."
+    },
+    {
+      "time": "2026-03-03T13:44:30.908923+00:00",
+      "elapsed_s": 65.182,
+      "level": "INFO",
+      "message": "Session: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/01_draw_chat/screenshots/draw_chat_star_red_session.json (2 events)"
+    },
+    {
+      "time": "2026-03-03T13:44:30.909036+00:00",
+      "elapsed_s": 65.182,
+      "level": "SUCCESS",
+      "message": "Done! Shape: star, Color: red, Shapes drawn: 1"
+    }
+  ],
+  "summary": {
+    "total": 50,
+    "errors": 2,
+    "warnings": 1,
+    "successes": 5
+  }
+}

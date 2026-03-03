@@ -1,0 +1,404 @@
+{
+  "example": "03_adaptive",
+  "platform": {
+    "os": "Linux",
+    "os_version": "#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026",
+    "arch": "x86_64",
+    "python": "3.13.7",
+    "hostname": "nvidia"
+  },
+  "started": "2026-03-03T13:50:59.892113+00:00",
+  "duration_s": 79.03,
+  "entries": [
+    {
+      "time": "2026-03-03T13:50:59.892113+00:00",
+      "elapsed_s": 0.003,
+      "level": "INFO",
+      "message": "=== 03_adaptive ==="
+    },
+    {
+      "time": "2026-03-03T13:50:59.892303+00:00",
+      "elapsed_s": 0.003,
+      "level": "INFO",
+      "message": "Platform: {\"os\": \"Linux\", \"os_version\": \"#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026\", \"arch\": \"x86_64\", \"python\": \"3.13.7\", \"hostname\": \"nvidia\"}"
+    },
+    {
+      "time": "2026-03-03T13:50:59.892747+00:00",
+      "elapsed_s": 0.004,
+      "level": "INFO",
+      "message": "Headless: True"
+    },
+    {
+      "time": "2026-03-03T13:51:01.997685+00:00",
+      "elapsed_s": 2.109,
+      "level": "SUCCESS",
+      "message": "Browser ready"
+    },
+    {
+      "time": "2026-03-03T13:51:02.007820+00:00",
+      "elapsed_s": 2.119,
+      "level": "STEP",
+      "message": "[1] NL parsing: shape=star, color=#0000FF"
+    },
+    {
+      "time": "2026-03-03T13:51:02.008279+00:00",
+      "elapsed_s": 2.119,
+      "level": "INFO",
+      "message": "Query: narysuj czerwoną gwiazdę"
+    },
+    {
+      "time": "2026-03-03T13:51:02.012877+00:00",
+      "elapsed_s": 2.124,
+      "level": "INFO",
+      "message": "Target: draw.chat"
+    },
+    {
+      "time": "2026-03-03T13:51:02.013083+00:00",
+      "elapsed_s": 2.124,
+      "level": "INFO",
+      "message": "Available shapes: circle, dot, ellipse, flower, grid, heart, house, line, rectangle, spiral, square, star, sun, tree, triangle, wave"
+    },
+    {
+      "time": "2026-03-03T13:51:02.013141+00:00",
+      "elapsed_s": 2.124,
+      "level": "STEP",
+      "message": "[2] Trying LLM for drawing plan..."
+    },
+    {
+      "time": "2026-03-03T13:51:14.888100+00:00",
+      "elapsed_s": 14.999,
+      "level": "INFO",
+      "message": "  LLM model: ollama/qwen2.5-coder:3b"
+    },
+    {
+      "time": "2026-03-03T13:51:14.888198+00:00",
+      "elapsed_s": 14.999,
+      "level": "INFO",
+      "message": "  Latency: 3827ms"
+    },
+    {
+      "time": "2026-03-03T13:51:14.888340+00:00",
+      "elapsed_s": 14.999,
+      "level": "INFO",
+      "message": "LLM plan: 1 shapes (12875ms)"
+    },
+    {
+      "time": "2026-03-03T13:51:14.888381+00:00",
+      "elapsed_s": 14.999,
+      "level": "STEP",
+      "message": "[3] Generating drawing events from NL..."
+    },
+    {
+      "time": "2026-03-03T13:51:14.889344+00:00",
+      "elapsed_s": 15.0,
+      "level": "INFO",
+      "message": "Generated 2 events, total: 3"
+    },
+    {
+      "time": "2026-03-03T13:51:14.889400+00:00",
+      "elapsed_s": 15.0,
+      "level": "STEP",
+      "message": "[4] Navigating to draw.chat..."
+    },
+    {
+      "time": "2026-03-03T13:51:14.889459+00:00",
+      "elapsed_s": 15.0,
+      "level": "INFO",
+      "message": "URL discovery: trying 6 URLs for 'draw.chat'"
+    },
+    {
+      "time": "2026-03-03T13:51:14.889501+00:00",
+      "elapsed_s": 15.0,
+      "level": "DEBUG",
+      "message": "  [1/6] Trying: https://draw.chat/"
+    },
+    {
+      "time": "2026-03-03T13:51:16.738975+00:00",
+      "elapsed_s": 16.85,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:51:20.621604+00:00",
+      "elapsed_s": 20.732,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'Accept'"
+    },
+    {
+      "time": "2026-03-03T13:51:21.170803+00:00",
+      "elapsed_s": 21.282,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'I understand'"
+    },
+    {
+      "time": "2026-03-03T13:51:32.054958+00:00",
+      "elapsed_s": 32.166,
+      "level": "DEBUG",
+      "message": "Canvas not found after 10s polling"
+    },
+    {
+      "time": "2026-03-03T13:51:32.055025+00:00",
+      "elapsed_s": 32.166,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:51:32.055077+00:00",
+      "elapsed_s": 32.166,
+      "level": "DEBUG",
+      "message": "  [2/6] Trying: https://draw.chat/pl/index.html"
+    },
+    {
+      "time": "2026-03-03T13:51:32.629152+00:00",
+      "elapsed_s": 32.74,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:51:36.980074+00:00",
+      "elapsed_s": 37.091,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'OK'"
+    },
+    {
+      "time": "2026-03-03T13:51:47.953290+00:00",
+      "elapsed_s": 48.064,
+      "level": "DEBUG",
+      "message": "Canvas not found after 10s polling"
+    },
+    {
+      "time": "2026-03-03T13:51:47.953366+00:00",
+      "elapsed_s": 48.064,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:51:47.953408+00:00",
+      "elapsed_s": 48.064,
+      "level": "DEBUG",
+      "message": "  [3/6] Trying: https://draw.chat/pl/whiteboard.html"
+    },
+    {
+      "time": "2026-03-03T13:51:48.215691+00:00",
+      "elapsed_s": 48.327,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:51:48.215784+00:00",
+      "elapsed_s": 48.327,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:51:48.215814+00:00",
+      "elapsed_s": 48.327,
+      "level": "DEBUG",
+      "message": "  [4/6] Trying: https://draw.chat/en/index.html"
+    },
+    {
+      "time": "2026-03-03T13:51:48.339520+00:00",
+      "elapsed_s": 48.45,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:51:48.339825+00:00",
+      "elapsed_s": 48.451,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:51:48.340040+00:00",
+      "elapsed_s": 48.451,
+      "level": "DEBUG",
+      "message": "  [5/6] Trying: https://draw.chat/pl/"
+    },
+    {
+      "time": "2026-03-03T13:51:48.756226+00:00",
+      "elapsed_s": 48.867,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:51:52.685503+00:00",
+      "elapsed_s": 52.796,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'OK'"
+    },
+    {
+      "time": "2026-03-03T13:52:03.490118+00:00",
+      "elapsed_s": 63.601,
+      "level": "DEBUG",
+      "message": "Canvas not found after 10s polling"
+    },
+    {
+      "time": "2026-03-03T13:52:03.490195+00:00",
+      "elapsed_s": 63.601,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:52:03.490231+00:00",
+      "elapsed_s": 63.601,
+      "level": "DEBUG",
+      "message": "  [6/6] Trying: https://draw.chat/en/"
+    },
+    {
+      "time": "2026-03-03T13:52:03.654334+00:00",
+      "elapsed_s": 63.765,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:52:03.655078+00:00",
+      "elapsed_s": 63.766,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:52:03.656812+00:00",
+      "elapsed_s": 63.768,
+      "level": "ERROR",
+      "message": "No working URL found for 'draw.chat' after 6 attempts"
+    },
+    {
+      "time": "2026-03-03T13:52:03.657608+00:00",
+      "elapsed_s": 63.768,
+      "level": "ERROR",
+      "message": "Could not navigate to 'draw.chat': http_404"
+    },
+    {
+      "time": "2026-03-03T13:52:03.658433+00:00",
+      "elapsed_s": 63.769,
+      "level": "WARNING",
+      "message": "draw.chat unavailable, trying fallback chain..."
+    },
+    {
+      "time": "2026-03-03T13:52:03.658523+00:00",
+      "elapsed_s": 63.769,
+      "level": "INFO",
+      "message": "Trying fallback: jspaint"
+    },
+    {
+      "time": "2026-03-03T13:52:03.658578+00:00",
+      "elapsed_s": 63.769,
+      "level": "INFO",
+      "message": "URL discovery: trying 3 URLs for 'jspaint'"
+    },
+    {
+      "time": "2026-03-03T13:52:03.658613+00:00",
+      "elapsed_s": 63.769,
+      "level": "DEBUG",
+      "message": "  [1/3] Trying: https://jspaint.app"
+    },
+    {
+      "time": "2026-03-03T13:52:04.866685+00:00",
+      "elapsed_s": 64.978,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:52:09.615448+00:00",
+      "elapsed_s": 69.726,
+      "level": "SUCCESS",
+      "message": "Found working URL: https://jspaint.app/#local:572a23435258a (canvas: 683x384)"
+    },
+    {
+      "time": "2026-03-03T13:52:09.615588+00:00",
+      "elapsed_s": 69.726,
+      "level": "SUCCESS",
+      "message": "Fallback succeeded: jspaint → https://jspaint.app/#local:572a23435258a"
+    },
+    {
+      "time": "2026-03-03T13:52:11.626001+00:00",
+      "elapsed_s": 71.737,
+      "level": "STEP",
+      "message": "[5] Rendering via PlaywrightRenderer..."
+    },
+    {
+      "time": "2026-03-03T13:52:13.273137+00:00",
+      "elapsed_s": 73.384,
+      "level": "INFO",
+      "message": "Canvas: 683x384"
+    },
+    {
+      "time": "2026-03-03T13:52:13.273716+00:00",
+      "elapsed_s": 73.385,
+      "level": "STEP",
+      "message": "[6] Saving screenshot..."
+    },
+    {
+      "time": "2026-03-03T13:52:13.432009+00:00",
+      "elapsed_s": 73.543,
+      "level": "SUCCESS",
+      "message": "Screenshot saved: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/03_adaptive/screenshots/adaptive_star_0000FF_draw_chat.png"
+    },
+    {
+      "time": "2026-03-03T13:52:13.435515+00:00",
+      "elapsed_s": 73.546,
+      "level": "STEP",
+      "message": "[7] Saving session..."
+    },
+    {
+      "time": "2026-03-03T13:52:13.436023+00:00",
+      "elapsed_s": 73.547,
+      "level": "INFO",
+      "message": "Session: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/03_adaptive/screenshots/adaptive_star_session.json (3 events)"
+    },
+    {
+      "time": "2026-03-03T13:52:13.436095+00:00",
+      "elapsed_s": 73.547,
+      "level": "STEP",
+      "message": "[8] Attempting vision verification..."
+    },
+    {
+      "time": "2026-03-03T13:52:18.740144+00:00",
+      "elapsed_s": 78.851,
+      "level": "INFO",
+      "message": "  Vision says: No."
+    },
+    {
+      "time": "2026-03-03T13:52:18.740280+00:00",
+      "elapsed_s": 78.851,
+      "level": "INFO",
+      "message": "  Model: ollama/qwen2.5-coder:7b, Latency: 5223ms"
+    },
+    {
+      "time": "2026-03-03T13:52:18.809971+00:00",
+      "elapsed_s": 78.921,
+      "level": "STEP",
+      "message": "[9] Adaptive Learning Report:"
+    },
+    {
+      "time": "2026-03-03T13:52:18.810025+00:00",
+      "elapsed_s": 78.921,
+      "level": "INFO",
+      "message": "  Models tracked: 18"
+    },
+    {
+      "time": "2026-03-03T13:52:18.810051+00:00",
+      "elapsed_s": 78.921,
+      "level": "INFO",
+      "message": "  Rules learned: 0"
+    },
+    {
+      "time": "2026-03-03T13:52:18.810127+00:00",
+      "elapsed_s": 78.921,
+      "level": "INFO",
+      "message": "  Fallback pairs: {}"
+    },
+    {
+      "time": "2026-03-03T13:52:18.810213+00:00",
+      "elapsed_s": 78.921,
+      "level": "SUCCESS",
+      "message": "Done! Shape: star, Color: #0000FF, Target: draw.chat, Shapes: 1"
+    }
+  ],
+  "summary": {
+    "total": 64,
+    "errors": 2,
+    "warnings": 1,
+    "successes": 5
+  }
+}

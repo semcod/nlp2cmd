@@ -1,58 +1,58 @@
-# code2llm/evolution | 168 func | 8f | 2026-03-03
+# code2llm/evolution | 2239 func | 172f | 2026-03-03
 
 NEXT[10] (ranked by impact):
-  [1] !! SPLIT-FUNC      SiteExplorer.find_form  CC=72  fan=30
-      WHY: CC=72 exceeds 15
-      EFFORT: ~1h  IMPACT: 2160
+  [1] !! SPLIT           nlp2cmd/pipeline_runner_plans.py
+      WHY: 2869L, 1 classes, max CC=344
+      EFFORT: ~4h  IMPACT: 986936
 
-  [2] !! SPLIT-FUNC      DockerValidator.validate  CC=50  fan=24
-      WHY: CC=50 exceeds 15
-      EFFORT: ~1h  IMPACT: 1200
+  [2] !! SPLIT           nlp2cmd/web_schema/site_explorer.py
+      WHY: 1676L, 3 classes, max CC=72
+      EFFORT: ~4h  IMPACT: 120672
 
-  [3] !! SPLIT-FUNC      KubernetesValidator.validate  CC=58  fan=20
-      WHY: CC=58 exceeds 15
-      EFFORT: ~1h  IMPACT: 1160
+  [3] !! SPLIT           nlp2cmd/automation/action_planner.py
+      WHY: 1718L, 3 classes, max CC=25
+      EFFORT: ~4h  IMPACT: 42950
 
-  [4] !! SPLIT-FUNC      SiteExplorer._analyze_page  CC=40  fan=29
-      WHY: CC=40 exceeds 15
-      EFFORT: ~1h  IMPACT: 1160
+  [4] !! SPLIT-FUNC      PlanExecutionMixin._execute_plan_step  CC=344  fan=116
+      WHY: CC=344 exceeds 15
+      EFFORT: ~1h  IMPACT: 39904
 
-  [5] !! SPLIT-FUNC      SiteExplorer.find_content  CC=41  fan=27
-      WHY: CC=41 exceeds 15
-      EFFORT: ~1h  IMPACT: 1107
+  [5] !! SPLIT-FUNC      BrowserExecutionMixin._run_dom_multi_action  CC=280  fan=108
+      WHY: CC=280 exceeds 15
+      EFFORT: ~1h  IMPACT: 30240
 
-  [6] !! SPLIT-FUNC      FormHandler.detect_form_fields  CC=37  fan=21
-      WHY: CC=37 exceeds 15
-      EFFORT: ~1h  IMPACT: 777
+  [6] !! SPLIT-FUNC      PlanExecutionMixin.execute_action_plan  CC=198  fan=78
+      WHY: CC=198 exceeds 15
+      EFFORT: ~1h  IMPACT: 15444
 
-  [7] !! SPLIT-FUNC      SiteExplorer._get_sitemap_urls  CC=30  fan=21
-      WHY: CC=30 exceeds 15
-      EFFORT: ~1h  IMPACT: 630
+  [7] !! SPLIT-FUNC      handle_run_mode  CC=178  fan=75
+      WHY: CC=178 exceeds 15
+      EFFORT: ~1h  IMPACT: 13350
 
-  [8] !! SPLIT-FUNC      SQLValidator.validate  CC=34  fan=16
-      WHY: CC=34 exceeds 15
-      EFFORT: ~1h  IMPACT: 544
+  [8] !! SPLIT-FUNC      main  CC=71  fan=56
+      WHY: CC=71 exceeds 15
+      EFFORT: ~1h  IMPACT: 3976
 
-  [9] !! SPLIT-FUNC      ShellValidator.validate  CC=31  fan=14
-      WHY: CC=31 exceeds 15
-      EFFORT: ~1h  IMPACT: 434
+  [9] !! SPLIT-FUNC      _execute_multi_step_with_video  CC=64  fan=54
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 3456
 
-  [10] !! SPLIT-FUNC      FormHandler.fill_form  CC=27  fan=15
-      WHY: CC=27 exceeds 15
-      EFFORT: ~1h  IMPACT: 405
+  [10] !! SPLIT-FUNC      CanvasAdapter.execute_drawing_plan  CC=60  fan=40
+      WHY: CC=60 exceeds 15
+      EFFORT: ~1h  IMPACT: 2400
 
 
 RISKS[3]:
-  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/tests/test_vf2pp_helpers.py may break 0 import paths
-  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py may break 0 import paths
-  ⚠ Splitting src/nlp2cmd/pipeline_runner_plans.py may break 0 import paths
+  ⚠ Splitting nlp2cmd/pipeline_runner_plans.py may break 6 import paths
+  ⚠ Splitting nlp2cmd/automation/action_planner.py may break 26 import paths
+  ⚠ Splitting nlp2cmd/web_schema/site_explorer.py may break 33 import paths
 
 METRICS-TARGET:
-  CC̄:          6.8 → ≤4.8
-  max-CC:      72 → ≤20
-  god-modules: 243 → 0
-  high-CC(≥15): 19 → ≤9
+  CC̄:          5.7 → ≤4.0
+  max-CC:      344 → ≤20
+  god-modules: 53 → 0
+  high-CC(≥15): 151 → ≤75
   hub-types:   0 → ≤0
 
 HISTORY:
-  (first run — no previous data)
+  prev CC̄=6.8 → now CC̄=5.7

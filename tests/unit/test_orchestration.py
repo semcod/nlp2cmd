@@ -356,8 +356,9 @@ class TestHandlers:
         register_default_handlers(orch)
         expected = {
             "shell_exec", "generate_code", "wait", "inspect",
-            "navigate", "dismiss_popups", "inject_code",
+            "navigate", "navigate_with_fallback", "dismiss_popups", "inject_code",
             "find_and_click", "capture_output", "screenshot", "validate",
+            "discover_url", "check_health", "find_canvas", "draw_shape",
         }
         assert expected.issubset(set(orch._handlers.keys()))
 
@@ -476,6 +477,108 @@ class TestHandlers:
         assert _strip_code_fences("```python\nprint(1)\n```") == "print(1)"
         assert _strip_code_fences("print(1)") == "print(1)"
         assert _strip_code_fences("```\ncode\n```") == "code"
+
+
+class TestFallbackHandlers:
+    """Tests for new fallback skill handlers."""
+
+    @pytest.mark.asyncio
+    async def test_discover_url_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_discover_url
+        result = await handle_discover_url(
+            StepDef("discover_url", params={"url": "https://example.com"}), {},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_check_health_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_check_health
+        result = await handle_check_health(StepDef("check_health"), {})
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_find_canvas_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_find_canvas
+        result = await handle_find_canvas(StepDef("find_canvas"), {})
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_draw_shape_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_draw_shape
+        result = await handle_draw_shape(
+            StepDef("draw_shape", params={"shape": "circle", "color": "#ff0000"}), {},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    @pytest.mark.asyncio
+    async def test_navigate_with_fallback_no_page(self):
+        from nlp2cmd.orchestration.handlers import handle_navigate_with_fallback
+        result = await handle_navigate_with_fallback(
+            StepDef("navigate_with_fallback", params={"url": "https://example.com"}), {},
+        )
+        assert result.status == StepStatus.SKIPPED
+
+    def test_known_sites_registry(self):
+        from nlp2cmd.orchestration.handlers import KNOWN_SITES
+        assert "jspaint.app" in KNOWN_SITES
+        assert "draw.chat" in KNOWN_SITES
+        assert "mycompiler.io" in KNOWN_SITES
+        assert len(KNOWN_SITES) >= 5
+
+
+class TestReflectionRetryStrategies:
+    """Tests for enhanced error classification and retry strategies."""
+
+    def test_classify_page_not_found(self):
+        assert classify_error("404 Not Found") == "page_not_found"
+
+    def test_classify_timeout(self):
+        assert classify_error("Connection timed out after 30s") == "timeout"
+
+    def test_classify_network_error(self):
+        assert classify_error("net::ERR_CONNECTION_REFUSED") == "network_error"
+
+    def test_classify_login_required(self):
+        assert classify_error("Login required. Please sign in.") == "login_required"
+
+    def test_classify_captcha(self):
+        assert classify_error("CAPTCHA verification needed") == "captcha_blocked"
+
+    def test_classify_permission_denied(self):
+        assert classify_error("Permission denied for this resource") == "permission_denied"
+
+    def test_suggest_retry_strategy(self):
+        from nlp2cmd.orchestration.reflection import suggest_retry_strategy
+        assert suggest_retry_strategy("syntax_error") == "regenerate_code"
+        assert suggest_retry_strategy("page_not_found") == "discover_url"
+        assert suggest_retry_strategy("timeout") == "wait_longer"
+        assert suggest_retry_strategy("login_required") == "switch_site"
+        assert suggest_retry_strategy("network_error") == "retry_with_backoff"
+        assert suggest_retry_strategy(None) == "rerun"
+        assert suggest_retry_strategy("unknown_type") == "rerun"
+
+    @pytest.mark.asyncio
+    async def test_analyzer_page_not_found(self):
+        analyzer = ResultAnalyzer(router=None)
+        analyzer._auto_init_router = False
+        result = await analyzer.analyze(
+            goal="open draw.chat",
+            output="404 Not Found - the page you requested does not exist",
+        )
+        assert result.verdict == ReflectionVerdict.ERROR
+        assert result.error_type == "page_not_found"
+        assert result.retry_strategy == "discover_url"
+
+    @pytest.mark.asyncio
+    async def test_analyzer_timeout(self):
+        analyzer = ResultAnalyzer(router=None)
+        analyzer._auto_init_router = False
+        result = await analyzer.analyze(
+            goal="run code",
+            output="Error: Connection timed out",
+        )
+        assert result.verdict == ReflectionVerdict.ERROR
+        assert result.retry_strategy == "wait_longer"
 
 
 class TestComplexPlannerOrchestrator:

@@ -123,11 +123,26 @@ run_example() {
             ;;
         "09_online_drawing")
             case "$example" in
-                "01_draw_chat_shapes")
-                    script_path="$EXAMPLES_DIR/09_online_drawing/01_draw_chat_shapes_nlp2cmd.py"
+                "01_draw_chat"|"01_draw_chat_shapes")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/01_draw_chat/run.py"
                     ;;
-                "03_adaptive_drawing")
-                    script_path="$EXAMPLES_DIR/09_online_drawing/03_adaptive_drawing_nlp2cmd.py"
+                "02_picsart"|"02_picsart_painting")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/02_picsart/run.py"
+                    ;;
+                "03_adaptive"|"03_adaptive_drawing")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/03_adaptive/run.py"
+                    ;;
+                "04_object_database"|"04_database_drawing")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/04_object_database/run.py"
+                    ;;
+                "05_autonomous"|"05_autonomous_drawing")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/05_autonomous/run.py"
+                    ;;
+                "06_visual_validator"|"06_validator")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/06_visual_validator/run.py"
+                    ;;
+                "07_shape_gallery"|"07_gallery")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/07_shape_gallery/run.py"
                     ;;
                 *)
                     print_error "Unknown example: $example"
@@ -190,7 +205,12 @@ list_examples() {
     echo
     echo "🎨 09_online_drawing/"
     echo "  ├── 01_draw_chat_shapes   - Draw shapes on draw.chat"
-    echo "  └── 03_adaptive_drawing   - Adaptive drawing with LLM"
+    echo "  ├── 02_picsart_painting   - Paint patterns on Picsart"
+    echo "  ├── 03_adaptive_drawing   - Adaptive drawing with LLM"
+    echo "  ├── 04_object_database    - Database + LLM object generation"
+    echo "  ├── 05_autonomous_drawing - Full pipeline: fetch→draw→validate→correct"
+    echo "  ├── 06_visual_validator   - Vision LLM drawing verification"
+    echo "  └── 07_shape_gallery      - Preview all 33+ built-in shapes"
     echo
     echo "💻 10_online_code_editors/"
     echo "  ├── 01_codepen_live        - Write code on CodePen"

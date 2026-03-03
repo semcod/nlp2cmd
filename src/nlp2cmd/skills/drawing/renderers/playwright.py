@@ -73,53 +73,49 @@ class PlaywrightRenderer(Renderer):
         """Set the drawing color via multiple strategies (platform-independent)."""
         self._current_color = color
 
-        # Method 1: JSPaint internal color API
-        # jspaint stores foreground color in a global array and uses jQuery events
+        # Method 1: JSPaint — click nearest color in palette (.color-button[data-color])
+        # This is the most reliable method: simulates actual user interaction
         try:
-            result = await self._page.evaluate(f"""
-                (() => {{
-                    // jspaint: set_foreground_color or internal colors array
-                    if (typeof window.set_foreground_color === 'function') {{
-                        window.set_foreground_color('{color}');
-                        return 'jspaint_api';
-                    }}
-                    // jspaint alternative: colors array + trigger
-                    if (window.colors && Array.isArray(window.colors)) {{
-                        window.colors[0] = '{color}';
-                        if (window.$colorbox) {{
-                            window.$colorbox.trigger('color-changed');
-                        }}
-                        return 'jspaint_colors';
-                    }}
-                    // jspaint: try selecting foreground color via palette click simulation
-                    if (window.$) {{
-                        const $swatch = window.$('.color-button').first();
-                        if ($swatch.length) {{
-                            // Store color for when jspaint reads it
-                            window.$swatch_fg_color = '{color}';
-                        }}
-                    }}
-                    return null;
-                }})()
-            """)
-            if result:
-                return
-        except Exception:
-            pass
-
-        # Method 2: Click matching color in palette (jspaint bottom color bar)
-        try:
-            # jspaint palette: colored divs at bottom of screen
-            palette_selectors = [
-                f'.color-button[style*="{color}"]',
-                f'[data-color="{color}"]',
-            ]
-            for sel in palette_selectors:
-                el = self._page.locator(sel).first
-                if await el.count() > 0:
-                    await el.click()
-                    await self._page.wait_for_timeout(100)
-                    return
+            buttons = self._page.locator('.color-button')
+            count = await buttons.count()
+            if count > 0:
+                # Convert target color to RGB for comparison
+                best_btn = None
+                best_dist = float('inf')
+                target_rgb = await self._page.evaluate(f"""
+                    (() => {{
+                        const d = document.createElement('div');
+                        d.style.color = '{color}';
+                        document.body.appendChild(d);
+                        const c = getComputedStyle(d).color;
+                        document.body.removeChild(d);
+                        const m = c.match(/\\d+/g);
+                        return m ? [parseInt(m[0]), parseInt(m[1]), parseInt(m[2])] : null;
+                    }})()
+                """)
+                if target_rgb:
+                    # Find the closest color button
+                    closest_idx = await self._page.evaluate(f"""
+                        (() => {{
+                            const target = {target_rgb};
+                            const buttons = document.querySelectorAll('.color-button');
+                            let bestIdx = -1, bestDist = Infinity;
+                            buttons.forEach((btn, i) => {{
+                                const dc = btn.getAttribute('data-color') || '';
+                                const m = dc.match(/\\d+/g);
+                                if (m && m.length >= 3) {{
+                                    const r = parseInt(m[0]), g = parseInt(m[1]), b = parseInt(m[2]);
+                                    const dist = Math.abs(r - target[0]) + Math.abs(g - target[1]) + Math.abs(b - target[2]);
+                                    if (dist < bestDist) {{ bestDist = dist; bestIdx = i; }}
+                                }}
+                            }});
+                            return bestIdx;
+                        }})()
+                    """)
+                    if closest_idx >= 0:
+                        await buttons.nth(closest_idx).click()
+                        await self._page.wait_for_timeout(100)
+                        return
         except Exception:
             pass
 

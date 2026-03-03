@@ -68,16 +68,33 @@ async def main():
 
         log.info(f"Shape type: {shape_type}, Events: {skill.event_count}")
 
-        # Step 2: Navigate to Picsart with intelligent fallback
-        log.step(2, "Navigating to Picsart Draw...")
+        # Step 2: Navigate to a drawing site
+        # Picsart now requires login for freehand drawing and redirects to a
+        # design editor, so we prefer reliable free alternatives first.
+        log.step(2, "Navigating to drawing site...")
+
+        # Try Picsart first, then detect if it redirected to the design editor
         working_url = await runner.navigate("picsart")
+        use_fallback = False
 
-        if not working_url:
-            # Picsart is known to require login or block headless browsers.
-            # Fall back to alternative drawing sites.
-            log.warning("Picsart unavailable — trying fallback sites...")
+        if working_url:
+            current = page.url
+            # Picsart design editor is NOT a freehand drawing canvas
+            if "/create/editor" in current or "/edit" in current:
+                log.warning(f"Picsart redirected to design editor ({current}), not a drawing tool")
+                use_fallback = True
+            # Check for login modal still showing
+            login_modal = await page.locator('text="Get started with Picsart"').count()
+            if login_modal > 0:
+                log.warning("Picsart requires login — falling back")
+                use_fallback = True
+        else:
+            use_fallback = True
 
-            for fallback_site in ["kleki", "excalidraw", "draw.chat"]:
+        if use_fallback:
+            log.info("Using fallback drawing sites (Picsart unavailable for freehand drawing)...")
+            working_url = None
+            for fallback_site in ["kleki", "jspaint", "excalidraw", "draw.chat"]:
                 log.info(f"Trying fallback: {fallback_site}")
                 working_url, health = await discover_working_url(
                     page, fallback_site, log=log,
@@ -92,7 +109,7 @@ async def main():
 
         await page.wait_for_timeout(2000)
 
-        # Extra popup dismissal for Picsart (aggressive popup chain)
+        # Extra popup dismissal
         dismissed = await dismiss_popups(page, log, timeout=5000)
         if dismissed:
             log.info(f"Extra popups dismissed: {dismissed}")

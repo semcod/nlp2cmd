@@ -421,6 +421,262 @@ async def handle_validate(step: StepDef, ctx: dict) -> StepResult:
     return StepResult(StepStatus.SUCCESS, {"validation": result.__dict__})
 
 
+# ── URL discovery handler (intelligent fallback) ─────────────────────
+
+KNOWN_SITES: dict[str, list[str]] = {
+    "draw.chat": [
+        "https://draw.chat", "https://draw.chat/",
+        "https://draw.chat/pl", "https://draw.chat/en",
+    ],
+    "jspaint.app": [
+        "https://jspaint.app", "https://jspaint.app/",
+    ],
+    "excalidraw.com": [
+        "https://excalidraw.com", "https://excalidraw.com/",
+    ],
+    "kleki.com": [
+        "https://kleki.com", "https://kleki.com/",
+    ],
+    "mycompiler.io": [
+        "https://www.mycompiler.io/new/python",
+        "https://www.mycompiler.io/new/nodejs",
+        "https://www.mycompiler.io/new/cpp",
+    ],
+    "codepen.io": [
+        "https://codepen.io/pen", "https://codepen.io/pen/",
+    ],
+}
+
+
+async def handle_discover_url(step: StepDef, ctx: dict) -> StepResult:
+    """Discover a working URL when the primary one fails (404, no canvas, etc.).
+
+    Tries the initial URL, then known fallbacks, then auto-generated variations.
+    Returns the first URL where the required selector is found.
+    """
+    page = ctx.get("page")
+    if not page:
+        return StepResult(StepStatus.SKIPPED, error="No page in context")
+
+    initial_url = step.params.get("url", "")
+    required_selector = step.params.get("required_selector", "canvas")
+    timeout = step.params.get("timeout", 10000)
+
+    urls_to_try = [initial_url] if initial_url else []
+
+    # Add known site fallbacks
+    from urllib.parse import urlparse
+    if initial_url:
+        parsed = urlparse(initial_url)
+        domain = parsed.netloc.replace("www.", "")
+        for site_key, site_urls in KNOWN_SITES.items():
+            if site_key in domain or domain in site_key:
+                for u in site_urls:
+                    if u not in urls_to_try:
+                        urls_to_try.append(u)
+
+        # Auto-generate base domain variations
+        base = f"{parsed.scheme}://{parsed.netloc}"
+        for suffix in ["", "/", "/draw", "/canvas", "/whiteboard", "/board"]:
+            u = base + suffix
+            if u not in urls_to_try:
+                urls_to_try.append(u)
+
+    for url in urls_to_try:
+        try:
+            resp = await page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+            await page.wait_for_timeout(1000)
+            status = resp.status if resp else 0
+            title = await page.title()
+
+            if status == 404 or "404" in title or "Not Found" in title:
+                continue
+
+            count = await page.locator(required_selector).count()
+            if count > 0:
+                logger.info("URL discovery: found '%s' at %s", required_selector, page.url)
+                return StepResult(StepStatus.SUCCESS, {
+                    "url": page.url,
+                    "discovered_url": page.url,
+                    "selector_count": count,
+                })
+        except Exception:
+            continue
+
+    return StepResult(StepStatus.FAILED,
+                      error=f"No working URL found for selector '{required_selector}'")
+
+
+# ── Page health check handler ────────────────────────────────────────
+
+async def handle_check_health(step: StepDef, ctx: dict) -> StepResult:
+    """Check page health: is the page loaded, has expected elements, no errors."""
+    page = ctx.get("page")
+    if not page:
+        return StepResult(StepStatus.SKIPPED, error="No page in context")
+
+    checks: dict[str, Any] = {}
+    try:
+        checks["url"] = page.url
+        checks["title"] = await page.title()
+
+        # Check for error pages
+        title = checks["title"].lower()
+        is_error_page = any(s in title for s in ("404", "not found", "error", "blocked"))
+        checks["is_error_page"] = is_error_page
+
+        # Check required selectors
+        required = step.params.get("required_selectors", [])
+        if isinstance(required, str):
+            required = [required]
+        checks["selectors"] = {}
+        for sel in required:
+            count = await page.locator(sel).count()
+            checks["selectors"][sel] = count
+
+        all_found = all(checks["selectors"].get(s, 0) > 0 for s in required) if required else True
+        checks["all_required_found"] = all_found
+
+        # Check for login walls
+        login_indicators = ["login", "sign in", "log in", "zaloguj", "connexion"]
+        page_text = (await page.locator("body").inner_text())[:2000].lower()
+        checks["login_required"] = any(ind in page_text for ind in login_indicators)
+
+        healthy = not is_error_page and all_found and not checks["login_required"]
+        checks["healthy"] = healthy
+
+        if healthy:
+            return StepResult(StepStatus.SUCCESS, {"health": checks})
+        else:
+            reasons = []
+            if is_error_page:
+                reasons.append("error page")
+            if not all_found:
+                missing = [s for s in required if checks["selectors"].get(s, 0) == 0]
+                reasons.append(f"missing: {', '.join(missing)}")
+            if checks["login_required"]:
+                reasons.append("login required")
+            return StepResult(StepStatus.FAILED, {"health": checks},
+                              error=f"Unhealthy: {'; '.join(reasons)}")
+
+    except Exception as exc:
+        return StepResult(StepStatus.FAILED, error=f"Health check failed: {exc}")
+
+
+# ── Canvas detection handler ─────────────────────────────────────────
+
+async def handle_find_canvas(step: StepDef, ctx: dict) -> StepResult:
+    """Find and activate a canvas element on the page."""
+    page = ctx.get("page")
+    if not page:
+        return StepResult(StepStatus.SKIPPED, error="No page in context")
+
+    canvas_selectors = [
+        "canvas",
+        "[role='img'] canvas",
+        ".canvas-container canvas",
+        "#canvas",
+        ".drawing-canvas",
+        "svg",
+    ]
+
+    for sel in canvas_selectors:
+        try:
+            el = page.locator(sel).first
+            if await el.count() > 0:
+                try:
+                    await el.wait_for(state="visible", timeout=5000)
+                except Exception:
+                    pass
+                box = await el.bounding_box()
+                if box and box["width"] > 50 and box["height"] > 50:
+                    return StepResult(StepStatus.SUCCESS, {
+                        "canvas_selector": sel,
+                        "canvas_box": box,
+                        "canvas_center": {
+                            "x": box["x"] + box["width"] / 2,
+                            "y": box["y"] + box["height"] / 2,
+                        },
+                    })
+        except Exception:
+            continue
+
+    return StepResult(StepStatus.FAILED, error="No visible canvas found")
+
+
+# ── Draw shape handler (delegates to DrawingSkill) ───────────────────
+
+async def handle_draw_shape(step: StepDef, ctx: dict) -> StepResult:
+    """Draw a shape on canvas using the DrawingSkill system."""
+    page = ctx.get("page")
+    if not page:
+        return StepResult(StepStatus.SKIPPED, error="No page in context")
+
+    shape = step.params.get("shape", "circle")
+    color = step.params.get("color", "#000000")
+
+    try:
+        from nlp2cmd.skills.drawing import DrawingSkill
+        from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
+
+        skill = DrawingSkill()
+        canvas_box = ctx.get("canvas_box", {"width": 800, "height": 600, "x": 0, "y": 0})
+        w = canvas_box.get("width", 800)
+        h = canvas_box.get("height", 600)
+        skill.init_canvas(int(w), int(h))
+        skill.draw(shape, color=color)
+
+        renderer = PlaywrightRenderer(page)
+        renderer._canvas_box = canvas_box
+        await skill.render(renderer)
+
+        return StepResult(StepStatus.SUCCESS, {"drawn_shape": shape, "color": color})
+    except ImportError:
+        return StepResult(StepStatus.FAILED,
+                          error="DrawingSkill not available (missing nlp2cmd.skills.drawing)")
+    except Exception as exc:
+        return StepResult(StepStatus.FAILED, error=f"Drawing failed: {exc}")
+
+
+# ── Navigate with fallback handler ───────────────────────────────────
+
+async def handle_navigate_with_fallback(step: StepDef, ctx: dict) -> StepResult:
+    """Navigate to URL with automatic fallback discovery if primary URL fails."""
+    page = ctx.get("page")
+    if not page:
+        return StepResult(StepStatus.SKIPPED, error="No page in context")
+
+    url = step.params.get("url", "")
+    required = step.params.get("required_selector", "")
+
+    # Try primary URL first
+    nav_result = await handle_navigate(step, ctx)
+    if nav_result.status == StepStatus.SUCCESS and not required:
+        return nav_result
+
+    # If required selector specified, check if it's there
+    if required and nav_result.status == StepStatus.SUCCESS:
+        try:
+            count = await page.locator(required).count()
+            if count > 0:
+                return nav_result
+        except Exception:
+            pass
+
+    # Primary failed or missing required element — try discovery
+    discover_step = StepDef("discover_url", params={
+        "url": url,
+        "required_selector": required or "body",
+    })
+    disc_result = await handle_discover_url(discover_step, ctx)
+    if disc_result.status == StepStatus.SUCCESS:
+        ctx["url"] = disc_result.data.get("discovered_url", url)
+        return disc_result
+
+    return StepResult(StepStatus.FAILED,
+                      error=f"Navigation failed: {url} (and no fallback worked)")
+
+
 # ── Registration ─────────────────────────────────────────────────────
 
 def register_default_handlers(orch: Orchestrator) -> None:
@@ -430,12 +686,18 @@ def register_default_handlers(orch: Orchestrator) -> None:
     orch.register_handler("wait", handle_wait)
     orch.register_handler("inspect", handle_inspect)
     orch.register_handler("navigate", handle_navigate)
+    orch.register_handler("navigate_with_fallback", handle_navigate_with_fallback)
     orch.register_handler("dismiss_popups", handle_dismiss_popups)
     orch.register_handler("inject_code", handle_inject_code)
     orch.register_handler("find_and_click", handle_find_and_click)
     orch.register_handler("capture_output", handle_capture_output)
     orch.register_handler("screenshot", handle_screenshot)
     orch.register_handler("validate", handle_validate)
+    # Fallback skills
+    orch.register_handler("discover_url", handle_discover_url)
+    orch.register_handler("check_health", handle_check_health)
+    orch.register_handler("find_canvas", handle_find_canvas)
+    orch.register_handler("draw_shape", handle_draw_shape)
 
 
 # ── Helpers ──────────────────────────────────────────────────────────

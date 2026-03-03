@@ -55,6 +55,11 @@ _ERROR_SIGNALS = [
     "segmentation fault", "core dumped",
     "uncaught exception", "referenceerror:",
     "fatal error",
+    # Browser/page errors
+    "404 not found", "page not found",
+    "timed out", "connection timed out",
+    "net::err_", "connection refused",
+    "permission denied",
 ]
 
 
@@ -87,7 +92,47 @@ def classify_error(text: str) -> Optional[str]:
         return "nonzero_exit"
     if "traceback" in tl:
         return "runtime_error"
+    # Browser/page errors
+    if "404" in tl or "not found" in tl:
+        return "page_not_found"
+    if "timeout" in tl or "timed out" in tl:
+        return "timeout"
+    if "net::err" in tl or "connection refused" in tl:
+        return "network_error"
+    if "login" in tl and ("required" in tl or "sign in" in tl):
+        return "login_required"
+    if "captcha" in tl:
+        return "captcha_blocked"
+    if "permission" in tl and "denied" in tl:
+        return "permission_denied"
     return None
+
+
+# ── Retry strategy recommender ───────────────────────────────────────
+
+_RETRY_STRATEGIES: dict[str, str] = {
+    "syntax_error": "regenerate_code",
+    "reference_error": "regenerate_code",
+    "type_error": "regenerate_code",
+    "import_error": "regenerate_code",
+    "compilation_error": "regenerate_code",
+    "runtime_error": "regenerate_code",
+    "crash": "regenerate_code",
+    "nonzero_exit": "rerun",
+    "page_not_found": "discover_url",
+    "timeout": "wait_longer",
+    "network_error": "retry_with_backoff",
+    "login_required": "switch_site",
+    "captcha_blocked": "switch_site",
+    "permission_denied": "switch_site",
+}
+
+
+def suggest_retry_strategy(error_type: Optional[str]) -> str:
+    """Suggest a retry strategy based on error classification."""
+    if not error_type:
+        return "rerun"
+    return _RETRY_STRATEGIES.get(error_type, "rerun")
 
 
 # ── ResultAnalyzer (LLM-driven reflection) ───────────────────────────
@@ -137,15 +182,14 @@ class ResultAnalyzer:
         # Fast path: detect obvious errors without LLM
         if has_error_signals(output):
             err_type = classify_error(output)
+            strategy = suggest_retry_strategy(err_type)
             return ReflectionResult(
                 verdict=ReflectionVerdict.ERROR,
                 reason=f"Error detected in output: {err_type or 'unknown'}",
                 confidence=0.95,
                 error_type=err_type,
                 should_retry=True,
-                retry_strategy="regenerate_code" if err_type in (
-                    "syntax_error", "reference_error", "import_error",
-                ) else "rerun",
+                retry_strategy=strategy,
             )
 
         # No output when expected

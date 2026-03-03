@@ -273,6 +273,457 @@ class WaveGenerator(ShapeGenerator):
         return [pts]
 
 
+# ── Complex Shape Generators ─────────────────────────────────────────────
+
+class CarGenerator(ShapeGenerator):
+    name = "car"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.8
+        # Body
+        body: PointGroup = [
+            (cx - s, cy + s * 0.1), (cx - s, cy - s * 0.2),
+            (cx - s * 0.6, cy - s * 0.2), (cx - s * 0.4, cy - s * 0.6),
+            (cx + s * 0.4, cy - s * 0.6), (cx + s * 0.6, cy - s * 0.2),
+            (cx + s, cy - s * 0.2), (cx + s, cy + s * 0.1),
+        ]
+        # Left wheel
+        lw: PointGroup = []
+        for i in range(17):
+            a = 2 * math.pi * i / 16
+            lw.append((cx - s * 0.55 + s * 0.18 * math.cos(a),
+                       cy + s * 0.1 + s * 0.18 * math.sin(a)))
+        # Right wheel
+        rw: PointGroup = []
+        for i in range(17):
+            a = 2 * math.pi * i / 16
+            rw.append((cx + s * 0.55 + s * 0.18 * math.cos(a),
+                       cy + s * 0.1 + s * 0.18 * math.sin(a)))
+        # Windshield
+        ws: PointGroup = [
+            (cx - s * 0.35, cy - s * 0.2), (cx - s * 0.15, cy - s * 0.55),
+            (cx + s * 0.15, cy - s * 0.55), (cx + s * 0.35, cy - s * 0.2),
+        ]
+        return [body, lw, rw, ws]
+
+
+class BirdGenerator(ShapeGenerator):
+    name = "bird"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.7
+        # Body (oval)
+        body: PointGroup = []
+        for i in range(25):
+            a = 2 * math.pi * i / 24
+            body.append((cx + s * 0.5 * math.cos(a), cy + s * 0.3 * math.sin(a)))
+        # Left wing
+        lw: PointGroup = [
+            (cx - s * 0.1, cy), (cx - s * 0.8, cy - s * 0.7),
+            (cx - s * 0.5, cy - s * 0.2), (cx - s * 0.1, cy),
+        ]
+        # Right wing
+        rw: PointGroup = [
+            (cx + s * 0.1, cy), (cx + s * 0.8, cy - s * 0.7),
+            (cx + s * 0.5, cy - s * 0.2), (cx + s * 0.1, cy),
+        ]
+        # Beak
+        beak: PointGroup = [
+            (cx + s * 0.5, cy - s * 0.05), (cx + s * 0.8, cy),
+            (cx + s * 0.5, cy + s * 0.05),
+        ]
+        # Tail
+        tail: PointGroup = [
+            (cx - s * 0.5, cy), (cx - s * 0.9, cy - s * 0.15),
+            (cx - s * 0.85, cy + s * 0.1), (cx - s * 0.5, cy),
+        ]
+        return [body, lw, rw, beak, tail]
+
+
+class ButterflyGenerator(ShapeGenerator):
+    name = "butterfly"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.8
+        # Upper left wing
+        ulw: PointGroup = []
+        for i in range(25):
+            t = i / 24
+            a = math.pi / 2 + t * math.pi
+            r = s * (0.5 + 0.3 * math.sin(t * math.pi))
+            ulw.append((cx + r * math.cos(a) * 0.8, cy + r * math.sin(a) - s * 0.2))
+        # Upper right wing (mirror)
+        urw: PointGroup = [(cx - (x - cx), y) for x, y in ulw]
+        # Lower left wing
+        llw: PointGroup = []
+        for i in range(20):
+            t = i / 19
+            a = -math.pi / 2 - t * math.pi * 0.7
+            r = s * (0.3 + 0.2 * math.sin(t * math.pi))
+            llw.append((cx + r * math.cos(a) * 0.8, cy + r * math.sin(a) + s * 0.1))
+        # Lower right wing (mirror)
+        lrw: PointGroup = [(cx - (x - cx), y) for x, y in llw]
+        # Body
+        body: PointGroup = [
+            (cx, cy - s * 0.5), (cx - s * 0.03, cy), (cx, cy + s * 0.4),
+            (cx + s * 0.03, cy), (cx, cy - s * 0.5),
+        ]
+        # Antennae
+        ant1: PointGroup = [(cx, cy - s * 0.5), (cx - s * 0.15, cy - s * 0.8)]
+        ant2: PointGroup = [(cx, cy - s * 0.5), (cx + s * 0.15, cy - s * 0.8)]
+        return [ulw, urw, llw, lrw, body, ant1, ant2]
+
+
+class BoatGenerator(ShapeGenerator):
+    name = "boat"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.8
+        # Hull
+        hull: PointGroup = [
+            (cx - s, cy), (cx - s * 0.8, cy + s * 0.4),
+            (cx + s * 0.8, cy + s * 0.4), (cx + s, cy), (cx - s, cy),
+        ]
+        # Mast
+        mast: PointGroup = [(cx, cy), (cx, cy - s * 0.9)]
+        # Sail
+        sail: PointGroup = [
+            (cx, cy - s * 0.85), (cx + s * 0.6, cy - s * 0.2), (cx, cy - s * 0.1),
+        ]
+        # Flag
+        flag: PointGroup = [
+            (cx, cy - s * 0.9), (cx + s * 0.2, cy - s * 0.8),
+            (cx, cy - s * 0.7),
+        ]
+        return [hull, mast, sail, flag]
+
+
+class MountainGenerator(ShapeGenerator):
+    name = "mountain"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size
+        peaks = params.get("peaks", 2)
+        groups: list[PointGroup] = []
+        # Main mountain
+        main: PointGroup = [
+            (cx - s, cy + s * 0.5), (cx - s * 0.2, cy - s * 0.8),
+            (cx, cy - s * 0.3), (cx + s * 0.3, cy - s * 0.9),
+            (cx + s, cy + s * 0.5), (cx - s, cy + s * 0.5),
+        ]
+        groups.append(main)
+        # Snow cap
+        snow: PointGroup = [
+            (cx + s * 0.15, cy - s * 0.65), (cx + s * 0.3, cy - s * 0.9),
+            (cx + s * 0.45, cy - s * 0.65),
+        ]
+        groups.append(snow)
+        return groups
+
+
+class CatGenerator(ShapeGenerator):
+    name = "cat"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.7
+        # Body (oval)
+        body: PointGroup = []
+        for i in range(25):
+            a = 2 * math.pi * i / 24
+            body.append((cx + s * 0.4 * math.cos(a), cy + s * 0.5 * math.sin(a) + s * 0.2))
+        # Head (circle)
+        head: PointGroup = []
+        for i in range(25):
+            a = 2 * math.pi * i / 24
+            head.append((cx + s * 0.3 * math.cos(a), cy - s * 0.4 + s * 0.3 * math.sin(a)))
+        # Left ear
+        le: PointGroup = [
+            (cx - s * 0.2, cy - s * 0.6), (cx - s * 0.25, cy - s * 0.95),
+            (cx - s * 0.05, cy - s * 0.65),
+        ]
+        # Right ear
+        re_: PointGroup = [
+            (cx + s * 0.2, cy - s * 0.6), (cx + s * 0.25, cy - s * 0.95),
+            (cx + s * 0.05, cy - s * 0.65),
+        ]
+        # Tail
+        tail: PointGroup = []
+        for i in range(15):
+            t = i / 14
+            tail.append((cx + s * 0.4 + s * 0.5 * t,
+                         cy + s * 0.3 - s * 0.5 * math.sin(t * math.pi)))
+        # Whiskers
+        w1: PointGroup = [(cx + s * 0.1, cy - s * 0.35), (cx + s * 0.5, cy - s * 0.45)]
+        w2: PointGroup = [(cx + s * 0.1, cy - s * 0.3), (cx + s * 0.5, cy - s * 0.3)]
+        w3: PointGroup = [(cx - s * 0.1, cy - s * 0.35), (cx - s * 0.5, cy - s * 0.45)]
+        w4: PointGroup = [(cx - s * 0.1, cy - s * 0.3), (cx - s * 0.5, cy - s * 0.3)]
+        return [body, head, le, re_, tail, w1, w2, w3, w4]
+
+
+class FishGenerator(ShapeGenerator):
+    name = "fish"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.8
+        # Body (ellipse)
+        body: PointGroup = []
+        for i in range(25):
+            a = 2 * math.pi * i / 24
+            body.append((cx + s * 0.6 * math.cos(a), cy + s * 0.3 * math.sin(a)))
+        # Tail
+        tail: PointGroup = [
+            (cx - s * 0.55, cy), (cx - s * 0.9, cy - s * 0.35),
+            (cx - s * 0.7, cy), (cx - s * 0.9, cy + s * 0.35),
+            (cx - s * 0.55, cy),
+        ]
+        # Eye
+        eye: PointGroup = []
+        for i in range(13):
+            a = 2 * math.pi * i / 12
+            eye.append((cx + s * 0.3 + s * 0.05 * math.cos(a),
+                        cy - s * 0.05 + s * 0.05 * math.sin(a)))
+        # Fin
+        fin: PointGroup = [
+            (cx, cy - s * 0.3), (cx - s * 0.1, cy - s * 0.6),
+            (cx + s * 0.15, cy - s * 0.3),
+        ]
+        return [body, tail, eye, fin]
+
+
+class RocketGenerator(ShapeGenerator):
+    name = "rocket"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.8
+        # Body
+        body: PointGroup = [
+            (cx - s * 0.15, cy + s * 0.5), (cx - s * 0.15, cy - s * 0.3),
+            (cx, cy - s * 0.8), (cx + s * 0.15, cy - s * 0.3),
+            (cx + s * 0.15, cy + s * 0.5), (cx - s * 0.15, cy + s * 0.5),
+        ]
+        # Left fin
+        lf: PointGroup = [
+            (cx - s * 0.15, cy + s * 0.3), (cx - s * 0.4, cy + s * 0.6),
+            (cx - s * 0.15, cy + s * 0.5),
+        ]
+        # Right fin
+        rf: PointGroup = [
+            (cx + s * 0.15, cy + s * 0.3), (cx + s * 0.4, cy + s * 0.6),
+            (cx + s * 0.15, cy + s * 0.5),
+        ]
+        # Window
+        window: PointGroup = []
+        for i in range(13):
+            a = 2 * math.pi * i / 12
+            window.append((cx + s * 0.08 * math.cos(a),
+                           cy - s * 0.15 + s * 0.08 * math.sin(a)))
+        # Flame
+        flame: PointGroup = [
+            (cx - s * 0.1, cy + s * 0.5), (cx - s * 0.05, cy + s * 0.7),
+            (cx, cy + s * 0.6), (cx + s * 0.05, cy + s * 0.75),
+            (cx + s * 0.1, cy + s * 0.5),
+        ]
+        return [body, lf, rf, window, flame]
+
+
+class CastleGenerator(ShapeGenerator):
+    name = "castle"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size * 0.8
+        # Main wall
+        wall: PointGroup = [
+            (cx - s * 0.6, cy + s * 0.5), (cx - s * 0.6, cy - s * 0.2),
+            (cx + s * 0.6, cy - s * 0.2), (cx + s * 0.6, cy + s * 0.5),
+        ]
+        # Battlements
+        bm: PointGroup = []
+        for i in range(7):
+            x = cx - s * 0.6 + i * s * 0.2
+            bm.append((x, cy - s * 0.2))
+            bm.append((x, cy - s * 0.35))
+            bm.append((x + s * 0.1, cy - s * 0.35))
+            bm.append((x + s * 0.1, cy - s * 0.2))
+        # Left tower
+        lt: PointGroup = [
+            (cx - s * 0.7, cy + s * 0.5), (cx - s * 0.7, cy - s * 0.5),
+            (cx - s * 0.5, cy - s * 0.5), (cx - s * 0.5, cy + s * 0.5),
+        ]
+        # Right tower
+        rt: PointGroup = [
+            (cx + s * 0.5, cy + s * 0.5), (cx + s * 0.5, cy - s * 0.5),
+            (cx + s * 0.7, cy - s * 0.5), (cx + s * 0.7, cy + s * 0.5),
+        ]
+        # Left tower roof
+        lr: PointGroup = [
+            (cx - s * 0.75, cy - s * 0.5), (cx - s * 0.6, cy - s * 0.8),
+            (cx - s * 0.45, cy - s * 0.5),
+        ]
+        # Right tower roof
+        rr: PointGroup = [
+            (cx + s * 0.45, cy - s * 0.5), (cx + s * 0.6, cy - s * 0.8),
+            (cx + s * 0.75, cy - s * 0.5),
+        ]
+        # Gate
+        gate: PointGroup = []
+        for i in range(13):
+            a = math.pi * i / 12
+            gate.append((cx + s * 0.15 * math.cos(a), cy + s * 0.5 - s * 0.25 * math.sin(a)))
+        gate.extend([(cx + s * 0.15, cy + s * 0.5), (cx - s * 0.15, cy + s * 0.5)])
+        return [wall, bm, lt, rt, lr, rr, gate]
+
+
+class DiamondGenerator(ShapeGenerator):
+    name = "diamond"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size
+        # Outline
+        outline: PointGroup = [
+            (cx, cy - s), (cx + s * 0.6, cy - s * 0.2),
+            (cx + s * 0.4, cy + s * 0.8),
+            (cx - s * 0.4, cy + s * 0.8),
+            (cx - s * 0.6, cy - s * 0.2), (cx, cy - s),
+        ]
+        # Top facets
+        f1: PointGroup = [(cx, cy - s), (cx, cy - s * 0.2)]
+        f2: PointGroup = [(cx - s * 0.6, cy - s * 0.2), (cx + s * 0.6, cy - s * 0.2)]
+        f3: PointGroup = [(cx - s * 0.3, cy - s * 0.2), (cx - s * 0.4, cy + s * 0.8)]
+        f4: PointGroup = [(cx + s * 0.3, cy - s * 0.2), (cx + s * 0.4, cy + s * 0.8)]
+        return [outline, f1, f2, f3, f4]
+
+
+class ArrowGenerator(ShapeGenerator):
+    name = "arrow"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size
+        direction = params.get("direction", "right")
+        if direction == "right":
+            pts: PointGroup = [
+                (cx - s, cy - s * 0.15), (cx + s * 0.3, cy - s * 0.15),
+                (cx + s * 0.3, cy - s * 0.4), (cx + s, cy),
+                (cx + s * 0.3, cy + s * 0.4), (cx + s * 0.3, cy + s * 0.15),
+                (cx - s, cy + s * 0.15), (cx - s, cy - s * 0.15),
+            ]
+        elif direction == "up":
+            pts = [
+                (cx - s * 0.15, cy + s), (cx - s * 0.15, cy - s * 0.3),
+                (cx - s * 0.4, cy - s * 0.3), (cx, cy - s),
+                (cx + s * 0.4, cy - s * 0.3), (cx + s * 0.15, cy - s * 0.3),
+                (cx + s * 0.15, cy + s), (cx - s * 0.15, cy + s),
+            ]
+        else:
+            pts = [
+                (cx - s, cy), (cx + s, cy),
+                (cx + s * 0.5, cy - s * 0.3),
+                (cx + s, cy),
+                (cx + s * 0.5, cy + s * 0.3),
+            ]
+        return [pts]
+
+
+class PentagonGenerator(ShapeGenerator):
+    name = "pentagon"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        pts: PointGroup = []
+        for i in range(6):
+            a = -math.pi / 2 + 2 * math.pi * i / 5
+            pts.append((cx + size * math.cos(a), cy + size * math.sin(a)))
+        return [pts]
+
+
+class HexagonGenerator(ShapeGenerator):
+    name = "hexagon"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        pts: PointGroup = []
+        for i in range(7):
+            a = 2 * math.pi * i / 6
+            pts.append((cx + size * math.cos(a), cy + size * math.sin(a)))
+        return [pts]
+
+
+class OctagonGenerator(ShapeGenerator):
+    name = "octagon"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        pts: PointGroup = []
+        for i in range(9):
+            a = 2 * math.pi * i / 8 + math.pi / 8
+            pts.append((cx + size * math.cos(a), cy + size * math.sin(a)))
+        return [pts]
+
+
+class CrossGenerator(ShapeGenerator):
+    name = "cross"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        w = size * 0.3
+        pts: PointGroup = [
+            (cx - w, cy - size), (cx + w, cy - size),
+            (cx + w, cy - w), (cx + size, cy - w),
+            (cx + size, cy + w), (cx + w, cy + w),
+            (cx + w, cy + size), (cx - w, cy + size),
+            (cx - w, cy + w), (cx - size, cy + w),
+            (cx - size, cy - w), (cx - w, cy - w),
+            (cx - w, cy - size),
+        ]
+        return [pts]
+
+
+class CrescentGenerator(ShapeGenerator):
+    name = "crescent"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        steps = 36
+        # Outer circle
+        pts: PointGroup = []
+        for i in range(steps + 1):
+            a = 2 * math.pi * i / steps
+            pts.append((cx + size * math.cos(a), cy + size * math.sin(a)))
+        # Inner circle (offset to create crescent)
+        inner: PointGroup = []
+        offset = size * 0.4
+        for i in range(steps + 1):
+            a = 2 * math.pi * i / steps
+            inner.append((cx + offset + size * 0.8 * math.cos(a),
+                          cy + size * 0.8 * math.sin(a)))
+        return [pts, inner]
+
+
+class CloudDetailedGenerator(ShapeGenerator):
+    name = "cloud_detailed"
+
+    def generate(self, cx: float, cy: float, size: float, **params: Any) -> list[PointGroup]:
+        s = size
+        pts: PointGroup = []
+        # Bottom flat
+        pts.append((cx - s * 0.7, cy + s * 0.2))
+        pts.append((cx + s * 0.7, cy + s * 0.2))
+        # Right bumps
+        for i in range(10):
+            t = i / 9
+            a = -math.pi / 2 + t * math.pi
+            pts.append((cx + s * 0.5 + s * 0.3 * math.cos(a),
+                        cy - s * 0.1 + s * 0.3 * math.sin(a)))
+        # Top bumps
+        for i in range(15):
+            t = i / 14
+            a = t * math.pi
+            pts.append((cx + s * 0.3 - s * 0.6 * t + s * 0.25 * math.cos(a),
+                        cy - s * 0.3 - s * 0.2 * math.sin(a * 2)))
+        # Left bumps
+        for i in range(10):
+            t = i / 9
+            a = math.pi / 2 + t * math.pi
+            pts.append((cx - s * 0.5 + s * 0.25 * math.cos(a),
+                        cy - s * 0.1 + s * 0.25 * math.sin(a)))
+        pts.append((cx - s * 0.7, cy + s * 0.2))
+        return [pts]
+
+
 # ── Shape Registry (OCP) ─────────────────────────────────────────────────
 
 class ShapeRegistry:
@@ -312,9 +763,17 @@ class ShapeRegistry:
     def _init_defaults(cls) -> None:
         """Register all built-in shape generators."""
         for gen_class in [
+            # Basic shapes
             CircleGenerator, EllipseGenerator, RectangleGenerator, SquareGenerator,
             TriangleGenerator, StarGenerator, HeartGenerator, SpiralGenerator,
             HouseGenerator, FlowerGenerator, SunGenerator, TreeGenerator,
             LineGenerator, DotGenerator, GridGenerator, WaveGenerator,
+            # Complex shapes
+            CarGenerator, BirdGenerator, ButterflyGenerator, BoatGenerator,
+            MountainGenerator, CatGenerator, FishGenerator, RocketGenerator,
+            CastleGenerator, DiamondGenerator, ArrowGenerator,
+            # Geometric shapes
+            PentagonGenerator, HexagonGenerator, OctagonGenerator,
+            CrossGenerator, CrescentGenerator, CloudDetailedGenerator,
         ]:
             cls.register(gen_class())

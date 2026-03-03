@@ -2,6 +2,55 @@
 
 Browser automation examples for drawing on free online tools — no registration needed.
 
+## 🚀 Quick Start (New Simplified Interface)
+
+### Using `run.sh` (Recommended)
+
+```bash
+# List all examples
+./run.sh list
+
+# Quick draw commands
+./run.sh draw "red star"
+./run.sh draw "blue house with green roof" --headless
+
+# Autonomous pipeline with validation
+./run.sh autonomous "cat and fish"
+
+# Run specific examples
+./run.sh 01_draw_chat
+./run.sh 03_adaptive --query "draw a castle"
+```
+
+### Using `nlp2cmd examples` (Unified CLI)
+
+```bash
+# List all available examples
+nlp2cmd examples list
+
+# Run specific example with auto-configuration
+nlp2cmd examples run 01_draw_chat
+nlp2cmd examples run 03_adaptive --query "star" --headless
+
+# Quick draw command
+nlp2cmd examples draw "red star" --target jspaint
+
+# Full autonomous pipeline
+nlp2cmd examples autonomous "purple butterfly and green tree"
+```
+
+### Features of New Interface
+
+- ✅ **Auto-install dependencies** — Playwright, browsers, LLM models
+- ✅ **Preconfigured environments** — No manual setup needed
+- ✅ **Unified error handling** — Clear messages when something missing
+- ✅ **Fallback chains** — Auto-switch to working drawing sites
+- ✅ **One command** — No need to `cd` into subdirectories
+
+---
+
+## Traditional Usage (Manual)
+
 Each example lives in its own folder with:
 - `run.py` — main script
 - `README.md` — documentation + known issues
@@ -34,6 +83,91 @@ python3 run.py --query "narysuj dom z czerwonym dachem"
 python3 run.py --query "draw a blue star" --target jspaint
 ```
 
+### 04 — Object Database: Multi-Object Scenes with DB + LLM
+
+```bash
+cd 04_object_database
+python3 run.py --objects "car, tree, house, cloud"
+python3 run.py --scene "forest with trees, birds, sun"
+python3 run.py --show-database
+```
+
+### 05 — Autonomous: Full Pipeline (Fetch → Draw → Validate → Correct)
+
+```bash
+cd 05_autonomous
+python3 run.py "narysuj czerwonego kota i niebieską rybkę"
+python3 run.py "draw a castle with a dragon"
+python3 run.py --list-shapes          # 33 built-in shapes
+python3 run.py --list-fetchable       # 44 database-mapped objects
+python3 run.py --fetch-only butterfly
+```
+
+### 06 — Visual Validator: Vision LLM Drawing Verification
+
+```bash
+cd 06_visual_validator
+python3 run.py --shape star --color red
+python3 run.py --shape butterfly --description "purple butterfly"
+python3 run.py --demo                 # 5 scenarios
+python3 run.py --shape house --correct  # auto-correct
+```
+
+### 07 — Shape Gallery: Preview All 33+ Built-in Shapes
+
+```bash
+cd 07_shape_gallery
+python3 run.py                        # list all shapes
+python3 run.py --svg                  # generate SVG previews
+python3 run.py --html                 # generate HTML gallery
+python3 run.py --draw                 # draw all on jspaint.app
+python3 run.py --category animals     # filter by category
+```
+
+## Folder Structure
+
+```
+09_online_drawing/
+├── _run_utils.py              Shared infrastructure
+├── _old/                      Original flat scripts (preserved)
+├── 01_draw_chat/              Draw shapes on draw.chat
+│   ├── run.py
+│   ├── README.md
+│   ├── logs/
+│   └── screenshots/
+├── 02_picsart/                Paint patterns on Picsart/Kleki
+│   ├── run.py
+│   ├── README.md
+│   ├── logs/
+│   └── screenshots/
+├── 03_adaptive/               LLM-guided drawing + learning
+│   ├── run.py
+│   ├── README.md
+│   ├── logs/
+│   └── screenshots/
+├── 04_object_database/        Multi-object DB + LLM scenes
+│   ├── run.py
+│   ├── README.md
+│   ├── logs/
+│   └── screenshots/
+├── 05_autonomous/             Full pipeline: fetch→draw→validate→correct
+│   ├── run.py
+│   ├── README.md
+│   ├── logs/
+│   └── screenshots/
+├── 06_visual_validator/       Vision LLM verification
+│   ├── run.py
+│   ├── README.md
+│   ├── logs/
+│   └── screenshots/
+└── 07_shape_gallery/          Shape library preview
+    ├── run.py
+    ├── README.md
+    ├── gallery/               SVG + HTML output
+    ├── logs/
+    └── screenshots/
+```
+
 ## Architecture
 
 ```
@@ -46,10 +180,32 @@ _run_utils.py          Shared infrastructure (logging, URL discovery, error hand
 └── DRAWING_SITES      Known drawing sites with fallback URLs
 
 DrawingSkill           CQRS + Event Sourcing for drawing operations
-├── NLDrawingParser    PL/EN natural language → drawing commands
+├── NLDrawingParser    PL/EN natural language → 33+ shape types
 ├── CommandBus         Command dispatch + validation
 ├── EventStore         Immutable event log
-└── ShapeRegistry      Available shape types
+└── ShapeRegistry      33 built-in + dynamic shapes
+
+ObjectFetcher          Autonomous shape fetching from online databases
+├── IconifyFetcher     200k+ icons (MDI, FontAwesome, GameIcons)
+├── SimpleIconsFetcher 3k+ brand SVGs
+├── SVGRepoFetcher     General vector graphics
+└── parse_svg_path     SVG d-attribute → PointGroup converter
+
+TextToShapeEngine      LLM-driven text → 2D vertex generation
+├── generate           Prompt LLM for shape coordinates
+├── validate_geometry  NaN/Inf/bounds checking
+├── normalize_points   Center and scale coordinates
+└── DynamicShapeGenerator  Runtime ShapeGenerator from data
+
+VisualValidator        Vision LLM validates screenshots
+├── validate           Screenshot + description → verdict + corrections
+├── revalidate         Post-correction re-check
+└── heuristic_validate Fallback when no vision model
+
+CorrectionEngine       Iterative drawing repair
+├── _build_plan        Corrections → CorrectionStep sequence
+├── _execute_plan      Apply steps via DrawingSkill + Renderer
+└── correct            Full validate → fix → re-validate loop
 
 PlaywrightRenderer     Browser canvas rendering via mouse movements
 ├── init_canvas        Navigate + discover canvas element

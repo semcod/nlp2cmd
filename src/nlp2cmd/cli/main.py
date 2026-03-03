@@ -111,6 +111,13 @@ def _register_subcommands_for_args(argv: list[str]) -> None:
         pass
 
     try:
+        if wants_help or subcmd in {"examples"}:
+            from nlp2cmd.cli.commands.examples import examples_group
+            main.add_command(examples_group)
+    except Exception:
+        pass
+
+    try:
         if wants_help or subcmd in {"history"}:
             from nlp2cmd.cli.history import history_group
             main.add_command(history_group)

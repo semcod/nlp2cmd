@@ -45,6 +45,14 @@ from nlp2cmd.skills.drawing.colors import ColorResolver
 from nlp2cmd.skills.drawing.nl_parser import NLDrawingParser
 from nlp2cmd.skills.drawing.renderers.base import Renderer
 from nlp2cmd.skills.drawing.skill import DrawingSkill
+from nlp2cmd.skills.drawing.object_fetcher import ObjectFetcher, FetchedShape, parse_svg_path
+from nlp2cmd.skills.drawing.text_to_shape import TextToShapeEngine, GeneratedShape, DynamicShapeGenerator
+from nlp2cmd.skills.drawing.visual_validator import (
+    VisualValidator, ValidationResult, ValidationVerdict, DrawingCorrection,
+)
+from nlp2cmd.skills.drawing.correction_engine import (
+    CorrectionEngine, CorrectionResult, AutonomousDrawingPipeline,
+)
 
 __all__ = [
     # Skill facade
@@ -77,4 +85,21 @@ __all__ = [
     "NLDrawingParser",
     # Renderers
     "Renderer",
+    # New skills: database fetching
+    "ObjectFetcher",
+    "FetchedShape",
+    "parse_svg_path",
+    # New skills: LLM shape generation
+    "TextToShapeEngine",
+    "GeneratedShape",
+    "DynamicShapeGenerator",
+    # New skills: visual validation
+    "VisualValidator",
+    "ValidationResult",
+    "ValidationVerdict",
+    "DrawingCorrection",
+    # New skills: correction engine
+    "CorrectionEngine",
+    "CorrectionResult",
+    "AutonomousDrawingPipeline",
 ]
