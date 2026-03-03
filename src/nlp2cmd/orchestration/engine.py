@@ -28,6 +28,11 @@ from nlp2cmd.orchestration.reflection import (
     ReflectionVerdict,
     has_error_signals,
 )
+from nlp2cmd.orchestration.metrics import (
+    MetricsCollector,
+    PathOptimizer,
+    FunctionCache,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -111,16 +116,31 @@ class Orchestrator:
         self,
         router=None,
         handlers: Optional[dict[str, Callable]] = None,
+        enable_metrics: bool = True,
     ):
         """
         Args:
             router: LLMRouter instance (lazy-loaded if None).
             handlers: Step action handlers {action_name: async_callable}.
+            enable_metrics: Enable metrics collection and path optimization.
         """
         self._router = router
         self._analyzer = ResultAnalyzer(router=router)
         self._handlers: dict[str, Callable] = handlers or {}
         self._context: dict[str, Any] = {}
+
+        # Metrics & optimization (persistent in ~/.nlp2cmd/)
+        self._metrics_enabled = enable_metrics
+        self._metrics: Optional[MetricsCollector] = None
+        self._path_optimizer: Optional[PathOptimizer] = None
+        self._func_cache: Optional[FunctionCache] = None
+        if enable_metrics:
+            try:
+                self._metrics = MetricsCollector()
+                self._path_optimizer = PathOptimizer()
+                self._func_cache = FunctionCache()
+            except Exception:
+                pass
 
     # ── Router (lazy) ────────────────────────────────────────────────
 
@@ -165,18 +185,36 @@ class Orchestrator:
         self._context = dict(context or {})
         self._context["goal"] = prompt
 
-        # Phase 1 — Plan
-        schema = await self.plan(prompt)
-        logger.info("Plan: %s (%d steps)", schema.goal, len(schema.steps))
+        # Start metrics
+        task_id = ""
+        if self._metrics:
+            task_id = self._metrics.start_task(prompt)
+
+        # Phase 1 — Plan (check cached paths first)
+        plan_source = "llm"
+        schema = await self._plan_with_cache(prompt)
+        if schema.metadata.get("from_cache"):
+            plan_source = "cached_path"
+        logger.info("Plan: %s (%d steps, source=%s)", schema.goal, len(schema.steps), plan_source)
 
         # Phase 2 — Execute
         steps_ok = 0
         for i, step_def in enumerate(schema.steps):
+            step_t0 = time.time()
             result = await self._execute_with_retry(step_def, i)
+            step_ms = (time.time() - step_t0) * 1000
 
             if result.status in (StepStatus.SUCCESS, StepStatus.REPAIRED):
                 self._context.update(result.data)
                 steps_ok += 1
+                if self._metrics:
+                    self._metrics.record_step(
+                        action=step_def.action,
+                        status=result.status.value,
+                        duration_ms=step_ms,
+                    )
+                # Cache generated code as reusable function
+                self._maybe_cache_function(step_def, result)
                 continue
 
             # Try repair
@@ -184,9 +222,23 @@ class Orchestrator:
             if repaired and repaired.status in (StepStatus.SUCCESS, StepStatus.REPAIRED):
                 self._context.update(repaired.data)
                 steps_ok += 1
+                if self._metrics:
+                    self._metrics.record_step(
+                        action=step_def.action,
+                        status="repaired",
+                        duration_ms=(time.time() - step_t0) * 1000,
+                    )
                 continue
 
             # Unrecoverable
+            if self._metrics:
+                self._metrics.record_step(
+                    action=step_def.action, status="failed",
+                    duration_ms=step_ms, error=result.error,
+                )
+                self._metrics.finish_task(
+                    success=False, plan_source=plan_source,
+                )
             return TaskResult(
                 success=False,
                 goal=schema.goal,
@@ -221,6 +273,16 @@ class Orchestrator:
             ReflectionVerdict.INCONCLUSIVE,
         )
 
+        # Phase 4 — Persist metrics + learn path
+        if self._metrics:
+            task_metric = self._metrics.finish_task(
+                success=success,
+                reflection_verdict=reflection.verdict.value,
+                plan_source=plan_source,
+            )
+            if success and self._path_optimizer:
+                self._path_optimizer.record_success(task_metric)
+
         return TaskResult(
             success=success,
             goal=schema.goal,
@@ -232,7 +294,58 @@ class Orchestrator:
             duration_ms=(time.time() - t0) * 1000,
         )
 
-    # ── Phase 1: Planning ────────────────────────────────────────────
+    # ── Phase 1: Planning (with path cache) ──────────────────────────
+
+    async def _plan_with_cache(self, prompt: str) -> TaskSchema:
+        """Try cached path first, then LLM planning."""
+        if self._path_optimizer:
+            cached = self._path_optimizer.lookup(prompt)
+            if cached and cached.success_count >= 1:
+                logger.info("Using cached path (used %dx)", cached.success_count)
+                steps = [
+                    StepDef(
+                        action=s.get("action", "unknown"),
+                        description=s.get("description", ""),
+                        params={k: v for k, v in s.items()
+                                if k not in ("action", "description", "status",
+                                             "duration_ms", "tokens_in", "tokens_out",
+                                             "llm_model", "error")},
+                    )
+                    for s in cached.steps
+                ]
+                if steps:
+                    return TaskSchema(
+                        goal=prompt,
+                        domain=cached.domain,
+                        steps=steps,
+                        metadata={"from_cache": True, "cache_hits": cached.success_count},
+                    )
+        return await self.plan(prompt)
+
+    def _maybe_cache_function(self, step_def: StepDef, result: StepResult) -> None:
+        """Cache generated code as a reusable function."""
+        if not self._func_cache:
+            return
+        if step_def.action != "generate_code":
+            return
+        code = result.data.get("generated_code", "")
+        language = result.data.get("language", "py")
+        if not code or len(code) < 10:
+            return
+
+        lang_key = "js" if language in ("javascript", "js") else "py"
+        goal = self._context.get("goal", "")
+        from nlp2cmd.orchestration.metrics import _hash_goal
+        func_id = self._func_cache.store(
+            code=code,
+            language=lang_key,
+            name=step_def.description[:40] or "generated",
+            description=goal[:200],
+            goal_hash=_hash_goal(goal),
+            tags=[language, step_def.action],
+        )
+        if self._metrics:
+            self._metrics.record_generated_function(func_id)
 
     async def plan(self, prompt: str) -> TaskSchema:
         """Use LLM to decompose prompt into a TaskSchema."""

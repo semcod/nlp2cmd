@@ -292,3 +292,123 @@ def vlog_decision(action: str, reason: str, alternatives: list[str] | None = Non
     vlog(f"  reason: {reason}", indent=1)
     if alternatives:
         vlog(f"  alternatives considered: {alternatives}", indent=1)
+
+
+def ensure_playwright_browsers(auto_install: bool = True, browser_type: str = "chromium") -> bool:
+    """
+    Check if Playwright browsers are installed, and auto-install if missing.
+    SYNC version - for use in non-async contexts.
+
+    Args:
+        auto_install: If True, automatically installs browsers without prompting.
+        browser_type: The browser type to install (default: chromium).
+
+    Returns:
+        True if browsers are available (or were successfully installed),
+        False if installation failed or was declined.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+
+        # Check if browser exists by trying to launch it
+        with sync_playwright() as pw:
+            try:
+                browser = getattr(pw, browser_type).launch()
+                browser.close()
+                vlog(f"Playwright {browser_type} browser found")
+                return True
+            except Exception as e:
+                vlog(f"Browser launch check failed: {e}")
+                pass  # Browser not installed
+    except ImportError:
+        print("ERROR: Playwright Python package not installed.")
+        print("       Run: pip install playwright")
+        return False
+
+    # Browser not found, try to install
+    print(f"Playwright {browser_type} browser not found.")
+
+    if not auto_install:
+        response = input("Would you like to install it now? [Y/n]: ").strip().lower()
+        if response not in ("", "y", "yes"):
+            print(f"Please install manually: playwright install {browser_type}")
+            return False
+
+    print(f"Installing Playwright {browser_type} browser...")
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [sys.executable, "-m", "playwright", "install", browser_type],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode == 0:
+        print(f"✓ Playwright {browser_type} installed successfully")
+        return True
+    else:
+        print(f"✗ Installation failed:")
+        print(result.stderr)
+        print(f"\nPlease install manually: playwright install {browser_type}")
+        return False
+
+
+async def ensure_playwright_browsers_async(auto_install: bool = True, browser_type: str = "chromium") -> bool:
+    """
+    Check if Playwright browsers are installed, and auto-install if missing.
+    ASYNC version - for use inside async functions.
+
+    Args:
+        auto_install: If True, automatically installs browsers without prompting.
+        browser_type: The browser type to install (default: chromium).
+
+    Returns:
+        True if browsers are available (or were successfully installed),
+        False if installation failed or was declined.
+    """
+    try:
+        from playwright.async_api import async_playwright
+
+        # Check if browser exists by trying to launch it
+        async with async_playwright() as pw:
+            try:
+                browser = await getattr(pw, browser_type).launch()
+                await browser.close()
+                vlog(f"Playwright {browser_type} browser found")
+                return True
+            except Exception as e:
+                vlog(f"Browser launch check failed: {e}")
+                pass  # Browser not installed
+    except ImportError:
+        print("ERROR: Playwright Python package not installed.")
+        print("       Run: pip install playwright")
+        return False
+
+    # Browser not found, try to install
+    print(f"Playwright {browser_type} browser not found.")
+
+    if not auto_install:
+        response = input("Would you like to install it now? [Y/n]: ").strip().lower()
+        if response not in ("", "y", "yes"):
+            print(f"Please install manually: playwright install {browser_type}")
+            return False
+
+    print(f"Installing Playwright {browser_type} browser...")
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [sys.executable, "-m", "playwright", "install", browser_type],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode == 0:
+        print(f"✓ Playwright {browser_type} installed successfully")
+        return True
+    else:
+        print(f"✗ Installation failed:")
+        print(result.stderr)
+        print(f"\nPlease install manually: playwright install {browser_type}")
+        return False

@@ -34,6 +34,12 @@ from nlp2cmd.orchestration.reflection import (
     ReflectionVerdict,
 )
 from nlp2cmd.orchestration.handlers import register_default_handlers
+from nlp2cmd.orchestration.metrics import (
+    MetricsCollector,
+    PathOptimizer,
+    FunctionCache,
+    get_workspace,
+)
 
 __all__ = [
     "Orchestrator",
@@ -44,4 +50,8 @@ __all__ = [
     "ResultAnalyzer",
     "ReflectionVerdict",
     "register_default_handlers",
+    "MetricsCollector",
+    "PathOptimizer",
+    "FunctionCache",
+    "get_workspace",
 ]

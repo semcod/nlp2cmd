@@ -12,7 +12,11 @@ import asyncio
 import sys
 from pathlib import Path
 
+# Add examples parent and src to path for shared helpers
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from _verbose_helper import ensure_playwright_browsers_async
 
 
 async def main():
@@ -36,7 +40,11 @@ async def main():
     try:
         from playwright.async_api import async_playwright
     except ImportError:
-        print("Playwright required: pip install playwright && playwright install")
+        print("ERROR: pip install playwright")
+        sys.exit(1)
+
+    # Auto-install browsers if needed
+    if not await ensure_playwright_browsers_async(auto_install=True):
         sys.exit(1)
 
     solver = CaptchaSolver(api_key=api_key, model=args.model)

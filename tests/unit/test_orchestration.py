@@ -499,3 +499,223 @@ class TestComplexPlannerOrchestrator:
         plan = await planner.plan("narysuj okrąg na jspaint")
         assert plan is not None
         assert len(plan.steps) > 0
+
+
+# =====================================================================
+# Metrics module tests
+# =====================================================================
+
+class TestMetricsCollector:
+    @pytest.fixture
+    def tmp_ws(self, tmp_path):
+        return tmp_path / ".nlp2cmd_test"
+
+    @pytest.fixture
+    def mc(self, tmp_ws):
+        from nlp2cmd.orchestration.metrics import MetricsCollector
+        return MetricsCollector(workspace=tmp_ws)
+
+    def test_start_and_finish_task(self, mc):
+        tid = mc.start_task("test goal", domain="code_editor")
+        assert tid.startswith("task_")
+        mc.record_step("inspect", "success", duration_ms=100)
+        mc.record_step("generate_code", "success", duration_ms=1500, tokens_out=500)
+        mc.record_step("inject_code", "failed", error="no page")
+        result = mc.finish_task(success=False, plan_source="llm")
+        assert result.success is False
+        assert result.steps_total == 3
+        assert result.steps_succeeded == 2
+        assert result.steps_failed == 1
+        assert result.total_tokens_out == 500
+        assert result.llm_calls == 1
+        assert result.domain == "code_editor"
+        assert len(result.decision_path) == 3
+
+    def test_summary_persists(self, mc, tmp_ws):
+        mc.start_task("goal 1")
+        mc.record_step("inspect", "success")
+        mc.finish_task(success=True)
+
+        mc.start_task("goal 2")
+        mc.record_step("generate", "failed", error="timeout")
+        mc.finish_task(success=False)
+
+        summary = mc.get_summary()
+        assert summary["total_tasks"] == 2
+        assert summary["successful_tasks"] == 1
+        assert summary["failed_tasks"] == 1
+        assert summary["success_rate"] == 0.5
+
+    def test_jsonl_log(self, mc, tmp_ws):
+        mc.start_task("task A")
+        mc.finish_task(success=True)
+        mc.start_task("task B")
+        mc.finish_task(success=True)
+
+        tasks = mc.get_recent_tasks()
+        assert len(tasks) == 2
+        assert tasks[0]["goal"] == "task A"
+        assert tasks[1]["goal"] == "task B"
+
+    def test_record_generated_function(self, mc):
+        mc.start_task("gen test")
+        mc.record_generated_function("func_abc123")
+        result = mc.finish_task(success=True)
+        assert "func_abc123" in result.generated_functions
+
+    def test_domain_stats(self, mc):
+        mc.start_task("shell task", domain="shell")
+        mc.finish_task(success=True)
+        mc.start_task("code task", domain="code_editor")
+        mc.finish_task(success=True)
+        summary = mc.get_summary()
+        assert "shell" in summary["domains"]
+        assert "code_editor" in summary["domains"]
+        assert summary["domains"]["shell"]["tasks"] == 1
+
+
+class TestPathOptimizer:
+    @pytest.fixture
+    def po(self, tmp_path):
+        from nlp2cmd.orchestration.metrics import PathOptimizer
+        return PathOptimizer(workspace=tmp_path / ".nlp2cmd_test")
+
+    def test_lookup_empty(self, po):
+        assert po.lookup("nonexistent goal") is None
+
+    def test_record_and_lookup(self, po):
+        from nlp2cmd.orchestration.metrics import TaskMetric
+        task = TaskMetric(
+            task_id="t1", goal="write fibonacci", goal_hash="",
+            domain="code_editor", success=True,
+            total_duration_ms=5000, total_tokens_in=100, total_tokens_out=500,
+            decision_path=["navigate", "inspect", "generate_code", "inject_code"],
+            step_metrics=[
+                {"action": "navigate", "status": "success"},
+                {"action": "inspect", "status": "success"},
+                {"action": "generate_code", "status": "success"},
+            ],
+        )
+        po.record_success(task)
+        result = po.lookup("write fibonacci")
+        assert result is not None
+        assert result.success_count == 1
+        assert result.domain == "code_editor"
+
+    def test_increment_success_count(self, po):
+        from nlp2cmd.orchestration.metrics import TaskMetric
+        task = TaskMetric(
+            task_id="t1", goal="write fibonacci", goal_hash="",
+            domain="code_editor", success=True,
+            total_duration_ms=5000, total_tokens_in=100, total_tokens_out=500,
+            decision_path=["navigate", "generate_code"],
+            step_metrics=[{"action": "navigate", "status": "success"}],
+        )
+        po.record_success(task)
+        po.record_success(task)
+        result = po.lookup("write fibonacci")
+        assert result.success_count == 2
+
+    def test_stats(self, po):
+        stats = po.get_stats()
+        assert stats["total_paths"] == 0
+
+    def test_failed_task_not_recorded(self, po):
+        from nlp2cmd.orchestration.metrics import TaskMetric
+        task = TaskMetric(
+            task_id="t1", goal="bad task", goal_hash="",
+            success=False, decision_path=["inspect"],
+            step_metrics=[],
+        )
+        po.record_success(task)
+        assert po.lookup("bad task") is None
+
+
+class TestFunctionCache:
+    @pytest.fixture
+    def fc(self, tmp_path):
+        from nlp2cmd.orchestration.metrics import FunctionCache
+        return FunctionCache(workspace=tmp_path / ".nlp2cmd_test")
+
+    def test_store_and_get_code(self, fc):
+        code = "def fibonacci(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a+b\n    return a"
+        func_id = fc.store(code, "py", name="fibonacci", description="Fibonacci function")
+        assert func_id
+
+        retrieved = fc.get_code(func_id)
+        assert retrieved == code
+
+    def test_store_js(self, fc):
+        js_code = "function inject() { document.querySelector('.cm-content').click(); }"
+        func_id = fc.store(js_code, "js", name="inject_cm6",
+                           tags=["browser", "injection"])
+        assert func_id
+
+        results = fc.lookup(language="js")
+        assert len(results) == 1
+        assert results[0]["language"] == "js"
+
+    def test_dedup_on_same_code(self, fc):
+        code = "print('hello')"
+        id1 = fc.store(code, "py", name="hello1")
+        id2 = fc.store(code, "py", name="hello2")
+        assert id1 == id2  # same code → same ID
+
+        stats = fc.get_stats()
+        assert stats["total_functions"] == 1
+        assert stats["py_functions"] == 1
+
+    def test_lookup_by_goal_hash(self, fc):
+        from nlp2cmd.orchestration.metrics import _hash_goal
+        gh = _hash_goal("write fibonacci")
+        fc.store("def fib(): pass", "py", name="fib", goal_hash=gh)
+        fc.store("console.log(1)", "js", name="log", goal_hash="other")
+
+        results = fc.lookup(goal_hash=gh)
+        assert len(results) == 1
+        assert results[0]["name"] == "fib"
+
+    def test_lookup_by_tags(self, fc):
+        fc.store("def a(): pass", "py", name="a", tags=["devops", "shell"])
+        fc.store("def b(): pass", "py", name="b", tags=["browser"])
+
+        results = fc.lookup(tags=["devops"])
+        assert len(results) == 1
+        assert results[0]["name"] == "a"
+
+    def test_stats(self, fc):
+        fc.store("x = 1", "py", name="x")
+        fc.store("var y = 2;", "js", name="y")
+        stats = fc.get_stats()
+        assert stats["total_functions"] == 2
+        assert stats["js_functions"] == 1
+        assert stats["py_functions"] == 1
+
+    def test_get_code_nonexistent(self, fc):
+        assert fc.get_code("nonexistent_id") is None
+
+
+class TestHashGoal:
+    def test_deterministic(self):
+        from nlp2cmd.orchestration.metrics import _hash_goal
+        h1 = _hash_goal("write fibonacci in python")
+        h2 = _hash_goal("write fibonacci in python")
+        assert h1 == h2
+
+    def test_case_insensitive(self):
+        from nlp2cmd.orchestration.metrics import _hash_goal
+        h1 = _hash_goal("Write Fibonacci")
+        h2 = _hash_goal("write fibonacci")
+        assert h1 == h2
+
+    def test_strips_articles(self):
+        from nlp2cmd.orchestration.metrics import _hash_goal
+        h1 = _hash_goal("write a fibonacci program")
+        h2 = _hash_goal("write fibonacci program")
+        assert h1 == h2
+
+    def test_different_goals_different_hashes(self):
+        from nlp2cmd.orchestration.metrics import _hash_goal
+        h1 = _hash_goal("fibonacci")
+        h2 = _hash_goal("quicksort")
+        assert h1 != h2

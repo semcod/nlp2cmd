@@ -27,7 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from _verbose_helper import init_verbose, vlog, dump_page_schema, dump_selectors, vlog_decision
+from _verbose_helper import init_verbose, vlog, dump_page_schema, ensure_playwright_browsers_async, dump_selectors, vlog_decision
 
 # Preset code snippets
 PRESETS = {
@@ -139,7 +139,11 @@ async def main():
     try:
         from playwright.async_api import async_playwright
     except ImportError:
-        print("ERROR: pip install playwright && playwright install chromium")
+        print("ERROR: pip install playwright")
+        sys.exit(1)
+
+    # Auto-install browsers if needed
+    if not await ensure_playwright_browsers_async(auto_install=True):
         sys.exit(1)
 
     # Get code from preset, args, or generated description

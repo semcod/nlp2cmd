@@ -26,7 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from _verbose_helper import init_verbose, vlog, dump_page_schema, dump_selectors, vlog_decision
+from _verbose_helper import init_verbose, vlog, dump_page_schema, ensure_playwright_browsers_async, dump_selectors, vlog_decision
 
 # draw.chat UI selectors
 DRAW_CHAT_SELECTORS = {
@@ -177,7 +177,11 @@ async def main():
     try:
         from playwright.async_api import async_playwright
     except ImportError:
-        print("ERROR: Playwright required: pip install playwright && playwright install chromium")
+        print("ERROR: pip install playwright")
+        sys.exit(1)
+
+    # Auto-install browsers if needed
+    if not await ensure_playwright_browsers_async(auto_install=True):
         sys.exit(1)
 
     print(f"=== draw.chat Drawing: {args.shape} in {args.color} ===")

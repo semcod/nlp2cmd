@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from _verbose_helper import init_verbose, vlog
+from _verbose_helper import init_verbose, vlog, ensure_playwright_browsers_async
 from _dynamic_orchestrator import DynamicOrchestrator
 
 # Load .env for API keys
@@ -107,7 +107,11 @@ async def main():
     try:
         from playwright.async_api import async_playwright
     except ImportError:
-        print("ERROR: playwright not installed. Run: pip install playwright && playwright install chromium")
+        print("ERROR: pip install playwright")
+        sys.exit(1)
+
+    # Auto-install browsers if needed
+    if not await ensure_playwright_browsers_async(auto_install=True):
         sys.exit(1)
 
     async with async_playwright() as pw:
