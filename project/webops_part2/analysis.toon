@@ -1,0 +1,1489 @@
+# code2llm | 97f 41325L | py:97 | 2026-03-03
+# CC̄=5.6 | critical:165/1278 | dups:20 | cycles:0
+
+HEALTH[20]:
+  🔴 DUP   20 classes duplicated
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/environment/__init__.py = 524L, 4 classes, 15m, max CC=15
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/executor/__init__.py = 678L, 8 classes, 18m, max CC=16
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/feedback/__init__.py = 646L, 5 classes, 19m, max CC=41
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py = 560L, 4 classes, 23m, max CC=9
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py = 946L, 10 classes, 28m, max CC=64
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core.py = 943L, 10 classes, 33m, max CC=64
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py = 942L, 10 classes, 28m, max CC=64
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/generation/pipeline.py = 1029L, 4 classes, 26m, max CC=33
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py = 921L, 7 classes, 26m, max CC=36
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/pipeline_runner.py = 673L, 4 classes, 12m, max CC=48
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/registry/__init__.py = 642L, 6 classes, 22m, max CC=15
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/__init__.py = 1960L, 9 classes, 45m, max CC=55
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/thermodynamic/__init__.py = 605L, 10 classes, 24m, max CC=12
+  🔴 GOD   webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
+  🔴 GOD   webops/nlp2cmd-repo/termo2.py = 776L, 12 classes, 38m, max CC=8
+  🔴 GOD   webops/nlp2cmd-repo/termo2/vehicle_routing.py = 514L, 4 classes, 21m, max CC=10
+  🔴 GOD   webops/voice_service.py = 1336L, 4 classes, 20m, max CC=13
+  🟡 CC    detect_tools CC=15 (limit:15)
+  🟡 CC    run_command CC=28 (limit:15)
+
+REFACTOR[19]:
+  1. rm duplicates  (-20 dup classes)
+  2. split webops/nlp2cmd-repo/src/nlp2cmd/environment/__init__.py  (god module)
+  3. split webops/nlp2cmd-repo/src/nlp2cmd/executor/__init__.py  (god module)
+  4. split webops/nlp2cmd-repo/src/nlp2cmd/feedback/__init__.py  (god module)
+  5. split webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py  (god module)
+  6. split webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py  (god module)
+  7. split webops/nlp2cmd-repo/src/nlp2cmd/core.py  (god module)
+  8. split webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py  (god module)
+  9. split webops/nlp2cmd-repo/src/nlp2cmd/generation/pipeline.py  (god module)
+  10. split webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py  (god module)
+  11. split webops/nlp2cmd-repo/src/nlp2cmd/pipeline_runner.py  (god module)
+  12. split webops/nlp2cmd-repo/src/nlp2cmd/registry/__init__.py  (god module)
+  13. split webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/__init__.py  (god module)
+  14. split webops/nlp2cmd-repo/src/nlp2cmd/thermodynamic/__init__.py  (god module)
+  15. split webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py  (god module)
+  16. split webops/nlp2cmd-repo/termo2.py  (god module)
+  17. split webops/nlp2cmd-repo/termo2/vehicle_routing.py  (god module)
+  18. split webops/voice_service.py  (god module)
+  19. split 2 high-CC methods  (CC>15)
+
+COUPLING:
+                                    webops  webops.nlp2cmd-repo
+               webops                   ──                   71  !! fan-out
+  webops.nlp2cmd-repo                  ←71                   ──  hub
+  CYCLES: none
+  HUB: webops.nlp2cmd-repo/ (fan-in=71)
+  SMELL: webops/ fan-out=71 → split needed
+
+LAYERS:
+  webops/                         CC̄=5.6    ←in:0  →out:71  !! split  ×DUP
+  │ !! __init__                  1960L  9C   45m  CC=55     ←0
+  │ !! keywords                  1415L  2C   33m  CC=47     ←1
+  │ !! templates                 1380L  2C   17m  CC=164    ←0
+  │ !! voice_service             1336L  4C   20m  CC=13     ←0
+  │ !! pipeline                  1029L  4C   26m  CC=33     ←0
+  │ !! core_patched               946L  10C   28m  CC=64     ←0  ×DUP
+  │ !! core                       943L  10C   33m  CC=64     ←0  ×DUP
+  │ !! core_backup                942L  10C   28m  CC=64     ←0  ×DUP
+  │ !! thermodynamic              921L  7C   26m  CC=36     ←2  ×DUP
+  │ !! __init__                   909L  2C   43m  CC=26     ←0
+  │ !! comprehensive_command_scanner   853L  3C   24m  CC=17     ←0
+  │ !! enhanced_schema_generator   811L  3C   37m  CC=11     ←0
+  │ !! termo2                     776L  12C   38m  CC=8      ←0
+  │ !! __init__                   771L  8C   25m  CC=58     ←0
+  │ !! non_llm_schema_extractor   724L  3C   28m  CC=11     ←0
+  │ !! form_data_loader           693L  1C   38m  CC=18     ←1
+  │ !! __init__                   678L  8C   18m  CC=16     ←18
+  │ !! regex                      677L  3C   11m  CC=33     ←0
+  │ !! pipeline_runner            673L  4C   12m  CC=48     ←42
+  │ !! __init__                   646L  5C   19m  CC=41     ←0
+  │ !! __init__                   642L  6C   22m  CC=15     ←2
+  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←1
+  │ !! __init__                   605L  10C   24m  CC=12     ←0
+  │ !! generate_cmd_simple        578L  0C    4m  CC=187    ←0
+  │ !! enhanced_context           570L  2C   14m  CC=22     ←0
+  │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←1
+  │ !! form_handler               527L  3C    8m  CC=34     ←0
+  │ !! __init__                   524L  4C   15m  CC=15     ←0
+  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←0
+  │ !! runner                     523L  3C    9m  CC=28     ←0
+  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←0
+  │ !! vehicle_routing            514L  4C   21m  CC=10     ←0
+  │ !! __init__                   508L  2C   14m  CC=12     ←0
+  │ !! voice_service_clean        498L  4C   12m  CC=22     ←0
+  │ !! intelligent_schema_generator   473L  2C   14m  CC=17     ←0
+  │ energy_models              462L  6C   18m  CC=6      ←0  ×DUP
+  │ !! llm_extractor              443L  1C   11m  CC=15     ←0
+  │ !  versioned_store            421L  1C   13m  CC=14     ←0
+  │ !  llm_simple                 420L  10C   19m  CC=13     ←0
+  │ __init__                   419L  3C    7m  CC=6      ←0
+  │ !! command_detector           415L  2C    5m  CC=31     ←0
+  │ per_command_store          395L  1C   14m  CC=7      ←0
+  │ __init__                   394L  4C   11m  CC=8      ←1
+  │ !! extractor                  389L  3C   10m  CC=15     ←0
+  │ semantic_matcher           379L  3C   13m  CC=9      ←1
+  │ hybrid                     377L  4C   12m  CC=5      ←3
+  │ structured                 371L  5C    7m  CC=9      ←0
+  │ data_loader                370L  3C   28m  CC=5      ←0
+  │ !! __init__                   358L  4C   10m  CC=34     ←0
+  │ !  browser                    356L  2C   10m  CC=13     ←0
+  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0
+  │ !  virtual_objects            351L  3C   20m  CC=10     ←0
+  │ !! semantic_shell             349L  2C   14m  CC=32     ←0
+  │ !  history                    349L  2C   15m  CC=12     ←0
+  │ !! toon_parser                340L  3C   22m  CC=15     ←1
+  │ analyze_version_detection   334L  0C    6m  CC=9      ←0
+  │ !  tracker                    325L  3C   18m  CC=13     ←5
+  │ !  generator                  324L  2C   16m  CC=12     ←0
+  │ !! external_cache             316L  1C   13m  CC=16     ←0
+  │ validating                 297L  8C    9m  CC=9      ←0
+  │ !! schema_driven              276L  2C    8m  CC=41     ←0
+  │ adapter                    273L  1C   11m  CC=6      ←0
+  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0
+  │ llm_multi                  267L  5C   10m  CC=6      ←0
+  │ polish_support             262L  1C   13m  CC=9      ←0
+  │ !  token_costs                260L  2C   10m  CC=12     ←0
+  │ hyperparameter_optimization   259L  3C   11m  CC=7      ←0
+  │ cmd2schema                 244L  1C    9m  CC=7      ←0
+  │ termo_demo                 226L  0C    5m  CC=6      ←0
+  │ toon_integration           223L  1C   32m  CC=9      ←0
+  │ !  disambiguator              202L  2C    5m  CC=11     ←0
+  │ !! update_schemas             176L  0C    3m  CC=16     ←0
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ !  playwright_installer       152L  0C    5m  CC=10     ←0
+  │ resources                  150L  2C   10m  CC=4      ←0
+  │ __init__                   147L  0C    2m  CC=2      ←0
+  │ __init__                   145L  1C   11m  CC=9      ←0
+  │ cli                        143L  0C    1m  CC=2      ←0
+  │ data_files                 134L  0C    6m  CC=8      ←6
+  │ !  validate_schemas           123L  0C    1m  CC=14     ←0
+  │ !  base_solver                119L  1C   12m  CC=11     ←0
+  │ termo                      116L  0C    4m  CC=3      ←0
+  │ !! compare_batches             95L  0C    1m  CC=21     ←0
+  │ !! compare_llm                 85L  0C    1m  CC=16     ←0
+  │ ir                          34L  1C    1m  CC=1      ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ termo1                      25L  0C    1m  CC=3      ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ __init__                    18L  0C    0m  CC=0.0    ←0
+  │ __init__                    18L  0C    0m  CC=0.0    ←0
+  │ __init__                    12L  0C    0m  CC=0.0    ←0
+  │ __init__                    10L  0C    1m  CC=1      ←0
+  │ __init__                    10L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │
+
+DUPLICATES[20]:
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    DIFF: IDENTICAL → rm B
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    DIFF: IDENTICAL → rm B
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 5m  copy is_blocked is_success is_valid to_dict
+    B: 5m  copy is_blocked is_success is_valid to_dict
+    DIFF: IDENTICAL → rm B
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 5m  copy is_blocked is_success is_valid to_dict
+    B: 5m  copy is_blocked is_success is_valid to_dict
+    DIFF: IDENTICAL → rm B
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 4m  __init__ extract_entities extract_intent generate_plan
+    B: 4m  __init__ extract_entities extract_intent generate_plan
+    DIFF: IDENTICAL → rm B
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 4m  __init__ extract_entities extract_intent generate_plan
+    B: 4m  __init__ extract_entities extract_intent generate_plan
+    DIFF: IDENTICAL → rm B
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 3m  __init__ extract_entities nlp
+    B: 3m  __init__ extract_entities nlp
+    DIFF: IDENTICAL → rm B
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 3m  __init__ extract_entities nlp
+    B: 3m  __init__ extract_entities nlp
+    DIFF: IDENTICAL → rm B
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 4m  __init__ _default_system_prompt client generate_plan
+    B: 4m  __init__ _default_system_prompt client generate_plan
+    DIFF: IDENTICAL → rm B
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 4m  __init__ _default_system_prompt client generate_plan
+    B: 4m  __init__ _default_system_prompt client generate_plan
+    DIFF: IDENTICAL → rm B
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core.py
+    A: 3m  __init__ extract_entities extract_intent
+    B: 3m  __init__ extract_entities extract_intent
+    DIFF: IDENTICAL → rm B
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 3m  __init__ extract_entities extract_intent
+    B: 3m  __init__ extract_entities extract_intent
+    DIFF: IDENTICAL → rm B
+  NLP2CMD  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 4m  __init__ _normalize_entities dsl_name transform
+    B: 4m  __init__ _normalize_entities dsl_name transform
+    DIFF: IDENTICAL → rm B
+  ExecutionPlan  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    B: 8m  is_valid with_confidence with_context with_entities with_errors with_metadata with_performance with_security
+    DIFF: IDENTICAL → rm B
+  TransformResult  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 5m  copy is_blocked is_success is_valid to_dict
+    B: 5m  copy is_blocked is_success is_valid to_dict
+    DIFF: IDENTICAL → rm B
+  NLPBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 4m  __init__ extract_entities extract_intent generate_plan
+    B: 4m  __init__ extract_entities extract_intent generate_plan
+    DIFF: IDENTICAL → rm B
+  SpaCyBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 3m  __init__ extract_entities nlp
+    B: 3m  __init__ extract_entities nlp
+    DIFF: IDENTICAL → rm B
+  LLMBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 4m  __init__ _default_system_prompt client generate_plan
+    B: 4m  __init__ _default_system_prompt client generate_plan
+    DIFF: IDENTICAL → rm B
+  RuleBasedBackend  webops/nlp2cmd-repo/src/nlp2cmd/core.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py
+    A: 3m  __init__ extract_entities extract_intent
+    B: 3m  __init__ extract_entities extract_intent
+    DIFF: IDENTICAL → rm B
+  AllocationEnergy  webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py ↔ webops/nlp2cmd-repo/src/nlp2cmd/thermodynamic/energy_models.py
+    A: 4m  __init__ _decode_allocation energy gradient
+    B: 3m  __init__ energy gradient
+    DIFF: A has +_decode_allocation → keep A
+
+FUNCTIONS (CC≥10, 165 of 1278):
+  187.0  generate_command                           39n   8exit  cond+ret  !! split
+  164.0  TemplateGenerator._prepare_shell_entities   63n   2exit  cond+ret  !! split
+  144.0  CommandGenerator._generate_simple          39n   8exit  cond+ret  !! split
+   64.0  NLP2CMD._normalize_entities                75n   2exit  cond+ret  ×DUP  !! split
+   64.0  NLP2CMD._normalize_entities                75n   2exit  cond+ret  ×DUP  !! split
+   64.0  NLP2CMD._normalize_entities                75n   2exit  cond+ret  ×DUP  !! split
+   58.0  KubernetesValidator.validate               46n   3exit  loops+cond+ret  !! split
+   55.0  DynamicSchemaRegistry.search_commands      54n   2exit  loops+cond+ret  !! split
+   50.0  DockerValidator.validate                   53n   3exit  loops+cond+ret  !! split
+   48.0  PipelineRunner._run_dom_multi_action       18n   4exit  loops+cond+ret  !! split
+   47.0  KeywordIntentDetector._load_detector_config_from_json   22n   1exit  loops+cond  !! split
+   47.0  PythonCodeExtractor._extract_typer_command   51n   5exit  loops+cond+ret  !! split
+   45.0  PythonCodeExtractor._extract_argparse_cli   32n   3exit  loops+cond+ret  !! split
+   41.0  FeedbackAnalyzer.analyze                   53n   2exit  loops+cond+ret  !! split
+   41.0  SchemaDrivenNLP2CMD._select_action         26n   2exit  loops+cond+ret  !! split
+   37.0  PythonCodeExtractor._extract_click_command   37n   4exit  loops+cond+ret  !! split
+   36.0  ThermodynamicGenerator._rule_based_parse   38n   3exit  cond+ret  !! split
+   34.0  DecisionRouter._load_config_from_data      26n   3exit  loops+cond+ret  !! split
+   34.0  SQLValidator.validate                      38n   2exit  loops+cond+ret  !! split
+   34.0  FormHandler.detect_form_fields              8n   2exit  loops+ret  !! split
+   33.0  RegexEntityExtractor._post_process         41n   2exit  cond+ret  !! split
+   33.0  RuleBasedPipeline.process_steps            25n   3exit  loops+cond+ret  !! split
+   32.0  SemanticShellBackend.extract_intent        48n  17exit  cond+ret  !! split
+   31.0  KeywordIntentDetector._detect_fast_path    33n  12exit  cond+ret  !! split
+   31.0  RuleBasedPipeline.process                  37n   3exit  loops+cond+ret  !! split
+   31.0  TemplateGenerator._prepare_sql_entities    42n   2exit  loops+cond+ret  !! split
+   31.0  CommandDetector._load_config_from_json     30n   5exit  loops+cond+ret  !! split
+   31.0  ThermodynamicGenerator.validate_solution   29n   2exit  loops+cond+ret  !! split
+   31.0  DynamicSchemaRegistry.register_dynamic_export   18n   2exit  loops+cond+ret  !! split
+   31.0  ShellValidator.validate                    32n   2exit  loops+cond+ret  !! split
+   30.0  KeywordIntentDetector._normalize_intent    54n  17exit  cond+ret  !! split
+   30.0  KeywordIntentDetector._detect_normalized   57n  16exit  cond+ret  !! split
+   29.0  SemanticShellBackend._extract_username_with_nlp   16n   4exit  loops+cond+ret  !! split
+   29.0  SchemaDrivenNLP2CMD._render_http           20n   2exit  loops+cond+ret  !! split
+   28.0  ExecutionRunner.run_command                 2n   1exit    !! split
+   28.0  PipelineRunner._run_dom_dql                23n   8exit  cond+ret  !! split
+   27.0  RuleBasedPipeline._aggregate_detection     33n   4exit  loops+cond+ret  !! split
+   27.0  ShellScriptExtractor.extract_from_source   26n   2exit  loops+cond+ret  !! split
+   26.0  KeywordIntentDetector._detect_explicit_docker   25n   8exit  loops+cond+ret  !! split
+   26.0  SchemaRegistry._validate_dockerfile        30n   2exit  loops+cond+ret  !! split
+   25.0  SchemaDrivenNLP2CMD._render_shell          31n   2exit  loops+cond+ret  !! split
+   24.0  KeywordIntentDetector._load_patterns_from_json    9n   2exit  loops+cond+ret  !! split
+   24.0  KeywordIntentDetector._detect_explicit_kubernetes   36n  11exit  loops+cond+ret  !! split
+   23.0  ShellHelpExtractor._parse_help_output      24n   2exit  loops+cond+ret  !! split
+   22.0  EnhancedContextDetector._build_semantic_index   20n   2exit  loops+cond+ret  !! split
+   22.0  EnhancedContextDetector._extract_entities    9n   2exit  cond+ret  !! split
+   22.0  KeywordIntentDetector._detect_best_from_fuzzy   14n   4exit  loops+cond+ret  !! split
+   22.0  TemplateGenerator._find_alternative_template   19n   6exit  cond+ret  !! split
+   22.0  DynamicSchemaRegistry.register_appspec_export   17n   2exit  loops+cond+ret  !! split
+   22.0  VoiceServiceManager.process_voice_command    2n   1exit    !! split
+
+  summary:
+    critical(≥10): 165 | high(5-10): 278 | medium(2-5): 473 | low(<2): 362
+    13% CC≥10  35% CC≥5
+
+HOTSPOTS:
+  #1  PipelineRunner._run_dom_multi_action  fan=52   "PipelineRunner method, fan-out=52"
+  #2  FeedbackAnalyzer.analyze             fan=32   "analysis pipeline, 32 stages"
+  #3  ShellScriptExtractor.extract_from_source  fan=32   "ShellScriptExtractor method, fan-out=32"
+  #4  ExecutionRunner.run_command          fan=28   "ExecutionRunner method, fan-out=28"
+  #5  MakefileExtractor._parse_fallback    fan=28   "MakefileExtractor method, fan-out=28"
+  #6  DynamicSchemaRegistry.register_appspec_export  fan=25   "export with 25 outputs"
+  #7  TemplateGenerator._prepare_shell_entities  fan=24   "TemplateGenerator method, fan-out=24"
+  #8  DynamicSchemaRegistry.register_dynamic_export  fan=24   "export with 24 outputs"
+  #9  DockerValidator.validate             fan=24   "DockerValidator method, fan-out=24"
+  #10 KeywordIntentDetector._load_detector_config_from_json  fan=22   "KeywordIntentDetector method, fan-out=22"
+
+CLASSES:
+  SchemaRegistry                 ████████████████████████  37m  CC̄=5.5   max=26    !!
+  FormDataLoader                 ███████████████████████   36m  CC̄=5.9   max=18    !!
+  EnhancedSchemaExtractor        ███████████████████████   36m  CC̄=3.3   max=11  
+  ToonDataManager                █████████████████         27m  CC̄=1.7   max=9   
+  KeywordIntentDetector          █████████████████         27m  CC̄=13.9  max=47    !!
+  NonLLMSchemaExtractor          █████████████████         27m  CC̄=3.9   max=11  
+  ComprehensiveCommandScanner    ██████████████            23m  CC̄=6.2   max=17    !!
+  ToonParser                     ████████████              20m  CC̄=4.5   max=15    !!
+  FuzzySchemaMatcher             ████████████              19m  CC̄=3.4   max=9   
+  DynamicSchemaRegistry          ████████████              19m  CC̄=9.1   max=55    !!
+  RuleBasedPipeline              ███████████               18m  CC̄=11.7  max=33    !!
+  VRPSolver                      ███████████               18m  CC̄=4.3   max=10  
+  TemplateGenerator              ███████████               17m  CC̄=17.9  max=164   !!
+  IntelligentCommandGenerator    ███████████               17m  CC̄=4.2   max=7   
+  EnvironmentAnalyzer            █████████                 15m  CC̄=4.8   max=15    !!
+  VirtualObjectManager           █████████                 14m  CC̄=3.4   max=10  
+  SemanticShellBackend           █████████                 14m  CC̄=8.9   max=32    !!
+  EnhancedContextDetector        ████████                  13m  CC̄=8.8   max=22    !!
+  PerCommandSchemaStore          ████████                  13m  CC̄=2.9   max=7   
+  InteractionHistory             ████████                  13m  CC̄=3.7   max=12  
+  IntelligentSchemaExtractor     ████████                  13m  CC̄=5.1   max=12  
+  VoiceServiceManager            ████████                  13m  CC̄=4.4   max=13  
+  DataLoader                     ███████                   12m  CC̄=2.2   max=5   
+  CommandHistory                 ███████                   12m  CC̄=3.9   max=13  
+  PolishLanguageSupport          ███████                   12m  CC̄=3.6   max=9   
+  ActionRegistry                 ███████                   12m  CC̄=2.1   max=5   
+  VersionedSchemaStore           ███████                   12m  CC̄=3.9   max=14  
+  ExternalCacheManager           ███████                   12m  CC̄=4.1   max=7   
+  VRPSolver                      ███████                   12m  CC̄=2.9   max=8   
+  BaseSolver                     ███████                   12m  CC̄=2.4   max=11  
+  FeedbackAnalyzer               ███████                   11m  CC̄=9.6   max=41    !!
+  RegexEntityExtractor           ███████                   11m  CC̄=9.1   max=33    !!
+  ThermodynamicGenerator         ███████                   11m  CC̄=9.8   max=36    !!
+  LLMSchemaExtractor             ███████                   11m  CC̄=6.2   max=15    !!
+  EnhancedNLP2CMD                ██████                    10m  CC̄=2.5   max=9   
+  ExecutionRunner                ██████                    10m  CC̄=7.2   max=28    !!
+  PhraseDatabase                 ██████                    10m  CC̄=2.4   max=4   
+  SemanticMatcher                ██████                    10m  CC̄=3.7   max=7   
+  VersionAwareCommandGenerator   ██████                    10m  CC̄=6.1   max=17    !!
+  ShellGPTBackend                ██████                    10m  CC̄=5.9   max=12  
+  DecisionRouter                 ██████                    10m  CC̄=6.5   max=34    !!
+  SchemaDrivenAppSpecAdapter     ██████                    10m  CC̄=3.3   max=6   
+  PlanExecutor                   █████                      9m  CC̄=5.9   max=14  
+  ValidationResult               █████                      9m  CC̄=1.7   max=6   
+  ORScheduler                    █████                      9m  CC̄=2.2   max=5   
+  HybridGenerator                █████                      8m  CC̄=2.5   max=5   
+  ExecutionPlan                  █████                      8m  CC̄=1.2   max=3     ×3
+  ExecutionPlan                  █████                      8m  CC̄=1.2   max=3     ×3
+  NLP2CMD                        █████                      8m  CC̄=12.2  max=64    !!  ×1
+  ExecutionPlan                  █████                      8m  CC̄=1.2   max=3     ×3
+  MLIntentClassifier             █████                      8m  CC̄=4.9   max=9   
+  PipelineRunner                 █████                      8m  CC̄=16.1  max=48    !!
+  SchemaBasedGenerator           █████                      8m  CC̄=5.6   max=12  
+  SchemaDrivenNLP2CMD            █████                      8m  CC̄=16.4  max=41    !!
+  CommandSchemaGenerator         █████                      8m  CC̄=2.2   max=6   
+  CorrectionEngine               ████                       7m  CC̄=2.1   max=4   
+  TokenCostEstimator             ████                       7m  CC̄=2.9   max=10  
+  LLMPlanner                     ████                       7m  CC̄=3.7   max=6   
+  SchemaRegistry                 ████                       7m  CC̄=1.6   max=3   
+  PythonCodeExtractor            ████                       7m  CC̄=25.7  max=47    !!
+  SchedulingEnergy               ████                       7m  CC̄=3.3   max=6   
+  FormHandler                    ████                       7m  CC̄=12.4  max=34    !!
+  HyperparameterOptimizer        ████                       7m  CC̄=2.6   max=7   
+  VirtualObject                  ███                        6m  CC̄=2.2   max=5   
+  FileFormatSchema               ███                        6m  CC̄=2.8   max=7   
+  WebSchemaExtractor             ███                        6m  CC̄=5.0   max=7   
+  VoiceServiceManager            ███                        6m  CC̄=5.0   max=22    !!
+  CommandDisambiguator           ███                        5m  CC̄=6.2   max=11  
+  BrowserExecutor                ███                        5m  CC̄=5.0   max=13  
+  PipelineMetrics                ███                        5m  CC̄=2.6   max=5   
+  DynamicSchemaGenerator         ███                        5m  CC̄=6.4   max=15    !!
+  ResourceMonitor                ███                        5m  CC̄=1.6   max=4   
+  SchedulingEnergy               ███                        5m  CC̄=3.2   max=9   
+  OpenAPISchemaExtractor         ███                        5m  CC̄=7.0   max=14  
+  ShellHelpExtractor             ███                        5m  CC̄=8.2   max=23    !!
+  NLP2CMDService                 ███                        5m  CC̄=2.6   max=7   
+  DockerValidator                ███                        5m  CC̄=16.2  max=50    !!
+  BaseLLMGenerator               ███                        5m  CC̄=2.2   max=5   
+  MultiDomainGenerator           ███                        5m  CC̄=2.2   max=4   
+  NLPBackend                     ██                         4m  CC̄=1.2   max=2     ×3
+  NLPBackend                     ██                         4m  CC̄=1.2   max=2     ×3
+  NLPBackend                     ██                         4m  CC̄=1.2   max=2     ×3
+  StructuredLLMPlanner           ██                         4m  CC̄=4.2   max=6   
+  CommandDetector                ██                         4m  CC̄=14.0  max=31    !!
+  AllocationEnergy               ██                         4m  CC̄=3.8   max=10    ×1
+  HybridThermodynamicGenerator   ██                         4m  CC̄=4.0   max=7   
+  HybridNLPBackend               ██                         4m  CC̄=7.0   max=9   
+  ActionHandler                  ██                         4m  CC̄=4.8   max=15    !!
+  ConstraintEnergy               ██                         4m  CC̄=2.0   max=3   
+  LangevinSampler                ██                         4m  CC̄=5.0   max=12  
+  RoutingEnergy                  ██                         4m  CC̄=2.5   max=6   
+  CSPEnergy                      ██                         4m  CC̄=1.5   max=2   
+  HyperparameterOptimizer        ██                         4m  CC̄=1.5   max=3   
+  ExecutionContext               █                          3m  CC̄=3.3   max=8   
+  PlanValidator                  █                          3m  CC̄=7.3   max=16    !!
+  TransformResult                █                          3m  CC̄=2.0   max=4     ×3
+  LLMBackend                     █                          3m  CC̄=2.3   max=4     ×3
+  RuleBasedBackend               █                          3m  CC̄=8.0   max=13    ×3
+  NLP2CMD                        █                          3m  CC̄=30.7  max=64    !!  ×1
+  TransformResult                █                          3m  CC̄=2.0   max=4     ×3
+  LLMBackend                     █                          3m  CC̄=2.3   max=4     ×3
+  RuleBasedBackend               █                          3m  CC̄=8.0   max=13    ×3
+  TransformResult                █                          3m  CC̄=2.0   max=4     ×3
+  LLMBackend                     █                          3m  CC̄=2.3   max=4     ×3
+  RuleBasedBackend               █                          3m  CC̄=8.0   max=13    ×3
+  NLP2CMD                        █                          3m  CC̄=30.3  max=64    !!  ×1
+  ValidatingGenerator            █                          3m  CC̄=4.0   max=9   
+  _MarkdownConsoleWrapper        █                          3m  CC̄=1.7   max=3   
+  ActionSchema                   █                          3m  CC̄=3.0   max=3   
+  MakefileExtractor              █                          3m  CC̄=9.7   max=16    !!
+  ServiceConfig                  █                          3m  CC̄=3.3   max=8   
+  EnergyModel                    █                          3m  CC̄=1.0   max=1   
+  QuadraticEnergy                █                          3m  CC̄=1.7   max=2   
+  EntropyProductionRegularizer   █                          3m  CC̄=1.0   max=1   
+  MajorityVoter                  █                          3m  CC̄=4.7   max=7   
+  ThermodynamicRouter            █                          3m  CC̄=3.7   max=5   
+  AllocationEnergy               █                          3m  CC̄=1.7   max=2     ×1
+  UnitCommitmentSolver           █                          3m  CC̄=4.0   max=6   
+  GenomicPipelineScheduler       █                          3m  CC̄=2.3   max=5   
+  CommandGenerator               █                          3m  CC̄=50.7  max=144   !!
+  SimpleLLMSQLGenerator          █                          3m  CC̄=3.3   max=5   
+  CachedMultiDomainGenerator     █                          3m  CC̄=1.7   max=3   
+  ExecutionPlan                  █                          2m  CC̄=2.0   max=2     ×3
+  PhraseEntry                    █                          2m  CC̄=1.0   max=1   
+  AdaptiveHybridGenerator        █                          2m  CC̄=3.0   max=5   
+  SpaCyBackend                   █                          2m  CC̄=1.5   max=2     ×3
+  SpaCyBackend                   █                          2m  CC̄=1.5   max=2     ×3
+  SpaCyBackend                   █                          2m  CC̄=1.5   max=2     ×3
+  PipelineResult                 █                          2m  CC̄=3.5   max=5   
+  SchemaUsage                    █                          2m  CC̄=1.0   max=1   
+  CommandRecord                  █                          2m  CC̄=2.0   max=2   
+  ActionResult                   █                          2m  CC̄=1.0   max=1   
+  ShellScriptExtractor           █                          2m  CC̄=14.5  max=27    !!
+  BaseValidator                  █                          2m  CC̄=1.0   max=1   
+  SQLValidator                   █                          2m  CC̄=17.5  max=34    !!
+  ShellValidator                 █                          2m  CC̄=16.0  max=31    !!
+  KubernetesValidator            █                          2m  CC̄=29.5  max=58    !!
+  CompositeValidator             █                          2m  CC̄=1.5   max=2   
+  WebPageSchema                  █                          2m  CC̄=8.0   max=15    !!
+  InteractionRecord              █                          2m  CC̄=1.0   max=1   
+  HyperparameterSpace            █                          2m  CC̄=4.0   max=7   
+  ShellExecutor                  █                          2m  CC̄=5.0   max=9   
+  ShellExecutor                  █                          2m  CC̄=4.0   max=7   
+  LiteLLMClient                  █                          2m  CC̄=6.5   max=9   
+  SimpleLLMShellGenerator        █                          2m  CC̄=3.5   max=6   
+  SimpleLLMDockerGenerator       █                          2m  CC̄=2.0   max=3   
+  SimpleLLMKubernetesGenerator   █                          2m  CC̄=2.0   max=3   
+  MockLLMClient                  █                          2m  CC̄=7.5   max=13  
+  LLMDomainRouter                █                          2m  CC̄=4.0   max=6   
+  PlanStep                                                  1m  CC̄=2.0   max=2   
+  FeedbackResult                                            1m  CC̄=1.0   max=1   
+  FuzzySchemaMatcherConfig                                  1m  CC̄=1.0   max=1   
+  HybridStats                                               1m  CC̄=1.0   max=1   
+  StructuredPlan                                            1m  CC̄=1.0   max=1   
+  MultiStepPlan                                             1m  CC̄=2.0   max=2   
+  MultiStepPlanner                                          1m  CC̄=9.0   max=9   
+  DSLValidator                                              1m  CC̄=1.0   max=1   
+  SimpleSQLValidator                                        1m  CC̄=7.0   max=7   
+  SimpleShellValidator                                      1m  CC̄=6.0   max=6   
+  SimpleDockerValidator                                     1m  CC̄=5.0   max=5   
+  SimpleKubernetesValidator                                 1m  CC̄=6.0   max=6   
+  ActionIR                                                  1m  CC̄=1.0   max=1   
+  OptimizationProblem                                       1m  CC̄=1.0   max=1   
+  ShellExecutionPolicy                                      1m  CC̄=18.0  max=18    !!
+  EnergyEstimator                                           1m  CC̄=1.0   max=1   
+  SyntaxValidator                                           1m  CC̄=6.0   max=6   
+  WebElement                                                1m  CC̄=1.0   max=1   
+  FormField                                                 1m  CC̄=5.0   max=5   
+  HyperparameterResult                                      1m  CC̄=1.0   max=1   
+  DeliveryPoint                                             1m  CC̄=1.0   max=1   
+  Route                                                     1m  CC̄=2.0   max=2   
+  LLMClient                                                 1m  CC̄=1.0   max=1   
+  DisambiguationResult                                      0m  CC̄=0.0   max=0.0 
+  ObjectType                                                0m  CC̄=0.0   max=0.0 
+  ToolInfo                                                  0m  CC̄=0.0   max=0.0 
+  ServiceInfo                                               0m  CC̄=0.0   max=0.0 
+  EnvironmentReport                                         0m  CC̄=0.0   max=0.0 
+  BrowserResult                                             0m  CC̄=0.0   max=0.0 
+  ExecutionResult                                           0m  CC̄=0.0   max=0.0 
+  RecoveryContext                                           0m  CC̄=0.0   max=0.0 
+  StepStatus                                                0m  CC̄=0.0   max=0.0 
+  StepResult                                                0m  CC̄=0.0   max=0.0 
+  ExecutionResult                                           0m  CC̄=0.0   max=0.0 
+  FeedbackType                                              0m  CC̄=0.0   max=0.0 
+  CorrectionRule                                            0m  CC̄=0.0   max=0.0 
+  ContextualMatch                                           0m  CC̄=0.0   max=0.0 
+  MatchResult                                               0m  CC̄=0.0   max=0.0 
+  PhraseSchema                                              0m  CC̄=0.0   max=0.0 
+  HybridResult                                              0m  CC̄=0.0   max=0.0 
+  DetectionResult                                           0m  CC̄=0.0   max=0.0 
+  TransformStatus                                           0m  CC̄=0.0   max=0.0 
+  Intent                                                    0m  CC̄=0.0   max=0.0 
+  Entity                                                    0m  CC̄=0.0   max=0.0 
+  TransformStatus                                           0m  CC̄=0.0   max=0.0 
+  Intent                                                    0m  CC̄=0.0   max=0.0 
+  Entity                                                    0m  CC̄=0.0   max=0.0 
+  TransformStatus                                           0m  CC̄=0.0   max=0.0 
+  Intent                                                    0m  CC̄=0.0   max=0.0 
+  Entity                                                    0m  CC̄=0.0   max=0.0 
+  IntentPrediction                                          0m  CC̄=0.0   max=0.0 
+  TrainingSample                                            0m  CC̄=0.0   max=0.0 
+  ExtractedEntity                                           0m  CC̄=0.0   max=0.0 
+  ExtractionResult                                          0m  CC̄=0.0   max=0.0 
+  SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
+  StructuredPlanResult                                      0m  CC̄=0.0   max=0.0 
+  TemplateResult                                            0m  CC̄=0.0   max=0.0 
+  SemanticMatch                                             0m  CC̄=0.0   max=0.0 
+  IntentEmbedding                                           0m  CC̄=0.0   max=0.0 
+  ValidationResult                                          0m  CC̄=0.0   max=0.0 
+  ValidatingGeneratorResult                                 0m  CC̄=0.0   max=0.0 
+  CommandMatch                                              0m  CC̄=0.0   max=0.0 
+  ResourceMetrics                                           0m  CC̄=0.0   max=0.0 
+  TokenCostEstimate                                         0m  CC̄=0.0   max=0.0 
+  ThermodynamicResult                                       0m  CC̄=0.0   max=0.0 
+  SolutionQuality                                           0m  CC̄=0.0   max=0.0 
+  _ParsedSize                                               0m  CC̄=0.0   max=0.0 
+  ToonNodeType                                              0m  CC̄=0.0   max=0.0 
+  ToonNode                                                  0m  CC̄=0.0   max=0.0 
+  PlannerConfig                                             0m  CC̄=0.0   max=0.0 
+  PlanningResult                                            0m  CC̄=0.0   max=0.0 
+  RunnerResult                                              0m  CC̄=0.0   max=0.0 
+  ParamType                                                 0m  CC̄=0.0   max=0.0 
+  ParamSchema                                               0m  CC̄=0.0   max=0.0 
+  RoutingDecision                                           0m  CC̄=0.0   max=0.0 
+  RoutingResult                                             0m  CC̄=0.0   max=0.0 
+  RouterConfig                                              0m  CC̄=0.0   max=0.0 
+  MatchResult                                               0m  CC̄=0.0   max=0.0 
+  CommandParameter                                          0m  CC̄=0.0   max=0.0 
+  CommandSchema                                             0m  CC̄=0.0   max=0.0 
+  ExtractedSchema                                           0m  CC̄=0.0   max=0.0 
+  QueryRequest                                              0m  CC̄=0.0   max=0.0 
+  QueryResponse                                             0m  CC̄=0.0   max=0.0 
+  LangevinConfig                                            0m  CC̄=0.0   max=0.0 
+  SamplerResult                                             0m  CC̄=0.0   max=0.0 
+  Task                                                      0m  CC̄=0.0   max=0.0 
+  Resource                                                  0m  CC̄=0.0   max=0.0 
+  FormData                                                  0m  CC̄=0.0   max=0.0 
+  HyperparameterSpace                                       0m  CC̄=0.0   max=0.0 
+  DeliveryPoint                                             0m  CC̄=0.0   max=0.0 
+  Surgery                                                   0m  CC̄=0.0   max=0.0 
+  OperatingRoom                                             0m  CC̄=0.0   max=0.0 
+  PowerPlant                                                0m  CC̄=0.0   max=0.0 
+  GenomicSample                                             0m  CC̄=0.0   max=0.0 
+  PipelineStep                                              0m  CC̄=0.0   max=0.0 
+  Vehicle                                                   0m  CC̄=0.0   max=0.0 
+  GenerationMethod                                          0m  CC̄=0.0   max=0.0 
+  GenerationResult                                          0m  CC̄=0.0   max=0.0 
+  OptionType                                                0m  CC̄=0.0   max=0.0 
+  ParsedOption                                              0m  CC̄=0.0   max=0.0 
+  ExtractionStrategy                                        0m  CC̄=0.0   max=0.0 
+  ExtractionResult                                          0m  CC̄=0.0   max=0.0 
+  CommandInfo                                               0m  CC̄=0.0   max=0.0 
+  NonLLMStrategy                                            0m  CC̄=0.0   max=0.0 
+  SchemaQuality                                             0m  CC̄=0.0   max=0.0 
+  VoiceCommandRequest                                       0m  CC̄=0.0   max=0.0 
+  VoiceCommandResponse                                      0m  CC̄=0.0   max=0.0 
+  VoiceCommandRequest                                       0m  CC̄=0.0   max=0.0 
+  VoiceCommandResponse                                      0m  CC̄=0.0   max=0.0 
+  LLMConfig                                                 0m  CC̄=0.0   max=0.0 
+  LLMGenerationResult                                       0m  CC̄=0.0   max=0.0 
+  RoutingResult                                             0m  CC̄=0.0   max=0.0 
+  MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
+
+D:
+  webops/nlp2cmd-repo/tools/generation/generate_cmd_simple.py:
+    e: load_prompts,detect_command_version,generate_command,main
+    load_prompts(prompt_file)
+    detect_command_version(command)
+    generate_command(prompt)
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/templates.py:
+    e: TemplateResult,TemplateGenerator
+    TemplateResult  # Result of template generation....
+    TemplateGenerator  # Generate DSL commands from templates.
+
+Uses predefined templ...
+      __init__(1)  CC=8.0
+        → _load_defaults_from_json(0)  CC=4.0
+        → _load_templates_from_json(0)  CC=13.0
+  webops/nlp2cmd-repo/tools/generation/generate_cmd_from_prompts.py:
+    e: CommandGenerator,create_enhanced_prompt_list,main
+    CommandGenerator  # Generate commands from prompts using NLP2CMD....
+      __init__(1)  CC=5.0
+    create_enhanced_prompt_list()
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/core_patched.py:
+    e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult,NLPBackend,SpaCyBackend,LLMBackend,RuleBasedBackend,NLP2CMD,enhanced_domain_detection,enhanced_intent_detection
+    TransformStatus  # Status of a transformation operation....
+    Intent  # Represents a detected intent from natural language input....
+    Entity  # Represents an extracted entity from natural language input....
+    ExecutionPlan  ×DUP  # Structured plan for command execution....
+      with_confidence(1)  CC=1.0
+    TransformResult  ×DUP  # Result of a natural language to command transformation....
+      to_dict(0)  CC=1.0
+    NLPBackend  ×DUP  # Base class for NLP processing backends....
+      __init__(1)  CC=2.0
+    SpaCyBackend  ×DUP  # spaCy-based NLP backend....
+      __init__(2)  CC=1.0
+        → __init__(2)  CC=1.0
+    LLMBackend  ×DUP  # LLM-based NLP backend (Claude, GPT, etc.)....
+      __init__(4)  CC=2.0
+        → __init__(4)  CC=2.0
+        → _default_system_prompt(0)  CC=1.0
+    RuleBasedBackend  ×DUP  # Simple rule-based NLP backend for basic pattern matching....
+      __init__(2)  CC=2.0
+        → __init__(2)  CC=2.0
+    NLP2CMD  ×DUP  # Main class for Natural Language to Command transformation.
+
+...
+      __init__(6)  CC=13.0
+    enhanced_domain_detection(query,base_domain)
+    enhanced_intent_detection(query,base_intent)
+  webops/nlp2cmd-repo/src/nlp2cmd/core.py:
+    e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult,NLPBackend,SpaCyBackend,LLMBackend,RuleBasedBackend,NLP2CMD,enhanced_domain_detection,enhanced_intent_detection
+    TransformStatus  # Status of a transformation operation....
+    Intent  # Represents a detected intent from natural language input....
+    Entity  # Represents an extracted entity from natural language input....
+    ExecutionPlan  ×DUP  # Structured plan for command execution....
+      with_confidence(1)  CC=1.0
+    TransformResult  ×DUP  # Result of a natural language to command transformation....
+      to_dict(0)  CC=1.0
+    NLPBackend  ×DUP  # Base class for NLP processing backends....
+      __init__(1)  CC=2.0
+    SpaCyBackend  ×DUP  # spaCy-based NLP backend....
+      __init__(2)  CC=1.0
+        → __init__(2)  CC=1.0
+    LLMBackend  ×DUP  # LLM-based NLP backend (Claude, GPT, etc.)....
+      __init__(4)  CC=2.0
+        → __init__(4)  CC=2.0
+        → _default_system_prompt(0)  CC=1.0
+    RuleBasedBackend  ×DUP  # Simple rule-based NLP backend for basic pattern matching....
+      __init__(2)  CC=2.0
+        → __init__(2)  CC=2.0
+    NLP2CMD  ×DUP  # Main class for Natural Language to Command transformation.
+
+...
+      __init__(6)  CC=13.0
+    enhanced_domain_detection(query,base_domain)
+    enhanced_intent_detection(query,base_intent)
+  webops/nlp2cmd-repo/src/nlp2cmd/core_backup.py:
+    e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult,NLPBackend,SpaCyBackend,LLMBackend,RuleBasedBackend,NLP2CMD,enhanced_domain_detection,enhanced_intent_detection
+    TransformStatus  # Status of a transformation operation....
+    Intent  # Represents a detected intent from natural language input....
+    Entity  # Represents an extracted entity from natural language input....
+    ExecutionPlan  ×DUP  # Structured plan for command execution....
+      with_confidence(1)  CC=1.0
+    TransformResult  ×DUP  # Result of a natural language to command transformation....
+      to_dict(0)  CC=1.0
+    NLPBackend  ×DUP  # Base class for NLP processing backends....
+      __init__(1)  CC=2.0
+    SpaCyBackend  ×DUP  # spaCy-based NLP backend....
+      __init__(2)  CC=1.0
+        → __init__(2)  CC=1.0
+    LLMBackend  ×DUP  # LLM-based NLP backend (Claude, GPT, etc.)....
+      __init__(4)  CC=2.0
+        → __init__(4)  CC=2.0
+        → _default_system_prompt(0)  CC=1.0
+    RuleBasedBackend  ×DUP  # Simple rule-based NLP backend for basic pattern matching....
+      __init__(2)  CC=2.0
+        → __init__(2)  CC=2.0
+    NLP2CMD  ×DUP  # Main class for Natural Language to Command transformation.
+
+...
+      __init__(6)  CC=13.0
+    enhanced_domain_detection(query,base_domain)
+    enhanced_intent_detection(query,base_intent)
+  webops/nlp2cmd-repo/src/nlp2cmd/validators/__init__.py:
+    e: ValidationResult,BaseValidator,SyntaxValidator,SQLValidator,ShellValidator,DockerValidator,KubernetesValidator,CompositeValidator
+    ValidationResult  # Result of a validation operation....
+      merge(1)  CC=2.0
+    BaseValidator  # Abstract base class for validators....
+      validate(1)  CC=1.0
+    SyntaxValidator  # Generic syntax validator for balanced brackets, quotes, etc....
+      validate(1)  CC=6.0
+    SQLValidator  # SQL-specific validator....
+      __init__(1)  CC=1.0
+    ShellValidator  # Shell command validator....
+      __init__(1)  CC=1.0
+    DockerValidator  # Docker command and Dockerfile validator....
+      _iter_publish_ports(0)  CC=5.0
+        → _parse_ports_from_spec(0)  CC=6.0
+    KubernetesValidator  # Kubernetes command and manifest validator....
+      __init__(1)  CC=1.0
+    CompositeValidator  # Combines multiple validators....
+      __init__(1)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/__init__.py:
+    e: CommandParameter,CommandSchema,ExtractedSchema,OpenAPISchemaExtractor,ShellHelpExtractor,PythonCodeExtractor,ShellScriptExtractor,MakefileExtractor,DynamicSchemaRegistry,_ast_unparse,_python_annotation_to_param_type,_shell_opt_to_param_name,_dedupe_params
+    CommandParameter  # Represents a command parameter extracted from schema....
+    CommandSchema  # Dynamic command schema extracted from various sources....
+    ExtractedSchema  # Container for extracted schemas from a source....
+    OpenAPISchemaExtractor  # Extract command schemas from OpenAPI/Swagger specifications....
+      __init__(1)  CC=4.0
+    ShellHelpExtractor  # Extract command schemas from shell help output....
+      __init__(0)  CC=1.0
+    PythonCodeExtractor  # Extract command schemas from Python source code with decorat...
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=13.0
+        → _extract_argparse_cli(2)  CC=45.0  !
+        → _extract_click_command(1)  CC=37.0  !
+        → _extract_typer_command(2)  CC=47.0  !
+        → _extract_generic_command(1)  CC=19.0  !
+        → _extract_plain_function(1)  CC=17.0  !
+    ShellScriptExtractor  # Extract schema from a shell script file using shlex/regex he...
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=27.0  !
+    MakefileExtractor  # Extract schema from Makefile targets and variables....
+      extract_from_file(1)  CC=3.0
+        → _try_parse_with_library(1)  CC=10.0
+        → _parse_fallback(2)  CC=16.0  !
+    DynamicSchemaRegistry  # Registry for managing dynamically extracted schemas....
+      __init__(5)  CC=7.0
+        → _load_from_storage(0)  CC=4.0
+    _ast_unparse(node)
+    _python_annotation_to_param_type(annotation)
+    _shell_opt_to_param_name(opt)
+    _dedupe_params(params)
+  webops/nlp2cmd-repo/src/nlp2cmd/pipeline_runner.py:
+    e: _MarkdownConsoleWrapper,ShellExecutionPolicy,RunnerResult,PipelineRunner
+    _MarkdownConsoleWrapper  # Context manager that captures console output into Markdown c...
+      __init__(1)  CC=1.0
+    ShellExecutionPolicy
+      load_from_data(1)  CC=18.0  !
+    RunnerResult
+    PipelineRunner
+      __init__(0)  CC=5.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/keywords.py:
+    e: DetectionResult,KeywordIntentDetector,_get_polish_support,_get_fuzzy_schema_matcher,_get_ml_classifier,_get_semantic_matcher,_normalize_polish_text,_get_spacy_model
+    DetectionResult  # Result of intent detection....
+    KeywordIntentDetector  # Rule-based intent detection using keyword matching.
+
+No LLM ...
+      __init__(3)  CC=7.0
+        → _load_detector_config_from_json(0)  CC=47.0  !
+        → _load_patterns_from_json(0)  CC=24.0  !
+    _get_polish_support()
+    _get_fuzzy_schema_matcher()
+    _get_ml_classifier()
+    _get_semantic_matcher()
+    _normalize_polish_text(text)
+    _get_spacy_model()
+  webops/nlp2cmd-repo/src/nlp2cmd/feedback/__init__.py:
+    e: FeedbackType,FeedbackResult,CorrectionRule,FeedbackAnalyzer,CorrectionEngine
+    FeedbackType  # Types of feedback from the system....
+    FeedbackResult  # Result of feedback analysis....
+      to_dict(0)  CC=1.0
+    CorrectionRule  # Rule for automatic correction....
+    FeedbackAnalyzer  # Analyzes transformation results and provides feedback.
+
+This...
+      __init__(1)  CC=2.0
+        → _register_default_rules(0)  CC=1.0
+    CorrectionEngine  # Engine for applying corrections to generated content.
+
+Provi...
+      __init__(0)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_driven.py:
+    e: MatchResult,SchemaDrivenNLP2CMD
+    MatchResult
+    SchemaDrivenNLP2CMD
+      __init__(1)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/thermodynamic.py:
+    e: OptimizationProblem,ThermodynamicResult,SolutionQuality,SchedulingEnergy,AllocationEnergy,ThermodynamicGenerator,HybridThermodynamicGenerator,create_thermodynamic_generator
+    OptimizationProblem  # Structured optimization problem definition....
+      to_condition(0)  CC=1.0
+    ThermodynamicResult  # Result of thermodynamic optimization....
+    SolutionQuality
+    SchedulingEnergy  # Energy model for scheduling problems.
+
+Penalizes:
+- Task ove...
+      __init__(2)  CC=1.0
+    AllocationEnergy  ×DUP  # Energy model for resource allocation problems.
+
+Penalizes:
+-...
+      __init__(2)  CC=1.0
+    ThermodynamicGenerator  # Generate solutions for optimization problems using Langevin ...
+      __init__(5)  CC=3.0
+    HybridThermodynamicGenerator  # Hybrid generator combining rule/LLM-based DSL with thermodyn...
+      __init__(2)  CC=1.0
+    create_thermodynamic_generator(llm_client,n_samples,n_steps,adaptive_steps)
+  webops/nlp2cmd-repo/src/nlp2cmd/router/__init__.py:
+    e: RoutingDecision,RoutingResult,RouterConfig,DecisionRouter
+    RoutingDecision  # Routing decision types....
+    RoutingResult  # Result of routing decision....
+    RouterConfig  # Configuration for Decision Router....
+    DecisionRouter  # Routes incoming requests to appropriate processing path.
+
+De...
+      __init__(1)  CC=3.0
+        → _register_default_mappings(0)  CC=1.0
+        → _load_config_from_data(0)  CC=34.0  !
+  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/form_handler.py:
+    e: FormField,FormData,FormHandler
+    FormField  # Represents a form field....
+      get_display_name(0)  CC=5.0
+    FormData  # Collected form data....
+    FormHandler  # Handles form detection and interactive filling....
+      __init__(1)  CC=2.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/regex.py:
+    e: ExtractedEntity,ExtractionResult,RegexEntityExtractor
+    ExtractedEntity  # A single extracted entity....
+    ExtractionResult  # Result of entity extraction....
+    RegexEntityExtractor  # Extract entities from text using regex patterns.
+
+No LLM nee...
+      __init__(1)  CC=4.0
+        → _load_patterns_from_json(0)  CC=20.0  !
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/pipeline.py:
+    e: SimpleExecutionPlan,PipelineResult,RuleBasedPipeline,PipelineMetrics,create_pipeline
+    SimpleExecutionPlan  # Simple execution plan for adapters....
+    PipelineResult  # Result of the complete pipeline....
+      __post_init__(0)  CC=5.0
+    RuleBasedPipeline  # Complete rule-based NL → DSL pipeline.
+
+Combines:
+- KeywordI...
+      __init__(5)  CC=4.0
+    PipelineMetrics  # Track pipeline metrics for evaluation....
+      __init__(0)  CC=1.0
+    create_pipeline(confidence_threshold,custom_patterns,custom_templates)
+  webops/nlp2cmd-repo/src/nlp2cmd/nlp_light/semantic_shell.py:
+    e: _ParsedSize,SemanticShellBackend
+    _ParsedSize
+    SemanticShellBackend
+      __init__(1)  CC=2.0
+        → __init__(1)  CC=2.0
+  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/command_detector.py:
+    e: CommandMatch,CommandDetector,test_command_detector
+    CommandMatch  # Represents a matched command with confidence....
+    CommandDetector  # Detects shell commands from natural language descriptions....
+      __init__(0)  CC=6.0
+        → _load_config_from_json(0)  CC=31.0  !
+    test_command_detector()
+  webops/nlp2cmd-repo/src/nlp2cmd/execution/runner.py:
+    e: ExecutionResult,RecoveryContext,ExecutionRunner
+    ExecutionResult  # Result of command execution....
+    RecoveryContext  # Context for LLM-assisted error recovery....
+    ExecutionRunner  # Execute commands with logging, error handling, and LLM-assis...
+      __init__(4)  CC=3.0
+  webops/nlp2cmd-repo/src/nlp2cmd/schemas/__init__.py:
+    e: FileFormatSchema,SchemaRegistry
+    FileFormatSchema  # Definition of a file format schema....
+      validate(1)  CC=2.0
+    SchemaRegistry  # Registry for file format schemas with validation and repair ...
+      __init__(0)  CC=1.0
+        → _register_builtin_schemas(0)  CC=2.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/enhanced_context.py:
+    e: ContextualMatch,EnhancedContextDetector,get_enhanced_detector
+    ContextualMatch  # Enhanced match with semantic similarity....
+    EnhancedContextDetector  # Enhanced context detection using multiple NLP approaches....
+      __init__(0)  CC=2.0
+        → _initialize_nlp(0)  CC=8.0
+        → _load_schemas_and_templates(0)  CC=13.0
+        → _build_semantic_index(0)  CC=22.0  !
+    get_enhanced_detector()
+  webops/voice_service_clean.py:
+    e: VoiceCommandRequest,VoiceCommandResponse,ShellExecutor,VoiceServiceManager,root,health_check,process_voice_command,websocket_endpoint
+    VoiceCommandRequest  # Voice command request model....
+    VoiceCommandResponse  # Voice command response model....
+    ShellExecutor  # Shell command executor with timeout and logging....
+      __init__(1)  CC=1.0
+    VoiceServiceManager  # Manages voice command processing and WebSocket connections....
+      __init__(0)  CC=1.0
+        → _create_nlp2cmd_pipeline(0)  CC=1.0
+    root(request)
+    health_check()
+    process_voice_command(request)
+    websocket_endpoint(websocket)
+  webops/nlp2cmd-repo/tools/analysis/compare_batches.py:
+    e: compare_batch_files
+    compare_batch_files()
+  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/form_data_loader.py:
+    e: FormDataLoader,create_example_env_file,create_example_form_data_json
+    FormDataLoader  # Loads form field data from multiple sources:
+1. .env file (f...
+      __init__(5)  CC=2.0
+        → _load_schema(0)  CC=14.0
+        → _load_site_profile_payload(1)  CC=7.0
+        → _site_profile_paths(1)  CC=1.0
+        → _safe_domain_filename(0)  CC=1.0
+        → _user_sites_dir(0)  CC=1.0
+        → _project_sites_dir(0)  CC=1.0
+        → _deep_merge(2)  CC=12.0
+        → _dedupe_preserve_order(0)  CC=5.0
+        → _load_env(0)  CC=8.0
+        → _load_json_files(0)  CC=11.0
+        → _build_field_values(0)  CC=16.0  !
+        → _parse_domain(0)  CC=8.0
+    create_example_env_file(path)
+    create_example_form_data_json(path)
+  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/version_aware_generator.py:
+    e: VersionAwareCommandGenerator,test_version_aware_generation
+    VersionAwareCommandGenerator  # Generates commands with automatic version detection....
+      __init__(1)  CC=1.0
+    test_version_aware_generation()
+  webops/nlp2cmd-repo/tools/schema/comprehensive_command_scanner.py:
+    e: OptionType,ParsedOption,ComprehensiveCommandScanner,main
+    OptionType  # Types of command options....
+    ParsedOption  # Parsed command option....
+    ComprehensiveCommandScanner  # Scanner that extracts ALL command options....
+      __init__(0)  CC=1.0
+        → _load_command_signatures(0)  CC=1.0
+    main()
+  webops/nlp2cmd-repo/tools/schema/intelligent_schema_generator.py:
+    e: CommandInfo,IntelligentSchemaExtractor,main
+    CommandInfo  # Information about a command....
+    IntelligentSchemaExtractor  # Extracts schemas using intelligent analysis instead of hardc...
+      __init__(1)  CC=2.0
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/executor/__init__.py:
+    e: StepStatus,PlanStep,StepResult,ExecutionPlan,ExecutionContext,ExecutionResult,PlanValidator,PlanExecutor
+    StepStatus  # Status of a plan step....
+    PlanStep  # A single step in an execution plan....
+      __post_init__(0)  CC=2.0
+    StepResult  # Result of executing a single step....
+    ExecutionPlan  ×DUP  # Multi-step execution plan....
+      from_dict(1)  CC=2.0
+    ExecutionContext  # Context for plan execution....
+      set(2)  CC=1.0
+    ExecutionResult  # Result of executing a complete plan....
+    PlanValidator  # Validates execution plans against action registry....
+      __init__(1)  CC=2.0
+    PlanExecutor  # Executes multi-step plans.
+
+Features:
+- Sequential and paral...
+      __init__(2)  CC=3.0
+        → _register_default_handlers(0)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/utils/external_cache.py:
+    e: ExternalCacheManager,main
+    ExternalCacheManager  # Manages caching of external dependencies like Playwright bro...
+      __init__(1)  CC=2.0
+        → _load_manifest(0)  CC=3.0
+    main()
+  webops/nlp2cmd-repo/tools/analysis/compare_llm.py:
+    e: compare_schemas
+    compare_schemas()
+  webops/nlp2cmd-repo/tools/schema/update_schemas.py:
+    e: load_commands_from_files,update_all_schemas,main
+    load_commands_from_files()
+    update_all_schemas(force_update)
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/environment/__init__.py:
+    e: ToolInfo,ServiceInfo,EnvironmentReport,EnvironmentAnalyzer
+    ToolInfo  # Information about an installed tool....
+    ServiceInfo  # Information about a running service....
+    EnvironmentReport  # Complete environment analysis report....
+    EnvironmentAnalyzer  # Analyzes the system environment for available tools, service...
+      __init__(0)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/intelligent/dynamic_generator.py:
+    e: DynamicSchemaGenerator,test_dynamic_generation
+    DynamicSchemaGenerator  # Generates schemas dynamically without hardcoding....
+      __init__(1)  CC=1.0
+    test_dynamic_generation()
+  webops/nlp2cmd-repo/src/nlp2cmd/parsing/toon_parser.py:
+    e: ToonNodeType,ToonNode,ToonParser,get_parser,reload_parser
+    ToonNodeType  # TOON node types...
+    ToonNode  # TOON node structure...
+    ToonParser  # Unified TOON format parser with hierarchical access...
+      __init__(1)  CC=2.0
+    get_parser(file_path)
+    reload_parser(file_path)
+  webops/nlp2cmd-repo/src/nlp2cmd/registry/__init__.py:
+    e: ParamType,ParamSchema,ActionSchema,ActionResult,ActionHandler,ActionRegistry,get_registry
+    ParamType  # Parameter types for action validation....
+    ParamSchema  # Schema for an action parameter....
+    ActionSchema  # Schema definition for an action....
+      get_required_params(0)  CC=3.0
+    ActionResult  # Result of action execution....
+      ok(1)  CC=1.0
+    ActionHandler  # Base class for action handlers....
+      __init__(1)  CC=1.0
+    ActionRegistry  # Central registry for all system actions.
+
+Provides:
+- Action...
+      __init__(0)  CC=1.0
+        → _register_builtin_actions(0)  CC=1.0
+        → register(2)  CC=4.0
+    get_registry()
+  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/extractor.py:
+    e: WebElement,WebPageSchema,WebSchemaExtractor,extract_web_schema
+    WebElement  # Represents an interactive element on a web page....
+      to_dict(0)  CC=1.0
+    WebPageSchema  # Schema for a web page....
+      to_appspec(0)  CC=15.0  !
+    WebSchemaExtractor  # Extract schema from web pages using Playwright.
+
+Analyzes DO...
+      __init__(1)  CC=1.0
+    extract_web_schema(url,output_dir,headless,use_cache)
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_extraction/llm_extractor.py:
+    e: LLMSchemaExtractor
+    LLMSchemaExtractor  # Extract command schemas using LLM assistance....
+      __init__(1)  CC=4.0
+  webops/nlp2cmd-repo/src/nlp2cmd/storage/versioned_store.py:
+    e: VersionedSchemaStore,demonstrate_version_management
+    VersionedSchemaStore  # Extended schema store that supports versioning....
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+        → _load_active_versions(0)  CC=2.0
+    demonstrate_version_management()
+  webops/nlp2cmd-repo/tools/schema/validate_schemas.py:
+    e: validate_and_fix_schemas
+    validate_and_fix_schemas()
+  webops/nlp2cmd-repo/src/nlp2cmd/execution/browser.py:
+    e: BrowserResult,BrowserExecutor,get_os_open_command,normalize_url,open_url,search_web,generate_shell_command
+    BrowserResult  # Result of a browser automation action....
+    BrowserExecutor  # Execute browser automation commands.
+
+Supports:
+- Simple URL...
+      __init__(2)  CC=1.0
+    get_os_open_command()
+    normalize_url(url)
+    open_url(url,use_webbrowser)
+    search_web(query,engine)
+    generate_shell_command(action,params)
+  webops/nlp2cmd-repo/src/nlp2cmd/history/tracker.py:
+    e: SchemaUsage,CommandRecord,CommandHistory,get_global_history,record_command
+    SchemaUsage  # Record of schema usage....
+      to_dict(0)  CC=1.0
+    CommandRecord  # Record of a command execution....
+      to_dict(0)  CC=2.0
+        → to_dict(0)  CC=2.0
+    CommandHistory  # Unified command history tracker.
+
+Automatically records all ...
+      __init__(1)  CC=2.0
+        → _load(0)  CC=4.0
+    get_global_history()
+    record_command(query,dsl,command)
+  webops/voice_service.py:
+    e: VoiceCommandRequest,VoiceCommandResponse,ShellExecutor,VoiceServiceManager,root,health_check,process_voice_command,websocket_endpoint,create_webops_voice_app
+    VoiceCommandRequest  # Voice command request model....
+    VoiceCommandResponse  # Voice command response model....
+    ShellExecutor  # Shell command executor with logging....
+      __init__(1)  CC=1.0
+    VoiceServiceManager  # Manages voice service connections and sessions....
+      __init__(0)  CC=1.0
+        → _create_nlp2cmd_pipeline(0)  CC=4.0
+    root()
+    health_check()
+    process_voice_command(request)
+    websocket_endpoint(websocket)
+    create_webops_voice_app()
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/llm_simple.py:
+    e: LLMClient,LiteLLMClient,LLMConfig,LLMGenerationResult,BaseLLMGenerator,SimpleLLMSQLGenerator,SimpleLLMShellGenerator,SimpleLLMDockerGenerator,SimpleLLMKubernetesGenerator,MockLLMClient
+    LLMClient  # Protocol for LLM client implementations....
+      complete(4)  CC=1.0
+    LiteLLMClient
+      __init__(4)  CC=9.0
+    LLMConfig  # Configuration for LLM generators....
+    LLMGenerationResult  # Result of LLM generation....
+    BaseLLMGenerator  # Base class for LLM-based DSL generators....
+      __init__(2)  CC=2.0
+    SimpleLLMSQLGenerator  # LLM-based SQL generation - single domain first.
+
+Example:
+  ...
+      __init__(3)  CC=2.0
+        → __init__(3)  CC=2.0
+    SimpleLLMShellGenerator  # LLM-based Shell command generation....
+      get_system_prompt(0)  CC=1.0
+    SimpleLLMDockerGenerator  # LLM-based Docker command generation....
+      get_system_prompt(0)  CC=1.0
+    SimpleLLMKubernetesGenerator  # LLM-based Kubernetes command generation....
+      get_system_prompt(0)  CC=1.0
+    MockLLMClient  # Mock LLM client for testing....
+      __init__(1)  CC=2.0
+  webops/nlp2cmd-repo/src/nlp2cmd/monitoring/token_costs.py:
+    e: TokenCostEstimate,TokenCostEstimator,estimate_token_cost,format_token_estimate,parse_metrics_string
+    TokenCostEstimate  # Token cost estimation based on resource consumption....
+    TokenCostEstimator  # Converts resource metrics to token equivalents....
+      __init__(0)  CC=1.0
+    estimate_token_cost(time_ms,cpu_percent,memory_mb,energy_mj)
+    format_token_estimate(estimate)
+    parse_metrics_string(metrics_str)
+  webops/nlp2cmd-repo/src/nlp2cmd/nlp_enhanced/__init__.py:
+    e: ShellGPTBackend,HybridNLPBackend
+    ShellGPTBackend  # NLP backend that uses shell-gpt for intelligent command gene...
+      __init__(3)  CC=4.0
+        → __init__(3)  CC=4.0
+        → _find_shell_gpt(0)  CC=6.0
+    HybridNLPBackend  # Hybrid NLP backend that combines multiple approaches.
+
+This ...
+      __init__(2)  CC=7.0
+        → __init__(2)  CC=7.0
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_based/generator.py:
+    e: SchemaBasedGenerator,SchemaRegistry,test_schema_based_generator
+    SchemaBasedGenerator  # Generates commands using schemas instead of templates....
+      __init__(1)  CC=2.0
+    SchemaRegistry  # Registry for managing and improving schemas....
+      __init__(1)  CC=1.0
+    test_schema_based_generator()
+  webops/nlp2cmd-repo/src/nlp2cmd/thermodynamic/__init__.py:
+    e: LangevinConfig,SamplerResult,EnergyModel,QuadraticEnergy,ConstraintEnergy,LangevinSampler,EntropyProductionRegularizer,MajorityVoter,ThermodynamicRouter,EnergyEstimator
+    LangevinConfig  # Configuration for Langevin dynamics sampler....
+    SamplerResult  # Result from Langevin sampling....
+    EnergyModel  # Abstract base class for energy models.
+
+Energy function V(z;...
+      energy(2)  CC=1.0
+    QuadraticEnergy  # Simple quadratic energy for testing: V(z) = 0.5 * ||z - targ...
+      __init__(1)  CC=1.0
+    ConstraintEnergy  # Energy model for constraint satisfaction problems.
+
+V(z; c) ...
+      __init__(0)  CC=1.0
+    LangevinSampler  # Thermodynamic sampler using overdamped Langevin dynamics.
+
+I...
+      __init__(2)  CC=2.0
+    EntropyProductionRegularizer  # Regularizer based on Whitelam's principle:
+
+L = -E[log P(ω̃)...
+      __init__(2)  CC=1.0
+    MajorityVoter  # Select best sample from multiple candidates.
+
+Strategies:
+- ...
+      __init__(1)  CC=1.0
+    ThermodynamicRouter  # Routes problems to appropriate solver:
+- Classic DSL agents ...
+      __init__(1)  CC=1.0
+    EnergyEstimator  # Estimate computational energy consumption.
+
+Compares:
+- Pure...
+      estimate(4)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/history.py:
+    e: InteractionRecord,InteractionHistory
+    InteractionRecord  # Record of a single browser interaction....
+      to_dict(0)  CC=1.0
+    InteractionHistory  # Tracks and learns from browser interactions.
+
+Features:
+- Re...
+      __init__(1)  CC=2.0
+        → _load(0)  CC=4.0
+  webops/nlp2cmd-repo/src/nlp2cmd/context/disambiguator.py:
+    e: DisambiguationResult,CommandDisambiguator
+    DisambiguationResult  # Result of disambiguation process....
+    CommandDisambiguator  # Disambiguates commands using history context.
+
+When a query ...
+      __init__(1)  CC=3.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/ml_intent_classifier.py:
+    e: IntentPrediction,TrainingSample,MLIntentClassifier,_check_sklearn,_check_spacy,generate_training_data_from_phrases,_generate_variations,create_default_training_data,get_ml_classifier
+    IntentPrediction  # Result of intent classification....
+    TrainingSample  # Single training sample....
+    MLIntentClassifier  # Fast ML-based intent classifier using TF-IDF + SVM.
+
+Feature...
+      __init__(1)  CC=3.0
+        → load(1)  CC=3.0
+    _check_sklearn()
+    _check_spacy()
+    generate_training_data_from_phrases(phrases_path)
+    _generate_variations(phrase,domain,intent,language)
+    create_default_training_data()
+    get_ml_classifier(force_retrain)
+  webops/nlp2cmd-repo/termo2/base_solver.py:
+    e: BaseSolver
+    BaseSolver  # Base class for thermodynamic optimization solvers....
+      __init__(0)  CC=1.0
+  webops/nlp2cmd-repo/tools/schema/enhanced_schema_generator.py:
+    e: ExtractionStrategy,ExtractionResult,EnhancedSchemaExtractor,main
+    ExtractionStrategy  # Available extraction strategies....
+    ExtractionResult  # Result of schema extraction....
+    EnhancedSchemaExtractor  # Enhanced schema extractor with multiple strategies....
+      __init__(1)  CC=3.0
+    main()
+  webops/nlp2cmd-repo/tools/schema/non_llm_schema_extractor.py:
+    e: NonLLMStrategy,SchemaQuality,NonLLMSchemaExtractor,main
+    NonLLMStrategy  # Available non-LLM strategies....
+    SchemaQuality  # Schema quality metrics....
+    NonLLMSchemaExtractor  # Non-LLM schema extractor with multiple strategies....
+      __init__(0)  CC=1.0
+        → _load_command_patterns(0)  CC=1.0
+        → _load_template_library(0)  CC=1.0
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/concepts/virtual_objects.py:
+    e: ObjectType,VirtualObject,VirtualObjectManager
+    ObjectType  # Types of virtual objects....
+    VirtualObject  # Virtual object representing system resource....
+      __post_init__(0)  CC=1.0
+        → _set_default_properties(0)  CC=5.0
+    VirtualObjectManager  # Manager for virtual objects....
+      __init__(0)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/utils/playwright_installer.py:
+    e: is_playwright_installed,is_playwright_browsers_installed,install_playwright,install_playwright_browsers,ensure_playwright_installed
+    is_playwright_installed()
+    is_playwright_browsers_installed()
+    install_playwright(console)
+    install_playwright_browsers(console)
+    ensure_playwright_installed(console,auto_install)
+  webops/nlp2cmd-repo/termo2/vehicle_routing.py:
+    e: DeliveryPoint,Vehicle,Route,VRPSolver,demo_vehicle_routing
+    DeliveryPoint  # Represents a delivery location....
+      distance_to(1)  CC=1.0
+    Vehicle  # Represents a delivery vehicle....
+    Route  # Represents a delivery route....
+      is_feasible(0)  CC=2.0
+    VRPSolver  # Vehicle Routing Problem solver using thermodynamic approach....
+      __init__(3)  CC=2.0
+    demo_vehicle_routing()
+  webops/nlp2cmd-repo/src/nlp2cmd/core/toon_integration.py:
+    e: ToonDataManager,get_data_manager,reload_data_manager,load_command_schemas,load_config,get_project_info
+    ToonDataManager  # Unified data manager using TOON format...
+      __init__(1)  CC=1.0
+        → _ensure_loaded(0)  CC=3.0
+    get_data_manager(toon_file)
+    reload_data_manager(toon_file)
+    load_command_schemas()
+    load_config()
+    get_project_info()
+  webops/nlp2cmd-repo/src/nlp2cmd/enhanced/__init__.py:
+    e: EnhancedNLP2CMD,create_enhanced_nlp2cmd
+    EnhancedNLP2CMD  # Enhanced NLP2CMD with dynamic schema capabilities.
+
+This cla...
+      __init__(3)  CC=2.0
+        → __init__(3)  CC=2.0
+    create_enhanced_nlp2cmd(appspec_path,nlp_backend,config)
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/fuzzy_schema_matcher.py:
+    e: MatchResult,PhraseSchema,FuzzySchemaMatcherConfig,FuzzySchemaMatcher,_get_jellyfish,_get_rapidfuzz,create_multilingual_matcher
+    MatchResult  # Result of fuzzy schema matching....
+    PhraseSchema  # Schema for a phrase with metadata....
+    FuzzySchemaMatcherConfig  # Configuration for fuzzy matching thresholds....
+      __init__(6)  CC=1.0
+    FuzzySchemaMatcher  # Language-agnostic fuzzy matcher using JSON schemas.
+
+Works w...
+      __init__(2)  CC=3.0
+        → load_schema(1)  CC=2.0
+        → _build_index(0)  CC=2.0
+        → _index_phrase(1)  CC=3.0
+        → _normalize(1)  CC=3.0
+    _get_jellyfish()
+    _get_rapidfuzz()
+    create_multilingual_matcher(phrases_dict,schema_path)
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/structured.py:
+    e: StructuredPlan,StructuredPlanResult,StructuredLLMPlanner,MultiStepPlan,MultiStepPlanner
+    StructuredPlan  # Structured execution plan from LLM....
+      to_adapter_plan(0)  CC=1.0
+    StructuredPlanResult  # Result of structured planning....
+    StructuredLLMPlanner  # LLM with enforced JSON output schema.
+
+Uses JSON mode to ens...
+      __init__(3)  CC=3.0
+    MultiStepPlan  # Multi-step execution plan....
+      get_execution_order(0)  CC=2.0
+    MultiStepPlanner  # Iteration 8: Multi-Step Plans.
+
+Decompose complex queries in...
+      decompose(2)  CC=9.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/semantic_matcher.py:
+    e: SemanticMatch,IntentEmbedding,SemanticMatcher,_check_sentence_transformers,create_semantic_matcher_from_phrases,get_semantic_matcher
+    SemanticMatch  # Result of semantic matching....
+    IntentEmbedding  # Stored embedding for an intent phrase....
+    SemanticMatcher  # Semantic similarity matcher using sentence embeddings.
+
+Feat...
+      __init__(3)  CC=2.0
+    _check_sentence_transformers()
+    create_semantic_matcher_from_phrases(phrases_path)
+    get_semantic_matcher()
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/validating.py:
+    e: DSLValidator,ValidationResult,ValidatingGeneratorResult,ValidatingGenerator,SimpleSQLValidator,SimpleShellValidator,SimpleDockerValidator,SimpleKubernetesValidator,create_default_validators
+    DSLValidator  # Protocol for DSL validators....
+      validate(1)  CC=1.0
+    ValidationResult  # Result of DSL validation....
+    ValidatingGeneratorResult  # Result of validated generation....
+    ValidatingGenerator  # Generate DSL with validation and self-correction.
+
+Validates...
+      __init__(3)  CC=2.0
+    SimpleSQLValidator  # Simple SQL syntax validator....
+      validate(1)  CC=7.0
+    SimpleShellValidator  # Simple shell command validator....
+      validate(1)  CC=6.0
+    SimpleDockerValidator  # Simple Docker command validator....
+      validate(1)  CC=5.0
+    SimpleKubernetesValidator  # Simple Kubernetes command validator....
+      validate(1)  CC=6.0
+    create_default_validators()
+  webops/nlp2cmd-repo/src/nlp2cmd/polish_support.py:
+    e: PolishLanguageSupport,get_polish_support
+    PolishLanguageSupport  # Polish language support for NLP2CMD...
+      __init__(0)  CC=1.0
+        → _load_patterns(0)  CC=6.0
+    get_polish_support()
+  webops/nlp2cmd-repo/tools/analysis/analyze_version_detection.py:
+    e: analyze_version_standards,test_version_detection_patterns,check_schema_version_support,demonstrate_version_detection_implementation,best_practices,main
+    analyze_version_standards()
+    test_version_detection_patterns()
+    check_schema_version_support()
+    demonstrate_version_detection_implementation()
+    best_practices()
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/service/__init__.py:
+    e: ServiceConfig,QueryRequest,QueryResponse,NLP2CMDService,_ensure_service_deps,create_app,create_service_config_from_args
+    ServiceConfig  # Configuration for NLP2CMD service....
+      __init__(0)  CC=1.0
+    QueryRequest  # Request model for query endpoint....
+    QueryResponse  # Response model for query endpoint....
+    NLP2CMDService  # NLP2CMD HTTP API Service....
+      __init__(1)  CC=2.0
+        → _setup_logging(0)  CC=1.0
+    _ensure_service_deps()
+    create_app()
+    create_service_config_from_args(host,port,debug,log_level,cors_origins,max_workers,auto_execute,session_timeout,save_env,env_file)
+  webops/nlp2cmd-repo/src/nlp2cmd/utils/data_files.py:
+    e: get_user_config_dir,_legacy_user_config_dir,_package_data_dir,find_data_files,find_data_file,data_file_write_path
+    get_user_config_dir()
+    _legacy_user_config_dir()
+    _package_data_dir()
+    find_data_files()
+    find_data_file()
+    data_file_write_path()
+  webops/nlp2cmd-repo/src/nlp2cmd/storage/per_command_store.py:
+    e: PerCommandSchemaStore,test_per_command_store
+    PerCommandSchemaStore  # Stores each command schema in its own file....
+      __init__(1)  CC=1.0
+        → _load_index(0)  CC=3.0
+    test_per_command_store()
+  webops/nlp2cmd-repo/termo2/hyperparameter_optimization.py:
+    e: HyperparameterSpace,HyperparameterResult,HyperparameterOptimizer,demo_hyperparameter_optimization
+    HyperparameterSpace  # Definition of hyperparameter search space....
+      sample(0)  CC=1.0
+    HyperparameterResult  # Result of hyperparameter optimization....
+      is_better_than(1)  CC=1.0
+    HyperparameterOptimizer  # Hyperparameter optimizer using thermodynamic approach....
+      __init__(2)  CC=1.0
+    demo_hyperparameter_optimization()
+  webops/nlp2cmd-repo/tools/generation/intelligent_command_generator.py:
+    e: GenerationMethod,GenerationResult,IntelligentCommandGenerator,main
+    GenerationMethod  # Available generation methods....
+    GenerationResult  # Result of command generation....
+    IntelligentCommandGenerator  # Intelligent command generator with adaptive strategies....
+      __init__(1)  CC=3.0
+    main()
+  webops/nlp2cmd-repo/tools/schema/cmd2schema.py:
+    e: CommandSchemaGenerator,main
+    CommandSchemaGenerator  # Generate schemas for command-line tools....
+      __init__(2)  CC=3.0
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/planner/__init__.py:
+    e: PlannerConfig,PlanningResult,LLMPlanner
+    PlannerConfig  # Configuration for LLM Planner....
+    PlanningResult  # Result of plan generation....
+    LLMPlanner  # Generates execution plans using LLM.
+
+The LLM is constrained...
+      __init__(3)  CC=3.0
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_based/adapter.py:
+    e: SchemaDrivenAppSpecAdapter,test_schema_driven_adapter
+    SchemaDrivenAppSpecAdapter  # AppSpec adapter that uses schema-based generation....
+      __init__(0)  CC=1.0
+        → __init__(0)  CC=1.0
+        → _load_schemas(0)  CC=5.0
+        → _action_to_schema(1)  CC=5.0
+        → _infer_category(1)  CC=2.0
+    test_schema_driven_adapter()
+  webops/nlp2cmd-repo/src/nlp2cmd/thermodynamic/energy_models.py:
+    e: Task,Resource,SchedulingEnergy,AllocationEnergy,RoutingEnergy,CSPEnergy
+    Task  # Represents a task to be scheduled....
+    Resource  # Represents a resource with capacity....
+    SchedulingEnergy  # Energy model for scheduling problems.
+
+Encodes z as a vector...
+      __init__(4)  CC=1.0
+    AllocationEnergy  ×DUP  # Energy model for resource allocation problems.
+
+Encodes z as...
+      __init__(4)  CC=1.0
+    RoutingEnergy  # Energy model for routing problems (TSP, VRP).
+
+Encodes z as ...
+      __init__(3)  CC=1.0
+    CSPEnergy  # Generic Constraint Satisfaction Problem energy model.
+
+Suppo...
+      __init__(0)  CC=1.0
+  webops/nlp2cmd-repo/termo_demo.py:
+    e: demo_hybrid,demo_thermodynamic_improved,demo_hybrid_thermodynamic_improved,benchmark_latency,main
+    demo_hybrid()
+    demo_thermodynamic_improved()
+    demo_hybrid_thermodynamic_improved()
+    benchmark_latency()
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/llm_multi.py:
+    e: RoutingResult,LLMDomainRouter,MultiDomainResult,MultiDomainGenerator,CachedMultiDomainGenerator
+    RoutingResult  # Result of domain routing....
+    LLMDomainRouter  # Route queries to correct domain using LLM classification.
+
+E...
+      __init__(2)  CC=2.0
+    MultiDomainResult  # Result of multi-domain generation....
+    MultiDomainGenerator  # Generate DSL for any domain using LLM routing.
+
+Example:
+   ...
+      __init__(3)  CC=3.0
+    CachedMultiDomainGenerator  # Multi-domain generator with response caching....
+      __init__(3)  CC=1.0
+        → __init__(3)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/data_loader.py:
+    e: PhraseEntry,PhraseDatabase,DataLoader,_check_msgpack,load_legacy_phrases,merge_databases,benchmark_formats
+    PhraseEntry  # Single phrase entry for intent matching....
+      to_dict(0)  CC=1.0
+    PhraseDatabase  # Collection of phrase entries with metadata....
+      __len__(0)  CC=1.0
+    DataLoader  # Optimized data loader with format detection and caching.
+
+Su...
+      __init__(1)  CC=2.0
+    _check_msgpack()
+    load_legacy_phrases(path)
+    merge_databases()
+    benchmark_formats(db,iterations)
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/hybrid.py:
+    e: HybridResult,HybridStats,HybridGenerator,AdaptiveHybridGenerator,create_hybrid_generator
+    HybridResult  # Result of hybrid generation....
+    HybridStats  # Statistics for hybrid generator....
+      to_dict(0)  CC=1.0
+    HybridGenerator  # Use rules first, LLM as fallback.
+
+Optimizes for cost and la...
+      __init__(5)  CC=3.0
+    AdaptiveHybridGenerator  # Hybrid generator with adaptive threshold.
+
+Automatically adj...
+      __init__(7)  CC=1.0
+        → __init__(7)  CC=1.0
+    create_hybrid_generator(llm_client,confidence_threshold)
+  webops/nlp2cmd-repo/src/nlp2cmd/monitoring/resources.py:
+    e: ResourceMetrics,ResourceMonitor,get_monitor,measure_resources,get_last_metrics,format_last_metrics,get_system_info
+    ResourceMetrics  # Resource consumption metrics....
+    ResourceMonitor  # Monitor system resource usage during command execution....
+      __init__(0)  CC=1.0
+    get_monitor()
+    measure_resources()
+    get_last_metrics()
+    format_last_metrics()
+    get_system_info()
+  webops/nlp2cmd-repo/termo.py:
+    e: demo_hybrid,demo_thermodynamic,demo_complete_hybrid,main
+    demo_hybrid()
+    demo_thermodynamic()
+    demo_complete_hybrid()
+    main()
+  webops/nlp2cmd-repo/termo1.py:
+    e: main
+    main()
+  webops/nlp2cmd-repo/src/nlp2cmd/generation/__init__.py:
+    e: __getattr__,__dir__
+    __getattr__(name)
+    __dir__()
+  webops/nlp2cmd-repo/src/nlp2cmd/service/cli.py:
+    e: add_service_command
+    add_service_command(main_group)
+  webops/nlp2cmd-repo/src/nlp2cmd/contracts/__init__.py:
+    e: contracts_dir
+    contracts_dir()
+  webops/nlp2cmd-repo/src/nlp2cmd/ir.py:
+    e: ActionIR
+    ActionIR
+      to_dict(0)  CC=1.0
+  webops/nlp2cmd-repo/src/nlp2cmd/context/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/execution/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/history/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/monitoring/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/nlp_light/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/schema_based/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/storage/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/utils/__init__.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/utils/yaml_compat.py:
+  webops/nlp2cmd-repo/src/nlp2cmd/web_schema/__init__.py:
+  webops/nlp2cmd-repo/termo2/__init__.py:

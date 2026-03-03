@@ -1,0 +1,58 @@
+# code2llm/evolution | 1278 func | 86f | 2026-03-03
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT-FUNC      TemplateGenerator._prepare_shell_entities  CC=164  fan=24
+      WHY: CC=164 exceeds 15
+      EFFORT: ~1h  IMPACT: 3936
+
+  [2] !! SPLIT-FUNC      PipelineRunner._run_dom_multi_action  CC=48  fan=52
+      WHY: CC=48 exceeds 15
+      EFFORT: ~1h  IMPACT: 2496
+
+  [3] !! SPLIT-FUNC      FeedbackAnalyzer.analyze  CC=41  fan=32
+      WHY: CC=41 exceeds 15
+      EFFORT: ~1h  IMPACT: 1312
+
+  [4] !! SPLIT-FUNC      DockerValidator.validate  CC=50  fan=24
+      WHY: CC=50 exceeds 15
+      EFFORT: ~1h  IMPACT: 1200
+
+  [5] !! SPLIT-FUNC      KubernetesValidator.validate  CC=58  fan=20
+      WHY: CC=58 exceeds 15
+      EFFORT: ~1h  IMPACT: 1160
+
+  [6] !! SPLIT-FUNC      KeywordIntentDetector._load_detector_config_from_json  CC=47  fan=22
+      WHY: CC=47 exceeds 15
+      EFFORT: ~1h  IMPACT: 1034
+
+  [7] !! SPLIT-FUNC      NLP2CMD._normalize_entities  CC=64  fan=16
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 1024
+
+  [8] !! SPLIT-FUNC      NLP2CMD._normalize_entities  CC=64  fan=16
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 1024
+
+  [9] !! SPLIT-FUNC      NLP2CMD._normalize_entities  CC=64  fan=16
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 1024
+
+  [10] !! SPLIT-FUNC      PythonCodeExtractor._extract_typer_command  CC=47  fan=19
+      WHY: CC=47 exceeds 15
+      EFFORT: ~1h  IMPACT: 893
+
+
+RISKS[3]:
+  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/tests/test_vf2pp_helpers.py may break 0 import paths
+  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py may break 0 import paths
+  ⚠ Splitting src/nlp2cmd/pipeline_runner_plans.py may break 0 import paths
+
+METRICS-TARGET:
+  CC̄:          5.6 → ≤3.9
+  max-CC:      187 → ≤20
+  god-modules: 244 → 0
+  high-CC(≥15): 95 → ≤47
+  hub-types:   0 → ≤0
+
+HISTORY:
+  (first run — no previous data)

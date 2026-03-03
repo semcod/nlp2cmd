@@ -18,7 +18,6 @@ Usage:
 import argparse
 import asyncio
 import json
-import math
 import os
 import sys
 import time
@@ -29,6 +28,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
 from _verbose_helper import init_verbose, vlog, dump_page_schema, dump_selectors, vlog_decision, ensure_playwright_browsers_async, auto_navigate_with_fallback
+from nlp2cmd.skills.drawing import DrawingSkill
+from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
 
 # Load .env
 try:
@@ -36,154 +37,6 @@ try:
     load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 except ImportError:
     pass
-
-
-# ---------------------------------------------------------------------------
-# Drawing plan generator (template-based fallback when LLM unavailable)
-# ---------------------------------------------------------------------------
-
-SHAPE_KEYWORDS = {
-    "dom": "house", "house": "house",
-    "koło": "circle", "kółko": "circle", "circle": "circle",
-    "prostokąt": "rectangle", "rectangle": "rectangle",
-    "trójkąt": "triangle", "triangle": "triangle",
-    "gwiazda": "star", "gwiazdka": "star", "star": "star",
-    "kwiat": "flower", "flower": "flower",
-    "serce": "heart", "heart": "heart",
-    "spirala": "spiral", "spiral": "spiral",
-    "drzewo": "tree", "tree": "tree",
-    "słońce": "sun", "sun": "sun",
-}
-
-COLOR_KEYWORDS = {
-    "czerwony": "red", "red": "red",
-    "niebieski": "blue", "blue": "blue",
-    "zielony": "green", "green": "green",
-    "żółty": "yellow", "yellow": "yellow",
-    "czarny": "black", "black": "black",
-    "biały": "white", "white": "white",
-    "pomarańczowy": "orange", "orange": "orange",
-    "fioletowy": "purple", "purple": "purple",
-    "różowy": "pink", "pink": "pink",
-}
-
-
-def detect_shape_and_color(query: str) -> tuple[str, str]:
-    """Detect shape and color from natural language query."""
-    q = query.lower()
-    shape = "circle"
-    color = "blue"
-    for kw, s in SHAPE_KEYWORDS.items():
-        if kw in q:
-            shape = s
-            break
-    for kw, c in COLOR_KEYWORDS.items():
-        if kw in q:
-            color = c
-            break
-    return shape, color
-
-
-def generate_shape_points(shape: str, cx: float, cy: float, size: float = 150):
-    """Generate drawing points for a shape (template fallback)."""
-    if shape == "circle":
-        pts = []
-        for i in range(36):
-            angle = 2 * math.pi * i / 36
-            pts.append((cx + size * math.cos(angle), cy + size * math.sin(angle)))
-        pts.append(pts[0])  # Close
-        return [pts]
-
-    elif shape == "star":
-        pts = []
-        for i in range(5):
-            # Outer point
-            angle = -math.pi / 2 + 2 * math.pi * i / 5
-            pts.append((cx + size * math.cos(angle), cy + size * math.sin(angle)))
-            # Inner point
-            angle2 = angle + math.pi / 5
-            pts.append((cx + size * 0.4 * math.cos(angle2), cy + size * 0.4 * math.sin(angle2)))
-        pts.append(pts[0])
-        return [pts]
-
-    elif shape == "triangle":
-        return [[(cx, cy - size), (cx - size * 0.87, cy + size * 0.5),
-                 (cx + size * 0.87, cy + size * 0.5), (cx, cy - size)]]
-
-    elif shape == "house":
-        body = [(cx - size, cy), (cx + size, cy), (cx + size, cy + size * 1.2),
-                (cx - size, cy + size * 1.2), (cx - size, cy)]
-        roof = [(cx - size * 1.1, cy), (cx, cy - size * 0.8), (cx + size * 1.1, cy)]
-        door = [(cx - size * 0.2, cy + size * 0.5), (cx + size * 0.2, cy + size * 0.5),
-                (cx + size * 0.2, cy + size * 1.2), (cx - size * 0.2, cy + size * 1.2),
-                (cx - size * 0.2, cy + size * 0.5)]
-        return [body, roof, door]
-
-    elif shape == "flower":
-        groups = []
-        for p in range(6):
-            petal = []
-            base_angle = 2 * math.pi * p / 6
-            for i in range(20):
-                t = i / 19
-                angle = base_angle + (t - 0.5) * (2 * math.pi / 6)
-                r = size * math.sin(t * math.pi)
-                petal.append((cx + r * math.cos(angle), cy + r * math.sin(angle)))
-            groups.append(petal)
-        return groups
-
-    elif shape == "heart":
-        pts = []
-        for i in range(60):
-            t = 2 * math.pi * i / 60
-            x = 16 * math.sin(t) ** 3
-            y = -(13 * math.cos(t) - 5 * math.cos(2*t) - 2 * math.cos(3*t) - math.cos(4*t))
-            pts.append((cx + x * size / 16, cy + y * size / 16))
-        pts.append(pts[0])
-        return [pts]
-
-    elif shape == "spiral":
-        pts = []
-        for i in range(100):
-            t = i / 100
-            r = size * t
-            angle = t * 6 * math.pi
-            pts.append((cx + r * math.cos(angle), cy + r * math.sin(angle)))
-        return [pts]
-
-    elif shape == "sun":
-        # Circle + rays
-        circle = []
-        for i in range(36):
-            angle = 2 * math.pi * i / 36
-            circle.append((cx + size * 0.5 * math.cos(angle), cy + size * 0.5 * math.sin(angle)))
-        circle.append(circle[0])
-        groups = [circle]
-        for i in range(8):
-            angle = 2 * math.pi * i / 8
-            ray = [
-                (cx + size * 0.55 * math.cos(angle), cy + size * 0.55 * math.sin(angle)),
-                (cx + size * math.cos(angle), cy + size * math.sin(angle)),
-            ]
-            groups.append(ray)
-        return groups
-
-    elif shape == "tree":
-        trunk = [(cx - size * 0.1, cy), (cx + size * 0.1, cy),
-                 (cx + size * 0.1, cy + size), (cx - size * 0.1, cy + size),
-                 (cx - size * 0.1, cy)]
-        crown = []
-        for i in range(36):
-            angle = 2 * math.pi * i / 36
-            crown.append((cx + size * 0.7 * math.cos(angle),
-                          cy - size * 0.5 + size * 0.7 * math.sin(angle)))
-        crown.append(crown[0])
-        return [trunk, crown]
-
-    # Default: rectangle
-    return [[(cx - size, cy - size * 0.7), (cx + size, cy - size * 0.7),
-             (cx + size, cy + size * 0.7), (cx - size, cy + size * 0.7),
-             (cx - size, cy - size * 0.7)]]
 
 
 # ---------------------------------------------------------------------------
@@ -244,38 +97,6 @@ async def generate_plan_with_llm(query: str) -> dict | None:
 # Main execution
 # ---------------------------------------------------------------------------
 
-COLOR_HEX = {
-    "red": "#ff0000", "blue": "#0000ff", "green": "#00ff00",
-    "black": "#000000", "yellow": "#ffff00", "orange": "#ff8800",
-    "purple": "#8800ff", "white": "#ffffff", "pink": "#ff69b4",
-    "cyan": "#00ffff",
-}
-
-
-async def execute_drawing(page, shape_groups, canvas_box, color_hex="#0000ff"):
-    """Execute drawing on canvas."""
-    ox, oy = canvas_box["x"], canvas_box["y"]
-
-    # Try to set color
-    try:
-        ci = page.locator('input[type="color"]').first
-        if await ci.count() > 0:
-            await ci.evaluate(f'el => {{ el.value = "{color_hex}"; el.dispatchEvent(new Event("input")); }}')
-    except Exception:
-        pass
-
-    for group in shape_groups:
-        if len(group) < 2:
-            continue
-        x0, y0 = group[0]
-        await page.mouse.move(ox + x0, oy + y0)
-        await page.mouse.down()
-        for x, y in group[1:]:
-            await page.mouse.move(ox + x, oy + y)
-            await page.wait_for_timeout(15)
-        await page.mouse.up()
-        await page.wait_for_timeout(100)
-
 
 async def main():
     parser = argparse.ArgumentParser(description="Adaptive LLM-guided drawing")
@@ -306,35 +127,38 @@ async def main():
         "jspaint": "https://jspaint.app",
     }
 
+    # --- Use DrawingSkill (CQRS + Event Sourcing + NL parsing) ---
+    skill = DrawingSkill()
+    skill.init_canvas(1024, 768, url=target_urls.get(args.target, ""), app=args.target)
+
+    # Step 1: NL parsing via DrawingSkill
+    shape = skill.detect_shape(args.query)
+    color_hex = skill.detect_color(args.query, default="#0000FF")
+
     print(f"=== Adaptive Drawing ===")
     print(f"Query:  {args.query}")
     print(f"Target: {args.target}")
+    print(f"Detected: shape={shape}, color={color_hex}")
+    print(f"Available shapes: {', '.join(DrawingSkill.available_shapes())}")
     print()
 
-    # Step 1: Detect shape and color from query
-    shape, color = detect_shape_and_color(args.query)
-    color_hex = COLOR_HEX.get(color, "#0000ff")
-    print(f"1. Detected: shape={shape}, color={color}")
-    vlog_decision(
-        f"Shape: {shape}, Color: {color}",
-        f"Matched from query keywords",
-        alternatives=[list(SHAPE_KEYWORDS.values()), list(COLOR_KEYWORDS.values())],
-    )
-
     # Step 2: Try LLM for advanced plan
-    print(f"2. Trying LLM for drawing plan...")
+    print(f"1. Trying LLM for drawing plan...")
     t0 = time.time()
     llm_plan = await generate_plan_with_llm(args.query)
     plan_time = (time.time() - t0) * 1000
 
-    use_llm_plan = False
     if llm_plan and "shapes" in llm_plan:
         print(f"   LLM plan: {len(llm_plan['shapes'])} shapes ({plan_time:.0f}ms)")
-        use_llm_plan = True
     else:
-        print(f"   Using template fallback ({plan_time:.0f}ms)")
+        print(f"   Using DrawingSkill NL parser ({plan_time:.0f}ms)")
 
-    # Step 3: Open browser and draw
+    # Step 3: Execute NL command via DrawingSkill
+    print(f"2. Generating drawing events from NL...")
+    events = skill.execute_nl(args.query)
+    print(f"   Generated {len(events)} events, total: {skill.event_count}")
+
+    # Step 4: Open browser and render
     print(f"3. Opening {args.target}...")
 
     async with async_playwright() as pw:
@@ -354,67 +178,42 @@ async def main():
         await page.wait_for_timeout(3000)
         vlog(f"Page loaded: {page.url}")
 
-        # Dismiss popups
-        for text in ["Accept", "Akceptuję", "OK", "Got it", "Close", "×"]:
-            try:
-                btn = page.get_by_text(text, exact=False).first
-                if await btn.count() > 0 and await btn.is_visible():
-                    await btn.click()
-                    vlog(f"Dismissed dialog: '{text}'")
-                    await page.wait_for_timeout(300)
-            except Exception:
-                continue
+        # Render via PlaywrightRenderer
+        print(f"4. Rendering via PlaywrightRenderer...")
+        renderer = PlaywrightRenderer(page)
+        canvas_info = await skill.render(renderer, url=working_url, app=args.target)
+        print(f"   Canvas: {canvas_info.get('width', 0):.0f}x{canvas_info.get('height', 0):.0f}")
+        vlog(f"Canvas info: {canvas_info}")
 
         # Inspect page schema
         await dump_page_schema(page)
-
-        # Find canvas
-        canvas = page.locator("canvas").first
-        try:
-            await canvas.wait_for(state="visible", timeout=10000)
-            vlog("Canvas became visible")
-        except Exception:
-            vlog("Canvas not visible after 10s, waiting 5s more")
-            await page.wait_for_timeout(5000)
-
-        box = await canvas.bounding_box()
-        if not box:
-            vlog("Canvas bounding_box() returned None — using fallback")
-            box = {"x": 50, "y": 50, "width": 900, "height": 650}
-
-        cx = box["width"] / 2
-        cy = box["height"] / 2
-
-        print(f"   Canvas: {box['width']:.0f}x{box['height']:.0f}")
-        vlog(f"Canvas bbox: x={box['x']:.1f} y={box['y']:.1f} w={box['width']:.1f} h={box['height']:.1f}")
-
-        # Generate shape points (template-based)
-        shape_groups = generate_shape_points(shape, cx, cy, size=min(cx, cy) * 0.5)
-
-        print(f"4. Drawing {shape} in {color}...")
-        await execute_drawing(page, shape_groups, box, color_hex)
 
         # Screenshot
         print(f"5. Saving screenshot...")
         ss_dir = Path(args.screenshot_dir)
         ss_dir.mkdir(parents=True, exist_ok=True)
-        ss_path = ss_dir / f"adaptive_{shape}_{color}_{args.target.replace('.', '_')}.png"
-        await page.screenshot(path=str(ss_path))
+        ss_path = ss_dir / f"adaptive_{shape}_{color_hex.replace('#', '')}_{args.target.replace('.', '_')}.png"
+        await renderer.screenshot(str(ss_path))
         print(f"   Screenshot: {ss_path}")
 
-        # Step 4: Try vision verification (optional)
+        # Save event sourcing session
+        session_path = ss_dir / f"adaptive_{shape}_session.json"
+        skill.save_session(str(session_path))
+        print(f"   Session saved: {session_path} ({skill.event_count} events)")
+
+        # Step 5: Try vision verification (optional)
         print(f"6. Attempting vision verification...")
         try:
             import base64
             from nlp2cmd.llm.router import LLMRouter
 
-            ss_bytes = ss_path.read_bytes()
+            ss_bytes = Path(str(ss_path)).read_bytes()
             b64 = base64.b64encode(ss_bytes).decode()
 
             router = LLMRouter(adaptive_learning=True)
             vresp = await router.vision(
                 b64,
-                f"Does this image contain a {shape} drawn in {color}? Reply briefly.",
+                f"Does this image contain a {shape} drawn in {color_hex}? Reply briefly.",
                 max_tokens=100,
             )
             if vresp.success:
@@ -444,7 +243,8 @@ async def main():
         await browser.close()
 
     print()
-    print(f"Done! Shape: {shape}, Color: {color}, Target: {args.target}")
+    state = skill.get_state()
+    print(f"Done! Shape: {shape}, Color: {color_hex}, Target: {args.target}, Shapes: {state['shapes_count']}")
 
 
 if __name__ == "__main__":

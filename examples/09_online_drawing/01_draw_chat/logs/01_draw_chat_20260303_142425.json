@@ -1,0 +1,224 @@
+{
+  "example": "01_draw_chat",
+  "platform": {
+    "os": "Linux",
+    "os_version": "#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026",
+    "arch": "x86_64",
+    "python": "3.13.7",
+    "hostname": "nvidia"
+  },
+  "started": "2026-03-03T13:24:25.090545+00:00",
+  "duration_s": 70.788,
+  "entries": [
+    {
+      "time": "2026-03-03T13:24:25.090545+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "=== 01_draw_chat ==="
+    },
+    {
+      "time": "2026-03-03T13:24:25.090735+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Platform: {\"os\": \"Linux\", \"os_version\": \"#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026\", \"arch\": \"x86_64\", \"python\": \"3.13.7\", \"hostname\": \"nvidia\"}"
+    },
+    {
+      "time": "2026-03-03T13:24:25.090785+00:00",
+      "elapsed_s": 0.001,
+      "level": "INFO",
+      "message": "Headless: True"
+    },
+    {
+      "time": "2026-03-03T13:24:25.575979+00:00",
+      "elapsed_s": 0.486,
+      "level": "ERROR",
+      "message": "Browser launch failed: BrowserType.launch: Executable doesn't exist at /home/tom/.cache/ms-playwright/chromium_headless_shell-1194/chrome-linux/headless_shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+    },
+    {
+      "time": "2026-03-03T13:24:25.576122+00:00",
+      "elapsed_s": 0.486,
+      "level": "INFO",
+      "message": "Trying to install Chromium..."
+    },
+    {
+      "time": "2026-03-03T13:25:13.323041+00:00",
+      "elapsed_s": 48.233,
+      "level": "SUCCESS",
+      "message": "Browser ready"
+    },
+    {
+      "time": "2026-03-03T13:25:13.323148+00:00",
+      "elapsed_s": 48.233,
+      "level": "STEP",
+      "message": "[1] Building drawing plan: house in blue"
+    },
+    {
+      "time": "2026-03-03T13:25:13.323342+00:00",
+      "elapsed_s": 48.233,
+      "level": "INFO",
+      "message": "Events emitted: 2"
+    },
+    {
+      "time": "2026-03-03T13:25:13.323382+00:00",
+      "elapsed_s": 48.233,
+      "level": "INFO",
+      "message": "Available shapes: circle, dot, ellipse, flower, grid, heart, house, line, rectangle, spiral, square, star, sun, tree, triangle, wave"
+    },
+    {
+      "time": "2026-03-03T13:25:13.323418+00:00",
+      "elapsed_s": 48.233,
+      "level": "STEP",
+      "message": "[2] Navigating to draw.chat..."
+    },
+    {
+      "time": "2026-03-03T13:25:13.323456+00:00",
+      "elapsed_s": 48.233,
+      "level": "INFO",
+      "message": "URL discovery: trying 6 URLs for 'draw.chat'"
+    },
+    {
+      "time": "2026-03-03T13:25:13.323487+00:00",
+      "elapsed_s": 48.233,
+      "level": "DEBUG",
+      "message": "  [1/6] Trying: https://draw.chat/"
+    },
+    {
+      "time": "2026-03-03T13:25:28.329515+00:00",
+      "elapsed_s": 63.239,
+      "level": "DEBUG",
+      "message": "    → Error: Page.goto: Timeout 15000ms exceeded.\nCall log:\n  - navigating to \"https://draw.chat/\", waiting until"
+    },
+    {
+      "time": "2026-03-03T13:25:28.329582+00:00",
+      "elapsed_s": 63.239,
+      "level": "DEBUG",
+      "message": "  [2/6] Trying: https://draw.chat/pl/index.html"
+    },
+    {
+      "time": "2026-03-03T13:25:29.550181+00:00",
+      "elapsed_s": 64.46,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:25:32.122163+00:00",
+      "elapsed_s": 67.032,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'OK'"
+    },
+    {
+      "time": "2026-03-03T13:25:32.503927+00:00",
+      "elapsed_s": 67.414,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'Zrozumiałem'"
+    },
+    {
+      "time": "2026-03-03T13:25:32.579148+00:00",
+      "elapsed_s": 67.489,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:25:32.579210+00:00",
+      "elapsed_s": 67.489,
+      "level": "DEBUG",
+      "message": "  [3/6] Trying: https://draw.chat/pl/whiteboard.html"
+    },
+    {
+      "time": "2026-03-03T13:25:32.665405+00:00",
+      "elapsed_s": 67.575,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:25:32.665476+00:00",
+      "elapsed_s": 67.575,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:25:32.665522+00:00",
+      "elapsed_s": 67.575,
+      "level": "DEBUG",
+      "message": "  [4/6] Trying: https://draw.chat/en/index.html"
+    },
+    {
+      "time": "2026-03-03T13:25:32.748439+00:00",
+      "elapsed_s": 67.658,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:25:32.748492+00:00",
+      "elapsed_s": 67.658,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:25:32.748520+00:00",
+      "elapsed_s": 67.658,
+      "level": "DEBUG",
+      "message": "  [5/6] Trying: https://draw.chat/pl/"
+    },
+    {
+      "time": "2026-03-03T13:25:32.877835+00:00",
+      "elapsed_s": 67.788,
+      "level": "DEBUG",
+      "message": "    HTTP 200"
+    },
+    {
+      "time": "2026-03-03T13:25:35.369912+00:00",
+      "elapsed_s": 70.28,
+      "level": "DEBUG",
+      "message": "Dismissed popup: 'OK'"
+    },
+    {
+      "time": "2026-03-03T13:25:35.675393+00:00",
+      "elapsed_s": 70.587,
+      "level": "DEBUG",
+      "message": "    → Status: no_canvas, trying next"
+    },
+    {
+      "time": "2026-03-03T13:25:35.677041+00:00",
+      "elapsed_s": 70.587,
+      "level": "DEBUG",
+      "message": "  [6/6] Trying: https://draw.chat/en/"
+    },
+    {
+      "time": "2026-03-03T13:25:35.778460+00:00",
+      "elapsed_s": 70.689,
+      "level": "DEBUG",
+      "message": "    HTTP 404"
+    },
+    {
+      "time": "2026-03-03T13:25:35.778997+00:00",
+      "elapsed_s": 70.689,
+      "level": "DEBUG",
+      "message": "    → HTTP error 404, skipping"
+    },
+    {
+      "time": "2026-03-03T13:25:35.779090+00:00",
+      "elapsed_s": 70.689,
+      "level": "ERROR",
+      "message": "No working URL found for 'draw.chat' after 6 attempts"
+    },
+    {
+      "time": "2026-03-03T13:25:35.779139+00:00",
+      "elapsed_s": 70.689,
+      "level": "ERROR",
+      "message": "Could not navigate to 'draw.chat': http_404"
+    },
+    {
+      "time": "2026-03-03T13:25:35.779177+00:00",
+      "elapsed_s": 70.689,
+      "level": "ERROR",
+      "message": "Could not find working draw.chat URL"
+    }
+  ],
+  "summary": {
+    "total": 34,
+    "errors": 4,
+    "warnings": 0,
+    "successes": 1
+  }
+}

@@ -204,21 +204,41 @@ class DrawingSkill:
             app=app,
         )
 
-        # Update canvas dimensions from actual renderer
-        if canvas_info.get("width") and canvas_info.get("height"):
-            # Re-generate shapes with actual canvas dimensions
-            pass
+        # Scale coordinates if actual canvas differs from initialized canvas
+        actual_w = canvas_info.get("width", 0)
+        actual_h = canvas_info.get("height", 0)
+        init_w = state.get("width", 1024) or 1024
+        init_h = state.get("height", 768) or 768
+        need_scale = (
+            actual_w > 0 and actual_h > 0
+            and (abs(actual_w - init_w) > 10 or abs(actual_h - init_h) > 10)
+        )
+        if need_scale:
+            sx = actual_w / init_w
+            sy = actual_h / init_h
 
         # Render all shape events
         shapes = self.get_shapes()
         for shape_data in shapes:
+            points = shape_data["points"]
+            cx = shape_data["center_x"]
+            cy = shape_data["center_y"]
+
+            if need_scale:
+                points = [
+                    [(x * sx, y * sy) for x, y in group]
+                    for group in points
+                ]
+                cx *= sx
+                cy *= sy
+
             event = ShapeDrawn(
                 shape_type=shape_data["shape_type"],
-                points=shape_data["points"],
+                points=points,
                 color=shape_data["color"],
                 fill=shape_data["fill"],
-                center_x=shape_data["center_x"],
-                center_y=shape_data["center_y"],
+                center_x=cx,
+                center_y=cy,
             )
             await renderer.draw_shape(event)
 

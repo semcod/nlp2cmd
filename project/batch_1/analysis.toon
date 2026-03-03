@@ -1,0 +1,441 @@
+# code2llm | 44f 13346L | py:44 | 2026-03-03
+# CC̄=5.2 | critical:26/329 | dups:0 | cycles:0
+
+HEALTH[14]:
+  🔴 GOD   scripts/thermodynamic/termo2.py = 776L, 12 classes, 38m, max CC=8
+  🟡 CC    apply_keywords_refactor CC=20 (limit:15)
+  🟡 CC    apply_templates_refactor CC=16 (limit:15)
+  🟡 CC    load_commands_from_files CC=16 (limit:15)
+  🟡 CC    update_all_schemas CC=15 (limit:15)
+  🟡 CC    _generate_comprehensive_examples CC=17 (limit:15)
+  🟡 CC    _generate_simple CC=144 (limit:15)
+  🟡 CC    main CC=16 (limit:15)
+  🟡 CC    main CC=17 (limit:15)
+  🟡 CC    generate_command CC=187 (limit:15)
+  🟡 CC    main CC=15 (limit:15)
+  🟡 CC    compare_schemas CC=16 (limit:15)
+  🟡 CC    compare_batch_files CC=21 (limit:15)
+  🟡 CC    demonstrate_version_detection CC=15 (limit:15)
+
+REFACTOR[2]:
+  1. split scripts/thermodynamic/termo2.py  (god module)
+  2. split 13 high-CC methods  (CC>15)
+
+COUPLING: no cross-package imports detected
+
+LAYERS:
+  tools/                          CC̄=7.0    ←in:0  →out:0
+  │ !! comprehensive_command_scanner   853L  3C   24m  CC=17     ←0
+  │ !! enhanced_schema_generator   811L  3C   37m  CC=11     ←0
+  │ !! non_llm_schema_extractor   724L  3C   28m  CC=11     ←0
+  │ !! generate_cmd_simple        578L  0C    4m  CC=187    ←0
+  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←0
+  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←0
+  │ !! intelligent_schema_generator   473L  2C   14m  CC=17     ←0
+  │ analyze_version_detection   334L  0C    6m  CC=9      ←0
+  │ cmd2schema                 244L  1C    9m  CC=7      ←0
+  │ !! update_schemas             176L  0C    3m  CC=16     ←0
+  │ !  validate_schemas           123L  0C    1m  CC=14     ←0
+  │ !! compare_batches             95L  0C    1m  CC=21     ←0
+  │ !! compare_llm                 85L  0C    1m  CC=16     ←0
+  │
+  demos/                          CC̄=5.1    ←in:0  →out:0
+  │ !  demo_versioned_schemas     395L  0C    4m  CC=11     ←0
+  │ !  demo_intelligent_nlp2cmd   289L  1C    9m  CC=11     ←0
+  │ demo_schema_flow           257L  0C    4m  CC=6      ←0
+  │ !! demo_version_detection     228L  0C    4m  CC=15     ←0
+  │ schema_flow_demo           192L  0C    4m  CC=7      ←0
+  │ !  demo_persistent_storage    149L  0C    2m  CC=11     ←0
+  │ !  demo_enhanced              127L  0C    1m  CC=12     ←0
+  │ simple_schema_demo         115L  0C    1m  CC=6      ←0
+  │
+  benchmarks/                     CC̄=4.6    ←in:0  →out:0
+  │ thermodynamic_benchmark    395L  1C    7m  CC=9      ←0
+  │
+  docker/                         CC̄=3.5    ←in:0  →out:0
+  │ demo_desktop_gui           283L  0C    6m  CC=9      ←0
+  │
+  scripts/                        CC̄=3.3    ←in:0  →out:0
+  │ !! implement_core_integration   805L  1C   10m  CC=11     ←0
+  │ !! termo2                     776L  12C   38m  CC=8      ←0
+  │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0
+  │ final_analysis_and_next_steps   476L  1C   10m  CC=9      ←0
+  │ final_project_summary      461L  1C   10m  CC=7      ←0
+  │ !! auto_apply_refactors       289L  0C    3m  CC=20     ←0
+  │ refactor_detect_normalized   249L  0C   10m  CC=7      ←2
+  │ apply_refactors_to_source   235L  0C    4m  CC=1      ←0
+  │ refactor_shell_entities    234L  0C   11m  CC=3      ←2
+  │ termo_demo                 226L  0C    5m  CC=6      ←0
+  │ generate_refactor_report   186L  0C    1m  CC=8      ←0
+  │ split_pipeline_runner      177L  0C    2m  CC=3      ←0
+  │ apply_polish_integration   124L  0C    4m  CC=9      ←0
+  │ termo                      116L  0C    4m  CC=3      ←0
+  │ restore_system             115L  0C    4m  CC=9      ←0
+  │ refactoring_summary         92L  0C    1m  CC=1      ←0
+  │ apply_nlp2cmd_fixes         84L  0C    5m  CC=2      ←0
+  │ setup_external              63L  0C    1m  CC=7      ←0
+  │ bump_version                62L  0C    1m  CC=6      ←0
+  │ apply_complexity_refactors    60L  0C    1m  CC=2      ←0
+  │ termo1                      25L  0C    1m  CC=3      ←0
+  │
+
+DUPLICATES[0]: none
+
+FUNCTIONS (CC≥10, 26 of 329):
+  187.0  generate_command                           39n   8exit  cond+ret  !! split
+  144.0  CommandGenerator._generate_simple          39n   8exit  cond+ret  !! split
+   21.0  compare_batch_files                        18n   1exit  loops+cond  !! split
+   20.0  apply_keywords_refactor                    25n   3exit  loops+cond+ret  !! split
+   17.0  ComprehensiveCommandScanner._generate_comprehensive_examples   13n   2exit  cond+ret  !! split
+   17.0  main                                       12n   1exit  loops+cond  !! split
+   16.0  apply_templates_refactor                   17n   2exit  loops+cond+ret  !! split
+   16.0  load_commands_from_files                    7n   2exit  cond+ret  !! split
+   16.0  main                                        4n   1exit  cond  !! split
+   16.0  compare_schemas                             9n   1exit  loops+cond  !! split
+   15.0  update_all_schemas                         20n   1exit  loops+cond  !! split
+   15.0  main                                        5n   1exit  loops+cond  !! split
+   15.0  demonstrate_version_detection               2n   1exit    !! split
+   14.0  validate_and_fix_schemas                    6n   2exit  loops+cond+ret
+   13.0  ComprehensiveCommandScanner._generate_comprehensive_template   13n   3exit  loops+cond+ret
+   12.0  ComprehensiveCommandScanner._parse_option_line   20n   5exit  cond+ret
+   12.0  IntelligentSchemaExtractor._generate_parameters   16n   2exit  loops+cond+ret
+   12.0  main                                        3n   1exit  loops
+   11.0  CoreIntegrator.create_enhanced_intent_detector   17n   3exit  loops+cond+ret
+   11.0  NonLLMSchemaExtractor._evaluate_quality    20n   3exit  cond+ret
+   11.0  ComprehensiveCommandScanner._detect_option_type   22n   8exit  loops+cond+ret
+   11.0  ComprehensiveCommandScanner._map_option_type_to_param_type   17n   6exit  cond+ret
+   11.0  IntelligentNLP2CMD._select_best_version    18n   5exit  loops+cond+ret
+   11.0  demonstrate_persistent_storage             14n   1exit  loops+cond
+   11.0  demonstrate_schema_updates                 12n   2exit  loops+cond+ret
+   11.0  EnhancedSchemaExtractor._calculate_confidence   20n   3exit  cond+ret
+
+  summary:
+    critical(≥10): 26 | high(5-10): 89 | medium(2-5): 140 | low(<2): 74
+    8% CC≥10  35% CC≥5
+
+HOTSPOTS:
+  #1  run_demo                             fan=27   "calls 27 functions"
+  #2  update_all_schemas                   fan=21   "calls 21 functions"
+  #3  main                                 fan=21   "calls 21 functions"
+  #4  main                                 fan=19   "calls 19 functions"
+  #5  compare_batch_files                  fan=19   "calls 19 functions"
+  #6  apply_keywords_refactor              fan=18   "calls 18 functions"
+  #7  main                                 fan=18   "calls 18 functions"
+  #8  main                                 fan=18   "calls 18 functions"
+  #9  demonstrate_schema_flow              fan=18   "calls 18 functions"
+  #10 ComprehensiveCommandScanner.scan_command  fan=17   "ComprehensiveCommandScanner method, fan-out=17"
+
+CLASSES:
+  EnhancedSchemaExtractor        ████████████████████████  36m  CC̄=3.3   max=11  
+  NonLLMSchemaExtractor          ██████████████████        27m  CC̄=3.9   max=11  
+  ComprehensiveCommandScanner    ███████████████           23m  CC̄=6.2   max=17    !!
+  IntelligentCommandGenerator    ███████████               17m  CC̄=4.2   max=7   
+  IntelligentSchemaExtractor     ████████                  13m  CC̄=5.1   max=12  
+  VRPSolver                      ████████                  12m  CC̄=2.9   max=8   
+  CoreIntegrator                 ██████                     9m  CC̄=5.7   max=11  
+  ORScheduler                    ██████                     9m  CC̄=2.2   max=5   
+  HighPriorityFixer              ██████                     9m  CC̄=2.1   max=6   
+  FinalAnalyzer                  ██████                     9m  CC̄=3.7   max=9   
+  ProjectSummary                 ██████                     9m  CC̄=3.3   max=7   
+  CommandSchemaGenerator         █████                      8m  CC̄=2.2   max=6   
+  IntelligentNLP2CMD             █████                      8m  CC̄=4.0   max=11  
+  HyperparameterOptimizer        ██                         4m  CC̄=1.5   max=3   
+  UnitCommitmentSolver           ██                         3m  CC̄=4.0   max=6   
+  GenomicPipelineScheduler       ██                         3m  CC̄=2.3   max=5   
+  CommandGenerator               ██                         3m  CC̄=50.7  max=144   !!
+  HyperparameterSpace                                       0m  CC̄=0.0   max=0.0 
+  DeliveryPoint                                             0m  CC̄=0.0   max=0.0 
+  Surgery                                                   0m  CC̄=0.0   max=0.0 
+  OperatingRoom                                             0m  CC̄=0.0   max=0.0 
+  PowerPlant                                                0m  CC̄=0.0   max=0.0 
+  GenomicSample                                             0m  CC̄=0.0   max=0.0 
+  PipelineStep                                              0m  CC̄=0.0   max=0.0 
+  NonLLMStrategy                                            0m  CC̄=0.0   max=0.0 
+  SchemaQuality                                             0m  CC̄=0.0   max=0.0 
+  OptionType                                                0m  CC̄=0.0   max=0.0 
+  ParsedOption                                              0m  CC̄=0.0   max=0.0 
+  CommandInfo                                               0m  CC̄=0.0   max=0.0 
+  GenerationMethod                                          0m  CC̄=0.0   max=0.0 
+  GenerationResult                                          0m  CC̄=0.0   max=0.0 
+  ExtractionStrategy                                        0m  CC̄=0.0   max=0.0 
+  ExtractionResult                                          0m  CC̄=0.0   max=0.0 
+  BenchmarkResult                                           0m  CC̄=0.0   max=0.0 
+
+D:
+  tools/generation/generate_cmd_simple.py:
+    e: load_prompts,detect_command_version,generate_command,main
+    load_prompts(prompt_file)
+    detect_command_version(command)
+    generate_command(prompt)
+    main()
+  tools/generation/generate_cmd_from_prompts.py:
+    e: CommandGenerator,create_enhanced_prompt_list,main
+    CommandGenerator  # Generate commands from prompts using NLP2CMD....
+      __init__(1)  CC=5.0
+    create_enhanced_prompt_list()
+    main()
+  tools/analysis/compare_batches.py:
+    e: compare_batch_files
+    compare_batch_files()
+  scripts/maintenance/auto_apply_refactors.py:
+    e: apply_keywords_refactor,apply_templates_refactor,main
+    apply_keywords_refactor()
+    apply_templates_refactor()
+    main()
+  tools/schema/comprehensive_command_scanner.py:
+    e: OptionType,ParsedOption,ComprehensiveCommandScanner,main
+    OptionType  # Types of command options....
+    ParsedOption  # Parsed command option....
+    ComprehensiveCommandScanner  # Scanner that extracts ALL command options....
+      __init__(0)  CC=1.0
+        → _load_command_signatures(0)  CC=1.0
+    main()
+  tools/schema/intelligent_schema_generator.py:
+    e: CommandInfo,IntelligentSchemaExtractor,main
+    CommandInfo  # Information about a command....
+    IntelligentSchemaExtractor  # Extracts schemas using intelligent analysis instead of hardc...
+      __init__(1)  CC=2.0
+    main()
+  tools/schema/update_schemas.py:
+    e: load_commands_from_files,update_all_schemas,main
+    load_commands_from_files()
+    update_all_schemas(force_update)
+    main()
+  tools/analysis/compare_llm.py:
+    e: compare_schemas
+    compare_schemas()
+  demos/demo_version_detection.py:
+    e: demonstrate_version_detection,show_integration_example,show_version_mapping,main
+    demonstrate_version_detection()
+    show_integration_example()
+    show_version_mapping()
+    main()
+  tools/schema/validate_schemas.py:
+    e: validate_and_fix_schemas
+    validate_and_fix_schemas()
+  demos/demo_enhanced.py:
+    e: main
+    main()
+  scripts/maintenance/implement_core_integration.py:
+    e: CoreIntegrator,main
+    CoreIntegrator  # Integrates Polish language support with NLP2CMD core system...
+      __init__(0)  CC=1.0
+    main()
+  tools/schema/non_llm_schema_extractor.py:
+    e: NonLLMStrategy,SchemaQuality,NonLLMSchemaExtractor,main
+    NonLLMStrategy  # Available non-LLM strategies....
+    SchemaQuality  # Schema quality metrics....
+    NonLLMSchemaExtractor  # Non-LLM schema extractor with multiple strategies....
+      __init__(0)  CC=1.0
+        → _load_command_patterns(0)  CC=1.0
+        → _load_template_library(0)  CC=1.0
+    main()
+  demos/demo_intelligent_nlp2cmd.py:
+    e: IntelligentNLP2CMD,demo_intelligent_nlp2cmd
+    IntelligentNLP2CMD  # NLP2CMD with automatic version detection and adaptation....
+      __init__(3)  CC=2.0
+    demo_intelligent_nlp2cmd()
+  demos/demo_persistent_storage.py:
+    e: demonstrate_persistent_storage,show_storage_benefits
+    demonstrate_persistent_storage()
+    show_storage_benefits()
+  demos/demo_versioned_schemas.py:
+    e: migrate_existing_schemas,demonstrate_schema_updates,demonstrate_dual_versions,main
+    migrate_existing_schemas(source_file)
+    demonstrate_schema_updates(store)
+    demonstrate_dual_versions(store)
+    main()
+  tools/schema/enhanced_schema_generator.py:
+    e: ExtractionStrategy,ExtractionResult,EnhancedSchemaExtractor,main
+    ExtractionStrategy  # Available extraction strategies....
+    ExtractionResult  # Result of schema extraction....
+    EnhancedSchemaExtractor  # Enhanced schema extractor with multiple strategies....
+      __init__(1)  CC=3.0
+    main()
+  scripts/maintenance/final_analysis_and_next_steps.py:
+    e: FinalAnalyzer,main
+    FinalAnalyzer  # Analyzes the complete fix implementation and provides next s...
+      __init__(0)  CC=1.0
+    main()
+  scripts/maintenance/restore_system.py:
+    e: restore_core,restore_adapters,verify_restoration,main
+    restore_core()
+    restore_adapters()
+    verify_restoration()
+    main()
+  scripts/maintenance/apply_polish_integration.py:
+    e: apply_core_patch,apply_adapter_patches,verify_integration,main
+    apply_core_patch()
+    apply_adapter_patches()
+    verify_integration()
+    main()
+  tools/analysis/analyze_version_detection.py:
+    e: analyze_version_standards,test_version_detection_patterns,check_schema_version_support,demonstrate_version_detection_implementation,best_practices,main
+    analyze_version_standards()
+    test_version_detection_patterns()
+    check_schema_version_support()
+    demonstrate_version_detection_implementation()
+    best_practices()
+    main()
+  docker/novnc/demos/demo_desktop_gui.py:
+    e: ensure_playwright,start_recording,stop_recording,_connect_novnc,run_demo,main
+    ensure_playwright()
+    start_recording(container,duration)
+    stop_recording(container)
+    _connect_novnc(page,novnc_url,logger)
+    run_demo()
+    main()
+  benchmarks/thermodynamic_benchmark.py:
+    e: BenchmarkResult,benchmark_langevin_sampler,benchmark_parallel_vs_sequential,benchmark_adaptive_steps,benchmark_generator_problems,benchmark_energy_savings,print_benchmark_result,main
+    BenchmarkResult  # Result of a benchmark run....
+    benchmark_langevin_sampler(n_iterations,n_steps,dim)
+    benchmark_parallel_vs_sequential(n_samples,n_steps,dim)
+    benchmark_adaptive_steps(problem_sizes)
+    benchmark_generator_problems(n_iterations)
+    benchmark_energy_savings()
+    print_benchmark_result(result)
+    main()
+  scripts/thermodynamic/termo2.py:
+    e: HyperparameterSpace,HyperparameterOptimizer,DeliveryPoint,VRPSolver,Surgery,OperatingRoom,ORScheduler,PowerPlant,UnitCommitmentSolver,GenomicSample,PipelineStep,GenomicPipelineScheduler,demo_devops_automation,demo_hyperparameter_optimization,demo_vehicle_routing,demo_or_scheduling,demo_unit_commitment,demo_genomic_pipeline,main
+    HyperparameterSpace  # Przestrzeń hiperparametrów do optymalizacji....
+    HyperparameterOptimizer  # Optymalizator hiperparametrów używający Langevin sampling.
+
+...
+      __init__(2)  CC=1.0
+    DeliveryPoint  # Punkt dostawy....
+    VRPSolver  # Solver dla Vehicle Routing Problem.
+
+Używa termodynamicznego...
+      __init__(2)  CC=1.0
+    Surgery  # Operacja do zaplanowania....
+    OperatingRoom  # Sala operacyjna....
+    ORScheduler  # Scheduler dla sal operacyjnych.
+
+Optymalizuje przydzielenie ...
+      __init__(2)  CC=1.0
+    PowerPlant  # Elektrownia....
+    UnitCommitmentSolver  # Solver dla problemu Unit Commitment.
+
+Decyduje które elektro...
+      __init__(1)  CC=1.0
+    GenomicSample  # Próbka genomowa do analizy....
+    PipelineStep  # Krok w pipeline genomicznym....
+    GenomicPipelineScheduler  # Scheduler dla pipeline'u analizy genomowej....
+      __init__(4)  CC=1.0
+    demo_devops_automation()
+    demo_hyperparameter_optimization()
+    demo_vehicle_routing()
+    demo_or_scheduling()
+    demo_unit_commitment()
+    demo_genomic_pipeline()
+    main()
+  scripts/maintenance/generate_refactor_report.py:
+    e: generate_refactor_report
+    generate_refactor_report()
+  scripts/setup_external.py:
+    e: main
+    main()
+  scripts/maintenance/final_project_summary.py:
+    e: ProjectSummary,main
+    ProjectSummary  # Generates final project summary...
+      __init__(0)  CC=1.0
+    main()
+  scripts/maintenance/refactor_detect_normalized.py:
+    e: _get_helper_functions,_detect_ml_classifier,_detect_ml_medium_confidence,_detect_schema_matcher,_detect_schema_fallback,_detect_semantic_fallback,_detect_fuzzy_match,_detect_explicit_matches,_detect_pattern_matches,apply_refactor_to_keyword_detector
+    _get_helper_functions()
+    _detect_ml_classifier(text_lower)
+    _detect_ml_medium_confidence()
+    _detect_schema_matcher(text_lower)
+    _detect_schema_fallback(text_lower)
+    _detect_semantic_fallback(text_lower)
+    _detect_fuzzy_match(text_lower)
+    _detect_explicit_matches(text_lower)
+    _detect_pattern_matches(text_lower)
+    apply_refactor_to_keyword_detector()
+  tools/schema/cmd2schema.py:
+    e: CommandSchemaGenerator,main
+    CommandSchemaGenerator  # Generate schemas for command-line tools....
+      __init__(2)  CC=3.0
+    main()
+  tools/generation/intelligent_command_generator.py:
+    e: GenerationMethod,GenerationResult,IntelligentCommandGenerator,main
+    GenerationMethod  # Available generation methods....
+    GenerationResult  # Result of command generation....
+    IntelligentCommandGenerator  # Intelligent command generator with adaptive strategies....
+      __init__(1)  CC=3.0
+    main()
+  demos/schema_flow_demo.py:
+    e: show_schema_extraction_flow,show_file_locations,show_api_usage,main
+    show_schema_extraction_flow()
+    show_file_locations()
+    show_api_usage()
+    main()
+  scripts/thermodynamic/termo_demo.py:
+    e: demo_hybrid,demo_thermodynamic_improved,demo_hybrid_thermodynamic_improved,benchmark_latency,main
+    demo_hybrid()
+    demo_thermodynamic_improved()
+    demo_hybrid_thermodynamic_improved()
+    benchmark_latency()
+    main()
+  scripts/maintenance/implement_high_priority_fixes.py:
+    e: HighPriorityFixer,main
+    HighPriorityFixer  # Implements high priority fixes for NLP2CMD system...
+      __init__(0)  CC=1.0
+    main()
+  scripts/bump_version.py:
+    e: bump_version
+    bump_version(version_type)
+  demos/simple_schema_demo.py:
+    e: main
+    main()
+  demos/demo_schema_flow.py:
+    e: demonstrate_schema_flow,demonstrate_multiple_commands,show_schema_details,main
+    demonstrate_schema_flow()
+    demonstrate_multiple_commands()
+    show_schema_details()
+    main()
+  scripts/thermodynamic/termo1.py:
+    e: main
+    main()
+  scripts/thermodynamic/termo.py:
+    e: demo_hybrid,demo_thermodynamic,demo_complete_hybrid,main
+    demo_hybrid()
+    demo_thermodynamic()
+    demo_complete_hybrid()
+    main()
+  scripts/maintenance/refactor_shell_entities.py:
+    e: _apply_shell_backup_defaults,_apply_shell_system_defaults,_apply_shell_dev_defaults,_apply_shell_security_defaults,_apply_shell_text_search_defaults,_apply_shell_network_defaults,_apply_shell_disk_defaults,_apply_shell_process_defaults,_apply_shell_service_defaults,_apply_shell_browser_defaults,apply_refactor_to_template_generator
+    _apply_shell_backup_defaults(intent,entities,result)
+    _apply_shell_system_defaults(intent,entities,result)
+    _apply_shell_dev_defaults(intent,entities,result)
+    _apply_shell_security_defaults(intent,entities,result)
+    _apply_shell_text_search_defaults(intent,entities,result)
+    _apply_shell_network_defaults(intent,entities,result)
+    _apply_shell_disk_defaults(intent,entities,result)
+    _apply_shell_process_defaults(intent,entities,result)
+    _apply_shell_service_defaults(intent,entities,result)
+    _apply_shell_browser_defaults(intent,entities,result)
+    apply_refactor_to_template_generator()
+  scripts/maintenance/split_pipeline_runner.py:
+    e: find_line,write_mixin
+    find_line(pattern,start)
+    write_mixin(filename,classname,docstring,body_lines,extra_imports)
+  scripts/maintenance/apply_nlp2cmd_fixes.py:
+    e: load_polish_patterns,load_intent_mappings,load_table_mappings,load_domain_weights,apply_fixes
+    load_polish_patterns()
+    load_intent_mappings()
+    load_table_mappings()
+    load_domain_weights()
+    apply_fixes()
+  scripts/maintenance/apply_complexity_refactors.py:
+    e: main
+    main()
+  scripts/maintenance/refactoring_summary.py:
+    e: print_summary
+    print_summary()
+  scripts/maintenance/apply_refactors_to_source.py:
+    e: apply_to_keywords_py,apply_to_templates_py,create_patch_files,main
+    apply_to_keywords_py()
+    apply_to_templates_py()
+    create_patch_files()
+    main()

@@ -1,0 +1,215 @@
+# code2llm | 10f 5611L | py:10 | 2026-03-03
+# CC̄=6.8 | critical:26/168 | dups:0 | cycles:0
+
+HEALTH[20]:
+  🔴 GOD   src/nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
+  🟡 CC    validate CC=34 (limit:15)
+  🟡 CC    validate CC=31 (limit:15)
+  🟡 CC    _find_docker_image CC=16 (limit:15)
+  🟡 CC    validate CC=50 (limit:15)
+  🟡 CC    validate CC=58 (limit:15)
+  🟡 CC    _load_schema CC=15 (limit:15)
+  🟡 CC    _add_selector_to_list CC=15 (limit:15)
+  🟡 CC    _add_selector_to_type_selectors CC=18 (limit:15)
+  🟡 CC    _build_field_values CC=16 (limit:15)
+  🟡 CC    detect_form_fields CC=37 (limit:15)
+  🟡 CC    interactive_fill CC=15 (limit:15)
+  🟡 CC    fill_form CC=27 (limit:15)
+  🟡 CC    to_appspec CC=15 (limit:15)
+  🟡 CC    find_content CC=41 (limit:15)
+  🟡 CC    find_form CC=72 (limit:15)
+  🟡 CC    _explore_recursive CC=20 (limit:15)
+  🟡 CC    _analyze_page CC=40 (limit:15)
+  🟡 CC    _score_page CC=26 (limit:15)
+  🟡 CC    _get_sitemap_urls CC=30 (limit:15)
+
+REFACTOR[2]:
+  1. split src/nlp2cmd/validators/__init__.py  (god module)
+  2. split 19 high-CC methods  (CC>15)
+
+COUPLING: no cross-package imports detected
+
+LAYERS:
+  src/                            CC̄=6.8    ←in:0  →out:0
+  │ !! site_explorer             1676L  3C   33m  CC=72     ←0
+  │ !! form_data_loader           821L  1C   47m  CC=18     ←0
+  │ !! form_handler               787L  3C    9m  CC=37     ←0
+  │ !! __init__                   771L  8C   25m  CC=58     ←0
+  │ !! extractor                  389L  3C   10m  CC=15     ←0
+  │ !  history                    349L  2C   15m  CC=12     ←0
+  │ !  browser_config             331L  2C   23m  CC=14     ←0
+  │ !  playwright_installer       281L  0C    6m  CC=10     ←0
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ __init__                    31L  0C    0m  CC=0.0    ←0
+  │
+
+DUPLICATES[0]: none
+
+FUNCTIONS (CC≥10, 26 of 168):
+   72.0  SiteExplorer.find_form                      2n   1exit    !! split
+   58.0  KubernetesValidator.validate               46n   3exit  loops+cond+ret  !! split
+   50.0  DockerValidator.validate                   53n   3exit  loops+cond+ret  !! split
+   41.0  SiteExplorer.find_content                   9n   2exit  cond+ret  !! split
+   40.0  SiteExplorer._analyze_page                  8n   2exit  loops+cond+ret  !! split
+   37.0  FormHandler.detect_form_fields             13n   2exit  loops+cond+ret  !! split
+   34.0  SQLValidator.validate                      38n   2exit  loops+cond+ret  !! split
+   31.0  ShellValidator.validate                    32n   2exit  loops+cond+ret  !! split
+   30.0  SiteExplorer._get_sitemap_urls             30n   4exit  loops+cond+ret  !! split
+   27.0  FormHandler.fill_form                       6n   2exit  loops+cond+ret  !! split
+   26.0  SiteExplorer._score_page                   25n   2exit  loops+cond+ret  !! split
+   20.0  SiteExplorer._explore_recursive            14n   5exit  cond+ret  !! split
+   18.0  FormDataLoader._add_selector_to_type_selectors   22n   5exit  cond+ret  !! split
+   16.0  DockerValidator._find_docker_image         31n   8exit  loops+cond+ret  !! split
+   16.0  FormDataLoader._build_field_values         23n   1exit  loops+cond  !! split
+   15.0  FormDataLoader._load_schema                12n   1exit  loops+cond  !! split
+   15.0  FormDataLoader._add_selector_to_list       17n   4exit  cond+ret  !! split
+   15.0  FormHandler.interactive_fill               14n   2exit  loops+cond+ret  !! split
+   15.0  WebPageSchema.to_appspec                    5n   2exit  loops+ret  !! split
+   14.0  DynamicSelectorGenerator.suggest_selectors    2n   1exit  
+   14.0  FormDataLoader.get_value_for_field         26n   6exit  loops+cond+ret
+   13.0  FormHandler.automatic_fill                 20n   2exit  loops+cond+ret
+   12.0  FormDataLoader._deep_merge                 15n   5exit  loops+cond+ret
+   12.0  InteractionHistory.export_domain_schema    15n   3exit  loops+cond+ret
+   11.0  FormDataLoader._load_json_files            10n   2exit  loops+cond+ret
+   10.0  ensure_playwright_installed                25n   6exit  cond+ret
+
+  summary:
+    critical(≥10): 26 | high(5-10): 54 | medium(2-5): 36 | low(<2): 52
+    15% CC≥10  48% CC≥5
+
+HOTSPOTS:
+  #1  SiteExplorer.find_form               fan=30   "SiteExplorer method, fan-out=30"
+  #2  SiteExplorer._analyze_page           fan=29   "analysis pipeline, 29 stages"
+  #3  SiteExplorer.find_content            fan=27   "SiteExplorer method, fan-out=27"
+  #4  DockerValidator.validate             fan=24   "DockerValidator method, fan-out=24"
+  #5  FormHandler.detect_form_fields       fan=21   "FormHandler method, fan-out=21"
+  #6  SiteExplorer._get_sitemap_urls       fan=21   "SiteExplorer method, fan-out=21"
+  #7  KubernetesValidator.validate         fan=20   "KubernetesValidator method, fan-out=20"
+  #8  WebSchemaExtractor.extract           fan=18   "WebSchemaExtractor method, fan-out=18"
+  #9  SQLValidator.validate                fan=16   "SQLValidator method, fan-out=16"
+  #10 SiteExplorer._explore_recursive      fan=16   "SiteExplorer method, fan-out=16"
+
+CLASSES:
+  FormDataLoader                 ████████████████████████  45m  CC̄=5.6   max=18    !!
+  SiteExplorer                   ██████████████            27m  CC̄=12.4  max=72    !!
+  BrowserConfigLoader            █████████                 18m  CC̄=2.1   max=8   
+  InteractionHistory             ██████                    13m  CC̄=3.7   max=12  
+  ValidationResult               ████                       9m  CC̄=1.7   max=6   
+  FormHandler                    ████                       8m  CC̄=12.9  max=37    !!
+  WebSchemaExtractor             ███                        6m  CC̄=5.0   max=7   
+  DockerValidator                ██                         5m  CC̄=16.2  max=50    !!
+  DynamicSelectorGenerator       █                          2m  CC̄=8.0   max=14  
+  BaseValidator                  █                          2m  CC̄=1.0   max=1   
+  SQLValidator                   █                          2m  CC̄=17.5  max=34    !!
+  ShellValidator                 █                          2m  CC̄=16.0  max=31    !!
+  KubernetesValidator            █                          2m  CC̄=29.5  max=58    !!
+  CompositeValidator             █                          2m  CC̄=1.5   max=2   
+  InteractionRecord              █                          2m  CC̄=1.0   max=1   
+  WebPageSchema                  █                          2m  CC̄=8.0   max=15    !!
+  SyntaxValidator                                           1m  CC̄=6.0   max=6   
+  FormField                                                 1m  CC̄=4.0   max=4   
+  WebElement                                                1m  CC̄=1.0   max=1   
+  FormData                                                  0m  CC̄=0.0   max=0.0 
+  PageInfo                                                  0m  CC̄=0.0   max=0.0 
+  ExplorationResult                                         0m  CC̄=0.0   max=0.0 
+
+D:
+  src/nlp2cmd/web_schema/site_explorer.py:
+    e: PageInfo,ExplorationResult,SiteExplorer,_debug,_github_readme_url,_github_docs_url,_pypi_to_docs_url,quick_find_content,quick_find_form
+    PageInfo  # Information about a discovered page....
+    ExplorationResult  # Result of site exploration....
+    SiteExplorer  # Explores website to find forms, contact pages, and other con...
+      __init__(7)  CC=1.0
+    _debug(msg)
+    _github_readme_url(url)
+    _github_docs_url(url)
+    _pypi_to_docs_url(url)
+    quick_find_content(url,content_type,search_term,headless)
+    quick_find_form(url,intent,headless)
+  src/nlp2cmd/validators/__init__.py:
+    e: ValidationResult,BaseValidator,SyntaxValidator,SQLValidator,ShellValidator,DockerValidator,KubernetesValidator,CompositeValidator
+    ValidationResult  # Result of a validation operation....
+      merge(1)  CC=2.0
+    BaseValidator  # Abstract base class for validators....
+      validate(1)  CC=1.0
+    SyntaxValidator  # Generic syntax validator for balanced brackets, quotes, etc....
+      validate(1)  CC=6.0
+    SQLValidator  # SQL-specific validator....
+      __init__(1)  CC=1.0
+    ShellValidator  # Shell command validator....
+      __init__(1)  CC=1.0
+    DockerValidator  # Docker command and Dockerfile validator....
+      _iter_publish_ports(0)  CC=5.0
+        → _parse_ports_from_spec(0)  CC=6.0
+    KubernetesValidator  # Kubernetes command and manifest validator....
+      __init__(1)  CC=1.0
+    CompositeValidator  # Combines multiple validators....
+      __init__(1)  CC=1.0
+  src/nlp2cmd/web_schema/form_handler.py:
+    e: FormField,FormData,FormHandler
+    FormField  # Represents a form field....
+      get_display_name(0)  CC=4.0
+    FormData  # Collected form data....
+    FormHandler  # Handles form detection and interactive filling....
+      __init__(1)  CC=2.0
+  src/nlp2cmd/web_schema/form_data_loader.py:
+    e: FormDataLoader,create_example_env_file,create_example_form_data_json
+    FormDataLoader  # Loads form field data from multiple sources:
+1. .env file (f...
+      __init__(5)  CC=2.0
+        → _load_schema(0)  CC=15.0  !
+        → _load_site_profile_payload(1)  CC=7.0
+        → _site_profile_paths(1)  CC=1.0
+        → _safe_domain_filename(0)  CC=1.0
+        → _user_sites_dir(0)  CC=1.0
+        → _project_sites_dir(0)  CC=1.0
+        → _deep_merge(2)  CC=12.0
+        → _dedupe_preserve_order(0)  CC=5.0
+        → _load_env(0)  CC=8.0
+        → _load_json_files(0)  CC=11.0
+        → _build_field_values(0)  CC=16.0  !
+        → _parse_domain(0)  CC=8.0
+    create_example_env_file(path)
+    create_example_form_data_json(path)
+  src/nlp2cmd/web_schema/extractor.py:
+    e: WebElement,WebPageSchema,WebSchemaExtractor,extract_web_schema
+    WebElement  # Represents an interactive element on a web page....
+      to_dict(0)  CC=1.0
+    WebPageSchema  # Schema for a web page....
+      to_appspec(0)  CC=15.0  !
+    WebSchemaExtractor  # Extract schema from web pages using Playwright.
+
+Analyzes DO...
+      __init__(1)  CC=1.0
+    extract_web_schema(url,output_dir,headless,use_cache)
+  src/nlp2cmd/web_schema/browser_config.py:
+    e: BrowserConfigLoader,DynamicSelectorGenerator,_find_config_dir,_load_yaml,_dedupe
+    BrowserConfigLoader  # Single source of truth for browser automation config.
+
+Loads...
+      __init__(0)  CC=1.0
+    DynamicSelectorGenerator  # Generate selectors dynamically using LLM when static ones fa...
+      __init__(0)  CC=2.0
+    _find_config_dir()
+    _load_yaml(path)
+    _dedupe(items)
+  src/nlp2cmd/web_schema/history.py:
+    e: InteractionRecord,InteractionHistory
+    InteractionRecord  # Record of a single browser interaction....
+      to_dict(0)  CC=1.0
+    InteractionHistory  # Tracks and learns from browser interactions.
+
+Features:
+- Re...
+      __init__(1)  CC=2.0
+        → _load(0)  CC=4.0
+  src/nlp2cmd/utils/playwright_installer.py:
+    e: _is_pep668_externally_managed_error,is_playwright_installed,is_playwright_browsers_installed,install_playwright,install_playwright_browsers,ensure_playwright_installed
+    _is_pep668_externally_managed_error(stderr)
+    is_playwright_installed()
+    is_playwright_browsers_installed()
+    install_playwright(console)
+    install_playwright_browsers(console)
+    ensure_playwright_installed(console,auto_install)
+  src/nlp2cmd/utils/yaml_compat.py:
+  src/nlp2cmd/web_schema/__init__.py:

@@ -1,0 +1,58 @@
+# code2llm/evolution | 1215 func | 89f | 2026-03-03
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT-FUNC      handle_run_mode  CC=178  fan=75
+      WHY: CC=178 exceeds 15
+      EFFORT: ~1h  IMPACT: 13350
+
+  [2] !! SPLIT-FUNC      main  CC=71  fan=56
+      WHY: CC=71 exceeds 15
+      EFFORT: ~1h  IMPACT: 3976
+
+  [3] !! SPLIT-FUNC      _execute_multi_step_with_video  CC=64  fan=54
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 3456
+
+  [4] !! SPLIT-FUNC      CanvasAdapter.execute_drawing_plan  CC=60  fan=40
+      WHY: CC=60 exceeds 15
+      EFFORT: ~1h  IMPACT: 2400
+
+  [5] !! SPLIT-FUNC      KeywordIntentDetector._fast_path_detection  CC=73  fan=29
+      WHY: CC=73 exceeds 15
+      EFFORT: ~1h  IMPACT: 2117
+
+  [6] !! SPLIT-FUNC      ExecutionRunner.run_with_recovery  CC=54  fan=35
+      WHY: CC=54 exceeds 15
+      EFFORT: ~1h  IMPACT: 1890
+
+  [7] !! SPLIT-FUNC      _extract_web_dom_schema  CC=45  fan=37
+      WHY: CC=45 exceeds 15
+      EFFORT: ~1h  IMPACT: 1665
+
+  [8] !! SPLIT-FUNC      ExecutionRunner.run_command  CC=50  fan=32
+      WHY: CC=50 exceeds 15
+      EFFORT: ~1h  IMPACT: 1600
+
+  [9] !! SPLIT-FUNC      handle_generate_query  CC=41  fan=36
+      WHY: CC=41 exceeds 15
+      EFFORT: ~1h  IMPACT: 1476
+
+  [10] !! SPLIT-FUNC      RuleBasedPipeline.process  CC=54  fan=26
+      WHY: CC=54 exceeds 15
+      EFFORT: ~1h  IMPACT: 1404
+
+
+RISKS[3]:
+  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/tests/test_vf2pp_helpers.py may break 0 import paths
+  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py may break 0 import paths
+  ⚠ Splitting src/nlp2cmd/pipeline_runner_plans.py may break 0 import paths
+
+METRICS-TARGET:
+  CC̄:          5.6 → ≤3.9
+  max-CC:      178 → ≤20
+  god-modules: 243 → 0
+  high-CC(≥15): 79 → ≤39
+  hub-types:   0 → ≤0
+
+HISTORY:
+  (first run — no previous data)
