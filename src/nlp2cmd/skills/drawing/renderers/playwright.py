@@ -70,28 +70,76 @@ class PlaywrightRenderer(Renderer):
         }
 
     async def set_color(self, color: str) -> None:
-        """Set the drawing color via color picker or JS injection."""
+        """Set the drawing color via multiple strategies (platform-independent)."""
         self._current_color = color
 
-        # Method 1: HTML color input
+        # Method 1: JSPaint internal color API
+        # jspaint stores foreground color in a global array and uses jQuery events
+        try:
+            result = await self._page.evaluate(f"""
+                (() => {{
+                    // jspaint: set_foreground_color or internal colors array
+                    if (typeof window.set_foreground_color === 'function') {{
+                        window.set_foreground_color('{color}');
+                        return 'jspaint_api';
+                    }}
+                    // jspaint alternative: colors array + trigger
+                    if (window.colors && Array.isArray(window.colors)) {{
+                        window.colors[0] = '{color}';
+                        if (window.$colorbox) {{
+                            window.$colorbox.trigger('color-changed');
+                        }}
+                        return 'jspaint_colors';
+                    }}
+                    // jspaint: try selecting foreground color via palette click simulation
+                    if (window.$) {{
+                        const $swatch = window.$('.color-button').first();
+                        if ($swatch.length) {{
+                            // Store color for when jspaint reads it
+                            window.$swatch_fg_color = '{color}';
+                        }}
+                    }}
+                    return null;
+                }})()
+            """)
+            if result:
+                return
+        except Exception:
+            pass
+
+        # Method 2: Click matching color in palette (jspaint bottom color bar)
+        try:
+            # jspaint palette: colored divs at bottom of screen
+            palette_selectors = [
+                f'.color-button[style*="{color}"]',
+                f'[data-color="{color}"]',
+            ]
+            for sel in palette_selectors:
+                el = self._page.locator(sel).first
+                if await el.count() > 0:
+                    await el.click()
+                    await self._page.wait_for_timeout(100)
+                    return
+        except Exception:
+            pass
+
+        # Method 3: HTML5 color input element
         try:
             ci = self._page.locator('input[type="color"]').first
             if await ci.count() > 0:
                 await ci.evaluate(
-                    f'el => {{ el.value = "{color}"; el.dispatchEvent(new Event("input")); }}'
+                    f'el => {{ el.value = "{color}"; '
+                    f'el.dispatchEvent(new Event("input", {{bubbles: true}})); '
+                    f'el.dispatchEvent(new Event("change", {{bubbles: true}})); }}'
                 )
                 return
         except Exception:
             pass
 
-        # Method 2: JSPaint API
+        # Method 4: Direct canvas context (fallback, may be overridden by app)
         try:
             await self._page.evaluate(f"""
                 (() => {{
-                    if (typeof window.set_foreground_color === 'function') {{
-                        window.set_foreground_color('{color}');
-                        return;
-                    }}
                     const canvas = document.querySelector('canvas');
                     if (canvas) {{
                         const ctx = canvas.getContext('2d');
