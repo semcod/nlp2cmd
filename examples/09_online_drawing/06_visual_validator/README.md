@@ -12,7 +12,35 @@ Validate drawings using vision LLM models. Draw a shape, take a screenshot, and 
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# Draw and validate a red star
+./run.sh 06_visual_validator --shape star --color red
+
+# Validate with custom description
+./run.sh 06_visual_validator --shape butterfly --description "purple butterfly with wings"
+
+# Validate an existing screenshot
+./run.sh 06_visual_validator --screenshot path/to/image.png --description "red star"
+
+# Draw, validate, and auto-correct
+./run.sh 06_visual_validator --shape house --color brown --correct
+
+# Run demo with 5 scenarios
+./run.sh 06_visual_validator --demo
+
+# Headless mode
+./run.sh 06_visual_validator --shape rocket --color blue --headless
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 06_visual_validator
+
 # Draw and validate a red star
 python3 run.py --shape star --color red
 

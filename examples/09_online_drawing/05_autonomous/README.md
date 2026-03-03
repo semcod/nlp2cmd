@@ -13,7 +13,33 @@ The most advanced drawing example — a fully autonomous pipeline that resolves 
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# Draw with validation using natural language
+./run.sh autonomous "narysuj czerwonego kota i niebieską rybkę"
+./run.sh autonomous "draw a castle with a dragon"
+./run.sh autonomous "draw a star and a moon"
+
+# Run with specific example ID
+./run.sh 05_autonomous --fetch-only butterfly
+./run.sh 05_autonomous --list-shapes       # 33 built-in shapes
+./run.sh 05_autonomous --list-fetchable    # 44 database-mapped objects
+
+# Skip validation
+./run.sh 05_autonomous "draw a star" --no-validate
+
+# Headless + max corrections
+./run.sh 05_autonomous "narysuj zamek" --headless --max-corrections 5
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 05_autonomous
+
 # Draw with validation
 python3 run.py "narysuj czerwonego kota i niebieską rybkę"
 python3 run.py "draw a castle with a dragon"

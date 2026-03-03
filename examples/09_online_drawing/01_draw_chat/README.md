@@ -11,7 +11,31 @@ Draw geometric shapes on [draw.chat](https://draw.chat) — a free online whiteb
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# Default: draw a house in blue
+./run.sh 01_draw_chat
+
+# Custom shape and color
+./run.sh 01_draw_chat --shape star --color red
+./run.sh 01_draw_chat --shape circle --color "#00ff00"
+./run.sh 01_draw_chat --shape flower --color purple
+
+# Headless mode (no visible browser)
+./run.sh 01_draw_chat --shape house --color blue --headless
+
+# Verbose mode (DOM inspection, selector matching)
+./run.sh 01_draw_chat -v
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 01_draw_chat
+
 # Default: draw a house in blue
 python3 run.py
 

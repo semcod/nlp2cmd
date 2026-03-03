@@ -11,7 +11,29 @@ Paint patterns on [Picsart Draw](https://picsart.com/draw) — a feature-rich on
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# Default: draw a spiral in blue
+./run.sh 02_picsart
+
+# Custom patterns
+./run.sh 02_picsart --pattern spiral --color red
+./run.sh 02_picsart --pattern grid --color green
+./run.sh 02_picsart --pattern waves --color purple
+./run.sh 02_picsart --pattern flower --color "#ff6600"
+
+# Headless + verbose
+./run.sh 02_picsart --pattern spiral --headless -v
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 02_picsart
+
 # Default: draw a spiral in blue
 python3 run.py
 

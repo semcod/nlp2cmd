@@ -66,18 +66,23 @@ EOF
 
 # Check if nlp2cmd is available
 check_nlp2cmd() {
-    if ! command -v nlp2cmd &> /dev/null; then
-        # Try to find it in the repo
-        if [ -f "$SCRIPT_DIR/../../src/nlp2cmd/__main__.py" ]; then
-            Nlp2cmd() { python3 -m nlp2cmd "$@"; }
-        else
-            echo -e "${RED}Error: nlp2cmd not found${NC}"
-            echo "Please install: pip install -e ."
-            exit 1
-        fi
-    else
+    # First try system nlp2cmd
+    if command -v nlp2cmd &> /dev/null; then
         Nlp2cmd() { nlp2cmd "$@"; }
+        return 0
     fi
+    
+    # Try to find it in the repo with proper PYTHONPATH
+    if [ -f "$SCRIPT_DIR/../../src/nlp2cmd/__main__.py" ]; then
+        Nlp2cmd() { 
+            PYTHONPATH="$SCRIPT_DIR/../../src:$PYTHONPATH" python3 -m nlp2cmd "$@" 
+        }
+        return 0
+    fi
+    
+    echo -e "${RED}Error: nlp2cmd not found${NC}"
+    echo "Please install: pip install -e ."
+    exit 1
 }
 
 # Main function
@@ -160,6 +165,22 @@ main() {
         07_shape_gallery|07)
             echo -e "${CYAN}Running: Shape Gallery${NC}"
             Nlp2cmd examples run 07_shape_gallery "$@"
+            ;;
+        
+        metrics)
+            Nlp2cmd examples metrics
+            ;;
+        
+        learn)
+            if [ "$1" == "--reset" ]; then
+                Nlp2cmd examples learn --reset
+            else
+                Nlp2cmd examples learn
+            fi
+            ;;
+        
+        doctor)
+            Nlp2cmd examples doctor
             ;;
         
         *)

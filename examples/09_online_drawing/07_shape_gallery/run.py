@@ -37,6 +37,7 @@ sys.path.insert(0, str(_HERE.parents[2] / "src"))  # src/
 (_HERE / "gallery").mkdir(exist_ok=True)
 
 from nlp2cmd.skills.drawing import DrawingSkill, ShapeRegistry, ObjectFetcher
+from nlp2cmd.llm.vision import VisionAnalyzer
 
 
 # Shape categories for organized display
@@ -48,6 +49,48 @@ SHAPE_CATEGORIES = {
     "objects": ["house", "car", "boat", "rocket", "castle", "arrow"],
     "decorative": ["star", "heart", "spiral", "grid"],
 }
+
+
+# Vision analysis → shape mapping
+VISION_SHAPE_MAP = {
+    "circle": ["circle", "dot", "sun"],
+    "triangle": ["triangle", "mountain"],
+    "square": ["square", "rectangle", "house"],
+    "star": ["star"],
+    "heart": ["heart"],
+    "arrow": ["arrow"],
+    "car": ["car", "boat"],
+    "cat": ["cat", "fish", "bird"],
+    "flower": ["flower", "tree"],
+    "rocket": ["rocket"],
+    "spiral": ["spiral"],
+    "wave": ["wave"],
+    "grid": ["grid"],
+    "cross": ["cross"],
+    "diamond": ["diamond"],
+    "castle": ["castle"],
+    "boat": ["boat", "ship"],
+    "butterfly": ["butterfly"],
+}
+
+
+def map_vision_to_shapes(vision_description: str) -> list[str]:
+    """Map vision analysis output to known shapes."""
+    description_lower = vision_description.lower()
+    matched = set()
+
+    for keyword, shapes in VISION_SHAPE_MAP.items():
+        if keyword in description_lower:
+            matched.update(shapes)
+
+    available = set(ShapeRegistry.available())
+    result = [s for s in matched if s in available]
+
+    # Fallback: if nothing matched, return some default shapes
+    if not result:
+        return ["circle", "triangle", "square", "star"]
+
+    return result
 
 
 def list_shapes(category: str | None = None):
@@ -192,7 +235,43 @@ def generate_html_gallery(shapes: list[str] | None = None):
     print(f"   Open in browser: file://{path}")
 
 
-async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False):
+async def analyze_image_and_draw(image_path: str, headless: bool = False):
+    """Analyze image with Qwen VL and draw matching shapes."""
+    from pathlib import Path
+
+    if not Path(image_path).exists():
+        print(f"   ⚠ Image not found: {image_path}")
+        return
+
+    print(f"🔍 Analyzing image with Qwen VL: {image_path}")
+
+    # Use VisionAnalyzer with Qwen VL
+    analyzer = VisionAnalyzer()
+    # Override to use Qwen VL via OpenRouter (or local qwen2.5vl)
+    analyzer.model = "qwen/qwen2.5-vl-72b-instruct"
+
+    result = await analyzer.describe_screenshot(
+        image_path,
+        context="Analyze this image and describe what geometric shapes, objects, or patterns you see. Focus on simple shapes like circles, triangles, squares, stars, arrows, etc."
+    )
+
+    if not result.success:
+        print(f"   ⚠ Vision analysis failed: {result.error}")
+        return
+
+    print(f"\n📝 Qwen VL Analysis:")
+    print(f"   {result.answer[:200]}...")
+    print(f"   Model: {result.model}")
+
+    # Map description to shapes
+    shapes = map_vision_to_shapes(result.answer)
+    print(f"\n🎯 Mapped to shapes: {shapes}")
+
+    # Draw the matched shapes
+    await draw_on_canvas(shapes, headless=headless, title=f"Vision: {result.answer[:50]}")
+
+
+async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False, title: str = "Shape Gallery"):
     """Draw shapes in a grid on jspaint.app."""
     all_shapes = shapes or ShapeRegistry.available()
 
@@ -213,6 +292,7 @@ async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False
     shape_size = min(cell_w, cell_h) * 0.35
 
     print(f"🎨 Drawing {len(all_shapes)} shapes in {cols}x{rows} grid...")
+    print(f"   Title: {title}")
 
     colors = ["#FF0000", "#0000FF", "#228B22", "#FF8C00", "#8B008B", "#DC143C",
               "#4169E1", "#2E8B57", "#FF4500", "#6A5ACD", "#D2691E", "#008B8B"]
@@ -225,7 +305,7 @@ async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False
         renderer = PlaywrightRenderer(page)
 
         # Init canvas
-        await renderer.init_canvas("https://jspaint.app")
+        await renderer.init_canvas(1280, 900, url="https://jspaint.app")
         await page.wait_for_timeout(2000)
 
         # Draw each shape
@@ -272,9 +352,15 @@ def main():
     parser.add_argument("--shape", action="append", default=None,
                         help="Specific shapes to include (can repeat)")
     parser.add_argument("--headless", action="store_true")
+    parser.add_argument("--analyze-image", default=None, metavar="PATH",
+                        help="Analyze image with Qwen VL and draw matching shapes")
     args = parser.parse_args()
 
     shapes = args.shape  # None = all
+
+    if args.analyze_image:
+        asyncio.run(analyze_image_and_draw(args.analyze_image, headless=args.headless))
+        return
 
     if args.svg:
         generate_svg_files(shapes)

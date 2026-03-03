@@ -49,6 +49,141 @@ nlp2cmd examples autonomous "purple butterfly and green tree"
 
 ---
 
+## 🧬 Evolutionary Autonomous Orchestrator — "Never Give Up" Engine
+
+Nowy system autonomicznego uruchamiania który **nigdy się nie poddaje**.
+
+### Core Principles
+
+1. **Nie kończymy się błędem** — każdy problem to okazja do nauki
+2. **Konsultacja z LLM** — przy każdym błędu pytamy duży model co robić
+3. **Ewolucyjne uczenie** — system sam się doskonali z każdym uruchomieniem
+4. **Kontekstowe naprawy** — strategia zależy od typu błędu i historii
+5. **Metryki i feedback** — ciągłe monitorowanie i optymalizacja
+
+### How It Works
+
+```
+User runs: ./run.sh draw "blue star"
+    ↓
+[Evolutionary Orchestrator]
+    ↓
+Pre-flight checks
+    ↓
+Execute example
+    ↓
+Error? → Classify error type
+    ↓
+Consult LLM: "What strategy should I use?"
+    ↓
+Execute recovery strategy
+    ↓
+Success? → Learn & continue
+Failure? → Try fallback strategies
+    ↓
+Still failing? → Escalate to cloud LLM
+    ↓
+Generate creative workaround
+    ↓
+NEVER GIVE UP → Force continue if needed
+```
+
+### Recovery Strategies (Self-Improving)
+
+| Strategy | When Used | Success Rate |
+|----------|-----------|--------------|
+| `INSTALL_DEPENDENCY` | Missing Playwright/browsers | Tracked |
+| `SWITCH_FALLBACK` | HF_TOKEN missing, site down | Tracked |
+| `CONFIGURE_ENV` | Missing env vars | Tracked |
+| `CONSULT_LLM` | Unknown error | Tracked |
+| `RETRY_WITH_DELAY` | Network timeout | Tracked |
+| `MODIFY_ARGS` | Arg parsing error | Tracked |
+| `ESCALATE_TO_CLOUD` | Multiple failures | Tracked |
+| `CREATE_WORKAROUND` | Last resort | Tracked |
+
+### Learning Database
+
+System przechowuje bazę wiedzy w `~/.nlp2cmd/evolutionary_learning.json`:
+
+```json
+{
+  "error_patterns": {
+    "HF_TOKEN_ERROR": {
+      "switch_fallback": {"attempts": 5, "successes": 5},
+      "configure_env": {"attempts": 2, "successes": 1}
+    }
+  },
+  "llm_insights": [...],
+  "version": 1
+}
+```
+
+### Example: Autonomous Recovery in Action
+
+```bash
+$ ./run.sh draw "blue house"
+🧬 Using Evolutionary Autonomous Orchestrator...
+🚀 Attempt 1/5
+   Executing: python3 03_adaptive/run.py --query "blue house" --target jspaint
+   ✗ Error: HF_TOKEN_ERROR: HF Hub requests will be unauthenticated
+   🤖 Consulting LLM for recovery strategy...
+      LLM suggests: switch_fallback
+      Reasoning: Continue with local-only mode
+   🔧 Executing recovery: switch_fallback
+      ⚠ Continuing without HF_TOKEN (rate limits apply)
+      💡 Tip: Set HF_TOKEN for better performance
+   ✓ Recovery successful, retrying...
+🚀 Attempt 2/5
+   Executing: python3 03_adaptive/run.py --query "blue house" --target jspaint
+   ✓ SUCCESS - Drawing complete!
+
+📊 Execution Summary:
+  Attempts: 2
+  Recovery operations: 1
+  Duration: 12500ms
+  Success: ✓
+
+Recovery strategies used:
+  ✓ switch_fallback (150ms)
+```
+
+### Metryki i Ciągłe Doskonalenie
+
+System automatycznie zbiera metryki:
+
+- **Success rate per strategy** — które naprawy działają najlepiej
+- **Avg recovery time** — jak szybko naprawiamy problemy
+- **Error patterns** — jakie błędy się powtarzają
+- **LLM effectiveness** — jak często rady LLM pomagają
+
+Na podstawie tych danych system ewolucyjnie dostosowuje swoje strategie.
+
+### Commands with Evolutionary Support
+
+All commands now use the evolutionary orchestrator by default:
+
+```bash
+./run.sh draw "red star"                    # Auto-recovery enabled
+./run.sh autonomous "castle"                # Auto-recovery enabled
+./run.sh 03_adaptive --query "house"        # Auto-recovery enabled
+
+# Verbose mode shows learning metrics
+./run.sh draw "star" -v
+
+# Check evolutionary learning metrics
+nlp2cmd examples metrics
+
+# Manage learning database
+nlp2cmd examples learn              # Show learning DB status
+nlp2cmd examples learn --reset      # Reset learning database
+
+# Diagnose examples environment
+nlp2cmd examples doctor
+nlp2cmd examples doctor --fix
+```
+
+---
+
 ## Traditional Usage (Manual)
 
 Each example lives in its own folder with:
@@ -61,6 +196,13 @@ Each example lives in its own folder with:
 
 ### 01 — draw.chat: Draw Shapes on Whiteboard
 
+**New way (recommended):**
+```bash
+./run.sh 01_draw_chat
+./run.sh 01_draw_chat --shape star --color red
+```
+
+**Traditional way:**
 ```bash
 cd 01_draw_chat
 python3 run.py --shape house --color blue
@@ -69,6 +211,13 @@ python3 run.py --shape star --color red --headless
 
 ### 02 — Picsart: Paint Patterns with Brushes
 
+**New way (recommended):**
+```bash
+./run.sh 02_picsart
+./run.sh 02_picsart --pattern spiral --color red
+```
+
+**Traditional way:**
 ```bash
 cd 02_picsart
 python3 run.py --pattern spiral --color red
@@ -77,6 +226,14 @@ python3 run.py --pattern grid --color green --headless
 
 ### 03 — Adaptive: LLM-Guided Drawing with Learning
 
+**New way (recommended):**
+```bash
+./run.sh draw "narysuj dom z czerwonym dachem"
+./run.sh draw "draw a blue star" --target jspaint
+./run.sh 03_adaptive --query "purple butterfly"
+```
+
+**Traditional way:**
 ```bash
 cd 03_adaptive
 python3 run.py --query "narysuj dom z czerwonym dachem"
@@ -85,6 +242,14 @@ python3 run.py --query "draw a blue star" --target jspaint
 
 ### 04 — Object Database: Multi-Object Scenes with DB + LLM
 
+**New way (recommended):**
+```bash
+./run.sh 04_object_database --objects "car, tree, house, cloud"
+./run.sh 04_object_database --scene "forest with trees, birds, sun"
+./run.sh 04_object_database --show-database
+```
+
+**Traditional way:**
 ```bash
 cd 04_object_database
 python3 run.py --objects "car, tree, house, cloud"
@@ -94,6 +259,16 @@ python3 run.py --show-database
 
 ### 05 — Autonomous: Full Pipeline (Fetch → Draw → Validate → Correct)
 
+**New way (recommended):**
+```bash
+./run.sh autonomous "narysuj czerwonego kota i niebieską rybkę"
+./run.sh autonomous "draw a castle with a dragon"
+./run.sh 05_autonomous --list-shapes          # 33 built-in shapes
+./run.sh 05_autonomous --list-fetchable       # 44 database-mapped objects
+./run.sh 05_autonomous --fetch-only butterfly
+```
+
+**Traditional way:**
 ```bash
 cd 05_autonomous
 python3 run.py "narysuj czerwonego kota i niebieską rybkę"
@@ -105,6 +280,15 @@ python3 run.py --fetch-only butterfly
 
 ### 06 — Visual Validator: Vision LLM Drawing Verification
 
+**New way (recommended):**
+```bash
+./run.sh 06_visual_validator --shape star --color red
+./run.sh 06_visual_validator --shape butterfly --description "purple butterfly"
+./run.sh 06_visual_validator --demo                 # 5 scenarios
+./run.sh 06_visual_validator --shape house --correct  # auto-correct
+```
+
+**Traditional way:**
 ```bash
 cd 06_visual_validator
 python3 run.py --shape star --color red
@@ -115,6 +299,16 @@ python3 run.py --shape house --correct  # auto-correct
 
 ### 07 — Shape Gallery: Preview All 33+ Built-in Shapes
 
+**New way (recommended):**
+```bash
+./run.sh 07_shape_gallery                        # list all shapes
+./run.sh 07_shape_gallery --svg                  # generate SVG previews
+./run.sh 07_shape_gallery --html                 # generate HTML gallery
+./run.sh 07_shape_gallery --draw                  # draw all on jspaint.app
+./run.sh 07_shape_gallery --category animals     # filter by category
+```
+
+**Traditional way:**
 ```bash
 cd 07_shape_gallery
 python3 run.py                        # list all shapes

@@ -53,6 +53,16 @@ from nlp2cmd.skills.drawing.visual_validator import (
 from nlp2cmd.skills.drawing.correction_engine import (
     CorrectionEngine, CorrectionResult, AutonomousDrawingPipeline,
 )
+from nlp2cmd.skills.drawing.navigation import (
+    DrawNavigationSkill, NavigationResult, NavigationState, CanvasInfo,
+)
+from nlp2cmd.skills.drawing.draw_object import (
+    DrawObjectSkill, ObjectDrawResult, SceneDrawResult, DrawStatus,
+)
+from nlp2cmd.skills.drawing.validation import (
+    DrawValidationSkill, ValidationReport, TaskPlan,
+    ObjectAssessment, ObjectStatus,
+)
 
 __all__ = [
     # Skill facade
@@ -102,4 +112,18 @@ __all__ = [
     "CorrectionEngine",
     "CorrectionResult",
     "AutonomousDrawingPipeline",
+    # Skill modules: navigation, draw-object, validation
+    "DrawNavigationSkill",
+    "NavigationResult",
+    "NavigationState",
+    "CanvasInfo",
+    "DrawObjectSkill",
+    "ObjectDrawResult",
+    "SceneDrawResult",
+    "DrawStatus",
+    "DrawValidationSkill",
+    "ValidationReport",
+    "TaskPlan",
+    "ObjectAssessment",
+    "ObjectStatus",
 ]

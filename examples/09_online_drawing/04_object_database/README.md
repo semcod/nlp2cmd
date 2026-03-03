@@ -11,7 +11,35 @@ Draw complex scenes composed of multiple objects, fetched autonomously from onli
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# Default scene: forest with trees, house, sun, clouds
+./run.sh 04_object_database
+
+# Custom scene
+./run.sh 04_object_database --scene "city with car, house, tree, cloud"
+
+# Specific objects
+./run.sh 04_object_database --objects "car, tree, house, cloud"
+
+# Headless mode
+./run.sh 04_object_database --objects "star, heart, sun" --headless
+
+# Show available databases
+./run.sh 04_object_database --show-database
+
+# Verbose mode (show drawing plan)
+./run.sh 04_object_database -v
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 04_object_database
+
 # Default scene: forest with trees, house, sun, clouds
 python3 run.py
 

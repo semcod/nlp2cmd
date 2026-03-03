@@ -22,7 +22,30 @@ Natural Language → NL Parser (shape/color detection)
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# Quick draw with natural language
+./run.sh draw "narysuj dom z czerwonym dachem"
+./run.sh draw "draw a blue star"
+./run.sh draw "purple butterfly" --target jspaint
+
+# Run with specific example ID
+./run.sh 03_adaptive --query "narysuj dom z czerwonym dachem"
+./run.sh 03_adaptive --query "namaluj niebieskie koło"
+./run.sh 03_adaptive --query "draw a green triangle" --target jspaint
+
+# Headless + verbose
+./run.sh 03_adaptive --query "draw a star" --headless -v
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 03_adaptive
+
 # Polish commands
 python3 run.py --query "narysuj dom z czerwonym dachem"
 python3 run.py --query "namaluj niebieskie koło"

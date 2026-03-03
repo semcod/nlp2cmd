@@ -235,7 +235,8 @@ class CommandBus:
         size = cmd.params.get("size", min(cx, cy) * 0.5) if cx > 0 else 150
 
         generator = ShapeRegistry.get(cmd.shape_type)
-        points = generator.generate(cx, cy, size, **cmd.params)
+        params_without_size = {k: v for k, v in cmd.params.items() if k != "size"}
+        points = generator.generate(cx, cy, size, **params_without_size)
 
         event = ShapeDrawn(
             shape_type=cmd.shape_type,

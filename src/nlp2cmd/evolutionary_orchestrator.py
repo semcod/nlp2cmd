@@ -41,6 +41,8 @@ class RecoveryStrategy(Enum):
     SKIP_AND_CONTINUE = "skip_and_continue"
     CREATE_WORKAROUND = "create_workaround"
     ESCALATE_TO_CLOUD = "escalate_to_cloud"
+    USE_ALTERNATIVE_SITE = "use_alternative_site"
+    FALLBACK_LOCAL_MODEL = "fallback_local_model"
 
 
 @dataclass
@@ -232,8 +234,10 @@ Which strategy should I use? Reply with JSON:
                 success = await self._recover_modify_args(context)
             elif strategy == RecoveryStrategy.CONSULT_LLM:
                 success = await self._recover_consult_llm(context)
-            elif strategy == RecoveryStrategy.ESCALATE_TO_CLOUD:
-                success = await self._recover_escalate_to_cloud(context)
+            elif strategy == RecoveryStrategy.FALLBACK_LOCAL_MODEL:
+                success = await self._recover_fallback_local_model(context)
+            elif strategy == RecoveryStrategy.USE_ALTERNATIVE_SITE:
+                success = await self._recover_alternative_site(context)
             else:
                 success = await self._recover_generic(context)
         except Exception as e:
@@ -382,6 +386,23 @@ Design a creative workaround to complete the task.
         
         return False
     
+    async def _recover_fallback_local_model(self, context: dict) -> bool:
+        """Naprawa: przejście na lokalny model."""
+        self._print("   Switching to local Ollama model...", "yellow")
+        
+        os.environ["NLP2CMD_USE_LOCAL"] = "1"
+        context["use_local_model"] = True
+        
+        return True
+    
+    async def _recover_alternative_site(self, context: dict) -> bool:
+        """Naprawa: użycie alternatywnego site'u."""
+        self._print("   Trying alternative drawing site...", "yellow")
+        
+        # Try jspaint as reliable fallback
+        context["alternative_site"] = "jspaint"
+        return True
+    
     async def _recover_generic(self, context: dict) -> bool:
         """Generyczna naprawa: kontynuuj mimo błędu."""
         self._print("   Applying generic recovery (continue with warnings)...", "yellow")
@@ -501,7 +522,52 @@ Design a creative workaround to complete the task.
             except Exception as e:
                 self._print(f"   Final failure: {e}", "red")
         
+        # Store execution in history
+        self._store_execution_history(metrics)
+        
         return success, result, metrics
+    
+    def _store_execution_history(self, metrics: ExecutionMetrics):
+        """Przechowuje historię wykonań."""
+        history = self.knowledge_base.setdefault("execution_history", [])
+        history.append({
+            "timestamp": datetime.now().isoformat(),
+            "success": metrics.success,
+            "attempts": metrics.attempts,
+            "recovery_count": metrics.recovery_count,
+            "duration_ms": metrics.duration_ms,
+            "error_type": metrics.error_type,
+        })
+        # Keep last 100 executions
+        self.knowledge_base["execution_history"] = history[-100:]
+        self._save_knowledge()
+    
+    def get_learning_report(self) -> dict:
+        """Generuje raport uczenia się."""
+        history = self.knowledge_base.get("execution_history", [])
+        if not history:
+            return {"message": "No executions yet"}
+        
+        total = len(history)
+        successful = sum(1 for h in history if h.get("success"))
+        avg_duration = sum(h.get("duration_ms", 0) for h in history) / total if total > 0 else 0
+        avg_recoveries = sum(h.get("recovery_count", 0) for h in history) / total if total > 0 else 0
+        
+        # Calculate improvement over time
+        recent = history[-10:] if len(history) >= 10 else history
+        recent_success_rate = sum(1 for h in recent if h.get("success")) / len(recent) if recent else 0
+        
+        return {
+            "total_executions": total,
+            "successful": successful,
+            "success_rate": successful / total if total > 0 else 0,
+            "recent_success_rate": recent_success_rate,
+            "avg_duration_ms": avg_duration,
+            "avg_recoveries": avg_recoveries,
+            "patterns_learned": len(self.knowledge_base.get("error_patterns", {})),
+            "llm_insights": len(self.knowledge_base.get("llm_insights", [])),
+            "evolution": "System is learning and adapting",
+        }
     
     def _get_available_strategies(
         self,
@@ -516,7 +582,7 @@ Design a creative workaround to complete the task.
         
         if "HF_TOKEN" in error_type or "huggingface" in error_type.lower():
             strategies.insert(0, RecoveryStrategy.SWITCH_FALLBACK)
-            strategies.insert(1, RecoveryStrategy.CONFIGURE_ENV)
+            strategies.insert(1, RecoveryStrategy.FALLBACK_LOCAL_MODEL)
         
         if "playwright" in error_type.lower() or "browser" in error_type.lower():
             strategies.insert(0, RecoveryStrategy.INSTALL_DEPENDENCY)
@@ -524,7 +590,14 @@ Design a creative workaround to complete the task.
         if "arg" in error_type.lower() or "option" in error_type.lower():
             strategies.insert(0, RecoveryStrategy.MODIFY_ARGS)
         
-        if len(self.current_metrics.recovery_attempts) > 2:
+        if "timeout" in error_type.lower() or "network" in error_type.lower():
+            strategies.insert(0, RecoveryStrategy.RETRY_WITH_DELAY)
+            strategies.insert(1, RecoveryStrategy.USE_ALTERNATIVE_SITE)
+        
+        if "credit" in error_type.lower() or "402" in error_type or "rate_limit" in error_type.lower():
+            strategies.insert(0, RecoveryStrategy.FALLBACK_LOCAL_MODEL)
+        
+        if len(self.current_metrics.recovery_attempts if self.current_metrics else []) > 2:
             # Escalate after multiple failures
             strategies.append(RecoveryStrategy.ESCALATE_TO_CLOUD)
         

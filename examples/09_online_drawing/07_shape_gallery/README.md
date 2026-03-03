@@ -11,7 +11,37 @@ Browse, preview, and draw the full shape library. Generates SVG previews, an HTM
 
 ## Usage
 
+### New Way (Recommended) — Using run.sh
+
 ```bash
+# From examples/09_online_drawing/ directory:
+
+# List all shapes with metadata
+./run.sh 07_shape_gallery
+
+# Filter by category
+./run.sh 07_shape_gallery --category animals
+./run.sh 07_shape_gallery --category geometric
+
+# Generate SVG previews
+./run.sh 07_shape_gallery --svg
+
+# Generate HTML gallery (open in browser)
+./run.sh 07_shape_gallery --html
+
+# Draw all shapes on jspaint.app
+./run.sh 07_shape_gallery --draw
+./run.sh 07_shape_gallery --draw --headless
+
+# Draw specific shapes
+./run.sh 07_shape_gallery --draw --shape car --shape cat --shape rocket
+```
+
+### Traditional Way — Direct Python
+
+```bash
+cd 07_shape_gallery
+
 # List all shapes with metadata
 python3 run.py
 

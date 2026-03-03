@@ -421,9 +421,9 @@ try:
         runner: ExamplesRunner = ctx.obj["runner"]
         runner.list_scenarios(category)
 
-    @examples_group.command(name="run")
+    @examples_group.command(name="run", context_settings=dict(ignore_unknown_options=True, allow_extra_args=True))
     @click.argument("example_id")
-    @click.argument("args", nargs=-1)
+    @click.argument("args", nargs=-1, type=click.UNPROCESSED)
     @click.option("--headless", is_flag=True, help="Run browser in headless mode")
     @click.option("-v", "--verbose", is_flag=True, help="Verbose output")
     @click.option("--no-auto-install", is_flag=True, help="Skip auto-install of dependencies")
@@ -440,37 +440,141 @@ try:
         )
         ctx.exit(0 if success else 1)
 
-    @examples_group.command(name="draw")
+    @examples_group.command(name="draw", context_settings=dict(ignore_unknown_options=True, allow_extra_args=True))
     @click.argument("description")
+    @click.argument("extra_args", nargs=-1, type=click.UNPROCESSED)
     @click.option("--target", default="jspaint", help="Target drawing site (jspaint, excalidraw, kleki)")
     @click.option("--headless", is_flag=True, help="Run browser in headless mode")
     @click.option("-v", "--verbose", is_flag=True, help="Verbose output")
     @click.pass_context
-    def cmd_draw(ctx, description: str, target: str, headless: bool, verbose: bool):
+    def cmd_draw(ctx, description: str, target: str, headless: bool, verbose: bool, extra_args: tuple):
         """Quick draw command: nlp2cmd examples draw 'red star'."""
         runner: ExamplesRunner = ctx.obj["runner"]
-        success = runner.run_quick_draw(
-            description,
-            target=target,
+        # Build args: description first, then any extra args passed through
+        args = [description] + list(extra_args)
+        success = runner.run_scenario(
+            "03_adaptive",
+            args=args,
             headless=headless,
             verbose=verbose,
         )
         ctx.exit(0 if success else 1)
 
-    @examples_group.command(name="autonomous")
+    @examples_group.command(name="autonomous", context_settings=dict(ignore_unknown_options=True, allow_extra_args=True))
     @click.argument("description")
+    @click.argument("extra_args", nargs=-1, type=click.UNPROCESSED)
     @click.option("--headless", is_flag=True, help="Run browser in headless mode")
     @click.option("-v", "--verbose", is_flag=True, help="Verbose output")
     @click.pass_context
-    def cmd_autonomous(ctx, description: str, headless: bool, verbose: bool):
+    def cmd_autonomous(ctx, description: str, headless: bool, verbose: bool, extra_args: tuple):
         """Run autonomous drawing pipeline."""
         runner: ExamplesRunner = ctx.obj["runner"]
-        success = runner.run_autonomous(
-            description,
+        # Pass description and any extra args through
+        args = [description] + list(extra_args)
+        success = runner.run_scenario(
+            "05_autonomous",
+            args=args,
             headless=headless,
             verbose=verbose,
         )
         ctx.exit(0 if success else 1)
+
+    @examples_group.command(name="metrics")
+    @click.pass_context
+    def cmd_metrics(ctx):
+        """Show evolutionary learning metrics and statistics."""
+        try:
+            from nlp2cmd.evolutionary_orchestrator import EvolutionaryRecoveryEngine
+            console = Console() if HAS_RICH else None
+            engine = EvolutionaryRecoveryEngine(console)
+            
+            print("\n📊 Evolutionary Learning Metrics\n")
+            print("=" * 50)
+            
+            # Show knowledge base summary
+            kb = engine.knowledge_base
+            patterns = kb.get("error_patterns", {})
+            insights = kb.get("llm_insights", [])
+            
+            print(f"Error patterns learned: {len(patterns)}")
+            print(f"LLM insights recorded: {len(insights)}")
+            print(f"Database version: {kb.get('version', 1)}")
+            print(f"Database location: {engine.learning_db_path}")
+            print()
+            
+            # Show success rates
+            if patterns:
+                print("Strategy Success Rates:")
+                for error_type, strategies in patterns.items():
+                    print(f"\n  {error_type}:")
+                    for strategy, stats in strategies.items():
+                        attempts = stats.get("attempts", 0)
+                        successes = stats.get("successes", 0)
+                        rate = (successes / attempts * 100) if attempts > 0 else 0
+                        print(f"    {strategy}: {rate:.0f}% ({successes}/{attempts})")
+            
+            print("=" * 50)
+            print("\n💡 Tip: Metrics improve automatically with each execution")
+            print("   The system learns which strategies work best for different errors.\n")
+            
+        except ImportError:
+            print("Evolutionary orchestrator not available.")
+            ctx.exit(1)
+
+    @examples_group.command(name="learn")
+    @click.option("--reset", is_flag=True, help="Reset learning database")
+    @click.pass_context
+    def cmd_learn(ctx, reset: bool):
+        """Manage evolutionary learning database."""
+        db_path = Path.home() / ".nlp2cmd" / "evolutionary_learning.json"
+        
+        if reset:
+            if db_path.exists():
+                db_path.unlink()
+                print("✓ Learning database reset")
+            else:
+                print("No learning database to reset")
+        else:
+            if db_path.exists():
+                print(f"Learning database: {db_path}")
+                data = json.loads(db_path.read_text())
+                print(f"Size: {db_path.stat().st_size} bytes")
+                print(f"Patterns: {len(data.get('error_patterns', {}))}")
+            else:
+                print("No learning database yet - will be created on first run")
+
+    @examples_group.command(name="doctor")
+    @click.option("--fix", is_flag=True, help="Auto-fix issues")
+    @click.pass_context
+    def cmd_examples_doctor(ctx, fix: bool):
+        """Diagnose examples environment and dependencies."""
+        console = Console() if HAS_RICH else None
+        runner = ExamplesRunner(console)
+        
+        print("\n🔍 Examples Environment Doctor\n")
+        print("=" * 50)
+        
+        # Check evolutionary orchestrator
+        print("✓ Evolutionary Orchestrator: " + ("Available" if HAS_EVOLUTIONARY else "Not Available"))
+        
+        # Check Playwright
+        print("Checking Playwright...")
+        has_pw = runner._ensure_playwright(auto_install=False)
+        print("  " + ("✓ Playwright ready" if has_pw else "✗ Playwright not installed"))
+        
+        # Check scenarios
+        print(f"\nRegistered examples: {len(runner.registry.scenarios)}")
+        for sid, scenario in runner.registry.scenarios.items():
+            exists = "✓" if scenario.script_path.exists() else "✗"
+            print(f"  {exists} {sid}: {scenario.name}")
+        
+        # Check learning DB
+        db_path = Path.home() / ".nlp2cmd" / "evolutionary_learning.json"
+        print(f"\nLearning database: {db_path}")
+        print("  " + ("✓ Exists" if db_path.exists() else "○ Will be created on first run"))
+        
+        print("=" * 50)
+        print()
 
 except ImportError:
     # Click not available - define stubs
@@ -487,4 +591,13 @@ except ImportError:
         pass
 
     def cmd_autonomous(*args, **kwargs):
+        pass
+
+    def cmd_metrics(*args, **kwargs):
+        pass
+
+    def cmd_learn(*args, **kwargs):
+        pass
+
+    def cmd_examples_doctor(*args, **kwargs):
         pass
