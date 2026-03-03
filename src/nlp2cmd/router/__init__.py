@@ -22,6 +22,7 @@ class RoutingDecision(Enum):
     
     DIRECT = "direct"  # Single action, no LLM needed
     LLM_PLANNER = "llm_planner"  # Complex task, needs LLM planning
+    DYNAMIC_ORCHESTRATOR = "dynamic_orchestrator"  # LLM-driven orchestration with reflection
     CLARIFICATION = "clarification"  # Ambiguous, needs user input
     REJECT = "reject"  # Cannot process
 
@@ -289,7 +290,16 @@ class DecisionRouter:
                 suggested_actions=[action],
             )
         
-        # Default: use LLM for unknown patterns
+        # Default: use dynamic orchestrator (LLM-driven planning + reflection)
+        if self._orchestrator_available():
+            return RoutingResult(
+                decision=RoutingDecision.DYNAMIC_ORCHESTRATOR,
+                reason="Using dynamic LLM orchestrator with reflection",
+                confidence=confidence,
+                suggested_actions=self._suggest_actions(intent, entities),
+                metadata={"orchestrator": True},
+            )
+
         return RoutingResult(
             decision=RoutingDecision.LLM_PLANNER,
             reason="Unknown intent pattern, using LLM planner",
@@ -348,6 +358,15 @@ class DecisionRouter:
         """Add an intent to the complex intents list."""
         if intent not in self.config.complex_intents:
             self.config.complex_intents.append(intent)
+
+    @staticmethod
+    def _orchestrator_available() -> bool:
+        """Check if the dynamic orchestration engine is available."""
+        try:
+            from nlp2cmd.orchestration import Orchestrator  # noqa: F401
+            return True
+        except ImportError:
+            return False
 
 
 __all__ = [

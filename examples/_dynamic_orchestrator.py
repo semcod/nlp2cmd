@@ -323,22 +323,26 @@ class DynamicOrchestrator:
 
             plan.steps = prefix + core_steps
 
+            # Check updated actions list
+            updated_actions = [s.get("action") for s in plan.steps]
+
             # Ensure wait + capture_output after find_and_click(run)
             suffix: list[dict] = []
-            if "capture_output" not in actions:
-                if "wait" not in actions:
+            if "capture_output" not in updated_actions:
+                if "wait" not in updated_actions:
                     suffix.append({"action": "wait", "seconds": 12,
                                    "reason": "Wait for execution",
                                    "description": "Wait for output"})
                 suffix.append({"action": "capture_output",
                                "description": "Capture program output"})
                 vlog("Plan sanitizer: appended 'capture_output'")
-            if "screenshot" not in actions:
+            if "screenshot" not in updated_actions:
                 suffix.append({"action": "screenshot",
                                "filename": "dynamic_result.png",
                                "description": "Save screenshot"})
 
-            plan.steps = prefix + plan.steps + suffix
+            if suffix:
+                plan.steps = plan.steps + suffix
 
         return plan
 
@@ -849,6 +853,7 @@ class DynamicOrchestrator:
         }
         selectors.extend(_COMMON.get(purpose, []))
 
+        # First pass: try all selectors immediately
         for sel in selectors:
             try:
                 btn = page.locator(sel).first
@@ -856,6 +861,18 @@ class DynamicOrchestrator:
                     await btn.click()
                     vlog_decision(f"Clicked '{sel}'", f"purpose={purpose}")
                     return StepResult(True, {"clicked": sel, "purpose": purpose})
+            except Exception:
+                continue
+
+        # Second pass: wait up to 5s for common selectors to appear
+        vlog(f"No immediate match for '{purpose}', waiting up to 5s...")
+        for sel in (_COMMON.get(purpose, [])[:3]):
+            try:
+                btn = page.locator(sel).first
+                await btn.wait_for(state="visible", timeout=5000)
+                await btn.click()
+                vlog_decision(f"Clicked '{sel}' (after wait)", f"purpose={purpose}")
+                return StepResult(True, {"clicked": sel, "purpose": purpose})
             except Exception:
                 continue
         return StepResult(False, error=f"No element found for purpose '{purpose}'")
@@ -1137,7 +1154,7 @@ def _clean_generated_code(raw: str, language: str = "python") -> str:
     _CODE_SIGNALS = re.compile(
         r'^(\s|#|import |from |def |class |if |else|elif |for '
         r'|while |return |raise |try|except|finally|with |print|'
-        r'\w+\s*[=(]|@|\)|\]|\}|$)'
+        r'\w+\s*[=(\[]|@|\)|\]|\}|$)'
     )
     cut = len(lines)
     for i in range(len(lines) - 1, -1, -1):
