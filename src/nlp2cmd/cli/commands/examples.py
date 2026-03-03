@@ -134,6 +134,14 @@ class ExamplesRegistry:
                 script_path=drawing_dir / "07_shape_gallery" / "run.py",
                 needs_playwright=True,
             ),
+            ExampleScenario(
+                id="08_search_demo",
+                name="Search Demo",
+                description="Open source internet search (DuckDuckGo/SearXNG)",
+                category="search",
+                script_path=drawing_dir / "08_search_demo" / "run.py",
+                needs_playwright=False,
+            ),
         ]
 
         for s in scenarios:
@@ -478,6 +486,36 @@ try:
             verbose=verbose,
         )
         ctx.exit(0 if success else 1)
+
+    @examples_group.command(name="search")
+    @click.argument("query")
+    @click.option("--max-results", type=int, default=5, help="Max results to show")
+    @click.option("--source", default="auto", help="Search source: duckduckgo, searxng, auto")
+    @click.pass_context
+    def cmd_search(ctx, query: str, max_results: int, source: str):
+        """Quick open source search: nlp2cmd examples search 'Python tutorial'."""
+        import asyncio
+        from nlp2cmd.skills.search import SearchSkill
+        
+        async def do_search():
+            async with SearchSkill() as skill:
+                results = await skill.search(query, max_results=max_results, source=source if source != "auto" else None)
+                
+                if not results:
+                    print("No results found.")
+                    return
+                
+                print(f"\n🔍 Results for: {query}\n")
+                for i, r in enumerate(results, 1):
+                    icon = {"duckduckgo": "🦆", "searxng": "🔍", "brave": "🦁"}.get(r.source, "📄")
+                    print(f"{icon} {i}. {r.title}")
+                    print(f"   {r.url}")
+                    if r.snippet:
+                        print(f"   {r.snippet[:120]}...")
+                    print()
+        
+        asyncio.run(do_search())
+        ctx.exit(0)
 
     @examples_group.command(name="metrics")
     @click.pass_context

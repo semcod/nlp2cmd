@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """
-05_autonomous — Full autonomous drawing pipeline with all new skills.
+05_autonomous — Full autonomous drawing pipeline with 3-skill architecture.
 
 Pipeline:
-1. Parse NL description (PL/EN) → detect shapes & colors
-2. For unknown shapes: fetch from Iconify/SimpleIcons/SVGRepo databases
-3. If not found: generate via LLM (text-to-2DObject)
-4. Compose scene & draw on jspaint.app via Playwright
-5. Screenshot → validate via vision LLM
-6. If issues found → correction engine fixes & re-validates
+1. DrawNavigationSkill → navigate to jspaint.app (Qwen VL canvas verify)
+2. DrawObjectSkill → resolve shapes (registry→DB→LLM) + render with vision
+3. DrawValidationSkill → validate what's drawn, report remaining, suggest fixes
+4. Loop: re-draw missing objects until all done or max iterations reached
 
 Usage:
     python3 run.py "narysuj czerwonego kota i niebieską rybkę"
@@ -36,181 +34,142 @@ sys.path.insert(0, str(_HERE.parents[2] / "src"))  # src/
 (_HERE / "screenshots").mkdir(exist_ok=True)
 
 from nlp2cmd.skills.drawing import (
-    AutonomousDrawingPipeline,
-    CorrectionEngine,
-    DrawingSkill,
-    ObjectFetcher,
-    ShapeRegistry,
-    TextToShapeEngine,
-    VisualValidator,
+    DrawingSkill, DrawNavigationSkill, DrawObjectSkill,
+    DrawValidationSkill, TaskPlan,
+    ObjectFetcher, ShapeRegistry,
 )
 from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
-
-
-# ── Shape Resolution (DB → LLM fallback) ────────────────────────────────
-
-async def resolve_shapes(description: str, verbose: bool = False) -> list[str]:
-    """
-    Resolve shape names from description.
-    For unknown shapes, try online databases then LLM generation.
-    """
-    skill = DrawingSkill()
-    parser = skill._parser
-
-    # Detect shapes from NL
-    shapes = parser._extract_shapes(description.lower())
-    if not shapes:
-        shapes = ["circle"]  # default
-
-    registered = set(ShapeRegistry.available())
-    resolved: list[str] = []
-
-    fetcher = ObjectFetcher()
-    engine = TextToShapeEngine(auto_register=True)
-
-    for shape in shapes:
-        if shape in registered:
-            resolved.append(shape)
-            if verbose:
-                print(f"  ✓ '{shape}' — built-in shape")
-            continue
-
-        # Try online databases
-        if verbose:
-            print(f"  🌐 '{shape}' not built-in, searching databases...")
-        fetched = await fetcher.fetch(shape, verbose=verbose)
-        if fetched and fetched.points:
-            from nlp2cmd.skills.drawing.text_to_shape import DynamicShapeGenerator
-            gen = DynamicShapeGenerator(shape, fetched.points)
-            ShapeRegistry.register(gen)
-            resolved.append(shape)
-            if verbose:
-                print(f"  ✓ '{shape}' — fetched from {fetched.source}")
-            continue
-
-        # Try LLM generation
-        if verbose:
-            print(f"  🤖 '{shape}' not in databases, generating via LLM...")
-        generated = await engine.generate(shape, complex_mode=True, verbose=verbose)
-        if generated and generated.points:
-            resolved.append(shape)
-            if verbose:
-                print(f"  ✓ '{shape}' — generated via LLM ({generated.model_used})")
-            continue
-
-        if verbose:
-            print(f"  ⚠ '{shape}' — could not resolve, using circle fallback")
-        resolved.append("circle")
-
-    return resolved
 
 
 # ── Main Pipeline ────────────────────────────────────────────────────────
 
 async def run_autonomous(description: str, headless: bool = False,
-                         max_corrections: int = 3, verbose: bool = True) -> dict:
-    """Run the full autonomous drawing pipeline."""
+                         max_iterations: int = 3, verbose: bool = True,
+                         use_vision: bool = True) -> dict:
+    """Run the full autonomous drawing pipeline using 3 skills."""
     t0 = time.time()
     screenshot_dir = _HERE / "screenshots"
 
-    print(f"🎨 Autonomous Drawing Pipeline")
+    print(f"🎨 Autonomous Drawing Pipeline (3-skill architecture)")
     print(f"   Description: {description}")
-    print(f"   Max corrections: {max_corrections}")
+    print(f"   Max iterations: {max_iterations}")
+    print(f"   Vision: {'enabled' if use_vision else 'disabled'}")
     print()
 
-    # Step 1: Resolve shapes
-    print("📦 Step 1: Resolving shapes...")
-    resolved = await resolve_shapes(description, verbose=verbose)
-    print(f"   Shapes: {resolved}")
-    print()
-
-    # Step 2: Build drawing
-    print("✏️  Step 2: Building drawing commands...")
+    # Parse NL to detect shapes and colors
     skill = DrawingSkill()
-    skill.init_canvas(1024, 768)
-    events = skill.execute_nl(description)
-    shape_events = [e for e in events if hasattr(e, 'shape_type')]
-    print(f"   Generated {len(shape_events)} shapes")
-    for e in shape_events:
-        print(f"     • {e.shape_type} ({e.color})")
+    shape = skill.detect_shape(description)
+    color = skill.detect_color(description, default="#000000")
+
+    # Build task plan
+    plan = TaskPlan(description=description)
+    plan.add(shape, color)
+    print(f"   Plan: {', '.join(plan.object_names)} — from NL: \"{description}\"")
     print()
 
-    # Step 3: Render on browser canvas
-    print("🌐 Step 3: Rendering on jspaint.app...")
+    # ── Skill 1: Navigation ──────────────────────────────────────────
+    print("🌐 Skill 1: DrawNavigationSkill...")
     try:
         from playwright.async_api import async_playwright
     except ImportError:
-        print("   ⚠ Playwright not installed. Install with: pip install playwright && playwright install")
-        print("   Showing shape data instead:")
-        for s in skill.get_shapes():
-            n_pts = sum(len(g) for g in s["points"])
-            print(f"     {s['shape_type']}: {n_pts} vertices, color={s['color']}")
+        print("   ⚠ Playwright not installed. Install: pip install playwright && playwright install")
         return {"success": False, "reason": "playwright_not_installed"}
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=headless)
         page = await browser.new_page(viewport={"width": 1280, "height": 900})
+
+        nav = DrawNavigationSkill(use_vision=use_vision)
+        nav_result = await nav.navigate(page, site="jspaint", fallback=True,
+                                        verbose=verbose)
+
+        if not nav_result.success:
+            print(f"   ❌ Navigation failed: {nav_result.error}")
+            await browser.close()
+            return {"success": False, "reason": "navigation_failed"}
+
+        canvas = nav_result.canvas
+        print(f"   ✅ Canvas: {canvas.width:.0f}x{canvas.height:.0f} at {canvas.url}")
+        if canvas.vision_confirmed:
+            print(f"   👁️ Vision: {canvas.vision_description[:80]}")
+        print()
+
+        # ── Skill 2: Draw Objects ────────────────────────────────────
+        print("✏️  Skill 2: DrawObjectSkill...")
+        skill.init_canvas(canvas.width, canvas.height)
         renderer = PlaywrightRenderer(page)
 
-        # Draw
-        canvas_info = await skill.render(renderer, url="https://jspaint.app", app="jspaint")
-        print(f"   Canvas: {canvas_info.get('width', '?')}x{canvas_info.get('height', '?')}")
-        await page.wait_for_timeout(1000)
+        drawer = DrawObjectSkill(renderer=renderer, skill=skill, use_vision=use_vision)
+        drawer._page = page
 
-        # Screenshot
+        scene = await drawer.draw_scene(
+            [(obj["name"], obj.get("color", "#000000")) for obj in plan.objects],
+            canvas_width=canvas.width, canvas_height=canvas.height,
+            verify_each=use_vision, verbose=verbose,
+        )
+
+        print(f"   {scene.summary()}")
+        print()
+
+        # Initial screenshot
         initial_path = str(screenshot_dir / "autonomous_initial.png")
         await renderer.screenshot(initial_path)
-        print(f"   Screenshot: {initial_path}")
+
+        # ── Skill 3: Validation + Iterative Fix Loop ────────────────
+        print("🔍 Skill 3: DrawValidationSkill...")
+        validator = DrawValidationSkill(use_vision=use_vision)
+        report = await validator.validate(page, plan, verbose=verbose)
+
+        print(f"   {report.summary()}")
         print()
 
-        # Step 4: Validate
-        print("🔍 Step 4: Visual validation...")
-        validator = VisualValidator()
-        validation = await validator.validate(
-            screenshot_path=initial_path,
-            description=description,
-            verbose=verbose,
-        )
-        print()
+        iteration = 0
+        while not report.all_done and iteration < max_iterations:
+            iteration += 1
+            remaining = report.next_actions()
+            if not remaining:
+                break
 
-        # Step 5: Correct if needed
-        result = {
-            "description": description,
-            "shapes": [e.shape_type for e in shape_events],
-            "initial_verdict": validation.verdict.value,
-            "initial_confidence": validation.confidence,
-        }
+            print(f"🔄 Iteration {iteration}: fixing {len(remaining)} issues...")
+            for action in remaining[:3]:
+                print(f"   → {action}")
 
-        if validation.needs_correction and max_corrections > 0:
-            print(f"🔧 Step 5: Applying corrections ({len(validation.corrections)} issues)...")
-            correction_engine = CorrectionEngine(skill, renderer, validator)
-            correction_result = await correction_engine.correct(
-                validation_result=validation,
-                description=description,
-                screenshot_dir=str(screenshot_dir),
-                max_iterations=max_corrections,
-                verbose=verbose,
-            )
-            result["final_verdict"] = correction_result.final_verdict.value
-            result["corrections_applied"] = correction_result.corrections_applied
-            result["correction_iterations"] = correction_result.iterations
-            result["success"] = correction_result.success
-        else:
-            result["final_verdict"] = validation.verdict.value
-            result["success"] = (validation.verdict.value == "correct")
+            # Re-draw missing objects
+            for assessment in report.remaining:
+                plan_obj = next(
+                    (o for o in plan.objects if o["name"] == assessment.name), None
+                )
+                obj_color = plan_obj.get("color", "#000000") if plan_obj else "#000000"
+                await drawer.draw(
+                    assessment.name, color=obj_color,
+                    cx=canvas.width / 2, cy=canvas.height / 2,
+                    size=min(canvas.width, canvas.height) * 0.25,
+                    verify=False, verbose=verbose,
+                )
+
+            # Re-validate
+            report = await validator.check_progress(page, plan, report, verbose=verbose)
+            print(f"   After iteration {iteration}: {report.summary()}")
+            print()
 
         # Final screenshot
         final_path = str(screenshot_dir / "autonomous_final.png")
         await renderer.screenshot(final_path)
-        result["screenshots"] = {"initial": initial_path, "final": final_path}
 
         elapsed = (time.time() - t0) * 1000
-        result["total_time_ms"] = elapsed
+        result = {
+            "description": description,
+            "shapes": plan.object_names,
+            "progress": report.summary(),
+            "all_done": report.all_done,
+            "iterations": iteration,
+            "total_time_ms": elapsed,
+            "screenshots": {"initial": initial_path, "final": final_path},
+            "success": report.progress_pct > 0,
+        }
 
-        print()
-        icons = {"correct": "✅", "partial": "⚠️", "wrong": "❌", "empty": "🔲", "error": "💥"}
-        icon = icons.get(result["final_verdict"], "?")
-        print(f"{icon} Final: {result['final_verdict']} ({elapsed:.0f}ms)")
+        icon = "✅" if report.all_done else ("⚠️" if report.progress_pct > 0 else "❌")
+        print(f"{icon} Final: {report.summary()} ({elapsed:.0f}ms)")
         print(f"   Screenshots: {screenshot_dir}")
 
         if not headless:
@@ -249,7 +208,7 @@ async def fetch_only(shape_name: str):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Autonomous drawing with database fetch + LLM + visual validation",
+        description="Autonomous drawing with 3-skill architecture + Qwen VL",
     )
     parser.add_argument("description", nargs="?", default="",
                         help="Drawing description (PL or EN)")
@@ -261,10 +220,10 @@ def main():
                         help="List objects with known database mappings")
     parser.add_argument("--headless", action="store_true",
                         help="Run browser in headless mode")
-    parser.add_argument("--max-corrections", type=int, default=3,
-                        help="Max correction iterations (default: 3)")
-    parser.add_argument("--no-validate", action="store_true",
-                        help="Skip visual validation")
+    parser.add_argument("--max-iterations", type=int, default=3,
+                        help="Max draw→validate→fix iterations (default: 3)")
+    parser.add_argument("--no-vision", action="store_true",
+                        help="Disable Qwen VL vision")
 
     args = parser.parse_args()
 
@@ -295,11 +254,11 @@ def main():
         print('  python3 run.py --list-shapes')
         return
 
-    max_corrections = 0 if args.no_validate else args.max_corrections
     asyncio.run(run_autonomous(
         args.description,
         headless=args.headless,
-        max_corrections=max_corrections,
+        max_iterations=args.max_iterations,
+        use_vision=not args.no_vision,
     ))
 
 

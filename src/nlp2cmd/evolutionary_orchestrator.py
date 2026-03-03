@@ -13,6 +13,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import shutil
 import sys
 import time
 import traceback
@@ -587,6 +588,9 @@ Design a creative workaround to complete the task.
         if "playwright" in error_type.lower() or "browser" in error_type.lower():
             strategies.insert(0, RecoveryStrategy.INSTALL_DEPENDENCY)
         
+        if "dependency" in error_type.lower() or "modulenotfounderror" in error_type.lower():
+            strategies.insert(0, RecoveryStrategy.INSTALL_DEPENDENCY)
+        
         if "arg" in error_type.lower() or "option" in error_type.lower():
             strategies.insert(0, RecoveryStrategy.MODIFY_ARGS)
         
@@ -629,7 +633,9 @@ class AutonomousExampleRunner:
         
         async def _execute(context: dict) -> dict:
             """Funkcja wykonywana z retry."""
-            cmd = [sys.executable, str(context["script_path"])]
+            # Use python3 from PATH (not sys.executable which may be a different version)
+            python_exe = shutil.which("python3") or sys.executable
+            cmd = [python_exe, str(context["script_path"])]
             
             # Apply arg modifications from recovery
             args = context.get("modified_args", context["args"])
@@ -640,23 +646,26 @@ class AutonomousExampleRunner:
             
             cmd.extend(args)
             
-            # Setup env
-            for key, value in context.get("env_setup", {}).items():
-                os.environ[key] = value
-            
-            # Skip HF if needed
-            if context.get("skip_hf_hub"):
-                os.environ["HF_HUB_OFFLINE"] = "1"
-            
             self._print(f"   Executing: {' '.join(cmd)}", "dim")
             
             import subprocess
-            result = subprocess.run(
-                cmd,
-                cwd=str(context["script_path"].parent),
-                capture_output=True,
-                text=True,
-            )
+            env = os.environ.copy()
+            for key, value in context.get("env_setup", {}).items():
+                env[key] = value
+            if context.get("skip_hf_hub"):
+                env["HF_HUB_OFFLINE"] = "1"
+            
+            try:
+                result = subprocess.run(
+                    cmd,
+                    cwd=str(context["script_path"].parent),
+                    capture_output=True,
+                    text=True,
+                    timeout=120,
+                    env=env,
+                )
+            except subprocess.TimeoutExpired:
+                raise RuntimeError("TIMEOUT_ERROR: Script execution exceeded 120s")
             
             if result.returncode != 0:
                 # Analyze error
@@ -667,12 +676,18 @@ class AutonomousExampleRunner:
                 
                 if "No such option" in error_msg:
                     raise ValueError(f"ARG_ERROR: {error_msg}")
+                elif "ModuleNotFoundError" in error_msg:
+                    raise RuntimeError(f"DEPENDENCY_ERROR: {error_msg}")
                 elif "HF_TOKEN" in error_msg or "huggingface" in error_msg.lower():
                     raise RuntimeError(f"HF_TOKEN_ERROR: {error_msg}")
                 elif "playwright" in error_msg.lower():
                     raise RuntimeError(f"PLAYWRIGHT_ERROR: {error_msg}")
                 else:
                     raise RuntimeError(f"EXECUTION_ERROR: {error_msg}")
+            
+            # Print captured output for user visibility
+            if result.stdout.strip():
+                self._print(result.stdout.strip())
             
             return {"stdout": result.stdout, "stderr": result.stderr}
         

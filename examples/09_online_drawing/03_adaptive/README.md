@@ -55,13 +55,13 @@ python3 run.py --query "namaluj kwiat z 6 płatkami"
 python3 run.py --query "draw a blue star"
 python3 run.py --query "draw a green triangle"
 
-# Different targets
+# Different targets (available: jspaint, excalidraw, kleki, draw.chat)
 python3 run.py --query "draw a circle" --target jspaint
 python3 run.py --query "draw a house" --target excalidraw
 python3 run.py --query "draw a spiral" --target kleki
 
-# Headless + verbose
-python3 run.py --query "draw a star" --headless -v
+# Headless + no vision validation
+python3 run.py --query "draw a star" --headless --no-vision -v
 ```
 
 ## Adaptive Learning

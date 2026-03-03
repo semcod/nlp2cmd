@@ -1,0 +1,158 @@
+{
+  "example": "01_draw_chat",
+  "platform": {
+    "os": "Linux",
+    "os_version": "#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026",
+    "arch": "x86_64",
+    "python": "3.13.7",
+    "hostname": "nvidia"
+  },
+  "started": "2026-03-03T16:08:40.549746+00:00",
+  "duration_s": 14.147,
+  "entries": [
+    {
+      "time": "2026-03-03T16:08:40.549746+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "=== 01_draw_chat ==="
+    },
+    {
+      "time": "2026-03-03T16:08:40.549866+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Platform: {\"os\": \"Linux\", \"os_version\": \"#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026\", \"arch\": \"x86_64\", \"python\": \"3.13.7\", \"hostname\": \"nvidia\"}"
+    },
+    {
+      "time": "2026-03-03T16:08:40.549901+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Headless: True"
+    },
+    {
+      "time": "2026-03-03T16:08:41.060210+00:00",
+      "elapsed_s": 0.511,
+      "level": "SUCCESS",
+      "message": "Browser ready"
+    },
+    {
+      "time": "2026-03-03T16:08:41.060283+00:00",
+      "elapsed_s": 0.511,
+      "level": "STEP",
+      "message": "[1] DrawNavigationSkill: navigating to canvas..."
+    },
+    {
+      "time": "2026-03-03T16:08:53.771339+00:00",
+      "elapsed_s": 13.222,
+      "level": "SUCCESS",
+      "message": "Canvas ready: 683x384 at https://jspaint.app/#local:4c920a5a9208a"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771390+00:00",
+      "elapsed_s": 13.222,
+      "level": "INFO",
+      "message": "  Tool: pencil (css)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771425+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [navigate] ✓ https://draw.chat/ (2754ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771450+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [dismiss_popups_heuristic] ✓ 2 dismissed (1106ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771471+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [verify_canvas] ✗ dom_check_only (3004ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771488+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [navigate] ✓ https://jspaint.app/#local:4c920a5a9208a (2964ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771509+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [dismiss_popups_heuristic] ✓ 0 dismissed (552ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771529+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [verify_canvas] ✓ dom_check_only (1981ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771548+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [discover_canvas] ✓ {\"x\": 61, \"y\": 25, \"width\": 683, \"height\": 384} (9ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771566+00:00",
+      "elapsed_s": 13.222,
+      "level": "DEBUG",
+      "message": "  [select_tool] ✓ pencil (css) (342ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:53.771593+00:00",
+      "elapsed_s": 13.222,
+      "level": "STEP",
+      "message": "[2] DrawObjectSkill: drawing star in red..."
+    },
+    {
+      "time": "2026-03-03T16:08:54.559925+00:00",
+      "elapsed_s": 14.011,
+      "level": "SUCCESS",
+      "message": "Drawn: star from registry (788ms)"
+    },
+    {
+      "time": "2026-03-03T16:08:54.559973+00:00",
+      "elapsed_s": 14.011,
+      "level": "STEP",
+      "message": "[3] DrawValidationSkill: validating drawing..."
+    },
+    {
+      "time": "2026-03-03T16:08:54.609517+00:00",
+      "elapsed_s": 14.06,
+      "level": "INFO",
+      "message": "  Validation: 0/1 done (0%), 1 remaining, 0 need fixing"
+    },
+    {
+      "time": "2026-03-03T16:08:54.609593+00:00",
+      "elapsed_s": 14.06,
+      "level": "STEP",
+      "message": "[4] Saving screenshot and session..."
+    },
+    {
+      "time": "2026-03-03T16:08:54.658396+00:00",
+      "elapsed_s": 14.109,
+      "level": "SUCCESS",
+      "message": "Screenshot saved: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/01_draw_chat/screenshots/draw_chat_star_red.png"
+    },
+    {
+      "time": "2026-03-03T16:08:54.661388+00:00",
+      "elapsed_s": 14.112,
+      "level": "INFO",
+      "message": "Session: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/01_draw_chat/screenshots/draw_chat_star_red_session.json (2 events)"
+    },
+    {
+      "time": "2026-03-03T16:08:54.661479+00:00",
+      "elapsed_s": 14.112,
+      "level": "SUCCESS",
+      "message": "Done! Shape: star, Color: red, Shapes drawn: 1, Progress: 0/1 done (0%), 1 remaining, 0 need fixing"
+    }
+  ],
+  "summary": {
+    "total": 23,
+    "errors": 0,
+    "warnings": 0,
+    "successes": 5
+  }
+}

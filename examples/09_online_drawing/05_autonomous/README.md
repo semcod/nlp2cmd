@@ -28,11 +28,11 @@ The most advanced drawing example — a fully autonomous pipeline that resolves 
 ./run.sh 05_autonomous --list-shapes       # 33 built-in shapes
 ./run.sh 05_autonomous --list-fetchable    # 44 database-mapped objects
 
-# Skip validation
-./run.sh 05_autonomous "draw a star" --no-validate
+# Skip vision validation
+./run.sh 05_autonomous "draw a star" --no-vision
 
-# Headless + max corrections
-./run.sh 05_autonomous "narysuj zamek" --headless --max-corrections 5
+# Headless + max iterations
+./run.sh 05_autonomous "narysuj zamek" --headless --max-iterations 5
 ```
 
 ### Traditional Way — Direct Python
@@ -52,11 +52,11 @@ python3 run.py --fetch-only dragon
 python3 run.py --list-shapes       # 33 built-in shapes
 python3 run.py --list-fetchable    # 44 database-mapped objects
 
-# Skip validation
-python3 run.py "draw a star" --no-validate
+# Skip vision validation
+python3 run.py "draw a star" --no-vision
 
-# Headless + max corrections
-python3 run.py "narysuj zamek" --headless --max-corrections 5
+# Headless + max iterations
+python3 run.py "narysuj zamek" --headless --max-iterations 5
 ```
 
 ## Shape Sources

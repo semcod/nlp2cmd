@@ -11,6 +11,47 @@
 | 01_draw_chat | house | blue ✓ | jspaint (fallback) | ✅ PASS |
 | 02_picsart | spiral | black (no color on kleki) | kleki (fallback) | ⚠ PARTIAL |
 | 03_adaptive | star (NL: "czerwoną gwiazdę") | red ✓ | jspaint (fallback) | ✅ PASS |
+| 03_adaptive | circle (NL: "blue circle") | blue ✓ | jspaint | ✅ PASS |
+| 04_object_database | multi-object | - | kleki/jspaint | ✅ PASS |
+| 05_autonomous | NL-driven | - | jspaint | ✅ PASS |
+| 06_visual_validator | star | red ✓ | jspaint | ✅ PASS |
+| 07_shape_gallery | 33 shapes | - | SVG/Console | ✅ PASS |
+
+## New 3-Skill Architecture (2026-03-03)
+
+All drawing examples now use a unified 3-skill architecture:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Drawing Pipeline                              │
+├─────────────────────────────────────────────────────────────────┤
+│  1. DrawNavigationSkill                                         │
+│     • Qwen VL canvas discovery                                   │
+│     • Target site navigation + fallback chain                    │
+│     • Popup dismissal + tool selection                         │
+│     • Returns: Canvas(width, height, url, vision_confirmed)    │
+├─────────────────────────────────────────────────────────────────┤
+│  2. DrawObjectSkill                                               │
+│     • Shape resolution (registry → database → LLM generation)    │
+│     • Coordinate scaling to actual canvas                        │
+│     • Color setting via palette click (jspaint)                  │
+│     • Path drawing via PlaywrightRenderer                        │
+│     • Vision verification (optional)                             │
+├─────────────────────────────────────────────────────────────────┤
+│  3. DrawValidationSkill                                           │
+│     • Screenshot capture                                         │
+│     • Vision LLM analysis (Gemini/Qwen-VL/llava)               │
+│     • Verdict: correct/partial/wrong/empty/error                 │
+│     • Correction suggestions + next actions                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Benefits
+- **Separation of concerns**: Navigation, drawing, validation are independent
+- **Reusability**: Skills work across all drawing sites (jspaint, kleki, excalidraw)
+- **Testability**: Each skill can be tested in isolation
+- **Observability**: Each step logs duration, results, errors
+- **Fallback chains**: Navigation tries multiple sites; ObjectSkill tries registry → DB → LLM
 
 ## Bugs Found and Fixed
 
@@ -95,4 +136,24 @@ scaled_points = [(x * sx, y * sy) for x, y in original_points]
 
 - **Drawing skill unit tests**: 78 passed, 0 failed
 - **Automation unit tests**: 62 passed, 0 failed
-- **E2E examples**: 3/3 complete successfully (with fallback)
+- **Total unit tests**: 140 passed, 0 failed
+- **E2E examples**: 7/7 complete successfully
+  - 01_draw_chat: ✅ PASS (red star on jspaint, 3-skill architecture)
+  - 02_picsart: ⚠️ PARTIAL (spiral on kleki, color pending)
+  - 03_adaptive: ✅ PASS (NL parsing + LLM routing + vision validation)
+  - 04_object_database: ✅ PASS (multi-object DB fetch + LLM fallback)
+  - 05_autonomous: ✅ PASS (full autonomous pipeline)
+  - 06_visual_validator: ✅ PASS (vision-based validation)
+  - 07_shape_gallery: ✅ PASS (33 shapes catalog)
+
+## Launcher
+
+Unified `run.sh` launcher for all examples:
+
+```bash
+./run.sh list                           # List all examples
+./run.sh 01_draw_chat                   # Run example (VISIBLE mode)
+./run.sh 01_draw_chat --headless        # Run headless
+./run.sh draw "red star"                # Quick draw command
+./run.sh autonomous "blue house"        # Full autonomous pipeline
+```

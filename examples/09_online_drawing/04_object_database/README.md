@@ -81,7 +81,7 @@ python3 run.py -v
 
 - **HuggingFace rate limits**: API may throttle after many requests. Cached shapes avoid this.
 - **LLM vertex quality**: Generated shapes are approximate; complex objects may look simplified.
-- **Cache TTL**: Default 3600s. Pass `--no-llm-fallback` to use only database shapes.
+- **Cache TTL**: Default 3600s. Use `--no-vision` to disable vision validation.
 
 ## Requirements
 

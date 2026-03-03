@@ -36,8 +36,11 @@ sys.path.insert(0, str(_HERE.parents[2] / "src"))  # src/
 (_HERE / "screenshots").mkdir(exist_ok=True)
 (_HERE / "gallery").mkdir(exist_ok=True)
 
-from nlp2cmd.skills.drawing import DrawingSkill, ShapeRegistry, ObjectFetcher
-from nlp2cmd.llm.vision import VisionAnalyzer
+from nlp2cmd.skills.drawing import (
+    DrawingSkill, ShapeRegistry, ObjectFetcher,
+    DrawNavigationSkill, DrawObjectSkill, DrawValidationSkill, TaskPlan,
+)
+from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
 
 
 # Shape categories for organized display
@@ -236,43 +239,41 @@ def generate_html_gallery(shapes: list[str] | None = None):
 
 
 async def analyze_image_and_draw(image_path: str, headless: bool = False):
-    """Analyze image with Qwen VL and draw matching shapes."""
+    """Analyze image with Qwen VL via DrawValidationSkill and draw matching shapes."""
     from pathlib import Path
 
     if not Path(image_path).exists():
         print(f"   ⚠ Image not found: {image_path}")
         return
 
-    print(f"🔍 Analyzing image with Qwen VL: {image_path}")
+    print(f"🔍 Analyzing image with DrawValidationSkill: {image_path}")
 
-    # Use VisionAnalyzer with Qwen VL
-    analyzer = VisionAnalyzer()
-    # Override to use Qwen VL via OpenRouter (or local qwen2.5vl)
-    analyzer.model = "qwen/qwen2.5-vl-72b-instruct"
+    # Use DrawValidationSkill to analyze the image
+    plan = TaskPlan(description="identify all shapes in the image")
+    # Add common shapes so the validator checks for them
+    for shape in ["circle", "triangle", "square", "star", "heart", "arrow"]:
+        plan.add(shape)
 
-    result = await analyzer.describe_screenshot(
-        image_path,
-        context="Analyze this image and describe what geometric shapes, objects, or patterns you see. Focus on simple shapes like circles, triangles, squares, stars, arrows, etc."
-    )
+    validator = DrawValidationSkill(use_vision=True)
+    report = await validator.validate_screenshot(image_path, plan, verbose=True)
 
-    if not result.success:
-        print(f"   ⚠ Vision analysis failed: {result.error}")
-        return
+    if report.scene_description:
+        print(f"\n📝 Qwen VL Analysis:")
+        print(f"   {report.scene_description[:200]}")
 
-    print(f"\n📝 Qwen VL Analysis:")
-    print(f"   {result.answer[:200]}...")
-    print(f"   Model: {result.model}")
-
-    # Map description to shapes
-    shapes = map_vision_to_shapes(result.answer)
+    # Map found objects to shapes
+    found = [a.name for a in report.done]
+    shapes = map_vision_to_shapes(report.scene_description or "")
+    if found:
+        shapes = list(set(shapes + found))
     print(f"\n🎯 Mapped to shapes: {shapes}")
 
     # Draw the matched shapes
-    await draw_on_canvas(shapes, headless=headless, title=f"Vision: {result.answer[:50]}")
+    await draw_on_canvas(shapes, headless=headless, title=f"Vision: {report.scene_description[:50] if report.scene_description else 'analysis'}")
 
 
 async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False, title: str = "Shape Gallery"):
-    """Draw shapes in a grid on jspaint.app."""
+    """Draw shapes in a grid on jspaint.app using 3-skill architecture."""
     all_shapes = shapes or ShapeRegistry.available()
 
     try:
@@ -281,49 +282,41 @@ async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False
         print("   ⚠ Playwright not installed")
         return
 
-    skill = DrawingSkill()
-    skill.init_canvas(1280, 900)
-
-    # Grid layout
-    cols = 6
-    rows = math.ceil(len(all_shapes) / cols)
-    cell_w = 1280 / (cols + 1)
-    cell_h = 900 / (rows + 1)
-    shape_size = min(cell_w, cell_h) * 0.35
-
-    print(f"🎨 Drawing {len(all_shapes)} shapes in {cols}x{rows} grid...")
-    print(f"   Title: {title}")
-
     colors = ["#FF0000", "#0000FF", "#228B22", "#FF8C00", "#8B008B", "#DC143C",
               "#4169E1", "#2E8B57", "#FF4500", "#6A5ACD", "#D2691E", "#008B8B"]
-
-    from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=headless)
         page = await browser.new_page(viewport={"width": 1280, "height": 900})
+
+        # ── Skill 1: Navigation ──────────────────────────────────────
+        nav = DrawNavigationSkill(use_vision=False)
+        nav_result = await nav.navigate(page, site="jspaint", fallback=True)
+        if not nav_result.success:
+            print(f"   ❌ Navigation failed: {nav_result.error}")
+            await browser.close()
+            return
+
+        canvas = nav_result.canvas
+        print(f"🎨 Drawing {len(all_shapes)} shapes on {canvas.width:.0f}x{canvas.height:.0f} canvas...")
+        print(f"   Title: {title}")
+
+        # ── Skill 2: Draw scene ──────────────────────────────────────
+        skill = DrawingSkill()
+        skill.init_canvas(canvas.width, canvas.height)
         renderer = PlaywrightRenderer(page)
 
-        # Init canvas
-        await renderer.init_canvas(1280, 900, url="https://jspaint.app")
-        await page.wait_for_timeout(2000)
+        drawer = DrawObjectSkill(renderer=renderer, skill=skill, use_vision=False)
+        objects = [(name, colors[i % len(colors)]) for i, name in enumerate(all_shapes)]
 
-        # Draw each shape
-        for i, shape_name in enumerate(all_shapes):
-            row = i // cols
-            col = i % cols
-            cx = (col + 1) * cell_w
-            cy = (row + 1) * cell_h
-            color = colors[i % len(colors)]
+        scene = await drawer.draw_scene(
+            objects,
+            canvas_width=canvas.width, canvas_height=canvas.height,
+            verify_each=False, verbose=False,
+        )
 
-            event = skill.draw(shape_name, color=color,
-                             center_x=cx, center_y=cy,
-                             size=shape_size)
-            try:
-                await renderer.set_color(color)
-                await renderer.draw_shape(event)
-            except Exception as e:
-                print(f"   ⚠ {shape_name}: {e}")
+        print(f"   Result: {scene.objects_drawn}/{len(all_shapes)} drawn, "
+              f"{scene.objects_failed} failed ({scene.total_time_ms:.0f}ms)")
 
         await page.wait_for_timeout(1000)
 

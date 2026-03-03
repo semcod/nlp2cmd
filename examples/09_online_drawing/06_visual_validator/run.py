@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 """
-06_visual_validator — Validate drawings with vision LLM and display corrections.
+06_visual_validator — Validate drawings with Qwen VL and display corrections.
 
-Demonstrates the visual validation skill:
-1. Draw a shape on jspaint.app via Playwright
-2. Take a screenshot
-3. Send to vision LLM for validation
-4. Display what the model sees, match verdict, and corrections
-5. Optionally apply corrections and re-validate
+Demonstrates the 3-skill architecture focused on validation:
+- DrawNavigationSkill: navigate to jspaint.app
+- DrawObjectSkill: draw the requested shape
+- DrawValidationSkill: full task-aware validation (done/remaining/wrong)
 
 Usage:
     python3 run.py --shape star --color red
@@ -36,11 +34,8 @@ sys.path.insert(0, str(_HERE.parents[2] / "src"))  # src/
 (_HERE / "screenshots").mkdir(exist_ok=True)
 
 from nlp2cmd.skills.drawing import (
-    DrawingSkill,
-    ShapeRegistry,
-    VisualValidator,
-    ValidationVerdict,
-    CorrectionEngine,
+    DrawingSkill, DrawNavigationSkill, DrawObjectSkill,
+    DrawValidationSkill, TaskPlan,
 )
 from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
 
@@ -56,27 +51,11 @@ DEMO_SCENARIOS = [
 
 async def draw_and_validate(shape: str, color: str, description: str,
                             headless: bool = False, correct: bool = False,
-                            verbose: bool = True) -> dict:
-    """Draw a shape, screenshot it, validate with vision LLM."""
+                            verbose: bool = True, use_vision: bool = True) -> dict:
+    """Draw a shape using 3-skill pipeline and validate with Qwen VL."""
     screenshot_dir = _HERE / "screenshots"
     t0 = time.time()
 
-    # Step 1: Generate drawing
-    print(f"✏️  Drawing: {shape} in {color}")
-    skill = DrawingSkill()
-    skill.init_canvas(1024, 768)
-    nl_cmd = f"narysuj {color} {shape}" if color else f"narysuj {shape}"
-    events = skill.execute_nl(nl_cmd)
-    shape_events = [e for e in events if hasattr(e, 'shape_type')]
-
-    if not shape_events:
-        # Direct draw if NL didn't parse
-        event = skill.draw(shape, color=color)
-        shape_events = [event]
-
-    print(f"   Generated {len(shape_events)} shapes")
-
-    # Step 2: Render on canvas
     try:
         from playwright.async_api import async_playwright
     except ImportError:
@@ -86,63 +65,99 @@ async def draw_and_validate(shape: str, color: str, description: str,
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=headless)
         page = await browser.new_page(viewport={"width": 1280, "height": 900})
+
+        # ── Skill 1: Navigation ──────────────────────────────────────
+        print(f"🌐 DrawNavigationSkill: navigating to canvas...")
+        nav = DrawNavigationSkill(use_vision=use_vision)
+        nav_result = await nav.navigate(page, site="jspaint", fallback=True,
+                                        verbose=verbose)
+
+        if not nav_result.success:
+            print(f"   ❌ Navigation failed: {nav_result.error}")
+            await browser.close()
+            return {"success": False, "reason": "navigation_failed"}
+
+        canvas = nav_result.canvas
+        print(f"   ✅ Canvas: {canvas.width:.0f}x{canvas.height:.0f}")
+
+        # ── Skill 2: Draw Object ─────────────────────────────────────
+        print(f"\n✏️  DrawObjectSkill: drawing {shape} in {color}...")
+        skill = DrawingSkill()
+        skill.init_canvas(canvas.width, canvas.height)
         renderer = PlaywrightRenderer(page)
 
-        canvas_info = await skill.render(renderer, url="https://jspaint.app", app="jspaint")
-        await page.wait_for_timeout(1500)
+        drawer = DrawObjectSkill(renderer=renderer, skill=skill, use_vision=use_vision)
+        drawer._page = page
+        obj_result = await drawer.draw(
+            shape, color=color,
+            cx=canvas.width / 2, cy=canvas.height / 2,
+            size=min(canvas.width, canvas.height) * 0.3,
+            verify=use_vision, verbose=verbose,
+        )
+        print(f"   Status: {obj_result.status.value} (source: {obj_result.source})")
 
-        # Step 3: Screenshot
+        # Screenshot
         screenshot_path = str(screenshot_dir / f"validate_{shape}_{color}.png")
         await renderer.screenshot(screenshot_path)
-        print(f"   Screenshot: {screenshot_path}")
 
-        # Step 4: Validate
-        print(f"\n🔍 Validating: '{description}'")
-        validator = VisualValidator()
-        result = await validator.validate(
-            screenshot_path=screenshot_path,
-            description=description,
-            verbose=verbose,
-        )
+        # ── Skill 3: Validation ──────────────────────────────────────
+        print(f"\n🔍 DrawValidationSkill: validating '{description}'...")
+        plan = TaskPlan(description=description)
+        plan.add(shape, color)
 
-        # Display result
+        validator = DrawValidationSkill(use_vision=use_vision)
+        report = await validator.validate(page, plan, verbose=verbose)
+
+        # Display report
         print(f"\n{'='*60}")
         print(f"📊 Validation Report")
         print(f"{'='*60}")
         print(f"   Shape:       {shape}")
         print(f"   Color:       {color}")
         print(f"   Description: {description}")
-        print(f"   Verdict:     {result.verdict.value}")
-        print(f"   Confidence:  {result.confidence:.0%}")
-        print(f"   Model:       {result.model_used}")
-        print(f"   Time:        {result.validation_time_ms:.0f}ms")
+        print(f"   Progress:    {report.summary()}")
+        print(f"   Match:       {report.overall_match:.0%}")
+        print(f"   Time:        {report.validation_time_ms:.0f}ms")
 
-        if result.description:
-            print(f"\n   👁️ What the model sees:")
-            print(f"      {result.description}")
+        if report.scene_description:
+            print(f"\n   👁️ What Qwen VL sees:")
+            print(f"      {report.scene_description}")
 
-        if result.corrections:
-            print(f"\n   🔧 Corrections needed ({len(result.corrections)}):")
-            for i, c in enumerate(result.corrections, 1):
-                prio = ["", "🔴", "🟡", "🟢"][min(c.priority, 3)]
-                print(f"      {i}. {prio} [{c.action}] {c.target}: {c.issue}")
-                if c.details:
-                    print(f"         Details: {c.details}")
+        for a in report.assessments:
+            icons = {"drawn": "✅", "missing": "⬜", "wrong": "❌", "partial": "⚠️"}
+            icon = icons.get(a.status.value, "?")
+            extra = f" — {a.issue}" if a.issue else ""
+            print(f"   {icon} {a.name}: {a.status.value}{extra}")
 
-        # Step 5: Correct if requested
-        correction_result = None
-        if correct and result.needs_correction:
-            print(f"\n🔧 Applying corrections...")
-            engine = CorrectionEngine(skill, renderer, validator)
-            correction_result = await engine.correct(
-                validation_result=result,
-                description=description,
-                screenshot_dir=str(screenshot_dir),
-                max_iterations=3,
-                verbose=verbose,
-            )
-            print(f"   Final verdict: {correction_result.final_verdict.value}")
-            print(f"   Iterations: {correction_result.iterations}")
+        if report.next_actions():
+            print(f"\n   📋 Suggested actions:")
+            for action in report.next_actions():
+                print(f"      → {action}")
+
+        # Iterative correction if requested
+        if correct and not report.all_done:
+            print(f"\n🔧 Applying corrections (up to 3 iterations)...")
+            for iteration in range(3):
+                remaining = report.remaining
+                if not remaining:
+                    break
+
+                for assessment in remaining:
+                    plan_obj = next(
+                        (o for o in plan.objects if o["name"] == assessment.name), None
+                    )
+                    obj_color = plan_obj.get("color", "#000000") if plan_obj else "#000000"
+                    await drawer.draw(
+                        assessment.name, color=obj_color,
+                        cx=canvas.width / 2, cy=canvas.height / 2,
+                        size=min(canvas.width, canvas.height) * 0.25,
+                        verify=False, verbose=verbose,
+                    )
+
+                report = await validator.check_progress(page, plan, report, verbose=verbose)
+                print(f"   Iteration {iteration + 1}: {report.summary()}")
+                if report.all_done:
+                    break
 
         print(f"{'='*60}")
 
@@ -152,18 +167,14 @@ async def draw_and_validate(shape: str, color: str, description: str,
             "shape": shape,
             "color": color,
             "description": description,
-            "verdict": result.verdict.value,
-            "confidence": result.confidence,
-            "model": result.model_used,
-            "what_model_sees": result.description,
-            "corrections": len(result.corrections),
+            "progress": report.summary(),
+            "match": report.overall_match,
+            "scene_description": report.scene_description,
+            "done": [a.name for a in report.done],
+            "remaining": [a.name for a in report.remaining],
             "screenshot": screenshot_path,
             "time_ms": elapsed,
         }
-
-        if correction_result:
-            output["correction_verdict"] = correction_result.final_verdict.value
-            output["correction_iterations"] = correction_result.iterations
 
         # Save report
         report_path = _HERE / "logs" / f"validation_{shape}_{color}.json"
@@ -183,29 +194,34 @@ async def draw_and_validate(shape: str, color: str, description: str,
     return output
 
 
-async def validate_screenshot(screenshot_path: str, description: str, verbose: bool = True):
+async def validate_screenshot(screenshot_path: str, description: str,
+                              verbose: bool = True, use_vision: bool = True):
     """Validate an existing screenshot without drawing."""
     print(f"🔍 Validating screenshot: {screenshot_path}")
     print(f"   Description: {description}")
 
-    validator = VisualValidator()
-    result = await validator.validate(
-        screenshot_path=screenshot_path,
-        description=description,
-        verbose=verbose,
-    )
+    plan = TaskPlan(description=description)
+    # Try to detect shape from description
+    plan_auto = DrawValidationSkill.plan_from_description(description)
+    for obj in plan_auto.objects:
+        plan.add(obj["name"], obj.get("color", ""))
 
-    print(f"\n   Verdict: {result.verdict.value} ({result.confidence:.0%})")
-    if result.description:
-        print(f"   Sees: {result.description}")
-    if result.corrections:
-        for c in result.corrections:
-            print(f"   Fix: [{c.action}] {c.target} — {c.issue}")
+    if not plan.objects:
+        plan.add("shape", "")  # generic fallback
+
+    validator = DrawValidationSkill(use_vision=use_vision)
+    report = await validator.validate_screenshot(screenshot_path, plan, verbose=verbose)
+
+    print(f"\n   Progress: {report.summary()}")
+    if report.scene_description:
+        print(f"   Sees: {report.scene_description}")
+    for action in report.next_actions():
+        print(f"   → {action}")
 
 
-async def run_demo(headless: bool = False):
+async def run_demo(headless: bool = False, use_vision: bool = True):
     """Run validation on multiple demo scenarios."""
-    print("🎯 Visual Validator Demo — Testing multiple shapes")
+    print("🎯 Visual Validator Demo — 3-skill architecture")
     print(f"   Scenarios: {len(DEMO_SCENARIOS)}")
     print()
 
@@ -219,6 +235,7 @@ async def run_demo(headless: bool = False):
             color=scenario["color"],
             description=scenario["description"],
             headless=headless,
+            use_vision=use_vision,
             verbose=True,
         )
         results.append(result)
@@ -228,13 +245,15 @@ async def run_demo(headless: bool = False):
     print(f"📊 Demo Summary")
     print(f"{'='*60}")
     for r in results:
-        icon = {"correct": "✅", "partial": "⚠️", "wrong": "❌", "empty": "🔲", "error": "💥"}.get(r.get("verdict", ""), "?")
-        print(f"   {icon} {r['description']}: {r['verdict']} ({r.get('confidence', 0):.0%})")
+        done = r.get("done", [])
+        remaining = r.get("remaining", [])
+        icon = "✅" if not remaining else ("⚠️" if done else "❌")
+        print(f"   {icon} {r['description']}: {r.get('progress', '?')}")
     print(f"{'='*60}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Visual validation of drawings with vision LLM")
+    parser = argparse.ArgumentParser(description="Visual validation with Qwen VL (3-skill architecture)")
     parser.add_argument("--shape", default="star", help="Shape to draw and validate")
     parser.add_argument("--color", default="red", help="Color of the shape")
     parser.add_argument("--description", default=None,
@@ -246,16 +265,20 @@ def main():
     parser.add_argument("--demo", action="store_true",
                         help="Run demo with multiple scenarios")
     parser.add_argument("--headless", action="store_true")
+    parser.add_argument("--no-vision", action="store_true", help="Disable Qwen VL")
     parser.add_argument("-v", "--verbose", action="store_true", default=True)
     args = parser.parse_args()
 
+    use_vision = not args.no_vision
+
     if args.demo:
-        asyncio.run(run_demo(headless=args.headless))
+        asyncio.run(run_demo(headless=args.headless, use_vision=use_vision))
         return
 
     if args.screenshot:
         desc = args.description or f"{args.color} {args.shape}"
-        asyncio.run(validate_screenshot(args.screenshot, desc, verbose=args.verbose))
+        asyncio.run(validate_screenshot(args.screenshot, desc, verbose=args.verbose,
+                                        use_vision=use_vision))
         return
 
     desc = args.description or f"{args.color} {args.shape}"
@@ -266,6 +289,7 @@ def main():
         headless=args.headless,
         correct=args.correct,
         verbose=args.verbose,
+        use_vision=use_vision,
     ))
 
 

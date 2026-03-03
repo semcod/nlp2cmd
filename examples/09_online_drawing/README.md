@@ -229,7 +229,7 @@ python3 run.py --pattern grid --color green --headless
 **New way (recommended):**
 ```bash
 ./run.sh draw "narysuj dom z czerwonym dachem"
-./run.sh draw "draw a blue star" --target jspaint
+./run.sh draw "draw a blue star"
 ./run.sh 03_adaptive --query "purple butterfly"
 ```
 
@@ -238,6 +238,10 @@ python3 run.py --pattern grid --color green --headless
 cd 03_adaptive
 python3 run.py --query "narysuj dom z czerwonym dachem"
 python3 run.py --query "draw a blue star" --target jspaint
+python3 run.py --query "draw a green triangle" --target kleki
+
+# Available targets: jspaint, excalidraw, kleki, draw.chat
+python3 run.py --query "draw a star" --headless --no-vision
 ```
 
 ### 04 — Object Database: Multi-Object Scenes with DB + LLM
@@ -255,6 +259,7 @@ cd 04_object_database
 python3 run.py --objects "car, tree, house, cloud"
 python3 run.py --scene "forest with trees, birds, sun"
 python3 run.py --show-database
+python3 run.py --headless --no-vision
 ```
 
 ### 05 — Autonomous: Full Pipeline (Fetch → Draw → Validate → Correct)
@@ -276,6 +281,10 @@ python3 run.py "draw a castle with a dragon"
 python3 run.py --list-shapes          # 33 built-in shapes
 python3 run.py --list-fetchable       # 44 database-mapped objects
 python3 run.py --fetch-only butterfly
+
+# Skip vision validation / headless
+python3 run.py "draw a star" --no-vision --headless
+python3 run.py "narysuj zamek" --headless --max-iterations 5
 ```
 
 ### 06 — Visual Validator: Vision LLM Drawing Verification
@@ -318,6 +327,27 @@ python3 run.py --draw                 # draw all on jspaint.app
 python3 run.py --category animals     # filter by category
 ```
 
+### 08 — Search Demo: Open Source Internet Search
+
+**New way (recommended):**
+```bash
+./run.sh 08_search_demo "Python best practices"
+./run.sh 08_search_demo "machine learning tutorial" --max-results 5
+./run.sh 08_search_demo --summarize "climate change solutions"
+
+# Or use the quick search command:
+nlp2cmd examples search "Python Playwright"
+nlp2cmd examples search "open source AI" --max-results 10
+```
+
+**Traditional way:**
+```bash
+cd 08_search_demo
+python3 run.py "Python best practices"
+python3 run.py "machine learning tutorial" --max-results 5
+python3 run.py --summarize "climate change solutions"
+```
+
 ## Folder Structure
 
 ```
@@ -354,12 +384,16 @@ python3 run.py --category animals     # filter by category
 │   ├── README.md
 │   ├── logs/
 │   └── screenshots/
-└── 07_shape_gallery/          Shape library preview
+├── 07_shape_gallery/          Shape library preview
+│   ├── run.py
+│   ├── README.md
+│   ├── gallery/               SVG + HTML output
+│   ├── logs/
+│   └── screenshots/
+└── 08_search_demo/            Open source internet search
     ├── run.py
     ├── README.md
-    ├── gallery/               SVG + HTML output
-    ├── logs/
-    └── screenshots/
+    └── logs/
 ```
 
 ## Architecture

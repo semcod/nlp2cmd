@@ -1,0 +1,104 @@
+{
+  "example": "02_picsart",
+  "platform": {
+    "os": "Linux",
+    "os_version": "#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026",
+    "arch": "x86_64",
+    "python": "3.13.7",
+    "hostname": "nvidia"
+  },
+  "started": "2026-03-03T16:10:11.526335+00:00",
+  "duration_s": 10.098,
+  "entries": [
+    {
+      "time": "2026-03-03T16:10:11.526335+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "=== 02_picsart ==="
+    },
+    {
+      "time": "2026-03-03T16:10:11.526443+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Platform: {\"os\": \"Linux\", \"os_version\": \"#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026\", \"arch\": \"x86_64\", \"python\": \"3.13.7\", \"hostname\": \"nvidia\"}"
+    },
+    {
+      "time": "2026-03-03T16:10:11.526480+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Headless: True"
+    },
+    {
+      "time": "2026-03-03T16:10:11.979542+00:00",
+      "elapsed_s": 0.454,
+      "level": "SUCCESS",
+      "message": "Browser ready"
+    },
+    {
+      "time": "2026-03-03T16:10:11.979602+00:00",
+      "elapsed_s": 0.454,
+      "level": "STEP",
+      "message": "[1] DrawNavigationSkill: navigating to canvas..."
+    },
+    {
+      "time": "2026-03-03T16:10:18.323438+00:00",
+      "elapsed_s": 6.797,
+      "level": "SUCCESS",
+      "message": "Canvas ready: 1009x900 at https://kleki.com/"
+    },
+    {
+      "time": "2026-03-03T16:10:18.323504+00:00",
+      "elapsed_s": 6.797,
+      "level": "STEP",
+      "message": "[2] DrawObjectSkill: drawing spiral (spiral) in blue..."
+    },
+    {
+      "time": "2026-03-03T16:10:21.452615+00:00",
+      "elapsed_s": 9.927,
+      "level": "SUCCESS",
+      "message": "Drawn: spiral from registry (3129ms)"
+    },
+    {
+      "time": "2026-03-03T16:10:21.452687+00:00",
+      "elapsed_s": 9.927,
+      "level": "STEP",
+      "message": "[3] DrawValidationSkill: validating pattern..."
+    },
+    {
+      "time": "2026-03-03T16:10:21.511220+00:00",
+      "elapsed_s": 9.985,
+      "level": "INFO",
+      "message": "  Validation: 0/1 done (0%), 1 remaining, 0 need fixing"
+    },
+    {
+      "time": "2026-03-03T16:10:21.511269+00:00",
+      "elapsed_s": 9.985,
+      "level": "STEP",
+      "message": "[4] Saving screenshot and session..."
+    },
+    {
+      "time": "2026-03-03T16:10:21.585447+00:00",
+      "elapsed_s": 10.059,
+      "level": "SUCCESS",
+      "message": "Screenshot saved: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/02_picsart/screenshots/picsart_spiral_blue.png"
+    },
+    {
+      "time": "2026-03-03T16:10:21.588146+00:00",
+      "elapsed_s": 10.062,
+      "level": "INFO",
+      "message": "Session: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/02_picsart/screenshots/picsart_spiral_blue_session.json (2 events)"
+    },
+    {
+      "time": "2026-03-03T16:10:21.588239+00:00",
+      "elapsed_s": 10.062,
+      "level": "SUCCESS",
+      "message": "Done! Pattern: spiral, Color: blue, Shapes: 1, Progress: 0/1 done (0%), 1 remaining, 0 need fixing"
+    }
+  ],
+  "summary": {
+    "total": 14,
+    "errors": 0,
+    "warnings": 0,
+    "successes": 5
+  }
+}

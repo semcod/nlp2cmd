@@ -144,6 +144,9 @@ run_example() {
                 "07_shape_gallery"|"07_gallery")
                     script_path="$EXAMPLES_DIR/09_online_drawing/07_shape_gallery/run.py"
                     ;;
+                "08_search_demo"|"08_search"|"search")
+                    script_path="$EXAMPLES_DIR/09_online_drawing/08_search_demo/run.py"
+                    ;;
                 *)
                     print_error "Unknown example: $example"
                     return 1
@@ -210,7 +213,8 @@ list_examples() {
     echo "  ├── 04_object_database    - Database + LLM object generation"
     echo "  ├── 05_autonomous_drawing - Full pipeline: fetch→draw→validate→correct"
     echo "  ├── 06_visual_validator   - Vision LLM drawing verification"
-    echo "  └── 07_shape_gallery      - Preview all 33+ built-in shapes"
+    echo "  ├── 07_shape_gallery      - Preview all 33+ built-in shapes"
+    echo "  └── 08_search_demo        - Open source internet search"
     echo
     echo "💻 10_online_code_editors/"
     echo "  ├── 01_codepen_live        - Write code on CodePen"

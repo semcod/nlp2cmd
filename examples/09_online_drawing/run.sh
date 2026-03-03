@@ -56,6 +56,7 @@ Available Examples:
   05_autonomous        - Full autonomous pipeline
   06_visual_validator  - Vision-based validation
   07_shape_gallery     - Browse all shapes
+  08_search_demo       - Open source internet search
 
 For more info: nlp2cmd examples --help
 
@@ -165,6 +166,11 @@ main() {
         07_shape_gallery|07)
             echo -e "${CYAN}Running: Shape Gallery${NC}"
             Nlp2cmd examples run 07_shape_gallery "$@"
+            ;;
+        
+        08_search_demo|08|search)
+            echo -e "${CYAN}Running: Search Demo${NC}"
+            Nlp2cmd examples run 08_search_demo "$@"
             ;;
         
         metrics)
