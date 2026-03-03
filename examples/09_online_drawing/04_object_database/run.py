@@ -37,6 +37,7 @@ from nlp2cmd.skills.drawing import (
     DrawingSkill, DrawNavigationSkill, DrawObjectSkill,
     DrawValidationSkill, TaskPlan,
     ObjectFetcher, ShapeRegistry,
+    Gemini3ProShapeGenerator,  # LLM fallback
 )
 from nlp2cmd.skills.drawing.renderers.playwright import PlaywrightRenderer
 
@@ -49,6 +50,7 @@ OBJECT_COLORS = {
     "mountain": "#696969", "boat": "#4682B4", "fish": "#FF6347",
     "cat": "#333333", "butterfly": "#9932CC", "rocket": "#FF4500",
     "castle": "#A0522D", "diamond": "#00CED1", "arrow": "#2F4F4F",
+    "submarine": "#DC143C",  # Red submarine
 }
 
 
