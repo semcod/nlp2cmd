@@ -44,6 +44,13 @@ from nlp2cmd.schemas import SchemaRegistry, FileFormatSchema
 from nlp2cmd.feedback import FeedbackAnalyzer, FeedbackResult, FeedbackType
 from nlp2cmd.environment import EnvironmentAnalyzer
 from nlp2cmd.validators import BaseValidator
+from nlp2cmd.evolutionary_orchestrator import (
+    EvolutionaryRecoveryEngine,
+    AutonomousExampleRunner,
+    RecoveryStrategy,
+    ExecutionMetrics,
+    RecoveryAttempt,
+)
 
 # New components (LLM as Planner architecture)
 from nlp2cmd.router import (
@@ -144,4 +151,10 @@ __all__ = [
     "ResultAggregator",
     "AggregatedResult",
     "OutputFormat",
+    # Evolutionary Orchestrator (new)
+    "EvolutionaryRecoveryEngine",
+    "AutonomousExampleRunner",
+    "RecoveryStrategy",
+    "ExecutionMetrics",
+    "RecoveryAttempt",
 ]

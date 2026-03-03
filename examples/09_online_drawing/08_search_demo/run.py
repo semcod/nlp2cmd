@@ -67,8 +67,10 @@ async def search_demo(query: str, max_results: int = 5, summarize: bool = False)
 
 def main():
     parser = argparse.ArgumentParser(description="Open Source Search Engine Demo")
-    parser.add_argument("query", nargs="?", default="Python programming",
-                        help="Search query")
+    parser.add_argument("query", nargs="*", default=None,
+                        help="Search query (positional)")
+    parser.add_argument("--query", dest="query_flag", default=None,
+                        help="Search query (flag form)")
     parser.add_argument("--max-results", type=int, default=5,
                         help="Maximum results (default: 5)")
     parser.add_argument("--summarize", action="store_true",
@@ -78,8 +80,16 @@ def main():
     
     args = parser.parse_args()
     
+    # Accept query from either positional args or --query flag
+    if args.query_flag:
+        query = args.query_flag
+    elif args.query:
+        query = " ".join(args.query)
+    else:
+        query = "Python programming"
+    
     asyncio.run(search_demo(
-        query=args.query,
+        query=query,
         max_results=args.max_results,
         summarize=args.summarize,
     ))

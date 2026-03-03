@@ -439,6 +439,7 @@ Design a creative workaround to complete the task.
         
         result = None
         success = False
+        seen_errors: set[str] = set()
         
         for attempt in range(max_attempts):
             metrics.attempts = attempt + 1
@@ -457,23 +458,33 @@ Design a creative workaround to complete the task.
                 metrics.error_type = error_type
                 metrics.error_message = error_msg
                 
-                self._print(f"   ✗ Error: {error_type}: {error_msg}", "red")
+                # Truncate long errors for display
+                display_msg = error_msg[:300] + "..." if len(error_msg) > 300 else error_msg
+                self._print(f"   ✗ Error: {error_type}: {display_msg}", "red")
                 
-                # Determine available strategies
+                # Early exit: if same error repeats, stop retrying
+                error_key = f"{error_type}:{error_msg[:100]}"
+                if error_key in seen_errors:
+                    self._print(f"   ⛔ Same error repeated — stopping retries", "yellow")
+                    break
+                seen_errors.add(error_key)
+                
+                # Determine available strategies (fast, no LLM)
                 available = self._get_available_strategies(error_type, context)
                 
-                # Consult LLM for strategy selection
-                strategy, reasoning = await self.consult_llm_for_strategy(
-                    error_type,
-                    error_msg,
-                    context,
-                    available,
-                )
+                # Use learned patterns first (fast), only consult LLM on 3rd+ attempt
+                if attempt < 2:
+                    strategy, reasoning = self._select_from_learned_patterns(
+                        error_type, available
+                    )
+                else:
+                    strategy, reasoning = await self.consult_llm_for_strategy(
+                        error_type, error_msg, context, available,
+                    )
                 
                 # Execute recovery
                 recovery_success, new_context = await self.execute_recovery(
-                    strategy,
-                    context,
+                    strategy, context,
                 )
                 
                 # Record attempt
@@ -481,47 +492,20 @@ Design a creative workaround to complete the task.
                     timestamp=time.time(),
                     strategy=strategy,
                     context=context.copy(),
-                    llm_consulted=True,
+                    llm_consulted=(attempt >= 2),
                     llm_advice=reasoning,
                     success=recovery_success,
                 )
                 metrics.recovery_attempts.append(attempt_record)
+                metrics.recovery_count = len(metrics.recovery_attempts)
                 
                 if recovery_success:
-                    self._print(f"   ✓ Recovery successful, retrying...", "green")
+                    self._print(f"   ✓ Recovery ({strategy.value}), retrying...", "green")
                     context.update(new_context)
                 else:
-                    self._print(f"   ⚠ Recovery failed, trying next strategy...", "yellow")
-                    
-                    # Try fallback strategies
-                    for fallback in available[1:]:
-                        self._print(f"   Trying fallback: {fallback.value}", "cyan")
-                        recovery_success, new_context = await self.execute_recovery(
-                            fallback,
-                            context,
-                        )
-                        if recovery_success:
-                            context.update(new_context)
-                            break
-                    
-                    if not recovery_success:
-                        # Last resort: ask LLM for creative workaround
-                        self._print(f"   🆘 All strategies failed, consulting LLM for workaround...", "magenta")
-                        await self._recover_consult_llm(context)
-                        # Continue anyway with modified context
-                        context["force_continue"] = True
-                        break
+                    self._print(f"   ⚠ Recovery ({strategy.value}) failed", "yellow")
         
         metrics.end_time = time.time()
-        
-        if not success and context.get("force_continue"):
-            self._print(f"\n⚠ Continuing with best-effort (forced)", "yellow")
-            try:
-                result = await func(context)
-                success = True
-                metrics.success = True
-            except Exception as e:
-                self._print(f"   Final failure: {e}", "red")
         
         # Store execution in history
         self._store_execution_history(metrics)

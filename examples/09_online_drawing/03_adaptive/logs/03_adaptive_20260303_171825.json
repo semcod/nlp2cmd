@@ -1,0 +1,122 @@
+{
+  "example": "03_adaptive",
+  "platform": {
+    "os": "Linux",
+    "os_version": "#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026",
+    "arch": "x86_64",
+    "python": "3.13.7",
+    "hostname": "nvidia"
+  },
+  "started": "2026-03-03T16:18:25.431348+00:00",
+  "duration_s": 9.864,
+  "entries": [
+    {
+      "time": "2026-03-03T16:18:25.431348+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "=== 03_adaptive ==="
+    },
+    {
+      "time": "2026-03-03T16:18:25.431469+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Platform: {\"os\": \"Linux\", \"os_version\": \"#14-Ubuntu SMP PREEMPT_DYNAMIC Fri Jan  9 17:01:16 UTC 2026\", \"arch\": \"x86_64\", \"python\": \"3.13.7\", \"hostname\": \"nvidia\"}"
+    },
+    {
+      "time": "2026-03-03T16:18:25.431507+00:00",
+      "elapsed_s": 0.0,
+      "level": "INFO",
+      "message": "Headless: True"
+    },
+    {
+      "time": "2026-03-03T16:18:26.035719+00:00",
+      "elapsed_s": 0.605,
+      "level": "SUCCESS",
+      "message": "Browser ready"
+    },
+    {
+      "time": "2026-03-03T16:18:26.041924+00:00",
+      "elapsed_s": 0.611,
+      "level": "STEP",
+      "message": "[1] NL parsing: shape=star, color=#FF0000"
+    },
+    {
+      "time": "2026-03-03T16:18:26.042007+00:00",
+      "elapsed_s": 0.611,
+      "level": "INFO",
+      "message": "Query: red star"
+    },
+    {
+      "time": "2026-03-03T16:18:26.042046+00:00",
+      "elapsed_s": 0.611,
+      "level": "INFO",
+      "message": "Target: jspaint"
+    },
+    {
+      "time": "2026-03-03T16:18:26.042203+00:00",
+      "elapsed_s": 0.611,
+      "level": "STEP",
+      "message": "[2] DrawNavigationSkill: navigating to jspaint..."
+    },
+    {
+      "time": "2026-03-03T16:18:33.933140+00:00",
+      "elapsed_s": 8.502,
+      "level": "SUCCESS",
+      "message": "Canvas ready: 683x384 at https://jspaint.app/#local:ab07a190eb8b28"
+    },
+    {
+      "time": "2026-03-03T16:18:33.933473+00:00",
+      "elapsed_s": 8.502,
+      "level": "STEP",
+      "message": "[3] DrawObjectSkill: drawing star in #FF0000..."
+    },
+    {
+      "time": "2026-03-03T16:18:35.021894+00:00",
+      "elapsed_s": 9.591,
+      "level": "SUCCESS",
+      "message": "Drawn: star from registry (1087ms)"
+    },
+    {
+      "time": "2026-03-03T16:18:35.022498+00:00",
+      "elapsed_s": 9.591,
+      "level": "STEP",
+      "message": "[4] DrawValidationSkill: validating result..."
+    },
+    {
+      "time": "2026-03-03T16:18:35.090307+00:00",
+      "elapsed_s": 9.659,
+      "level": "INFO",
+      "message": "  Validation: 0/1 done (0%), 1 remaining, 0 need fixing"
+    },
+    {
+      "time": "2026-03-03T16:18:35.090669+00:00",
+      "elapsed_s": 9.66,
+      "level": "STEP",
+      "message": "[5] Saving screenshot and session..."
+    },
+    {
+      "time": "2026-03-03T16:18:35.175393+00:00",
+      "elapsed_s": 9.744,
+      "level": "SUCCESS",
+      "message": "Screenshot saved: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/03_adaptive/screenshots/adaptive_star_FF0000_jspaint.png"
+    },
+    {
+      "time": "2026-03-03T16:18:35.180445+00:00",
+      "elapsed_s": 9.749,
+      "level": "INFO",
+      "message": "Session: /home/tom/github/wronai/nlp2cmd/examples/09_online_drawing/03_adaptive/screenshots/adaptive_star_session.json (2 events)"
+    },
+    {
+      "time": "2026-03-03T16:18:35.180624+00:00",
+      "elapsed_s": 9.75,
+      "level": "SUCCESS",
+      "message": "Done! Shape: star, Color: #FF0000, Target: jspaint, Shapes: 1, Progress: 0/1 done (0%), 1 remaining, 0 need fixing"
+    }
+  ],
+  "summary": {
+    "total": 17,
+    "errors": 0,
+    "warnings": 0,
+    "successes": 5
+  }
+}

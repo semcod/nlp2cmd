@@ -16,8 +16,25 @@ Usage:
         print(f"  {r.snippet}")
 """
 
-from nlp2cmd.skills.search.engine import SearchEngine, SearchResult, SearchConfig
-from nlp2cmd.skills.search.skill import SearchSkill
+# Lazy imports — aiohttp and bs4 are optional dependencies.
+# Eagerly importing engine.py would cause ModuleNotFoundError
+# for every nlp2cmd import if aiohttp/bs4 aren't installed.
+
+_EXPORTS = {
+    "SearchEngine": "nlp2cmd.skills.search.engine",
+    "SearchResult": "nlp2cmd.skills.search.engine",
+    "SearchConfig": "nlp2cmd.skills.search.engine",
+    "SearchSkill": "nlp2cmd.skills.search.skill",
+}
+
+
+def __getattr__(name: str):
+    if name in _EXPORTS:
+        import importlib
+        module = importlib.import_module(_EXPORTS[name])
+        return getattr(module, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = [
     "SearchEngine",

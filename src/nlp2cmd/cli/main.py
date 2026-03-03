@@ -738,10 +738,16 @@ def cli_entry_point():
     # Check if --query flag is already present
     has_query_flag = '--query' in args or '-q' in args
     
-    if ((len(args) >= 2 and has_text_with_spaces and
+    # Skip rewriting when first arg is a known subcommand — subcommands handle
+    # their own positional arguments (e.g. "examples autonomous 'draw a star'")
+    _KNOWN_SUBCOMMANDS = {"examples", "doctor", "web-schema", "history", "cache", "service"}
+    is_subcommand = args and args[0] in _KNOWN_SUBCOMMANDS
+    
+    if (not is_subcommand and
+        ((len(args) >= 2 and has_text_with_spaces and
         not any(arg.startswith('-') and '=' in arg for arg in args) and  # Avoid flags with values
         not has_query_flag) or  # Don't process if --query is already there
-        is_single_query):
+        is_single_query)):
         
         # Parse and rewrite args
         text_parts = []

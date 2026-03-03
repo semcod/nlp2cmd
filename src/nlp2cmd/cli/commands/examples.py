@@ -458,8 +458,8 @@ try:
     def cmd_draw(ctx, description: str, target: str, headless: bool, verbose: bool, extra_args: tuple):
         """Quick draw command: nlp2cmd examples draw 'red star'."""
         runner: ExamplesRunner = ctx.obj["runner"]
-        # Build args: description first, then any extra args passed through
-        args = [description] + list(extra_args)
+        # 03_adaptive requires --query flag
+        args = ["--query", description, "--target", target] + list(extra_args)
         success = runner.run_scenario(
             "03_adaptive",
             args=args,
@@ -477,7 +477,7 @@ try:
     def cmd_autonomous(ctx, description: str, headless: bool, verbose: bool, extra_args: tuple):
         """Run autonomous drawing pipeline."""
         runner: ExamplesRunner = ctx.obj["runner"]
-        # Pass description and any extra args through
+        # 05_autonomous takes description as positional arg
         args = [description] + list(extra_args)
         success = runner.run_scenario(
             "05_autonomous",

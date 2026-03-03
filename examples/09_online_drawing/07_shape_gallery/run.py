@@ -307,6 +307,7 @@ async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False
         renderer = PlaywrightRenderer(page)
 
         drawer = DrawObjectSkill(renderer=renderer, skill=skill, use_vision=False)
+        drawer._page = page
         objects = [(name, colors[i % len(colors)]) for i, name in enumerate(all_shapes)]
 
         scene = await drawer.draw_scene(
@@ -318,18 +319,21 @@ async def draw_on_canvas(shapes: list[str] | None = None, headless: bool = False
         print(f"   Result: {scene.objects_drawn}/{len(all_shapes)} drawn, "
               f"{scene.objects_failed} failed ({scene.total_time_ms:.0f}ms)")
 
-        await page.wait_for_timeout(1000)
-
-        # Screenshot
-        path = str(_HERE / "screenshots" / "shape_gallery.png")
-        await renderer.screenshot(path)
-        print(f"   Screenshot: {path}")
+        # Screenshot + wait — wrapped in try/except because drawing
+        # many shapes can cause the page to crash (TargetClosedError)
+        try:
+            await page.wait_for_timeout(1000)
+            path = str(_HERE / "screenshots" / "shape_gallery.png")
+            await renderer.screenshot(path)
+            print(f"   Screenshot: {path}")
+        except Exception as e:
+            print(f"   ⚠ Post-draw error (page may have crashed): {e}")
 
         if not headless:
             print("   Browser open. Press Ctrl+C to close.")
             try:
                 await asyncio.sleep(30)
-            except (KeyboardInterrupt, asyncio.CancelledError):
+            except (KeyboardInterrupt, asyncio.CancelledError, Exception):
                 pass
 
         await browser.close()
