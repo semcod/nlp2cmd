@@ -112,6 +112,29 @@ LLM_REPAIR_MODEL=qwen/qwen-2.5-coder-32b-instruct
 
 Test suite: `python3 examples/08_llm_validation/test_validator.py` — 15 test cases, 100% accuracy with `qwen2.5:3b`.
 
+### LLM Router — Multi-Model Routing
+
+Smart routing across multiple LLM providers with automatic fallbacks: **paid remote → free remote → local Ollama**.
+
+```
+User prompt → classify_task() → LiteLLM Router
+                                  ├── Remote (paid)   — Gemini 2.5 Pro, Qwen2.5-Coder-32B
+                                  ├── Remote (free)   — Qwen2.5-VL-7B, Arcee Trinity
+                                  └── Local (Ollama)  — qwen2.5:7b, qwen2.5-coder:7b, bielik
+```
+
+8 task specializations: **vision**, **coding**, **text**, **polish**, **repair**, **validation**, **fast**, **planning** — each with dedicated model chains. Even with zero API credits, all tasks work via local models.
+
+```python
+from nlp2cmd.llm.router import get_router
+
+router = get_router()
+resp = await router.auto_completion("napisz zapytanie SQL dla tabeli users")
+# → task=coding, model=qwen2.5-coder, content="SELECT * FROM users;"
+```
+
+Full configuration guide: [Config README](config/README.md)
+
 ### Declarative Feedback Loop (Browser Automation)
 
 Complex multi-step browser automation uses a **schema-driven feedback loop** — each step is validated, failures are classified, and repairs are escalated until a solution is found.
@@ -322,6 +345,7 @@ pytest --cov=nlp2cmd --cov-report=html  # With coverage
 | [Web Schema Guide](docs/WEB_SCHEMA_GUIDE.md) | Browser automation |
 | [Cache Management](docs/CACHE_MANAGEMENT.md) | Caching system |
 | [Desktop Automation](docs/DESKTOP_GUI_AUTOMATION.md) | Desktop GUI control |
+| [LLM Router Config](config/README.md) | Multi-model routing, fallbacks, specialization |
 | [Canvas Drawing](docs/CANVAS_DRAWING.md) | jspaint.app drawing |
 | [Firefox Sessions](docs/FIREFOX_SESSION_INJECTION.md) | Session injection |
 | [Evolutionary Cache](docs/EVOLUTIONARY_CACHE.md) | Self-learning cache |

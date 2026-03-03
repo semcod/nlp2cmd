@@ -14,6 +14,8 @@ from nlp2cmd.llm.openrouter import OpenRouterClient
 from nlp2cmd.llm.vision import VisionAnalyzer
 from nlp2cmd.llm.validator import LLMValidator, ValidationVerdict
 from nlp2cmd.llm.repair import LLMRepair, RepairResult
+from nlp2cmd.llm.router import LLMRouter, RouterResponse, get_router, reset_router, classify_task
+from nlp2cmd.llm.adaptive_learner import AdaptiveLearner, classify_error, ErrorPattern
 
 __all__ = [
     "OpenRouterClient",
@@ -22,4 +24,12 @@ __all__ = [
     "ValidationVerdict",
     "LLMRepair",
     "RepairResult",
+    "LLMRouter",
+    "RouterResponse",
+    "get_router",
+    "reset_router",
+    "classify_task",
+    "AdaptiveLearner",
+    "classify_error",
+    "ErrorPattern",
 ]

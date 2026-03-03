@@ -1,0 +1,440 @@
+# =============================================================================
+# NLP2CMD — LiteLLM Router Configuration
+# =============================================================================
+# Multi-model routing with fallbacks, specialization, and priority.
+#
+# Strategy: paid remote → free remote → local Ollama
+# Specialization: vision, coding, text, polish, repair, validation, fast
+#
+# Usage:
+#   from nlp2cmd.llm.router import LLMRouter
+#   router = LLMRouter()  # auto-loads this config
+#   resp = await router.completion("Describe this image", task="vision")
+#
+# Or standalone LiteLLM proxy:
+#   litellm --config config/litellm_config.yaml
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Model deployments — each model_name can have multiple deployments (fallbacks)
+# ---------------------------------------------------------------------------
+model_list:
+
+  # ===================== VISION MODELS =====================
+  - model_name: vision
+    litellm_params:
+      model: openrouter/google/gemini-2.5-pro-preview
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 4096
+      rpm: 10
+      tpm: 100000
+    model_info:
+      description: "Best vision model — Google Gemini 2.5 Pro (paid, remote)"
+      supports_vision: true
+      priority: 1
+
+  - model_name: vision
+    litellm_params:
+      model: openrouter/qwen/qwen-2.5-vl-7b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 4096
+      rpm: 5
+      tpm: 50000
+    model_info:
+      description: "Qwen2.5-VL-7B — free vision via OpenRouter"
+      supports_vision: true
+      priority: 2
+
+  - model_name: vision
+    litellm_params:
+      model: ollama/qwen2.5vl:7b
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-VL-7B — local Ollama fallback"
+      supports_vision: true
+      priority: 3
+
+  - model_name: vision
+    litellm_params:
+      model: ollama/llama3.2-vision:11b
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Llama 3.2 Vision 11B — local Ollama fallback"
+      supports_vision: true
+      priority: 4
+
+  - model_name: vision
+    litellm_params:
+      model: ollama/llava:7b
+      api_base: http://localhost:11434
+      max_tokens: 2048
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "LLaVA 7B — lightweight local vision fallback"
+      supports_vision: true
+      priority: 5
+
+  # ===================== CODING MODELS =====================
+  - model_name: coding
+    litellm_params:
+      model: openrouter/qwen/qwen-2.5-coder-32b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 8192
+      rpm: 10
+      tpm: 100000
+    model_info:
+      description: "Qwen2.5-Coder-32B — best code model (paid, remote)"
+      priority: 1
+
+  - model_name: coding
+    litellm_params:
+      model: openrouter/qwen/qwen-2.5-coder-7b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 4096
+      rpm: 5
+      tpm: 50000
+    model_info:
+      description: "Qwen2.5-Coder-7B — free code model via OpenRouter"
+      priority: 2
+
+  - model_name: coding
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-Coder-7B — local Ollama fallback"
+      priority: 3
+
+  - model_name: coding
+    litellm_params:
+      model: ollama/qwen2.5-coder:3b
+      api_base: http://localhost:11434
+      max_tokens: 2048
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-Coder-3B — fast local fallback"
+      priority: 4
+
+  # ===================== TEXT / GENERAL MODELS =====================
+  - model_name: text
+    litellm_params:
+      model: openrouter/x-ai/grok-code-fast-1
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 8192
+      rpm: 10
+      tpm: 100000
+    model_info:
+      description: "Grok Code Fast — primary text model (paid, remote)"
+      priority: 1
+
+  - model_name: text
+    litellm_params:
+      model: openrouter/arcee-ai/trinity-large-preview:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 4096
+      rpm: 5
+      tpm: 50000
+    model_info:
+      description: "Arcee Trinity — free text model via OpenRouter"
+      priority: 2
+
+  - model_name: text
+    litellm_params:
+      model: ollama/qwen2.5:7b
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-7B — local Ollama fallback"
+      priority: 3
+
+  - model_name: text
+    litellm_params:
+      model: ollama/qwen2.5:3b
+      api_base: http://localhost:11434
+      max_tokens: 2048
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-3B — fast local fallback"
+      priority: 4
+
+  # ===================== POLISH LANGUAGE MODELS =====================
+  - model_name: polish
+    litellm_params:
+      model: openrouter/x-ai/grok-code-fast-1
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 4096
+      rpm: 10
+      tpm: 100000
+    model_info:
+      description: "Grok — good at Polish via remote"
+      priority: 1
+
+  - model_name: polish
+    litellm_params:
+      model: ollama/SpeakLeash/bielik-11b-v2.3-instruct:Q8_0
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Bielik 11B — best Polish model, local Ollama"
+      priority: 2
+
+  - model_name: polish
+    litellm_params:
+      model: ollama/bielik-1.5b:latest
+      api_base: http://localhost:11434
+      max_tokens: 2048
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Bielik 1.5B — fast Polish fallback, local"
+      priority: 3
+
+  # ===================== REPAIR MODELS =====================
+  - model_name: repair
+    litellm_params:
+      model: openrouter/qwen/qwen-2.5-coder-32b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 1500
+      temperature: 0.2
+      rpm: 10
+      tpm: 100000
+    model_info:
+      description: "Qwen2.5-Coder-32B — best repair model (paid)"
+      priority: 1
+
+  - model_name: repair
+    litellm_params:
+      model: openrouter/arcee-ai/trinity-large-preview:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 1500
+      temperature: 0.2
+      rpm: 5
+      tpm: 50000
+    model_info:
+      description: "Arcee Trinity — free repair fallback"
+      priority: 2
+
+  - model_name: repair
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: http://localhost:11434
+      max_tokens: 1500
+      temperature: 0.2
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-Coder-7B — local repair fallback"
+      priority: 3
+
+  # ===================== VALIDATION (local-first) =====================
+  - model_name: validation
+    litellm_params:
+      model: ollama/qwen2.5:3b
+      api_base: http://localhost:11434
+      max_tokens: 512
+      temperature: 0.1
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-3B — fast local validator (primary)"
+      priority: 1
+
+  - model_name: validation
+    litellm_params:
+      model: ollama/qwen2.5:7b
+      api_base: http://localhost:11434
+      max_tokens: 512
+      temperature: 0.1
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-7B — more capable local validator"
+      priority: 2
+
+  # ===================== FAST / LIGHTWEIGHT =====================
+  - model_name: fast
+    litellm_params:
+      model: ollama/qwen2.5:3b
+      api_base: http://localhost:11434
+      max_tokens: 1024
+      temperature: 0.1
+      rpm: 120
+      tpm: 1000000
+    model_info:
+      description: "Qwen2.5-3B — fastest local model"
+      priority: 1
+
+  - model_name: fast
+    litellm_params:
+      model: ollama/deepseek-r1:1.5b
+      api_base: http://localhost:11434
+      max_tokens: 1024
+      temperature: 0.1
+      rpm: 120
+      tpm: 1000000
+    model_info:
+      description: "DeepSeek-R1-1.5B — ultra-fast fallback"
+      priority: 2
+
+  # ===================== PLANNING (complex multi-step) =====================
+  - model_name: planning
+    litellm_params:
+      model: openrouter/google/gemini-2.5-pro-preview
+      api_key: os.environ/OPENROUTER_API_KEY
+      api_base: https://openrouter.ai/api/v1
+      max_tokens: 8192
+      rpm: 10
+      tpm: 100000
+    model_info:
+      description: "Gemini 2.5 Pro — best planner (paid, remote)"
+      priority: 1
+
+  - model_name: planning
+    litellm_params:
+      model: ollama/qwen2.5:14b
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 30
+      tpm: 300000
+    model_info:
+      description: "Qwen2.5-14B — capable local planner"
+      priority: 2
+
+  - model_name: planning
+    litellm_params:
+      model: ollama/qwen2.5:7b
+      api_base: http://localhost:11434
+      max_tokens: 4096
+      rpm: 60
+      tpm: 500000
+    model_info:
+      description: "Qwen2.5-7B — local planner fallback"
+      priority: 3
+
+
+# ---------------------------------------------------------------------------
+# Router settings — how LiteLLM picks between deployments
+# ---------------------------------------------------------------------------
+router_settings:
+  routing_strategy: "latency-based-routing"
+  num_retries: 3
+  retry_after: 0
+  timeout: 60
+  allowed_fails: 2
+  cooldown_time: 30
+
+# ---------------------------------------------------------------------------
+# Fallback chains — if model_name X fails, try Y, then Z
+# ---------------------------------------------------------------------------
+litellm_settings:
+  fallbacks:
+    - vision: ["coding", "text", "fast"]
+    - coding: ["text", "fast"]
+    - text: ["fast"]
+    - repair: ["coding", "text", "fast"]
+    - planning: ["coding", "text", "fast"]
+    - polish: ["text", "fast"]
+  set_verbose: false
+  drop_params: true
+  # Cache settings (optional — uncomment for Redis/in-memory caching)
+  # cache: true
+  # cache_params:
+  #   type: "local"
+  #   ttl: 3600
+
+# ---------------------------------------------------------------------------
+# Semantic auto-routing — classify prompt to specialist model
+# ---------------------------------------------------------------------------
+routes:
+  - route_name: "vision-tasks"
+    utterances:
+      - "describe this image"
+      - "what's in the picture"
+      - "analyze chart"
+      - "analyze screenshot"
+      - "find UI element"
+      - "read text from image"
+      - "solve captcha"
+      - "what do you see"
+      - "opisz zrzut ekranu"
+      - "co jest na obrazku"
+    model: "vision"
+    threshold: 0.75
+
+  - route_name: "coding-tasks"
+    utterances:
+      - "write code"
+      - "generate SQL query"
+      - "docker command"
+      - "kubectl command"
+      - "shell command"
+      - "fix this code"
+      - "debug script"
+      - "napisz kod"
+      - "komenda shell"
+      - "zapytanie SQL"
+    model: "coding"
+    threshold: 0.75
+
+  - route_name: "polish-tasks"
+    utterances:
+      - "przetłumacz na polski"
+      - "odpowiedz po polsku"
+      - "wyjaśnij po polsku"
+      - "pokaż procesy"
+      - "znajdź pliki"
+      - "wyświetl katalogi"
+    model: "polish"
+    threshold: 0.80
+
+  - route_name: "planning-tasks"
+    utterances:
+      - "plan a sequence of actions"
+      - "decompose this task"
+      - "create a multi-step plan"
+      - "zaplanuj kroki"
+      - "rozłóż na etapy"
+    model: "planning"
+    threshold: 0.80
+
+  - route_name: "repair-tasks"
+    utterances:
+      - "fix this command"
+      - "repair the output"
+      - "command failed"
+      - "napraw komendę"
+    model: "repair"
+    threshold: 0.80
+
+  - route_name: "text-general"
+    utterances:
+      - "explain this"
+      - "summarize"
+      - "answer my question"
+    model: "text"
+    threshold: 0.60

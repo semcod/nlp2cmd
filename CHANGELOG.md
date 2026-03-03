@@ -1,3 +1,47 @@
+## [1.2.0] - 2026-03-03
+
+### Summary
+
+feat(llm): LLM Router — multi-model routing with LiteLLM, fallbacks, and task specialization
+
+### Features
+
+- **LLM Router** (`src/nlp2cmd/llm/router.py`, ~950 lines):
+  - Smart routing across multiple LLM providers via LiteLLM Router
+  - 8 task specializations: vision, coding, text, polish, repair, validation, fast, planning
+  - Fallback strategy: paid remote → free remote → local Ollama
+  - Keyword-based task classifier (PL+EN patterns, no embeddings)
+  - Direct HTTP fallback when LiteLLM is not installed
+  - AdaptiveLearner integration (health scoring per model)
+  - Singleton pattern via `get_router()` / `reset_router()`
+  - Stats and health tracking per model deployment
+
+- **LiteLLM Config** (`config/litellm_config.yaml`):
+  - ~30 model deployments across 8 task categories
+  - Latency-based routing strategy with retry/cooldown
+  - Fallback chains: text→fast, coding→text→fast, vision→coding→text→fast
+  - Semantic routes with utterance-based auto-routing
+  - Environment variable resolution (`os.environ/VAR_NAME`)
+
+- **Qwen2.5-VL** — local vision model (`qwen2.5vl:7b`) for image analysis, CAPTCHA, OCR
+
+### Docs
+
+- **config/README.md** — full LLM Router configuration guide (architecture, task table, fallbacks, usage, adding models)
+- **README.md** — added LLM Router section + link to config docs
+
+### Dependencies
+
+- `litellm>=1.50.0` added to `[llm]` and new `[router]` optional-dependency group
+- `httpx>=0.25.0`, `pyyaml>=6.0` in `[router]` extras
+
+### Tests
+
+- 36 unit tests (`tests/unit/test_llm_router.py`) — classifier, config, env resolution, fallbacks, health tracking
+- 11 integration tests (`tests/integration/test_llm_router_live.py`) — live Ollama + OpenRouter + fallback chains
+
+---
+
 ## [1.1.3] - 2026-03-02
 
 ### Summary

@@ -65,6 +65,12 @@ nlp = [
 llm = [
     "anthropic>=0.18",
     "openai>=1.0",
+    "litellm>=1.50.0",
+]
+router = [
+    "litellm>=1.50.0",
+    "httpx>=0.25.0",
+    "pyyaml>=6.0",
 ]
 sql = [
     "sqlparse>=0.4",
@@ -102,7 +108,7 @@ dev = [
     "mkdocstrings[python]>=0.24",
 ]
 all = [
-    "nlp2cmd[nlp,llm,sql,thermodynamic,browser,dev]",
+    "nlp2cmd[nlp,llm,router,sql,thermodynamic,browser,dev]",
 ]
 
 [project.scripts]
