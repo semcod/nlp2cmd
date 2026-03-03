@@ -28,7 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from _verbose_helper import init_verbose, vlog, dump_page_schema, dump_selectors, vlog_decision, ensure_playwright_browsers_async
+from _verbose_helper import init_verbose, vlog, dump_page_schema, dump_selectors, vlog_decision, ensure_playwright_browsers_async, auto_navigate_with_fallback
 
 # Load .env
 try:
@@ -302,7 +302,7 @@ async def main():
         sys.exit(1)
 
     target_urls = {
-        "draw.chat": "https://draw.chat/pl/index.html",
+        "draw.chat": "https://draw.chat/pl/whiteboard.html",
         "jspaint": "https://jspaint.app",
     }
 
@@ -341,8 +341,16 @@ async def main():
         browser = await pw.chromium.launch(headless=args.headless)
         page = await browser.new_page(viewport={"width": 1024, "height": 768})
 
-        url = target_urls[args.target]
-        await page.goto(url, wait_until="domcontentloaded", timeout=30000)
+        # Auto-discover working URL with fallback
+        working_url = await auto_navigate_with_fallback(
+            page, target_urls, args.target,
+            fallback_urls=["https://draw.chat/", "https://draw.chat/pl/", "https://jspaint.app/"],
+            required_selector="canvas"
+        )
+        if not working_url:
+            print("ERROR: Could not find working drawing site")
+            sys.exit(1)
+
         await page.wait_for_timeout(3000)
         vlog(f"Page loaded: {page.url}")
 

@@ -19,8 +19,10 @@ splitter = HierarchicalRepoSplitter(size_limit_kb=256)
 plan = splitter.get_analysis_plan(project_path)
 
 print(f"Analysis plan: {len(plan)} chunks")
+print("Chunks (max ~384KB each with margin):")
 for sp in plan:
-    print(f"  - {sp.name}: {sp.file_count} files (~{sp.estimated_size_kb}KB)")
+    size_info = f"~{sp.estimated_size_kb}KB"
+    print(f"  - {sp.name}: {sp.file_count} files ({size_info})")
 
 # Analyze each subproject
 for i, subproject in enumerate(plan, 1):
@@ -39,8 +41,9 @@ for i, subproject in enumerate(plan, 1):
     )
     
     try:
+        # Analyze only subproject's specific files (not entire directory)
         analyzer = ProjectAnalyzer(config)
-        result = analyzer.analyze_project(str(subproject.path))
+        result = analyzer.analyze_files(subproject.files, str(project_path))
         
         # Export
         ToonExporter().export(result, str(sp_output_dir / 'analysis.toon'))

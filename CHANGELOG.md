@@ -1,3 +1,42 @@
+## [1.1.4] - 2026-03-03
+
+### Summary
+
+fix(docs): code analysis engine
+
+### Core
+
+- update src/nlp2cmd/skills/__init__.py
+- update src/nlp2cmd/skills/drawing/__init__.py
+- update src/nlp2cmd/skills/drawing/colors.py
+- update src/nlp2cmd/skills/drawing/commands.py
+- update src/nlp2cmd/skills/drawing/event_store.py
+- update src/nlp2cmd/skills/drawing/events.py
+- update src/nlp2cmd/skills/drawing/nl_parser.py
+- update src/nlp2cmd/skills/drawing/queries.py
+- update src/nlp2cmd/skills/drawing/renderers/__init__.py
+- update src/nlp2cmd/skills/drawing/renderers/base.py
+- ... and 4 more
+
+### Docs
+
+- docs: update context.md
+
+### Test
+
+- update tests/unit/test_drawing_skill.py
+
+### Other
+
+- update examples/09_online_drawing/01_draw_chat_shapes.py
+- update examples/09_online_drawing/03_adaptive_drawing.py
+- update examples/09_online_drawing/screenshots/adaptive_house_red_jspaint.png
+- update examples/_verbose_helper.py
+- update generate_working.py
+- update project/root/analysis.toon
+- update project/root/evolution.toon
+
+
 ## [1.2.0] - 2026-03-03
 
 ### Summary

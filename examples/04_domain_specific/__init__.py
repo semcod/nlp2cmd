@@ -17,7 +17,7 @@ Każdy moduł demonstruje real-world problemy i ich rozwiązania
 przy użyciu hybrydowego podejścia NLP2CMD.
 """
 
-__version__ = "1.1.3"
+__version__ = "1.1.4"
 __author__ = "NLP2CMD Team"
 
 # Importy dla łatwego dostępu

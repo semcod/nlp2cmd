@@ -1,0 +1,30 @@
+# code2llm | 4f 190L | py:4 | 2026-03-03
+# CC̄=0.0 | critical:0/0 | dups:0 | cycles:0
+
+HEALTH[0]: ok
+
+REFACTOR[0]: none needed
+
+COUPLING: no cross-package imports detected
+
+LAYERS:
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ generate_quick              63L  0C    0m  CC=0.0    ←0
+  │ generate_working            60L  0C    0m  CC=0.0    ←0
+  │ generate_chunks             57L  0C    0m  CC=0.0    ←0
+  │ code2llm_workaround         10L  0C    0m  CC=0.0    ←0
+  │
+
+DUPLICATES[0]: none
+
+FUNCTIONS (CC≥10, 0 of 0): none
+
+HOTSPOTS: none
+
+CLASSES: none
+
+D:
+  generate_chunks.py:
+  code2llm_workaround.py:
+  generate_working.py:
+  generate_quick.py:
