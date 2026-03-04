@@ -1,3 +1,33 @@
+## [1.1.5] - 2026-03-04
+
+### Summary
+
+feat(docs): code analysis engine
+
+### Docs
+
+- docs: update README
+- docs: update context.md
+
+### Config
+
+- config: update goal.yaml
+
+### Other
+
+- update project/analysis.toon
+- update project/batch_1/analysis.toon
+- update project/batch_1/evolution.toon
+- update project/evolution.toon
+- update project/examples/analysis.toon
+- update project/examples/evolution.toon
+- update project/project.toon
+- update project/prompt.txt
+- update project/root/analysis.toon
+- update project/root/evolution.toon
+- ... and 8 more
+
+
 ## [1.1.4] - 2026-03-03
 
 ### Summary
