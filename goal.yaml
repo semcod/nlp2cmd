@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-03-03 14:32:05
+# Generated: 2026-03-04 21:19:00
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -14,7 +14,8 @@
 version: '1.0'
 project:
   name: nlp2cmd
-  type: []
+  type:
+  - python
   description: NLP2CMD - Transforms natural language into domain-specific commands
     (SQL, Shell, Docker, Kubernetes) using a multi-layered detection pipeline and
     thermodynamic optimization.
@@ -22,6 +23,8 @@ versioning:
   strategy: semver
   files:
   - VERSION
+  - pyproject.toml:version
+  - venv/lib/python3.13/site-packages/cryptography/__init__.py:__version__
   bump_rules:
     patch: 10
     minor: 50
