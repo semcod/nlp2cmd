@@ -46,6 +46,13 @@ try:
 except ImportError:
     _BROWSER_TOKEN_AVAILABLE = False
 
+# Import modular browser manager
+try:
+    from nlp2cmd.browser_manager import ExistingBrowserManager, BrowserConfig
+    _BROWSER_MANAGER_AVAILABLE = True
+except ImportError:
+    _BROWSER_MANAGER_AVAILABLE = False
+
 
 class Status(Enum):
     OK = "ok"
@@ -1158,6 +1165,41 @@ def _navigate_and_get_token(page, console: Optional[Console], browser_type: str)
         pass
     
     return None
+
+
+def _try_existing_browser_dispatch(console: Optional[Console] = None) -> Optional[str]:
+    """New existing browser token retrieval using modular ExistingBrowserManager.
+    
+    This is the refactored version that uses the browser_manager package.
+    Falls back to legacy _try_existing_browser if modular version unavailable.
+    """
+    if not _BROWSER_MANAGER_AVAILABLE:
+        return _try_existing_browser(console)
+    
+    try:
+        if console:
+            console.print("[dim]   [Stage 1/3] Using modular browser manager...[/dim]")
+        
+        manager = ExistingBrowserManager()
+        result = manager.connect_and_navigate(verbose=True, console=console)
+        
+        if not result.success:
+            if console and result.error:
+                console.print(f"[dim]     Modular manager failed: {result.error}[/dim]")
+            return _try_existing_browser(console)
+        
+        if result.page:
+            token = manager.get_token_interactive(result, verbose=True, console=console)
+            return token
+        
+        return None
+        
+    except Exception as e:
+        # Fall back to legacy implementation
+        if console:
+            console.print(f"[dim]     Modular manager failed: {e}[/dim]")
+            console.print("[dim]     Falling back to legacy implementation...[/dim]")
+        return _try_existing_browser(console)
 
 
 def _try_playwright_browser_dispatch(console: Optional[Console] = None) -> Optional[str]:
