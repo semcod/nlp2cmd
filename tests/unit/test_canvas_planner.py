@@ -170,30 +170,30 @@ class TestLLMCanvasPlanner:
     def test_parse_response_valid(self):
         """Test parsing valid JSON response."""
         planner = LLMCanvasPlanner()
-        raw = '[{"action": "set_color", "params": {"color": "#FF0000"}}]'
+        raw = '[{"action": "set_color", "params": {"color": "#FF0000"}}, {"action": "draw_circle", "params": {}}]'
         result = planner._parse_response(raw)
         
         assert result is not None
-        assert len(result) == 1
+        assert len(result) == 2
         assert result[0]["action"] == "set_color"
     
     def test_parse_response_with_markdown(self):
         """Test parsing JSON with markdown fences."""
         planner = LLMCanvasPlanner()
-        raw = '```json\n[{"action": "set_color", "params": {}}]\n```'
+        raw = '```json\n[{"action": "set_color", "params": {}}, {"action": "draw", "params": {}}]\n```'
         result = planner._parse_response(raw)
         
         assert result is not None
-        assert len(result) == 1
+        assert len(result) == 2
     
     def test_parse_response_with_trailing_comma(self):
         """Test parsing JSON with trailing commas."""
         planner = LLMCanvasPlanner()
-        raw = '[{"action": "set_color", "params": {"color": "#FF0000"},}]'
+        raw = '[{"action": "set_color", "params": {"color": "#FF0000"},}, {"action": "draw", "params": {},}]'
         result = planner._parse_response(raw)
         
         assert result is not None
-        assert len(result) == 1
+        assert len(result) == 2
     
     def test_parse_response_invalid(self):
         """Test parsing invalid JSON."""
