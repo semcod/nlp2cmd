@@ -247,7 +247,7 @@ class TestTokenExtractor:
         
         # TokenExtractor tries 9 different selectors, each finding the mock
         assert len(result) == 9
-        assert result[0]["text_preview"] == "sk-1234567890ab..."
+        assert result[0]["text_preview"] == "sk-1234567890abcdef..."
         assert result[0]["length"] == "19"
     
     def test_skip_short_tokens(self):
