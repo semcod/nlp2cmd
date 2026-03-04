@@ -41,6 +41,9 @@ from nlp2cmd.adapters.base import SafetyPolicy
 # Import new step handlers for modular dispatch
 from nlp2cmd.step_handlers import StepDispatcher
 
+# Import new plan execution components
+from nlp2cmd.plan_execution import PlanExecutor
+
 
 # Maximum total steps allowed in a plan (including fallback-injected steps)
 _MAX_PLAN_STEPS = int(os.environ.get("NLP2CMD_MAX_PLAN_STEPS", "30"))
@@ -903,6 +906,44 @@ class PlanExecutionMixin:
             success=all(r["status"] not in ("failed", "error", "failed_validation") for r in results_log),
             kind="action_plan",
             data=result_data,
+        )
+
+    def execute_action_plan_dispatch(
+        self,
+        plan,
+        *,
+        dry_run: bool = False,
+        video_fmt: Optional[str] = None,
+        video_dir: Optional[str] = None,
+        confirm: bool = False,
+    ) -> RunnerResult:
+        """Execute an ActionPlan using the modular PlanExecutor (v2).
+        
+        This method uses the PlanExecutor to handle browser setup, step execution,
+        validation, fallback, and retry logic in a modular way.
+        
+        Falls back to legacy execute_action_plan for unhandled cases.
+        
+        Args:
+            plan: ActionPlan instance with steps to execute
+            dry_run: If True, only show the plan without executing
+            video_fmt: Video format for recording
+            video_dir: Directory for video recordings
+            confirm: If True, user has confirmed execution
+            
+        Returns:
+            RunnerResult with execution status and data
+        """
+        # Create executor with same headless setting
+        executor = PlanExecutor(headless=self.headless)
+        
+        # Execute the plan
+        return executor.execute(
+            plan=plan,
+            dry_run=dry_run,
+            video_fmt=video_fmt or self.video_fmt,
+            video_dir=video_dir or self.video_dir,
+            confirm=confirm,
         )
 
     def _execute_plan_step(self, page, context, step, variables: dict) -> Optional[str]:
