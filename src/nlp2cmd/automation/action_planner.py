@@ -38,6 +38,13 @@ except ImportError:
     def get_vector_store(*a, **kw):  # type: ignore[misc]
         return None
 
+# Import new canvas planning orchestrator
+try:
+    from nlp2cmd.canvas_planner import CanvasPlanningOrchestrator
+    _CANVAS_PLANNER_AVAILABLE = True
+except ImportError:
+    _CANVAS_PLANNER_AVAILABLE = False
+
 
 # ---------------------------------------------------------------------------
 # Data classes
@@ -1089,6 +1096,53 @@ class ActionPlanner:
         
         # --- Tier 4: Rule-based generic drawing plan (fallback when LLM unavailable) ---
         return self._generate_rule_based_canvas_plan(query, text, canvas_url)
+
+    def _try_canvas_decomposition_dispatch(self, query: str) -> Optional[ActionPlan]:
+        """New canvas decomposition using modular CanvasPlanningOrchestrator.
+        
+        This is the refactored version that delegates to canvas_planner package.
+        Falls back to legacy _try_canvas_decomposition if orchestrator fails.
+        """
+        if not _CANVAS_PLANNER_AVAILABLE:
+            # Fall back to legacy implementation
+            return self._try_canvas_decomposition(query)
+        
+        text = query.lower()
+        
+        # Check if this is a drawing/canvas query
+        has_draw = any(
+            w in text for w in [
+                "narysuj", "rysuj", "namaluj", "maluj", "naszkicuj",
+                "draw", "paint", "sketch",
+            ]
+        )
+        if not has_draw:
+            return None
+        
+        # Use the orchestrator
+        orchestrator = CanvasPlanningOrchestrator(
+            ollama_url=self.ollama_url,
+            model=self.model,
+        )
+        
+        result = orchestrator.plan(query, text)
+        if not result:
+            # Fall back to legacy implementation
+            return self._try_canvas_decomposition(query)
+        
+        # Convert CanvasPlanResult to ActionPlan
+        action_steps = result.to_action_steps()
+        if not action_steps:
+            # If conversion failed, fall back to legacy
+            return self._try_canvas_decomposition(query)
+        
+        return ActionPlan(
+            query=query,
+            steps=action_steps,
+            confidence=result.confidence,
+            source=result.source,
+            estimated_time_ms=result.estimated_time_ms,
+        )
 
     def _generate_canvas_plan_with_llm(
         self, query: str, text: str,

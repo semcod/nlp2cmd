@@ -75,7 +75,7 @@ class TestCanvasPlannerBase:
     def test_extract_object_name_no_match(self):
         """Test extracting object name when no match."""
         base = CanvasPlannerBase()
-        result = base._extract_object_name("random text without any draw keywords")
+        result = base._extract_object_name("random text without any sketching verbs")
         assert result == "obiekt"
     
     def test_extract_canvas_url(self):
