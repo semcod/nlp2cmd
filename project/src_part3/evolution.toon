@@ -1,0 +1,58 @@
+# code2llm/evolution | 2542 func | 203f | 2026-03-04
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT           nlp2cmd/pipeline_runner_plans.py
+      WHY: 2975L, 1 classes, max CC=346
+      EFFORT: ~4h  IMPACT: 1029350
+
+  [2] !! SPLIT           nlp2cmd/pipeline_runner_browser.py
+      WHY: 1704L, 1 classes, max CC=280
+      EFFORT: ~4h  IMPACT: 477120
+
+  [3] !! SPLIT           nlp2cmd/automation/action_planner.py
+      WHY: 1718L, 3 classes, max CC=25
+      EFFORT: ~4h  IMPACT: 42950
+
+  [4] !! SPLIT-FUNC      PlanExecutionMixin._execute_plan_step  CC=346  fan=118
+      WHY: CC=346 exceeds 15
+      EFFORT: ~1h  IMPACT: 40828
+
+  [5] !! SPLIT-FUNC      BrowserExecutionMixin._run_dom_multi_action  CC=280  fan=108
+      WHY: CC=280 exceeds 15
+      EFFORT: ~1h  IMPACT: 30240
+
+  [6] !! SPLIT-FUNC      PlanExecutionMixin.execute_action_plan  CC=198  fan=78
+      WHY: CC=198 exceeds 15
+      EFFORT: ~1h  IMPACT: 15444
+
+  [7] !! SPLIT-FUNC      handle_run_mode  CC=178  fan=75
+      WHY: CC=178 exceeds 15
+      EFFORT: ~1h  IMPACT: 13350
+
+  [8] !! SPLIT-FUNC      main  CC=71  fan=56
+      WHY: CC=71 exceeds 15
+      EFFORT: ~1h  IMPACT: 3976
+
+  [9] !! SPLIT-FUNC      _execute_multi_step_with_video  CC=64  fan=54
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 3456
+
+  [10] !! SPLIT-FUNC      CanvasAdapter.execute_drawing_plan  CC=60  fan=40
+      WHY: CC=60 exceeds 15
+      EFFORT: ~1h  IMPACT: 2400
+
+
+RISKS[3]:
+  ⚠ Splitting nlp2cmd/pipeline_runner_plans.py may break 8 import paths
+  ⚠ Splitting nlp2cmd/automation/action_planner.py may break 26 import paths
+  ⚠ Splitting nlp2cmd/pipeline_runner_browser.py may break 3 import paths
+
+METRICS-TARGET:
+  CC̄:          5.7 → ≤4.0
+  max-CC:      346 → ≤20
+  god-modules: 63 → 0
+  high-CC(≥15): 172 → ≤86
+  hub-types:   0 → ≤0
+
+HISTORY:
+  prev CC̄=5.7 → now CC̄=5.7

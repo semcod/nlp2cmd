@@ -1,0 +1,3079 @@
+# code2llm | 255f 88879L | py:255 | 2026-03-04
+# CC̄=5.7 | critical:361/2542 | dups:0 | cycles:0
+
+HEALTH[20]:
+  🔴 GOD   nlp2cmd/evolutionary_orchestrator.py = 728L, 5 classes, 26m, max CC=16
+  🔴 GOD   nlp2cmd/automation/feedback_loop.py = 517L, 6 classes, 9m, max CC=29
+  🔴 GOD   nlp2cmd/automation/password_store.py = 908L, 6 classes, 24m, max CC=36
+  🔴 GOD   nlp2cmd/generation/fuzzy_schema_matcher.py = 560L, 4 classes, 23m, max CC=9
+  🔴 GOD   nlp2cmd/generation/thermodynamic.py = 623L, 5 classes, 14m, max CC=24
+  🔴 GOD   nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
+  🔴 GOD   nlp2cmd/llm/adaptive_learner.py = 576L, 4 classes, 21m, max CC=31
+  🔴 GOD   nlp2cmd/registry/__init__.py = 642L, 6 classes, 22m, max CC=15
+  🔴 GOD   nlp2cmd/thermodynamic/__init__.py = 627L, 10 classes, 25m, max CC=12
+  🔴 GOD   nlp2cmd/orchestration/engine.py = 609L, 6 classes, 13m, max CC=19
+  🔴 GOD   nlp2cmd/executor/__init__.py = 678L, 8 classes, 18m, max CC=16
+  🔴 GOD   nlp2cmd/thermodynamic/energy_models.py = 628L, 6 classes, 21m, max CC=9
+  🔴 GOD   nlp2cmd/orchestration/metrics.py = 574L, 7 classes, 27m, max CC=11
+  🔴 GOD   nlp2cmd/environment/__init__.py = 524L, 4 classes, 15m, max CC=15
+  🔴 GOD   nlp2cmd/adapters/canvas.py = 909L, 4 classes, 12m, max CC=60
+  🔴 GOD   nlp2cmd/feedback/__init__.py = 646L, 5 classes, 19m, max CC=41
+  🔴 GOD   nlp2cmd/skills/drawing/object_fetcher.py = 575L, 6 classes, 13m, max CC=41
+  🔴 GOD   nlp2cmd/skills/drawing/correction_engine.py = 510L, 5 classes, 9m, max CC=14
+  🔴 GOD   nlp2cmd/skills/drawing/navigation.py = 632L, 5 classes, 15m, max CC=12
+  🔴 GOD   nlp2cmd/skills/drawing/validation.py = 565L, 5 classes, 14m, max CC=21
+
+REFACTOR[20]:
+  1. split nlp2cmd/evolutionary_orchestrator.py  (god module)
+  2. split nlp2cmd/automation/feedback_loop.py  (god module)
+  3. split nlp2cmd/automation/password_store.py  (god module)
+  4. split nlp2cmd/generation/fuzzy_schema_matcher.py  (god module)
+  5. split nlp2cmd/generation/thermodynamic.py  (god module)
+  6. split nlp2cmd/validators/__init__.py  (god module)
+  7. split nlp2cmd/llm/adaptive_learner.py  (god module)
+  8. split nlp2cmd/registry/__init__.py  (god module)
+  9. split nlp2cmd/thermodynamic/__init__.py  (god module)
+  10. split nlp2cmd/orchestration/engine.py  (god module)
+  11. split nlp2cmd/executor/__init__.py  (god module)
+  12. split nlp2cmd/thermodynamic/energy_models.py  (god module)
+  13. split nlp2cmd/orchestration/metrics.py  (god module)
+  14. split nlp2cmd/environment/__init__.py  (god module)
+  15. split nlp2cmd/adapters/canvas.py  (god module)
+  16. split nlp2cmd/feedback/__init__.py  (god module)
+  17. split nlp2cmd/skills/drawing/object_fetcher.py  (god module)
+  18. split nlp2cmd/skills/drawing/correction_engine.py  (god module)
+  19. split nlp2cmd/skills/drawing/navigation.py  (god module)
+  20. split nlp2cmd/skills/drawing/validation.py  (god module)
+
+COUPLING:
+                                               nlp2cmd                nlp2cmd.cli         nlp2cmd.generation                nlp2cmd.llm         nlp2cmd.web_schema         nlp2cmd.automation             nlp2cmd.skills              nlp2cmd.utils            nlp2cmd.storage           nlp2cmd.adapters        nlp2cmd.intelligent          nlp2cmd.execution  nlp2cmd.schema_extraction        nlp2cmd.dom_actions     nlp2cmd.plan_execution
+                    nlp2cmd                         ──                         33                        ←60                          1                        ←47                          4                        ←59                          6                        ←48                        ←33                        ←31                          1                        ←18                          5                        ←13  hub
+                nlp2cmd.cli                         71                         ──                          1                         ←1                          2                         ←5                         ←2                          5                         ←3                          1                         ←1                          2                         ←2                         ←3                         ←1  hub
+         nlp2cmd.generation                         60                         11                         ──                          1                          9                          5                                                     4                                                                                                          ←3                                                                                   !! fan-out
+                nlp2cmd.llm                         70                          1                         ←1                         ──                                                                               ←7                          1                                                                                                                                     ←1                                                        hub
+         nlp2cmd.web_schema                         47                         17                         ←9                                                    ──                                                                                2                                                                                                          ←1                                                                                   hub
+         nlp2cmd.automation                         56                          5                         ←5                                                                               ──                                                                                                                                                                                                                                                     hub
+             nlp2cmd.skills                         59                          2                                                     7                                                                               ──                                                                                                                                                                                                                          !! fan-out
+              nlp2cmd.utils                         25                         13                         ←4                         ←1                         ←2                                                                               ──                                                                               ←1                                                                                                              hub
+            nlp2cmd.storage                         48                          3                                                                                                                                                                                           ──                                                                                                                                                                    !! fan-out
+           nlp2cmd.adapters                         33                          3                                                                                                                                                                                                                      ──                                                                                                                                         !! fan-out
+        nlp2cmd.intelligent                         31                          1                                                                                                                                                                 1                                                                               ──                                                                                                              !! fan-out
+          nlp2cmd.execution                          6                          6                          3                                                     1                                                                                                                                                                                           ──                                                                                   !! fan-out
+  nlp2cmd.schema_extraction                         18                          2                                                     1                                                                                                                                                                                                                                                 ──                                                        !! fan-out
+        nlp2cmd.dom_actions                          7                          3                                                                                                                                                                                                                                                                                                                                  ──                             hub
+     nlp2cmd.plan_execution                         13                          1                                                                                                                                                                                                                                                                                                                                                             ──  !! fan-out
+  CYCLES: none
+  HUB: nlp2cmd.history/ (fan-in=7)
+  HUB: nlp2cmd.automation/ (fan-in=13)
+  HUB: nlp2cmd.step_handlers/ (fan-in=5)
+  HUB: nlp2cmd.cli/ (fan-in=121)
+  HUB: nlp2cmd.dom_actions/ (fan-in=5)
+  HUB: nlp2cmd.monitoring/ (fan-in=9)
+  HUB: nlp2cmd.web_schema/ (fan-in=12)
+  HUB: nlp2cmd/ (fan-in=573)
+  HUB: nlp2cmd.utils/ (fan-in=19)
+  HUB: nlp2cmd.llm/ (fan-in=11)
+  SMELL: nlp2cmd.generation/ fan-out=90 → split needed
+  SMELL: nlp2cmd.execution/ fan-out=19 → split needed
+  SMELL: nlp2cmd.intelligent/ fan-out=33 → split needed
+  SMELL: nlp2cmd.automation/ fan-out=63 → split needed
+  SMELL: nlp2cmd.step_handlers/ fan-out=9 → split needed
+  SMELL: nlp2cmd.cli/ fan-out=98 → split needed
+  SMELL: nlp2cmd.adapters/ fan-out=36 → split needed
+  SMELL: nlp2cmd.dom_actions/ fan-out=10 → split needed
+  SMELL: nlp2cmd.web_schema/ fan-out=66 → split needed
+  SMELL: nlp2cmd.nlp/ fan-out=10 → split needed
+  SMELL: nlp2cmd.plan_execution/ fan-out=14 → split needed
+  SMELL: nlp2cmd/ fan-out=56 → split needed
+  SMELL: nlp2cmd.utils/ fan-out=38 → split needed
+  SMELL: nlp2cmd.storage/ fan-out=51 → split needed
+  SMELL: nlp2cmd.schema_extraction/ fan-out=21 → split needed
+  SMELL: nlp2cmd.llm/ fan-out=72 → split needed
+  SMELL: nlp2cmd.skills/ fan-out=68 → split needed
+  SMELL: nlp2cmd.core/ fan-out=11 → split needed
+
+LAYERS:
+  app2schema/                     CC̄=12.8   ←in:1  →out:4
+  │ !! extract                    942L  2C   15m  CC=45     ←2
+  │ cli                         83L  0C    1m  CC=3      ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ __main__                     7L  0C    0m  CC=0.0    ←0
+  │
+  nlp2cmd/                        CC̄=5.7    ←in:573  →out:56  !! split
+  │ !! pipeline_runner_plans     2975L  1C    8m  CC=346    ←0
+  │ !! action_planner            1718L  3C   26m  CC=25     ←1
+  │ !! pipeline_runner_browser   1704L  1C    3m  CC=280    ←0
+  │ !! site_explorer             1676L  3C   33m  CC=72     ←2
+  │ !! doctor                    1302L  3C   21m  CC=56     ←3
+  │ !! template_generator        1202L  2C   98m  CC=34     ←0
+  │ !! keyword_detector          1199L  2C   21m  CC=73     ←0
+  │ !! schema_fallback           1145L  3C   16m  CC=48     ←0
+  │ !! evolutionary_cache        1048L  3C   24m  CC=23     ←1
+  │ !! router                     951L  3C   22m  CC=17     ←10
+  │ !! __init__                   909L  2C   43m  CC=26     ←0
+  │ !! canvas                     909L  4C   12m  CC=60     ←0
+  │ !! password_store             908L  6C   24m  CC=36     ←2
+  │ !! regex                      906L  3C   12m  CC=38     ←0
+  │ !! generate                   903L  0C    4m  CC=64     ←1
+  │ !! run                        893L  0C    4m  CC=178    ←1
+  │ !! runner                     826L  3C   10m  CC=54     ←0
+  │ !! form_data_loader           821L  1C   47m  CC=18     ←1
+  │ !! form_handler               787L  3C    9m  CC=37     ←0
+  │ !! main                       787L  0C    8m  CC=71     ←0
+  │ !! shapes                     779L  35C   38m  CC=5      ←4
+  │ !! __init__                   771L  8C   25m  CC=58     ←0
+  │ !! semantic_matcher_optimized   750L  3C   30m  CC=12     ←0
+  │ !! drawing_blueprints         740L  1C   18m  CC=3      ←1
+  │ !! kubernetes                 731L  3C   23m  CC=12     ←0
+  │ !! evolutionary_orchestrator   728L  5C   26m  CC=16     ←0
+  │ !! handlers                   714L  0C   19m  CC=18     ←0
+  │ !! validator                  692L  2C   13m  CC=43     ←0
+  │ !! __init__                   678L  8C   18m  CC=16     ←46
+  │ !! dynamic                    650L  2C   21m  CC=25     ←0
+  │ !! desktop                    649L  3C   21m  CC=31     ←0
+  │ !! __init__                   646L  5C   19m  CC=41     ←0
+  │ !! __init__                   642L  6C   22m  CC=15     ←4
+  │ !! examples                   641L  3C   13m  CC=13     ←47
+  │ !! docker                     635L  3C   19m  CC=14     ←0
+  │ !! navigation                 632L  5C   15m  CC=12     ←0
+  │ !! energy_models              628L  6C   21m  CC=9      ←0
+  │ !! __init__                   627L  10C   25m  CC=12     ←0
+  │ !! thermodynamic              623L  5C   14m  CC=24     ←0
+  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←2
+  │ !! step_orchestrator          611L  2C   12m  CC=16     ←0
+  │ !! engine                     609L  6C   13m  CC=19     ←1
+  │ !! auto_repair                580L  3C   12m  CC=22     ←1
+  │ !! adaptive_learner           576L  4C   21m  CC=31     ←1
+  │ !! object_fetcher             575L  6C   13m  CC=41     ←0
+  │ !! metrics                    574L  7C   27m  CC=11     ←1
+  │ !! enhanced_context           570L  2C   14m  CC=22     ←0
+  │ !! core_transform             568L  1C   22m  CC=19     ←0
+  │ !! validation                 565L  5C   14m  CC=21     ←0
+  │ !! browser                    561L  2C   23m  CC=40     ←1
+  │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←1
+  │ !! pipeline                   546L  1C   15m  CC=54     ←0
+  │ !! interactive                536L  1C    9m  CC=24     ←0
+  │ !! vector_store               534L  2C   15m  CC=8      ←1
+  │ !! captcha_solver             528L  2C   10m  CC=12     ←0
+  │ !! plan_executor              525L  1C   15m  CC=34     ←0
+  │ !! complex_planner            524L  3C   10m  CC=24     ←0
+  │ !! __init__                   524L  4C   15m  CC=15     ←0
+  │ !! browser                    522L  2C   15m  CC=13     ←1
+  │ !! feedback_loop              517L  6C    9m  CC=29     ←3
+  │ !! correction_engine          510L  5C    9m  CC=14     ←0
+  │ !! __init__                   509L  2C   14m  CC=12     ←0
+  │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←57
+  │ !  resource_discovery         489L  3C   10m  CC=11     ←3
+  │ !! sql                        478L  3C   15m  CC=15     ←0
+  │ !  firefox_sessions           472L  1C   11m  CC=14     ←0
+  │ !  engine                     453L  3C   20m  CC=14     ←0
+  │ !! train_model                444L  0C    7m  CC=29     ←0
+  │ !! llm_extractor              443L  1C   11m  CC=15     ←0
+  │ !  env_extractor              439L  2C   11m  CC=13     ←0
+  │ !! thermodynamic_components   438L  4C   11m  CC=38     ←0
+  │ !! dql                        431L  3C   13m  CC=22     ←0
+  │ !  shell                      426L  3C   13m  CC=13     ←0
+  │ !  versioned_store            421L  1C   13m  CC=14     ←0
+  │ !  llm_simple                 420L  10C   19m  CC=13     ←0
+  │ !! python_extractors          420L  2C   11m  CC=30     ←0
+  │ __init__                   419L  3C    7m  CC=6      ←0
+  │ !! toon_parser                418L  3C   22m  CC=28     ←1
+  │ !! command_detector           415L  2C    5m  CC=31     ←0
+  │ !  repair                     413L  2C    7m  CC=13     ←0
+  │ __init__                   410L  4C   11m  CC=8      ←1
+  │ !! session                    405L  3C   10m  CC=30     ←0
+  │ !  visual_validator           402L  4C    8m  CC=12     ←0
+  │ normalizer                 400L  2C   13m  CC=6      ←0
+  │ cache                      400L  0C    9m  CC=9      ←0
+  │ !! extractors                 400L  5C   10m  CC=16     ←1
+  │ !! companies                  396L  1C    8m  CC=21     ←1
+  │ per_command_store          395L  1C   14m  CC=7      ←0
+  │ service_configs            394L  0C    2m  CC=6      ←0
+  │ !  draw_object                393L  4C   11m  CC=12     ←0
+  │ !! pipeline_runner_desktop    389L  1C    7m  CC=44     ←0
+  │ !! extractor                  389L  3C   10m  CC=15     ←1
+  │ !  __init__                   383L  3C   11m  CC=14     ←0
+  │ hybrid                     381L  4C   12m  CC=7      ←0
+  │ !! __init__                   377L  4C   11m  CC=34     ←0
+  │ drawing                    376L  10C   13m  CC=5      ←0
+  │ !! text_to_shape              373L  3C    9m  CC=24     ←0
+  │ structured                 371L  5C    7m  CC=9      ←0
+  │ !  step_validator             370L  3C   18m  CC=11     ←3
+  │ data_loader                370L  3C   28m  CC=5      ←1
+  │ !! semantic_shell             369L  2C   14m  CC=32     ←0
+  │ !! extraction                 362L  7C    9m  CC=24     ←1
+  │ mouse_controller           358L  2C   23m  CC=5      ←0
+  │ !! data_tree                  355L  3C   12m  CC=16     ←0
+  │ !  rtsp_stream                354L  1C   17m  CC=13     ←0
+  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0
+  │ !  history                    349L  2C   15m  CC=12     ←0
+  │ auto_repair                341L  1C   12m  CC=6      ←1
+  │ !! reflection                 338L  3C    9m  CC=29     ←1
+  │ service                    337L  3C   11m  CC=9      ←0
+  │ !  browser_config             331L  2C   23m  CC=14     ←0
+  │ !  tracker                    325L  3C   18m  CC=13     ←3
+  │ !! shell_generators           321L  8C   11m  CC=23     ←0
+  │ !! polish_support             318L  1C   13m  CC=20     ←0
+  │ !! external_cache             316L  1C   13m  CC=16     ←0
+  │ !! core_backends              308L  4C   12m  CC=19     ←0
+  │ !  disk                       308L  2C   14m  CC=12     ←0
+  │ !  helpers                    307L  0C   10m  CC=13     ←1
+  │ !! interaction                299L  10C   10m  CC=19     ←0
+  │ validating                 297L  8C    9m  CC=9      ←0
+  │ !  skill                      290L  1C   18m  CC=11     ←0
+  │ openrouter                 289L  2C    8m  CC=5      ←0
+  │ entity_resolver            288L  2C   17m  CC=7      ←0
+  │ vision                     281L  2C    9m  CC=4      ←0
+  │ !  playwright_installer       281L  0C    6m  CC=10     ←3
+  │ !! script_extractors          279L  2C    6m  CC=30     ←0
+  │ !! schema_driven              276L  2C    8m  CC=41     ←0
+  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0
+  │ history                    267L  0C    6m  CC=9      ←0
+  │ llm_multi                  267L  5C   10m  CC=6      ←0
+  │ commands                   267L  8C   19m  CC=7      ←0
+  │ !  generator                  265L  2C   15m  CC=12     ←0
+  │ !  token_costs                260L  2C   10m  CC=12     ←2
+  │ forms                      252L  1C    8m  CC=6      ←0
+  │ !  web_schema                 249L  0C    5m  CC=14     ←0
+  │ core_models                244L  5C   12m  CC=5      ←0
+  │ !  intent_matcher             241L  3C   10m  CC=12     ←0
+  │ !! shell_executor             235L  1C    6m  CC=17     ←0
+  │ base                       230L  4C   12m  CC=8      ←0
+  │ !! keyword_patterns           227L  1C   15m  CC=33     ←0
+  │ config                     226L  4C   19m  CC=9      ←2
+  │ !  disambiguator              225L  2C    5m  CC=11     ←0
+  │ !! debug_info                 224L  0C    3m  CC=20     ←2
+  │ toon_integration           223L  1C   32m  CC=9      ←0
+  │ !! save                       222L  2C    6m  CC=18     ←1
+  │ adapter                    222L  1C   10m  CC=6      ←0
+  │ !! libvirt_stream             219L  1C   14m  CC=17     ←0
+  │ !! pipeline_runner_shell      217L  1C    3m  CC=27     ←0
+  │ playwright                 215L  1C    8m  CC=9      ←0
+  │ base                       214L  3C   12m  CC=6      ←0
+  │ !  complex_detector           203L  2C    1m  CC=14     ←0
+  │ skill                      200L  2C    9m  CC=7      ←0
+  │ !  nl_parser                  199L  1C    7m  CC=11     ←0
+  │ pipeline_components        192L  3C   10m  CC=7      ←1
+  │ session_logger             188L  1C   12m  CC=9      ←0
+  │ base                       186L  3C   10m  CC=7      ←1
+  │ !  browser_setup              183L  2C    6m  CC=14     ←0
+  │ resources                  176L  2C   11m  CC=4      ←2
+  │ !  tools                      176L  0C    3m  CC=12     ←1
+  │ multi_command              175L  2C    8m  CC=5      ←1
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ pipeline_runner            170L  1C    2m  CC=9      ←0
+  │ display                    170L  0C   12m  CC=7      ←2
+  │ __init__                   160L  0C    2m  CC=2      ←0
+  │ __init__                   160L  0C    0m  CC=0.0    ←0
+  │ media_recorder             159L  1C    7m  CC=5      ←0
+  │ dispatcher                 158L  1C    4m  CC=7      ←1
+  │ registry                   157L  1C   11m  CC=7      ←0
+  │ __init__                   147L  1C   11m  CC=9      ←0
+  │ cli                        143L  0C    1m  CC=2      ←1
+  │ events                     142L  7C    7m  CC=1      ←1
+  │ queries                    142L  6C    7m  CC=7      ←0
+  │ router                     140L  1C    7m  CC=4      ←0
+  │ colors                     135L  1C    6m  CC=6      ←0
+  │ data_files                 134L  0C    6m  CC=8      ←10
+  │ markdown_output            131L  2C   14m  CC=9      ←10
+  │ __init__                   129L  0C    0m  CC=0.0    ←0
+  │ navigation                 125L  3C    3m  CC=7      ←0
+  │ !  vnc_stream                 121L  1C    7m  CC=11     ←0
+  │ dispatcher                 117L  1C    4m  CC=6      ←1
+  │ shape_planner              115L  1C    5m  CC=8      ←0
+  │ syntax_cache               115L  1C    8m  CC=3      ←4
+  │ git_templates              115L  0C    0m  CC=0.0    ←0
+  │ sql_templates              114L  0C    0m  CC=0.0    ←0
+  │ shell_templates            108L  0C    0m  CC=0.0    ←0
+  │ ssh_stream                 107L  1C    8m  CC=5      ←0
+  │ __init__                   106L  0C    0m  CC=0.0    ←0
+  │ package_mgmt_templates     104L  0C    0m  CC=0.0    ←0
+  │ executor_registry          101L  1C    7m  CC=3      ←1
+  │ event_store                101L  1C   13m  CC=3      ←1
+  │ semantic_entities           97L  1C    7m  CC=9      ←0
+  │ !  appspec                     93L  2C    6m  CC=12     ←0
+  │ svg                         92L  1C    8m  CC=6      ←0
+  │ desktop_templates           91L  0C    0m  CC=0.0    ←0
+  │ ws_stream                   90L  1C    8m  CC=8      ←0
+  │ !! ftp_stream                  87L  1C    4m  CC=16     ←0
+  │ base                        84L  1C    8m  CC=3      ←0
+  │ docker_templates            78L  0C    0m  CC=0.0    ←0
+  │ !! http_stream                 77L  1C    3m  CC=15     ←0
+  │ __init__                    77L  0C    0m  CC=0.0    ←0
+  │ devops_templates            77L  0C    0m  CC=0.0    ←0
+  │ !  navigate                    76L  1C    2m  CC=10     ←0
+  │ kubernetes_templates        76L  0C    0m  CC=0.0    ←0
+  │ data_templates              72L  0C    0m  CC=0.0    ←0
+  │ rag_templates               70L  0C    0m  CC=0.0    ←0
+  │ base                        69L  3C    2m  CC=1      ←0
+  │ iot_templates               67L  0C    0m  CC=0.0    ←0
+  │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
+  │ base                        64L  3C    3m  CC=3      ←0
+  │ browser_templates           64L  0C    0m  CC=0.0    ←0
+  │ remote_templates            64L  0C    0m  CC=0.0    ←0
+  │ spice_stream                63L  1C    3m  CC=4      ←0
+  │ presentation_templates      63L  0C    0m  CC=0.0    ←0
+  │ base                        62L  3C    3m  CC=3      ←0
+  │ api_templates               60L  0C    0m  CC=0.0    ←0
+  │ __init__                    57L  0C    0m  CC=0.0    ←0
+  │ media_templates             57L  0C    0m  CC=0.0    ←0
+  │ !  appspec_runtime             56L  2C    2m  CC=10     ←1
+  │ rdp_stream                  53L  1C    3m  CC=5      ←0
+  │ registry                    53L  1C    6m  CC=1      ←0
+  │ registry                    53L  1C    6m  CC=1      ←1
+  │ __init__                    44L  0C    1m  CC=2      ←0
+  │ __init__                    43L  0C    0m  CC=0.0    ←0
+  │ __init__                    40L  0C    0m  CC=0.0    ←0
+  │ __init__                    38L  0C    0m  CC=0.0    ←0
+  │ __init__                    37L  0C    0m  CC=0.0    ←0
+  │ __init__                    35L  0C    0m  CC=0.0    ←0
+  │ ir                          34L  1C    1m  CC=1      ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    32L  0C    0m  CC=0.0    ←0
+  │ __init__                    31L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ __init__                    27L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    1m  CC=2      ←0
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ __init__                    16L  0C    0m  CC=0.0    ←0
+  │ __init__                    14L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                    12L  0C    0m  CC=0.0    ←0
+  │ generator                   12L  0C    0m  CC=0.0    ←0
+  │ adapter                      9L  0C    0m  CC=0.0    ←0
+  │ __init__                     9L  0C    0m  CC=0.0    ←0
+  │ __main__                     8L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     3L  0C    0m  CC=0.0    ←0
+  │
+
+DUPLICATES[0]: none
+
+FUNCTIONS (CC≥10, 361 of 2542):
+  346.0  PlanExecutionMixin._execute_plan_step      50n   4exit  loops+cond+ret  !! split
+  280.0  BrowserExecutionMixin._run_dom_multi_action   18n   4exit  loops+cond+ret  !! split
+  198.0  PlanExecutionMixin.execute_action_plan     25n   3exit  loops+cond+ret  !! split
+  178.0  handle_run_mode                            92n   6exit  loops+cond+ret  !! split
+   73.0  KeywordIntentDetector._fast_path_detection  107n  19exit  loops+cond+ret  !! split
+   72.0  SiteExplorer.find_form                      2n   1exit    !! split
+   71.0  main                                       76n   7exit  cond+ret  !! split
+   64.0  _execute_multi_step_with_video              2n   1exit    !! split
+   60.0  CanvasAdapter.execute_drawing_plan          7n   2exit  loops+cond+ret  !! split
+   58.0  KubernetesValidator.validate               46n   3exit  loops+cond+ret  !! split
+   56.0  _try_system_browser                         8n   2exit  loops+cond+ret  !! split
+   54.0  RuleBasedPipeline.process                   5n   2exit  cond+ret  !! split
+   54.0  ExecutionRunner.run_with_recovery          46n   4exit  loops+cond+ret  !! split
+   50.0  DockerValidator.validate                   53n   3exit  loops+cond+ret  !! split
+   50.0  ExecutionRunner.run_command                 4n   1exit  cond  !! split
+   48.0  SchemaFallback._extract_page_schema         3n   2exit  ret  !! split
+   45.0  _extract_web_dom_schema                    26n   2exit  loops+cond+ret  !! split
+   44.0  DesktopExecutionMixin._execute_desktop_plan_step   74n  17exit  loops+cond+ret  !! split
+   43.0  LLMValidator._deterministic_pre_check      61n  18exit  cond+ret  !! split
+   41.0  SchemaDrivenNLP2CMD._select_action         26n   2exit  loops+cond+ret  !! split
+   41.0  SiteExplorer.find_content                   9n   2exit  cond+ret  !! split
+   41.0  FeedbackAnalyzer.analyze                   53n   2exit  loops+cond+ret  !! split
+   41.0  parse_svg_path                             30n   5exit  loops+cond+ret  !! split
+   41.0  handle_generate_query                      26n   2exit  loops+cond+ret  !! split
+   40.0  SiteExplorer._analyze_page                  8n   2exit  loops+cond+ret  !! split
+   40.0  BrowserAdapter.generate                    52n   3exit  cond+ret  !! split
+   40.0  _try_existing_browser                      14n   2exit  loops+cond+ret  !! split
+   38.0  RegexEntityExtractor._post_process         43n   2exit  cond+ret  !! split
+   38.0  OptimizationProblem.__post_init__          25n   1exit  loops+cond  !! split
+   38.0  LLMValidator._build_dynamic_hints          40n   2exit  loops+cond+ret  !! split
+   37.0  FormHandler.detect_form_fields             13n   2exit  loops+cond+ret  !! split
+   36.0  SessionPasswordStore.print_diagnosis       22n   1exit  loops+cond  !! split
+   34.0  TemplateGenerator._prepare_sql_entities    50n   2exit  loops+cond+ret  !! split
+   34.0  SQLValidator.validate                      38n   2exit  loops+cond+ret  !! split
+   34.0  PlanExecutor._execute_desktop_mode          2n   1exit    !! split
+   34.0  DecisionRouter._load_config_from_data      26n   3exit  loops+cond+ret  !! split
+   33.0  KeywordPatterns._load_detector_config_from_json    3n   1exit  loops  !! split
+   32.0  SemanticShellBackend.extract_intent        48n  17exit  cond+ret  !! split
+   31.0  ShellValidator.validate                    32n   2exit  loops+cond+ret  !! split
+   31.0  AdaptiveLearner.evolve                     21n   2exit  loops+cond+ret  !! split
+   31.0  DesktopAdapter._build_actions              15n   2exit  cond+ret  !! split
+   31.0  CommandDetector._load_config_from_json     30n   5exit  loops+cond+ret  !! split
+   30.0  extract_schema                             73n  20exit  cond+ret  !! split
+   30.0  SiteExplorer._get_sitemap_urls             30n   4exit  loops+cond+ret  !! split
+   30.0  PythonCodeExtractor._extract_typer_command   42n   5exit  loops+cond+ret  !! split
+   30.0  ShellScriptExtractor.extract_from_source   26n   2exit  loops+cond+ret  !! split
+   30.0  DiscoverServiceSectionHandler.execute      32n   5exit  loops+cond+ret  !! split
+   29.0  SchemaDrivenNLP2CMD._render_http           20n   2exit  loops+cond+ret  !! split
+   29.0  PageAnalyzer.extract_page_context           2n   1exit    !! split
+   29.0  train_all_models                           52n   2exit  loops+cond+ret  !! split
+
+  summary:
+    critical(≥10): 361 | high(5-10): 566 | medium(2-5): 964 | low(<2): 651
+    14% CC≥10  36% CC≥5
+
+HOTSPOTS:
+  #1  PlanExecutionMixin._execute_plan_step  fan=118  "PlanExecutionMixin method, fan-out=118"
+  #2  BrowserExecutionMixin._run_dom_multi_action  fan=108  "BrowserExecutionMixin method, fan-out=108"
+  #3  PlanExecutionMixin.execute_action_plan  fan=78   "PlanExecutionMixin method, fan-out=78"
+  #4  handle_run_mode                      fan=75   "calls 75 functions"
+  #5  main                                 fan=56   "calls 56 functions"
+  #6  _execute_multi_step_with_video       fan=54   "calls 54 functions"
+  #7  CanvasAdapter.execute_drawing_plan   fan=40   "CanvasAdapter method, fan-out=40"
+  #8  _extract_web_dom_schema              fan=37   "calls 37 functions"
+  #9  handle_generate_query                fan=36   "calls 36 functions"
+  #10 ExecutionRunner.run_with_recovery    fan=35   "ExecutionRunner method, fan-out=35"
+
+CLASSES:
+  TemplateGenerator              ████████████████████████  100m  CC̄=3.1   max=34    !!
+  FormDataLoader                 ██████████                45m  CC̄=5.6   max=18    !!
+  SchemaRegistry                 ████████                  37m  CC̄=5.5   max=26    !!
+  ToonDataManager                ██████                    27m  CC̄=1.7   max=9   
+  SiteExplorer                   ██████                    27m  CC̄=12.4  max=72    !!
+  EvolutionaryRecoveryEngine     █████                     22m  CC̄=4.8   max=16    !!
+  NLP2CMD                        █████                     22m  CC̄=7.0   max=19    !!
+  BrowserAdapter                 █████                     22m  CC̄=5.9   max=40    !!
+  KubernetesAdapter              █████                     22m  CC̄=4.0   max=12  
+  ActionPlanner                  █████                     21m  CC̄=7.7   max=25    !!
+  EvolutionaryCache              ████                      20m  CC̄=6.5   max=23    !!
+  ToonParser                     ████                      20m  CC̄=5.7   max=28    !!
+  MouseController                ████                      19m  CC̄=1.8   max=5   
+  OptimizedSemanticMatcher       ████                      19m  CC̄=4.3   max=12  
+  FuzzySchemaMatcher             ████                      19m  CC̄=3.4   max=9   
+  DynamicAdapter                 ████                      19m  CC̄=9.3   max=25    !!
+  DesktopAdapter                 ████                      19m  CC̄=5.7   max=31    !!
+  StepValidator                  ████                      18m  CC̄=4.0   max=11  
+  BrowserConfigLoader            ████                      18m  CC̄=2.1   max=8   
+  DockerAdapter                  ████                      18m  CC̄=5.8   max=14  
+  DrawingSkill                   ████                      18m  CC̄=1.7   max=11  
+  SearchEngine                   ████                      18m  CC̄=3.8   max=14  
+  RTSPStreamAdapter              ████                      17m  CC̄=4.0   max=13  
+  SchemaFallback                 ███                       16m  CC̄=13.7  max=48    !!
+  EntityResolver                 ███                       16m  CC̄=3.9   max=7   
+  PlanExecutor                   ███                       15m  CC̄=6.7   max=34    !!
+  SQLAdapter                     ███                       15m  CC̄=5.5   max=15    !!
+  EnvironmentAnalyzer            ███                       15m  CC̄=4.8   max=15    !!
+  DrawNavigationSkill            ███                       15m  CC̄=6.3   max=12  
+  RuleBasedPipeline              ███                       14m  CC̄=7.3   max=54    !!
+  LLMRouter                      ███                       14m  CC̄=5.4   max=17    !!
+  SemanticShellBackend           ███                       14m  CC̄=9.1   max=32    !!
+  LibvirtStreamAdapter           ███                       14m  CC̄=3.6   max=17    !!
+  NP2CMDDoctor                   ███                       14m  CC̄=6.1   max=21    !!
+  EnhancedContextDetector        ███                       13m  CC̄=8.8   max=22    !!
+  PerCommandSchemaStore          ███                       13m  CC̄=2.9   max=7   
+  InteractionHistory             ███                       13m  CC̄=3.7   max=12  
+  DiskExplorer                   ███                       13m  CC̄=4.9   max=12  
+  AdaptiveLearner                ███                       13m  CC̄=5.8   max=31    !!
+  DQLAdapter                     ███                       13m  CC̄=6.2   max=22    !!
+  ShellAdapter                   ███                       13m  CC̄=4.7   max=13  
+  EventStore                     ███                       13m  CC̄=1.8   max=3   
+  KeywordIntentDetector          ███                       13m  CC̄=12.3  max=73    !!
+  PolishLanguageSupport          ██                        12m  CC̄=4.5   max=20    !!
+  DataLoader                     ██                        12m  CC̄=2.2   max=5   
+  StepOrchestrator               ██                        12m  CC̄=8.6   max=16    !!
+  VersionedSchemaStore           ██                        12m  CC̄=3.9   max=14  
+  LLMValidator                   ██                        12m  CC̄=11.0  max=43    !!
+  ActionRegistry                 ██                        12m  CC̄=2.1   max=5   
+  BaseDSLAdapter                 ██                        12m  CC̄=2.6   max=6   
+  ExternalCacheManager           ██                        12m  CC̄=4.1   max=7   
+  CommandHistory                 ██                        12m  CC̄=3.9   max=13  
+  CommandBus                     ██                        12m  CC̄=2.2   max=7   
+  KeywordPatterns                ██                        12m  CC̄=5.8   max=33    !!
+  FirefoxSessionImporter         ██                        11m  CC̄=6.7   max=14  
+  RegexEntityExtractor           ██                        11m  CC̄=9.6   max=38    !!
+  CommandRepairer                ██                        11m  CC̄=3.0   max=5   
+  ExecutionRunner                ██                        11m  CC̄=14.2  max=54    !!
+  DataTreeExplorer               ██                        11m  CC̄=8.0   max=16    !!
+  ResultAggregator               ██                        11m  CC̄=7.7   max=14  
+  Orchestrator                   ██                        11m  CC̄=7.5   max=19    !!
+  CanvasAdapter                  ██                        11m  CC̄=9.9   max=60    !!
+  DecisionRouter                 ██                        11m  CC̄=6.2   max=34    !!
+  FeedbackAnalyzer               ██                        11m  CC̄=9.6   max=41    !!
+  SchemaRegistry                 ██                        11m  CC̄=3.2   max=7   
+  LLMSchemaExtractor             ██                        11m  CC̄=6.2   max=15    !!
+  DrawValidationSkill            ██                        11m  CC̄=6.7   max=21    !!
+  EnvExtractor                   ██                        10m  CC̄=4.9   max=13  
+  ThermodynamicGenerator         ██                        10m  CC̄=8.1   max=24    !!
+  PhraseDatabase                 ██                        10m  CC̄=2.4   max=4   
+  AutoRepairSystem               ██                        10m  CC̄=7.3   max=22    !!
+  BrowserExecutor                ██                        10m  CC̄=4.8   max=13  
+  ServiceExplorer                ██                        10m  CC̄=4.3   max=9   
+  ShellGPTBackend                ██                        10m  CC̄=5.9   max=12  
+  EnhancedNLP2CMD                ██                        10m  CC̄=2.5   max=9   
+  VersionAwareCommandGenerator   ██                        10m  CC̄=6.1   max=17    !!
+  DrawObjectSkill                ██                        10m  CC̄=5.0   max=12  
+  SchemaDrivenAppSpecAdapter     ██                        10m  CC̄=3.3   max=6   
+  DrawingVectorStore             ██                         9m  CC̄=3.6   max=8   
+  CaptchaSolver                  ██                         9m  CC̄=6.2   max=12  
+  ValidationResult               ██                         9m  CC̄=1.7   max=6   
+  SessionLogger                  ██                         9m  CC̄=2.7   max=9   
+  ResourceDiscoveryManager       ██                         9m  CC̄=5.9   max=11  
+  PlanExecutor                   ██                         9m  CC̄=5.9   max=14  
+  MetricsCollector               ██                         9m  CC̄=3.1   max=6   
+  SearchSkill                    ██                         9m  CC̄=2.8   max=7   
+  ExamplesRunner                 ██                         9m  CC̄=5.3   max=13  
+  SchemaDrivenNLP2CMD            █                          8m  CC̄=16.4  max=41    !!
+  MLIntentClassifier             █                          8m  CC̄=4.9   max=9   
+  HybridGenerator                █                          8m  CC̄=2.9   max=7   
+  ExecutionPlan                  █                          8m  CC̄=1.2   max=3   
+  ServiceRegistry                █                          8m  CC̄=1.8   max=5   
+  IntentMatcher                  █                          8m  CC̄=4.4   max=12  
+  PlanExecutionMixin             █                          8m  CC̄=74.8  max=346   !!
+  FormHandler                    █                          8m  CC̄=12.9  max=37    !!
+  VisionAnalyzer                 █                          8m  CC̄=2.9   max=4   
+  SchedulingEnergy               █                          8m  CC̄=4.1   max=8   
+  StreamAdapter                  █                          8m  CC̄=1.0   max=1   
+  SSHStreamAdapter               █                          8m  CC̄=2.8   max=5   
+  WSStreamAdapter                █                          8m  CC̄=3.1   max=8   
+  ExtractCompaniesAction         █                          8m  CC̄=10.2  max=21    !!
+  FillFormAction                 █                          8m  CC̄=4.2   max=6   
+  Renderer                       █                          8m  CC̄=1.2   max=3   
+  PlaywrightRenderer             █                          8m  CC̄=4.4   max=9   
+  SVGRenderer                    █                          8m  CC̄=1.9   max=6   
+  InteractiveSession             █                          8m  CC̄=10.4  max=24    !!
+  SchemaBasedGenerator           █                          8m  CC̄=5.6   max=12  
+  DesktopExecutionMixin          █                          7m  CC̄=11.4  max=44    !!
+  TokenCostEstimator             █                          7m  CC̄=2.9   max=10  
+  ComplexCommandPlanner          █                          7m  CC̄=7.3   max=24    !!
+  SessionPasswordStore           █                          7m  CC̄=13.1  max=36    !!
+  LLMPlanner                     █                          7m  CC̄=3.7   max=6   
+  MediaRecorder                  █                          7m  CC̄=3.4   max=5   
+  BaseExplorer                   █                          7m  CC̄=2.3   max=8   
+  OpenRouterClient               █                          7m  CC̄=3.3   max=5   
+  FunctionCache                  █                          7m  CC̄=5.6   max=11  
+  VNCStreamAdapter               █                          7m  CC̄=4.7   max=11  
+  CorrectionEngine               █                          7m  CC̄=2.1   max=4   
+  PythonCodeExtractor            █                          7m  CC̄=14.9  max=30    !!
+  NLDrawingParser                █                          7m  CC̄=4.6   max=11  
+  CorrectionEngine               █                          7m  CC̄=8.4   max=14  
+  VisualValidator                █                          7m  CC̄=6.0   max=12  
+  SchemaRegistry                 █                          7m  CC̄=1.6   max=3   
+  ResourceMonitor                █                          6m  CC̄=2.5   max=4   
+  FileFormatSchema               █                          6m  CC̄=2.8   max=7   
+  FeedbackLoop                   █                          6m  CC̄=10.0  max=21    !!
+  FirefoxPasswordReader          █                          6m  CC̄=8.3   max=16    !!
+  PipelineMetrics                █                          6m  CC̄=2.8   max=7   
+  ThermodynamicProblemDetector   █                          6m  CC̄=7.2   max=16    !!
+  BrowserSetup                   █                          6m  CC̄=5.5   max=14  
+  IntentRegistry                 █                          6m  CC̄=3.0   max=9   
+  MarkdownBlockStream            █                          6m  CC̄=2.0   max=3   
+  WebSchemaExtractor             █                          6m  CC̄=5.0   max=7   
+  ExecutorRegistry               █                          6m  CC̄=1.3   max=2   
+  ShellExecutor                  █                          6m  CC̄=8.0   max=17    !!
+  LLMRepair                      █                          6m  CC̄=7.7   max=13  
+  PathOptimizer                  █                          6m  CC̄=4.0   max=9   
+  AppSpecAdapter                 █                          6m  CC̄=4.3   max=12  
+  StreamRouter                   █                          6m  CC̄=2.7   max=4   
+  ObjectFetcher                  █                          6m  CC̄=4.5   max=13  
+  ColorResolver                  █                          6m  CC̄=2.7   max=6   
+  KeePassXCReader                █                          5m  CC̄=7.0   max=10  
+  ShapePlanner                   █                          5m  CC̄=3.8   max=8   
+  SemanticEntityExtractor        █                          5m  CC̄=4.0   max=9   
+  DockerValidator                █                          5m  CC̄=16.2  max=50    !!
+  NLP2CMDService                 █                          5m  CC̄=2.6   max=7   
+  MultiDomainGenerator           █                          5m  CC̄=2.2   max=4   
+  RoutingEnergy                  █                          5m  CC̄=3.8   max=9   
+  ResultAnalyzer                 █                          5m  CC̄=4.0   max=6   
+  BaseLLMGenerator               █                          5m  CC̄=2.2   max=5   
+  CommandDisambiguator           █                          5m  CC̄=6.2   max=11  
+  OpenAPISchemaExtractor         █                          5m  CC̄=6.2   max=10  
+  SaveToFileAction               █                          5m  CC̄=10.4  max=18    !!
+  DynamicSchemaGenerator         █                          5m  CC̄=6.4   max=15    !!
+  TextToShapeEngine              █                          5m  CC̄=9.0   max=24    !!
+  AutonomousExampleRunner                                   4m  CC̄=4.0   max=6   
+  _SimpleDomParser                                          4m  CC̄=3.0   max=5   
+  Point                                                     4m  CC̄=1.0   max=1   
+  MultiCommandDetector                                      4m  CC̄=3.2   max=5   
+  StructuredLLMPlanner                                      4m  CC̄=4.2   max=6   
+  TransformResult                                           4m  CC̄=3.5   max=5   
+  NLPBackend                                                4m  CC̄=1.2   max=2   
+  RuleBasedBackend                                          4m  CC̄=8.8   max=19    !!
+  SyntaxCache                                               4m  CC̄=1.5   max=3   
+  MarkdownConsoleProxy                                      4m  CC̄=1.0   max=1   
+  ExplorerRegistry                                          4m  CC̄=2.2   max=6   
+  HybridNLPBackend                                          4m  CC̄=7.0   max=9   
+  ActionHandler                                             4m  CC̄=4.8   max=15    !!
+  EnergyModel                                               4m  CC̄=1.2   max=2   
+  ConstraintEnergy                                          4m  CC̄=2.0   max=3   
+  LangevinSampler                                           4m  CC̄=5.0   max=12  
+  AllocationEnergy                                          4m  CC̄=4.0   max=8   
+  CSPEnergy                                                 4m  CC̄=1.5   max=2   
+  FTPStreamAdapter                                          4m  CC̄=7.2   max=16    !!
+  ActionRegistry                                            4m  CC̄=1.0   max=1   
+  ActionDispatcher                                          4m  CC̄=2.8   max=7   
+  HandlerRegistry                                           4m  CC̄=1.0   max=1   
+  StepDispatcher                                            4m  CC̄=3.2   max=6   
+  SubmitAndExtractKeyHandler                                4m  CC̄=6.8   max=16    !!
+  DiscoverServiceSectionHandler                             4m  CC̄=15.2  max=30    !!
+  CommandDetector                                           4m  CC̄=14.0  max=31    !!
+  ShapeRegistry                                             4m  CC̄=2.0   max=3   
+  ExamplesRegistry                                          4m  CC̄=2.0   max=4   
+  ShellExecutionMixin                                       3m  CC̄=16.3  max=27    !!
+  BrowserExecutionMixin                                     3m  CC̄=107.7  max=280   !!
+  _MarkdownConsoleWrapper                                   3m  CC̄=1.7   max=3   
+  VideoRecorder                                             3m  CC̄=3.3   max=7   
+  PageAnalyzer                                              3m  CC̄=17.0  max=29    !!
+  BitwardenReader                                           3m  CC̄=5.0   max=11  
+  HybridThermodynamicGenerator                              3m  CC̄=1.7   max=2   
+  ValidatingGenerator                                       3m  CC̄=4.0   max=9   
+  ServiceConfig                                             3m  CC̄=3.3   max=8   
+  QueryNormalizer                                           3m  CC̄=2.3   max=3   
+  CachedMultiDomainGenerator                                3m  CC̄=1.7   max=3   
+  ActionSchema                                              3m  CC̄=3.0   max=3   
+  QuadraticEnergy                                           3m  CC̄=1.7   max=2   
+  EntropyProductionRegularizer                              3m  CC̄=1.0   max=1   
+  MajorityVoter                                             3m  CC̄=4.7   max=7   
+  ThermodynamicRouter                                       3m  CC̄=3.7   max=5   
+  ExecutionContext                                          3m  CC̄=3.3   max=8   
+  PlanValidator                                             3m  CC̄=7.3   max=16    !!
+  SimpleLLMSQLGenerator                                     3m  CC̄=3.3   max=5   
+  FileOperationGenerator                                    3m  CC̄=12.0  max=23    !!
+  RDPStreamAdapter                                          3m  CC̄=3.3   max=5   
+  HTTPStreamAdapter                                         3m  CC̄=6.3   max=15    !!
+  SPICEStreamAdapter                                        3m  CC̄=3.3   max=4   
+  DomAction                                                 3m  CC̄=1.7   max=3   
+  ShellHelpExtractor                                        3m  CC̄=7.7   max=16    !!
+  StepHandler                                               3m  CC̄=1.7   max=3   
+  IconifyFetcher                                            3m  CC̄=4.0   max=6   
+  App2SchemaResult                                          2m  CC̄=10.0  max=15    !!
+  ActionPlan                                                2m  CC̄=2.0   max=2   
+  DrawingPattern                                            2m  CC̄=1.0   max=1   
+  PipelineResult                                            2m  CC̄=3.5   max=5   
+  OptimizationProblem                                       2m  CC̄=19.5  max=38    !!
+  ThermodynamicConfig                                       2m  CC̄=2.0   max=3   
+  PhraseEntry                                               2m  CC̄=1.0   max=1   
+  MultiCommandResult                                        2m  CC̄=2.0   max=2   
+  AdaptiveHybridGenerator                                   2m  CC̄=3.0   max=5   
+  BaseValidator                                             2m  CC̄=1.0   max=1   
+  SQLValidator                                              2m  CC̄=17.5  max=34    !!
+  ShellValidator                                            2m  CC̄=16.0  max=31    !!
+  KubernetesValidator                                       2m  CC̄=29.5  max=58    !!
+  CompositeValidator                                        2m  CC̄=1.5   max=2   
+  SpaCyBackend                                              2m  CC̄=1.5   max=2   
+  LLMBackend                                                2m  CC̄=2.0   max=3   
+  IntentConfig                                              2m  CC̄=1.5   max=2   
+  IntentDef                                                 2m  CC̄=2.0   max=2   
+  LLMDomainRouter                                           2m  CC̄=4.0   max=6   
+  WebPageSchema                                             2m  CC̄=8.0   max=15    !!
+  InteractionRecord                                         2m  CC̄=1.0   max=1   
+  DynamicSelectorGenerator                                  2m  CC̄=8.0   max=14  
+  ErrorPattern                                              2m  CC̄=2.0   max=3   
+  ModelPerformance                                          2m  CC̄=2.0   max=3   
+  LearnedRule                                               2m  CC̄=2.0   max=3   
+  ActionResult                                              2m  CC̄=1.0   max=1   
+  ExecutionPlan                                             2m  CC̄=2.0   max=2   
+  DynamicSafetyPolicy                                       2m  CC̄=3.0   max=5   
+  LiteLLMClient                                             2m  CC̄=6.5   max=9   
+  SimpleLLMShellGenerator                                   2m  CC̄=3.5   max=6   
+  SimpleLLMDockerGenerator                                  2m  CC̄=2.0   max=3   
+  SimpleLLMKubernetesGenerator                              2m  CC̄=2.0   max=3   
+  MockLLMClient                                             2m  CC̄=7.5   max=13  
+  ProcessManagementGenerator                                2m  CC̄=9.0   max=14  
+  SchemaUsage                                               2m  CC̄=1.0   max=1   
+  CommandRecord                                             2m  CC̄=2.0   max=2   
+  ClickExtractor                                            2m  CC̄=2.0   max=3   
+  ShellScriptExtractor                                      2m  CC̄=16.0  max=30    !!
+  MakefileExtractor                                         2m  CC̄=10.0  max=18    !!
+  ExtractedSchema                                           2m  CC̄=3.0   max=3   
+  CanvasMixin                                               2m  CC̄=1.0   max=1   
+  DrawFilledCircleHandler                                   2m  CC̄=3.5   max=5   
+  NavigateHandler                                           2m  CC̄=9.0   max=10  
+  CheckSessionHandler                                       2m  CC̄=16.0  max=22    !!
+  ExtractKeyHandler                                         2m  CC̄=12.0  max=22    !!
+  PromptSecretHandler                                       2m  CC̄=14.0  max=24    !!
+  DrawingEvent                                              2m  CC̄=1.0   max=1   
+  AutonomousDrawingPipeline                                 2m  CC̄=8.5   max=14  
+  ValidationReport                                          2m  CC̄=4.5   max=8   
+  QueryBus                                                  2m  CC̄=1.0   max=1   
+  DynamicShapeGenerator                                     2m  CC̄=2.0   max=3   
+  AppSpec                                                   1m  CC̄=3.0   max=3   
+  ShellExecutionPolicy                                      1m  CC̄=18.0  max=18    !!
+  ActionIR                                                  1m  CC̄=1.0   max=1   
+  ActionStep                                                1m  CC̄=3.0   max=3   
+  ActionStep                                                1m  CC̄=4.0   max=4   
+  ExecutionPlan                                             1m  CC̄=2.0   max=2   
+  Credential                                                1m  CC̄=4.0   max=4   
+  EnvPasswordReader                                         1m  CC̄=13.0  max=13  
+  CacheEntry                                                1m  CC̄=1.0   max=1   
+  ExtractionResult                                          1m  CC̄=2.0   max=2   
+  FuzzySchemaMatcherConfig                                  1m  CC̄=1.0   max=1   
+  ComplexQueryDetector                                      1m  CC̄=14.0  max=14  
+  ThermodynamicResult                                       1m  CC̄=7.0   max=7   
+  DSLValidator                                              1m  CC̄=1.0   max=1   
+  SimpleSQLValidator                                        1m  CC̄=7.0   max=7   
+  SimpleShellValidator                                      1m  CC̄=6.0   max=6   
+  SimpleDockerValidator                                     1m  CC̄=5.0   max=5   
+  SimpleKubernetesValidator                                 1m  CC̄=6.0   max=6   
+  HybridStats                                               1m  CC̄=1.0   max=1   
+  StructuredPlan                                            1m  CC̄=1.0   max=1   
+  MultiStepPlan                                             1m  CC̄=2.0   max=2   
+  MultiStepPlanner                                          1m  CC̄=9.0   max=9   
+  SyntaxValidator                                           1m  CC̄=6.0   max=6   
+  ServiceConfig                                             1m  CC̄=1.0   max=1   
+  AppInfo                                                   1m  CC̄=2.0   max=2   
+  WebElement                                                1m  CC̄=1.0   max=1   
+  ExecutorResult                                            1m  CC̄=1.0   max=1   
+  BaseExecutor                                              1m  CC̄=1.0   max=1   
+  FormField                                                 1m  CC̄=4.0   max=4   
+  EnergyEstimator                                           1m  CC̄=1.0   max=1   
+  StepDef                                                   1m  CC̄=1.0   max=1   
+  PlanStep                                                  1m  CC̄=2.0   max=2   
+  TaskMetric                                                1m  CC̄=3.0   max=3   
+  GeneratedFunction                                         1m  CC̄=2.0   max=2   
+  LLMClient                                                 1m  CC̄=1.0   max=1   
+  DockerSafetyPolicy                                        1m  CC̄=11.0  max=11  
+  NetworkGenerator                                          1m  CC̄=8.0   max=8   
+  SystemMaintenanceGenerator                                1m  CC̄=1.0   max=1   
+  DevelopmentGenerator                                      1m  CC̄=4.0   max=4   
+  GitGenerator                                              1m  CC̄=7.0   max=7   
+  DockerGenerator                                           1m  CC̄=9.0   max=9   
+  TextProcessingGenerator                                   1m  CC̄=11.0  max=11  
+  KubernetesSafetyPolicy                                    1m  CC̄=12.0  max=12  
+  DesktopSafetyPolicy                                       1m  CC̄=3.0   max=3   
+  FeedbackResult                                            1m  CC̄=1.0   max=1   
+  SaveToCsvAction                                           1m  CC̄=6.0   max=6   
+  NavigateAction                                            1m  CC̄=2.0   max=2   
+  ExploreForContentAction                                   1m  CC̄=7.0   max=7   
+  ExploreForFormAction                                      1m  CC̄=5.0   max=5   
+  ClickHandler                                              1m  CC̄=19.0  max=19    !!
+  ClickRadioHandler                                         1m  CC̄=3.0   max=3   
+  DismissOverlayHandler                                     1m  CC̄=10.0  max=10  
+  TypeTextHandler                                           1m  CC̄=10.0  max=10  
+  FillFormHandler                                           1m  CC̄=3.0   max=3   
+  SubmitFormHandler                                         1m  CC̄=2.0   max=2   
+  LoginHandler                                              1m  CC̄=4.0   max=4   
+  NewTabHandler                                             1m  CC̄=2.0   max=2   
+  WaitHandler                                               1m  CC̄=1.0   max=1   
+  ScreenshotHandler                                         1m  CC̄=1.0   max=1   
+  WaitForCanvasHandler                                      1m  CC̄=1.0   max=1   
+  GetCanvasCenterHandler                                    1m  CC̄=3.0   max=3   
+  SelectToolHandler                                         1m  CC̄=2.0   max=2   
+  SetColorHandler                                           1m  CC̄=2.0   max=2   
+  SetLineWidthHandler                                       1m  CC̄=2.0   max=2   
+  DrawCircleHandler                                         1m  CC̄=2.0   max=2   
+  DrawFilledEllipseHandler                                  1m  CC̄=2.0   max=2   
+  DrawFilledRectangleHandler                                1m  CC̄=2.0   max=2   
+  CheckClipboardHandler                                     1m  CC̄=8.0   max=8   
+  SaveEnvHandler                                            1m  CC̄=14.0  max=14  
+  VerifyEnvHandler                                          1m  CC̄=6.0   max=6   
+  EchoHandler                                               1m  CC̄=4.0   max=4   
+  ExtractTextHandler                                        1m  CC̄=12.0  max=12  
+  DrawCommand                                               1m  CC̄=1.0   max=1   
+  InitCanvas                                                1m  CC̄=3.0   max=3   
+  DrawShape                                                 1m  CC̄=2.0   max=2   
+  SetColor                                                  1m  CC̄=2.0   max=2   
+  SelectTool                                                1m  CC̄=2.0   max=2   
+  ClearCanvas                                               1m  CC̄=1.0   max=1   
+  CommandHandler                                            1m  CC̄=1.0   max=1   
+  _BaseFetcher                                              1m  CC̄=1.0   max=1   
+  SimpleIconsFetcher                                        1m  CC̄=4.0   max=4   
+  SVGRepoFetcher                                            1m  CC̄=5.0   max=5   
+  CanvasInitialized                                         1m  CC̄=1.0   max=1   
+  CanvasCleared                                             1m  CC̄=1.0   max=1   
+  ShapeDrawn                                                1m  CC̄=1.0   max=1   
+  ColorChanged                                              1m  CC̄=1.0   max=1   
+  ToolSelected                                              1m  CC̄=1.0   max=1   
+  SearchResult                                              1m  CC̄=1.0   max=1   
+  SearchConfig                                              1m  CC̄=1.0   max=1   
+  TaskPlan                                                  1m  CC̄=1.0   max=1   
+  DrawQuery                                                 1m  CC̄=1.0   max=1   
+  GetCanvasState                                            1m  CC̄=7.0   max=7   
+  GetDrawingHistory                                         1m  CC̄=3.0   max=3   
+  GetShapePoints                                            1m  CC̄=4.0   max=4   
+  GetLastNShapes                                            1m  CC̄=2.0   max=2   
+  SceneDrawResult                                           1m  CC̄=2.0   max=2   
+  DrawingCorrection                                         1m  CC̄=1.0   max=1   
+  ShapeGenerator                                            1m  CC̄=1.0   max=1   
+  CircleGenerator                                           1m  CC̄=2.0   max=2   
+  EllipseGenerator                                          1m  CC̄=2.0   max=2   
+  RectangleGenerator                                        1m  CC̄=1.0   max=1   
+  SquareGenerator                                           1m  CC̄=1.0   max=1   
+  TriangleGenerator                                         1m  CC̄=1.0   max=1   
+  StarGenerator                                             1m  CC̄=2.0   max=2   
+  HeartGenerator                                            1m  CC̄=2.0   max=2   
+  SpiralGenerator                                           1m  CC̄=2.0   max=2   
+  HouseGenerator                                            1m  CC̄=1.0   max=1   
+  FlowerGenerator                                           1m  CC̄=3.0   max=3   
+  SunGenerator                                              1m  CC̄=3.0   max=3   
+  TreeGenerator                                             1m  CC̄=2.0   max=2   
+  LineGenerator                                             1m  CC̄=1.0   max=1   
+  DotGenerator                                              1m  CC̄=2.0   max=2   
+  GridGenerator                                             1m  CC̄=3.0   max=3   
+  WaveGenerator                                             1m  CC̄=2.0   max=2   
+  CarGenerator                                              1m  CC̄=3.0   max=3   
+  BirdGenerator                                             1m  CC̄=2.0   max=2   
+  ButterflyGenerator                                        1m  CC̄=5.0   max=5   
+  BoatGenerator                                             1m  CC̄=1.0   max=1   
+  MountainGenerator                                         1m  CC̄=1.0   max=1   
+  CatGenerator                                              1m  CC̄=4.0   max=4   
+  FishGenerator                                             1m  CC̄=3.0   max=3   
+  RocketGenerator                                           1m  CC̄=2.0   max=2   
+  CastleGenerator                                           1m  CC̄=3.0   max=3   
+  DiamondGenerator                                          1m  CC̄=1.0   max=1   
+  ArrowGenerator                                            1m  CC̄=3.0   max=3   
+  PentagonGenerator                                         1m  CC̄=2.0   max=2   
+  HexagonGenerator                                          1m  CC̄=2.0   max=2   
+  OctagonGenerator                                          1m  CC̄=2.0   max=2   
+  CrossGenerator                                            1m  CC̄=1.0   max=1   
+  CrescentGenerator                                         1m  CC̄=3.0   max=3   
+  CloudDetailedGenerator                                    1m  CC̄=4.0   max=4   
+  DetectionResult                                           1m  CC̄=3.0   max=3   
+  MatchResult                                               0m  CC̄=0.0   max=0.0 
+  AppAction                                                 0m  CC̄=0.0   max=0.0 
+  RunnerResult                                              0m  CC̄=0.0   max=0.0 
+  RecoveryStrategy                                          0m  CC̄=0.0   max=0.0 
+  RecoveryAttempt                                           0m  CC̄=0.0   max=0.0 
+  ExecutionMetrics                                          0m  CC̄=0.0   max=0.0 
+  TokenCostEstimate                                         0m  CC̄=0.0   max=0.0 
+  ResourceMetrics                                           0m  CC̄=0.0   max=0.0 
+  DrawStep                                                  0m  CC̄=0.0   max=0.0 
+  FallbackContext                                           0m  CC̄=0.0   max=0.0 
+  FallbackResult                                            0m  CC̄=0.0   max=0.0 
+  FailureType                                               0m  CC̄=0.0   max=0.0 
+  StepDiagnosis                                             0m  CC̄=0.0   max=0.0 
+  RepairAttempt                                             0m  CC̄=0.0   max=0.0 
+  FeedbackResult                                            0m  CC̄=0.0   max=0.0 
+  StepMetrics                                               0m  CC̄=0.0   max=0.0 
+  ValidationResult                                          0m  CC̄=0.0   max=0.0 
+  CaptchaInfo                                               0m  CC̄=0.0   max=0.0 
+  ServiceConfig                                             0m  CC̄=0.0   max=0.0 
+  LookupResult                                              0m  CC̄=0.0   max=0.0 
+  SemanticMatch                                             0m  CC̄=0.0   max=0.0 
+  IntentEmbedding                                           0m  CC̄=0.0   max=0.0 
+  ExtractedEntity                                           0m  CC̄=0.0   max=0.0 
+  MatchResult                                               0m  CC̄=0.0   max=0.0 
+  PhraseSchema                                              0m  CC̄=0.0   max=0.0 
+  IntentPrediction                                          0m  CC̄=0.0   max=0.0 
+  TrainingSample                                            0m  CC̄=0.0   max=0.0 
+  SchedulingEnergy                                          0m  CC̄=0.0   max=0.0 
+  AllocationEnergy                                          0m  CC̄=0.0   max=0.0 
+  RoutingEnergy                                             0m  CC̄=0.0   max=0.0 
+  SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
+  ComplexityAnalysis                                        0m  CC̄=0.0   max=0.0 
+  ContextualMatch                                           0m  CC̄=0.0   max=0.0 
+  TemplateResult                                            0m  CC̄=0.0   max=0.0 
+  ValidationResult                                          0m  CC̄=0.0   max=0.0 
+  ValidatingGeneratorResult                                 0m  CC̄=0.0   max=0.0 
+  HybridResult                                              0m  CC̄=0.0   max=0.0 
+  PipelineRunner                                            0m  CC̄=0.0   max=0.0 
+  StructuredPlanResult                                      0m  CC̄=0.0   max=0.0 
+  QueryRequest                                              0m  CC̄=0.0   max=0.0 
+  QueryResponse                                             0m  CC̄=0.0   max=0.0 
+  BrowserContextOptions                                     0m  CC̄=0.0   max=0.0 
+  StepResult                                                0m  CC̄=0.0   max=0.0 
+  PlannerConfig                                             0m  CC̄=0.0   max=0.0 
+  PlanningResult                                            0m  CC̄=0.0   max=0.0 
+  TransformStatus                                           0m  CC̄=0.0   max=0.0 
+  Intent                                                    0m  CC̄=0.0   max=0.0 
+  Entity                                                    0m  CC̄=0.0   max=0.0 
+  NormalizedQuery                                           0m  CC̄=0.0   max=0.0 
+  IntentMatch                                               0m  CC̄=0.0   max=0.0 
+  ErrorCategory                                             0m  CC̄=0.0   max=0.0 
+  RepairResult                                              0m  CC̄=0.0   max=0.0 
+  RoutingResult                                             0m  CC̄=0.0   max=0.0 
+  MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
+  PageInfo                                                  0m  CC̄=0.0   max=0.0 
+  ExplorationResult                                         0m  CC̄=0.0   max=0.0 
+  ExecutorContext                                           0m  CC̄=0.0   max=0.0 
+  FormData                                                  0m  CC̄=0.0   max=0.0 
+  BrowserResult                                             0m  CC̄=0.0   max=0.0 
+  ExecutionResult                                           0m  CC̄=0.0   max=0.0 
+  RecoveryContext                                           0m  CC̄=0.0   max=0.0 
+  ExplorationResult                                         0m  CC̄=0.0   max=0.0 
+  ExplorationContext                                        0m  CC̄=0.0   max=0.0 
+  MissingResource                                           0m  CC̄=0.0   max=0.0 
+  DiscoveryDecision                                         0m  CC̄=0.0   max=0.0 
+  FileInfo                                                  0m  CC̄=0.0   max=0.0 
+  DataNode                                                  0m  CC̄=0.0   max=0.0 
+  DataMatch                                                 0m  CC̄=0.0   max=0.0 
+  EndpointInfo                                              0m  CC̄=0.0   max=0.0 
+  ServiceInfo                                               0m  CC̄=0.0   max=0.0 
+  VisionResult                                              0m  CC̄=0.0   max=0.0 
+  OutputFormat                                              0m  CC̄=0.0   max=0.0 
+  AggregatedResult                                          0m  CC̄=0.0   max=0.0 
+  LLMResponse                                               0m  CC̄=0.0   max=0.0 
+  ValidationVerdict                                         0m  CC̄=0.0   max=0.0 
+  RepairResult                                              0m  CC̄=0.0   max=0.0 
+  RouterResponse                                            0m  CC̄=0.0   max=0.0 
+  ModelHealth                                               0m  CC̄=0.0   max=0.0 
+  _ParsedSize                                               0m  CC̄=0.0   max=0.0 
+  ParamType                                                 0m  CC̄=0.0   max=0.0 
+  ParamSchema                                               0m  CC̄=0.0   max=0.0 
+  LangevinConfig                                            0m  CC̄=0.0   max=0.0 
+  SamplerResult                                             0m  CC̄=0.0   max=0.0 
+  StepStatus                                                0m  CC̄=0.0   max=0.0 
+  StepResult                                                0m  CC̄=0.0   max=0.0 
+  TaskSchema                                                0m  CC̄=0.0   max=0.0 
+  TaskResult                                                0m  CC̄=0.0   max=0.0 
+  StepStatus                                                0m  CC̄=0.0   max=0.0 
+  StepResult                                                0m  CC̄=0.0   max=0.0 
+  ExecutionResult                                           0m  CC̄=0.0   max=0.0 
+  Task                                                      0m  CC̄=0.0   max=0.0 
+  Resource                                                  0m  CC̄=0.0   max=0.0 
+  ReflectionVerdict                                         0m  CC̄=0.0   max=0.0 
+  ReflectionResult                                          0m  CC̄=0.0   max=0.0 
+  StepMetric                                                0m  CC̄=0.0   max=0.0 
+  LearnedPath                                               0m  CC̄=0.0   max=0.0 
+  SafetyPolicy                                              0m  CC̄=0.0   max=0.0 
+  AdapterConfig                                             0m  CC̄=0.0   max=0.0 
+  DQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
+  EntityContext                                             0m  CC̄=0.0   max=0.0 
+  LLMConfig                                                 0m  CC̄=0.0   max=0.0 
+  LLMGenerationResult                                       0m  CC̄=0.0   max=0.0 
+  ComposeContext                                            0m  CC̄=0.0   max=0.0 
+  BrowserSafetyPolicy                                       0m  CC̄=0.0   max=0.0 
+  ClusterContext                                            0m  CC̄=0.0   max=0.0 
+  AppSpecAdapterConfig                                      0m  CC̄=0.0   max=0.0 
+  SQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
+  SchemaContext                                             0m  CC̄=0.0   max=0.0 
+  ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
+  EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
+  DesktopAction                                             0m  CC̄=0.0   max=0.0 
+  DisambiguationResult                                      0m  CC̄=0.0   max=0.0 
+  ToolInfo                                                  0m  CC̄=0.0   max=0.0 
+  ServiceInfo                                               0m  CC̄=0.0   max=0.0 
+  EnvironmentReport                                         0m  CC̄=0.0   max=0.0 
+  DrawingStep                                               0m  CC̄=0.0   max=0.0 
+  DrawingPlan                                               0m  CC̄=0.0   max=0.0 
+  CanvasSafetyPolicy                                        0m  CC̄=0.0   max=0.0 
+  StreamResult                                              0m  CC̄=0.0   max=0.0 
+  SourceURI                                                 0m  CC̄=0.0   max=0.0 
+  ToonNodeType                                              0m  CC̄=0.0   max=0.0 
+  ToonNode                                                  0m  CC̄=0.0   max=0.0 
+  RoutingDecision                                           0m  CC̄=0.0   max=0.0 
+  RoutingResult                                             0m  CC̄=0.0   max=0.0 
+  RouterConfig                                              0m  CC̄=0.0   max=0.0 
+  FeedbackType                                              0m  CC̄=0.0   max=0.0 
+  CorrectionRule                                            0m  CC̄=0.0   max=0.0 
+  ActionContext                                             0m  CC̄=0.0   max=0.0 
+  ActionResult                                              0m  CC̄=0.0   max=0.0 
+  CommandParameter                                          0m  CC̄=0.0   max=0.0 
+  CommandSchema                                             0m  CC̄=0.0   max=0.0 
+  HandlerContext                                            0m  CC̄=0.0   max=0.0 
+  HandlerResult                                             0m  CC̄=0.0   max=0.0 
+  SearchContext                                             0m  CC̄=0.0   max=0.0 
+  CommandMatch                                              0m  CC̄=0.0   max=0.0 
+  FetchedShape                                              0m  CC̄=0.0   max=0.0 
+  EventType                                                 0m  CC̄=0.0   max=0.0 
+  CorrectionStep                                            0m  CC̄=0.0   max=0.0 
+  CorrectionPlan                                            0m  CC̄=0.0   max=0.0 
+  CorrectionResult                                          0m  CC̄=0.0   max=0.0 
+  NavigationState                                           0m  CC̄=0.0   max=0.0 
+  CanvasInfo                                                0m  CC̄=0.0   max=0.0 
+  NavigationStep                                            0m  CC̄=0.0   max=0.0 
+  NavigationResult                                          0m  CC̄=0.0   max=0.0 
+  ObjectStatus                                              0m  CC̄=0.0   max=0.0 
+  ObjectAssessment                                          0m  CC̄=0.0   max=0.0 
+  GeneratedShape                                            0m  CC̄=0.0   max=0.0 
+  DrawStatus                                                0m  CC̄=0.0   max=0.0 
+  ObjectDrawResult                                          0m  CC̄=0.0   max=0.0 
+  ValidationVerdict                                         0m  CC̄=0.0   max=0.0 
+  ValidationResult                                          0m  CC̄=0.0   max=0.0 
+  Status                                                    0m  CC̄=0.0   max=0.0 
+  CheckResult                                               0m  CC̄=0.0   max=0.0 
+  ExampleScenario                                           0m  CC̄=0.0   max=0.0 
+
+D:
+  nlp2cmd/pipeline_runner_plans.py:
+    e: PlanExecutionMixin
+    PlanExecutionMixin  # Multi-step ActionPlan execution methods for PipelineRunner....
+      _sanitize_replacement_steps(0)  CC=13.0
+  nlp2cmd/pipeline_runner_browser.py:
+    e: BrowserExecutionMixin
+    BrowserExecutionMixin  # DOM/browser execution methods for PipelineRunner....
+      _run_dom_dql(1)  CC=28.0  !
+        → _run_dom_multi_action(1)  CC=280.0  !
+  nlp2cmd/cli/commands/run.py:
+    e: _run_doctor_fallback,handle_run_mode,_handle_run_query,_suggest_next_steps
+    _run_doctor_fallback()
+    handle_run_mode(query,dsl,appspec,auto_confirm,no_submit,execute_web,auto_install,auto_repair,only_output,verbose,video_fmt,video_duration)
+    _handle_run_query(query)
+    _suggest_next_steps(original_query,command,result,runner)
+  nlp2cmd/generation/keywords/keyword_detector.py:
+    e: DetectionResult,KeywordIntentDetector,_get_query_normalizer,_get_polish_support,_get_fuzzy_schema_matcher,_get_ml_classifier,_get_semantic_matcher,_get_spacy_model,_normalize_url
+    DetectionResult  # Result of intent detection....
+      __post_init__(0)  CC=3.0
+    KeywordIntentDetector  # Rule-based intent detection using keyword matching.
+
+No LLM ...
+      __init__(3)  CC=5.0
+        → add_pattern(3)  CC=1.0
+    _get_query_normalizer()
+    _get_polish_support()
+    _get_fuzzy_schema_matcher()
+    _get_ml_classifier()
+    _get_semantic_matcher()
+    _get_spacy_model()
+    _normalize_url(raw)
+  nlp2cmd/web_schema/site_explorer.py:
+    e: PageInfo,ExplorationResult,SiteExplorer,_debug,_github_readme_url,_github_docs_url,_pypi_to_docs_url,quick_find_content,quick_find_form
+    PageInfo  # Information about a discovered page....
+    ExplorationResult  # Result of site exploration....
+    SiteExplorer  # Explores website to find forms, contact pages, and other con...
+      __init__(7)  CC=1.0
+    _debug(msg)
+    _github_readme_url(url)
+    _github_docs_url(url)
+    _pypi_to_docs_url(url)
+    quick_find_content(url,content_type,search_term,headless)
+    quick_find_form(url,intent,headless)
+  nlp2cmd/cli/main.py:
+    e: _register_subcommands_for_args,repair,validate,analyze_env,version,_run_preflight_checks,main,repair,validate,analyze_env,cli_entry_point
+    _register_subcommands_for_args(argv)
+    repair(ctx,file,backup)
+    validate(ctx,file)
+    analyze_env(ctx,output)
+    version()
+    _run_preflight_checks(console,verbose,auto_fix,execute_web)
+    main(ctx,interactive,dsl,appspec,query,stdin_mode,stdout_only,only_output,run,auto_repair,explain,execute_web,auto_confirm,no_submit,auto_install,source_uri,log_dir,do_screenshot,video_fmt,video_duration,do_md,version,verbose,show_schema,show_decision_tree,debug_log_md,record_session)
+    repair(ctx,file,backup)
+    validate(ctx,file)
+    analyze_env(ctx,output)
+    cli_entry_point()
+  nlp2cmd/cli/commands/generate.py:
+    e: handle_generate_query,handle_appspec_query,_record_cli_session,_execute_multi_step_with_video
+    handle_generate_query(query)
+    handle_appspec_query(query)
+    _record_cli_session(output_path,query,result_data)
+    _execute_multi_step_with_video(output_path,query,action_plan,pipeline_result)
+  nlp2cmd/adapters/canvas.py:
+    e: DrawingStep,DrawingPlan,CanvasSafetyPolicy,CanvasAdapter,_debug
+    DrawingStep  # Single step in a drawing plan....
+    DrawingPlan  # Complete drawing plan for canvas operations....
+    CanvasSafetyPolicy  # Safety policy for canvas operations — generally safe....
+    CanvasAdapter  # Adapter for canvas-based drawing via Playwright mouse contro...
+      __init__(2)  CC=2.0
+        → __init__(2)  CC=2.0
+    _debug(msg)
+  nlp2cmd/validators/__init__.py:
+    e: ValidationResult,BaseValidator,SyntaxValidator,SQLValidator,ShellValidator,DockerValidator,KubernetesValidator,CompositeValidator
+    ValidationResult  # Result of a validation operation....
+      merge(1)  CC=2.0
+    BaseValidator  # Abstract base class for validators....
+      validate(1)  CC=1.0
+    SyntaxValidator  # Generic syntax validator for balanced brackets, quotes, etc....
+      validate(1)  CC=6.0
+    SQLValidator  # SQL-specific validator....
+      __init__(1)  CC=1.0
+    ShellValidator  # Shell command validator....
+      __init__(1)  CC=1.0
+    DockerValidator  # Docker command and Dockerfile validator....
+      _iter_publish_ports(0)  CC=5.0
+        → _parse_ports_from_spec(0)  CC=6.0
+    KubernetesValidator  # Kubernetes command and manifest validator....
+      __init__(1)  CC=1.0
+    CompositeValidator  # Combines multiple validators....
+      __init__(1)  CC=1.0
+  nlp2cmd/cli/commands/doctor.py:
+    e: Status,CheckResult,NP2CMDDoctor,run_doctor,get_hf_token_via_browser,_try_existing_browser,_try_system_browser,_try_playwright_browser,_navigate_and_get_token,_manual_browser_instructions
+    Status
+    CheckResult
+    NP2CMDDoctor  # System diagnostic and auto-repair for nlp2cmd....
+      __init__(2)  CC=1.0
+    run_doctor(auto_fix,output_json,fix_script)
+    get_hf_token_via_browser(console)
+    _try_existing_browser(console)
+    _try_system_browser(console)
+    _try_playwright_browser(console)
+    _navigate_and_get_token(page,console,browser_type)
+    _manual_browser_instructions(console,browser_name)
+  nlp2cmd/generation/pipeline.py:
+    e: RuleBasedPipeline,create_pipeline
+    RuleBasedPipeline  # Complete rule-based NL → DSL pipeline.
+
+Combines intent dete...
+      __init__(0)  CC=4.0
+    create_pipeline(confidence_threshold,custom_patterns)
+  nlp2cmd/execution/runner.py:
+    e: ExecutionResult,RecoveryContext,ExecutionRunner
+    ExecutionResult  # Result of command execution....
+    RecoveryContext  # Context for LLM-assisted error recovery....
+    ExecutionRunner  # Execute commands with logging, error handling, and LLM-assis...
+      __init__(5)  CC=3.0
+  nlp2cmd/automation/schema_fallback.py:
+    e: FallbackContext,FallbackResult,SchemaFallback
+    FallbackContext  # Context collected when a step fails, used to generate altern...
+    FallbackResult  # Result of a fallback attempt....
+    SchemaFallback  # Generate alternative action schemas when steps fail.
+
+Uses a...
+      __init__(1)  CC=2.0
+  app2schema/extract.py:
+    e: _SimpleDomParser,App2SchemaResult,validate_app2schema_export,validate_appspec,_slugify,_extract_web_dom_schema,_normalize_base_url,discover_openapi_spec_url,extract_schema,extract_appspec_to_file,extract_schema_to_file
+    _SimpleDomParser
+      __init__(0)  CC=1.0
+        → __init__(0)  CC=1.0
+    App2SchemaResult
+      to_export_dict(1)  CC=5.0
+    validate_app2schema_export(payload)
+    validate_appspec(payload)
+    _slugify(value)
+    _extract_web_dom_schema(target)
+    _normalize_base_url(url)
+    discover_openapi_spec_url(base_url)
+    extract_schema(target)
+    extract_appspec_to_file(target,out_path)
+    extract_schema_to_file(target,out_path)
+  nlp2cmd/pipeline_runner_desktop.py:
+    e: DesktopExecutionMixin
+    DesktopExecutionMixin  # Desktop automation and static utility methods for PipelineRu...
+      _dismiss_popups(1)  CC=5.0
+  nlp2cmd/llm/validator.py:
+    e: ValidationVerdict,LLMValidator,_debug
+    ValidationVerdict  # Result from LLM validator....
+    LLMValidator  # Validates command output against user intent using a local O...
+      __init__(5)  CC=6.0
+    _debug(msg)
+  nlp2cmd/schema_driven.py:
+    e: MatchResult,SchemaDrivenNLP2CMD
+    MatchResult
+    SchemaDrivenNLP2CMD
+      __init__(1)  CC=1.0
+  nlp2cmd/feedback/__init__.py:
+    e: FeedbackType,FeedbackResult,CorrectionRule,FeedbackAnalyzer,CorrectionEngine
+    FeedbackType  # Types of feedback from the system....
+    FeedbackResult  # Result of feedback analysis....
+      to_dict(0)  CC=1.0
+    CorrectionRule  # Rule for automatic correction....
+    FeedbackAnalyzer  # Analyzes transformation results and provides feedback.
+
+This...
+      __init__(1)  CC=2.0
+        → _register_default_rules(0)  CC=1.0
+    CorrectionEngine  # Engine for applying corrections to generated content.
+
+Provi...
+      __init__(0)  CC=1.0
+  nlp2cmd/skills/drawing/object_fetcher.py:
+    e: FetchedShape,_BaseFetcher,SimpleIconsFetcher,IconifyFetcher,SVGRepoFetcher,ObjectFetcher,parse_svg_path
+    FetchedShape  # Shape data retrieved from an external database....
+    _BaseFetcher  # Base HTTP fetcher with timeout and SSL handling....
+      _get(1)  CC=1.0
+    SimpleIconsFetcher  # Fetch SVG icons from Simple Icons (simpleicons.org).
+
+3000+ ...
+      fetch(1)  CC=4.0
+    IconifyFetcher  # Fetch icons from Iconify API (api.iconify.design).
+
+Unified ...
+      fetch(1)  CC=4.0
+        → _search(1)  CC=2.0
+        → _fetch_icon(2)  CC=6.0
+    SVGRepoFetcher  # Search and fetch from SVG Repo (svgrepo.com).
+
+1M+ free SVG ...
+      fetch(1)  CC=5.0
+    ObjectFetcher  # Autonomous shape fetcher with multi-database search and loca...
+      __init__(2)  CC=2.0
+    parse_svg_path(d,scale,center)
+  nlp2cmd/adapters/browser.py:
+    e: BrowserSafetyPolicy,BrowserAdapter,_debug
+    BrowserSafetyPolicy
+    BrowserAdapter  # Minimal adapter that turns NL into dom_dql.v1 navigation (Pl...
+      __init__(2)  CC=2.0
+        → __init__(2)  CC=2.0
+    _debug(msg)
+  nlp2cmd/generation/regex.py:
+    e: ExtractedEntity,ExtractionResult,RegexEntityExtractor
+    ExtractedEntity  # A single extracted entity....
+    ExtractionResult  # Result of entity extraction....
+      __post_init__(0)  CC=2.0
+    RegexEntityExtractor  # Extract entities from text using regex patterns.
+
+No LLM nee...
+      __init__(1)  CC=4.0
+        → _load_patterns_from_json(0)  CC=20.0  !
+  nlp2cmd/generation/thermodynamic_components.py:
+    e: OptimizationProblem,ThermodynamicResult,ThermodynamicProblemDetector,ThermodynamicConfig
+    OptimizationProblem  # Structured optimization problem definition....
+      __post_init__(0)  CC=38.0  !
+    ThermodynamicResult  # Result of thermodynamic optimization....
+      __init__(12)  CC=7.0
+    ThermodynamicProblemDetector  # Detects optimization problems in natural language....
+      detect_problem(1)  CC=5.0
+        → _detect_problem_type(1)  CC=4.0
+        → _extract_variables(1)  CC=16.0  !
+        → _extract_constraints(1)  CC=9.0
+        → _extract_objective(1)  CC=7.0
+        → _is_optimization_problem(1)  CC=2.0
+    ThermodynamicConfig  # Configuration for thermodynamic optimization....
+      __init__(6)  CC=1.0
+  nlp2cmd/web_schema/form_handler.py:
+    e: FormField,FormData,FormHandler
+    FormField  # Represents a form field....
+      get_display_name(0)  CC=4.0
+    FormData  # Collected form data....
+    FormHandler  # Handles form detection and interactive filling....
+      __init__(1)  CC=2.0
+  nlp2cmd/automation/password_store.py:
+    e: Credential,FirefoxPasswordReader,KeePassXCReader,BitwardenReader,EnvPasswordReader,SessionPasswordStore,get_password_store
+    Credential  # Single credential entry....
+      matches_domain(1)  CC=4.0
+    FirefoxPasswordReader  # Read saved passwords from Firefox profile using NSS library....
+      __init__(1)  CC=1.0
+    KeePassXCReader  # Read passwords from KeePassXC database via CLI.
+
+Requirement...
+      __init__(2)  CC=3.0
+    BitwardenReader  # Read passwords from Bitwarden via CLI.
+
+Requirements:
+- bw C...
+      __init__(1)  CC=2.0
+    EnvPasswordReader  # Read credentials from environment variables and .env files.
+...
+      get_credentials(1)  CC=13.0
+    SessionPasswordStore  # Multi-backend password store with in-memory session cache.
+
+...
+      __init__(1)  CC=2.0
+    get_password_store()
+  nlp2cmd/generation/template_generator.py:
+    e: TemplateResult,TemplateGenerator
+    TemplateResult  # Result of template generation....
+    TemplateGenerator  # Generate DSL commands from templates.
+
+Uses predefined templ...
+      __init__(1)  CC=4.0
+        → _load_defaults_from_json(0)  CC=4.0
+        → _load_templates_from_json(0)  CC=12.0
+  nlp2cmd/plan_execution/plan_executor.py:
+    e: PlanExecutor
+    PlanExecutor  # Main executor for ActionPlans with browser automation.
+
+This...
+      __init__(1)  CC=1.0
+  nlp2cmd/router/__init__.py:
+    e: RoutingDecision,RoutingResult,RouterConfig,DecisionRouter
+    RoutingDecision  # Routing decision types....
+    RoutingResult  # Result of routing decision....
+    RouterConfig  # Configuration for Decision Router....
+    DecisionRouter  # Routes incoming requests to appropriate processing path.
+
+De...
+      __init__(1)  CC=3.0
+        → _register_default_mappings(0)  CC=1.0
+        → _load_config_from_data(0)  CC=34.0  !
+  nlp2cmd/generation/keywords/keyword_patterns.py:
+    e: KeywordPatterns,_find_data_files,_normalize_polish_text,_dedupe_case_insensitive
+    KeywordPatterns  # Manages keyword patterns for intent detection....
+      __init__(1)  CC=3.0
+        → _load_patterns_from_json(1)  CC=19.0  !
+        → _load_detector_config_from_json(0)  CC=33.0  !
+    _find_data_files()
+    _normalize_polish_text(text)
+    _dedupe_case_insensitive(items)
+  nlp2cmd/nlp_light/semantic_shell.py:
+    e: _ParsedSize,SemanticShellBackend
+    _ParsedSize
+    SemanticShellBackend
+      __init__(1)  CC=2.0
+        → __init__(1)  CC=2.0
+  nlp2cmd/llm/adaptive_learner.py:
+    e: ErrorPattern,ModelPerformance,LearnedRule,AdaptiveLearner,_debug,classify_error
+    ErrorPattern  # Classified error pattern from LLM failures....
+      to_dict(0)  CC=1.0
+    ModelPerformance  # Tracks performance metrics for a model on a specific task....
+      to_dict(0)  CC=1.0
+    LearnedRule  # A routing rule learned from experience....
+      to_dict(0)  CC=1.0
+    AdaptiveLearner  # Adaptive learning system for LLM routing.
+
+Learns from:
+1. F...
+      __init__(1)  CC=2.0
+        → _load(0)  CC=6.0
+    _debug(msg)
+    classify_error(error_msg,model,task)
+  nlp2cmd/adapters/desktop.py:
+    e: DesktopAction,DesktopSafetyPolicy,DesktopAdapter,_debug
+    DesktopAction  # Structured desktop automation action....
+    DesktopSafetyPolicy  # Safety policy for desktop GUI automation....
+      validate(1)  CC=3.0
+    DesktopAdapter  # Adapter for desktop GUI automation via VNC/noVNC + xdotool/w...
+      __init__(0)  CC=2.0
+        → __init__(0)  CC=2.0
+    _debug(msg)
+  nlp2cmd/intelligent/command_detector.py:
+    e: CommandMatch,CommandDetector,test_command_detector
+    CommandMatch  # Represents a matched command with confidence....
+    CommandDetector  # Detects shell commands from natural language descriptions....
+      __init__(0)  CC=6.0
+        → _load_config_from_json(0)  CC=31.0  !
+    test_command_detector()
+  nlp2cmd/schema_extraction/python_extractors.py:
+    e: PythonCodeExtractor,ClickExtractor,_ast_unparse,_python_annotation_to_param_type
+    PythonCodeExtractor  # Extract command schemas from Python source code with decorat...
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=13.0
+        → _extract_argparse_cli(2)  CC=20.0  !
+        → _extract_click_command(1)  CC=16.0  !
+        → _extract_typer_command(2)  CC=30.0  !
+        → _extract_generic_command(1)  CC=14.0
+        → _extract_plain_function(1)  CC=9.0
+    ClickExtractor  # Specialized extractor for Click applications....
+      __init__(0)  CC=1.0
+    _ast_unparse(node)
+    _python_annotation_to_param_type(annotation)
+  nlp2cmd/schema_extraction/script_extractors.py:
+    e: ShellScriptExtractor,MakefileExtractor,_shell_opt_to_param_name,_dedupe_params
+    ShellScriptExtractor  # Extract schema from a shell script file using shlex/regex he...
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=30.0  !
+    MakefileExtractor  # Extract schema from Makefile targets and variables....
+      extract_from_file(1)  CC=2.0
+        → extract_from_source(2)  CC=18.0  !
+    _shell_opt_to_param_name(opt)
+    _dedupe_params(params)
+  nlp2cmd/step_handlers/session.py:
+    e: CheckSessionHandler,SubmitAndExtractKeyHandler,DiscoverServiceSectionHandler
+    CheckSessionHandler  # Check if user is logged into a service with auto-login via p...
+      execute(1)  CC=10.0
+        → _handle_login_page(3)  CC=22.0  !
+    SubmitAndExtractKeyHandler  # Submit form and poll for API key extraction....
+      execute(1)  CC=2.0
+        → _click_submit(2)  CC=7.0
+        → _poll_for_key(4)  CC=16.0  !
+        → _copy_to_clipboard(2)  CC=2.0
+    DiscoverServiceSectionHandler  # Discover service section (e.g., API keys page) by link disco...
+      execute(1)  CC=30.0  !
+        → _find_best_link(3)  CC=17.0  !
+        → _try_page_analyzer(2)  CC=4.0
+        → _try_candidate(5)  CC=10.0
+  nlp2cmd/automation/feedback_loop.py:
+    e: FailureType,StepDiagnosis,RepairAttempt,FeedbackResult,PageAnalyzer,FeedbackLoop
+    FailureType  # Classification of step failure root cause....
+    StepDiagnosis  # Result of analyzing a step failure....
+    RepairAttempt  # Record of a single repair attempt....
+    FeedbackResult  # Result of the feedback loop for a single step....
+    PageAnalyzer  # Analyzes page DOM to find correct sections, selectors, and n...
+      extract_page_context(1)  CC=29.0  !
+    FeedbackLoop  # Declarative feedback loop for browser automation steps.
+
+Wra...
+      __init__(3)  CC=6.0
+  nlp2cmd/generation/train_model.py:
+    e: load_expanded_phrases,load_patterns,load_command_schemas,generate_augmented_samples,deduplicate_samples,train_all_models,quick_test
+    load_expanded_phrases(path)
+    load_patterns(path)
+    load_command_schemas(schemas_dir)
+    generate_augmented_samples(samples)
+    deduplicate_samples(samples)
+    train_all_models(data_dir,output_dir,augment,verbose)
+    quick_test(data_dir)
+  nlp2cmd/orchestration/reflection.py:
+    e: ReflectionVerdict,ReflectionResult,ResultAnalyzer,has_error_signals,classify_error,suggest_retry_strategy,_parse_json_safe
+    ReflectionVerdict  # Outcome of result analysis....
+    ReflectionResult  # Result of LLM-driven reflection on execution output....
+    ResultAnalyzer  # Analyzes execution results using LLM for intelligent reflect...
+      __init__(1)  CC=1.0
+    has_error_signals(text)
+    classify_error(text)
+    suggest_retry_strategy(error_type)
+    _parse_json_safe(text)
+  nlp2cmd/parsing/toon_parser.py:
+    e: ToonNodeType,ToonNode,ToonParser,get_parser,reload_parser
+    ToonNodeType  # TOON node types...
+    ToonNode  # TOON node structure...
+    ToonParser  # Unified TOON format parser with hierarchical access...
+      __init__(1)  CC=2.0
+    get_parser(file_path)
+    reload_parser(file_path)
+  nlp2cmd/pipeline_runner_shell.py:
+    e: ShellExecutionMixin
+    ShellExecutionMixin  # Shell command execution methods for PipelineRunner....
+      _run_shell(1)  CC=27.0  !
+        → _parse_shell_command(1)  CC=15.0  !
+        → _check_against_safety_policy(1)  CC=7.0
+  nlp2cmd/schemas/__init__.py:
+    e: FileFormatSchema,SchemaRegistry
+    FileFormatSchema  # Definition of a file format schema....
+      validate(1)  CC=2.0
+    SchemaRegistry  # Registry for file format schemas with validation and repair ...
+      __init__(0)  CC=1.0
+        → _register_builtin_schemas(0)  CC=2.0
+  nlp2cmd/automation/action_planner.py:
+    e: ActionStep,ActionPlan,ActionPlanner,_load_known_services,_can_use_desktop_automation
+    ActionStep  # Single step in an execution plan....
+      to_dict(0)  CC=3.0
+    ActionPlan  # Complete execution plan for a complex command....
+      to_cache_dict(0)  CC=2.0
+    ActionPlanner  # Decomposes complex NL commands into ActionPlan via rules or ...
+      __init__(2)  CC=3.0
+    _load_known_services()
+    _can_use_desktop_automation()
+  nlp2cmd/adapters/dynamic.py:
+    e: DynamicSafetyPolicy,DynamicAdapter
+    DynamicSafetyPolicy  # Enhanced safety policy that adapts based on extracted schema...
+      __init__(0)  CC=1.0
+        → __init__(0)  CC=1.0
+    DynamicAdapter  # Dynamic adapter that uses extracted schemas instead of hardc...
+      __init__(3)  CC=10.0
+        → __init__(3)  CC=10.0
+        → _load_common_commands(0)  CC=3.0
+  nlp2cmd/automation/complex_planner.py:
+    e: ActionStep,ExecutionPlan,ComplexCommandPlanner,_debug
+    ActionStep  # Single step in a complex command execution plan....
+      to_dict(0)  CC=4.0
+    ExecutionPlan  # Complete execution plan for a complex command....
+      to_dict(0)  CC=2.0
+        → to_dict(0)  CC=2.0
+    ComplexCommandPlanner  # Decomposes complex NL commands into executable action plans....
+      __init__(2)  CC=3.0
+    _debug(msg)
+  nlp2cmd/generation/thermodynamic.py:
+    e: ThermodynamicGenerator,HybridThermodynamicGenerator,SchedulingEnergy,AllocationEnergy,RoutingEnergy,create_thermodynamic_generator
+    ThermodynamicGenerator  # Generate solutions for optimization problems using Langevin ...
+      __init__(0)  CC=10.0
+    HybridThermodynamicGenerator  # Hybrid generator combining rule/LLM-based DSL with thermodyn...
+      __init__(0)  CC=2.0
+    SchedulingEnergy  # Scheduling energy model for thermodynamic optimization....
+    AllocationEnergy  # Allocation energy model for thermodynamic optimization....
+    RoutingEnergy  # Routing energy model for thermodynamic optimization....
+    create_thermodynamic_generator(n_samples,n_steps,adaptive_steps,parallel_sampling)
+  nlp2cmd/step_handlers/extraction.py:
+    e: ExtractKeyHandler,CheckClipboardHandler,SaveEnvHandler,VerifyEnvHandler,PromptSecretHandler,EchoHandler,ExtractTextHandler
+    ExtractKeyHandler  # Extract API key from page DOM and clipboard....
+      execute(1)  CC=22.0  !
+        → _copy_to_clipboard(2)  CC=2.0
+    CheckClipboardHandler  # Validate clipboard content against key pattern....
+      execute(1)  CC=8.0
+    SaveEnvHandler  # Save value to .env file....
+      execute(1)  CC=14.0
+    VerifyEnvHandler  # Verify that env var was saved to .env file....
+      execute(1)  CC=6.0
+    PromptSecretHandler  # Prompt user for secret/API key with timeout and validation....
+      execute(1)  CC=24.0  !
+        → _getpass_with_timeout(2)  CC=4.0
+    EchoHandler  # Echo a message to the console....
+      execute(1)  CC=4.0
+    ExtractTextHandler  # Extract text from page elements....
+      execute(1)  CC=12.0
+  nlp2cmd/skills/drawing/text_to_shape.py:
+    e: GeneratedShape,DynamicShapeGenerator,TextToShapeEngine,validate_geometry,normalize_points
+    GeneratedShape  # Result of LLM shape generation....
+    DynamicShapeGenerator  # ShapeGenerator created from LLM-generated or fetched point d...
+      __init__(2)  CC=1.0
+    TextToShapeEngine  # Generates 2D shapes from text descriptions using LLM.
+
+Uses ...
+      __init__(1)  CC=1.0
+    validate_geometry(points,name)
+    normalize_points(points,target_size)
+  nlp2cmd/cli/commands/interactive.py:
+    e: InteractiveSession,_interactive_followup
+    InteractiveSession  # Interactive REPL session with feedback loop....
+      __init__(3)  CC=1.0
+        → _analyze_environment(0)  CC=3.0
+    _interactive_followup(session,feedback)
+  nlp2cmd/generation/evolutionary_cache.py:
+    e: CacheEntry,LookupResult,EvolutionaryCache,fingerprint,fuzzy_fingerprint,detect_domain
+    CacheEntry
+      touch(0)  CC=1.0
+    LookupResult
+    EvolutionaryCache  # Manages the .nlp2cmd/ learned schema cache.
+
+Usage:
+    cach...
+      __init__(5)  CC=5.0
+        → _ensure_dir(0)  CC=1.0
+        → _load(0)  CC=4.0
+    fingerprint(text)
+    fuzzy_fingerprint(text)
+    detect_domain(text)
+  nlp2cmd/adapters/shell_generators.py:
+    e: FileOperationGenerator,ProcessManagementGenerator,NetworkGenerator,SystemMaintenanceGenerator,DevelopmentGenerator,GitGenerator,DockerGenerator,TextProcessingGenerator
+    FileOperationGenerator  # Generator for file operations....
+      generate_file_search(1)  CC=23.0  !
+        → _extract_size(1)  CC=6.0
+    ProcessManagementGenerator  # Generator for process management commands....
+      generate_process_management(1)  CC=14.0
+    NetworkGenerator  # Generator for network commands....
+      generate_network(1)  CC=8.0
+    SystemMaintenanceGenerator  # Generator for system maintenance commands....
+      generate_system_maintenance(1)  CC=1.0
+    DevelopmentGenerator  # Generator for development commands....
+      generate_development(1)  CC=4.0
+    GitGenerator  # Generator for git commands....
+      generate_git(1)  CC=7.0
+    DockerGenerator  # Generator for docker commands....
+      generate_docker(1)  CC=9.0
+    TextProcessingGenerator  # Generator for text processing commands....
+      generate_text_processing(1)  CC=11.0
+  nlp2cmd/generation/enhanced_context.py:
+    e: ContextualMatch,EnhancedContextDetector,get_enhanced_detector
+    ContextualMatch  # Enhanced match with semantic similarity....
+    EnhancedContextDetector  # Enhanced context detection using multiple NLP approaches....
+      __init__(0)  CC=2.0
+        → _initialize_nlp(0)  CC=8.0
+        → _load_schemas_and_templates(0)  CC=13.0
+        → _build_semantic_index(0)  CC=22.0  !
+    get_enhanced_detector()
+  nlp2cmd/cli/auto_repair.py:
+    e: ErrorCategory,RepairResult,AutoRepairSystem,with_auto_repair,execute_with_auto_recovery
+    ErrorCategory  # Categories of errors that Doctor can handle....
+    RepairResult  # Result of auto-repair attempt....
+    AutoRepairSystem  # Automatic error diagnosis and repair system....
+      __init__(2)  CC=1.0
+    with_auto_repair(auto_confirm,console)
+    execute_with_auto_recovery(func)
+  nlp2cmd/adapters/dql.py:
+    e: DQLSafetyPolicy,EntityContext,DQLAdapter
+    DQLSafetyPolicy  # DQL-specific safety policy....
+    EntityContext  # Doctrine entity context....
+    DQLAdapter  # DQL adapter for Doctrine ORM queries.
+
+Transforms natural la...
+      __init__(3)  CC=3.0
+        → __init__(3)  CC=3.0
+        → _parse_entity_context(1)  CC=1.0
+  nlp2cmd/dom_actions/companies.py:
+    e: ExtractCompaniesAction
+    ExtractCompaniesAction  # Extract company information from catalog pages....
+      execute(1)  CC=6.0
+        → _wait_for_content(1)  CC=2.0
+        → _wait_for_company_links(1)  CC=10.0
+        → _find_company_links(2)  CC=10.0
+        → _collect_company_links(1)  CC=2.0
+        → _extract_websites(4)  CC=21.0  !
+        → _find_external_website(1)  CC=17.0  !
+        → _handle_oferteo_navigation(1)  CC=14.0
+  nlp2cmd/skills/drawing/validation.py:
+    e: ObjectStatus,ObjectAssessment,TaskPlan,ValidationReport,DrawValidationSkill
+    ObjectStatus  # Status of a single requested object....
+    ObjectAssessment  # Vision assessment of a single requested object....
+    TaskPlan  # What the user wants drawn — the reference for validation....
+      add(2)  CC=1.0
+    ValidationReport  # Full validation report: what's done, what remains, what's wr...
+      summary(0)  CC=1.0
+    DrawValidationSkill  # Task-aware drawing validation using Qwen VL.
+
+Tracks a drawi...
+      __init__(2)  CC=1.0
+  nlp2cmd/polish_support.py:
+    e: PolishLanguageSupport,get_polish_support
+    PolishLanguageSupport  # Polish language support for NLP2CMD...
+      __init__(0)  CC=1.0
+        → _load_patterns(0)  CC=6.0
+    get_polish_support()
+  nlp2cmd/pipeline_runner_utils.py:
+    e: _MarkdownConsoleWrapper,ShellExecutionPolicy,RunnerResult,VideoRecorder,_debug,_with_epipe_retry,_field_attrs,_is_junk_field,_is_contact_relevant_field,_looks_like_comment_form,_filter_form_fields,get_timestamp,ensure_dir,ask_for_screenshot,take_screenshot,ask_for_video_recording
+    _MarkdownConsoleWrapper  # Context manager that captures console output into Markdown c...
+      __init__(1)  CC=1.0
+    ShellExecutionPolicy
+      load_from_data(1)  CC=18.0  !
+    RunnerResult
+    VideoRecorder  # Video recording manager for Playwright browser automation....
+      __init__(1)  CC=1.0
+    _debug(msg)
+    _with_epipe_retry(func,max_retries,backoff_ms)
+    _field_attrs(f)
+    _is_junk_field(f)
+    _is_contact_relevant_field(f)
+    _looks_like_comment_form(fields)
+    _filter_form_fields(fields,console_wrapper)
+    get_timestamp()
+    ensure_dir(path)
+    ask_for_screenshot(console,default_path)
+    take_screenshot(page,path,console)
+    ask_for_video_recording(console)
+  nlp2cmd/cli/debug_info.py:
+    e: show_schema_info,show_decision_tree_info,generate_debug_log_md
+    show_schema_info(console)
+    show_decision_tree_info(query,console)
+    generate_debug_log_md(query,output_path)
+  nlp2cmd/core/core_transform.py:
+    e: NLP2CMD
+    NLP2CMD  # Main class for Natural Language to Command transformation.
+
+...
+      __init__(6)  CC=15.0  !
+  nlp2cmd/core/core_backends.py:
+    e: NLPBackend,SpaCyBackend,LLMBackend,RuleBasedBackend
+    NLPBackend  # Base class for NLP processing backends....
+      __init__(1)  CC=2.0
+    SpaCyBackend  # spaCy-based NLP backend....
+      __init__(2)  CC=1.0
+        → __init__(2)  CC=1.0
+    LLMBackend  # LLM-based NLP backend (Claude, GPT, etc.)....
+      __init__(3)  CC=1.0
+        → __init__(3)  CC=1.0
+    RuleBasedBackend  # Simple rule-based NLP backend for basic pattern matching....
+      __init__(2)  CC=2.0
+        → __init__(2)  CC=2.0
+  nlp2cmd/orchestration/engine.py:
+    e: StepStatus,StepDef,StepResult,TaskSchema,TaskResult,Orchestrator,_parse_json
+    StepStatus
+    StepDef  # Definition of a single orchestration step....
+      to_dict(0)  CC=1.0
+    StepResult  # Result of executing a single step....
+    TaskSchema  # LLM-generated execution plan — a dynamic schema for the task...
+    TaskResult  # Final result of orchestrated task execution....
+    Orchestrator  # LLM-driven orchestration engine with reflection.
+
+Lifecycle:...
+      __init__(3)  CC=4.0
+    _parse_json(text)
+  nlp2cmd/step_handlers/interaction.py:
+    e: ClickHandler,ClickRadioHandler,DismissOverlayHandler,TypeTextHandler,FillFormHandler,SubmitFormHandler,LoginHandler,NewTabHandler,WaitHandler,ScreenshotHandler
+    ClickHandler  # Handle click action with retry logic for detached elements....
+      execute(1)  CC=19.0  !
+    ClickRadioHandler  # Handle click_radio action for radio button selection....
+      execute(1)  CC=3.0
+    DismissOverlayHandler  # Handle dismiss_overlay action for cookie banners and dialogs...
+      execute(1)  CC=10.0
+    TypeTextHandler  # Handle type_text action with fallback selectors....
+      execute(1)  CC=10.0
+    FillFormHandler  # Handle fill_form action for multiple fields....
+      execute(1)  CC=3.0
+    SubmitFormHandler  # Handle submit_form action....
+      execute(1)  CC=2.0
+    LoginHandler  # Handle login action with email and password....
+      execute(1)  CC=4.0
+    NewTabHandler  # Handle new_tab action....
+      execute(1)  CC=2.0
+    WaitHandler  # Handle wait action....
+      execute(1)  CC=1.0
+    ScreenshotHandler  # Handle screenshot action....
+      execute(1)  CC=1.0
+  nlp2cmd/web_schema/form_data_loader.py:
+    e: FormDataLoader,create_example_env_file,create_example_form_data_json
+    FormDataLoader  # Loads form field data from multiple sources:
+1. .env file (f...
+      __init__(5)  CC=2.0
+        → _load_schema(0)  CC=15.0  !
+        → _load_site_profile_payload(1)  CC=7.0
+        → _site_profile_paths(1)  CC=1.0
+        → _safe_domain_filename(0)  CC=1.0
+        → _user_sites_dir(0)  CC=1.0
+        → _project_sites_dir(0)  CC=1.0
+        → _deep_merge(2)  CC=12.0
+        → _dedupe_preserve_order(0)  CC=5.0
+        → _load_env(0)  CC=8.0
+        → _load_json_files(0)  CC=11.0
+        → _build_field_values(0)  CC=16.0  !
+        → _parse_domain(0)  CC=8.0
+    create_example_env_file(path)
+    create_example_form_data_json(path)
+  nlp2cmd/orchestration/handlers.py:
+    e: handle_shell_exec,handle_generate_code,handle_wait,handle_inspect,handle_navigate,handle_dismiss_popups,handle_inject_code,handle_find_and_click,_normalize_purpose,handle_capture_output,handle_screenshot,handle_validate,handle_discover_url,handle_check_health,handle_find_canvas,handle_draw_shape,handle_navigate_with_fallback,register_default_handlers,_strip_code_fences
+    handle_shell_exec(step,ctx)
+    handle_generate_code(step,ctx)
+    handle_wait(step,ctx)
+    handle_inspect(step,ctx)
+    handle_navigate(step,ctx)
+    handle_dismiss_popups(step,ctx)
+    handle_inject_code(step,ctx)
+    handle_find_and_click(step,ctx)
+    _normalize_purpose(raw)
+    handle_capture_output(step,ctx)
+    handle_screenshot(step,ctx)
+    handle_validate(step,ctx)
+    handle_discover_url(step,ctx)
+    handle_check_health(step,ctx)
+    handle_find_canvas(step,ctx)
+    handle_draw_shape(step,ctx)
+    handle_navigate_with_fallback(step,ctx)
+    register_default_handlers(orch)
+    _strip_code_fences(text)
+  nlp2cmd/dom_actions/save.py:
+    e: SaveToFileAction,SaveToCsvAction
+    SaveToFileAction  # Save extracted data to a text file....
+      execute(1)  CC=9.0
+        → _extract_lines(1)  CC=12.0
+        → _extract_candidate(3)  CC=18.0  !
+        → _is_bad_website(1)  CC=6.0
+        → _copy_to_clipboard(2)  CC=7.0
+    SaveToCsvAction  # Save extracted data to a CSV file....
+      execute(1)  CC=6.0
+  nlp2cmd/execution/shell_executor.py:
+    e: ShellExecutor
+    ShellExecutor  # Execute shell commands with safety checks and error recovery...
+      __init__(3)  CC=1.0
+  nlp2cmd/llm/router.py:
+    e: RouterResponse,ModelHealth,LLMRouter,_debug,classify_task,_find_config,_load_config,_builtin_model_list,_resolve_env_refs,get_router,reset_router
+    RouterResponse  # Unified response from LLM Router....
+    ModelHealth  # Health status of a model deployment....
+    LLMRouter  # Smart LLM Router with multi-model support, fallbacks, and ta...
+      __init__(4)  CC=7.0
+        → _init_router(0)  CC=10.0
+    _debug(msg)
+    classify_task(prompt)
+    _find_config()
+    _load_config(path)
+    _builtin_model_list()
+    _resolve_env_refs(obj)
+    get_router()
+    reset_router()
+  nlp2cmd/streams/libvirt_stream.py:
+    e: LibvirtStreamAdapter
+    LibvirtStreamAdapter  # Manage VMs via libvirt and control their desktops via SPICE/...
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+        → _build_libvirt_uri(0)  CC=4.0
+  nlp2cmd/intelligent/version_aware_generator.py:
+    e: VersionAwareCommandGenerator,test_version_aware_generation
+    VersionAwareCommandGenerator  # Generates commands with automatic version detection....
+      __init__(1)  CC=1.0
+    test_version_aware_generation()
+  nlp2cmd/evolutionary_orchestrator.py:
+    e: RecoveryStrategy,RecoveryAttempt,ExecutionMetrics,EvolutionaryRecoveryEngine,AutonomousExampleRunner
+    RecoveryStrategy  # Strategie naprawy - rozszerzalne i ewolucyjne....
+    RecoveryAttempt  # Pojedyncza próba naprawy....
+    ExecutionMetrics  # Metryki wykonania - dla ciągłego doskonalenia....
+    EvolutionaryRecoveryEngine  # Silnik ewolucyjnych napraw - uczy się z każdej sytuacji....
+      __init__(1)  CC=1.0
+        → _load_knowledge(0)  CC=3.0
+    AutonomousExampleRunner  # Autonomiczny runner z evolutionary recovery....
+      __init__(1)  CC=1.0
+  nlp2cmd/plan_execution/step_orchestrator.py:
+    e: StepResult,StepOrchestrator
+    StepResult  # Result of executing a single step....
+    StepOrchestrator  # Orchestrates step execution with validation, fallback, and r...
+      __init__(7)  CC=2.0
+  nlp2cmd/exploration/data_tree.py:
+    e: DataNode,DataMatch,DataTreeExplorer,quick_find_in_data
+    DataNode  # A node in a data tree....
+    DataMatch  # A match in data exploration....
+    DataTreeExplorer  # Explorer for nested data structures (JSON, dicts, etc.)....
+      __init__(3)  CC=1.0
+        → __init__(3)  CC=1.0
+    quick_find_in_data(data,search_term,max_depth)
+  nlp2cmd/executor/__init__.py:
+    e: StepStatus,PlanStep,StepResult,ExecutionPlan,ExecutionContext,ExecutionResult,PlanValidator,PlanExecutor
+    StepStatus  # Status of a plan step....
+    PlanStep  # A single step in an execution plan....
+      __post_init__(0)  CC=2.0
+    StepResult  # Result of executing a single step....
+    ExecutionPlan  # Multi-step execution plan....
+      from_dict(1)  CC=2.0
+    ExecutionContext  # Context for plan execution....
+      set(2)  CC=1.0
+    ExecutionResult  # Result of executing a complete plan....
+    PlanValidator  # Validates execution plans against action registry....
+      __init__(1)  CC=2.0
+    PlanExecutor  # Executes multi-step plans.
+
+Features:
+- Sequential and paral...
+      __init__(2)  CC=3.0
+        → _register_default_handlers(0)  CC=1.0
+  nlp2cmd/utils/external_cache.py:
+    e: ExternalCacheManager,main
+    ExternalCacheManager  # Manages caching of external dependencies like Playwright bro...
+      __init__(1)  CC=2.0
+        → _load_manifest(0)  CC=3.0
+    main()
+  nlp2cmd/streams/ftp_stream.py:
+    e: FTPStreamAdapter
+    FTPStreamAdapter
+      connect(0)  CC=1.0
+  nlp2cmd/schema_extraction/extractors.py:
+    e: CommandParameter,CommandSchema,ExtractedSchema,OpenAPISchemaExtractor,ShellHelpExtractor
+    CommandParameter  # Represents a command parameter extracted from schema....
+    CommandSchema  # Dynamic command schema extracted from various sources....
+    ExtractedSchema  # Container for extracted schemas from a source....
+      to_dict(0)  CC=3.0
+    OpenAPISchemaExtractor  # Extract command schemas from OpenAPI/Swagger specifications....
+      __init__(1)  CC=4.0
+    ShellHelpExtractor  # Extract command schemas from shell help output....
+      __init__(0)  CC=1.0
+  nlp2cmd/web_schema/extractor.py:
+    e: WebElement,WebPageSchema,WebSchemaExtractor,extract_web_schema
+    WebElement  # Represents an interactive element on a web page....
+      to_dict(0)  CC=1.0
+    WebPageSchema  # Schema for a web page....
+      to_appspec(0)  CC=15.0  !
+    WebSchemaExtractor  # Extract schema from web pages using Playwright.
+
+Analyzes DO...
+      __init__(1)  CC=1.0
+    extract_web_schema(url,output_dir,headless,use_cache)
+  nlp2cmd/registry/__init__.py:
+    e: ParamType,ParamSchema,ActionSchema,ActionResult,ActionHandler,ActionRegistry,get_registry
+    ParamType  # Parameter types for action validation....
+    ParamSchema  # Schema for an action parameter....
+    ActionSchema  # Schema definition for an action....
+      get_required_params(0)  CC=3.0
+    ActionResult  # Result of action execution....
+      ok(1)  CC=1.0
+    ActionHandler  # Base class for action handlers....
+      __init__(1)  CC=1.0
+    ActionRegistry  # Central registry for all system actions.
+
+Provides:
+- Action...
+      __init__(0)  CC=1.0
+        → _register_builtin_actions(0)  CC=1.0
+        → register(2)  CC=4.0
+    get_registry()
+  nlp2cmd/adapters/sql.py:
+    e: SQLSafetyPolicy,SchemaContext,SQLAdapter
+    SQLSafetyPolicy  # SQL-specific safety policy....
+    SchemaContext  # Database schema context for SQL generation....
+    SQLAdapter  # SQL adapter supporting multiple database dialects.
+
+Transfor...
+      __init__(4)  CC=4.0
+        → __init__(4)  CC=4.0
+        → _parse_schema_context(1)  CC=1.0
+  nlp2cmd/environment/__init__.py:
+    e: ToolInfo,ServiceInfo,EnvironmentReport,EnvironmentAnalyzer
+    ToolInfo  # Information about an installed tool....
+    ServiceInfo  # Information about a running service....
+    EnvironmentReport  # Complete environment analysis report....
+    EnvironmentAnalyzer  # Analyzes the system environment for available tools, service...
+      __init__(0)  CC=1.0
+  nlp2cmd/streams/http_stream.py:
+    e: HTTPStreamAdapter
+    HTTPStreamAdapter
+      connect(0)  CC=2.0
+  nlp2cmd/schema_extraction/llm_extractor.py:
+    e: LLMSchemaExtractor
+    LLMSchemaExtractor  # Extract command schemas using LLM assistance....
+      __init__(1)  CC=4.0
+  nlp2cmd/intelligent/dynamic_generator.py:
+    e: DynamicSchemaGenerator,test_dynamic_generation
+    DynamicSchemaGenerator  # Generates schemas dynamically without hardcoding....
+      __init__(1)  CC=1.0
+    test_dynamic_generation()
+  nlp2cmd/automation/firefox_sessions.py:
+    e: FirefoxSessionImporter
+    FirefoxSessionImporter  # Import Firefox sessions into Playwright browser profiles.
+
+F...
+      __init__(0)  CC=3.0
+  nlp2cmd/generation/complex_detector.py:
+    e: ComplexityAnalysis,ComplexQueryDetector
+    ComplexityAnalysis  # Result of multi-step complexity analysis....
+    ComplexQueryDetector  # Detects multi-step commands BEFORE the keyword detection pip...
+      analyze(1)  CC=14.0
+  nlp2cmd/plan_execution/browser_setup.py:
+    e: BrowserContextOptions,BrowserSetup
+    BrowserContextOptions  # Options for browser context creation....
+    BrowserSetup  # Handles browser setup, session management, and context creat...
+      __init__(1)  CC=1.0
+  nlp2cmd/storage/versioned_store.py:
+    e: VersionedSchemaStore,demonstrate_version_management
+    VersionedSchemaStore  # Extended schema store that supports versioning....
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+        → _load_active_versions(0)  CC=2.0
+    demonstrate_version_management()
+  nlp2cmd/cli/web_schema.py:
+    e: web_schema_group,extract_schema,show_history,export_learned_schema,clear_history
+    web_schema_group()
+    extract_schema(url,output,headless)
+    show_history(domain,limit,stats)
+    export_learned_schema(domain,output)
+    clear_history(domain,clear_all)
+  nlp2cmd/web_schema/browser_config.py:
+    e: BrowserConfigLoader,DynamicSelectorGenerator,_find_config_dir,_load_yaml,_dedupe
+    BrowserConfigLoader  # Single source of truth for browser automation config.
+
+Loads...
+      __init__(0)  CC=1.0
+    DynamicSelectorGenerator  # Generate selectors dynamically using LLM when static ones fa...
+      __init__(0)  CC=2.0
+    _find_config_dir()
+    _load_yaml(path)
+    _dedupe(items)
+  nlp2cmd/aggregator/__init__.py:
+    e: OutputFormat,AggregatedResult,ResultAggregator
+    OutputFormat  # Output format types....
+    AggregatedResult  # Aggregated result from plan execution....
+    ResultAggregator  # Aggregates and formats execution results.
+
+Provides:
+- Multi...
+      __init__(1)  CC=1.0
+  nlp2cmd/adapters/docker.py:
+    e: DockerSafetyPolicy,ComposeContext,DockerAdapter
+    DockerSafetyPolicy  # Docker-specific safety policy....
+      check_command(2)  CC=11.0
+    ComposeContext  # Docker Compose context....
+    DockerAdapter  # Docker adapter for CLI and Compose operations.
+
+Transforms n...
+      __init__(3)  CC=3.0
+        → __init__(3)  CC=3.0
+        → _parse_compose_context(1)  CC=1.0
+  nlp2cmd/skills/search/engine.py:
+    e: SearchResult,SearchConfig,SearchEngine
+    SearchResult  # Single search result....
+      __str__(0)  CC=1.0
+    SearchConfig  # Configuration for search engine....
+      __post_init__(0)  CC=1.0
+    SearchEngine  # Open source search engine aggregator.
+
+Primary: DuckDuckGo (...
+      __init__(1)  CC=2.0
+  nlp2cmd/skills/drawing/correction_engine.py:
+    e: CorrectionStep,CorrectionPlan,CorrectionResult,CorrectionEngine,AutonomousDrawingPipeline
+    CorrectionStep  # A single step in a correction plan....
+    CorrectionPlan  # Plan of steps to correct a drawing....
+    CorrectionResult  # Result of applying corrections....
+    CorrectionEngine  # Iterative correction engine for drawing repair.
+
+Flow:
+1. Re...
+      __init__(3)  CC=2.0
+    AutonomousDrawingPipeline  # Full autonomous drawing pipeline: draw → validate → correct ...
+      __init__(4)  CC=3.0
+  nlp2cmd/automation/env_extractor.py:
+    e: ServiceConfig,EnvExtractor,_debug
+    ServiceConfig  # Configuration for a known API service....
+    EnvExtractor  # Extracts API keys from browser sessions and saves to .env fi...
+      __init__(1)  CC=2.0
+    _debug(msg)
+  nlp2cmd/cli/helpers.py:
+    e: _system_beep,_timed_default_yes,_timed_default_no,_shell_env_context,get_adapter,_looks_like_log_input,_is_playwright_error,_maybe_install_playwright,_fallback_open_url,_fallback_open_url_from_query
+    _system_beep()
+    _timed_default_yes()
+    _timed_default_no()
+    _shell_env_context(context)
+    get_adapter(dsl,context)
+    _looks_like_log_input(text)
+    _is_playwright_error(msg)
+    _maybe_install_playwright(msg,runner)
+    _fallback_open_url(ir)
+    _fallback_open_url_from_query(query)
+  nlp2cmd/execution/browser.py:
+    e: BrowserResult,BrowserExecutor,get_os_open_command,normalize_url,open_url,search_web,generate_shell_command
+    BrowserResult  # Result of a browser automation action....
+    BrowserExecutor  # Execute browser automation commands.
+
+Supports:
+- Simple URL...
+      __init__(2)  CC=1.0
+    get_os_open_command()
+    normalize_url(url)
+    open_url(url,use_webbrowser)
+    search_web(query,engine)
+    generate_shell_command(action,params)
+  nlp2cmd/llm/repair.py:
+    e: RepairResult,LLMRepair,_debug
+    RepairResult  # Result from LLM repair....
+    LLMRepair  # Repairs failed commands and optionally patches data files us...
+      __init__(7)  CC=12.0
+    _debug(msg)
+  nlp2cmd/generation/llm_simple.py:
+    e: LLMClient,LiteLLMClient,LLMConfig,LLMGenerationResult,BaseLLMGenerator,SimpleLLMSQLGenerator,SimpleLLMShellGenerator,SimpleLLMDockerGenerator,SimpleLLMKubernetesGenerator,MockLLMClient
+    LLMClient  # Protocol for LLM client implementations....
+      complete(4)  CC=1.0
+    LiteLLMClient
+      __init__(4)  CC=9.0
+    LLMConfig  # Configuration for LLM generators....
+    LLMGenerationResult  # Result of LLM generation....
+    BaseLLMGenerator  # Base class for LLM-based DSL generators....
+      __init__(2)  CC=2.0
+    SimpleLLMSQLGenerator  # LLM-based SQL generation - single domain first.
+
+Example:
+  ...
+      __init__(3)  CC=2.0
+        → __init__(3)  CC=2.0
+    SimpleLLMShellGenerator  # LLM-based Shell command generation....
+      get_system_prompt(0)  CC=1.0
+    SimpleLLMDockerGenerator  # LLM-based Docker command generation....
+      get_system_prompt(0)  CC=1.0
+    SimpleLLMKubernetesGenerator  # LLM-based Kubernetes command generation....
+      get_system_prompt(0)  CC=1.0
+    MockLLMClient  # Mock LLM client for testing....
+      __init__(1)  CC=2.0
+  nlp2cmd/adapters/shell.py:
+    e: ShellSafetyPolicy,EnvironmentContext,ShellAdapter
+    ShellSafetyPolicy  # Shell-specific safety policy....
+    EnvironmentContext  # System environment context....
+    ShellAdapter  # Shell adapter supporting multiple shell types.
+
+Transforms n...
+      __init__(4)  CC=6.0
+        → __init__(4)  CC=6.0
+  nlp2cmd/streams/rtsp_stream.py:
+    e: RTSPStreamAdapter
+    RTSPStreamAdapter  # Analyze RTSP video streams — colors, motion, objects....
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+        → _build_rtsp_url(0)  CC=5.0
+  nlp2cmd/history/tracker.py:
+    e: SchemaUsage,CommandRecord,CommandHistory,get_global_history,record_command
+    SchemaUsage  # Record of schema usage....
+      to_dict(0)  CC=1.0
+    CommandRecord  # Record of a command execution....
+      to_dict(0)  CC=2.0
+        → to_dict(0)  CC=2.0
+    CommandHistory  # Unified command history tracker.
+
+Automatically records all ...
+      __init__(1)  CC=2.0
+        → _load(0)  CC=4.0
+    get_global_history()
+    record_command(query,dsl,command)
+  nlp2cmd/cli/commands/examples.py:
+    e: ExampleScenario,ExamplesRegistry,ExamplesRunner
+    ExampleScenario  # Definition of an example scenario....
+    ExamplesRegistry  # Registry of all available example scenarios....
+      __init__(1)  CC=1.0
+        → _discover(0)  CC=2.0
+    ExamplesRunner  # Runner for example scenarios with preconfiguration....
+      __init__(1)  CC=1.0
+  nlp2cmd/monitoring/token_costs.py:
+    e: TokenCostEstimate,TokenCostEstimator,estimate_token_cost,format_token_estimate,parse_metrics_string
+    TokenCostEstimate  # Token cost estimation based on resource consumption....
+    TokenCostEstimator  # Converts resource metrics to token equivalents....
+      __init__(0)  CC=1.0
+    estimate_token_cost(time_ms,cpu_percent,memory_mb,energy_mj)
+    format_token_estimate(estimate)
+    parse_metrics_string(metrics_str)
+  nlp2cmd/automation/captcha_solver.py:
+    e: CaptchaInfo,CaptchaSolver,_debug
+    CaptchaInfo  # Detected CAPTCHA information....
+    CaptchaSolver  # CAPTCHA detection and solving via LLM vision (OpenRouter → G...
+      __init__(2)  CC=3.0
+    _debug(msg)
+  nlp2cmd/generation/semantic_matcher_optimized.py:
+    e: SemanticMatch,IntentEmbedding,OptimizedSemanticMatcher,_check_sentence_transformers,_check_torch,_check_ctranslate2,_get_cache_dir,_compute_cache_key,_cleanup_models,create_optimized_matcher_from_phrases,get_optimized_semantic_matcher,preload_models,clear_embedding_cache,get_cache_stats
+    SemanticMatch  # Result of semantic matching....
+    IntentEmbedding  # Stored embedding for an intent phrase....
+    OptimizedSemanticMatcher  # Optimized semantic similarity matcher using sentence embeddi...
+      __init__(7)  CC=3.0
+        → _preload_models(0)  CC=2.0
+        → _get_model(0)  CC=5.0
+        → _load_model(1)  CC=12.0
+        → _get_polish_model(0)  CC=5.0
+    _check_sentence_transformers()
+    _check_torch()
+    _check_ctranslate2()
+    _get_cache_dir()
+    _compute_cache_key(text,model_name)
+    _cleanup_models()
+    create_optimized_matcher_from_phrases(phrases_path,preload)
+    get_optimized_semantic_matcher(preload)
+    preload_models()
+    clear_embedding_cache()
+    get_cache_stats()
+  nlp2cmd/nlp/intent_matcher.py:
+    e: IntentDef,IntentMatch,IntentMatcher
+    IntentDef  # Intent definition loaded from YAML....
+      all_labels(0)  CC=2.0
+    IntentMatch  # Result of intent matching....
+    IntentMatcher  # Multilingual intent matcher backed by YAML definitions.
+
+Mat...
+      __init__(1)  CC=2.0
+        → load(0)  CC=8.0
+        → _normalize(0)  CC=3.0
+  nlp2cmd/web_schema/history.py:
+    e: InteractionRecord,InteractionHistory
+    InteractionRecord  # Record of a single browser interaction....
+      to_dict(0)  CC=1.0
+    InteractionHistory  # Tracks and learns from browser interactions.
+
+Features:
+- Re...
+      __init__(1)  CC=2.0
+        → _load(0)  CC=4.0
+  nlp2cmd/exploration/disk.py:
+    e: FileInfo,DiskExplorer,quick_find_file
+    FileInfo  # Information about a file or directory....
+    DiskExplorer  # Explorer for file systems and disk content....
+      __init__(4)  CC=1.0
+        → __init__(4)  CC=1.0
+    quick_find_file(path,pattern,max_depth)
+  nlp2cmd/nlp_enhanced/__init__.py:
+    e: ShellGPTBackend,HybridNLPBackend
+    ShellGPTBackend  # NLP backend that uses shell-gpt for intelligent command gene...
+      __init__(3)  CC=4.0
+        → __init__(3)  CC=4.0
+        → _find_shell_gpt(0)  CC=6.0
+    HybridNLPBackend  # Hybrid NLP backend that combines multiple approaches.
+
+This ...
+      __init__(2)  CC=7.0
+        → __init__(2)  CC=7.0
+  nlp2cmd/thermodynamic/__init__.py:
+    e: LangevinConfig,SamplerResult,EnergyModel,QuadraticEnergy,ConstraintEnergy,LangevinSampler,EntropyProductionRegularizer,MajorityVoter,ThermodynamicRouter,EnergyEstimator
+    LangevinConfig  # Configuration for Langevin dynamics sampler....
+    SamplerResult  # Result from Langevin sampling....
+    EnergyModel  # Abstract base class for energy models.
+
+Energy function V(z;...
+      energy(2)  CC=1.0
+    QuadraticEnergy  # Simple quadratic energy for testing: V(z) = 0.5 * ||z - targ...
+      __init__(1)  CC=1.0
+    ConstraintEnergy  # Energy model for constraint satisfaction problems.
+
+V(z; c) ...
+      __init__(0)  CC=1.0
+    LangevinSampler  # Thermodynamic sampler using overdamped Langevin dynamics.
+
+I...
+      __init__(2)  CC=2.0
+    EntropyProductionRegularizer  # Regularizer based on Whitelam's principle:
+
+L = -E[log P(ω̃)...
+      __init__(2)  CC=1.0
+    MajorityVoter  # Select best sample from multiple candidates.
+
+Strategies:
+- ...
+      __init__(1)  CC=1.0
+    ThermodynamicRouter  # Routes problems to appropriate solver:
+- Classic DSL agents ...
+      __init__(1)  CC=1.0
+    EnergyEstimator  # Estimate computational energy consumption.
+
+Compares:
+- Pure...
+      estimate(4)  CC=1.0
+  nlp2cmd/adapters/kubernetes.py:
+    e: KubernetesSafetyPolicy,ClusterContext,KubernetesAdapter
+    KubernetesSafetyPolicy  # Kubernetes-specific safety policy....
+      check_command(2)  CC=12.0
+    ClusterContext  # Kubernetes cluster context....
+    KubernetesAdapter  # Kubernetes adapter for kubectl commands and manifests.
+
+Tran...
+      __init__(3)  CC=3.0
+        → __init__(3)  CC=3.0
+        → _parse_cluster_context(1)  CC=1.0
+  nlp2cmd/adapters/appspec.py:
+    e: AppSpecAdapterConfig,AppSpecAdapter
+    AppSpecAdapterConfig
+    AppSpecAdapter
+      __init__(0)  CC=3.0
+        → __init__(0)  CC=3.0
+        → set_spec(1)  CC=1.0
+        → load_from_file(1)  CC=1.0
+  nlp2cmd/skills/drawing/navigation.py:
+    e: NavigationState,CanvasInfo,NavigationStep,NavigationResult,DrawNavigationSkill
+    NavigationState  # State of the navigation process....
+    CanvasInfo  # Information about the discovered canvas....
+    NavigationStep  # A single step in the navigation process....
+    NavigationResult  # Full result of the navigation process....
+    DrawNavigationSkill  # Vision-guided navigation to drawing canvas.
+
+Uses Qwen VL to...
+      __init__(2)  CC=1.0
+  nlp2cmd/skills/drawing/draw_object.py:
+    e: DrawStatus,ObjectDrawResult,SceneDrawResult,DrawObjectSkill
+    DrawStatus  # Status of a single object draw operation....
+    ObjectDrawResult  # Result of drawing a single object....
+    SceneDrawResult  # Result of drawing multiple objects (a scene)....
+      summary(0)  CC=2.0
+    DrawObjectSkill  # Resolve and draw shapes with vision verification.
+
+Composes:...
+      __init__(3)  CC=1.0
+  nlp2cmd/skills/drawing/visual_validator.py:
+    e: ValidationVerdict,DrawingCorrection,ValidationResult,VisualValidator
+    ValidationVerdict  # Result of visual validation....
+    DrawingCorrection  # A single correction to apply to the drawing....
+      __repr__(0)  CC=1.0
+    ValidationResult  # Full result of visual validation....
+    VisualValidator  # Validates drawings using vision LLM models.
+
+Uses the LLM Ro...
+      __init__(1)  CC=1.0
+  nlp2cmd/cli/commands/tools.py:
+    e: cmd_repair,cmd_validate,cmd_analyze_env
+    cmd_repair(file,backup)
+    cmd_validate(file)
+    cmd_analyze_env(output)
+  nlp2cmd/generation/schema/generator.py:
+    e: SchemaBasedGenerator,SchemaRegistry
+    SchemaBasedGenerator  # Generates commands using schemas instead of templates....
+      __init__(1)  CC=2.0
+    SchemaRegistry  # Registry for managing and improving schemas....
+      __init__(1)  CC=1.0
+  nlp2cmd/automation/step_validator.py:
+    e: StepMetrics,ValidationResult,StepValidator
+    StepMetrics  # Metrics collected during step execution....
+    ValidationResult  # Result of a pre/post condition check....
+    StepValidator  # Validates pre/post conditions for ActionPlan steps.
+
+Checks ...
+      __init__(0)  CC=1.0
+  nlp2cmd/generation/ml_intent_classifier.py:
+    e: IntentPrediction,TrainingSample,MLIntentClassifier,_check_sklearn,_check_spacy,generate_training_data_from_phrases,_generate_variations,create_default_training_data,get_ml_classifier
+    IntentPrediction  # Result of intent classification....
+    TrainingSample  # Single training sample....
+    MLIntentClassifier  # Fast ML-based intent classifier using TF-IDF + SVM.
+
+Feature...
+      __init__(1)  CC=3.0
+        → load(1)  CC=3.0
+    _check_sklearn()
+    _check_spacy()
+    generate_training_data_from_phrases(phrases_path)
+    _generate_variations(phrase,domain,intent,language)
+    create_default_training_data()
+    get_ml_classifier(force_retrain)
+  nlp2cmd/exploration/resource_discovery.py:
+    e: MissingResource,DiscoveryDecision,ResourceDiscoveryManager,get_resource_discovery_manager
+    MissingResource  # Information about a missing resource....
+    DiscoveryDecision  # Decision about whether to attempt discovery or fail....
+    ResourceDiscoveryManager  # Manages automatic resource discovery during command executio...
+      __init__(4)  CC=1.0
+    get_resource_discovery_manager()
+  nlp2cmd/orchestration/metrics.py:
+    e: StepMetric,TaskMetric,LearnedPath,GeneratedFunction,MetricsCollector,PathOptimizer,FunctionCache,get_workspace,_hash_goal,_func_id
+    StepMetric  # Metrics for a single orchestration step....
+    TaskMetric  # Metrics for a complete orchestrated task....
+      __post_init__(0)  CC=3.0
+    LearnedPath  # A successful decision path that can be reused for similar go...
+    GeneratedFunction  # A generated JS or Python function cached for reuse....
+      __post_init__(0)  CC=2.0
+    MetricsCollector  # Collects and persists orchestration metrics.
+
+Usage:
+    mc ...
+      __init__(1)  CC=2.0
+    PathOptimizer  # Stores successful decision paths for reuse on similar goals....
+      __init__(1)  CC=2.0
+    FunctionCache  # Caches auto-generated JS and Python functions in .nlp2cmd/ge...
+      __init__(1)  CC=3.0
+    get_workspace()
+    _hash_goal(goal)
+    _func_id(code,language)
+  nlp2cmd/context/disambiguator.py:
+    e: DisambiguationResult,CommandDisambiguator
+    DisambiguationResult  # Result of disambiguation process....
+    CommandDisambiguator  # Disambiguates commands using history context.
+
+When a query ...
+      __init__(1)  CC=3.0
+  nlp2cmd/streams/vnc_stream.py:
+    e: VNCStreamAdapter
+    VNCStreamAdapter
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+  nlp2cmd/skills/drawing/nl_parser.py:
+    e: NLDrawingParser
+    NLDrawingParser  # Parse natural language drawing instructions into DrawCommand...
+      __init__(1)  CC=2.0
+  nlp2cmd/skills/drawing/skill.py:
+    e: DrawingSkill
+    DrawingSkill  # Facade for the drawing skill — single entry point for all dr...
+      __init__(1)  CC=2.0
+  nlp2cmd/appspec_runtime.py:
+    e: AppAction,AppSpec,load_appspec
+    AppAction
+    AppSpec
+      get_action(1)  CC=3.0
+    load_appspec(path)
+  nlp2cmd/utils/playwright_installer.py:
+    e: _is_pep668_externally_managed_error,is_playwright_installed,is_playwright_browsers_installed,install_playwright,install_playwright_browsers,ensure_playwright_installed
+    _is_pep668_externally_managed_error(stderr)
+    is_playwright_installed()
+    is_playwright_browsers_installed()
+    install_playwright(console)
+    install_playwright_browsers(console)
+    ensure_playwright_installed(console,auto_install)
+  nlp2cmd/step_handlers/navigate.py:
+    e: NavigateHandler
+    NavigateHandler  # Handle navigate action - navigate to URL with security check...
+      execute(1)  CC=8.0
+        → _handle_security_checkup(2)  CC=10.0
+  nlp2cmd/generation/fuzzy_schema_matcher.py:
+    e: MatchResult,PhraseSchema,FuzzySchemaMatcherConfig,FuzzySchemaMatcher,_get_jellyfish,_get_rapidfuzz,create_multilingual_matcher
+    MatchResult  # Result of fuzzy schema matching....
+    PhraseSchema  # Schema for a phrase with metadata....
+    FuzzySchemaMatcherConfig  # Configuration for fuzzy matching thresholds....
+      __init__(6)  CC=1.0
+    FuzzySchemaMatcher  # Language-agnostic fuzzy matcher using JSON schemas.
+
+Works w...
+      __init__(2)  CC=3.0
+        → load_schema(1)  CC=2.0
+        → _build_index(0)  CC=2.0
+        → _index_phrase(1)  CC=3.0
+        → _normalize(1)  CC=3.0
+    _get_jellyfish()
+    _get_rapidfuzz()
+    create_multilingual_matcher(phrases_dict,schema_path)
+  nlp2cmd/generation/semantic_entities.py:
+    e: SemanticEntityExtractor,_normalize_mode,_parse_ab_ratio
+    SemanticEntityExtractor
+      __init__(2)  CC=3.0
+    _normalize_mode(value)
+    _parse_ab_ratio(value)
+  nlp2cmd/generation/validating.py:
+    e: DSLValidator,ValidationResult,ValidatingGeneratorResult,ValidatingGenerator,SimpleSQLValidator,SimpleShellValidator,SimpleDockerValidator,SimpleKubernetesValidator,create_default_validators
+    DSLValidator  # Protocol for DSL validators....
+      validate(1)  CC=1.0
+    ValidationResult  # Result of DSL validation....
+    ValidatingGeneratorResult  # Result of validated generation....
+    ValidatingGenerator  # Generate DSL with validation and self-correction.
+
+Validates...
+      __init__(3)  CC=2.0
+    SimpleSQLValidator  # Simple SQL syntax validator....
+      validate(1)  CC=7.0
+    SimpleShellValidator  # Simple shell command validator....
+      validate(1)  CC=6.0
+    SimpleDockerValidator  # Simple Docker command validator....
+      validate(1)  CC=5.0
+    SimpleKubernetesValidator  # Simple Kubernetes command validator....
+      validate(1)  CC=6.0
+    create_default_validators()
+  nlp2cmd/pipeline_runner.py:
+    e: PipelineRunner,PipelineRunner
+    PipelineRunner  # PipelineRunner composed from execution mixins.
+
+Mixins:
+- Sh...
+    PipelineRunner  # PipelineRunner composed from execution mixins.
+
+Mixins:
+- Sh...
+  nlp2cmd/generation/structured.py:
+    e: StructuredPlan,StructuredPlanResult,StructuredLLMPlanner,MultiStepPlan,MultiStepPlanner
+    StructuredPlan  # Structured execution plan from LLM....
+      to_adapter_plan(0)  CC=1.0
+    StructuredPlanResult  # Result of structured planning....
+    StructuredLLMPlanner  # LLM with enforced JSON output schema.
+
+Uses JSON mode to ens...
+      __init__(3)  CC=3.0
+    MultiStepPlan  # Multi-step execution plan....
+      get_execution_order(0)  CC=2.0
+    MultiStepPlanner  # Iteration 8: Multi-Step Plans.
+
+Decompose complex queries in...
+      decompose(2)  CC=9.0
+  nlp2cmd/core/toon_integration.py:
+    e: ToonDataManager,get_data_manager,reload_data_manager,load_command_schemas,load_config,get_project_info
+    ToonDataManager  # Unified data manager using TOON format...
+      __init__(1)  CC=1.0
+        → _ensure_loaded(0)  CC=3.0
+    get_data_manager(toon_file)
+    reload_data_manager(toon_file)
+    load_command_schemas()
+    load_config()
+    get_project_info()
+  nlp2cmd/nlp/config.py:
+    e: ServiceConfig,ServiceRegistry,IntentConfig,IntentRegistry,get_service_registry,get_intent_registry
+    ServiceConfig  # Configuration for a known API service (mirrors env_extractor...
+      to_planner_dict(0)  CC=1.0
+    ServiceRegistry  # Loads and serves service configurations from ``services.yaml...
+      __init__(1)  CC=2.0
+        → load(0)  CC=5.0
+        → get(1)  CC=1.0
+        → items(0)  CC=1.0
+    IntentConfig  # Configuration for a single intent under a domain....
+      get_examples(1)  CC=1.0
+    IntentRegistry  # Loads and serves intent configurations from ``intents.yaml``...
+      __init__(1)  CC=2.0
+        → load(0)  CC=9.0
+        → get(2)  CC=1.0
+    get_service_registry(config_dir)
+    get_intent_registry(config_dir)
+  nlp2cmd/cli/session_logger.py:
+    e: SessionLogger,_resize_to_thumbnail,_png_to_base64_md,_slugify
+    SessionLogger  # Logs automation sessions to Markdown with inline base64 scre...
+      __init__(1)  CC=3.0
+    _resize_to_thumbnail(png_bytes,max_width)
+    _png_to_base64_md(png_bytes,alt,max_width)
+    _slugify(text)
+  nlp2cmd/cli/markdown_output.py:
+    e: MarkdownConsoleProxy,MarkdownBlockStream,_render_to_text,_infer_markdown_title,print_markdown_block,print_yaml_block
+    MarkdownConsoleProxy  # Proxy that forces all console.print output into markdown cod...
+      __init__(1)  CC=1.0
+    MarkdownBlockStream  # Context manager that streams multiple prints inside a single...
+      __init__(1)  CC=3.0
+    _render_to_text(renderable)
+    _infer_markdown_title()
+    print_markdown_block(renderable)
+    print_yaml_block(data)
+  nlp2cmd/cli/history.py:
+    e: history_group,show_history,show_stats,show_popular,export_analytics,clear_history
+    history_group()
+    show_history(dsl,limit,failed_only)
+    show_stats(schema_usage)
+    show_popular(limit)
+    export_analytics(output)
+    clear_history(confirm)
+  nlp2cmd/cli/cache.py:
+    e: _clear_path,cache_group,setup_cache,install_package,show_cache_info,check_cache,clear_cache,full_clear_cache,auto_setup
+    _clear_path(path)
+    cache_group()
+    setup_cache(cache_dir)
+    install_package(package,force,cache_dir)
+    show_cache_info(cache_dir)
+    check_cache(package,cache_dir)
+    clear_cache(package,clear_all,cache_dir)
+    full_clear_cache(include_models,include_global_playwright)
+    auto_setup(cache_dir)
+  nlp2cmd/exploration/service.py:
+    e: EndpointInfo,ServiceInfo,ServiceExplorer,quick_find_endpoint
+    EndpointInfo  # Information about an API endpoint....
+    ServiceInfo  # Information about a service....
+    ServiceExplorer  # Explorer for REST APIs, GraphQL, and other services....
+      __init__(5)  CC=1.0
+        → __init__(5)  CC=1.0
+    quick_find_endpoint(base_url,search_term,auth_token)
+  nlp2cmd/thermodynamic/energy_models.py:
+    e: Task,Resource,SchedulingEnergy,AllocationEnergy,RoutingEnergy,CSPEnergy
+    Task  # Represents a task to be scheduled....
+    Resource  # Represents a resource with capacity....
+    SchedulingEnergy  # Energy model for scheduling problems.
+
+Encodes z as a vector...
+      __init__(6)  CC=1.0
+    AllocationEnergy  # Energy model for resource allocation problems.
+
+Encodes z as...
+      __init__(5)  CC=1.0
+    RoutingEnergy  # Energy model for routing problems (TSP, VRP).
+
+Encodes z as ...
+      __init__(4)  CC=1.0
+    CSPEnergy  # Generic Constraint Satisfaction Problem energy model.
+
+Suppo...
+      __init__(0)  CC=1.0
+  nlp2cmd/enhanced/__init__.py:
+    e: EnhancedNLP2CMD,create_enhanced_nlp2cmd
+    EnhancedNLP2CMD  # Enhanced NLP2CMD with dynamic schema capabilities.
+
+This cla...
+      __init__(3)  CC=2.0
+        → __init__(3)  CC=2.0
+    create_enhanced_nlp2cmd(appspec_path,nlp_backend,config)
+  nlp2cmd/skills/drawing/renderers/playwright.py:
+    e: PlaywrightRenderer
+    PlaywrightRenderer  # Render drawings on a browser canvas via Playwright mouse con...
+      __init__(2)  CC=1.0
+  nlp2cmd/automation/vector_store.py:
+    e: DrawingPattern,DrawingVectorStore,get_vector_store,initialize_default_patterns,export_patterns_to_file,import_patterns_from_file
+    DrawingPattern  # A drawing pattern with metadata and steps....
+      to_dict(0)  CC=1.0
+    DrawingVectorStore  # Vector database for storing and retrieving drawing patterns....
+      __init__(1)  CC=2.0
+    get_vector_store(persist_dir)
+    initialize_default_patterns()
+    export_patterns_to_file(filepath)
+    import_patterns_from_file(filepath)
+  nlp2cmd/automation/shape_planner.py:
+    e: ShapePlanner
+    ShapePlanner  # Manages a knowledge base of shapes and generates new ones vi...
+      __init__(2)  CC=1.0
+        → _load_db(0)  CC=3.0
+  nlp2cmd/service/__init__.py:
+    e: ServiceConfig,QueryRequest,QueryResponse,NLP2CMDService,_ensure_service_deps,create_app,create_service_config_from_args
+    ServiceConfig  # Configuration for NLP2CMD service....
+      __init__(0)  CC=1.0
+    QueryRequest  # Request model for query endpoint....
+    QueryResponse  # Response model for query endpoint....
+    NLP2CMDService  # NLP2CMD HTTP API Service....
+      __init__(1)  CC=2.0
+        → _setup_logging(0)  CC=1.0
+    _ensure_service_deps()
+    create_app()
+    create_service_config_from_args(host,port,debug,log_level,cors_origins,max_workers,auto_execute,session_timeout,save_env,env_file)
+  nlp2cmd/exploration/base.py:
+    e: ExplorationResult,ExplorationContext,BaseExplorer,ExplorerRegistry,explore
+    ExplorationResult  # Result of exploration in any space....
+    ExplorationContext  # Context for exploration - what we're looking for....
+    BaseExplorer  # Abstract base class for all explorers.
+
+Implementations must...
+      __init__(3)  CC=1.0
+    ExplorerRegistry  # Registry of available explorers....
+      register(2)  CC=1.0
+    explore(root,intent,search_term,space_type)
+  nlp2cmd/utils/data_files.py:
+    e: get_user_config_dir,_legacy_user_config_dir,_package_data_dir,find_data_files,find_data_file,data_file_write_path
+    get_user_config_dir()
+    _legacy_user_config_dir()
+    _package_data_dir()
+    find_data_files()
+    find_data_file()
+    data_file_write_path()
+  nlp2cmd/streams/ws_stream.py:
+    e: WSStreamAdapter
+    WSStreamAdapter
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+  nlp2cmd/generation/pipeline_components.py:
+    e: SimpleExecutionPlan,PipelineResult,PipelineMetrics,_should_use_semantic_extractor,_create_default_extractor
+    SimpleExecutionPlan  # Simple execution plan for adapters....
+    PipelineResult  # Result of the complete pipeline....
+      __post_init__(0)  CC=5.0
+    PipelineMetrics  # Track pipeline metrics for evaluation....
+      __init__(0)  CC=1.0
+    _should_use_semantic_extractor()
+    _create_default_extractor()
+  nlp2cmd/generation/hybrid.py:
+    e: HybridResult,HybridStats,HybridGenerator,AdaptiveHybridGenerator,create_hybrid_generator
+    HybridResult  # Result of hybrid generation....
+    HybridStats  # Statistics for hybrid generator....
+      to_dict(0)  CC=1.0
+    HybridGenerator  # Use rules first, LLM as fallback.
+
+Optimizes for cost and la...
+      __init__(5)  CC=3.0
+    AdaptiveHybridGenerator  # Hybrid generator with adaptive threshold.
+
+Automatically adj...
+      __init__(7)  CC=1.0
+        → __init__(7)  CC=1.0
+    create_hybrid_generator(llm_client,confidence_threshold)
+  nlp2cmd/nlp/entity_resolver.py:
+    e: AppInfo,EntityResolver
+    AppInfo  # Application info loaded from apps.yaml....
+      all_aliases(0)  CC=2.0
+    EntityResolver  # Multilingual entity resolver backed by YAML data files.
+
+Res...
+      __init__(1)  CC=2.0
+        → load(0)  CC=1.0
+        → _load_colors(0)  CC=7.0
+        → _normalize(0)  CC=3.0
+        → _load_shapes(0)  CC=7.0
+        → _load_apps(0)  CC=7.0
+  nlp2cmd/storage/per_command_store.py:
+    e: PerCommandSchemaStore,test_per_command_store
+    PerCommandSchemaStore  # Stores each command schema in its own file....
+      __init__(1)  CC=1.0
+        → _load_index(0)  CC=3.0
+    test_per_command_store()
+  nlp2cmd/cli/display.py:
+    e: display_command_result,display_table,display_panel,display_info,display_success,display_error,display_warning,display_debug,display_progress,display_section,display_list,display_kv_pairs
+    display_command_result(command,metadata,metrics_str,show_yaml,title)
+    display_table(data,title,headers,show_headers,box_style)
+    display_panel(content,title,border_style,padding)
+    display_info(message,style)
+    display_success(message)
+    display_error(message)
+    display_warning(message)
+    display_debug(message)
+    display_progress(message,spinner)
+    display_section(title,content)
+    display_list(items,title,bullet)
+    display_kv_pairs(data,title,indent)
+  nlp2cmd/streams/base.py:
+    e: StreamResult,SourceURI,StreamAdapter,parse_source_uri,_parse_libvirt_uri
+    StreamResult  # Result of a stream operation....
+    SourceURI  # Parsed --source URI....
+    StreamAdapter  # Base class for all stream protocol handlers.
+
+Subclasses imp...
+      __init__(1)  CC=1.0
+    parse_source_uri(uri)
+    _parse_libvirt_uri(raw)
+  nlp2cmd/schema_extraction/registry.py:
+    e: SchemaRegistry
+    SchemaRegistry  # Registry for managing dynamically extracted schemas....
+      __init__(5)  CC=7.0
+        → _load_from_storage(0)  CC=4.0
+  nlp2cmd/dom_actions/dispatcher.py:
+    e: ActionDispatcher
+    ActionDispatcher  # Dispatches DOM actions to appropriate handlers.
+
+This replac...
+      dispatch(8)  CC=2.0
+  nlp2cmd/dom_actions/navigation.py:
+    e: NavigateAction,ExploreForContentAction,ExploreForFormAction
+    NavigateAction  # Navigate to a URL....
+      execute(1)  CC=2.0
+    ExploreForContentAction  # Explore site to find content....
+      execute(1)  CC=7.0
+    ExploreForFormAction  # Explore site to find forms....
+      execute(1)  CC=5.0
+  nlp2cmd/skills/search/skill.py:
+    e: SearchContext,SearchSkill
+    SearchContext  # Context for search operations....
+    SearchSkill  # High-level search skill for nlp2cmd.
+
+Wraps SearchEngine wit...
+      __init__(1)  CC=2.0
+  nlp2cmd/skills/drawing/commands.py:
+    e: DrawCommand,InitCanvas,DrawShape,SetColor,SelectTool,ClearCanvas,CommandHandler,CommandBus
+    DrawCommand  # Abstract base for all drawing commands....
+      validate(0)  CC=1.0
+    InitCanvas  # Initialize a drawing canvas....
+      validate(0)  CC=3.0
+    DrawShape  # Draw a shape on the canvas....
+      validate(0)  CC=2.0
+    SetColor  # Change the active drawing color....
+      validate(0)  CC=2.0
+    SelectTool  # Select a drawing tool....
+      validate(0)  CC=2.0
+    ClearCanvas  # Clear the entire canvas....
+      validate(0)  CC=1.0
+    CommandHandler  # Protocol for command handlers....
+      __call__(3)  CC=1.0
+    CommandBus  # Dispatches commands to handlers, validates, and emits events...
+      __init__(1)  CC=1.0
+  nlp2cmd/skills/drawing/queries.py:
+    e: DrawQuery,GetCanvasState,GetDrawingHistory,GetShapePoints,GetLastNShapes,QueryBus
+    DrawQuery  # Abstract base for all drawing queries....
+      execute(1)  CC=1.0
+    GetCanvasState  # Reconstruct current canvas state from events....
+      execute(1)  CC=7.0
+    GetDrawingHistory  # Get the full drawing history as a list of event summaries....
+      execute(1)  CC=3.0
+    GetShapePoints  # Get all shape point groups from drawn shapes (for rendering)...
+      execute(1)  CC=4.0
+    GetLastNShapes  # Get the last N drawn shapes....
+      execute(1)  CC=2.0
+        → execute(1)  CC=2.0
+    QueryBus  # Dispatches queries against the event store.
+
+Usage:
+    bus ...
+      __init__(1)  CC=1.0
+  nlp2cmd/automation/service_configs.py:
+    e: _load_known_services,_can_use_desktop_automation
+    _load_known_services()
+    _can_use_desktop_automation()
+  nlp2cmd/generation/auto_repair.py:
+    e: CommandRepairer,should_attempt_repair
+    CommandRepairer  # Repairs invalid commands using LLM fallback....
+      __init__(1)  CC=1.0
+    should_attempt_repair(error,context)
+  nlp2cmd/planner/__init__.py:
+    e: PlannerConfig,PlanningResult,LLMPlanner
+    PlannerConfig  # Configuration for LLM Planner....
+    PlanningResult  # Result of plan generation....
+    LLMPlanner  # Generates execution plans using LLM.
+
+The LLM is constrained...
+      __init__(3)  CC=3.0
+  nlp2cmd/nlp/normalizer.py:
+    e: NormalizedQuery,QueryNormalizer,_score_chars,_score_words,detect_language,normalize_unicode,fold_accents,_preserve_case,_try_direct_lookup,_try_fuzzy_match,correct_typos,tokenize
+    NormalizedQuery  # Immutable result of normalizing a raw user query....
+    QueryNormalizer  # Normalize a raw user query into a ``NormalizedQuery``.
+
+Usag...
+      __init__(0)  CC=3.0
+    _score_chars(text,scores)
+    _score_words(text,scores)
+    detect_language(text)
+    normalize_unicode(text)
+    fold_accents(text)
+    _preserve_case(original,corrected)
+    _try_direct_lookup(token_lower)
+    _try_fuzzy_match(token_lower,threshold)
+    correct_typos(text,threshold)
+    tokenize(text)
+  nlp2cmd/generation/llm_multi.py:
+    e: RoutingResult,LLMDomainRouter,MultiDomainResult,MultiDomainGenerator,CachedMultiDomainGenerator
+    RoutingResult  # Result of domain routing....
+    LLMDomainRouter  # Route queries to correct domain using LLM classification.
+
+E...
+      __init__(2)  CC=2.0
+    MultiDomainResult  # Result of multi-domain generation....
+    MultiDomainGenerator  # Generate DSL for any domain using LLM routing.
+
+Example:
+   ...
+      __init__(3)  CC=3.0
+    CachedMultiDomainGenerator  # Multi-domain generator with response caching....
+      __init__(3)  CC=1.0
+        → __init__(3)  CC=1.0
+  nlp2cmd/adapters/base.py:
+    e: SafetyPolicy,AdapterConfig,BaseDSLAdapter
+    SafetyPolicy  # Base safety policy configuration....
+    AdapterConfig  # Configuration for DSL adapters....
+    BaseDSLAdapter  # Abstract base class for Domain-Specific Language adapters.
+
+...
+      __init__(2)  CC=2.0
+        → _coerce_adapter_config(1)  CC=6.0
+        → _coerce_safety_policy(0)  CC=5.0
+  nlp2cmd/dom_actions/forms.py:
+    e: FillFormAction
+    FillFormAction  # Fill form fields automatically from .env and data files....
+      execute(1)  CC=4.0
+        → _wait_for_page_load(1)  CC=3.0
+        → _fill_detected_fields(3)  CC=1.0
+        → _discover_form(2)  CC=6.0
+        → _try_direct_contact_urls(2)  CC=6.0
+        → _try_contact_links(2)  CC=5.0
+        → _check_iframes(2)  CC=6.0
+        → _extract_contact_info(1)  CC=3.0
+  nlp2cmd/step_handlers/dispatcher.py:
+    e: StepDispatcher
+    StepDispatcher  # Dispatches plan steps to appropriate handlers.
+
+This replace...
+      dispatch(6)  CC=6.0
+        → _resolve_variables(1)  CC=4.0
+  nlp2cmd/skills/drawing/colors.py:
+    e: ColorResolver
+    ColorResolver  # Resolves color names to hex codes with Polish + English supp...
+      __init__(0)  CC=1.0
+  nlp2cmd/skills/drawing/renderers/svg.py:
+    e: SVGRenderer
+    SVGRenderer  # Render drawings as SVG markup.
+
+Usage:
+    renderer = SVGRen...
+      __init__(0)  CC=1.0
+  nlp2cmd/generation/schema/adapter.py:
+    e: SchemaDrivenAppSpecAdapter
+    SchemaDrivenAppSpecAdapter  # AppSpec adapter that uses schema-based generation....
+      __init__(0)  CC=1.0
+        → __init__(0)  CC=1.0
+        → _load_schemas(0)  CC=5.0
+        → _action_to_schema(1)  CC=5.0
+        → _infer_category(1)  CC=2.0
+  nlp2cmd/automation/mouse_controller.py:
+    e: Point,MouseController
+    Point  # 2D point for mouse operations....
+      __add__(1)  CC=1.0
+    MouseController  # Advanced mouse control via Playwright with human-like moveme...
+      __init__(2)  CC=1.0
+  nlp2cmd/generation/data_loader.py:
+    e: PhraseEntry,PhraseDatabase,DataLoader,_check_msgpack,load_legacy_phrases,merge_databases,benchmark_formats
+    PhraseEntry  # Single phrase entry for intent matching....
+      to_dict(0)  CC=1.0
+    PhraseDatabase  # Collection of phrase entries with metadata....
+      __len__(0)  CC=1.0
+    DataLoader  # Optimized data loader with format detection and caching.
+
+Su...
+      __init__(1)  CC=2.0
+    _check_msgpack()
+    load_legacy_phrases(path)
+    merge_databases()
+    benchmark_formats(db,iterations)
+  nlp2cmd/generation/multi_command.py:
+    e: MultiCommandResult,MultiCommandDetector,get_multi_command_detector,detect_multi_commands
+    MultiCommandResult  # Result of multi-command detection....
+      get_domains(0)  CC=2.0
+    MultiCommandDetector  # Utility class to detect multiple commands in one input.
+
+Sup...
+      __init__(1)  CC=2.0
+    get_multi_command_detector()
+    detect_multi_commands(text)
+  nlp2cmd/core/core_models.py:
+    e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult
+    TransformStatus  # Status of a transformation operation....
+    Intent  # Represents a detected intent from natural language input....
+    Entity  # Represents an extracted entity from natural language input....
+    ExecutionPlan  # Structured plan for command execution....
+      with_confidence(1)  CC=1.0
+    TransformResult  # Result of a natural language to command transformation....
+      __post_init__(0)  CC=5.0
+  nlp2cmd/execution/media_recorder.py:
+    e: MediaRecorder
+    MediaRecorder  # Manages video recording and screenshots during browser sessi...
+      __init__(1)  CC=1.0
+  nlp2cmd/llm/openrouter.py:
+    e: LLMResponse,OpenRouterClient,_debug
+    LLMResponse  # Response from OpenRouter API....
+    OpenRouterClient  # OpenRouter API client with text and vision support.
+
+Models:...
+      __init__(3)  CC=3.0
+    _debug(msg)
+  nlp2cmd/streams/rdp_stream.py:
+    e: RDPStreamAdapter
+    RDPStreamAdapter
+      connect(0)  CC=3.0
+  nlp2cmd/streams/ssh_stream.py:
+    e: SSHStreamAdapter
+    SSHStreamAdapter
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+        → _build_ssh_target(0)  CC=2.0
+  nlp2cmd/step_handlers/drawing.py:
+    e: CanvasMixin,WaitForCanvasHandler,GetCanvasCenterHandler,SelectToolHandler,SetColorHandler,SetLineWidthHandler,DrawCircleHandler,DrawFilledCircleHandler,DrawFilledEllipseHandler,DrawFilledRectangleHandler,_create_simple_draw_handler
+    CanvasMixin  # Mixin providing canvas selection logic....
+      _pick_canvas_js(0)  CC=1.0
+    WaitForCanvasHandler  # Wait for canvas element to appear....
+      execute(1)  CC=1.0
+    GetCanvasCenterHandler  # Get canvas center coordinates....
+      execute(1)  CC=3.0
+    SelectToolHandler  # Select a drawing tool....
+      execute(1)  CC=2.0
+    SetColorHandler  # Set foreground color for drawing....
+      execute(1)  CC=2.0
+    SetLineWidthHandler  # Set line width for drawing....
+      execute(1)  CC=2.0
+    DrawCircleHandler  # Draw a circle on canvas....
+      execute(1)  CC=2.0
+    DrawFilledCircleHandler  # Draw a filled circle on canvas with verification....
+      execute(1)  CC=5.0
+        → _check_canvas(2)  CC=2.0
+    DrawFilledEllipseHandler  # Draw a filled ellipse on canvas....
+      execute(1)  CC=2.0
+    DrawFilledRectangleHandler  # Draw a filled rectangle on canvas....
+      execute(1)  CC=2.0
+    _create_simple_draw_handler(action_name,template,error_msg)
+  nlp2cmd/skills/drawing/shapes.py:
+    e: ShapeGenerator,CircleGenerator,EllipseGenerator,RectangleGenerator,SquareGenerator,TriangleGenerator,StarGenerator,HeartGenerator,SpiralGenerator,HouseGenerator,FlowerGenerator,SunGenerator,TreeGenerator,LineGenerator,DotGenerator,GridGenerator,WaveGenerator,CarGenerator,BirdGenerator,ButterflyGenerator,BoatGenerator,MountainGenerator,CatGenerator,FishGenerator,RocketGenerator,CastleGenerator,DiamondGenerator,ArrowGenerator,PentagonGenerator,HexagonGenerator,OctagonGenerator,CrossGenerator,CrescentGenerator,CloudDetailedGenerator,ShapeRegistry
+    ShapeGenerator  # Abstract shape generator — one responsibility: produce point...
+      generate(3)  CC=1.0
+    CircleGenerator
+      generate(3)  CC=2.0
+    EllipseGenerator
+      generate(3)  CC=2.0
+    RectangleGenerator
+      generate(3)  CC=1.0
+    SquareGenerator
+      generate(3)  CC=1.0
+    TriangleGenerator
+      generate(3)  CC=1.0
+    StarGenerator
+      generate(3)  CC=2.0
+    HeartGenerator
+      generate(3)  CC=2.0
+    SpiralGenerator
+      generate(3)  CC=2.0
+    HouseGenerator
+      generate(3)  CC=1.0
+    FlowerGenerator
+      generate(3)  CC=3.0
+    SunGenerator
+      generate(3)  CC=3.0
+    TreeGenerator
+      generate(3)  CC=2.0
+    LineGenerator
+      generate(3)  CC=1.0
+    DotGenerator
+      generate(3)  CC=2.0
+    GridGenerator
+      generate(3)  CC=3.0
+    WaveGenerator
+      generate(3)  CC=2.0
+    CarGenerator
+      generate(3)  CC=3.0
+    BirdGenerator
+      generate(3)  CC=2.0
+    ButterflyGenerator
+      generate(3)  CC=5.0
+    BoatGenerator
+      generate(3)  CC=1.0
+    MountainGenerator
+      generate(3)  CC=1.0
+    CatGenerator
+      generate(3)  CC=4.0
+    FishGenerator
+      generate(3)  CC=3.0
+    RocketGenerator
+      generate(3)  CC=2.0
+    CastleGenerator
+      generate(3)  CC=3.0
+    DiamondGenerator
+      generate(3)  CC=1.0
+    ArrowGenerator
+      generate(3)  CC=3.0
+    PentagonGenerator
+      generate(3)  CC=2.0
+    HexagonGenerator
+      generate(3)  CC=2.0
+    OctagonGenerator
+      generate(3)  CC=2.0
+    CrossGenerator
+      generate(3)  CC=1.0
+    CrescentGenerator
+      generate(3)  CC=3.0
+    CloudDetailedGenerator
+      generate(3)  CC=4.0
+    ShapeRegistry  # Registry of all available shape generators.
+
+New shapes can ...
+      register(1)  CC=1.0
+  nlp2cmd/monitoring/resources.py:
+    e: ResourceMetrics,ResourceMonitor,get_monitor,measure_resources,get_last_metrics,format_last_metrics,get_system_info
+    ResourceMetrics  # Resource consumption metrics....
+    ResourceMonitor  # Monitor system resource usage during command execution....
+      __init__(0)  CC=3.0
+    get_monitor()
+    measure_resources()
+    get_last_metrics()
+    format_last_metrics()
+    get_system_info()
+  nlp2cmd/llm/vision.py:
+    e: VisionResult,VisionAnalyzer,_debug
+    VisionResult  # Result of a vision analysis....
+    VisionAnalyzer  # High-level vision analysis using LLM.
+
+Wraps OpenRouterClien...
+      __init__(2)  CC=3.0
+    _debug(msg)
+  nlp2cmd/streams/router.py:
+    e: StreamRouter,_load_adapter_class
+    StreamRouter  # Routes --source URIs to the correct protocol handler....
+      __init__(0)  CC=1.0
+    _load_adapter_class(dotted_path)
+  nlp2cmd/streams/spice_stream.py:
+    e: SPICEStreamAdapter
+    SPICEStreamAdapter
+      connect(0)  CC=4.0
+  app2schema/cli.py:
+    e: main
+    main(target,source_type,out_format,raw,out_path,merge,no_validate,no_discover)
+  nlp2cmd/automation/drawing_blueprints.py:
+    e: DrawStep,_step,_rabbit_steps,_cat_steps,_dog_steps,_car_steps,_house_steps,_tree_steps,_sun_steps,_flower_steps,_star_steps,_heart_steps,_fish_steps,_butterfly_steps,_snowman_steps,_ladybug_steps,lookup_blueprint,get_blueprint_steps,list_available_blueprints
+    DrawStep  # Single drawing step in a blueprint....
+    _step(action,params,desc)
+    _rabbit_steps()
+    _cat_steps()
+    _dog_steps()
+    _car_steps()
+    _house_steps()
+    _tree_steps()
+    _sun_steps()
+    _flower_steps()
+    _star_steps()
+    _heart_steps()
+    _fish_steps()
+    _butterfly_steps()
+    _snowman_steps()
+    _ladybug_steps()
+    lookup_blueprint(query)
+    get_blueprint_steps(query)
+    list_available_blueprints()
+  nlp2cmd/cli/syntax_cache.py:
+    e: SyntaxCache,get_syntax_cache,get_cached_syntax,clear_syntax_cache,get_cache_stats
+    SyntaxCache  # Cache for Rich Syntax objects to improve performance....
+      __init__(1)  CC=1.0
+    get_syntax_cache()
+    get_cached_syntax(code,lexer,theme,line_numbers)
+    clear_syntax_cache()
+    get_cache_stats()
+  nlp2cmd/execution/executor_registry.py:
+    e: ExecutorRegistry,create_default_registry
+    ExecutorRegistry  # Central registry that maps action names to executor instance...
+      __init__(0)  CC=1.0
+    create_default_registry(shell_policy,safety_policy)
+  nlp2cmd/dom_actions/base.py:
+    e: ActionContext,ActionResult,DomAction
+    ActionContext  # Context passed to DOM action handlers....
+    ActionResult  # Result from a DOM action handler....
+    DomAction  # Base class for DOM action handlers.
+
+Each handler implements...
+      execute(1)  CC=1.0
+  nlp2cmd/step_handlers/base.py:
+    e: HandlerContext,HandlerResult,StepHandler
+    HandlerContext  # Context passed to step handlers during execution....
+    HandlerResult  # Result from a step handler execution....
+    StepHandler  # Base class for plan step handlers.
+
+Each handler implements ...
+      execute(1)  CC=1.0
+  nlp2cmd/skills/drawing/event_store.py:
+    e: EventStore
+    EventStore  # Append-only event store with optional persistence and subscr...
+      __init__(0)  CC=1.0
+  nlp2cmd/skills/drawing/renderers/base.py:
+    e: Renderer
+    Renderer  # Abstract renderer interface.
+
+Concrete implementations:
+- Pl...
+      init_canvas(4)  CC=1.0
+  nlp2cmd/generation/__init__.py:
+    e: __getattr__,__dir__
+    __getattr__(name)
+    __dir__()
+  nlp2cmd/service/cli.py:
+    e: add_service_command
+    add_service_command(main_group)
+  nlp2cmd/skills/__init__.py:
+    e: __getattr__
+    __getattr__(name)
+  nlp2cmd/skills/search/__init__.py:
+    e: __getattr__
+    __getattr__(name)
+  nlp2cmd/ir.py:
+    e: ActionIR
+    ActionIR
+      to_dict(0)  CC=1.0
+  nlp2cmd/execution/base.py:
+    e: ExecutorResult,ExecutorContext,BaseExecutor
+    ExecutorResult  # Unified result from any executor....
+      to_runner_result(0)  CC=1.0
+    ExecutorContext  # Shared context passed to executors....
+    BaseExecutor  # Abstract base for all executors.
+
+Subclasses implement ``exe...
+      execute(2)  CC=1.0
+  nlp2cmd/dom_actions/registry.py:
+    e: ActionRegistry,register_action,get_action
+    ActionRegistry  # Registry mapping action names to their handlers....
+      register(2)  CC=1.0
+    register_action(action_name)
+    get_action(action_name)
+  nlp2cmd/step_handlers/registry.py:
+    e: HandlerRegistry,register_handler,get_handler
+    HandlerRegistry  # Registry mapping action names to their handlers....
+      register(2)  CC=1.0
+    register_handler(action_name)
+    get_handler(action_name)
+  nlp2cmd/skills/drawing/events.py:
+    e: EventType,DrawingEvent,CanvasInitialized,CanvasCleared,ShapeDrawn,ColorChanged,ToolSelected
+    EventType
+    DrawingEvent  # Base immutable event — all drawing events inherit from this....
+      to_dict(0)  CC=1.0
+    CanvasInitialized  # Fired when a canvas is created or discovered....
+      __post_init__(0)  CC=1.0
+    CanvasCleared  # Fired when the canvas is cleared....
+      __post_init__(0)  CC=1.0
+    ShapeDrawn  # Fired when a shape is drawn on the canvas....
+      __post_init__(0)  CC=1.0
+    ColorChanged  # Fired when the active drawing color is changed....
+      __post_init__(0)  CC=1.0
+    ToolSelected  # Fired when a drawing tool is selected....
+      __post_init__(0)  CC=1.0
+  nlp2cmd/__init__.py:
+  nlp2cmd/__main__.py:
+  app2schema/__init__.py:
+  app2schema/__main__.py:
+  nlp2cmd/monitoring/__init__.py:
+  nlp2cmd/automation/__init__.py:
+  nlp2cmd/plan_execution/__init__.py:
+  nlp2cmd/core/__init__.py:
+  nlp2cmd/nlp/__init__.py:
+  nlp2cmd/storage/__init__.py:
+  nlp2cmd/cli/__init__.py:
+  nlp2cmd/web_schema/__init__.py:
+  nlp2cmd/execution/__init__.py:
+  nlp2cmd/exploration/__init__.py:
+  nlp2cmd/llm/__init__.py:
+  nlp2cmd/nlp_light/__init__.py:
+  nlp2cmd/orchestration/__init__.py:
+  nlp2cmd/adapters/__init__.py:
+  nlp2cmd/utils/__init__.py:
+  nlp2cmd/utils/yaml_compat.py:
+  nlp2cmd/context/__init__.py:
+  nlp2cmd/streams/__init__.py:
+  nlp2cmd/schema_based/generator.py:
+  nlp2cmd/schema_based/adapter.py:
+  nlp2cmd/schema_based/__init__.py:
+  nlp2cmd/history/__init__.py:
+  nlp2cmd/schema_extraction/__init__.py:
+  nlp2cmd/dom_actions/__init__.py:
+  nlp2cmd/step_handlers/__init__.py:
+  nlp2cmd/skills/drawing/__init__.py:
+  nlp2cmd/skills/drawing/renderers/__init__.py:
+  nlp2cmd/cli/commands/__init__.py:
+  nlp2cmd/generation/schema/__init__.py:
+  nlp2cmd/generation/templates/kubernetes_templates.py:
+  nlp2cmd/generation/templates/rag_templates.py:
+  nlp2cmd/generation/templates/iot_templates.py:
+  nlp2cmd/generation/templates/shell_templates.py:
+  nlp2cmd/generation/templates/__init__.py:
+  nlp2cmd/generation/templates/package_mgmt_templates.py:
+  nlp2cmd/generation/templates/git_templates.py:
+  nlp2cmd/generation/templates/sql_templates.py:
+  nlp2cmd/generation/templates/ffmpeg_templates.py:
+  nlp2cmd/generation/templates/docker_templates.py:
+  nlp2cmd/generation/templates/desktop_templates.py:
+  nlp2cmd/generation/templates/browser_templates.py:
+  nlp2cmd/generation/templates/data_templates.py:
+  nlp2cmd/generation/templates/api_templates.py:
+  nlp2cmd/generation/templates/media_templates.py:
+  nlp2cmd/generation/templates/devops_templates.py:
+  nlp2cmd/generation/templates/presentation_templates.py:
+  nlp2cmd/generation/templates/remote_templates.py:
+  nlp2cmd/generation/keywords/__init__.py:

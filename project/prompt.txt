@@ -1,0 +1,29 @@
+You are an AI assistant helping me understand and improve a codebase.
+Use the attached/generated files as the authoritative context.
+
+we are in project path: .
+
+Files for analysis:
+- project/analysis.toon  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities)
+- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface)
+- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history)
+- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview)
+
+Subproject Analysis Files (hierarchical chunking for large repository):
+- project/src/  [L2] ~318KB - Contains: analysis.toon, evolution.toon
+
+Missing files (not generated in this run):
+- project/README.md
+
+Task:
+- Summarize the architecture and main flows.
+- Identify the highest-risk areas and propose a refactoring plan.
+- If you suggest changes, keep behavior backward compatible and provide concrete steps.
+
+Constraints:
+- Prefer minimal, incremental changes.
+- If uncertain, ask clarifying questions.
+
+Note: This repository was analyzed using hierarchical chunking due to its size.
+      Start with the main files (analysis.toon, context.md) for overview,
+      then examine specific subproject directories as needed.
