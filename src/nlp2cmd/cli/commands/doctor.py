@@ -39,6 +39,13 @@ except ImportError:
     HAS_RICH = False
     Console = None
 
+# Import modular browser token retriever
+try:
+    from nlp2cmd.browser_token import HFTokenRetriever, TokenConfig
+    _BROWSER_TOKEN_AVAILABLE = True
+except ImportError:
+    _BROWSER_TOKEN_AVAILABLE = False
+
 
 class Status(Enum):
     OK = "ok"
@@ -1151,6 +1158,43 @@ def _navigate_and_get_token(page, console: Optional[Console], browser_type: str)
         pass
     
     return None
+
+
+def _try_playwright_browser_dispatch(console: Optional[Console] = None) -> Optional[str]:
+    """New browser token retrieval using modular HFTokenRetriever.
+    
+    This is the refactored version that uses the browser_token package.
+    Falls back to legacy _try_playwright_browser if modular version unavailable.
+    """
+    if not _BROWSER_TOKEN_AVAILABLE:
+        return _try_playwright_browser(console)
+    
+    try:
+        if console:
+            console.print("[dim]   [Stage 3/3] Using modular browser token retriever...[/dim]")
+            console.print("[yellow]     ⚠ Note: You'll need to login manually[/yellow]")
+        
+        retriever = HFTokenRetriever()
+        result = retriever.retrieve()
+        
+        if result.success:
+            if console:
+                console.print(f"[green]     ✓ Token retrieved via {result.browser_type}[/green]")
+            return result.token
+        else:
+            if console:
+                if result.error:
+                    console.print(f"[red]     ✗ {result.error}[/red]")
+                else:
+                    console.print(f"[yellow]     ⚠ {result.message}[/yellow]")
+            return None
+            
+    except Exception as e:
+        # Fall back to legacy implementation
+        if console:
+            console.print(f"[dim]     Modular retriever failed: {e}[/dim]")
+            console.print("[dim]     Falling back to legacy implementation...[/dim]")
+        return _try_playwright_browser(console)
 
 
 def _manual_browser_instructions(console: Optional[Console], browser_name: str) -> Optional[str]:

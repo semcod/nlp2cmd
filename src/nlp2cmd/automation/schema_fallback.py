@@ -20,6 +20,13 @@ from typing import Any, Optional
 
 log = logging.getLogger("nlp2cmd.schema_fallback")
 
+# Import modular page schema extractor
+try:
+    from nlp2cmd.page_schema import PageSchemaExtractor
+    _PAGE_SCHEMA_AVAILABLE = True
+except ImportError:
+    _PAGE_SCHEMA_AVAILABLE = False
+
 
 @dataclass
 class FallbackContext:
@@ -816,6 +823,23 @@ class SchemaFallback:
             log.warning("[DynamicSchema] Schema extraction error: %s", e)
 
         return schema
+
+    @staticmethod
+    def _extract_page_schema_dispatch(page: Any) -> dict[str, list[dict[str, str]]]:
+        """Dispatch to modular PageSchemaExtractor if available.
+        
+        This is the refactored version that uses the page_schema package.
+        Falls back to legacy _extract_page_schema if modular version unavailable.
+        """
+        if not _PAGE_SCHEMA_AVAILABLE:
+            return SchemaFallback._extract_page_schema(page)
+        
+        try:
+            extractor = PageSchemaExtractor()
+            return extractor.extract_dict(page)
+        except Exception as e:
+            log.debug("PageSchemaExtractor failed, falling back to legacy: %s", e)
+            return SchemaFallback._extract_page_schema(page)
 
     # ------------------------------------------------------------------
     # Strategy 2c: Page analysis

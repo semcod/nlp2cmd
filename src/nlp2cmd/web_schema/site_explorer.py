@@ -22,6 +22,13 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError
 import xml.etree.ElementTree as ET
 
+# Import modular page analysis
+try:
+    from nlp2cmd.page_analysis import PageAnalyzer, PageAnalysisResult
+    _PAGE_ANALYSIS_AVAILABLE = True
+except ImportError:
+    _PAGE_ANALYSIS_AVAILABLE = False
+
 _DEBUG = os.environ.get("NLP2CMD_DEBUG", "").lower() in ("1", "true", "yes")
 
 
@@ -1139,6 +1146,39 @@ class SiteExplorer:
         info.links = unique_links[:10]  # Limit links
         
         return info
+    
+    def _analyze_page_dispatch(self, page: Any, url: str, console: Optional[Any] = None) -> PageInfo:
+        """New page analysis using modular PageAnalyzer.
+        
+        This is the refactored version that uses the page_analysis package.
+        Falls back to legacy _analyze_page if modular version unavailable.
+        """
+        if not _PAGE_ANALYSIS_AVAILABLE:
+            return self._analyze_page(page, url, console)
+        
+        try:
+            from nlp2cmd.page_analysis import PageAnalyzer
+            
+            analyzer = PageAnalyzer(max_links=10)
+            result = analyzer.analyze(page, url)
+            
+            # Convert PageAnalysisResult to PageInfo
+            info = PageInfo(url=url)
+            info.title = result.title
+            info.has_form = result.has_form
+            info.form_count = result.form_count
+            info.links = result.links
+            info.score = result.score
+            
+            # Copy field classification counts
+            info.contact_field_count = result.contact_field_count
+            info.junk_field_count = result.junk_field_count
+            
+            return info
+            
+        except Exception as e:
+            _debug(f"PageAnalyzer failed: {e}, falling back to legacy")
+            return self._analyze_page(page, url, console)
     
     def _dismiss_popups(self, page: Any) -> None:
         """Try to dismiss common popups and cookie consents."""
