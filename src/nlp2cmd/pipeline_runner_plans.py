@@ -38,6 +38,9 @@ from nlp2cmd.utils.yaml_compat import yaml
 
 from nlp2cmd.adapters.base import SafetyPolicy
 
+# Import new step handlers for modular dispatch
+from nlp2cmd.step_handlers import StepDispatcher
+
 
 # Maximum total steps allowed in a plan (including fallback-injected steps)
 _MAX_PLAN_STEPS = int(os.environ.get("NLP2CMD_MAX_PLAN_STEPS", "30"))
@@ -2716,7 +2719,69 @@ class PlanExecutionMixin:
                 for line in str(msg).split("\n"):
                     console.print(f"  [dim]{line}[/dim]")
 
+        # Fallback: try new modular dispatcher for any unhandled actions
+        # This allows gradual migration from monolithic method to handlers
+        try:
+            if StepDispatcher.has_handler(action):
+                return StepDispatcher.dispatch(
+                    action=action,
+                    page=page,
+                    context=context,
+                    params=params,
+                    variables=variables,
+                    console=console,
+                )
+        except Exception as e:
+            _debug(f"Dispatcher failed for {action}: {e}")
+            raise
+
         return None
+
+    def _execute_plan_step_dispatch(
+        self,
+        page,
+        context,
+        step,
+        variables: dict,
+    ) -> Optional[str]:
+        """Execute a step using the new modular dispatcher (v2).
+        
+        This method uses the StepDispatcher to route actions to modular handlers.
+        Falls back to legacy _execute_plan_step if no handler is registered.
+        
+        Args:
+            page: Playwright page
+            context: Playwright browser context
+            step: ActionStep with action and params
+            variables: Variables dict from previous steps
+            
+        Returns:
+            Result value or None
+        """
+        from rich.console import Console
+        console = Console()
+        
+        action = step.action
+        params = self._resolve_plan_variables(step.params or {}, variables)
+        
+        # Try new dispatcher first
+        if StepDispatcher.has_handler(action):
+            try:
+                result = StepDispatcher.dispatch(
+                    action=action,
+                    page=page,
+                    context=context,
+                    params=params,
+                    variables=variables,
+                    console=console,
+                )
+                return result
+            except Exception as e:
+                _debug(f"Dispatcher error for {action}: {e}")
+                raise
+        
+        # Fallback to legacy method
+        return self._execute_plan_step(page, context, step, variables)
 
     @staticmethod
     def _resolve_plan_variables(params: dict, variables: dict) -> dict:
