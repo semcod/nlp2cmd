@@ -35,6 +35,13 @@ from nlp2cmd.pipeline_runner_utils import (
 )
 from nlp2cmd.utils.yaml_compat import yaml
 
+# Import modular desktop executor
+try:
+    from nlp2cmd.desktop_executor import DesktopActionExecutor, ExecutionConfig
+    _DESKTOP_EXECUTOR_AVAILABLE = True
+except ImportError:
+    _DESKTOP_EXECUTOR_AVAILABLE = False
+
 
 class DesktopExecutionMixin:
     """Desktop automation and static utility methods for PipelineRunner."""
@@ -335,6 +342,45 @@ class DesktopExecutionMixin:
         for code in reversed(codes):
             result.append(f"{code}:0")
         return result
+
+    def _execute_desktop_plan_step_dispatch(self, step, variables: dict) -> Optional[str]:
+        """New desktop plan execution using modular DesktopActionExecutor.
+        
+        This is the refactored version that uses the desktop_executor package.
+        Falls back to legacy _execute_desktop_plan_step if modular version unavailable
+        or for special actions requiring external execution context.
+        """
+        action = str(getattr(step, "action", "") or "")
+        
+        # Special actions that need external execution context
+        if action in ("prompt_secret", "save_env"):
+            return self._execute_desktop_plan_step(step, variables)
+        
+        if not _DESKTOP_EXECUTOR_AVAILABLE:
+            return self._execute_desktop_plan_step(step, variables)
+        
+        try:
+            executor = DesktopActionExecutor()
+            
+            if not executor.is_available():
+                return self._execute_desktop_plan_step(step, variables)
+            
+            params = self._resolve_plan_variables(
+                getattr(step, "params", {}) or {}, variables
+            )
+            
+            result = executor.execute(action, params, variables, verbose=_DEBUG)
+            
+            if result.success:
+                return result.result
+            else:
+                # Fall back to legacy implementation on failure
+                _debug(f"DesktopActionExecutor failed: {result.error}")
+                return self._execute_desktop_plan_step(step, variables)
+                
+        except Exception as e:
+            _debug(f"DesktopActionExecutor error: {e}")
+            return self._execute_desktop_plan_step(step, variables)
 
     @staticmethod
     def _normalize_llm_article_selector_payload(payload: dict[str, Any]) -> dict[str, list[str]]:
