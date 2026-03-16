@@ -1,0 +1,58 @@
+# code2llm/evolution | 7493 func | 852f | 2026-03-04
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT           src/nlp2cmd/pipeline_runner_plans.py
+      WHY: 2975L, 1 classes, max CC=346
+      EFFORT: ~4h  IMPACT: 1029350
+
+  [2] !! SPLIT           networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py
+      WHY: 2978L, 2 classes, max CC=60
+      EFFORT: ~4h  IMPACT: 178680
+
+  [3] !! SPLIT-FUNC      PlanExecutionMixin._execute_plan_step  CC=346  fan=118
+      WHY: CC=346 exceeds 15
+      EFFORT: ~1h  IMPACT: 40828
+
+  [4] !! SPLIT-FUNC      BrowserExecutionMixin._run_dom_multi_action  CC=280  fan=108
+      WHY: CC=280 exceeds 15
+      EFFORT: ~1h  IMPACT: 30240
+
+  [5] !! SPLIT-FUNC      PlanExecutionMixin.execute_action_plan  CC=198  fan=78
+      WHY: CC=198 exceeds 15
+      EFFORT: ~1h  IMPACT: 15444
+
+  [6] !! SPLIT-FUNC      handle_run_mode  CC=178  fan=75
+      WHY: CC=178 exceeds 15
+      EFFORT: ~1h  IMPACT: 13350
+
+  [7] !! SPLIT-FUNC      _handle_run_query  CC=123  fan=73
+      WHY: CC=123 exceeds 15
+      EFFORT: ~1h  IMPACT: 8979
+
+  [8] !! SPLIT-FUNC      max_weight_matching  CC=76  fan=62
+      WHY: CC=76 exceeds 15
+      EFFORT: ~1h  IMPACT: 4712
+
+  [9] !! SPLIT-FUNC      main  CC=71  fan=56
+      WHY: CC=71 exceeds 15
+      EFFORT: ~1h  IMPACT: 3976
+
+  [10] !! SPLIT-FUNC      TemplateGenerator._prepare_shell_entities  CC=164  fan=24
+      WHY: CC=164 exceeds 15
+      EFFORT: ~1h  IMPACT: 3936
+
+
+RISKS[3]:
+  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/tests/test_vf2pp_helpers.py may break 0 import paths
+  ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py may break 25 import paths
+  ⚠ Splitting src/nlp2cmd/pipeline_runner_plans.py may break 8 import paths
+
+METRICS-TARGET:
+  CC̄:          5.6 → ≤3.9
+  max-CC:      346 → ≤20
+  god-modules: 258 → 0
+  high-CC(≥15): 555 → ≤277
+  hub-types:   0 → ≤0
+
+HISTORY:
+  (first run — no previous data)

@@ -1,6 +1,13 @@
-# nlp2cmd | 593f 165538L | python:592/sql:1
+# nlp2cmd | 665f 177642L | python:664/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[593]:
+M[665]:
+  src/nlp2cmd/desktop_executor/backend_detector.py,67
+  src/nlp2cmd/desktop_executor/browser_controller.py,84
+  src/nlp2cmd/desktop_executor/desktop_action_executor.py,187
+  src/nlp2cmd/desktop_executor/env_manager.py,87
+  src/nlp2cmd/desktop_executor/keyboard_controller.py,171
+  src/nlp2cmd/desktop_executor/window_manager.py,106
+  tests/unit/test_desktop_executor.py,372
   benchmarks/thermodynamic_benchmark.py,318
   code2llm_workaround.py,8
   demos/demo_enhanced.py,95
@@ -234,7 +241,7 @@ M[593]:
   src/nlp2cmd/aggregator/__init__.py,274
   src/nlp2cmd/appspec_runtime.py,45
   src/nlp2cmd/automation/__init__.py,30
-  src/nlp2cmd/automation/action_planner.py,1426
+  src/nlp2cmd/automation/action_planner.py,1464
   src/nlp2cmd/automation/captcha_solver.py,420
   src/nlp2cmd/automation/complex_planner.py,450
   src/nlp2cmd/automation/drawing_blueprints.py,562
@@ -243,16 +250,35 @@ M[593]:
   src/nlp2cmd/automation/firefox_sessions.py,367
   src/nlp2cmd/automation/mouse_controller.py,284
   src/nlp2cmd/automation/password_store.py,705
-  src/nlp2cmd/automation/schema_fallback.py,953
+  src/nlp2cmd/automation/schema_fallback.py,972
   src/nlp2cmd/automation/service_configs.py,352
   src/nlp2cmd/automation/shape_planner.py,91
   src/nlp2cmd/automation/step_validator.py,313
   src/nlp2cmd/automation/vector_store.py,462
+  src/nlp2cmd/browser_manager/__init__.py,18
+  src/nlp2cmd/browser_manager/base.py,52
+  src/nlp2cmd/browser_manager/browser_connector.py,104
+  src/nlp2cmd/browser_manager/cdp_detector.py,78
+  src/nlp2cmd/browser_manager/existing_browser_manager.py,122
+  src/nlp2cmd/browser_manager/token_navigator.py,72
+  src/nlp2cmd/browser_token/__init__.py,18
+  src/nlp2cmd/browser_token/base.py,38
+  src/nlp2cmd/browser_token/browser_launcher.py,64
+  src/nlp2cmd/browser_token/hf_token_retriever.py,86
+  src/nlp2cmd/browser_token/token_navigator.py,76
+  src/nlp2cmd/browser_token/token_prompt_handler.py,74
+  src/nlp2cmd/canvas_planner/__init__.py,19
+  src/nlp2cmd/canvas_planner/base.py,61
+  src/nlp2cmd/canvas_planner/blueprint_planner.py,49
+  src/nlp2cmd/canvas_planner/llm_planner.py,182
+  src/nlp2cmd/canvas_planner/orchestrator.py,127
+  src/nlp2cmd/canvas_planner/rule_planner.py,130
+  src/nlp2cmd/canvas_planner/vector_planner.py,95
   src/nlp2cmd/cli/__init__.py,2
   src/nlp2cmd/cli/auto_repair.py,470
   src/nlp2cmd/cli/cache.py,329
   src/nlp2cmd/cli/commands/__init__.py,2
-  src/nlp2cmd/cli/commands/doctor.py,1068
+  src/nlp2cmd/cli/commands/doctor.py,1132
   src/nlp2cmd/cli/commands/examples.py,523
   src/nlp2cmd/cli/commands/generate.py,775
   src/nlp2cmd/cli/commands/interactive.py,417
@@ -274,6 +300,16 @@ M[593]:
   src/nlp2cmd/core/core_models.py,198
   src/nlp2cmd/core/core_transform.py,461
   src/nlp2cmd/core/toon_integration.py,170
+  src/nlp2cmd/desktop_executor/__init__.py,22
+  src/nlp2cmd/desktop_executor/base.py,50
+  src/nlp2cmd/dom_actions/__init__.py,19
+  src/nlp2cmd/dom_actions/base.py,49
+  src/nlp2cmd/dom_actions/companies.py,307
+  src/nlp2cmd/dom_actions/dispatcher.py,127
+  src/nlp2cmd/dom_actions/forms.py,193
+  src/nlp2cmd/dom_actions/navigation.py,89
+  src/nlp2cmd/dom_actions/registry.py,39
+  src/nlp2cmd/dom_actions/save.py,174
   src/nlp2cmd/enhanced/__init__.py,120
   src/nlp2cmd/environment/__init__.py,426
   src/nlp2cmd/evolutionary_orchestrator.py,560
@@ -368,13 +404,32 @@ M[593]:
   src/nlp2cmd/orchestration/handlers.py,552
   src/nlp2cmd/orchestration/metrics.py,468
   src/nlp2cmd/orchestration/reflection.py,281
+  src/nlp2cmd/page_analysis/__init__.py,19
+  src/nlp2cmd/page_analysis/base.py,49
+  src/nlp2cmd/page_analysis/field_classifier.py,91
+  src/nlp2cmd/page_analysis/form_analyzer.py,78
+  src/nlp2cmd/page_analysis/iframe_analyzer.py,31
+  src/nlp2cmd/page_analysis/link_extractor.py,65
+  src/nlp2cmd/page_analysis/page_analyzer.py,83
+  src/nlp2cmd/page_schema/__init__.py,21
+  src/nlp2cmd/page_schema/base.py,29
+  src/nlp2cmd/page_schema/button_extractor.py,50
+  src/nlp2cmd/page_schema/copy_button_extractor.py,48
+  src/nlp2cmd/page_schema/form_extractor.py,48
+  src/nlp2cmd/page_schema/page_schema_extractor.py,61
+  src/nlp2cmd/page_schema/radio_extractor.py,54
+  src/nlp2cmd/page_schema/token_extractor.py,46
   src/nlp2cmd/parsing/toon_parser.py,342
   src/nlp2cmd/pipeline_runner.py,145
-  src/nlp2cmd/pipeline_runner_browser.py,1283
-  src/nlp2cmd/pipeline_runner_desktop.py,333
-  src/nlp2cmd/pipeline_runner_plans.py,2514
+  src/nlp2cmd/pipeline_runner_browser.py,1395
+  src/nlp2cmd/pipeline_runner_desktop.py,365
+  src/nlp2cmd/pipeline_runner_plans.py,2596
   src/nlp2cmd/pipeline_runner_shell.py,175
   src/nlp2cmd/pipeline_runner_utils.py,380
+  src/nlp2cmd/plan_execution/__init__.py,13
+  src/nlp2cmd/plan_execution/browser_setup.py,152
+  src/nlp2cmd/plan_execution/plan_executor.py,418
+  src/nlp2cmd/plan_execution/step_orchestrator.py,509
   src/nlp2cmd/planner/__init__.py,340
   src/nlp2cmd/polish_support.py,240
   src/nlp2cmd/registry/__init__.py,529
@@ -416,6 +471,15 @@ M[593]:
   src/nlp2cmd/skills/search/__init__.py,31
   src/nlp2cmd/skills/search/engine.py,349
   src/nlp2cmd/skills/search/skill.py,148
+  src/nlp2cmd/step_handlers/__init__.py,22
+  src/nlp2cmd/step_handlers/base.py,46
+  src/nlp2cmd/step_handlers/dispatcher.py,90
+  src/nlp2cmd/step_handlers/drawing.py,319
+  src/nlp2cmd/step_handlers/extraction.py,285
+  src/nlp2cmd/step_handlers/interaction.py,230
+  src/nlp2cmd/step_handlers/navigate.py,57
+  src/nlp2cmd/step_handlers/registry.py,39
+  src/nlp2cmd/step_handlers/session.py,326
   src/nlp2cmd/storage/__init__.py,3
   src/nlp2cmd/storage/per_command_store.py,287
   src/nlp2cmd/storage/versioned_store.py,313
@@ -445,7 +509,7 @@ M[593]:
   src/nlp2cmd/web_schema/form_data_loader.py,670
   src/nlp2cmd/web_schema/form_handler.py,644
   src/nlp2cmd/web_schema/history.py,288
-  src/nlp2cmd/web_schema/site_explorer.py,1381
+  src/nlp2cmd/web_schema/site_explorer.py,1409
   test_action_planner_logic.py,25
   test_colors5.py,15
   test_screenshots/analyze_screenshots.py,157
@@ -512,12 +576,16 @@ M[593]:
   tests/unit/test_auto_repair.py,186
   tests/unit/test_automation.py,402
   tests/unit/test_browser_automation.py,337
+  tests/unit/test_browser_manager.py,301
+  tests/unit/test_browser_token.py,268
+  tests/unit/test_canvas_planner.py,303
   tests/unit/test_cli_entry_point.py,124
   tests/unit/test_config.py,188
   tests/unit/test_core.py,241
   tests/unit/test_desktop_automation.py,100
   tests/unit/test_display_syntax.py,216
   tests/unit/test_docker_validators.py,106
+  tests/unit/test_dom_actions.py,193
   tests/unit/test_drawing_blueprints.py,184
   tests/unit/test_drawing_new_skills.py,570
   tests/unit/test_drawing_skill.py,580
@@ -541,8 +609,11 @@ M[593]:
   tests/unit/test_nlp_integration.py,111
   tests/unit/test_normalizer.py,180
   tests/unit/test_orchestration.py,653
+  tests/unit/test_page_analysis.py,313
+  tests/unit/test_page_schema.py,280
   tests/unit/test_password_store.py,243
   tests/unit/test_pipeline_runner_step_errors.py,29
+  tests/unit/test_plan_execution.py,199
   tests/unit/test_plan_step_robustness.py,55
   tests/unit/test_planner_aggregator.py,412
   tests/unit/test_prompt_secret_skip_pattern.py,23
@@ -566,6 +637,7 @@ M[593]:
   tests/unit/test_shell_validators.py,102
   tests/unit/test_similarity_cache.py,200
   tests/unit/test_sql_validators.py,86
+  tests/unit/test_step_handlers.py,222
   tests/unit/test_thermodynamic.py,671
   tests/unit/test_transform_result.py,333
   tests/unit/test_typo_tolerance.py,116
@@ -595,6 +667,38 @@ M[593]:
   tools/schema/update_schemas.py,128
   tools/schema/validate_schemas.py,91
 D:
+  src/nlp2cmd/desktop_executor/backend_detector.py:
+    i: shutil,logging,base.DesktopBackend,typing.Optional
+    e: BackendDetector
+    BackendDetector: __init__(0),detect(0),detect_with_fallback(0),is_available(0),get_error_message(0)  # Detect available desktop automation b...
+  src/nlp2cmd/desktop_executor/browser_controller.py:
+    i: subprocess,shutil,logging,base.{ActionResult,DesktopBackend},typing.Optional
+    e: BrowserController
+    BrowserController: __init__(0),open_tab(2),check_session(3),_find_firefox(0),is_available(0)  # Control Firefox browser via command-l...
+  src/nlp2cmd/desktop_executor/desktop_action_executor.py:
+    i: time,logging,backend_detector.BackendDetector,base.{ActionResult,ActionStatus,DesktopBackend,ExecutionConfig},typing.{Any,Optional},window_manager.WindowManager
+    e: DesktopActionExecutor
+    DesktopActionExecutor: __init__(1),execute(4),_execute_focus_app(3),_execute_shortcut(3),_execute_key(3)  # Main orchestrator for executing deskt...
+  src/nlp2cmd/desktop_executor/env_manager.py:
+    i: re,logging,base.ActionResult,pathlib.Path,typing.Optional
+    e: EnvManager
+    EnvManager: __init__(1),verify_env(3),_validate_value(2),_load_env_file(1)  # Manage environment variables and .env...
+  src/nlp2cmd/desktop_executor/keyboard_controller.py:
+    i: subprocess,logging,base.{ActionResult,DesktopBackend},typing.Optional
+    e: KeyboardController
+    KeyboardController: __init__(1),send_shortcut(3),send_key(3),type_text(3),_send_shortcut_ydotool(2)  # Send keyboard input via desktop autom...
+  src/nlp2cmd/desktop_executor/window_manager.py:
+    i: subprocess,shutil,time,logging,base.{ActionResult,DesktopBackend},typing.Optional
+    e: WindowManager
+    WindowManager: __init__(1),focus_window(3),_focus_with_ydotool(2),_focus_with_wmctrl(2),_focus_with_xdotool(3)  # Manage application windows via deskto...
+  tests/unit/test_desktop_executor.py:
+    i: pytest,time,nlp2cmd.desktop_executor.{ActionResult,ActionStatus,BackendDetector,DesktopBackend,ExecutionConfig},unittest.mock.{MagicMock,mock_open,patch}
+    e: TestDesktopBackend,TestActionResult,TestExecutionConfig,TestBackendDetector,TestWindowManager,TestKeyboardController,TestBrowserController,TestEnvManager
+    TestDesktopBackend: test_backend_values(0)  # Test DesktopBackend enum.
+    TestActionResult: test_default_creation(0),test_success_result(0),test_failed_result(0),test_unsupported_result(0)  # Test ActionResult dataclass.
+    TestExecutionConfig: test_default_values(0),test_custom_values(0)  # Test ExecutionConfig dataclass.
+    TestBackendDetector: test_init(0),test_detect_ydotool(1),test_detect_xdotool(1),test_detect_none(1),test_caching(1)  # Test BackendDetector class.
+    TestWindowManager: test_init_with_backend(0),test_focus_with_ydotool(1),test_focus_with_xdotool(3),test_focus_with_wmctrl(2)  # Test WindowManager class.
   benchmarks/thermodynamic_benchmark.py:
     i: asyncio,time,sys,numpy,dataclasses.dataclass,nlp2cmd.generation.thermodynamic.create_thermodynamic_generator,pathlib.Path,typing.{Any,Dict,List}
     e: BenchmarkResult,benchmark_langevin_sampler,benchmark_parallel_vs_sequential,benchmark_adaptive_steps,benchmark_generator_problems,benchmark_energy_savings,print_benchmark_result,main
@@ -2028,7 +2132,7 @@ D:
     EnvPasswordReader: get_credentials(1)  # Read credentials from environment var...
     get_password_store()->SessionPasswordStore
   src/nlp2cmd/automation/schema_fallback.py:
-    i: json,logging,os,re,dataclasses.{dataclass,field},typing.{Any,Optional}
+    i: json,logging,os,re,dataclasses.{dataclass,field},nlp2cmd.page_schema.PageSchemaExtractor,typing.{Any,Optional}
     e: FallbackContext,FallbackResult,SchemaFallback
     FallbackContext:   # Context collected when a step fails,...
     FallbackResult:   # Result of a fallback attempt.
@@ -2057,6 +2161,76 @@ D:
     initialize_default_patterns()->bool
     export_patterns_to_file(filepath:str)->bool
     import_patterns_from_file(filepath:str)->int
+  src/nlp2cmd/browser_manager/base.py:
+    i: dataclasses.{dataclass,field},enum.Enum,typing.{Any,Optional}
+    e: ConnectionStatus,BrowserConfig,BrowserConnectionResult
+    ConnectionStatus:   # Status of browser connection attempt.
+    BrowserConfig:   # Configuration for browser connection.
+    BrowserConnectionResult: close(0)  # Result of browser connection attempt.
+  src/nlp2cmd/browser_manager/browser_connector.py:
+    i: logging,base.{BrowserConfig,BrowserConnectionResult,ConnectionStatus},typing.{Any,Optional}
+    e: BrowserConnector
+    BrowserConnector: __init__(1),connect(3),_try_connect_chrome(4),_try_connect_firefox(4)  # Connect to browsers via Playwright CD...
+  src/nlp2cmd/browser_manager/cdp_detector.py:
+    i: socket,logging,base.BrowserConfig,typing.{Any,Optional}
+    e: CdpDetector
+    CdpDetector: __init__(1),find_cdp_port(2),_check_port(1),verify_cdp_protocol(2)  # Detect and verify CDP ports for brows...
+  src/nlp2cmd/browser_manager/existing_browser_manager.py:
+    i: logging,base.{BrowserConfig,BrowserConnectionResult,ConnectionStatus},browser_connector.BrowserConnector,cdp_detector.CdpDetector,token_navigator.{NavigationStatus,TokenNavigator},typing.{Any,Optional}
+    e: ExistingBrowserManager
+    ExistingBrowserManager: __init__(1),connect_and_navigate(2),get_token_interactive(3)  # Orchestrator for connecting to existi...
+  src/nlp2cmd/browser_manager/token_navigator.py:
+    i: logging,base.BrowserConfig,enum.Enum,typing.{Any,Optional}
+    e: NavigationStatus,TokenNavigator
+    NavigationStatus:   # Status of navigation attempt.
+    TokenNavigator: __init__(1),navigate(3),is_valid_destination(1)  # Navigate to HuggingFace token setting...
+  src/nlp2cmd/browser_token/base.py:
+    i: dataclasses.{dataclass,field},typing.{Any,Optional}
+    e: BrowserTokenResult,TokenConfig
+    BrowserTokenResult: failed(0)  # Result of browser token retrieval att...
+    TokenConfig:   # Configuration for token retrieval.
+  src/nlp2cmd/browser_token/browser_launcher.py:
+    i: logging,typing.{Any,Optional}
+    e: BrowserLauncher
+    BrowserLauncher: __init__(1),launch(1),create_context_and_page(1),cleanup(0)  # Launch browser with automatic fallbac...
+  src/nlp2cmd/browser_token/hf_token_retriever.py:
+    i: logging,base.{BrowserTokenResult,TokenConfig},browser_launcher.BrowserLauncher,token_navigator.{NavigationStatus,TokenNavigator},token_prompt_handler.TokenPromptHandler,typing.{Any,Optional}
+    e: HFTokenRetriever
+    HFTokenRetriever: __init__(1),retrieve(0)  # Main orchestrator for retrieving Hugg...
+  src/nlp2cmd/browser_token/token_navigator.py:
+    i: logging,enum.Enum,typing.{Any,Optional}
+    e: NavigationStatus,TokenNavigator
+    NavigationStatus:   # Status of navigation attempt.
+    TokenNavigator: __init__(4),navigate(1),_classify_result(1),can_proceed(1)  # Navigate to token pages with URL veri...
+  src/nlp2cmd/browser_token/token_prompt_handler.py:
+    i: logging,typing.Optional
+    e: TokenPromptHandler
+    TokenPromptHandler: __init__(4),show_instructions(1),prompt_for_token(0),prompt_with_cleanup(1),_cleanup_page(1)  # Handle interactive prompts for token...
+  src/nlp2cmd/canvas_planner/base.py:
+    i: dataclasses.{dataclass,field},typing.{Any,Optional}
+    e: CanvasPlanResult,CanvasPlannerBase
+    CanvasPlanResult: to_action_steps(0)  # Result of canvas planning.
+    CanvasPlannerBase: __init__(2),plan(3),is_available(0),_extract_object_name(1),_extract_canvas_url(2)  # Base class for canvas planners.
+  src/nlp2cmd/canvas_planner/blueprint_planner.py:
+    i: logging,base.{CanvasPlanResult,CanvasPlannerBase},typing.Any
+    e: BlueprintPlanner
+    BlueprintPlanner: plan(3),_build_full_plan(2)  # Uses rich drawing blueprints (SVG pat...
+  src/nlp2cmd/canvas_planner/llm_planner.py:
+    i: json,logging,os,re,base.{CanvasPlanResult,CanvasPlannerBase},typing.Any
+    e: LLMCanvasPlanner
+    LLMCanvasPlanner: plan(3),_call_llm(1),_parse_response(1),_build_full_plan(3)  # Generates drawing plans using LLM for...
+  src/nlp2cmd/canvas_planner/orchestrator.py:
+    i: logging,re,base.{CanvasPlanResult,CanvasPlannerBase},blueprint_planner.BlueprintPlanner,llm_planner.LLMCanvasPlanner,rule_planner.RuleBasedCanvasPlanner,typing.Any,vector_planner.VectorDBPlanner
+    e: CanvasPlanningOrchestrator
+    CanvasPlanningOrchestrator: __init__(2),plan(3),_try_blueprint(3),_try_vector_db(3),_try_template(3)  # Orchestrates multiple canvas planners...
+  src/nlp2cmd/canvas_planner/rule_planner.py:
+    i: base.{CanvasPlanResult,CanvasPlannerBase},typing.Any
+    e: RuleBasedCanvasPlanner
+    RuleBasedCanvasPlanner: plan(3),_build_base_steps(1),_rabbit_shape(0),_car_shape(0),_house_shape(0)  # Generates drawing plans using hardcod...
+  src/nlp2cmd/canvas_planner/vector_planner.py:
+    i: logging,re,base.{CanvasPlanResult,CanvasPlannerBase},nlp2cmd.automation.vector_store.get_vector_store,typing.Any
+    e: VectorDBPlanner
+    VectorDBPlanner: is_available(0),plan(3),_extract_search_query(1),_find_best_pattern(2),_calculate_confidence(3)  # Searches vector database for semantic...
   src/nlp2cmd/cli/auto_repair.py:
     i: os,sys,traceback,time,functools.wraps,pathlib.Path,typing.{Any,Callable,Optional,TypeVar}
     e: T,ErrorCategory,RepairResult,AutoRepairSystem,with_auto_repair,execute_with_auto_recovery
@@ -2088,7 +2262,8 @@ D:
     _try_system_browser(console:Optional[Console]=None)->Optional[str]
     _try_playwright_browser(console:Optional[Console]=None)->Optional[str]
     _navigate_and_get_token(page;console:Optional[Console];browser_type:str)->Optional[str]
-    _manual_browser_instructions(console:Optional[Console];browser_name:str)->Optional[str]
+    _try_existing_browser_dispatch(console:Optional[Console]=None)->Optional[str]
+    _try_playwright_browser_dispatch(console:Optional[Console]=None)->Optional[str]
   src/nlp2cmd/cli/commands/examples.py:
     i: asyncio,json,os,sys,click,dataclasses.{dataclass,field},pathlib.Path,typing.{Any,Optional}
     e: ExampleScenario,ExamplesRegistry,ExamplesRunner
@@ -2233,6 +2408,48 @@ D:
     load_command_schemas()->Dict[str, Any]
     load_config()->Dict[str, Any]
     get_project_info()->Dict[str, Any]
+  src/nlp2cmd/desktop_executor/base.py:
+    i: dataclasses.{dataclass,field},enum.Enum,typing.{Any,Optional}
+    e: DesktopBackend,ActionStatus,ActionResult,ExecutionConfig
+    DesktopBackend:   # Available desktop automation backends.
+    ActionStatus:   # Status of action execution.
+    ActionResult: success_result(2),failed_result(2),unsupported_result(1)  # Result of action execution.
+    ExecutionConfig:   # Configuration for desktop execution.
+  src/nlp2cmd/dom_actions/base.py:
+    i: abc.{ABC,abstractmethod},dataclasses.dataclass,typing.{Any,Optional,TYPE_CHECKING}
+    e: ActionContext,ActionResult,DomAction
+    ActionContext:   # Context passed to DOM action handlers.
+    ActionResult:   # Result from a DOM action handler.
+    DomAction: execute(1),_dismiss_popups(2),_debug(1)  # Base class for DOM action handlers.
+  src/nlp2cmd/dom_actions/companies.py:
+    i: time,base.{ActionContext,ActionResult,DomAction},registry.register_action,typing.TYPE_CHECKING
+    e: ExtractCompaniesAction
+    ExtractCompaniesAction: execute(1),_wait_for_content(1),_handle_oferteo_navigation(1),_wait_for_company_links(1),_find_company_links(2)  # Extract company information from cata...
+  src/nlp2cmd/dom_actions/dispatcher.py:
+    i: time,navigation,forms,companies,base.{ActionContext,ActionResult},registry.ActionRegistry,typing.{Any,Optional,TYPE_CHECKING}
+    e: ActionDispatcher
+    ActionDispatcher: dispatch(7),has_handler(1),list_actions(0),execute_actions_sequence(6)  # Dispatches DOM actions to appropriate...
+  src/nlp2cmd/dom_actions/forms.py:
+    i: base.{ActionContext,ActionResult,DomAction},registry.register_action,typing.TYPE_CHECKING
+    e: FillFormAction
+    FillFormAction: execute(1),_wait_for_page_load(1),_discover_form(2),_try_direct_contact_urls(2),_try_contact_links(2)  # Fill form fields automatically from ....
+  src/nlp2cmd/dom_actions/navigation.py:
+    i: base.{ActionContext,ActionResult,DomAction},registry.register_action,typing.TYPE_CHECKING
+    e: NavigateAction,ExploreForContentAction,ExploreForFormAction
+    NavigateAction: execute(1)  # Navigate to a URL.
+    ExploreForContentAction: execute(1)  # Explore site to find content.
+    ExploreForFormAction: execute(1)  # Explore site to find forms.
+  src/nlp2cmd/dom_actions/registry.py:
+    i: typing.{Optional,TYPE_CHECKING,Type}
+    e: ActionRegistry,register_action,get_action
+    ActionRegistry: register(2),get(1),list_actions(0),clear(0)  # Registry mapping action names to thei...
+    register_action(action_name:str)
+    get_action(action_name:str)->Optional[Type[DomAction]]
+  src/nlp2cmd/dom_actions/save.py:
+    i: subprocess,base.{ActionContext,ActionResult,DomAction},pathlib.Path,registry.register_action,typing.TYPE_CHECKING
+    e: SaveToFileAction,SaveToCsvAction
+    SaveToFileAction: execute(1),_extract_lines(1),_extract_candidate(3),_is_bad_website(1),_copy_to_clipboard(2)  # Save extracted data to a text file.
+    SaveToCsvAction: execute(1)  # Save extracted data to a CSV file.
   src/nlp2cmd/enhanced/__init__.py:
     i: nlp2cmd.adapters.appspec.AppSpecAdapter,nlp2cmd.core.core_backends.NLPBackend,nlp2cmd.core.core_models.TransformResult,nlp2cmd.core.core_transform.NLP2CMD,nlp2cmd.ir.ActionIR,typing.{Any,Dict,List,Optional,Union}
     e: EnhancedNLP2CMD,create_enhanced_nlp2cmd
@@ -2724,6 +2941,60 @@ D:
     classify_error(text:str)->Optional[str]
     suggest_retry_strategy(error_type:Optional[str])->str
     _parse_json_safe(text:str)->Optional[dict]
+  src/nlp2cmd/page_analysis/base.py:
+    i: dataclasses.{dataclass,field},typing.{Any,Optional}
+    e: FieldInfo,PageAnalysisResult
+    FieldInfo:   # Information about a form field.
+    PageAnalysisResult: to_dict(0)  # Result of page analysis.
+  src/nlp2cmd/page_analysis/field_classifier.py:
+    i: logging,base.FieldInfo,typing.Optional
+    e: FieldClassifier
+    FieldClassifier: classify(1),_is_junk(6),_is_contact(2),classify_batch(1)  # Classify form fields as contact-like...
+  src/nlp2cmd/page_analysis/form_analyzer.py:
+    i: logging,base.FieldInfo,typing.{Any,Optional}
+    e: FormAnalyzer
+    FormAnalyzer: __init__(2),analyze(1),extract_field_info(1),_get_tag(1),_get_field_type(2)  # Analyze page for forms and form fields.
+  src/nlp2cmd/page_analysis/iframe_analyzer.py:
+    i: logging,typing.{Any,Optional}
+    e: IframeAnalyzer
+    IframeAnalyzer: __init__(1),analyze(1)  # Analyze iframes for embedded forms (c...
+  src/nlp2cmd/page_analysis/link_extractor.py:
+    i: logging,typing.{Any,Optional},urllib.parse.{urljoin,urlparse}
+    e: LinkExtractor
+    LinkExtractor: __init__(1),extract(2),_deduplicate_and_limit(1),_normalize_url(1)  # Extract and normalize links from page.
+  src/nlp2cmd/page_analysis/page_analyzer.py:
+    i: logging,base.{FieldInfo,PageAnalysisResult},field_classifier.FieldClassifier,form_analyzer.FormAnalyzer,iframe_analyzer.IframeAnalyzer,link_extractor.LinkExtractor,typing.{Any,Optional}
+    e: PageAnalyzer
+    PageAnalyzer: __init__(4),analyze(2),analyze_quick(2)  # Main orchestrator for page analysis.
+  src/nlp2cmd/page_schema/base.py:
+    i: dataclasses.{dataclass,field},typing.{Any,Protocol}
+    e: PageSchema,ExtractorBase
+    PageSchema: to_dict(0)  # Schema of actionable elements extract...
+    ExtractorBase: extract(1),is_available(1)  # Base protocol for element extractors.
+  src/nlp2cmd/page_schema/button_extractor.py:
+    i: logging,typing.Any
+    e: ButtonExtractor
+    ButtonExtractor: extract(1),_extract_button_data(1)  # Extract visible clickable elements (b...
+  src/nlp2cmd/page_schema/copy_button_extractor.py:
+    i: logging,typing.Any
+    e: CopyButtonExtractor
+    CopyButtonExtractor: extract(1),_extract_copy_button_data(1)  # Extract buttons likely used to copy t...
+  src/nlp2cmd/page_schema/form_extractor.py:
+    i: logging,typing.Any
+    e: FormExtractor
+    FormExtractor: extract(1),_extract_input_data(2)  # Extract visible text input fields and...
+  src/nlp2cmd/page_schema/page_schema_extractor.py:
+    i: logging,base.PageSchema,button_extractor.ButtonExtractor,copy_button_extractor.CopyButtonExtractor,form_extractor.FormExtractor,radio_extractor.RadioExtractor,token_extractor.TokenExtractor,typing.Any
+    e: PageSchemaExtractor
+    PageSchemaExtractor: __init__(0),extract(1),extract_dict(1)  # Extract complete page schema using mu...
+  src/nlp2cmd/page_schema/radio_extractor.py:
+    i: logging,typing.Any
+    e: RadioExtractor
+    RadioExtractor: extract(1),_extract_radio_data(3)  # Extract radio button groups (for toke...
+  src/nlp2cmd/page_schema/token_extractor.py:
+    i: logging,typing.Any
+    e: TokenExtractor
+    TokenExtractor: extract(1),_extract_token_data(2)  # Extract elements that look like API t...
   src/nlp2cmd/parsing/toon_parser.py:
     i: re,dataclasses.dataclass,enum.Enum,pathlib.Path,typing.{Any,Dict,List,Optional,Union}
     e: ToonNodeType,ToonNode,ToonParser,get_parser,reload_parser
@@ -2740,7 +3011,7 @@ D:
   src/nlp2cmd/pipeline_runner_browser.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: BrowserExecutionMixin
-    BrowserExecutionMixin: _run_dom_dql(1),_run_dom_multi_action(1)  # DOM/browser execution methods for Pip...
+    BrowserExecutionMixin: _run_dom_dql(1),_run_dom_multi_action(1),_run_dom_multi_action_dispatch(1)  # DOM/browser execution methods for Pip...
   src/nlp2cmd/pipeline_runner_desktop.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: DesktopExecutionMixin
@@ -2748,7 +3019,7 @@ D:
   src/nlp2cmd/pipeline_runner_plans.py:
     i: json,os,re,shlex,subprocess,shutil,sys,threading,time,pathlib.Path
     e: _MAX_PLAN_STEPS,_MAX_FALLBACK_INJECTIONS,_PROMPT_TIMEOUT,PlanExecutionMixin
-    PlanExecutionMixin: _sanitize_replacement_steps(1),execute_action_plan(1),_execute_plan_step(4),_resolve_plan_variables(2),_do_verify_env(4)  # Multi-step ActionPlan execution metho...
+    PlanExecutionMixin: _sanitize_replacement_steps(1),execute_action_plan(1),execute_action_plan_dispatch(1),_execute_plan_step(4),_execute_plan_step_dispatch(4)  # Multi-step ActionPlan execution metho...
   src/nlp2cmd/pipeline_runner_shell.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: ShellExecutionMixin
@@ -2768,6 +3039,20 @@ D:
     _looks_like_comment_form(fields:list)->bool
     _filter_form_fields(fields:list;console_wrapper:Optional[Any]=None)->list
     get_timestamp()->str
+  src/nlp2cmd/plan_execution/browser_setup.py:
+    i: os,dataclasses.dataclass,pathlib.Path,typing.{Any,Optional,TYPE_CHECKING}
+    e: BrowserContextOptions,BrowserSetup
+    BrowserContextOptions:   # Options for browser context creation.
+    BrowserSetup: __init__(1),setup_firefox_sessions(1),get_user_data_dir(0),create_context_options(2),launch_context(3)  # Handles browser setup, session manage...
+  src/nlp2cmd/plan_execution/plan_executor.py:
+    i: sys,time,nlp2cmd.pipeline_runner_utils.{RunnerResult,VideoRecorder,_debug,ask_for_video_recording},pathlib.Path,rich.console.Console,typing.{Any,Optional}
+    e: PlanExecutor
+    PlanExecutor: __init__(1),execute(1),_detect_desktop_steps(1),_display_plan(2),_setup_video_recording(4)  # Main executor for ActionPlans with br...
+  src/nlp2cmd/plan_execution/step_orchestrator.py:
+    i: time,dataclasses.{dataclass,field},nlp2cmd.pipeline_runner_utils._debug,typing.{Any,Optional}
+    e: StepResult,StepOrchestrator
+    StepResult:   # Result of executing a single step.
+    StepOrchestrator: __init__(7),execute_step(7),_handle_new_tab(5),_pre_validate(4),_check_already_available(5)  # Orchestrates step execution with vali...
   src/nlp2cmd/planner/__init__.py:
     i: json,logging,dataclasses.{dataclass,field},nlp2cmd.executor.{ExecutionPlan,PlanStep},nlp2cmd.registry.{ActionRegistry,get_registry},typing.{Any,Optional}
     e: PlannerConfig,PlanningResult,LLMPlanner
@@ -2980,6 +3265,57 @@ D:
     e: SearchContext,SearchSkill
     SearchContext:   # Context for search operations.
     SearchSkill: __init__(1),search(3),_preprocess_query(1),search_and_summarize(2),_summarize_results(2)  # High-level search skill for nlp2cmd.
+  src/nlp2cmd/step_handlers/base.py:
+    i: abc.{ABC,abstractmethod},dataclasses.dataclass,typing.{Any,Optional,TYPE_CHECKING}
+    e: HandlerContext,HandlerResult,StepHandler
+    HandlerContext:   # Context passed to step handlers durin...
+    HandlerResult:   # Result from a step handler execution.
+    StepHandler: execute(1),_resolve_variables(2),_debug(2)  # Base class for plan step handlers.
+  src/nlp2cmd/step_handlers/dispatcher.py:
+    i: re,navigate,interaction,drawing,base.{HandlerContext,HandlerResult},registry.HandlerRegistry,typing.{Any,Optional,TYPE_CHECKING}
+    e: StepDispatcher
+    StepDispatcher: dispatch(6),has_handler(1),list_actions(0),_resolve_variables(2)  # Dispatches plan steps to appropriate...
+  src/nlp2cmd/step_handlers/drawing.py:
+    i: json,base.{HandlerContext,HandlerResult,StepHandler},registry.register_handler,typing.TYPE_CHECKING
+    e: CanvasMixin,WaitForCanvasHandler,GetCanvasCenterHandler,SelectToolHandler,SetColorHandler,SetLineWidthHandler,DrawCircleHandler,DrawFilledCircleHandler
+    CanvasMixin: _pick_canvas_js(0),_get_color_js(0)  # Mixin providing canvas selection logic.
+    WaitForCanvasHandler: execute(1)  # Wait for canvas element to appear.
+    GetCanvasCenterHandler: execute(1)  # Get canvas center coordinates.
+    SelectToolHandler: execute(1)  # Select a drawing tool.
+    SetColorHandler: execute(1)  # Set foreground color for drawing.
+    _create_simple_draw_handler(action_name:str;template:str;error_msg:str)
+  src/nlp2cmd/step_handlers/extraction.py:
+    i: json,os,re,base.{HandlerContext,HandlerResult,StepHandler},pathlib.Path,registry.register_handler,typing.TYPE_CHECKING
+    e: ExtractKeyHandler,CheckClipboardHandler,SaveEnvHandler,VerifyEnvHandler,PromptSecretHandler,EchoHandler,ExtractTextHandler
+    ExtractKeyHandler: execute(1),_copy_to_clipboard(2)  # Extract API key from page DOM and cli...
+    CheckClipboardHandler: execute(1)  # Validate clipboard content against ke...
+    SaveEnvHandler: execute(1)  # Save value to .env file.
+    VerifyEnvHandler: execute(1)  # Verify that env var was saved to .env...
+    PromptSecretHandler: execute(1),_getpass_with_timeout(2)  # Prompt user for secret/API key with t...
+  src/nlp2cmd/step_handlers/interaction.py:
+    i: re,base.{HandlerContext,HandlerResult,StepHandler},registry.register_handler,typing.TYPE_CHECKING
+    e: ClickHandler,ClickRadioHandler,DismissOverlayHandler,TypeTextHandler,FillFormHandler,SubmitFormHandler,LoginHandler,NewTabHandler
+    ClickHandler: execute(1)  # Handle click action with retry logic...
+    ClickRadioHandler: execute(1)  # Handle click_radio action for radio b...
+    DismissOverlayHandler: execute(1)  # Handle dismiss_overlay action for coo...
+    TypeTextHandler: execute(1)  # Handle type_text action with fallback...
+    FillFormHandler: execute(1)  # Handle fill_form action for multiple...
+  src/nlp2cmd/step_handlers/navigate.py:
+    i: base.{HandlerContext,HandlerResult,StepHandler},registry.register_handler,typing.TYPE_CHECKING
+    e: NavigateHandler
+    NavigateHandler: execute(1),_handle_security_checkup(2)  # Handle navigate action - navigate to...
+  src/nlp2cmd/step_handlers/registry.py:
+    i: typing.{Optional,TYPE_CHECKING,Type}
+    e: HandlerRegistry,register_handler,get_handler
+    HandlerRegistry: register(2),get(1),list_actions(0),clear(0)  # Registry mapping action names to thei...
+    register_handler(action_name:str)
+    get_handler(action_name:str)->Optional[Type[StepHandler]]
+  src/nlp2cmd/step_handlers/session.py:
+    i: time,json,base.{HandlerContext,HandlerResult,StepHandler},registry.register_handler,typing.TYPE_CHECKING
+    e: CheckSessionHandler,SubmitAndExtractKeyHandler,DiscoverServiceSectionHandler
+    CheckSessionHandler: execute(1),_handle_login_page(3)  # Check if user is logged into a servic...
+    SubmitAndExtractKeyHandler: execute(1),_click_submit(2),_poll_for_key(4),_copy_to_clipboard(2)  # Submit form and poll for API key extr...
+    DiscoverServiceSectionHandler: execute(1),_find_best_link(3),_try_candidate(5),_try_page_analyzer(2)  # Discover service section (e.g., API k...
   src/nlp2cmd/storage/per_command_store.py:
     i: json,os,datetime,pathlib.Path,typing.{Any,Dict,List,Optional,TYPE_CHECKING}
     e: PerCommandSchemaStore,test_per_command_store
@@ -3496,6 +3832,30 @@ D:
     _make_ir(query:str)->ActionIR
     _parse_ir(ir:ActionIR)->dict
     _get_actions(ir:ActionIR)->list[str]
+  tests/unit/test_browser_manager.py:
+    i: pytest,socket,nlp2cmd.browser_manager,unittest.mock.{MagicMock,patch}
+    e: TestBrowserConfig,TestBrowserConnectionResult,TestCdpDetector,TestBrowserConnector,TestTokenNavigator,TestExistingBrowserManager,TestIntegration
+    TestBrowserConfig: test_default_values(0),test_custom_values(0)  # Test BrowserConfig dataclass.
+    TestBrowserConnectionResult: test_default_creation(0),test_close_method(0)  # Test BrowserConnectionResult dataclass.
+    TestCdpDetector: test_init_with_defaults(0),test_init_with_custom_config(0),test_check_port_open(1),test_check_port_closed(1),test_find_cdp_port_success(1)  # Test CdpDetector class.
+    TestBrowserConnector: test_init_with_defaults(0),test_connect_playwright_missing(1),test_connect_chrome_success(1),test_connect_firefox_fallback(1),test_connect_context_failure(1)  # Test BrowserConnector class.
+    TestTokenNavigator: test_init_with_defaults(0),test_navigate_success(0),test_navigate_login_required(0),test_navigate_wrong_page(0),test_navigate_failure(0)  # Test TokenNavigator class.
+  tests/unit/test_browser_token.py:
+    i: pytest,nlp2cmd.browser_token,unittest.mock.{MagicMock,Mock,patch}
+    e: TestBrowserTokenResult,TestTokenConfig,TestBrowserLauncher,TestTokenNavigator,TestTokenPromptHandler,TestHFTokenRetriever,TestIntegration
+    TestBrowserTokenResult: test_success_result(0),test_failed_result(0)  # Test BrowserTokenResult dataclass.
+    TestTokenConfig: test_default_config(0),test_custom_config(0)  # Test TokenConfig dataclass.
+    TestBrowserLauncher: test_launch_firefox_success(0),test_launch_chromium_fallback(0),test_launch_both_fail(0),test_create_context_and_page(0),test_cleanup(0)  # Test BrowserLauncher.
+    TestTokenNavigator: test_navigate_success(0),test_navigate_login_required(0),test_navigate_domain_reached(0),test_navigate_wrong_domain(0),test_navigate_failure(0)  # Test TokenNavigator.
+    TestTokenPromptHandler: test_show_instructions(1),test_prompt_for_token_success(0),test_prompt_for_token_empty(0),test_prompt_for_token_whitespace(0),test_prompt_for_token_eof(0)  # Test TokenPromptHandler.
+  tests/unit/test_canvas_planner.py:
+    i: pytest,nlp2cmd.canvas_planner,unittest.mock.{MagicMock,patch}
+    e: TestCanvasPlanResult,TestCanvasPlannerBase,TestRuleBasedCanvasPlanner,TestLLMCanvasPlanner,TestVectorDBPlanner,TestBlueprintPlanner,TestCanvasPlanningOrchestrator,TestIntegration
+    TestCanvasPlanResult: test_creation(0),test_to_action_steps(0)  # Test CanvasPlanResult dataclass.
+    TestCanvasPlannerBase: test_initialization(0),test_is_available(0),test_extract_object_name_polish(0),test_extract_object_name_english(0),test_extract_object_name_no_match(0)  # Test CanvasPlannerBase class.
+    TestRuleBasedCanvasPlanner: test_initialization(0),test_plan_rabbit(0),test_plan_car(0),test_plan_house(0),test_plan_sun(0)  # Test RuleBasedCanvasPlanner.
+    TestLLMCanvasPlanner: test_initialization(0),test_parse_response_valid(0),test_parse_response_with_markdown(0),test_parse_response_with_trailing_comma(0),test_parse_response_invalid(0)  # Test LLMCanvasPlanner.
+    TestVectorDBPlanner: test_initialization(0),test_extract_search_query(0),test_plan_not_available(0)  # Test VectorDBPlanner.
   tests/unit/test_cli_entry_point.py:
     i: sys,pytest,nlp2cmd.cli.main.cli_entry_point,unittest.mock.{MagicMock,patch}
     e: TestCLIEntryPoint
@@ -3531,6 +3891,14 @@ D:
     i: pytest,nlp2cmd.validators.{BaseValidator,DockerValidator,ValidationResult}
     e: TestDockerValidator
     TestDockerValidator: validator(0),test_valid_docker_ps(1),test_non_docker_command(1),test_privileged_warning(1),test_docker_socket_mount_warning(1)  # Test Docker validator functionality.
+  tests/unit/test_dom_actions.py:
+    i: pytest,nlp2cmd.dom_actions,unittest.mock.MagicMock
+    e: TestActionRegistry,TestActionDispatcher,TestActionContext,TestActionResult,TestBaseAction,TestRegisteredActions
+    TestActionRegistry: test_register_and_get_handler(0),test_get_nonexistent_handler(0),test_list_actions(0)  # Test action registry functionality.
+    TestActionDispatcher: test_has_handler_true(0),test_has_handler_false(0),test_dispatch_success(0),test_dispatch_failure(0),test_dispatch_unknown_action(0)  # Test action dispatcher functionality.
+    TestActionContext: test_context_creation(0)  # Test ActionContext dataclass.
+    TestActionResult: test_result_defaults(0),test_result_custom(0)  # Test ActionResult dataclass.
+    TestBaseAction: test_abstract_execute(0)  # Test base DomAction functionality.
   tests/unit/test_drawing_blueprints.py:
     i: re,pytest
     e: TestDrawingBlueprints,TestCanvasDecompositionIntegration
@@ -3680,6 +4048,22 @@ D:
     TestResultAnalyzer: analyzer(0),test_error_signals_fast_path(1),test_empty_output(1),test_clean_output_heuristic(1),test_suggest_repair_without_router(1)
     TestParseJsonSafe: test_direct_json(0),test_with_preamble(0),test_invalid(0),test_empty(0)
     TestParseJson: test_direct(0),test_markdown_fenced(0),test_with_preamble(0),test_invalid_raises(0),test_nested(0)
+  tests/unit/test_page_analysis.py:
+    i: pytest,nlp2cmd.page_analysis,unittest.mock.MagicMock
+    e: TestPageAnalysisResult,TestFieldInfo,TestFormAnalyzer,TestFieldClassifier,TestIframeAnalyzer,TestLinkExtractor,TestPageAnalyzer,TestIntegration
+    TestPageAnalysisResult: test_default_creation(0),test_to_dict(0)  # Test PageAnalysisResult dataclass.
+    TestFieldInfo: test_default_creation(0)  # Test FieldInfo dataclass.
+    TestFormAnalyzer: test_analyze_with_forms(0),test_analyze_no_forms(0),test_extract_field_info(0),test_get_field_nodes(0)  # Test FormAnalyzer.
+    TestFieldClassifier: test_classify_search_as_junk(0),test_classify_email_as_contact(0),test_classify_cookie_as_junk(0),test_classify_message_as_contact(0),test_classify_batch(0)  # Test FieldClassifier.
+    TestIframeAnalyzer: test_analyze_with_form_in_iframe(0),test_analyze_no_iframes(0)  # Test IframeAnalyzer.
+  tests/unit/test_page_schema.py:
+    i: pytest,nlp2cmd.page_schema,unittest.mock.{MagicMock,Mock}
+    e: TestPageSchema,TestButtonExtractor,TestFormExtractor,TestRadioExtractor,TestTokenExtractor,TestCopyButtonExtractor,TestPageSchemaExtractor,TestIntegration
+    TestPageSchema: test_default_creation(0),test_to_dict(0)  # Test PageSchema dataclass.
+    TestButtonExtractor: test_extract_single_button(0),test_extract_button_with_aria_label(0),test_extract_button_with_text_selector(0),test_skip_short_text(0),test_respects_max_buttons(0)  # Test ButtonExtractor.
+    TestFormExtractor: test_extract_text_input(0),test_extract_with_testid(0)  # Test FormExtractor.
+    TestRadioExtractor: test_extract_radio_button(0)  # Test RadioExtractor.
+    TestTokenExtractor: test_extract_token(0),test_skip_short_tokens(0)  # Test TokenExtractor.
   tests/unit/test_password_store.py:
     i: os,pytest,nlp2cmd.automation.password_store,unittest.mock.{MagicMock,patch}
     e: TestCredentialMatching,TestEnvPasswordReader,TestKeePassXCReader,TestBitwardenReader,TestSessionPasswordStore,TestFirefoxPasswordReader,TestProviderScenarios
@@ -3695,6 +4079,14 @@ D:
     _DummyStep: __init__(2)
     test_execute_plan_step_set_color_raises_on_evaluate_error()
     test_execute_plan_step_draw_filled_circle_raises_on_evaluate_error()
+  tests/unit/test_plan_execution.py:
+    i: pytest,nlp2cmd.plan_execution.{BrowserContextOptions,BrowserSetup,PlanExecutor,StepOrchestrator,StepResult},unittest.mock.{MagicMock,patch}
+    e: TestBrowserContextOptions,TestBrowserSetup,TestStepResult,TestStepOrchestrator,TestPlanExecutor,TestIntegration,TestEnvironmentVariables
+    TestBrowserContextOptions: test_default_values(0),test_custom_values(0)  # Test BrowserContextOptions dataclass.
+    TestBrowserSetup: test_initialization(0),test_get_user_data_dir_default(0),test_create_context_options_basic(0),test_create_context_options_with_video(0)  # Test BrowserSetup class.
+    TestStepResult: test_step_result_creation(0)  # Test StepResult dataclass.
+    TestStepOrchestrator: test_initialization(0),test_get_summary_empty(0),test_get_summary_with_results(0)  # Test StepOrchestrator class.
+    TestPlanExecutor: test_initialization(0),test_detect_desktop_steps_true(0),test_detect_desktop_steps_false(0),test_detect_desktop_steps_open_firefox_tab(0)  # Test PlanExecutor class.
   tests/unit/test_plan_step_robustness.py:
     i: pytest,dataclasses.dataclass,nlp2cmd.pipeline_runner_plans.PlanExecutionMixin,unittest.mock.patch
     e: test_click_normalizes_contains_selector_to_text_click,test_check_clipboard_strict_when_key_pattern_provided
@@ -3838,6 +4230,14 @@ D:
     i: pytest,nlp2cmd.validators.{BaseValidator,SQLValidator,ValidationResult}
     e: TestSQLValidator
     TestSQLValidator: validator(0),test_valid_select(1),test_unbalanced_parentheses(1),test_unclosed_string(1),test_delete_without_where_warning(1)  # Test SQL validator functionality.
+  tests/unit/test_step_handlers.py:
+    i: pytest,nlp2cmd.step_handlers,unittest.mock.{MagicMock,patch}
+    e: TestHandlerRegistry,TestStepDispatcher,TestHandlerContext,TestHandlerResult,TestBaseHandler,TestRegisteredHandlers
+    TestHandlerRegistry: test_register_and_get_handler(0),test_get_nonexistent_handler(0),test_list_actions(0)  # Test handler registry functionality.
+    TestStepDispatcher: test_has_handler_true(0),test_has_handler_false(0),test_dispatch_success(0),test_dispatch_failure(0),test_dispatch_unknown_action(0)  # Test step dispatcher functionality.
+    TestHandlerContext: test_context_creation(0)  # Test HandlerContext dataclass.
+    TestHandlerResult: test_result_defaults(0),test_result_custom(0)  # Test HandlerResult dataclass.
+    TestBaseHandler: test_abstract_execute(0),test_resolve_variables(0)  # Test base StepHandler functionality.
   tests/unit/test_thermodynamic.py:
     i: pytest,nlp2cmd.thermodynamic,nlp2cmd.thermodynamic.energy_models.SchedulingEnergy
     e: TestLangevinConfig,TestQuadraticEnergy,TestLangevinSampler,TestMajorityVoter,TestThermodynamicRouter,TestEnergyEstimator,TestEntropyProductionRegularizer,TestSchedulingEnergy

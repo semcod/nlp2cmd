@@ -1,5 +1,5 @@
-# code2llm | 255f 88879L | py:255 | 2026-03-04
-# CC̄=5.7 | critical:361/2542 | dups:0 | cycles:0
+# code2llm | 283f 91335L | py:283 | 2026-03-04
+# CC̄=5.6 | critical:366/2631 | dups:0 | cycles:0
 
 HEALTH[20]:
   🔴 GOD   nlp2cmd/evolutionary_orchestrator.py = 728L, 5 classes, 26m, max CC=16
@@ -9,11 +9,11 @@ HEALTH[20]:
   🔴 GOD   nlp2cmd/generation/thermodynamic.py = 623L, 5 classes, 14m, max CC=24
   🔴 GOD   nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
   🔴 GOD   nlp2cmd/llm/adaptive_learner.py = 576L, 4 classes, 21m, max CC=31
+  🔴 GOD   nlp2cmd/thermodynamic/energy_models.py = 628L, 6 classes, 21m, max CC=9
   🔴 GOD   nlp2cmd/registry/__init__.py = 642L, 6 classes, 22m, max CC=15
-  🔴 GOD   nlp2cmd/thermodynamic/__init__.py = 627L, 10 classes, 25m, max CC=12
   🔴 GOD   nlp2cmd/orchestration/engine.py = 609L, 6 classes, 13m, max CC=19
   🔴 GOD   nlp2cmd/executor/__init__.py = 678L, 8 classes, 18m, max CC=16
-  🔴 GOD   nlp2cmd/thermodynamic/energy_models.py = 628L, 6 classes, 21m, max CC=9
+  🔴 GOD   nlp2cmd/thermodynamic/__init__.py = 627L, 10 classes, 25m, max CC=12
   🔴 GOD   nlp2cmd/orchestration/metrics.py = 574L, 7 classes, 27m, max CC=11
   🔴 GOD   nlp2cmd/environment/__init__.py = 524L, 4 classes, 15m, max CC=15
   🔴 GOD   nlp2cmd/adapters/canvas.py = 909L, 4 classes, 12m, max CC=60
@@ -31,11 +31,11 @@ REFACTOR[20]:
   5. split nlp2cmd/generation/thermodynamic.py  (god module)
   6. split nlp2cmd/validators/__init__.py  (god module)
   7. split nlp2cmd/llm/adaptive_learner.py  (god module)
-  8. split nlp2cmd/registry/__init__.py  (god module)
-  9. split nlp2cmd/thermodynamic/__init__.py  (god module)
+  8. split nlp2cmd/thermodynamic/energy_models.py  (god module)
+  9. split nlp2cmd/registry/__init__.py  (god module)
   10. split nlp2cmd/orchestration/engine.py  (god module)
   11. split nlp2cmd/executor/__init__.py  (god module)
-  12. split nlp2cmd/thermodynamic/energy_models.py  (god module)
+  12. split nlp2cmd/thermodynamic/__init__.py  (god module)
   13. split nlp2cmd/orchestration/metrics.py  (god module)
   14. split nlp2cmd/environment/__init__.py  (god module)
   15. split nlp2cmd/adapters/canvas.py  (god module)
@@ -47,11 +47,11 @@ REFACTOR[20]:
 
 COUPLING:
                                                nlp2cmd                nlp2cmd.cli         nlp2cmd.generation                nlp2cmd.llm         nlp2cmd.web_schema         nlp2cmd.automation             nlp2cmd.skills              nlp2cmd.utils            nlp2cmd.storage           nlp2cmd.adapters        nlp2cmd.intelligent          nlp2cmd.execution  nlp2cmd.schema_extraction        nlp2cmd.dom_actions     nlp2cmd.plan_execution
-                    nlp2cmd                         ──                         33                        ←60                          1                        ←47                          4                        ←59                          6                        ←48                        ←33                        ←31                          1                        ←18                          5                        ←13  hub
+                    nlp2cmd                         ──                         33                        ←60                          1                        ←48                          4                        ←59                          6                        ←48                        ←33                        ←31                          1                        ←18                          5                        ←13  hub
                 nlp2cmd.cli                         71                         ──                          1                         ←1                          2                         ←5                         ←2                          5                         ←3                          1                         ←1                          2                         ←2                         ←3                         ←1  hub
          nlp2cmd.generation                         60                         11                         ──                          1                          9                          5                                                     4                                                                                                          ←3                                                                                   !! fan-out
                 nlp2cmd.llm                         70                          1                         ←1                         ──                                                                               ←7                          1                                                                                                                                     ←1                                                        hub
-         nlp2cmd.web_schema                         47                         17                         ←9                                                    ──                                                                                2                                                                                                          ←1                                                                                   hub
+         nlp2cmd.web_schema                         48                         17                         ←9                                                    ──                                                                                2                                                                                                          ←1                                                                                   hub
          nlp2cmd.automation                         56                          5                         ←5                                                                               ──                                                                                                                                                                                                                                                     hub
              nlp2cmd.skills                         59                          2                                                     7                                                                               ──                                                                                                                                                                                                                          !! fan-out
               nlp2cmd.utils                         25                         13                         ←4                         ←1                         ←2                                                                               ──                                                                               ←1                                                                                                              hub
@@ -64,33 +64,33 @@ COUPLING:
      nlp2cmd.plan_execution                         13                          1                                                                                                                                                                                                                                                                                                                                                             ──  !! fan-out
   CYCLES: none
   HUB: nlp2cmd.history/ (fan-in=7)
-  HUB: nlp2cmd.automation/ (fan-in=13)
-  HUB: nlp2cmd.step_handlers/ (fan-in=5)
-  HUB: nlp2cmd.cli/ (fan-in=121)
-  HUB: nlp2cmd.dom_actions/ (fan-in=5)
-  HUB: nlp2cmd.monitoring/ (fan-in=9)
-  HUB: nlp2cmd.web_schema/ (fan-in=12)
-  HUB: nlp2cmd/ (fan-in=573)
+  HUB: nlp2cmd.automation/ (fan-in=15)
   HUB: nlp2cmd.utils/ (fan-in=19)
+  HUB: nlp2cmd.dom_actions/ (fan-in=5)
+  HUB: nlp2cmd.web_schema/ (fan-in=12)
   HUB: nlp2cmd.llm/ (fan-in=11)
-  SMELL: nlp2cmd.generation/ fan-out=90 → split needed
-  SMELL: nlp2cmd.execution/ fan-out=19 → split needed
-  SMELL: nlp2cmd.intelligent/ fan-out=33 → split needed
-  SMELL: nlp2cmd.automation/ fan-out=63 → split needed
-  SMELL: nlp2cmd.step_handlers/ fan-out=9 → split needed
-  SMELL: nlp2cmd.cli/ fan-out=98 → split needed
-  SMELL: nlp2cmd.adapters/ fan-out=36 → split needed
-  SMELL: nlp2cmd.dom_actions/ fan-out=10 → split needed
-  SMELL: nlp2cmd.web_schema/ fan-out=66 → split needed
-  SMELL: nlp2cmd.nlp/ fan-out=10 → split needed
-  SMELL: nlp2cmd.plan_execution/ fan-out=14 → split needed
-  SMELL: nlp2cmd/ fan-out=56 → split needed
-  SMELL: nlp2cmd.utils/ fan-out=38 → split needed
+  HUB: nlp2cmd.cli/ (fan-in=122)
+  HUB: nlp2cmd.monitoring/ (fan-in=9)
+  HUB: nlp2cmd/ (fan-in=581)
+  HUB: nlp2cmd.step_handlers/ (fan-in=5)
   SMELL: nlp2cmd.storage/ fan-out=51 → split needed
-  SMELL: nlp2cmd.schema_extraction/ fan-out=21 → split needed
-  SMELL: nlp2cmd.llm/ fan-out=72 → split needed
+  SMELL: nlp2cmd.generation/ fan-out=90 → split needed
+  SMELL: nlp2cmd.automation/ fan-out=63 → split needed
+  SMELL: nlp2cmd.utils/ fan-out=38 → split needed
+  SMELL: nlp2cmd.dom_actions/ fan-out=10 → split needed
+  SMELL: nlp2cmd.web_schema/ fan-out=67 → split needed
   SMELL: nlp2cmd.skills/ fan-out=68 → split needed
+  SMELL: nlp2cmd.execution/ fan-out=19 → split needed
   SMELL: nlp2cmd.core/ fan-out=11 → split needed
+  SMELL: nlp2cmd.llm/ fan-out=72 → split needed
+  SMELL: nlp2cmd.plan_execution/ fan-out=14 → split needed
+  SMELL: nlp2cmd.schema_extraction/ fan-out=21 → split needed
+  SMELL: nlp2cmd.cli/ fan-out=98 → split needed
+  SMELL: nlp2cmd.nlp/ fan-out=10 → split needed
+  SMELL: nlp2cmd/ fan-out=56 → split needed
+  SMELL: nlp2cmd.adapters/ fan-out=36 → split needed
+  SMELL: nlp2cmd.intelligent/ fan-out=33 → split needed
+  SMELL: nlp2cmd.step_handlers/ fan-out=9 → split needed
 
 LAYERS:
   app2schema/                     CC̄=12.8   ←in:1  →out:4
@@ -99,15 +99,15 @@ LAYERS:
   │ __init__                    15L  0C    0m  CC=0.0    ←0
   │ __main__                     7L  0C    0m  CC=0.0    ←0
   │
-  nlp2cmd/                        CC̄=5.7    ←in:573  →out:56  !! split
+  nlp2cmd/                        CC̄=5.6    ←in:581  →out:56  !! split
   │ !! pipeline_runner_plans     2975L  1C    8m  CC=346    ←0
-  │ !! action_planner            1718L  3C   26m  CC=25     ←1
+  │ !! action_planner            1772L  3C   27m  CC=25     ←1
+  │ !! site_explorer             1716L  3C   34m  CC=72     ←2
   │ !! pipeline_runner_browser   1704L  1C    3m  CC=280    ←0
-  │ !! site_explorer             1676L  3C   33m  CC=72     ←2
-  │ !! doctor                    1302L  3C   21m  CC=56     ←3
+  │ !! doctor                    1346L  3C   22m  CC=56     ←3
   │ !! template_generator        1202L  2C   98m  CC=34     ←0
   │ !! keyword_detector          1199L  2C   21m  CC=73     ←0
-  │ !! schema_fallback           1145L  3C   16m  CC=48     ←0
+  │ !! schema_fallback           1169L  3C   17m  CC=48     ←0
   │ !! evolutionary_cache        1048L  3C   24m  CC=23     ←1
   │ !! router                     951L  3C   22m  CC=17     ←10
   │ !! __init__                   909L  2C   43m  CC=26     ←0
@@ -118,17 +118,17 @@ LAYERS:
   │ !! run                        893L  0C    4m  CC=178    ←1
   │ !! runner                     826L  3C   10m  CC=54     ←0
   │ !! form_data_loader           821L  1C   47m  CC=18     ←1
-  │ !! form_handler               787L  3C    9m  CC=37     ←0
   │ !! main                       787L  0C    8m  CC=71     ←0
+  │ !! form_handler               787L  3C    9m  CC=37     ←0
   │ !! shapes                     779L  35C   38m  CC=5      ←4
   │ !! __init__                   771L  8C   25m  CC=58     ←0
   │ !! semantic_matcher_optimized   750L  3C   30m  CC=12     ←0
-  │ !! drawing_blueprints         740L  1C   18m  CC=3      ←1
+  │ !! drawing_blueprints         740L  1C   18m  CC=3      ←2
   │ !! kubernetes                 731L  3C   23m  CC=12     ←0
   │ !! evolutionary_orchestrator   728L  5C   26m  CC=16     ←0
   │ !! handlers                   714L  0C   19m  CC=18     ←0
   │ !! validator                  692L  2C   13m  CC=43     ←0
-  │ !! __init__                   678L  8C   18m  CC=16     ←46
+  │ !! __init__                   678L  8C   18m  CC=16     ←47
   │ !! dynamic                    650L  2C   21m  CC=25     ←0
   │ !! desktop                    649L  3C   21m  CC=31     ←0
   │ !! __init__                   646L  5C   19m  CC=41     ←0
@@ -153,7 +153,7 @@ LAYERS:
   │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←1
   │ !! pipeline                   546L  1C   15m  CC=54     ←0
   │ !! interactive                536L  1C    9m  CC=24     ←0
-  │ !! vector_store               534L  2C   15m  CC=8      ←1
+  │ !! vector_store               534L  2C   15m  CC=8      ←2
   │ !! captcha_solver             528L  2C   10m  CC=12     ←0
   │ !! plan_executor              525L  1C   15m  CC=34     ←0
   │ !! complex_planner            524L  3C   10m  CC=24     ←0
@@ -162,7 +162,7 @@ LAYERS:
   │ !! feedback_loop              517L  6C    9m  CC=29     ←3
   │ !! correction_engine          510L  5C    9m  CC=14     ←0
   │ !! __init__                   509L  2C   14m  CC=12     ←0
-  │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←57
+  │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←58
   │ !  resource_discovery         489L  3C   10m  CC=11     ←3
   │ !! sql                        478L  3C   15m  CC=15     ←0
   │ !  firefox_sessions           472L  1C   11m  CC=14     ←0
@@ -246,6 +246,7 @@ LAYERS:
   │ toon_integration           223L  1C   32m  CC=9      ←0
   │ !! save                       222L  2C    6m  CC=18     ←1
   │ adapter                    222L  1C   10m  CC=6      ←0
+  │ !  llm_planner                219L  1C    4m  CC=11     ←0
   │ !! libvirt_stream             219L  1C   14m  CC=17     ←0
   │ !! pipeline_runner_shell      217L  1C    3m  CC=27     ←0
   │ playwright                 215L  1C    8m  CC=9      ←0
@@ -265,9 +266,11 @@ LAYERS:
   │ display                    170L  0C   12m  CC=7      ←2
   │ __init__                   160L  0C    2m  CC=2      ←0
   │ __init__                   160L  0C    0m  CC=0.0    ←0
+  │ orchestrator               159L  1C    7m  CC=8      ←0
   │ media_recorder             159L  1C    7m  CC=5      ←0
   │ dispatcher                 158L  1C    4m  CC=7      ←1
   │ registry                   157L  1C   11m  CC=7      ←0
+  │ !  rule_planner               148L  1C    8m  CC=11     ←0
   │ __init__                   147L  1C   11m  CC=9      ←0
   │ cli                        143L  0C    1m  CC=2      ←1
   │ events                     142L  7C    7m  CC=1      ←1
@@ -275,56 +278,77 @@ LAYERS:
   │ router                     140L  1C    7m  CC=4      ←0
   │ colors                     135L  1C    6m  CC=6      ←0
   │ data_files                 134L  0C    6m  CC=8      ←10
-  │ markdown_output            131L  2C   14m  CC=9      ←10
+  │ vector_planner             131L  1C    6m  CC=8      ←0
+  │ markdown_output            131L  2C   14m  CC=9      ←11
+  │ !  field_classifier           129L  1C    4m  CC=14     ←0
   │ __init__                   129L  0C    0m  CC=0.0    ←0
   │ navigation                 125L  3C    3m  CC=7      ←0
   │ !  vnc_stream                 121L  1C    7m  CC=11     ←0
   │ dispatcher                 117L  1C    4m  CC=6      ←1
+  │ page_analyzer              116L  1C    3m  CC=7      ←0
   │ shape_planner              115L  1C    5m  CC=8      ←0
   │ syntax_cache               115L  1C    8m  CC=3      ←4
   │ git_templates              115L  0C    0m  CC=0.0    ←0
   │ sql_templates              114L  0C    0m  CC=0.0    ←0
+  │ hf_token_retriever         109L  1C    2m  CC=7      ←0
   │ shell_templates            108L  0C    0m  CC=0.0    ←0
   │ ssh_stream                 107L  1C    8m  CC=5      ←0
   │ __init__                   106L  0C    0m  CC=0.0    ←0
   │ package_mgmt_templates     104L  0C    0m  CC=0.0    ←0
   │ executor_registry          101L  1C    7m  CC=3      ←1
+  │ form_analyzer              101L  1C    7m  CC=4      ←0
   │ event_store                101L  1C   13m  CC=3      ←1
+  │ token_navigator             99L  2C    4m  CC=5      ←0
   │ semantic_entities           97L  1C    7m  CC=9      ←0
+  │ token_prompt_handler        93L  1C    5m  CC=5      ←0
   │ !  appspec                     93L  2C    6m  CC=12     ←0
   │ svg                         92L  1C    8m  CC=6      ←0
+  │ !  link_extractor              91L  1C    4m  CC=10     ←0
   │ desktop_templates           91L  0C    0m  CC=0.0    ←0
   │ ws_stream                   90L  1C    8m  CC=8      ←0
   │ !! ftp_stream                  87L  1C    4m  CC=16     ←0
   │ base                        84L  1C    8m  CC=3      ←0
+  │ page_schema_extractor       80L  1C    3m  CC=6      ←0
+  │ browser_launcher            80L  1C    4m  CC=3      ←0
   │ docker_templates            78L  0C    0m  CC=0.0    ←0
   │ !! http_stream                 77L  1C    3m  CC=15     ←0
   │ __init__                    77L  0C    0m  CC=0.0    ←0
   │ devops_templates            77L  0C    0m  CC=0.0    ←0
   │ !  navigate                    76L  1C    2m  CC=10     ←0
   │ kubernetes_templates        76L  0C    0m  CC=0.0    ←0
+  │ base                        73L  2C    6m  CC=3      ←0
   │ data_templates              72L  0C    0m  CC=0.0    ←0
+  │ !  radio_extractor             70L  1C    2m  CC=13     ←0
   │ rag_templates               70L  0C    0m  CC=0.0    ←0
   │ base                        69L  3C    2m  CC=1      ←0
+  │ blueprint_planner           68L  1C    2m  CC=5      ←0
   │ iot_templates               67L  0C    0m  CC=0.0    ←0
+  │ button_extractor            66L  1C    2m  CC=9      ←0
   │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
   │ base                        64L  3C    3m  CC=3      ←0
   │ browser_templates           64L  0C    0m  CC=0.0    ←0
   │ remote_templates            64L  0C    0m  CC=0.0    ←0
   │ spice_stream                63L  1C    3m  CC=4      ←0
   │ presentation_templates      63L  0C    0m  CC=0.0    ←0
+  │ form_extractor              62L  1C    2m  CC=8      ←0
+  │ copy_button_extractor       62L  1C    2m  CC=7      ←0
   │ base                        62L  3C    3m  CC=3      ←0
   │ api_templates               60L  0C    0m  CC=0.0    ←0
+  │ token_extractor             59L  1C    2m  CC=6      ←0
   │ __init__                    57L  0C    0m  CC=0.0    ←0
   │ media_templates             57L  0C    0m  CC=0.0    ←0
   │ !  appspec_runtime             56L  2C    2m  CC=10     ←1
+  │ base                        55L  2C    1m  CC=2      ←0
   │ rdp_stream                  53L  1C    3m  CC=5      ←0
   │ registry                    53L  1C    6m  CC=1      ←0
   │ registry                    53L  1C    6m  CC=1      ←1
+  │ base                        53L  2C    0m  CC=0.0    ←0
+  │ iframe_analyzer             45L  1C    2m  CC=6      ←0
   │ __init__                    44L  0C    1m  CC=2      ←0
   │ __init__                    43L  0C    0m  CC=0.0    ←0
   │ __init__                    40L  0C    0m  CC=0.0    ←0
   │ __init__                    38L  0C    0m  CC=0.0    ←0
+  │ base                        37L  2C    3m  CC=1      ←0
   │ __init__                    37L  0C    0m  CC=0.0    ←0
   │ __init__                    35L  0C    0m  CC=0.0    ←0
   │ ir                          34L  1C    1m  CC=1      ←0
@@ -335,7 +359,11 @@ LAYERS:
   │ __init__                    29L  0C    0m  CC=0.0    ←0
   │ __init__                    27L  0C    0m  CC=0.0    ←0
   │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
   │ __init__                    21L  0C    1m  CC=2      ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
   │ __init__                    20L  0C    0m  CC=0.0    ←0
   │ __init__                    19L  0C    0m  CC=0.0    ←0
   │ __init__                    17L  0C    0m  CC=0.0    ←0
@@ -355,7 +383,7 @@ LAYERS:
 
 DUPLICATES[0]: none
 
-FUNCTIONS (CC≥10, 361 of 2542):
+FUNCTIONS (CC≥10, 366 of 2631):
   346.0  PlanExecutionMixin._execute_plan_step      50n   4exit  loops+cond+ret  !! split
   280.0  BrowserExecutionMixin._run_dom_multi_action   18n   4exit  loops+cond+ret  !! split
   198.0  PlanExecutionMixin.execute_action_plan     25n   3exit  loops+cond+ret  !! split
@@ -408,7 +436,7 @@ FUNCTIONS (CC≥10, 361 of 2542):
    29.0  train_all_models                           52n   2exit  loops+cond+ret  !! split
 
   summary:
-    critical(≥10): 361 | high(5-10): 566 | medium(2-5): 964 | low(<2): 651
+    critical(≥10): 366 | high(5-10): 591 | medium(2-5): 995 | low(<2): 679
     14% CC≥10  36% CC≥5
 
 HOTSPOTS:
@@ -427,13 +455,13 @@ CLASSES:
   TemplateGenerator              ████████████████████████  100m  CC̄=3.1   max=34    !!
   FormDataLoader                 ██████████                45m  CC̄=5.6   max=18    !!
   SchemaRegistry                 ████████                  37m  CC̄=5.5   max=26    !!
+  SiteExplorer                   ██████                    28m  CC̄=12.1  max=72    !!
   ToonDataManager                ██████                    27m  CC̄=1.7   max=9   
-  SiteExplorer                   ██████                    27m  CC̄=12.4  max=72    !!
   EvolutionaryRecoveryEngine     █████                     22m  CC̄=4.8   max=16    !!
+  ActionPlanner                  █████                     22m  CC̄=7.6   max=25    !!
   NLP2CMD                        █████                     22m  CC̄=7.0   max=19    !!
   BrowserAdapter                 █████                     22m  CC̄=5.9   max=40    !!
   KubernetesAdapter              █████                     22m  CC̄=4.0   max=12  
-  ActionPlanner                  █████                     21m  CC̄=7.7   max=25    !!
   EvolutionaryCache              ████                      20m  CC̄=6.5   max=23    !!
   ToonParser                     ████                      20m  CC̄=5.7   max=28    !!
   MouseController                ████                      19m  CC̄=1.8   max=5   
@@ -444,10 +472,10 @@ CLASSES:
   StepValidator                  ████                      18m  CC̄=4.0   max=11  
   BrowserConfigLoader            ████                      18m  CC̄=2.1   max=8   
   DockerAdapter                  ████                      18m  CC̄=5.8   max=14  
-  DrawingSkill                   ████                      18m  CC̄=1.7   max=11  
   SearchEngine                   ████                      18m  CC̄=3.8   max=14  
+  DrawingSkill                   ████                      18m  CC̄=1.7   max=11  
+  SchemaFallback                 ████                      17m  CC̄=13.1  max=48    !!
   RTSPStreamAdapter              ████                      17m  CC̄=4.0   max=13  
-  SchemaFallback                 ███                       16m  CC̄=13.7  max=48    !!
   EntityResolver                 ███                       16m  CC̄=3.9   max=7   
   PlanExecutor                   ███                       15m  CC̄=6.7   max=34    !!
   SQLAdapter                     ███                       15m  CC̄=5.5   max=15    !!
@@ -514,18 +542,19 @@ CLASSES:
   SchemaDrivenNLP2CMD            █                          8m  CC̄=16.4  max=41    !!
   MLIntentClassifier             █                          8m  CC̄=4.9   max=9   
   HybridGenerator                █                          8m  CC̄=2.9   max=7   
+  RuleBasedCanvasPlanner         █                          8m  CC̄=2.2   max=11  
   ExecutionPlan                  █                          8m  CC̄=1.2   max=3   
+  PlanExecutionMixin             █                          8m  CC̄=74.8  max=346   !!
   ServiceRegistry                █                          8m  CC̄=1.8   max=5   
   IntentMatcher                  █                          8m  CC̄=4.4   max=12  
-  PlanExecutionMixin             █                          8m  CC̄=74.8  max=346   !!
   FormHandler                    █                          8m  CC̄=12.9  max=37    !!
   VisionAnalyzer                 █                          8m  CC̄=2.9   max=4   
   SchedulingEnergy               █                          8m  CC̄=4.1   max=8   
   StreamAdapter                  █                          8m  CC̄=1.0   max=1   
-  SSHStreamAdapter               █                          8m  CC̄=2.8   max=5   
   WSStreamAdapter                █                          8m  CC̄=3.1   max=8   
-  ExtractCompaniesAction         █                          8m  CC̄=10.2  max=21    !!
+  SSHStreamAdapter               █                          8m  CC̄=2.8   max=5   
   FillFormAction                 █                          8m  CC̄=4.2   max=6   
+  ExtractCompaniesAction         █                          8m  CC̄=10.2  max=21    !!
   Renderer                       █                          8m  CC̄=1.2   max=3   
   PlaywrightRenderer             █                          8m  CC̄=4.4   max=9   
   SVGRenderer                    █                          8m  CC̄=1.9   max=6   
@@ -535,12 +564,14 @@ CLASSES:
   TokenCostEstimator             █                          7m  CC̄=2.9   max=10  
   ComplexCommandPlanner          █                          7m  CC̄=7.3   max=24    !!
   SessionPasswordStore           █                          7m  CC̄=13.1  max=36    !!
+  CanvasPlanningOrchestrator     █                          7m  CC̄=4.6   max=8   
   LLMPlanner                     █                          7m  CC̄=3.7   max=6   
   MediaRecorder                  █                          7m  CC̄=3.4   max=5   
   BaseExplorer                   █                          7m  CC̄=2.3   max=8   
   OpenRouterClient               █                          7m  CC̄=3.3   max=5   
   FunctionCache                  █                          7m  CC̄=5.6   max=11  
   VNCStreamAdapter               █                          7m  CC̄=4.7   max=11  
+  FormAnalyzer                   █                          7m  CC̄=2.6   max=4   
   CorrectionEngine               █                          7m  CC̄=2.1   max=4   
   PythonCodeExtractor            █                          7m  CC̄=14.9  max=30    !!
   NLDrawingParser                █                          7m  CC̄=4.6   max=11  
@@ -553,6 +584,7 @@ CLASSES:
   FirefoxPasswordReader          █                          6m  CC̄=8.3   max=16    !!
   PipelineMetrics                █                          6m  CC̄=2.8   max=7   
   ThermodynamicProblemDetector   █                          6m  CC̄=7.2   max=16    !!
+  VectorDBPlanner                █                          6m  CC̄=3.7   max=8   
   BrowserSetup                   █                          6m  CC̄=5.5   max=14  
   IntentRegistry                 █                          6m  CC̄=3.0   max=9   
   MarkdownBlockStream            █                          6m  CC̄=2.0   max=3   
@@ -563,17 +595,19 @@ CLASSES:
   PathOptimizer                  █                          6m  CC̄=4.0   max=9   
   AppSpecAdapter                 █                          6m  CC̄=4.3   max=12  
   StreamRouter                   █                          6m  CC̄=2.7   max=4   
-  ObjectFetcher                  █                          6m  CC̄=4.5   max=13  
   ColorResolver                  █                          6m  CC̄=2.7   max=6   
+  ObjectFetcher                  █                          6m  CC̄=4.5   max=13  
   KeePassXCReader                █                          5m  CC̄=7.0   max=10  
   ShapePlanner                   █                          5m  CC̄=3.8   max=8   
   SemanticEntityExtractor        █                          5m  CC̄=4.0   max=9   
   DockerValidator                █                          5m  CC̄=16.2  max=50    !!
   NLP2CMDService                 █                          5m  CC̄=2.6   max=7   
+  CanvasPlannerBase              █                          5m  CC̄=1.6   max=3   
+  TokenPromptHandler             █                          5m  CC̄=2.8   max=5   
   MultiDomainGenerator           █                          5m  CC̄=2.2   max=4   
   RoutingEnergy                  █                          5m  CC̄=3.8   max=9   
-  ResultAnalyzer                 █                          5m  CC̄=4.0   max=6   
   BaseLLMGenerator               █                          5m  CC̄=2.2   max=5   
+  ResultAnalyzer                 █                          5m  CC̄=4.0   max=6   
   CommandDisambiguator           █                          5m  CC̄=6.2   max=11  
   OpenAPISchemaExtractor         █                          5m  CC̄=6.2   max=10  
   SaveToFileAction               █                          5m  CC̄=10.4  max=18    !!
@@ -584,23 +618,28 @@ CLASSES:
   Point                                                     4m  CC̄=1.0   max=1   
   MultiCommandDetector                                      4m  CC̄=3.2   max=5   
   StructuredLLMPlanner                                      4m  CC̄=4.2   max=6   
+  LLMCanvasPlanner                                          4m  CC̄=7.0   max=11  
   TransformResult                                           4m  CC̄=3.5   max=5   
   NLPBackend                                                4m  CC̄=1.2   max=2   
   RuleBasedBackend                                          4m  CC̄=8.8   max=19    !!
+  TokenNavigator                                            4m  CC̄=2.5   max=5   
+  BrowserLauncher                                           4m  CC̄=2.0   max=3   
   SyntaxCache                                               4m  CC̄=1.5   max=3   
   MarkdownConsoleProxy                                      4m  CC̄=1.0   max=1   
   ExplorerRegistry                                          4m  CC̄=2.2   max=6   
   HybridNLPBackend                                          4m  CC̄=7.0   max=9   
+  AllocationEnergy                                          4m  CC̄=4.0   max=8   
+  CSPEnergy                                                 4m  CC̄=1.5   max=2   
   ActionHandler                                             4m  CC̄=4.8   max=15    !!
   EnergyModel                                               4m  CC̄=1.2   max=2   
   ConstraintEnergy                                          4m  CC̄=2.0   max=3   
   LangevinSampler                                           4m  CC̄=5.0   max=12  
-  AllocationEnergy                                          4m  CC̄=4.0   max=8   
-  CSPEnergy                                                 4m  CC̄=1.5   max=2   
   FTPStreamAdapter                                          4m  CC̄=7.2   max=16    !!
+  LinkExtractor                                             4m  CC̄=4.0   max=10  
+  FieldClassifier                                           4m  CC̄=6.0   max=14  
   ActionRegistry                                            4m  CC̄=1.0   max=1   
-  ActionDispatcher                                          4m  CC̄=2.8   max=7   
   HandlerRegistry                                           4m  CC̄=1.0   max=1   
+  ActionDispatcher                                          4m  CC̄=2.8   max=7   
   StepDispatcher                                            4m  CC̄=3.2   max=6   
   SubmitAndExtractKeyHandler                                4m  CC̄=6.8   max=16    !!
   DiscoverServiceSectionHandler                             4m  CC̄=15.2  max=30    !!
@@ -611,6 +650,7 @@ CLASSES:
   BrowserExecutionMixin                                     3m  CC̄=107.7  max=280   !!
   _MarkdownConsoleWrapper                                   3m  CC̄=1.7   max=3   
   VideoRecorder                                             3m  CC̄=3.3   max=7   
+  PageSchemaExtractor                                       3m  CC̄=2.7   max=6   
   PageAnalyzer                                              3m  CC̄=17.0  max=29    !!
   BitwardenReader                                           3m  CC̄=5.0   max=11  
   HybridThermodynamicGenerator                              3m  CC̄=1.7   max=2   
@@ -619,39 +659,48 @@ CLASSES:
   QueryNormalizer                                           3m  CC̄=2.3   max=3   
   CachedMultiDomainGenerator                                3m  CC̄=1.7   max=3   
   ActionSchema                                              3m  CC̄=3.0   max=3   
+  SimpleLLMSQLGenerator                                     3m  CC̄=3.3   max=5   
+  ExecutionContext                                          3m  CC̄=3.3   max=8   
+  PlanValidator                                             3m  CC̄=7.3   max=16    !!
   QuadraticEnergy                                           3m  CC̄=1.7   max=2   
   EntropyProductionRegularizer                              3m  CC̄=1.0   max=1   
   MajorityVoter                                             3m  CC̄=4.7   max=7   
   ThermodynamicRouter                                       3m  CC̄=3.7   max=5   
-  ExecutionContext                                          3m  CC̄=3.3   max=8   
-  PlanValidator                                             3m  CC̄=7.3   max=16    !!
-  SimpleLLMSQLGenerator                                     3m  CC̄=3.3   max=5   
   FileOperationGenerator                                    3m  CC̄=12.0  max=23    !!
   RDPStreamAdapter                                          3m  CC̄=3.3   max=5   
   HTTPStreamAdapter                                         3m  CC̄=6.3   max=15    !!
   SPICEStreamAdapter                                        3m  CC̄=3.3   max=4   
+  PageAnalyzer                                              3m  CC̄=3.0   max=7   
   DomAction                                                 3m  CC̄=1.7   max=3   
   ShellHelpExtractor                                        3m  CC̄=7.7   max=16    !!
   StepHandler                                               3m  CC̄=1.7   max=3   
   IconifyFetcher                                            3m  CC̄=4.0   max=6   
   App2SchemaResult                                          2m  CC̄=10.0  max=15    !!
+  ExtractorBase                                             2m  CC̄=1.0   max=1   
+  TokenExtractor                                            2m  CC̄=5.5   max=6   
+  FormExtractor                                             2m  CC̄=6.5   max=8   
+  CopyButtonExtractor                                       2m  CC̄=6.0   max=7   
+  RadioExtractor                                            2m  CC̄=9.0   max=13  
+  ButtonExtractor                                           2m  CC̄=7.0   max=9   
   ActionPlan                                                2m  CC̄=2.0   max=2   
   DrawingPattern                                            2m  CC̄=1.0   max=1   
+  MultiCommandResult                                        2m  CC̄=2.0   max=2   
   PipelineResult                                            2m  CC̄=3.5   max=5   
   OptimizationProblem                                       2m  CC̄=19.5  max=38    !!
   ThermodynamicConfig                                       2m  CC̄=2.0   max=3   
   PhraseEntry                                               2m  CC̄=1.0   max=1   
-  MultiCommandResult                                        2m  CC̄=2.0   max=2   
   AdaptiveHybridGenerator                                   2m  CC̄=3.0   max=5   
   BaseValidator                                             2m  CC̄=1.0   max=1   
   SQLValidator                                              2m  CC̄=17.5  max=34    !!
   ShellValidator                                            2m  CC̄=16.0  max=31    !!
   KubernetesValidator                                       2m  CC̄=29.5  max=58    !!
   CompositeValidator                                        2m  CC̄=1.5   max=2   
+  BlueprintPlanner                                          2m  CC̄=4.0   max=5   
   SpaCyBackend                                              2m  CC̄=1.5   max=2   
   LLMBackend                                                2m  CC̄=2.0   max=3   
   IntentConfig                                              2m  CC̄=1.5   max=2   
   IntentDef                                                 2m  CC̄=2.0   max=2   
+  HFTokenRetriever                                          2m  CC̄=4.5   max=7   
   LLMDomainRouter                                           2m  CC̄=4.0   max=6   
   WebPageSchema                                             2m  CC̄=8.0   max=15    !!
   InteractionRecord                                         2m  CC̄=1.0   max=1   
@@ -660,34 +709,36 @@ CLASSES:
   ModelPerformance                                          2m  CC̄=2.0   max=3   
   LearnedRule                                               2m  CC̄=2.0   max=3   
   ActionResult                                              2m  CC̄=1.0   max=1   
-  ExecutionPlan                                             2m  CC̄=2.0   max=2   
-  DynamicSafetyPolicy                                       2m  CC̄=3.0   max=5   
   LiteLLMClient                                             2m  CC̄=6.5   max=9   
   SimpleLLMShellGenerator                                   2m  CC̄=3.5   max=6   
   SimpleLLMDockerGenerator                                  2m  CC̄=2.0   max=3   
   SimpleLLMKubernetesGenerator                              2m  CC̄=2.0   max=3   
   MockLLMClient                                             2m  CC̄=7.5   max=13  
+  ExecutionPlan                                             2m  CC̄=2.0   max=2   
+  DynamicSafetyPolicy                                       2m  CC̄=3.0   max=5   
   ProcessManagementGenerator                                2m  CC̄=9.0   max=14  
+  IframeAnalyzer                                            2m  CC̄=3.5   max=6   
   SchemaUsage                                               2m  CC̄=1.0   max=1   
   CommandRecord                                             2m  CC̄=2.0   max=2   
   ClickExtractor                                            2m  CC̄=2.0   max=3   
   ShellScriptExtractor                                      2m  CC̄=16.0  max=30    !!
   MakefileExtractor                                         2m  CC̄=10.0  max=18    !!
   ExtractedSchema                                           2m  CC̄=3.0   max=3   
+  NavigateHandler                                           2m  CC̄=9.0   max=10  
   CanvasMixin                                               2m  CC̄=1.0   max=1   
   DrawFilledCircleHandler                                   2m  CC̄=3.5   max=5   
-  NavigateHandler                                           2m  CC̄=9.0   max=10  
   CheckSessionHandler                                       2m  CC̄=16.0  max=22    !!
   ExtractKeyHandler                                         2m  CC̄=12.0  max=22    !!
   PromptSecretHandler                                       2m  CC̄=14.0  max=24    !!
   DrawingEvent                                              2m  CC̄=1.0   max=1   
   AutonomousDrawingPipeline                                 2m  CC̄=8.5   max=14  
-  ValidationReport                                          2m  CC̄=4.5   max=8   
   QueryBus                                                  2m  CC̄=1.0   max=1   
+  ValidationReport                                          2m  CC̄=4.5   max=8   
   DynamicShapeGenerator                                     2m  CC̄=2.0   max=3   
   AppSpec                                                   1m  CC̄=3.0   max=3   
   ShellExecutionPolicy                                      1m  CC̄=18.0  max=18    !!
   ActionIR                                                  1m  CC̄=1.0   max=1   
+  PageSchema                                                1m  CC̄=1.0   max=1   
   ActionStep                                                1m  CC̄=3.0   max=3   
   ActionStep                                                1m  CC̄=4.0   max=4   
   ExecutionPlan                                             1m  CC̄=2.0   max=2   
@@ -708,18 +759,19 @@ CLASSES:
   MultiStepPlan                                             1m  CC̄=2.0   max=2   
   MultiStepPlanner                                          1m  CC̄=9.0   max=9   
   SyntaxValidator                                           1m  CC̄=6.0   max=6   
+  CanvasPlanResult                                          1m  CC̄=3.0   max=3   
   ServiceConfig                                             1m  CC̄=1.0   max=1   
   AppInfo                                                   1m  CC̄=2.0   max=2   
   WebElement                                                1m  CC̄=1.0   max=1   
   ExecutorResult                                            1m  CC̄=1.0   max=1   
   BaseExecutor                                              1m  CC̄=1.0   max=1   
   FormField                                                 1m  CC̄=4.0   max=4   
-  EnergyEstimator                                           1m  CC̄=1.0   max=1   
+  LLMClient                                                 1m  CC̄=1.0   max=1   
   StepDef                                                   1m  CC̄=1.0   max=1   
   PlanStep                                                  1m  CC̄=2.0   max=2   
+  EnergyEstimator                                           1m  CC̄=1.0   max=1   
   TaskMetric                                                1m  CC̄=3.0   max=3   
   GeneratedFunction                                         1m  CC̄=2.0   max=2   
-  LLMClient                                                 1m  CC̄=1.0   max=1   
   DockerSafetyPolicy                                        1m  CC̄=11.0  max=11  
   NetworkGenerator                                          1m  CC̄=8.0   max=8   
   SystemMaintenanceGenerator                                1m  CC̄=1.0   max=1   
@@ -729,6 +781,7 @@ CLASSES:
   TextProcessingGenerator                                   1m  CC̄=11.0  max=11  
   KubernetesSafetyPolicy                                    1m  CC̄=12.0  max=12  
   DesktopSafetyPolicy                                       1m  CC̄=3.0   max=3   
+  PageAnalysisResult                                        1m  CC̄=2.0   max=2   
   FeedbackResult                                            1m  CC̄=1.0   max=1   
   SaveToCsvAction                                           1m  CC̄=6.0   max=6   
   NavigateAction                                            1m  CC̄=2.0   max=2   
@@ -757,6 +810,8 @@ CLASSES:
   VerifyEnvHandler                                          1m  CC̄=6.0   max=6   
   EchoHandler                                               1m  CC̄=4.0   max=4   
   ExtractTextHandler                                        1m  CC̄=12.0  max=12  
+  SearchResult                                              1m  CC̄=1.0   max=1   
+  SearchConfig                                              1m  CC̄=1.0   max=1   
   DrawCommand                                               1m  CC̄=1.0   max=1   
   InitCanvas                                                1m  CC̄=3.0   max=3   
   DrawShape                                                 1m  CC̄=2.0   max=2   
@@ -764,23 +819,20 @@ CLASSES:
   SelectTool                                                1m  CC̄=2.0   max=2   
   ClearCanvas                                               1m  CC̄=1.0   max=1   
   CommandHandler                                            1m  CC̄=1.0   max=1   
-  _BaseFetcher                                              1m  CC̄=1.0   max=1   
-  SimpleIconsFetcher                                        1m  CC̄=4.0   max=4   
-  SVGRepoFetcher                                            1m  CC̄=5.0   max=5   
   CanvasInitialized                                         1m  CC̄=1.0   max=1   
   CanvasCleared                                             1m  CC̄=1.0   max=1   
   ShapeDrawn                                                1m  CC̄=1.0   max=1   
   ColorChanged                                              1m  CC̄=1.0   max=1   
   ToolSelected                                              1m  CC̄=1.0   max=1   
-  SearchResult                                              1m  CC̄=1.0   max=1   
-  SearchConfig                                              1m  CC̄=1.0   max=1   
-  TaskPlan                                                  1m  CC̄=1.0   max=1   
+  _BaseFetcher                                              1m  CC̄=1.0   max=1   
+  SimpleIconsFetcher                                        1m  CC̄=4.0   max=4   
+  SVGRepoFetcher                                            1m  CC̄=5.0   max=5   
   DrawQuery                                                 1m  CC̄=1.0   max=1   
   GetCanvasState                                            1m  CC̄=7.0   max=7   
   GetDrawingHistory                                         1m  CC̄=3.0   max=3   
   GetShapePoints                                            1m  CC̄=4.0   max=4   
   GetLastNShapes                                            1m  CC̄=2.0   max=2   
-  SceneDrawResult                                           1m  CC̄=2.0   max=2   
+  TaskPlan                                                  1m  CC̄=1.0   max=1   
   DrawingCorrection                                         1m  CC̄=1.0   max=1   
   ShapeGenerator                                            1m  CC̄=1.0   max=1   
   CircleGenerator                                           1m  CC̄=2.0   max=2   
@@ -816,6 +868,7 @@ CLASSES:
   CrossGenerator                                            1m  CC̄=1.0   max=1   
   CrescentGenerator                                         1m  CC̄=3.0   max=3   
   CloudDetailedGenerator                                    1m  CC̄=4.0   max=4   
+  SceneDrawResult                                           1m  CC̄=2.0   max=2   
   DetectionResult                                           1m  CC̄=3.0   max=3   
   MatchResult                                               0m  CC̄=0.0   max=0.0 
   AppAction                                                 0m  CC̄=0.0   max=0.0 
@@ -844,12 +897,12 @@ CLASSES:
   PhraseSchema                                              0m  CC̄=0.0   max=0.0 
   IntentPrediction                                          0m  CC̄=0.0   max=0.0 
   TrainingSample                                            0m  CC̄=0.0   max=0.0 
-  SchedulingEnergy                                          0m  CC̄=0.0   max=0.0 
-  AllocationEnergy                                          0m  CC̄=0.0   max=0.0 
-  RoutingEnergy                                             0m  CC̄=0.0   max=0.0 
   SimpleExecutionPlan                                       0m  CC̄=0.0   max=0.0 
   ComplexityAnalysis                                        0m  CC̄=0.0   max=0.0 
   ContextualMatch                                           0m  CC̄=0.0   max=0.0 
+  SchedulingEnergy                                          0m  CC̄=0.0   max=0.0 
+  AllocationEnergy                                          0m  CC̄=0.0   max=0.0 
+  RoutingEnergy                                             0m  CC̄=0.0   max=0.0 
   TemplateResult                                            0m  CC̄=0.0   max=0.0 
   ValidationResult                                          0m  CC̄=0.0   max=0.0 
   ValidatingGeneratorResult                                 0m  CC̄=0.0   max=0.0 
@@ -867,12 +920,15 @@ CLASSES:
   Entity                                                    0m  CC̄=0.0   max=0.0 
   NormalizedQuery                                           0m  CC̄=0.0   max=0.0 
   IntentMatch                                               0m  CC̄=0.0   max=0.0 
+  BrowserTokenResult                                        0m  CC̄=0.0   max=0.0 
+  TokenConfig                                               0m  CC̄=0.0   max=0.0 
+  NavigationStatus                                          0m  CC̄=0.0   max=0.0 
   ErrorCategory                                             0m  CC̄=0.0   max=0.0 
   RepairResult                                              0m  CC̄=0.0   max=0.0 
-  RoutingResult                                             0m  CC̄=0.0   max=0.0 
-  MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
   PageInfo                                                  0m  CC̄=0.0   max=0.0 
   ExplorationResult                                         0m  CC̄=0.0   max=0.0 
+  RoutingResult                                             0m  CC̄=0.0   max=0.0 
+  MultiDomainResult                                         0m  CC̄=0.0   max=0.0 
   ExecutorContext                                           0m  CC̄=0.0   max=0.0 
   FormData                                                  0m  CC̄=0.0   max=0.0 
   BrowserResult                                             0m  CC̄=0.0   max=0.0 
@@ -887,19 +943,21 @@ CLASSES:
   DataMatch                                                 0m  CC̄=0.0   max=0.0 
   EndpointInfo                                              0m  CC̄=0.0   max=0.0 
   ServiceInfo                                               0m  CC̄=0.0   max=0.0 
-  VisionResult                                              0m  CC̄=0.0   max=0.0 
   OutputFormat                                              0m  CC̄=0.0   max=0.0 
   AggregatedResult                                          0m  CC̄=0.0   max=0.0 
+  VisionResult                                              0m  CC̄=0.0   max=0.0 
   LLMResponse                                               0m  CC̄=0.0   max=0.0 
   ValidationVerdict                                         0m  CC̄=0.0   max=0.0 
   RepairResult                                              0m  CC̄=0.0   max=0.0 
   RouterResponse                                            0m  CC̄=0.0   max=0.0 
   ModelHealth                                               0m  CC̄=0.0   max=0.0 
   _ParsedSize                                               0m  CC̄=0.0   max=0.0 
+  Task                                                      0m  CC̄=0.0   max=0.0 
+  Resource                                                  0m  CC̄=0.0   max=0.0 
   ParamType                                                 0m  CC̄=0.0   max=0.0 
   ParamSchema                                               0m  CC̄=0.0   max=0.0 
-  LangevinConfig                                            0m  CC̄=0.0   max=0.0 
-  SamplerResult                                             0m  CC̄=0.0   max=0.0 
+  LLMConfig                                                 0m  CC̄=0.0   max=0.0 
+  LLMGenerationResult                                       0m  CC̄=0.0   max=0.0 
   StepStatus                                                0m  CC̄=0.0   max=0.0 
   StepResult                                                0m  CC̄=0.0   max=0.0 
   TaskSchema                                                0m  CC̄=0.0   max=0.0 
@@ -907,36 +965,35 @@ CLASSES:
   StepStatus                                                0m  CC̄=0.0   max=0.0 
   StepResult                                                0m  CC̄=0.0   max=0.0 
   ExecutionResult                                           0m  CC̄=0.0   max=0.0 
-  Task                                                      0m  CC̄=0.0   max=0.0 
-  Resource                                                  0m  CC̄=0.0   max=0.0 
-  ReflectionVerdict                                         0m  CC̄=0.0   max=0.0 
-  ReflectionResult                                          0m  CC̄=0.0   max=0.0 
+  LangevinConfig                                            0m  CC̄=0.0   max=0.0 
+  SamplerResult                                             0m  CC̄=0.0   max=0.0 
   StepMetric                                                0m  CC̄=0.0   max=0.0 
   LearnedPath                                               0m  CC̄=0.0   max=0.0 
+  ReflectionVerdict                                         0m  CC̄=0.0   max=0.0 
+  ReflectionResult                                          0m  CC̄=0.0   max=0.0 
   SafetyPolicy                                              0m  CC̄=0.0   max=0.0 
   AdapterConfig                                             0m  CC̄=0.0   max=0.0 
   DQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
   EntityContext                                             0m  CC̄=0.0   max=0.0 
-  LLMConfig                                                 0m  CC̄=0.0   max=0.0 
-  LLMGenerationResult                                       0m  CC̄=0.0   max=0.0 
   ComposeContext                                            0m  CC̄=0.0   max=0.0 
   BrowserSafetyPolicy                                       0m  CC̄=0.0   max=0.0 
   ClusterContext                                            0m  CC̄=0.0   max=0.0 
-  AppSpecAdapterConfig                                      0m  CC̄=0.0   max=0.0 
   SQLSafetyPolicy                                           0m  CC̄=0.0   max=0.0 
   SchemaContext                                             0m  CC̄=0.0   max=0.0 
+  AppSpecAdapterConfig                                      0m  CC̄=0.0   max=0.0 
   ShellSafetyPolicy                                         0m  CC̄=0.0   max=0.0 
   EnvironmentContext                                        0m  CC̄=0.0   max=0.0 
   DesktopAction                                             0m  CC̄=0.0   max=0.0 
   DisambiguationResult                                      0m  CC̄=0.0   max=0.0 
+  StreamResult                                              0m  CC̄=0.0   max=0.0 
+  SourceURI                                                 0m  CC̄=0.0   max=0.0 
   ToolInfo                                                  0m  CC̄=0.0   max=0.0 
   ServiceInfo                                               0m  CC̄=0.0   max=0.0 
   EnvironmentReport                                         0m  CC̄=0.0   max=0.0 
   DrawingStep                                               0m  CC̄=0.0   max=0.0 
   DrawingPlan                                               0m  CC̄=0.0   max=0.0 
   CanvasSafetyPolicy                                        0m  CC̄=0.0   max=0.0 
-  StreamResult                                              0m  CC̄=0.0   max=0.0 
-  SourceURI                                                 0m  CC̄=0.0   max=0.0 
+  FieldInfo                                                 0m  CC̄=0.0   max=0.0 
   ToonNodeType                                              0m  CC̄=0.0   max=0.0 
   ToonNode                                                  0m  CC̄=0.0   max=0.0 
   RoutingDecision                                           0m  CC̄=0.0   max=0.0 
@@ -952,8 +1009,8 @@ CLASSES:
   HandlerResult                                             0m  CC̄=0.0   max=0.0 
   SearchContext                                             0m  CC̄=0.0   max=0.0 
   CommandMatch                                              0m  CC̄=0.0   max=0.0 
-  FetchedShape                                              0m  CC̄=0.0   max=0.0 
   EventType                                                 0m  CC̄=0.0   max=0.0 
+  FetchedShape                                              0m  CC̄=0.0   max=0.0 
   CorrectionStep                                            0m  CC̄=0.0   max=0.0 
   CorrectionPlan                                            0m  CC̄=0.0   max=0.0 
   CorrectionResult                                          0m  CC̄=0.0   max=0.0 
@@ -964,10 +1021,10 @@ CLASSES:
   ObjectStatus                                              0m  CC̄=0.0   max=0.0 
   ObjectAssessment                                          0m  CC̄=0.0   max=0.0 
   GeneratedShape                                            0m  CC̄=0.0   max=0.0 
-  DrawStatus                                                0m  CC̄=0.0   max=0.0 
-  ObjectDrawResult                                          0m  CC̄=0.0   max=0.0 
   ValidationVerdict                                         0m  CC̄=0.0   max=0.0 
   ValidationResult                                          0m  CC̄=0.0   max=0.0 
+  DrawStatus                                                0m  CC̄=0.0   max=0.0 
+  ObjectDrawResult                                          0m  CC̄=0.0   max=0.0 
   Status                                                    0m  CC̄=0.0   max=0.0 
   CheckResult                                               0m  CC̄=0.0   max=0.0 
   ExampleScenario                                           0m  CC̄=0.0   max=0.0 
@@ -1064,7 +1121,7 @@ No LLM ...
     CompositeValidator  # Combines multiple validators....
       __init__(1)  CC=1.0
   nlp2cmd/cli/commands/doctor.py:
-    e: Status,CheckResult,NP2CMDDoctor,run_doctor,get_hf_token_via_browser,_try_existing_browser,_try_system_browser,_try_playwright_browser,_navigate_and_get_token,_manual_browser_instructions
+    e: Status,CheckResult,NP2CMDDoctor,run_doctor,get_hf_token_via_browser,_try_existing_browser,_try_system_browser,_try_playwright_browser,_navigate_and_get_token,_try_playwright_browser_dispatch,_manual_browser_instructions
     Status
     CheckResult
     NP2CMDDoctor  # System diagnostic and auto-repair for nlp2cmd....
@@ -1075,6 +1132,7 @@ No LLM ...
     _try_system_browser(console)
     _try_playwright_browser(console)
     _navigate_and_get_token(page,console,browser_type)
+    _try_playwright_browser_dispatch(console)
     _manual_browser_instructions(console,browser_name)
   nlp2cmd/generation/pipeline.py:
     e: RuleBasedPipeline,create_pipeline
@@ -1897,6 +1955,12 @@ Transforms n...
       __init__(3)  CC=3.0
         → __init__(3)  CC=3.0
         → _parse_compose_context(1)  CC=1.0
+  nlp2cmd/page_analysis/field_classifier.py:
+    e: FieldClassifier
+    FieldClassifier  # Classify form fields as contact-like or junk (search, cookie...
+      classify(1)  CC=2.0
+        → _is_junk(6)  CC=14.0
+        → _is_contact(2)  CC=4.0
   nlp2cmd/skills/search/engine.py:
     e: SearchResult,SearchConfig,SearchEngine
     SearchResult  # Single search result....
@@ -1919,6 +1983,11 @@ Flow:
       __init__(3)  CC=2.0
     AutonomousDrawingPipeline  # Full autonomous drawing pipeline: draw → validate → correct ...
       __init__(4)  CC=3.0
+  nlp2cmd/page_schema/radio_extractor.py:
+    e: RadioExtractor
+    RadioExtractor  # Extract radio button groups (for token type selection, etc.)...
+      extract(1)  CC=5.0
+        → _extract_radio_data(3)  CC=13.0
   nlp2cmd/automation/env_extractor.py:
     e: ServiceConfig,EnvExtractor,_debug
     ServiceConfig  # Configuration for a known API service....
@@ -2155,16 +2224,6 @@ Tran...
 
 Uses Qwen VL to...
       __init__(2)  CC=1.0
-  nlp2cmd/skills/drawing/draw_object.py:
-    e: DrawStatus,ObjectDrawResult,SceneDrawResult,DrawObjectSkill
-    DrawStatus  # Status of a single object draw operation....
-    ObjectDrawResult  # Result of drawing a single object....
-    SceneDrawResult  # Result of drawing multiple objects (a scene)....
-      summary(0)  CC=2.0
-    DrawObjectSkill  # Resolve and draw shapes with vision verification.
-
-Composes:...
-      __init__(3)  CC=1.0
   nlp2cmd/skills/drawing/visual_validator.py:
     e: ValidationVerdict,DrawingCorrection,ValidationResult,VisualValidator
     ValidationVerdict  # Result of visual validation....
@@ -2175,6 +2234,16 @@ Composes:...
 
 Uses the LLM Ro...
       __init__(1)  CC=1.0
+  nlp2cmd/skills/drawing/draw_object.py:
+    e: DrawStatus,ObjectDrawResult,SceneDrawResult,DrawObjectSkill
+    DrawStatus  # Status of a single object draw operation....
+    ObjectDrawResult  # Result of drawing a single object....
+    SceneDrawResult  # Result of drawing multiple objects (a scene)....
+      summary(0)  CC=2.0
+    DrawObjectSkill  # Resolve and draw shapes with vision verification.
+
+Composes:...
+      __init__(3)  CC=1.0
   nlp2cmd/cli/commands/tools.py:
     e: cmd_repair,cmd_validate,cmd_analyze_env
     cmd_repair(file,backup)
@@ -2209,6 +2278,26 @@ Feature...
     _generate_variations(phrase,domain,intent,language)
     create_default_training_data()
     get_ml_classifier(force_retrain)
+  nlp2cmd/canvas_planner/llm_planner.py:
+    e: LLMCanvasPlanner
+    LLMCanvasPlanner  # Generates drawing plans using LLM for arbitrary objects....
+      plan(3)  CC=3.0
+        → _call_llm(1)  CC=11.0
+        → _parse_response(1)  CC=7.0
+        → _build_full_plan(3)  CC=7.0
+  nlp2cmd/canvas_planner/rule_planner.py:
+    e: RuleBasedCanvasPlanner
+    RuleBasedCanvasPlanner  # Generates drawing plans using hardcoded shape rules.
+
+This i...
+      plan(3)  CC=11.0
+        → _build_base_steps(1)  CC=1.0
+        → _rabbit_shape(0)  CC=1.0
+        → _car_shape(0)  CC=1.0
+        → _house_shape(0)  CC=1.0
+        → _sun_shape(0)  CC=1.0
+        → _tree_shape(0)  CC=1.0
+        → _generic_shape(1)  CC=1.0
   nlp2cmd/exploration/resource_discovery.py:
     e: MissingResource,DiscoveryDecision,ResourceDiscoveryManager,get_resource_discovery_manager
     MissingResource  # Information about a missing resource....
@@ -2270,11 +2359,20 @@ When a query ...
     install_playwright(console)
     install_playwright_browsers(console)
     ensure_playwright_installed(console,auto_install)
+  nlp2cmd/page_analysis/link_extractor.py:
+    e: LinkExtractor
+    LinkExtractor  # Extract and normalize links from page....
+      __init__(1)  CC=1.0
   nlp2cmd/step_handlers/navigate.py:
     e: NavigateHandler
     NavigateHandler  # Handle navigate action - navigate to URL with security check...
       execute(1)  CC=8.0
         → _handle_security_checkup(2)  CC=10.0
+  nlp2cmd/page_schema/button_extractor.py:
+    e: ButtonExtractor
+    ButtonExtractor  # Extract visible clickable elements (buttons, role=button, et...
+      extract(1)  CC=5.0
+        → _extract_button_data(1)  CC=9.0
   nlp2cmd/generation/fuzzy_schema_matcher.py:
     e: MatchResult,PhraseSchema,FuzzySchemaMatcherConfig,FuzzySchemaMatcher,_get_jellyfish,_get_rapidfuzz,create_multilingual_matcher
     MatchResult  # Result of fuzzy schema matching....
@@ -2445,6 +2543,11 @@ This cla...
     e: PlaywrightRenderer
     PlaywrightRenderer  # Render drawings on a browser canvas via Playwright mouse con...
       __init__(2)  CC=1.0
+  nlp2cmd/page_schema/form_extractor.py:
+    e: FormExtractor
+    FormExtractor  # Extract visible text input fields and textareas....
+      extract(1)  CC=5.0
+        → _extract_input_data(2)  CC=8.0
   nlp2cmd/automation/vector_store.py:
     e: DrawingPattern,DrawingVectorStore,get_vector_store,initialize_default_patterns,export_patterns_to_file,import_patterns_from_file
     DrawingPattern  # A drawing pattern with metadata and steps....
@@ -2472,6 +2575,14 @@ This cla...
     _ensure_service_deps()
     create_app()
     create_service_config_from_args(host,port,debug,log_level,cors_origins,max_workers,auto_execute,session_timeout,save_env,env_file)
+  nlp2cmd/canvas_planner/vector_planner.py:
+    e: VectorDBPlanner
+    VectorDBPlanner  # Searches vector database for semantically similar drawing pa...
+      is_available(0)  CC=1.0
+  nlp2cmd/canvas_planner/orchestrator.py:
+    e: CanvasPlanningOrchestrator
+    CanvasPlanningOrchestrator  # Orchestrates multiple canvas planners in priority order....
+      __init__(2)  CC=1.0
   nlp2cmd/exploration/base.py:
     e: ExplorationResult,ExplorationContext,BaseExplorer,ExplorerRegistry,explore
     ExplorationResult  # Result of exploration in any space....
@@ -2483,6 +2594,11 @@ Implementations must...
     ExplorerRegistry  # Registry of available explorers....
       register(2)  CC=1.0
     explore(root,intent,search_term,space_type)
+  nlp2cmd/streams/ws_stream.py:
+    e: WSStreamAdapter
+    WSStreamAdapter
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
   nlp2cmd/utils/data_files.py:
     e: get_user_config_dir,_legacy_user_config_dir,_package_data_dir,find_data_files,find_data_file,data_file_write_path
     get_user_config_dir()
@@ -2491,11 +2607,11 @@ Implementations must...
     find_data_files()
     find_data_file()
     data_file_write_path()
-  nlp2cmd/streams/ws_stream.py:
-    e: WSStreamAdapter
-    WSStreamAdapter
-      __init__(1)  CC=1.0
-        → __init__(1)  CC=1.0
+  nlp2cmd/page_schema/copy_button_extractor.py:
+    e: CopyButtonExtractor
+    CopyButtonExtractor  # Extract buttons likely used to copy tokens to clipboard....
+      extract(1)  CC=5.0
+        → _extract_copy_button_data(1)  CC=7.0
   nlp2cmd/generation/pipeline_components.py:
     e: SimpleExecutionPlan,PipelineResult,PipelineMetrics,_should_use_semantic_extractor,_create_default_extractor
     SimpleExecutionPlan  # Simple execution plan for adapters....
@@ -2539,6 +2655,10 @@ Res...
       __init__(1)  CC=1.0
         → _load_index(0)  CC=3.0
     test_per_command_store()
+  nlp2cmd/browser_token/hf_token_retriever.py:
+    e: HFTokenRetriever
+    HFTokenRetriever  # Main orchestrator for retrieving HuggingFace tokens via brow...
+      __init__(1)  CC=2.0
   nlp2cmd/cli/display.py:
     e: display_command_result,display_table,display_panel,display_info,display_success,display_error,display_warning,display_debug,display_progress,display_section,display_list,display_kv_pairs
     display_command_result(command,metadata,metrics_str,show_yaml,title)
@@ -2563,17 +2683,17 @@ Subclasses imp...
       __init__(1)  CC=1.0
     parse_source_uri(uri)
     _parse_libvirt_uri(raw)
+  nlp2cmd/page_analysis/page_analyzer.py:
+    e: PageAnalyzer
+    PageAnalyzer  # Main orchestrator for page analysis.
+
+Coordinates multiple a...
+      __init__(4)  CC=1.0
   nlp2cmd/schema_extraction/registry.py:
     e: SchemaRegistry
     SchemaRegistry  # Registry for managing dynamically extracted schemas....
       __init__(5)  CC=7.0
         → _load_from_storage(0)  CC=4.0
-  nlp2cmd/dom_actions/dispatcher.py:
-    e: ActionDispatcher
-    ActionDispatcher  # Dispatches DOM actions to appropriate handlers.
-
-This replac...
-      dispatch(8)  CC=2.0
   nlp2cmd/dom_actions/navigation.py:
     e: NavigateAction,ExploreForContentAction,ExploreForFormAction
     NavigateAction  # Navigate to a URL....
@@ -2582,6 +2702,12 @@ This replac...
       execute(1)  CC=7.0
     ExploreForFormAction  # Explore site to find forms....
       execute(1)  CC=5.0
+  nlp2cmd/dom_actions/dispatcher.py:
+    e: ActionDispatcher
+    ActionDispatcher  # Dispatches DOM actions to appropriate handlers.
+
+This replac...
+      dispatch(8)  CC=2.0
   nlp2cmd/skills/search/skill.py:
     e: SearchContext,SearchSkill
     SearchContext  # Context for search operations....
@@ -2625,6 +2751,15 @@ Wraps SearchEngine wit...
 Usage:
     bus ...
       __init__(1)  CC=1.0
+  nlp2cmd/page_schema/token_extractor.py:
+    e: TokenExtractor
+    TokenExtractor  # Extract elements that look like API tokens/keys....
+      extract(1)  CC=6.0
+        → _extract_token_data(2)  CC=5.0
+  nlp2cmd/page_schema/page_schema_extractor.py:
+    e: PageSchemaExtractor
+    PageSchemaExtractor  # Extract complete page schema using multiple specialized extr...
+      __init__(0)  CC=1.0
   nlp2cmd/automation/service_configs.py:
     e: _load_known_services,_can_use_desktop_automation
     _load_known_services()
@@ -2685,6 +2820,10 @@ Example:
       __init__(2)  CC=2.0
         → _coerce_adapter_config(1)  CC=6.0
         → _coerce_safety_policy(0)  CC=5.0
+  nlp2cmd/page_analysis/iframe_analyzer.py:
+    e: IframeAnalyzer
+    IframeAnalyzer  # Analyze iframes for embedded forms (common for contact widge...
+      __init__(1)  CC=1.0
   nlp2cmd/dom_actions/forms.py:
     e: FillFormAction
     FillFormAction  # Fill form fields automatically from .env and data files....
@@ -2728,6 +2867,16 @@ Usage:
       __add__(1)  CC=1.0
     MouseController  # Advanced mouse control via Playwright with human-like moveme...
       __init__(2)  CC=1.0
+  nlp2cmd/generation/multi_command.py:
+    e: MultiCommandResult,MultiCommandDetector,get_multi_command_detector,detect_multi_commands
+    MultiCommandResult  # Result of multi-command detection....
+      get_domains(0)  CC=2.0
+    MultiCommandDetector  # Utility class to detect multiple commands in one input.
+
+Sup...
+      __init__(1)  CC=2.0
+    get_multi_command_detector()
+    detect_multi_commands(text)
   nlp2cmd/generation/data_loader.py:
     e: PhraseEntry,PhraseDatabase,DataLoader,_check_msgpack,load_legacy_phrases,merge_databases,benchmark_formats
     PhraseEntry  # Single phrase entry for intent matching....
@@ -2742,16 +2891,11 @@ Su...
     load_legacy_phrases(path)
     merge_databases()
     benchmark_formats(db,iterations)
-  nlp2cmd/generation/multi_command.py:
-    e: MultiCommandResult,MultiCommandDetector,get_multi_command_detector,detect_multi_commands
-    MultiCommandResult  # Result of multi-command detection....
-      get_domains(0)  CC=2.0
-    MultiCommandDetector  # Utility class to detect multiple commands in one input.
-
-Sup...
-      __init__(1)  CC=2.0
-    get_multi_command_detector()
-    detect_multi_commands(text)
+  nlp2cmd/canvas_planner/blueprint_planner.py:
+    e: BlueprintPlanner
+    BlueprintPlanner  # Uses rich drawing blueprints (SVG paths, polygons, beziers)....
+      plan(3)  CC=5.0
+        → _build_full_plan(2)  CC=3.0
   nlp2cmd/core/core_models.py:
     e: TransformStatus,Intent,Entity,ExecutionPlan,TransformResult
     TransformStatus  # Status of a transformation operation....
@@ -2761,6 +2905,15 @@ Sup...
       with_confidence(1)  CC=1.0
     TransformResult  # Result of a natural language to command transformation....
       __post_init__(0)  CC=5.0
+  nlp2cmd/browser_token/token_navigator.py:
+    e: NavigationStatus,TokenNavigator
+    NavigationStatus  # Status of navigation attempt....
+    TokenNavigator  # Navigate to token pages with URL verification....
+      __init__(4)  CC=1.0
+  nlp2cmd/browser_token/token_prompt_handler.py:
+    e: TokenPromptHandler
+    TokenPromptHandler  # Handle interactive prompts for token input....
+      __init__(4)  CC=1.0
   nlp2cmd/execution/media_recorder.py:
     e: MediaRecorder
     MediaRecorder  # Manages video recording and screenshots during browser sessi...
@@ -2908,6 +3061,10 @@ Wraps OpenRouterClien...
     e: SPICEStreamAdapter
     SPICEStreamAdapter
       connect(0)  CC=4.0
+  nlp2cmd/page_analysis/form_analyzer.py:
+    e: FormAnalyzer
+    FormAnalyzer  # Analyze page for forms and form fields....
+      __init__(2)  CC=1.0
   app2schema/cli.py:
     e: main
     main(target,source_type,out_format,raw,out_path,merge,no_validate,no_discover)
@@ -2932,6 +3089,16 @@ Wraps OpenRouterClien...
     lookup_blueprint(query)
     get_blueprint_steps(query)
     list_available_blueprints()
+  nlp2cmd/canvas_planner/base.py:
+    e: CanvasPlanResult,CanvasPlannerBase
+    CanvasPlanResult  # Result of canvas planning....
+      to_action_steps(0)  CC=3.0
+    CanvasPlannerBase  # Base class for canvas planners....
+      __init__(2)  CC=1.0
+  nlp2cmd/browser_token/browser_launcher.py:
+    e: BrowserLauncher
+    BrowserLauncher  # Launch browser with automatic fallback from Firefox to Chrom...
+      __init__(1)  CC=1.0
   nlp2cmd/cli/syntax_cache.py:
     e: SyntaxCache,get_syntax_cache,get_cached_syntax,clear_syntax_cache,get_cache_stats
     SyntaxCache  # Cache for Rich Syntax objects to improve performance....
@@ -2982,6 +3149,11 @@ Concrete implementations:
   nlp2cmd/skills/__init__.py:
     e: __getattr__
     __getattr__(name)
+  nlp2cmd/page_analysis/base.py:
+    e: FieldInfo,PageAnalysisResult
+    FieldInfo  # Information about a form field....
+    PageAnalysisResult  # Result of page analysis....
+      to_dict(0)  CC=2.0
   nlp2cmd/skills/search/__init__.py:
     e: __getattr__
     __getattr__(name)
@@ -2989,6 +3161,12 @@ Concrete implementations:
     e: ActionIR
     ActionIR
       to_dict(0)  CC=1.0
+  nlp2cmd/page_schema/base.py:
+    e: PageSchema,ExtractorBase
+    PageSchema  # Schema of actionable elements extracted from a page....
+      to_dict(0)  CC=1.0
+    ExtractorBase  # Base protocol for element extractors....
+      extract(1)  CC=1.0
   nlp2cmd/execution/base.py:
     e: ExecutorResult,ExecutorContext,BaseExecutor
     ExecutorResult  # Unified result from any executor....
@@ -3030,11 +3208,18 @@ Subclasses implement ``exe...
   app2schema/__init__.py:
   app2schema/__main__.py:
   nlp2cmd/monitoring/__init__.py:
+  nlp2cmd/page_schema/__init__.py:
   nlp2cmd/automation/__init__.py:
+  nlp2cmd/canvas_planner/__init__.py:
   nlp2cmd/plan_execution/__init__.py:
   nlp2cmd/core/__init__.py:
   nlp2cmd/nlp/__init__.py:
   nlp2cmd/storage/__init__.py:
+  nlp2cmd/browser_token/base.py:
+    e: BrowserTokenResult,TokenConfig
+    BrowserTokenResult  # Result of browser token retrieval attempt....
+    TokenConfig  # Configuration for token retrieval....
+  nlp2cmd/browser_token/__init__.py:
   nlp2cmd/cli/__init__.py:
   nlp2cmd/web_schema/__init__.py:
   nlp2cmd/execution/__init__.py:
@@ -3047,6 +3232,7 @@ Subclasses implement ``exe...
   nlp2cmd/utils/yaml_compat.py:
   nlp2cmd/context/__init__.py:
   nlp2cmd/streams/__init__.py:
+  nlp2cmd/page_analysis/__init__.py:
   nlp2cmd/schema_based/generator.py:
   nlp2cmd/schema_based/adapter.py:
   nlp2cmd/schema_based/__init__.py:
@@ -3058,8 +3244,8 @@ Subclasses implement ``exe...
   nlp2cmd/skills/drawing/renderers/__init__.py:
   nlp2cmd/cli/commands/__init__.py:
   nlp2cmd/generation/schema/__init__.py:
-  nlp2cmd/generation/templates/kubernetes_templates.py:
   nlp2cmd/generation/templates/rag_templates.py:
+  nlp2cmd/generation/templates/kubernetes_templates.py:
   nlp2cmd/generation/templates/iot_templates.py:
   nlp2cmd/generation/templates/shell_templates.py:
   nlp2cmd/generation/templates/__init__.py:
@@ -3067,13 +3253,13 @@ Subclasses implement ``exe...
   nlp2cmd/generation/templates/git_templates.py:
   nlp2cmd/generation/templates/sql_templates.py:
   nlp2cmd/generation/templates/ffmpeg_templates.py:
-  nlp2cmd/generation/templates/docker_templates.py:
   nlp2cmd/generation/templates/desktop_templates.py:
+  nlp2cmd/generation/templates/docker_templates.py:
   nlp2cmd/generation/templates/browser_templates.py:
   nlp2cmd/generation/templates/data_templates.py:
-  nlp2cmd/generation/templates/api_templates.py:
   nlp2cmd/generation/templates/media_templates.py:
+  nlp2cmd/generation/templates/api_templates.py:
+  nlp2cmd/generation/templates/remote_templates.py:
   nlp2cmd/generation/templates/devops_templates.py:
   nlp2cmd/generation/templates/presentation_templates.py:
-  nlp2cmd/generation/templates/remote_templates.py:
   nlp2cmd/generation/keywords/__init__.py:

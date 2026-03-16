@@ -4,9 +4,9 @@
 
 - **Project**: .
 - **Analysis Mode**: static
-- **Total Functions**: 37265
-- **Total Classes**: 5837
-- **Modules**: 3215
+- **Total Functions**: 37769
+- **Total Classes**: 6019
+- **Modules**: 3327
 - **Entry Points**: 0
 
 ## Architecture by Module
@@ -280,22 +280,6 @@ Args:
     query: Natural language que
 - **Output to**: ActionIR, self.base_nlp.transform_ir, self.generator.generate_command, ActionIR, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
 
-### webops.docker_app.VoiceServiceManager.process_voice_command
-> Process voice command and return response.
-- **Output to**: self.pipeline.process, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse
-
-### webops.docker_app.process_voice_command
-> Process voice command and execute shell command.
-- **Output to**: app.post, voice_manager.process_voice_command
-
-### webops.voice_service_clean.VoiceServiceManager.process_voice_command
-> Process voice command and return response.
-- **Output to**: fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
-
-### webops.voice_service_clean.process_voice_command
-> Process voice command and execute shell command.
-- **Output to**: app.post, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
-
 ### webops.voice_service.VoiceServiceManager.process_voice_command
 > Process voice command and return response.
 - **Output to**: fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, self._normalize_cache_key
@@ -309,6 +293,22 @@ Args:
 - **Output to**: pipeline.process, execution_result.get, self._process_with_mock_pipeline, self.broadcast_log, self.executor.execute_command
 
 ### webops.voice_service.process_voice_command
+> Process voice command and execute shell command.
+- **Output to**: app.post, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
+
+### webops.docker_app.VoiceServiceManager.process_voice_command
+> Process voice command and return response.
+- **Output to**: self.pipeline.process, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse, VoiceCommandResponse
+
+### webops.docker_app.process_voice_command
+> Process voice command and execute shell command.
+- **Output to**: app.post, voice_manager.process_voice_command
+
+### webops.voice_service_clean.VoiceServiceManager.process_voice_command
+> Process voice command and return response.
+- **Output to**: fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
+
+### webops.voice_service_clean.process_voice_command
 > Process voice command and execute shell command.
 - **Output to**: app.post, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print, fresh_env.lib.python3.13.site-packages.code2logic.terminal.ShellRenderer.print
 
@@ -413,8 +413,8 @@ Functions exposed as public API (no underscore prefix):
 - `nlp2cmd.cli.main.main` - 115 calls
 - `fresh_env.lib.python3.13.site-packages.numpy.f2py.f90mod_rules.buildhooks` - 114 calls
 - `fresh_env.lib.python3.13.site-packages.numpy.f2py.symbolic._FromStringWorker.process` - 113 calls
-- `fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.hexbin` - 113 calls
 - `fresh_env.lib.python3.13.site-packages.matplotlib.backends.qt_editor.figureoptions.figure_edit` - 113 calls
+- `fresh_env.lib.python3.13.site-packages.matplotlib.axes._axes.Axes.hexbin` - 113 calls
 - `src.nlp2cmd.execution.runner.ExecutionRunner.run_command` - 109 calls
 - `nlp2cmd.execution.runner.ExecutionRunner.run_command` - 109 calls
 - `webops.nlp2cmd-repo.examples.devops.demo.demo_nlp_commands` - 108 calls

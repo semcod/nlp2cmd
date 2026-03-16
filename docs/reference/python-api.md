@@ -5,10 +5,10 @@ This guide provides comprehensive documentation for using NLP2CMD programmatical
 ## 📚 Related Documentation
 
 - **[Documentation Hub](README.md)** - Entry point for all docs
-- **[User Guide](guides/user-guide.md)** - Complete usage tutorial
-- **[CLI Reference](cli-reference.md)** - Command line usage
+- **[User Guide](../user-guide/user-guide.md)** - Complete usage tutorial
+- **[CLI Reference](../reference/cli-reference.md)** - Command line usage
 - **[API Reference](api/README.md)** - Detailed API documentation
-- **[Examples Guide](examples-guide.md)** - Examples overview
+- **[Examples Guide](../reference/examples-guide.md)** - Examples overview
 
 ## Installation
 
@@ -555,6 +555,6 @@ async def test_batch_processing():
 
 ## See Also
 
-- [CLI Reference](cli-reference.md) - Command line usage
-- [Examples Guide](examples-guide.md) - Comprehensive examples
-- [User Guide](guides/user-guide.md) - Complete tutorial
+- [CLI Reference](../reference/cli-reference.md) - Command line usage
+- [Examples Guide](../reference/examples-guide.md) - Comprehensive examples
+- [User Guide](../user-guide/user-guide.md) - Complete tutorial

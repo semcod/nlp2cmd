@@ -29,7 +29,7 @@
 |-----------|-------|
 | Root | `.gitignore`, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md` |
 | Core | `validators/__init__.py`, `environment/__init__.py`, `feedback/__init__.py` |
-| Docs | `docs/api/README.md`, `docs/guides/user-guide.md` |
+| Docs | `docs/api/README.md`, `docs/user-guide/user-guide.md` |
 | Examples | `examples/sql/basic_sql.py`, `examples/shell/basic_shell.py`, `examples/docker/basic_docker.py`, `examples/kubernetes/basic_kubernetes.py` |
 | Tests | `tests/__init__.py`, `tests/unit/test_adapters.py` |
 
@@ -123,7 +123,7 @@ nlp2cmd/
 ├── 📂 docs/ (2 pliki)
 │   ├── api/
 │   │   └── README.md
-│   └── guides/
+│   └── user-guide/
 │       └── user-guide.md
 │
 ├── 📂 examples/ (14 plików)

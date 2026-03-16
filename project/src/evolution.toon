@@ -1,17 +1,17 @@
-# code2llm/evolution | 2542 func | 203f | 2026-03-04
+# code2llm/evolution | 2631 func | 226f | 2026-03-04
 
 NEXT[10] (ranked by impact):
   [1] !! SPLIT           nlp2cmd/pipeline_runner_plans.py
       WHY: 2975L, 1 classes, max CC=346
       EFFORT: ~4h  IMPACT: 1029350
 
-  [2] !! SPLIT           nlp2cmd/pipeline_runner_browser.py
-      WHY: 1704L, 1 classes, max CC=280
-      EFFORT: ~4h  IMPACT: 477120
+  [2] !! SPLIT           nlp2cmd/web_schema/site_explorer.py
+      WHY: 1716L, 3 classes, max CC=72
+      EFFORT: ~4h  IMPACT: 123552
 
   [3] !! SPLIT           nlp2cmd/automation/action_planner.py
-      WHY: 1718L, 3 classes, max CC=25
-      EFFORT: ~4h  IMPACT: 42950
+      WHY: 1772L, 3 classes, max CC=25
+      EFFORT: ~4h  IMPACT: 44300
 
   [4] !! SPLIT-FUNC      PlanExecutionMixin._execute_plan_step  CC=346  fan=118
       WHY: CC=346 exceeds 15
@@ -44,15 +44,15 @@ NEXT[10] (ranked by impact):
 
 RISKS[3]:
   ⚠ Splitting nlp2cmd/pipeline_runner_plans.py may break 8 import paths
-  ⚠ Splitting nlp2cmd/automation/action_planner.py may break 26 import paths
-  ⚠ Splitting nlp2cmd/pipeline_runner_browser.py may break 3 import paths
+  ⚠ Splitting nlp2cmd/automation/action_planner.py may break 27 import paths
+  ⚠ Splitting nlp2cmd/web_schema/site_explorer.py may break 34 import paths
 
 METRICS-TARGET:
-  CC̄:          5.7 → ≤4.0
+  CC̄:          5.6 → ≤3.9
   max-CC:      346 → ≤20
   god-modules: 63 → 0
   high-CC(≥15): 172 → ≤86
   hub-types:   0 → ≤0
 
 HISTORY:
-  prev CC̄=5.7 → now CC̄=5.7
+  prev CC̄=5.7 → now CC̄=5.6

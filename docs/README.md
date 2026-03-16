@@ -1,186 +1,103 @@
-# 📚 NLP2CMD Documentation Hub
+# 📚 NLP2CMD Documentation
 
-## 🎯 Quick Navigation
+Complete documentation for the NLP2CMD framework - natural language to command transformation.
 
-### Getting Started
+---
 
-- **[📖 README.md](../README.md)** - Main project overview and quick start
-- **[🔧 Installation Guide](../INSTALLATION.md)** - Setup instructions and options
-- **[👥 User Guide](guides/user-guide.md)** - Complete usage tutorial
+## 🚀 Getting Started
 
-### CLI & Python
+New to NLP2CMD? Start here:
 
-- **[🧰 CLI Reference](cli-reference.md)** - Command line usage
-- **[🐍 Python API Guide](python-api.md)** - Programmatic usage
-- **[🧪 Examples Guide](examples-guide.md)** - Examples overview
-- **[⚡ Quick Fix Reference](quick-fix-reference.md)** - Common issues and solutions
+- **[Main README](../README.md)** - Project overview and quick start
+- **[Installation Guide](../INSTALLATION.md)** - Setup instructions
+- **[User Guide](user-guide/user-guide.md)** - Complete usage tutorial
 
-### API & Technical Documentation
+---
 
-- **[🔌 API Reference](api/README.md)** - Detailed API documentation
-- **[🔍 Exploration Guide](EXPLORATION_GUIDE.md)** - Resource discovery across web/disk/services/data
-- **[🔬 Thermodynamic Integration](../THERMODYNAMIC_INTEGRATION.md)** - Advanced optimization guide
-- **[🏗️ Thermodynamic Architecture](../THERMODYNAMIC_ARCHITECTURE.md)** - Deep technical architecture
-- **[🧪 Thermodynamic Use Cases](THERMODYNAMIC_USE_CASES.md)** - Concrete solutions & benefits
-- **[⚙️ Generation Module](../README_GENERATION.md)** - DSL generation implementation
+## 📖 Reference Documentation
 
-### Development & Contributing
+### CLI & API
 
-- **[🤝 Contributing Guide](../CONTRIBUTING.md)** - Development guidelines
-- **[🛠️ Maintainers](maintainers/README.md)** - Maintainer notes and project docs
-- **[📋 Project History](maintainers/PROJECT_HISTORY.md)** - Development timeline
-- **[🔄 Changelog](../CHANGELOG.md)** - Version history and changes
+- **[CLI Reference](reference/cli-reference.md)** - Command-line interface
+- **[Python API](reference/python-api.md)** - Programmatic usage
+- **[Examples](reference/examples-guide.md)** - Code examples and use cases
 
-### Maintainer Quick Links
+### Architecture
 
-- **[📋 TODO](maintainers/TODO.md)** - Current maintainer tasks
-- **[🔄 Refactoring Plan](maintainers/REFACTORING_PLAN.md)** - Ongoing refactoring work
-- **[📝 Refactoring Summary](maintainers/REFACTORING_SUMMARY.md)** - Completed refactoring
-- **[📄 Documentation Updates](maintainers/DOCUMENTATION_UPDATE.md)** - Docs changelog
+- **[Schema System](architecture/schema-system.md)** - Schema extraction and generation
+- **[Thermodynamic Computing](architecture/thermodynamic-computing.md)** - Energy-based optimization
+- **[Canvas Drawing](architecture/CANVAS_DRAWING.md)** - Browser canvas automation
+- **[Desktop GUI](architecture/DESKTOP_GUI_AUTOMATION.md)** - Desktop automation
+- **[Web Automation](architecture/web-automation.md)** - Browser automation guides
+- **[Keyword Detection](architecture/KEYWORD_DETECTION_FLOW.md)** - NLP intent detection
 
-### Examples & Use Cases
+### Development
 
-- **[🚀 Use Cases](../examples/use_cases/README.md)** - Real-world examples by domain
-- **[💡 Basic Examples](../examples/)** - Simple getting started examples
+- **[Service Mode](development/SERVICE_MODE.md)** - Running as a service
+- **[Benchmarking](development/BENCHMARKING.md)** - Performance testing
+- **[Firefox Session Injection](development/FIREFOX_SESSION_INJECTION.md)** - Browser state management
+- **[Stream Protocols](development/STREAM_PROTOCOLS.md)** - Streaming architecture
 
-### Schemas & Command Systems
+### API Reference
 
-- **[Schema Systems](SCHEMA_SYSTEMS.md)** - Overview of schema subsystems
-- **[Schema Usage Guide](SCHEMA_USAGE_GUIDE.md)** - Practical usage and flows
-- **[Schema Complete Guide](SCHEMA_COMPLETE_GUIDE.md)** - Deep dive
-- **[Versioned Schemas](VERSIONED_SCHEMAS.md)** - Versioning and evolution
-- **[Schema-Based Generation](SCHEMA_BASED_GENERATION.md)** - Schema-driven generation
-- **[LLM Schema Generation](LLM_SCHEMA_GENERATION.md)** - LLM-assisted schema generation
+- **[API Docs](api/README.md)** - Detailed API documentation
 
 ---
 
 ## 🗂️ Documentation Structure
 
-```text
+```
 docs/
-├── README.md                    # This file - documentation hub
-├── api/
-│   └── README.md               # API reference documentation
-├── cli-reference.md            # CLI documentation
-├── python-api.md               # Python API guide
-├── examples-guide.md           # Examples overview
-├── THERMODYNAMIC_USE_CASES.md  # Thermodynamic use cases & benefits
-├── SCHEMA_SYSTEMS.md           # Schema systems overview
-├── SCHEMA_USAGE_GUIDE.md       # Schema usage
-├── SCHEMA_COMPLETE_GUIDE.md    # Schema deep dive
-├── VERSIONED_SCHEMAS.md        # Schema versioning
-├── SCHEMA_BASED_GENERATION.md  # Schema-based generation
-├── LLM_SCHEMA_GENERATION.md    # LLM schema generation
-├── maintainers/
-│   ├── PROJECT_HISTORY.md       # Project timeline and context
-│   ├── REFACTORING_PLAN.md      # Maintainer refactoring plan
-│   ├── REFACTORING_SUMMARY.md   # Refactoring summary
-│   ├── IMPROVEMENTS.md          # Improvement notes
-│   ├── DOCUMENTATION_UPDATE.md  # Documentation changes log
-│   ├── SCHEMA_CONSOLIDATION_SUMMARY.md # Schema consolidation notes
-│   ├── TEST_SCRIPTS_README.md   # Test scripts documentation
-│   └── TODO.md                  # Maintainer TODO list
-└── guides/
-    └── user-guide.md           # Complete user tutorial
-
-# Root documentation files
-├── README.md                   # Main project overview
-├── INSTALLATION.md             # Setup instructions
-├── CONTRIBUTING.md             # Development guidelines
-├── THERMODYNAMIC_INTEGRATION.md # Advanced optimization
-├── THERMODYNAMIC_ARCHITECTURE.md # Technical architecture
-└── README_GENERATION.md        # Generation module details
-
-# Examples
-examples/
-├── sql/                        # SQL examples
-├── shell/                      # Shell examples
-├── docker/                     # Docker examples
-├── kubernetes/                 # K8s examples
-├── architecture/               # Architecture demos
-├── pipelines/                  # Pipeline examples
-├── validation/                 # Validation examples
-└── use_cases/                  # Domain-specific examples
+├── README.md                    # This file
+├── architecture/                # System architecture docs
+│   ├── schema-system.md        # Consolidated schema docs
+│   ├── thermodynamic-computing.md # Consolidated thermodynamic docs
+│   ├── CANVAS_DRAWING.md
+│   ├── DESKTOP_GUI_AUTOMATION.md
+│   ├── web-automation.md
+│   └── KEYWORD_DETECTION_FLOW.md
+├── development/                 # Developer docs
+│   ├── SERVICE_MODE.md
+│   ├── BENCHMARKING.md
+│   ├── FIREFOX_SESSION_INJECTION.md
+│   └── STREAM_PROTOCOLS.md
+├── reference/                   # API & usage reference
+│   ├── cli-reference.md
+│   ├── python-api.md
+│   └── examples-guide.md
+├── user-guide/                  # User tutorials
+│   └── user-guide.md
+├── api/                         # Detailed API docs
+│   └── README.md
+└── maintainers/                 # Maintainer docs
+    ├── PROJECT_HISTORY.md
+    ├── TODO.md
+    └── README.md
 ```
 
 ---
 
-## 🎯 Documentation by Use Case
+## 🔗 Root Documentation
 
-### 🔰 New Users
+Files in repository root:
 
-1. Start with [README.md](../README.md) for overview
-2. Follow [Installation Guide](../INSTALLATION.md) for setup
-3. Read [User Guide](guides/user-guide.md) for complete tutorial
-4. Try [Basic Examples](../examples/) for hands-on learning
-
-### 🔧 Developers
-
-1. Review [API Reference](api/README.md) for integration
-2. Study [Thermodynamic Integration](../THERMODYNAMIC_INTEGRATION.md) for advanced features
-3. Follow [Contributing Guide](../CONTRIBUTING.md) for development setup
-4. Explore [Architecture](../THERMODYNAMIC_ARCHITECTURE.md) for deep understanding
-
-### 🏢 Domain-Specific Applications
-
-- **[IT & DevOps](../examples/use_cases/README.md#it--devops)** - System administration
-- **[Data Science](../examples/use_cases/README.md#data-science--ml)** - ML workflows
-- **[Healthcare](../examples/use_cases/README.md#medycyna-i-healthcare)** - Medical applications
-- **[Finance](../examples/use_cases/README.md#finanse-i-trading)** - Financial operations
-- **[Smart Cities](../examples/use_cases/README.md#smart-cities--iot)** - Urban management
-
-### 🔬 Research & Advanced Topics
-
-- **[Thermodynamic Computing](../THERMODYNAMIC_INTEGRATION.md)** - Energy-based optimization
-- **[Langevin Dynamics](../THERMODYNAMIC_ARCHITECTURE.md)** - Physics-based sampling
-- **[Energy Models](../README_GENERATION.md)** - Constraint satisfaction
-- **[Hybrid Architecture](../README_GENERATION.md)** - Multi-modal generation
-
----
-
-## 🔍 Quick Links
-
-### Core Features
-
-- **[🤖 DSL Generation](../README.md#-features)** - Natural language to commands
-- **[🔬 Thermodynamic Optimization](../THERMODYNAMIC_INTEGRATION.md)** - Advanced problem solving
-- **[🛡️ Safety & Validation](../README.md#security-features)** - Secure execution
-- **[📊 Multi-DSL Support](../README.md#-dsl-support)** - SQL, Shell, Docker, K8s, DQL
-
-### Performance & Benchmarks
-
-- **[⚡ Speed Comparison](../THERMODYNAMIC_INTEGRATION.md#performance-characteristics)** - DSL vs Thermodynamic
-- **[🔋 Energy Efficiency](../THERMODYNAMIC_INTEGRATION.md#energy-efficiency)** - Power consumption analysis
-- **[📈 Accuracy Metrics](../README_GENERATION.md#performance-comparison)** - Quality measurements
-
-### Scientific Background
-
-- **[📜 Whitelam (2025)](../THERMODYNAMIC_INTEGRATION.md#primary-sources)** - Foundational paper
-- **[🔬 Langevin Dynamics](../THERMODYNAMIC_ARCHITECTURE.md#-kontekst-framework-whitelama)** - Theoretical foundation
-- **[⚛️ Energy-Based Models](../THERMODYNAMIC_INTEGRATION.md#theoretical-background)** - Mathematical framework
+- **[README.md](../README.md)** - Main project overview
+- **[INSTALLATION.md](../INSTALLATION.md)** - Setup instructions
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Development guidelines
+- **[CHANGELOG.md](../CHANGELOG.md)** - Version history
+- **[THERMODYNAMIC_ARCHITECTURE.md](../THERMODYNAMIC_ARCHITECTURE.md)** - Deep technical architecture
+- **[THERMODYNAMIC_INTEGRATION.md](../THERMODYNAMIC_INTEGRATION.md)** - Integration guide
+- **[PROJECT_STRUCTURE.md](../PROJECT_STRUCTURE.md)** - Codebase overview
 
 ---
 
 ## 📞 Getting Help
 
-### Documentation Issues
-
-- Found an error? Open an issue on [GitHub](https://github.com/wronai/nlp2cmd/issues)
-- Missing information? Check [Contributing Guide](../CONTRIBUTING.md)
-
-### Community & Support
-
-- **[Examples Repository](../examples/)** - Community-contributed examples
-- **[Use Case Library](../examples/use_cases/)** - Domain-specific applications
-- **[API Reference](api/README.md)** - Integration help
-
-### Development Support
-
-- **[Contributing Guide](../CONTRIBUTING.md)** - Development setup
-- **[Project History](maintainers/PROJECT_HISTORY.md)** - Context and evolution
-- **[Architecture Docs](../THERMODYNAMIC_ARCHITECTURE.md)** - Technical deep-dive
+- **Issues**: [GitHub Issues](https://github.com/wronai/nlp2cmd/issues)
+- **Examples**: [examples/](../examples/) directory
+- **Maintainers**: [maintainers/](maintainers/) docs
 
 ---
 
-*Last updated: 2026-01-23*  
-*For the latest version, visit [github.com/wronai/nlp2cmd](https://github.com/wronai/nlp2cmd)*
+*Last updated: 2026-03-16*
+*For latest version: [github.com/wronai/nlp2cmd](https://github.com/wronai/nlp2cmd)*

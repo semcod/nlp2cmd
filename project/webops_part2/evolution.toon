@@ -1,0 +1,58 @@
+# code2llm/evolution | 2117 func | 184f | 2026-03-04
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT           nlp2cmd-repo/src/nlp2cmd/cli/main.py
+      WHY: 1967L, 1 classes, max CC=123
+      EFFORT: ~4h  IMPACT: 241941
+
+  [2] !! SPLIT           nlp2cmd-repo/src/nlp2cmd/adapters/shell.py
+      WHY: 1933L, 3 classes, max CC=63
+      EFFORT: ~4h  IMPACT: 121779
+
+  [3] !! SPLIT           nlp2cmd-repo/src/nlp2cmd/schema_extraction/__init__.py
+      WHY: 1960L, 9 classes, max CC=55
+      EFFORT: ~4h  IMPACT: 107800
+
+  [4] !! SPLIT-FUNC      _handle_run_query  CC=123  fan=73
+      WHY: CC=123 exceeds 15
+      EFFORT: ~1h  IMPACT: 8979
+
+  [5] !! SPLIT-FUNC      TemplateGenerator._prepare_shell_entities  CC=164  fan=24
+      WHY: CC=164 exceeds 15
+      EFFORT: ~1h  IMPACT: 3936
+
+  [6] !! SPLIT-FUNC      PipelineRunner._run_dom_multi_action  CC=48  fan=52
+      WHY: CC=48 exceeds 15
+      EFFORT: ~1h  IMPACT: 2496
+
+  [7] !! SPLIT-FUNC      _extract_web_dom_schema  CC=45  fan=37
+      WHY: CC=45 exceeds 15
+      EFFORT: ~1h  IMPACT: 1665
+
+  [8] !! SPLIT-FUNC      main  CC=36  fan=40
+      WHY: CC=36 exceeds 15
+      EFFORT: ~1h  IMPACT: 1440
+
+  [9] !! SPLIT-FUNC      FeedbackAnalyzer.analyze  CC=41  fan=32
+      WHY: CC=41 exceeds 15
+      EFFORT: ~1h  IMPACT: 1312
+
+  [10] !! SPLIT-FUNC      DockerValidator.validate  CC=50  fan=24
+      WHY: CC=50 exceeds 15
+      EFFORT: ~1h  IMPACT: 1200
+
+
+RISKS[3]:
+  ⚠ Splitting nlp2cmd-repo/src/nlp2cmd/cli/main.py may break 27 import paths
+  ⚠ Splitting nlp2cmd-repo/src/nlp2cmd/schema_extraction/__init__.py may break 45 import paths
+  ⚠ Splitting nlp2cmd-repo/src/nlp2cmd/adapters/shell.py may break 36 import paths
+
+METRICS-TARGET:
+  CC̄:          5.9 → ≤4.1
+  max-CC:      187 → ≤20
+  god-modules: 56 → 0
+  high-CC(≥15): 176 → ≤88
+  hub-types:   0 → ≤0
+
+HISTORY:
+  (first run — no previous data)

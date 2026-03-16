@@ -5,10 +5,10 @@ This guide provides comprehensive documentation for the NLP2CMD Command Line Int
 ## 📚 Related Documentation
 
 - **[Documentation Hub](README.md)** - Entry point for all docs
-- **[User Guide](guides/user-guide.md)** - Complete usage tutorial
-- **[Python API Guide](python-api.md)** - Programmatic usage
+- **[User Guide](../user-guide/user-guide.md)** - Complete usage tutorial
+- **[Python API Guide](../reference/python-api.md)** - Programmatic usage
 - **[API Reference](api/README.md)** - Detailed API documentation
-- **[Examples Guide](examples-guide.md)** - Examples overview
+- **[Examples Guide](../reference/examples-guide.md)** - Examples overview
 
 ## Installation
 
@@ -407,6 +407,6 @@ nlp2cmd --dsl docker --query "show container status" >> health_report.txt
 
 ## See Also
 
-- [Python API Guide](python-api.md) - Programmatic usage
-- [Examples Guide](examples-guide.md) - Comprehensive examples
-- [User Guide](guides/user-guide.md) - Complete tutorial
+- [Python API Guide](../reference/python-api.md) - Programmatic usage
+- [Examples Guide](../reference/examples-guide.md) - Comprehensive examples
+- [User Guide](../user-guide/user-guide.md) - Complete tutorial

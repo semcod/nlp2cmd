@@ -5,9 +5,9 @@ This guide provides a comprehensive overview of all NLP2CMD examples, organized 
 ## 📚 Related Documentation
 
 - **[Documentation Hub](README.md)** - Entry point for all docs
-- **[User Guide](guides/user-guide.md)** - Complete usage tutorial
-- **[CLI Reference](cli-reference.md)** - Command line usage
-- **[Python API Guide](python-api.md)** - Programmatic usage
+- **[User Guide](../user-guide/user-guide.md)** - Complete usage tutorial
+- **[CLI Reference](../reference/cli-reference.md)** - Command line usage
+- **[Python API Guide](../reference/python-api.md)** - Programmatic usage
 
 ## 🗂️ Examples Structure
 
@@ -660,9 +660,9 @@ When contributing examples:
 
 ## 📚 Additional Resources
 
-- [CLI Reference](cli-reference.md) - Complete CLI documentation
-- [Python API Guide](python-api.md) - Detailed API usage
-- [User Guide](guides/user-guide.md) - Complete tutorial
+- [CLI Reference](../reference/cli-reference.md) - Complete CLI documentation
+- [Python API Guide](../reference/python-api.md) - Detailed API usage
+- [User Guide](../user-guide/user-guide.md) - Complete tutorial
 - [Thermodynamic Integration](../THERMODYNAMIC_INTEGRATION.md) - Advanced optimization
 
 ## 🆘 Getting Help
