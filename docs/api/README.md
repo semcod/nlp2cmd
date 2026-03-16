@@ -89,8 +89,9 @@ Result of a transformation operation.
 | `dsl_type` | `str` | DSL type name |
 | `errors` | `list[str]` | Error messages |
 | `warnings` | `list[str]` | Warning messages |
-| `suggestions` | `list[str]` | Improvement suggestions |
-| `alternatives` | `list[str]` | Alternative commands |
+| `metadata` | `dict` | Additional metadata |
+| `entities` | `dict` | Extracted entities |
+| `intent` | `str` | Detected intent |
 
 #### Properties
 
@@ -245,6 +246,58 @@ adapter = DQLAdapter(
             "Order": {"fields": ["id", "user_id", "total"]}
         }
     }
+)
+```
+
+---
+
+### BrowserAdapter
+
+Browser automation adapter using Playwright.
+
+```python
+from nlp2cmd import BrowserAdapter
+
+adapter = BrowserAdapter(
+    headless=True,
+    browser="chromium",
+    timeout=30000
+)
+```
+
+#### Supported Browsers
+
+- `chromium`
+- `firefox`
+- `webkit`
+
+---
+
+### DesktopAdapter
+
+Desktop GUI automation adapter.
+
+```python
+from nlp2cmd import DesktopAdapter
+
+adapter = DesktopAdapter(
+    platform="linux",
+    backend="xdotool"
+)
+```
+
+---
+
+### CanvasAdapter
+
+Canvas drawing adapter for web-based drawing tools.
+
+```python
+from nlp2cmd import CanvasAdapter
+
+adapter = CanvasAdapter(
+    default_site="jspaint",
+    color_support=True
 )
 ```
 
@@ -422,6 +475,169 @@ config = LangevinConfig(
     dim=64,              # Latent dimension
     record_trajectory=True,
 )
+```
+
+---
+
+## LLM as Planner Architecture
+
+### DecisionRouter
+
+Routes requests to direct execution or LLM planner based on complexity.
+
+```python
+from nlp2cmd import DecisionRouter, RouterConfig
+
+router = DecisionRouter(RouterConfig(
+    use_llm_for_complex=True,
+    complexity_threshold=0.7
+))
+
+result = router.route("Create a complex dashboard with charts")
+```
+
+### ActionRegistry
+
+Registry of available actions with schema validation.
+
+```python
+from nlp2cmd import get_registry, ActionSchema
+
+registry = get_registry()
+
+# Register new action
+registry.register("custom_action", ActionSchema(
+    name="custom_action",
+    description="Custom action description",
+    parameters=[...]
+))
+
+# List actions
+actions = registry.list_actions()
+```
+
+### LLMPlanner
+
+Generates multi-step execution plans using LLM.
+
+```python
+from nlp2cmd import LLMPlanner, PlannerConfig
+
+planner = LLMPlanner(PlannerConfig(
+    model="gpt-4",
+    max_steps=10
+))
+
+plan = await planner.plan("Deploy application to production")
+```
+
+### PlanExecutor
+
+Executes validated plans with error handling.
+
+```python
+from nlp2cmd import PlanExecutor
+
+executor = PlanExecutor()
+
+# Execute plan
+result = await executor.execute(plan)
+
+# Execute with context
+result = await executor.execute(plan, context={
+    "workspace": "/path/to/project"
+})
+```
+
+### ResultAggregator
+
+Aggregates and formats execution results.
+
+```python
+from nlp2cmd import ResultAggregator, OutputFormat
+
+aggregator = ResultAggregator()
+
+# Aggregate results
+aggregated = aggregator.aggregate(results)
+
+# Format output
+formatted = aggregator.format(aggregated, OutputFormat.MARKDOWN)
+```
+
+---
+
+## Evolutionary Orchestrator
+
+### EvolutionaryRecoveryEngine
+
+Advanced error recovery with evolutionary strategies.
+
+```python
+from nlp2cmd import EvolutionaryRecoveryEngine, RecoveryStrategy
+
+recovery = EvolutionaryRecoveryEngine()
+
+# Recover from failure
+result = await recovery.recover(
+    failed_command="docker run invalid_image",
+    error="image not found",
+    strategy=RecoveryStrategy.ADAPTIVE
+)
+```
+
+### AutonomousExampleRunner
+
+Runs autonomous examples with self-healing.
+
+```python
+from nlp2cmd import AutonomousExampleRunner
+
+runner = AutonomousExampleRunner()
+
+# Run example with recovery
+result = await runner.run_example(
+    example_path="examples/complex_automation.py",
+    enable_recovery=True
+)
+```
+
+---
+
+## Additional Components
+
+### Schema Extraction
+
+```python
+from nlp2cmd.schema_extraction import SchemaRegistry
+
+registry = SchemaRegistry(
+    use_per_command_storage=True,
+    storage_dir="./command_schemas"
+)
+
+# Extract from command help
+schema = registry.register_shell_help("docker")
+
+# Extract from OpenAPI
+schema = registry.register_openapi_schema("https://api.example.com/openapi.json")
+```
+
+### LLM Router
+
+```python
+from nlp2cmd.llm import get_router, classify_task
+
+router = get_router()
+
+# Route task to appropriate model
+response = await router.route(
+    task="coding",
+    prompt="Write a Python function"
+)
+
+# Classify task type
+task_type = classify_task("Draw a red circle")
 ```
 
 ---

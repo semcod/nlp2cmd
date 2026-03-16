@@ -1,673 +1,337 @@
 # Examples Guide
 
-This guide provides a comprehensive overview of all NLP2CMD examples, organized by use case and complexity.
+This guide provides a comprehensive overview of all NLP2CMD examples, organized by category and complexity.
 
 ## 📚 Related Documentation
 
-- **[Documentation Hub](README.md)** - Entry point for all docs
+- **[Documentation Hub](../README.md)** - Entry point for all docs
 - **[User Guide](../user-guide/user-guide.md)** - Complete usage tutorial
-- **[CLI Reference](../reference/cli-reference.md)** - Command line usage
-- **[Python API Guide](../reference/python-api.md)** - Programmatic usage
+- **[API Reference](../api/README.md)** - Detailed API documentation
+- **[Python API Guide](python-api.md)** - Programmatic usage
 
 ## 🗂️ Examples Structure
 
 ```text
 examples/
-├── thermodynamic_example.py     # Standalone thermodynamic demo
-├── use_cases/                    # Real-world scenarios
-│   ├── shell_commands_demo.sh    # Complete CLI examples
-│   ├── simple_demo_examples.py   # Python API + Shell concepts
-│   ├── complete_python_shell_examples.py # Full Python API
-│   ├── dsl_commands_demo.py      # Direct DSL generation
-│   ├── devops_automation.py      # DevOps workflows
-│   ├── data_science_ml.py        # Data science workflows
-│   ├── drug_discovery.py          # Drug discovery workflows
-│   ├── healthcare.py             # Healthcare applications
-│   ├── finance_trading.py         # Financial operations
-│   ├── smart_cities.py           # Urban management
-│   └── ...
-├── architecture/                 # System architecture demos
-│   └── end_to_end_demo.py       # Complete workflow
-├── sql/                         # SQL examples
-│   ├── basic_sql.py            # Simple queries
-│   ├── advanced_sql.py         # Complex queries
-│   └── sql_workflows.py        # SQL pipelines
-├── shell/                       # Shell examples
-│   ├── basic_shell.py          # Common operations
-│   ├── feedback_loop.py        # Interactive feedback
-│   └── environment_analysis.py # System analysis
-├── docker/                      # Docker examples
-│   ├── basic_docker.py         # Container operations
-│   └── file_repair.py          # Dockerfile repair
-├── kubernetes/                  # Kubernetes examples
-│   └── basic_kubernetes.py     # K8s operations
-├── pipelines/                   # Pipeline examples
-│   ├── log_analysis.py         # Log processing
-│   └── infrastructure_health.py # System monitoring
-└── validation/                  # Validation examples
-    └── config_validation.py    # File validation
+├── 01_basics/                     # Fundamental examples and getting started
+│   ├── app2schema/               # AppSpec generation from applications
+│   ├── docker_basics/            # Docker command examples
+│   └── kubernetes_basics/        # Kubernetes basics
+├── 02_benchmarks/                # Performance testing and benchmarking
+│   ├── performance_testing/      # Performance measurement tools
+│   └── sequential_testing/       # Sequential test execution
+├── 03_integrations/              # Integration with external systems
+│   ├── pipelines/                # Pipeline integrations
+│   ├── toon_format/              # Toon format examples
+│   └── validation/               # Validation integrations
+├── 04_domain_specific/           # Domain-specific use cases
+│   ├── bioinformatics/           # Bioinformatics workflows
+│   ├── data_science/             # Data science examples
+│   ├── debugging/                # Debugging workflows
+│   └── [10 more domains...]      # Various specialized domains
+├── 05_advanced_features/         # Advanced features and experimental
+│   ├── thermodynamic/            # Thermodynamic optimization
+│   └── [other features...]       # Advanced capabilities
+├── 06_desktop_automation/        # Desktop GUI automation
+│   ├── 04_browser_tabs/          # Browser tab management
+│   ├── 05_email_client/          # Email automation
+│   ├── 06_env_extract/           # API key extraction
+│   ├── 07_canvas_drawing/        # Canvas drawing automation
+│   ├── 08_captcha_solver/        # CAPTCHA solving
+│   └── 09_complex_commands/      # Complex command planning
+├── 07_browser_automation/        # Browser automation examples
+│   └── [browser examples...]     # Web automation workflows
+├── 08_api_key_management/        # API key management tools
+│   └── [key management...]       # Secure key handling
+├── 09_online_drawing/            # Online drawing automation
+│   ├── 01_draw_chat/             # Draw.chat automation
+│   ├── 02_picsart/               # Picsart drawing
+│   ├── 03_adaptive/              # Adaptive drawing
+│   ├── 04_object_database/       # Object database usage
+│   ├── 05_autonomous/            # Autonomous drawing
+│   ├── 06_visual_validator/      # Visual validation
+│   ├── 07_shape_gallery/         # Shape gallery demo
+│   └── [more drawing examples...] # Advanced drawing features
+├── 10_online_code_editors/       # Online code editor automation
+│   ├── 01_codepen_live/          # CodePen automation
+│   ├── 02_mycompiler_run/        # MyCompiler.io automation
+│   ├── 03_adaptive_code/         # Adaptive code generation
+│   ├── 04_jsfiddle_frontend/     # JSFiddle automation
+│   └── 05_dynamic_executor/      # Dynamic code execution
+├── _dynamic_orchestrator.py      # Dynamic orchestrator demo
+├── run_examples.sh               # Script to run all examples
+└── README.md                     # This file
 ```
 
 ## 🚀 Quick Start Examples
 
-### 1. CLI Usage Examples
+### 1. Basics - Getting Started
 
-**File:** `examples/use_cases/shell_commands_demo.sh`
-
-The fastest way to see NLP2CMD in action:
+**Location:** `examples/01_basics/`
 
 ```bash
-# Run the complete CLI demo
-./examples/use_cases/shell_commands_demo.sh
+# AppSpec generation
+cd examples/01_basics/app2schema
+python appspec_demo.py
+
+# Docker basics
+cd examples/01_basics/docker_basics
+python docker_demo.py
+
+# Kubernetes basics
+cd examples/01_basics/kubernetes_basics
+python k8s_demo.py
+```
+
+**What you'll learn:**
+- Basic NLP2CMD concepts
+- AppSpec file generation
+- Docker command generation
+- Kubernetes resource management
+
+### 2. Desktop Automation
+
+**Location:** `examples/06_desktop_automation/`
+
+```bash
+# Browser tab management
+cd examples/06_desktop_automation/04_browser_tabs
+bash run.sh
+
+# Canvas drawing
+cd examples/06_desktop_automation/07_canvas_drawing
+python canvas_demo.py
+
+# Complex command planning
+cd examples/06_desktop_automation/09_complex_commands
+python complex_planner.py
+```
+
+**What you'll learn:**
+- Desktop GUI automation
+- Browser automation
+- Canvas drawing techniques
+- Complex command planning
+
+### 3. Online Drawing
+
+**Location:** `examples/09_online_drawing/`
+
+```bash
+# Run all drawing examples
+cd examples/09_online_drawing
+./run.sh
 
 # Individual examples
-nlp2cmd --query "Pokaż użytkowników"
-nlp2cmd --dsl docker --query "Pokaż wszystkie kontenery"
-nlp2cmd --dsl shell --query "Znajdź pliki .log większe niż 10MB"
-nlp2cmd analyze-env
+./run.sh 01_draw_chat
+./run.sh 02_picsart
+./run.sh 03_adaptive
 ```
 
 **What you'll learn:**
+- Web-based drawing automation
+- Shape recognition and generation
+- Visual validation
+- Autonomous drawing workflows
 
-- Basic CLI syntax
-- Different DSL types
-- Environment analysis
-- File validation
+### 4. Online Code Editors
 
-### 2. Python API Concepts
-
-**File:** `examples/use_cases/simple_demo_examples.py`
-
-Conceptual overview without installation requirements:
+**Location:** `examples/10_online_code_editors/`
 
 ```bash
-python3 examples/use_cases/simple_demo_examples.py
+# CodePen automation
+cd examples/10_online_code_editors/01_codepen_live
+python run.py
+
+# Dynamic code execution
+cd examples/10_online_code_editors/05_dynamic_executor
+python run.py --prompt "Write fibonacci in python"
 ```
 
 **What you'll learn:**
+- Online code editor automation
+- Dynamic code generation
+- Code injection techniques
+- Output validation
 
-- Python API concepts
-- Shell command patterns
-- Mixed workflow approaches
-- Real-world use cases
+### 5. Dynamic Orchestrator
 
-### 3. Complete Python API
+**File:** `examples/_dynamic_orchestrator.py`
 
-**File:** `examples/use_cases/complete_python_shell_examples.py`
-
-Full Python API with actual functionality:
-
-```python
-from nlp2cmd.generation import HybridThermodynamicGenerator
-
-generator = HybridThermodynamicGenerator()
-
-# DSL generation
-result = await generator.generate("Pokaż użytkowników")
-
-# Thermodynamic optimization
-result = await generator.generate("Zoptymalizuj przydzielanie zasobów")
+```bash
+python examples/_dynamic_orchestrator.py --prompt "Create a dashboard with charts"
 ```
 
 **What you'll learn:**
-
-- HybridThermodynamicGenerator usage
-- DSL vs thermodynamic routing
-- Context-aware queries
-- Performance patterns
-
-### 4. Thermodynamic Computing Demo
-
-**File:** `examples/thermodynamic_example.py`
-
-Focused walkthrough of Langevin sampling, energy estimation, and routing:
-
-```bash
-python3 examples/thermodynamic_example.py
-```
-
-**Companion example:** `examples/use_cases/drug_discovery.py` for molecule optimization.
-
-## 📚 Domain-Specific Examples
-
-### SQL Examples
-
-**Basic SQL** (`examples/sql/basic_sql.py`)
-
-```python
-from nlp2cmd import NLP2CMD, SQLAdapter
-
-nlp = NLP2CMD(adapter=SQLAdapter(dialect="postgresql"))
-
-# Simple queries
-result = nlp.transform("Pokaż wszystkich użytkowników")
-print(result.command)  # SELECT * FROM users;
-
-# Complex queries
-result = nlp.transform("Pokaż użytkowników z Warszawy, którzy zarejestrowali się w ostatnim miesiącu")
-print(result.command)  # SELECT * FROM users WHERE city = 'Warszawa' AND created_at >= NOW() - INTERVAL '1 month';
-```
-
-**Advanced SQL** (`examples/sql/advanced_sql.py`)
-
-- Joins and subqueries
-- Aggregation functions
-- Window functions
-- Complex filtering
-
-### Shell Examples
-
-**Basic Shell** (`examples/shell/basic_shell.py`)
-
-```python
-from nlp2cmd import NLP2CMD, ShellAdapter
-
-nlp = NLP2CMD(adapter=ShellAdapter())
-
-# File operations
-result = nlp.transform("Znajdź pliki większe niż 100MB")
-print(result.command)  # find . -size +100M -type f
-
-# Process management
-result = nlp.transform("Pokaż procesy zużywające najwięcej pamięci")
-print(result.command)  # ps aux --sort=-%mem | head
-```
-
-**Environment Analysis** (`examples/shell/environment_analysis.py`)
-
-- System monitoring
-- Resource usage
-- Network analysis
-- Security checks
-
-### Docker Examples
-
-**Basic Docker** (`examples/docker/basic_docker.py`)
-
-```python
-from nlp2cmd import NLP2CMD, DockerAdapter
-
-nlp = NLP2CMD(adapter=DockerAdapter())
-
-# Container operations
-result = nlp.transform("Pokaż wszystkie kontenery")
-print(result.command)  # docker ps -a
-
-# Image management
-result = nlp.transform("Usuń nieużywane obrazy Docker")
-print(result.command)  # docker image prune -f
-```
-
-### Kubernetes Examples
-
-**Basic Kubernetes** (`examples/kubernetes/basic_kubernetes.py`)
-
-```python
-from nlp2cmd import NLP2CMD, KubernetesAdapter
-
-nlp = NLP2CMD(adapter=KubernetesAdapter())
-
-# Deployment operations
-result = nlp.transform("Skaluj deployment nginx do 3 replik")
-print(result.command)  # kubectl scale deployment nginx --replicas=3
-
-# Status checking
-result = nlp.transform("Pokaż wszystkie pody w namespace default")
-print(result.command)  # kubectl get pods -n default
-```
-
-## 🏭 Real-World Use Cases
-
-### DevOps Automation
-
-**File:** `examples/use_cases/devops_automation.py`
-
-```python
-from nlp2cmd.generation import HybridThermodynamicGenerator
-
-async def devops_workflow():
-    generator = HybridThermodynamicGenerator()
-    
-    # System health check
-    health = await generator.generate("Sprawdź status wszystkich usług")
-    
-    # Log analysis
-    logs = await generator.generate("Znajdź błędy w logach aplikacji")
-    
-    # Resource optimization
-    optimization = await generator.generate("Zoptymalizuj zużycie zasobów")
-    
-    return {
-        "health": health,
-        "logs": logs,
-        "optimization": optimization
-    }
-```
-
-**Scenarios covered:**
-
-- System monitoring
-- Log analysis
-- Resource optimization
-- Automated deployments
-- Backup procedures
-
-### Data Science & ML
-
-**File:** `examples/use_cases/data_science_ml.py`
-
-```python
-# Data analysis workflows
-result = await generator.generate("Analizuj trendy sprzedaży z ostatniego kwartału")
-
-# Model optimization
-result = await generator.generate("Zoptymalizuj hiperparametry modelu")
-
-# Data preprocessing
-result = await generator.generate("Wyczyść i przygotuj dane do analizy")
-```
-
-**Scenarios covered:**
-
-- Data analysis
-- Model training
-- Feature engineering
-- Data validation
-- Pipeline automation
-
-### Healthcare Applications
-
-**File:** `examples/use_cases/healthcare.py`
-
-```python
-# Patient data analysis
-result = await generator.generate("Analizuj dane pacjentów z grupy ryzyka")
-
-# Treatment optimization
-result = await generator.generate("Zoptymalizuj harmonogram leczenia")
-
-# Resource allocation
-result = await generator.generate("Rozdziel personel medyczny zgodnie z obciążeniem")
-```
-
-**Scenarios covered:**
-
-- Patient data analysis
-- Treatment scheduling
-- Resource optimization
-- Medical imaging
-- Clinical workflows
-
-### Finance & Trading
-
-**File:** `examples/use_cases/finance_trading.py`
-
-```python
-# Portfolio optimization
-result = await generator.generate("Zoptymalizuj portfel inwestycyjny")
-
-# Risk analysis
-result = await generator.generate("Analizuj ryzyko kredytowe")
-
-# Trading strategies
-result = await generator.generate("Zaproponuj strategię handlową")
-```
-
-**Scenarios covered:**
-
-- Portfolio optimization
-- Risk assessment
-- Trading algorithms
-- Fraud detection
-- Compliance checking
-
-### Smart Cities
-
-**File:** `examples/use_cases/smart_cities.py`
-
-```python
-# Traffic optimization
-result = await generator.generate("Zoptymalizaj sygnalizację świetlną")
-
-# Energy management
-result = await generator.generate("Zarządzaj zużyciem energii w mieście")
-
-# Public transport
-result = await generator.generate("Zaplanuj trasy transportu publicznego")
-```
-
-**Scenarios covered:**
-
-- Traffic management
-- Energy optimization
-- Public transport
-- Waste management
-- Urban planning
-
-## 🌐 Browser Automation Examples (v1.0.85+)
-
-### API Key Extraction (Known Services — No LLM)
-
-```bash
-# Extract API key from OpenRouter and save to .env
-nlp2cmd -r "otwórz openrouter.ai i wyciągnij klucz API, zapisz do .env"
-
-# Same for Anthropic
-nlp2cmd -r "wyciągnij klucz API z anthropic i zapisz do .env"
-
-# GitHub token
-nlp2cmd -r "pobierz token z github i zapisz do .env"
-```
-
-Supported services (rule-based, 0ms overhead): OpenRouter, Anthropic, OpenAI, GitHub, HuggingFace, Replicate.
-
-### Multi-Tab Navigation
-
-```bash
-# Open multiple tabs
-nlp2cmd -r "otwórz 3 taby: github.com, gmail.com i stackoverflow.com"
-```
-
-### Browser Automation with Video Recording
-
-```bash
-# Draw ladybug on jspaint with video recording
-nlp2cmd -r "wejdź na jspaint.app i narysuj biedronkę" --video webm
-
-# Record MP4
-nlp2cmd -r "otwórz stronę example.com i wypełnij formularz" --video mp4
-```
-
-### Multi-Step Browser Commands (Python API)
-
-```python
-from nlp2cmd.generation.complex_detector import ComplexQueryDetector
-from nlp2cmd.automation.action_planner import ActionPlanner
-
-# Detect if query is multi-step
-detector = ComplexQueryDetector()
-result = detector.analyze(
-    "otwórz przeglądarkę i stronę openrouter.ai, "
-    "wyciągnij klucz API i zapisz do .env"
-)
-print(result.is_complex)    # True
-print(result.num_intents)   # 4
-print(result.intents)       # ['browser:launch', 'browser:navigate',
-                            #  'browser:extract_data', 'browser:save_file']
-
-# Decompose into action plan
-planner = ActionPlanner()
-plan = planner.decompose_sync(
-    "otwórz openrouter.ai i wyciągnij klucz API, zapisz do .env"
-)
-for step in plan.steps:
-    print(f"  {step.action}: {step.description}")
-# navigate: Przejdź na stronę kluczy openrouter
-# extract_api_key: Wyciągnij klucz API openrouter
-# save_env: Zapisz OPENROUTER_API_KEY do .env
-```
-
-### Execute Action Plan with PipelineRunner
-
-```python
-from nlp2cmd.pipeline_runner import PipelineRunner
-
-runner = PipelineRunner(headless=False, video_fmt="webm")
-result = runner.execute_action_plan(plan, dry_run=False)
-print(result.success)
-print(result.data.get("video"))  # path to recorded video
-```
-
-### Full Pipeline with Multi-Step Detection
-
-```python
-from nlp2cmd.generation.pipeline import RuleBasedPipeline
-
-pipeline = RuleBasedPipeline()
-result = pipeline.process(
-    "otwórz openrouter.ai i wyciągnij klucz API, zapisz do .env"
-)
-
-if result.action_plan:
-    # Multi-step command detected
-    print(f"Plan: {len(result.action_plan.steps)} steps")
-    print(f"Source: {result.source}")  # "rule_decomposer" or "llm_planner"
-else:
-    # Single command
-    print(f"Command: {result.command}")
-```
-
-## 🔬 Advanced Examples
-
-### Thermodynamic Optimization Benchmarks
-
-**File:** `examples/use_cases/physics_simulations.py`
-
-```python
-from nlp2cmd.generation import HybridThermodynamicGenerator
-
-async def complex_optimization():
-    generator = HybridThermodynamicGenerator()
-    
-    # Complex scheduling problem
-    result = await generator.generate(
-        "Zaplanuj 50 zadań w 20 slotach z ograniczeniami zasobów"
-    )
-    
-    if result['source'] == 'thermodynamic':
-        print(f"Energy: {result['result'].energy}")
-        print(f"Samples: {result['result'].n_samples}")
-        print(f"Solution: {result['result'].decoded_output}")
-```
-
-### Multi-Step Workflows
-
-**File:** `examples/pipelines/log_analysis.py`
-
-```python
-from nlp2cmd import PlanExecutor, ExecutionPlan, PlanStep
-
-executor = PlanExecutor()
-
-# Multi-step log analysis pipeline
-plan = ExecutionPlan(steps=[
-    PlanStep(action="shell_find", params={"glob": "*.log"}, store_as="log_files"),
-    PlanStep(action="shell_count_pattern", foreach="log_files", 
-             params={"file": "$item", "pattern": "ERROR"}, store_as="error_counts"),
-    PlanStep(action="summarize_results", params={"data": "$error_counts"}),
-])
-
-result = executor.execute(plan)
-```
-
-### Configuration Management
-
-**File:** `examples/validation/config_validation.py`
-
-```python
-from nlp2cmd import SchemaRegistry
-
-registry = SchemaRegistry()
-
-# Validate configuration files
-validation = registry.validate(content, "docker_compose")
-
-# Repair configuration
-repair = registry.repair(content, "docker_compose", auto_fix=True)
-
-if repair["changes"]:
-    print("Fixed issues:")
-    for change in repair["changes"]:
-        print(f"  - {change['reason']}")
-```
-
-## 🎯 Learning Path
-
-### Beginner Level
-
-1. **Start with CLI examples** (`shell_commands_demo.sh`)
-   - Learn basic syntax
-   - Understand DSL types
-   - Try interactive mode
-
-2. **Conceptual overview** (`simple_demo_examples.py`)
-   - Understand Python API concepts
-   - Learn shell command patterns
-   - Explore use cases
-
-### Intermediate Level
-
-1. **Python API basics** (`complete_python_shell_examples.py`)
-   - HybridThermodynamicGenerator
-   - Context-aware queries
-   - Error handling
-
-2. **Domain-specific examples**
-   - SQL: `examples/sql/basic_sql.py`
-   - Shell: `examples/shell/basic_shell.py`
-   - Docker: `examples/docker/basic_docker.py`
-
-### Advanced Level
-
-1. **Real-world use cases**
-   - DevOps: `examples/use_cases/devops_automation.py`
-   - Data Science: `examples/use_cases/data_science_ml.py`
-   - Healthcare: `examples/use_cases/healthcare.py`
-
-2. **Complex workflows**
-   - Thermodynamic: `examples/use_cases/physics_simulations.py`
-   - Pipelines: `examples/pipelines/log_analysis.py`
-   - Architecture: `examples/architecture/end_to_end_demo.py`
-
-## 🛠️ Running Examples
-
-### Prerequisites
-
-```bash
-# Install NLP2CMD
-pip install nlp2cmd
-
-# For development mode
-cd nlp2cmd
-pip install -e .
-```
-
-### CLI Examples
-
-```bash
-# Make shell demo executable
-chmod +x examples/use_cases/shell_commands_demo.sh
-
-# Run CLI demo
-./examples/use_cases/shell_commands_demo.sh
-
-# Individual CLI commands
-nlp2cmd --query "show all users"
-nlp2cmd --dsl docker --query "list containers"
-nlp2cmd analyze-env
-```
-
-### Python Examples
-
-```bash
-# Run Python examples
-python3 examples/use_cases/simple_demo_examples.py
-python3 examples/use_cases/complete_python_shell_examples.py
-python3 examples/sql/basic_sql.py
-python3 examples/use_cases/devops_automation.py
-```
-
-### Development Mode
-
-```bash
-# Set PYTHONPATH for development
-export PYTHONPATH=/path/to/nlp2cmd/src:$PYTHONPATH
-
-# Run with development version
-python3 examples/use_cases/complete_python_shell_examples.py
-```
+- LLM-driven orchestration
+- Multi-step task planning
+- Error recovery and repair
+- Dynamic code generation
 
 ## 📊 Performance Benchmarks
 
-### DSL Generation
+**Location:** `examples/02_benchmarks/`
 
-```python
-# Simple queries: ~2-5ms
-await generator.generate("show users")
+```bash
+# Run performance tests
+cd examples/02_benchmarks/performance_testing
+python benchmark.py
 
-# Medium complexity: ~5-15ms
-await generator.generate("find files larger than 100MB modified in last week")
-
-# Complex queries: ~15-50ms
-await generator.generate("analyze system logs for security threats")
+# Sequential testing
+cd examples/02_benchmarks/sequential_testing
+python run_sequential.py
 ```
 
-### Thermodynamic Optimization
+## 🔧 Domain-Specific Examples
 
-```python
-# Simple optimization: ~100-200ms
-await generator.generate("optimize 5 tasks in 10 slots")
+**Location:** `examples/04_domain_specific/`
 
-# Medium complexity: ~200-500ms
-await generator.generate("allocate resources to 20 projects")
+Available domains:
+- **Bioinformatics** - DNA sequence analysis, protein folding
+- **Data Science** - Data processing, ML pipelines
+- **Debugging** - Code debugging workflows
+- **Finance** - Trading algorithms, risk analysis
+- **Healthcare** - Medical data processing
+- **Smart Cities** - Urban management systems
+- And many more...
 
-# Complex optimization: ~500-2000ms
-await generator.generate("optimize city traffic with 1000 intersections")
+## 🎯 Running Examples
+
+### Prerequisites
+
+1. Install NLP2CMD:
+```bash
+pip install nlp2cmd
 ```
 
-## 🔧 Customization
-
-### Adding Custom Examples
-
-1. **Create new example file**
-
-```python
-# examples/use_cases/my_custom_example.py
-from nlp2cmd.generation import HybridThermodynamicGenerator
-
-async def custom_workflow():
-    generator = HybridThermodynamicGenerator()
-    # Your custom logic here
-    pass
+2. Configure environment:
+```bash
+export NLP2CMD_MODEL="ollama/qwen2.5:7b"
+export NLP2CMD_API_BASE="http://localhost:11434"
 ```
 
-1. **Add to documentation**
-   - Update this guide
-   - Add to README examples section
-   - Include in tests if needed
+### Running Individual Examples
 
-### Extending DSL Support
+```bash
+# Navigate to example directory
+cd examples/[category]/[specific_example]
 
-```python
-# Custom adapter example
-from nlp2cmd import BaseAdapter
+# Run the example
+python example.py
 
-class CustomAdapter(BaseAdapter):
-    def transform(self, text: str, context: dict = None):
-        # Custom transformation logic
-        return "custom command"
+# Or use the run script
+./run.sh
 ```
 
-## 🤝 Contributing Examples
+### Running All Examples
 
-When contributing examples:
+```bash
+# Run all examples with the master script
+cd examples
+./run_examples.sh
 
-1. **Follow the structure** - Use existing patterns
-2. **Add documentation** - Explain the use case
-3. **Include tests** - Unit tests for new examples
-4. **Update guides** - Keep documentation current
-5. **Performance notes** - Include timing information
+# Run specific category
+./run_examples.sh --category 09_online_drawing
+
+# Run with specific options
+./run_examples.sh --headless --verbose
+```
+
+## 🛠️ Configuration
+
+Most examples support configuration via:
+
+1. **Command line arguments:**
+```bash
+python example.py --model gpt-4 --headless --verbose
+```
+
+2. **Environment variables:**
+```bash
+export NLP2CMD_MODEL="gpt-4"
+export NLP2CMD_HEADLESS="true"
+export NLP2CMD_VERBOSE="true"
+```
+
+3. **Configuration files:**
+```yaml
+# config.yaml
+model: "gpt-4"
+headless: true
+verbose: true
+timeout: 30000
+```
+
+## 📝 Example Categories Explained
+
+### 01_basics
+Fundamental examples for beginners. Learn the core concepts of NLP2CMD.
+
+### 02_benchmarks
+Performance measurement and testing tools. Evaluate system performance.
+
+### 03_integrations
+Integration examples with external systems and APIs.
+
+### 04_domain_specific
+Specialized examples for specific domains and industries.
+
+### 05_advanced_features
+Advanced and experimental features. Cutting-edge capabilities.
+
+### 06_desktop_automation
+Desktop GUI automation examples. Automate desktop applications.
+
+### 07_browser_automation
+Browser automation examples. Web scraping and automation.
+
+### 08_api_key_management
+Tools for managing API keys and credentials securely.
+
+### 09_online_drawing
+Online drawing automation. Create art on web-based drawing tools.
+
+### 10_online_code_editors
+Online code editor automation. Write and execute code in web editors.
+
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **Model not available:**
+```bash
+# Pull the model
+ollama pull qwen2.5:7b
+```
+
+2. **Permission denied:**
+```bash
+# Make scripts executable
+chmod +x examples/**/*.sh
+```
+
+3. **Missing dependencies:**
+```bash
+# Install additional dependencies
+pip install playwright
+playwright install chromium
+```
+
+### Getting Help
+
+- Check individual example READMEs
+- Review the main documentation
+- Open an issue on GitHub
+
+## 🚀 Next Steps
+
+1. Start with basics in `01_basics/`
+2. Explore your domain in `04_domain_specific/`
+3. Try advanced features in `05_advanced_features/`
+4. Build your own examples using the patterns shown
 
 ## 📚 Additional Resources
 
-- [CLI Reference](../reference/cli-reference.md) - Complete CLI documentation
-- [Python API Guide](../reference/python-api.md) - Detailed API usage
-- [User Guide](../user-guide/user-guide.md) - Complete tutorial
-- [Thermodynamic Integration](../THERMODYNAMIC_INTEGRATION.md) - Advanced optimization
-
-## 🆘 Getting Help
-
-- **Issues**: [GitHub Issues](https://github.com/wronai/nlp2cmd/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/wronai/nlp2cmd/discussions)
-- **Documentation**: [Full Docs](https://nlp2cmd.readthedocs.io/)
-- **Examples**: Browse the `examples/` directory for more
+- **[Architecture Guide](../architecture/)** - System architecture
+- **[Thermodynamic Integration](../../THERMODYNAMIC_INTEGRATION.md)** - Advanced optimization
+- **[Contributing Guide](../../CONTRIBUTING.md)** - Development guidelines

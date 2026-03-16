@@ -420,6 +420,119 @@ backend = LLMBackend(
 )
 ```
 
+## Advanced Features
+
+### LLM as Planner Architecture
+
+For complex tasks, NLP2CMD can use LLM to plan and execute multi-step operations:
+
+```python
+from nlp2cmd import DecisionRouter, LLMPlanner, PlanExecutor
+
+# Route complex tasks to LLM planner
+router = DecisionRouter()
+decision = router.route("Deploy application with zero downtime")
+
+if decision.use_llm:
+    # Generate execution plan
+    planner = LLMPlanner()
+    plan = await planner.plan(decision.input)
+    
+    # Execute the plan
+    executor = PlanExecutor()
+    result = await executor.execute(plan)
+```
+
+### Thermodynamic Optimization
+
+For complex optimization problems, use thermodynamic sampling:
+
+```python
+from nlp2cmd.generation import create_thermodynamic_generator
+
+generator = create_thermodynamic_generator(
+    n_samples=1000,
+    n_steps=500
+)
+
+# Solve scheduling problem
+result = await generator.generate(
+    "Schedule 50 tasks in 20 time slots with constraints"
+)
+
+print(result.decoded_output)
+print(f"Energy: {result.energy_estimate}")
+```
+
+### Evolutionary Recovery
+
+Automated error recovery with evolutionary strategies:
+
+```python
+from nlp2cmd import EvolutionaryRecoveryEngine
+
+recovery = EvolutionaryRecoveryEngine()
+
+# Recover from failed command
+result = await recovery.recover(
+    failed_command="docker run invalid:latest",
+    error="image not found",
+    strategy=RecoveryStrategy.ADAPTIVE
+)
+
+print(result.recovered_command)
+```
+
+### Browser Automation
+
+Automate web browsers using natural language:
+
+```python
+from nlp2cmd import BrowserAdapter, NLP2CMD
+
+adapter = BrowserAdapter(headless=True)
+nlp = NLP2CMD(adapter=adapter)
+
+# Complex browser automation
+result = nlp.transform(
+    "Open GitHub, search for nlp2cmd, and open the first result"
+)
+```
+
+### Desktop Automation
+
+Control desktop applications:
+
+```python
+from nlp2cmd import DesktopAdapter
+
+adapter = DesktopAdapter(platform="linux")
+nlp = NLP2CMD(adapter=adapter)
+
+result = nlp.transform("Open calculator and compute 2+2")
+```
+
+### Schema Extraction
+
+Learn command schemas from help text and APIs:
+
+```python
+from nlp2cmd.schema_extraction import SchemaRegistry
+
+registry = SchemaRegistry()
+
+# Extract from command help
+schema = registry.register_shell_help("kubectl")
+
+# Extract from OpenAPI
+schema = registry.register_openapi_schema(
+    "https://api.example.com/openapi.json"
+)
+
+# Use extracted schemas for better generation
+print(schema.commands[0].examples)
+```
+
 ## Creating Custom Adapters
 
 ```python

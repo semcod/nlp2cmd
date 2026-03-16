@@ -47,9 +47,9 @@ Ekstrakcja schematów z różnych źródeł:
 
 **Key Classes:**
 ```python
-from nlp2cmd.schema_extraction import DynamicSchemaRegistry
+from nlp2cmd.schema_extraction import SchemaRegistry
 
-registry = DynamicSchemaRegistry(
+registry = SchemaRegistry(
     use_per_command_storage=True,
     storage_dir="./command_schemas"
 )
@@ -57,8 +57,8 @@ registry = DynamicSchemaRegistry(
 # Extract from command help
 schema = registry.register_shell_help("docker")
 
-# Extract from AppSpec
-schema = registry.register_appspec("path/to/appspec.json")
+# Extract from OpenAPI
+schema = registry.register_openapi_schema("https://api.example.com/openapi.json")
 ```
 
 ### 2. Schema Storage (`src/nlp2cmd/storage/`)
@@ -71,12 +71,16 @@ Przechowywanie schematów w `command_schemas/`:
 **Structure:**
 ```
 command_schemas/
-├── categories/          # Schema categories
-├── commands/            # Individual command schemas  
+├── browser/            # Browser-specific schemas
+├── categories/         # Schema categories
+├── commands/           # Individual command schemas  
+├── exports/            # Exported schemas
+├── keyboard/           # Keyboard command schemas
+├── sites/              # Site-specific schemas
 ├── docker.appspec.json
 ├── docker.json
-├── index.json
-└── nginx.json
+├── nginx.json
+└── index.json
 ```
 
 ### 3. Schema-Based Generation (`src/nlp2cmd/generation/schema/`)
@@ -110,7 +114,9 @@ command = generator.generate_command('find', {'path': '/home', 'pattern': '*.py'
 
 ## Versioning
 
-Schematy wspierają wersjonowanie:
+**Note:** Wersjonowanie schematów jest obecnie ograniczone do wersji "1.0".
+
+Planowane wsparcie dla wersjonowania:
 - Major: breaking changes
 - Minor: new features
 - Patch: bug fixes
@@ -118,15 +124,20 @@ Schematy wspierają wersjonowanie:
 ```json
 {
   "command": "docker",
-  "version": "2.1.0",
-  "migration_notes": "v1→v2: --rm moved to run options"
+  "version": "1.0",
+  "migration_notes": "v1→v2: --rm moved to run options (planned)"
 }
 ```
 
 ## Integration with Pipeline
 
-Schematy są używane w pipeline NLP2CMD jako pierwszy poziom generacji:
+**Current State:** Schematy są częściowo zintegrowane z pipeline NLP2CMD:
 
+1. **Schema Extraction** - `SchemaRegistry` ekstrahuje schematy z różnych źródeł
+2. **Schema Storage** - `PerCommandSchemaStore` przechowuje schematy
+3. **Limited Integration** - `SchemaBasedGenerator` używany w nielicznych miejscach
+
+**Planned Integration:**
 1. **Schema Match** - sprawdź czy istnieje schema
 2. **Template Match** - użyj zapisanych szablonów
 3. **LLM Fallback** - generuj przez LLM jeśli brak schema
@@ -154,7 +165,7 @@ llm_config = {
 registry_config = {
     "use_per_command_storage": True,
     "storage_dir": "./command_schemas",
-    "auto_version": True
+    "use_llm": False  # Optional LLM extraction
 }
 ```
 
@@ -163,6 +174,8 @@ registry_config = {
 - **v0.2.0**: Schema extraction introduced
 - **v0.3.0**: Per-command storage added
 - **v0.4.0**: `schema_based/` → `generation/schema/` (shims)
+- **v0.5.0**: `DynamicSchemaRegistry` → `SchemaRegistry` (rename)
+- **v0.5.0**: Added support for OpenAPI, AppSpec exports, dynamic schemas
 
 ## Related Documentation
 

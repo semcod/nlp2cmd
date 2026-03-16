@@ -541,6 +541,112 @@ The system includes safety measures:
 - **No Data Transmission**: Queries processed locally
 - **Optional Telemetry**: Usage tracking disabled by default
 
+## Modern Web Automation Architecture
+
+### LLM as Planner for Web Tasks
+
+NLP2CMD now uses advanced LLM-driven planning for complex web automation:
+
+```python
+from nlp2cmd import DecisionRouter, LLMPlanner, PlanExecutor, BrowserAdapter
+
+# Route complex web tasks to LLM planner
+router = DecisionRouter()
+decision = router.route("Open GitHub, search for nlp2cmd, and open first result")
+
+if decision.use_llm:
+    # Generate multi-step plan
+    planner = LLMPlanner()
+    plan = await planner.plan(decision.input)
+    
+    # Execute with browser automation
+    executor = PlanExecutor()
+    result = await executor.execute(plan)
+```
+
+### DynamicOrchestrator
+
+For advanced web automation without hardcoded presets:
+
+```python
+from examples._dynamic_orchestrator import DynamicOrchestrator
+
+orchestrator = DynamicOrchestrator()
+
+# Complex web task with automatic retry and repair
+result = await orchestrator.execute(
+    "Create a new repository on GitHub and push initial commit"
+)
+```
+
+### BrowserAdapter Integration
+
+Direct browser automation through natural language:
+
+```python
+from nlp2cmd import BrowserAdapter, NLP2CMD
+
+adapter = BrowserAdapter(headless=True)
+nlp = NLP2CMD(adapter=adapter)
+
+# Simple web automation
+result = nlp.transform("Click the login button")
+# Generated: page.click("button[type='submit']")
+
+# Complex navigation
+result = nlp.transform(
+    "Navigate to settings and enable two-factor authentication"
+)
+```
+
+### Web Automation Examples
+
+#### Code Editor Automation
+
+```python
+# Online code editors (examples/10_online_code_editors/)
+# - CodePen
+# - JSFiddle  
+# - MyCompiler
+# - Replit
+
+result = nlp.transform(
+    "Open CodePen, create new pen with HTML5 boilerplate"
+)
+```
+
+#### Drawing Automation
+
+```python
+# Online drawing tools (examples/09_online_drawing/)
+# - JSPaint
+# - Draw.chat
+# - Picsart
+# - Kleki
+
+result = nlp.transform(
+    "Draw a red circle in the center of the canvas"
+)
+```
+
+### Error Recovery and Self-Healing
+
+The system includes advanced error recovery:
+
+1. **Automatic Retry**: Detect failures and retry with different approaches
+2. **LLM Repair**: Use LLM to fix broken automation code
+3. **Visual Validation**: Verify actions with screenshots
+4. **Adaptive Strategies**: Change approach based on website responses
+
+```python
+# Example of self-healing automation
+try:
+    result = await orchestrator.execute(task)
+except Exception as e:
+    # Automatic recovery attempt
+    result = await orchestrator.recover_from_error(task, e)
+```
+
 ## Future Enhancements
 
 ### Planned Features
