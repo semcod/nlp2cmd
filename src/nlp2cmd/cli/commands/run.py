@@ -364,7 +364,7 @@ def handle_run_mode(
                 try:
                     from nlp2cmd.pipeline_runner import PipelineRunner
                     pw_runner = PipelineRunner(headless=False)
-                    plan_res = pw_runner.execute_action_plan(
+                    plan_res = pw_runner.execute_action_plan_dispatch(
                         result.action_plan,
                         dry_run=False,
                         confirm=bool(auto_confirm),
@@ -380,7 +380,7 @@ def handle_run_mode(
                                     {"status": "doctor_retrying_multistep_plan"},
                                     console=console,
                                 )
-                            plan_res = pw_runner.execute_action_plan(
+                            plan_res = pw_runner.execute_action_plan_dispatch(
                                 result.action_plan,
                                 dry_run=False,
                                 confirm=bool(auto_confirm),

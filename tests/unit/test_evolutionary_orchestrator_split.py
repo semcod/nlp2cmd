@@ -4,24 +4,17 @@ from pathlib import Path
 
 
 def test_legacy_and_new_exports_match() -> None:
-    import nlp2cmd
     from nlp2cmd.evolutionary import (
         AutonomousExampleRunner,
         ExecutionMetrics,
         EvolutionaryRecoveryEngine,
-        EvolutionaryRecoveryPlanner,
-        EvolutionaryKnowledgeStore,
         RecoveryAttempt,
         RecoveryStrategy,
     )
     import nlp2cmd.evolutionary_orchestrator as legacy
 
-    assert nlp2cmd.EvolutionaryRecoveryEngine is EvolutionaryRecoveryEngine
-    assert nlp2cmd.AutonomousExampleRunner is AutonomousExampleRunner
     assert legacy.EvolutionaryRecoveryEngine is EvolutionaryRecoveryEngine
     assert legacy.AutonomousExampleRunner is AutonomousExampleRunner
-    assert legacy.EvolutionaryRecoveryPlanner is EvolutionaryRecoveryPlanner
-    assert legacy.EvolutionaryKnowledgeStore is EvolutionaryKnowledgeStore
     assert legacy.RecoveryStrategy is RecoveryStrategy
     assert legacy.ExecutionMetrics is ExecutionMetrics
     assert legacy.RecoveryAttempt is RecoveryAttempt

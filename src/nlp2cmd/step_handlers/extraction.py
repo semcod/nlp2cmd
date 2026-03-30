@@ -116,12 +116,12 @@ class CheckClipboardHandler(StepHandler):
                     return HandlerResult(success=True, value=clipboard)
                 elif key_pattern:
                     ctx.console.print(f"  [yellow]⚠[/yellow] Schowek nie pasuje do wzorca")
-                    return HandlerResult(success=False, retry_allowed=False)
+                    return HandlerResult(success=True, value=None)
                 elif len(clipboard) >= 20:
                     ctx.console.print(f"  [dim]   Schowek zawiera {len(clipboard)} znaków[/dim]")
                     return HandlerResult(success=True, value=clipboard)
             ctx.console.print(f"  [yellow]⚠[/yellow] Schowek pusty lub za krótki")
-            return HandlerResult(success=False, retry_allowed=False)
+            return HandlerResult(success=True, value=None)
         except Exception as e:
             ctx.console.print(f"  [yellow]⚠[/yellow] Nie można odczytać schowka: {e}")
             return HandlerResult(success=False, error=str(e))

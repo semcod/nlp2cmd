@@ -972,17 +972,33 @@ class PlanExecutionMixin:
         Returns:
             RunnerResult with execution status and data
         """
-        # Create executor with same headless setting
-        executor = PlanExecutor(headless=self.headless)
-        
-        # Execute the plan
-        return executor.execute(
-            plan=plan,
-            dry_run=dry_run,
-            video_fmt=video_fmt or self.video_fmt,
-            video_dir=video_dir or self.video_dir,
-            confirm=confirm,
+        executor = PlanExecutor(
+            headless=self.headless,
+            execute_step_fn=self._execute_plan_step,
+            resolve_variables_fn=self._resolve_plan_variables,
+            desktop_step_fn=self._execute_desktop_plan_step,
         )
+
+        effective_video_fmt = video_fmt or self.video_fmt
+        effective_video_dir = video_dir or self.video_dir
+
+        try:
+            return executor.execute(
+                plan=plan,
+                dry_run=dry_run,
+                video_fmt=effective_video_fmt,
+                video_dir=effective_video_dir,
+                confirm=confirm,
+            )
+        except NotImplementedError as exc:
+            _debug(f"Modular PlanExecutor unavailable, falling back to legacy plan execution: {exc}")
+            return self.execute_action_plan(
+                plan,
+                dry_run=dry_run,
+                video_fmt=effective_video_fmt,
+                video_dir=effective_video_dir,
+                confirm=confirm,
+            )
 
     def _execute_plan_step(self, page, context, step, variables: dict) -> Optional[str]:
         """Execute a single ActionPlan step. Returns extracted value or None."""

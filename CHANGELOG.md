@@ -2959,6 +2959,23 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.10] - 2026-03-30
+
+### Docs
+- Update REPO_SPLIT.md
+
+### Test
+- Update tests/unit/test_evolutionary_orchestrator_split.py
+- Update tests/unit/test_llm_step_sanitizer.py
+- Update tests/unit/test_plan_execution.py
+
+### Other
+- Update examples/06_tools_and_utilities/migration_tools/guide.py
+- Update project/map.toon
+- Update project/project.toon
+- Update project/project.toon.yaml
+- Update project/project.yaml
+
 ## [1.1.9] - 2026-03-30
 
 ### Docs

@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 import time
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 from rich.console import Console
 
@@ -17,6 +17,7 @@ from nlp2cmd.pipeline_runner_utils import (
 )
 from .browser_setup import BrowserSetup
 from .step_orchestrator import StepOrchestrator
+from nlp2cmd.step_handlers import StepDispatcher
 
 
 class PlanExecutor:
@@ -31,9 +32,18 @@ class PlanExecutor:
     This replaces the monolithic execute_action_plan method.
     """
     
-    def __init__(self, headless: bool = True):
+    def __init__(
+        self,
+        headless: bool = True,
+        execute_step_fn: Callable[[Any, Any, Any, dict[str, str]], Any] | None = None,
+        resolve_variables_fn: Callable[[dict[str, Any], dict[str, str]], dict[str, Any]] | None = None,
+        desktop_step_fn: Callable[[Any, dict[str, str]], Any] | None = None,
+    ):
         self.headless = headless
         self.browser_setup = BrowserSetup(headless=headless)
+        self._execute_step_fn = execute_step_fn
+        self._resolve_variables_fn = resolve_variables_fn
+        self._desktop_step_fn = desktop_step_fn
         self.console: Any | None = None
         self.video_recorder: VideoRecorder | None = None
         self.video_saved_path: str | None = None
@@ -94,6 +104,41 @@ class PlanExecutor:
         # Browser automation mode
         return self._execute_browser_mode(
             plan, console_wrapper, should_record_video, effective_video_dir
+        )
+
+    @staticmethod
+    def _resolve_plan_variables(params: dict[str, Any], variables: dict[str, str]) -> dict[str, Any]:
+        """Replace $variable references with values from prior steps."""
+        resolved = {}
+        for k, v in params.items():
+            if isinstance(v, str) and v.startswith("$"):
+                resolved[k] = variables.get(v[1:], v)
+            else:
+                resolved[k] = v
+        return resolved
+
+    def _execute_step_with_dispatch(
+        self,
+        page: Any,
+        context: Any,
+        step: Any,
+        variables: dict[str, str],
+    ) -> Optional[str]:
+        """Execute a step using the modular dispatcher when no callback was injected."""
+        action = str(getattr(step, "action", "") or "")
+        params = self._resolve_plan_variables(getattr(step, "params", {}) or {}, variables)
+
+        if not StepDispatcher.has_handler(action):
+            return None
+
+        console = Console()
+        return StepDispatcher.dispatch(
+            action=action,
+            page=page,
+            context=context,
+            params=params,
+            variables=variables,
+            console=console,
         )
     
     def _detect_desktop_steps(self, plan: Any) -> bool:
@@ -285,10 +330,9 @@ class PlanExecutor:
     
     def _execute_desktop_step(self, step: Any, variables: dict[str, str]) -> str | None:
         """Execute a single desktop step."""
-        # This would delegate to the desktop execution method
-        # For now, raise NotImplementedError - actual implementation
-        # should call self._execute_desktop_plan_step from the mixin
-        raise NotImplementedError("Desktop step execution requires mixin method")
+        if self._desktop_step_fn is not None:
+            return self._desktop_step_fn(step, variables)
+        raise NotImplementedError("Desktop step execution requires an injected desktop_step_fn")
     
     def _assess_step_status(self, step: Any, variables: dict[str, str], console: Any) -> None:
         """Assess status after step execution."""
@@ -436,8 +480,6 @@ class PlanExecutor:
         except Exception:
             pass
         
-        from nlp2cmd.step_handlers.dispatcher import StepDispatcher
-        
         max_fallback = int(__import__('os').environ.get("NLP2CMD_MAX_FALLBACK_INJECTIONS", "3"))
         max_steps = int(__import__('os').environ.get("NLP2CMD_MAX_PLAN_STEPS", "30"))
         
@@ -453,17 +495,11 @@ class PlanExecutor:
     
     def _get_execute_fn(self) -> callable:
         """Get the step execution function."""
-        # This will be set by the mixin when integrating
-        def dummy_execute(page, context, step, variables):
-            raise NotImplementedError("Execute function must be provided by mixin")
-        return dummy_execute
+        return self._execute_step_fn or self._execute_step_with_dispatch
     
     def _get_resolve_fn(self) -> callable:
         """Get the variable resolution function."""
-        # This will be set by the mixin when integrating
-        def dummy_resolve(params, variables):
-            raise NotImplementedError("Resolve function must be provided by mixin")
-        return dummy_resolve
+        return self._resolve_variables_fn or self._resolve_plan_variables
     
     def _print_final_summary(self, orchestrator: StepOrchestrator, plan_steps: list, console: Any) -> None:
         """Print final execution summary."""

@@ -184,6 +184,38 @@ class TestPlanExecutor:
         result = executor._detect_desktop_steps(mock_plan)
         assert result is True
 
+    def test_injected_callbacks_are_used(self):
+        """Test that PlanExecutor uses injected callbacks when provided."""
+        callback_calls = {}
+
+        def execute_step(page, context, step, variables):
+            callback_calls["execute"] = (page, context, step, variables)
+            return "executed"
+
+        def resolve_variables(params, variables):
+            callback_calls["resolve"] = (params, variables)
+            return {"resolved": True}
+
+        def desktop_step(step, variables):
+            callback_calls["desktop"] = (step, variables)
+            return "desktop-ok"
+
+        executor = PlanExecutor(
+            headless=False,
+            execute_step_fn=execute_step,
+            resolve_variables_fn=resolve_variables,
+            desktop_step_fn=desktop_step,
+        )
+
+        assert executor._get_execute_fn() is execute_step
+        assert executor._get_resolve_fn() is resolve_variables
+
+        mock_step = MagicMock()
+        mock_step.action = "desktop_wait"
+        assert executor._execute_desktop_step(mock_step, {"foo": "bar"}) == "desktop-ok"
+
+        assert "desktop" in callback_calls
+
 
 class TestIntegration:
     """Integration tests for plan_execution components."""
