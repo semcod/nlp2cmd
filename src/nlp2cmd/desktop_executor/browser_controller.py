@@ -1,6 +1,7 @@
 """Browser Controller for Firefox operations."""
 
 from __future__ import annotations
+import time
 import subprocess
 import shutil
 import logging
@@ -79,8 +80,6 @@ class BrowserController:
         Returns:
             ActionResult with 'desktop_skipped' result
         """
-        import time
-        
         if verbose:
             log.debug(f"Checking session for {service}")
         

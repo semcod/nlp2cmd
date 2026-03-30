@@ -165,9 +165,11 @@ class TestSearchSkill:
         assert skill._preprocess_query("Python?") == "Python"
 
 
+@pytest.mark.integration
+@pytest.mark.slow
 class TestSearchIntegration:
     """Integration tests requiring network."""
-    
+
     @pytest.mark.asyncio
     @pytest.mark.skipif(not HAS_AIOHTTP, reason="aiohttp not installed")
     async def test_duckduckgo_live_search(self):

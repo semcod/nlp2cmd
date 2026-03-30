@@ -1,0 +1,60 @@
+# nlp2cmd | 4798 func | 529f | 346525L | python | 2026-03-30
+
+HEALTH:
+  CC̄=5.7  critical=708 (limit:10)  dup=27  cycles=0
+
+ALERTS[20]:
+  !!! cc_exceeded      PlanExecutionMixin._execute_plan_step = 346 (limit:15)
+  !!! cc_exceeded      BrowserExecutionMixin._run_dom_multi_action = 280 (limit:15)
+  !!! cc_exceeded      generate_command = 187 (limit:15)
+  !!! cc_exceeded      handle_run_mode = 178 (limit:15)
+  !!! cc_exceeded      PlanExecutionMixin.execute_action_plan = 168 (limit:15)
+  !!! cc_exceeded      CommandGenerator._generate_simple = 144 (limit:15)
+  !!! high_fan_out     PlanExecutionMixin._execute_plan_step = 118 (limit:10)
+  !!! high_fan_out     BrowserExecutionMixin._run_dom_multi_action = 108 (limit:10)
+  !!! cc_exceeded      DiGraphMatcher.syntactic_feasibility = 81 (limit:15)
+  !!! cc_exceeded      _dispatchable._call_if_any_backends_installed = 80 (limit:15)
+
+MODULES[617] (top by size):
+  M[src/nlp2cmd/pipeline_runner_plans.py] 3013L C:1 F:13 CC↑346 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py] 2978L C:2 F:25 CC↑60 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/utils/backends.py] 2171L C:2 F:28 CC↑80 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/algorithms/similarity.py] 2107L C:0 F:11 CC↑42 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/classes/graph.py] 2082L C:3 F:45 CC↑8 D:0 (python)
+  M[src/nlp2cmd/automation/action_planner.py] 1772L C:3 F:27 CC↑25 D:0 (python)
+  M[src/nlp2cmd/web_schema/site_explorer.py] 1716L C:3 F:34 CC↑72 D:2 (python)
+  M[src/nlp2cmd/pipeline_runner_browser.py] 1704L C:1 F:3 CC↑280 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/classes/function.py] 1549L C:0 F:42 CC↑33 D:11 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/traveling_salesman.py] 1508L C:0 F:11 CC↑24 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/algorithms/planarity.py] 1463L C:4 F:46 CC↑17 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/classes/reportviews.py] 1447L C:23 F:99 CC↑10 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/generators/random_graphs.py] 1416L C:0 F:19 CC↑27 D:0 (python)
+  M[networkx-3.6.1-py3-none-any/networkx/algorithms/dag.py] 1392L C:0 F:19 CC↑20 D:0 (python)
+  M[src/nlp2cmd/cli/commands/doctor.py] 1388L C:3 F:23 CC↑56 D:3 (python)
+  LANGS: python:613/shell:4
+
+HOTSPOTS[10]:
+  ★ PlanExecutionMixin._execute_plan_step fan=118  // Execute a single ActionPlan step. Returns extracted value or None.
+  ★ BrowserExecutionMixin._run_dom_multi_action fan=108  // Execute multiple browser actions in sequence.
+  ★ handle_run_mode fan=75  // Handle --run option: generate and execute command with error recovery.
+
+Features
+  ★ PlanExecutionMixin.execute_action_plan fan=74  // Execute an ActionPlan step by step using Playwright.
+
+Args:
+    plan: ActionPlan
+  ★ display fan=65  // Draw the graph G.
+
+Draw the graph as a collection of nodes connected by edges.
+T
+
+REFACTOR[15]:
+  [1] H/L Split to_networkx_graph (CC=25 → target CC<10)
+  [2] H/L Split from_dict_of_dicts (CC=26 → target CC<10)
+  [3] H/L Split _relabel_inplace (CC=25 → target CC<10)
+  [4] H/L Split from_numpy_array (CC=29 → target CC<10)
+  [5] H/L Split parse_pajek (CC=26 → target CC<10)
+
+EVOLUTION:
+  2026-03-16 CC̄=5.6 crit=731 346396L // Automated analysis
+  2026-03-30 CC̄=5.7 crit=708 346525L // Automated analysis

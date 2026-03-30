@@ -4,9 +4,25 @@ Test script to check form field detection on prototypowanie.pl
 """
 
 import asyncio
-from playwright.async_api import async_playwright
+import pytest
+
+try:
+    from playwright.async_api import async_playwright
+except ImportError:
+    async_playwright = None
+
+
+pytestmark = [pytest.mark.integration, pytest.mark.slow]
 
 async def test_form_detection():
+    if async_playwright is None:
+        pytest.skip("Playwright is not installed")
+
+    from nlp2cmd.utils import is_playwright_browsers_installed
+
+    if not is_playwright_browsers_installed():
+        pytest.skip("Playwright Chromium browser is not installed")
+
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()

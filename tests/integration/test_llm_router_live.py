@@ -15,9 +15,12 @@ from __future__ import annotations
 import asyncio
 import os
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.slow]
 
 # Load .env
 try:
@@ -27,45 +30,46 @@ except ImportError:
     pass
 
 
-def _ollama_available() -> bool:
-    """Check if Ollama is running."""
-    try:
-        import httpx
-        resp = httpx.get("http://localhost:11434/api/tags", timeout=5)
-        return resp.status_code == 200
-    except Exception:
-        return False
-
-
-def _has_ollama_model(model: str) -> bool:
-    """Check if a specific Ollama model is available."""
+@lru_cache(maxsize=1)
+def _ollama_models() -> tuple[str, ...]:
+    """Return the installed Ollama model names, cached for the test session."""
     try:
         import httpx
         resp = httpx.get("http://localhost:11434/api/tags", timeout=5)
         if resp.status_code != 200:
-            return False
-        models = [m["name"] for m in resp.json().get("models", [])]
-        return any(model in m for m in models)
+            return ()
+        return tuple(m["name"] for m in resp.json().get("models", []))
     except Exception:
-        return False
+        return ()
 
 
-skip_no_ollama = pytest.mark.skipif(
-    not _ollama_available(),
-    reason="Ollama not running on localhost:11434",
-)
+def _ollama_available() -> bool:
+    """Check if Ollama is running."""
+    return bool(_ollama_models())
 
-skip_no_openrouter = pytest.mark.skipif(
-    not os.environ.get("OPENROUTER_API_KEY"),
-    reason="OPENROUTER_API_KEY not set",
-)
+
+def _has_ollama_model(model: str) -> bool:
+    """Check if a specific Ollama model is available."""
+    return any(model in m for m in _ollama_models())
+
+
+@pytest.fixture(scope="module")
+def require_ollama():
+    if not _ollama_available():
+        pytest.skip("Ollama not running on localhost:11434")
+
+
+@pytest.fixture(scope="module")
+def require_openrouter():
+    if not os.environ.get("OPENROUTER_API_KEY"):
+        pytest.skip("OPENROUTER_API_KEY not set")
 
 
 # ---------------------------------------------------------------------------
 # Live Ollama tests
 # ---------------------------------------------------------------------------
 
-@skip_no_ollama
+@pytest.mark.usefixtures("require_ollama")
 class TestLiveOllama:
     """Live tests using local Ollama models."""
 
@@ -199,12 +203,11 @@ class TestLiveOllama:
         assert len(health) >= 1
 
     @pytest.mark.asyncio
-    @pytest.mark.skipif(
-        not _has_ollama_model("qwen2.5vl"),
-        reason="qwen2.5vl model not available (still pulling?)",
-    )
     async def test_vision_local_qwen_vl(self):
         """Vision test with local Qwen2.5-VL model."""
+        if not _has_ollama_model("qwen2.5vl"):
+            pytest.skip("qwen2.5vl model not available (still pulling?)")
+
         import base64
         import struct
         import zlib
@@ -248,7 +251,7 @@ class TestLiveOllama:
 # Live OpenRouter tests
 # ---------------------------------------------------------------------------
 
-@skip_no_openrouter
+@pytest.mark.usefixtures("require_openrouter")
 class TestLiveOpenRouter:
     """Live tests using remote OpenRouter models."""
 
@@ -340,7 +343,7 @@ class TestLiveOpenRouter:
 # Fallback chain test
 # ---------------------------------------------------------------------------
 
-@skip_no_ollama
+@pytest.mark.usefixtures("require_ollama")
 class TestFallbackChain:
     """Test that routing falls back correctly."""
 

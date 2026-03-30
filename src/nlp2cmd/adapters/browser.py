@@ -31,6 +31,9 @@ class BrowserAdapter(BaseDSLAdapter):
 
     DSL_NAME = "browser"
     DSL_VERSION = "1.0"
+    
+    # Class-level singleton for FormDataLoader to avoid repeated file I/O
+    _form_data_loader = None
 
     INTENTS = {
         "browse": {
@@ -49,6 +52,13 @@ class BrowserAdapter(BaseDSLAdapter):
         }
     }
 
+    @classmethod
+    def get_form_data_loader(cls):
+        """Get or create the FormDataLoader singleton."""
+        if cls._form_data_loader is None:
+            cls._form_data_loader = FormDataLoader()
+        return cls._form_data_loader
+    
     def __init__(
         self,
         config: Optional[AdapterConfig] = None,
@@ -56,7 +66,32 @@ class BrowserAdapter(BaseDSLAdapter):
     ):
         super().__init__(config, safety_policy or BrowserSafetyPolicy())
         self.last_action_ir: Optional[ActionIR] = None
-        self.site_explorer = SiteExplorer(max_depth=2, max_pages=8, headless=True)
+        self._site_explorer = None
+        self._form_data_loader = None
+        
+    @property
+    def site_explorer(self):
+        """Lazy load SiteExplorer to avoid browser startup during tests."""
+        if self._site_explorer is None:
+            self._site_explorer = SiteExplorer(max_depth=2, max_pages=8, headless=True)
+        return self._site_explorer
+        
+    @site_explorer.setter
+    def site_explorer(self, value):
+        """Allow setting site_explorer for testing."""
+        self._site_explorer = value
+        
+    @property
+    def form_data_loader(self):
+        """Lazy load FormDataLoader to avoid file I/O during tests."""
+        if self._form_data_loader is None:
+            self._form_data_loader = FormDataLoader()
+        return self._form_data_loader
+        
+    @form_data_loader.setter
+    def form_data_loader(self, value):
+        """Allow setting form_data_loader for testing."""
+        self._form_data_loader = value
 
     @staticmethod
     def _extract_url(text: str) -> Optional[str]:
@@ -82,10 +117,9 @@ class BrowserAdapter(BaseDSLAdapter):
 
         return None
     
-    @staticmethod
-    def _extract_type_text(text: str) -> Optional[str]:
+    def _extract_type_text(self, text: str) -> Optional[str]:
         """Extract text to type from patterns like 'wpisz w pole: nlp2cmd' or 'type: hello'."""
-        patterns = FormDataLoader().get_type_text_patterns()
+        patterns = self.form_data_loader.get_type_text_patterns()
 
         for pattern in patterns:
             m = re.search(pattern, text, flags=re.IGNORECASE)
@@ -98,10 +132,10 @@ class BrowserAdapter(BaseDSLAdapter):
         
         return None
     
-    @staticmethod
-    def _has_type_action(text: str) -> bool:
+    @classmethod
+    def _has_type_action(cls, text: str) -> bool:
         """Check if text contains typing action."""
-        type_keywords = FormDataLoader().get_nlp_keywords("typing")
+        type_keywords = cls.get_form_data_loader().get_nlp_keywords("typing")
         tl = text.lower()
         return any(kw in tl for kw in type_keywords)
     
@@ -147,51 +181,51 @@ class BrowserAdapter(BaseDSLAdapter):
         # handled in generate() logic too
         return any(kw in text_lower for kw in explore_keywords)
     
-    @staticmethod
-    def _has_fill_form_action(text: str) -> bool:
+    @classmethod
+    def _has_fill_form_action(cls, text: str) -> bool:
         t = (text or "").lower()
-        phrases = FormDataLoader().get_nlp_keywords("fill_form_phrases")
+        phrases = cls.get_form_data_loader().get_nlp_keywords("fill_form_phrases")
         return any(p in t for p in phrases)
 
-    @staticmethod
-    def _has_press_enter(text: str) -> bool:
+    @classmethod
+    def _has_press_enter(cls, text: str) -> bool:
         t = (text or "").lower()
-        keywords = FormDataLoader().get_nlp_keywords("press_enter")
+        keywords = cls.get_form_data_loader().get_nlp_keywords("press_enter")
         return any(k in t for k in keywords)
     
-    @staticmethod
-    def _has_form_action(text: str) -> bool:
+    @classmethod
+    def _has_form_action(cls, text: str) -> bool:
         """Check if text contains form filling action."""
-        form_keywords = FormDataLoader().get_nlp_keywords("form")
+        form_keywords = cls.get_form_data_loader().get_nlp_keywords("form")
         tl = text.lower()
         return any(kw in tl for kw in form_keywords)
     
-    @staticmethod
-    def _has_submit_action(text: str) -> bool:
+    @classmethod
+    def _has_submit_action(cls, text: str) -> bool:
         """Check if text contains form submission intent."""
-        submit_keywords = FormDataLoader().get_nlp_keywords("submit")
+        submit_keywords = cls.get_form_data_loader().get_nlp_keywords("submit")
         tl = text.lower()
         return any(kw in tl for kw in submit_keywords)
     
-    @staticmethod
-    def _has_extract_article_action(text: str) -> bool:
+    @classmethod
+    def _has_extract_article_action(cls, text: str) -> bool:
         """Check if text contains article extraction intent."""
-        extract_keywords = FormDataLoader().get_nlp_keywords("extract_article")
-        plural_keywords = FormDataLoader().get_nlp_keywords("extract_articles_plural")
+        extract_keywords = cls.get_form_data_loader().get_nlp_keywords("extract_article")
+        plural_keywords = cls.get_form_data_loader().get_nlp_keywords("extract_articles_plural")
         tl = text.lower()
         return any(kw in tl for kw in extract_keywords) or any(kw in tl for kw in plural_keywords)
     
-    @staticmethod
-    def _is_plural_article_request(text: str) -> bool:
+    @classmethod
+    def _is_plural_article_request(cls, text: str) -> bool:
         """Check if request is for multiple articles (plural form)."""
-        plural_keywords = FormDataLoader().get_nlp_keywords("extract_articles_plural")
+        plural_keywords = cls.get_form_data_loader().get_nlp_keywords("extract_articles_plural")
         tl = text.lower()
         return any(kw in tl for kw in plural_keywords)
     
-    @staticmethod
-    def _extract_article_topic(text: str) -> Optional[str]:
+    @classmethod
+    def _extract_article_topic(cls, text: str) -> Optional[str]:
         """Extract topic/subject from article request (e.g., 'artykuł o polityce' -> 'polityce')."""
-        patterns = FormDataLoader().get_article_topic_patterns()
+        patterns = cls.get_form_data_loader().get_article_topic_patterns()
         for pattern in patterns:
             m = re.search(pattern, text, flags=re.IGNORECASE)
             if m:
@@ -201,30 +235,30 @@ class BrowserAdapter(BaseDSLAdapter):
                 return topic if topic else None
         return None
 
-    @staticmethod
-    def _has_extract_companies_action(text: str) -> bool:
+    @classmethod
+    def _has_extract_companies_action(cls, text: str) -> bool:
         """Check if text contains company extraction intent."""
-        keywords = FormDataLoader().get_nlp_keywords("extract_companies")
+        keywords = cls.get_form_data_loader().get_nlp_keywords("extract_companies")
         tl = text.lower()
         matched = [kw for kw in keywords if kw in tl]
         if matched:
             _debug(f"_has_extract_companies_action: matched keywords {matched}")
         return bool(matched)
 
-    @staticmethod
-    def _has_save_to_file_action(text: str) -> bool:
+    @classmethod
+    def _has_save_to_file_action(cls, text: str) -> bool:
         """Check if text contains save-to-file intent."""
-        keywords = FormDataLoader().get_nlp_keywords("save_to_file")
+        keywords = cls.get_form_data_loader().get_nlp_keywords("save_to_file")
         tl = text.lower()
         matched = [kw for kw in keywords if kw in tl]
         if matched:
             _debug(f"_has_save_to_file_action: matched keywords {matched}")
         return bool(matched)
 
-    @staticmethod
-    def _extract_save_filename(text: str) -> Optional[str]:
+    @classmethod
+    def _extract_save_filename(cls, text: str) -> Optional[str]:
         """Extract output filename from NL (e.g. 'zapisz do pliku firmy.txt' -> 'firmy.txt')."""
-        patterns = FormDataLoader().get_save_filename_patterns()
+        patterns = cls.get_form_data_loader().get_save_filename_patterns()
         for pattern in patterns:
             m = re.search(pattern, text, flags=re.IGNORECASE)
             if m:

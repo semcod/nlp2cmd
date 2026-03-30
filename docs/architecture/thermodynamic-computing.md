@@ -217,6 +217,6 @@ F = E - TS
 
 ## Related Documentation
 
-- [API Reference](api/README.md) - Detailed API
-- [Examples Guide](reference/examples-guide.md) - Practical examples
-- [Thermodynamic Integration](../../THERMODYNAMIC_INTEGRATION.md) - Full integration guide
+- [API Reference](../api/README.md) - Detailed API
+- [Examples Guide](../reference/examples-guide.md) - Practical examples
+- [Schema System](schema-system.md) - Schema-based generation

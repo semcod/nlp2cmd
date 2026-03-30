@@ -31,6 +31,27 @@ class ActionRegistry:
     def clear(cls) -> None:
         """Clear all registered handlers (mainly for testing)."""
         cls._handlers.clear()
+        _register_default_actions(cls)
+
+
+def _register_default_actions(registry_cls: type[ActionRegistry]) -> None:
+    """Re-register built-in DOM actions after a registry reset."""
+    from .navigation import NavigateAction, ExploreForContentAction, ExploreForFormAction
+    from .forms import FillFormAction
+    from .companies import ExtractCompaniesAction
+    from .save import SaveToFileAction, SaveToCsvAction
+
+    registry_cls._handlers.update({
+        "goto": NavigateAction,
+        "navigate": NavigateAction,
+        "explore_for_content": ExploreForContentAction,
+        "explore_for_form": ExploreForFormAction,
+        "fill_form": FillFormAction,
+        "extract_companies": ExtractCompaniesAction,
+        "extract_company_websites_deep": ExtractCompaniesAction,
+        "save_to_file": SaveToFileAction,
+        "save_to_csv": SaveToCsvAction,
+    })
 
 
 def register_action(action_name: str):

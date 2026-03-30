@@ -28,13 +28,13 @@ class BackendDetector:
             return self._cached_backend
         
         # Check for ydotool (Wayland)
-        if shutil.which("ydotool") is not None:
+        if shutil.which("ydotool"):
             self._cached_backend = DesktopBackend.YDOTOOL
             log.debug("Detected ydotool backend (Wayland)")
             return self._cached_backend
         
         # Check for xdotool (X11)
-        if shutil.which("xdotool") is not None:
+        if shutil.which("xdotool"):
             self._cached_backend = DesktopBackend.XDOTOOL
             log.debug("Detected xdotool backend (X11)")
             return self._cached_backend
@@ -54,18 +54,18 @@ class BackendDetector:
         
         if primary == DesktopBackend.YDOTOOL:
             # ydotool can use wmctrl for window management
-            if shutil.which("wmctrl") is not None:
+            if shutil.which("wmctrl"):
                 return primary, DesktopBackend.WMCTRL
             return primary, None
         
         if primary == DesktopBackend.XDOTOOL:
             # xdotool can use wmctrl as fallback for window management
-            if shutil.which("wmctrl") is not None:
+            if shutil.which("wmctrl"):
                 return primary, DesktopBackend.WMCTRL
             return primary, None
         
         # No primary backend, check for wmctrl only
-        if shutil.which("wmctrl") is not None:
+        if shutil.which("wmctrl"):
             return DesktopBackend.WMCTRL, None
         
         return DesktopBackend.NONE, None

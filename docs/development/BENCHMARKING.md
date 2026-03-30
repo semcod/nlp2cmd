@@ -29,13 +29,13 @@ make benchmark-clean
 
 ```bash
 # Run the main benchmark script
-python3 benchmark_nlp2cmd.py
+python3 examples/02_benchmarks/performance_testing/benchmark.py
 
 # Run benchmark WITHOUT cache (forces fresh LLM calls for every query)
-python3 examples/benchmark_nlp2cmd.py --no-cache
+python3 examples/02_benchmarks/performance_testing/benchmark.py --no-cache
 
 # Run the sequential commands example
-python3 examples/benchmark_sequential_commands.py
+python3 examples/02_benchmarks/sequential_testing/run_sequential.py
 ```
 
 ### Benchmark Without Cache
@@ -47,7 +47,7 @@ For true LLM performance testing without cache influence:
 make benchmark
 
 # Benchmark without cache (pure LLM performance)
-python3 examples/benchmark_nlp2cmd.py --no-cache
+python3 examples/02_benchmarks/performance_testing/benchmark.py --no-cache
 
 # The --no-cache flag disables:
 # - Cache lookups (exact, fuzzy, similarity)
@@ -107,7 +107,7 @@ Here's a sample benchmark output:
 2. **benchmark_results.csv**: CSV file suitable for plotting in Excel or other tools
 3. **sequential_benchmark_results.json**: Results from the sequential commands example
 
-When using the LLM benchmark (`examples/benchmark_nlp2cmd.py`), additional files are generated in `benchmark_output/`:
+When using the LLM benchmark (`examples/02_benchmarks/performance_testing/benchmark.py`), additional files are generated in `benchmark_output/`:
 
 1. **benchmark_results.json**: Raw per-query results + aggregated accuracy stats
 2. **benchmark_results.html**: Interactive charts
@@ -152,7 +152,7 @@ Based on benchmark results, you can:
 
 ### Adding New Commands
 
-Edit `benchmark_nlp2cmd.py` and modify the command lists:
+Edit `examples/02_benchmarks/performance_testing/benchmark.py` and modify the command lists:
 
 ```python
 commands = {
@@ -210,7 +210,7 @@ Add benchmarking to your CI pipeline:
 # .github/workflows/benchmark.yml
 - name: Run Benchmark
   run: |
-    python3 benchmark_nlp2cmd.py
+    python3 examples/02_benchmarks/performance_testing/benchmark.py
     
 - name: Upload Results
   uses: actions/upload-artifact@v3
@@ -230,6 +230,6 @@ Add benchmarking to your CI pipeline:
 
 ## Related Documentation
 
-- [User Guide](../docs/guides/user-guide.md)
-- [API Documentation](../docs/api/README.md)
-- [Examples](../examples/)
+- [User Guide](../user-guide/user-guide.md) - Complete usage tutorial
+- [API Documentation](../api/README.md) - Detailed API reference
+- [Examples Guide](../reference/examples-guide.md) - Practical examples

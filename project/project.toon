@@ -1,13 +1,6 @@
-# nlp2cmd | 665f 177642L | python:664/sql:1
+# nlp2cmd | 665f 177682L | python:664/sql:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[665]:
-  src/nlp2cmd/desktop_executor/backend_detector.py,67
-  src/nlp2cmd/desktop_executor/browser_controller.py,84
-  src/nlp2cmd/desktop_executor/desktop_action_executor.py,187
-  src/nlp2cmd/desktop_executor/env_manager.py,87
-  src/nlp2cmd/desktop_executor/keyboard_controller.py,171
-  src/nlp2cmd/desktop_executor/window_manager.py,106
-  tests/unit/test_desktop_executor.py,372
   benchmarks/thermodynamic_benchmark.py,318
   code2llm_workaround.py,8
   demos/demo_enhanced.py,95
@@ -255,7 +248,7 @@ M[665]:
   src/nlp2cmd/automation/shape_planner.py,91
   src/nlp2cmd/automation/step_validator.py,313
   src/nlp2cmd/automation/vector_store.py,462
-  src/nlp2cmd/browser_manager/__init__.py,18
+  src/nlp2cmd/browser_manager/__init__.py,19
   src/nlp2cmd/browser_manager/base.py,52
   src/nlp2cmd/browser_manager/browser_connector.py,104
   src/nlp2cmd/browser_manager/cdp_detector.py,78
@@ -300,8 +293,14 @@ M[665]:
   src/nlp2cmd/core/core_models.py,198
   src/nlp2cmd/core/core_transform.py,461
   src/nlp2cmd/core/toon_integration.py,170
-  src/nlp2cmd/desktop_executor/__init__.py,22
+  src/nlp2cmd/desktop_executor/__init__.py,23
+  src/nlp2cmd/desktop_executor/backend_detector.py,67
   src/nlp2cmd/desktop_executor/base.py,50
+  src/nlp2cmd/desktop_executor/browser_controller.py,84
+  src/nlp2cmd/desktop_executor/desktop_action_executor.py,187
+  src/nlp2cmd/desktop_executor/env_manager.py,87
+  src/nlp2cmd/desktop_executor/keyboard_controller.py,171
+  src/nlp2cmd/desktop_executor/window_manager.py,106
   src/nlp2cmd/dom_actions/__init__.py,19
   src/nlp2cmd/dom_actions/base.py,49
   src/nlp2cmd/dom_actions/companies.py,307
@@ -423,7 +422,7 @@ M[665]:
   src/nlp2cmd/pipeline_runner.py,145
   src/nlp2cmd/pipeline_runner_browser.py,1395
   src/nlp2cmd/pipeline_runner_desktop.py,365
-  src/nlp2cmd/pipeline_runner_plans.py,2596
+  src/nlp2cmd/pipeline_runner_plans.py,2626
   src/nlp2cmd/pipeline_runner_shell.py,175
   src/nlp2cmd/pipeline_runner_utils.py,380
   src/nlp2cmd/plan_execution/__init__.py,13
@@ -583,6 +582,7 @@ M[665]:
   tests/unit/test_config.py,188
   tests/unit/test_core.py,241
   tests/unit/test_desktop_automation.py,100
+  tests/unit/test_desktop_executor.py,372
   tests/unit/test_display_syntax.py,216
   tests/unit/test_docker_validators.py,106
   tests/unit/test_dom_actions.py,193
@@ -667,38 +667,6 @@ M[665]:
   tools/schema/update_schemas.py,128
   tools/schema/validate_schemas.py,91
 D:
-  src/nlp2cmd/desktop_executor/backend_detector.py:
-    i: shutil,logging,base.DesktopBackend,typing.Optional
-    e: BackendDetector
-    BackendDetector: __init__(0),detect(0),detect_with_fallback(0),is_available(0),get_error_message(0)  # Detect available desktop automation b...
-  src/nlp2cmd/desktop_executor/browser_controller.py:
-    i: subprocess,shutil,logging,base.{ActionResult,DesktopBackend},typing.Optional
-    e: BrowserController
-    BrowserController: __init__(0),open_tab(2),check_session(3),_find_firefox(0),is_available(0)  # Control Firefox browser via command-l...
-  src/nlp2cmd/desktop_executor/desktop_action_executor.py:
-    i: time,logging,backend_detector.BackendDetector,base.{ActionResult,ActionStatus,DesktopBackend,ExecutionConfig},typing.{Any,Optional},window_manager.WindowManager
-    e: DesktopActionExecutor
-    DesktopActionExecutor: __init__(1),execute(4),_execute_focus_app(3),_execute_shortcut(3),_execute_key(3)  # Main orchestrator for executing deskt...
-  src/nlp2cmd/desktop_executor/env_manager.py:
-    i: re,logging,base.ActionResult,pathlib.Path,typing.Optional
-    e: EnvManager
-    EnvManager: __init__(1),verify_env(3),_validate_value(2),_load_env_file(1)  # Manage environment variables and .env...
-  src/nlp2cmd/desktop_executor/keyboard_controller.py:
-    i: subprocess,logging,base.{ActionResult,DesktopBackend},typing.Optional
-    e: KeyboardController
-    KeyboardController: __init__(1),send_shortcut(3),send_key(3),type_text(3),_send_shortcut_ydotool(2)  # Send keyboard input via desktop autom...
-  src/nlp2cmd/desktop_executor/window_manager.py:
-    i: subprocess,shutil,time,logging,base.{ActionResult,DesktopBackend},typing.Optional
-    e: WindowManager
-    WindowManager: __init__(1),focus_window(3),_focus_with_ydotool(2),_focus_with_wmctrl(2),_focus_with_xdotool(3)  # Manage application windows via deskto...
-  tests/unit/test_desktop_executor.py:
-    i: pytest,time,nlp2cmd.desktop_executor.{ActionResult,ActionStatus,BackendDetector,DesktopBackend,ExecutionConfig},unittest.mock.{MagicMock,mock_open,patch}
-    e: TestDesktopBackend,TestActionResult,TestExecutionConfig,TestBackendDetector,TestWindowManager,TestKeyboardController,TestBrowserController,TestEnvManager
-    TestDesktopBackend: test_backend_values(0)  # Test DesktopBackend enum.
-    TestActionResult: test_default_creation(0),test_success_result(0),test_failed_result(0),test_unsupported_result(0)  # Test ActionResult dataclass.
-    TestExecutionConfig: test_default_values(0),test_custom_values(0)  # Test ExecutionConfig dataclass.
-    TestBackendDetector: test_init(0),test_detect_ydotool(1),test_detect_xdotool(1),test_detect_none(1),test_caching(1)  # Test BackendDetector class.
-    TestWindowManager: test_init_with_backend(0),test_focus_with_ydotool(1),test_focus_with_xdotool(3),test_focus_with_wmctrl(2)  # Test WindowManager class.
   benchmarks/thermodynamic_benchmark.py:
     i: asyncio,time,sys,numpy,dataclasses.dataclass,nlp2cmd.generation.thermodynamic.create_thermodynamic_generator,pathlib.Path,typing.{Any,Dict,List}
     e: BenchmarkResult,benchmark_langevin_sampler,benchmark_parallel_vs_sequential,benchmark_adaptive_steps,benchmark_generator_problems,benchmark_energy_savings,print_benchmark_result,main
@@ -2408,6 +2376,10 @@ D:
     load_command_schemas()->Dict[str, Any]
     load_config()->Dict[str, Any]
     get_project_info()->Dict[str, Any]
+  src/nlp2cmd/desktop_executor/backend_detector.py:
+    i: shutil,logging,base.DesktopBackend,typing.Optional
+    e: BackendDetector
+    BackendDetector: __init__(0),detect(0),detect_with_fallback(0),is_available(0),get_error_message(0)  # Detect available desktop automation b...
   src/nlp2cmd/desktop_executor/base.py:
     i: dataclasses.{dataclass,field},enum.Enum,typing.{Any,Optional}
     e: DesktopBackend,ActionStatus,ActionResult,ExecutionConfig
@@ -2415,6 +2387,26 @@ D:
     ActionStatus:   # Status of action execution.
     ActionResult: success_result(2),failed_result(2),unsupported_result(1)  # Result of action execution.
     ExecutionConfig:   # Configuration for desktop execution.
+  src/nlp2cmd/desktop_executor/browser_controller.py:
+    i: subprocess,shutil,logging,base.{ActionResult,DesktopBackend},typing.Optional
+    e: BrowserController
+    BrowserController: __init__(0),open_tab(2),check_session(3),_find_firefox(0),is_available(0)  # Control Firefox browser via command-l...
+  src/nlp2cmd/desktop_executor/desktop_action_executor.py:
+    i: time,logging,backend_detector.BackendDetector,base.{ActionResult,ActionStatus,DesktopBackend,ExecutionConfig},typing.{Any,Optional},window_manager.WindowManager
+    e: DesktopActionExecutor
+    DesktopActionExecutor: __init__(1),execute(4),_execute_focus_app(3),_execute_shortcut(3),_execute_key(3)  # Main orchestrator for executing deskt...
+  src/nlp2cmd/desktop_executor/env_manager.py:
+    i: re,logging,base.ActionResult,pathlib.Path,typing.Optional
+    e: EnvManager
+    EnvManager: __init__(1),verify_env(3),_validate_value(2),_load_env_file(1)  # Manage environment variables and .env...
+  src/nlp2cmd/desktop_executor/keyboard_controller.py:
+    i: subprocess,logging,base.{ActionResult,DesktopBackend},typing.Optional
+    e: KeyboardController
+    KeyboardController: __init__(1),send_shortcut(3),send_key(3),type_text(3),_send_shortcut_ydotool(2)  # Send keyboard input via desktop autom...
+  src/nlp2cmd/desktop_executor/window_manager.py:
+    i: subprocess,shutil,time,logging,base.{ActionResult,DesktopBackend},typing.Optional
+    e: WindowManager
+    WindowManager: __init__(1),focus_window(3),_focus_with_ydotool(2),_focus_with_wmctrl(2),_focus_with_xdotool(3)  # Manage application windows via deskto...
   src/nlp2cmd/dom_actions/base.py:
     i: abc.{ABC,abstractmethod},dataclasses.dataclass,typing.{Any,Optional,TYPE_CHECKING}
     e: ActionContext,ActionResult,DomAction
@@ -3019,7 +3011,7 @@ D:
   src/nlp2cmd/pipeline_runner_plans.py:
     i: json,os,re,shlex,subprocess,shutil,sys,threading,time,pathlib.Path
     e: _MAX_PLAN_STEPS,_MAX_FALLBACK_INJECTIONS,_PROMPT_TIMEOUT,PlanExecutionMixin
-    PlanExecutionMixin: _sanitize_replacement_steps(1),execute_action_plan(1),execute_action_plan_dispatch(1),_execute_plan_step(4),_execute_plan_step_dispatch(4)  # Multi-step ActionPlan execution metho...
+    PlanExecutionMixin: _sanitize_replacement_steps(1),_detect_desktop_steps(1),_initialize_plan_variables(1),_build_service_context(1),_inject_replacement_steps(4)  # Multi-step ActionPlan execution metho...
   src/nlp2cmd/pipeline_runner_shell.py:
     i: json,os,re,shlex,subprocess,shutil,sys,time,pathlib.Path,typing.Any
     e: ShellExecutionMixin
@@ -3883,6 +3875,14 @@ D:
     TestXdotoolKeysToYdotool: test_ctrl_t(0),test_return(0),test_ctrl_shift_n(0),test_escape(0),test_f5(0)
     TestDetectDesktopBackend: test_wayland_ydotool(1),test_x11_xdotool(1),test_x11_wmctrl_fallback(1),test_no_tools(1)
     TestActionPlannerFirefoxTab: test_existing_firefox_query_forces_playwright(0),test_non_firefox_query_uses_navigate(0)
+  tests/unit/test_desktop_executor.py:
+    i: pytest,time,nlp2cmd.desktop_executor.{ActionResult,ActionStatus,BackendDetector,DesktopBackend,ExecutionConfig},unittest.mock.{MagicMock,mock_open,patch}
+    e: TestDesktopBackend,TestActionResult,TestExecutionConfig,TestBackendDetector,TestWindowManager,TestKeyboardController,TestBrowserController,TestEnvManager
+    TestDesktopBackend: test_backend_values(0)  # Test DesktopBackend enum.
+    TestActionResult: test_default_creation(0),test_success_result(0),test_failed_result(0),test_unsupported_result(0)  # Test ActionResult dataclass.
+    TestExecutionConfig: test_default_values(0),test_custom_values(0)  # Test ExecutionConfig dataclass.
+    TestBackendDetector: test_init(0),test_detect_ydotool(1),test_detect_xdotool(1),test_detect_none(1),test_caching(1)  # Test BackendDetector class.
+    TestWindowManager: test_init_with_backend(0),test_focus_with_ydotool(1),test_focus_with_xdotool(3),test_focus_with_wmctrl(2)  # Test WindowManager class.
   tests/unit/test_display_syntax.py:
     i: pytest,nlp2cmd.cli.display.display_command_result,rich.console.Console,rich.syntax.Syntax,unittest.mock.{MagicMock,patch}
     e: TestDisplaySyntaxHighlighting

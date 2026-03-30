@@ -6,7 +6,6 @@ import pytest
 import sys
 from pathlib import Path
 import tempfile
-import os
 import asyncio
 import inspect
 
@@ -15,23 +14,12 @@ _src_path = _repo_root / "src"
 if str(_src_path) not in sys.path:
     sys.path.insert(0, str(_src_path))
 
-from nlp2cmd import NLP2CMD
-from nlp2cmd.adapters import (
-    SQLAdapter,
-    ShellAdapter,
-    DockerAdapter,
-    KubernetesAdapter,
-    SQLSafetyPolicy,
-    ShellSafetyPolicy,
-)
-from nlp2cmd.schemas import SchemaRegistry
-from nlp2cmd.feedback import FeedbackAnalyzer
-from nlp2cmd.environment import EnvironmentAnalyzer
 
-
-@pytest.fixture
+@pytest.fixture(scope="session")
 def sql_adapter():
     """Provide a configured SQL adapter."""
+    from nlp2cmd.adapters import SQLAdapter
+
     return SQLAdapter(
         dialect="postgresql",
         schema_context={
@@ -44,9 +32,11 @@ def sql_adapter():
     )
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def sql_adapter_strict():
     """Provide a SQL adapter with strict safety policy."""
+    from nlp2cmd.adapters import SQLAdapter, SQLSafetyPolicy
+
     policy = SQLSafetyPolicy(
         allow_delete=False,
         allow_truncate=False,
@@ -57,9 +47,11 @@ def sql_adapter_strict():
     return SQLAdapter(dialect="postgresql", safety_policy=policy)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def shell_adapter():
     """Provide a configured Shell adapter."""
+    from nlp2cmd.adapters import ShellAdapter
+
     return ShellAdapter(
         shell_type="bash",
         environment_context={
@@ -70,9 +62,11 @@ def shell_adapter():
     )
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def shell_adapter_strict():
     """Provide a Shell adapter with strict safety policy."""
+    from nlp2cmd.adapters import ShellAdapter, ShellSafetyPolicy
+
     policy = ShellSafetyPolicy(
         allow_sudo=False,
         sandbox_mode=True,
@@ -80,57 +74,107 @@ def shell_adapter_strict():
     return ShellAdapter(safety_policy=policy)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def docker_adapter():
     """Provide a configured Docker adapter."""
+    from nlp2cmd.adapters import DockerAdapter
+
     return DockerAdapter()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def kubernetes_adapter():
     """Provide a configured Kubernetes adapter."""
+    from nlp2cmd.adapters import KubernetesAdapter
+
     return KubernetesAdapter()
 
 
 @pytest.fixture
 def nlp2cmd_sql(sql_adapter):
     """Provide NLP2CMD instance with SQL adapter."""
+    from nlp2cmd import NLP2CMD
+
     return NLP2CMD(adapter=sql_adapter)
 
 
 @pytest.fixture
 def nlp2cmd_shell(shell_adapter):
     """Provide NLP2CMD instance with Shell adapter."""
+    from nlp2cmd import NLP2CMD
+
     return NLP2CMD(adapter=shell_adapter)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def schema_registry():
     """Provide a SchemaRegistry instance."""
+    from nlp2cmd.schemas import SchemaRegistry
+
     return SchemaRegistry()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def feedback_analyzer():
     """Provide a FeedbackAnalyzer instance."""
+    from nlp2cmd.feedback import FeedbackAnalyzer
+
     return FeedbackAnalyzer()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def environment_analyzer():
     """Provide an EnvironmentAnalyzer instance."""
+    from nlp2cmd.environment import EnvironmentAnalyzer
+
     return EnvironmentAnalyzer()
 
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "asyncio: mark test to run in an asyncio event loop")
+    config.addinivalue_line("markers", "slow: marks tests as slow (deselect with '-m \"not slow\"')")
+    config.addinivalue_line("markers", "integration: marks tests as integration tests")
+    config.addinivalue_line("markers", "requires_docker: marks tests that require Docker")
+
+
+@pytest.fixture(scope="session")
+def _session_event_loop():
+    """Create a single event loop for the entire test session."""
+    loop = asyncio.new_event_loop()
+    try:
+        yield loop
+    finally:
+        pending = [task for task in asyncio.all_tasks(loop) if not task.done()]
+        for task in pending:
+            task.cancel()
+        if pending:
+            loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
+        loop.run_until_complete(loop.shutdown_asyncgens())
+        asyncio.set_event_loop(None)
+        loop.close()
+
+
+@pytest.fixture(autouse=True)
+def _default_event_loop(_session_event_loop):
+    """Expose the shared event loop to legacy tests that call get_event_loop()."""
+    asyncio.set_event_loop(_session_event_loop)
+    try:
+        yield
+    finally:
+        asyncio.set_event_loop(None)
 
 
 def pytest_pyfunc_call(pyfuncitem):
     testfunction = pyfuncitem.obj
     if inspect.iscoroutinefunction(testfunction):
         funcargs = {arg: pyfuncitem.funcargs[arg] for arg in pyfuncitem._fixtureinfo.argnames}
-        asyncio.run(testfunction(**funcargs))
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(testfunction(**funcargs))
+        pending = [task for task in asyncio.all_tasks(loop) if not task.done()]
+        for task in pending:
+            task.cancel()
+        if pending:
+            loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
         return True
     return None
 
@@ -296,15 +340,3 @@ def shell_test_plans():
     ]
 
 
-# Markers
-def pytest_configure(config):
-    """Configure custom markers."""
-    config.addinivalue_line(
-        "markers", "slow: marks tests as slow (deselect with '-m \"not slow\"')"
-    )
-    config.addinivalue_line(
-        "markers", "integration: marks tests as integration tests"
-    )
-    config.addinivalue_line(
-        "markers", "requires_docker: marks tests that require Docker"
-    )

@@ -4,10 +4,10 @@ This guide provides comprehensive documentation for using NLP2CMD programmatical
 
 ## 📚 Related Documentation
 
-- **[Documentation Hub](README.md)** - Entry point for all docs
+- **[Documentation Hub](../README.md)** - Entry point for all docs
 - **[User Guide](../user-guide/user-guide.md)** - Complete usage tutorial
 - **[CLI Reference](../reference/cli-reference.md)** - Command line usage
-- **[API Reference](api/README.md)** - Detailed API documentation
+- **[API Reference](../api/README.md)** - Detailed API documentation
 - **[Examples Guide](../reference/examples-guide.md)** - Examples overview
 
 ## Installation
@@ -86,7 +86,7 @@ result = await generator.generate("check system status", context=context)
 If `problem_type` does not match a built-in energy model, the thermodynamic
 engine falls back to `ConstraintEnergy` and returns only `raw_sample` in the
 solution. You can project the sample back into variable ranges yourself.
-See **[THERMODYNAMIC_USE_CASES.md](THERMODYNAMIC_USE_CASES.md)** for an example.
+See **[Thermodynamic Integration](../architecture/thermodynamic-computing.md)** for additional examples.
 
 **Thermodynamic Response:**
 ```python

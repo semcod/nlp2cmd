@@ -1,0 +1,576 @@
+flowchart LR
+    subgraph benchmarks__thermodynamic_benchmark
+        benchmarks__thermodynamic_benchmark__main["main"]
+        benchmarks__thermodynamic_benchmark__benchmark_adaptive_steps["benchmark_adaptive_steps"]
+        benchmarks__thermodynamic_benchmark__benchmark_generator_problems["benchmark_generator_problems"]
+        benchmarks__thermodynamic_benchmark__print_benchmark_result["print_benchmark_result"]
+    end
+    subgraph demos__demo_enhanced
+        demos__demo_enhanced__main["main"]
+    end
+    subgraph demos__demo_intelligent_nlp2cmd
+        demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform["transform"]
+        demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__update_command_schema["update_command_schema"]
+        demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version["_select_best_version"]
+        demos__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd["demo_intelligent_nlp2cmd"]
+    end
+    subgraph demos__demo_persistent_storage
+        demos__demo_persistent_storage__demonstrate_persistent_storage["demonstrate_persistent_storage"]
+        demos__demo_persistent_storage__show_storage_benefits["show_storage_benefits"]
+    end
+    subgraph demos__demo_schema_flow
+        demos__demo_schema_flow__main["main"]
+        demos__demo_schema_flow__demonstrate_schema_flow["demonstrate_schema_flow"]
+        demos__demo_schema_flow__show_schema_details["show_schema_details"]
+        demos__demo_schema_flow__demonstrate_multiple_commands["demonstrate_multiple_commands"]
+    end
+    subgraph demos__demo_version_detection
+        demos__demo_version_detection__demonstrate_version_detection["demonstrate_version_detection"]
+        demos__demo_version_detection__show_integration_example["show_integration_example"]
+        demos__demo_version_detection__show_version_mapping["show_version_mapping"]
+        demos__demo_version_detection__main["main"]
+    end
+    subgraph demos__demo_versioned_schemas
+        demos__demo_versioned_schemas__migrate_existing_schemas["migrate_existing_schemas"]
+        demos__demo_versioned_schemas__main["main"]
+        demos__demo_versioned_schemas__demonstrate_dual_versions["demonstrate_dual_versions"]
+        demos__demo_versioned_schemas__demonstrate_schema_updates["demonstrate_schema_updates"]
+    end
+    subgraph demos__schema_flow_demo
+        demos__schema_flow_demo__show_api_usage["show_api_usage"]
+        demos__schema_flow_demo__main["main"]
+        demos__schema_flow_demo__show_file_locations["show_file_locations"]
+        demos__schema_flow_demo__show_schema_extraction_flow["show_schema_extraction_flow"]
+    end
+    subgraph demos__simple_schema_demo
+        demos__simple_schema_demo__main["main"]
+    end
+    subgraph examples___dynamic_orchestrator
+        examples___dynamic_orchestrator__DynamicOrchestrator__execute_task["execute_task"]
+        examples___dynamic_orchestrator__DynamicOrchestrator____init__["__init__"]
+    end
+    subgraph examples___example_helpers
+        examples___example_helpers__print_separator["print_separator"]
+        examples___example_helpers__print_rule["print_rule"]
+    end
+    subgraph examples___verbose_helper
+        examples___verbose_helper__ensure_playwright_browsers_async["ensure_playwright_browsers_asy"]
+        examples___verbose_helper__discover_working_url["discover_working_url"]
+        examples___verbose_helper__ensure_playwright_browsers["ensure_playwright_browsers"]
+        examples___verbose_helper__vlog_decision["vlog_decision"]
+        examples___verbose_helper__init_verbose["init_verbose"]
+        examples___verbose_helper__dump_page_schema["dump_page_schema"]
+        examples___verbose_helper__auto_navigate_with_fallback["auto_navigate_with_fallback"]
+        examples___verbose_helper__vlog["vlog"]
+        examples___verbose_helper__dump_selectors["dump_selectors"]
+    end
+    subgraph examples__run_task
+        examples__run_task__main["main"]
+    end
+    subgraph examples__show_metrics
+        examples__show_metrics__main["main"]
+    end
+    subgraph networkx_3__6
+        networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__generate_adjlist["generate_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__describe["describe"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_pandas_adjacency["to_pandas_adjacency"]
+        networkx_3__6__1_py3_none_any__networkx__classes__graphviews__reverse_view["reverse_view"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__write_gexf["write_gexf"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__path_graph["path_graph"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__write_latex["write_latex"]
+        networkx_3__6__1_py3_none_any__networkx__relabel__convert_node_labels_to_integers["convert_node_labels_to_integer"]
+        networkx_3__6__1_py3_none_any__networkx__generators__spectral_graph_forge__spectral_graph_forge["spectral_graph_forge"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_circular["draw_circular"]
+        networkx_3__6__1_py3_none_any__networkx__classes__filters__show_edges["show_edges"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__leda__read_leda["read_leda"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__dorogovtsev_goltsev_mendes_graph["dorogovtsev_goltsev_mendes_gra"]
+        networkx_3__6__1_py3_none_any__networkx__relabel___relabel_copy["_relabel_copy"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__write_multiline_adjlist["write_multiline_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__read_edgelist["read_edgelist"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gml__generate_gml["generate_gml"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__apply_alpha["apply_alpha"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw["draw"]
+        networkx_3__6__1_py3_none_any__networkx__classes__filters__hide_multiedges["hide_multiedges"]
+        networkx_3__6__1_py3_none_any__networkx__generators__intersection__general_random_intersection_graph["general_random_intersection_gr"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeDataView____str__["__str__"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__read_gexf["read_gexf"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__complete_graph["complete_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__text___parse_network_text["_parse_network_text"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__data_to_n["data_to_n"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6_file["write_graph6_file"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__to_latex_raw["to_latex_raw"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__add_cycle["add_cycle"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__pygraphviz_layout["pygraphviz_layout"]
+        networkx_3__6__1_py3_none_any__networkx__generators__duplication__partial_duplication_graph["partial_duplication_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__read_graph6["read_graph6"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__star_graph["star_graph"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_nodes["draw_networkx_nodes"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeView____repr__["__repr__"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__edge_subgraph["edge_subgraph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__leda__parse_leda["parse_leda"]
+        networkx_3__6__1_py3_none_any__networkx__classes__filters__hide_nodes["hide_nodes"]
+        networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph__remove_node["remove_node"]
+        networkx_3__6__1_py3_none_any__networkx__utils__heaps__MinHeap__min["min"]
+        networkx_3__6__1_py3_none_any__networkx__utils__misc__pairwise["pairwise"]
+        networkx_3__6__1_py3_none_any__networkx__classes__digraph__DiGraph____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__generators__duplication__duplication_divergence_graph["duplication_divergence_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__text__generate_network_text["generate_network_text"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__write_sparse6["write_sparse6"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__write_pajek["write_pajek"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__GraphMLWriter__get_key["get_key"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeDataView____str__["__str__"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__apply_matplotlib_colors["apply_matplotlib_colors"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__non_neighbors["non_neighbors"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__frucht_graph["frucht_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__generate_pajek["generate_pajek"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line___odd_triangle["_odd_triangle"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line___find_partition["_find_partition"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__write_adjlist["write_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__from_graph6_bytes["from_graph6_bytes"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__read_sparse6["read_sparse6"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__pappus_graph["pappus_graph"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeView____str__["__str__"]
+        networkx_3__6__1_py3_none_any__networkx__generators__intersection__uniform_random_intersection_graph["uniform_random_intersection_gr"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__null_graph["null_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__write_edgelist["write_edgelist"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__to_agraph["to_agraph"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__add_path["add_path"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_numpy_array["to_numpy_array"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeDataView___from_iterable["_from_iterable"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix___csc_gen_triples["_csc_gen_triples"]
+        networkx_3__6__1_py3_none_any__networkx__classes__coreviews__UnionMultiInner__copy["copy"]
+        networkx_3__6__1_py3_none_any__networkx__classes__coreviews__UnionAdjacency____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__generate_edgelist["generate_edgelist"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__write_graphml_lxml["write_graphml_lxml"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_edges["draw_networkx_edges"]
+        networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number["nodes_or_number"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__lollipop_graph["lollipop_graph"]
+        networkx_3__6__1_py3_none_any__networkx__utils__decorators__py_random_state["py_random_state"]
+        networkx_3__6__1_py3_none_any__networkx__classes__filters__show_nodes____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__truncated_tetrahedron_graph["truncated_tetrahedron_graph"]
+        networkx_3__6__1_py3_none_any__networkx__classes__graphviews__generic_graph_view["generic_graph_view"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__text___find_sources["_find_sources"]
+        networkx_3__6__1_py3_none_any__networkx__generators__intersection__k_random_intersection_graph["k_random_intersection_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__ladder_graph["ladder_graph"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__density["density"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__barbell_graph["barbell_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml["parse_gml"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeDataView____repr__["__repr__"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeView___from_iterable["_from_iterable"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__parse_edgelist["parse_edgelist"]
+        networkx_3__6__1_py3_none_any__networkx__classes__coreviews__UnionAtlas____iter__["__iter__"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__house_graph["house_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__desargues_graph["desargues_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__full_rary_tree["full_rary_tree"]
+        networkx_3__6__1_py3_none_any__networkx__relabel___relabel_inplace["_relabel_inplace"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line__line_graph["line_graph"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__number_of_nodes["number_of_nodes"]
+        networkx_3__6__1_py3_none_any__networkx__utils__misc__check_create_using["check_create_using"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__graphviz_layout["graphviz_layout"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_bipartite["draw_bipartite"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line___select_starting_cell["_select_starting_cell"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__GraphMLReader__decode_data_elements["decode_data_elements"]
+        networkx_3__6__1_py3_none_any__networkx__utils__decorators__np_random_state["np_random_state"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__parse_adjlist["parse_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__n_to_data["n_to_data"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic___tree_edges["_tree_edges"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__read_graphml["read_graphml"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__text__write_network_text["write_network_text"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__read_multiline_adjlist["read_multiline_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for["not_implemented_for"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__cycle_graph["cycle_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__tetrahedral_graph["tetrahedral_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__balanced_tree["balanced_tree"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeView____str__["__str__"]
+        networkx_3__6__1_py3_none_any__networkx__convert__to_networkx_graph["to_networkx_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__relabel_gexf_graph["relabel_gexf_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6___generate_graph6_bytes["_generate_graph6_bytes"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_random["draw_random"]
+        networkx_3__6__1_py3_none_any__networkx__classes__filters__show_multiedges["show_multiedges"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line___triangles["_triangles"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__from_agraph["from_agraph"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_numpy_array["from_numpy_array"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__EdgeView____iter__["__iter__"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__to_graph6_bytes["to_graph6_bytes"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gml__read_gml["read_gml"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__to_latex["to_latex"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_spring["draw_spring"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__GEXFWriter____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml_lines["parse_gml_lines"]
+        networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__is_weighted["is_weighted"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix___csr_gen_triples["_csr_gen_triples"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6___generate_sparse6_bytes["_generate_sparse6_bytes"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__write_p2g["write_p2g"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__write_graphml_xml["write_graphml_xml"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6["write_graph6"]
+        networkx_3__6__1_py3_none_any__networkx__classes__multigraph__MultiGraph____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__gml__write_gml["write_gml"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeView___from_iterable["_from_iterable"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix___generate_weighted_edges["_generate_weighted_edges"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__is_empty["is_empty"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__sedgewick_maze_graph["sedgewick_maze_graph"]
+        networkx_3__6__1_py3_none_any__networkx__classes__multidigraph__MultiDiGraph____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__lazy_imports__attach["attach"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__DiDegreeView____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__moebius_kantor_graph["moebius_kantor_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__GraphMLWriter__attr_type["attr_type"]
+        networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph__remove_nodes_from["remove_nodes_from"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix___coo_gen_triples["_coo_gen_triples"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_scipy_sparse_array["to_scipy_sparse_array"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__parse_multiline_adjlist["parse_multiline_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__dodecahedral_graph["dodecahedral_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__kneser_graph["kneser_graph"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__tadpole_graph["tadpole_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__read_p2g["read_p2g"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__generate_multiline_adjlist["generate_multiline_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__house_x_graph["house_x_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__parse_pajek["parse_pajek"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__common_neighbors["common_neighbors"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx["draw_networkx"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line___lg_directed["_lg_directed"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_planar["draw_planar"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__parse_p2g["parse_p2g"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__read_pajek["read_pajek"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__circulant_graph["circulant_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__parse_graphml["parse_graphml"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_labels["draw_networkx_labels"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__view_pygraphviz["view_pygraphviz"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_scipy_sparse_array["from_scipy_sparse_array"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__FancyArrowFactory____init__["__init__"]
+        networkx_3__6__1_py3_none_any__networkx__lazy_imports__DelayedImportErrorModule____getattr__["__getattr__"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__path_weight["path_weight"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_shell["draw_shell"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_forceatlas2["draw_forceatlas2"]
+        networkx_3__6__1_py3_none_any__networkx__classes__filters__hide_edges["hide_edges"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__write_dot["write_dot"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__non_edges["non_edges"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__circular_ladder_graph["circular_ladder_graph"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_spectral["draw_spectral"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__read_weighted_edgelist["read_weighted_edgelist"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function___create_describe_info_dict["_create_describe_info_dict"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line__inverse_line_graph["inverse_line_graph"]
+        networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file["open_file"]
+        networkx_3__6__1_py3_none_any__networkx__classes__reportviews__DiDegreeView____str__["__str__"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__from_sparse6_bytes["from_sparse6_bytes"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_pandas_adjacency["from_pandas_adjacency"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph["LCF_graph"]
+        networkx_3__6__1_py3_none_any__networkx__convert__from_dict_of_dicts["from_dict_of_dicts"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__read_dot["read_dot"]
+        networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph["empty_graph"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__write_weighted_edgelist["write_weighted_edgelist"]
+        networkx_3__6__1_py3_none_any__networkx__utils__misc__arbitrary_element["arbitrary_element"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__read_adjlist["read_adjlist"]
+        networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__to_sparse6_bytes["to_sparse6_bytes"]
+        networkx_3__6__1_py3_none_any__networkx__generators__small__heawood_graph["heawood_graph"]
+        networkx_3__6__1_py3_none_any__networkx__convert_matrix___dok_gen_triples["_dok_gen_triples"]
+        networkx_3__6__1_py3_none_any__networkx__generators__line___lg_undirected["_lg_undirected"]
+        networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_kamada_kawai["draw_kamada_kawai"]
+        networkx_3__6__1_py3_none_any__networkx__relabel__relabel_nodes["relabel_nodes"]
+        networkx_3__6__1_py3_none_any__networkx__classes__function__number_of_edges["number_of_edges"]
+    end
+    subgraph scripts__bump_version
+        scripts__bump_version__bump_version["bump_version"]
+    end
+    subgraph scripts__setup_external
+        scripts__setup_external__main["main"]
+    end
+    subgraph src__app2schema
+        src__app2schema__extract__extract_appspec_to_file["extract_appspec_to_file"]
+    end
+    subgraph src__nlp2cmd
+        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print["print"]
+        src__nlp2cmd__executor__ExecutionContext__set["set"]
+        src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator["create_thermodynamic_generator"]
+        src__nlp2cmd__orchestration__handlers__register_default_handlers["register_default_handlers"]
+        src__nlp2cmd__orchestration__metrics__get_workspace["get_workspace"]
+        src__nlp2cmd__nlp__normalizer__tokenize["tokenize"]
+        src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list["list"]
+    end
+    examples___example_helpers__print_separator --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples___example_helpers__print_rule --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples___verbose_helper__init_verbose --> examples___verbose_helper__vlog
+    examples___verbose_helper__vlog --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples___verbose_helper__dump_page_schema --> examples___verbose_helper__vlog
+    examples___verbose_helper__dump_selectors --> examples___verbose_helper__vlog
+    examples___verbose_helper__vlog_decision --> examples___verbose_helper__vlog
+    examples___verbose_helper__ensure_playwright_browsers --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples___verbose_helper__ensure_playwright_browsers_async --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples___verbose_helper__discover_working_url --> examples___verbose_helper__vlog
+    examples___verbose_helper__auto_navigate_with_fallback --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples___verbose_helper__auto_navigate_with_fallback --> examples___verbose_helper__discover_working_url
+    examples___verbose_helper__auto_navigate_with_fallback --> examples___verbose_helper__vlog
+    examples___dynamic_orchestrator__DynamicOrchestrator____init__ --> src__nlp2cmd__orchestration__handlers__register_default_handlers
+    examples___dynamic_orchestrator__DynamicOrchestrator__execute_task --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    scripts__setup_external__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    scripts__bump_version__bump_version --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__simple_schema_demo__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples__show_metrics__main --> src__nlp2cmd__orchestration__metrics__get_workspace
+    demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version --> networkx_3__6__1_py3_none_any__networkx__utils__heaps__MinHeap__min
+    demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__update_command_schema --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_persistent_storage__demonstrate_persistent_storage --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_persistent_storage__show_storage_benefits --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    examples__run_task__main --> src__nlp2cmd__orchestration__handlers__register_default_handlers
+    examples__run_task__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_enhanced__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_enhanced__main --> src__app2schema__extract__extract_appspec_to_file
+    demos__demo_version_detection__demonstrate_version_detection --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_version_detection__show_integration_example --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_version_detection__show_version_mapping --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_version_detection__main --> demos__demo_version_detection__demonstrate_version_detection
+    demos__demo_version_detection__main --> demos__demo_version_detection__show_integration_example
+    demos__demo_version_detection__main --> demos__demo_version_detection__show_version_mapping
+    demos__demo_version_detection__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_schema_flow__demonstrate_schema_flow --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_schema_flow__demonstrate_multiple_commands --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_schema_flow__show_schema_details --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_schema_flow__main --> demos__demo_schema_flow__demonstrate_schema_flow
+    demos__demo_schema_flow__main --> demos__demo_schema_flow__demonstrate_multiple_commands
+    demos__demo_schema_flow__main --> demos__demo_schema_flow__show_schema_details
+    demos__demo_schema_flow__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_versioned_schemas__migrate_existing_schemas --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_versioned_schemas__demonstrate_schema_updates --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_versioned_schemas__demonstrate_dual_versions --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__demo_versioned_schemas__main --> demos__demo_versioned_schemas__migrate_existing_schemas
+    demos__demo_versioned_schemas__main --> demos__demo_versioned_schemas__demonstrate_schema_updates
+    demos__demo_versioned_schemas__main --> demos__demo_versioned_schemas__demonstrate_dual_versions
+    demos__demo_versioned_schemas__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__schema_flow_demo__show_schema_extraction_flow --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__schema_flow_demo__show_file_locations --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__schema_flow_demo__show_api_usage --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    demos__schema_flow_demo__main --> demos__schema_flow_demo__show_schema_extraction_flow
+    demos__schema_flow_demo__main --> demos__schema_flow_demo__show_file_locations
+    demos__schema_flow_demo__main --> demos__schema_flow_demo__show_api_usage
+    demos__schema_flow_demo__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    networkx_3__6__1_py3_none_any__networkx__convert__to_networkx_graph --> networkx_3__6__1_py3_none_any__networkx__convert__from_dict_of_dicts
+    networkx_3__6__1_py3_none_any__networkx__convert__from_dict_of_dicts --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__relabel__relabel_nodes --> networkx_3__6__1_py3_none_any__networkx__relabel___relabel_copy
+    networkx_3__6__1_py3_none_any__networkx__relabel__relabel_nodes --> networkx_3__6__1_py3_none_any__networkx__relabel___relabel_inplace
+    networkx_3__6__1_py3_none_any__networkx__relabel___relabel_inplace --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__relabel___relabel_copy --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__relabel__convert_node_labels_to_integers --> networkx_3__6__1_py3_none_any__networkx__relabel__relabel_nodes
+    networkx_3__6__1_py3_none_any__networkx__lazy_imports__attach --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__lazy_imports__attach --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__lazy_imports__attach --> networkx_3__6__1_py3_none_any__networkx__lazy_imports__DelayedImportErrorModule____getattr__
+    networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__write_p2g --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__write_p2g --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__read_p2g --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__read_p2g --> networkx_3__6__1_py3_none_any__networkx__readwrite__p2g__parse_p2g
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_pandas_adjacency --> networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_numpy_array
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_pandas_adjacency --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_pandas_adjacency --> networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_numpy_array
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_pandas_adjacency --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_pandas_adjacency --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_scipy_sparse_array --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_scipy_sparse_array --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix___generate_weighted_edges --> networkx_3__6__1_py3_none_any__networkx__convert_matrix___coo_gen_triples
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix___generate_weighted_edges --> networkx_3__6__1_py3_none_any__networkx__convert_matrix___csr_gen_triples
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix___generate_weighted_edges --> networkx_3__6__1_py3_none_any__networkx__convert_matrix___csc_gen_triples
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix___generate_weighted_edges --> networkx_3__6__1_py3_none_any__networkx__convert_matrix___dok_gen_triples
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__from_scipy_sparse_array --> networkx_3__6__1_py3_none_any__networkx__convert_matrix___generate_weighted_edges
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_numpy_array --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__convert_matrix__to_numpy_array --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    benchmarks__thermodynamic_benchmark__benchmark_adaptive_steps --> src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator
+    benchmarks__thermodynamic_benchmark__benchmark_generator_problems --> src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator
+    benchmarks__thermodynamic_benchmark__print_benchmark_result --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    benchmarks__thermodynamic_benchmark__main --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__write_graphml_xml --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__write_graphml_lxml --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__write_graphml_lxml --> networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__write_graphml_xml
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__read_graphml --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__read_graphml --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__parse_graphml --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__GraphMLWriter__attr_type --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__GraphMLWriter__get_key --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graphml__GraphMLReader__decode_data_elements --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__generate_adjlist --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__write_adjlist --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__write_adjlist --> networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__generate_adjlist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__read_adjlist --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__read_adjlist --> networkx_3__6__1_py3_none_any__networkx__readwrite__adjlist__parse_adjlist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__leda__read_leda --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__leda__read_leda --> networkx_3__6__1_py3_none_any__networkx__readwrite__leda__parse_leda
+    networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__generate_pajek --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__write_pajek --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__write_pajek --> networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__generate_pajek
+    networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__read_pajek --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__read_pajek --> networkx_3__6__1_py3_none_any__networkx__readwrite__pajek__parse_pajek
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__write_gexf --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__read_gexf --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__read_gexf --> networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__relabel_gexf_graph
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__GEXFWriter____init__ --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gexf__relabel_gexf_graph --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__write_edgelist --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__write_edgelist --> networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__generate_edgelist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__read_edgelist --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__read_edgelist --> networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__parse_edgelist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__write_weighted_edgelist --> networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__write_edgelist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__read_weighted_edgelist --> networkx_3__6__1_py3_none_any__networkx__readwrite__edgelist__read_edgelist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text__generate_network_text --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text__generate_network_text --> networkx_3__6__1_py3_none_any__networkx__readwrite__text___find_sources
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text__write_network_text --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text__write_network_text --> networkx_3__6__1_py3_none_any__networkx__readwrite__text__generate_network_text
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text___find_sources --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text___find_sources --> networkx_3__6__1_py3_none_any__networkx__utils__heaps__MinHeap__min
+    networkx_3__6__1_py3_none_any__networkx__readwrite__text___parse_network_text --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6___generate_sparse6_bytes --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__n_to_data
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__from_sparse6_bytes --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__data_to_n
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__to_sparse6_bytes --> networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6___generate_sparse6_bytes
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__read_sparse6 --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__read_sparse6 --> networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__from_sparse6_bytes
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__write_sparse6 --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__write_sparse6 --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6__write_sparse6 --> networkx_3__6__1_py3_none_any__networkx__readwrite__sparse6___generate_sparse6_bytes
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6___generate_graph6_bytes --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__n_to_data
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6___generate_graph6_bytes --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__from_graph6_bytes --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__data_to_n
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__to_graph6_bytes --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__to_graph6_bytes --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6___generate_graph6_bytes
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__read_graph6 --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__read_graph6 --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__from_graph6_bytes
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6 --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6 --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6 --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6_file --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__readwrite__graph6__write_graph6_file --> networkx_3__6__1_py3_none_any__networkx__readwrite__graph6___generate_graph6_bytes
+    networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__generate_multiline_adjlist --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__write_multiline_adjlist --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__write_multiline_adjlist --> networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__generate_multiline_adjlist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__read_multiline_adjlist --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__read_multiline_adjlist --> networkx_3__6__1_py3_none_any__networkx__readwrite__multiline_adjlist__parse_multiline_adjlist
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__read_gml --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__read_gml --> networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml_lines
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml --> networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml_lines
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml_lines --> src__nlp2cmd__nlp__normalizer__tokenize
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__parse_gml_lines --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__write_gml --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__open_file
+    networkx_3__6__1_py3_none_any__networkx__readwrite__gml__write_gml --> networkx_3__6__1_py3_none_any__networkx__readwrite__gml__generate_gml
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__apply_matplotlib_colors --> networkx_3__6__1_py3_none_any__networkx__utils__heaps__MinHeap__min
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_nodes
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_edges
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_nodes --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_nodes --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__apply_alpha
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__FancyArrowFactory____init__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_networkx_labels --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_bipartite --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_circular --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_kamada_kawai --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_random --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_spectral --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_spring --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_shell --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_planar --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw_forceatlas2 --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__draw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_pylab__apply_alpha --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__to_latex --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__to_latex_raw
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__write_latex --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_latex__to_latex
+    networkx_3__6__1_py3_none_any__networkx__classes__function__density --> networkx_3__6__1_py3_none_any__networkx__classes__function__number_of_nodes
+    networkx_3__6__1_py3_none_any__networkx__classes__function__density --> networkx_3__6__1_py3_none_any__networkx__classes__function__number_of_edges
+    networkx_3__6__1_py3_none_any__networkx__classes__function__add_path --> networkx_3__6__1_py3_none_any__networkx__utils__misc__pairwise
+    networkx_3__6__1_py3_none_any__networkx__classes__function__add_cycle --> networkx_3__6__1_py3_none_any__networkx__utils__misc__pairwise
+    networkx_3__6__1_py3_none_any__networkx__classes__function__edge_subgraph --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__function__non_edges --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__function__non_edges --> networkx_3__6__1_py3_none_any__networkx__classes__function__non_neighbors
+    networkx_3__6__1_py3_none_any__networkx__classes__function__common_neighbors --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__classes__function__is_weighted --> networkx_3__6__1_py3_none_any__networkx__classes__function__is_empty
+    networkx_3__6__1_py3_none_any__networkx__classes__function__path_weight --> networkx_3__6__1_py3_none_any__networkx__utils__heaps__MinHeap__min
+    networkx_3__6__1_py3_none_any__networkx__classes__function__describe --> networkx_3__6__1_py3_none_any__networkx__classes__function___create_describe_info_dict
+    networkx_3__6__1_py3_none_any__networkx__classes__function__describe --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    networkx_3__6__1_py3_none_any__networkx__classes__function___create_describe_info_dict --> networkx_3__6__1_py3_none_any__networkx__utils__heaps__MinHeap__min
+    networkx_3__6__1_py3_none_any__networkx__classes__coreviews__UnionAtlas____iter__ --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__coreviews__UnionAdjacency____init__ --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__coreviews__UnionMultiInner__copy --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__graphviews__reverse_view --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__classes__graphviews__reverse_view --> networkx_3__6__1_py3_none_any__networkx__classes__graphviews__generic_graph_view
+    networkx_3__6__1_py3_none_any__networkx__classes__multidigraph__MultiDiGraph____init__ --> networkx_3__6__1_py3_none_any__networkx__classes__digraph__DiGraph____init__
+    networkx_3__6__1_py3_none_any__networkx__classes__multidigraph__MultiDiGraph____init__ --> networkx_3__6__1_py3_none_any__networkx__convert__from_dict_of_dicts
+    networkx_3__6__1_py3_none_any__networkx__classes__filters__hide_nodes --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__filters__hide_edges --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__filters__hide_multiedges --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__filters__show_nodes____init__ --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__filters__show_edges --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__filters__show_multiedges --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph____init__ --> networkx_3__6__1_py3_none_any__networkx__convert__to_networkx_graph
+    networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph__remove_node --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph__remove_nodes_from --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__digraph__DiGraph____init__ --> networkx_3__6__1_py3_none_any__networkx__convert__to_networkx_graph
+    networkx_3__6__1_py3_none_any__networkx__classes__multigraph__MultiGraph____init__ --> networkx_3__6__1_py3_none_any__networkx__classes__graph__Graph____init__
+    networkx_3__6__1_py3_none_any__networkx__classes__multigraph__MultiGraph____init__ --> networkx_3__6__1_py3_none_any__networkx__convert__from_dict_of_dicts
+    networkx_3__6__1_py3_none_any__networkx__generators__line__line_graph --> networkx_3__6__1_py3_none_any__networkx__generators__line___lg_directed
+    networkx_3__6__1_py3_none_any__networkx__generators__line__line_graph --> networkx_3__6__1_py3_none_any__networkx__generators__line___lg_undirected
+    networkx_3__6__1_py3_none_any__networkx__generators__line___lg_undirected --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__generators__line__inverse_line_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__not_implemented_for
+    networkx_3__6__1_py3_none_any__networkx__generators__line__inverse_line_graph --> networkx_3__6__1_py3_none_any__networkx__generators__line___select_starting_cell
+    networkx_3__6__1_py3_none_any__networkx__generators__line__inverse_line_graph --> networkx_3__6__1_py3_none_any__networkx__generators__line___find_partition
+    networkx_3__6__1_py3_none_any__networkx__generators__line___odd_triangle --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__generators__line___find_partition --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__generators__line___select_starting_cell --> networkx_3__6__1_py3_none_any__networkx__generators__line___triangles
+    networkx_3__6__1_py3_none_any__networkx__generators__line___select_starting_cell --> networkx_3__6__1_py3_none_any__networkx__utils__misc__arbitrary_element
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__write_dot --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__to_agraph
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__read_dot --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__from_agraph
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__graphviz_layout --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__pygraphviz_layout
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__pygraphviz_layout --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__to_agraph
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__pygraphviz_layout --> src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print
+    networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__view_pygraphviz --> networkx_3__6__1_py3_none_any__networkx__drawing__nx_agraph__to_agraph
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeView___from_iterable --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeView____str__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeDataView___from_iterable --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__NodeDataView____str__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__DiDegreeView____init__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__DiDegreeView____str__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeDataView____str__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeDataView____repr__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeView___from_iterable --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeView____str__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__OutEdgeView____repr__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__classes__reportviews__EdgeView____iter__ --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__generators__spectral_graph_forge__spectral_graph_forge --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__np_random_state
+    networkx_3__6__1_py3_none_any__networkx__generators__duplication__partial_duplication_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__py_random_state
+    networkx_3__6__1_py3_none_any__networkx__generators__duplication__partial_duplication_graph --> networkx_3__6__1_py3_none_any__networkx__utils__misc__check_create_using
+    networkx_3__6__1_py3_none_any__networkx__generators__duplication__partial_duplication_graph --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__generators__duplication__duplication_divergence_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__py_random_state
+    networkx_3__6__1_py3_none_any__networkx__generators__duplication__duplication_divergence_graph --> networkx_3__6__1_py3_none_any__networkx__utils__misc__check_create_using
+    networkx_3__6__1_py3_none_any__networkx__generators__intersection__uniform_random_intersection_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__py_random_state
+    networkx_3__6__1_py3_none_any__networkx__generators__intersection__k_random_intersection_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__py_random_state
+    networkx_3__6__1_py3_none_any__networkx__generators__intersection__general_random_intersection_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__py_random_state
+    networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__cycle_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__desargues_graph --> networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__dodecahedral_graph --> networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__frucht_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__cycle_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__heawood_graph --> networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__house_x_graph --> networkx_3__6__1_py3_none_any__networkx__generators__small__house_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__moebius_kantor_graph --> networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__pappus_graph --> networkx_3__6__1_py3_none_any__networkx__generators__small__LCF_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__sedgewick_maze_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__tetrahedral_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__complete_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__small__truncated_tetrahedron_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__path_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__full_rary_tree --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__full_rary_tree --> networkx_3__6__1_py3_none_any__networkx__generators__classic___tree_edges
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__kneser_graph --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__kneser_graph --> src__nlp2cmd__executor__ExecutionContext__set
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__balanced_tree --> networkx_3__6__1_py3_none_any__networkx__generators__classic__full_rary_tree
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__barbell_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__complete_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__complete_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__complete_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__circular_ladder_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__ladder_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__circulant_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__cycle_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__cycle_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__cycle_graph --> networkx_3__6__1_py3_none_any__networkx__utils__misc__pairwise
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__dorogovtsev_goltsev_mendes_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__ladder_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__ladder_graph --> networkx_3__6__1_py3_none_any__networkx__utils__misc__pairwise
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__lollipop_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__lollipop_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__complete_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__null_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__path_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__path_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__path_graph --> networkx_3__6__1_py3_none_any__networkx__utils__misc__pairwise
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__star_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__star_graph --> networkx_3__6__1_py3_none_any__networkx__generators__classic__empty_graph
+    networkx_3__6__1_py3_none_any__networkx__generators__classic__tadpole_graph --> networkx_3__6__1_py3_none_any__networkx__utils__decorators__nodes_or_number

@@ -97,8 +97,17 @@ setup-dev: ## Complete development setup
 # Testing
 # =============================================================================
 
-test: ## Run all tests
+test: ## Run all tests (fast, parallel)
 	$(PYTEST) tests/ -v --tb=short
+
+test-fast: ## Run fast tests only (excludes slow, e2e, browser)
+	$(PYTEST) tests/ -v --tb=short -m "not e2e and not slow and not browser"
+
+test-slow: ## Run slow tests (including browser automation)
+	$(PYTEST) tests/ -v --tb=short -m "slow"
+
+test-parallel: ## Run tests with explicit parallelization
+	$(PYTEST) tests/ -v --tb=short -n auto --dist=loadscope
 
 test-unit: ## Run unit tests only
 	$(PYTEST) tests/unit/ -v --tb=short

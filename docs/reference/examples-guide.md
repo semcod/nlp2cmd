@@ -333,5 +333,5 @@ playwright install chromium
 ## 📚 Additional Resources
 
 - **[Architecture Guide](../architecture/)** - System architecture
-- **[Thermodynamic Integration](../../THERMODYNAMIC_INTEGRATION.md)** - Advanced optimization
-- **[Contributing Guide](../../CONTRIBUTING.md)** - Development guidelines
+- **[Thermodynamic Integration](../architecture/thermodynamic-computing.md)** - Advanced optimization
+- **[Contributing Guide](../maintainers/IMPROVEMENTS.md)** - Development guidelines

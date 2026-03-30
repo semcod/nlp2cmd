@@ -6,6 +6,11 @@ from typing import Any, Optional
 
 from .base import BrowserConfig, BrowserConnectionResult, ConnectionStatus
 
+try:
+    from playwright.sync_api import sync_playwright
+except Exception:  # pragma: no cover
+    sync_playwright = None  # type: ignore[assignment]
+
 log = logging.getLogger("nlp2cmd.browser_manager.connector")
 
 
@@ -33,9 +38,7 @@ class BrowserConnector:
         """
         result = BrowserConnectionResult(cdp_port=port)
         
-        try:
-            from playwright.sync_api import sync_playwright
-        except ImportError:
+        if sync_playwright is None:
             result.status = ConnectionStatus.PLAYWRIGHT_MISSING
             result.error = "Playwright not installed"
             if console and verbose:
@@ -61,8 +64,6 @@ class BrowserConnector:
                 
                 result.browser = browser
                 result.browser_type = browser_type
-                result.success = True
-                result.status = ConnectionStatus.SUCCESS
                 
                 # Create context and page
                 if console and verbose:
@@ -74,11 +75,14 @@ class BrowserConnector:
                     
                     result.context = context
                     result.page = page
+                    result.success = True
+                    result.status = ConnectionStatus.SUCCESS
                     
                     if console and verbose:
                         console.print(f"[green]     ✓ Browser context created[/green]")
                 except Exception as e:
                     result.status = ConnectionStatus.CONTEXT_FAILED
+                    result.success = False
                     result.error = f"Failed to create context: {e}"
                     if console and verbose:
                         console.print(f"[red]     ✗ Failed to create browser context: {e}[/red]")
@@ -86,8 +90,17 @@ class BrowserConnector:
                 
                 return result
                 
+        except ImportError as e:
+            # Specific case when Playwright is not installed
+            result.status = ConnectionStatus.PLAYWRIGHT_MISSING
+            result.success = False
+            result.error = str(e)
+            if console and verbose:
+                console.print(f"[red]     ✗ Playwright not installed: {e}[/red]")
+            return result
         except Exception as e:
             result.status = ConnectionStatus.ERROR
+            result.success = False
             result.error = str(e)
             if console and verbose:
                 console.print(f"[red]     ✗ CDP connection error: {e}[/red]")

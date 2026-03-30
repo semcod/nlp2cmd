@@ -226,7 +226,7 @@ strategies:
   python:
     test: pytest tests/ -v
     build: python -m build
-    publish: twine upload dist/goal-{version}*
+    publish: twine upload dist/nlp2cmd-{version}*
     publish_enabled: true
     dependencies:
       file: requirements.txt
@@ -234,7 +234,7 @@ strategies:
   nodejs:
     test: npm test
     build: npm run build
-    publish: npm publish
+    publish: twine upload dist/nlp2cmd-{version}*
     publish_enabled: true
     dependencies:
       file: package-lock.json
@@ -242,7 +242,7 @@ strategies:
   rust:
     test: cargo test
     build: cargo build --release
-    publish: cargo publish
+    publish: twine upload dist/nlp2cmd-{version}*
     publish_enabled: true
     dependencies:
       file: Cargo.lock

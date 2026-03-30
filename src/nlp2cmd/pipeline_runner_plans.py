@@ -91,6 +91,111 @@ class PlanExecutionMixin:
             )
         return sanitized
 
+    @staticmethod
+    def _detect_desktop_steps(plan: Any) -> bool:
+        """Detect whether a plan contains steps that must use desktop execution."""
+        desktop_actions = frozenset({"open_firefox_tab", "desktop_wait"})
+        try:
+            steps_iter = getattr(plan, "steps", None) or []
+            return any(
+                str(getattr(step, "action", "")).startswith("desktop_")
+                or str(getattr(step, "action", "")) in desktop_actions
+                for step in steps_iter
+            )
+        except Exception:
+            return False
+
+    @staticmethod
+    def _initialize_plan_variables(plan: Any) -> dict[str, str]:
+        """Initialize execution variables, including known service metadata."""
+        variables: dict[str, str] = {}
+        try:
+            from nlp2cmd.automation.action_planner import KNOWN_SERVICES
+
+            query = (getattr(plan, "query", "") or "").lower()
+            for service_name, service in KNOWN_SERVICES.items():
+                if service_name in query:
+                    variables["_key_pattern"] = service.get("key_pattern", "")
+                    break
+        except Exception:
+            pass
+        return variables
+
+    @staticmethod
+    def _build_service_context(plan: Any) -> tuple[dict[str, Any], str]:
+        """Resolve service config used by validator/fallback infrastructure."""
+        service_config: dict[str, Any] = {}
+        service_name = ""
+        try:
+            from nlp2cmd.automation.action_planner import KNOWN_SERVICES
+
+            query = (getattr(plan, "query", "") or "").lower()
+            for known_name, known_config in KNOWN_SERVICES.items():
+                if known_name in query:
+                    service_config = known_config
+                    service_name = known_name
+                    break
+        except Exception:
+            pass
+        return service_config, service_name
+
+    def _inject_replacement_steps(
+        self,
+        step_queue: list[Any],
+        step_idx: int,
+        replacement_steps: list[dict[str, Any]],
+        console: Console,
+        *,
+        injection_count: int,
+        noun: str,
+    ) -> tuple[bool, int]:
+        """Inject sanitized fallback steps after the current step when limits allow."""
+        if (
+            injection_count >= _MAX_FALLBACK_INJECTIONS
+            or len(step_queue) + len(replacement_steps) > _MAX_PLAN_STEPS
+        ):
+            console.print(
+                f"  [yellow]⚠ Limit fallbacków osiągnięty "
+                f"({injection_count}/{_MAX_FALLBACK_INJECTIONS} "
+                f"injekcji, {len(step_queue)} kroków) — pomijam[/yellow]"
+            )
+            return False, injection_count
+
+        from nlp2cmd.automation.action_planner import ActionStep
+
+        new_steps = []
+        for replacement_step in self._sanitize_replacement_steps(replacement_steps):
+            new_steps.append(
+                ActionStep(
+                    action=replacement_step["action"],
+                    params=replacement_step.get("params", {}),
+                    description=replacement_step.get("description", ""),
+                    store_as=replacement_step.get("store_as"),
+                )
+            )
+
+        step_queue[step_idx + 1 : step_idx + 1] = new_steps
+        injection_count += 1
+        console.print(
+            f"  [dim]   📝 Wstawiono {len(new_steps)} {noun} kroków[/dim]"
+        )
+        return True, injection_count
+
+    @staticmethod
+    def _summarize_results(results_log: list[dict[str, Any]]) -> tuple[int, int, int, int]:
+        """Return ok, error, failed, and total elapsed milliseconds."""
+        ok_count = sum(
+            1
+            for result in results_log
+            if result["status"] in ("ok", "ok_retry", "ok_fallback", "fallback_injected")
+        )
+        fail_count = sum(1 for result in results_log if result["status"] == "failed")
+        err_count = sum(
+            1 for result in results_log if result["status"] in ("error", "failed_validation")
+        )
+        total_ms = sum(result.get("elapsed_ms", 0) for result in results_log)
+        return ok_count, err_count, fail_count, total_ms
+
     # ═══ Multi-Step ActionPlan Execution ═════════════════════════════════
 
     def execute_action_plan(
@@ -113,17 +218,7 @@ class PlanExecutionMixin:
 
         console = Console()
 
-        # Detect steps that need the desktop executor (not Playwright)
-        _DESKTOP_ACTIONS = frozenset({"open_firefox_tab", "desktop_wait"})
-        try:
-            steps_iter = getattr(plan, "steps", None) or []
-            has_desktop_steps = any(
-                str(getattr(s, "action", "")).startswith("desktop_")
-                or str(getattr(s, "action", "")) in _DESKTOP_ACTIONS
-                for s in steps_iter
-            )
-        except Exception:
-            has_desktop_steps = False
+        has_desktop_steps = self._detect_desktop_steps(plan)
 
         console.print(f"\n[bold]🎯 Plan wykonania ({len(plan.steps)} kroków):[/bold]")
         console.print(f"  [dim]Źródło: {getattr(plan, 'source', '?')} | "
@@ -165,17 +260,8 @@ class PlanExecutionMixin:
                 console.print(f"[dim]🎥 Nagrywanie wideo: {video_path}[/dim]")
 
         if has_desktop_steps:
-            variables: dict[str, str] = {}
+            variables = self._initialize_plan_variables(plan)
             results_log: list[dict] = []
-            # Store key pattern in variables so validation steps can access it
-            try:
-                from nlp2cmd.automation.action_planner import KNOWN_SERVICES
-                for _svc_name, _svc in KNOWN_SERVICES.items():
-                    if _svc_name in (getattr(plan, "query", "") or "").lower():
-                        variables["_key_pattern"] = _svc.get("key_pattern", "")
-                        break
-            except Exception:
-                pass
 
             # Critical actions — if these fail, abort the plan
             _CRITICAL_ACTIONS = frozenset({"prompt_secret", "save_env"})
@@ -275,10 +361,7 @@ class PlanExecutionMixin:
                     console.print("[dim]⚠️ Uwaga: Nagrywanie wideo jest niedostępne w trybie 'desktop' (wymaga pełnego silnika Playwright).[/dim]")
 
                 # Final summary
-                ok_count = sum(1 for r in results_log if r["status"] in ("ok", "ok_retry"))
-                fail_count = sum(1 for r in results_log if r["status"] == "failed")
-                err_count = sum(1 for r in results_log if r["status"] == "error")
-                total_ms = sum(r.get("elapsed_ms", 0) for r in results_log)
+                ok_count, err_count, fail_count, total_ms = self._summarize_results(results_log)
 
                 console.print(f"\n[bold]📊 Podsumowanie planu:[/bold]")
                 console.print(
@@ -454,17 +537,7 @@ class PlanExecutionMixin:
                 feedback_loop = None
 
             # Resolve service config for fallback context
-            _svc_config: dict = {}
-            _svc_name: str = ""
-            try:
-                from nlp2cmd.automation.action_planner import KNOWN_SERVICES
-                for _sn, _sc in KNOWN_SERVICES.items():
-                    if _sn in (getattr(plan, "query", "") or "").lower():
-                        _svc_config = _sc
-                        _svc_name = _sn
-                        break
-            except Exception:
-                pass
+            _svc_config, _svc_name = self._build_service_context(plan)
 
             # Build mutable step queue (allows injecting fallback steps)
             step_queue = list(plan.steps)
@@ -634,31 +707,15 @@ class PlanExecutionMixin:
                                         step_error = ""
                                         fb_applied = True
                                     elif fb_result.replacement_steps:
-                                        if (
-                                            _fallback_injection_count >= _MAX_FALLBACK_INJECTIONS
-                                            or len(step_queue) + len(fb_result.replacement_steps) > _MAX_PLAN_STEPS
-                                        ):
-                                            console.print(
-                                                f"  [yellow]⚠ Limit fallbacków osiągnięty "
-                                                f"({_fallback_injection_count}/{_MAX_FALLBACK_INJECTIONS} "
-                                                f"injekcji, {len(step_queue)} kroków) — pomijam[/yellow]"
-                                            )
-                                        else:
-                                            from nlp2cmd.automation.action_planner import ActionStep
-                                            new_steps = []
-                                            for rs in self._sanitize_replacement_steps(fb_result.replacement_steps):
-                                                new_steps.append(ActionStep(
-                                                    action=rs["action"],
-                                                    params=rs.get("params", {}),
-                                                    description=rs.get("description", ""),
-                                                    store_as=rs.get("store_as"),
-                                                ))
-                                            step_queue[step_idx+1:step_idx+1] = new_steps
-                                            _fallback_injection_count += 1
-                                            console.print(
-                                                f"  [dim]   📝 Wstawiono {len(new_steps)} "
-                                                f"dodatkowych kroków[/dim]"
-                                            )
+                                        injected, _fallback_injection_count = self._inject_replacement_steps(
+                                            step_queue,
+                                            step_idx,
+                                            fb_result.replacement_steps,
+                                            console,
+                                            injection_count=_fallback_injection_count,
+                                            noun="dodatkowych",
+                                        )
+                                        if injected:
                                             step_status = "fallback_injected"
                                             step_error = ""
                                             fb_applied = True
@@ -770,31 +827,15 @@ class PlanExecutionMixin:
                                 results_log[-1]["status"] = "ok_fallback"
                                 fallback_handled = True
                             elif fb_result.replacement_steps:
-                                if (
-                                    _fallback_injection_count >= _MAX_FALLBACK_INJECTIONS
-                                    or len(step_queue) + len(fb_result.replacement_steps) > _MAX_PLAN_STEPS
-                                ):
-                                    console.print(
-                                        f"  [yellow]⚠ Limit fallbacków osiągnięty "
-                                        f"({_fallback_injection_count}/{_MAX_FALLBACK_INJECTIONS} "
-                                        f"injekcji, {len(step_queue)} kroków) — pomijam[/yellow]"
-                                    )
-                                else:
-                                    from nlp2cmd.automation.action_planner import ActionStep
-                                    new_steps = []
-                                    for rs in self._sanitize_replacement_steps(fb_result.replacement_steps):
-                                        new_steps.append(ActionStep(
-                                            action=rs["action"],
-                                            params=rs.get("params", {}),
-                                            description=rs.get("description", ""),
-                                            store_as=rs.get("store_as"),
-                                        ))
-                                    step_queue[step_idx+1:step_idx+1] = new_steps
-                                    _fallback_injection_count += 1
-                                    console.print(
-                                        f"  [dim]   📝 Wstawiono {len(new_steps)} "
-                                        f"alternatywnych kroków[/dim]"
-                                    )
+                                injected, _fallback_injection_count = self._inject_replacement_steps(
+                                    step_queue,
+                                    step_idx,
+                                    fb_result.replacement_steps,
+                                    console,
+                                    injection_count=_fallback_injection_count,
+                                    noun="alternatywnych",
+                                )
+                                if injected:
                                     results_log[-1]["status"] = "fallback_injected"
                                     fallback_handled = True
                         else:
@@ -839,10 +880,7 @@ class PlanExecutionMixin:
 
 
             # Final summary
-            ok_count = sum(1 for r in results_log if r["status"] in ("ok", "ok_retry", "ok_fallback", "fallback_injected"))
-            fail_count = sum(1 for r in results_log if r["status"] == "failed")
-            err_count = sum(1 for r in results_log if r["status"] in ("error", "failed_validation"))
-            total_ms = sum(r.get("elapsed_ms", 0) for r in results_log)
+            ok_count, err_count, fail_count, total_ms = self._summarize_results(results_log)
 
             console.print(f"\n[bold]📊 Podsumowanie planu:[/bold]")
             console.print(

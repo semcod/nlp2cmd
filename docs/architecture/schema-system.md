@@ -71,16 +71,10 @@ Przechowywanie schematów w `command_schemas/`:
 **Structure:**
 ```
 command_schemas/
-├── browser/            # Browser-specific schemas
-├── categories/         # Schema categories
-├── commands/           # Individual command schemas  
-├── exports/            # Exported schemas
-├── keyboard/           # Keyboard command schemas
-├── sites/              # Site-specific schemas
-├── docker.appspec.json
-├── docker.json
-├── nginx.json
-└── index.json
+├── commands/           # Individual command schemas (per-command storage)
+├── categories/         # Schema categories index
+├── index.json          # Master index of all schemas
+└── *.json              # Schema files (docker.json, nginx.json, etc.)
 ```
 
 ### 3. Schema-Based Generation (`src/nlp2cmd/generation/schema/`)
@@ -174,11 +168,12 @@ registry_config = {
 - **v0.2.0**: Schema extraction introduced
 - **v0.3.0**: Per-command storage added
 - **v0.4.0**: `schema_based/` → `generation/schema/` (shims)
-- **v0.5.0**: `DynamicSchemaRegistry` → `SchemaRegistry` (rename)
 - **v0.5.0**: Added support for OpenAPI, AppSpec exports, dynamic schemas
+- **v1.0.0**: Schema extraction integration with pipeline
 
 ## Related Documentation
 
-- [API Reference](api/README.md) - Detailed API
-- [Examples Guide](reference/examples-guide.md) - Practical examples
+- [API Reference](../api/README.md) - Detailed API
+- [Examples Guide](../reference/examples-guide.md) - Practical examples
 - [Versioned Schemas](#versioning) - Schema versioning
+- [Thermodynamic Integration](thermodynamic-computing.md) - Energy-based optimization

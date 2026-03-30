@@ -1,0 +1,53 @@
+pipeline:
+  name: project-analysis
+
+  # Full project analysis pipeline — replaces project.sh
+  # Runs: code2llm → cleanup → code2docs → redup → vallm → prefact
+  # timeout: 0 = no limit (analysis tools can take 10-30 min on large repos)
+  # The custom presets below exclude generated/vendor directories and project/
+  # output so the analysis finishes in a practical time on very large repos.
+
+  custom_tools:
+    - name: code2llm_scoped
+      binary: code2llm
+      command: >-
+        code2llm {workdir} -f all -o ./project --no-chunk
+        --exclude project venv .venv venv_llm node_modules src-tauri webops
+        test-env fresh_env dist build target out logs backups
+      output: ""
+      allow_failure: false
+
+    - name: vallm_scoped
+      binary: vallm
+      command: "vallm batch {workdir} --recursive --format toon --output ./project --exclude project,venv,.venv,venv_llm,node_modules,src-tauri,webops,test-env,fresh_env,dist,build,target,out,logs,backups"
+      output: ""
+      allow_failure: false
+
+  stages:
+    - name: analyze
+      tool: code2llm_scoped
+      timeout: 0
+
+    - name: cleanup
+      run: rm -f project/analysis.json project/analysis.yaml
+      when: always
+
+    - name: docs
+      tool: code2docs
+      timeout: 0
+
+    - name: duplicates
+      tool: redup
+      timeout: 0
+
+    - name: validate
+      tool: vallm_scoped
+      timeout: 0
+
+    - name: prefact
+      tool: prefact
+      timeout: 0
+
+  loop:
+    max_iterations: 1
+    on_fail: report

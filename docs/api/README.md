@@ -4,10 +4,13 @@
 
 - **[Documentation Hub](../README.md)** - Entry point for all docs
 - **[User Guide](../user-guide/user-guide.md)** - Complete usage tutorial
-- **[Installation Guide](../../INSTALLATION.md)** - Setup instructions
-- **[Thermodynamic Integration](../../THERMODYNAMIC_INTEGRATION.md)** - Advanced optimization
-- **[Contributing Guide](../../CONTRIBUTING.md)** - Development guidelines
-- **[Examples](../../examples/)** - Practical code examples
+- **[CLI Reference](../reference/cli-reference.md)** - Command line usage
+- **[Python API Guide](../reference/python-api.md)** - Programmatic usage
+- **[Examples Guide](../reference/examples-guide.md)** - Practical examples
+- **[Schema System](../architecture/schema-system.md)** - Schema extraction
+- **[Thermodynamic Integration](../architecture/thermodynamic-computing.md)** - Advanced optimization
+- **[Contributing Guide](../maintainers/IMPROVEMENTS.md)** - Development guidelines
+- **[Installation Guide](../README.md#installation)** - Setup instructions (in main README)
 
 ## Core Module
 

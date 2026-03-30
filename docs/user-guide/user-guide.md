@@ -3,11 +3,11 @@
 ## 📚 Related Documentation
 
 - **[Documentation Hub](../README.md)** - Entry point for all docs
-- **[Installation Guide](../../INSTALLATION.md)** - Setup instructions
+- **[Installation Guide](../README.md#installation)** - Setup instructions (in main README)
 - **[API Reference](../api/README.md)** - Detailed API documentation
-- **[Thermodynamic Integration](../../THERMODYNAMIC_INTEGRATION.md)** - Advanced optimization
-- **[Contributing Guide](../../CONTRIBUTING.md)** - Development guidelines
-- **[Examples](../../examples/)** - Practical code examples
+- **[Thermodynamic Integration](../architecture/thermodynamic-computing.md)** - Advanced optimization
+- **[Contributing Guide](../maintainers/IMPROVEMENTS.md)** - Development guidelines
+- **[Examples Guide](../reference/examples-guide.md)** - Practical code examples
 
 ## Configuration
 

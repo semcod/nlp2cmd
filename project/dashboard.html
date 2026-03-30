@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nlp2cmd — Health Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8;
+    --green: #22c55e; --yellow: #eab308; --red: #ef4444; --blue: #3b82f6;
+    --orange: #f97316;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f8fafc; --surface: #ffffff; --border: #e2e8f0;
+      --text: #1e293b; --muted: #64748b;
+    }
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); padding:2rem; }
+  h1 { font-size:1.5rem; margin-bottom:.5rem; }
+  h2 { font-size:1.1rem; color:var(--muted); margin:1.5rem 0 .75rem; border-bottom:1px solid var(--border); padding-bottom:.25rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin:1rem 0; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:.5rem; padding:1rem; }
+  .card .value { font-size:1.8rem; font-weight:700; }
+  .card .label { color:var(--muted); font-size:.8rem; text-transform:uppercase; }
+  .chart-container { background:var(--surface); border:1px solid var(--border); border-radius:.5rem; padding:1rem; margin:1rem 0; }
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:.85rem; }
+  th { text-align:left; color:var(--muted); padding:.5rem; border-bottom:1px solid var(--border); white-space:nowrap; }
+  td { padding:.5rem; border-bottom:1px solid var(--border); }
+  .badge { padding:.15rem .5rem; border-radius:.25rem; font-size:.75rem; font-weight:600; }
+  .badge.critical { background:var(--red); color:#fff; }
+  .badge.error { background:var(--orange); color:#fff; }
+  .badge.warning { background:var(--yellow); color:#000; }
+  .badge.high { background:var(--red); color:#fff; }
+  .badge.medium { background:var(--yellow); color:#000; }
+  .badge.low { background:var(--green); color:#fff; }
+  tr.critical td { background:rgba(239,68,68,.08); }
+  tr.error td { background:rgba(249,115,22,.06); }
+  tr.warning td { background:rgba(234,179,8,.05); }
+  .health-indicator { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:.5rem; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+  .evo-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:.75rem; }
+  .evo-cards .card { text-align:center; }
+  .trend { font-size:.75rem; color:var(--muted); }
+  .lang-tag { display:inline-block; padding:.1rem .4rem; border-radius:.2rem; font-size:.7rem; font-weight:600; margin-right:.25rem; color:#fff; }
+  @media (max-width:768px) { .two-col,.three-col { grid-template-columns:1fr; } }
+  footer { margin-top:2rem; color:var(--muted); font-size:.75rem; text-align:center; }
+</style>
+</head>
+<body>
+<h1>
+  <span class="health-indicator" style="background:#eab308"></span>
+  nlp2cmd — Warning
+</h1>
+<p style="color:var(--muted);font-size:.85rem;">
+  Analyzed 2026-03-16 by code2llm
+  &nbsp;·&nbsp; Primary language: <strong>python</strong>
+  &nbsp;·&nbsp; Python: 624, Shell: 7, JavaScript: 1
+</p>
+
+<div class="grid">
+  <div class="card"><div class="value">5,029</div><div class="label">Functions</div></div>
+  <div class="card"><div class="value">773</div><div class="label">Classes</div></div>
+  <div class="card"><div class="value">541</div><div class="label">Files</div></div>
+  <div class="card"><div class="value">346,396</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">3</div><div class="label">Languages</div></div>
+  <div class="card"><div class="value">5.6</div><div class="label">Avg CC</div></div>
+  <div class="card"><div class="value">731</div><div class="label">Critical (CC≥10)</div></div>
+  <div class="card"><div class="value">32</div><div class="label">Duplicates</div></div>
+  <div class="card"><div class="value">0</div><div class="label">Cycles</div></div>
+</div>
+
+<div class="three-col">
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Language Distribution</h2>
+    <canvas id="langChart" height="200"></canvas>
+  </div>
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Largest Modules (lines)</h2>
+    <canvas id="modLinesChart" height="200"></canvas>
+  </div>
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Most Complex Modules (functions)</h2>
+    <canvas id="modFuncsChart" height="200"></canvas>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Evolution (2026-03-16)</h2>
+    <div class="evo-cards">
+      <div class="card"><div class="value">5.6</div><div class="label">CC̄ →</div></div>
+      <div class="card"><div class="value">731</div><div class="label">Critical →</div></div>
+      <div class="card"><div class="value">346396</div><div class="label">Lines</div></div>
+    </div>
+    <p class="trend" style="margin-top:.5rem;">Run analysis multiple times to build a trend chart (≥3 data points needed).</p>
+  </div>
+  <div>
+    <h2>Top Modules (632)</h2>
+    <div class="card"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Module</th><th>Path</th><th style="text-align:right">Lines</th><th style="text-align:right">Funcs</th><th style="text-align:right">Classes</th><th style="text-align:right">CC max</th></tr></thead>
+      <tbody>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>pipeline_runner_plans.py</td>
+                <td style="color:var(--muted);font-size:.75rem">src/nlp2cmd</td>
+                <td style="text-align:right">3,013</td>
+                <td style="text-align:right">13</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">346</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>nx_pylab.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/drawing</td>
+                <td style="text-align:right">2,978</td>
+                <td style="text-align:right">25</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">60</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>backends.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/utils</td>
+                <td style="text-align:right">2,171</td>
+                <td style="text-align:right">28</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">80</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>similarity.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/algorithms</td>
+                <td style="text-align:right">2,107</td>
+                <td style="text-align:right">11</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">42</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>graph.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/classes</td>
+                <td style="text-align:right">2,082</td>
+                <td style="text-align:right">45</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">8</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>layout.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/drawing</td>
+                <td style="text-align:right">2,036</td>
+                <td style="text-align:right">23</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">29</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>action_planner.py</td>
+                <td style="color:var(--muted);font-size:.75rem">src/nlp2cmd/automation</td>
+                <td style="text-align:right">1,772</td>
+                <td style="text-align:right">27</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">25</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>site_explorer.py</td>
+                <td style="color:var(--muted);font-size:.75rem">src/nlp2cmd/web_schema</td>
+                <td style="text-align:right">1,716</td>
+                <td style="text-align:right">34</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">72</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>pipeline_runner_browser.py</td>
+                <td style="color:var(--muted);font-size:.75rem">src/nlp2cmd</td>
+                <td style="text-align:right">1,704</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">280</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>function.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/classes</td>
+                <td style="text-align:right">1,549</td>
+                <td style="text-align:right">42</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">33</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>traveling_salesman.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/algorithms/approximation</td>
+                <td style="text-align:right">1,508</td>
+                <td style="text-align:right">11</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">24</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>planarity.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/algorithms</td>
+                <td style="text-align:right">1,463</td>
+                <td style="text-align:right">46</td>
+                <td style="text-align:right">4</td>
+                <td style="text-align:right">17</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>reportviews.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/classes</td>
+                <td style="text-align:right">1,447</td>
+                <td style="text-align:right">99</td>
+                <td style="text-align:right">23</td>
+                <td style="text-align:right">10</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>random_graphs.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/generators</td>
+                <td style="text-align:right">1,416</td>
+                <td style="text-align:right">19</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">27</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>dag.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/algorithms</td>
+                <td style="text-align:right">1,392</td>
+                <td style="text-align:right">19</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">20</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>doctor.py</td>
+                <td style="color:var(--muted);font-size:.75rem">src/nlp2cmd/cli/commands</td>
+                <td style="text-align:right">1,388</td>
+                <td style="text-align:right">23</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">56</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>digraph.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/classes</td>
+                <td style="text-align:right">1,363</td>
+                <td style="text-align:right">31</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">9</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>voice_service.py</td>
+                <td style="color:var(--muted);font-size:.75rem">webops</td>
+                <td style="text-align:right">1,336</td>
+                <td style="text-align:right">20</td>
+                <td style="text-align:right">4</td>
+                <td style="text-align:right">13</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>convert_matrix.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx</td>
+                <td style="text-align:right">1,314</td>
+                <td style="text-align:right">13</td>
+                <td style="text-align:right">0</td>
+                <td style="text-align:right">29</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>ismags.py</td>
+                <td style="color:var(--muted);font-size:.75rem">networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism</td>
+                <td style="text-align:right">1,306</td>
+                <td style="text-align:right">26</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">33</td>
+            </tr></tbody>
+    </table>
+    </div></div>
+  </div>
+</div>
+
+<h2>Alerts (20)</h2>
+<div class="card"><div class="table-wrap">
+<table>
+  <thead><tr><th>Severity</th><th>Target</th><th>Type</th><th>Value</th><th>Limit</th></tr></thead>
+  <tbody>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>PlanExecutionMixin._execute_plan_step</td>
+                <td>cc_exceeded</td>
+                <td>346</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>BrowserExecutionMixin._run_dom_multi_action</td>
+                <td>cc_exceeded</td>
+                <td>280</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>generate_command</td>
+                <td>cc_exceeded</td>
+                <td>187</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>handle_run_mode</td>
+                <td>cc_exceeded</td>
+                <td>178</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>PlanExecutionMixin.execute_action_plan</td>
+                <td>cc_exceeded</td>
+                <td>168</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>CommandGenerator._generate_simple</td>
+                <td>cc_exceeded</td>
+                <td>144</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>PlanExecutionMixin._execute_plan_step</td>
+                <td>high_fan_out</td>
+                <td>118</td>
+                <td>10</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>BrowserExecutionMixin._run_dom_multi_action</td>
+                <td>high_fan_out</td>
+                <td>108</td>
+                <td>10</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>DiGraphMatcher.syntactic_feasibility</td>
+                <td>cc_exceeded</td>
+                <td>81</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>_dispatchable._call_if_any_backends_installed</td>
+                <td>cc_exceeded</td>
+                <td>80</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>max_weight_matching</td>
+                <td>cc_exceeded</td>
+                <td>76</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>handle_run_mode</td>
+                <td>high_fan_out</td>
+                <td>75</td>
+                <td>10</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>PlanExecutionMixin.execute_action_plan</td>
+                <td>high_fan_out</td>
+                <td>74</td>
+                <td>10</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>KeywordIntentDetector._fast_path_detection</td>
+                <td>cc_exceeded</td>
+                <td>73</td>
+                <td>15</td>
+            </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>SiteExplorer.find_form</td>
+                <td>cc_exceeded</td>
+                <td>72</td>
+                <td>15</td>
+            </tr></tbody>
+</table>
+</div></div>
+
+<div class="two-col">
+<div>
+<h2>Hotspots (10)</h2>
+<div class="card"><div class="table-wrap">
+<table>
+  <thead><tr><th>Function</th><th>Fan-out</th><th>Note</th></tr></thead>
+  <tbody>
+            <tr>
+                <td><strong>PlanExecutionMixin._execute_plan_step</strong></td>
+                <td>118</td>
+                <td>Execute a single ActionPlan step. Returns extracted value or None.</td>
+            </tr>
+            <tr>
+                <td><strong>BrowserExecutionMixin._run_dom_multi_action</strong></td>
+                <td>108</td>
+                <td>Execute multiple browser actions in sequence.</td>
+            </tr>
+            <tr>
+                <td><strong>handle_run_mode</strong></td>
+                <td>75</td>
+                <td>Handle --run option: generate and execute command with error recovery.
+
+Features</td>
+            </tr>
+            <tr>
+                <td><strong>PlanExecutionMixin.execute_action_plan</strong></td>
+                <td>74</td>
+                <td>Execute an ActionPlan step by step using Playwright.
+
+Args:
+    plan: ActionPlan</td>
+            </tr>
+            <tr>
+                <td><strong>display</strong></td>
+                <td>65</td>
+                <td>Draw the graph G.
+
+Draw the graph as a collection of nodes connected by edges.
+T</td>
+            </tr>
+            <tr>
+                <td><strong>max_weight_matching</strong></td>
+                <td>62</td>
+                <td>Compute a maximum-weighted matching of G.
+
+A matching is a subset of edges in wh</td>
+            </tr>
+            <tr>
+                <td><strong>optimize_edit_paths</strong></td>
+                <td>60</td>
+                <td>GED (graph edit distance) calculation: advanced interface.
+
+Graph edit path is a</td>
+            </tr>
+            <tr>
+                <td><strong>main</strong></td>
+                <td>56</td>
+                <td>NLP2CMD - Natural Language to Domain-Specific Commands.</td>
+            </tr>
+            <tr>
+                <td><strong>_execute_multi_step_with_video</strong></td>
+                <td>54</td>
+                <td>Execute multi-step action plan in browser with video recording.
+
+Records browser</td>
+            </tr>
+            <tr>
+                <td><strong>maximum_branching</strong></td>
+                <td>52</td>
+                <td>Orchestrates 52 calls</td>
+            </tr></tbody>
+</table>
+</div></div>
+</div>
+
+<div>
+<h2>Refactoring Priorities (15)</h2>
+<div class="card"><div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
+  <tbody>
+            <tr>
+                <td>1</td>
+                <td>Split to_networkx_graph (CC=25 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Split from_dict_of_dicts (CC=26 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Split _relabel_inplace (CC=25 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Split from_numpy_array (CC=29 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Split parse_pajek (CC=26 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Split generate_network_text (CC=42 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Split _parse_network_text (CC=34 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Split to_latex_raw (CC=28 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Split spring_layout (CC=29 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Split selfloop_edges (CC=33 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Split display (CC=60 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Split draw_networkx_edges (CC=40 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Split triangular_lattice_graph (CC=33 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Split hexagonal_lattice_graph (CC=30 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Split stochastic_block_model (CC=36 → target CC<10)</td>
+                <td><span class="badge high">high</span></td>
+                <td>low</td>
+            </tr></tbody>
+</table>
+</div></div>
+</div>
+</div>
+
+<footer>Generated by code2llm on 2026-03-16 21:34</footer>
+
+<script>
+// Evolution chart disabled — fewer than 3 data points
+
+// Language distribution pie chart
+const langCtx = document.getElementById('langChart').getContext('2d');
+new Chart(langCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Python', 'Shell', 'JavaScript'],
+    datasets: [{
+      data: [624, 7, 1],
+      backgroundColor: ['#3572A5', '#89e051', '#f7df1e'],
+      borderColor: 'var(--border)', borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e2e8f0', font: {size: 11} } }
+    }
+  }
+});
+
+// Module lines bar chart
+const modLinesCtx = document.getElementById('modLinesChart').getContext('2d');
+new Chart(modLinesCtx, {
+  type: 'bar',
+  data: {
+    labels: ['pipeline_runner_plans.py', 'nx_pylab.py', 'backends.py', 'similarity.py', 'graph.py', 'layout.py', 'action_planner.py', 'site_explorer.py', 'pipeline_runner_browser.py', 'function.py', 'traveling_salesman.py', 'planarity.py', 'reportviews.py', 'random_graphs.py', 'dag.py'],
+    datasets: [{ label: 'Lines', data: [3013, 2978, 2171, 2107, 2082, 2036, 1772, 1716, 1704, 1549, 1508, 1463, 1447, 1416, 1392],
+      backgroundColor: '#3b82f6'
+    }]
+  },
+  options: {
+    responsive: true, indexAxis: 'y',
+    scales: {
+      x: { grid:{color:'#334155'}, ticks:{color:'#94a3b8'} },
+      y: { grid:{color:'#334155'}, ticks:{color:'#94a3b8',font:{size:10}} }
+    },
+    plugins: { legend: { display:false } }
+  }
+});
+
+// Module functions bar chart
+const modFuncsCtx = document.getElementById('modFuncsChart').getContext('2d');
+new Chart(modFuncsCtx, {
+  type: 'bar',
+  data: {
+    labels: ['reportviews.py', 'template_generator.py', 'voice-service.js', 'coreviews.py', 'form_data_loader.py', 'planarity.py', 'graph.py', '__init__.py', 'function.py', 'termo2.py', 'shapes.py', 'enhanced_schema_generator.py', 'site_explorer.py', 'graphml.py', 'gexf.py'],
+    datasets: [{ label: 'Functions', data: [99, 98, 89, 49, 47, 46, 45, 43, 42, 38, 38, 37, 34, 33, 32],
+      backgroundColor: '#22c55e'
+    }]
+  },
+  options: {
+    responsive: true, indexAxis: 'y',
+    scales: {
+      x: { grid:{color:'#334155'}, ticks:{color:'#94a3b8'} },
+      y: { grid:{color:'#334155'}, ticks:{color:'#94a3b8',font:{size:10}} }
+    },
+    plugins: { legend: { display:false } }
+  }
+});
+</script>
+</body>
+</html>

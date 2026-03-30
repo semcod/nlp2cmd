@@ -6,7 +6,11 @@ Test script for NLP2CMD service mode.
 import json
 import time
 import requests
+import pytest
 from typing import Dict, Any
+
+
+pytestmark = [pytest.mark.integration, pytest.mark.slow]
 
 
 def test_service(base_url: str = "http://localhost:8000") -> Dict[str, Any]:
