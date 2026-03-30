@@ -1,4 +1,4 @@
-# code2llm/evolution | 4660 func | 507f | 2026-03-30
+# code2llm/evolution | 4663 func | 507f | 2026-03-30
 
 NEXT[10] (ranked by impact):
   [1] !! SPLIT           src/nlp2cmd/pipeline_runner_plans.py
@@ -48,7 +48,7 @@ RISKS[3]:
   ⚠ Splitting networkx-3.6.1-py3-none-any/networkx/algorithms/shortest_paths/weighted.py may break 0 import paths
 
 METRICS-TARGET:
-  CC̄:          5.8 → ≤4.1
+  CC̄:          5.7 → ≤4.0
   max-CC:      346 → ≤20
   god-modules: 144 → 0
   high-CC(≥15): 343 → ≤171
@@ -79,4 +79,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=5.8 → now CC̄=5.8
+  prev CC̄=5.8 → now CC̄=5.7

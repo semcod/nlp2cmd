@@ -1,7 +1,7 @@
 <!-- code2docs:start --># nlp2cmd
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.10-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-3606-green)
-> **3606** functions | **692** classes | **554** files | CC̄ = 5.3
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.10-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-3615-green)
+> **3615** functions | **692** classes | **555** files | CC̄ = 5.3
 
 > Auto-generated project documentation from source code analysis.
 
@@ -156,7 +156,7 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 nlp2cmd/
-├── generate_working├── code2llm_workaround├── generate_chunks    ├── _example_helpers├── generate_quick    ├── show_metrics    ├── _verbose_helper    ├── setup_external    ├── bump_version    ├── _dynamic_orchestrator    ├── simple_schema_demo    ├── demo_intelligent_nlp2cmd    ├── demo_enhanced    ├── demo_persistent_storage    ├── demo_versioned_schemas    ├── demo_schema_flow    ├── schema_flow_demo        ├── termo1    ├── demo_version_detection        ├── termo        ├── termo_demo        ├── implement_core_integration    ├── run_task        ├── implement_high_priority_fixes        ├── termo2        ├── refactoring_summary        ├── refactor_detect_normalized        ├── restore_system        ├── apply_polish_integration        ├── final_analysis_and_next_steps        ├── auto_apply_refactors        ├── apply_nlp2cmd_fixes        ├── apply_refactors_to_source        ├── generate_refactor_report        ├── final_project_summary        ├── apply_complexity_refactors        ├── refactor_shell_entities        ├── split_pipeline_runner    ├── thermodynamic_benchmark        ├── update_schemas        ├── enhanced_schema_generator        ├── cmd2schema        ├── validate_schemas        ├── non_llm_schema_extractor        ├── intelligent_schema_generator        ├── intelligent_command_generator        ├── generate_cmd_from_prompts        ├── compare_llm        ├── analyze_version_detection        ├── compare_batches        ├── generate_cmd_simple        ├── pipeline_runner            ├── demo_desktop_gui        ├── pipeline_runner_utils        ├── polish_support    ├── nlp2cmd/        ├── __main__        ├── appspec_runtime        ├── pipeline_runner_desktop        ├── pipeline_runner_shell        ├── schema_driven        ├── evolutionary_orchestrator        ├── pipeline_runner_browser        ├── comprehensive_command_scanner        ├── cli    ├── app2schema/        ├── __main__        ├── ir            ├── token_costs        ├── monitoring/            ├── resources        ├── schemas/            ├── base        ├── extract            ├── token_extractor            ├── form_extractor        ├── page_schema/            ├── page_schema_extractor            ├── radio_extractor            ├── copy_button_extractor            ├── button_extractor            ├── drawing_blueprints            ├── action_planner            ├── schema_fallback            ├── complex_planner            ├── step_validator        ├── automation/            ├── vector_store            ├── service_configs            ├── password_store            ├── shape_planner            ├── mouse_controller            ├── feedback_loop            ├── captcha_solver            ├── env_extractor            ├── firefox_sessions            ├── train_model            ├── evolutionary_cache            ├── regex            ├── auto_repair            ├── semantic_matcher_optimized            ├── fuzzy_schema_matcher            ├── multi_command            ├── thermodynamic            ├── pipeline_components            ├── complex_detector            ├── ml_intent_classifier        ├── generation/            ├── semantic_entities            ├── thermodynamic_components            ├── data_loader            ├── enhanced_context            ├── llm_multi            ├── pipeline            ├── validating            ├── hybrid            ├── structured            ├── template_generator            ├── base            ├── backend_detector            ├── window_manager        ├── desktop_executor/        ├── validators/            ├── env_manager            ├── browser_controller            ├── desktop_action_executor            ├── cli            ├── keyboard_controller            ├── base            ├── vector_planner            ├── llm_planner            ├── blueprint_planner        ├── canvas_planner/            ├── rule_planner            ├── orchestrator            ├── base            ├── browser_connector            ├── existing_browser_manager            ├── token_navigator        ├── browser_manager/            ├── cdp_detector            ├── browser_setup            ├── step_orchestrator        ├── plan_execution/            ├── plan_executor        ├── planner/        ├── service/        ├── core/            ├── core_transform            ├── core_backends            ├── toon_integration            ├── config            ├── normalizer        ├── nlp/            ├── intent_matcher            ├── entity_resolver        ├── storage/            ├── per_command_store            ├── versioned_store            ├── base            ├── core_models        ├── browser_token/            ├── token_navigator            ├── browser_launcher            ├── hf_token_retriever            ├── token_prompt_handler            ├── web_schema            ├── display            ├── helpers        ├── cli/            ├── session_logger            ├── syntax_cache            ├── auto_repair            ├── markdown_output            ├── history            ├── debug_info            ├── cache            ├── main            ├── site_explorer        ├── web_schema/            ├── form_data_loader            ├── extractor            ├── browser_config            ├── history            ├── media_recorder            ├── base            ├── form_handler            ├── browser        ├── execution/            ├── executor_registry            ├── runner            ├── shell_executor        ├── exploration/            ├── base            ├── disk            ├── resource_discovery            ├── data_tree            ├── service        ├── aggregator/        ├── nlp_enhanced/            ├── vision            ├── validator        ├── llm/            ├── openrouter            ├── repair            ├── adaptive_learner            ├── semantic_shell        ├── nlp_light/        ├── skills/        ├── registry/            ├── energy_models        ├── thermodynamic/        ├── executor/            ├── engine        ├── orchestration/            ├── metrics            ├── handlers            ├── reflection            ├── dynamic            ├── dql            ├── base            ├── docker            ├── browser        ├── adapters/            ├── kubernetes            ├── shell_generators        ├── pipeline_runner_plans            ├── shell            ├── sql            ├── appspec            ├── desktop            ├── playwright_installer            ├── external_cache        ├── utils/            ├── yaml_compat            ├── data_files        ├── environment/        ├── context/            ├── canvas            ├── base            ├── rdp_stream            ├── ws_stream        ├── streams/            ├── llm_simple            ├── router            ├── vnc_stream            ├── http_stream            ├── ssh_stream            ├── rtsp_stream            ├── spice_stream            ├── ftp_stream        ├── enhanced/            ├── toon_parser        ├── feedback/        ├── router/            ├── link_extractor            ├── base            ├── field_classifier        ├── page_analysis/            ├── iframe_analyzer            ├── form_analyzer            ├── page_analyzer            ├── generator            ├── adapter        ├── schema_based/        ├── history/            ├── tracker            ├── python_extractors            ├── libvirt_stream            ├── disambiguator            ├── registry        ├── schema_extraction/            ├── script_extractors            ├── extractors            ├── base            ├── registry            ├── save        ├── dom_actions/            ├── companies            ├── navigation            ├── dispatcher            ├── forms            ├── base            ├── registry            ├── interaction        ├── step_handlers/            ├── drawing            ├── session            ├── extraction            ├── navigate            ├── dispatcher            ├── dynamic_generator            ├── command_detector            ├── version_aware_generator                ├── skill            ├── search/                ├── nl_parser                ├── engine                ├── skill                ├── object_fetcher                ├── correction_engine                ├── commands                ├── colors            ├── drawing/                ├── events                ├── navigation                ├── text_to_shape                ├── shapes                ├── validation                ├── queries                ├── draw_object                ├── visual_validator                    ├── base                ├── event_store                ├── renderers/                    ├── svg                    ├── playwright                ├── tools                ├── examples                ├── interactive                ├── doctor            ├── commands/                ├── generate                ├── generator                ├── adapter            ├── schema/                ├── kubernetes_templates                ├── rag_templates                ├── iot_templates                ├── shell_templates            ├── templates/                ├── package_mgmt_templates                ├── git_templates                ├── sql_templates                ├── ffmpeg_templates                ├── docker_templates                ├── desktop_templates                ├── browser_templates                ├── data_templates                ├── media_templates                ├── api_templates                ├── devops_templates                ├── remote_templates                ├── presentation_templates                ├── keyword_patterns                ├── keyword_detector            ├── keywords/        ├── 01_diagnose_credentials_nlp2cmd        ├── _run_utils        ├── example_ssh        ├── example_libvirt        ├── example_rtsp        ├── example_multi_stream        ├── example_http_api        ├── 03_adaptive_code_nlp2cmd        ├── 01_codepen_live_nlp2cmd                ├── run        ├── 02_mycompiler_run        ├── 04_jsfiddle_frontend        ├── 02_mycompiler_run_nlp2cmd        ├── 03_adaptive_code        ├── 04_jsfiddle_frontend_nlp2cmd        ├── 05_dynamic_executor_nlp2cmd        ├── 01_codepen_live        ├── 05_dynamic_executor        ├── api_key_prompts    ├── 04_domain_specific/        ├── _demo_helpers        ├── benchmark_validator            ├── download_bielik        ├── run_all            ├── example            ├── example            ├── example_pdf_search            ├── example            ├── example            ├── dsl_demo            ├── example            ├── example            ├── example            ├── example            ├── example            ├── example            ├── complete_examples            ├── keywords            ├── generator            ├── intents            ├── simple_demo            ├── example            ├── validation                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── 01_draw_chat_shapes_nlp2cmd            ├── 02_picsart_painting            ├── run            ├── 01_draw_chat_shapes            ├── 02_picsart_painting_nlp2cmd            ├── 05_autonomous_drawing            ├── 03_adaptive_drawing_nlp2cmd            ├── 03_adaptive_drawing            ├── run            ├── run            ├── 04_object_database_drawing            ├── workflows            ├── advanced            ├── example            ├── llm_integration            ├── router            ├── example            ├── example            ├── 01_basics_shell_nlp2cmd            ├── feedback_loop            ├── environment_analysis            ├── schema_cache            ├── 01_basics_docker_nlp2cmd            ├── example            ├── example            ├── file_repair            ├── demo_auto            ├── demo_batch            ├── demo            ├── web_app_example            ├── practical_usage            ├── simple_demo            ├── usage_example            ├── comparison_demo            ├── log_analysis            ├── infrastructure_health                ├── demo                ├── demo                ├── demo            ├── config_validation                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo            ├── guide            ├── run            ├── run            ├── run            ├── run            ├── run            ├── manual_appspec            ├── example            ├── mvp            ├── example            ├── end_to_end_demo                ├── demo                ├── demo                ├── demo├── install_vnc├── examples├── project    ├── demo_screenshot_video    ├── run_examples    ├── install_desktop_tools        ├── start-vnc        ├── run        ├── 04_oferteo_extraction        ├── 01_screenshot_only        ├── 03_interactive_mode        ├── 02_video_only        ├── 07_batch_multiple        ├── 05_simple_formfill        ├── 06_formfill_with_discovery        ├── demo_validation            ├── commands_demo                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── demo            ├── llm_extractor            ├── nlp2cmd_web_controller```
+├── generate_quick├── generate_working├── generate_chunks    ├── _example_helpers├── code2llm_workaround    ├── _verbose_helper    ├── _dynamic_orchestrator    ├── show_metrics    ├── setup_external    ├── bump_version    ├── simple_schema_demo    ├── demo_persistent_storage    ├── run_task    ├── demo_intelligent_nlp2cmd    ├── demo_enhanced    ├── demo_version_detection    ├── demo_schema_flow        ├── termo1    ├── demo_versioned_schemas    ├── schema_flow_demo        ├── termo        ├── termo_demo        ├── implement_high_priority_fixes        ├── implement_core_integration        ├── final_analysis_and_next_steps        ├── refactor_detect_normalized        ├── refactoring_summary        ├── restore_system        ├── apply_polish_integration        ├── apply_nlp2cmd_fixes        ├── split_pipeline_runner        ├── auto_apply_refactors        ├── apply_refactors_to_source        ├── generate_refactor_report        ├── llx_refactor        ├── termo2        ├── apply_complexity_refactors        ├── refactor_shell_entities        ├── final_project_summary        ├── update_schemas    ├── thermodynamic_benchmark        ├── intelligent_schema_generator        ├── non_llm_schema_extractor        ├── validate_schemas        ├── cmd2schema        ├── generate_cmd_from_prompts        ├── generate_cmd_simple        ├── analyze_version_detection        ├── compare_llm        ├── compare_batches        ├── comprehensive_command_scanner            ├── demo_desktop_gui        ├── pipeline_runner        ├── pipeline_runner_utils        ├── schema_driven        ├── polish_support    ├── nlp2cmd/        ├── __main__        ├── appspec_runtime        ├── enhanced_schema_generator        ├── pipeline_runner_desktop        ├── intelligent_command_generator        ├── pipeline_runner_shell        ├── evolutionary_orchestrator        ├── cli        ├── ir    ├── app2schema/        ├── __main__        ├── pipeline_runner_browser            ├── token_costs        ├── monitoring/            ├── resources            ├── base            ├── token_extractor            ├── form_extractor            ├── page_schema_extractor        ├── page_schema/            ├── radio_extractor            ├── copy_button_extractor            ├── button_extractor        ├── extract        ├── schemas/            ├── drawing_blueprints            ├── action_planner            ├── complex_planner            ├── schema_fallback            ├── feedback_loop        ├── automation/            ├── step_validator            ├── service_configs            ├── mouse_controller            ├── vector_store            ├── password_store            ├── shape_planner            ├── captcha_solver            ├── env_extractor            ├── firefox_sessions            ├── train_model            ├── regex            ├── evolutionary_cache            ├── semantic_matcher_optimized            ├── fuzzy_schema_matcher            ├── auto_repair            ├── multi_command            ├── thermodynamic            ├── complex_detector            ├── ml_intent_classifier            ├── pipeline_components        ├── generation/            ├── semantic_entities            ├── enhanced_context            ├── data_loader            ├── thermodynamic_components            ├── llm_multi            ├── pipeline            ├── validating            ├── hybrid            ├── structured            ├── template_generator            ├── base            ├── backend_detector            ├── window_manager        ├── desktop_executor/        ├── validators/            ├── env_manager            ├── browser_controller            ├── desktop_action_executor            ├── keyboard_controller            ├── cli            ├── base            ├── vector_planner            ├── llm_planner            ├── blueprint_planner        ├── canvas_planner/            ├── rule_planner            ├── orchestrator            ├── base            ├── browser_connector            ├── existing_browser_manager            ├── token_navigator        ├── browser_manager/            ├── cdp_detector            ├── browser_setup            ├── step_orchestrator        ├── plan_execution/            ├── plan_executor        ├── planner/        ├── service/        ├── core/            ├── core_transform            ├── core_backends            ├── toon_integration            ├── config            ├── normalizer        ├── nlp/            ├── intent_matcher            ├── entity_resolver        ├── storage/            ├── per_command_store            ├── core_models            ├── base            ├── versioned_store        ├── browser_token/            ├── token_navigator            ├── browser_launcher            ├── hf_token_retriever            ├── token_prompt_handler            ├── display            ├── web_schema            ├── helpers        ├── cli/            ├── session_logger            ├── auto_repair            ├── syntax_cache            ├── markdown_output            ├── history            ├── debug_info            ├── cache            ├── main            ├── site_explorer        ├── web_schema/            ├── form_data_loader            ├── extractor            ├── history            ├── browser_config            ├── media_recorder            ├── form_handler            ├── base            ├── browser        ├── execution/            ├── executor_registry            ├── runner            ├── shell_executor        ├── exploration/            ├── base            ├── disk            ├── resource_discovery            ├── data_tree            ├── service        ├── aggregator/            ├── vision        ├── nlp_enhanced/            ├── openrouter        ├── llm/            ├── validator            ├── repair            ├── adaptive_learner            ├── semantic_shell        ├── nlp_light/        ├── skills/        ├── registry/            ├── energy_models        ├── thermodynamic/        ├── executor/            ├── engine        ├── orchestration/            ├── metrics        ├── pipeline_runner_plans            ├── reflection            ├── handlers            ├── dynamic            ├── dql            ├── base            ├── docker        ├── adapters/            ├── browser            ├── kubernetes            ├── sql            ├── shell            ├── desktop            ├── appspec            ├── canvas            ├── playwright_installer            ├── external_cache        ├── utils/            ├── yaml_compat            ├── data_files        ├── environment/        ├── context/            ├── disambiguator            ├── base            ├── rdp_stream            ├── llm_simple        ├── streams/            ├── router            ├── vnc_stream            ├── ssh_stream            ├── http_stream            ├── rtsp_stream            ├── libvirt_stream            ├── spice_stream            ├── ftp_stream        ├── enhanced/            ├── shell_generators            ├── toon_parser        ├── feedback/        ├── router/            ├── link_extractor            ├── base            ├── field_classifier        ├── page_analysis/            ├── iframe_analyzer            ├── form_analyzer            ├── generator            ├── adapter        ├── schema_based/        ├── history/            ├── page_analyzer            ├── tracker            ├── python_extractors            ├── registry            ├── script_extractors        ├── schema_extraction/            ├── extractors            ├── ws_stream            ├── base            ├── registry            ├── save        ├── dom_actions/            ├── llm_extractor            ├── navigation            ├── companies            ├── dispatcher            ├── forms            ├── base            ├── registry        ├── step_handlers/            ├── interaction            ├── drawing            ├── navigate            ├── dispatcher            ├── session            ├── extraction            ├── dynamic_generator            ├── command_detector            ├── version_aware_generator            ├── search/                ├── skill                ├── engine                ├── nl_parser                ├── skill                ├── commands                ├── correction_engine                ├── object_fetcher            ├── drawing/                ├── colors                ├── events                ├── text_to_shape                ├── navigation                ├── queries                ├── validation                ├── draw_object                ├── shapes                ├── visual_validator                    ├── base                ├── renderers/                ├── event_store                    ├── svg                    ├── playwright                ├── tools                ├── examples                ├── interactive            ├── commands/                ├── doctor                ├── generator                ├── run                ├── adapter                ├── generate            ├── schema/                ├── kubernetes_templates                ├── rag_templates                ├── iot_templates            ├── templates/                ├── shell_templates                ├── package_mgmt_templates                ├── git_templates                ├── ffmpeg_templates                ├── sql_templates                ├── docker_templates                ├── desktop_templates                ├── browser_templates                ├── data_templates                ├── media_templates                ├── api_templates                ├── remote_templates                ├── devops_templates                ├── presentation_templates            ├── keywords/        ├── 01_diagnose_credentials_nlp2cmd                ├── keyword_patterns        ├── example_ssh        ├── example_libvirt        ├── example_rtsp        ├── example_multi_stream        ├── _run_utils        ├── example_http_api        ├── 03_adaptive_code_nlp2cmd        ├── 01_codepen_live_nlp2cmd        ├── 04_jsfiddle_frontend                ├── keyword_detector        ├── 02_mycompiler_run        ├── 02_mycompiler_run_nlp2cmd        ├── 04_jsfiddle_frontend_nlp2cmd        ├── 05_dynamic_executor_nlp2cmd        ├── 03_adaptive_code        ├── 01_codepen_live        ├── api_key_prompts    ├── 04_domain_specific/        ├── benchmark_validator        ├── _demo_helpers            ├── download_bielik        ├── run_all            ├── example            ├── example            ├── example_pdf_search            ├── example            ├── dsl_demo            ├── example            ├── example            ├── example            ├── example            ├── example            ├── example            ├── example            ├── keywords            ├── complete_examples            ├── generator            ├── intents            ├── simple_demo            ├── validation                ├── demo            ├── example                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── run            ├── 01_draw_chat_shapes_nlp2cmd            ├── 02_picsart_painting            ├── run            ├── 01_draw_chat_shapes            ├── 02_picsart_painting_nlp2cmd            ├── 05_autonomous_drawing            ├── 03_adaptive_drawing_nlp2cmd            ├── 03_adaptive_drawing            ├── run            ├── 04_object_database_drawing            ├── workflows            ├── run            ├── advanced            ├── llm_integration            ├── example            ├── example            ├── example            ├── feedback_loop            ├── 01_basics_shell_nlp2cmd            ├── environment_analysis            ├── schema_cache            ├── 01_basics_docker_nlp2cmd            ├── example            ├── file_repair            ├── example            ├── demo_batch            ├── demo_auto            ├── web_app_example            ├── demo            ├── comparison_demo            ├── practical_usage        ├── 05_dynamic_executor            ├── simple_demo            ├── usage_example            ├── log_analysis            ├── infrastructure_health            ├── nlp2cmd_web_controller                ├── demo                ├── demo                ├── demo            ├── config_validation                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo                ├── demo            ├── guide                ├── demo            ├── run                ├── demo            ├── run            ├── run            ├── run            ├── run            ├── manual_appspec            ├── mvp            ├── example            ├── example            ├── end_to_end_demo                ├── demo                ├── demo├── install_vnc├── examples├── project    ├── demo_screenshot_video    ├── run_examples    ├── install_desktop_tools        ├── start-vnc        ├── run        ├── 04_oferteo_extraction        ├── 01_screenshot_only        ├── 03_interactive_mode        ├── 02_video_only        ├── 07_batch_multiple        ├── 05_simple_formfill                ├── demo        ├── 06_formfill_with_discovery        ├── demo_validation                ├── run                ├── run                ├── run                ├── run            ├── commands_demo                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run            ├── run                ├── demo            ├── run            ├── run            ├── run            ├── run                ├── run                ├── run            ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run                ├── run            ├── router```
 
 ## API Overview
 
@@ -164,8 +164,9 @@ nlp2cmd/
 
 - **`DynamicOrchestrator`** — Backward-compatible wrapper around nlp2cmd.orchestration.Orchestrator.
 - **`IntelligentNLP2CMD`** — NLP2CMD with automatic version detection and adaptation.
-- **`CoreIntegrator`** — Integrates Polish language support with NLP2CMD core system
 - **`HighPriorityFixer`** — Implements high priority fixes for NLP2CMD system
+- **`CoreIntegrator`** — Integrates Polish language support with NLP2CMD core system
+- **`FinalAnalyzer`** — Analyzes the complete fix implementation and provides next steps
 - **`HyperparameterSpace`** — Przestrzeń hiperparametrów do optymalizacji.
 - **`HyperparameterOptimizer`** — Optymalizator hiperparametrów używający Langevin sampling.
 - **`DeliveryPoint`** — Punkt dostawy.
@@ -178,71 +179,78 @@ nlp2cmd/
 - **`GenomicSample`** — Próbka genomowa do analizy.
 - **`PipelineStep`** — Krok w pipeline genomicznym.
 - **`GenomicPipelineScheduler`** — Scheduler dla pipeline'u analizy genomowej.
-- **`FinalAnalyzer`** — Analyzes the complete fix implementation and provides next steps
 - **`ProjectSummary`** — Generates final project summary
 - **`BenchmarkResult`** — Result of a benchmark run.
-- **`ExtractionStrategy`** — Available extraction strategies.
-- **`ExtractionResult`** — Result of schema extraction.
-- **`EnhancedSchemaExtractor`** — Enhanced schema extractor with multiple strategies.
-- **`CommandSchemaGenerator`** — Generate schemas for command-line tools.
+- **`CommandInfo`** — Information about a command.
+- **`IntelligentSchemaExtractor`** — Extracts schemas using intelligent analysis instead of hardcoded keywords.
 - **`NonLLMStrategy`** — Available non-LLM strategies.
 - **`SchemaQuality`** — Schema quality metrics.
 - **`NonLLMSchemaExtractor`** — Non-LLM schema extractor with multiple strategies.
-- **`CommandInfo`** — Information about a command.
-- **`IntelligentSchemaExtractor`** — Extracts schemas using intelligent analysis instead of hardcoded keywords.
-- **`GenerationMethod`** — Available generation methods.
-- **`GenerationResult`** — Result of command generation.
-- **`IntelligentCommandGenerator`** — Intelligent command generator with adaptive strategies.
+- **`CommandSchemaGenerator`** — Generate schemas for command-line tools.
 - **`CommandGenerator`** — Generate commands from prompts using NLP2CMD.
+- **`OptionType`** — Types of command options.
+- **`ParsedOption`** — Parsed command option.
+- **`ComprehensiveCommandScanner`** — Scanner that extracts ALL command options.
 - **`PipelineRunner`** — PipelineRunner composed from execution mixins.
 - **`ShellExecutionPolicy`** — —
 - **`RunnerResult`** — —
 - **`VideoRecorder`** — Video recording manager for Playwright browser automation.
+- **`MatchResult`** — —
+- **`SchemaDrivenNLP2CMD`** — —
 - **`PolishLanguageSupport`** — Polish language support for NLP2CMD
 - **`AppAction`** — —
 - **`AppSpec`** — —
+- **`ExtractionStrategy`** — Available extraction strategies.
+- **`ExtractionResult`** — Result of schema extraction.
+- **`EnhancedSchemaExtractor`** — Enhanced schema extractor with multiple strategies.
 - **`DesktopExecutionMixin`** — Desktop automation and static utility methods for PipelineRunner.
+- **`GenerationMethod`** — Available generation methods.
+- **`GenerationResult`** — Result of command generation.
+- **`IntelligentCommandGenerator`** — Intelligent command generator with adaptive strategies.
 - **`ShellExecutionMixin`** — Shell command execution methods for PipelineRunner.
-- **`MatchResult`** — —
-- **`SchemaDrivenNLP2CMD`** — —
 - **`RecoveryStrategy`** — Strategie naprawy - rozszerzalne i ewolucyjne.
 - **`RecoveryAttempt`** — Pojedyncza próba naprawy.
 - **`ExecutionMetrics`** — Metryki wykonania - dla ciągłego doskonalenia.
 - **`EvolutionaryRecoveryEngine`** — Silnik ewolucyjnych napraw - uczy się z każdej sytuacji.
 - **`AutonomousExampleRunner`** — Autonomiczny runner z evolutionary recovery.
-- **`BrowserExecutionMixin`** — DOM/browser execution methods for PipelineRunner.
-- **`OptionType`** — Types of command options.
-- **`ParsedOption`** — Parsed command option.
-- **`ComprehensiveCommandScanner`** — Scanner that extracts ALL command options.
 - **`ActionIR`** — —
+- **`BrowserExecutionMixin`** — DOM/browser execution methods for PipelineRunner.
 - **`TokenCostEstimate`** — Token cost estimation based on resource consumption.
 - **`TokenCostEstimator`** — Converts resource metrics to token equivalents.
 - **`ResourceMetrics`** — Resource consumption metrics.
 - **`ResourceMonitor`** — Monitor system resource usage during command execution.
-- **`FileFormatSchema`** — Definition of a file format schema.
-- **`SchemaRegistry`** — Registry for file format schemas with validation and repair capabilities.
 - **`PageSchema`** — Schema of actionable elements extracted from a page.
 - **`ExtractorBase`** — Base protocol for element extractors.
-- **`App2SchemaResult`** — —
 - **`TokenExtractor`** — Extract elements that look like API tokens/keys.
 - **`FormExtractor`** — Extract visible text input fields and textareas.
 - **`PageSchemaExtractor`** — Extract complete page schema using multiple specialized extractors.
 - **`RadioExtractor`** — Extract radio button groups (for token type selection, etc.).
 - **`CopyButtonExtractor`** — Extract buttons likely used to copy tokens to clipboard.
 - **`ButtonExtractor`** — Extract visible clickable elements (buttons, role=button, etc.).
+- **`App2SchemaResult`** — —
+- **`FileFormatSchema`** — Definition of a file format schema.
+- **`SchemaRegistry`** — Registry for file format schemas with validation and repair capabilities.
 - **`DrawStep`** — Single drawing step in a blueprint.
 - **`ActionStep`** — Single step in an execution plan.
 - **`ActionPlan`** — Complete execution plan for a complex command.
 - **`ActionPlanner`** — Decomposes complex NL commands into ActionPlan via rules or LLM.
-- **`FallbackContext`** — Context collected when a step fails, used to generate alternatives.
-- **`FallbackResult`** — Result of a fallback attempt.
-- **`SchemaFallback`** — Generate alternative action schemas when steps fail.
 - **`ActionStep`** — Single step in a complex command execution plan.
 - **`ExecutionPlan`** — Complete execution plan for a complex command.
 - **`ComplexCommandPlanner`** — Decomposes complex NL commands into executable action plans.
+- **`FallbackContext`** — Context collected when a step fails, used to generate alternatives.
+- **`FallbackResult`** — Result of a fallback attempt.
+- **`SchemaFallback`** — Generate alternative action schemas when steps fail.
+- **`FailureType`** — Classification of step failure root cause.
+- **`StepDiagnosis`** — Result of analyzing a step failure.
+- **`RepairAttempt`** — Record of a single repair attempt.
+- **`FeedbackResult`** — Result of the feedback loop for a single step.
+- **`PageAnalyzer`** — Analyzes page DOM to find correct sections, selectors, and navigation targets.
+- **`FeedbackLoop`** — Declarative feedback loop for browser automation steps.
 - **`StepMetrics`** — Metrics collected during step execution.
 - **`ValidationResult`** — Result of a pre/post condition check.
 - **`StepValidator`** — Validates pre/post conditions for ActionPlan steps.
+- **`Point`** — 2D point for mouse operations.
+- **`MouseController`** — Advanced mouse control via Playwright with human-like movements.
 - **`DrawingPattern`** — A drawing pattern with metadata and steps.
 - **`DrawingVectorStore`** — Vector database for storing and retrieving drawing patterns.
 - **`Credential`** — Single credential entry.
@@ -252,26 +260,17 @@ nlp2cmd/
 - **`EnvPasswordReader`** — Read credentials from environment variables and .env files.
 - **`SessionPasswordStore`** — Multi-backend password store with in-memory session cache.
 - **`ShapePlanner`** — Manages a knowledge base of shapes and generates new ones via LLM.
-- **`Point`** — 2D point for mouse operations.
-- **`MouseController`** — Advanced mouse control via Playwright with human-like movements.
-- **`FailureType`** — Classification of step failure root cause.
-- **`StepDiagnosis`** — Result of analyzing a step failure.
-- **`RepairAttempt`** — Record of a single repair attempt.
-- **`FeedbackResult`** — Result of the feedback loop for a single step.
-- **`PageAnalyzer`** — Analyzes page DOM to find correct sections, selectors, and navigation targets.
-- **`FeedbackLoop`** — Declarative feedback loop for browser automation steps.
 - **`CaptchaInfo`** — Detected CAPTCHA information.
 - **`CaptchaSolver`** — CAPTCHA detection and solving via LLM vision (OpenRouter → Gemini 2.5 Pro).
 - **`ServiceConfig`** — Configuration for a known API service.
 - **`EnvExtractor`** — Extracts API keys from browser sessions and saves to .env files.
 - **`FirefoxSessionImporter`** — Import Firefox sessions into Playwright browser profiles.
-- **`CacheEntry`** — —
-- **`LookupResult`** — —
-- **`EvolutionaryCache`** — Manages the .nlp2cmd/ learned schema cache.
 - **`ExtractedEntity`** — A single extracted entity.
 - **`ExtractionResult`** — Result of entity extraction.
 - **`RegexEntityExtractor`** — Extract entities from text using regex patterns.
-- **`CommandRepairer`** — Repairs invalid commands using LLM fallback.
+- **`CacheEntry`** — —
+- **`LookupResult`** — —
+- **`EvolutionaryCache`** — Manages the .nlp2cmd/ learned schema cache.
 - **`SemanticMatch`** — Result of semantic matching.
 - **`IntentEmbedding`** — Stored embedding for an intent phrase.
 - **`OptimizedSemanticMatcher`** — Optimized semantic similarity matcher using sentence embeddings.
@@ -279,6 +278,7 @@ nlp2cmd/
 - **`PhraseSchema`** — Schema for a phrase with metadata.
 - **`FuzzySchemaMatcherConfig`** — Configuration for fuzzy matching thresholds.
 - **`FuzzySchemaMatcher`** — Language-agnostic fuzzy matcher using JSON schemas.
+- **`CommandRepairer`** — Repairs invalid commands using LLM fallback.
 - **`MultiCommandResult`** — Result of multi-command detection.
 - **`MultiCommandDetector`** — Utility class to detect multiple commands in one input.
 - **`ThermodynamicGenerator`** — Generate solutions for optimization problems using Langevin sampling.
@@ -286,24 +286,24 @@ nlp2cmd/
 - **`SchedulingEnergy`** — Scheduling energy model for thermodynamic optimization.
 - **`AllocationEnergy`** — Allocation energy model for thermodynamic optimization.
 - **`RoutingEnergy`** — Routing energy model for thermodynamic optimization.
-- **`SimpleExecutionPlan`** — Simple execution plan for adapters.
-- **`PipelineResult`** — Result of the complete pipeline.
-- **`PipelineMetrics`** — Track pipeline metrics for evaluation.
 - **`ComplexityAnalysis`** — Result of multi-step complexity analysis.
 - **`ComplexQueryDetector`** — Detects multi-step commands BEFORE the keyword detection pipeline.
 - **`IntentPrediction`** — Result of intent classification.
 - **`TrainingSample`** — Single training sample.
 - **`MLIntentClassifier`** — Fast ML-based intent classifier using TF-IDF + SVM.
+- **`SimpleExecutionPlan`** — Simple execution plan for adapters.
+- **`PipelineResult`** — Result of the complete pipeline.
+- **`PipelineMetrics`** — Track pipeline metrics for evaluation.
 - **`SemanticEntityExtractor`** — —
+- **`ContextualMatch`** — Enhanced match with semantic similarity.
+- **`EnhancedContextDetector`** — Enhanced context detection using multiple NLP approaches.
+- **`PhraseEntry`** — Single phrase entry for intent matching.
+- **`PhraseDatabase`** — Collection of phrase entries with metadata.
+- **`DataLoader`** — Optimized data loader with format detection and caching.
 - **`OptimizationProblem`** — Structured optimization problem definition.
 - **`ThermodynamicResult`** — Result of thermodynamic optimization.
 - **`ThermodynamicProblemDetector`** — Detects optimization problems in natural language.
 - **`ThermodynamicConfig`** — Configuration for thermodynamic optimization.
-- **`PhraseEntry`** — Single phrase entry for intent matching.
-- **`PhraseDatabase`** — Collection of phrase entries with metadata.
-- **`DataLoader`** — Optimized data loader with format detection and caching.
-- **`ContextualMatch`** — Enhanced match with semantic similarity.
-- **`EnhancedContextDetector`** — Enhanced context detection using multiple NLP approaches.
 - **`RoutingResult`** — Result of domain routing.
 - **`LLMDomainRouter`** — Route queries to correct domain using LLM classification.
 - **`MultiDomainResult`** — Result of multi-domain generation.
@@ -392,24 +392,24 @@ nlp2cmd/
 - **`AppInfo`** — Application info loaded from apps.yaml.
 - **`EntityResolver`** — Multilingual entity resolver backed by YAML data files.
 - **`PerCommandSchemaStore`** — Stores each command schema in its own file.
-- **`VersionedSchemaStore`** — Extended schema store that supports versioning.
-- **`BrowserTokenResult`** — Result of browser token retrieval attempt.
-- **`TokenConfig`** — Configuration for token retrieval.
 - **`TransformStatus`** — Status of a transformation operation.
 - **`Intent`** — Represents a detected intent from natural language input.
 - **`Entity`** — Represents an extracted entity from natural language input.
 - **`ExecutionPlan`** — Structured plan for command execution.
 - **`TransformResult`** — Result of a natural language to command transformation.
+- **`BrowserTokenResult`** — Result of browser token retrieval attempt.
+- **`TokenConfig`** — Configuration for token retrieval.
+- **`VersionedSchemaStore`** — Extended schema store that supports versioning.
 - **`NavigationStatus`** — Status of navigation attempt.
 - **`TokenNavigator`** — Navigate to token pages with URL verification.
 - **`BrowserLauncher`** — Launch browser with automatic fallback from Firefox to Chromium.
 - **`HFTokenRetriever`** — Main orchestrator for retrieving HuggingFace tokens via browser.
 - **`TokenPromptHandler`** — Handle interactive prompts for token input.
 - **`SessionLogger`** — Logs automation sessions to Markdown with inline base64 screenshots.
-- **`SyntaxCache`** — Cache for Rich Syntax objects to improve performance.
 - **`ErrorCategory`** — Categories of errors that Doctor can handle.
 - **`RepairResult`** — Result of auto-repair attempt.
 - **`AutoRepairSystem`** — Automatic error diagnosis and repair system.
+- **`SyntaxCache`** — Cache for Rich Syntax objects to improve performance.
 - **`MarkdownConsoleProxy`** — Proxy that forces all console.print output into markdown code blocks.
 - **`MarkdownBlockStream`** — Context manager that streams multiple prints inside a single Markdown block.
 - **`PageInfo`** — Information about a discovered page.
@@ -419,17 +419,17 @@ nlp2cmd/
 - **`WebElement`** — Represents an interactive element on a web page.
 - **`WebPageSchema`** — Schema for a web page.
 - **`WebSchemaExtractor`** — Extract schema from web pages using Playwright.
-- **`BrowserConfigLoader`** — Single source of truth for browser automation config.
-- **`DynamicSelectorGenerator`** — Generate selectors dynamically using LLM when static ones fail.
 - **`InteractionRecord`** — Record of a single browser interaction.
 - **`InteractionHistory`** — Tracks and learns from browser interactions.
+- **`BrowserConfigLoader`** — Single source of truth for browser automation config.
+- **`DynamicSelectorGenerator`** — Generate selectors dynamically using LLM when static ones fail.
 - **`MediaRecorder`** — Manages video recording and screenshots during browser sessions.
-- **`ExecutorResult`** — Unified result from any executor.
-- **`ExecutorContext`** — Shared context passed to executors.
-- **`BaseExecutor`** — Abstract base for all executors.
 - **`FormField`** — Represents a form field.
 - **`FormData`** — Collected form data.
 - **`FormHandler`** — Handles form detection and interactive filling.
+- **`ExecutorResult`** — Unified result from any executor.
+- **`ExecutorContext`** — Shared context passed to executors.
+- **`BaseExecutor`** — Abstract base for all executors.
 - **`BrowserResult`** — Result of a browser automation action.
 - **`BrowserExecutor`** — Execute browser automation commands.
 - **`ExecutorRegistry`** — Central registry that maps action names to executor instances.
@@ -455,14 +455,14 @@ nlp2cmd/
 - **`OutputFormat`** — Output format types.
 - **`AggregatedResult`** — Aggregated result from plan execution.
 - **`ResultAggregator`** — Aggregates and formats execution results.
-- **`ShellGPTBackend`** — NLP backend that uses shell-gpt for intelligent command generation.
-- **`HybridNLPBackend`** — Hybrid NLP backend that combines multiple approaches.
 - **`VisionResult`** — Result of a vision analysis.
 - **`VisionAnalyzer`** — High-level vision analysis using LLM.
-- **`ValidationVerdict`** — Result from LLM validator.
-- **`LLMValidator`** — Validates command output against user intent using a local Ollama model.
+- **`ShellGPTBackend`** — NLP backend that uses shell-gpt for intelligent command generation.
+- **`HybridNLPBackend`** — Hybrid NLP backend that combines multiple approaches.
 - **`LLMResponse`** — Response from OpenRouter API.
 - **`OpenRouterClient`** — OpenRouter API client with text and vision support.
+- **`ValidationVerdict`** — Result from LLM validator.
+- **`LLMValidator`** — Validates command output against user intent using a local Ollama model.
 - **`RepairResult`** — Result from LLM repair.
 - **`LLMRepair`** — Repairs failed commands and optionally patches data files using OpenRouter.
 - **`ErrorPattern`** — Classified error pattern from LLM failures.
@@ -513,6 +513,7 @@ nlp2cmd/
 - **`MetricsCollector`** — Collects and persists orchestration metrics.
 - **`PathOptimizer`** — Stores successful decision paths for reuse on similar goals.
 - **`FunctionCache`** — Caches auto-generated JS and Python functions in .nlp2cmd/generated/.
+- **`PlanExecutionMixin`** — Multi-step ActionPlan execution methods for PipelineRunner.
 - **`ReflectionVerdict`** — Outcome of result analysis.
 - **`ReflectionResult`** — Result of LLM-driven reflection on execution output.
 - **`ResultAnalyzer`** — Analyzes execution results using LLM for intelligent reflection.
@@ -532,40 +533,32 @@ nlp2cmd/
 - **`KubernetesSafetyPolicy`** — Kubernetes-specific safety policy.
 - **`ClusterContext`** — Kubernetes cluster context.
 - **`KubernetesAdapter`** — Kubernetes adapter for kubectl commands and manifests.
-- **`FileOperationGenerator`** — Generator for file operations.
-- **`ProcessManagementGenerator`** — Generator for process management commands.
-- **`NetworkGenerator`** — Generator for network commands.
-- **`SystemMaintenanceGenerator`** — Generator for system maintenance commands.
-- **`DevelopmentGenerator`** — Generator for development commands.
-- **`GitGenerator`** — Generator for git commands.
-- **`DockerGenerator`** — Generator for docker commands.
-- **`TextProcessingGenerator`** — Generator for text processing commands.
-- **`PlanExecutionMixin`** — Multi-step ActionPlan execution methods for PipelineRunner.
-- **`ShellSafetyPolicy`** — Shell-specific safety policy.
-- **`EnvironmentContext`** — System environment context.
-- **`ShellAdapter`** — Shell adapter supporting multiple shell types.
 - **`SQLSafetyPolicy`** — SQL-specific safety policy.
 - **`SchemaContext`** — Database schema context for SQL generation.
 - **`SQLAdapter`** — SQL adapter supporting multiple database dialects.
-- **`AppSpecAdapterConfig`** — —
-- **`AppSpecAdapter`** — —
+- **`ShellSafetyPolicy`** — Shell-specific safety policy.
+- **`EnvironmentContext`** — System environment context.
+- **`ShellAdapter`** — Shell adapter supporting multiple shell types.
 - **`DesktopAction`** — Structured desktop automation action.
 - **`DesktopSafetyPolicy`** — Safety policy for desktop GUI automation.
 - **`DesktopAdapter`** — Adapter for desktop GUI automation via VNC/noVNC + xdotool/wmctrl.
+- **`AppSpecAdapterConfig`** — —
+- **`AppSpecAdapter`** — —
+- **`DrawingStep`** — Single step in a drawing plan.
+- **`DrawingPlan`** — Complete drawing plan for canvas operations.
+- **`CanvasSafetyPolicy`** — Safety policy for canvas operations — generally safe.
+- **`CanvasAdapter`** — Adapter for canvas-based drawing via Playwright mouse control.
 - **`ExternalCacheManager`** — Manages caching of external dependencies like Playwright browsers.
 - **`ToolInfo`** — Information about an installed tool.
 - **`ServiceInfo`** — Information about a running service.
 - **`EnvironmentReport`** — Complete environment analysis report.
 - **`EnvironmentAnalyzer`** — Analyzes the system environment for available tools, services,
-- **`DrawingStep`** — Single step in a drawing plan.
-- **`DrawingPlan`** — Complete drawing plan for canvas operations.
-- **`CanvasSafetyPolicy`** — Safety policy for canvas operations — generally safe.
-- **`CanvasAdapter`** — Adapter for canvas-based drawing via Playwright mouse control.
+- **`DisambiguationResult`** — Result of disambiguation process.
+- **`CommandDisambiguator`** — Disambiguates commands using history context.
 - **`StreamResult`** — Result of a stream operation.
 - **`SourceURI`** — Parsed --source URI.
 - **`StreamAdapter`** — Base class for all stream protocol handlers.
 - **`RDPStreamAdapter`** — —
-- **`WSStreamAdapter`** — —
 - **`LLMClient`** — Protocol for LLM client implementations.
 - **`LiteLLMClient`** — —
 - **`LLMConfig`** — Configuration for LLM generators.
@@ -578,12 +571,21 @@ nlp2cmd/
 - **`MockLLMClient`** — Mock LLM client for testing.
 - **`StreamRouter`** — Routes --source URIs to the correct protocol handler.
 - **`VNCStreamAdapter`** — —
-- **`HTTPStreamAdapter`** — —
 - **`SSHStreamAdapter`** — —
+- **`HTTPStreamAdapter`** — —
 - **`RTSPStreamAdapter`** — Analyze RTSP video streams — colors, motion, objects.
+- **`LibvirtStreamAdapter`** — Manage VMs via libvirt and control their desktops via SPICE/VNC.
 - **`SPICEStreamAdapter`** — —
 - **`FTPStreamAdapter`** — —
 - **`EnhancedNLP2CMD`** — Enhanced NLP2CMD with dynamic schema capabilities.
+- **`FileOperationGenerator`** — Generator for file operations.
+- **`ProcessManagementGenerator`** — Generator for process management commands.
+- **`NetworkGenerator`** — Generator for network commands.
+- **`SystemMaintenanceGenerator`** — Generator for system maintenance commands.
+- **`DevelopmentGenerator`** — Generator for development commands.
+- **`GitGenerator`** — Generator for git commands.
+- **`DockerGenerator`** — Generator for docker commands.
+- **`TextProcessingGenerator`** — Generator for text processing commands.
 - **`ToonNodeType`** — TOON node types
 - **`ToonNode`** — TOON node structure
 - **`ToonParser`** — Unified TOON format parser with hierarchical access
@@ -608,9 +610,6 @@ nlp2cmd/
 - **`CommandHistory`** — Unified command history tracker.
 - **`PythonCodeExtractor`** — Extract command schemas from Python source code with decorators.
 - **`ClickExtractor`** — Specialized extractor for Click applications.
-- **`LibvirtStreamAdapter`** — Manage VMs via libvirt and control their desktops via SPICE/VNC.
-- **`DisambiguationResult`** — Result of disambiguation process.
-- **`CommandDisambiguator`** — Disambiguates commands using history context.
 - **`SchemaRegistry`** — Registry for managing dynamically extracted schemas.
 - **`ShellScriptExtractor`** — Extract schema from a shell script file using shlex/regex heuristics.
 - **`MakefileExtractor`** — Extract schema from Makefile targets and variables.
@@ -619,16 +618,18 @@ nlp2cmd/
 - **`ExtractedSchema`** — Container for extracted schemas from a source.
 - **`OpenAPISchemaExtractor`** — Extract command schemas from OpenAPI/Swagger specifications.
 - **`ShellHelpExtractor`** — Extract command schemas from shell help output.
+- **`WSStreamAdapter`** — —
 - **`ActionContext`** — Context passed to DOM action handlers.
 - **`ActionResult`** — Result from a DOM action handler.
 - **`DomAction`** — Base class for DOM action handlers.
 - **`ActionRegistry`** — Registry mapping action names to their handlers.
 - **`SaveToFileAction`** — Save extracted data to a text file.
 - **`SaveToCsvAction`** — Save extracted data to a CSV file.
-- **`ExtractCompaniesAction`** — Extract company information from catalog pages.
+- **`LLMSchemaExtractor`** — Extract command schemas using LLM assistance.
 - **`NavigateAction`** — Navigate to a URL.
 - **`ExploreForContentAction`** — Explore site to find content.
 - **`ExploreForFormAction`** — Explore site to find forms.
+- **`ExtractCompaniesAction`** — Extract company information from catalog pages.
 - **`ActionDispatcher`** — Dispatches DOM actions to appropriate handlers.
 - **`FillFormAction`** — Fill form fields automatically from .env and data files.
 - **`HandlerContext`** — Context passed to step handlers during execution.
@@ -655,6 +656,8 @@ nlp2cmd/
 - **`DrawFilledCircleHandler`** — Draw a filled circle on canvas with verification.
 - **`DrawFilledEllipseHandler`** — Draw a filled ellipse on canvas.
 - **`DrawFilledRectangleHandler`** — Draw a filled rectangle on canvas.
+- **`NavigateHandler`** — Handle navigate action - navigate to URL with security checkup handling.
+- **`StepDispatcher`** — Dispatches plan steps to appropriate handlers.
 - **`CheckSessionHandler`** — Check if user is logged into a service with auto-login via password store.
 - **`SubmitAndExtractKeyHandler`** — Submit form and poll for API key extraction.
 - **`DiscoverServiceSectionHandler`** — Discover service section (e.g., API keys page) by link discovery.
@@ -665,29 +668,17 @@ nlp2cmd/
 - **`PromptSecretHandler`** — Prompt user for secret/API key with timeout and validation.
 - **`EchoHandler`** — Echo a message to the console.
 - **`ExtractTextHandler`** — Extract text from page elements.
-- **`NavigateHandler`** — Handle navigate action - navigate to URL with security checkup handling.
-- **`StepDispatcher`** — Dispatches plan steps to appropriate handlers.
 - **`DynamicSchemaGenerator`** — Generates schemas dynamically without hardcoding.
 - **`CommandMatch`** — Represents a matched command with confidence.
 - **`CommandDetector`** — Detects shell commands from natural language descriptions.
 - **`VersionAwareCommandGenerator`** — Generates commands with automatic version detection.
 - **`SearchContext`** — Context for search operations.
 - **`SearchSkill`** — High-level search skill for nlp2cmd.
-- **`NLDrawingParser`** — Parse natural language drawing instructions into DrawCommand sequences.
 - **`SearchResult`** — Single search result.
 - **`SearchConfig`** — Configuration for search engine.
 - **`SearchEngine`** — Open source search engine aggregator.
+- **`NLDrawingParser`** — Parse natural language drawing instructions into DrawCommand sequences.
 - **`DrawingSkill`** — Facade for the drawing skill — single entry point for all drawing operations.
-- **`FetchedShape`** — Shape data retrieved from an external database.
-- **`SimpleIconsFetcher`** — Fetch SVG icons from Simple Icons (simpleicons.org).
-- **`IconifyFetcher`** — Fetch icons from Iconify API (api.iconify.design).
-- **`SVGRepoFetcher`** — Search and fetch from SVG Repo (svgrepo.com).
-- **`ObjectFetcher`** — Autonomous shape fetcher with multi-database search and local caching.
-- **`CorrectionStep`** — A single step in a correction plan.
-- **`CorrectionPlan`** — Plan of steps to correct a drawing.
-- **`CorrectionResult`** — Result of applying corrections.
-- **`CorrectionEngine`** — Iterative correction engine for drawing repair.
-- **`AutonomousDrawingPipeline`** — Full autonomous drawing pipeline: draw → validate → correct → repeat.
 - **`DrawCommand`** — Abstract base for all drawing commands.
 - **`InitCanvas`** — Initialize a drawing canvas.
 - **`DrawShape`** — Draw a shape on the canvas.
@@ -696,6 +687,16 @@ nlp2cmd/
 - **`ClearCanvas`** — Clear the entire canvas.
 - **`CommandHandler`** — Protocol for command handlers.
 - **`CommandBus`** — Dispatches commands to handlers, validates, and emits events.
+- **`CorrectionStep`** — A single step in a correction plan.
+- **`CorrectionPlan`** — Plan of steps to correct a drawing.
+- **`CorrectionResult`** — Result of applying corrections.
+- **`CorrectionEngine`** — Iterative correction engine for drawing repair.
+- **`AutonomousDrawingPipeline`** — Full autonomous drawing pipeline: draw → validate → correct → repeat.
+- **`FetchedShape`** — Shape data retrieved from an external database.
+- **`SimpleIconsFetcher`** — Fetch SVG icons from Simple Icons (simpleicons.org).
+- **`IconifyFetcher`** — Fetch icons from Iconify API (api.iconify.design).
+- **`SVGRepoFetcher`** — Search and fetch from SVG Repo (svgrepo.com).
+- **`ObjectFetcher`** — Autonomous shape fetcher with multi-database search and local caching.
 - **`ColorResolver`** — Resolves color names to hex codes with Polish + English support.
 - **`EventType`** — —
 - **`DrawingEvent`** — Base immutable event — all drawing events inherit from this.
@@ -704,14 +705,29 @@ nlp2cmd/
 - **`ShapeDrawn`** — Fired when a shape is drawn on the canvas.
 - **`ColorChanged`** — Fired when the active drawing color is changed.
 - **`ToolSelected`** — Fired when a drawing tool is selected.
+- **`GeneratedShape`** — Result of LLM shape generation.
+- **`DynamicShapeGenerator`** — ShapeGenerator created from LLM-generated or fetched point data.
+- **`TextToShapeEngine`** — Generates 2D shapes from text descriptions using LLM.
 - **`NavigationState`** — State of the navigation process.
 - **`CanvasInfo`** — Information about the discovered canvas.
 - **`NavigationStep`** — A single step in the navigation process.
 - **`NavigationResult`** — Full result of the navigation process.
 - **`DrawNavigationSkill`** — Vision-guided navigation to drawing canvas.
-- **`GeneratedShape`** — Result of LLM shape generation.
-- **`DynamicShapeGenerator`** — ShapeGenerator created from LLM-generated or fetched point data.
-- **`TextToShapeEngine`** — Generates 2D shapes from text descriptions using LLM.
+- **`DrawQuery`** — Abstract base for all drawing queries.
+- **`GetCanvasState`** — Reconstruct current canvas state from events.
+- **`GetDrawingHistory`** — Get the full drawing history as a list of event summaries.
+- **`GetShapePoints`** — Get all shape point groups from drawn shapes (for rendering).
+- **`GetLastNShapes`** — Get the last N drawn shapes.
+- **`QueryBus`** — Dispatches queries against the event store.
+- **`ObjectStatus`** — Status of a single requested object.
+- **`ObjectAssessment`** — Vision assessment of a single requested object.
+- **`TaskPlan`** — What the user wants drawn — the reference for validation.
+- **`ValidationReport`** — Full validation report: what's done, what remains, what's wrong.
+- **`DrawValidationSkill`** — Task-aware drawing validation using Qwen VL.
+- **`DrawStatus`** — Status of a single object draw operation.
+- **`ObjectDrawResult`** — Result of drawing a single object.
+- **`SceneDrawResult`** — Result of drawing multiple objects (a scene).
+- **`DrawObjectSkill`** — Resolve and draw shapes with vision verification.
 - **`ShapeGenerator`** — Abstract shape generator — one responsibility: produce point groups.
 - **`CircleGenerator`** — —
 - **`EllipseGenerator`** — —
@@ -747,21 +763,6 @@ nlp2cmd/
 - **`CrescentGenerator`** — —
 - **`CloudDetailedGenerator`** — —
 - **`ShapeRegistry`** — Registry of all available shape generators.
-- **`ObjectStatus`** — Status of a single requested object.
-- **`ObjectAssessment`** — Vision assessment of a single requested object.
-- **`TaskPlan`** — What the user wants drawn — the reference for validation.
-- **`ValidationReport`** — Full validation report: what's done, what remains, what's wrong.
-- **`DrawValidationSkill`** — Task-aware drawing validation using Qwen VL.
-- **`DrawQuery`** — Abstract base for all drawing queries.
-- **`GetCanvasState`** — Reconstruct current canvas state from events.
-- **`GetDrawingHistory`** — Get the full drawing history as a list of event summaries.
-- **`GetShapePoints`** — Get all shape point groups from drawn shapes (for rendering).
-- **`GetLastNShapes`** — Get the last N drawn shapes.
-- **`QueryBus`** — Dispatches queries against the event store.
-- **`DrawStatus`** — Status of a single object draw operation.
-- **`ObjectDrawResult`** — Result of drawing a single object.
-- **`SceneDrawResult`** — Result of drawing multiple objects (a scene).
-- **`DrawObjectSkill`** — Resolve and draw shapes with vision verification.
 - **`ValidationVerdict`** — Result of visual validation.
 - **`DrawingCorrection`** — A single correction to apply to the drawing.
 - **`ValidationResult`** — Full result of visual validation.
@@ -781,10 +782,10 @@ nlp2cmd/
 - **`SchemaRegistry`** — Registry for managing and improving schemas.
 - **`SchemaDrivenAppSpecAdapter`** — AppSpec adapter that uses schema-based generation.
 - **`KeywordPatterns`** — Manages keyword patterns for intent detection.
-- **`DetectionResult`** — Result of intent detection.
-- **`KeywordIntentDetector`** — Rule-based intent detection using keyword matching.
 - **`ExampleLogger`** — Structured logger that writes to both file and console.
 - **`ExampleRunner`** — Context manager for running drawing examples with full instrumentation.
+- **`DetectionResult`** — Result of intent detection.
+- **`KeywordIntentDetector`** — Rule-based intent detection using keyword matching.
 - **`PromptExample`** — Single prompt example with expected behavior.
 - **`BenchmarkCase`** — A single benchmark test case.
 - **`CaseResult`** — —
@@ -800,48 +801,27 @@ nlp2cmd/
 - **`BlastCommand`** — Komenda BLAST.
 - **`SequenceCommand`** — Komenda do analizy sekwencji.
 - **`ConversionCommand`** — Komenda konwersji formatów.
-- **`FileCommand`** — Komenda przetwarzania plików.
 - **`PipelineStep`** — Krok w pipeline.
+- **`FileCommand`** — Komenda przetwarzania plików.
 - **`PDFExtractor`** — Ekstraktor tekstu z PDF.
 - **`PDFExtractor`** — —
 - **`TextChunker`** — —
 - **`LLMSearcher`** — —
 - **`PDFSearchPipeline`** — Pełny pipeline wyszukiwania w PDF.
-- **`TextChunker`** — Dzieli tekst na fragmenty odpowiednie dla LLM.
 - **`SearchResult`** — Wynik wyszukiwania.
 - **`ResultsRanker`** — Ranks and filters search results.
+- **`TextChunker`** — Dzieli tekst na fragmenty odpowiednie dla LLM.
 - **`LLMSearcher`** — Wyszukiwanie informacji za pomocą LLM.
 - **`Shape2D`** — Represents a 2D shape with mathematical definition.
 - **`ShapeDatabase`** — Autonomous shape database with online fetching and caching.
 - **`SceneComposer`** — Composes multiple objects into a scene with automatic layout.
 - **`MockLLMBackend`** — Mock LLM backend for demonstration.
-- **`RouterResponse`** — Unified response from LLM Router.
-- **`ModelHealth`** — Health status of a model deployment.
-- **`LLMRouter`** — Smart LLM Router with multi-model support, fallbacks, and task specialization.
 - **`CommandRequest`** — —
 - **`CommandResponse`** — —
 - **`HistoryResponse`** — —
-- **`ToonDemo`** — Demo class showing TOON usage patterns
 - **`OldSystemLoader`** — Mock old system using separate JSON/YAML files
 - **`SimpleToonParser`** — Simplified TOON parser for demo
-- **`OldSystemLoader`** — Mock starego systemu używający osobnych plików JSON/YAML.
-- **`DeployCommand`** — Komenda wdrożenia.
-- **`Service`** — Konfiguracja pojedynczej usługi.
-- **`InfraCommand`** — Komenda zarządzania infrastrukturą.
-- **`SimpleServiceConfig`** — Uproszczona konfiguracja usługi.
-- **`DeploymentPlan`** — Plan wdrożenia wielu usług.
-- **`ServiceType`** — Typy usług obsługiwanych przez nlp2cmd.
-- **`ServiceConfig`** — Konfiguracja usługi do wdrożenia.
-- **`OutputFormat`** — Format wyjściowy.
-- **`ExecutionResult`** — Wynik wykonania.
-- **`ResultAggregator`** — Agregator wyników.
-- **`RoutingDecision`** — Decyzja routingu.
-- **`DecisionRouter`** — Prosty router decyzji.
-- **`ExecutionResult`** — Wynik wykonania kroku.
-- **`PlanExecutor`** — Wykonawca planu.
-- **`PlanStep`** — Pojedynczy krok planu.
-- **`LLMPlanner`** — Mock LLM Planner.
-- **`LLMSchemaExtractor`** — Extract command schemas using LLM assistance.
+- **`ToonDemo`** — Demo class showing TOON usage patterns
 - **`ServiceType`** — Types of services that can be managed.
 - **`ServiceConfig`** — Configuration for a managed service.
 - **`DeploymentPlan`** — Plan for deploying services.
@@ -850,12 +830,31 @@ nlp2cmd/
 - **`NLCommandParser`** — Parse natural language commands into structured actions.
 - **`NLP2CMDWebController`** — Main controller for NLP2CMD-powered web infrastructure.
 - **`NLP2CMDWebAPI`** — Example web API integration for NLP2CMD.
+- **`OldSystemLoader`** — Mock starego systemu używający osobnych plików JSON/YAML.
+- **`Service`** — Konfiguracja pojedynczej usługi.
+- **`DeployCommand`** — Komenda wdrożenia.
+- **`InfraCommand`** — Komenda zarządzania infrastrukturą.
+- **`SimpleServiceConfig`** — Uproszczona konfiguracja usługi.
+- **`DeploymentPlan`** — Plan wdrożenia wielu usług.
+- **`ServiceType`** — Typy usług obsługiwanych przez nlp2cmd.
+- **`ServiceConfig`** — Konfiguracja usługi do wdrożenia.
+- **`RoutingDecision`** — Decyzja routingu.
+- **`DecisionRouter`** — Prosty router decyzji.
+- **`ExecutionResult`** — Wynik wykonania kroku.
+- **`PlanExecutor`** — Wykonawca planu.
+- **`OutputFormat`** — Format wyjściowy.
+- **`ExecutionResult`** — Wynik wykonania.
+- **`ResultAggregator`** — Agregator wyników.
+- **`PlanStep`** — Pojedynczy krok planu.
+- **`LLMPlanner`** — Mock LLM Planner.
+- **`RouterResponse`** — Unified response from LLM Router.
+- **`ModelHealth`** — Health status of a model deployment.
+- **`LLMRouter`** — Smart LLM Router with multi-model support, fallbacks, and task specialization.
 
 ### Functions
 
 - `print_separator(title)` — —
 - `print_rule()` — —
-- `main()` — —
 - `init_verbose(enabled)` — Initialize verbose mode. Call early, before importing nlp2cmd modules.
 - `vlog(msg, indent)` — Print a verbose log message (only when --verbose is active).
 - `dump_page_schema(page, max_depth)` — Inspect the page DOM and print a schema summary.
@@ -865,30 +864,32 @@ nlp2cmd/
 - `ensure_playwright_browsers_async(auto_install, browser_type)` — Check if Playwright browsers are installed, and auto-install if missing.
 - `discover_working_url(page, initial_url, fallback_urls, required_selector)` — Auto-discover working URL when initial URL fails (404 or missing required elements).
 - `auto_navigate_with_fallback(page, target_urls, target_name)` — Navigate to target URL with automatic fallback discovery.
+- `main()` — —
 - `main()` — Setup external dependencies cache.
 - `bump_version(version_type)` — Bump version in pyproject.toml
 - `main()` — —
-- `demo_intelligent_nlp2cmd()` — Demonstrate the intelligent NLP2CMD system.
-- `main()` — Run the enhanced NLP2CMD demo.
 - `demonstrate_persistent_storage()` — Demonstrate the persistent storage system.
 - `show_storage_benefits()` — Show the benefits of per-command storage.
-- `migrate_existing_schemas(source_file)` — Migrate existing schemas to versioned storage.
-- `demonstrate_schema_updates(store)` — Demonstrate updating schemas with new versions.
-- `demonstrate_dual_versions(store)` — Demonstrate handling two versions of the same command.
+- `main()` — —
+- `demo_intelligent_nlp2cmd()` — Demonstrate the intelligent NLP2CMD system.
+- `main()` — Run the enhanced NLP2CMD demo.
+- `demonstrate_version_detection()` — Demonstrate practical version detection and command adaptation.
+- `show_integration_example()` — Show how to integrate version detection into NLP2CMD.
+- `show_version_mapping()` — Show version mapping for different commands.
 - `main()` — Main demonstration.
 - `demonstrate_schema_flow()` — Demonstrate complete schema flow.
 - `demonstrate_multiple_commands()` — Demonstrate with multiple commands.
 - `show_schema_details()` — Show detailed schema information.
 - `main()` — Main demonstration.
+- `main()` — —
+- `migrate_existing_schemas(source_file)` — Migrate existing schemas to versioned storage.
+- `demonstrate_schema_updates(store)` — Demonstrate updating schemas with new versions.
+- `demonstrate_dual_versions(store)` — Demonstrate handling two versions of the same command.
+- `main()` — Main demonstration.
 - `show_schema_extraction_flow()` — Show how schema extraction works.
 - `show_file_locations()` — Show where everything is stored.
 - `show_api_usage()` — Show API usage examples.
 - `main()` — Main function.
-- `main()` — —
-- `demonstrate_version_detection()` — Demonstrate practical version detection and command adaptation.
-- `show_integration_example()` — Show how to integrate version detection into NLP2CMD.
-- `show_version_mapping()` — Show version mapping for different commands.
-- `main()` — Main demonstration.
 - `demo_hybrid()` — Demonstracja generatora hybrydowego.
 - `demo_thermodynamic()` — Demonstracja generatora termodynamicznego.
 - `demo_complete_hybrid()` — Demonstracja pełnego generatora hybrydowego.
@@ -898,18 +899,11 @@ nlp2cmd/
 - `demo_hybrid_thermodynamic_improved()` — Demonstracja POPRAWIONEGO hybrydowego generatora.
 - `benchmark_latency()` — Benchmark porównujący latencję przed/po poprawkach.
 - `main()` — Główna funkcja demonstracyjna.
-- `main()` — Main integration function
-- `main()` — —
 - `main()` — Main function to apply all fixes
-- `demo_devops_automation()` — Demonstracja automatyzacji DevOps.
-- `demo_hyperparameter_optimization()` — Demonstracja optymalizacji hiperparametrów.
-- `demo_vehicle_routing()` — Demonstracja optymalizacji tras dostaw.
-- `demo_or_scheduling()` — Demonstracja harmonogramowania sal operacyjnych.
-- `demo_unit_commitment()` — Demonstracja harmonogramowania elektrowni.
-- `demo_genomic_pipeline()` — Demonstracja harmonogramowania pipeline'u genomicznego.
-- `main()` — Uruchom wszystkie demonstracje.
-- `print_summary()` — Print a summary of the refactoring work completed.
+- `main()` — Main integration function
+- `main()` — Main analysis function
 - `apply_refactor_to_keyword_detector()` — Apply the refactored _detect_normalized method to KeywordIntentDetector.
+- `print_summary()` — Print a summary of the refactoring work completed.
 - `restore_core()` — Restore core.py from backup
 - `restore_adapters()` — Restore adapters from backups
 - `verify_restoration()` — Verify system restoration
@@ -918,25 +912,40 @@ nlp2cmd/
 - `apply_adapter_patches()` — Apply adapter patches
 - `verify_integration()` — Verify integration
 - `main()` — Main integration function
-- `main()` — Main analysis function
-- `apply_keywords_refactor()` — Apply refactor to keywords.py file.
-- `apply_templates_refactor()` — Apply refactor to templates.py file.
-- `main()` — Main function to apply refactors.
 - `load_polish_patterns()` — Load Polish shell patterns
 - `load_intent_mappings()` — Load Polish intent mappings
 - `load_table_mappings()` — Load Polish table mappings
 - `load_domain_weights()` — Load domain weights
 - `apply_fixes()` — Apply all fixes to the system
+- `find_line(pattern, start)` — —
+- `write_mixin(filename, classname, docstring, body_lines)` — Write a mixin file. body_lines are already indented with 4 spaces (class methods).
+- `apply_keywords_refactor()` — Apply refactor to keywords.py file.
+- `apply_templates_refactor()` — Apply refactor to templates.py file.
+- `main()` — Main function to apply refactors.
 - `apply_to_keywords_py()` — Apply refactor to keywords.py file.
 - `apply_to_templates_py()` — Apply refactor to templates.py file.
 - `create_patch_files()` — Create patch files for manual application.
 - `main()` — Main function to apply refactors.
 - `generate_refactor_report()` — Generate a detailed report of the refactoring work.
-- `main()` — Main summary function
+- `build_parser()` — —
+- `git_tracked_python_files(workdir)` — Return tracked Python files from the git repository.
+- `select_llx_model(workdir)` — Select a model using LLX's project metrics and routing logic.
+- `build_prompt(workdir, metrics, file_count)` — Build a refactor prompt for Aider.
+- `run_refactor(workdir, model, prompt, use_docker)` — —
+- `main()` — —
+- `demo_devops_automation()` — Demonstracja automatyzacji DevOps.
+- `demo_hyperparameter_optimization()` — Demonstracja optymalizacji hiperparametrów.
+- `demo_vehicle_routing()` — Demonstracja optymalizacji tras dostaw.
+- `demo_or_scheduling()` — Demonstracja harmonogramowania sal operacyjnych.
+- `demo_unit_commitment()` — Demonstracja harmonogramowania elektrowni.
+- `demo_genomic_pipeline()` — Demonstracja harmonogramowania pipeline'u genomicznego.
+- `main()` — Uruchom wszystkie demonstracje.
 - `main()` — Apply all refactors and report results.
 - `apply_refactor_to_template_generator()` — Apply the refactored _apply_shell_intent_specific_defaults method.
-- `find_line(pattern, start)` — —
-- `write_mixin(filename, classname, docstring, body_lines)` — Write a mixin file. body_lines are already indented with 4 spaces (class methods).
+- `main()` — Main summary function
+- `load_commands_from_files()` — Load unique commands from cmd.csv and cmd.txt.
+- `update_all_schemas(force_update)` — Update schemas for all commands.
+- `main()` — Main function.
 - `benchmark_langevin_sampler(n_iterations, n_steps, dim)` — Benchmark raw Langevin sampler performance.
 - `benchmark_parallel_vs_sequential(n_samples, n_steps, dim)` — Compare parallel vs sequential sampling.
 - `benchmark_adaptive_steps(problem_sizes)` — Benchmark adaptive steps for different problem sizes.
@@ -944,29 +953,25 @@ nlp2cmd/
 - `benchmark_energy_savings()` — Calculate energy savings for different scenarios.
 - `print_benchmark_result(result)` — Pretty print a benchmark result.
 - `main()` — Run all benchmarks.
-- `load_commands_from_files()` — Load unique commands from cmd.csv and cmd.txt.
-- `update_all_schemas(force_update)` — Update schemas for all commands.
-- `main()` — Main function.
-- `main()` — Demonstrate enhanced schema generation.
-- `main()` — Main entry point.
-- `validate_and_fix_schemas()` — Validate all schemas and fix issues.
-- `main()` — Demonstrate non-LLM schema extraction.
 - `main()` — Main function to generate schemas for all commands.
-- `main()` — Demonstrate intelligent command generation.
+- `main()` — Demonstrate non-LLM schema extraction.
+- `validate_and_fix_schemas()` — Validate all schemas and fix issues.
+- `main()` — Main entry point.
 - `create_enhanced_prompt_list()` — Create an enhanced list of test prompts.
 - `main()` — Main function to generate CSV from prompt.txt.
-- `compare_schemas()` — Compare schemas generated with and without LLM.
+- `load_prompts(prompt_file)` — Load prompts from file or create default list.
+- `detect_command_version(command)` — Detect version of a command.
+- `generate_command(prompt)` — Generate command from prompt using simple patterns.
+- `main()` — Generate cmd.csv from prompt.txt.
 - `analyze_version_standards()` — Analyze common version detection standards.
 - `test_version_detection_patterns()` — Test various version detection patterns.
 - `check_schema_version_support()` — Check if schemas have version detection implemented.
 - `demonstrate_version_detection_implementation()` — Show how version detection is implemented.
 - `best_practices()` — Show best practices for version detection.
 - `main()` — Main analysis function.
+- `compare_schemas()` — Compare schemas generated with and without LLM.
 - `compare_batch_files()` — Compare results from batch files.
-- `load_prompts(prompt_file)` — Load prompts from file or create default list.
-- `detect_command_version(command)` — Detect version of a command.
-- `generate_command(prompt)` — Generate command from prompt using simple patterns.
-- `main()` — Generate cmd.csv from prompt.txt.
+- `main()` — Demonstrate comprehensive command scanning.
 - `ensure_playwright()` — Ensure playwright is available.
 - `start_recording(container, duration)` — Start ffmpeg video recording inside the Docker container.
 - `stop_recording(container)` — Stop ffmpeg recording.
@@ -979,7 +984,8 @@ nlp2cmd/
 - `ask_for_video_recording(console)` — Ask user if they want to record video.
 - `get_polish_support()` — Get Polish language support instance
 - `load_appspec(path)` — —
-- `main()` — Demonstrate comprehensive command scanning.
+- `main()` — Demonstrate enhanced schema generation.
+- `main()` — Demonstrate intelligent command generation.
 - `main(target, source_type, out_format, raw)` — —
 - `estimate_token_cost(time_ms, cpu_percent, memory_mb, energy_mj)` — Convenient function for token cost estimation.
 - `format_token_estimate(estimate)` — Format token cost estimate for display.
@@ -1013,23 +1019,23 @@ nlp2cmd/
 - `fingerprint(text)` — Create a stable fingerprint for a query (lowercase, stripped, hashed).
 - `fuzzy_fingerprint(text)` — Create a looser fingerprint ignoring stop words and punctuation.
 - `detect_domain(text)` — Detect domain from keywords. Returns best match or 'shell' as default.
-- `should_attempt_repair(error, context)` — Determine if auto-repair should be attempted.
 - `create_optimized_matcher_from_phrases(phrases_path, preload)` — Create an OptimizedSemanticMatcher from phrases JSON.
 - `get_optimized_semantic_matcher(preload)` — Get or create optimized semantic matcher singleton.
 - `preload_models()` — Pre-load all models at application startup.
 - `clear_embedding_cache()` — Clear the embedding cache to free memory.
 - `get_cache_stats()` — Get embedding cache statistics.
 - `create_multilingual_matcher(phrases_dict, schema_path)` — Create a fuzzy matcher with default multilingual phrases.
+- `should_attempt_repair(error, context)` — Determine if auto-repair should be attempted.
 - `get_multi_command_detector()` — Get or create the global multi-command detector instance.
 - `detect_multi_commands(text)` — Convenience function to detect multiple commands.
 - `create_thermodynamic_generator(n_samples, n_steps, adaptive_steps, parallel_sampling)` — Create a thermodynamic generator with default configuration.
 - `generate_training_data_from_phrases(phrases_path)` — Generate training data from multilingual_phrases.json.
 - `create_default_training_data()` — Create default training dataset for shell commands.
 - `get_ml_classifier(force_retrain)` — Get or create ML intent classifier singleton.
+- `get_enhanced_detector()` — Get or create enhanced detector instance.
 - `load_legacy_phrases(path)` — Load phrases from legacy multilingual_phrases.json format.
 - `merge_databases()` — Merge multiple phrase databases.
 - `benchmark_formats(db, iterations)` — Benchmark different data formats.
-- `get_enhanced_detector()` — Get or create enhanced detector instance.
 - `create_pipeline(confidence_threshold, custom_patterns)` — Create a RuleBasedPipeline with default configuration.
 - `create_default_validators()` — Create default validators for all domains.
 - `create_hybrid_generator(llm_client, confidence_threshold)` — Factory function to create a hybrid generator.
@@ -1050,11 +1056,6 @@ nlp2cmd/
 - `tokenize(text)` — Split *text* into tokens suitable for downstream NLP processing.
 - `test_per_command_store()` — Test the per-command schema store.
 - `demonstrate_version_management()` — Demonstrate version management for command schemas.
-- `web_schema_group()` — Web schema extraction and management commands.
-- `extract_schema(url, output, headless)` — Extract schema from a web page.
-- `show_history(domain, limit, stats)` — Show interaction history.
-- `export_learned_schema(domain, output)` — Export learned schema from interaction history.
-- `clear_history(domain, clear_all)` — Clear interaction history.
 - `display_command_result(command, metadata, metrics_str, show_yaml)` — Display command result with simple YAML format and bash markdown.
 - `display_table(data, title, headers, show_headers)` — Display data in a formatted table.
 - `display_panel(content, title, border_style, padding)` — Display content in a formatted panel.
@@ -1067,13 +1068,18 @@ nlp2cmd/
 - `display_section(title, content)` — Display section with title and optional content.
 - `display_list(items, title, bullet)` — Display list of items.
 - `display_kv_pairs(data, title, indent)` — Display key-value pairs.
+- `web_schema_group()` — Web schema extraction and management commands.
+- `extract_schema(url, output, headless)` — Extract schema from a web page.
+- `show_history(domain, limit, stats)` — Show interaction history.
+- `export_learned_schema(domain, output)` — Export learned schema from interaction history.
+- `clear_history(domain, clear_all)` — Clear interaction history.
 - `get_adapter(dsl, context)` — Get the appropriate adapter for the DSL type.
+- `with_auto_repair(auto_confirm, console)` — Decorator that adds auto-repair capability to any function.
+- `execute_with_auto_recovery(func)` — Execute a function with automatic error recovery.
 - `get_syntax_cache()` — Get the global syntax cache instance.
 - `get_cached_syntax(code, lexer, theme, line_numbers)` — Get a cached Syntax object using the global cache.
 - `clear_syntax_cache()` — Clear the global syntax cache.
 - `get_cache_stats()` — Get global cache statistics.
-- `with_auto_repair(auto_confirm, console)` — Decorator that adds auto-repair capability to any function.
-- `execute_with_auto_recovery(func)` — Execute a function with automatic error recovery.
 - `print_markdown_block(renderable)` — Print a renderable or string wrapped in a Markdown code block.
 - `print_yaml_block(data)` — —
 - `history_group()` — Command history and analytics.
@@ -1118,6 +1124,9 @@ nlp2cmd/
 - `classify_error(error_msg, model, task)` — Classify an error message into a known pattern category.
 - `get_registry()` — Get the global action registry instance.
 - `get_workspace()` — Return the .nlp2cmd workspace directory, creating it if needed.
+- `has_error_signals(text)` — Fast check: does the text contain error patterns?
+- `classify_error(text)` — Classify an error from output text (fast, no LLM).
+- `suggest_retry_strategy(error_type)` — Suggest a retry strategy based on error classification.
 - `handle_shell_exec(step, ctx)` — Execute a shell command.
 - `handle_generate_code(step, ctx)` — Generate code via LLM.
 - `handle_wait(step, ctx)` — Wait for a specified duration.
@@ -1135,9 +1144,6 @@ nlp2cmd/
 - `handle_draw_shape(step, ctx)` — Draw a shape on canvas using the DrawingSkill system.
 - `handle_navigate_with_fallback(step, ctx)` — Navigate to URL with automatic fallback discovery if primary URL fails.
 - `register_default_handlers(orch)` — Register all default step handlers on an Orchestrator instance.
-- `has_error_signals(text)` — Fast check: does the text contain error patterns?
-- `classify_error(text)` — Classify an error from output text (fast, no LLM).
-- `suggest_retry_strategy(error_type)` — Suggest a retry strategy based on error classification.
 - `is_playwright_installed()` — Check if Playwright is installed.
 - `is_playwright_browsers_installed()` — Check if Playwright browsers are installed by looking for the executable.
 - `install_playwright(console)` — Install Playwright package.
@@ -1169,10 +1175,15 @@ nlp2cmd/
 - `cmd_analyze_env(output)` — Analyze system environment.
 - `run_doctor(auto_fix, output_json, fix_script)` — Run the doctor diagnostic.
 - `get_hf_token_via_browser(console)` — Open browser to help user get HF_TOKEN from Hugging Face.
+- `handle_run_mode(query, dsl, appspec, auto_confirm)` — Handle --run option: generate and execute command with error recovery.
 - `handle_generate_query(query)` — Handle single-query generation (no --run, dsl=auto fast path).
 - `handle_appspec_query(query)` — Handle single-query generation for appspec DSL.
 - `run_nlp2cmd_command(command, verbose)` — Run nlp2cmd with the given command.
 - `get_command_for_service(service)` — Get natural language command for credential diagnosis.
+- `main()` — —
+- `main()` — —
+- `main()` — —
+- `main()` — —
 - `main()` — —
 - `get_platform_info()` — Get platform info for logging and diagnostics.
 - `dismiss_popups(page, log, timeout)` — Dismiss common popups, cookie banners, GDPR notices.
@@ -1183,38 +1194,34 @@ nlp2cmd/
 - `find_canvas(page, log)` — Find the best canvas element using multiple strategies.
 - `take_screenshot(page, path, log, metadata)` — Take a screenshot and save metadata alongside it.
 - `main()` — —
-- `main()` — —
-- `main()` — —
-- `main()` — —
-- `main()` — —
 - `run_nlp2cmd_command(command, headless, verbose)` — Run nlp2cmd with the given command.
 - `main()` — —
 - `run_nlp2cmd_command(command, headless, verbose)` — Run nlp2cmd with the given command.
 - `get_command_for_preset(preset)` — Get natural language command for a preset.
 - `main()` — —
-- `handle_run_mode(query, dsl, appspec, auto_confirm)` — Handle --run option: generate and execute command with error recovery.
 - `main()` — —
 - `main()` — —
 - `run_nlp2cmd_command(command, headless, verbose)` — Run nlp2cmd with the given command.
 - `get_command_for_code(code, lang)` — Get natural language command for code execution.
 - `main()` — —
-- `detect_language(query)` — Detect programming language from query.
-- `detect_task(query)` — Detect coding task from query keywords.
-- `generate_code_with_llm(query, lang)` — Generate code using LLM Router with adaptive learning.
-- `main()` — —
 - `run_nlp2cmd_command(command, headless, verbose)` — Run nlp2cmd with the given command.
 - `get_command_for_preset(preset)` — Get natural language command for a preset.
 - `main()` — —
 - `run_nlp2cmd_command(command, headless, verbose)` — Run nlp2cmd with the given command.
 - `main()` — —
+- `detect_language(query)` — Detect programming language from query.
+- `detect_task(query)` — Detect coding task from query keywords.
+- `generate_code_with_llm(query, lang)` — Generate code using LLM Router with adaptive learning.
+- `main()` — —
 - `type_into_codepen_editor(page, panel_selector, code)` — Type code into a CodePen editor panel using CodeMirror API.
 - `generate_code_from_description(description)` — Generate simple HTML/CSS/JS from natural language description.
 - `main()` — —
 - `json_safe(s)` — Escape string for safe JS injection.
-- `build_prompt(args)` — Build the full prompt from CLI arguments.
-- `main()` — —
 - `test_prompt(example, verbose)` — Test a single prompt against ActionPlanner (dry-run, no browser).
 - `run_all_tests(provider, verbose)` — Run all prompt tests and return summary.
+- `run_benchmark(validator, runs_per_case, label)` — Run benchmark: each case N times, collect accuracy/consistency/latency.
+- `compare_benchmarks(before, after)` — Print comparison of two benchmark runs.
+- `main()` — —
 - `print_separator(title)` — —
 - `print_rule()` — —
 - `rule_line()` — —
@@ -1227,9 +1234,6 @@ nlp2cmd/
 - `project_sample(problem, raw_sample)` — —
 - `print_projected(title, projected)` — —
 - `print_fallback_note(problem_name)` — —
-- `run_benchmark(validator, runs_per_case, label)` — Run benchmark: each case N times, collect accuracy/consistency/latency.
-- `compare_benchmarks(before, after)` — Print comparison of two benchmark runs.
-- `main()` — —
 - `download_bielik()` — Pobierz model Bielik-1.5B GGUF.
 - `run_all_demos()` — Uruchom wszystkie demonstracje.
 - `print_summary_table()` — Wyświetl tabelę podsumowującą zastosowania.
@@ -1253,11 +1257,6 @@ nlp2cmd/
 - `demo_supply_chain_network()` — Optymalizacja sieci łańcucha dostaw.
 - `demo_cross_docking()` — Optymalizacja cross-docking.
 - `main()` — Uruchom wszystkie demonstracje logistyczne.
-- `demo_hyperparameter_optimization()` — Optymalizacja hiperparametrów modelu ML.
-- `demo_feature_selection()` — Optymalizacja wyboru cech dla modelu ML.
-- `demo_experiment_scheduling()` — Planowanie eksperymentów ML na klastrze GPU.
-- `demo_model_ensemble_optimization()` — Optymalizacja ensemble modeli.
-- `main()` — Uruchom wszystkie demonstracje Data Science.
 - `print_result(query, result, elapsed)` — Helper function to print results for both DSL and Thermodynamic sources.
 - `run_query_group(title, section_label, queries)` — —
 - `demo_file_operations()` — Demonstracja operacji na plikach.
@@ -1269,6 +1268,11 @@ nlp2cmd/
 - `demo_backup_operations()` — Demonstracja operacji backup.
 - `demo_system_maintenance()` — Demonstracja konserwacji systemu.
 - `main()` — Uruchom wszystkie demonstracje komend DSL.
+- `demo_hyperparameter_optimization()` — Optymalizacja hiperparametrów modelu ML.
+- `demo_feature_selection()` — Optymalizacja wyboru cech dla modelu ML.
+- `demo_experiment_scheduling()` — Planowanie eksperymentów ML na klastrze GPU.
+- `demo_model_ensemble_optimization()` — Optymalizacja ensemble modeli.
+- `main()` — Uruchom wszystkie demonstracje Data Science.
 - `demo_traffic_optimization()` — Optymalizacja sygnalizacji świetlnej.
 - `demo_smart_grid()` — Bilansowanie obciążenia sieci energetycznej.
 - `demo_waste_management()` — Optymalizacja tras wywozu odpadów.
@@ -1310,6 +1314,7 @@ nlp2cmd/
 - `demo_proteomics_analysis()` — Planowanie analizy proteomicznej.
 - `demo_drug_discovery()` — Optymalizacja procesu odkrywania leków.
 - `main()` — Uruchom wszystkie demonstracje bioinformatyki.
+- `debug_keywords()` — Debug keyword patterns.
 - `print_separator(title)` — Drukuj ładny separator z tytułem.
 - `print_result(query, result, elapsed, source)` — Wyświetl wynik w standardowym formacie.
 - `demo_python_api()` — Demonstracja użycia Python API.
@@ -1317,7 +1322,6 @@ nlp2cmd/
 - `demo_mixed_usage()` — Demonstracja mieszanego użycia Python + shell.
 - `demo_advanced_features()` — Demonstracja zaawansowanych funkcji.
 - `main()` — Główna funkcja demonstracyjna.
-- `debug_keywords()` — Debug keyword patterns.
 - `debug_generator()` — Debug generator internals.
 - `debug_intents()` — Debug intent detection.
 - `print_separator(title)` — Drukuj separator z tytułem.
@@ -1327,6 +1331,8 @@ nlp2cmd/
 - `demo_advanced_patterns()` — Demonstracja zaawansowanych wzorców.
 - `demo_real_world_examples()` — Demonstracja rzeczywistych przypadków użycia.
 - `main()` — Główna funkcja demonstracyjna.
+- `main()` — Uruchom walidację komend shell.
+- `main()` — —
 - `demo_course_timetabling()` — Układanie planu zajęć na uczelni.
 - `demo_exam_scheduling()` — Harmonogram sesji egzaminacyjnej.
 - `demo_learning_path()` — Personalizacja ścieżki nauki.
@@ -1335,7 +1341,6 @@ nlp2cmd/
 - `demo_resource_optimization()` — Optymalizacja zasobów edukacyjnych.
 - `demo_curriculum_planning()` — Planowanie programu nauczania.
 - `main()` — Uruchom wszystkie demonstracje edukacyjne.
-- `main()` — Uruchom walidację komend shell.
 - `main()` — —
 - `main()` — —
 - `main()` — —
@@ -1373,7 +1378,6 @@ nlp2cmd/
 - `print_metrics_report(metrics, title)` — Drukuje raport metryk.
 - `print_learning_report()` — Drukuje raport uczenia się.
 - `main()` — —
-- `main()` — —
 - `search_demo(query, max_results, summarize)` — Demonstrate search functionality.
 - `main()` — —
 - `parse_objects_from_scene(scene)` — Parse object names from a scene description.
@@ -1404,14 +1408,13 @@ nlp2cmd/
 - `generate_plan_with_llm(query)` — Try to generate a drawing plan using LLM Router with adaptive learning.
 - `main()` — —
 - `main()` — —
-- `draw_and_validate(shape, color, description, headless)` — Draw a shape using 3-skill pipeline and validate with Qwen VL.
-- `validate_screenshot(screenshot_path, description, verbose, use_vision)` — Validate an existing screenshot without drawing.
-- `run_demo(headless, use_vision)` — Run validation on multiple demo scenarios.
-- `main()` — —
 - `run_nlp2cmd_command(command, headless, verbose)` — Run nlp2cmd with the given command.
 - `main()` — —
 - `print_section(title)` — Print section header.
 - `main()` — —
+- `draw_and_validate(shape, color, description, headless)` — Draw a shape using 3-skill pipeline and validate with Qwen VL.
+- `validate_screenshot(screenshot_path, description, verbose, use_vision)` — Validate an existing screenshot without drawing.
+- `run_demo(headless, use_vision)` — Run validation on multiple demo scenarios.
 - `main()` — —
 - `main()` — —
 - `demonstrate_mock_llm()` — Demonstrate with mock LLM backend.
@@ -1419,15 +1422,13 @@ nlp2cmd/
 - `demonstrate_real_llm_setup()` — Show how to set up real LLM backends.
 - `demonstrate_hybrid_approach()` — Demonstrate hybrid LLM + rule-based approach.
 - `main()` — Run all demonstrations.
-- `classify_task(prompt)` — Classify prompt into task category using keyword patterns.
-- `get_router()` — Get or create the default LLMRouter singleton.
-- `reset_router()` — Reset the default router (e.g., after config change).
 - `main()` — —
 - `main()` — —
+- `main()` — —
+- `simulate_interactive_session()` — Simulate an interactive session with feedback loop.
 - `run_nlp2cmd_command(command, verbose)` — Run nlp2cmd with the given command.
 - `get_command_for_task(task)` — Get natural language command for shell tasks.
 - `main()` — —
-- `simulate_interactive_session()` — Simulate an interactive session with feedback loop.
 - `format_size(gb)` — Format size in human-readable format.
 - `main()` — —
 - `main()` — —
@@ -1435,25 +1436,22 @@ nlp2cmd/
 - `get_command_for_task(task)` — Get natural language command for Docker tasks.
 - `main()` — —
 - `main()` — —
-- `main()` — —
 - `create_sample_files(tmpdir)` — Create sample files for testing.
 - `validate_file(registry, path, schema_name)` — Validate a file and print results.
 - `repair_file(registry, path, schema_name, auto_fix)` — Repair a file and show changes.
 - `main()` — —
+- `main()` — —
+- `run_batch_demo()` — Run all commands from prompt.txt automatically.
+- `test_services(controller)` — Test if services are working properly.
+- `test_chat_service(container)` — Test chat service (nginx).
+- `test_redis_service(container)` — Test Redis service.
+- `test_postgres_service(container)` — Test PostgreSQL service.
 - `run_demo_with_test(interactive)` — Run demo with automatic deployment and testing.
 - `test_services(controller)` — Test if services are working properly.
 - `test_chat_service(container)` — Test chat service (nginx).
 - `test_redis_service(container)` — Test Redis service.
 - `troubleshoot_and_fix(controller, original_command)` — Troubleshoot and fix deployment issues.
 - `interactive_mode(controller)` — Interactive mode for additional commands.
-- `run_batch_demo()` — Run all commands from prompt.txt automatically.
-- `test_services(controller)` — Test if services are working properly.
-- `test_chat_service(container)` — Test chat service (nginx).
-- `test_redis_service(container)` — Test Redis service.
-- `test_postgres_service(container)` — Test PostgreSQL service.
-- `demo_nlp_commands()` — Interaktywna demonstracja poleceń NLP.
-- `run_example(example_num)` — Run specific example.
-- `main()` — —
 - `process_command(request)` — Przetwarzaj komendę z języka naturalnego.
 - `get_status()` — Pobierz status API.
 - `get_history(limit)` — Pobierz historię komend.
@@ -1462,7 +1460,17 @@ nlp2cmd/
 - `history_page(request)` — Strona z historią komend.
 - `services_page(request)` — Strona z usługami.
 - `get_examples()` — Pobierz przykładowe komendy.
+- `demo_nlp_commands()` — Interaktywna demonstracja poleceń NLP.
+- `run_example(example_num)` — Run specific example.
+- `main()` — —
+- `benchmark_performance()` — Benchmark performance comparison
+- `compare_usage_patterns()` — Compare usage patterns between old and new systems
+- `compare_data_structure()` — Compare data structure differences
+- `demonstrate_llm_friendly_format()` — Show how TOON format is LLM-friendly
 - `main()` — Main demo function
+- `main()` — Main demo function
+- `build_prompt(args)` — Build the full prompt from CLI arguments.
+- `main()` — —
 - `demo_basic_usage()` — Demonstrate basic TOON usage
 - `demo_real_world_example()` — Show real-world example
 - `demo_integration_example()` — Show integration example
@@ -1470,11 +1478,6 @@ nlp2cmd/
 - `demo_performance_tips()` — Show performance tips
 - `main()` — Main demo function
 - `main()` — Demonstrate TOON usage
-- `benchmark_performance()` — Benchmark performance comparison
-- `compare_usage_patterns()` — Compare usage patterns between old and new systems
-- `compare_data_structure()` — Compare data structure differences
-- `demonstrate_llm_friendly_format()` — Show how TOON format is LLM-friendly
-- `main()` — Main demo function
 - `mock_find_logs()` — Mock: Find log files.
 - `mock_count_pattern(file, pattern)` — Mock: Count pattern occurrences in file.
 - `mock_read_file(path)` — Mock: Read file contents.
@@ -1485,11 +1488,13 @@ nlp2cmd/
 - `mock_process_list()` — Mock: System process list.
 - `check_health(data)` — Custom handler: Analyze health status.
 - `main()` — —
+- `run_command(command, dsl, use_llm, auto_install)` — Quick way to run a single NLP2CMD command.
 - `main()` — —
 - `main()` — —
 - `main()` — —
 - `print_section(title)` — Print section header.
 - `print_result(result, title)` — Print validation result.
+- `main()` — —
 - `main()` — —
 - `main()` — —
 - `batch_validate(commands)` — Walidacja wsadowa komend.
@@ -1502,14 +1507,11 @@ nlp2cmd/
 - `benchmark_old_system()` — Benchmark starego systemu.
 - `benchmark_toon()` — Benchmark TOON - pojedynczy plik.
 - `main()` — —
-- `main()` — —
 - `estimate_old_system_memory()` — Estymacja zużycia pamięci starego systemu.
 - `estimate_toon_memory()` — Estymacja zużycia pamięci TOON.
 - `format_size(size_bytes)` — Formatuje rozmiar w bajtach na czytelną formę.
 - `main()` — —
-- `main()` — —
 - `generate_compose(services)` — Generuje strukturę docker-compose.
-- `main()` — —
 - `main()` — —
 - `main()` — —
 - `main()` — —
@@ -1519,8 +1521,10 @@ nlp2cmd/
 - `performance_comparison()` — Performance comparison examples
 - `practical_examples()` — Practical migration examples
 - `main()` — Main migration guide
+- `main()` — —
 - `check()` — —
 - `run_flow(dry_run)` — —
+- `main()` — —
 - `main()` — —
 - `scan()` — Pokaż tabelę dostępności credentials.
 - `plan_all()` — Wygeneruj plany dla providerów z hasłami ale bez kluczy API.
@@ -1537,6 +1541,8 @@ nlp2cmd/
 - `run_flow(dry_run)` — —
 - `main()` — —
 - `main()` — —
+- `main()` — —
+- `main()` — —
 - `example_scheduling()` — Example 1: Scheduling tasks with Langevin dynamics.
 - `example_allocation()` — Example 2: Resource allocation with thermodynamic sampling.
 - `example_energy_savings()` — Example 3: Energy savings estimation.
@@ -1544,15 +1550,12 @@ nlp2cmd/
 - `example_routing()` — Example 5: Routing/TSP optimization with Langevin dynamics.
 - `example_direct_problem()` — Example 6: Direct problem definition (without NL parsing).
 - `main()` — Run all examples.
-- `main()` — —
-- `main()` — —
 - `print_section(title)` — Print section header.
 - `print_step(step)` — Print step indicator.
 - `mock_sql_select(table, columns, filters)` — Mock SQL SELECT handler.
 - `mock_shell_find(glob, path)` — Mock shell find handler.
 - `mock_shell_count_pattern(file, pattern)` — Mock shell grep/count handler.
 - `mock_k8s_get(resource, namespace)` — Mock kubectl get handler.
-- `main()` — —
 - `main()` — —
 - `main()` — —
 - `main()` — —
@@ -1576,9 +1579,12 @@ nlp2cmd/
 - `check_nlp2cmd()` — —
 - `Nlp2cmd()` — —
 - `main()` — —
-- `should_run()` — —
 - `main()` — —
-- `run_command(command, dsl, use_llm, auto_install)` — Quick way to run a single NLP2CMD command.
+- `main()` — —
+- `should_run()` — —
+- `classify_task(prompt)` — Classify prompt into task category using keyword patterns.
+- `get_router()` — Get or create the default LLMRouter singleton.
+- `reset_router()` — Reset the default router (e.g., after config change).
 
 
 ## Project Structure
@@ -1817,6 +1823,7 @@ nlp2cmd/
 📄 `scripts.maintenance.generate_refactor_report` (1 functions)
 📄 `scripts.maintenance.implement_core_integration` (10 functions, 1 classes)
 📄 `scripts.maintenance.implement_high_priority_fixes` (10 functions, 1 classes)
+📄 `scripts.maintenance.llx_refactor` (6 functions)
 📄 `scripts.maintenance.refactor_detect_normalized` (10 functions)
 📄 `scripts.maintenance.refactor_shell_entities` (11 functions)
 📄 `scripts.maintenance.refactoring_summary` (1 functions)
@@ -1836,7 +1843,7 @@ nlp2cmd/
 📦 `src.nlp2cmd.adapters`
 📄 `src.nlp2cmd.adapters.appspec` (6 functions, 2 classes)
 📄 `src.nlp2cmd.adapters.base` (12 functions, 3 classes)
-📄 `src.nlp2cmd.adapters.browser` (23 functions, 2 classes)
+📄 `src.nlp2cmd.adapters.browser` (26 functions, 2 classes)
 📄 `src.nlp2cmd.adapters.canvas` (12 functions, 4 classes)
 📄 `src.nlp2cmd.adapters.desktop` (21 functions, 3 classes)
 📄 `src.nlp2cmd.adapters.docker` (19 functions, 3 classes)

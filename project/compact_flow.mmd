@@ -27,19 +27,19 @@ flowchart TD
     examples__show_metrics["examples.show_metrics<br/>1 funcs"]
     networkx_3__6["networkx-3.6<br/>1833 funcs"]
     scripts__bump_version["scripts.bump_version<br/>1 funcs"]
-    scripts__maintenance["scripts.maintenance<br/>76 funcs"]
+    scripts__maintenance["scripts.maintenance<br/>82 funcs"]
     scripts__setup_external["scripts.setup_external<br/>1 funcs"]
     scripts__thermodynamic["scripts.thermodynamic<br/>48 funcs"]
     src__app2schema["src.app2schema<br/>16 funcs"]
-    src__nlp2cmd["src.nlp2cmd<br/>2624 funcs"]
+    src__nlp2cmd["src.nlp2cmd<br/>2627 funcs"]
     tools__analysis["tools.analysis<br/>8 funcs"]
     tools__generation["tools.generation<br/>27 funcs"]
     tools__schema["tools.schema<br/>116 funcs"]
     networkx_3__6 ==>|879| src__nlp2cmd
     examples__03_integrations ==>|848| src__nlp2cmd
     examples__04_domain_specific ==>|684| src__nlp2cmd
+    scripts__maintenance ==>|424| src__nlp2cmd
     examples__09_online_drawing ==>|416| src__nlp2cmd
-    scripts__maintenance ==>|411| src__nlp2cmd
     examples__01_basics ==>|292| src__nlp2cmd
     scripts__thermodynamic ==>|165| src__nlp2cmd
     examples__05_advanced_features ==>|161| src__nlp2cmd
@@ -52,8 +52,8 @@ flowchart TD
     tools__analysis ==>|77| src__nlp2cmd
     examples__10_online_code_editors ==>|72| examples___verbose_helper
     src__nlp2cmd ==>|67| networkx_3__6
-    demos__demo_version_detection ==>|65| src__nlp2cmd
     demos__demo_schema_flow ==>|65| src__nlp2cmd
+    demos__demo_version_detection ==>|65| src__nlp2cmd
     demos__demo_versioned_schemas ==>|57| src__nlp2cmd
     tools__generation ==>|56| src__nlp2cmd
     demos__schema_flow_demo ==>|55| src__nlp2cmd
@@ -65,8 +65,8 @@ flowchart TD
     demos__simple_schema_demo ==>|33| src__nlp2cmd
     docker__novnc ==>|30| src__nlp2cmd
     examples__show_metrics ==>|27| src__nlp2cmd
-    demos__demo_intelligent_nlp2cmd ==>|26| src__nlp2cmd
     demos__demo_enhanced ==>|26| src__nlp2cmd
+    demos__demo_intelligent_nlp2cmd ==>|26| src__nlp2cmd
     examples___verbose_helper ==>|25| src__nlp2cmd
     examples__08_llm_validation ==>|24| src__nlp2cmd
     examples__09_online_drawing ==>|21| examples___verbose_helper

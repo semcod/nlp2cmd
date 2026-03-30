@@ -1,10 +1,10 @@
-# nlp2cmd | 617f 212518L | python:613,shell:4 | 2026-03-30
-# stats: 4798 func | 0 cls | 617 mod | CC̄=5.7 | critical:345 | cycles:0
+# nlp2cmd | 618f 212818L | python:614,shell:4 | 2026-03-30
+# stats: 4807 func | 0 cls | 618 mod | CC̄=5.7 | critical:347 | cycles:0
 # alerts[5]: CC PlanExecutionMixin._execute_plan_step=346; CC BrowserExecutionMixin._run_dom_multi_action=280; CC generate_command=187; CC handle_run_mode=178; CC PlanExecutionMixin.execute_action_plan=168
 # hotspots[5]: PlanExecutionMixin._execute_plan_step fan=118; BrowserExecutionMixin._run_dom_multi_action fan=108; handle_run_mode fan=75; PlanExecutionMixin.execute_action_plan fan=74; display fan=65
 # evolution: CC̄ 5.8→5.7 (improved -0.1)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[617]:
+M[618]:
   benchmarks/thermodynamic_benchmark.py,395
   code2llm_workaround.py,10
   demos/demo_enhanced.py,127
@@ -307,6 +307,7 @@ M[617]:
   scripts/maintenance/generate_refactor_report.py,186
   scripts/maintenance/implement_core_integration.py,805
   scripts/maintenance/implement_high_priority_fixes.py,518
+  scripts/maintenance/llx_refactor.py,256
   scripts/maintenance/refactor_detect_normalized.py,249
   scripts/maintenance/refactor_shell_entities.py,234
   scripts/maintenance/refactoring_summary.py,92
@@ -326,7 +327,7 @@ M[617]:
   src/nlp2cmd/adapters/__init__.py,77
   src/nlp2cmd/adapters/appspec.py,93
   src/nlp2cmd/adapters/base.py,214
-  src/nlp2cmd/adapters/browser.py,561
+  src/nlp2cmd/adapters/browser.py,595
   src/nlp2cmd/adapters/canvas.py,909
   src/nlp2cmd/adapters/desktop.py,649
   src/nlp2cmd/adapters/docker.py,635
@@ -355,7 +356,7 @@ M[617]:
   src/nlp2cmd/automation/vector_store.py,534
   src/nlp2cmd/browser_manager/__init__.py,22
   src/nlp2cmd/browser_manager/base.py,64
-  src/nlp2cmd/browser_manager/browser_connector.py,133
+  src/nlp2cmd/browser_manager/browser_connector.py,143
   src/nlp2cmd/browser_manager/cdp_detector.py,98
   src/nlp2cmd/browser_manager/existing_browser_manager.py,160
   src/nlp2cmd/browser_manager/token_navigator.py,97
@@ -902,7 +903,7 @@ Unified ...
   src/nlp2cmd/adapters/browser.py:
     e: BrowserSafetyPolicy,BrowserAdapter,_debug
     BrowserSafetyPolicy(SafetyPolicy):
-    BrowserAdapter(BaseDSLAdapter): __init__(2),_extract_url(0),_extract_type_text(0),_has_type_action(0),_should_explore_for_content(0),_should_explore_for_forms(0),_has_fill_form_action(0),_has_press_enter(0),_has_form_action(0),_has_submit_action(0),_has_extract_article_action(0),_is_plural_article_request(0),_extract_article_topic(0),_has_extract_companies_action(0),_has_save_to_file_action(0),_extract_save_filename(0),_has_deep_website_extraction(0),_has_csv_format(0),_wants_clipboard(0),_wants_print_terminal(0),generate(1),validate_syntax(1)  # Minimal adapter that turns NL into dom_dql.v1 navigation (Pl...
+    BrowserAdapter(BaseDSLAdapter): get_form_data_loader(0),__init__(2),site_explorer(1),site_explorer(1),form_data_loader(1),form_data_loader(1),_extract_url(0),_extract_type_text(1),_has_type_action(1),_should_explore_for_content(0),_should_explore_for_forms(0),_has_fill_form_action(1),_has_press_enter(1),_has_form_action(1),_has_submit_action(1),_has_extract_article_action(1),_is_plural_article_request(1),_extract_article_topic(1),_has_extract_companies_action(1),_has_save_to_file_action(1),_extract_save_filename(1),_has_deep_website_extraction(0),_has_csv_format(0),_wants_clipboard(0),_wants_print_terminal(0),generate(1),validate_syntax(1)  # Minimal adapter that turns NL into dom_dql.v1 navigation (Pl...
     _debug(msg)
   src/nlp2cmd/generation/regex.py:
     e: ExtractedEntity,ExtractionResult,RegexEntityExtractor
@@ -1533,6 +1534,9 @@ Transforms natural la...
   tools/analysis/compare_batches.py:
     e: compare_batch_files
     compare_batch_files()
+  src/nlp2cmd/browser_manager/browser_connector.py:
+    e: BrowserConnector
+    BrowserConnector: __init__(1),connect(3),_try_connect_chrome(4),_try_connect_firefox(4)  # Connect to browsers via Playwright CDP protocol...
   src/nlp2cmd/dom_actions/companies.py:
     e: ExtractCompaniesAction
     ExtractCompaniesAction(DomAction): execute(1),_wait_for_content(1),_handle_oferteo_navigation(1),_wait_for_company_links(1),_find_company_links(2),_collect_company_links(1),_extract_websites(4),_find_external_website(1)  # Extract company information from catalog pages...
@@ -1605,6 +1609,10 @@ Tracks a drawi...
     apply_keywords_refactor()
     apply_templates_refactor()
     main()
+  src/nlp2cmd/polish_support.py:
+    e: PolishLanguageSupport,get_polish_support
+    PolishLanguageSupport: __init__(0),_load_patterns(0),normalize_polish_text(1),normalize_stt_errors(1),_find_best_phrase_match(2),_similar(3),match_polish_patterns(2),translate_polish_intent(1),translate_polish_table(1),get_domain_weight(1),enhance_domain_detection(2),enhance_intent_detection(2)  # Polish language support for NLP2CMD...
+    get_polish_support()
   src/nlp2cmd/pipeline_runner_utils.py:
     e: _MarkdownConsoleWrapper,ShellExecutionPolicy,RunnerResult,VideoRecorder,_debug,_with_epipe_retry,_field_attrs,_is_junk_field,_is_contact_relevant_field,_looks_like_comment_form,_filter_form_fields,get_timestamp,ensure_dir,ask_for_screenshot,take_screenshot,ask_for_video_recording
     _MarkdownConsoleWrapper: __init__(1),print(1),capture(0)  # Context manager that captures console output into Markdown c...
@@ -1623,10 +1631,6 @@ Tracks a drawi...
     ask_for_screenshot(console;default_path)
     take_screenshot(page;path;console)
     ask_for_video_recording(console)
-  src/nlp2cmd/polish_support.py:
-    e: PolishLanguageSupport,get_polish_support
-    PolishLanguageSupport: __init__(0),_load_patterns(0),normalize_polish_text(1),normalize_stt_errors(1),_find_best_phrase_match(2),_similar(3),match_polish_patterns(2),translate_polish_intent(1),translate_polish_table(1),get_domain_weight(1),enhance_domain_detection(2),enhance_intent_detection(2)  # Polish language support for NLP2CMD...
-    get_polish_support()
   src/nlp2cmd/cli/debug_info.py:
     e: show_schema_info,show_decision_tree_info,generate_debug_log_md
     show_schema_info(console)
@@ -1657,6 +1661,14 @@ Tracks a drawi...
     root_trees(t1;root1;t2;root2)
     rooted_tree_isomorphism(t1;root1;t2;root2)
     tree_isomorphism(t1;t2)
+  scripts/maintenance/llx_refactor.py:
+    e: build_parser,git_tracked_python_files,select_llx_model,build_prompt,run_refactor,main
+    build_parser()
+    git_tracked_python_files(workdir)
+    select_llx_model(workdir)
+    build_prompt(workdir;metrics;file_count)
+    run_refactor(workdir;model;prompt;use_docker)
+    main()
   src/nlp2cmd/core/core_transform.py:
     e: NLP2CMD
     NLP2CMD: __init__(6),transform(2),transform_ir(2),_normalize_entities(3),_normalize_entities_sql(3),_normalize_entities_shell(3),_normalize_entities_docker(3),_normalize_entities_kubernetes(3),_normalize_entities_dql(3),_normalize_shell_entities(3),_extract_shell_extension_value(1),_build_shell_size_filter(2),_build_shell_age_filter(2),_normalize_docker_entities(2),_normalize_kubernetes_entities(2),_normalize_sql_entities(2),get_supported_intents(0),get_adapter_info(0),set_context(2),clear_context(0),get_history(0),clear_history(0)  # Main class for Natural Language to Command transformation.
@@ -1723,9 +1735,6 @@ Lifecycle:...
     _to_tuple(x)
     node_link_data(G)
     node_link_graph(data;directed;multigraph)
-  src/nlp2cmd/browser_manager/browser_connector.py:
-    e: BrowserConnector
-    BrowserConnector: __init__(1),connect(3),_try_connect_chrome(4),_try_connect_firefox(4)  # Connect to browsers via Playwright CDP protocol...
   src/nlp2cmd/browser_manager/token_navigator.py:
     e: NavigationStatus,TokenNavigator
     NavigationStatus(Enum):  # Status of navigation attempt...
@@ -2104,13 +2113,13 @@ Transfor...
   src/nlp2cmd/streams/http_stream.py:
     e: HTTPStreamAdapter
     HTTPStreamAdapter(StreamAdapter): connect(0),execute(1),query(1)
-  src/nlp2cmd/schema_extraction/llm_extractor.py:
-    e: LLMSchemaExtractor
-    LLMSchemaExtractor: __init__(1),_build_extraction_prompt(2),extract_from_command(1),_validate_and_fix_template(2),_infer_category(2),_generate_description(2),_create_schema_with_template(1),_create_basic_schema(1),_intelligent_category_detection(1),_intelligent_description_extraction(1),_intelligent_template_generation(2)  # Extract command schemas using LLM assistance...
   src/nlp2cmd/intelligent/dynamic_generator.py:
     e: DynamicSchemaGenerator,test_dynamic_generation
     DynamicSchemaGenerator: __init__(1),generate_schema(2),_generate_template(2),_generate_description(2),_infer_category(2)  # Generates schemas dynamically without hardcoding...
     test_dynamic_generation()
+  src/nlp2cmd/schema_extraction/llm_extractor.py:
+    e: LLMSchemaExtractor
+    LLMSchemaExtractor: __init__(1),_build_extraction_prompt(2),extract_from_command(1),_validate_and_fix_template(2),_infer_category(2),_generate_description(2),_create_schema_with_template(1),_create_basic_schema(1),_intelligent_category_detection(1),_intelligent_description_extraction(1),_intelligent_template_generation(2)  # Extract command schemas using LLM assistance...
   networkx-3.6.1-py3-none-any/networkx/generators/geometric.py:
     e: geometric_edges,_geometric_edges,random_geometric_graph,soft_random_geometric_graph,geographical_threshold_graph,waxman_graph,navigable_small_world_graph,thresholded_random_geometric_graph,geometric_soft_configuration_graph
     geometric_edges(G;radius;p)
@@ -2266,6 +2275,10 @@ Flow:
     maybe_regular_expander(n;d)
     is_regular_expander(G)
     random_regular_expander_graph(n;d)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/centrality/closeness.py:
+    e: closeness_centrality,incremental_closeness_centrality
+    closeness_centrality(G;u;distance;wf_improved)
+    incremental_closeness_centrality(G;edge;prev_cc;insertion;wf_improved)
   networkx-3.6.1-py3-none-any/networkx/algorithms/flow/utils.py:
     e: CurrentEdge,Level,GlobalRelabelThreshold,build_residual_network,detect_unboundedness,build_flow_dict
     CurrentEdge: __init__(1),get(0),move_to_next(0),_rewind(0),__eq__(1)  # Mechanism for iterating over out-edges incident to a node in...
@@ -2274,10 +2287,6 @@ Flow:
     build_residual_network(G;capacity)
     detect_unboundedness(R;s;t)
     build_flow_dict(G;R)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/centrality/closeness.py:
-    e: closeness_centrality,incremental_closeness_centrality
-    closeness_centrality(G;u;distance;wf_improved)
-    incremental_closeness_centrality(G;edge;prev_cc;insertion;wf_improved)
   networkx-3.6.1-py3-none-any/networkx/algorithms/centrality/load.py:
     e: newman_betweenness_centrality,_node_betweenness,edge_load_centrality,_edge_betweenness
     newman_betweenness_centrality(G;v;cutoff;normalized;weight)
@@ -2334,21 +2343,6 @@ Supports:
     ShellAdapter(BaseDSLAdapter): __init__(4),transform(1),generate_command(2),generate(1),_detect_intent(1),_extract_entities(2),_calculate_confidence(2),_generate_generic(1),validate_command(1),validate_syntax(1),_resolve_user_home_path(1),_build_process_context(1),check_safety(1)  # Shell adapter supporting multiple shell types.
 
 Transforms n...
-  src/nlp2cmd/generation/llm_simple.py:
-    e: LLMClient,LiteLLMClient,LLMConfig,LLMGenerationResult,BaseLLMGenerator,SimpleLLMSQLGenerator,SimpleLLMShellGenerator,SimpleLLMDockerGenerator,SimpleLLMKubernetesGenerator,MockLLMClient
-    LLMClient(Protocol): complete(4)  # Protocol for LLM client implementations...
-    LiteLLMClient: __init__(4),complete(4)
-    LLMConfig:  # Configuration for LLM generators...
-    LLMGenerationResult:  # Result of LLM generation...
-    BaseLLMGenerator(ABC): __init__(2),get_system_prompt(0),extract_command(1),generate(3),_build_user_prompt(3)  # Base class for LLM-based DSL generators...
-    SimpleLLMSQLGenerator(BaseLLMGenerator): __init__(3),get_system_prompt(0),extract_command(1)  # LLM-based SQL generation - single domain first.
-
-Example:
-  ...
-    SimpleLLMShellGenerator(BaseLLMGenerator): get_system_prompt(0),extract_command(1)  # LLM-based Shell command generation...
-    SimpleLLMDockerGenerator(BaseLLMGenerator): get_system_prompt(0),extract_command(1)  # LLM-based Docker command generation...
-    SimpleLLMKubernetesGenerator(BaseLLMGenerator): get_system_prompt(0),extract_command(1)  # LLM-based Kubernetes command generation...
-    MockLLMClient: __init__(1),complete(4)  # Mock LLM client for testing...
   src/nlp2cmd/streams/rtsp_stream.py:
     e: RTSPStreamAdapter
     RTSPStreamAdapter(StreamAdapter): __init__(1),_build_rtsp_url(0),connect(0),execute(1),query(1),screenshot(0),disconnect(0),_grab_frame(0),_frame_to_png(1),_analyze_colors(0),_detect_motion(0),_detect_objects(0),_count_objects(1),_analyze_brightness(0),_capture_frame(0),_full_analysis(1),_llm_analyze_frame(2)  # Analyze RTSP video streams — colors, motion, objects...
@@ -2366,6 +2360,21 @@ Automatically records all ...
     ExampleScenario:  # Definition of an example scenario...
     ExamplesRegistry: __init__(1),_discover(0),list(1),get(1)  # Registry of all available example scenarios...
     ExamplesRunner: __init__(1),_print(2),_ensure_playwright(1),_ensure_env(1),list_scenarios(1),run_scenario(5),_run_simple(5),run_quick_draw(4),run_autonomous(3)  # Runner for example scenarios with preconfiguration...
+  src/nlp2cmd/generation/llm_simple.py:
+    e: LLMClient,LiteLLMClient,LLMConfig,LLMGenerationResult,BaseLLMGenerator,SimpleLLMSQLGenerator,SimpleLLMShellGenerator,SimpleLLMDockerGenerator,SimpleLLMKubernetesGenerator,MockLLMClient
+    LLMClient(Protocol): complete(4)  # Protocol for LLM client implementations...
+    LiteLLMClient: __init__(4),complete(4)
+    LLMConfig:  # Configuration for LLM generators...
+    LLMGenerationResult:  # Result of LLM generation...
+    BaseLLMGenerator(ABC): __init__(2),get_system_prompt(0),extract_command(1),generate(3),_build_user_prompt(3)  # Base class for LLM-based DSL generators...
+    SimpleLLMSQLGenerator(BaseLLMGenerator): __init__(3),get_system_prompt(0),extract_command(1)  # LLM-based SQL generation - single domain first.
+
+Example:
+  ...
+    SimpleLLMShellGenerator(BaseLLMGenerator): get_system_prompt(0),extract_command(1)  # LLM-based Shell command generation...
+    SimpleLLMDockerGenerator(BaseLLMGenerator): get_system_prompt(0),extract_command(1)  # LLM-based Docker command generation...
+    SimpleLLMKubernetesGenerator(BaseLLMGenerator): get_system_prompt(0),extract_command(1)  # LLM-based Kubernetes command generation...
+    MockLLMClient: __init__(1),complete(4)  # Mock LLM client for testing...
   demos/demo_enhanced.py:
     e: main
     main()
@@ -2486,17 +2495,6 @@ Features:
     HybridNLPBackend(NLPBackend): __init__(2),extract_entities(1),extract_intent(1),generate_plan(2)  # Hybrid NLP backend that combines multiple approaches.
 
 This ...
-  src/nlp2cmd/adapters/kubernetes.py:
-    e: KubernetesSafetyPolicy,ClusterContext,KubernetesAdapter
-    KubernetesSafetyPolicy(SafetyPolicy): check_command(2)  # Kubernetes-specific safety policy...
-    ClusterContext:  # Kubernetes cluster context...
-    KubernetesAdapter(BaseDSLAdapter): __init__(3),_parse_cluster_context(1),_normalize_resource(1),generate(1),_generate_get(1),_generate_describe(1),_generate_apply(1),_generate_delete(1),_generate_scale(1),_generate_logs(1),_generate_exec(1),_generate_port_forward(1),_generate_rollout(1),_generate_create(1),generate_manifest(1),_generate_deployment_manifest(1),_generate_service_manifest(1),_generate_configmap_manifest(1),_generate_secret_manifest(1),_generate_ingress_manifest(1),validate_syntax(1),check_safety(1)  # Kubernetes adapter for kubectl commands and manifests.
-
-Tran...
-  src/nlp2cmd/adapters/appspec.py:
-    e: AppSpecAdapterConfig,AppSpecAdapter
-    AppSpecAdapterConfig:
-    AppSpecAdapter(BaseDSLAdapter): __init__(0),load_from_file(1),set_spec(1),generate(1),validate_syntax(1),check_safety(1)
   src/nlp2cmd/thermodynamic/__init__.py:
     e: LangevinConfig,SamplerResult,EnergyModel,QuadraticEnergy,ConstraintEnergy,LangevinSampler,EntropyProductionRegularizer,MajorityVoter,ThermodynamicRouter,EnergyEstimator
     LangevinConfig:  # Configuration for Langevin dynamics sampler...
@@ -2524,6 +2522,17 @@ Strategies:
 
 Compares:
 - Pure...
+  src/nlp2cmd/adapters/kubernetes.py:
+    e: KubernetesSafetyPolicy,ClusterContext,KubernetesAdapter
+    KubernetesSafetyPolicy(SafetyPolicy): check_command(2)  # Kubernetes-specific safety policy...
+    ClusterContext:  # Kubernetes cluster context...
+    KubernetesAdapter(BaseDSLAdapter): __init__(3),_parse_cluster_context(1),_normalize_resource(1),generate(1),_generate_get(1),_generate_describe(1),_generate_apply(1),_generate_delete(1),_generate_scale(1),_generate_logs(1),_generate_exec(1),_generate_port_forward(1),_generate_rollout(1),_generate_create(1),generate_manifest(1),_generate_deployment_manifest(1),_generate_service_manifest(1),_generate_configmap_manifest(1),_generate_secret_manifest(1),_generate_ingress_manifest(1),validate_syntax(1),check_safety(1)  # Kubernetes adapter for kubectl commands and manifests.
+
+Tran...
+  src/nlp2cmd/adapters/appspec.py:
+    e: AppSpecAdapterConfig,AppSpecAdapter
+    AppSpecAdapterConfig:
+    AppSpecAdapter(BaseDSLAdapter): __init__(0),load_from_file(1),set_spec(1),generate(1),validate_syntax(1),check_safety(1)
   src/nlp2cmd/skills/drawing/navigation.py:
     e: NavigationState,CanvasInfo,NavigationStep,NavigationResult,DrawNavigationSkill
     NavigationState(Enum):  # State of the navigation process...
@@ -2558,14 +2567,14 @@ Uses the LLM Ro...
     e: SchemaBasedGenerator,SchemaRegistry
     SchemaBasedGenerator: __init__(1),learn_from_schema(1),generate_command(2),_extract_pattern(1),_apply_pattern(2),_generate_from_schema(2),_generate_fallback(2),improve_from_usage(4)  # Generates commands using schemas instead of templates...
     SchemaRegistry: __init__(1),register_schema(1),load_from_file(1),_convert_from_json(2),generate_command(2),improve_from_feedback(4),save_improvements(1)  # Registry for managing and improving schemas...
-  demos/demo_intelligent_nlp2cmd.py:
-    e: IntelligentNLP2CMD,demo_intelligent_nlp2cmd
-    IntelligentNLP2CMD: __init__(3),transform(2),detect_and_adapt(1),_select_best_version(3),_needs_update(2),update_command_schema(2),_increment_version(1),clear_cache(0)  # NLP2CMD with automatic version detection and adaptation...
-    demo_intelligent_nlp2cmd()
   demos/demo_persistent_storage.py:
     e: demonstrate_persistent_storage,show_storage_benefits
     demonstrate_persistent_storage()
     show_storage_benefits()
+  demos/demo_intelligent_nlp2cmd.py:
+    e: IntelligentNLP2CMD,demo_intelligent_nlp2cmd
+    IntelligentNLP2CMD: __init__(3),transform(2),detect_and_adapt(1),_select_best_version(3),_needs_update(2),update_command_schema(2),_increment_version(1),clear_cache(0)  # NLP2CMD with automatic version detection and adaptation...
+    demo_intelligent_nlp2cmd()
   demos/demo_versioned_schemas.py:
     e: migrate_existing_schemas,demonstrate_schema_updates,demonstrate_dual_versions,main
     migrate_existing_schemas(source_file)
@@ -2622,16 +2631,6 @@ for ...
     _get_broadcast_centers(G;v;values;target)
     tree_broadcast_center(G)
     tree_broadcast_time(G;node)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/core.py:
-    e: core_number,_core_subgraph,k_core,k_shell,k_crust,k_corona,k_truss,onion_layers
-    core_number(G)
-    _core_subgraph(G;k_filter;k;core)
-    k_core(G;k;core_number)
-    k_shell(G;k;core_number)
-    k_crust(G;k;core_number)
-    k_corona(G;k;core_number)
-    k_truss(G;k)
-    onion_layers(G)
   networkx-3.6.1-py3-none-any/networkx/algorithms/chordal.py:
     e: NetworkXTreewidthBoundExceeded,is_chordal,find_induced_nodes,chordal_graph_cliques,chordal_graph_treewidth,_is_complete_graph,_find_missing_edge,_max_cardinality_node,_find_chordality_breaker,complete_to_chordal_graph
     NetworkXTreewidthBoundExceeded(nx.NetworkXException):  # Exception raised when a treewidth bound has been provided an...
@@ -2644,6 +2643,16 @@ for ...
     _max_cardinality_node(G;choices;wanna_connect)
     _find_chordality_breaker(G;s;treewidth_bound)
     complete_to_chordal_graph(G)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/core.py:
+    e: core_number,_core_subgraph,k_core,k_shell,k_crust,k_corona,k_truss,onion_layers
+    core_number(G)
+    _core_subgraph(G;k_filter;k;core)
+    k_core(G;k;core_number)
+    k_shell(G;k;core_number)
+    k_crust(G;k;core_number)
+    k_corona(G;k;core_number)
+    k_truss(G;k)
+    onion_layers(G)
   networkx-3.6.1-py3-none-any/networkx/linalg/graphmatrix.py:
     e: incidence_matrix,adjacency_matrix
     incidence_matrix(G;nodelist;edgelist;oriented;weight)
@@ -2782,6 +2791,34 @@ When a query ...
     e: hnm_harary_graph,hkn_harary_graph
     hnm_harary_graph(n;m;create_using)
     hkn_harary_graph(k;n;create_using)
+  networkx-3.6.1-py3-none-any/networkx/generators/classic.py:
+    e: _tree_edges,full_rary_tree,kneser_graph,balanced_tree,barbell_graph,binomial_tree,complete_graph,circular_ladder_graph,circulant_graph,cycle_graph,dorogovtsev_goltsev_mendes_graph,empty_graph,ladder_graph,lollipop_graph,null_graph,path_graph,star_graph,tadpole_graph,trivial_graph,turan_graph,wheel_graph,complete_multipartite_graph
+    _tree_edges(n;r)
+    full_rary_tree(r;n;create_using)
+    kneser_graph(n;k)
+    balanced_tree(r;h;create_using)
+    barbell_graph(m1;m2;create_using)
+    binomial_tree(n;create_using)
+    complete_graph(n;create_using)
+    circular_ladder_graph(n;create_using)
+    circulant_graph(n;offsets;create_using)
+    cycle_graph(n;create_using)
+    dorogovtsev_goltsev_mendes_graph(n;create_using)
+    empty_graph(n;create_using;default)
+    ladder_graph(n;create_using)
+    lollipop_graph(m;n;create_using)
+    null_graph(create_using)
+    path_graph(n;create_using)
+    star_graph(n;create_using)
+    tadpole_graph(m;n;create_using)
+    trivial_graph(create_using)
+    turan_graph(n;r)
+    wheel_graph(n;create_using)
+    complete_multipartite_graph()
+  networkx-3.6.1-py3-none-any/networkx/generators/duplication.py:
+    e: partial_duplication_graph,duplication_divergence_graph
+    partial_duplication_graph(N;n;p;q;seed)
+    duplication_divergence_graph(n;p;seed)
   networkx-3.6.1-py3-none-any/networkx/classes/reportviews.py:
     e: NodeView,NodeDataView,DiDegreeView,DegreeView,OutDegreeView,InDegreeView,MultiDegreeView,DiMultiDegreeView,InMultiDegreeView,OutMultiDegreeView,EdgeViewABC,OutEdgeDataView,EdgeDataView,InEdgeDataView,OutMultiEdgeDataView,MultiEdgeDataView,InMultiEdgeDataView,OutEdgeView,EdgeView,InEdgeView,OutMultiEdgeView,MultiEdgeView,InMultiEdgeView
     NodeView(Mapping,Set): __getstate__(0),__setstate__(1),__init__(1),__len__(0),__iter__(0),__getitem__(1),__contains__(1),_from_iterable(1),__call__(2),data(2),__str__(0),__repr__(0)  # A NodeView class to act as G.nodes for a NetworkX Graph
@@ -2819,34 +2856,6 @@ This densely packed V...
     OutMultiEdgeView(OutEdgeView): __len__(0),__iter__(0),__contains__(1),__getitem__(1),__call__(2),data(4)  # A EdgeView class for outward edges of a MultiDiGraph...
     MultiEdgeView(OutMultiEdgeView): __len__(0),__iter__(0)  # A EdgeView class for edges of a MultiGraph...
     InMultiEdgeView(OutMultiEdgeView): __setstate__(1),__init__(1),__iter__(0),__contains__(1),__getitem__(1)  # A EdgeView class for inward edges of a MultiDiGraph...
-  networkx-3.6.1-py3-none-any/networkx/generators/duplication.py:
-    e: partial_duplication_graph,duplication_divergence_graph
-    partial_duplication_graph(N;n;p;q;seed)
-    duplication_divergence_graph(n;p;seed)
-  networkx-3.6.1-py3-none-any/networkx/generators/classic.py:
-    e: _tree_edges,full_rary_tree,kneser_graph,balanced_tree,barbell_graph,binomial_tree,complete_graph,circular_ladder_graph,circulant_graph,cycle_graph,dorogovtsev_goltsev_mendes_graph,empty_graph,ladder_graph,lollipop_graph,null_graph,path_graph,star_graph,tadpole_graph,trivial_graph,turan_graph,wheel_graph,complete_multipartite_graph
-    _tree_edges(n;r)
-    full_rary_tree(r;n;create_using)
-    kneser_graph(n;k)
-    balanced_tree(r;h;create_using)
-    barbell_graph(m1;m2;create_using)
-    binomial_tree(n;create_using)
-    complete_graph(n;create_using)
-    circular_ladder_graph(n;create_using)
-    circulant_graph(n;offsets;create_using)
-    cycle_graph(n;create_using)
-    dorogovtsev_goltsev_mendes_graph(n;create_using)
-    empty_graph(n;create_using;default)
-    ladder_graph(n;create_using)
-    lollipop_graph(m;n;create_using)
-    null_graph(create_using)
-    path_graph(n;create_using)
-    star_graph(n;create_using)
-    tadpole_graph(m;n;create_using)
-    trivial_graph(create_using)
-    turan_graph(n;r)
-    wheel_graph(n;create_using)
-    complete_multipartite_graph()
   networkx-3.6.1-py3-none-any/networkx/generators/interval_graph.py:
     e: interval_graph
     interval_graph(intervals)
@@ -3046,15 +3055,15 @@ A MinHeap stores a collection of ...
     e: cytoscape_data,cytoscape_graph
     cytoscape_data(G;name;ident)
     cytoscape_graph(data;name;ident)
+  scripts/maintenance/final_analysis_and_next_steps.py:
+    e: FinalAnalyzer,main
+    FinalAnalyzer: __init__(0),load_all_results(0),analyze_fix_implementation(0),identify_root_causes(0),create_action_plan(0),estimate_implementation_effort(0),create_implementation_roadmap(0),generate_final_recommendations(0),run_complete_analysis(0)  # Analyzes the complete fix implementation and provides next s...
+    main()
   scripts/maintenance/restore_system.py:
     e: restore_core,restore_adapters,verify_restoration,main
     restore_core()
     restore_adapters()
     verify_restoration()
-    main()
-  scripts/maintenance/final_analysis_and_next_steps.py:
-    e: FinalAnalyzer,main
-    FinalAnalyzer: __init__(0),load_all_results(0),analyze_fix_implementation(0),identify_root_causes(0),create_action_plan(0),estimate_implementation_effort(0),create_implementation_roadmap(0),generate_final_recommendations(0),run_complete_analysis(0)  # Analyzes the complete fix implementation and provides next s...
     main()
   scripts/maintenance/apply_polish_integration.py:
     e: apply_core_patch,apply_adapter_patches,verify_integration,main
@@ -3263,17 +3272,17 @@ A Graph stores nodes and ...
     e: TimeRespectingGraphMatcher,TimeRespectingDiGraphMatcher
     TimeRespectingGraphMatcher(GraphMatcher): __init__(4),one_hop(3),two_hop(4),semantic_feasibility(2)
     TimeRespectingDiGraphMatcher(DiGraphMatcher): __init__(4),get_pred_dates(4),get_succ_dates(4),one_hop(5),two_hop_pred(4),two_hop_succ(4),preds(4),succs(4),test_one(2),test_two(2),semantic_feasibility(2)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/flow/edmondskarp.py:
+    e: edmonds_karp_core,edmonds_karp_impl,edmonds_karp
+    edmonds_karp_core(R;s;t;cutoff)
+    edmonds_karp_impl(G;s;t;capacity;residual;cutoff)
+    edmonds_karp(G;s;t;capacity;residual;value_only;cutoff)
   networkx-3.6.1-py3-none-any/networkx/algorithms/flow/maxflow.py:
     e: maximum_flow,maximum_flow_value,minimum_cut,minimum_cut_value
     maximum_flow(flowG;_s;_t;capacity;flow_func)
     maximum_flow_value(flowG;_s;_t;capacity;flow_func)
     minimum_cut(flowG;_s;_t;capacity;flow_func)
     minimum_cut_value(flowG;_s;_t;capacity;flow_func)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/flow/edmondskarp.py:
-    e: edmonds_karp_core,edmonds_karp_impl,edmonds_karp
-    edmonds_karp_core(R;s;t;cutoff)
-    edmonds_karp_impl(G;s;t;capacity;residual;cutoff)
-    edmonds_karp(G;s;t;capacity;residual;value_only;cutoff)
   networkx-3.6.1-py3-none-any/networkx/algorithms/assortativity/pairs.py:
     e: node_attribute_xy,node_degree_xy
     node_attribute_xy(G;attribute;nodes)
@@ -3349,7 +3358,7 @@ Decyduje które elektro...
     create_service_config_from_args(host;port;debug;log_level;cors_origins;max_workers;auto_execute;session_timeout;save_env;env_file)
   src/nlp2cmd/exploration/base.py:
     e: ExplorationResult,ExplorationContext,BaseExplorer,ExplorerRegistry,explore
-    ExplorationResult(<ast.Subscript object at 0x73a9d9d57810>):  # Result of exploration in any space...
+    ExplorationResult(<ast.Subscript object at 0x7ccb40476fd0>):  # Result of exploration in any space...
     ExplorationContext:  # Context for exploration - what we're looking for...
     BaseExplorer(ABC): __init__(3),explore(2),supports(1),_should_stop(2),_score_relevance(2),_get_intent_keywords(1),reset(0)  # Abstract base class for all explorers.
 
@@ -3633,15 +3642,15 @@ Usage:
   networkx-3.6.1-py3-none-any/networkx/algorithms/community/community_utils.py:
     e: is_partition
     is_partition(G;communities)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/tree/decomposition.py:
-    e: junction_tree
-    junction_tree(G)
   networkx-3.6.1-py3-none-any/networkx/algorithms/tree/recognition.py:
     e: is_arborescence,is_branching,is_forest,is_tree
     is_arborescence(G)
     is_branching(G)
     is_forest(G)
     is_tree(G)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/tree/decomposition.py:
+    e: junction_tree
+    junction_tree(G)
   networkx-3.6.1-py3-none-any/networkx/algorithms/centrality/percolation.py:
     e: percolation_centrality,_accumulate_percolation
     percolation_centrality(G;attribute;states;weight)
@@ -3652,16 +3661,16 @@ Usage:
     edge_betweenness_centrality_subset(G;sources;targets;normalized;weight)
     _accumulate_subset(betweenness;S;P;sigma;s;targets)
     _accumulate_edges_subset(betweenness;S;P;sigma;s;targets)
-  scripts/maintenance/implement_high_priority_fixes.py:
-    e: HighPriorityFixer,main
-    HighPriorityFixer: __init__(0),fix_shell_domain_detection(0),fix_polish_intent_patterns(0),fix_sql_table_inference(0),create_domain_weighting_config(0),create_integration_script(0),run_integration_script(0),generate_fix_report(0),apply_all_fixes(0)  # Implements high priority fixes for NLP2CMD system...
-    main()
   scripts/thermodynamic/termo_demo.py:
     e: demo_hybrid,demo_thermodynamic_improved,demo_hybrid_thermodynamic_improved,benchmark_latency,main
     demo_hybrid()
     demo_thermodynamic_improved()
     demo_hybrid_thermodynamic_improved()
     benchmark_latency()
+    main()
+  scripts/maintenance/implement_high_priority_fixes.py:
+    e: HighPriorityFixer,main
+    HighPriorityFixer: __init__(0),fix_shell_domain_detection(0),fix_polish_intent_patterns(0),fix_sql_table_inference(0),create_domain_weighting_config(0),create_integration_script(0),run_integration_script(0),generate_fix_report(0),apply_all_fixes(0)  # Implements high priority fixes for NLP2CMD system...
     main()
   src/nlp2cmd/page_schema/token_extractor.py:
     e: TokenExtractor
@@ -3775,17 +3784,17 @@ Usage:
     discrete_sequence(n;distribution;cdistribution;seed)
     random_weighted_sample(mapping;k;seed)
     weighted_choice(mapping;seed)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/efficiency_measures.py:
-    e: efficiency,global_efficiency,local_efficiency
-    efficiency(G;u;v)
-    global_efficiency(G)
-    local_efficiency(G)
   networkx-3.6.1-py3-none-any/networkx/utils/rcm.py:
     e: cuthill_mckee_ordering,reverse_cuthill_mckee_ordering,connected_cuthill_mckee_ordering,pseudo_peripheral_node
     cuthill_mckee_ordering(G;heuristic)
     reverse_cuthill_mckee_ordering(G;heuristic)
     connected_cuthill_mckee_ordering(G;heuristic)
     pseudo_peripheral_node(G)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/efficiency_measures.py:
+    e: efficiency,global_efficiency,local_efficiency
+    efficiency(G;u;v)
+    global_efficiency(G)
+    local_efficiency(G)
   networkx-3.6.1-py3-none-any/networkx/algorithms/tournament.py:
     e: index_satisfying,is_tournament,hamiltonian_path,random_tournament,score_sequence,tournament_matrix,is_reachable,is_strongly_connected
     index_satisfying(iterable;condition)
@@ -3973,15 +3982,15 @@ Each unionFind instance X mainta...
   networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/ramsey.py:
     e: ramsey_R2
     ramsey_R2(G)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/dominating_set.py:
+    e: min_weighted_dominating_set,min_edge_dominating_set
+    min_weighted_dominating_set(G;weight)
+    min_edge_dominating_set(G)
   networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/maxcut.py:
     e: randomized_partitioning,_swap_node_partition,one_exchange
     randomized_partitioning(G;seed;p;weight)
     _swap_node_partition(cut;node)
     one_exchange(G;initial_cut;seed;weight)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/dominating_set.py:
-    e: min_weighted_dominating_set,min_edge_dominating_set
-    min_weighted_dominating_set(G;weight)
-    min_edge_dominating_set(G)
   networkx-3.6.1-py3-none-any/networkx/algorithms/connectivity/utils.py:
     e: build_auxiliary_node_connectivity,build_auxiliary_edge_connectivity
     build_auxiliary_node_connectivity(G)
@@ -4201,9 +4210,6 @@ Attach the set of node...
     adjacency_spectrum(G;weight)
     modularity_spectrum(G)
     bethe_hessian_spectrum(G;r)
-  networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/beamsearch.py:
-    e: bfs_beam_edges
-    bfs_beam_edges(G;source;value;width)
   networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/matchhelpers.py:
     e: copyfunc,allclose,categorical_node_match,categorical_multiedge_match,numerical_node_match,numerical_multiedge_match,generic_node_match,generic_multiedge_match
     copyfunc(f;name)
@@ -4214,6 +4220,9 @@ Attach the set of node...
     numerical_multiedge_match(attr;default;rtol;atol)
     generic_node_match(attr;default;op)
     generic_multiedge_match(attr;default;op)
+  networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/beamsearch.py:
+    e: bfs_beam_edges
+    bfs_beam_edges(G;source;value;width)
   networkx-3.6.1-py3-none-any/networkx/algorithms/flow/mincost.py:
     e: min_cost_flow_cost,min_cost_flow,cost_of_flow,max_flow_min_cost
     min_cost_flow_cost(G;demand;capacity;weight)
@@ -4319,10 +4328,10 @@ Subclasses implement ``exe...
     ShapeDrawn(DrawingEvent): __post_init__(0)  # Fired when a shape is drawn on the canvas...
     ColorChanged(DrawingEvent): __post_init__(0)  # Fired when the active drawing color is changed...
     ToolSelected(DrawingEvent): __post_init__(0)  # Fired when a drawing tool is selected...
-  code2llm_workaround.py:
   generate_chunks.py:
   generate_working.py:
   generate_quick.py:
+  code2llm_workaround.py:
   networkx-3.6.1-py3-none-any/networkx/drawing/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/readwrite/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/classes/__init__.py:
@@ -4333,10 +4342,10 @@ Subclasses implement ``exe...
   networkx-3.6.1-py3-none-any/networkx/algorithms/components/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/connectivity/__init__.py:
-  networkx-3.6.1-py3-none-any/networkx/algorithms/minors/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/__init__.py:
-  networkx-3.6.1-py3-none-any/networkx/algorithms/community/__init__.py:
+  networkx-3.6.1-py3-none-any/networkx/algorithms/minors/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/tree/__init__.py:
+  networkx-3.6.1-py3-none-any/networkx/algorithms/community/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/coloring/__init__.py:
@@ -4346,8 +4355,8 @@ Subclasses implement ``exe...
   networkx-3.6.1-py3-none-any/networkx/algorithms/operators/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/algorithms/centrality/__init__.py:
   networkx-3.6.1-py3-none-any/networkx/readwrite/json_graph/__init__.py:
-  src/nlp2cmd/__main__.py:
   src/nlp2cmd/__init__.py:
+  src/nlp2cmd/__main__.py:
   src/app2schema/__init__.py:
   src/app2schema/__main__.py:
   src/nlp2cmd/monitoring/__init__.py:
@@ -4392,20 +4401,20 @@ Subclasses implement ``exe...
   src/nlp2cmd/generation/templates/kubernetes_templates.py:
   src/nlp2cmd/generation/templates/rag_templates.py:
   src/nlp2cmd/generation/templates/iot_templates.py:
-  src/nlp2cmd/generation/templates/__init__.py:
   src/nlp2cmd/generation/templates/shell_templates.py:
+  src/nlp2cmd/generation/templates/__init__.py:
   src/nlp2cmd/generation/templates/package_mgmt_templates.py:
-  src/nlp2cmd/generation/templates/ffmpeg_templates.py:
   src/nlp2cmd/generation/templates/sql_templates.py:
+  src/nlp2cmd/generation/templates/ffmpeg_templates.py:
   src/nlp2cmd/generation/templates/git_templates.py:
-  src/nlp2cmd/generation/templates/desktop_templates.py:
   src/nlp2cmd/generation/templates/docker_templates.py:
   src/nlp2cmd/generation/templates/browser_templates.py:
-  src/nlp2cmd/generation/templates/media_templates.py:
+  src/nlp2cmd/generation/templates/desktop_templates.py:
   src/nlp2cmd/generation/templates/data_templates.py:
+  src/nlp2cmd/generation/templates/media_templates.py:
   src/nlp2cmd/generation/templates/api_templates.py:
-  src/nlp2cmd/generation/templates/devops_templates.py:
   src/nlp2cmd/generation/templates/remote_templates.py:
+  src/nlp2cmd/generation/templates/devops_templates.py:
   src/nlp2cmd/generation/templates/presentation_templates.py:
   src/nlp2cmd/generation/keywords/__init__.py:
   install_vnc.sh:

@@ -4,12 +4,12 @@
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
 - **Primary Language**: python
-- **Languages**: python: 757, shell: 62
+- **Languages**: python: 758, shell: 62
 - **Analysis Mode**: static
-- **Total Functions**: 5362
+- **Total Functions**: 5371
 - **Total Classes**: 810
-- **Modules**: 819
-- **Entry Points**: 4392
+- **Modules**: 820
+- **Entry Points**: 4396
 
 ## Architecture by Module
 
@@ -396,6 +396,12 @@ Usage:
 - **Methods**: 27
 - **Key Methods**: src.nlp2cmd.core.toon_integration.ToonDataManager.__init__, src.nlp2cmd.core.toon_integration.ToonDataManager._ensure_loaded, src.nlp2cmd.core.toon_integration.ToonDataManager.get_all_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_shell_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_browser_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_command_by_name, src.nlp2cmd.core.toon_integration.ToonDataManager.search_commands, src.nlp2cmd.core.toon_integration.ToonDataManager.get_config, src.nlp2cmd.core.toon_integration.ToonDataManager.get_llm_config, src.nlp2cmd.core.toon_integration.ToonDataManager.get_test_commands
 
+### src.nlp2cmd.adapters.browser.BrowserAdapter
+> Minimal adapter that turns NL into dom_dql.v1 navigation (Playwright).
+- **Methods**: 27
+- **Key Methods**: src.nlp2cmd.adapters.browser.BrowserAdapter.get_form_data_loader, src.nlp2cmd.adapters.browser.BrowserAdapter.__init__, src.nlp2cmd.adapters.browser.BrowserAdapter.site_explorer, src.nlp2cmd.adapters.browser.BrowserAdapter.site_explorer, src.nlp2cmd.adapters.browser.BrowserAdapter.form_data_loader, src.nlp2cmd.adapters.browser.BrowserAdapter.form_data_loader, src.nlp2cmd.adapters.browser.BrowserAdapter._extract_url, src.nlp2cmd.adapters.browser.BrowserAdapter._extract_type_text, src.nlp2cmd.adapters.browser.BrowserAdapter._has_type_action, src.nlp2cmd.adapters.browser.BrowserAdapter._should_explore_for_content
+- **Inherits**: BaseDSLAdapter
+
 ### networkx-3.6.1-py3-none-any.networkx.utils.configs.Config
 > The base class for NetworkX configuration.
 
@@ -427,12 +433,6 @@ Costs:
 - Rule match (known service
 - **Methods**: 22
 - **Key Methods**: src.nlp2cmd.automation.action_planner.ActionPlanner.__init__, src.nlp2cmd.automation.action_planner.ActionPlanner.decompose, src.nlp2cmd.automation.action_planner.ActionPlanner.decompose_sync, src.nlp2cmd.automation.action_planner.ActionPlanner._try_rule_decomposition, src.nlp2cmd.automation.action_planner.ActionPlanner._resolve_service, src.nlp2cmd.automation.action_planner.ActionPlanner._wants_new_tab, src.nlp2cmd.automation.action_planner.ActionPlanner._wants_existing_firefox, src.nlp2cmd.automation.action_planner.ActionPlanner._wants_create_key, src.nlp2cmd.automation.action_planner.ActionPlanner._build_navigation_steps, src.nlp2cmd.automation.action_planner.ActionPlanner._build_session_check_steps
-
-### src.nlp2cmd.adapters.browser.BrowserAdapter
-> Minimal adapter that turns NL into dom_dql.v1 navigation (Playwright).
-- **Methods**: 22
-- **Key Methods**: src.nlp2cmd.adapters.browser.BrowserAdapter.__init__, src.nlp2cmd.adapters.browser.BrowserAdapter._extract_url, src.nlp2cmd.adapters.browser.BrowserAdapter._extract_type_text, src.nlp2cmd.adapters.browser.BrowserAdapter._has_type_action, src.nlp2cmd.adapters.browser.BrowserAdapter._should_explore_for_content, src.nlp2cmd.adapters.browser.BrowserAdapter._should_explore_for_forms, src.nlp2cmd.adapters.browser.BrowserAdapter._has_fill_form_action, src.nlp2cmd.adapters.browser.BrowserAdapter._has_press_enter, src.nlp2cmd.adapters.browser.BrowserAdapter._has_form_action, src.nlp2cmd.adapters.browser.BrowserAdapter._has_submit_action
-- **Inherits**: BaseDSLAdapter
 
 ### src.nlp2cmd.adapters.kubernetes.KubernetesAdapter
 > Kubernetes adapter for kubectl commands and manifests.
@@ -677,15 +677,15 @@ args tuple and kwargs dict
 - **Confidence**: 0.90
 - **Functions**: networkx-3.6.1-py3-none-any.networkx.utils.misc.flatten
 
-### recursion_hamiltonian_path
-- **Type**: recursion
-- **Confidence**: 0.90
-- **Functions**: networkx-3.6.1-py3-none-any.networkx.algorithms.tournament.hamiltonian_path
-
 ### recursion_compile
 - **Type**: recursion
 - **Confidence**: 0.90
 - **Functions**: networkx-3.6.1-py3-none-any.networkx.utils.decorators.argmap.compile
+
+### recursion_hamiltonian_path
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: networkx-3.6.1-py3-none-any.networkx.algorithms.tournament.hamiltonian_path
 
 ### recursion_ramsey_R2
 - **Type**: recursion

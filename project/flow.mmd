@@ -5,6 +5,9 @@ flowchart TD
 
     subgraph Core
         demos__simple_schema_demo__main["main"]
+        demos__demo_enhanced__main["main"]
+        demos__demo_persistent_storage__demonstrate_persistent_storage["demonstrate_persistent_storage"]
+        demos__demo_persistent_storage__show_storage_benefits["show_storage_benefits"]
         demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform["transform"]
         demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__detect_and_adapt["detect_and_adapt"]
         demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version["_select_best_version"]
@@ -13,13 +16,10 @@ flowchart TD
         demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___increment_version["_increment_version"]
         demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__clear_cache["clear_cache"]
         demos__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd["demo_intelligent_nlp2cmd"]
-        demos__demo_persistent_storage__demonstrate_persistent_storage["demonstrate_persistent_storage"]
-        demos__demo_persistent_storage__show_storage_benefits["show_storage_benefits"]
-        demos__demo_enhanced__main["main"]
+        demos__demo_schema_flow__main["main"]
         demos__demo_version_detection__demonstrate_version_detection{{demonstrate_version_detection CC=15}}
         demos__demo_version_detection__main["main"]
-        demos__demo_schema_flow__main["main"]
-        ...["+3774 more"]
+        ...["+3777 more"]
     end
 
     subgraph Exporters
@@ -36,4 +36,4 @@ flowchart TD
         src__nlp2cmd__history__tracker__CommandHistory__export_analytics["export_analytics"]
     end
 
-    class demos__simple_schema_demo__main,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__detect_and_adapt,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___needs_update,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__update_command_schema,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___increment_version,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__clear_cache,demos__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd,demos__demo_persistent_storage__demonstrate_persistent_storage entry
+    class demos__simple_schema_demo__main,demos__demo_enhanced__main,demos__demo_persistent_storage__demonstrate_persistent_storage,demos__demo_persistent_storage__show_storage_benefits,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__detect_and_adapt,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___needs_update,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__update_command_schema,demos__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___increment_version entry

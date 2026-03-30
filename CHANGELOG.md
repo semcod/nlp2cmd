@@ -3,6 +3,13 @@
 ## [0.1.10] - 2026-03-30
 
 ### Fixed
+- Fix unused-imports issues (ticket-57b35efd)
+- Fix ai-boilerplate issues (ticket-53d892d6)
+- Fix smart-return-type issues (ticket-6ab5065c)
+
+## [0.1.10] - 2026-03-30
+
+### Fixed
 - Fix ai-boilerplate issues (ticket-77e65031)
 - Fix smart-return-type issues (ticket-2c1593db)
 - Fix string-concat issues (ticket-ea208198)
@@ -2951,6 +2958,28 @@ feat(browser): add article extraction with plural and topic filtering
   - Validation and metadata checks
   - Action ID verification
 
+
+## [1.1.7] - 2026-03-30
+
+### Docs
+- Update CHANGELOG.md
+- Update TODO.md
+- Update docs/README.md
+- Update project/README.md
+- Update project/context.md
+
+### Other
+- Update .pyqual/pipeline.db
+- Update planfile.yaml
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/compact_flow.mmd
+- Update project/duplication.toon.yaml
+- Update project/evolution.toon.yaml
+- Update project/flow.mmd
+- Update project/index.html
+- Update project/map.toon.yaml
+- ... and 3 more files
 
 ## [1.1.6] - 2026-03-30
 

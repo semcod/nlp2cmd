@@ -1,9 +1,9 @@
-# vallm batch | 1779f | 1002✓ 159⚠ 535✗ | 2026-03-30
+# vallm batch | 1781f | 1003✓ 160⚠ 536✗ | 2026-03-30
 
 SUMMARY:
-  scanned: 1779  passed: 1002 (56.3%)  warnings: 159  errors: 535  unsupported: 240
+  scanned: 1781  passed: 1003 (56.3%)  warnings: 160  errors: 536  unsupported: 240
 
-WARNINGS[159]{path,score}:
+WARNINGS[160]{path,score}:
   networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py,0.78
     issues[12]{rule,severity,message,line}:
       complexity.cyclomatic,warning,display has cyclomatic complexity 60 (max: 15),257
@@ -673,6 +673,10 @@ WARNINGS[159]{path,score}:
   scripts/maintenance/generate_refactor_report.py,0.97
     issues[1]{rule,severity,message,line}:
       complexity.lizard_length,warning,generate_refactor_report: 117 lines exceeds limit 100,9
+  scripts/maintenance/llx_refactor.py,0.97
+    issues[2]{rule,severity,message,line}:
+      complexity.cyclomatic,warning,run_refactor has cyclomatic complexity 19 (max: 15),174
+      complexity.lizard_cc,warning,run_refactor: CC=18 exceeds limit 15,174
   scripts/test-scripts/test_summary_and_fixes.py,0.97
     issues[2]{rule,severity,message,line}:
       complexity.cyclomatic,warning,analyze_test_results has cyclomatic complexity 26 (max: 15),9
@@ -809,7 +813,7 @@ WARNINGS[159]{path,score}:
     issues[1]{rule,severity,message,line}:
       complexity.maintainability,warning,Low maintainability index: 16.2 (threshold: 20),
 
-ERRORS[535]{path,score}:
+ERRORS[536]{path,score}:
   docker/init-db.sql,0.00
     issues[1]{rule,severity,message,line}:
       syntax.tree_sitter,error,tree-sitter found 4 parse error(s) in sql,
@@ -1145,35 +1149,35 @@ ERRORS[535]{path,score}:
       python.import.resolvable,error,Module 'nlp2cmd.automation.captcha_solver' not found,249
       python.import.resolvable,error,Module 'nlp2cmd.automation.captcha_solver' not found,254
       python.import.resolvable,error,Module 'nlp2cmd.automation.captcha_solver' not found,260
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,278
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,288
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,298
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,307
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,314
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,321
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,328
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,341
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,348
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,354
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,360
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,369
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,377
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,390
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,398
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,406
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,411
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,416
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,426
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,433
-      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,440
-      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,457
-      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,463
-      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,469
-      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,474
-      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,480
-      python.import.resolvable,error,Module 'nlp2cmd.generation.templates.desktop_templates' not found,493
-      python.import.resolvable,error,Module 'nlp2cmd.generation.templates.desktop_templates' not found,498
-      python.import.resolvable,error,Module 'nlp2cmd.generation.templates' not found,507
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,280
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,290
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,300
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,309
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,316
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,323
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.canvas' not found,330
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,343
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,350
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,356
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,362
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,371
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,379
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,392
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,400
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,408
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,413
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,418
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,428
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,435
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.desktop' not found,442
+      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,459
+      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,465
+      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,471
+      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,476
+      python.import.resolvable,error,Module 'nlp2cmd.llm.openrouter' not found,482
+      python.import.resolvable,error,Module 'nlp2cmd.generation.templates.desktop_templates' not found,495
+      python.import.resolvable,error,Module 'nlp2cmd.generation.templates.desktop_templates' not found,500
+      python.import.resolvable,error,Module 'nlp2cmd.generation.templates' not found,509
   tests/unit/test_executor.py,0.62
     issues[7]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd.executor' not found,6
@@ -1400,8 +1404,8 @@ ERRORS[535]{path,score}:
       python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,145
       python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,150
       python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,160
-      python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,175
-      python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,192
+      python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,177
+      python.import.resolvable,error,Module 'nlp2cmd.skills.search' not found,194
   tests/unit/test_step_handlers.py,0.67
     issues[7]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd.step_handlers' not found,6
@@ -1702,6 +1706,19 @@ ERRORS[535]{path,score}:
     issues[2]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd' not found,3
       python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,4
+  tests/conftest.py,0.72
+    issues[11]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,21
+      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,38
+      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,53
+      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,68
+      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,80
+      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,88
+      python.import.resolvable,error,Module 'nlp2cmd' not found,96
+      python.import.resolvable,error,Module 'nlp2cmd' not found,104
+      python.import.resolvable,error,Module 'nlp2cmd.schemas' not found,112
+      python.import.resolvable,error,Module 'nlp2cmd.feedback' not found,120
+      python.import.resolvable,error,Module 'nlp2cmd.environment' not found,128
   examples/08_api_key_management/06_multi_provider/run.py,0.73
     issues[7]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd.automation.password_store' not found,33
@@ -2461,13 +2478,6 @@ ERRORS[535]{path,score}:
       python.import.resolvable,error,Module 'nlp2cmd.skills.drawing.events' not found,15
       python.import.resolvable,error,Module 'nlp2cmd.skills.drawing.event_store' not found,23
       python.import.resolvable,error,Module 'nlp2cmd.skills.drawing.shapes' not found,230
-  tests/conftest.py,0.82
-    issues[5]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'nlp2cmd' not found,18
-      python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,19
-      python.import.resolvable,error,Module 'nlp2cmd.schemas' not found,27
-      python.import.resolvable,error,Module 'nlp2cmd.feedback' not found,28
-      python.import.resolvable,error,Module 'nlp2cmd.environment' not found,29
   tools/manual_tests/test_multisentence_logs_and_parsing.py,0.82
     issues[6]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd' not found,13
@@ -2571,19 +2581,23 @@ ERRORS[535]{path,score}:
       python.import.resolvable,error,Module 'registry' not found,9
       python.import.resolvable,error,Module 'nlp2cmd.automation.password_store' not found,61
       python.import.resolvable,error,Module 'nlp2cmd.automation.feedback_loop' not found,396
+  tests/conftest_browser.py,0.83
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'nlp2cmd.adapters.browser' not found,7
+      python.import.resolvable,error,Module 'nlp2cmd.ir' not found,8
   tests/integration/test_llm_router_live.py,0.83
     issues[11]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,77
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,100
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,123
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,147
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,167
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,189
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,213
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,260
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,281
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,305
-      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,352
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,79
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,102
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,125
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,149
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,169
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,191
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,214
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,261
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,282
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,306
+      python.import.resolvable,error,Module 'nlp2cmd.llm.router' not found,353
   tests/integration/test_workflows.py,0.83
     issues[2]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd' not found,12
@@ -3122,7 +3136,7 @@ ERRORS[535]{path,score}:
       python.import.resolvable,error,Module 'nlp2cmd.adapters' not found,12
   tests/test_form_detection.py,0.89
     issues[1]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'nlp2cmd.utils' not found,9
+      python.import.resolvable,error,Module 'nlp2cmd.utils' not found,21
   tests/unit/test_browser_manager.py,0.89
     issues[1]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'nlp2cmd.browser_manager' not found,7

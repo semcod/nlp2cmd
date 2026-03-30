@@ -29033,3 +29033,42 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
+  - id: ticket-57b35efd
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in scripts/maintenance/llx_refactor.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - scripts/maintenance/llx_refactor.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-53d892d6
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in scripts/maintenance/llx_refactor.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/maintenance/llx_refactor.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6ab5065c
+    name: Fix smart-return-type issues
+    description: Resolve 5 smart-return-type issues in src/nlp2cmd/adapters/browser.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/nlp2cmd/adapters/browser.py
+    rule_id: smart-return-type
+    count: 5
+    model_hints:
+      planning: balanced
+      implementation: balanced

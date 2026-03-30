@@ -1,14 +1,14 @@
-# redup/duplication | 117 groups | 683f 242233L | 2026-03-30
+# redup/duplication | 118 groups | 684f 242533L | 2026-03-30
 
 SUMMARY:
-  files_scanned: 683
-  total_lines:   242233
-  dup_groups:    117
-  dup_fragments: 420
-  saved_lines:   5032
-  scan_ms:       34553
+  files_scanned: 684
+  total_lines:   242533
+  dup_groups:    118
+  dup_fragments: 422
+  saved_lines:   5010
+  scan_ms:       25043
 
-DUPLICATES[117] (ranked by impact):
+DUPLICATES[118] (ranked by impact):
   [bf1ea00c53cec3db] !! STRU  demo_warehouse_optimization  L=23 N=35 saved=782 sim=1.00
       examples/04_domain_specific/logistics/example.py:0-22  (demo_warehouse_optimization)
       examples/04_domain_specific/logistics/example.py:0-22  (demo_production_scheduling)
@@ -19,32 +19,32 @@ DUPLICATES[117] (ranked by impact):
       examples/04_domain_specific/energy/example.py:0-22  (demo_electric_vehicle_charging)
       examples/04_domain_specific/energy/example.py:0-22  (demo_demand_response)
       examples/04_domain_specific/energy/example.py:0-22  (demo_microgrid)
-      examples/04_domain_specific/smart_cities/example.py:0-27  (demo_smart_grid)
-      examples/04_domain_specific/smart_cities/example.py:0-23  (demo_waste_management)
-      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_parking_management)
-      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_air_quality)
-      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_water_management)
-      examples/04_domain_specific/physics/example.py:0-22  (demo_molecular_dynamics)
-      examples/04_domain_specific/physics/example.py:0-21  (demo_telescope_scheduling)
-      examples/04_domain_specific/physics/example.py:0-22  (demo_climate_modeling)
-      examples/04_domain_specific/physics/example.py:0-22  (demo_particle_physics)
-      examples/04_domain_specific/physics/example.py:0-22  (demo_materials_science)
-      examples/04_domain_specific/healthcare/example.py:0-23  (demo_nurse_scheduling)
-      examples/04_domain_specific/healthcare/example.py:0-27  (demo_patient_allocation)
-      examples/04_domain_specific/healthcare/example.py:0-22  (demo_ambulance_dispatch)
-      examples/04_domain_specific/healthcare/example.py:0-22  (demo_icu_bed_management)
-      examples/04_domain_specific/healthcare/example.py:0-22  (demo_pharmacy_inventory)
       examples/04_domain_specific/finance/example.py:0-20  (demo_trade_execution)
       examples/04_domain_specific/finance/example.py:0-23  (demo_risk_allocation)
       examples/04_domain_specific/finance/example.py:0-22  (demo_options_strategy)
       examples/04_domain_specific/finance/example.py:0-22  (demo_credit_scoring)
       examples/04_domain_specific/bioinformatics/example.py:0-25  (demo_protein_folding)
       examples/04_domain_specific/bioinformatics/example.py:0-24  (demo_proteomics_analysis)
+      examples/04_domain_specific/physics/example.py:0-22  (demo_molecular_dynamics)
+      examples/04_domain_specific/physics/example.py:0-21  (demo_telescope_scheduling)
+      examples/04_domain_specific/physics/example.py:0-22  (demo_climate_modeling)
+      examples/04_domain_specific/physics/example.py:0-22  (demo_particle_physics)
+      examples/04_domain_specific/physics/example.py:0-22  (demo_materials_science)
+      examples/04_domain_specific/smart_cities/example.py:0-27  (demo_smart_grid)
+      examples/04_domain_specific/smart_cities/example.py:0-23  (demo_waste_management)
+      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_parking_management)
+      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_air_quality)
+      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_water_management)
       examples/04_domain_specific/education/example.py:0-22  (demo_exam_scheduling)
       examples/04_domain_specific/education/example.py:0-22  (demo_learning_path)
       examples/04_domain_specific/education/example.py:0-22  (demo_student_grouping)
       examples/04_domain_specific/education/example.py:0-22  (demo_resource_optimization)
       examples/04_domain_specific/education/example.py:0-22  (demo_curriculum_planning)
+      examples/04_domain_specific/healthcare/example.py:0-23  (demo_nurse_scheduling)
+      examples/04_domain_specific/healthcare/example.py:0-27  (demo_patient_allocation)
+      examples/04_domain_specific/healthcare/example.py:0-22  (demo_ambulance_dispatch)
+      examples/04_domain_specific/healthcare/example.py:0-22  (demo_icu_bed_management)
+      examples/04_domain_specific/healthcare/example.py:0-22  (demo_pharmacy_inventory)
   [7e904b4d036da95b] !! STRU  adj  L=20 N=23 saved=440 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/classes/multidigraph.py:0-19  (adj)
       networkx-3.6.1-py3-none-any/networkx/classes/multidigraph.py:0-19  (succ)
@@ -74,17 +74,17 @@ DUPLICATES[117] (ranked by impact):
       webops/voice_service.py:0-687  (root)
   [3b66194f376078e3] !! STRU  edmonds_karp  L=125 N=3 saved=250 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/algorithms/flow/edmondskarp.py:0-124  (edmonds_karp)
-      networkx-3.6.1-py3-none-any/networkx/algorithms/flow/boykovkolmogorov.py:0-150  (boykov_kolmogorov)
       networkx-3.6.1-py3-none-any/networkx/algorithms/flow/dinitz_alg.py:0-129  (dinitz)
+      networkx-3.6.1-py3-none-any/networkx/algorithms/flow/boykovkolmogorov.py:0-150  (boykov_kolmogorov)
   [89ea791c456efdab] !! STRU  demo_inventory_optimization  L=23 N=8 saved=161 sim=1.00
       examples/04_domain_specific/logistics/example.py:0-22  (demo_inventory_optimization)
       examples/04_domain_specific/energy/example.py:0-22  (demo_gas_network)
-      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_public_transport)
-      examples/04_domain_specific/physics/example.py:0-22  (demo_quantum_computing)
-      examples/04_domain_specific/healthcare/example.py:0-23  (demo_emergency_department)
       examples/04_domain_specific/finance/example.py:0-22  (demo_arbitrage_detection)
       examples/04_domain_specific/bioinformatics/example.py:0-22  (demo_drug_discovery)
+      examples/04_domain_specific/physics/example.py:0-22  (demo_quantum_computing)
+      examples/04_domain_specific/smart_cities/example.py:0-22  (demo_public_transport)
       examples/04_domain_specific/education/example.py:0-21  (demo_classroom_allocation)
+      examples/04_domain_specific/healthcare/example.py:0-23  (demo_emergency_department)
   [3a61b6d507bb304c] !! STRU  main  L=61 N=3 saved=122 sim=1.00
       examples/03_integrations/toon_format/12_advanced_integration/demo.py:0-60  (main)
       examples/03_integrations/toon_format/13_query_system/demo.py:0-57  (main)
@@ -106,20 +106,20 @@ DUPLICATES[117] (ranked by impact):
   [9d9fbf9b9439170d] !! STRU  demo_vehicle_routing  L=20 N=7 saved=120 sim=1.00
       examples/04_domain_specific/logistics/example.py:0-19  (demo_vehicle_routing)
       examples/04_domain_specific/energy/example.py:0-22  (demo_unit_commitment)
-      examples/04_domain_specific/smart_cities/example.py:0-21  (demo_traffic_optimization)
-      examples/04_domain_specific/physics/example.py:0-21  (demo_particle_collision)
-      examples/04_domain_specific/healthcare/example.py:0-22  (demo_or_scheduling)
       examples/04_domain_specific/bioinformatics/example.py:0-25  (demo_genomic_pipeline)
+      examples/04_domain_specific/physics/example.py:0-21  (demo_particle_collision)
+      examples/04_domain_specific/smart_cities/example.py:0-21  (demo_traffic_optimization)
       examples/04_domain_specific/education/example.py:0-26  (demo_course_timetabling)
+      examples/04_domain_specific/healthcare/example.py:0-22  (demo_or_scheduling)
   [ce496a1317cb3eba] !! EXAC  run_nlp2cmd_command  L=26 N=5 saved=104 sim=1.00
-      examples/10_online_code_editors/01_codepen_live_nlp2cmd.py:0-25  (run_nlp2cmd_command)
       examples/10_online_code_editors/03_adaptive_code_nlp2cmd.py:0-25  (run_nlp2cmd_command)
-      examples/10_online_code_editors/05_dynamic_executor_nlp2cmd.py:0-25  (run_nlp2cmd_command)
+      examples/10_online_code_editors/01_codepen_live_nlp2cmd.py:0-25  (run_nlp2cmd_command)
       examples/10_online_code_editors/04_jsfiddle_frontend_nlp2cmd.py:0-25  (run_nlp2cmd_command)
+      examples/10_online_code_editors/05_dynamic_executor_nlp2cmd.py:0-25  (run_nlp2cmd_command)
       examples/10_online_code_editors/02_mycompiler_run_nlp2cmd.py:0-25  (run_nlp2cmd_command)
   [4283c195eafc5baa] !! STRU  main  L=52 N=3 saved=104 sim=1.00
-      examples/04_domain_specific/debugging/07_file_operations/demo.py:0-51  (main)
       examples/04_domain_specific/debugging/08_system_commands/demo.py:0-51  (main)
+      examples/04_domain_specific/debugging/07_file_operations/demo.py:0-51  (main)
       examples/04_domain_specific/debugging/09_network_commands/demo.py:0-51  (main)
   [44fc2a12badeee13] ! STRU  number_attracting_components  L=30 N=4 saved=90 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/algorithms/components/attracting.py:0-29  (number_attracting_components)
@@ -131,13 +131,13 @@ DUPLICATES[117] (ranked by impact):
       examples/03_integrations/toon_format/simple_demo.py:0-38  (demo_performance_tips)
       examples/06_tools_and_utilities/migration_tools/guide.py:0-63  (practical_examples)
   [f88b158c1d0de34a] ! EXAC  run_nlp2cmd_command  L=43 N=3 saved=86 sim=1.00
-      examples/09_online_drawing/_old/02_picsart_painting_nlp2cmd.py:0-42  (run_nlp2cmd_command)
-      examples/09_online_drawing/_old/03_adaptive_drawing_nlp2cmd.py:0-42  (run_nlp2cmd_command)
       examples/09_online_drawing/_old/01_draw_chat_shapes_nlp2cmd.py:0-42  (run_nlp2cmd_command)
+      examples/09_online_drawing/_old/03_adaptive_drawing_nlp2cmd.py:0-42  (run_nlp2cmd_command)
+      examples/09_online_drawing/_old/02_picsart_painting_nlp2cmd.py:0-42  (run_nlp2cmd_command)
   [faafa767ddad9d7c] ! STRU  main  L=42 N=3 saved=84 sim=1.00
+      examples/04_domain_specific/bioinformatics/04_data_conversion/demo.py:0-41  (main)
       examples/04_domain_specific/bioinformatics/03_blast_operations/demo.py:0-41  (main)
       examples/04_domain_specific/bioinformatics/02_file_processing/demo.py:0-41  (main)
-      examples/04_domain_specific/bioinformatics/04_data_conversion/demo.py:0-41  (main)
   [760c7dbabb0c2f8b] ! STRU  connected_components  L=78 N=2 saved=78 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/algorithms/components/connected.py:0-77  (connected_components)
       networkx-3.6.1-py3-none-any/networkx/algorithms/components/weakly_connected.py:0-57  (weakly_connected_components)
@@ -167,10 +167,10 @@ DUPLICATES[117] (ranked by impact):
       src/nlp2cmd/cli/cache.py:0-4  (confirm)
   [48244959b8b657af] ! STRU  main  L=14 N=5 saved=56 sim=1.00
       examples/04_domain_specific/energy/example.py:0-13  (main)
-      examples/04_domain_specific/smart_cities/example.py:0-13  (main)
       examples/04_domain_specific/physics/example.py:0-13  (main)
-      examples/04_domain_specific/healthcare/example.py:0-13  (main)
+      examples/04_domain_specific/smart_cities/example.py:0-13  (main)
       examples/04_domain_specific/education/example.py:0-13  (main)
+      examples/04_domain_specific/healthcare/example.py:0-13  (main)
   [e04424c9f5b1d2e6] ! STRU  get_password_store  L=9 N=7 saved=54 sim=1.00
       src/nlp2cmd/automation/password_store.py:0-8  (get_password_store)
       src/nlp2cmd/generation/multi_command.py:0-8  (get_multi_command_detector)
@@ -180,9 +180,9 @@ DUPLICATES[117] (ranked by impact):
       src/nlp2cmd/registry/__init__.py:0-8  (get_registry)
       src/nlp2cmd/history/tracker.py:0-8  (get_global_history)
   [c4d1f7e558d5e18e] ! STRU  _parse_json  L=26 N=3 saved=52 sim=1.00
-      src/nlp2cmd/skills/drawing/navigation.py:0-25  (_parse_json)
-      src/nlp2cmd/skills/drawing/validation.py:0-24  (_parse_json)
       src/nlp2cmd/skills/drawing/draw_object.py:0-25  (_parse_json)
+      src/nlp2cmd/skills/drawing/validation.py:0-24  (_parse_json)
+      src/nlp2cmd/skills/drawing/navigation.py:0-25  (_parse_json)
   [ae312d10bdc8e0a3] ! STRU  write_edgelist  L=51 N=2 saved=51 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/readwrite/edgelist.py:0-50  (write_edgelist)
       networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/edgelist.py:0-50  (write_edgelist)
@@ -203,15 +203,15 @@ DUPLICATES[117] (ranked by impact):
       networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/basic.py:0-26  (is_bipartite)
   [81293cee2c5b3493] ! EXAC  _get_router  L=11 N=5 saved=44 sim=1.00
       src/nlp2cmd/skills/drawing/text_to_shape.py:0-10  (_get_router)
+      src/nlp2cmd/skills/drawing/draw_object.py:0-9  (_get_router)
+      src/nlp2cmd/skills/drawing/validation.py:0-9  (_get_router)
       src/nlp2cmd/skills/drawing/visual_validator.py:0-10  (_get_router)
       src/nlp2cmd/skills/drawing/navigation.py:0-10  (_get_router)
-      src/nlp2cmd/skills/drawing/validation.py:0-9  (_get_router)
-      src/nlp2cmd/skills/drawing/draw_object.py:0-9  (_get_router)
   [a38fab92466bfe26] ! STRU  _debug  L=6 N=8 saved=42 sim=1.00
-      src/nlp2cmd/automation/captcha_solver.py:0-5  (_debug)
       src/nlp2cmd/automation/complex_planner.py:0-5  (_debug)
-      src/nlp2cmd/llm/openrouter.py:0-5  (_debug)
+      src/nlp2cmd/automation/captcha_solver.py:0-5  (_debug)
       src/nlp2cmd/llm/vision.py:0-5  (_debug)
+      src/nlp2cmd/llm/openrouter.py:0-5  (_debug)
       src/nlp2cmd/llm/repair.py:0-5  (_debug)
       src/nlp2cmd/llm/validator.py:0-5  (_debug)
       src/nlp2cmd/adapters/desktop.py:0-5  (_debug)
@@ -231,8 +231,8 @@ DUPLICATES[117] (ranked by impact):
       networkx-3.6.1-py3-none-any/networkx/algorithms/planarity.py:0-9  (is_directed)
   [a5ed0eb706be1d56] ! STRU  _rule_based_parse  L=5 N=9 saved=40 sim=1.00
       src/nlp2cmd/generation/thermodynamic.py:0-4  (_rule_based_parse)
-      src/nlp2cmd/nlp/intent_matcher.py:0-4  (get_intent)
       src/nlp2cmd/nlp/entity_resolver.py:0-4  (get_app)
+      src/nlp2cmd/nlp/intent_matcher.py:0-4  (get_intent)
       src/nlp2cmd/execution/executor_registry.py:0-4  (get)
       src/nlp2cmd/registry/__init__.py:0-4  (get)
       src/nlp2cmd/registry/__init__.py:0-4  (get_handler)
@@ -247,11 +247,6 @@ DUPLICATES[117] (ranked by impact):
   [c3a67872c71b3d39] ! STRU  main  L=36 N=2 saved=36 sim=1.00
       scripts/maintenance/restore_system.py:0-35  (main)
       scripts/maintenance/apply_polish_integration.py:0-35  (main)
-  [c28ca78e8a5d73f7] ! STRU  is_valid_destination  L=12 N=4 saved=36 sim=1.00
-      src/nlp2cmd/browser_manager/token_navigator.py:0-11  (is_valid_destination)
-      src/nlp2cmd/schemas/__init__.py:0-4  (matches_mime_type)
-      src/nlp2cmd/registry/__init__.py:0-4  (has)
-      src/nlp2cmd/generation/keywords/keyword_patterns.py:0-4  (has_domain)
   [bae30fc954b65374] ! STRU  __init__  L=18 N=3 saved=36 sim=1.00
       src/nlp2cmd/adapters/dql.py:0-17  (__init__)
       src/nlp2cmd/adapters/docker.py:0-17  (__init__)
@@ -276,12 +271,9 @@ DUPLICATES[117] (ranked by impact):
       networkx-3.6.1-py3-none-any/networkx/classes/graph.py:0-8  (to_directed_class)
       networkx-3.6.1-py3-none-any/networkx/classes/graph.py:0-8  (to_undirected_class)
   [e999d74ecf1a2462]   STRU  main  L=15 N=3 saved=30 sim=1.00
-      examples/08_api_key_management/04_huggingface_token/run.py:0-14  (main)
       examples/08_api_key_management/05_openai_key/run.py:0-14  (main)
+      examples/08_api_key_management/04_huggingface_token/run.py:0-14  (main)
       examples/08_api_key_management/03_github_token/run.py:0-14  (main)
-  [cb4abdf074d659b0]   STRU  extract  L=29 N=2 saved=29 sim=1.00
-      src/nlp2cmd/page_schema/copy_button_extractor.py:0-28  (extract)
-      src/nlp2cmd/page_schema/button_extractor.py:0-25  (extract)
   [de4c650e28b27f62]   EXAC  _print  L=7 N=5 saved=28 sim=1.00
       src/nlp2cmd/evolutionary_orchestrator.py:0-6  (_print)
       src/nlp2cmd/evolutionary_orchestrator.py:0-6  (_print)
@@ -297,6 +289,9 @@ DUPLICATES[117] (ranked by impact):
   [c6bac699d38a9347]   STRU  read_p2g  L=26 N=2 saved=26 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/readwrite/p2g.py:0-25  (read_p2g)
       networkx-3.6.1-py3-none-any/networkx/readwrite/leda.py:0-28  (read_leda)
+  [cb4abdf074d659b0]   STRU  extract  L=26 N=2 saved=26 sim=1.00
+      src/nlp2cmd/page_schema/button_extractor.py:0-25  (extract)
+      src/nlp2cmd/page_schema/copy_button_extractor.py:0-28  (extract)
   [28bca1a04eddf7a2]   STRU  get_error_message  L=13 N=3 saved=26 sim=1.00
       src/nlp2cmd/desktop_executor/backend_detector.py:0-12  (get_error_message)
       src/nlp2cmd/step_handlers/drawing.py:0-26  (_pick_canvas_js)
@@ -320,9 +315,6 @@ DUPLICATES[117] (ranked by impact):
   [b343563e8004d7ba]   STRU  main  L=23 N=2 saved=23 sim=1.00
       examples/10_online_code_editors/03_adaptive_code_nlp2cmd.py:0-22  (main)
       examples/10_online_code_editors/05_dynamic_executor_nlp2cmd.py:0-22  (main)
-  [020923c6da1da375]   STRU  get_pattern_analysis_info  L=23 N=2 saved=23 sim=1.00
-      examples/09_online_drawing/_old/02_picsart_painting_nlp2cmd.py:0-22  (get_pattern_analysis_info)
-      examples/09_online_drawing/_old/03_adaptive_drawing_nlp2cmd.py:0-15  (get_color_analysis_info)
   [0150a704c1557394]   EXAC  _detect_category  L=21 N=2 saved=21 sim=1.00
       tools/schema/non_llm_schema_extractor.py:0-20  (_detect_category)
       tools/schema/comprehensive_command_scanner.py:0-20  (_detect_category)
@@ -349,9 +341,9 @@ DUPLICATES[117] (ranked by impact):
       networkx-3.6.1-py3-none-any/networkx/classes/coreviews.py:0-4  (__init__)
       networkx-3.6.1-py3-none-any/networkx/utils/heaps.py:0-4  (__init__)
       networkx-3.6.1-py3-none-any/networkx/linalg/algebraicconnectivity.py:0-4  (__init__)
-  [a53ab32e47b026e0]   STRU  get_supported_domains  L=5 N=5 saved=20 sim=1.00
-      src/nlp2cmd/generation/llm_multi.py:0-4  (get_supported_domains)
+  [a53ab32e47b026e0]   STRU  list_schemas  L=5 N=5 saved=20 sim=1.00
       src/nlp2cmd/schemas/__init__.py:0-4  (list_schemas)
+      src/nlp2cmd/generation/llm_multi.py:0-4  (get_supported_domains)
       src/nlp2cmd/core/core_transform.py:0-4  (get_supported_intents)
       src/nlp2cmd/registry/__init__.py:0-4  (list_domains)
       src/nlp2cmd/schema_extraction/registry.py:0-4  (list_schemas)
@@ -362,14 +354,22 @@ DUPLICATES[117] (ranked by impact):
       tools/schema/non_llm_schema_extractor.py:0-17  (_get_help_text)
       tools/schema/comprehensive_command_scanner.py:0-16  (_get_help_text)
   [337c3fc6cd71aabe]   EXAC  process_voice_command  L=16 N=2 saved=16 sim=1.00
-      webops/voice_service_clean.py:0-15  (process_voice_command)
       webops/voice_service.py:0-15  (process_voice_command)
+      webops/voice_service_clean.py:0-15  (process_voice_command)
   [e0079c6751bd38e1]   STRU  validate_syntax  L=16 N=2 saved=16 sim=1.00
       src/nlp2cmd/adapters/desktop.py:0-15  (validate_syntax)
       src/nlp2cmd/adapters/canvas.py:0-15  (validate_syntax)
   [c3a3922f96d468fd]   STRU  register_action  L=16 N=2 saved=16 sim=1.00
       src/nlp2cmd/dom_actions/registry.py:0-15  (register_action)
       src/nlp2cmd/step_handlers/registry.py:0-15  (register_handler)
+  [020923c6da1da375]   STRU  get_color_analysis_info  L=16 N=2 saved=16 sim=1.00
+      examples/09_online_drawing/_old/03_adaptive_drawing_nlp2cmd.py:0-15  (get_color_analysis_info)
+      examples/09_online_drawing/_old/02_picsart_painting_nlp2cmd.py:0-22  (get_pattern_analysis_info)
+  [c28ca78e8a5d73f7]   STRU  matches_mime_type  L=5 N=4 saved=15 sim=1.00
+      src/nlp2cmd/schemas/__init__.py:0-4  (matches_mime_type)
+      src/nlp2cmd/browser_manager/token_navigator.py:0-11  (is_valid_destination)
+      src/nlp2cmd/registry/__init__.py:0-4  (has)
+      src/nlp2cmd/generation/keywords/keyword_patterns.py:0-4  (has_domain)
   [4394b8a12b676677]   STRU  get_active_version  L=5 N=4 saved=15 sim=1.00
       src/nlp2cmd/storage/versioned_store.py:0-4  (get_active_version)
       src/nlp2cmd/web_schema/form_data_loader.py:0-4  (get_env_value)
@@ -377,14 +377,14 @@ DUPLICATES[117] (ranked by impact):
       src/nlp2cmd/generation/keywords/keyword_patterns.py:0-4  (get_priority_intents)
   [3d7010008c5aa6c5]   STRU  _debug  L=7 N=3 saved=14 sim=1.00
       src/nlp2cmd/pipeline_runner_utils.py:0-6  (_debug)
-      src/nlp2cmd/adapters/browser.py:0-6  (_debug)
       src/nlp2cmd/web_schema/site_explorer.py:0-6  (_debug)
+      src/nlp2cmd/adapters/browser.py:0-6  (_debug)
   [2c2506143b20c0f6]   STRU  to_dict  L=14 N=2 saved=14 sim=1.00
-      src/nlp2cmd/web_schema/extractor.py:0-13  (to_dict)
       src/nlp2cmd/web_schema/history.py:0-13  (to_dict)
+      src/nlp2cmd/web_schema/extractor.py:0-13  (to_dict)
   [b4acc1063dc7c453]   STRU  get_command_for_task  L=14 N=2 saved=14 sim=1.00
-      examples/01_basics/shell_fundamentals/01_basics_shell_nlp2cmd.py:0-13  (get_command_for_task)
       examples/01_basics/docker_basics/01_basics_docker_nlp2cmd.py:0-13  (get_command_for_task)
+      examples/01_basics/shell_fundamentals/01_basics_shell_nlp2cmd.py:0-13  (get_command_for_task)
   [4c1b48bf44c0d8a6]   EXAC  websocket_endpoint  L=13 N=2 saved=13 sim=1.00
       webops/docker_app.py:0-12  (websocket_endpoint)
       webops/voice_service.py:0-12  (websocket_endpoint)
@@ -409,8 +409,8 @@ DUPLICATES[117] (ranked by impact):
       src/nlp2cmd/dom_actions/registry.py:0-5  (list_actions)
       src/nlp2cmd/step_handlers/registry.py:0-5  (list_actions)
   [7ded9e724eded5d8]   EXAC  health_check  L=11 N=2 saved=11 sim=1.00
-      webops/voice_service_clean.py:0-10  (health_check)
       webops/voice_service.py:0-10  (health_check)
+      webops/voice_service_clean.py:0-10  (health_check)
   [d22135e4916fd599]   STRU  generate_batch  L=11 N=2 saved=11 sim=1.00
       src/nlp2cmd/generation/llm_multi.py:0-10  (generate_batch)
       src/nlp2cmd/generation/hybrid.py:0-10  (generate_batch)
@@ -421,8 +421,8 @@ DUPLICATES[117] (ranked by impact):
       tools/schema/enhanced_schema_generator.py:0-9  (_extract_description)
       tools/schema/comprehensive_command_scanner.py:0-9  (_extract_description)
   [f0897cb92d945053]   EXAC  _normalize_url  L=10 N=2 saved=10 sim=1.00
-      src/nlp2cmd/page_analysis/link_extractor.py:0-9  (_normalize_url)
       src/nlp2cmd/web_schema/site_explorer.py:0-9  (_normalize_url)
+      src/nlp2cmd/page_analysis/link_extractor.py:0-9  (_normalize_url)
   [dc2e2a5eede66d9c]   STRU  recovery_count  L=5 N=3 saved=10 sim=1.00
       src/nlp2cmd/evolutionary_orchestrator.py:0-4  (recovery_count)
       src/nlp2cmd/generation/multi_command.py:0-4  (count)
@@ -437,13 +437,16 @@ DUPLICATES[117] (ranked by impact):
   [db22137b7fada90f]   STRU  __str__  L=9 N=2 saved=9 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py:0-8  (__str__)
       networkx-3.6.1-py3-none-any/networkx/readwrite/gexf.py:0-6  (__str__)
+  [c63ce9045597e373]   STRU  pipeline  L=9 N=2 saved=9 sim=1.00
+      src/nlp2cmd/generation/thermodynamic.py:0-8  (pipeline)
+      src/nlp2cmd/adapters/browser.py:0-7  (form_data_loader)
   [a34684ead77273d1]   STRU  to_adapter_plan  L=9 N=2 saved=9 sim=1.00
       src/nlp2cmd/generation/structured.py:0-8  (to_adapter_plan)
       src/nlp2cmd/adapters/sql.py:0-8  (get_schema_context)
   [a677cc22ade3b5a2]   EXAC  __init__  L=4 N=3 saved=8 sim=1.00
-      src/nlp2cmd/browser_manager/cdp_detector.py:0-3  (__init__)
-      src/nlp2cmd/browser_manager/token_navigator.py:0-3  (__init__)
       src/nlp2cmd/browser_manager/browser_connector.py:0-3  (__init__)
+      src/nlp2cmd/browser_manager/token_navigator.py:0-3  (__init__)
+      src/nlp2cmd/browser_manager/cdp_detector.py:0-3  (__init__)
   [4f17b2f34502e9c2]   STRU  __init__  L=4 N=3 saved=8 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/classes/coreviews.py:0-3  (__init__)
       networkx-3.6.1-py3-none-any/networkx/algorithms/cycles.py:0-3  (__init__)
@@ -484,8 +487,8 @@ DUPLICATES[117] (ranked by impact):
       src/nlp2cmd/web_schema/history.py:0-5  (clear_all)
       src/nlp2cmd/history/tracker.py:0-5  (clear)
   [ac6725e3e8e7f3ac]   STRU  _debug  L=6 N=2 saved=6 sim=1.00
-      src/nlp2cmd/llm/adaptive_learner.py:0-5  (_debug)
       src/nlp2cmd/llm/router.py:0-5  (_debug)
+      src/nlp2cmd/llm/adaptive_learner.py:0-5  (_debug)
   [e6b34dbd45fbf03f]   EXAC  tokens_used  L=5 N=2 saved=5 sim=1.00
       src/nlp2cmd/llm/openrouter.py:0-4  (tokens_used)
       src/nlp2cmd/llm/router.py:0-4  (tokens_used)
@@ -504,9 +507,9 @@ DUPLICATES[117] (ranked by impact):
   [f2c11838e0bed89a]   STRU  target_dir  L=5 N=2 saved=5 sim=1.00
       src/nlp2cmd/automation/firefox_sessions.py:0-4  (target_dir)
       src/nlp2cmd/execution/runner.py:0-4  (console)
-  [ad59186a228563f3]   STRU  reset_stats  L=5 N=2 saved=5 sim=1.00
-      src/nlp2cmd/generation/hybrid.py:0-4  (reset_stats)
+  [ad59186a228563f3]   STRU  reset_metrics  L=5 N=2 saved=5 sim=1.00
       src/nlp2cmd/generation/pipeline.py:0-4  (reset_metrics)
+      src/nlp2cmd/generation/hybrid.py:0-4  (reset_stats)
   [4a3d62e331e0feb7]   STRU  is_trained  L=5 N=2 saved=5 sim=1.00
       src/nlp2cmd/generation/ml_intent_classifier.py:0-4  (is_trained)
       src/nlp2cmd/execution/media_recorder.py:0-4  (is_recording)
@@ -541,13 +544,13 @@ DUPLICATES[117] (ranked by impact):
       src/nlp2cmd/streams/http_stream.py:0-3  (query)
       src/nlp2cmd/streams/ftp_stream.py:0-3  (query)
   [ad0629f094f01c7f]   STRU  __init__  L=4 N=2 saved=4 sim=1.00
-      src/nlp2cmd/page_analysis/link_extractor.py:0-3  (__init__)
       src/nlp2cmd/page_analysis/iframe_analyzer.py:0-3  (__init__)
+      src/nlp2cmd/page_analysis/link_extractor.py:0-3  (__init__)
   [f8d5959c4c47a297]   STRU  __init__  L=3 N=2 saved=3 sim=1.00
       src/nlp2cmd/schema_driven.py:0-2  (__init__)
       src/nlp2cmd/registry/__init__.py:0-3  (__init__)
 
-REFACTOR[117] (ranked by priority):
+REFACTOR[118] (ranked by priority):
   [1] ○ extract_function   → examples/04_domain_specific/utils/demo_warehouse_optimization.py
       WHY: 35 occurrences of 23-line block across 8 files — saves 782 lines
       FILES: examples/04_domain_specific/bioinformatics/example.py, examples/04_domain_specific/education/example.py, examples/04_domain_specific/energy/example.py, examples/04_domain_specific/finance/example.py, examples/04_domain_specific/healthcare/example.py +3 more
@@ -644,96 +647,96 @@ REFACTOR[117] (ranked by priority):
   [32] ◐ extract_function   → scripts/maintenance/utils/main.py
       WHY: 2 occurrences of 36-line block across 2 files — saves 36 lines
       FILES: scripts/maintenance/apply_polish_integration.py, scripts/maintenance/restore_system.py
-  [33] ○ extract_function   → src/nlp2cmd/utils/is_valid_destination.py
-      WHY: 4 occurrences of 12-line block across 4 files — saves 36 lines
-      FILES: src/nlp2cmd/browser_manager/token_navigator.py, src/nlp2cmd/generation/keywords/keyword_patterns.py, src/nlp2cmd/registry/__init__.py, src/nlp2cmd/schemas/__init__.py
-  [34] ○ extract_function   → src/nlp2cmd/adapters/utils/__init__.py
+  [33] ○ extract_function   → src/nlp2cmd/adapters/utils/__init__.py
       WHY: 3 occurrences of 18-line block across 3 files — saves 36 lines
       FILES: src/nlp2cmd/adapters/docker.py, src/nlp2cmd/adapters/dql.py, src/nlp2cmd/adapters/kubernetes.py
-  [35] ○ extract_function   → tools/schema/utils/_get_man_page.py
+  [34] ○ extract_function   → tools/schema/utils/_get_man_page.py
       WHY: 3 occurrences of 16-line block across 3 files — saves 32 lines
       FILES: tools/schema/comprehensive_command_scanner.py, tools/schema/enhanced_schema_generator.py, tools/schema/non_llm_schema_extractor.py
-  [36] ○ extract_function   → utils/__len__.py
+  [35] ○ extract_function   → utils/__len__.py
       WHY: 9 occurrences of 4-line block across 6 files — saves 32 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/kcomponents.py, networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py, networkx-3.6.1-py3-none-any/networkx/classes/coreviews.py, networkx-3.6.1-py3-none-any/networkx/classes/reportviews.py, networkx-3.6.1-py3-none-any/networkx/utils/mapped_queue.py +1 more
-  [37] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/to_directed_class.py
+  [36] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/to_directed_class.py
       WHY: 4 occurrences of 10-line block across 2 files — saves 30 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/graph.py, networkx-3.6.1-py3-none-any/networkx/classes/multigraph.py
-  [38] ○ extract_function   → examples/08_api_key_management/utils/main.py
+  [37] ○ extract_function   → examples/08_api_key_management/utils/main.py
       WHY: 3 occurrences of 15-line block across 3 files — saves 30 lines
       FILES: examples/08_api_key_management/03_github_token/run.py, examples/08_api_key_management/04_huggingface_token/run.py, examples/08_api_key_management/05_openai_key/run.py
-  [39] ○ extract_function   → src/nlp2cmd/page_schema/utils/extract.py
-      WHY: 2 occurrences of 29-line block across 2 files — saves 29 lines
-      FILES: src/nlp2cmd/page_schema/button_extractor.py, src/nlp2cmd/page_schema/copy_button_extractor.py
-  [40] ○ extract_function   → src/nlp2cmd/utils/_print.py
+  [38] ○ extract_function   → src/nlp2cmd/utils/_print.py
       WHY: 5 occurrences of 7-line block across 4 files — saves 28 lines
       FILES: src/nlp2cmd/cli/auto_repair.py, src/nlp2cmd/cli/commands/doctor.py, src/nlp2cmd/cli/commands/examples.py, src/nlp2cmd/evolutionary_orchestrator.py
-  [41] ○ extract_function   → demos/utils/main.py
+  [39] ○ extract_function   → demos/utils/main.py
       WHY: 2 occurrences of 27-line block across 2 files — saves 27 lines
       FILES: demos/demo_version_detection.py, demos/schema_flow_demo.py
-  [42] ○ extract_function   → examples/08_api_key_management/utils/run_flow.py
+  [40] ○ extract_function   → examples/08_api_key_management/utils/run_flow.py
       WHY: 2 occurrences of 27-line block across 2 files — saves 27 lines
       FILES: examples/08_api_key_management/03_github_token/run.py, examples/08_api_key_management/04_huggingface_token/run.py
-  [43] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/readwrite/utils/read_p2g.py
+  [41] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/readwrite/utils/read_p2g.py
       WHY: 2 occurrences of 26-line block across 2 files — saves 26 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/readwrite/leda.py, networkx-3.6.1-py3-none-any/networkx/readwrite/p2g.py
-  [44] ○ extract_function   → src/nlp2cmd/utils/get_error_message.py
+  [42] ○ extract_function   → src/nlp2cmd/page_schema/utils/extract.py
+      WHY: 2 occurrences of 26-line block across 2 files — saves 26 lines
+      FILES: src/nlp2cmd/page_schema/button_extractor.py, src/nlp2cmd/page_schema/copy_button_extractor.py
+  [43] ○ extract_function   → src/nlp2cmd/utils/get_error_message.py
       WHY: 3 occurrences of 13-line block across 2 files — saves 26 lines
       FILES: src/nlp2cmd/desktop_executor/backend_detector.py, src/nlp2cmd/step_handlers/drawing.py
-  [45] ○ extract_function   → src/nlp2cmd/automation/utils/_load_known_services.py
+  [44] ○ extract_function   → src/nlp2cmd/automation/utils/_load_known_services.py
       WHY: 2 occurrences of 25-line block across 2 files — saves 25 lines
       FILES: src/nlp2cmd/automation/action_planner.py, src/nlp2cmd/automation/service_configs.py
-  [46] ○ extract_function   → examples/utils/run_nlp2cmd_command.py
+  [45] ○ extract_function   → examples/utils/run_nlp2cmd_command.py
       WHY: 2 occurrences of 25-line block across 2 files — saves 25 lines
       FILES: examples/01_basics/docker_basics/01_basics_docker_nlp2cmd.py, examples/08_api_key_management/01_diagnose_credentials_nlp2cmd.py
-  [47] ○ extract_function   → src/nlp2cmd/automation/utils/_can_use_desktop_automation.py
+  [46] ○ extract_function   → src/nlp2cmd/automation/utils/_can_use_desktop_automation.py
       WHY: 2 occurrences of 24-line block across 2 files — saves 24 lines
       FILES: src/nlp2cmd/automation/action_planner.py, src/nlp2cmd/automation/service_configs.py
-  [48] ○ extract_function   → src/nlp2cmd/generation/utils/_check_msgpack.py
+  [47] ○ extract_function   → src/nlp2cmd/generation/utils/_check_msgpack.py
       WHY: 3 occurrences of 12-line block across 2 files — saves 24 lines
       FILES: src/nlp2cmd/generation/data_loader.py, src/nlp2cmd/generation/ml_intent_classifier.py
-  [49] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__len__.py
+  [48] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__len__.py
       WHY: 2 occurrences of 23-line block across 2 files — saves 23 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/graph.py, networkx-3.6.1-py3-none-any/networkx/utils/heaps.py
-  [50] ○ extract_function   → examples/10_online_code_editors/utils/main.py
+  [49] ○ extract_function   → examples/10_online_code_editors/utils/main.py
       WHY: 2 occurrences of 23-line block across 2 files — saves 23 lines
       FILES: examples/10_online_code_editors/03_adaptive_code_nlp2cmd.py, examples/10_online_code_editors/05_dynamic_executor_nlp2cmd.py
-  [51] ○ extract_function   → examples/09_online_drawing/_old/utils/get_pattern_analysis_info.py
-      WHY: 2 occurrences of 23-line block across 2 files — saves 23 lines
-      FILES: examples/09_online_drawing/_old/02_picsart_painting_nlp2cmd.py, examples/09_online_drawing/_old/03_adaptive_drawing_nlp2cmd.py
-  [52] ○ extract_function   → tools/schema/utils/_detect_category.py
+  [50] ○ extract_function   → tools/schema/utils/_detect_category.py
       WHY: 2 occurrences of 21-line block across 2 files — saves 21 lines
       FILES: tools/schema/comprehensive_command_scanner.py, tools/schema/non_llm_schema_extractor.py
-  [53] ○ extract_class      → src/nlp2cmd/utils/print.py
+  [51] ○ extract_class      → src/nlp2cmd/utils/print.py
       WHY: 4 occurrences of 7-line block across 4 files — saves 21 lines
       FILES: src/nlp2cmd/cli/cache.py, src/nlp2cmd/cli/history.py, src/nlp2cmd/cli/web_schema.py, src/nlp2cmd/execution/runner.py
-  [54] ○ extract_function   → src/nlp2cmd/utils/__init__.py
+  [52] ○ extract_function   → src/nlp2cmd/utils/__init__.py
       WHY: 8 occurrences of 3-line block across 4 files — saves 21 lines
       FILES: src/nlp2cmd/cli/cache.py, src/nlp2cmd/cli/history.py, src/nlp2cmd/cli/web_schema.py, src/nlp2cmd/execution/runner.py
-  [55] ○ extract_function   → examples/09_online_drawing/utils/fetch_only.py
+  [53] ○ extract_function   → examples/09_online_drawing/utils/fetch_only.py
       WHY: 2 occurrences of 21-line block across 2 files — saves 21 lines
       FILES: examples/09_online_drawing/05_autonomous/run.py, examples/09_online_drawing/_old/05_autonomous_drawing.py
-  [56] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__init__.py
+  [54] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__init__.py
       WHY: 5 occurrences of 5-line block across 4 files — saves 20 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/coreviews.py, networkx-3.6.1-py3-none-any/networkx/linalg/algebraicconnectivity.py, networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py, networkx-3.6.1-py3-none-any/networkx/utils/heaps.py
-  [57] ○ extract_function   → src/nlp2cmd/utils/get_supported_domains.py
+  [55] ○ extract_function   → src/nlp2cmd/utils/list_schemas.py
       WHY: 5 occurrences of 5-line block across 5 files — saves 20 lines
       FILES: src/nlp2cmd/core/core_transform.py, src/nlp2cmd/generation/llm_multi.py, src/nlp2cmd/registry/__init__.py, src/nlp2cmd/schema_extraction/registry.py, src/nlp2cmd/schemas/__init__.py
-  [58] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__iter__.py
+  [56] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__iter__.py
       WHY: 2 occurrences of 19-line block across 2 files — saves 19 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/graph.py, networkx-3.6.1-py3-none-any/networkx/utils/union_find.py
-  [59] ○ extract_function   → tools/schema/utils/_get_help_text.py
+  [57] ○ extract_function   → tools/schema/utils/_get_help_text.py
       WHY: 2 occurrences of 18-line block across 2 files — saves 18 lines
       FILES: tools/schema/comprehensive_command_scanner.py, tools/schema/non_llm_schema_extractor.py
-  [60] ○ extract_function   → webops/utils/process_voice_command.py
+  [58] ○ extract_function   → webops/utils/process_voice_command.py
       WHY: 2 occurrences of 16-line block across 2 files — saves 16 lines
       FILES: webops/voice_service.py, webops/voice_service_clean.py
-  [61] ○ extract_function   → src/nlp2cmd/adapters/utils/validate_syntax.py
+  [59] ○ extract_function   → src/nlp2cmd/adapters/utils/validate_syntax.py
       WHY: 2 occurrences of 16-line block across 2 files — saves 16 lines
       FILES: src/nlp2cmd/adapters/canvas.py, src/nlp2cmd/adapters/desktop.py
-  [62] ○ extract_function   → src/nlp2cmd/utils/register_action.py
+  [60] ○ extract_function   → src/nlp2cmd/utils/register_action.py
       WHY: 2 occurrences of 16-line block across 2 files — saves 16 lines
       FILES: src/nlp2cmd/dom_actions/registry.py, src/nlp2cmd/step_handlers/registry.py
+  [61] ○ extract_function   → examples/09_online_drawing/_old/utils/get_color_analysis_info.py
+      WHY: 2 occurrences of 16-line block across 2 files — saves 16 lines
+      FILES: examples/09_online_drawing/_old/02_picsart_painting_nlp2cmd.py, examples/09_online_drawing/_old/03_adaptive_drawing_nlp2cmd.py
+  [62] ○ extract_function   → src/nlp2cmd/utils/matches_mime_type.py
+      WHY: 4 occurrences of 5-line block across 4 files — saves 15 lines
+      FILES: src/nlp2cmd/browser_manager/token_navigator.py, src/nlp2cmd/generation/keywords/keyword_patterns.py, src/nlp2cmd/registry/__init__.py, src/nlp2cmd/schemas/__init__.py
   [63] ○ extract_function   → src/nlp2cmd/utils/get_active_version.py
       WHY: 4 occurrences of 5-line block across 3 files — saves 15 lines
       FILES: src/nlp2cmd/generation/keywords/keyword_patterns.py, src/nlp2cmd/storage/versioned_store.py, src/nlp2cmd/web_schema/form_data_loader.py
@@ -794,112 +797,115 @@ REFACTOR[117] (ranked by priority):
   [82] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/readwrite/utils/__str__.py
       WHY: 2 occurrences of 9-line block across 2 files — saves 9 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/readwrite/gexf.py, networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py
-  [83] ○ extract_function   → src/nlp2cmd/utils/to_adapter_plan.py
+  [83] ○ extract_function   → src/nlp2cmd/utils/pipeline.py
+      WHY: 2 occurrences of 9-line block across 2 files — saves 9 lines
+      FILES: src/nlp2cmd/adapters/browser.py, src/nlp2cmd/generation/thermodynamic.py
+  [84] ○ extract_function   → src/nlp2cmd/utils/to_adapter_plan.py
       WHY: 2 occurrences of 9-line block across 2 files — saves 9 lines
       FILES: src/nlp2cmd/adapters/sql.py, src/nlp2cmd/generation/structured.py
-  [84] ○ extract_function   → src/nlp2cmd/browser_manager/utils/__init__.py
+  [85] ○ extract_function   → src/nlp2cmd/browser_manager/utils/__init__.py
       WHY: 3 occurrences of 4-line block across 3 files — saves 8 lines
       FILES: src/nlp2cmd/browser_manager/browser_connector.py, src/nlp2cmd/browser_manager/cdp_detector.py, src/nlp2cmd/browser_manager/token_navigator.py
-  [85] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__init__.py
+  [86] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/__init__.py
       WHY: 3 occurrences of 4-line block across 3 files — saves 8 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/cycles.py, networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/ismags.py, networkx-3.6.1-py3-none-any/networkx/classes/coreviews.py
-  [86] ○ extract_function   → src/nlp2cmd/utils/__init__.py
+  [87] ○ extract_function   → src/nlp2cmd/utils/__init__.py
       WHY: 3 occurrences of 4-line block across 2 files — saves 8 lines
       FILES: src/nlp2cmd/validators/__init__.py, src/nlp2cmd/web_schema/extractor.py
-  [87] ○ extract_function   → src/nlp2cmd/utils/__len__.py
+  [88] ○ extract_function   → src/nlp2cmd/utils/__len__.py
       WHY: 3 occurrences of 4-line block across 3 files — saves 8 lines
       FILES: src/nlp2cmd/execution/executor_registry.py, src/nlp2cmd/nlp/config.py, src/nlp2cmd/skills/drawing/event_store.py
-  [88] ○ extract_function   → examples/utils/print_section.py
+  [89] ○ extract_function   → examples/utils/print_section.py
       WHY: 2 occurrences of 7-line block across 2 files — saves 7 lines
       FILES: examples/01_basics/sql_basics/workflows.py, examples/03_integrations/validation/config_validation.py
-  [89] ○ extract_function   → utils/_cache_failure.py
+  [90] ○ extract_function   → utils/_cache_failure.py
       WHY: 2 occurrences of 7-line block across 2 files — saves 7 lines
       FILES: src/nlp2cmd/feedback/__init__.py, tools/generation/intelligent_command_generator.py
-  [90] ○ extract_function   → src/nlp2cmd/utils/clear.py
+  [91] ○ extract_function   → src/nlp2cmd/utils/clear.py
       WHY: 2 occurrences of 7-line block across 2 files — saves 7 lines
       FILES: src/nlp2cmd/dom_actions/registry.py, src/nlp2cmd/step_handlers/registry.py
-  [91] ○ extract_function   → src/nlp2cmd/utils/print_yaml_block.py
+  [92] ○ extract_function   → src/nlp2cmd/utils/print_yaml_block.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: src/nlp2cmd/cli/helpers.py, src/nlp2cmd/context/disambiguator.py
-  [92] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/out_edges.py
+  [93] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/out_edges.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/digraph.py, networkx-3.6.1-py3-none-any/networkx/classes/multidigraph.py
-  [93] ○ extract_class      → networkx-3.6.1-py3-none-any/networkx/algorithms/tree/utils/__copy__.py
+  [94] ○ extract_class      → networkx-3.6.1-py3-none-any/networkx/algorithms/tree/utils/__copy__.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/tree/branchings.py, networkx-3.6.1-py3-none-any/networkx/algorithms/tree/mst.py
-  [94] ○ extract_function   → src/nlp2cmd/utils/browser_type.py
+  [95] ○ extract_function   → src/nlp2cmd/utils/browser_type.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: src/nlp2cmd/core/core_transform.py, src/nlp2cmd/plan_execution/browser_setup.py
-  [95] ○ extract_function   → src/nlp2cmd/utils/is_blocked.py
+  [96] ○ extract_function   → src/nlp2cmd/utils/is_blocked.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: src/nlp2cmd/core/core_models.py, src/nlp2cmd/feedback/__init__.py
-  [96] ○ extract_function   → src/nlp2cmd/utils/clear_all.py
+  [97] ○ extract_function   → src/nlp2cmd/utils/clear_all.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: src/nlp2cmd/history/tracker.py, src/nlp2cmd/web_schema/history.py
-  [97] ○ extract_function   → src/nlp2cmd/llm/utils/_debug.py
+  [98] ○ extract_function   → src/nlp2cmd/llm/utils/_debug.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: src/nlp2cmd/llm/adaptive_learner.py, src/nlp2cmd/llm/router.py
-  [98] ○ extract_function   → src/nlp2cmd/llm/utils/tokens_used.py
+  [99] ○ extract_function   → src/nlp2cmd/llm/utils/tokens_used.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/llm/openrouter.py, src/nlp2cmd/llm/router.py
-  [99] ○ extract_function   → src/nlp2cmd/skills/search/utils/__aexit__.py
+  [100] ○ extract_function   → src/nlp2cmd/skills/search/utils/__aexit__.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/skills/search/engine.py, src/nlp2cmd/skills/search/skill.py
-  [100] ○ extract_function   → src/nlp2cmd/skills/drawing/renderers/utils/dispose.py
+  [101] ○ extract_function   → src/nlp2cmd/skills/drawing/renderers/utils/dispose.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/skills/drawing/renderers/base.py, src/nlp2cmd/skills/drawing/renderers/playwright.py
-  [101] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/seed.py
+  [102] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/utils/seed.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/planarity.py, networkx-3.6.1-py3-none-any/networkx/utils/misc.py
-  [102] ○ extract_function   → scripts/maintenance/utils/__init__.py
+  [103] ○ extract_function   → scripts/maintenance/utils/__init__.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: scripts/maintenance/final_analysis_and_next_steps.py, scripts/maintenance/implement_high_priority_fixes.py
-  [103] ○ extract_function   → src/nlp2cmd/utils/target_dir.py
+  [104] ○ extract_function   → src/nlp2cmd/utils/target_dir.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/automation/firefox_sessions.py, src/nlp2cmd/execution/runner.py
-  [104] ○ extract_function   → src/nlp2cmd/generation/utils/reset_stats.py
+  [105] ○ extract_function   → src/nlp2cmd/generation/utils/reset_metrics.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/generation/hybrid.py, src/nlp2cmd/generation/pipeline.py
-  [105] ○ extract_function   → src/nlp2cmd/utils/is_trained.py
+  [106] ○ extract_function   → src/nlp2cmd/utils/is_trained.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/execution/media_recorder.py, src/nlp2cmd/generation/ml_intent_classifier.py
-  [106] ○ extract_function   → src/nlp2cmd/utils/get_recent_interactions.py
+  [107] ○ extract_function   → src/nlp2cmd/utils/get_recent_interactions.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/history/tracker.py, src/nlp2cmd/web_schema/history.py
-  [107] ○ extract_function   → src/nlp2cmd/streams/utils/__init__.py
+  [108] ○ extract_function   → src/nlp2cmd/streams/utils/__init__.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/streams/libvirt_stream.py, src/nlp2cmd/streams/ssh_stream.py
-  [108] ○ extract_function   → src/nlp2cmd/utils/get_vector_store.py
+  [109] ○ extract_function   → src/nlp2cmd/utils/get_vector_store.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: src/nlp2cmd/automation/action_planner.py, src/nlp2cmd/canvas_planner/vector_planner.py
-  [109] ○ extract_function   → src/nlp2cmd/skills/search/utils/__aenter__.py
+  [110] ○ extract_function   → src/nlp2cmd/skills/search/utils/__aenter__.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: src/nlp2cmd/skills/search/engine.py, src/nlp2cmd/skills/search/skill.py
-  [110] ○ extract_function   → utils/__init__.py
+  [111] ○ extract_function   → utils/__init__.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: examples/04_domain_specific/polish_llm_integration/05_integration/demo.py, webops/voice_service_clean.py
-  [111] ○ extract_function   → utils/gauss.py
+  [112] ○ extract_function   → utils/gauss.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/utils/misc.py, src/nlp2cmd/cli/markdown_output.py
-  [112] ○ extract_function   → src/nlp2cmd/exploration/utils/supports.py
+  [113] ○ extract_function   → src/nlp2cmd/exploration/utils/supports.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: src/nlp2cmd/exploration/data_tree.py, src/nlp2cmd/exploration/service.py
-  [113] ○ extract_function   → utils/__init__.py
+  [114] ○ extract_function   → utils/__init__.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: examples/04_domain_specific/polish_llm_integration/04_results_ranking/demo.py, src/nlp2cmd/thermodynamic/__init__.py
-  [114] ○ extract_function   → src/nlp2cmd/streams/utils/query.py
-      WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
-      FILES: src/nlp2cmd/streams/rdp_stream.py, src/nlp2cmd/streams/spice_stream.py
   [115] ○ extract_function   → src/nlp2cmd/streams/utils/query.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
+      FILES: src/nlp2cmd/streams/rdp_stream.py, src/nlp2cmd/streams/spice_stream.py
+  [116] ○ extract_function   → src/nlp2cmd/streams/utils/query.py
+      WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: src/nlp2cmd/streams/ftp_stream.py, src/nlp2cmd/streams/http_stream.py
-  [116] ○ extract_function   → src/nlp2cmd/page_analysis/utils/__init__.py
+  [117] ○ extract_function   → src/nlp2cmd/page_analysis/utils/__init__.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: src/nlp2cmd/page_analysis/iframe_analyzer.py, src/nlp2cmd/page_analysis/link_extractor.py
-  [117] ○ extract_function   → src/nlp2cmd/utils/__init__.py
+  [118] ○ extract_function   → src/nlp2cmd/utils/__init__.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: src/nlp2cmd/registry/__init__.py, src/nlp2cmd/schema_driven.py
 
 METRICS-TARGET:
-  dup_groups:  117 → 0
-  saved_lines: 5032 lines recoverable
+  dup_groups:  118 → 0
+  saved_lines: 5010 lines recoverable

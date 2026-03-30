@@ -1,7 +1,7 @@
-# nlp2cmd | 4798 func | 529f | 346525L | python | 2026-03-30
+# nlp2cmd | 4807 func | 530f | 346934L | python | 2026-03-30
 
 HEALTH:
-  CC̄=5.7  critical=708 (limit:10)  dup=27  cycles=0
+  CC̄=5.7  critical=710 (limit:10)  dup=27  cycles=0
 
 ALERTS[20]:
   !!! cc_exceeded      PlanExecutionMixin._execute_plan_step = 346 (limit:15)
@@ -15,7 +15,7 @@ ALERTS[20]:
   !!! cc_exceeded      DiGraphMatcher.syntactic_feasibility = 81 (limit:15)
   !!! cc_exceeded      _dispatchable._call_if_any_backends_installed = 80 (limit:15)
 
-MODULES[617] (top by size):
+MODULES[618] (top by size):
   M[src/nlp2cmd/pipeline_runner_plans.py] 3013L C:1 F:13 CC↑346 D:0 (python)
   M[networkx-3.6.1-py3-none-any/networkx/drawing/nx_pylab.py] 2978L C:2 F:25 CC↑60 D:0 (python)
   M[networkx-3.6.1-py3-none-any/networkx/utils/backends.py] 2171L C:2 F:28 CC↑80 D:0 (python)
@@ -31,7 +31,7 @@ MODULES[617] (top by size):
   M[networkx-3.6.1-py3-none-any/networkx/generators/random_graphs.py] 1416L C:0 F:19 CC↑27 D:0 (python)
   M[networkx-3.6.1-py3-none-any/networkx/algorithms/dag.py] 1392L C:0 F:19 CC↑20 D:0 (python)
   M[src/nlp2cmd/cli/commands/doctor.py] 1388L C:3 F:23 CC↑56 D:3 (python)
-  LANGS: python:613/shell:4
+  LANGS: python:614/shell:4
 
 HOTSPOTS[10]:
   ★ PlanExecutionMixin._execute_plan_step fan=118  // Execute a single ActionPlan step. Returns extracted value or None.
@@ -57,4 +57,4 @@ REFACTOR[15]:
 
 EVOLUTION:
   2026-03-16 CC̄=5.6 crit=731 346396L // Automated analysis
-  2026-03-30 CC̄=5.7 crit=708 346525L // Automated analysis
+  2026-03-30 CC̄=5.7 crit=710 346934L // Automated analysis
