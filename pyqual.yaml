@@ -14,12 +14,13 @@ pipeline:
         code2llm {workdir} -f all -o ./project --no-chunk
         --exclude project venv .venv venv_llm node_modules src-tauri webops
         test-env fresh_env dist build target out logs backups
+        networkx-3.6.1-py3-none-any
       output: ""
       allow_failure: false
 
     - name: vallm_scoped
       binary: vallm
-      command: "vallm batch {workdir} --recursive --format toon --output ./project --exclude project,venv,.venv,venv_llm,node_modules,src-tauri,webops,test-env,fresh_env,dist,build,target,out,logs,backups"
+      command: "vallm batch {workdir} --recursive --format toon --output ./project --exclude project,venv,.venv,venv_llm,node_modules,src-tauri,webops,test-env,fresh_env,dist,build,target,out,logs,backups,networkx-3.6.1-py3-none-any"
       output: ""
       allow_failure: false
 
@@ -47,6 +48,11 @@ pipeline:
     - name: prefact
       tool: prefact
       timeout: 0
+
+  metrics:
+    cc_max: 10              # average cyclomatic complexity ≤ 10 (current: 5.7)
+    vallm_pass_min: 55      # vallm pass rate ≥ 55% (current: 56.3%)
+    critical_max: 400       # critical functions ≤ 400 (current: 347)
 
   loop:
     max_iterations: 1

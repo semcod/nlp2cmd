@@ -2959,6 +2959,11 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.8] - 2026-03-30
+
+### Other
+- Update pyqual.yaml
+
 ## [1.1.7] - 2026-03-30
 
 ### Docs
