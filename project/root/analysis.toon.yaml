@@ -1,0 +1,727 @@
+# code2llm | 633f 221112L | python:625,shell:7,javascript:1 | 2026-03-30
+# CC̄=5.6 | critical:356/35429 | dups:1 | cycles:0
+
+HEALTH[20]:
+  🔴 DUP   1 classes duplicated
+  🔴 GOD   webops/docker_app.py = 677L, 4 classes, 12m, max CC=10
+  🔴 GOD   webops/voice_service.py = 1336L, 4 classes, 20m, max CC=13
+  🔴 GOD   networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py = 1053L, 5 classes, 33m, max CC=21
+  🔴 GOD   networkx-3.6.1-py3-none-any/networkx/readwrite/text.py = 851L, 7 classes, 5m, max CC=42
+  🔴 GOD   networkx-3.6.1-py3-none-any/networkx/classes/reportviews.py = 1447L, 23 classes, 99m, max CC=10
+  🔴 GOD   networkx-3.6.1-py3-none-any/networkx/algorithms/planarity.py = 1463L, 4 classes, 46m, max CC=17
+  🔴 GOD   networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/isomorphvf2.py = 1262L, 4 classes, 27m, max CC=81
+  🔴 GOD   scripts/thermodynamic/termo2.py = 776L, 12 classes, 38m, max CC=8
+  🔴 GOD   src/nlp2cmd/evolutionary_orchestrator.py = 728L, 5 classes, 26m, max CC=16
+  🔴 GOD   src/nlp2cmd/automation/password_store.py = 908L, 6 classes, 24m, max CC=36
+  🔴 GOD   src/nlp2cmd/automation/feedback_loop.py = 517L, 6 classes, 9m, max CC=29
+  🔴 GOD   src/nlp2cmd/generation/fuzzy_schema_matcher.py = 560L, 4 classes, 23m, max CC=9
+  🔴 GOD   src/nlp2cmd/generation/thermodynamic.py = 623L, 5 classes, 14m, max CC=24
+  🔴 GOD   src/nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
+  🔴 GOD   src/nlp2cmd/llm/adaptive_learner.py = 576L, 4 classes, 21m, max CC=31
+  🔴 GOD   src/nlp2cmd/registry/__init__.py = 642L, 6 classes, 22m, max CC=15
+  🔴 GOD   src/nlp2cmd/thermodynamic/__init__.py = 627L, 10 classes, 25m, max CC=12
+  🔴 GOD   src/nlp2cmd/thermodynamic/energy_models.py = 628L, 6 classes, 21m, max CC=9
+  🔴 GOD   src/nlp2cmd/executor/__init__.py = 678L, 8 classes, 18m, max CC=16
+
+REFACTOR[20]:
+  1. rm duplicates  (-1 dup classes)
+  2. split webops/docker_app.py  (god module)
+  3. split webops/voice_service.py  (god module)
+  4. split networkx-3.6.1-py3-none-any/networkx/readwrite/graphml.py  (god module)
+  5. split networkx-3.6.1-py3-none-any/networkx/readwrite/text.py  (god module)
+  6. split networkx-3.6.1-py3-none-any/networkx/classes/reportviews.py  (god module)
+  7. split networkx-3.6.1-py3-none-any/networkx/algorithms/planarity.py  (god module)
+  8. split networkx-3.6.1-py3-none-any/networkx/algorithms/isomorphism/isomorphvf2.py  (god module)
+  9. split scripts/thermodynamic/termo2.py  (god module)
+  10. split src/nlp2cmd/evolutionary_orchestrator.py  (god module)
+  11. split src/nlp2cmd/automation/password_store.py  (god module)
+  12. split src/nlp2cmd/automation/feedback_loop.py  (god module)
+  13. split src/nlp2cmd/generation/fuzzy_schema_matcher.py  (god module)
+  14. split src/nlp2cmd/generation/thermodynamic.py  (god module)
+  15. split src/nlp2cmd/validators/__init__.py  (god module)
+  16. split src/nlp2cmd/llm/adaptive_learner.py  (god module)
+  17. split src/nlp2cmd/registry/__init__.py  (god module)
+  18. split src/nlp2cmd/thermodynamic/__init__.py  (god module)
+  19. split src/nlp2cmd/thermodynamic/energy_models.py  (god module)
+  20. split src/nlp2cmd/executor/__init__.py  (god module)
+
+PIPELINES[22954]:
+  [1] Src [ensure_playwright_browsers]: ensure_playwright_browsers → print
+      PURITY: 100% pure
+  [2] Src [__init__]: __init__ → register_default_handlers
+      PURITY: 100% pure
+  [3] Src [execute_task]: execute_task → print
+      PURITY: 100% pure
+  [4] Src [main]: main → register_default_handlers
+      PURITY: 100% pure
+  [5] Src [main]: main → print
+      PURITY: 100% pure
+
+LAYERS:
+  tools/                          CC̄=7.0    ←in:0  →out:0
+  │ !! comprehensive_command_scanner   853L  3C   24m  CC=17     ←0
+  │ !! enhanced_schema_generator   811L  3C   37m  CC=11     ←0
+  │ !! non_llm_schema_extractor   724L  3C   28m  CC=11     ←0
+  │ !! generate_cmd_simple        578L  0C    4m  CC=187    ←0
+  │ !! generate_cmd_from_prompts   524L  1C    5m  CC=144    ←0
+  │ !! intelligent_command_generator   523L  3C   18m  CC=7      ←0
+  │ !! intelligent_schema_generator   473L  2C   14m  CC=17     ←0
+  │ analyze_version_detection   334L  0C    6m  CC=9      ←0
+  │ cmd2schema                 244L  1C    9m  CC=7      ←0
+  │ !! update_schemas             176L  0C    3m  CC=16     ←0
+  │ validate_schemas           123L  0C    1m  CC=14     ←0
+  │ !! compare_batches             95L  0C    1m  CC=21     ←0
+  │ !! compare_llm                 85L  0C    1m  CC=16     ←0
+  │
+  networkx-3.6.1-py3-none-any/    CC̄=5.9    ←in:0  →out:0
+  │ !! nx_pylab                  2978L  2C   25m  CC=60     ←0
+  │ !! backends                  2171L  2C   28m  CC=80     ←0
+  │ !! similarity                2107L  0C   11m  CC=42     ←0
+  │ !! graph                     2082L  3C   45m  CC=8      ←0
+  │ !! layout                    2036L  0C   23m  CC=29     ←0
+  │ !! function                  1549L  0C   42m  CC=33     ←0
+  │ !! traveling_salesman        1508L  0C   11m  CC=24     ←0
+  │ !! planarity                 1463L  4C   46m  CC=17     ←0
+  │ !! reportviews               1447L  23C   99m  CC=10     ←0
+  │ !! random_graphs             1416L  0C   19m  CC=27     ←0
+  │ !! dag                       1392L  0C   19m  CC=20     ←0
+  │ !! digraph                   1363L  3C   31m  CC=9      ←0
+  │ !! convert_matrix            1314L  0C   13m  CC=29     ←0
+  │ !! ismags                    1306L  2C   26m  CC=33     ←0
+  │ !! multigraph                1294L  1C   20m  CC=7      ←0
+  │ !! mst                       1281L  2C   16m  CC=30     ←0
+  │ !! edge_augmentation         1270L  0C   18m  CC=20     ←0
+  │ !! isomorphvf2               1262L  4C   27m  CC=81     ←0
+  │ !! cycles                    1234L  1C   16m  CC=46     ←0
+  │ !! decorators                1233L  1C   15m  CC=10     ←1
+  │ !! matching                  1148L  0C    7m  CC=76     ←0
+  │ !! vf2pp                     1102L  0C   14m  CC=35     ←0
+  │ !! classic                   1091L  0C   22m  CC=10     ←0
+  │ !! gexf                      1084L  3C   32m  CC=21     ←0
+  │ !! small                     1070L  0C   25m  CC=6      ←0
+  │ !! trees                     1070L  0C   18m  CC=11     ←0
+  │ !! community                 1070L  0C   15m  CC=36     ←0
+  │ !! graphml                   1053L  5C   33m  CC=21     ←0
+  │ !! branchings                1042L  1C   16m  CC=27     ←0
+  │ !! geometric                 1037L  0C    9m  CC=14     ←0
+  │ !! threshold                  981L  0C   26m  CC=14     ←0
+  │ !! multidigraph               977L  1C   17m  CC=12     ←0
+  │ !! simple_paths               966L  1C   12m  CC=25     ←0
+  │ !! degree_seq                 886L  1C   18m  CC=22     ←0
+  │ !! gml                        879L  2C    9m  CC=24     ←0
+  │ !! text                       851L  7C    5m  CC=42     ←0
+  │ !! clique                     818L  1C   14m  CC=15     ←0
+  │ !! connectivity               811L  0C    6m  CC=22     ←0
+  │ !! group                      787L  0C    9m  CC=30     ←0
+  │ !! contraction                738L  0C    5m  CC=17     ←0
+  │ !! cluster                    732L  0C   11m  CC=16     ←0
+  │ !! misc                       703L  2C   32m  CC=15     ←0
+  │ !! link_prediction            687L  0C   10m  CC=6      ←0
+  │ !! d_separation               677L  0C    4m  CC=20     ←0
+  │ !! joint_degree_seq           664L  0C    7m  CC=23     ←0
+  │ !! networksimplex             662L  1C   16m  CC=44     ←0
+  │ !! algebraicconnectivity      650L  2C   13m  CC=12     ←0
+  │ !! product                    633L  0C   16m  CC=17     ←0
+  │ !! cuts                       616L  0C    4m  CC=21     ←0
+  │ !! maxflow                    611L  0C    4m  CC=8      ←0
+  │ !! generators                 603L  0C    9m  CC=14     ←0
+  │ !! edge_kcomponents           592L  1C   10m  CC=9      ←1
+  │ !! betweenness                591L  0C    9m  CC=17     ←0
+  │ !! matching                   590L  0C    6m  CC=17     ←0
+  │ !! core                       588L  0C    8m  CC=11     ←0
+  │ !! breadth_first_search       576L  0C    8m  CC=11     ←0
+  │ !! directed                   572L  0C    8m  CC=19     ←0
+  │ !! nx_latex                   570L  0C    3m  CC=28     ←0
+  │ !! greedy_coloring            565L  2C   19m  CC=23     ←0
+  │ !! summarization              564L  0C    5m  CC=17     ←0
+  │ !! social                     554L  0C    4m  CC=7      ←0
+  │ !! depth_first_search         529L  0C    7m  CC=12     ←0
+  │ !! projection                 526L  0C    5m  CC=16     ←0
+  │ !! laplacianmatrix            512L  0C    5m  CC=8      ←0
+  │ !! equitable_coloring         505L  0C   10m  CC=53     ←0
+  │ !! convert                    502L  0C    7m  CC=26     ←0
+  │ !! line                       501L  0C    8m  CC=19     ←0
+  │ !! triads                     500L  0C    6m  CC=29     ←0
+  │ expanders                  499L  0C    7m  CC=13     ←0
+  │ !! pagerank_alg               498L  0C    5m  CC=16     ←0
+  │ !! edgelist                   489L  0C    6m  CC=16     ←0
+  │ !! graphical                  483L  0C    7m  CC=23     ←0
+  │ !! nx_agraph                  470L  0C    7m  CC=16     ←0
+  │ !! euler                      470L  0C    9m  CC=15     ←0
+  │ binary                     468L  0C    7m  CC=9      ←0
+  │ attrmatrix                 466L  0C    4m  CC=10     ←0
+  │ !! planar_drawing             464L  0C    6m  CC=25     ←0
+  │ !! modularity_max             452L  0C    3m  CC=34     ←0
+  │ internet_as_graphs         443L  1C   15m  CC=10     ←0
+  │ chordal                    443L  1C    9m  CC=11     ←0
+  │ coreviews                  435L  11C   49m  CC=11     ←0
+  │ graph_hashing              435L  0C    6m  CC=9      ←0
+  │ graph6                     427L  0C    8m  CC=10     ←0
+  │ !! preflowpush                425L  0C    2m  CC=32     ←0
+  │ cuts                       416L  0C    8m  CC=3      ←0
+  │ coding                     413L  1C    4m  CC=11     ←0
+  │ !! connectivity               412L  0C    5m  CC=15     ←0
+  │ !! disjoint_paths             408L  0C    3m  CC=22     ←0
+  │ !! capacityscaling            407L  0C    4m  CC=37     ←0
+  │ tournament                 406L  0C    8m  CC=5      ←0
+  │ !! swap                       406L  0C    3m  CC=23     ←0
+  │ !! lattice                    405L  0C    5m  CC=33     ←0
+  │ !! smallworld                 404L  0C    4m  CC=15     ←0
+  │ !! configs                    396L  3C   28m  CC=24     ←0
+  │ density                    396L  0C    4m  CC=12     ←0
+  │ !! biconnected                394L  0C    5m  CC=17     ←0
+  │ !! multiline_adjlist          393L  0C    4m  CC=23     ←0
+  │ !! louvain                    384L  0C    6m  CC=20     ←0
+  │ !! sparse6                    379L  0C    5m  CC=15     ←0
+  │ structuralholes            374L  0C    5m  CC=14     ←0
+  │ boykovkolmogorov           370L  0C    2m  CC=11     ←0
+  │ !! kcomponents                369L  1C   10m  CC=16     ←0
+  │ current_flow_betweenness   364L  0C    3m  CC=12     ←0
+  │ !! nx_pydot                   361L  0C    6m  CC=18     ←0
+  │ subgraph_alg               361L  0C    4m  CC=4      ←0
+  │ edgelist                   360L  0C    4m  CC=14     ←0
+  │ !! strongly_connected         359L  0C    5m  CC=15     ←0
+  │ !! eigenvector                357L  0C    2m  CC=15     ←0
+  │ mincost                    356L  0C    4m  CC=2      ←0
+  │ !! bipartitions               354L  0C    4m  CC=18     ←0
+  │ matchhelpers               352L  0C    8m  CC=2      ←0
+  │ quality                    347L  1C    7m  CC=10     ←0
+  │ heaps                      338L  3C   22m  CC=9      ←0
+  │ label_propagation          338L  0C    8m  CC=10     ←0
+  │ !! hits_alg                   337L  0C    4m  CC=18     ←0
+  │ isomorph                   336L  0C    7m  CC=8      ←0
+  │ !! katz                       331L  0C    2m  CC=15     ←0
+  │ adjlist                    330L  0C    4m  CC=9      ←0
+  │ all                        324L  0C    4m  CC=10     ←0
+  │ basic                      322L  0C    6m  CC=9      ←0
+  │ !! link_analysis              316L  0C    2m  CC=18     ←0
+  │ temporalisomorphvf2        308L  2C   15m  CC=8      ←0
+  │ polynomials                306L  0C    2m  CC=6      ←0
+  │ correlation                302L  0C    6m  CC=9      ←0
+  │ mapped_queue               297L  2C   17m  CC=6      ←0
+  │ !! sparsifiers                296L  0C    4m  CC=27     ←0
+  │ centrality                 290L  0C    3m  CC=9      ←0
+  │ cluster                    289L  0C    8m  CC=9      ←0
+  │ !! pajek                      286L  0C    5m  CC=26     ←0
+  │ !! relabel                    285L  0C    4m  CC=25     ←0
+  │ connected                  282L  0C    5m  CC=6      ←0
+  │ closeness                  282L  0C    2m  CC=13     ←0
+  │ !! lowest_common_ancestors    280L  0C    3m  CC=24     ←0
+  │ wiener                     278L  0C    4m  CC=5      ←0
+  │ recognition                273L  0C    4m  CC=6      ←0
+  │ graphviews                 269L  0C    3m  CC=7      ←0
+  │ dominating                 268L  0C    4m  CC=10     ←0
+  │ steinertree                265L  0C    5m  CC=8      ←0
+  │ !! tree_isomorphism           264L  0C    3m  CC=19     ←0
+  │ !! node_link                  261L  0C    3m  CC=18     ←0
+  │ nonisomorphic_trees        259L  0C    9m  CC=8      ←0
+  │ clique                     259L  0C    4m  CC=6      ←0
+  │ treewidth                  255L  1C    6m  CC=10     ←0
+  │ mixing                     255L  0C    5m  CC=7      ←0
+  │ edmondskarp                241L  0C    3m  CC=8      ←0
+  │ dinitz_alg                 238L  0C    2m  CC=11     ←0
+  │ betweenness_subset         236L  0C    4m  CC=6      ←0
+  │ !! kcutsets                   235L  0C    2m  CC=36     ←0
+  │ matrix                     232L  0C    3m  CC=10     ←0
+  │ atlas                      227L  0C    3m  CC=6      ←0
+  │ !! lukes                      227L  0C    2m  CC=27     ←0
+  │ current_flow_betweenness_subset   227L  0C    2m  CC=8      ←0
+  │ !! kcomponents                220L  0C    5m  CC=15     ←0
+  │ local                      220L  0C    3m  CC=12     ←0
+  │ node_classification        219L  0C    3m  CC=5      ←0
+  │ !! divisive                   216L  0C    2m  CC=17     ←0
+  │ reaching                   209L  0C    3m  CC=12     ←0
+  │ bridges                    205L  0C    3m  CC=8      ←0
+  │ load                       200L  0C    4m  CC=13     ←0
+  │ random_sequence            198L  0C    7m  CC=5      ←0
+  │ hybrid                     196L  0C    2m  CC=14     ←0
+  │ weakly_connected           196L  0C    4m  CC=8      ←0
+  │ utils                      194L  3C   13m  CC=13     ←0
+  │ vf2userfunc                192L  4C    4m  CC=11     ←0
+  │ cytoscape                  190L  0C    2m  CC=9      ←0
+  │ lazy_imports               188L  1C    4m  CC=7      ←0
+  │ spectrum                   186L  0C    5m  CC=2      ←0
+  │ !! edgebfs                    185L  0C    1m  CC=17     ←0
+  │ !! edgedfs                    182L  0C    1m  CC=18     ←0
+  │ trophic                    181L  0C    3m  CC=14     ←0
+  │ gomory_hu                  178L  0C    1m  CC=12     ←0
+  │ duplication                174L  0C    2m  CC=10     ←0
+  │ chains                     172L  0C    1m  CC=7      ←0
+  │ centrality                 171L  0C    2m  CC=4      ←0
+  │ boundary                   168L  0C    2m  CC=12     ←0
+  │ graphmatrix                168L  0C    2m  CC=11     ←0
+  │ efficiency_measures        167L  0C    3m  CC=5      ←0
+  │ !! regular                    167L  0C    3m  CC=21     ←0
+  │ modularitymatrix           166L  0C    2m  CC=2      ←0
+  │ asteroidal                 164L  0C    3m  CC=7      ←0
+  │ broadcasting               164L  0C    4m  CC=11     ←0
+  │ harary_graph               163L  0C    2m  CC=10     ←0
+  │ communicability_alg        163L  0C    2m  CC=4      ←0
+  │ leiden                     162L  0C    2m  CC=3      ←0
+  │ !! neighbor_degree            160L  0C    1m  CC=21     ←0
+  │ rcm                        159L  0C    4m  CC=5      ←0
+  │ adjacency                  156L  0C    2m  CC=8      ←0
+  │ non_randomness             155L  0C    1m  CC=7      ←0
+  │ !! asyn_fluid                 153L  0C    1m  CC=21     ←0
+  │ !! stoerwagner                152L  0C    1m  CC=16     ←0
+  │ degree_alg                 150L  0C    3m  CC=4      ←0
+  │ laplacian                  150L  0C    1m  CC=13     ←0
+  │ dominating_set             149L  0C    2m  CC=4      ←0
+  │ maxcut                     143L  0C    3m  CC=4      ←0
+  │ covering                   142L  0C    2m  CC=9      ←0
+  │ dominance                  142L  0C    2m  CC=9      ←0
+  │ !! time_dependent             142L  0C    1m  CC=15     ←0
+  │ second_order               141L  0C    1m  CC=9      ←0
+  │ richclub                   138L  0C    2m  CC=8      ←0
+  │ tree                       137L  0C    2m  CC=5      ←0
+  │ __init__                   134L  0C    0m  CC=0.0    ←0
+  │ exception                  131L  14C    1m  CC=1      ←0
+  │ sudoku                     131L  0C    1m  CC=13     ←0
+  │ flow_matrix                130L  4C   17m  CC=3      ←0
+  │ percolation                128L  0C    2m  CC=6      ←0
+  │ pairs                      127L  0C    2m  CC=8      ←0
+  │ intersection               125L  0C    3m  CC=5      ←0
+  │ !! connectivity               122L  0C    1m  CC=15     ←0
+  │ spectral_graph_forge       120L  0C    1m  CC=5      ←0
+  │ random_clustered           117L  0C    1m  CC=9      ←0
+  │ attracting                 115L  0C    3m  CC=3      ←0
+  │ p2g                        113L  0C    3m  CC=4      ←0
+  │ redundancy                 112L  0C    2m  CC=5      ←0
+  │ mycielski                  110L  0C    2m  CC=5      ←0
+  │ leda                       108L  0C    2m  CC=12     ←0
+  │ isolate                    107L  0C    3m  CC=3      ←0
+  │ dispersion                 107L  0C    1m  CC=9      ←0
+  │ union_find                 106L  1C    5m  CC=4      ←0
+  │ operations                 106L  0C    1m  CC=7      ←0
+  │ !! extendability              105L  0C    1m  CC=15     ←0
+  │ reciprocity                 98L  0C    3m  CC=4      ←0
+  │ current_flow_closeness      96L  0C    1m  CC=5      ←0
+  │ filters                     95L  1C   12m  CC=2      ←0
+  │ !! voterank_alg                95L  0C    1m  CC=15     ←0
+  │ triads                      94L  0C    1m  CC=2      ←0
+  │ beamsearch                  90L  0C    1m  CC=2      ←0
+  │ utils                       88L  0C    2m  CC=4      ←0
+  │ decomposition               88L  0C    1m  CC=6      ←0
+  │ harmonic                    88L  0C    1m  CC=11     ←0
+  │ __init__                    88L  0C    0m  CC=0.0    ←0
+  │ voronoi                     86L  0C    1m  CC=3      ←0
+  │ vertex_cover                83L  0C    1m  CC=5      ←0
+  │ kclique                     79L  0C    2m  CC=11     ←0
+  │ mis                         78L  0C    1m  CC=6      ←0
+  │ walks                       77L  0C    1m  CC=4      ←0
+  │ bethehessianmatrix          77L  0C    1m  CC=5      ←0
+  │ unary                       77L  0C    2m  CC=5      ←0
+  │ vitality                    76L  0C    1m  CC=4      ←0
+  │ time_series                 74L  0C    1m  CC=4      ←0
+  │ perfect_graph               73L  0C    1m  CC=3      ←0
+  │ semiconnected               71L  0C    1m  CC=4      ←0
+  │ clustering_coefficient      71L  0C    1m  CC=5      ←0
+  │ interval_graph              70L  0C    1m  CC=10     ←0
+  │ spectral                    69L  0C    1m  CC=3      ←0
+  │ cographs                    68L  0C    1m  CC=3      ←0
+  │ ego                         66L  0C    1m  CC=5      ←0
+  │ __init__                    62L  0C    1m  CC=2      ←0
+  │ moral                       59L  0C    1m  CC=2      ←0
+  │ hierarchy                   57L  0C    1m  CC=4      ←0
+  │ covering                    57L  0C    1m  CC=3      ←0
+  │ stochastic                  54L  0C    1m  CC=5      ←0
+  │ ramsey                      53L  0C    1m  CC=4      ←0
+  │ matching                    44L  0C    1m  CC=1      ←0
+  │ __init__                    34L  0C    0m  CC=0.0    ←0
+  │ smetric                     30L  0C    1m  CC=2      ←0
+  │ community_utils             30L  0C    1m  CC=6      ←0
+  │ __init__                    28L  0C    0m  CC=0.0    ←0
+  │ __init__                    27L  0C    0m  CC=0.0    ←0
+  │ __init__                    26L  0C    0m  CC=0.0    ←0
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                    11L  0C    0m  CC=0.0    ←0
+  │ __init__                    11L  0C    0m  CC=0.0    ←0
+  │ __init__                     8L  0C    0m  CC=0.0    ←0
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     4L  0C    0m  CC=0.0    ←0
+  │ __init__                     4L  0C    0m  CC=0.0    ←0
+  │ __init__                     2L  0C    0m  CC=0.0    ←0
+  │
+  src/                            CC̄=5.6    ←in:0  →out:0
+  │ !! pipeline_runner_plans     3013L  1C   13m  CC=346    ←0
+  │ !! action_planner            1772L  3C   27m  CC=25     ←1
+  │ !! site_explorer             1716L  3C   34m  CC=72     ←2
+  │ !! pipeline_runner_browser   1704L  1C    3m  CC=280    ←0
+  │ !! doctor                    1388L  3C   23m  CC=56     ←3
+  │ !! template_generator        1202L  2C   98m  CC=34     ←0
+  │ !! keyword_detector          1199L  2C   21m  CC=73     ←0
+  │ !! schema_fallback           1169L  3C   17m  CC=48     ←0
+  │ !! evolutionary_cache        1048L  3C   24m  CC=23     ←1
+  │ !! router                     951L  3C   22m  CC=17     ←11
+  │ !! extract                    942L  2C   15m  CC=45     ←10
+  │ !! __init__                   909L  2C   43m  CC=26     ←0
+  │ !! canvas                     909L  4C   12m  CC=60     ←2
+  │ !! password_store             908L  6C   24m  CC=36     ←8
+  │ !! regex                      906L  3C   12m  CC=38     ←0
+  │ !! generate                   903L  0C    4m  CC=64     ←1
+  │ !! run                        893L  0C    4m  CC=178    ←1
+  │ !! runner                     826L  3C   10m  CC=54     ←0
+  │ !! form_data_loader           821L  1C   47m  CC=18     ←1
+  │ !! form_handler               787L  3C    9m  CC=37     ←0
+  │ !! main                       787L  0C    8m  CC=71     ←0
+  │ !! shapes                     779L  35C   38m  CC=5      ←8
+  │ !! __init__                   771L  8C   25m  CC=58     ←0
+  │ !! semantic_matcher_optimized   750L  3C   30m  CC=12     ←0
+  │ !! drawing_blueprints         740L  1C   18m  CC=3      ←2
+  │ !! kubernetes                 731L  3C   23m  CC=12     ←0
+  │ !! evolutionary_orchestrator   728L  5C   26m  CC=16     ←0
+  │ !! handlers                   714L  0C   19m  CC=18     ←2
+  │ !! validator                  692L  2C   13m  CC=43     ←0
+  │ !! __init__                   678L  8C   18m  CC=16     ←2
+  │ !! dynamic                    650L  2C   21m  CC=25     ←0
+  │ !! desktop                    649L  3C   21m  CC=31     ←0
+  │ !! __init__                   646L  5C   19m  CC=41     ←0
+  │ !! __init__                   642L  6C   22m  CC=15     ←7
+  │ !! examples                   641L  3C   13m  CC=13     ←0
+  │ !! docker                     635L  3C   19m  CC=14     ←0
+  │ !! navigation                 632L  5C   15m  CC=12     ←0
+  │ !! energy_models              628L  6C   21m  CC=9      ←0
+  │ !! __init__                   627L  10C   25m  CC=12     ←0
+  │ !! thermodynamic              623L  5C   14m  CC=24     ←5
+  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←2
+  │ !! step_orchestrator          611L  2C   12m  CC=16     ←0
+  │ !! engine                     609L  6C   13m  CC=19     ←0
+  │ !! browser                    595L  2C   26m  CC=40     ←1
+  │ !! auto_repair                580L  3C   12m  CC=22     ←1
+  │ !! adaptive_learner           576L  4C   21m  CC=31     ←1
+  │ !! object_fetcher             575L  6C   13m  CC=41     ←4
+  │ !! metrics                    574L  7C   27m  CC=11     ←2
+  │ !! enhanced_context           570L  2C   14m  CC=22     ←0
+  │ !! core_transform             568L  1C   22m  CC=19     ←0
+  │ !! validation                 565L  5C   14m  CC=21     ←1
+  │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←1
+  │ !! pipeline                   546L  1C   15m  CC=54     ←0
+  │ !! interactive                536L  1C    9m  CC=24     ←0
+  │ !! vector_store               534L  2C   15m  CC=8      ←2
+  │ !! captcha_solver             528L  2C   10m  CC=12     ←0
+  │ !! plan_executor              525L  1C   15m  CC=34     ←0
+  │ !! complex_planner            524L  3C   10m  CC=24     ←0
+  │ !! __init__                   524L  4C   15m  CC=15     ←0
+  │ !! browser                    522L  2C   15m  CC=13     ←1
+  │ !! feedback_loop              517L  6C    9m  CC=29     ←3
+  │ !! correction_engine          510L  5C    9m  CC=14     ←0
+  │ !! __init__                   509L  2C   14m  CC=12     ←0
+  │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←22
+  │ resource_discovery         489L  3C   10m  CC=11     ←3
+  │ !! sql                        478L  3C   15m  CC=15     ←0
+  │ firefox_sessions           472L  1C   11m  CC=14     ←0
+  │ engine                     453L  3C   20m  CC=14     ←0
+  │ !! train_model                444L  0C    7m  CC=29     ←0
+  │ !! llm_extractor              443L  1C   11m  CC=15     ←0
+  │ env_extractor              439L  2C   11m  CC=13     ←0
+  │ !! thermodynamic_components   438L  4C   11m  CC=38     ←0
+  │ !! pipeline_runner_desktop    435L  1C    8m  CC=44     ←0
+  │ !! dql                        431L  3C   13m  CC=22     ←0
+  │ shell                      426L  3C   13m  CC=13     ←0
+  │ versioned_store            421L  1C   13m  CC=14     ←0
+  │ llm_simple                 420L  10C   19m  CC=13     ←0
+  │ !! python_extractors          420L  2C   11m  CC=30     ←0
+  │ __init__                   419L  3C    7m  CC=6      ←0
+  │ !! toon_parser                418L  3C   22m  CC=28     ←2
+  │ !! command_detector           415L  2C    5m  CC=31     ←0
+  │ repair                     413L  2C    7m  CC=13     ←0
+  │ __init__                   410L  4C   11m  CC=8      ←1
+  │ !! session                    405L  3C   10m  CC=30     ←0
+  │ visual_validator           402L  4C    8m  CC=12     ←0
+  │ normalizer                 400L  2C   13m  CC=6      ←0
+  │ cache                      400L  0C    9m  CC=9      ←0
+  │ !! extractors                 400L  5C   10m  CC=16     ←1
+  │ !! companies                  396L  1C    8m  CC=21     ←1
+  │ per_command_store          395L  1C   14m  CC=7      ←0
+  │ service_configs            394L  0C    2m  CC=6      ←0
+  │ draw_object                393L  4C   11m  CC=12     ←0
+  │ !! extractor                  389L  3C   10m  CC=15     ←1
+  │ __init__                   383L  3C   11m  CC=14     ←0
+  │ hybrid                     381L  4C   12m  CC=7      ←2
+  │ !! __init__                   377L  4C   11m  CC=34     ←0
+  │ drawing                    376L  10C   13m  CC=5      ←0
+  │ !! text_to_shape              373L  3C    9m  CC=24     ←0
+  │ structured                 371L  5C    7m  CC=9      ←0
+  │ step_validator             370L  3C   18m  CC=11     ←3
+  │ data_loader                370L  3C   28m  CC=5      ←1
+  │ !! semantic_shell             369L  2C   14m  CC=32     ←0
+  │ !! extraction                 362L  7C    9m  CC=24     ←1
+  │ mouse_controller           358L  2C   23m  CC=5      ←0
+  │ !! data_tree                  355L  3C   12m  CC=16     ←0
+  │ rtsp_stream                354L  1C   17m  CC=13     ←0
+  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0
+  │ history                    349L  2C   15m  CC=12     ←0
+  │ auto_repair                341L  1C   12m  CC=6      ←1
+  │ !! reflection                 338L  3C    9m  CC=29     ←1
+  │ service                    337L  3C   11m  CC=9      ←0
+  │ browser_config             331L  2C   23m  CC=14     ←0
+  │ tracker                    325L  3C   18m  CC=13     ←3
+  │ !! shell_generators           321L  8C   11m  CC=23     ←0
+  │ !! polish_support             318L  1C   13m  CC=20     ←1
+  │ !! external_cache             316L  1C   13m  CC=16     ←0
+  │ !! core_backends              308L  4C   12m  CC=19     ←0
+  │ disk                       308L  2C   14m  CC=12     ←1
+  │ helpers                    307L  0C   10m  CC=13     ←1
+  │ !! interaction                299L  10C   10m  CC=19     ←0
+  │ validating                 297L  8C    9m  CC=9      ←0
+  │ skill                      290L  1C   18m  CC=11     ←3
+  │ openrouter                 289L  2C    8m  CC=5      ←0
+  │ entity_resolver            288L  2C   17m  CC=7      ←0
+  │ vision                     281L  2C    9m  CC=4      ←0
+  │ playwright_installer       281L  0C    6m  CC=10     ←3
+  │ !! script_extractors          279L  2C    6m  CC=30     ←0
+  │ !! schema_driven              276L  2C    8m  CC=41     ←0
+  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0
+  │ history                    267L  0C    6m  CC=9      ←0
+  │ llm_multi                  267L  5C   10m  CC=6      ←0
+  │ commands                   267L  8C   19m  CC=7      ←0
+  │ generator                  265L  2C   15m  CC=12     ←0
+  │ token_costs                260L  2C   10m  CC=12     ←2
+  │ forms                      252L  1C    8m  CC=6      ←0
+  │ web_schema                 249L  0C    5m  CC=14     ←0
+  │ core_models                244L  5C   12m  CC=5      ←0
+  │ intent_matcher             241L  3C   10m  CC=12     ←0
+  │ !! shell_executor             235L  1C    6m  CC=17     ←0
+  │ base                       230L  4C   12m  CC=8      ←0
+  │ !! keyword_patterns           227L  1C   15m  CC=33     ←0
+  │ config                     226L  4C   19m  CC=9      ←2
+  │ disambiguator              225L  2C    5m  CC=11     ←0
+  │ !! debug_info                 224L  0C    3m  CC=20     ←2
+  │ desktop_action_executor    223L  1C   13m  CC=5      ←0
+  │ toon_integration           223L  1C   32m  CC=9      ←1
+  │ !! save                       222L  2C    6m  CC=18     ←1
+  │ adapter                    222L  1C   10m  CC=6      ←0
+  │ llm_planner                219L  1C    4m  CC=11     ←0
+  │ !! libvirt_stream             219L  1C   14m  CC=17     ←0
+  │ !! pipeline_runner_shell      217L  1C    3m  CC=27     ←0
+  │ playwright                 215L  1C    8m  CC=9      ←0
+  │ base                       214L  3C   12m  CC=6      ←0
+  │ complex_detector           203L  2C    1m  CC=14     ←0
+  │ keyboard_controller        202L  1C   11m  CC=4      ←0
+  │ skill                      200L  2C    9m  CC=7      ←0
+  │ nl_parser                  199L  1C    7m  CC=11     ←0
+  │ pipeline_components        192L  3C   10m  CC=7      ←1
+  │ session_logger             188L  1C   12m  CC=9      ←0
+  │ base                       186L  3C   10m  CC=7      ←5
+  │ browser_setup              183L  2C    6m  CC=14     ←0
+  │ resources                  176L  2C   11m  CC=4      ←2
+  │ tools                      176L  0C    3m  CC=12     ←1
+  │ multi_command              175L  2C    8m  CC=5      ←0
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ pipeline_runner            170L  1C    2m  CC=9      ←0
+  │ display                    170L  0C   12m  CC=7      ←2
+  │ __init__                   160L  0C    2m  CC=2      ←0
+  │ !! existing_browser_manager   160L  1C    3m  CC=28     ←0
+  │ __init__                   160L  0C    0m  CC=0.0    ←0
+  │ orchestrator               159L  1C    7m  CC=8      ←0
+  │ media_recorder             159L  1C    7m  CC=5      ←0
+  │ dispatcher                 158L  1C    4m  CC=7      ←2
+  │ registry                   157L  1C   11m  CC=7      ←0
+  │ rule_planner               148L  1C    8m  CC=11     ←0
+  │ __init__                   147L  1C   11m  CC=9      ←0
+  │ cli                        143L  0C    1m  CC=2      ←1
+  │ !! browser_connector          143L  1C    4m  CC=21     ←0
+  │ events                     142L  7C    7m  CC=1      ←1
+  │ queries                    142L  6C    7m  CC=7      ←0
+  │ router                     140L  1C    7m  CC=4      ←0
+  │ colors                     135L  1C    6m  CC=6      ←0
+  │ data_files                 134L  0C    6m  CC=8      ←10
+  │ vector_planner             131L  1C    6m  CC=8      ←0
+  │ markdown_output            131L  2C   14m  CC=9      ←7
+  │ field_classifier           129L  1C    4m  CC=14     ←0
+  │ registry                   129L  1C    7m  CC=1      ←1
+  │ __init__                   129L  0C    0m  CC=0.0    ←0
+  │ window_manager             127L  1C    5m  CC=10     ←0
+  │ navigation                 125L  3C    3m  CC=7      ←0
+  │ vnc_stream                 121L  1C    7m  CC=11     ←0
+  │ dispatcher                 117L  1C    4m  CC=6      ←1
+  │ env_manager                116L  1C    4m  CC=7      ←0
+  │ page_analyzer              116L  1C    3m  CC=7      ←0
+  │ shape_planner              115L  1C    5m  CC=8      ←0
+  │ syntax_cache               115L  1C    8m  CC=3      ←4
+  │ git_templates              115L  0C    0m  CC=0.0    ←0
+  │ sql_templates              114L  0C    0m  CC=0.0    ←0
+  │ browser_controller         111L  1C    5m  CC=6      ←0
+  │ hf_token_retriever         109L  1C    2m  CC=7      ←0
+  │ shell_templates            108L  0C    0m  CC=0.0    ←0
+  │ ssh_stream                 107L  1C    8m  CC=5      ←0
+  │ __init__                   106L  0C    0m  CC=0.0    ←0
+  │ package_mgmt_templates     104L  0C    0m  CC=0.0    ←0
+  │ executor_registry          101L  1C    7m  CC=3      ←1
+  │ form_analyzer              101L  1C    7m  CC=4      ←0
+  │ event_store                101L  1C   13m  CC=3      ←1
+  │ token_navigator             99L  2C    4m  CC=5      ←0
+  │ cdp_detector                98L  1C    4m  CC=13     ←0
+  │ semantic_entities           97L  1C    7m  CC=9      ←0
+  │ !! token_navigator             97L  2C    3m  CC=18     ←0
+  │ backend_detector            96L  1C    6m  CC=6      ←0
+  │ token_prompt_handler        93L  1C    5m  CC=5      ←0
+  │ appspec                     93L  2C    6m  CC=12     ←0
+  │ svg                         92L  1C    8m  CC=6      ←0
+  │ link_extractor              91L  1C    4m  CC=10     ←0
+  │ desktop_templates           91L  0C    0m  CC=0.0    ←0
+  │ ws_stream                   90L  1C    8m  CC=8      ←0
+  │ !! ftp_stream                  87L  1C    4m  CC=16     ←0
+  │ base                        84L  1C    8m  CC=3      ←0
+  │ cli                         83L  0C    1m  CC=3      ←0
+  │ page_schema_extractor       80L  1C    3m  CC=6      ←0
+  │ browser_launcher            80L  1C    4m  CC=3      ←0
+  │ docker_templates            78L  0C    0m  CC=0.0    ←0
+  │ !! http_stream                 77L  1C    3m  CC=15     ←0
+  │ __init__                    77L  0C    0m  CC=0.0    ←0
+  │ devops_templates            77L  0C    0m  CC=0.0    ←0
+  │ navigate                    76L  1C    2m  CC=10     ←0
+  │ kubernetes_templates        76L  0C    0m  CC=0.0    ←0
+  │ registry                    74L  1C    7m  CC=1      ←0
+  │ base                        73L  2C    6m  CC=3      ←0
+  │ data_templates              72L  0C    0m  CC=0.0    ←0
+  │ radio_extractor             70L  1C    2m  CC=13     ←0
+  │ rag_templates               70L  0C    0m  CC=0.0    ←0
+  │ base                        69L  3C    2m  CC=1      ←0
+  │ blueprint_planner           68L  1C    2m  CC=5      ←0
+  │ base                        67L  4C    3m  CC=1      ←5
+  │ iot_templates               67L  0C    0m  CC=0.0    ←0
+  │ button_extractor            66L  1C    2m  CC=9      ←0
+  │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
+  │ base                        64L  3C    1m  CC=7      ←0
+  │ base                        64L  3C    3m  CC=3      ←0
+  │ browser_templates           64L  0C    0m  CC=0.0    ←0
+  │ remote_templates            64L  0C    0m  CC=0.0    ←0
+  │ spice_stream                63L  1C    3m  CC=4      ←0
+  │ presentation_templates      63L  0C    0m  CC=0.0    ←0
+  │ form_extractor              62L  1C    2m  CC=8      ←0
+  │ copy_button_extractor       62L  1C    2m  CC=7      ←0
+  │ base                        62L  3C    3m  CC=3      ←0
+  │ api_templates               60L  0C    0m  CC=0.0    ←0
+  │ token_extractor             59L  1C    2m  CC=6      ←0
+  │ __init__                    57L  0C    0m  CC=0.0    ←0
+  │ media_templates             57L  0C    0m  CC=0.0    ←0
+  │ appspec_runtime             56L  2C    2m  CC=10     ←3
+  │ base                        55L  2C    1m  CC=2      ←0
+  │ rdp_stream                  53L  1C    3m  CC=5      ←0
+  │ base                        53L  2C    0m  CC=0.0    ←0
+  │ iframe_analyzer             45L  1C    2m  CC=6      ←0
+  │ __init__                    44L  0C    1m  CC=2      ←0
+  │ __init__                    43L  0C    0m  CC=0.0    ←0
+  │ __init__                    40L  0C    0m  CC=0.0    ←0
+  │ __init__                    38L  0C    0m  CC=0.0    ←0
+  │ base                        37L  2C    3m  CC=1      ←0
+  │ __init__                    37L  0C    0m  CC=0.0    ←0
+  │ __init__                    35L  0C    0m  CC=0.0    ←0
+  │ ir                          34L  1C    1m  CC=1      ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    32L  0C    0m  CC=0.0    ←0
+  │ __init__                    31L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ __init__                    27L  0C    0m  CC=0.0    ←0
+  │ __init__                    26L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    1m  CC=2      ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ __init__                    16L  0C    0m  CC=0.0    ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ __init__                    14L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                    12L  0C    0m  CC=0.0    ←0
+  │ generator                   12L  0C    0m  CC=0.0    ←0
+  │ adapter                      9L  0C    0m  CC=0.0    ←0
+  │ __init__                     9L  0C    0m  CC=0.0    ←0
+  │ __main__                     8L  0C    0m  CC=0.0    ←0
+  │ __main__                     7L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     3L  0C    0m  CC=0.0    ←0
+  │
+  demos/                          CC̄=5.1    ←in:0  →out:4
+  │ demo_versioned_schemas     395L  0C    4m  CC=11     ←0
+  │ demo_intelligent_nlp2cmd   289L  1C    9m  CC=11     ←2
+  │ demo_schema_flow           257L  0C    4m  CC=6      ←0
+  │ !! demo_version_detection     228L  0C    4m  CC=15     ←0
+  │ schema_flow_demo           192L  0C    4m  CC=7      ←0
+  │ demo_persistent_storage    149L  0C    2m  CC=11     ←0
+  │ demo_enhanced              127L  0C    1m  CC=12     ←0
+  │ simple_schema_demo         115L  0C    1m  CC=6      ←0
+  │
+  benchmarks/                     CC̄=4.6    ←in:0  →out:3
+  │ thermodynamic_benchmark    395L  1C    7m  CC=9      ←0
+  │
+  webops/                         CC̄=3.9    ←in:0  →out:0  ×DUP
+  │ !! voice_service             1336L  4C   20m  CC=13     ←0
+  │ !! voice-service.js           711L  0C   89m  CC=30     ←0
+  │ !! docker_app                 677L  4C   12m  CC=10     ←1  ×DUP
+  │ !! voice_service_clean        498L  4C   12m  CC=22     ←0  ×DUP
+  │ setup.sh                    73L  0C    0m  CC=0.0    ←0
+  │ setup-voice-service.sh      64L  0C    0m  CC=0.0    ←0
+  │
+  docker/                         CC̄=3.5    ←in:0  →out:0
+  │ demo_desktop_gui           283L  0C    6m  CC=9      ←0
+  │ start-vnc.sh                51L  0C    0m  CC=0.0    ←0
+  │
+  scripts/                        CC̄=3.3    ←in:0  →out:0
+  │ !! implement_core_integration   805L  1C   10m  CC=11     ←0
+  │ !! termo2                     776L  12C   38m  CC=8      ←1
+  │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0
+  │ final_analysis_and_next_steps   476L  1C   10m  CC=9      ←0
+  │ final_project_summary      461L  1C   10m  CC=7      ←0
+  │ !! auto_apply_refactors       289L  0C    3m  CC=20     ←0
+  │ !! llx_refactor               256L  0C    6m  CC=19     ←0
+  │ refactor_detect_normalized   249L  0C   10m  CC=7      ←2
+  │ apply_refactors_to_source   235L  0C    4m  CC=1      ←0
+  │ refactor_shell_entities    234L  0C   11m  CC=3      ←2
+  │ termo_demo                 226L  0C    5m  CC=6      ←0
+  │ generate_refactor_report   186L  0C    1m  CC=8      ←0
+  │ split_pipeline_runner      177L  0C    2m  CC=3      ←0
+  │ install_desktop_tools.sh   167L  0C    5m  CC=0.0    ←0
+  │ apply_polish_integration   124L  0C    4m  CC=9      ←0
+  │ termo                      116L  0C    4m  CC=3      ←0
+  │ restore_system             115L  0C    4m  CC=9      ←0
+  │ refactoring_summary         92L  0C    1m  CC=1      ←0
+  │ apply_nlp2cmd_fixes         84L  0C    5m  CC=2      ←0
+  │ setup_external              63L  0C    1m  CC=7      ←0
+  │ bump_version                62L  0C    1m  CC=6      ←0
+  │ apply_complexity_refactors    60L  0C    1m  CC=2      ←0
+  │ termo1                      25L  0C    1m  CC=3      ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ generate_quick              63L  0C    0m  CC=0.0    ←0
+  │ generate_working            60L  0C    0m  CC=0.0    ←0
+  │ generate_chunks             57L  0C    0m  CC=0.0    ←0
+  │ examples.sh                 36L  0C    1m  CC=0.0    ←0
+  │ project.sh                  24L  0C    0m  CC=0.0    ←0
+  │ code2llm_workaround         10L  0C    0m  CC=0.0    ←0
+  │ install_vnc.sh               1L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+                                   src.nlp2cmd  scripts.thermodynamic         src.app2schema                  demos             benchmarks    scripts.maintenance
+            src.nlp2cmd                     ──                     ←6                      1                                            ←3                     ←1  hub
+  scripts.thermodynamic                      6                     ──                                                                                            
+         src.app2schema                     ←1                                            ──                     ←4                                                hub
+                  demos                                                                    4                     ──                                              
+             benchmarks                      3                                                                                          ──                       
+    scripts.maintenance                      1                                                                                                                 ──
+  CYCLES: none
+  HUB: src.app2schema/ (fan-in=5)
+  HUB: src.nlp2cmd/ (fan-in=10)
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

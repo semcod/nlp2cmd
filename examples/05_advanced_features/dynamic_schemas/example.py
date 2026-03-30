@@ -9,8 +9,12 @@ This example demonstrates the intended flow:
 from __future__ import annotations
 
 import json
+import sys
 import tempfile
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from app2schema import extract_appspec_to_file
 from nlp2cmd.adapters import AppSpecAdapter

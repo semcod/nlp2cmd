@@ -28,7 +28,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from nlp2cmd import (
+from nlp2cmd.evolutionary import (
     EvolutionaryRecoveryEngine,
     AutonomousExampleRunner,
     RecoveryStrategy,

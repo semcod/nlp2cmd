@@ -3,10 +3,12 @@
 Simple demonstration: How schemas work in NLP2CMD
 """
 
-import sys
-sys.path.insert(0, './src')
-
 from pathlib import Path
+import sys
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+
 from nlp2cmd.schema_extraction import DynamicSchemaRegistry
 from nlp2cmd.schema_based.adapter import SchemaDrivenAppSpecAdapter
 from nlp2cmd import NLP2CMD

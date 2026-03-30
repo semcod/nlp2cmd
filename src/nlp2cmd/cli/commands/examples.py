@@ -39,7 +39,7 @@ except ImportError:
 
 # Import evolutionary orchestrator for autonomous recovery
 try:
-    from nlp2cmd.evolutionary_orchestrator import AutonomousExampleRunner
+    from nlp2cmd.evolutionary import AutonomousExampleRunner
     HAS_EVOLUTIONARY = True
 except ImportError:
     HAS_EVOLUTIONARY = False
@@ -522,7 +522,7 @@ try:
     def cmd_metrics(ctx):
         """Show evolutionary learning metrics and statistics."""
         try:
-            from nlp2cmd.evolutionary_orchestrator import EvolutionaryRecoveryEngine
+            from nlp2cmd.evolutionary import EvolutionaryRecoveryEngine
             console = Console() if HAS_RICH else None
             engine = EvolutionaryRecoveryEngine(console)
             

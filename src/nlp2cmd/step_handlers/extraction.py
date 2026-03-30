@@ -89,6 +89,14 @@ class ExtractKeyHandler(StepHandler):
             self._debug(f"extract_key: clipboard copy failed: {ce}", ctx)
 
 
+@register_handler("extract_api_key")
+class ExtractApiKeyHandler(StepHandler):
+    """Disabled safety-only alias for API key extraction."""
+
+    def execute(self, ctx: HandlerContext) -> HandlerResult:
+        raise ValueError("extract_api_key is disabled for safety. Use prompt_secret to paste the key.")
+
+
 @register_handler("check_clipboard")
 class CheckClipboardHandler(StepHandler):
     """Validate clipboard content against key pattern."""
@@ -108,12 +116,12 @@ class CheckClipboardHandler(StepHandler):
                     return HandlerResult(success=True, value=clipboard)
                 elif key_pattern:
                     ctx.console.print(f"  [yellow]⚠[/yellow] Schowek nie pasuje do wzorca")
-                    return HandlerResult(success=False, error="Clipboard doesn't match pattern")
+                    return HandlerResult(success=False, retry_allowed=False)
                 elif len(clipboard) >= 20:
                     ctx.console.print(f"  [dim]   Schowek zawiera {len(clipboard)} znaków[/dim]")
                     return HandlerResult(success=True, value=clipboard)
             ctx.console.print(f"  [yellow]⚠[/yellow] Schowek pusty lub za krótki")
-            return HandlerResult(success=False, error="Clipboard empty or too short")
+            return HandlerResult(success=False, retry_allowed=False)
         except Exception as e:
             ctx.console.print(f"  [yellow]⚠[/yellow] Nie można odczytać schowka: {e}")
             return HandlerResult(success=False, error=str(e))

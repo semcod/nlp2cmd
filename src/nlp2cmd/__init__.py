@@ -15,7 +15,7 @@ Architecture (LLM as Planner + Typed Actions):
 Key principle: LLM plans. Code executes. System controls.
 """
 
-__version__ = "1.1.8"
+__version__ = "1.1.9"
 __author__ = "NLP2CMD Team"
 
 # Import core classes with fallback
@@ -44,7 +44,7 @@ from nlp2cmd.schemas import SchemaRegistry, FileFormatSchema
 from nlp2cmd.feedback import FeedbackAnalyzer, FeedbackResult, FeedbackType
 from nlp2cmd.environment import EnvironmentAnalyzer
 from nlp2cmd.validators import BaseValidator
-from nlp2cmd.evolutionary_orchestrator import (
+from nlp2cmd.evolutionary import (
     EvolutionaryRecoveryEngine,
     AutonomousExampleRunner,
     RecoveryStrategy,

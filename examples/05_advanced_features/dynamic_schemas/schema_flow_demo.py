@@ -3,11 +3,12 @@
 Complete flow: From command help to schema to generated command
 """
 
-import sys
-sys.path.insert(0, './src')
-
 from pathlib import Path
 import json
+import sys
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 
 def show_schema_extraction_flow():

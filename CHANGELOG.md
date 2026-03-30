@@ -2959,6 +2959,32 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.9] - 2026-03-30
+
+### Docs
+- Update benchmarks/README.md
+- Update examples/05_advanced_features/dynamic_schemas/README.md
+- Update project/root/context.md
+- Update project/src/context.md
+- Update project/src_part2/context.md
+- Update project/src_part3/context.md
+
+### Test
+- Update tests/unit/test_evolutionary_orchestrator_split.py
+
+### Other
+- Update Makefile
+- Update benchmarks/learning_benchmark.py
+- Update benchmarks/llm_benchmark.py
+- Update examples/05_advanced_features/dynamic_schemas/demo_enhanced.py
+- Update examples/05_advanced_features/dynamic_schemas/demo_intelligent_nlp2cmd.py
+- Update examples/05_advanced_features/dynamic_schemas/demo_persistent_storage.py
+- Update examples/05_advanced_features/dynamic_schemas/demo_schema_flow.py
+- Update examples/05_advanced_features/dynamic_schemas/demo_version_detection.py
+- Update examples/05_advanced_features/dynamic_schemas/example.py
+- Update examples/05_advanced_features/dynamic_schemas/schema_flow_demo.py
+- ... and 11 more files
+
 ## [1.1.8] - 2026-03-30
 
 ### Other

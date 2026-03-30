@@ -9,14 +9,16 @@ This script shows the complete flow:
 4. Generate command from user prompt
 """
 
+from pathlib import Path
+import json
 import sys
-sys.path.insert(0, './src')
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from nlp2cmd.schema_extraction import DynamicSchemaRegistry
 from nlp2cmd.schema_based.generator import SchemaBasedGenerator
 from nlp2cmd.intelligent.command_detector import CommandDetector
-from pathlib import Path
-import json
 
 
 def demonstrate_schema_flow():

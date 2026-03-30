@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """Enhanced NLP2CMD with intelligent version detection."""
 
+import sys
+from pathlib import Path
 from typing import Dict, Optional, Any
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+
 from nlp2cmd import NLP2CMD
 from nlp2cmd.ir import ActionIR
 

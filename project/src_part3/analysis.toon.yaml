@@ -1,0 +1,420 @@
+# code2llm | 303f 91977L | python:303 | 2026-03-30
+# CC̄=5.4 | critical:174/2722 | dups:0 | cycles:0
+
+HEALTH[20]:
+  🔴 GOD   nlp2cmd/automation/password_store.py = 908L, 6 classes, 24m, max CC=36
+  🔴 GOD   nlp2cmd/automation/feedback_loop.py = 517L, 6 classes, 9m, max CC=29
+  🔴 GOD   nlp2cmd/generation/fuzzy_schema_matcher.py = 560L, 4 classes, 23m, max CC=9
+  🔴 GOD   nlp2cmd/generation/thermodynamic.py = 623L, 5 classes, 14m, max CC=24
+  🔴 GOD   nlp2cmd/validators/__init__.py = 771L, 8 classes, 25m, max CC=58
+  🔴 GOD   nlp2cmd/llm/adaptive_learner.py = 576L, 4 classes, 21m, max CC=31
+  🔴 GOD   nlp2cmd/registry/__init__.py = 642L, 6 classes, 22m, max CC=15
+  🔴 GOD   nlp2cmd/thermodynamic/__init__.py = 627L, 10 classes, 25m, max CC=12
+  🔴 GOD   nlp2cmd/thermodynamic/energy_models.py = 628L, 6 classes, 21m, max CC=9
+  🔴 GOD   nlp2cmd/orchestration/metrics.py = 574L, 7 classes, 27m, max CC=11
+  🔴 GOD   nlp2cmd/orchestration/engine.py = 609L, 6 classes, 13m, max CC=19
+  🔴 GOD   nlp2cmd/executor/__init__.py = 678L, 8 classes, 18m, max CC=16
+  🔴 GOD   nlp2cmd/adapters/canvas.py = 909L, 4 classes, 12m, max CC=60
+  🔴 GOD   nlp2cmd/environment/__init__.py = 524L, 4 classes, 15m, max CC=15
+  🔴 GOD   nlp2cmd/feedback/__init__.py = 646L, 5 classes, 19m, max CC=41
+  🔴 GOD   nlp2cmd/step_handlers/drawing.py = 822L, 19 classes, 23m, max CC=5
+  🔴 GOD   nlp2cmd/skills/drawing/correction_engine.py = 510L, 5 classes, 9m, max CC=14
+  🔴 GOD   nlp2cmd/skills/drawing/object_fetcher.py = 575L, 6 classes, 13m, max CC=41
+  🔴 GOD   nlp2cmd/skills/drawing/navigation.py = 632L, 5 classes, 15m, max CC=12
+  🔴 GOD   nlp2cmd/skills/drawing/shapes.py = 779L, 35 classes, 38m, max CC=5
+
+REFACTOR[20]:
+  1. split nlp2cmd/automation/password_store.py  (god module)
+  2. split nlp2cmd/automation/feedback_loop.py  (god module)
+  3. split nlp2cmd/generation/fuzzy_schema_matcher.py  (god module)
+  4. split nlp2cmd/generation/thermodynamic.py  (god module)
+  5. split nlp2cmd/validators/__init__.py  (god module)
+  6. split nlp2cmd/llm/adaptive_learner.py  (god module)
+  7. split nlp2cmd/registry/__init__.py  (god module)
+  8. split nlp2cmd/thermodynamic/__init__.py  (god module)
+  9. split nlp2cmd/thermodynamic/energy_models.py  (god module)
+  10. split nlp2cmd/orchestration/metrics.py  (god module)
+  11. split nlp2cmd/orchestration/engine.py  (god module)
+  12. split nlp2cmd/executor/__init__.py  (god module)
+  13. split nlp2cmd/adapters/canvas.py  (god module)
+  14. split nlp2cmd/environment/__init__.py  (god module)
+  15. split nlp2cmd/feedback/__init__.py  (god module)
+  16. split nlp2cmd/step_handlers/drawing.py  (god module)
+  17. split nlp2cmd/skills/drawing/correction_engine.py  (god module)
+  18. split nlp2cmd/skills/drawing/object_fetcher.py  (god module)
+  19. split nlp2cmd/skills/drawing/navigation.py  (god module)
+  20. split nlp2cmd/skills/drawing/shapes.py  (god module)
+
+PIPELINES[2261]:
+  [1] Src [__init__]: __init__
+      PURITY: 100% pure
+  [2] Src [_load_patterns]: _load_patterns → find_data_file → find_data_files → get_user_config_dir
+      PURITY: 100% pure
+  [3] Src [normalize_polish_text]: normalize_polish_text
+      PURITY: 100% pure
+  [4] Src [normalize_stt_errors]: normalize_stt_errors
+      PURITY: 100% pure
+  [5] Src [_find_best_phrase_match]: _find_best_phrase_match
+      PURITY: 100% pure
+
+LAYERS:
+  app2schema/                     CC̄=12.8   ←in:1  →out:4
+  │ !! extract                    942L  2C   15m  CC=45     ←2
+  │ cli                         83L  0C    1m  CC=3      ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ __main__                     7L  0C    0m  CC=0.0    ←0
+  │
+  nlp2cmd/                        CC̄=5.4    ←in:600  →out:49  !! split
+  │ !! action_planner            1772L  3C   27m  CC=25     ←1
+  │ !! site_explorer             1716L  3C   34m  CC=72     ←2
+  │ !! pipeline_runner_browser   1704L  1C    3m  CC=280    ←0
+  │ !! doctor                    1388L  3C   23m  CC=56     ←3
+  │ !! pipeline_runner_plans     1205L  1C   13m  CC=168    ←0
+  │ !! template_generator        1202L  2C   98m  CC=34     ←0
+  │ !! keyword_detector          1199L  2C   21m  CC=73     ←0
+  │ !! schema_fallback           1169L  3C   17m  CC=48     ←0
+  │ !! evolutionary_cache        1048L  3C   24m  CC=23     ←1
+  │ !! router                     951L  3C   22m  CC=17     ←10
+  │ !! __init__                   909L  2C   43m  CC=26     ←0
+  │ !! canvas                     909L  4C   12m  CC=60     ←0
+  │ !! password_store             908L  6C   24m  CC=36     ←1
+  │ !! regex                      906L  3C   12m  CC=38     ←0
+  │ !! generate                   903L  0C    4m  CC=64     ←1
+  │ !! run                        893L  0C    4m  CC=178    ←1
+  │ !! runner                     826L  3C   10m  CC=54     ←0
+  │ !! drawing                    822L  19C   23m  CC=5      ←0
+  │ !! form_data_loader           821L  1C   47m  CC=18     ←1
+  │ !! main                       787L  0C    8m  CC=71     ←0
+  │ !! form_handler               787L  3C    9m  CC=37     ←0
+  │ !! shapes                     779L  35C   38m  CC=5      ←4
+  │ !! __init__                   771L  8C   25m  CC=58     ←0
+  │ !! semantic_matcher_optimized   750L  3C   30m  CC=12     ←0
+  │ !! drawing_blueprints         740L  1C   18m  CC=3      ←2
+  │ !! kubernetes                 731L  3C   23m  CC=12     ←0
+  │ !! handlers                   714L  0C   19m  CC=18     ←0
+  │ !! validator                  692L  2C   13m  CC=43     ←0
+  │ !! __init__                   678L  8C   18m  CC=16     ←48
+  │ !! dynamic                    650L  2C   21m  CC=25     ←0
+  │ !! desktop                    649L  3C   21m  CC=31     ←0
+  │ !! __init__                   646L  5C   19m  CC=41     ←0
+  │ !! __init__                   642L  6C   22m  CC=15     ←4
+  │ !! examples                   641L  3C   13m  CC=13     ←47
+  │ !! docker                     635L  3C   19m  CC=14     ←0
+  │ !! navigation                 632L  5C   15m  CC=12     ←0
+  │ !! energy_models              628L  6C   21m  CC=9      ←0
+  │ !! __init__                   627L  10C   25m  CC=12     ←0
+  │ !! thermodynamic              623L  5C   14m  CC=24     ←0
+  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←2
+  │ !! step_orchestrator          611L  2C   12m  CC=16     ←0
+  │ !! engine                     609L  6C   13m  CC=19     ←1
+  │ !! browser                    595L  2C   26m  CC=40     ←1
+  │ !! auto_repair                580L  3C   12m  CC=22     ←1
+  │ !! adaptive_learner           576L  4C   21m  CC=31     ←1
+  │ !! object_fetcher             575L  6C   13m  CC=41     ←0
+  │ !! metrics                    574L  7C   27m  CC=11     ←1
+  │ !! enhanced_context           570L  2C   14m  CC=22     ←0
+  │ !! core_transform             568L  1C   22m  CC=19     ←0
+  │ !! validation                 565L  5C   14m  CC=21     ←0
+  │ !! fuzzy_schema_matcher       560L  4C   23m  CC=9      ←1
+  │ !! pipeline                   546L  1C   15m  CC=54     ←0
+  │ !! interactive                536L  1C    9m  CC=24     ←0
+  │ !! vector_store               534L  2C   15m  CC=8      ←2
+  │ !! captcha_solver             528L  2C   10m  CC=12     ←0
+  │ !! plan_executor              525L  1C   15m  CC=34     ←0
+  │ !! complex_planner            524L  3C   10m  CC=24     ←0
+  │ !! __init__                   524L  4C   15m  CC=15     ←0
+  │ !! browser                    522L  2C   15m  CC=13     ←1
+  │ !! feedback_loop              517L  6C    9m  CC=29     ←2
+  │ !! correction_engine          510L  5C    9m  CC=14     ←0
+  │ !! __init__                   509L  2C   14m  CC=12     ←0
+  │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←63
+  │ resource_discovery         489L  3C   10m  CC=11     ←3
+  │ !! sql                        478L  3C   15m  CC=15     ←0
+  │ firefox_sessions           472L  1C   11m  CC=14     ←0
+  │ engine                     453L  3C   20m  CC=14     ←0
+  │ !! train_model                444L  0C    7m  CC=29     ←0
+  │ !! llm_extractor              443L  1C   11m  CC=15     ←0
+  │ env_extractor              439L  2C   11m  CC=13     ←0
+  │ !! thermodynamic_components   438L  4C   11m  CC=38     ←0
+  │ !! pipeline_runner_desktop    435L  1C    8m  CC=44     ←0
+  │ !! dql                        431L  3C   13m  CC=22     ←0
+  │ shell                      426L  3C   13m  CC=13     ←0
+  │ versioned_store            421L  1C   13m  CC=14     ←0
+  │ llm_simple                 420L  10C   19m  CC=13     ←0
+  │ !! python_extractors          420L  2C   11m  CC=30     ←0
+  │ __init__                   419L  3C    7m  CC=6      ←0
+  │ !! toon_parser                418L  3C   22m  CC=28     ←1
+  │ !! command_detector           415L  2C    5m  CC=31     ←0
+  │ repair                     413L  2C    7m  CC=13     ←0
+  │ __init__                   410L  4C   11m  CC=8      ←1
+  │ !! session                    405L  3C   10m  CC=30     ←0
+  │ visual_validator           402L  4C    8m  CC=12     ←0
+  │ normalizer                 400L  2C   13m  CC=6      ←0
+  │ cache                      400L  0C    9m  CC=9      ←0
+  │ !! extractors                 400L  5C   10m  CC=16     ←1
+  │ !! planner                    397L  1C   17m  CC=18     ←0
+  │ !! companies                  396L  1C    8m  CC=21     ←1
+  │ per_command_store          395L  1C   14m  CC=7      ←0
+  │ service_configs            394L  0C    2m  CC=6      ←0
+  │ draw_object                393L  4C   11m  CC=12     ←0
+  │ !! extractor                  389L  3C   10m  CC=15     ←1
+  │ __init__                   383L  3C   11m  CC=14     ←0
+  │ hybrid                     381L  4C   12m  CC=7      ←0
+  │ !! __init__                   377L  4C   11m  CC=34     ←0
+  │ !! text_to_shape              373L  3C    9m  CC=24     ←0
+  │ structured                 371L  5C    7m  CC=9      ←0
+  │ step_validator             370L  3C   18m  CC=11     ←2
+  │ data_loader                370L  3C   28m  CC=5      ←2
+  │ !! extraction                 370L  8C   10m  CC=24     ←0
+  │ !! semantic_shell             369L  2C   14m  CC=32     ←0
+  │ mouse_controller           358L  2C   23m  CC=5      ←0
+  │ !! data_tree                  355L  3C   12m  CC=16     ←0
+  │ rtsp_stream                354L  1C   17m  CC=13     ←0
+  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0
+  │ history                    349L  2C   15m  CC=12     ←0
+  │ auto_repair                341L  1C   12m  CC=6      ←1
+  │ !! reflection                 338L  3C    9m  CC=29     ←1
+  │ service                    337L  3C   11m  CC=9      ←0
+  │ browser_config             331L  2C   23m  CC=14     ←0
+  │ tracker                    325L  3C   18m  CC=13     ←3
+  │ !! shell_generators           321L  8C   11m  CC=23     ←0
+  │ !! polish_support             318L  1C   13m  CC=20     ←0
+  │ !! external_cache             316L  1C   13m  CC=16     ←0
+  │ !! core_backends              308L  4C   12m  CC=19     ←0
+  │ disk                       308L  2C   14m  CC=12     ←0
+  │ helpers                    307L  0C   10m  CC=13     ←1
+  │ !! interaction                299L  10C   10m  CC=19     ←0
+  │ validating                 297L  8C    9m  CC=9      ←0
+  │ skill                      290L  1C   18m  CC=11     ←0
+  │ openrouter                 289L  2C    8m  CC=5      ←0
+  │ entity_resolver            288L  2C   17m  CC=7      ←0
+  │ vision                     281L  2C    9m  CC=4      ←0
+  │ playwright_installer       281L  0C    6m  CC=10     ←3
+  │ !! script_extractors          279L  2C    6m  CC=30     ←0
+  │ !! schema_driven              276L  2C    8m  CC=41     ←0
+  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0
+  │ history                    267L  0C    6m  CC=9      ←0
+  │ llm_multi                  267L  5C   10m  CC=6      ←0
+  │ commands                   267L  8C   19m  CC=7      ←0
+  │ generator                  265L  2C   15m  CC=12     ←0
+  │ token_costs                260L  2C   10m  CC=12     ←2
+  │ forms                      252L  1C    8m  CC=6      ←0
+  │ web_schema                 249L  0C    5m  CC=14     ←0
+  │ core_models                244L  5C   12m  CC=5      ←0
+  │ intent_matcher             241L  3C   10m  CC=12     ←0
+  │ !! shell_executor             235L  1C    6m  CC=17     ←0
+  │ base                       230L  4C   12m  CC=8      ←0
+  │ !! keyword_patterns           227L  1C   15m  CC=33     ←0
+  │ config                     226L  4C   19m  CC=9      ←2
+  │ disambiguator              225L  2C    5m  CC=11     ←0
+  │ !! debug_info                 224L  0C    3m  CC=20     ←2
+  │ desktop_action_executor    223L  1C   13m  CC=5      ←0
+  │ toon_integration           223L  1C   32m  CC=9      ←0
+  │ !! save                       222L  2C    6m  CC=18     ←1
+  │ adapter                    222L  1C   10m  CC=6      ←0
+  │ llm_planner                219L  1C    4m  CC=11     ←0
+  │ !! libvirt_stream             219L  1C   14m  CC=17     ←0
+  │ !! pipeline_runner_shell      217L  1C    3m  CC=27     ←0
+  │ playwright                 215L  1C    8m  CC=9      ←0
+  │ base                       214L  3C   12m  CC=6      ←0
+  │ complex_detector           203L  2C    1m  CC=14     ←0
+  │ keyboard_controller        202L  1C   11m  CC=4      ←0
+  │ skill                      200L  2C    9m  CC=7      ←0
+  │ nl_parser                  199L  1C    7m  CC=11     ←0
+  │ pipeline_components        192L  3C   10m  CC=7      ←1
+  │ session_logger             188L  1C   12m  CC=9      ←0
+  │ base                       186L  3C   10m  CC=7      ←1
+  │ browser_setup              183L  2C    6m  CC=14     ←0
+  │ resources                  176L  2C   11m  CC=4      ←2
+  │ tools                      176L  0C    3m  CC=12     ←1
+  │ multi_command              175L  2C    8m  CC=5      ←1
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ pipeline_runner            170L  1C    2m  CC=9      ←0
+  │ display                    170L  0C   12m  CC=7      ←2
+  │ __init__                   160L  0C    2m  CC=2      ←0
+  │ !! existing_browser_manager   160L  1C    3m  CC=28     ←0
+  │ __init__                   160L  0C    0m  CC=0.0    ←0
+  │ orchestrator               159L  1C    7m  CC=8      ←0
+  │ media_recorder             159L  1C    7m  CC=5      ←0
+  │ dispatcher                 158L  1C    4m  CC=7      ←1
+  │ registry                   157L  1C   11m  CC=7      ←0
+  │ registry                   149L  1C    7m  CC=1      ←1
+  │ rule_planner               148L  1C    8m  CC=11     ←0
+  │ runner                     148L  1C    4m  CC=6      ←0
+  │ __init__                   147L  1C   11m  CC=9      ←0
+  │ cli                        143L  0C    1m  CC=2      ←1
+  │ !! browser_connector          143L  1C    4m  CC=21     ←0
+  │ events                     142L  7C    7m  CC=1      ←1
+  │ queries                    142L  6C    7m  CC=7      ←0
+  │ router                     140L  1C    7m  CC=4      ←0
+  │ colors                     135L  1C    6m  CC=6      ←0
+  │ data_files                 134L  0C    6m  CC=8      ←10
+  │ vector_planner             131L  1C    6m  CC=8      ←0
+  │ markdown_output            131L  2C   14m  CC=9      ←11
+  │ field_classifier           129L  1C    4m  CC=14     ←0
+  │ __init__                   129L  0C    0m  CC=0.0    ←0
+  │ window_manager             127L  1C    5m  CC=10     ←0
+  │ engine                     125L  1C    4m  CC=7      ←0
+  │ navigation                 125L  3C    3m  CC=7      ←0
+  │ vnc_stream                 121L  1C    7m  CC=11     ←0
+  │ store                      120L  1C    7m  CC=13     ←0
+  │ dispatcher                 117L  1C    4m  CC=6      ←1
+  │ env_manager                116L  1C    4m  CC=7      ←0
+  │ page_analyzer              116L  1C    3m  CC=7      ←0
+  │ shape_planner              115L  1C    5m  CC=8      ←0
+  │ syntax_cache               115L  1C    8m  CC=3      ←4
+  │ git_templates              115L  0C    0m  CC=0.0    ←0
+  │ sql_templates              114L  0C    0m  CC=0.0    ←0
+  │ browser_controller         111L  1C    5m  CC=6      ←0
+  │ hf_token_retriever         109L  1C    2m  CC=7      ←0
+  │ shell_templates            108L  0C    0m  CC=0.0    ←0
+  │ ssh_stream                 107L  1C    8m  CC=5      ←0
+  │ __init__                   106L  0C    0m  CC=0.0    ←0
+  │ package_mgmt_templates     104L  0C    0m  CC=0.0    ←0
+  │ executor_registry          101L  1C    7m  CC=3      ←1
+  │ form_analyzer              101L  1C    7m  CC=4      ←0
+  │ event_store                101L  1C   13m  CC=3      ←1
+  │ token_navigator             99L  2C    4m  CC=5      ←0
+  │ cdp_detector                98L  1C    4m  CC=13     ←0
+  │ semantic_entities           97L  1C    7m  CC=9      ←0
+  │ !! token_navigator             97L  2C    3m  CC=18     ←0
+  │ backend_detector            96L  1C    6m  CC=6      ←0
+  │ token_prompt_handler        93L  1C    5m  CC=5      ←0
+  │ appspec                     93L  2C    6m  CC=12     ←0
+  │ svg                         92L  1C    8m  CC=6      ←0
+  │ link_extractor              91L  1C    4m  CC=10     ←0
+  │ desktop_templates           91L  0C    0m  CC=0.0    ←0
+  │ ws_stream                   90L  1C    8m  CC=8      ←0
+  │ !! ftp_stream                  87L  1C    4m  CC=16     ←0
+  │ base                        84L  1C    8m  CC=3      ←0
+  │ page_schema_extractor       80L  1C    3m  CC=6      ←0
+  │ browser_launcher            80L  1C    4m  CC=3      ←0
+  │ docker_templates            78L  0C    0m  CC=0.0    ←0
+  │ !! http_stream                 77L  1C    3m  CC=15     ←0
+  │ __init__                    77L  0C    0m  CC=0.0    ←0
+  │ devops_templates            77L  0C    0m  CC=0.0    ←0
+  │ navigate                    76L  1C    2m  CC=10     ←0
+  │ kubernetes_templates        76L  0C    0m  CC=0.0    ←0
+  │ registry                    74L  1C    7m  CC=1      ←0
+  │ base                        73L  2C    6m  CC=3      ←0
+  │ data_templates              72L  0C    0m  CC=0.0    ←0
+  │ radio_extractor             70L  1C    2m  CC=13     ←0
+  │ rag_templates               70L  0C    0m  CC=0.0    ←0
+  │ base                        69L  3C    2m  CC=1      ←0
+  │ blueprint_planner           68L  1C    2m  CC=5      ←0
+  │ base                        67L  4C    3m  CC=1      ←5
+  │ iot_templates               67L  0C    0m  CC=0.0    ←0
+  │ button_extractor            66L  1C    2m  CC=9      ←0
+  │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
+  │ base                        64L  3C    1m  CC=7      ←0
+  │ base                        64L  3C    3m  CC=3      ←0
+  │ browser_templates           64L  0C    0m  CC=0.0    ←0
+  │ remote_templates            64L  0C    0m  CC=0.0    ←0
+  │ spice_stream                63L  1C    3m  CC=4      ←0
+  │ types                       63L  3C    0m  CC=0.0    ←0
+  │ presentation_templates      63L  0C    0m  CC=0.0    ←0
+  │ form_extractor              62L  1C    2m  CC=8      ←0
+  │ copy_button_extractor       62L  1C    2m  CC=7      ←0
+  │ base                        62L  3C    3m  CC=3      ←0
+  │ api_templates               60L  0C    0m  CC=0.0    ←0
+  │ token_extractor             59L  1C    2m  CC=6      ←0
+  │ __init__                    57L  0C    0m  CC=0.0    ←0
+  │ media_templates             57L  0C    0m  CC=0.0    ←0
+  │ appspec_runtime             56L  2C    2m  CC=10     ←1
+  │ base                        55L  2C    1m  CC=2      ←0
+  │ rdp_stream                  53L  1C    3m  CC=5      ←0
+  │ base                        53L  2C    0m  CC=0.0    ←0
+  │ iframe_analyzer             45L  1C    2m  CC=6      ←0
+  │ __init__                    44L  0C    1m  CC=2      ←0
+  │ __init__                    43L  0C    0m  CC=0.0    ←0
+  │ __init__                    40L  0C    0m  CC=0.0    ←0
+  │ __init__                    38L  0C    0m  CC=0.0    ←0
+  │ base                        37L  2C    3m  CC=1      ←0
+  │ __init__                    37L  0C    0m  CC=0.0    ←0
+  │ __init__                    35L  0C    0m  CC=0.0    ←0
+  │ ir                          34L  1C    1m  CC=1      ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    32L  0C    0m  CC=0.0    ←0
+  │ __init__                    31L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ __init__                    27L  0C    0m  CC=0.0    ←0
+  │ __init__                    26L  0C    0m  CC=0.0    ←0
+  │ evolutionary_orchestrator    25L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    1m  CC=2      ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ __init__                    16L  0C    0m  CC=0.0    ←0
+  │ __init__                    14L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                    12L  0C    0m  CC=0.0    ←0
+  │ generator                   12L  0C    0m  CC=0.0    ←0
+  │ adapter                      9L  0C    0m  CC=0.0    ←0
+  │ __init__                     9L  0C    0m  CC=0.0    ←0
+  │ __main__                     8L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     3L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+                                               nlp2cmd                nlp2cmd.cli         nlp2cmd.generation                nlp2cmd.llm         nlp2cmd.web_schema         nlp2cmd.automation             nlp2cmd.skills              nlp2cmd.utils            nlp2cmd.storage           nlp2cmd.adapters        nlp2cmd.intelligent          nlp2cmd.execution  nlp2cmd.schema_extraction       nlp2cmd.evolutionary        nlp2cmd.dom_actions
+                    nlp2cmd                         ──                         32                        ←60                          1                        ←48                        ←56                        ←59                          5                        ←48                        ←33                        ←31                          1                        ←18                         ←4                          5  hub
+                nlp2cmd.cli                         71                         ──                          1                         ←1                          2                         ←5                         ←2                          5                         ←3                          1                         ←1                          2                         ←2                                                    ←3  hub
+         nlp2cmd.generation                         60                         11                         ──                          1                          9                          5                                                     4                                                                                                          ←3                                                   ←11                             hub
+                nlp2cmd.llm                         70                          1                         ←1                         ──                                                                               ←7                          1                                                                                                                                     ←1                                                        hub
+         nlp2cmd.web_schema                         48                         17                         ←9                                                    ──                                                                                2                                                                                                          ←1                                                                                   hub
+         nlp2cmd.automation                         56                          5                         ←5                                                                               ──                                                                                                                                                                                                                                                     hub
+             nlp2cmd.skills                         59                          2                                                     7                                                                               ──                                                                                                                                                                                                                          !! fan-out
+              nlp2cmd.utils                         25                         13                         ←4                         ←1                         ←2                                                                               ──                                                                               ←1                                                                               ←1                             hub
+            nlp2cmd.storage                         48                          3                                                                                                                                                                                           ──                                                                                                                                                                    !! fan-out
+           nlp2cmd.adapters                         33                          3                                                                                                                                                                                                                      ──                                                                                                                                         !! fan-out
+        nlp2cmd.intelligent                         31                          1                                                                                                                                                                 1                                                                               ──                                                                                                              !! fan-out
+          nlp2cmd.execution                          6                          6                          3                                                     1                                                                                                                                                                                           ──                                                                                   !! fan-out
+  nlp2cmd.schema_extraction                         18                          2                                                     1                                                                                                                                                                                                                                                 ──                                                        !! fan-out
+       nlp2cmd.evolutionary                          4                                                    11                                                                                                                                      1                                                                                                                                                                ──                             !! fan-out
+        nlp2cmd.dom_actions                          7                          3                                                                                                                                                                                                                                                                                                                                                             ──  hub
+  CYCLES: none
+  HUB: nlp2cmd.generation/ (fan-in=15)
+  HUB: nlp2cmd.cli/ (fan-in=122)
+  HUB: nlp2cmd.monitoring/ (fan-in=9)
+  HUB: nlp2cmd/ (fan-in=600)
+  HUB: nlp2cmd.utils/ (fan-in=19)
+  HUB: nlp2cmd.automation/ (fan-in=11)
+  HUB: nlp2cmd.web_schema/ (fan-in=12)
+  HUB: nlp2cmd.dom_actions/ (fan-in=5)
+  HUB: nlp2cmd.llm/ (fan-in=11)
+  HUB: nlp2cmd.history/ (fan-in=7)
+  SMELL: nlp2cmd.generation/ fan-out=90 → split needed
+  SMELL: nlp2cmd.step_handlers/ fan-out=10 → split needed
+  SMELL: nlp2cmd.skills/ fan-out=68 → split needed
+  SMELL: nlp2cmd.cli/ fan-out=98 → split needed
+  SMELL: nlp2cmd/ fan-out=49 → split needed
+  SMELL: nlp2cmd.evolutionary/ fan-out=16 → split needed
+  SMELL: nlp2cmd.browser_manager/ fan-out=12 → split needed
+  SMELL: nlp2cmd.plan_execution/ fan-out=14 → split needed
+  SMELL: nlp2cmd.adapters/ fan-out=36 → split needed
+  SMELL: nlp2cmd.intelligent/ fan-out=33 → split needed
+  SMELL: nlp2cmd.utils/ fan-out=38 → split needed
+  SMELL: nlp2cmd.automation/ fan-out=63 → split needed
+  SMELL: nlp2cmd.execution/ fan-out=19 → split needed
+  SMELL: nlp2cmd.nlp/ fan-out=10 → split needed
+  SMELL: nlp2cmd.storage/ fan-out=51 → split needed
+  SMELL: nlp2cmd.web_schema/ fan-out=67 → split needed
+  SMELL: nlp2cmd.dom_actions/ fan-out=10 → split needed
+  SMELL: nlp2cmd.llm/ fan-out=72 → split needed
+  SMELL: nlp2cmd.core/ fan-out=11 → split needed
+  SMELL: nlp2cmd.schema_extraction/ fan-out=21 → split needed
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

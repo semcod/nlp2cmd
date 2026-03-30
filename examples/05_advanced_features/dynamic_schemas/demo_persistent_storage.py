@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Demonstrate per-command schema storage with persistence."""
 
+import sys
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+
 from nlp2cmd.schema_extraction import DynamicSchemaRegistry
 
 

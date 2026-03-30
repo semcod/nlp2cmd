@@ -227,10 +227,10 @@ docker-push: ## Push Docker image to registry
 # =============================================================================
 
 demo: ## Run the end-to-end demo
-	$(PYTHON) examples/architecture/end_to_end_demo.py
+	PYTHONPATH=src $(PYTHON) examples/05_advanced_features/schema_driven_architecture/end_to_end_demo.py
 
 demo-benchmark: ## Run the benchmark demo
-	PYTHONPATH=src $(PYTHON) examples/benchmark_nlp2cmd.py
+	PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py
 
 demo-web: ## Demo web schema extraction
 	@echo "$(BLUE)Demo: Web schema extraction...$(NC)"
@@ -429,7 +429,7 @@ benchmark: ## Run LLM benchmark (5 models ≤3B, all 6 nlp2cmd domains)
 	@echo "$(BLUE)Running NLP2CMD LLM Benchmark...$(NC)"
 	@echo "$(YELLOW)Testing 5 local models (≤3B) across shell, docker, sql, kubernetes, browser, git$(NC)"
 	@echo "$(YELLOW)Requires: ollama running locally$(NC)"
-	PYTHONPATH=src $(PYTHON) examples/benchmark_nlp2cmd.py
+	PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py
 	@echo ""
 	@echo "$(GREEN)✓ Benchmark complete!$(NC)"
 	@echo "$(BLUE)Reports in benchmark_output/:$(NC)"
@@ -446,7 +446,7 @@ benchmark-no-cache: ## Run benchmark WITHOUT cache (pure LLM performance testing
 	@echo "$(YELLOW)Testing pure LLM performance - all cache tiers disabled$(NC)"
 	@echo "$(YELLOW)This forces fresh LLM calls for every query$(NC)"
 	@echo "$(YELLOW)Requires: ollama running locally$(NC)"
-	PYTHONPATH=src $(PYTHON) examples/benchmark_nlp2cmd.py --no-cache
+	PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py --no-cache
 	@echo ""
 	@echo "$(GREEN)✓ No-cache benchmark complete!$(NC)"
 	@echo "$(BLUE)Reports in benchmark_output/:$(NC)"
@@ -481,7 +481,7 @@ benchmark-plan: ## View refactoring plan from benchmark
 benchmark-learn: ## Run learning-mode benchmark (evolutionary cache, 3 rounds)
 	@echo "$(BLUE)Running NLP2CMD Learning Benchmark...$(NC)"
 	@echo "$(YELLOW)Tests evolutionary cache: cold → warm → hot across 16 domains$(NC)"
-	PYTHONPATH=src $(PYTHON) examples/benchmark_learning.py
+	PYTHONPATH=src $(PYTHON) benchmarks/learning_benchmark.py
 	@echo ""
 	@echo "$(GREEN)✓ Learning benchmark complete!$(NC)"
 	@echo "$(BLUE)Reports in benchmark_output/:$(NC)"

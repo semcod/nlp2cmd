@@ -9,13 +9,12 @@ This script demonstrates:
 """
 
 import sys
-import os
 import json
 import tempfile
 from pathlib import Path
 
-# Add src to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from nlp2cmd.pipeline_runner import PipelineRunner, ShellExecutionPolicy
 from nlp2cmd.enhanced import EnhancedNLP2CMD
