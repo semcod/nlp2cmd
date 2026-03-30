@@ -18,9 +18,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-sys.path.append(str(Path(__file__).resolve().parents[2]))
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+sys.path.insert(0, str(PROJECT_ROOT / "examples"))
 
 from _example_helpers import print_separator
 

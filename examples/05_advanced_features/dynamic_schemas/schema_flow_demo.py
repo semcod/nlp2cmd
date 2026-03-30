@@ -27,9 +27,10 @@ def show_schema_extraction_flow():
     print("-" * 40)
     from nlp2cmd.schema_extraction import DynamicSchemaRegistry
     
+    command_schemas_dir = PROJECT_ROOT / "command_schemas"
     registry = DynamicSchemaRegistry(
         use_per_command_storage=True,
-        storage_dir="./command_schemas"
+        storage_dir=str(command_schemas_dir)
     )
     
     # Extract schema
@@ -43,9 +44,9 @@ def show_schema_extraction_flow():
     
     print("\n📋 STEP 3: Store Schema")
     print("-" * 40)
-    schema_file = Path("./command_schemas/commands/docker.json")
+    schema_file = command_schemas_dir / "commands" / "docker.json"
     if schema_file.exists():
-        print(f"✓ Stored in: {schema_file}")
+        print(f"   Storage location: {command_schemas_dir}")
         with open(schema_file) as f:
             data = json.load(f)
         print(f"✓ File size: {schema_file.stat().st_size} bytes")

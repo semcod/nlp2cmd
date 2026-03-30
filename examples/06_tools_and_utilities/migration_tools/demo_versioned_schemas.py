@@ -14,7 +14,7 @@ from nlp2cmd.storage.versioned_store import VersionedSchemaStore
 from nlp2cmd.schema_extraction import ExtractedSchema, CommandSchema, CommandParameter
 
 
-def migrate_existing_schemas(source_file: str = "./validated_schemas.json"):
+def migrate_existing_schemas(source_file: str = str(PROJECT_ROOT / "command_schemas" / "exports" / "validated_schemas.json")):
     """Migrate existing schemas to versioned storage."""
     
     print("=" * 60)
@@ -22,7 +22,7 @@ def migrate_existing_schemas(source_file: str = "./validated_schemas.json"):
     print("=" * 60)
     
     # Initialize versioned store
-    store = VersionedSchemaStore("./migrated_schemas")
+    store = VersionedSchemaStore(str(PROJECT_ROOT / "generated" / "migrated_schemas"))
     
     # Load existing schemas
     print(f"\nLoading schemas from {source_file}...")
@@ -379,7 +379,7 @@ def main():
     
     # Show storage structure
     print("\nStorage structure:")
-    storage_path = Path("./migrated_schemas")
+    storage_path = PROJECT_ROOT / "generated" / "migrated_schemas"
     if storage_path.exists():
         for item in sorted(storage_path.rglob("*")):
             if item.is_file():
@@ -391,7 +391,7 @@ def main():
     
     # Clean up option
     if input("\nDelete demo files? (y/N): ").lower() == 'y':
-        shutil.rmtree("./migrated_schemas")
+        shutil.rmtree(storage_path)
         print("Demo files cleaned up.")
 
 

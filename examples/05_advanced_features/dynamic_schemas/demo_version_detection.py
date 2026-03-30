@@ -2,8 +2,6 @@
 """Practical demonstration of version-aware command generation."""
 
 import subprocess
-import json
-from pathlib import Path
 
 def demonstrate_version_detection():
     """Demonstrate practical version detection and command adaptation."""

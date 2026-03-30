@@ -21,9 +21,10 @@ def main():
     
     # 1. Load schemas from storage
     print("\n1. Loading schemas from storage...")
+    command_schemas_dir = PROJECT_ROOT / "command_schemas"
     registry = DynamicSchemaRegistry(
         use_per_command_storage=True,
-        storage_dir="./command_schemas"
+        storage_dir=str(command_schemas_dir)
     )
     print(f"   Loaded {len(registry.schemas)} schemas")
     
@@ -51,8 +52,9 @@ def main():
     # Note: SchemaDrivenAppSpecAdapter loads schemas from validated_schemas.json
     # Let's copy our schemas there first
     import shutil
-    if Path('./command_schemas/index.json').exists():
-        shutil.copy('./command_schemas/index.json', './validated_schemas.json')
+    validated_schemas_path = command_schemas_dir / 'exports' / 'validated_schemas.json'
+    if (command_schemas_dir / 'index.json').exists():
+        shutil.copy(command_schemas_dir / 'index.json', validated_schemas_path)
     
     adapter = SchemaDrivenAppSpecAdapter()
     nlp = NLP2CMD(adapter=adapter)

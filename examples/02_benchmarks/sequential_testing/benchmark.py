@@ -7,7 +7,7 @@ and measures their processing time. It shows how the system handles
 batch processing of commands.
 
 Usage:
-    python examples/benchmark_sequential_commands.py
+    python3 examples/02_benchmarks/sequential_testing/benchmark.py
 """
 
 import sys
@@ -15,9 +15,9 @@ import time
 from pathlib import Path
 from typing import List, Tuple
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-sys.path.append(str(Path(__file__).resolve().parents[2]))
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+sys.path.insert(0, str(PROJECT_ROOT / "examples"))
 
 from _example_helpers import print_separator
 

@@ -1,6 +1,8 @@
 # Performance Testing Benchmark
 
-Comprehensive performance benchmarking for NLP2CMD.
+Lightweight performance benchmarking example for NLP2CMD.
+
+For the canonical benchmark suite, see `benchmarks/` at the repository root.
 
 ## Overview
 

@@ -36,7 +36,10 @@ class SchemaDrivenAppSpecAdapter(AppSpecAdapter):
     def _load_schemas(self):
         """Load schemas from various sources."""
         # Load from validated schemas if available
+        project_root = Path(__file__).resolve().parents[4]
         validated_candidates = [
+            project_root / "command_schemas" / "exports" / "validated_schemas.json",
+            project_root / "validated_schemas.json",
             Path("./command_schemas/exports/validated_schemas.json"),
             Path("./validated_schemas.json"),
         ]

@@ -239,7 +239,7 @@ def demo_intelligent_nlp2cmd():
     
     # Initialize system
     nlp = IntelligentNLP2CMD(
-        storage_dir="./migrated_schemas"
+        storage_dir=str(PROJECT_ROOT / "generated" / "migrated_schemas")
     )
     
     # Test queries

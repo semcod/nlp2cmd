@@ -1,6 +1,8 @@
 # Benchmarks - Performance Testing
 
-This section contains tools for benchmarking and testing NLP2CMD performance.
+This section contains lightweight examples for benchmarking and testing NLP2CMD performance.
+
+For the canonical benchmark suite, see `./benchmarks/` at the repository root.
 
 ## Categories
 

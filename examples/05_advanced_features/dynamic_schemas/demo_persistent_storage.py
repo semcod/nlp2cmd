@@ -18,7 +18,7 @@ def demonstrate_persistent_storage():
     print("=" * 60)
     
     # Initialize registry with persistent storage
-    storage_dir = "./my_command_schemas"
+    storage_dir = str(PROJECT_ROOT / "generated" / "my_command_schemas")
     registry = DynamicSchemaRegistry(
         use_per_command_storage=True,
         storage_dir=storage_dir,

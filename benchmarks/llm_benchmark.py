@@ -1097,7 +1097,7 @@ def generate_command_errors_report(results: BenchmarkResults) -> str:
     lines.append("")
     lines.append(f"Generated: `{ts}`")
     lines.append("")
-    lines.append("Źródło: `examples/benchmark_nlp2cmd.py` + `benchmark_results.json`")
+    lines.append("Źródło: `benchmarks/llm_benchmark.py` + `benchmark_results.json`")
     lines.append("")
 
     failures = [

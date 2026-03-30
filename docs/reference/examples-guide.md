@@ -170,16 +170,21 @@ python examples/_dynamic_orchestrator.py --prompt "Create a dashboard with chart
 
 ## 📊 Performance Benchmarks
 
-**Location:** `examples/02_benchmarks/`
+**Lightweight examples:** `examples/02_benchmarks/`
+
+**Canonical benchmark suite:** `benchmarks/`
 
 ```bash
-# Run performance tests
-cd examples/02_benchmarks/performance_testing
-python benchmark.py
+# Run lightweight performance examples
+python3 examples/02_benchmarks/performance_testing/benchmark.py
 
 # Sequential testing
-cd examples/02_benchmarks/sequential_testing
-python run_sequential.py
+python3 examples/02_benchmarks/sequential_testing/benchmark.py
+
+# Run canonical benchmark scripts
+PYTHONPATH=src python3 benchmarks/llm_benchmark.py
+PYTHONPATH=src python3 benchmarks/learning_benchmark.py
+PYTHONPATH=src python3 benchmarks/thermodynamic_benchmark.py
 ```
 
 ## 🔧 Domain-Specific Examples

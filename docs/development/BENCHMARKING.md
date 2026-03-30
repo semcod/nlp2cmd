@@ -29,13 +29,13 @@ make benchmark-clean
 
 ```bash
 # Run the main benchmark script
-python3 examples/02_benchmarks/performance_testing/benchmark.py
+PYTHONPATH=src python3 benchmarks/llm_benchmark.py
 
 # Run benchmark WITHOUT cache (forces fresh LLM calls for every query)
-python3 examples/02_benchmarks/performance_testing/benchmark.py --no-cache
+PYTHONPATH=src python3 benchmarks/llm_benchmark.py --no-cache
 
 # Run the sequential commands example
-python3 examples/02_benchmarks/sequential_testing/run_sequential.py
+python3 examples/02_benchmarks/sequential_testing/benchmark.py
 ```
 
 ### Benchmark Without Cache
@@ -47,7 +47,7 @@ For true LLM performance testing without cache influence:
 make benchmark
 
 # Benchmark without cache (pure LLM performance)
-python3 examples/02_benchmarks/performance_testing/benchmark.py --no-cache
+PYTHONPATH=src python3 benchmarks/llm_benchmark.py --no-cache
 
 # The --no-cache flag disables:
 # - Cache lookups (exact, fuzzy, similarity)
@@ -107,7 +107,7 @@ Here's a sample benchmark output:
 2. **benchmark_results.csv**: CSV file suitable for plotting in Excel or other tools
 3. **sequential_benchmark_results.json**: Results from the sequential commands example
 
-When using the LLM benchmark (`examples/02_benchmarks/performance_testing/benchmark.py`), additional files are generated in `benchmark_output/`:
+When using the canonical LLM benchmark (`benchmarks/llm_benchmark.py`), additional files are generated in `benchmark_output/`:
 
 1. **benchmark_results.json**: Raw per-query results + aggregated accuracy stats
 2. **benchmark_results.html**: Interactive charts
@@ -152,7 +152,7 @@ Based on benchmark results, you can:
 
 ### Adding New Commands
 
-Edit `examples/02_benchmarks/performance_testing/benchmark.py` and modify the command lists:
+Edit `benchmarks/llm_benchmark.py` for the canonical benchmark, or `examples/02_benchmarks/performance_testing/benchmark.py` for the lightweight adapter example, and modify the command lists:
 
 ```python
 commands = {
@@ -210,7 +210,7 @@ Add benchmarking to your CI pipeline:
 # .github/workflows/benchmark.yml
 - name: Run Benchmark
   run: |
-    python3 examples/02_benchmarks/performance_testing/benchmark.py
+    python3 benchmarks/llm_benchmark.py
     
 - name: Upload Results
   uses: actions/upload-artifact@v3

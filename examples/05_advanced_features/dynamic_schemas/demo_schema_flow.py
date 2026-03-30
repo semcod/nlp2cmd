@@ -30,11 +30,12 @@ def demonstrate_schema_flow():
     
     # Step 1: Initialize registry
     print("\n1. Initializing Schema Registry...")
+    command_schemas_dir = PROJECT_ROOT / "command_schemas"
     registry = DynamicSchemaRegistry(
         use_per_command_storage=True,
-        storage_dir="./command_schemas"
+        storage_dir=str(command_schemas_dir)
     )
-    print(f"   Storage location: ./command_schemas")
+    print(f"   Storage location: {command_schemas_dir}")
     print(f"   Loaded schemas: {len(registry.schemas)}")
     
     # Step 2: Extract schema from command
@@ -54,7 +55,7 @@ def demonstrate_schema_flow():
     
     # Step 3: Show stored schema file
     print(f"\n3. Schema stored in file system...")
-    schema_file = Path("./command_schemas/commands") / f"{command}.json"
+    schema_file = command_schemas_dir / "commands" / f"{command}.json"
     if schema_file.exists():
         print(f"   File: {schema_file}")
         print(f"   Size: {schema_file.stat().st_size} bytes")
