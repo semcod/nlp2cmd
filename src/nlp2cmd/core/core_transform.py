@@ -527,11 +527,12 @@ class NLP2CMD:
         # Handle columns normalization
         if "columns" in normalized:
             columns = normalized["columns"]
+            quote_chars = '"\''
             if isinstance(columns, list):
                 # Quote column names
-                normalized["columns"] = [f'"{col.strip('"\'')}"' for col in columns]
+                normalized["columns"] = [f'"{str(col).strip(quote_chars)}"' for col in columns]
             elif isinstance(columns, str):
-                normalized["columns"] = f'"{columns.strip('"\'')}"'
+                normalized["columns"] = f'"{columns.strip(quote_chars)}"'
 
     def get_supported_intents(self) -> list[str]:
         """Get list of supported intents from the adapter."""
