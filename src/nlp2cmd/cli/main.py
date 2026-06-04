@@ -17,7 +17,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import Any, Optional
+from typing import Optional
 
 # Import click with fallback stubs
 try:
@@ -51,26 +51,16 @@ except ImportError:
 # Re-export InteractiveSession from its new location
 from nlp2cmd.cli.commands.interactive import InteractiveSession  # noqa: F401
 
-# Re-export handle_run_mode and _handle_run_query
-from nlp2cmd.cli.commands.run import (  # noqa: F401
-    handle_run_mode,
-    _handle_run_query,
-    _suggest_next_steps,
-)
+# Re-export handle_run_mode and keep _handle_run_query monkeypatch-compatible.
+from nlp2cmd.cli.commands import run as _run_commands
+from nlp2cmd.cli.helpers import ExecutionRunner  # noqa: F401
+
+
+def _handle_run_query(*args, **kwargs):
+    _run_commands.ExecutionRunner = ExecutionRunner
+    return _run_commands._handle_run_query(*args, **kwargs)
 
 # Re-export helpers used by the main() dispatcher
-from nlp2cmd.cli.helpers import (  # noqa: F401
-    get_adapter,
-    _looks_like_log_input,
-    _system_beep,
-    _timed_default_yes,
-    _shell_env_context,
-    _is_playwright_error,
-    _maybe_install_playwright,
-    _fallback_open_url,
-    _fallback_open_url_from_query,
-    ExecutionRunner,
-)
 
 
 # ---------------------------------------------------------------------------

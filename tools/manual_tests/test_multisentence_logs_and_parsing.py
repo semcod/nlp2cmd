@@ -6,12 +6,12 @@ import argparse
 import json
 import re
 import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Optional
 
 from nlp2cmd import NLP2CMD
-from nlp2cmd.adapters import DockerAdapter, KubernetesAdapter, ShellAdapter
+from nlp2cmd.adapters import ShellAdapter
 from nlp2cmd.environment import EnvironmentAnalyzer
 from nlp2cmd.feedback import FeedbackAnalyzer, FeedbackResult
 from nlp2cmd.generation.pipeline import RuleBasedPipeline

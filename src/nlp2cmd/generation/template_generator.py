@@ -12,7 +12,6 @@ import getpass
 import json
 import os
 import re
-from pathlib import Path
 
 from nlp2cmd.utils.data_files import find_data_files
 from nlp2cmd.generation.templates import (

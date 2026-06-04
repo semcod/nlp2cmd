@@ -8,20 +8,17 @@ into a complete NL → DSL pipeline without LLM.
 from __future__ import annotations
 
 import json
-import os
 import re
 import time
-from pathlib import Path
 from typing import Any, Optional
 
 from nlp2cmd.utils.data_files import data_file_write_path
 from nlp2cmd.generation.keywords.keyword_detector import KeywordIntentDetector, DetectionResult
-from nlp2cmd.generation.regex import RegexEntityExtractor, ExtractionResult
-from nlp2cmd.generation.template_generator import TemplateGenerator, TemplateResult
+from nlp2cmd.generation.regex import ExtractionResult
+from nlp2cmd.generation.template_generator import TemplateGenerator
 from nlp2cmd.generation.pipeline_components import (
     PipelineResult,
     PipelineMetrics,
-    SimpleExecutionPlan,
     _create_default_extractor,
     _DEFAULT_USE_ENHANCED_CONTEXT,
 )

@@ -5,7 +5,7 @@ import csv
 import subprocess
 import re
 from pathlib import Path
-from typing import List, Tuple, Optional
+from typing import List, Optional
 
 
 def load_prompts(prompt_file: str = './data/prompt.txt') -> List[str]:

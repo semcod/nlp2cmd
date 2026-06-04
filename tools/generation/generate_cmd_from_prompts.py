@@ -2,12 +2,9 @@
 """Generate cmd.csv from prompt.txt using NLP2CMD with version detection."""
 
 import csv
-import subprocess
-import re
 import sys
 from pathlib import Path
-from typing import List, Tuple, Optional, Dict
-import json
+from typing import Tuple, Optional
 
 # Add src to path
 sys.path.insert(0, './src')
