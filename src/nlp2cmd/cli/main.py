@@ -19,11 +19,51 @@ import time
 from pathlib import Path
 from typing import Optional
 
-# Import click with fallback stubs
+# Import click with fallback stubs (service mode must not crash if click missing)
 try:
-    import click
+    import click as _click_mod
+    click = _click_mod
 except Exception:  # pragma: no cover
     click = None  # type: ignore
+
+
+def _ensure_click_stub() -> None:
+    """Minimal click API so decorators work when click is unavailable."""
+    global click
+    if click is not None and hasattr(click, "group"):
+        return
+
+    class _ClickStub:
+        @staticmethod
+        def group(*_args, **_kwargs):
+            def decorator(func):
+                return func
+            return decorator
+
+        @staticmethod
+        def command(*_args, **_kwargs):
+            def decorator(func):
+                return func
+            return decorator
+
+        @staticmethod
+        def option(*_args, **_kwargs):
+            def decorator(func):
+                return func
+            return decorator
+
+        class Choice:
+            def __init__(self, _choices, **_kwargs):
+                pass
+
+        class Path:
+            def __init__(self, *_args, **_kwargs):
+                pass
+
+    click = _ClickStub()  # type: ignore[assignment]
+
+
+_ensure_click_stub()
 
 # Import rich console
 try:
@@ -259,15 +299,6 @@ def _run_preflight_checks(console, verbose: bool = False, auto_fix: bool = False
                 console.print("[dim]   Skipping auto-fix. You can run 'nlp2cmd doctor --get-token' later.[/dim]\n")
     
     return True  # Continue with task
-
-
-# Add command methods to main when click is not available
-if not hasattr(click, 'Group'):
-    def _stub_command(*args, **kwargs):
-        def decorator(func):
-            return func
-        return decorator
-    # Apply the stub command method immediately after main function is defined
 
 
 @click.group(invoke_without_command=True)
