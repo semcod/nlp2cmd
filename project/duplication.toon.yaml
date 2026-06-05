@@ -1,12 +1,12 @@
-# redup/duplication | 153 groups | 969f 252267L | 2026-06-05
+# redup/duplication | 153 groups | 970f 252295L | 2026-06-05
 
 SUMMARY:
-  files_scanned: 969
-  total_lines:   252267
+  files_scanned: 970
+  total_lines:   252295
   dup_groups:    153
   dup_fragments: 524
   saved_lines:   6953
-  scan_ms:       12037
+  scan_ms:       12159
 
 HOTSPOTS[7] (files with most duplication):
   webops/voice_service.py  dup=752L  groups=12  frags=12  (0.3%)
@@ -272,7 +272,7 @@ DUPLICATES[153] (ranked by impact):
       examples/03_integrations/toon_format/simple_demo.py:14-51  (demo_basic_usage)
       examples/04_domain_specific/bioinformatics/complete_examples.py:196-231  (demo_advanced_features)
   [7b363400b83f0fb8] ! EXAC  _get_router  L=9 N=5 saved=36 sim=1.00
-      src/nlp2cmd/skills/drawing/draw_navigation_skill.py:49-57  (_get_router)
+      src/nlp2cmd/skills/drawing/draw_navigation_skill.py:50-58  (_get_router)
       src/nlp2cmd/skills/drawing/draw_object.py:133-140  (_get_router)
       src/nlp2cmd/skills/drawing/draw_validation_skill.py:64-71  (_get_router)
       src/nlp2cmd/skills/drawing/text_to_shape.py:211-219  (_get_router)
@@ -343,7 +343,7 @@ DUPLICATES[153] (ranked by impact):
       src/nlp2cmd/orchestration/metrics_collector.py:44-48  (get_workspace)
       src/nlp2cmd/orchestration/path_optimizer.py:44-48  (get_workspace)
       src/nlp2cmd/orchestration/step_metric.py:44-48  (get_workspace)
-      src/nlp2cmd/orchestration/task_metric.py:44-48  (get_workspace)
+      src/nlp2cmd/orchestration/task_metric.py:46-50  (get_workspace)
   [02f5ba69c51d6a75] ! STRU  treewidth_min_fill_in  L=17 N=3 saved=34 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/algorithms/approximation/treewidth.py:69-85  (treewidth_min_fill_in)
       networkx-3.6.1-py3-none-any/networkx/utils/decorators.py:264-308  (np_random_state)
@@ -396,7 +396,7 @@ DUPLICATES[153] (ranked by impact):
       networkx-3.6.1-py3-none-any/networkx/readwrite/leda.py:23-46  (read_leda)
       networkx-3.6.1-py3-none-any/networkx/readwrite/p2g.py:64-84  (read_p2g)
   [947e32c782260153]   EXAC  _parse_json  L=23 N=2 saved=23 sim=1.00
-      src/nlp2cmd/skills/drawing/draw_navigation_skill.py:457-479  (_parse_json)
+      src/nlp2cmd/skills/drawing/draw_navigation_skill.py:458-480  (_parse_json)
       src/nlp2cmd/skills/drawing/draw_object.py:371-393  (_parse_json)
   [7d7458ce4574c173]   STRU  is_bipartite  L=23 N=2 saved=23 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/algorithms/bipartite/basic.py:88-110  (is_bipartite)

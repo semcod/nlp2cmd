@@ -1,6 +1,6 @@
 # code2llm call graph | /home/tom/github/wronai/nlp2cmd
-# generated in 0.31s
-# nodes: 343 | edges: 500 | modules: 139
+# generated in 0.35s
+# nodes: 312 | edges: 500 | modules: 114
 # CC̄=5.1
 
 HUBS[20]:
@@ -8,10 +8,6 @@ HUBS[20]:
     CC=0  in:4971  out:0  total:4971
   src.nlp2cmd.cli.commands.examples.ExamplesRegistry.list
     CC=4  in:142  out:2  total:144
-  examples.10_online_code_editors.03_adaptive_code.main
-    CC=37  in:0  out:133  total:133
-  examples.10_online_code_editors.02_mycompiler_run.main
-    CC=32  in:0  out:116  total:116
   examples._example_helpers.print_rule
     CC=2  in:106  out:1  total:107
   src.nlp2cmd.executor.execution_context.ExecutionContext.set
@@ -20,8 +16,6 @@ HUBS[20]:
     CC=11  in:0  out:93  total:93
   examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main
     CC=12  in:0  out:87  total:87
-  examples.10_online_code_editors.04_jsfiddle_frontend.main
-    CC=19  in:0  out:82  total:82
   examples.01_basics.sql_basics.workflows.main
     CC=10  in:0  out:81  total:81
   examples._verbose_helper.vlog
@@ -36,14 +30,20 @@ HUBS[20]:
     CC=5  in:0  out:68  total:68
   examples.02_benchmarks.sequential_testing.benchmark.main
     CC=6  in:0  out:67  total:67
-  examples.04_domain_specific._demo_helpers.print_metrics
-    CC=9  in:57  out:10  total:67
   examples.09_online_drawing.05_autonomous.run.run_autonomous
     CC=18  in:1  out:65  total:66
   examples.09_online_drawing._old.04_object_database_drawing.main
     CC=18  in:0  out:66  total:66
   examples.09_online_drawing.06_visual_validator.run.draw_and_validate
     CC=21  in:2  out:62  total:64
+  examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous
+    CC=12  in:1  out:59  total:60
+  examples.01_basics.sql_basics.advanced.main
+    CC=2  in:0  out:60  total:60
+  examples.03_integrations.pipelines.infrastructure_health.main
+    CC=19  in:0  out:59  total:59
+  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_schema_flow
+    CC=6  in:1  out:56  total:57
 
 MODULES:
   examples.01_basics.app2schema.example  [1 funcs]
@@ -64,6 +64,18 @@ MODULES:
     get_command_for_task  CC=1  out:1
     main  CC=2  out:13
     run_nlp2cmd_command  CC=6  out:6
+  examples.01_basics.shell_fundamentals._environment_sections  [9 funcs]
+    print_command_validation  CC=4  out:6
+    print_config_files  CC=6  out:14
+    print_export_preview  CC=6  out:15
+    print_full_report  CC=3  out:6
+    print_resources  CC=3  out:31
+    print_section_header  CC=1  out:3
+    print_service_status  CC=6  out:5
+    print_system_info  CC=2  out:10
+    print_tool_detection  CC=11  out:11
+  examples.01_basics.shell_fundamentals.environment_analysis  [1 funcs]
+    main  CC=6  out:23
   examples.01_basics.shell_fundamentals.example  [1 funcs]
     main  CC=7  out:17
   examples.01_basics.shell_fundamentals.feedback_loop  [9 funcs]
@@ -176,8 +188,17 @@ MODULES:
     main  CC=3  out:19
   examples.03_integrations.web_development.05_infrastructure_management.demo  [1 funcs]
     main  CC=2  out:19
-  examples.03_integrations.web_development._demo_helpers  [1 funcs]
+  examples.03_integrations.web_development._demo_helpers  [17 funcs]
+    dispatch_management_command  CC=2  out:7
+    handle_docker_execution  CC=4  out:11
+    print_batch_banner  CC=1  out:7
     print_command_result  CC=9  out:17
+    print_config  CC=4  out:6
+    print_containers  CC=5  out:6
+    print_docker_result  CC=4  out:11
+    print_execution_summary  CC=5  out:10
+    print_files_saved  CC=2  out:3
+    show_container_logs  CC=2  out:3
   examples.03_integrations.web_development.demo  [6 funcs]
     _maybe_save_deployment_plan  CC=4  out:6
     _print_generated_files  CC=5  out:7
@@ -185,6 +206,17 @@ MODULES:
     demo_nlp_commands  CC=9  out:22
     main  CC=9  out:19
     run_example  CC=4  out:22
+  examples.03_integrations.web_development.demo_auto  [3 funcs]
+    interactive_mode  CC=12  out:30
+    run_demo_with_test  CC=12  out:46
+    troubleshoot_and_fix  CC=11  out:23
+  examples.03_integrations.web_development.demo_batch  [6 funcs]
+    _cleanup  CC=3  out:6
+    _execute_command  CC=2  out:11
+    _load_commands  CC=4  out:5
+    _print_batch_result  CC=3  out:8
+    _print_final_status  CC=5  out:8
+    run_batch_demo  CC=5  out:23
   examples.03_integrations.web_development.docker_manager  [4 funcs]
     __init__  CC=1  out:3
     show_logs  CC=13  out:19
@@ -192,60 +224,6 @@ MODULES:
     stop_services  CC=3  out:4
   examples.03_integrations.web_development.nlp2_cmd_web_controller  [1 funcs]
     save_full_deployment_plan  CC=7  out:13
-  examples.04_domain_specific._demo_helpers  [11 funcs]
-    print_demo_header  CC=1  out:1
-    print_fallback_note  CC=1  out:1
-    print_full_result  CC=3  out:9
-    print_metrics  CC=9  out:10
-    print_projected  CC=4  out:4
-    print_rule  CC=2  out:1
-    print_separator  CC=2  out:3
-    print_simple_result  CC=2  out:4
-    project_sample  CC=10  out:9
-    run_thermo_demo  CC=1  out:3
-  examples.04_domain_specific.api_key_prompts  [2 funcs]
-    run_all_tests  CC=12  out:18
-    test_prompt  CC=15  out:15
-  examples.04_domain_specific.energy.example  [4 funcs]
-    demo_gas_network  CC=1  out:4
-    demo_renewable_integration  CC=1  out:4
-    demo_unit_commitment  CC=1  out:4
-    demo_water_distribution  CC=1  out:4
-  examples.04_domain_specific.polish_llm_integration.01_pdf_extraction.demo  [1 funcs]
-    main  CC=2  out:22
-  examples.04_domain_specific.polish_llm_integration.02_text_chunking.demo  [1 funcs]
-    main  CC=3  out:29
-  examples.04_domain_specific.polish_llm_integration.03_llm_search.demo  [2 funcs]
-    _calculate_relevance  CC=2  out:9
-    main  CC=6  out:23
-  examples.04_domain_specific.polish_llm_integration.04_results_ranking.demo  [1 funcs]
-    main  CC=5  out:40
-  examples.04_domain_specific.polish_llm_integration.05_integration.demo  [1 funcs]
-    main  CC=2  out:27
-  examples.04_domain_specific.polish_llm_integration.download_bielik  [1 funcs]
-    download_bielik  CC=6  out:28
-  examples.04_domain_specific.polish_llm_integration.example_pdf_search  [4 funcs]
-    __init__  CC=1  out:1
-    __init__  CC=6  out:12
-    show_configuration_guide  CC=1  out:3
-    test_pdf_search_queries  CC=9  out:36
-  examples.04_domain_specific.polish_llm_integration.mock_test_polish_llm  [5 funcs]
-    __init__  CC=1  out:2
-    process_query  CC=5  out:14
-    show_real_setup_instructions  CC=1  out:3
-    test_integration_pattern  CC=8  out:14
-    test_polish_queries  CC=10  out:24
-  examples.04_domain_specific.polish_llm_integration.setup_and_test_bielik  [7 funcs]
-    check_dependencies  CC=9  out:32
-    download_model  CC=7  out:19
-    run_interactive_demo  CC=8  out:14
-    setup_complete  CC=1  out:14
-    setup_environment  CC=2  out:7
-    test_integration  CC=7  out:24
-    main  CC=6  out:15
-  examples.04_domain_specific.run_all  [2 funcs]
-    print_summary_table  CC=2  out:5
-    run_all_demos  CC=5  out:27
   examples.05_advanced_features.dynamic_schemas.demo_enhanced  [1 funcs]
     main  CC=12  out:49
   examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd  [3 funcs]
@@ -303,14 +281,6 @@ MODULES:
     example_routing  CC=4  out:12
     example_scheduling  CC=3  out:14
     main  CC=3  out:14
-  examples.06_desktop_automation.06_env_extract.run  [1 funcs]
-    main  CC=5  out:27
-  examples.06_desktop_automation.07_canvas_drawing.run  [1 funcs]
-    main  CC=5  out:40
-  examples.06_desktop_automation.08_captcha_solver.run  [1 funcs]
-    main  CC=7  out:42
-  examples.06_desktop_automation.09_complex_commands.run  [1 funcs]
-    main  CC=16  out:38
   examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas  [4 funcs]
     demonstrate_dual_versions  CC=4  out:34
     demonstrate_schema_updates  CC=11  out:41
@@ -323,12 +293,8 @@ MODULES:
     old_way_examples  CC=1  out:9
     performance_comparison  CC=1  out:20
     practical_examples  CC=1  out:7
-  examples.07_stream_protocols.example_http_api  [1 funcs]
-    main  CC=3  out:21
   examples.07_stream_protocols.example_libvirt  [1 funcs]
     main  CC=3  out:30
-  examples.07_stream_protocols.example_multi_stream  [1 funcs]
-    main  CC=7  out:23
   examples.07_stream_protocols.example_rtsp  [1 funcs]
     main  CC=3  out:22
   examples.07_stream_protocols.example_ssh  [1 funcs]
@@ -360,10 +326,6 @@ MODULES:
     scan  CC=1  out:2
     setup_all  CC=5  out:7
     setup_providers  CC=8  out:18
-  examples.08_llm_validation.benchmark_validator  [3 funcs]
-    compare_benchmarks  CC=16  out:9
-    main  CC=7  out:17
-    run_benchmark  CC=28  out:43
   examples.09_online_drawing.01_draw_chat.run  [1 funcs]
     main  CC=9  out:46
   examples.09_online_drawing.02_picsart.run  [1 funcs]
@@ -440,30 +402,6 @@ MODULES:
     _dismiss_selector_popups  CC=3  out:2
     _dismiss_text_popups  CC=3  out:2
     _inspect_required_element  CC=7  out:5
-  examples.10_online_code_editors.01_codepen_live_nlp2cmd  [2 funcs]
-    get_command_for_preset  CC=1  out:1
-    main  CC=1  out:13
-  examples.10_online_code_editors.02_mycompiler_run  [1 funcs]
-    main  CC=32  out:116
-  examples.10_online_code_editors.02_mycompiler_run_nlp2cmd  [2 funcs]
-    get_command_for_code  CC=1  out:1
-    main  CC=1  out:15
-  examples.10_online_code_editors.03_adaptive_code  [3 funcs]
-    detect_task  CC=4  out:2
-    generate_code_with_llm  CC=9  out:13
-    main  CC=37  out:133
-  examples.10_online_code_editors.03_adaptive_code_nlp2cmd  [1 funcs]
-    main  CC=1  out:12
-  examples.10_online_code_editors.04_jsfiddle_frontend  [1 funcs]
-    main  CC=19  out:82
-  examples.10_online_code_editors.04_jsfiddle_frontend_nlp2cmd  [2 funcs]
-    get_command_for_preset  CC=1  out:1
-    main  CC=1  out:13
-  examples.10_online_code_editors.05_dynamic_executor  [2 funcs]
-    build_prompt  CC=3  out:2
-    main  CC=8  out:42
-  examples.10_online_code_editors.05_dynamic_executor_nlp2cmd  [1 funcs]
-    main  CC=1  out:12
   examples._dynamic_orchestrator  [2 funcs]
     __init__  CC=1  out:2
     execute_task  CC=4  out:13

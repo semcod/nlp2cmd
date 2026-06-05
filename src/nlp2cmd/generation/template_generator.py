@@ -488,19 +488,56 @@ class TemplateGenerator:
 
     def _build_shell_find_size_flag(self, entities: dict[str, Any]) -> str:
         size = entities.get('size')
+        size_parsed = entities.get('size_parsed')
         text = str(entities.get('text', ''))
         size_operator = str(entities.get('size_operator') or entities.get('operator') or '>')
-        
+
+        def _find_prefix(op: str) -> str:
+            if op in ('>', '>=', '+'):
+                return '+'
+            if op in ('<', '<=', '-'):
+                return '-'
+            return '+'
+
+        def _unit_letter(unit: str) -> str:
+            unit_upper = (unit or 'M').upper()
+            if unit_upper in {'KB', 'K'}:
+                return 'k'
+            if unit_upper in {'MB', 'M'}:
+                return 'M'
+            if unit_upper in {'GB', 'G'}:
+                return 'G'
+            if unit_upper in {'TB', 'T'}:
+                return 'T'
+            if unit_upper in {'B', 'BYTE', 'BYTES'}:
+                return 'c'
+            return 'M'
+
+        def _format_value(val: Any, unit: str) -> str:
+            value = float(val)
+            value_int = int(value) if value.is_integer() else int(round(value))
+            return f"{value_int}{_unit_letter(unit)}"
+
+        parsed = size_parsed if isinstance(size_parsed, dict) else (
+            size if isinstance(size, dict) else None
+        )
+        if parsed and parsed.get('value') is not None:
+            prefix = _find_prefix(size_operator)
+            return f"-size {prefix}{_format_value(parsed['value'], parsed.get('unit', 'M'))}"
+
         if size:
             if isinstance(size, str):
-                import re
-                m = re.match(r'([<>]=?)(\d+)([KMGT]?)(B?)', size.upper())
+                m = re.match(r'([<>]=?)(\d+(?:\.\d+)?)\s*([KMGT]?B?)', size.upper())
                 if m:
-                    sign = m.group(1)
-                    val = m.group(2)
-                    unit = m.group(3) or 'c'
-                    return f"-size {sign}{val}{unit}"
-            return f"-size {size_operator}{size}"
+                    prefix = _find_prefix(m.group(1))
+                    return f"-size {prefix}{_format_value(m.group(2), m.group(3) or 'M')}"
+                m = re.match(r'(\d+(?:\.\d+)?)\s*([KMGT]?B?)', size.upper())
+                if m:
+                    prefix = _find_prefix(size_operator)
+                    return f"-size {prefix}{_format_value(m.group(1), m.group(2) or 'M')}"
+            if isinstance(size, (int, float)):
+                prefix = _find_prefix(size_operator)
+                return f"-size {prefix}{_format_value(size, 'M')}"
         elif 'large' in text.lower() or 'big' in text.lower():
             return "-size +100M"
         elif 'small' in text.lower():

@@ -1,5 +1,5 @@
-# code2llm | 980f 1785334L | python:709,json:153,shell:73,yaml:25,txt:11,yml:3,toml:1,ini:1 | 2026-06-05
-# generated in 0.64s
+# code2llm | 981f 1785367L | python:710,json:153,shell:73,yaml:25,txt:11,yml:3,ini:1,toml:1 | 2026-06-05
+# generated in 0.65s
 # CC̅=5.1 | critical:222/3862 | dups:0 | cycles:0
 
 HEALTH[20]:
@@ -204,7 +204,7 @@ LAYERS:
   │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←21
   │ resource_discovery         489L  3C   10m  CC=11     ←3
   │ !! environment_analyzer       486L  1C   15m  CC=15     ←0
-  │ draw_navigation_skill      479L  1C   15m  CC=12     ←0
+  │ draw_navigation_skill      480L  1C   15m  CC=12     ←0
   │ !! sql                        478L  3C   15m  CC=15     ←0
   │ firefox_sessions           472L  1C   11m  CC=14     ←0
   │ canvas_execution           461L  1C   20m  CC=8      ←0
@@ -294,7 +294,7 @@ LAYERS:
   │ forms                      252L  1C    8m  CC=6      ←0
   │ web_schema                 249L  0C    5m  CC=14     ←0
   │ !! svg_repo_fetcher           249L  1C    2m  CC=41     ←0
-  │ metrics_collector          248L  1C   10m  CC=6      ←0
+  │ metrics_collector          249L  1C   10m  CC=6      ←0
   │ scheduling_energy          247L  1C    8m  CC=8      ←0
   │ !! simple_icons_fetcher       245L  1C    2m  CC=41     ←0
   │ core_models                244L  5C   12m  CC=5      ←0
@@ -325,8 +325,8 @@ LAYERS:
   │ kee_pass_xc_reader         193L  1C    5m  CC=10     ←0
   │ pipeline_components        192L  3C   10m  CC=7      ←1
   │ !! svg_path_parser            189L  0C    1m  CC=41     ←0
+  │ function_cache             189L  1C    8m  CC=11     ←0
   │ session_logger             188L  1C   12m  CC=9      ←0
-  │ function_cache             188L  1C    8m  CC=11     ←0
   │ base                       186L  3C   10m  CC=7      ←5
   │ browser_setup              183L  2C    6m  CC=14     ←0
   │ resources                  176L  2C   11m  CC=4      ←2
@@ -351,10 +351,10 @@ LAYERS:
   │ rule_planner               148L  1C    8m  CC=11     ←0
   │ runner                     148L  1C    4m  CC=6      ←0
   │ __init__                   147L  1C   11m  CC=9      ←0
+  │ path_optimizer             144L  1C    7m  CC=9      ←0
   │ !! kubernetes_validator       143L  1C    2m  CC=58     ←0
   │ cli                        143L  0C    1m  CC=2      ←1
   │ !! browser_connector          143L  1C    4m  CC=21     ←0
-  │ path_optimizer             143L  1C    7m  CC=9      ←0
   │ events                     142L  7C    7m  CC=1      ←0
   │ queries                    142L  6C    7m  CC=7      ←0
   │ router                     140L  1C    7m  CC=4      ←0
@@ -422,12 +422,12 @@ LAYERS:
   │ base                        84L  1C    8m  CC=3      ←0
   │ draw_filled_circle_handler    84L  1C    2m  CC=5      ←0
   │ cli                         83L  0C    1m  CC=3      ←0
+  │ task_metric                 83L  1C    2m  CC=3      ←0
   │ drawing                     82L  0C    1m  CC=1      ←0
   │ langevin_config             82L  1C    0m  CC=0.0    ←0
-  │ task_metric                 81L  1C    2m  CC=3      ←0
+  │ fuzzy_schema_matcher        81L  0C    1m  CC=5      ←1
   │ page_schema_extractor       80L  1C    3m  CC=6      ←0
   │ browser_launcher            80L  1C    4m  CC=3      ←0
-  │ fuzzy_schema_matcher        78L  0C    1m  CC=5      ←1
   │ docker_templates            78L  0C    0m  CC=0.0    ←0
   │ shapes                      78L  0C    0m  CC=0.0    ←0
   │ !! http_stream                 77L  1C    3m  CC=15     ←0
@@ -451,14 +451,14 @@ LAYERS:
   │ base                        69L  3C    2m  CC=1      ←0
   │ fuzzy_schema_matcher_config    68L  1C    3m  CC=4      ←0
   │ blueprint_planner           68L  1C    2m  CC=5      ←0
+  │ credential                  68L  1C    1m  CC=4      ←0
   │ base                        67L  4C    3m  CC=1      ←0
+  │ !! engine                      67L  0C    1m  CC=17     ←0
   │ iot_templates               67L  0C    0m  CC=0.0    ←0
   │ button_extractor            66L  1C    2m  CC=9      ←0
   │ execution_context           66L  1C    3m  CC=8      ←62
-  │ credential                  65L  1C    1m  CC=4      ←0
   │ learned_rule                65L  1C    3m  CC=3      ←0
   │ learned_path                65L  1C    1m  CC=1      ←4
-  │ !! engine                      65L  0C    1m  CC=17     ←0
   │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
   │ base                        64L  3C    1m  CC=7      ←0
   │ base                        64L  3C    3m  CC=3      ←0
@@ -468,12 +468,12 @@ LAYERS:
   │ castle_generator            63L  1C    1m  CC=3      ←0
   │ spice_stream                63L  1C    3m  CC=4      ←0
   │ draw_svg_path_handler       63L  1C    1m  CC=5      ←0
+  │ step_metric                 63L  1C    1m  CC=1      ←0
   │ types                       63L  3C    0m  CC=0.0    ←0
   │ presentation_templates      63L  0C    0m  CC=0.0    ←0
   │ form_extractor              62L  1C    2m  CC=8      ←0
   │ copy_button_extractor       62L  1C    2m  CC=7      ←0
   │ match_result                62L  1C    2m  CC=4      ←0
-  │ step_metric                 62L  1C    1m  CC=1      ←0
   │ base                        62L  3C    3m  CC=3      ←0
   │ canvas_mixin                62L  1C    3m  CC=1      ←0
   │ execution_plan              61L  1C    2m  CC=2      ←0
@@ -498,7 +498,6 @@ LAYERS:
   │ rocket_generator            52L  1C    1m  CC=2      ←0
   │ step_def                    52L  1C    1m  CC=1      ←0
   │ butterfly_generator         50L  1C    1m  CC=5      ←0
-  │ metrics                     50L  0C    3m  CC=2      ←5
   │ step_diagnosis              50L  1C    0m  CC=0.0    ←0
   │ task_schema                 50L  1C    0m  CC=0.0    ←0
   │ bird_generator              49L  1C    1m  CC=2      ←0
@@ -528,16 +527,18 @@ LAYERS:
   │ navigation_result           43L  1C    0m  CC=0.0    ←0
   │ __init__                    43L  0C    0m  CC=0.0    ←0
   │ action_schema               41L  1C    3m  CC=3      ←0
+  │ canvas_info                 41L  1C    0m  CC=0.0    ←0
   │ docker_app                  41L  0C    0m  CC=0.0    ←0
   │ boat_generator              40L  1C    1m  CC=1      ←0
   │ __init__                    40L  0C    0m  CC=0.0    ←0
   │ mountain_generator          39L  1C    1m  CC=1      ←0
-  │ canvas_info                 38L  1C    0m  CC=0.0    ←0
+  │ object_assessment           38L  1C    0m  CC=0.0    ←0
   │ __init__                    38L  0C    0m  CC=0.0    ←0
   │ base                        37L  2C    3m  CC=1      ←0
   │ shape_generator             37L  1C    1m  CC=1      ←0
   │ task_plan                   37L  1C    1m  CC=1      ←0
   │ set_line_width_handler      37L  1C    1m  CC=2      ←0
+  │ metrics                     37L  0C    1m  CC=1      ←0
   │ correction_result           37L  1C    0m  CC=0.0    ←0
   │ drawing_plan                37L  1C    0m  CC=0.0    ←0
   │ optimization_report.yaml    37L  0C    0m  CC=0.0    ←0
@@ -547,7 +548,6 @@ LAYERS:
   │ crescent_generator          36L  1C    1m  CC=3      ←0
   │ sun_generator               36L  1C    1m  CC=3      ←0
   │ grid_generator              36L  1C    1m  CC=3      ←0
-  │ object_assessment           36L  1C    0m  CC=0.0    ←0
   │ correction_plan             36L  1C    0m  CC=0.0    ←0
   │ flower_generator            35L  1C    1m  CC=3      ←0
   │ drawing_step                35L  1C    0m  CC=0.0    ←0
@@ -555,6 +555,7 @@ LAYERS:
   │ ir                          34L  1C    1m  CC=1      ←0
   │ wave_generator              34L  1C    1m  CC=2      ←0
   │ correction_step             34L  1C    0m  CC=0.0    ←0
+  │ navigation_step             34L  1C    0m  CC=0.0    ←0
   │ tree_generator              33L  1C    1m  CC=2      ←0
   │ star_generator              33L  1C    1m  CC=2      ←0
   │ cross_generator             33L  1C    1m  CC=1      ←0
@@ -565,22 +566,22 @@ LAYERS:
   │ spiral_generator            32L  1C    1m  CC=2      ←0
   │ set_color_handler           32L  1C    1m  CC=2      ←0
   │ object_status               32L  1C    0m  CC=0.0    ←0
+  │ environment_report          32L  1C    0m  CC=0.0    ←0
   │ __init__                    32L  0C    0m  CC=0.0    ←0
   │ plan_step                   31L  1C    1m  CC=2      ←0
-  │ navigation_step             31L  1C    0m  CC=0.0    ←0
   │ resource                    31L  1C    0m  CC=0.0    ←0
   │ canvas_safety_policy        31L  1C    0m  CC=0.0    ←0
   │ __init__                    31L  0C    0m  CC=0.0    ←0
   │ house_generator             30L  1C    1m  CC=1      ←0
   │ ellipse_generator           30L  1C    1m  CC=2      ←0
   │ heart_generator             30L  1C    1m  CC=2      ←0
-  │ environment_report          30L  1C    0m  CC=0.0    ←0
   │ __init__                    30L  0C    0m  CC=0.0    ←0
   │ dot_generator               29L  1C    1m  CC=2      ←0
   │ circle_generator            29L  1C    1m  CC=2      ←0
   │ navigation                  29L  0C    0m  CC=0.0    ←0
   │ __init__                    29L  0C    0m  CC=0.0    ←0
   │ action_result               28L  1C    2m  CC=1      ←0
+  │ service_info                28L  1C    0m  CC=0.0    ←0
   │ composite_validator         27L  1C    2m  CC=2      ←0
   │ octagon_generator           27L  1C    1m  CC=2      ←0
   │ hexagon_generator           27L  1C    1m  CC=2      ←0
@@ -600,7 +601,6 @@ LAYERS:
   │ get_canvas_center_handler    25L  1C    1m  CC=3      ←0
   │ param_schema                25L  1C    0m  CC=0.0    ←0
   │ param_type                  25L  1C    0m  CC=0.0    ←0
-  │ service_info                25L  1C    0m  CC=0.0    ←0
   │ evolutionary_orchestrator    25L  0C    0m  CC=0.0    ←0
   │ __init__                    24L  0C    0m  CC=0.0    ←0
   │ __init__                    24L  0C    0m  CC=0.0    ←0
@@ -618,8 +618,9 @@ LAYERS:
   │ get_registry                20L  0C    1m  CC=2      ←6
   │ __init__                    20L  0C    0m  CC=0.0    ←0
   │ object_fetcher              19L  0C    0m  CC=0.0    ←0
-  │ __init__                    19L  0C    0m  CC=0.0    ←0
   │ canvas_constants            19L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ metrics_helpers             18L  0C    2m  CC=2      ←5
   │ wait_for_canvas_handler     17L  1C    1m  CC=1      ←0
   │ __init__                    17L  0C    0m  CC=0.0    ←0
   │ __init__                    17L  0C    0m  CC=0.0    ←0
@@ -1155,36 +1156,36 @@ COUPLING:
    examples.08_api_key_management                              104                                                                                                                                                                    9                                                                                                                                                                                                                                                                      ──                                   !! fan-out
      examples.07_stream_protocols                               90                                                                                                                                                                    6                                                                                                                                                                                                                                                                                                       ──  !! fan-out
   CYCLES: none
-  HUB: src.nlp2cmd/ (fan-in=110)
-  HUB: examples.04_domain_specific/ (fan-in=5)
-  HUB: examples/ (fan-in=275)
   HUB: src.app2schema/ (fan-in=12)
   HUB: test_nlp2cmd_commands/ (fan-in=4971)
+  HUB: examples.04_domain_specific/ (fan-in=5)
+  HUB: src.nlp2cmd/ (fan-in=110)
+  HUB: examples/ (fan-in=275)
+  SMELL: test_screenshots/ fan-out=62 → split needed
+  SMELL: examples.02_benchmarks/ fan-out=72 → split needed
+  SMELL: scripts/ fan-out=19 → split needed
+  SMELL: tools.analysis/ fan-out=77 → split needed
   SMELL: examples.05_advanced_features/ fan-out=485 → split needed
-  SMELL: examples.08_llm_validation/ fan-out=24 → split needed
-  SMELL: examples.06_desktop_automation/ fan-out=51 → split needed
+  SMELL: examples.03_integrations/ fan-out=852 → split needed
   SMELL: examples.08_api_key_management/ fan-out=113 → split needed
   SMELL: tools.schema/ fan-out=132 → split needed
-  SMELL: examples.02_benchmarks/ fan-out=72 → split needed
-  SMELL: examples.06_tools_and_utilities/ fan-out=137 → split needed
-  SMELL: src.nlp2cmd/ fan-out=357 → split needed
-  SMELL: examples.04_domain_specific/ fan-out=856 → split needed
-  SMELL: examples/ fan-out=85 → split needed
-  SMELL: examples.07_stream_protocols/ fan-out=96 → split needed
+  SMELL: examples.08_llm_validation/ fan-out=24 → split needed
+  SMELL: docker.novnc/ fan-out=30 → split needed
+  SMELL: examples.10_online_code_editors/ fan-out=216 → split needed
   SMELL: tools.generation/ fan-out=56 → split needed
-  SMELL: examples.09_online_drawing/ fan-out=413 → split needed
-  SMELL: scripts/ fan-out=19 → split needed
-  SMELL: examples.01_basics/ fan-out=341 → split needed
-  SMELL: scripts.thermodynamic/ fan-out=170 → split needed
   SMELL: benchmarks/ fan-out=85 → split needed
   SMELL: tools.manual_tests/ fan-out=11 → split needed
-  SMELL: scripts.testing/ fan-out=31 → split needed
-  SMELL: examples.03_integrations/ fan-out=852 → split needed
-  SMELL: test_screenshots/ fan-out=62 → split needed
   SMELL: scripts.maintenance/ fan-out=598 → split needed
-  SMELL: docker.novnc/ fan-out=30 → split needed
-  SMELL: tools.analysis/ fan-out=77 → split needed
-  SMELL: examples.10_online_code_editors/ fan-out=216 → split needed
+  SMELL: examples.06_desktop_automation/ fan-out=51 → split needed
+  SMELL: scripts.thermodynamic/ fan-out=170 → split needed
+  SMELL: examples.06_tools_and_utilities/ fan-out=137 → split needed
+  SMELL: examples.04_domain_specific/ fan-out=856 → split needed
+  SMELL: src.nlp2cmd/ fan-out=357 → split needed
+  SMELL: scripts.testing/ fan-out=31 → split needed
+  SMELL: examples.07_stream_protocols/ fan-out=96 → split needed
+  SMELL: examples/ fan-out=85 → split needed
+  SMELL: examples.01_basics/ fan-out=341 → split needed
+  SMELL: examples.09_online_drawing/ fan-out=413 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon

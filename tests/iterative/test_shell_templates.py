@@ -76,8 +76,7 @@ class TestShellTemplates:
         
         assert result.success
         assert 'find' in result.command
-        assert '100' in result.command
-        assert 'MB' in result.command
+        assert '-size +100M' in result.command
 
     def test_shell_find_exec_flag(self, generator):
         """Test find exec flag for list intent in text."""

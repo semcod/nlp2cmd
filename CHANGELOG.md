@@ -2959,6 +2959,29 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.15] - 2026-06-05
+
+### Docs
+- Update README.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/iterative/test_shell_templates.py
+
+### Other
+- Update .code2llm_cache/__init___1780650978395195992_3680.pkl
+- Update .code2llm_cache/__init___1780650978402443517_1118.pkl
+- Update .code2llm_cache/canvas_info_1780650445708798390_1163.pkl
+- Update .code2llm_cache/credential_1780650445260935288_1948.pkl
+- Update .code2llm_cache/draw_navigation_skill_1780650451673938690_18012.pkl
+- Update .code2llm_cache/engine_1780650467628103937_2077.pkl
+- Update .code2llm_cache/environment_report_1780650685780162456_799.pkl
+- Update .code2llm_cache/function_cache_1780650469014118295_6835.pkl
+- Update .code2llm_cache/fuzzy_schema_matcher_1780650444788867392_3383.pkl
+- Update .code2llm_cache/metrics_1780650443932693272_1142.pkl
+- ... and 23 more files
+
 ## [1.1.14] - 2026-06-05
 
 ### Docs

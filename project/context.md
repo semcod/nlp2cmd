@@ -5,11 +5,11 @@
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
 - **Primary Language**: python
-- **Languages**: python: 709, json: 153, shell: 73, yaml: 25, txt: 11
+- **Languages**: python: 710, json: 153, shell: 73, yaml: 25, txt: 11
 - **Analysis Mode**: static
 - **Total Functions**: 3862
 - **Total Classes**: 715
-- **Modules**: 980
+- **Modules**: 981
 - **Entry Points**: 3243
 
 ## Architecture by Module
@@ -466,6 +466,9 @@ Args:
     query: Natural language que
 - **Output to**: ActionIR, self.base_nlp.transform_ir, self.generator.generate_command, ActionIR, test_nlp2cmd_commands.print
 
+### examples.03_integrations.web_development._demo_helpers._run_subprocess
+- **Output to**: subprocess.run
+
 ### examples.03_integrations.web_development.nl_command_parser.NLCommandParser.parse
 > Parse natural language command.
 - **Output to**: text.lower, self._detect_intent, self._detect_service_type, self._extract_entities
@@ -497,6 +500,8 @@ Returns JSON-serializable result.
 
 ### examples.03_integrations.pipelines.infrastructure_health.mock_process_list
 > Mock: System process list.
+
+### examples.01_basics.shell_fundamentals._environment_sections.format_size
 
 ### examples.01_basics.docker_basics.file_repair.validate_file
 > Validate a file and print results.
@@ -550,14 +555,6 @@ Returns JSON-serializable result.
 ### src.nlp2cmd.monitoring.resources.format_last_metrics
 > Format metrics from last execution for display.
 - **Output to**: src.nlp2cmd.monitoring.resources.get_last_metrics, _monitor.format_metrics
-
-### src.nlp2cmd.monitoring.token_costs.TokenCostEstimator.format_estimate
-> Format token cost estimate for display.
-- **Output to**: None.join, lines.append
-
-### src.nlp2cmd.monitoring.token_costs.format_token_estimate
-> Format token cost estimate for display.
-- **Output to**: _estimator.format_estimate
 
 ## Behavioral Patterns
 
