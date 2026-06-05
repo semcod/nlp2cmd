@@ -21,7 +21,7 @@ from dataclasses import dataclass
 
 from nlp2cmd.vql.compiler.legacy_drawcommand import compile_to_events, program_to_commands
 from nlp2cmd.vql.compiler.nl_to_vql import nl_to_program
-from nlp2cmd.vql.renderers.svg import render_to_svg
+from nlp2cmd.vql.renderers.svg import render_to_png, render_to_svg
 from nlp2cmd.vql.schema.program import RenderTarget, VQLProgram
 from nlp2cmd.vql.validation.spec import VQLValidationReport, validate_program
 
@@ -65,6 +65,10 @@ class VQLFacade:
     def render_svg(self, program: VQLProgram) -> str:
         """Render a program to an SVG string."""
         return render_to_svg(program)
+
+    def render_png(self, program: VQLProgram, path: str, *, scale: float = 1.0) -> str:
+        """Render a program to a raster PNG file (requires the ``vql`` extra)."""
+        return render_to_png(program, path, scale=scale)
 
     def to_commands(self, program: VQLProgram):
         """Lower a program to the legacy ``DrawCommand`` sequence."""

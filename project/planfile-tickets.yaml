@@ -1,5 +1,4 @@
 source: code2llm
-# generated in 1.86s
 schema: code2llm.planfile_tickets.v1
 project_root: /home/tom/github/wronai/nlp2cmd
 tickets:
@@ -26684,5 +26683,231 @@ tickets:
   - src/nlp2cmd/web_schema/form_data_loader.py
   dedupe_key: 'code2llm:smell:god_function:src/nlp2cmd/web_schema/form_data_loader.py:1:God
     Module: src.nlp2cmd.web_schema.form_data_loader'
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_orchestration.TestComplexPlannerOrchestrator.test_template_still_works_as_fallback'
+  description: 'Test `tests.unit.test_orchestration.TestComplexPlannerOrchestrator.test_template_still_works_as_fallback`
+    took 38.81s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_orchestration.py
+  dedupe_key: test-optimization:tests.unit.test_orchestration.TestComplexPlannerOrchestrator:test_template_still_works_as_fallback
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_orchestration.TestComplexPlannerOrchestrator.test_orchestrator_plan_called'
+  description: 'Test `tests.unit.test_orchestration.TestComplexPlannerOrchestrator.test_orchestrator_plan_called`
+    took 14.90s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_orchestration.py
+  dedupe_key: test-optimization:tests.unit.test_orchestration.TestComplexPlannerOrchestrator:test_orchestrator_plan_called
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_orchestration.TestOrchestrator.test_step_failure_returns_error'
+  description: 'Test `tests.unit.test_orchestration.TestOrchestrator.test_step_failure_returns_error`
+    took 13.79s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_orchestration.py
+  dedupe_key: test-optimization:tests.unit.test_orchestration.TestOrchestrator:test_step_failure_returns_error
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_llm_router.TestSingleton.test_get_router_returns_same_instance'
+  description: 'Test `tests.unit.test_llm_router.TestSingleton.test_get_router_returns_same_instance`
+    took 3.12s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_llm_router.py
+  dedupe_key: test-optimization:tests.unit.test_llm_router.TestSingleton:test_get_router_returns_same_instance
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_thermodynamic.TestThermodynamicGeneratorIntegration.test_routing_generation'
+  description: 'Test `tests.unit.test_thermodynamic.TestThermodynamicGeneratorIntegration.test_routing_generation`
+    took 2.52s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_thermodynamic.py
+  dedupe_key: test-optimization:tests.unit.test_thermodynamic.TestThermodynamicGeneratorIntegration:test_routing_generation
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_orchestration.TestResultAnalyzer.test_clean_output_heuristic'
+  description: 'Test `tests.unit.test_orchestration.TestResultAnalyzer.test_clean_output_heuristic`
+    took 1.71s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_orchestration.py
+  dedupe_key: test-optimization:tests.unit.test_orchestration.TestResultAnalyzer:test_clean_output_heuristic
+- signal: slow_test_warning
+  title: 'Address slow test: tests.iterative.test_typos_and_variations.TestTyposAndVariations.test_edge_cases_and_ambiguity'
+  description: 'Test `tests.iterative.test_typos_and_variations.TestTyposAndVariations.test_edge_cases_and_ambiguity`
+    took 0.67s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/iterative/test_typos_and_variations.py
+  dedupe_key: test-optimization:tests.iterative.test_typos_and_variations.TestTyposAndVariations:test_edge_cases_and_ambiguity
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_adapters.TestBrowserAdapterTransformIR.test_transform_ir_dsl_kind_is_dom'
+  description: 'Test `tests.unit.test_adapters.TestBrowserAdapterTransformIR.test_transform_ir_dsl_kind_is_dom`
+    took 0.66s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_adapters.py
+  dedupe_key: test-optimization:tests.unit.test_adapters.TestBrowserAdapterTransformIR:test_transform_ir_dsl_kind_is_dom
+- signal: slow_test_warning
+  title: 'Address slow test: tests.unit.test_environment.TestEnvironmentAnalyzer.test_full_report'
+  description: 'Test `tests.unit.test_environment.TestEnvironmentAnalyzer.test_full_report`
+    took 0.63s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/unit/test_environment.py
+  dedupe_key: test-optimization:tests.unit.test_environment.TestEnvironmentAnalyzer:test_full_report
+- signal: slow_test_warning
+  title: 'Address slow test: tests.iterative.test_keyword_detection.TestKeywordDetectorPerformance.test_detection_latency'
+  description: 'Test `tests.iterative.test_keyword_detection.TestKeywordDetectorPerformance.test_detection_latency`
+    took 0.62s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/iterative/test_keyword_detection.py
+  dedupe_key: test-optimization:tests.iterative.test_keyword_detection.TestKeywordDetectorPerformance:test_detection_latency
+- signal: slow_test_warning
+  title: 'Address slow test: tests.iterative.test_template_customization.TestPipelinePerformance.test_pipeline_throughput'
+  description: 'Test `tests.iterative.test_template_customization.TestPipelinePerformance.test_pipeline_throughput`
+    took 0.60s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/iterative/test_template_customization.py
+  dedupe_key: test-optimization:tests.iterative.test_template_customization.TestPipelinePerformance:test_pipeline_throughput
+- signal: slow_test_warning
+  title: 'Address slow test: tests.integration.test_workflows.TestEnvironmentIntegration.test_full_environment_analysis'
+  description: 'Test `tests.integration.test_workflows.TestEnvironmentIntegration.test_full_environment_analysis`
+    took 0.60s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/integration/test_workflows.py
+  dedupe_key: test-optimization:tests.integration.test_workflows.TestEnvironmentIntegration:test_full_environment_analysis
+- signal: slow_test_warning
+  title: 'Address slow test: tests.iterative.test_iter_9_hybrid.TestHybridPerformance.test_batch_throughput'
+  description: 'Test `tests.iterative.test_iter_9_hybrid.TestHybridPerformance.test_batch_throughput`
+    took 0.58s to run.
+
+
+    Optimize its setup, mock slow external dependencies, or refactor its logic to
+    reduce overall test suite execution time.'
+  priority: medium
+  labels:
+  - llm-ready
+  - test-optimization
+  - slow-test
+  files:
+  - tests/iterative/test_iter_9_hybrid.py
+  dedupe_key: test-optimization:tests.iterative.test_iter_9_hybrid.TestHybridPerformance:test_batch_throughput
+- signal: slow_test_warning
+  title: Address high test suite startup overhead
+  description: 'The test suite startup and collection overhead is high: 5.67s.
+
+
+    This overhead is spent on imports, collection, and test environment initialization.
+
+    Analyze fixtures with broad scopes, reduce heavy imports on test collection, and
+    optimize pytest-xdist startup settings to decrease the delay before tests start
+    running.'
+  priority: high
+  labels:
+  - llm-ready
+  - test-optimization
+  - startup-overhead
+  files:
+  - pyproject.toml
+  dedupe_key: test-optimization:general:startup-overhead
 applied: []
 skipped: []

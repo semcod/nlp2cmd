@@ -16,7 +16,7 @@ from nlp2cmd.vql.compiler import (
 )
 from nlp2cmd.vql.facade import VQLFacade, VQLResult
 from nlp2cmd.vql.library import ColorResolver, ShapeRegistry
-from nlp2cmd.vql.renderers import render_program, render_to_svg
+from nlp2cmd.vql.renderers import render_program, render_to_png, render_to_svg
 from nlp2cmd.vql.schema import (
     RenderTarget,
     Scene,
@@ -43,6 +43,7 @@ __all__ = [
     "compile_to_events",
     # Renderers
     "render_to_svg",
+    "render_to_png",
     "render_program",
     # Library (shape/color primitives)
     "ColorResolver",

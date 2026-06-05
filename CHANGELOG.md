@@ -2959,6 +2959,19 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.17] - 2026-06-05
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/unit/test_vql.py
+
+### Other
+- Update .env.example
+- Update project/planfile-tickets.yaml
+- Update uv.lock
+
 ## [1.1.16] - 2026-06-05
 
 ### Docs

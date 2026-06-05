@@ -113,6 +113,30 @@ def test_render_to_svg_returns_markup():
     assert "path" in svg
 
 
+def test_render_to_png_without_cairosvg_raises_clear_error(tmp_path):
+    """If the 'vql' extra is missing, PNG export must fail with a helpful message."""
+    try:
+        import cairosvg  # noqa: F401
+        has_cairo = True
+    except ImportError:
+        has_cairo = False
+
+    from nlp2cmd.vql import render_to_png
+
+    program = nl_to_program("narysuj koło", width=200, height=200)
+    out = tmp_path / "out.png"
+
+    if has_cairo:
+        path = render_to_png(program, str(out))
+        assert out.exists() and out.stat().st_size > 0
+        # PNG magic bytes
+        assert out.read_bytes()[:8] == b"\x89PNG\r\n\x1a\n"
+        assert path == str(out)
+    else:
+        with pytest.raises(RuntimeError, match="vql"):
+            render_to_png(program, str(out))
+
+
 # ── Validation ─────────────────────────────────────────────────────────────────
 
 def test_validate_program_passes_with_matching_spec():

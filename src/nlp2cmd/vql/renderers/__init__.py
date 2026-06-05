@@ -1,7 +1,7 @@
 """VQL renderers — unified ``render(program)`` backends."""
 
 from nlp2cmd.vql.renderers.base import VQLRenderer, VQLRendererAdapter, render_program
-from nlp2cmd.vql.renderers.svg import SVGVQLRenderer, render_to_svg
+from nlp2cmd.vql.renderers.svg import SVGVQLRenderer, render_to_png, render_to_svg
 
 __all__ = [
     "VQLRenderer",
@@ -9,6 +9,7 @@ __all__ = [
     "render_program",
     "SVGVQLRenderer",
     "render_to_svg",
+    "render_to_png",
     "PlaywrightVQLRenderer",
 ]
 

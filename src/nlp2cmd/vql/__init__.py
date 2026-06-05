@@ -29,6 +29,7 @@ from nlp2cmd.vql.api import (
     nl_to_program,
     program_to_commands,
     render_program,
+    render_to_png,
     render_to_svg,
     validate_program,
 )
@@ -46,6 +47,7 @@ __all__ = [
     "commands_to_program",
     "compile_to_events",
     "render_to_svg",
+    "render_to_png",
     "render_program",
     "validate_program",
     "VQLValidationReport",
