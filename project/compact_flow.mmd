@@ -1,91 +1,112 @@
 flowchart TD
+%% generated in 0.06s
+    benchmarks__learning_benchmark["benchmarks.learning_benchmark<br/>6 funcs"]
+    benchmarks__llm_benchmark["benchmarks.llm_benchmark<br/>14 funcs"]
     benchmarks__thermodynamic_benchmark["benchmarks.thermodynamic_benchmark<br/>7 funcs"]
-    demos__demo_enhanced["demos.demo_enhanced<br/>1 funcs"]
-    demos__demo_intelligent_nlp2cmd["demos.demo_intelligent_nlp2cmd<br/>9 funcs"]
-    demos__demo_persistent_storage["demos.demo_persistent_storage<br/>2 funcs"]
-    demos__demo_schema_flow["demos.demo_schema_flow<br/>4 funcs"]
-    demos__demo_version_detection["demos.demo_version_detection<br/>4 funcs"]
-    demos__demo_versioned_schemas["demos.demo_versioned_schemas<br/>4 funcs"]
-    demos__schema_flow_demo["demos.schema_flow_demo<br/>4 funcs"]
-    demos__simple_schema_demo["demos.simple_schema_demo<br/>1 funcs"]
     docker__novnc["docker.novnc<br/>6 funcs"]
-    examples__01_basics["examples.01_basics<br/>28 funcs"]
-    examples__03_integrations["examples.03_integrations<br/>147 funcs"]
-    examples__04_domain_specific["examples.04_domain_specific<br/>178 funcs"]
-    examples__05_advanced_features["examples.05_advanced_features<br/>34 funcs"]
+    examples__01_basics["examples.01_basics<br/>46 funcs"]
+    examples__02_benchmarks["examples.02_benchmarks<br/>12 funcs"]
+    examples__03_integrations["examples.03_integrations<br/>162 funcs"]
+    examples__04_domain_specific["examples.04_domain_specific<br/>197 funcs"]
+    examples__05_advanced_features["examples.05_advanced_features<br/>67 funcs"]
     examples__06_desktop_automation["examples.06_desktop_automation<br/>5 funcs"]
-    examples__06_tools_and_utilities["examples.06_tools_and_utilities<br/>6 funcs"]
+    examples__06_tools_and_utilities["examples.06_tools_and_utilities<br/>10 funcs"]
     examples__07_stream_protocols["examples.07_stream_protocols<br/>5 funcs"]
-    examples__08_api_key_management["examples.08_api_key_management<br/>18 funcs"]
+    examples__08_api_key_management["examples.08_api_key_management<br/>21 funcs"]
     examples__08_llm_validation["examples.08_llm_validation<br/>3 funcs"]
-    examples__09_online_drawing["examples.09_online_drawing<br/>90 funcs"]
+    examples__09_online_drawing["examples.09_online_drawing<br/>101 funcs"]
     examples__10_online_code_editors["examples.10_online_code_editors<br/>25 funcs"]
     examples___dynamic_orchestrator["examples._dynamic_orchestrator<br/>2 funcs"]
     examples___example_helpers["examples._example_helpers<br/>2 funcs"]
-    examples___verbose_helper["examples._verbose_helper<br/>9 funcs"]
+    examples___verbose_helper["examples._verbose_helper<br/>11 funcs"]
+    examples___verbose_schema["examples._verbose_schema<br/>2 funcs"]
     examples__run_task["examples.run_task<br/>1 funcs"]
     examples__show_metrics["examples.show_metrics<br/>1 funcs"]
-    networkx_3__6["networkx-3.6<br/>1833 funcs"]
+    jspaint_app_test4["jspaint_app_test4<br/>1 funcs"]
     scripts__bump_version["scripts.bump_version<br/>1 funcs"]
-    scripts__maintenance["scripts.maintenance<br/>82 funcs"]
+    scripts__maintenance["scripts.maintenance<br/>115 funcs"]
     scripts__setup_external["scripts.setup_external<br/>1 funcs"]
+    scripts__testing["scripts.testing<br/>23 funcs"]
     scripts__thermodynamic["scripts.thermodynamic<br/>48 funcs"]
     src__app2schema["src.app2schema<br/>16 funcs"]
-    src__nlp2cmd["src.nlp2cmd<br/>2627 funcs"]
+    src__nlp2cmd["src.nlp2cmd<br/>2752 funcs"]
+    test_nlp2cmd_commands["test_nlp2cmd_commands<br/>5 funcs"]
+    test_screenshots__analyze_screenshots["test_screenshots.analyze_screenshots<br/>4 funcs"]
+    test_screenshots__compare_screenshots["test_screenshots.compare_screenshots<br/>4 funcs"]
     tools__analysis["tools.analysis<br/>8 funcs"]
     tools__generation["tools.generation<br/>27 funcs"]
+    tools__manual_tests["tools.manual_tests<br/>1 funcs"]
     tools__schema["tools.schema<br/>116 funcs"]
-    networkx_3__6 ==>|879| src__nlp2cmd
-    examples__03_integrations ==>|848| src__nlp2cmd
-    examples__04_domain_specific ==>|684| src__nlp2cmd
-    scripts__maintenance ==>|424| src__nlp2cmd
-    examples__09_online_drawing ==>|416| src__nlp2cmd
-    examples__01_basics ==>|292| src__nlp2cmd
-    scripts__thermodynamic ==>|165| src__nlp2cmd
-    examples__05_advanced_features ==>|161| src__nlp2cmd
-    examples__10_online_code_editors ==>|144| src__nlp2cmd
-    tools__schema ==>|132| src__nlp2cmd
-    examples__07_stream_protocols ==>|96| src__nlp2cmd
-    examples__08_api_key_management ==>|90| src__nlp2cmd
-    examples__01_basics ==>|83| examples___example_helpers
-    examples__06_tools_and_utilities ==>|79| src__nlp2cmd
-    tools__analysis ==>|77| src__nlp2cmd
+    examples__04_domain_specific ==>|795| test_nlp2cmd_commands
+    examples__03_integrations ==>|793| test_nlp2cmd_commands
+    scripts__maintenance ==>|593| test_nlp2cmd_commands
+    examples__05_advanced_features ==>|458| test_nlp2cmd_commands
+    examples__09_online_drawing ==>|377| test_nlp2cmd_commands
+    src__nlp2cmd ==>|355| test_nlp2cmd_commands
+    examples__01_basics ==>|266| test_nlp2cmd_commands
+    scripts__thermodynamic ==>|159| test_nlp2cmd_commands
+    examples__10_online_code_editors ==>|139| test_nlp2cmd_commands
+    examples__06_tools_and_utilities ==>|136| test_nlp2cmd_commands
+    tools__schema ==>|127| test_nlp2cmd_commands
+    examples__08_api_key_management ==>|104| test_nlp2cmd_commands
+    examples__07_stream_protocols ==>|90| test_nlp2cmd_commands
+    tools__analysis ==>|74| test_nlp2cmd_commands
     examples__10_online_code_editors ==>|72| examples___verbose_helper
-    src__nlp2cmd ==>|67| networkx_3__6
-    demos__demo_schema_flow ==>|65| src__nlp2cmd
-    demos__demo_version_detection ==>|65| src__nlp2cmd
-    demos__demo_versioned_schemas ==>|57| src__nlp2cmd
-    tools__generation ==>|56| src__nlp2cmd
-    demos__schema_flow_demo ==>|55| src__nlp2cmd
+    examples__02_benchmarks ==>|69| test_nlp2cmd_commands
+    examples__01_basics ==>|69| examples___example_helpers
+    tools__generation ==>|56| test_nlp2cmd_commands
     examples__04_domain_specific ==>|50| examples___example_helpers
-    examples__06_desktop_automation ==>|50| src__nlp2cmd
-    examples__03_integrations ==>|49| examples___example_helpers
-    benchmarks__thermodynamic_benchmark ==>|41| src__nlp2cmd
-    demos__demo_persistent_storage ==>|34| src__nlp2cmd
-    demos__simple_schema_demo ==>|33| src__nlp2cmd
-    docker__novnc ==>|30| src__nlp2cmd
-    examples__show_metrics ==>|27| src__nlp2cmd
-    demos__demo_enhanced ==>|26| src__nlp2cmd
-    demos__demo_intelligent_nlp2cmd ==>|26| src__nlp2cmd
-    examples___verbose_helper ==>|25| src__nlp2cmd
-    examples__08_llm_validation ==>|24| src__nlp2cmd
+    examples__03_integrations ==>|48| examples___example_helpers
+    examples__06_desktop_automation ==>|48| test_nlp2cmd_commands
+    test_screenshots__analyze_screenshots ==>|39| test_nlp2cmd_commands
+    benchmarks__thermodynamic_benchmark ==>|38| test_nlp2cmd_commands
+    docker__novnc ==>|30| test_nlp2cmd_commands
+    scripts__testing ==>|29| test_nlp2cmd_commands
+    examples__show_metrics ==>|26| test_nlp2cmd_commands
+    examples___verbose_helper ==>|25| test_nlp2cmd_commands
+    examples__08_llm_validation ==>|24| test_nlp2cmd_commands
     examples__09_online_drawing ==>|21| examples___verbose_helper
-    examples__run_task ==>|16| src__nlp2cmd
-    scripts__setup_external ==>|15| src__nlp2cmd
-    examples___dynamic_orchestrator ==>|11| src__nlp2cmd
+    benchmarks__llm_benchmark ==>|21| test_nlp2cmd_commands
+    test_screenshots__compare_screenshots ==>|21| test_nlp2cmd_commands
+    benchmarks__learning_benchmark ==>|18| test_nlp2cmd_commands
+    examples__run_task ==>|15| test_nlp2cmd_commands
+    examples__09_online_drawing ==>|15| src__nlp2cmd
+    scripts__setup_external ==>|15| test_nlp2cmd_commands
+    examples__03_integrations ==>|11| src__nlp2cmd
+    examples__04_domain_specific ==>|11| src__nlp2cmd
+    tools__manual_tests ==>|11| test_nlp2cmd_commands
+    examples___verbose_schema ==>|10| examples___verbose_helper
+    examples___dynamic_orchestrator ==>|10| test_nlp2cmd_commands
     examples__05_advanced_features ==>|10| examples___example_helpers
-    examples__09_online_drawing ==>|7| networkx_3__6
-    scripts__thermodynamic ==>|5| examples__04_domain_specific
+    examples__05_advanced_features ==>|10| src__nlp2cmd
+    examples__08_api_key_management ==>|9| src__nlp2cmd
+    examples__05_advanced_features ==>|7| src__app2schema
+    examples__07_stream_protocols ==>|6| src__nlp2cmd
+    scripts__thermodynamic ==>|6| src__nlp2cmd
     examples__01_basics ==>|5| src__app2schema
-    examples___example_helpers ==>|4| src__nlp2cmd
-    scripts__bump_version ==>|4| src__nlp2cmd
-    demos__demo_enhanced ==>|4| src__app2schema
+    examples__10_online_code_editors ==>|5| src__nlp2cmd
+    tools__schema ==>|5| src__nlp2cmd
+    scripts__thermodynamic ==>|5| examples__04_domain_specific
+    scripts__maintenance ==>|5| src__nlp2cmd
+    examples___example_helpers ==>|4| test_nlp2cmd_commands
     src__app2schema ==>|4| src__nlp2cmd
-    examples__04_domain_specific -->|3| networkx_3__6
+    scripts__bump_version ==>|4| test_nlp2cmd_commands
     examples__06_desktop_automation -->|3| examples___verbose_helper
-    examples__05_advanced_features -->|3| src__app2schema
-    demos__demo_intelligent_nlp2cmd -->|1| networkx_3__6
-    scripts__thermodynamic -->|1| networkx_3__6
-    tools__schema -->|1| networkx_3__6
-    tools__generation -->|1| networkx_3__6
-    src__nlp2cmd -->|1| src__app2schema
+    benchmarks__llm_benchmark -->|3| src__nlp2cmd
+    benchmarks__thermodynamic_benchmark -->|3| src__nlp2cmd
+    tools__analysis -->|3| src__nlp2cmd
+    jspaint_app_test4 -->|2| test_nlp2cmd_commands
+    examples___verbose_helper -->|2| src__nlp2cmd
+    examples__02_benchmarks -->|2| examples___example_helpers
+    benchmarks__learning_benchmark -->|2| src__nlp2cmd
+    scripts__testing -->|2| src__nlp2cmd
+    test_screenshots__analyze_screenshots -->|2| src__nlp2cmd
+    examples__show_metrics -->|1| src__nlp2cmd
+    examples___dynamic_orchestrator -->|1| src__nlp2cmd
+    examples___verbose_helper -->|1| examples___verbose_schema
+    examples__run_task -->|1| src__nlp2cmd
+    examples__06_tools_and_utilities -->|1| src__nlp2cmd
+    examples__02_benchmarks -->|1| src__nlp2cmd
+    examples__01_basics -->|1| src__nlp2cmd
+    src__nlp2cmd -->|1| examples__09_online_drawing
+    src__nlp2cmd -->|1| examples__10_online_code_editors

@@ -21,162 +21,108 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 from _example_helpers import print_rule, print_separator
 
 
-def simulate_interactive_session():
-    """Simulate an interactive session with feedback loop."""
+def _print_feedback(query: str, command: str, feedback) -> None:
+    print(f"\n📝 Input: {query}")
+    print(f"📤 Generated: {command}")
+    print(f"📊 Status: {feedback.type.value}")
+    print(f"🎯 Confidence: {feedback.confidence:.0%}")
 
-    print_separator("NLP2CMD Feedback Loop Demonstration", width=70)
 
-    # Setup
-    adapter = SQLAdapter(
-        dialect="postgresql",
-        schema_context={
-            "tables": ["users", "orders", "products"],
-            "columns": {
-                "users": ["id", "name", "email", "status"],
-                "orders": ["id", "user_id", "total", "status"],
-                "products": ["id", "name", "price", "stock"],
-            }
-        }
-    )
-
-    analyzer = FeedbackAnalyzer()
-    validator = SQLValidator()
-    correction_engine = CorrectionEngine()
-
-    nlp = NLP2CMD(
-        adapter=adapter,
-        feedback_analyzer=analyzer,
-        validator=validator,
-    )
-
-    # Scenario 1: Successful transformation
+def _scenario_success(analyzer: FeedbackAnalyzer, adapter: SQLAdapter, validator: SQLValidator) -> None:
     print_rule(width=70, char="─", leading_newline=True)
     print("Scenario 1: Successful Transformation")
     print_rule(width=70, char="─")
 
-    query1 = "Show all active users"
-    plan1 = {
+    query = "Show all active users"
+    plan = {
         "intent": "select",
         "entities": {
             "table": "users",
             "columns": "*",
-            "filters": [{"field": "status", "operator": "=", "value": "active"}]
-        }
+            "filters": [{"field": "status", "operator": "=", "value": "active"}],
+        },
     }
-
-    command1 = adapter.generate(plan1)
-    validation1 = validator.validate(command1)
-
-    feedback1 = analyzer.analyze(
-        original_input=query1,
-        generated_output=command1,
-        validation_errors=validation1.errors,
-        validation_warnings=validation1.warnings,
-        dsl_type="sql"
+    command = adapter.generate(plan)
+    feedback = analyzer.analyze(
+        original_input=query,
+        generated_output=command,
+        validation_errors=validator.validate(command).errors,
+        validation_warnings=validator.validate(command).warnings,
+        dsl_type="sql",
     )
-
-    print(f"\n📝 Input: {query1}")
-    print(f"📤 Generated: {command1}")
-    print(f"📊 Status: {feedback1.type.value}")
-    print(f"🎯 Confidence: {feedback1.confidence:.0%}")
-
-    if feedback1.is_success:
+    _print_feedback(query, command, feedback)
+    if feedback.is_success:
         print("✅ Transformation successful!")
 
-    # Scenario 2: Transformation with warnings
+
+def _scenario_warnings(analyzer: FeedbackAnalyzer, adapter: SQLAdapter, validator: SQLValidator) -> None:
     print_rule(width=70, char="─", leading_newline=True)
     print("Scenario 2: Transformation with Warnings")
     print_rule(width=70, char="─")
 
-    query2 = "Update all users to premium"
-    plan2 = {
+    query = "Update all users to premium"
+    plan = {
         "intent": "update",
-        "entities": {
-            "table": "users",
-            "values": {"status": "premium"},
-            "filters": []  # No WHERE clause!
-        }
+        "entities": {"table": "users", "values": {"status": "premium"}, "filters": []},
     }
-
-    command2 = adapter.generate(plan2)
-    validation2 = validator.validate(command2)
-
-    feedback2 = analyzer.analyze(
-        original_input=query2,
-        generated_output=command2,
-        validation_errors=validation2.errors,
-        validation_warnings=validation2.warnings,
-        dsl_type="sql"
+    command = adapter.generate(plan)
+    validation = validator.validate(command)
+    feedback = analyzer.analyze(
+        original_input=query,
+        generated_output=command,
+        validation_errors=validation.errors,
+        validation_warnings=validation.warnings,
+        dsl_type="sql",
     )
-
-    print(f"\n📝 Input: {query2}")
-    print(f"📤 Generated: {command2}")
-    print(f"📊 Status: {feedback2.type.value}")
-    print(f"🎯 Confidence: {feedback2.confidence:.0%}")
-
-    if feedback2.warnings:
+    _print_feedback(query, command, feedback)
+    if feedback.warnings:
         print("\n⚠️  Warnings:")
-        for warning in feedback2.warnings:
+        for warning in feedback.warnings:
             print(f"   - {warning}")
-
-    if feedback2.suggestions:
+    if feedback.suggestions:
         print("\n💡 Suggestions:")
-        for suggestion in feedback2.suggestions:
+        for suggestion in feedback.suggestions:
             print(f"   - {suggestion}")
 
-    # Scenario 3: Syntax error with auto-correction
+
+def _scenario_auto_correction(analyzer: FeedbackAnalyzer, correction_engine: CorrectionEngine) -> None:
     print_rule(width=70, char="─", leading_newline=True)
     print("Scenario 3: Syntax Error with Auto-Correction")
     print_rule(width=70, char="─")
 
-    # Simulate a command with syntax error
-    bad_command = "SELECT * FROM users WHERE (status = 'active'"  # Missing )
-
+    bad_command = "SELECT * FROM users WHERE (status = 'active'"
     syntax_check = analyzer.check_syntax(bad_command, "sql")
-
     print(f"\n📝 Command: {bad_command}")
     print(f"✓ Valid: {syntax_check['valid']}")
 
-    if syntax_check['errors']:
-        print("\n❌ Errors:")
-        for error in syntax_check['errors']:
-            print(f"   - {error}")
+    for error in syntax_check.get("errors", []):
+        print(f"\n❌ Errors:\n   - {error}")
+        correction = correction_engine.suggest(error, bad_command, {"dsl_type": "sql"})
+        if not correction.get("fix"):
+            continue
+        print(f"\n🔧 Suggested fix (confidence: {correction['confidence']:.0%}):")
+        print(f"   {correction['fix']}")
+        if correction["confidence"] >= 0.8:
+            print("   ✅ Auto-applying fix...")
+            corrected = correction_engine.apply_correction(bad_command, correction)
+            print(f"   Corrected: {corrected}")
 
-            # Try to get correction
-            correction = correction_engine.suggest(error, bad_command, {"dsl_type": "sql"})
 
-            if correction.get("fix"):
-                print(f"\n🔧 Suggested fix (confidence: {correction['confidence']:.0%}):")
-                print(f"   {correction['fix']}")
-
-                if correction['confidence'] >= 0.8:
-                    print("   ✅ Auto-applying fix...")
-                    corrected = correction_engine.apply_correction(bad_command, correction)
-                    print(f"   Corrected: {corrected}")
-
-    # Scenario 4: Ambiguous input requiring clarification
+def _scenario_ambiguous(analyzer: FeedbackAnalyzer) -> None:
     print_rule(width=70, char="─", leading_newline=True)
     print("Scenario 4: Ambiguous Input")
     print_rule(width=70, char="─")
 
-    query4 = "Delete that thing"
-
-    feedback4 = analyzer.analyze(
-        original_input=query4,
-        generated_output="",
-        dsl_type="sql",
-        context=None  # No context
-    )
-
-    print(f"\n📝 Input: {query4}")
-    print(f"📊 Status: {feedback4.type.value}")
-
-    if feedback4.requires_user_input:
+    query = "Delete that thing"
+    feedback = analyzer.analyze(original_input=query, generated_output="", dsl_type="sql", context=None)
+    _print_feedback(query, "", feedback)
+    if feedback.requires_user_input:
         print("\n❓ Clarification needed:")
-        for question in feedback4.clarification_questions:
+        for question in feedback.clarification_questions:
             print(f"   - {question}")
 
-    # Scenario 5: Exception handling
+
+def _scenario_exceptions(analyzer: FeedbackAnalyzer) -> None:
     print_rule(width=70, char="─", leading_newline=True)
     print("Scenario 5: Exception Analysis")
     print_rule(width=70, char="─")
@@ -187,104 +133,70 @@ def simulate_interactive_session():
         ConnectionError("Could not connect to database server"),
         TimeoutError("Query execution timed out after 30s"),
     ]
-
     for exc in exceptions:
         analysis = analyzer.analyze_exception(exc)
-
         print(f"\n❌ Exception: {analysis['error_type']}")
         print(f"   Message: {analysis['error_message']}")
-
-        if analysis['suggestions']:
+        if analysis["suggestions"]:
             print("   💡 Suggestions:")
-            for s in analysis['suggestions']:
-                print(f"      - {s}")
+            for suggestion in analysis["suggestions"]:
+                print(f"      - {suggestion}")
 
-    # Scenario 6: Feedback-driven refinement loop
+
+def _scenario_refinement() -> None:
     print_rule(width=70, char="─", leading_newline=True)
     print("Scenario 6: Iterative Refinement")
     print_rule(width=70, char="─")
-
     print("\nSimulating iterative refinement process:")
 
     iterations = [
-        {
-            "input": "Show sales",
-            "feedback": "Ambiguous - which table?",
-            "refined": "Show sales from orders"
-        },
-        {
-            "input": "Show sales from orders",
-            "feedback": "Missing time filter",
-            "refined": "Show sales from orders this month"
-        },
-        {
-            "input": "Show sales from orders this month",
-            "feedback": "Success!",
-            "refined": None
-        }
+        ("Show sales", "Ambiguous - which table?", "Show sales from orders"),
+        ("Show sales from orders", "Missing time filter", "Show sales from orders this month"),
+        ("Show sales from orders this month", "Success!", None),
     ]
-
-    for i, iteration in enumerate(iterations, 1):
+    for i, (input_text, feedback_text, refined) in enumerate(iterations, 1):
         print(f"\n   Iteration {i}:")
-        print(f"   Input: {iteration['input']}")
-        print(f"   Feedback: {iteration['feedback']}")
-        if iteration['refined']:
-            print(f"   → Refined: {iteration['refined']}")
-        else:
-            print("   ✅ Final result achieved!")
+        print(f"   Input: {input_text}")
+        print(f"   Feedback: {feedback_text}")
+        print(f"   → Refined: {refined}" if refined else "   ✅ Final result achieved!")
 
-    # Summary
+
+def _print_summary() -> None:
     print_separator("FEEDBACK LOOP SUMMARY", leading_newline=True, width=70)
-
     print("""
-The NLP2CMD Feedback Loop provides:
-
-1. 📊 Status Classification:
-   - SUCCESS: Transformation completed without issues
-   - PARTIAL_SUCCESS: Completed with warnings
-   - SYNTAX_ERROR: Syntax issues detected
-   - SCHEMA_MISMATCH: Schema-related problems
-   - AMBIGUOUS_INPUT: Needs user clarification
-   - SECURITY_VIOLATION: Blocked by safety policy
-
-2. 🔧 Auto-Correction:
-   - Pattern-based fixes (typos, missing tokens)
-   - Confidence-based auto-apply (>80% confidence)
-   - User confirmation for lower confidence
-
-3. 💡 Suggestions:
-   - Syntax improvements
-   - Security recommendations
-   - Performance hints
-
-4. ❓ Clarification:
-   - Generates targeted questions
-   - Guides users to provide missing information
-
-5. 🎯 Confidence Scoring:
-   - Based on validation results
-   - Considers error count and severity
-   - Helps prioritize review needs
-
-Usage:
-    from nlp2cmd import FeedbackAnalyzer
-
-    analyzer = FeedbackAnalyzer()
-    feedback = analyzer.analyze(
-        original_input="user query",
-        generated_output="generated command",
-        validation_errors=[],
-        validation_warnings=[],
-        dsl_type="sql"
-    )
-
-    if feedback.can_auto_fix:
-        # Apply automatic corrections
-        pass
-    elif feedback.requires_user_input:
-        # Ask clarification questions
-        pass
+The NLP2CMD Feedback Loop provides status classification, auto-correction,
+suggestions, clarification questions, and confidence scoring.
 """)
+
+
+def simulate_interactive_session():
+    """Simulate an interactive session with feedback loop."""
+    print_separator("NLP2CMD Feedback Loop Demonstration", width=70)
+
+    adapter = SQLAdapter(
+        dialect="postgresql",
+        schema_context={
+            "tables": ["users", "orders", "products"],
+            "columns": {
+                "users": ["id", "name", "email", "status"],
+                "orders": ["id", "user_id", "total", "status"],
+                "products": ["id", "name", "price", "stock"],
+            },
+        },
+    )
+    analyzer = FeedbackAnalyzer()
+    validator = SQLValidator()
+    correction_engine = CorrectionEngine()
+
+    NLP2CMD(adapter=adapter, feedback_analyzer=analyzer, validator=validator)
+
+    _scenario_success(analyzer, adapter, validator)
+    _scenario_warnings(analyzer, adapter, validator)
+    _scenario_auto_correction(analyzer, correction_engine)
+    _scenario_ambiguous(analyzer)
+    _scenario_exceptions(analyzer)
+    _scenario_refinement()
+    _print_summary()
 
 
 if __name__ == "__main__":

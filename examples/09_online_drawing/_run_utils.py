@@ -177,53 +177,56 @@ MODAL_CLOSE_SELECTORS = [
 ]
 
 
+async def _click_if_visible(page, locator, log: ExampleLogger | None, label: str,
+                            timeout: int, pause_ms: int = 300) -> bool:
+    try:
+        if await locator.count() > 0 and await locator.is_visible():
+            await locator.click(timeout=timeout)
+            await page.wait_for_timeout(pause_ms)
+            if log:
+                log.debug(label)
+            return True
+    except Exception:
+        pass
+    return False
+
+
+async def _dismiss_text_popups(page, log: ExampleLogger | None, timeout: int) -> int:
+    dismissed = 0
+    for text in COMMON_POPUPS:
+        if await _click_if_visible(
+            page, page.get_by_text(text, exact=False).first, log,
+            f"Dismissed popup: '{text}'", timeout,
+        ):
+            dismissed += 1
+    return dismissed
+
+
+async def _dismiss_selector_popups(page, selectors: list[str], log: ExampleLogger | None,
+                                   timeout: int, label_prefix: str, pause_ms: int = 300) -> int:
+    dismissed = 0
+    for sel in selectors:
+        if await _click_if_visible(
+            page, page.locator(sel).first, log,
+            f"{label_prefix}: {sel}", timeout, pause_ms=pause_ms,
+        ):
+            dismissed += 1
+    return dismissed
+
+
 async def dismiss_popups(page, log: ExampleLogger | None = None, timeout: int = 3000) -> int:
     """
     Dismiss common popups, cookie banners, GDPR notices.
     Returns count of dismissed elements.
     """
-    dismissed = 0
+    dismissed = await _dismiss_text_popups(page, log, timeout)
+    dismissed += await _dismiss_selector_popups(
+        page, COOKIE_SELECTORS, log, timeout, "Dismissed cookie banner",
+    )
+    dismissed += await _dismiss_selector_popups(
+        page, MODAL_CLOSE_SELECTORS, log, timeout, "Dismissed modal", pause_ms=500,
+    )
 
-    # Strategy 1: Text-based buttons
-    for text in COMMON_POPUPS:
-        try:
-            btn = page.get_by_text(text, exact=False).first
-            if await btn.count() > 0 and await btn.is_visible():
-                await btn.click(timeout=timeout)
-                await page.wait_for_timeout(300)
-                dismissed += 1
-                if log:
-                    log.debug(f"Dismissed popup: '{text}'")
-        except Exception:
-            continue
-
-    # Strategy 2: CSS selector-based (cookie banners)
-    for sel in COOKIE_SELECTORS:
-        try:
-            el = page.locator(sel).first
-            if await el.count() > 0 and await el.is_visible():
-                await el.click(timeout=timeout)
-                await page.wait_for_timeout(300)
-                dismissed += 1
-                if log:
-                    log.debug(f"Dismissed cookie banner: {sel}")
-        except Exception:
-            continue
-
-    # Strategy 3: Modal close buttons (SVG icons, aria labels)
-    for sel in MODAL_CLOSE_SELECTORS:
-        try:
-            el = page.locator(sel).first
-            if await el.count() > 0 and await el.is_visible():
-                await el.click(timeout=timeout)
-                await page.wait_for_timeout(500)
-                dismissed += 1
-                if log:
-                    log.debug(f"Dismissed modal: {sel}")
-        except Exception:
-            continue
-
-    # Strategy 4: Press Escape to dismiss remaining modals
     try:
         await page.keyboard.press("Escape")
         await page.wait_for_timeout(300)
@@ -231,6 +234,35 @@ async def dismiss_popups(page, log: ExampleLogger | None = None, timeout: int = 
         pass
 
     return dismissed
+
+
+def _classify_page_title(title_lower: str) -> str | None:
+    if any(x in title_lower for x in ["404", "not found", "nie znaleziono", "error"]):
+        return "error_404"
+    if any(x in title_lower for x in ["blocked", "access denied", "forbidden", "zablokowano"]):
+        return "blocked"
+    if any(x in title_lower for x in ["log in", "sign in", "zaloguj", "login"]):
+        return "login_required"
+    return None
+
+
+async def _inspect_required_element(page, required_selector: str, report: dict[str, Any],
+                                    log: ExampleLogger | None) -> None:
+    try:
+        count = await page.locator(required_selector).count()
+        report["canvas_count"] = count
+        report["has_canvas"] = count > 0
+        if count == 0:
+            return
+
+        first = page.locator(required_selector).first
+        box = await first.bounding_box()
+        report["canvas_visible"] = box is not None and box["width"] > 50 and box["height"] > 50
+        if box:
+            report["canvas_size"] = f"{box['width']:.0f}x{box['height']:.0f}"
+    except Exception as e:
+        if log:
+            log.debug(f"Canvas check error: {e}")
 
 
 # ── Intelligent URL discovery ─────────────────────────────────────────────
@@ -317,52 +349,28 @@ async def check_page_health(page, required_selector: str = "canvas",
     except Exception:
         pass
 
-    # Check for error pages
-    title_lower = report["title"].lower()
-    url_lower = page.url.lower()
-
-    if any(x in title_lower for x in ["404", "not found", "nie znaleziono", "error"]):
+    page_status = _classify_page_title(report["title"].lower())
+    if page_status == "error_404":
         report["is_404"] = True
-        report["status"] = "error_404"
+        report["status"] = page_status
         if log:
             log.warning(f"Page returned 404: {page.url}")
         return report
-
-    if any(x in title_lower for x in ["blocked", "access denied", "forbidden", "zablokowano"]):
+    if page_status == "blocked":
         report["is_blocked"] = True
-        report["status"] = "blocked"
+        report["status"] = page_status
         if log:
             log.warning(f"Page access blocked: {page.url}")
         return report
-
-    if any(x in title_lower for x in ["log in", "sign in", "zaloguj", "login"]):
+    if page_status == "login_required":
         report["is_login_required"] = True
-        report["status"] = "login_required"
+        report["status"] = page_status
         if log:
             log.warning(f"Login required: {page.url}")
         return report
 
-    # Dismiss popups before checking canvas
     report["popups_dismissed"] = await dismiss_popups(page, log)
-
-    # Check for required element
-    try:
-        count = await page.locator(required_selector).count()
-        report["canvas_count"] = count
-        report["has_canvas"] = count > 0
-
-        if count > 0:
-            first = page.locator(required_selector).first
-            try:
-                box = await first.bounding_box()
-                report["canvas_visible"] = box is not None and box["width"] > 50 and box["height"] > 50
-                if box:
-                    report["canvas_size"] = f"{box['width']:.0f}x{box['height']:.0f}"
-            except Exception:
-                pass
-    except Exception as e:
-        if log:
-            log.debug(f"Canvas check error: {e}")
+    await _inspect_required_element(page, required_selector, report, log)
 
     # Check for JS errors on page
     try:
@@ -380,6 +388,62 @@ async def check_page_health(page, required_selector: str = "canvas",
     )
 
     return report
+
+
+def _collect_discovery_urls(custom_urls: list[str] | None, site_urls: list[str]) -> list[str]:
+    urls_to_try: list[str] = []
+    if custom_urls:
+        urls_to_try.extend(custom_urls)
+    for url in site_urls:
+        if url not in urls_to_try:
+            urls_to_try.append(url)
+
+    seen: set[str] = set()
+    unique_urls: list[str] = []
+    for url in urls_to_try:
+        if url not in seen:
+            seen.add(url)
+            unique_urls.append(url)
+    return unique_urls
+
+
+async def _try_discovery_url(
+    page,
+    url: str,
+    required_selector: str,
+    timeout_per_url: int,
+    log: ExampleLogger | None,
+) -> tuple[str | None, dict[str, Any]]:
+    response = await page.goto(url, wait_until="domcontentloaded", timeout=timeout_per_url)
+    status = response.status if response else 0
+    if log:
+        log.debug(f"    HTTP {status}")
+
+    if status in (404, 410, 500, 502, 503):
+        if log:
+            log.debug(f"    → HTTP error {status}, skipping")
+        return None, {"url": url, "status": f"http_{status}"}
+
+    await page.wait_for_timeout(3000)
+    report = await check_page_health(page, required_selector, log)
+    if report["status"] == "healthy":
+        if log:
+            log.success(f"Found working URL: {page.url} (canvas: {report.get('canvas_size', '?')})")
+        return page.url, report
+
+    if report["status"] in ("no_canvas", "has_canvas"):
+        canvas_found = await wait_for_canvas(page, required_selector, timeout_s=10, log=log)
+        if canvas_found:
+            report2 = await check_page_health(page, required_selector, log)
+            if report2["status"] == "healthy":
+                if log:
+                    log.success(f"Found working URL (after canvas wait): {page.url}")
+                return page.url, report2
+            return None, report2
+
+    if log:
+        log.debug(f"    → Status: {report['status']}, trying next")
+    return None, report
 
 
 async def discover_working_url(
@@ -404,29 +468,11 @@ async def discover_working_url(
     Returns:
         (working_url, health_report) or (None, last_report)
     """
-    urls_to_try: list[str] = []
-
-    # Add custom URLs first (highest priority)
-    if custom_urls:
-        urls_to_try.extend(custom_urls)
-
-    # Add known site URLs
     site_info = DRAWING_SITES.get(site_name, {})
-    if site_info:
-        for url in site_info.get("urls", []):
-            if url not in urls_to_try:
-                urls_to_try.append(url)
-        if not required_selector:
-            required_selector = site_info.get("canvas_selector", "canvas")
+    if site_info and not required_selector:
+        required_selector = site_info.get("canvas_selector", "canvas")
 
-    # Deduplicate preserving order
-    seen: set[str] = set()
-    unique_urls: list[str] = []
-    for u in urls_to_try:
-        if u not in seen:
-            seen.add(u)
-            unique_urls.append(u)
-    urls_to_try = unique_urls
+    urls_to_try = _collect_discovery_urls(custom_urls, site_info.get("urls", []))
 
     if not urls_to_try:
         if log:
@@ -441,52 +487,17 @@ async def discover_working_url(
     for i, url in enumerate(urls_to_try, 1):
         if log:
             log.debug(f"  [{i}/{len(urls_to_try)}] Trying: {url}")
-
         try:
-            response = await page.goto(url, wait_until="domcontentloaded", timeout=timeout_per_url)
-            status = response.status if response else 0
-
-            if log:
-                log.debug(f"    HTTP {status}")
-
-            if status in (404, 410, 500, 502, 503):
-                if log:
-                    log.debug(f"    → HTTP error {status}, skipping")
-                last_report = {"url": url, "status": f"http_{status}"}
-                continue
-
-            # Wait for dynamic content (some sites need 3-5s for JS to build canvas)
-            await page.wait_for_timeout(3000)
-
-            # Health check
-            report = await check_page_health(page, required_selector, log)
-            last_report = report
-
-            if report["status"] == "healthy":
-                if log:
-                    log.success(f"Found working URL: {page.url} (canvas: {report.get('canvas_size', '?')})")
-                return page.url, report
-
-            # Canvas might load dynamically — poll up to 10s
-            if report["status"] in ("no_canvas", "has_canvas"):
-                canvas_found = await wait_for_canvas(page, required_selector, timeout_s=10, log=log)
-                if canvas_found:
-                    report2 = await check_page_health(page, required_selector, log)
-                    last_report = report2
-                    if report2["status"] == "healthy":
-                        if log:
-                            log.success(f"Found working URL (after canvas wait): {page.url}")
-                        return page.url, report2
-
-            if log:
-                log.debug(f"    → Status: {last_report['status']}, trying next")
-
+            working_url, last_report = await _try_discovery_url(
+                page, url, required_selector, timeout_per_url, log,
+            )
+            if working_url:
+                return working_url, last_report
         except Exception as e:
             err_msg = str(e)[:100]
             if log:
                 log.debug(f"    → Error: {err_msg}")
             last_report = {"url": url, "status": "error", "error": err_msg}
-            continue
 
     if log:
         log.error(f"No working URL found for '{site_name}' after {len(urls_to_try)} attempts")

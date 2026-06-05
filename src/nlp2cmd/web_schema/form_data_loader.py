@@ -7,6 +7,7 @@ Configuration is loaded from data/form_schema.json.
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 import json
 import os
 import re
@@ -17,6 +18,7 @@ from typing import Any, Optional
 from nlp2cmd.utils.data_files import find_data_file
 
 
+@dataclass
 class FormDataLoader:
     """
     Loads form field data from multiple sources:

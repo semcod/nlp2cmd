@@ -1,0 +1,1463 @@
+flowchart TD
+%% generated in 0.02s
+    subgraph benchmarks__learning_benchmark
+        benchmarks__learning_benchmark___teacher_models["_teacher_models"]
+        benchmarks__learning_benchmark__run_learning_benchmark{{run_learning_benchmark CC=15}}
+        benchmarks__learning_benchmark___generate_single_teacher_fragment("_generate_single_teacher_fragment CC=12")
+        benchmarks__learning_benchmark__generate_html["generate_html"]
+        benchmarks__learning_benchmark__print_summary["print_summary"]
+        benchmarks__learning_benchmark__main["main"]
+    end
+    subgraph benchmarks__llm_benchmark
+        benchmarks__llm_benchmark__ollama_available["ollama_available"]
+        benchmarks__llm_benchmark__ollama_model_exists["ollama_model_exists"]
+        benchmarks__llm_benchmark__ollama_create_bielik["ollama_create_bielik"]
+        benchmarks__llm_benchmark__ollama_generate["ollama_generate"]
+        benchmarks__llm_benchmark___get_benchmark_models["_get_benchmark_models"]
+        benchmarks__llm_benchmark___default_models["_default_models"]
+        benchmarks__llm_benchmark__clean_command{{clean_command CC=19}}
+        benchmarks__llm_benchmark__run_benchmark{{run_benchmark CC=22}}
+        benchmarks__llm_benchmark__build_summary{{build_summary CC=41}}
+        benchmarks__llm_benchmark__generate_html("generate_html CC=12")
+        benchmarks__llm_benchmark__print_summary["print_summary"]
+        benchmarks__llm_benchmark__generate_refactoring_notes("generate_refactoring_notes CC=10")
+        benchmarks__llm_benchmark__generate_command_errors_report("generate_command_errors_report CC=11")
+        benchmarks__llm_benchmark__main["main"]
+    end
+    subgraph benchmarks__thermodynamic_benchmark
+        benchmarks__thermodynamic_benchmark__benchmark_langevin_sampler["benchmark_langevin_sampler"]
+        benchmarks__thermodynamic_benchmark__benchmark_parallel_vs_sequential("benchmark_parallel_vs_sequential CC=9")
+        benchmarks__thermodynamic_benchmark__benchmark_adaptive_steps["benchmark_adaptive_steps"]
+        benchmarks__thermodynamic_benchmark__benchmark_generator_problems["benchmark_generator_problems"]
+        benchmarks__thermodynamic_benchmark__benchmark_energy_savings["benchmark_energy_savings"]
+        benchmarks__thermodynamic_benchmark__print_benchmark_result["print_benchmark_result"]
+        benchmarks__thermodynamic_benchmark__main("main CC=8")
+    end
+    subgraph docker__novnc
+        docker__novnc__demos__demo_desktop_gui__ensure_playwright["ensure_playwright"]
+        docker__novnc__demos__demo_desktop_gui__start_recording["start_recording"]
+        docker__novnc__demos__demo_desktop_gui__stop_recording["stop_recording"]
+        docker__novnc__demos__demo_desktop_gui___connect_novnc["_connect_novnc"]
+        docker__novnc__demos__demo_desktop_gui__run_demo("run_demo CC=9")
+        docker__novnc__demos__demo_desktop_gui__main["main"]
+    end
+    subgraph examples
+        examples__extract_domain["extract_domain"]
+    end
+    subgraph examples__01_basics
+        examples__01_basics__sql_basics__workflows__print_section["print_section"]
+        examples__01_basics__sql_basics__workflows__main("main CC=10")
+        examples__01_basics__sql_basics__advanced__main["main"]
+        examples__01_basics__sql_basics__llm_integration__MockLLMBackend__generate_plan["generate_plan"]
+        examples__01_basics__sql_basics__llm_integration__demonstrate_mock_llm["demonstrate_mock_llm"]
+        examples__01_basics__sql_basics__llm_integration__demonstrate_rule_based_fallback["demonstrate_rule_based_fallback"]
+        examples__01_basics__sql_basics__llm_integration__demonstrate_real_llm_setup["demonstrate_real_llm_setup"]
+        examples__01_basics__sql_basics__llm_integration__demonstrate_hybrid_approach["demonstrate_hybrid_approach"]
+        examples__01_basics__sql_basics__llm_integration__main["main"]
+        examples__01_basics__sql_basics__example__main("main CC=10")
+        examples__01_basics__kubernetes_basics__example__main["main"]
+        examples__01_basics__app2schema__example__main["main"]
+        examples__01_basics__shell_fundamentals__feedback_loop___print_feedback["_print_feedback"]
+        examples__01_basics__shell_fundamentals__feedback_loop___scenario_success["_scenario_success"]
+        examples__01_basics__shell_fundamentals__feedback_loop___scenario_warnings["_scenario_warnings"]
+        examples__01_basics__shell_fundamentals__feedback_loop___scenario_auto_correction["_scenario_auto_correction"]
+        examples__01_basics__shell_fundamentals__feedback_loop___scenario_ambiguous["_scenario_ambiguous"]
+        examples__01_basics__shell_fundamentals__feedback_loop___scenario_exceptions["_scenario_exceptions"]
+        examples__01_basics__shell_fundamentals__feedback_loop___scenario_refinement["_scenario_refinement"]
+        examples__01_basics__shell_fundamentals__feedback_loop___print_summary["_print_summary"]
+        examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session["simulate_interactive_session"]
+        examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__get_command_for_task["get_command_for_task"]
+        examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__main["main"]
+        examples__01_basics__shell_fundamentals__schema_cache__main["main"]
+        examples__01_basics__shell_fundamentals__example__main["main"]
+        examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__get_command_for_task["get_command_for_task"]
+        examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main["main"]
+        examples__01_basics__docker_basics__file_repair__create_sample_files["create_sample_files"]
+        examples__01_basics__docker_basics__file_repair__validate_file["validate_file"]
+        examples__01_basics__docker_basics__file_repair__repair_file("repair_file CC=11")
+        examples__01_basics__docker_basics__file_repair__main["main"]
+        examples__01_basics__docker_basics__example__main["main"]
+        examples__01_basics__shell_fundamentals__environment_analysis__main["main"]
+        examples__01_basics__shell_fundamentals___environment_sections__format_size["format_size"]
+        examples__01_basics__shell_fundamentals___environment_sections___progress_bar["_progress_bar"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_section_header["print_section_header"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_system_info["print_system_info"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_tool_detection("print_tool_detection CC=11")
+        examples__01_basics__shell_fundamentals___environment_sections__print_service_status["print_service_status"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_config_files["print_config_files"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_resources["print_resources"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_command_validation["print_command_validation"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_full_report["print_full_report"]
+        examples__01_basics__shell_fundamentals___environment_sections__print_export_preview["print_export_preview"]
+    end
+    subgraph examples__02_benchmarks
+        examples__02_benchmarks__performance_testing__benchmark__print_section["print_section"]
+        examples__02_benchmarks__performance_testing__benchmark__run_single_command_benchmark["run_single_command_benchmark"]
+        examples__02_benchmarks__performance_testing__benchmark__run_sequential_benchmark["run_sequential_benchmark"]
+        examples__02_benchmarks__performance_testing__benchmark__benchmark_adapters["benchmark_adapters"]
+        examples__02_benchmarks__performance_testing__benchmark__generate_report["generate_report"]
+        examples__02_benchmarks__performance_testing__benchmark__generate_markdown_report["generate_markdown_report"]
+        examples__02_benchmarks__performance_testing__benchmark__save_report["save_report"]
+        examples__02_benchmarks__performance_testing__benchmark__print_report_summary["print_report_summary"]
+        examples__02_benchmarks__performance_testing__benchmark__main["main"]
+        examples__02_benchmarks__sequential_testing__benchmark__print_section["print_section"]
+        examples__02_benchmarks__sequential_testing__benchmark__run_command_with_timing["run_command_with_timing"]
+        examples__02_benchmarks__sequential_testing__benchmark__main["main"]
+    end
+    subgraph examples__03_integrations
+        examples__03_integrations__web_development__docker_manager__DockerManager____init__["__init__"]
+        examples__03_integrations__web_development__docker_manager__DockerManager__start_services["start_services"]
+        examples__03_integrations__web_development__docker_manager__DockerManager__get_container_status("get_container_status CC=12")
+        examples__03_integrations__web_development__docker_manager__DockerManager__show_logs("show_logs CC=13")
+        examples__03_integrations__web_development__docker_manager__DockerManager__stop_services["stop_services"]
+        examples__03_integrations__web_development__deployment_plan__DeploymentPlan__to_compose{{to_compose CC=17}}
+        examples__03_integrations__web_development__deployment_plan__DeploymentPlan___create_redis_service["_create_redis_service"]
+        examples__03_integrations__web_development__deployment_plan__DeploymentPlan___create_postgres_service["_create_postgres_service"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController____init__["__init__"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__execute["execute"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_deploy["_handle_deploy"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_configure["_handle_configure"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_scale["_handle_scale"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_status["_handle_status"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_stop["_handle_stop"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_unknown["_handle_unknown"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___execute_with_nlp2cmd["_execute_with_nlp2cmd"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___try_llm_fallback["_try_llm_fallback"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_logs["_handle_logs"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_test["_handle_test"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_monitor["_handle_monitor"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___handle_restart["_handle_restart"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___get_service_name_by_type["_get_service_name_by_type"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___get_test_commands["_get_test_commands"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__save_full_deployment_plan["save_full_deployment_plan"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__get_generated_files_info["get_generated_files_info"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__show_container_logs["show_container_logs"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__get_container_status["get_container_status"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__stop_containers["stop_containers"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___create_chat_template["_create_chat_template"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___create_email_template["_create_email_template"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___create_contact_template["_create_contact_template"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___create_database_template["_create_database_template"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___create_cache_template["_create_cache_template"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___configure_email["_configure_email"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___configure_chat["_configure_chat"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___guess_imap_host["_guess_imap_host"]
+        examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController___guess_smtp_host["_guess_smtp_host"]
+        examples__03_integrations__web_development__nl_command_parser__NLCommandParser__parse["parse"]
+        examples__03_integrations__web_development__nl_command_parser__NLCommandParser___detect_intent{{_detect_intent CC=19}}
+        examples__03_integrations__web_development__nl_command_parser__NLCommandParser___detect_service_type["_detect_service_type"]
+        examples__03_integrations__web_development__nl_command_parser__NLCommandParser___extract_entities{{_extract_entities CC=16}}
+        examples__03_integrations__web_development__demo___print_help["_print_help"]
+        examples__03_integrations__web_development__demo___print_generated_files["_print_generated_files"]
+        examples__03_integrations__web_development__demo___maybe_save_deployment_plan["_maybe_save_deployment_plan"]
+        examples__03_integrations__web_development__demo__demo_nlp_commands("demo_nlp_commands CC=9")
+        examples__03_integrations__web_development__demo__run_example["run_example"]
+        examples__03_integrations__web_development__demo__main("main CC=9")
+        examples__03_integrations__web_development__web_app_example__process_command["process_command"]
+        examples__03_integrations__web_development__web_app_example__get_status["get_status"]
+        examples__03_integrations__web_development__web_app_example__get_history["get_history"]
+        examples__03_integrations__web_development__web_app_example__get_services["get_services"]
+        examples__03_integrations__web_development__web_app_example__home["home"]
+        examples__03_integrations__web_development__web_app_example__history_page["history_page"]
+        examples__03_integrations__web_development__web_app_example__services_page["services_page"]
+        examples__03_integrations__web_development__web_app_example__get_examples["get_examples"]
+        examples__03_integrations__web_development__output_file_manager__OutputFileManager____init__["__init__"]
+        examples__03_integrations__web_development__output_file_manager__OutputFileManager__save_docker_compose["save_docker_compose"]
+        examples__03_integrations__web_development__output_file_manager__OutputFileManager__save_service_config["save_service_config"]
+        examples__03_integrations__web_development__output_file_manager__OutputFileManager__save_deployment_plan["save_deployment_plan"]
+    end
+    subgraph examples__04_domain_specific
+        examples__04_domain_specific__api_key_prompts__test_prompt{{test_prompt CC=15}}
+        examples__04_domain_specific__api_key_prompts__run_all_tests("run_all_tests CC=12")
+        examples__04_domain_specific___demo_helpers__print_separator["print_separator"]
+        examples__04_domain_specific___demo_helpers__print_rule["print_rule"]
+        examples__04_domain_specific___demo_helpers__rule_line["rule_line"]
+        examples__04_domain_specific___demo_helpers__print_demo_header["print_demo_header"]
+        examples__04_domain_specific___demo_helpers__run_thermo_demo["run_thermo_demo"]
+        examples__04_domain_specific___demo_helpers__print_metrics("print_metrics CC=9")
+        examples__04_domain_specific___demo_helpers__print_simple_result["print_simple_result"]
+        examples__04_domain_specific___demo_helpers__print_full_result["print_full_result"]
+        examples__04_domain_specific___demo_helpers__sigmoid["sigmoid"]
+        examples__04_domain_specific___demo_helpers__project_sample("project_sample CC=10")
+        examples__04_domain_specific___demo_helpers__print_projected["print_projected"]
+        examples__04_domain_specific___demo_helpers__print_fallback_note["print_fallback_note"]
+        examples__04_domain_specific__run_all__run_all_demos["run_all_demos"]
+        examples__04_domain_specific__run_all__print_summary_table["print_summary_table"]
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishLLMClient____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishLLMClient__generate_plan["generate_plan"]
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishNLP2CMD____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishNLP2CMD__process_query["process_query"]
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__test_polish_queries("test_polish_queries CC=10")
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__test_integration_pattern("test_integration_pattern CC=8")
+        examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__show_real_setup_instructions["show_real_setup_instructions"]
+        examples__04_domain_specific__polish_llm_integration__download_bielik__download_bielik["download_bielik"]
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__check_dependencies("check_dependencies CC=9")
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__download_model["download_model"]
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__setup_environment["setup_environment"]
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__test_integration["test_integration"]
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__run_interactive_demo("run_interactive_demo CC=8")
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__setup_complete["setup_complete"]
+        examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__main["main"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__PolishPDFSearchLLM____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__PolishPDFSearchLLM__generate_pdf_search_command["generate_pdf_search_command"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__PolishPDFSearchLLM___generate_with_lite_llm["_generate_with_lite_llm"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__PolishPDFSearchLLM___generate_with_local_llm["_generate_with_local_llm"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__PolishPDFSearchLLM___clean_command["_clean_command"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__test_pdf_search_queries("test_pdf_search_queries CC=9")
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__MockPolishPDFSearchLLM____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__MockPolishPDFSearchLLM__generate_pdf_search_command{{generate_pdf_search_command CC=25}}
+        examples__04_domain_specific__polish_llm_integration__example_pdf_search__show_configuration_guide["show_configuration_guide"]
+        examples__04_domain_specific__polish_llm_integration__01_pdf_extraction__demo__PDFExtractor____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__01_pdf_extraction__demo__PDFExtractor__extract_text["extract_text"]
+        examples__04_domain_specific__polish_llm_integration__01_pdf_extraction__demo__PDFExtractor__extract_metadata["extract_metadata"]
+        examples__04_domain_specific__polish_llm_integration__01_pdf_extraction__demo__PDFExtractor__batch_extract["batch_extract"]
+        examples__04_domain_specific__polish_llm_integration__01_pdf_extraction__demo__main["main"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__PDFExtractor__extract_text["extract_text"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__TextChunker____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__TextChunker__chunk_text["chunk_text"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__LLMSearcher__search["search"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__PDFSearchPipeline____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__PDFSearchPipeline__search_pdf["search_pdf"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__PDFSearchPipeline__batch_search["batch_search"]
+        examples__04_domain_specific__polish_llm_integration__05_integration__demo__main["main"]
+        examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__ResultsRanker____init__["__init__"]
+        examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__ResultsRanker__rank_results["rank_results"]
+        examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__ResultsRanker__diversify_results["diversify_results"]
+        examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__ResultsRanker__get_top_k["get_top_k"]
+        examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__main["main"]
+        examples__04_domain_specific__polish_llm_integration__02_text_chunking__demo__TextChunker____init__["__init__"]
+    end
+    subgraph examples__05_advanced_features
+        examples__05_advanced_features__thermodynamic_computing__example__example_scheduling["example_scheduling"]
+        examples__05_advanced_features__thermodynamic_computing__example__example_allocation["example_allocation"]
+        examples__05_advanced_features__thermodynamic_computing__example__example_energy_savings["example_energy_savings"]
+        examples__05_advanced_features__thermodynamic_computing__example__example_majority_voting["example_majority_voting"]
+        examples__05_advanced_features__thermodynamic_computing__example__example_routing["example_routing"]
+        examples__05_advanced_features__thermodynamic_computing__example__example_direct_problem["example_direct_problem"]
+        examples__05_advanced_features__thermodynamic_computing__example__main["main"]
+        examples__05_advanced_features__schema_driven_architecture__manual_appspec__main["main"]
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_section["print_section"]
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_step["print_step"]
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_sql_select("mock_sql_select CC=9")
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_shell_find["mock_shell_find"]
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_shell_count_pattern["mock_shell_count_pattern"]
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_k8s_get["mock_k8s_get"]
+        examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main("main CC=12")
+        examples__05_advanced_features__schema_driven_architecture__mvp__main["main"]
+        examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__ResultAggregator__aggregate["aggregate"]
+        examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__ResultAggregator___to_json["_to_json"]
+        examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__ResultAggregator___to_yaml["_to_yaml"]
+        examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__ResultAggregator___to_table["_to_table"]
+        examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__ResultAggregator___to_markdown["_to_markdown"]
+        examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__main["main"]
+        examples__05_advanced_features__schema_driven_architecture__02_decision_router__demo__DecisionRouter____init__["__init__"]
+        examples__05_advanced_features__schema_driven_architecture__02_decision_router__demo__DecisionRouter__route["route"]
+        examples__05_advanced_features__schema_driven_architecture__02_decision_router__demo__main["main"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor____init__["__init__"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor___mock_execute["_mock_execute"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor___mock_check_disk["_mock_check_disk"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor___mock_backup["_mock_backup"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor___mock_tests["_mock_tests"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor___mock_build["_mock_build"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor__execute_step["execute_step"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__PlanExecutor__execute_plan["execute_plan"]
+        examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__main["main"]
+        examples__05_advanced_features__schema_driven_architecture__03_llm_planner__demo__LLMPlanner__generate_plan["generate_plan"]
+        examples__05_advanced_features__schema_driven_architecture__03_llm_planner__demo__main["main"]
+        examples__05_advanced_features__dynamic_schemas__simple_schema_demo__main["main"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD____init__["__init__"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform["transform"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__detect_and_adapt["detect_and_adapt"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version("_select_best_version CC=11")
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___needs_update["_needs_update"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__update_command_schema["update_command_schema"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___increment_version["_increment_version"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__clear_cache["clear_cache"]
+        examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd("demo_intelligent_nlp2cmd CC=8")
+        examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__demonstrate_persistent_storage("demonstrate_persistent_storage CC=11")
+        examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__show_storage_benefits["show_storage_benefits"]
+        examples__05_advanced_features__dynamic_schemas__demo_enhanced__main("main CC=12")
+        examples__05_advanced_features__dynamic_schemas__demo_schema_flow__demonstrate_schema_flow["demonstrate_schema_flow"]
+        examples__05_advanced_features__dynamic_schemas__demo_schema_flow__demonstrate_multiple_commands["demonstrate_multiple_commands"]
+        examples__05_advanced_features__dynamic_schemas__demo_schema_flow__show_schema_details["show_schema_details"]
+        examples__05_advanced_features__dynamic_schemas__demo_schema_flow__main["main"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_tool_version["_demo_tool_version"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_docker["_demo_docker"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_kubectl["_demo_kubectl"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_ps["_demo_ps"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_python["_demo_python"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection["demonstrate_version_detection"]
+        examples__05_advanced_features__dynamic_schemas__demo_version_detection__show_integration_example["show_integration_example"]
+    end
+    subgraph examples__06_desktop_automation
+        examples__06_desktop_automation__07_canvas_drawing__run__main["main"]
+        examples__06_desktop_automation__09_complex_commands__run__main{{main CC=16}}
+        examples__06_desktop_automation__00_full_lifecycle__run__should_run["should_run"]
+        examples__06_desktop_automation__06_env_extract__run__main["main"]
+        examples__06_desktop_automation__08_captcha_solver__run__main["main"]
+    end
+    subgraph examples__06_tools_and_utilities
+        examples__06_tools_and_utilities__migration_tools__guide__old_way_examples["old_way_examples"]
+        examples__06_tools_and_utilities__migration_tools__guide__new_way_examples["new_way_examples"]
+        examples__06_tools_and_utilities__migration_tools__guide__migration_steps["migration_steps"]
+        examples__06_tools_and_utilities__migration_tools__guide__performance_comparison["performance_comparison"]
+        examples__06_tools_and_utilities__migration_tools__guide__practical_examples["practical_examples"]
+        examples__06_tools_and_utilities__migration_tools__guide__main["main"]
+        examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__migrate_existing_schemas["migrate_existing_schemas"]
+        examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_schema_updates("demonstrate_schema_updates CC=11")
+        examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_dual_versions["demonstrate_dual_versions"]
+        examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__main["main"]
+    end
+    subgraph examples__07_stream_protocols
+        examples__07_stream_protocols__example_ssh__main["main"]
+        examples__07_stream_protocols__example_libvirt__main["main"]
+        examples__07_stream_protocols__example_rtsp__main["main"]
+        examples__07_stream_protocols__example_multi_stream__main["main"]
+        examples__07_stream_protocols__example_http_api__main["main"]
+    end
+    subgraph examples__08_api_key_management
+        examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__get_command_for_service["get_command_for_service"]
+        examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__main["main"]
+        examples__08_api_key_management__05_openai_key__run__check("check CC=8")
+        examples__08_api_key_management__05_openai_key__run__run_flow["run_flow"]
+        examples__08_api_key_management__05_openai_key__run__main["main"]
+        examples__08_api_key_management__01_diagnose_credentials__run__main{{main CC=18}}
+        examples__08_api_key_management__06_multi_provider__run__scan["scan"]
+        examples__08_api_key_management__06_multi_provider__run__plan_all("plan_all CC=10")
+        examples__08_api_key_management__06_multi_provider__run__setup_providers("setup_providers CC=8")
+        examples__08_api_key_management__06_multi_provider__run__setup_all["setup_all"]
+        examples__08_api_key_management__06_multi_provider__run__main["main"]
+        examples__08_api_key_management__02_openrouter_key__run__check_credentials("check_credentials CC=11")
+        examples__08_api_key_management__02_openrouter_key__run__run_flow["run_flow"]
+        examples__08_api_key_management__02_openrouter_key__run__main["main"]
+        examples__08_api_key_management__03_github_token__run__check("check CC=8")
+        examples__08_api_key_management__03_github_token__run__run_flow["run_flow"]
+        examples__08_api_key_management__03_github_token__run__main["main"]
+        examples__08_api_key_management__04_huggingface_token__run__check["check"]
+        examples__08_api_key_management__04_huggingface_token__run__run_flow["run_flow"]
+        examples__08_api_key_management__04_huggingface_token__run__main["main"]
+    end
+    subgraph examples__08_llm_validation
+        examples__08_llm_validation__benchmark_validator__run_benchmark{{run_benchmark CC=28}}
+        examples__08_llm_validation__benchmark_validator__compare_benchmarks{{compare_benchmarks CC=16}}
+        examples__08_llm_validation__benchmark_validator__main["main"]
+    end
+    subgraph examples__09_online_drawing
+        examples__09_online_drawing__run__show_help["show_help"]
+        examples__09_online_drawing__run__check_nlp2cmd["check_nlp2cmd"]
+        examples__09_online_drawing__run__Nlp2cmd["Nlp2cmd"]
+        examples__09_online_drawing__run__main["main"]
+        examples__09_online_drawing___run_utils__ExampleLogger____init__["__init__"]
+        examples__09_online_drawing___run_utils__ExampleLogger__info["info"]
+        examples__09_online_drawing___run_utils__ExampleLogger__debug["debug"]
+        examples__09_online_drawing___run_utils__ExampleLogger__warning["warning"]
+        examples__09_online_drawing___run_utils__ExampleLogger__error["error"]
+        examples__09_online_drawing___run_utils__ExampleLogger__success["success"]
+        examples__09_online_drawing___run_utils__ExampleLogger__step["step"]
+        examples__09_online_drawing___run_utils__ExampleLogger___record["_record"]
+        examples__09_online_drawing___run_utils__ExampleLogger__save("save CC=8")
+        examples__09_online_drawing___run_utils__get_platform_info["get_platform_info"]
+        examples__09_online_drawing___run_utils___click_if_visible["_click_if_visible"]
+        examples__09_online_drawing___run_utils___dismiss_text_popups["_dismiss_text_popups"]
+        examples__09_online_drawing___run_utils___dismiss_selector_popups["_dismiss_selector_popups"]
+        examples__09_online_drawing___run_utils__dismiss_popups["dismiss_popups"]
+        examples__09_online_drawing___run_utils___classify_page_title["_classify_page_title"]
+        examples__09_online_drawing___run_utils___inspect_required_element["_inspect_required_element"]
+        examples__09_online_drawing___run_utils__check_page_health("check_page_health CC=12")
+        examples__09_online_drawing___run_utils___collect_discovery_urls["_collect_discovery_urls"]
+        examples__09_online_drawing___run_utils___try_discovery_url("_try_discovery_url CC=12")
+        examples__09_online_drawing___run_utils__discover_working_url("discover_working_url CC=12")
+        examples__09_online_drawing___run_utils__wait_for_canvas("wait_for_canvas CC=9")
+        examples__09_online_drawing___run_utils__retry_async["retry_async"]
+        examples__09_online_drawing___run_utils__find_canvas("find_canvas CC=13")
+        examples__09_online_drawing___run_utils__take_screenshot["take_screenshot"]
+        examples__09_online_drawing___run_utils__ExampleRunner____init__["__init__"]
+        examples__09_online_drawing___run_utils__ExampleRunner____aenter__["__aenter__"]
+        examples__09_online_drawing___run_utils__ExampleRunner____aexit__("__aexit__ CC=8")
+        examples__09_online_drawing___run_utils__ExampleRunner__navigate["navigate"]
+        examples__09_online_drawing___run_utils__ExampleRunner__screenshot["screenshot"]
+        examples__09_online_drawing__03_adaptive__run__main("main CC=8")
+        examples__09_online_drawing__07_shape_gallery__run__map_vision_to_shapes["map_vision_to_shapes"]
+        examples__09_online_drawing__07_shape_gallery__run___shape_stats["_shape_stats"]
+        examples__09_online_drawing__07_shape_gallery__run___print_shape_line["_print_shape_line"]
+        examples__09_online_drawing__07_shape_gallery__run___print_shape_group["_print_shape_group"]
+        examples__09_online_drawing__07_shape_gallery__run___categories_to_show["_categories_to_show"]
+        examples__09_online_drawing__07_shape_gallery__run__list_shapes("list_shapes CC=8")
+        examples__09_online_drawing__07_shape_gallery__run__generate_svg["generate_svg"]
+        examples__09_online_drawing__07_shape_gallery__run__generate_svg_files["generate_svg_files"]
+        examples__09_online_drawing__07_shape_gallery__run__generate_html_gallery["generate_html_gallery"]
+        examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw("analyze_image_and_draw CC=8")
+        examples__09_online_drawing__07_shape_gallery__run__draw_on_canvas("draw_on_canvas CC=8")
+        examples__09_online_drawing__07_shape_gallery__run__main["main"]
+        examples__09_online_drawing__02_picsart__run__main["main"]
+        examples__09_online_drawing__09_evolutionary_orchestrator__run__mock_example_execution["mock_example_execution"]
+        examples__09_online_drawing__09_evolutionary_orchestrator__run__run_scenario["run_scenario"]
+        examples__09_online_drawing__09_evolutionary_orchestrator__run__print_metrics_report["print_metrics_report"]
+        examples__09_online_drawing__09_evolutionary_orchestrator__run__print_learning_report["print_learning_report"]
+        examples__09_online_drawing__09_evolutionary_orchestrator__run__main("main CC=8")
+        examples__09_online_drawing__04_object_database__run__parse_objects_from_scene["parse_objects_from_scene"]
+        examples__09_online_drawing__04_object_database__run__run_scene("run_scene CC=14")
+        examples__09_online_drawing__04_object_database__run__show_database["show_database"]
+        examples__09_online_drawing__04_object_database__run__main["main"]
+        examples__09_online_drawing__08_search_demo__run__search_demo["search_demo"]
+        examples__09_online_drawing__08_search_demo__run__main["main"]
+        examples__09_online_drawing__05_autonomous__run__run_autonomous{{run_autonomous CC=18}}
+        examples__09_online_drawing__05_autonomous__run__fetch_only["fetch_only"]
+    end
+    subgraph examples__10_online_code_editors
+        examples__10_online_code_editors__03_adaptive_code_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__10_online_code_editors__03_adaptive_code_nlp2cmd__main["main"]
+        examples__10_online_code_editors__01_codepen_live_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__10_online_code_editors__01_codepen_live_nlp2cmd__get_command_for_preset["get_command_for_preset"]
+        examples__10_online_code_editors__01_codepen_live_nlp2cmd__main["main"]
+        examples__10_online_code_editors__02_mycompiler_run__main{{main CC=32}}
+        examples__10_online_code_editors__04_jsfiddle_frontend__main{{main CC=19}}
+        examples__10_online_code_editors__03_adaptive_code__detect_language["detect_language"]
+        examples__10_online_code_editors__03_adaptive_code__detect_task["detect_task"]
+        examples__10_online_code_editors__03_adaptive_code__generate_code_with_llm("generate_code_with_llm CC=9")
+        examples__10_online_code_editors__03_adaptive_code__main{{main CC=37}}
+        examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__get_command_for_code["get_command_for_code"]
+        examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__main["main"]
+        examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__get_command_for_preset["get_command_for_preset"]
+        examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__main["main"]
+        examples__10_online_code_editors__01_codepen_live__type_into_codepen_editor["type_into_codepen_editor"]
+        examples__10_online_code_editors__01_codepen_live__generate_code_from_description["generate_code_from_description"]
+        examples__10_online_code_editors__01_codepen_live__main{{main CC=21}}
+        examples__10_online_code_editors__01_codepen_live__json_safe["json_safe"]
+        examples__10_online_code_editors__05_dynamic_executor_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
+        examples__10_online_code_editors__05_dynamic_executor_nlp2cmd__main["main"]
+        examples__10_online_code_editors__05_dynamic_executor__build_prompt["build_prompt"]
+        examples__10_online_code_editors__05_dynamic_executor__main("main CC=8")
+    end
+    subgraph examples___dynamic_orchestrator
+        examples___dynamic_orchestrator__DynamicOrchestrator____init__["__init__"]
+        examples___dynamic_orchestrator__DynamicOrchestrator__execute_task["execute_task"]
+    end
+    subgraph examples___example_helpers
+        examples___example_helpers__print_separator["print_separator"]
+        examples___example_helpers__print_rule["print_rule"]
+    end
+    subgraph examples___verbose_helper
+        examples___verbose_helper__init_verbose["init_verbose"]
+        examples___verbose_helper__vlog["vlog"]
+        examples___verbose_helper__dump_page_schema["dump_page_schema"]
+        examples___verbose_helper__dump_selectors["dump_selectors"]
+        examples___verbose_helper__vlog_decision["vlog_decision"]
+        examples___verbose_helper__ensure_playwright_browsers["ensure_playwright_browsers"]
+        examples___verbose_helper__ensure_playwright_browsers_async["ensure_playwright_browsers_async"]
+        examples___verbose_helper___build_url_candidates["_build_url_candidates"]
+        examples___verbose_helper___try_url_for_selector["_try_url_for_selector"]
+        examples___verbose_helper__discover_working_url["discover_working_url"]
+        examples___verbose_helper__auto_navigate_with_fallback["auto_navigate_with_fallback"]
+    end
+    subgraph examples___verbose_schema
+        examples___verbose_schema___log_list["_log_list"]
+        examples___verbose_schema__log_schema_summary("log_schema_summary CC=13")
+    end
+    subgraph examples__run_examples
+        examples__run_examples__print_status["print_status"]
+        examples__run_examples__print_success["print_success"]
+        examples__run_examples__print_warning["print_warning"]
+        examples__run_examples__print_error["print_error"]
+        examples__run_examples__check_script["check_script"]
+        examples__run_examples__run_python_script["run_python_script"]
+        examples__run_examples__show_usage["show_usage"]
+        examples__run_examples__run_example["run_example"]
+        examples__run_examples__list_examples["list_examples"]
+        examples__run_examples__main["main"]
+    end
+    subgraph examples__run_task
+        examples__run_task__main("main CC=11")
+    end
+    subgraph examples__show_metrics
+        examples__show_metrics__main{{main CC=15}}
+    end
+    subgraph jspaint_app_test4
+        jspaint_app_test4__run["run"]
+    end
+    subgraph scripts__bump_version
+        scripts__bump_version__bump_version["bump_version"]
+    end
+    subgraph scripts__install_desktop_tools
+        scripts__install_desktop_tools__echo_info["echo_info"]
+        scripts__install_desktop_tools__echo_success["echo_success"]
+        scripts__install_desktop_tools__echo_warning["echo_warning"]
+        scripts__install_desktop_tools__echo_error["echo_error"]
+        scripts__install_desktop_tools__main["main"]
+    end
+    subgraph scripts__maintenance
+        scripts__maintenance__implement_core_integration__CoreIntegrator____init__["__init__"]
+        scripts__maintenance__implement_core_integration__CoreIntegrator__load_polish_fixes["load_polish_fixes"]
+        scripts__maintenance__implement_core_integration__CoreIntegrator__enhance_domain_detection("enhance_domain_detection CC=9")
+        scripts__maintenance__implement_core_integration__CoreIntegrator__create_enhanced_intent_detector("create_enhanced_intent_detector CC=11")
+        scripts__maintenance__implement_core_integration__CoreIntegrator__create_polish_language_module["create_polish_language_module"]
+        scripts__maintenance__implement_core_integration__CoreIntegrator__create_core_integration_patch["create_core_integration_patch"]
+        scripts__maintenance__implement_core_integration__CoreIntegrator__create_adapter_patches["create_adapter_patches"]
+        scripts__maintenance__implement_core_integration__CoreIntegrator__create_integration_script["create_integration_script"]
+        scripts__maintenance__implement_core_integration__CoreIntegrator__run_integration("run_integration CC=8")
+        scripts__maintenance__implement_core_integration__main["main"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer____init__["__init__"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__fix_shell_domain_detection["fix_shell_domain_detection"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__fix_polish_intent_patterns["fix_polish_intent_patterns"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__fix_sql_table_inference["fix_sql_table_inference"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__create_domain_weighting_config["create_domain_weighting_config"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__create_integration_script["create_integration_script"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__run_integration_script["run_integration_script"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__generate_fix_report["generate_fix_report"]
+        scripts__maintenance__implement_high_priority_fixes__HighPriorityFixer__apply_all_fixes["apply_all_fixes"]
+        scripts__maintenance__implement_high_priority_fixes__main["main"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer____init__["__init__"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__load_all_results["load_all_results"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__analyze_fix_implementation("analyze_fix_implementation CC=9")
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__identify_root_causes["identify_root_causes"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__create_action_plan["create_action_plan"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__estimate_implementation_effort["estimate_implementation_effort"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__create_implementation_roadmap["create_implementation_roadmap"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__generate_final_recommendations["generate_final_recommendations"]
+        scripts__maintenance__final_analysis_and_next_steps__FinalAnalyzer__run_complete_analysis["run_complete_analysis"]
+        scripts__maintenance__final_analysis_and_next_steps__main["main"]
+        scripts__maintenance__refactor_detect_normalized___get_helper_functions["_get_helper_functions"]
+        scripts__maintenance__refactor_detect_normalized___detect_ml_classifier["_detect_ml_classifier"]
+        scripts__maintenance__refactor_detect_normalized___detect_ml_medium_confidence["_detect_ml_medium_confidence"]
+        scripts__maintenance__refactor_detect_normalized___detect_schema_matcher["_detect_schema_matcher"]
+        scripts__maintenance__refactor_detect_normalized___detect_schema_fallback["_detect_schema_fallback"]
+        scripts__maintenance__refactor_detect_normalized___detect_semantic_fallback["_detect_semantic_fallback"]
+        scripts__maintenance__refactor_detect_normalized___detect_fuzzy_match["_detect_fuzzy_match"]
+        scripts__maintenance__refactor_detect_normalized___detect_explicit_matches["_detect_explicit_matches"]
+        scripts__maintenance__refactor_detect_normalized___detect_pattern_matches["_detect_pattern_matches"]
+        scripts__maintenance__refactor_detect_normalized__apply_refactor_to_keyword_detector["apply_refactor_to_keyword_detector"]
+        scripts__maintenance__refactoring_summary__print_summary["print_summary"]
+        scripts__maintenance__restore_system__restore_core["restore_core"]
+        scripts__maintenance__restore_system__restore_adapters["restore_adapters"]
+        scripts__maintenance__restore_system__verify_restoration["verify_restoration"]
+        scripts__maintenance__restore_system__main("main CC=9")
+        scripts__maintenance__apply_polish_integration__apply_core_patch["apply_core_patch"]
+        scripts__maintenance__apply_polish_integration__apply_adapter_patches["apply_adapter_patches"]
+        scripts__maintenance__apply_polish_integration__verify_integration["verify_integration"]
+        scripts__maintenance__apply_polish_integration__main("main CC=9")
+        scripts__maintenance__auto_apply_refactors__apply_keywords_refactor{{apply_keywords_refactor CC=20}}
+        scripts__maintenance__auto_apply_refactors__apply_templates_refactor{{apply_templates_refactor CC=16}}
+        scripts__maintenance__auto_apply_refactors__main["main"]
+        scripts__maintenance__split_web_controller__camel_to_snake["camel_to_snake"]
+        scripts__maintenance__split_web_controller__module_filename["module_filename"]
+        scripts__maintenance__split_web_controller__split_local_module{{split_local_module CC=16}}
+        scripts__maintenance__split_web_controller__main["main"]
+        scripts__maintenance__apply_nlp2cmd_fixes__load_polish_patterns["load_polish_patterns"]
+        scripts__maintenance__apply_nlp2cmd_fixes__load_intent_mappings["load_intent_mappings"]
+        scripts__maintenance__apply_nlp2cmd_fixes__load_table_mappings["load_table_mappings"]
+        scripts__maintenance__apply_nlp2cmd_fixes__load_domain_weights["load_domain_weights"]
+    end
+    subgraph scripts__setup_external
+        scripts__setup_external__main["main"]
+    end
+    subgraph scripts__testing
+        scripts__testing__run_e2e_tests__SimpleE2ETester____init__["__init__"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__start_service["start_service"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__wait_for_ready["wait_for_ready"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__stop_service["stop_service"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__run_test["run_test"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_health_check["test_health_check"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_service_info["test_service_info"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_basic_query["test_basic_query"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_polish_queries["test_polish_queries"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_query_with_explanation["test_query_with_explanation"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_config_management["test_config_management"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_error_handling["test_error_handling"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__test_concurrent_requests["test_concurrent_requests"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__run_all_tests["run_all_tests"]
+        scripts__testing__run_e2e_tests__SimpleE2ETester__cleanup["cleanup"]
+        scripts__testing__run_e2e_tests__main["main"]
+        scripts__testing__compare_entity_extractors___repo_root["_repo_root"]
+        scripts__testing__compare_entity_extractors___ensure_src_on_path["_ensure_src_on_path"]
+        scripts__testing__compare_entity_extractors___load_dataset["_load_dataset"]
+        scripts__testing__compare_entity_extractors___diff_entities["_diff_entities"]
+        scripts__testing__compare_entity_extractors___set_extractor_env["_set_extractor_env"]
+        scripts__testing__compare_entity_extractors___restore_extractor_env["_restore_extractor_env"]
+        scripts__testing__compare_entity_extractors__main("main CC=11")
+    end
+    subgraph scripts__thermodynamic
+        scripts__thermodynamic__vrp_solver__VRPSolver____init__["__init__"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___distance["_distance"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___route_distance["_route_distance"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___route_demand["_route_demand"]
+        scripts__thermodynamic__vrp_solver__VRPSolver__solve["solve"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___solve_with_iterations["_solve_with_iterations"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___initialize_routes["_initialize_routes"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___calculate_total_distance["_calculate_total_distance"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___should_accept_solution["_should_accept_solution"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___perturb("_perturb CC=8")
+        scripts__thermodynamic__vrp_solver__VRPSolver___is_feasible["_is_feasible"]
+        scripts__thermodynamic__vrp_solver__VRPSolver___consolidate_routes["_consolidate_routes"]
+        scripts__thermodynamic__genomic_pipeline_scheduler__GenomicPipelineScheduler____init__["__init__"]
+        scripts__thermodynamic__genomic_pipeline_scheduler__GenomicPipelineScheduler__estimate_time["estimate_time"]
+        scripts__thermodynamic__genomic_pipeline_scheduler__GenomicPipelineScheduler__schedule["schedule"]
+        scripts__thermodynamic__termo1__main["main"]
+        scripts__thermodynamic__hyperparameter_optimizer__HyperparameterOptimizer____init__["__init__"]
+        scripts__thermodynamic__hyperparameter_optimizer__HyperparameterOptimizer___decode_params["_decode_params"]
+        scripts__thermodynamic__hyperparameter_optimizer__HyperparameterOptimizer___evaluate["_evaluate"]
+        scripts__thermodynamic__hyperparameter_optimizer__HyperparameterOptimizer__optimize["optimize"]
+        scripts__thermodynamic__termo__demo_hybrid["demo_hybrid"]
+        scripts__thermodynamic__termo__demo_thermodynamic["demo_thermodynamic"]
+        scripts__thermodynamic__termo__demo_complete_hybrid["demo_complete_hybrid"]
+        scripts__thermodynamic__termo__main["main"]
+        scripts__thermodynamic__unit_commitment_solver__UnitCommitmentSolver____init__["__init__"]
+        scripts__thermodynamic__unit_commitment_solver__UnitCommitmentSolver__solve["solve"]
+        scripts__thermodynamic__unit_commitment_solver__UnitCommitmentSolver__calculate_cost["calculate_cost"]
+        scripts__thermodynamic__termo_demo__demo_hybrid["demo_hybrid"]
+        scripts__thermodynamic__termo_demo__demo_thermodynamic_improved["demo_thermodynamic_improved"]
+        scripts__thermodynamic__termo_demo__demo_hybrid_thermodynamic_improved["demo_hybrid_thermodynamic_improved"]
+        scripts__thermodynamic__termo_demo__benchmark_latency["benchmark_latency"]
+        scripts__thermodynamic__termo_demo__main["main"]
+        scripts__thermodynamic__termo2__demo_devops_automation["demo_devops_automation"]
+        scripts__thermodynamic__termo2__demo_hyperparameter_optimization["demo_hyperparameter_optimization"]
+        scripts__thermodynamic__termo2__demo_vehicle_routing["demo_vehicle_routing"]
+        scripts__thermodynamic__termo2__demo_or_scheduling["demo_or_scheduling"]
+        scripts__thermodynamic__termo2__demo_unit_commitment["demo_unit_commitment"]
+        scripts__thermodynamic__termo2__demo_genomic_pipeline["demo_genomic_pipeline"]
+        scripts__thermodynamic__termo2__main["main"]
+        scripts__thermodynamic__or_scheduler__ORScheduler____init__["__init__"]
+        scripts__thermodynamic__or_scheduler__ORScheduler___can_perform["_can_perform"]
+        scripts__thermodynamic__or_scheduler__ORScheduler__schedule["schedule"]
+        scripts__thermodynamic__or_scheduler__ORScheduler___sort_surgeries_by_priority["_sort_surgeries_by_priority"]
+        scripts__thermodynamic__or_scheduler__ORScheduler___initialize_schedule["_initialize_schedule"]
+        scripts__thermodynamic__or_scheduler__ORScheduler___get_room_end_times["_get_room_end_times"]
+        scripts__thermodynamic__or_scheduler__ORScheduler___find_best_room_for_surgery["_find_best_room_for_surgery"]
+        scripts__thermodynamic__or_scheduler__ORScheduler___schedule_surgery_in_room["_schedule_surgery_in_room"]
+        scripts__thermodynamic__or_scheduler__ORScheduler__print_schedule["print_schedule"]
+    end
+    subgraph src__app2schema
+        src__app2schema__cli__main["main"]
+        src__app2schema__extract__validate_app2schema_export("validate_app2schema_export CC=13")
+        src__app2schema__extract__validate_appspec("validate_appspec CC=9")
+        src__app2schema__extract___slugify["_slugify"]
+        src__app2schema__extract___SimpleDomParser____init__["__init__"]
+        src__app2schema__extract___SimpleDomParser__handle_starttag["handle_starttag"]
+        src__app2schema__extract___SimpleDomParser__handle_endtag["handle_endtag"]
+        src__app2schema__extract___SimpleDomParser__handle_data["handle_data"]
+        src__app2schema__extract___extract_web_dom_schema{{_extract_web_dom_schema CC=45}}
+        src__app2schema__extract__App2SchemaResult__to_export_dict["to_export_dict"]
+        src__app2schema__extract__App2SchemaResult__to_appspec_dict{{to_appspec_dict CC=15}}
+        src__app2schema__extract___normalize_base_url["_normalize_base_url"]
+        src__app2schema__extract__discover_openapi_spec_url{{discover_openapi_spec_url CC=22}}
+        src__app2schema__extract__extract_schema{{extract_schema CC=30}}
+        src__app2schema__extract__extract_appspec_to_file{{extract_appspec_to_file CC=27}}
+        src__app2schema__extract__extract_schema_to_file{{extract_schema_to_file CC=20}}
+    end
+    subgraph src__nlp2cmd
+        src__nlp2cmd__pipeline_runner__PipelineRunner____init__("__init__ CC=8")
+        src__nlp2cmd__pipeline_runner__PipelineRunner__run("run CC=9")
+        src__nlp2cmd__pipeline_runner_utils___debug["_debug"]
+        src__nlp2cmd__pipeline_runner_utils___with_epipe_retry["_with_epipe_retry"]
+        src__nlp2cmd__pipeline_runner_utils___field_attrs("_field_attrs CC=8")
+        src__nlp2cmd__pipeline_runner_utils___is_junk_field{{_is_junk_field CC=20}}
+        src__nlp2cmd__pipeline_runner_utils___is_contact_relevant_field["_is_contact_relevant_field"]
+        src__nlp2cmd__pipeline_runner_utils___looks_like_comment_form["_looks_like_comment_form"]
+        src__nlp2cmd__pipeline_runner_utils___filter_form_fields{{_filter_form_fields CC=18}}
+        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper____init__["__init__"]
+        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print["print"]
+        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__capture["capture"]
+        src__nlp2cmd__pipeline_runner_utils__ShellExecutionPolicy__load_from_data{{load_from_data CC=18}}
+        src__nlp2cmd__pipeline_runner_utils__get_timestamp["get_timestamp"]
+        src__nlp2cmd__pipeline_runner_utils__ensure_dir["ensure_dir"]
+        src__nlp2cmd__pipeline_runner_utils__ask_for_screenshot["ask_for_screenshot"]
+        src__nlp2cmd__pipeline_runner_utils__take_screenshot["take_screenshot"]
+        src__nlp2cmd__pipeline_runner_utils__VideoRecorder____init__["__init__"]
+        src__nlp2cmd__pipeline_runner_utils__VideoRecorder__start_recording["start_recording"]
+        src__nlp2cmd__pipeline_runner_utils__VideoRecorder__stop_recording["stop_recording"]
+        src__nlp2cmd__pipeline_runner_utils__ask_for_video_recording["ask_for_video_recording"]
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD____init__["__init__"]
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD__transform["transform"]
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___select_action{{_select_action CC=41}}
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___extract_params{{_extract_params CC=17}}
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___render_dsl["_render_dsl"]
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___render_dom("_render_dom CC=9")
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___render_http{{_render_http CC=29}}
+        src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___render_shell{{_render_shell CC=25}}
+        src__nlp2cmd__polish_support__PolishLanguageSupport____init__["__init__"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport___load_patterns["_load_patterns"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__normalize_polish_text["normalize_polish_text"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__normalize_stt_errors{{normalize_stt_errors CC=20}}
+        src__nlp2cmd__polish_support__PolishLanguageSupport___find_best_phrase_match["_find_best_phrase_match"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport___similar["_similar"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__match_polish_patterns["match_polish_patterns"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__translate_polish_intent["translate_polish_intent"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__translate_polish_table["translate_polish_table"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__get_domain_weight["get_domain_weight"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__enhance_domain_detection["enhance_domain_detection"]
+        src__nlp2cmd__polish_support__PolishLanguageSupport__enhance_intent_detection["enhance_intent_detection"]
+        src__nlp2cmd__polish_support__get_polish_support["get_polish_support"]
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___dismiss_popups["_dismiss_popups"]
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___extract_json_from_llm_response("_extract_json_from_llm_response CC=10")
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___detect_desktop_backend["_detect_desktop_backend"]
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___execute_desktop_plan_step{{_execute_desktop_plan_step CC=44}}
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___xdotool_keys_to_ydotool["_xdotool_keys_to_ydotool"]
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___execute_desktop_plan_step_dispatch("_execute_desktop_plan_step_dispatch CC=8")
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___normalize_llm_article_selector_payload["_normalize_llm_article_selector_pay"]
+        src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___collect_page_links_for_llm["_collect_page_links_for_llm"]
+        src__nlp2cmd__appspec_runtime__AppSpec__get_action["get_action"]
+        src__nlp2cmd__appspec_runtime__load_appspec("load_appspec CC=10")
+        src__nlp2cmd__pipeline_runner_shell__ShellExecutionMixin___run_shell{{_run_shell CC=27}}
+        src__nlp2cmd__pipeline_runner_shell__ShellExecutionMixin___parse_shell_command{{_parse_shell_command CC=15}}
+        src__nlp2cmd__pipeline_runner_shell__ShellExecutionMixin___check_against_safety_policy["_check_against_safety_policy"]
+        src__nlp2cmd__pipeline_runner_browser__BrowserExecutionMixin___run_dom_dql{{_run_dom_dql CC=28}}
+        src__nlp2cmd__pipeline_runner_browser__BrowserExecutionMixin___run_dom_multi_action{{_run_dom_multi_action CC=280}}
+        src__nlp2cmd__pipeline_runner_browser__BrowserExecutionMixin___run_dom_multi_action_dispatch{{_run_dom_multi_action_dispatch CC=15}}
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___sanitize_replacement_steps("_sanitize_replacement_steps CC=13")
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___detect_desktop_steps["_detect_desktop_steps"]
+    end
+    subgraph test_nlp2cmd_commands
+        test_nlp2cmd_commands__print_status["print_status"]
+        test_nlp2cmd_commands__print_success["print_success"]
+        test_nlp2cmd_commands__print_warning["print_warning"]
+        test_nlp2cmd_commands__print_error["print_error"]
+        test_nlp2cmd_commands__print["print"]
+    end
+    subgraph test_nlp2cmd_enhanced
+        test_nlp2cmd_enhanced__print_status["print_status"]
+        test_nlp2cmd_enhanced__print_success["print_success"]
+        test_nlp2cmd_enhanced__print_warning["print_warning"]
+        test_nlp2cmd_enhanced__print_error["print_error"]
+        test_nlp2cmd_enhanced__print_header["print_header"]
+        test_nlp2cmd_enhanced__check_nlp2cmd["check_nlp2cmd"]
+        test_nlp2cmd_enhanced__generate_command_schema["generate_command_schema"]
+        test_nlp2cmd_enhanced__create_placeholder_schema["create_placeholder_schema"]
+        test_nlp2cmd_enhanced__install_command_with_schema["install_command_with_schema"]
+        test_nlp2cmd_enhanced__run_nlp2cmd_command["run_nlp2cmd_command"]
+        test_nlp2cmd_enhanced__test_all_commands["test_all_commands"]
+        test_nlp2cmd_enhanced__show_schemas["show_schemas"]
+        test_nlp2cmd_enhanced__cleanup["cleanup"]
+        test_nlp2cmd_enhanced__main["main"]
+    end
+    subgraph test_screenshots__analyze_screenshots
+        test_screenshots__analyze_screenshots__calculate_file_hash["calculate_file_hash"]
+        test_screenshots__analyze_screenshots__analyze_screenshots("analyze_screenshots CC=11")
+        test_screenshots__analyze_screenshots__resize_screenshots("resize_screenshots CC=12")
+        test_screenshots__analyze_screenshots__main["main"]
+    end
+    subgraph test_screenshots__compare_screenshots
+        test_screenshots__compare_screenshots__image_similarity["image_similarity"]
+        test_screenshots__compare_screenshots__detect_changes("detect_changes CC=9")
+        test_screenshots__compare_screenshots__create_diff_images["create_diff_images"]
+        test_screenshots__compare_screenshots__main["main"]
+    end
+    subgraph test_screenshots__test_openrouter_workflow
+        test_screenshots__test_openrouter_workflow__log["log"]
+        test_screenshots__test_openrouter_workflow__log_success["log_success"]
+        test_screenshots__test_openrouter_workflow__log_error["log_error"]
+        test_screenshots__test_openrouter_workflow__log_warning["log_warning"]
+    end
+    subgraph tools__analysis
+        tools__analysis__analyze_version_detection__analyze_version_standards["analyze_version_standards"]
+        tools__analysis__analyze_version_detection__test_version_detection_patterns["test_version_detection_patterns"]
+        tools__analysis__analyze_version_detection__check_schema_version_support("check_schema_version_support CC=9")
+        tools__analysis__analyze_version_detection__demonstrate_version_detection_implementation["demonstrate_version_detection_imple"]
+        tools__analysis__analyze_version_detection__best_practices["best_practices"]
+        tools__analysis__analyze_version_detection__main["main"]
+        tools__analysis__compare_llm__compare_schemas{{compare_schemas CC=16}}
+        tools__analysis__compare_batches__compare_batch_files{{compare_batch_files CC=21}}
+    end
+    subgraph tools__generation
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator____init__["__init__"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator__generate_command["generate_command"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___select_optimal_method["_select_optimal_method"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___generate_with_method["_generate_with_method"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___generate_schema_based["_generate_schema_based"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___generate_llm_direct["_generate_llm_direct"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___generate_template_matching["_generate_template_matching"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___generate_hybrid["_generate_hybrid"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___generate_fallback["_generate_fallback"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___analyze_prompt_complexity["_analyze_prompt_complexity"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___has_relevant_schema["_has_relevant_schema"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___needs_enhancement["_needs_enhancement"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___enhance_command["_enhance_command"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___cache_success["_cache_success"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator___cache_failure["_cache_failure"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator__batch_generate["batch_generate"]
+        tools__generation__intelligent_command_generator__IntelligentCommandGenerator__get_performance_stats["get_performance_stats"]
+        tools__generation__intelligent_command_generator__main["main"]
+        tools__generation__generate_cmd_from_prompts__CommandGenerator____init__["__init__"]
+        tools__generation__generate_cmd_from_prompts__CommandGenerator__generate_command["generate_command"]
+        tools__generation__generate_cmd_from_prompts__CommandGenerator___generate_simple{{_generate_simple CC=144}}
+        tools__generation__generate_cmd_from_prompts__create_enhanced_prompt_list["create_enhanced_prompt_list"]
+        tools__generation__generate_cmd_from_prompts__main{{main CC=16}}
+        tools__generation__generate_cmd_simple__load_prompts["load_prompts"]
+        tools__generation__generate_cmd_simple__detect_command_version["detect_command_version"]
+        tools__generation__generate_cmd_simple__generate_command{{generate_command CC=187}}
+        tools__generation__generate_cmd_simple__main{{main CC=15}}
+    end
+    subgraph tools__manual_tests
+        tools__manual_tests__quick_test_nlp2cmd__quick_test["quick_test"]
+    end
+    subgraph tools__schema
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner____init__["__init__"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner__scan_command["scan_command"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___parse_all_options("_parse_all_options CC=9")
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___parse_options_from_text["_parse_options_from_text"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___parse_option_line("_parse_option_line CC=12")
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___detect_option_type("_detect_option_type CC=11")
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___detect_relationships("_detect_relationships CC=8")
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___create_parameters_from_options["_create_parameters_from_options"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___map_option_type_to_param_type("_map_option_type_to_param_type CC=11")
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___generate_comprehensive_examples{{_generate_comprehensive_examples CC=17}}
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___generate_comprehensive_template("_generate_comprehensive_template CC=13")
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___generate_patterns["_generate_patterns"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___get_option_key["_get_option_key"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___merge_options["_merge_options"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___create_option_from_signature["_create_option_from_signature"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___get_help_text["_get_help_text"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___get_man_page["_get_man_page"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___get_version_text["_get_version_text"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___extract_description["_extract_description"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___detect_category["_detect_category"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___clean_description["_clean_description"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner___load_command_signatures["_load_command_signatures"]
+        tools__schema__comprehensive_command_scanner__ComprehensiveCommandScanner__scan_multiple_commands["scan_multiple_commands"]
+        tools__schema__comprehensive_command_scanner__main["main"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor____init__["__init__"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor__extract_schema("extract_schema CC=8")
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___extract_with_strategy["_extract_with_strategy"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___extract_from_help["_extract_from_help"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___extract_from_man["_extract_from_man"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___extract_from_patterns["_extract_from_patterns"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___extract_from_templates["_extract_from_templates"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___enhance_schema["_enhance_schema"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___evaluate_quality("_evaluate_quality CC=11")
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___create_fallback_schema["_create_fallback_schema"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___get_help_text["_get_help_text"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___get_man_page["_get_man_page"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___parse_description["_parse_description"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___parse_parameters["_parse_parameters"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___parse_examples["_parse_examples"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___infer_template("_infer_template CC=8")
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___detect_category["_detect_category"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___parse_man_sections["_parse_man_sections"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___parse_template_from_synopsis["_parse_template_from_synopsis"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___load_command_patterns["_load_command_patterns"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___load_template_library["_load_template_library"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___create_parameters_from_pattern["_create_parameters_from_pattern"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___find_matching_templates["_find_matching_templates"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___get_common_parameters["_get_common_parameters"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___generate_examples["_generate_examples"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor___improve_template["_improve_template"]
+        tools__schema__non_llm_schema_extractor__NonLLMSchemaExtractor__batch_extract["batch_extract"]
+        tools__schema__non_llm_schema_extractor__main["main"]
+        tools__schema__update_schemas__load_commands_from_files{{load_commands_from_files CC=16}}
+        tools__schema__update_schemas__update_all_schemas{{update_all_schemas CC=15}}
+        tools__schema__update_schemas__main["main"]
+        tools__schema__enhanced_schema_generator__EnhancedSchemaExtractor____init__["__init__"]
+        tools__schema__enhanced_schema_generator__EnhancedSchemaExtractor__extract_schema["extract_schema"]
+        tools__schema__enhanced_schema_generator__EnhancedSchemaExtractor___select_strategy["_select_strategy"]
+        tools__schema__enhanced_schema_generator__EnhancedSchemaExtractor___extract_with_strategy["_extract_with_strategy"]
+        tools__schema__enhanced_schema_generator__EnhancedSchemaExtractor___extract_from_help["_extract_from_help"]
+    end
+    jspaint_app_test4__run --> test_nlp2cmd_commands__print
+    examples__show_metrics__main --> src__nlp2cmd__orchestration__learned_path__get_workspace
+    examples__show_metrics__main --> test_nlp2cmd_commands__print
+    examples___verbose_schema___log_list --> examples___verbose_helper__vlog
+    examples___verbose_schema__log_schema_summary --> examples___verbose_helper__vlog
+    examples___verbose_schema__log_schema_summary --> examples___verbose_schema___log_list
+    examples___dynamic_orchestrator__DynamicOrchestrator____init__ --> src__nlp2cmd__orchestration__handlers__register_default_handlers
+    examples___dynamic_orchestrator__DynamicOrchestrator__execute_task --> test_nlp2cmd_commands__print
+    examples___example_helpers__print_separator --> test_nlp2cmd_commands__print
+    examples___example_helpers__print_rule --> test_nlp2cmd_commands__print
+    examples___verbose_helper__init_verbose --> examples___verbose_helper__vlog
+    examples___verbose_helper__vlog --> test_nlp2cmd_commands__print
+    examples___verbose_helper__dump_page_schema --> examples___verbose_helper__vlog
+    examples___verbose_helper__dump_page_schema --> examples___verbose_schema__log_schema_summary
+    examples___verbose_helper__dump_selectors --> examples___verbose_helper__vlog
+    examples___verbose_helper__vlog_decision --> examples___verbose_helper__vlog
+    examples___verbose_helper__ensure_playwright_browsers --> test_nlp2cmd_commands__print
+    examples___verbose_helper__ensure_playwright_browsers --> examples___verbose_helper__vlog
+    examples___verbose_helper__ensure_playwright_browsers_async --> test_nlp2cmd_commands__print
+    examples___verbose_helper__ensure_playwright_browsers_async --> examples___verbose_helper__vlog
+    examples___verbose_helper___try_url_for_selector --> examples___verbose_helper__vlog
+    examples___verbose_helper___try_url_for_selector --> test_nlp2cmd_commands__print
+    examples___verbose_helper__discover_working_url --> examples___verbose_helper___build_url_candidates
+    examples___verbose_helper__discover_working_url --> examples___verbose_helper__vlog
+    examples___verbose_helper__discover_working_url --> examples___verbose_helper___try_url_for_selector
+    examples___verbose_helper__auto_navigate_with_fallback --> test_nlp2cmd_commands__print
+    examples___verbose_helper__auto_navigate_with_fallback --> examples___verbose_helper__discover_working_url
+    examples___verbose_helper__auto_navigate_with_fallback --> examples___verbose_helper__vlog
+    examples__run_task__main --> src__nlp2cmd__orchestration__handlers__register_default_handlers
+    examples__run_task__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__example_scheduling --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__example_scheduling --> src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator
+    examples__05_advanced_features__thermodynamic_computing__example__example_scheduling --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__example_allocation --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__example_allocation --> src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator
+    examples__05_advanced_features__thermodynamic_computing__example__example_allocation --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__example_energy_savings --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__example_energy_savings --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__example_majority_voting --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__example_majority_voting --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__example_routing --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__example_routing --> src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator
+    examples__05_advanced_features__thermodynamic_computing__example__example_routing --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__example_direct_problem --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__example_direct_problem --> src__nlp2cmd__generation__thermodynamic__create_thermodynamic_generator
+    examples__05_advanced_features__thermodynamic_computing__example__example_direct_problem --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples___example_helpers__print_separator
+    examples__05_advanced_features__thermodynamic_computing__example__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples__05_advanced_features__thermodynamic_computing__example__example_scheduling
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples__05_advanced_features__thermodynamic_computing__example__example_allocation
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples__05_advanced_features__thermodynamic_computing__example__example_energy_savings
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples__05_advanced_features__thermodynamic_computing__example__example_majority_voting
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples__05_advanced_features__thermodynamic_computing__example__example_routing
+    examples__05_advanced_features__thermodynamic_computing__example__main --> examples__05_advanced_features__thermodynamic_computing__example__example_direct_problem
+    examples__05_advanced_features__schema_driven_architecture__manual_appspec__main --> src__nlp2cmd__appspec_runtime__load_appspec
+    examples__05_advanced_features__schema_driven_architecture__manual_appspec__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_section --> examples___example_helpers__print_separator
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_section --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_step --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_step --> examples___example_helpers__print_rule
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main --> examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_section
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main --> examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__print_step
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main --> src__nlp2cmd__registry__get_registry__get_registry
+    examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__mvp__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__05_advanced_features__schema_driven_architecture__mvp__main --> src__nlp2cmd__appspec_runtime__load_appspec
+    examples__05_advanced_features__schema_driven_architecture__mvp__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__05_result_aggregator__demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__02_decision_router__demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__04_plan_executor__demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__schema_driven_architecture__03_llm_planner__demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__simple_schema_demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__transform --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD__update_command_schema --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__demonstrate_persistent_storage --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__show_storage_benefits --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_enhanced__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_enhanced__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__demonstrate_schema_flow --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__demonstrate_multiple_commands --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__show_schema_details --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__main --> examples__05_advanced_features__dynamic_schemas__demo_schema_flow__demonstrate_schema_flow
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__main --> examples__05_advanced_features__dynamic_schemas__demo_schema_flow__demonstrate_multiple_commands
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__main --> examples__05_advanced_features__dynamic_schemas__demo_schema_flow__show_schema_details
+    examples__05_advanced_features__dynamic_schemas__demo_schema_flow__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_tool_version --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_docker --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_tool_version
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_docker --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_kubectl --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_tool_version
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_kubectl --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_ps --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_tool_version
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_ps --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_python --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_tool_version
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_python --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_docker
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_kubectl
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_ps
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection --> examples__05_advanced_features__dynamic_schemas__demo_version_detection___demo_python
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__show_integration_example --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__show_version_mapping --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__main --> examples__05_advanced_features__dynamic_schemas__demo_version_detection__demonstrate_version_detection
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__main --> examples__05_advanced_features__dynamic_schemas__demo_version_detection__show_integration_example
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__main --> examples__05_advanced_features__dynamic_schemas__demo_version_detection__show_version_mapping
+    examples__05_advanced_features__dynamic_schemas__demo_version_detection__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__show_schema_extraction_flow --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__show_file_locations --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__show_api_usage --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__main --> examples__05_advanced_features__dynamic_schemas__schema_flow_demo__show_schema_extraction_flow
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__main --> examples__05_advanced_features__dynamic_schemas__schema_flow_demo__show_file_locations
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__main --> examples__05_advanced_features__dynamic_schemas__schema_flow_demo__show_api_usage
+    examples__05_advanced_features__dynamic_schemas__schema_flow_demo__main --> test_nlp2cmd_commands__print
+    examples__05_advanced_features__dynamic_schemas__example__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__05_advanced_features__dynamic_schemas__example__main --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__main --> examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__get_command_for_service
+    examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__main --> examples__08_api_key_management__01_diagnose_credentials_nlp2cmd__run_nlp2cmd_command
+    examples__08_api_key_management__05_openai_key__run__check --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__05_openai_key__run__check --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__05_openai_key__run__run_flow --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__05_openai_key__run__main --> examples__08_api_key_management__05_openai_key__run__check
+    examples__08_api_key_management__05_openai_key__run__main --> examples__08_api_key_management__05_openai_key__run__run_flow
+    examples__08_api_key_management__01_diagnose_credentials__run__main --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__01_diagnose_credentials__run__main --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__06_multi_provider__run__scan --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__06_multi_provider__run__plan_all --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__06_multi_provider__run__plan_all --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__06_multi_provider__run__setup_providers --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__06_multi_provider__run__setup_providers --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__06_multi_provider__run__setup_all --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__06_multi_provider__run__setup_all --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__06_multi_provider__run__setup_all --> examples__08_api_key_management__06_multi_provider__run__setup_providers
+    examples__08_api_key_management__06_multi_provider__run__main --> examples__08_api_key_management__06_multi_provider__run__scan
+    examples__08_api_key_management__06_multi_provider__run__main --> examples__08_api_key_management__06_multi_provider__run__plan_all
+    examples__08_api_key_management__06_multi_provider__run__main --> examples__08_api_key_management__06_multi_provider__run__setup_providers
+    examples__08_api_key_management__06_multi_provider__run__main --> examples__08_api_key_management__06_multi_provider__run__setup_all
+    examples__08_api_key_management__02_openrouter_key__run__check_credentials --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__02_openrouter_key__run__check_credentials --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__02_openrouter_key__run__run_flow --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__02_openrouter_key__run__main --> examples__08_api_key_management__02_openrouter_key__run__check_credentials
+    examples__08_api_key_management__02_openrouter_key__run__main --> examples__08_api_key_management__02_openrouter_key__run__run_flow
+    examples__08_api_key_management__03_github_token__run__check --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__03_github_token__run__check --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__03_github_token__run__run_flow --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__03_github_token__run__main --> examples__08_api_key_management__03_github_token__run__check
+    examples__08_api_key_management__03_github_token__run__main --> examples__08_api_key_management__03_github_token__run__run_flow
+    examples__08_api_key_management__04_huggingface_token__run__check --> src__nlp2cmd__automation__password_store__get_password_store
+    examples__08_api_key_management__04_huggingface_token__run__check --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__04_huggingface_token__run__run_flow --> test_nlp2cmd_commands__print
+    examples__08_api_key_management__04_huggingface_token__run__main --> examples__08_api_key_management__04_huggingface_token__run__check
+    examples__08_api_key_management__04_huggingface_token__run__main --> examples__08_api_key_management__04_huggingface_token__run__run_flow
+    examples__06_tools_and_utilities__migration_tools__guide__old_way_examples --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__guide__new_way_examples --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__guide__migration_steps --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__guide__performance_comparison --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__guide__practical_examples --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__guide__main --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__guide__main --> examples__06_tools_and_utilities__migration_tools__guide__old_way_examples
+    examples__06_tools_and_utilities__migration_tools__guide__main --> examples__06_tools_and_utilities__migration_tools__guide__new_way_examples
+    examples__06_tools_and_utilities__migration_tools__guide__main --> examples__06_tools_and_utilities__migration_tools__guide__migration_steps
+    examples__06_tools_and_utilities__migration_tools__guide__main --> examples__06_tools_and_utilities__migration_tools__guide__performance_comparison
+    examples__06_tools_and_utilities__migration_tools__guide__main --> examples__06_tools_and_utilities__migration_tools__guide__practical_examples
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__migrate_existing_schemas --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_schema_updates --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_dual_versions --> test_nlp2cmd_commands__print
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__main --> examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__migrate_existing_schemas
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__main --> examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_schema_updates
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__main --> examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_dual_versions
+    examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__docker_manager__DockerManager____init__ --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__03_integrations__web_development__docker_manager__DockerManager__start_services --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__docker_manager__DockerManager__start_services --> examples___example_helpers__print_rule
+    examples__03_integrations__web_development__docker_manager__DockerManager__show_logs --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__docker_manager__DockerManager__show_logs --> examples___example_helpers__print_rule
+    examples__03_integrations__web_development__docker_manager__DockerManager__stop_services --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__nlp2_cmd_web_controller__NLP2CMDWebController__save_full_deployment_plan --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    examples__03_integrations__web_development__demo___print_help --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__demo___print_generated_files --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__demo___maybe_save_deployment_plan --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__demo__demo_nlp_commands --> examples___example_helpers__print_separator
+    examples__03_integrations__web_development__demo__demo_nlp_commands --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__demo__demo_nlp_commands --> examples___example_helpers__print_rule
+    examples__03_integrations__web_development__demo__demo_nlp_commands --> examples__03_integrations__web_development___demo_helpers__print_command_result
+    examples__03_integrations__web_development__demo__demo_nlp_commands --> examples__03_integrations__web_development__demo___print_help
+    examples__03_integrations__web_development__demo__demo_nlp_commands --> examples__03_integrations__web_development___demo_helpers__dispatch_management_command
+    examples__03_integrations__web_development__demo__run_example --> examples___example_helpers__print_separator
+    examples__03_integrations__web_development__demo__run_example --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__demo__main --> examples__03_integrations__web_development__demo__demo_nlp_commands
+    examples__03_integrations__web_development__demo__main --> examples___example_helpers__print_separator
+    examples__03_integrations__web_development__demo__main --> examples__03_integrations__web_development__demo__run_example
+    examples__03_integrations__web_development__03_docker_compose__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__03_docker_compose__demo__main --> examples__03_integrations__web_development__03_docker_compose__demo__generate_compose
+    examples__03_integrations__web_development__04_service_deployment__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__05_infrastructure_management__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__02_deployment_planning__demo__DeploymentPlan__summary --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__03_integrations__web_development__02_deployment_planning__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__web_development__01_basic_service_config__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__SimpleToonParser___parse_file --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__benchmark_performance --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__compare_usage_patterns --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__compare_data_structure --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__demonstrate_llm_friendly_format --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__comparison_demo__main --> examples__03_integrations__toon_format__comparison_demo__benchmark_performance
+    examples__03_integrations__toon_format__comparison_demo__main --> examples__03_integrations__toon_format__comparison_demo__compare_usage_patterns
+    examples__03_integrations__toon_format__comparison_demo__main --> examples__03_integrations__toon_format__comparison_demo__compare_data_structure
+    examples__03_integrations__toon_format__comparison_demo__main --> examples__03_integrations__toon_format__comparison_demo__demonstrate_llm_friendly_format
+    examples__03_integrations__toon_format__practical_usage__ToonDemo___load_toon_data --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__practical_usage__ToonDemo__show_basic_usage --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__practical_usage__ToonDemo__show_advanced_usage --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__practical_usage__ToonDemo__show_real_world_examples --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__practical_usage__ToonDemo__show_integration_examples --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__practical_usage__ToonDemo__show_performance_tips --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__practical_usage__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__old_system_loader__OldSystemLoader__load_command_schemas --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__demo_basic_usage --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__demo_real_world_example --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__demo_integration_example --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__demo_advanced_features --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__demo_performance_tips --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__simple_demo__main --> examples__03_integrations__toon_format__simple_demo__demo_basic_usage
+    examples__03_integrations__toon_format__simple_demo__main --> examples__03_integrations__toon_format__simple_demo__demo_real_world_example
+    examples__03_integrations__toon_format__simple_demo__main --> examples__03_integrations__toon_format__simple_demo__demo_integration_example
+    examples__03_integrations__toon_format__simple_demo__main --> examples__03_integrations__toon_format__simple_demo__demo_advanced_features
+    examples__03_integrations__toon_format__simple_demo__main --> examples__03_integrations__toon_format__simple_demo__demo_performance_tips
+    examples__03_integrations__toon_format__usage_example__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__usage_example__main --> src__nlp2cmd__core__toon_integration__get_data_manager
+    examples__03_integrations__toon_format__13_query_system__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__12_advanced_integration__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__05_advanced_patterns__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__04_search_and_filter__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__14_batch_processing__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__14_batch_processing__demo__main --> examples__03_integrations__toon_format__14_batch_processing__demo__batch_validate
+    examples__03_integrations__toon_format__14_batch_processing__demo__main --> examples__03_integrations__toon_format__14_batch_processing__demo__batch_export
+    examples__03_integrations__toon_format__06_old_system_mock__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__01_basic_usage__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__03_data_manager__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__02_command_generator__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__07_loading_performance__demo__benchmark_old_system --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    examples__03_integrations__toon_format__07_loading_performance__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__07_loading_performance__demo__main --> examples__03_integrations__toon_format__07_loading_performance__demo__benchmark_old_system
+    examples__03_integrations__toon_format__07_loading_performance__demo__main --> examples__03_integrations__toon_format__07_loading_performance__demo__benchmark_toon
+    examples__03_integrations__toon_format__11_basic_integration__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__08_memory_usage__demo__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__toon_format__08_memory_usage__demo__main --> examples__03_integrations__toon_format__08_memory_usage__demo__estimate_old_system_memory
+    examples__03_integrations__toon_format__08_memory_usage__demo__main --> examples__03_integrations__toon_format__08_memory_usage__demo__estimate_toon_memory
+    examples__03_integrations__pipelines__infrastructure_health__main --> examples___example_helpers__print_separator
+    examples__03_integrations__pipelines__infrastructure_health__main --> src__nlp2cmd__registry__get_registry__get_registry
+    examples__03_integrations__pipelines__infrastructure_health__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__pipelines__infrastructure_health__main --> examples___example_helpers__print_rule
+    examples__03_integrations__pipelines__log_analysis__main --> examples___example_helpers__print_separator
+    examples__03_integrations__pipelines__log_analysis__main --> src__nlp2cmd__registry__get_registry__get_registry
+    examples__03_integrations__pipelines__log_analysis__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__pipelines__log_analysis__main --> examples___example_helpers__print_rule
+    examples__03_integrations__validation__config_validation__print_section --> examples___example_helpers__print_separator
+    examples__03_integrations__validation__config_validation__print_section --> test_nlp2cmd_commands__print
+    examples__03_integrations__validation__config_validation__print_result --> test_nlp2cmd_commands__print
+    examples__03_integrations__validation__config_validation__main --> examples__03_integrations__validation__config_validation__print_section
+    examples__03_integrations__validation__config_validation__main --> test_nlp2cmd_commands__print
+    examples__03_integrations__validation__config_validation__main --> examples___example_helpers__print_rule
+    examples__03_integrations__validation__config_validation__main --> examples__03_integrations__validation__config_validation__print_result
+    examples__02_benchmarks__performance_testing__benchmark__print_section --> examples___example_helpers__print_separator
+    examples__02_benchmarks__performance_testing__benchmark__print_section --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__performance_testing__benchmark__run_sequential_benchmark --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__performance_testing__benchmark__benchmark_adapters --> examples__02_benchmarks__performance_testing__benchmark__print_section
+    examples__02_benchmarks__performance_testing__benchmark__benchmark_adapters --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__performance_testing__benchmark__benchmark_adapters --> examples__02_benchmarks__performance_testing__benchmark__run_sequential_benchmark
+    examples__02_benchmarks__performance_testing__benchmark__generate_report --> examples__02_benchmarks__performance_testing__benchmark__generate_markdown_report
+    examples__02_benchmarks__performance_testing__benchmark__generate_markdown_report --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    examples__02_benchmarks__performance_testing__benchmark__save_report --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__performance_testing__benchmark__print_report_summary --> examples__02_benchmarks__performance_testing__benchmark__print_section
+    examples__02_benchmarks__performance_testing__benchmark__print_report_summary --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__performance_testing__benchmark__main --> examples__02_benchmarks__performance_testing__benchmark__print_section
+    examples__02_benchmarks__performance_testing__benchmark__main --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__performance_testing__benchmark__main --> examples__02_benchmarks__performance_testing__benchmark__benchmark_adapters
+    examples__02_benchmarks__performance_testing__benchmark__main --> examples__02_benchmarks__performance_testing__benchmark__generate_report
+    examples__02_benchmarks__performance_testing__benchmark__main --> examples__02_benchmarks__performance_testing__benchmark__save_report
+    examples__02_benchmarks__performance_testing__benchmark__main --> examples__02_benchmarks__performance_testing__benchmark__print_report_summary
+    examples__02_benchmarks__sequential_testing__benchmark__print_section --> examples___example_helpers__print_separator
+    examples__02_benchmarks__sequential_testing__benchmark__print_section --> test_nlp2cmd_commands__print
+    examples__02_benchmarks__sequential_testing__benchmark__main --> examples__02_benchmarks__sequential_testing__benchmark__print_section
+    examples__02_benchmarks__sequential_testing__benchmark__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__workflows__print_section --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__workflows__print_section --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__workflows__main --> examples__01_basics__sql_basics__workflows__print_section
+    examples__01_basics__sql_basics__workflows__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__advanced__main --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__advanced__main --> examples___example_helpers__print_rule
+    examples__01_basics__sql_basics__advanced__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__llm_integration__demonstrate_mock_llm --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__llm_integration__demonstrate_mock_llm --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__llm_integration__demonstrate_mock_llm --> examples___example_helpers__print_rule
+    examples__01_basics__sql_basics__llm_integration__demonstrate_rule_based_fallback --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__llm_integration__demonstrate_rule_based_fallback --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__llm_integration__demonstrate_real_llm_setup --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__llm_integration__demonstrate_real_llm_setup --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__llm_integration__demonstrate_real_llm_setup --> examples___example_helpers__print_rule
+    examples__01_basics__sql_basics__llm_integration__demonstrate_hybrid_approach --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__llm_integration__demonstrate_hybrid_approach --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__llm_integration__main --> examples__01_basics__sql_basics__llm_integration__demonstrate_mock_llm
+    examples__01_basics__sql_basics__llm_integration__main --> examples__01_basics__sql_basics__llm_integration__demonstrate_rule_based_fallback
+    examples__01_basics__sql_basics__llm_integration__main --> examples__01_basics__sql_basics__llm_integration__demonstrate_real_llm_setup
+    examples__01_basics__sql_basics__llm_integration__main --> examples__01_basics__sql_basics__llm_integration__demonstrate_hybrid_approach
+    examples__01_basics__sql_basics__llm_integration__main --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__llm_integration__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__example__main --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__example__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__example__main --> examples___example_helpers__print_rule
+    examples__01_basics__kubernetes_basics__example__main --> examples___example_helpers__print_separator
+    examples__01_basics__kubernetes_basics__example__main --> src__app2schema__extract__extract_schema_to_file
+    examples__01_basics__kubernetes_basics__example__main --> test_nlp2cmd_commands__print
+    examples__01_basics__kubernetes_basics__example__main --> examples___example_helpers__print_rule
+    examples__01_basics__app2schema__example__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__01_basics__app2schema__example__main --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___print_feedback --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_success --> examples___example_helpers__print_rule
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_success --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_success --> examples__01_basics__shell_fundamentals__feedback_loop___print_feedback
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_warnings --> examples___example_helpers__print_rule
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_warnings --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_warnings --> examples__01_basics__shell_fundamentals__feedback_loop___print_feedback
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_auto_correction --> examples___example_helpers__print_rule
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_auto_correction --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_ambiguous --> examples___example_helpers__print_rule
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_ambiguous --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_ambiguous --> examples__01_basics__shell_fundamentals__feedback_loop___print_feedback
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_exceptions --> examples___example_helpers__print_rule
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_exceptions --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_refinement --> examples___example_helpers__print_rule
+    examples__01_basics__shell_fundamentals__feedback_loop___scenario_refinement --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop___print_summary --> examples___example_helpers__print_separator
+    examples__01_basics__shell_fundamentals__feedback_loop___print_summary --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples___example_helpers__print_separator
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___scenario_success
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___scenario_warnings
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___scenario_auto_correction
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___scenario_ambiguous
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___scenario_exceptions
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___scenario_refinement
+    examples__01_basics__shell_fundamentals__feedback_loop__simulate_interactive_session --> examples__01_basics__shell_fundamentals__feedback_loop___print_summary
+    examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__run_nlp2cmd_command --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__main --> examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__get_command_for_task
+    examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__main --> examples__01_basics__shell_fundamentals__01_basics_shell_nlp2cmd__run_nlp2cmd_command
+    examples__01_basics__shell_fundamentals__schema_cache__main --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__schema_cache__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__01_basics__shell_fundamentals__example__main --> examples___example_helpers__print_separator
+    examples__01_basics__shell_fundamentals__example__main --> test_nlp2cmd_commands__print
+    examples__01_basics__shell_fundamentals__example__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main --> examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__get_command_for_task
+    examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main --> examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__run_nlp2cmd_command
+    examples__01_basics__docker_basics__file_repair__validate_file --> test_nlp2cmd_commands__print
+    examples__01_basics__docker_basics__file_repair__validate_file --> examples___example_helpers__print_rule
+    examples__01_basics__docker_basics__file_repair__repair_file --> test_nlp2cmd_commands__print
+    examples__01_basics__docker_basics__file_repair__repair_file --> examples___example_helpers__print_rule
+    examples__01_basics__docker_basics__file_repair__main --> examples___example_helpers__print_separator
+    examples__01_basics__docker_basics__file_repair__main --> test_nlp2cmd_commands__print
+    examples__01_basics__docker_basics__file_repair__main --> examples__01_basics__docker_basics__file_repair__create_sample_files
+    examples__01_basics__docker_basics__file_repair__main --> examples___example_helpers__print_rule
+    examples__01_basics__docker_basics__file_repair__main --> examples__01_basics__docker_basics__file_repair__validate_file
+    examples__01_basics__docker_basics__file_repair__main --> examples__01_basics__docker_basics__file_repair__repair_file
+    examples__01_basics__docker_basics__example__main --> examples___example_helpers__print_separator
+    examples__01_basics__docker_basics__example__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__01_basics__docker_basics__example__main --> test_nlp2cmd_commands__print
+    examples__01_basics__docker_basics__example__main --> examples___example_helpers__print_rule
+    examples__09_online_drawing___run_utils__ExampleLogger__save --> examples__09_online_drawing___run_utils__get_platform_info
+    examples__09_online_drawing___run_utils___dismiss_text_popups --> examples__09_online_drawing___run_utils___click_if_visible
+    examples__09_online_drawing___run_utils___dismiss_selector_popups --> examples__09_online_drawing___run_utils___click_if_visible
+    examples__09_online_drawing___run_utils__dismiss_popups --> examples__09_online_drawing___run_utils___dismiss_text_popups
+    examples__09_online_drawing___run_utils__dismiss_popups --> examples__09_online_drawing___run_utils___dismiss_selector_popups
+    examples__09_online_drawing___run_utils__check_page_health --> examples__09_online_drawing___run_utils___classify_page_title
+    examples__09_online_drawing___run_utils__check_page_health --> examples__09_online_drawing___run_utils__dismiss_popups
+    examples__09_online_drawing___run_utils__check_page_health --> examples__09_online_drawing___run_utils___inspect_required_element
+    examples__09_online_drawing___run_utils___collect_discovery_urls --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__09_online_drawing___run_utils___try_discovery_url --> examples__09_online_drawing___run_utils__check_page_health
+    examples__09_online_drawing___run_utils___try_discovery_url --> examples__09_online_drawing___run_utils__wait_for_canvas
+    examples__09_online_drawing___run_utils__discover_working_url --> examples__09_online_drawing___run_utils___collect_discovery_urls
+    examples__09_online_drawing___run_utils__discover_working_url --> examples__09_online_drawing___run_utils___try_discovery_url
+    examples__09_online_drawing___run_utils__take_screenshot --> examples__09_online_drawing___run_utils__get_platform_info
+    examples__09_online_drawing___run_utils__ExampleRunner____aexit__ --> examples__09_online_drawing___run_utils__take_screenshot
+    examples__09_online_drawing___run_utils__ExampleRunner__navigate --> examples___verbose_helper__discover_working_url
+    examples__09_online_drawing___run_utils__ExampleRunner__screenshot --> examples__09_online_drawing___run_utils__take_screenshot
+    examples__09_online_drawing__03_adaptive__run__main --> examples___verbose_helper__init_verbose
+    examples__09_online_drawing__07_shape_gallery__run__map_vision_to_shapes --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__09_online_drawing__07_shape_gallery__run___print_shape_line --> examples__09_online_drawing__07_shape_gallery__run___shape_stats
+    examples__09_online_drawing__07_shape_gallery__run___print_shape_line --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run___print_shape_group --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run___print_shape_group --> examples__09_online_drawing__07_shape_gallery__run___print_shape_line
+    examples__09_online_drawing__07_shape_gallery__run___categories_to_show --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run__list_shapes --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__09_online_drawing__07_shape_gallery__run__list_shapes --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run__list_shapes --> examples__09_online_drawing__07_shape_gallery__run___categories_to_show
+    examples__09_online_drawing__07_shape_gallery__run__list_shapes --> examples__09_online_drawing__07_shape_gallery__run___print_shape_group
+    examples__09_online_drawing__07_shape_gallery__run__generate_svg_files --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run__generate_svg_files --> examples__09_online_drawing__07_shape_gallery__run__generate_svg
+    examples__09_online_drawing__07_shape_gallery__run__generate_html_gallery --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run__generate_html_gallery --> examples__09_online_drawing__07_shape_gallery__run__generate_svg
+    examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw --> examples__09_online_drawing__07_shape_gallery__run__map_vision_to_shapes
+    examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw --> src__nlp2cmd__cli__commands__examples__ExamplesRegistry__list
+    examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw --> examples__09_online_drawing__07_shape_gallery__run__draw_on_canvas
+    examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__09_online_drawing__07_shape_gallery__run__draw_on_canvas --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__07_shape_gallery__run__main --> examples__09_online_drawing__07_shape_gallery__run__list_shapes
+    examples__09_online_drawing__07_shape_gallery__run__main --> examples__09_online_drawing__07_shape_gallery__run__generate_svg_files
+    examples__09_online_drawing__07_shape_gallery__run__main --> examples__09_online_drawing__07_shape_gallery__run__generate_html_gallery
+    examples__09_online_drawing__07_shape_gallery__run__main --> examples__09_online_drawing__07_shape_gallery__run__analyze_image_and_draw
+    examples__09_online_drawing__02_picsart__run__main --> examples___verbose_helper__init_verbose
+    examples__09_online_drawing__09_evolutionary_orchestrator__run__run_scenario --> examples__09_online_drawing__09_evolutionary_orchestrator__run__mock_example_execution
+    examples__09_online_drawing__09_evolutionary_orchestrator__run__main --> examples__09_online_drawing__09_evolutionary_orchestrator__run__print_learning_report
+    examples__09_online_drawing__04_object_database__run__run_scene --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__04_object_database__run__show_database --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__04_object_database__run__show_database --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__09_online_drawing__04_object_database__run__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__04_object_database__run__main --> examples__09_online_drawing__04_object_database__run__show_database
+    examples__09_online_drawing__04_object_database__run__main --> examples__09_online_drawing__04_object_database__run__parse_objects_from_scene
+    examples__09_online_drawing__04_object_database__run__main --> examples__09_online_drawing__04_object_database__run__run_scene
+    examples__09_online_drawing__08_search_demo__run__search_demo --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__08_search_demo__run__main --> examples__09_online_drawing__08_search_demo__run__search_demo
+    examples__09_online_drawing__05_autonomous__run__run_autonomous --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__05_autonomous__run__fetch_only --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__05_autonomous__run__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__01_draw_chat_shapes_nlp2cmd__run_nlp2cmd_command --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__01_draw_chat_shapes_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__01_draw_chat_shapes_nlp2cmd__main --> examples__09_online_drawing___old__01_draw_chat_shapes_nlp2cmd__get_fallback_command
+    examples__09_online_drawing___old__02_picsart_painting__main --> examples___verbose_helper__init_verbose
+    examples__09_online_drawing___old__02_picsart_painting__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__01_draw_chat_shapes__main --> examples___verbose_helper__init_verbose
+    examples__09_online_drawing___old__01_draw_chat_shapes__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__05_autonomous_drawing__resolve_shapes --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__09_online_drawing___old__05_autonomous_drawing__resolve_shapes --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__05_autonomous_drawing__run_autonomous --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__05_autonomous_drawing__fetch_only --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__05_autonomous_drawing__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__02_picsart_painting_nlp2cmd__run_nlp2cmd_command --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__02_picsart_painting_nlp2cmd__main --> examples__09_online_drawing___old__02_picsart_painting_nlp2cmd__get_command_for_pattern_and_color
+    examples__09_online_drawing___old__02_picsart_painting_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__03_adaptive_drawing_nlp2cmd__run_nlp2cmd_command --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__03_adaptive_drawing_nlp2cmd__main --> examples__09_online_drawing___old__03_adaptive_drawing_nlp2cmd__get_adaptive_command
+    examples__09_online_drawing___old__03_adaptive_drawing_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__04_object_database_drawing__ShapeDatabase__fetch_online_database --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__04_object_database_drawing__ShapeDatabase___fetch_from_url --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__04_object_database_drawing__ShapeDatabase__get_shape --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__04_object_database_drawing__ShapeDatabase___generate_shape_via_llm --> src__nlp2cmd__llm__router__get_router
+    examples__09_online_drawing___old__04_object_database_drawing__ShapeDatabase___generate_shape_via_llm --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__04_object_database_drawing__run_nlp2cmd_command --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__04_object_database_drawing__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__03_adaptive_drawing__generate_plan_with_llm --> test_nlp2cmd_commands__print
+    examples__09_online_drawing___old__03_adaptive_drawing__main --> examples___verbose_helper__init_verbose
+    examples__09_online_drawing___old__03_adaptive_drawing__main --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__01_draw_chat__run__main --> examples___verbose_helper__init_verbose
+    examples__09_online_drawing__06_visual_validator__run__draw_and_validate --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__06_visual_validator__run__validate_screenshot --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__06_visual_validator__run__run_demo --> test_nlp2cmd_commands__print
+    examples__09_online_drawing__06_visual_validator__run__main --> examples__09_online_drawing__06_visual_validator__run__draw_and_validate
+    examples__07_stream_protocols__example_ssh__main --> test_nlp2cmd_commands__print
+    examples__07_stream_protocols__example_ssh__main --> src__nlp2cmd__streams__base__parse_source_uri
+    examples__07_stream_protocols__example_libvirt__main --> test_nlp2cmd_commands__print
+    examples__07_stream_protocols__example_rtsp__main --> test_nlp2cmd_commands__print
+    examples__07_stream_protocols__example_multi_stream__main --> test_nlp2cmd_commands__print
+    examples__07_stream_protocols__example_multi_stream__main --> src__nlp2cmd__streams__base__parse_source_uri
+    examples__07_stream_protocols__example_http_api__main --> test_nlp2cmd_commands__print
+    examples__06_desktop_automation__07_canvas_drawing__run__main --> test_nlp2cmd_commands__print
+    examples__06_desktop_automation__09_complex_commands__run__main --> test_nlp2cmd_commands__print
+    examples__06_desktop_automation__06_env_extract__run__main --> test_nlp2cmd_commands__print
+    examples__06_desktop_automation__08_captcha_solver__run__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__03_adaptive_code_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__03_adaptive_code_nlp2cmd__main --> examples__10_online_code_editors__03_adaptive_code_nlp2cmd__run_nlp2cmd_command
+    examples__10_online_code_editors__01_codepen_live_nlp2cmd__main --> examples__10_online_code_editors__01_codepen_live_nlp2cmd__get_command_for_preset
+    examples__10_online_code_editors__01_codepen_live_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__01_codepen_live_nlp2cmd__main --> examples__10_online_code_editors__01_codepen_live_nlp2cmd__run_nlp2cmd_command
+    examples__10_online_code_editors__02_mycompiler_run__main --> examples___verbose_helper__init_verbose
+    examples__10_online_code_editors__02_mycompiler_run__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__04_jsfiddle_frontend__main --> examples___verbose_helper__init_verbose
+    examples__10_online_code_editors__04_jsfiddle_frontend__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__03_adaptive_code__generate_code_with_llm --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__03_adaptive_code__main --> examples___verbose_helper__init_verbose
+    examples__10_online_code_editors__03_adaptive_code__main --> examples__10_online_code_editors__03_adaptive_code__detect_task
+    examples__10_online_code_editors__03_adaptive_code__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__main --> examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__get_command_for_code
+    examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__main --> examples__10_online_code_editors__02_mycompiler_run_nlp2cmd__run_nlp2cmd_command
+    examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__main --> examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__get_command_for_preset
+    examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__main --> examples__10_online_code_editors__04_jsfiddle_frontend_nlp2cmd__run_nlp2cmd_command
+    examples__10_online_code_editors__01_codepen_live__main --> examples___verbose_helper__init_verbose
+    examples__10_online_code_editors__01_codepen_live__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__05_dynamic_executor_nlp2cmd__main --> test_nlp2cmd_commands__print
+    examples__10_online_code_editors__05_dynamic_executor_nlp2cmd__main --> examples__10_online_code_editors__05_dynamic_executor_nlp2cmd__run_nlp2cmd_command
+    examples__10_online_code_editors__05_dynamic_executor__main --> examples___verbose_helper__init_verbose
+    examples__10_online_code_editors__05_dynamic_executor__main --> examples__10_online_code_editors__05_dynamic_executor__build_prompt
+    examples__10_online_code_editors__05_dynamic_executor__main --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator__run_benchmark --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator__compare_benchmarks --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator__main --> examples__08_llm_validation__benchmark_validator__run_benchmark
+    examples__08_llm_validation__benchmark_validator__main --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator__main --> examples__08_llm_validation__benchmark_validator__compare_benchmarks
+    examples__04_domain_specific__api_key_prompts__test_prompt --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__api_key_prompts__run_all_tests --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__api_key_prompts__run_all_tests --> examples__04_domain_specific__api_key_prompts__test_prompt
+    examples__04_domain_specific___demo_helpers__print_separator --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_rule --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_demo_header --> examples__04_domain_specific___demo_helpers__print_separator
+    examples__04_domain_specific___demo_helpers__run_thermo_demo --> examples__04_domain_specific___demo_helpers__print_demo_header
+    examples__04_domain_specific___demo_helpers__print_metrics --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_simple_result --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_full_result --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__project_sample --> examples__04_domain_specific___demo_helpers__sigmoid
+    examples__04_domain_specific___demo_helpers__print_projected --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_fallback_note --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__run_all__run_all_demos --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__run_all__run_all_demos --> examples___example_helpers__print_rule
+    examples__04_domain_specific__run_all__print_summary_table --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__run_all__print_summary_table --> examples___example_helpers__print_rule
+    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishLLMClient____init__ --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishNLP2CMD__process_query --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__test_polish_queries --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__test_integration_pattern --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__show_real_setup_instructions --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__download_bielik__download_bielik --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__check_dependencies --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__download_model --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__setup_environment --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__test_integration --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__run_interactive_demo --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__run_interactive_demo --> src__nlp2cmd__cli__markdown_output__MarkdownConsoleProxy__input
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__setup_complete --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__main --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__main --> src__nlp2cmd__cli__markdown_output__MarkdownConsoleProxy__input
+    examples__04_domain_specific__polish_llm_integration__example_pdf_search__PolishPDFSearchLLM____init__ --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__example_pdf_search__test_pdf_search_queries --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__example_pdf_search__MockPolishPDFSearchLLM____init__ --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__example_pdf_search__show_configuration_guide --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__01_pdf_extraction__demo__main --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__05_integration__demo__main --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__main --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__02_text_chunking__demo__main --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__LLMSearcher___calculate_relevance --> src__nlp2cmd__executor__execution_context__ExecutionContext__set
+    examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__main --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_unit_commitment --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_unit_commitment --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_unit_commitment --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__demo_renewable_integration --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_renewable_integration --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_renewable_integration --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__demo_water_distribution --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_water_distribution --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_water_distribution --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__demo_gas_network --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_gas_network --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_gas_network --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__demo_electric_vehicle_charging --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_electric_vehicle_charging --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_electric_vehicle_charging --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__demo_demand_response --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_demand_response --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_demand_response --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__demo_microgrid --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__energy__example__demo_microgrid --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__energy__example__demo_microgrid --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__energy__example__main --> examples___example_helpers__print_separator
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_unit_commitment
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_renewable_integration
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_water_distribution
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_gas_network
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_electric_vehicle_charging
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_demand_response
+    examples__04_domain_specific__energy__example__main --> examples__04_domain_specific__energy__example__demo_microgrid
+    examples__04_domain_specific__drug_discovery__example__demo_lead_optimization --> examples__04_domain_specific___demo_helpers__project_sample
+    examples__04_domain_specific__drug_discovery__example__demo_lead_optimization --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__drug_discovery__example__demo_lead_optimization --> examples__04_domain_specific___demo_helpers__print_projected
+    examples__04_domain_specific__drug_discovery__example__demo_lead_optimization --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__drug_discovery__example__demo_lead_optimization --> examples__04_domain_specific___demo_helpers__print_fallback_note
+    examples__04_domain_specific__drug_discovery__example__demo_lead_optimization --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__drug_discovery__example__demo_admet_balancing --> examples__04_domain_specific___demo_helpers__project_sample
+    examples__04_domain_specific__drug_discovery__example__demo_admet_balancing --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__drug_discovery__example__demo_admet_balancing --> examples__04_domain_specific___demo_helpers__print_projected
+    examples__04_domain_specific__drug_discovery__example__demo_admet_balancing --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__drug_discovery__example__demo_admet_balancing --> examples__04_domain_specific___demo_helpers__print_fallback_note
+    examples__04_domain_specific__drug_discovery__example__demo_admet_balancing --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__drug_discovery__example__main --> examples___example_helpers__print_separator
+    examples__04_domain_specific__drug_discovery__example__main --> examples__04_domain_specific__drug_discovery__example__demo_lead_optimization
+    examples__04_domain_specific__drug_discovery__example__main --> examples__04_domain_specific__drug_discovery__example__demo_admet_balancing
+    examples__04_domain_specific__logistics__example__demo_vehicle_routing --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__logistics__example__demo_vehicle_routing --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__logistics__example__demo_vehicle_routing --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__logistics__example__demo_warehouse_optimization --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__logistics__example__demo_warehouse_optimization --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__logistics__example__demo_warehouse_optimization --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__logistics__example__demo_production_scheduling --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__logistics__example__demo_production_scheduling --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__logistics__example__demo_production_scheduling --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__logistics__example__demo_inventory_optimization --> test_nlp2cmd_commands__print
+    examples__04_domain_specific__logistics__example__demo_inventory_optimization --> examples__04_domain_specific___demo_helpers__print_metrics
+    examples__04_domain_specific__logistics__example__demo_inventory_optimization --> examples__04_domain_specific___demo_helpers__run_thermo_demo
+    examples__04_domain_specific__logistics__example__demo_supply_chain_network --> test_nlp2cmd_commands__print
+
+    classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
+    class examples__show_metrics__main,examples__08_api_key_management__01_diagnose_credentials__run__main,examples__03_integrations__web_development__deployment_plan__DeploymentPlan__to_compose,examples__03_integrations__web_development__nl_command_parser__NLCommandParser___detect_intent,examples__03_integrations__web_development__nl_command_parser__NLCommandParser___extract_entities,examples__03_integrations__toon_format__comparison_demo__SimpleToonParser___parse_file,examples__03_integrations__pipelines__infrastructure_health__main,examples__03_integrations__pipelines__log_analysis__main,examples__09_online_drawing__05_autonomous__run__run_autonomous,examples__09_online_drawing___old__04_object_database_drawing__main,examples__09_online_drawing__06_visual_validator__run__draw_and_validate,examples__06_desktop_automation__09_complex_commands__run__main,examples__10_online_code_editors__02_mycompiler_run__main,examples__10_online_code_editors__04_jsfiddle_frontend__main,examples__10_online_code_editors__03_adaptive_code__main,examples__10_online_code_editors__01_codepen_live__main,examples__08_llm_validation__benchmark_validator__run_benchmark,examples__08_llm_validation__benchmark_validator__compare_benchmarks,examples__04_domain_specific__api_key_prompts__test_prompt,examples__04_domain_specific__polish_llm_integration__example_pdf_search__MockPolishPDFSearchLLM__generate_pdf_search_command,examples__04_domain_specific__debugging__validation__ShellCommandValidator__generate_report,benchmarks__llm_benchmark__clean_command,benchmarks__llm_benchmark__run_benchmark,benchmarks__llm_benchmark__build_summary,benchmarks__learning_benchmark__run_learning_benchmark,src__nlp2cmd__pipeline_runner_utils___is_junk_field,src__nlp2cmd__pipeline_runner_utils___filter_form_fields,src__nlp2cmd__pipeline_runner_utils__ShellExecutionPolicy__load_from_data,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___select_action,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___extract_params highCC
+    class examples___verbose_schema__log_schema_summary,examples__run_task__main,examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_sql_select,examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main,examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version,examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd,examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__demonstrate_persistent_storage,examples__05_advanced_features__dynamic_schemas__demo_enhanced__main,examples__08_api_key_management__05_openai_key__run__check,examples__08_api_key_management__06_multi_provider__run__plan_all,examples__08_api_key_management__06_multi_provider__run__setup_providers,examples__08_api_key_management__02_openrouter_key__run__check_credentials,examples__08_api_key_management__03_github_token__run__check,examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_schema_updates,examples__03_integrations__web_development__docker_manager__DockerManager__get_container_status,examples__03_integrations__web_development__docker_manager__DockerManager__show_logs,examples__03_integrations__web_development__demo__demo_nlp_commands,examples__03_integrations__web_development__demo__main,examples__03_integrations__toon_format__old_system_loader__OldSystemLoader__load_command_schemas,examples__03_integrations__toon_format__usage_example__main,examples__03_integrations__pipelines__infrastructure_health__check_health,examples__01_basics__sql_basics__workflows__main,examples__01_basics__sql_basics__example__main,examples__01_basics__docker_basics__file_repair__repair_file,examples__09_online_drawing___run_utils__ExampleLogger__save,examples__09_online_drawing___run_utils__check_page_health,examples__09_online_drawing___run_utils___try_discovery_url,examples__09_online_drawing___run_utils__discover_working_url,examples__09_online_drawing___run_utils__wait_for_canvas,examples__09_online_drawing___run_utils__find_canvas medCC

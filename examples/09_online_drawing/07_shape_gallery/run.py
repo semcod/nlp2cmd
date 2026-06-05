@@ -96,48 +96,53 @@ def map_vision_to_shapes(vision_description: str) -> list[str]:
     return result
 
 
+def _shape_stats(shape: str) -> tuple[int, int]:
+    pts = ShapeRegistry.get(shape).generate(0, 0, 50)
+    return len(pts), sum(len(group) for group in pts)
+
+
+def _print_shape_line(shape: str) -> None:
+    n_groups, n_points = _shape_stats(shape)
+    print(f"   • {shape:<18} {n_groups} groups, {n_points:>3} vertices")
+
+
+def _print_shape_group(title: str, shapes: list[str]) -> None:
+    if not shapes:
+        return
+    print(f"\n📁 {title} ({len(shapes)} shapes)")
+    for shape in shapes:
+        _print_shape_line(shape)
+
+
+def _categories_to_show(category: str | None) -> dict[str, list[str]] | None:
+    if not category:
+        return SHAPE_CATEGORIES
+    if category not in SHAPE_CATEGORIES:
+        print(f"   Unknown category: {category}")
+        print(f"   Available: {', '.join(SHAPE_CATEGORIES.keys())}")
+        return None
+    return {category: SHAPE_CATEGORIES[category]}
+
+
 def list_shapes(category: str | None = None):
     """List all registered shapes organized by category."""
     all_shapes = set(ShapeRegistry.available())
-
     print(f"🎨 Shape Gallery — {len(all_shapes)} registered shapes")
     print(f"{'='*60}")
 
-    if category:
-        cats = {category: SHAPE_CATEGORIES.get(category, [])}
-        if not cats[category]:
-            print(f"   Unknown category: {category}")
-            print(f"   Available: {', '.join(SHAPE_CATEGORIES.keys())}")
-            return
-    else:
-        cats = SHAPE_CATEGORIES
+    cats = _categories_to_show(category)
+    if cats is None:
+        return
 
-    shown = set()
+    shown: set[str] = set()
     for cat_name, shapes in cats.items():
-        available = [s for s in shapes if s in all_shapes]
-        if not available:
-            continue
-        print(f"\n📁 {cat_name.upper()} ({len(available)} shapes)")
-        for shape in available:
-            gen = ShapeRegistry.get(shape)
-            pts = gen.generate(0, 0, 50)
-            n_groups = len(pts)
-            n_points = sum(len(g) for g in pts)
-            print(f"   • {shape:<18} {n_groups} groups, {n_points:>3} vertices")
-            shown.add(shape)
+        available = [shape for shape in shapes if shape in all_shapes]
+        _print_shape_group(cat_name.upper(), available)
+        shown.update(available)
 
-    # Show uncategorized
-    uncategorized = all_shapes - shown
-    if uncategorized:
-        print(f"\n📁 OTHER ({len(uncategorized)} shapes)")
-        for shape in sorted(uncategorized):
-            gen = ShapeRegistry.get(shape)
-            pts = gen.generate(0, 0, 50)
-            n_groups = len(pts)
-            n_points = sum(len(g) for g in pts)
-            print(f"   • {shape:<18} {n_groups} groups, {n_points:>3} vertices")
+    uncategorized = sorted(all_shapes - shown)
+    _print_shape_group("OTHER", uncategorized)
 
-    # Fetchable objects
     known = ObjectFetcher.known_objects()
     only_fetchable = sorted(set(known) - all_shapes)
     if only_fetchable:

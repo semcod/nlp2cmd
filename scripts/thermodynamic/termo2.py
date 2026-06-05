@@ -1,19 +1,37 @@
-"""
-NLP2CMD - Przykłady zastosowań w różnych dziedzinach.
-
-Ten moduł zawiera praktyczne przykłady użycia NLP2CMD
-w IT, nauce i biznesie.
-"""
+"""Re-exports from split termo2.py module."""
 
 import asyncio
-from dataclasses import dataclass
-from typing import Any, Optional
+
 import numpy as np
 
+from delivery_point import DeliveryPoint
+from genomic_pipeline_scheduler import GenomicPipelineScheduler
+from genomic_sample import GenomicSample
+from hyperparameter_optimizer import HyperparameterOptimizer
+from hyperparameter_space import HyperparameterSpace
+from operating_room import OperatingRoom
+from or_scheduler import ORScheduler
+from pipeline_step import PipelineStep
+from power_plant import PowerPlant
+from surgery import Surgery
+from unit_commitment_solver import UnitCommitmentSolver
+from vrp_solver import VRPSolver
 
-# =============================================================================
-# 1. IT & DevOps - Kubernetes Automation
-# =============================================================================
+__all__ = [
+    "HyperparameterSpace",
+    "HyperparameterOptimizer",
+    "DeliveryPoint",
+    "VRPSolver",
+    "Surgery",
+    "OperatingRoom",
+    "ORScheduler",
+    "PowerPlant",
+    "UnitCommitmentSolver",
+    "GenomicSample",
+    "PipelineStep",
+    "GenomicPipelineScheduler",
+]
+
 
 async def demo_devops_automation():
     """Demonstracja automatyzacji DevOps."""
@@ -42,95 +60,6 @@ async def demo_devops_automation():
     print("\n" + "-" * 70)
     print("✅ DevOps queries translated to kubectl commands")
 
-
-# =============================================================================
-# 2. Data Science - Hyperparameter Optimization
-# =============================================================================
-
-@dataclass
-class HyperparameterSpace:
-    """Przestrzeń hiperparametrów do optymalizacji."""
-    learning_rate: tuple = (0.0001, 0.1)
-    batch_size: tuple = (16, 256)
-    num_layers: tuple = (2, 10)
-    dropout: tuple = (0.0, 0.5)
-    hidden_dim: tuple = (64, 512)
-
-
-class HyperparameterOptimizer:
-    """
-    Optymalizator hiperparametrów używający Langevin sampling.
-
-    Zamiast grid search czy random search, używamy
-    termodynamicznego samplowania do eksploracji przestrzeni.
-    """
-
-    def __init__(self, space: HyperparameterSpace, n_samples: int = 20):
-        self.space = space
-        self.n_samples = n_samples
-
-    def _decode_params(self, z: np.ndarray) -> dict:
-        """Dekoduj wektor z do hiperparametrów."""
-        # Sigmoid dla [0, 1], potem skaluj do zakresów
-        sigmoid = lambda x: 1 / (1 + np.exp(-x))
-
-        lr_range = self.space.learning_rate
-        bs_range = self.space.batch_size
-
-        return {
-            'learning_rate': lr_range[0] + sigmoid(z[0]) * (lr_range[1] - lr_range[0]),
-            'batch_size': int(bs_range[0] + sigmoid(z[1]) * (bs_range[1] - bs_range[0])),
-            'num_layers': int(self.space.num_layers[0] + sigmoid(z[2]) *
-                              (self.space.num_layers[1] - self.space.num_layers[0])),
-            'dropout': sigmoid(z[3]) * self.space.dropout[1],
-            'hidden_dim': int(self.space.hidden_dim[0] + sigmoid(z[4]) *
-                              (self.space.hidden_dim[1] - self.space.hidden_dim[0])),
-        }
-
-    def _evaluate(self, params: dict) -> float:
-        """Symulacja ewaluacji modelu (w produkcji - prawdziwy trening)."""
-        # Symulacja: optymalne wartości gdzieś w środku
-        optimal = {
-            'learning_rate': 0.001,
-            'batch_size': 64,
-            'num_layers': 4,
-            'dropout': 0.2,
-            'hidden_dim': 256,
-        }
-
-        # "Loss" jako odległość od optimum
-        loss = 0.0
-        loss += abs(np.log(params['learning_rate']) - np.log(optimal['learning_rate']))
-        loss += abs(params['batch_size'] - optimal['batch_size']) / 100
-        loss += abs(params['num_layers'] - optimal['num_layers'])
-        loss += abs(params['dropout'] - optimal['dropout']) * 5
-        loss += abs(params['hidden_dim'] - optimal['hidden_dim']) / 100
-
-        return loss + np.random.normal(0, 0.1)  # Dodaj szum
-
-    def optimize(self) -> tuple[dict, float]:
-        """Znajdź optymalne hiperparametry."""
-        best_params = None
-        best_loss = float('inf')
-
-        # Prosty Langevin sampling
-        z = np.random.randn(5)
-
-        for i in range(self.n_samples):
-            params = self._decode_params(z)
-            loss = self._evaluate(params)
-
-            if loss < best_loss:
-                best_loss = loss
-                best_params = params
-
-            # Langevin update (uproszczony)
-            grad = np.random.randn(5) * 0.1  # Przybliżony gradient
-            z = z - 0.1 * grad + np.sqrt(0.2) * np.random.randn(5)
-
-        return best_params, best_loss
-
-
 async def demo_hyperparameter_optimization():
     """Demonstracja optymalizacji hiperparametrów."""
     print("\n" + "=" * 70)
@@ -150,145 +79,6 @@ async def demo_hyperparameter_optimization():
     print(f"   Dropout: {best_params['dropout']:.3f}")
     print(f"   Hidden dim: {best_params['hidden_dim']}")
     print(f"\n   Final loss: {best_loss:.4f}")
-
-
-# =============================================================================
-# 3. Logistyka - Vehicle Routing Problem (VRP)
-# =============================================================================
-
-@dataclass
-class DeliveryPoint:
-    """Punkt dostawy."""
-    id: str
-    x: float
-    y: float
-    demand: int
-    time_window: tuple[int, int] = (0, 24)
-
-
-class VRPSolver:
-    """
-    Solver dla Vehicle Routing Problem.
-
-    Używa termodynamicznego samplowania do znajdowania
-    optymalnych tras dla floty pojazdów.
-    """
-
-    def __init__(self, points: list[DeliveryPoint], vehicle_capacity: int = 100):
-        self.points = points
-        self.depot = points[0]  # Pierwszy punkt to depot
-        self.customers = points[1:]
-        self.capacity = vehicle_capacity
-
-    def _distance(self, p1: DeliveryPoint, p2: DeliveryPoint) -> float:
-        """Odległość euklidesowa między punktami."""
-        return np.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2)
-
-    def _route_distance(self, route: list[DeliveryPoint]) -> float:
-        """Całkowita długość trasy."""
-        if not route:
-            return 0
-
-        dist = self._distance(self.depot, route[0])
-        for i in range(len(route) - 1):
-            dist += self._distance(route[i], route[i + 1])
-        dist += self._distance(route[-1], self.depot)
-
-        return dist
-
-    def _route_demand(self, route: list[DeliveryPoint]) -> int:
-        """Całkowite zapotrzebowanie na trasie."""
-        return sum(p.demand for p in route)
-
-    def solve(self, n_iterations: int = 100) -> list[list[DeliveryPoint]]:
-        """Znajdź optymalne trasy."""
-        best_routes = self._solve_with_iterations(n_iterations)
-        return self._consolidate_routes(best_routes)
-    
-    def _solve_with_iterations(self, n_iterations: int) -> list[list[DeliveryPoint]]:
-        """Znajdź optymalne trasy z iteracjami."""
-        routes = self._initialize_routes()
-        best_routes = routes.copy()
-        best_distance = self._calculate_total_distance(routes)
-
-        for _ in range(n_iterations):
-            new_routes = self._perturb(routes)
-
-            if self._is_feasible(new_routes):
-                new_distance = self._calculate_total_distance(new_routes)
-
-                if self._should_accept_solution(new_distance, best_distance):
-                    routes = new_routes
-                    if new_distance < best_distance:
-                        best_routes = new_routes
-                        best_distance = new_distance
-
-        return best_routes
-    
-    def _initialize_routes(self) -> list[list[DeliveryPoint]]:
-        """Inicjalizuj trasy - każdy klient w osobnej trasie."""
-        return [[c] for c in self.customers]
-    
-    def _calculate_total_distance(self, routes: list[list[DeliveryPoint]]) -> float:
-        """Oblicz całkowity dystans dla wszystkich tras."""
-        return sum(self._route_distance(r) for r in routes)
-    
-    def _should_accept_solution(self, new_distance: float, best_distance: float) -> bool:
-        """Sprawdź czy zaakceptować nowe rozwiązanie (Metropolis)."""
-        return new_distance < best_distance or np.random.random() < 0.1
-
-    def _perturb(self, routes: list[list[DeliveryPoint]]) -> list[list[DeliveryPoint]]:
-        """Losowa modyfikacja tras."""
-        new_routes = [r.copy() for r in routes]
-
-        if len(new_routes) > 1 and np.random.random() < 0.5:
-            # Przenieś klienta między trasami
-            r1_idx = np.random.randint(len(new_routes))
-            r2_idx = np.random.randint(len(new_routes))
-
-            if new_routes[r1_idx] and r1_idx != r2_idx:
-                customer = new_routes[r1_idx].pop(
-                    np.random.randint(len(new_routes[r1_idx]))
-                )
-                pos = np.random.randint(len(new_routes[r2_idx]) + 1)
-                new_routes[r2_idx].insert(pos, customer)
-
-        # Usuń puste trasy
-        new_routes = [r for r in new_routes if r]
-
-        return new_routes
-
-    def _is_feasible(self, routes: list[list[DeliveryPoint]]) -> bool:
-        """Sprawdź czy rozwiązanie jest dopuszczalne."""
-        for route in routes:
-            if self._route_demand(route) > self.capacity:
-                return False
-        return True
-
-    def _consolidate_routes(self, routes: list[list[DeliveryPoint]]) -> list[list[DeliveryPoint]]:
-        """Połącz małe trasy jeśli możliwe."""
-        consolidated = []
-        remaining = routes.copy()
-
-        while remaining:
-            route = remaining.pop(0)
-
-            # Próbuj połączyć z innymi
-            merged = True
-            while merged:
-                merged = False
-                for i, other in enumerate(remaining):
-                    combined_demand = self._route_demand(route) + self._route_demand(other)
-                    if combined_demand <= self.capacity:
-                        route = route + other
-                        remaining.pop(i)
-                        merged = True
-                        break
-
-            consolidated.append(route)
-
-        return consolidated
-
 
 async def demo_vehicle_routing():
     """Demonstracja optymalizacji tras dostaw."""
@@ -327,121 +117,6 @@ async def demo_vehicle_routing():
         print(f"      Distance: {dist:.1f} km, Load: {demand}/{solver.capacity}")
 
     print(f"\n   Total distance: {total_distance:.1f} km")
-
-
-# =============================================================================
-# 4. Medycyna - Operating Room Scheduling
-# =============================================================================
-
-@dataclass
-class Surgery:
-    """Operacja do zaplanowania."""
-    id: str
-    duration_min: int
-    priority: int  # 1 = urgent, 5 = elective
-    required_equipment: list[str]
-    surgeon: str
-
-
-@dataclass
-class OperatingRoom:
-    """Sala operacyjna."""
-    id: str
-    equipment: list[str]
-    available_hours: tuple[int, int] = (7, 19)  # 7:00 - 19:00
-
-
-class ORScheduler:
-    """
-    Scheduler dla sal operacyjnych.
-
-    Optymalizuje przydzielenie operacji do sal i czasów,
-    uwzględniając ograniczenia sprzętowe i priorytet.
-    """
-
-    SETUP_TIME = 30  # Czas przygotowania sali (minuty)
-
-    def __init__(self, rooms: list[OperatingRoom], surgeries: list[Surgery]):
-        self.rooms = rooms
-        self.surgeries = surgeries
-
-    def _can_perform(self, room: OperatingRoom, surgery: Surgery) -> bool:
-        """Sprawdź czy sala ma wymagany sprzęt."""
-        return all(eq in room.equipment for eq in surgery.required_equipment)
-
-    def schedule(self) -> dict[str, list[tuple[Surgery, int, int]]]:
-        """
-        Zaplanuj operacje.
-
-        Returns:
-            Dict: room_id -> [(surgery, start_time, end_time), ...]
-        """
-        sorted_surgeries = self._sort_surgeries_by_priority()
-        schedule = self._initialize_schedule()
-        room_end_times = self._get_room_end_times()
-
-        for surgery in sorted_surgeries:
-            best_room, best_start = self._find_best_room_for_surgery(
-                surgery, room_end_times
-            )
-            
-            if best_room:
-                end_time = self._schedule_surgery_in_room(
-                    schedule, best_room, surgery, best_start, room_end_times
-                )
-
-        return schedule
-    
-    def _sort_surgeries_by_priority(self) -> list[Surgery]:
-        """Sortuj operacje wg priorytetu."""
-        return sorted(self.surgeries, key=lambda s: s.priority)
-    
-    def _initialize_schedule(self) -> dict[str, list[tuple[Surgery, int, int]]]:
-        """Inicjalizuj harmonogram."""
-        return {room.id: [] for room in self.rooms}
-    
-    def _get_room_end_times(self) -> dict[str, int]:
-        """Pobierz czasy zakończenia dla sal."""
-        return {room.id: room.available_hours[0] * 60 for room in self.rooms}
-    
-    def _find_best_room_for_surgery(self, surgery: Surgery, room_end_times: dict[str, int]) -> tuple[Optional[OperatingRoom], int]:
-        """Znajdź najlepszą salę dla operacji."""
-        best_room = None
-        best_start = float('inf')
-
-        for room in self.rooms:
-            if not self._can_perform(room, surgery):
-                continue
-
-            start = room_end_times[room.id] + self.SETUP_TIME
-            room_end = room.available_hours[1] * 60
-
-            if start + surgery.duration_min <= room_end:
-                if start < best_start:
-                    best_start = start
-                    best_room = room
-
-        return best_room, best_start
-    
-    def _schedule_surgery_in_room(self, schedule: dict[str, list[tuple[Surgery, int, int]]], 
-                                room: OperatingRoom, surgery: Surgery, 
-                                start_time: int, room_end_times: dict[str, int]) -> int:
-        """Zaplanuj operację w sali."""
-        end_time = start_time + surgery.duration_min
-        schedule[room.id].append((surgery, start_time, end_time))
-        room_end_times[room.id] = end_time
-        return end_time
-
-    def print_schedule(self, schedule: dict):
-        """Wyświetl harmonogram."""
-        for room_id, surgeries in schedule.items():
-            print(f"\n   {room_id}:")
-            for surgery, start, end in surgeries:
-                start_h, start_m = divmod(start, 60)
-                end_h, end_m = divmod(end, 60)
-                print(f"      {start_h:02d}:{start_m:02d}-{end_h:02d}:{end_m:02d} "
-                      f"{surgery.id} ({surgery.duration_min}min, P{surgery.priority})")
-
 
 async def demo_or_scheduling():
     """Demonstracja harmonogramowania sal operacyjnych."""
@@ -486,93 +161,6 @@ async def demo_or_scheduling():
 
     print(f"\n   Scheduled: {total_surgeries}/{len(surgeries)} surgeries")
     print(f"   Total OR time: {total_time // 60}h {total_time % 60}min")
-
-
-# =============================================================================
-# 5. Energia - Unit Commitment Problem
-# =============================================================================
-
-@dataclass
-class PowerPlant:
-    """Elektrownia."""
-    id: str
-    type: str  # coal, gas, hydro, nuclear
-    capacity_mw: float
-    min_output_mw: float
-    cost_per_mwh: float
-    ramp_rate_mw_per_hour: float
-    startup_cost: float
-    co2_tons_per_mwh: float
-
-
-class UnitCommitmentSolver:
-    """
-    Solver dla problemu Unit Commitment.
-
-    Decyduje które elektrownie uruchomić i na jakim poziomie,
-    aby zaspokoić zapotrzebowanie przy minimalnym koszcie.
-    """
-
-    def __init__(self, plants: list[PowerPlant]):
-        self.plants = plants
-
-    def solve(self, demand_profile: list[float]) -> list[dict[str, float]]:
-        """
-        Znajdź optymalne przydziały mocy.
-
-        Args:
-            demand_profile: Lista zapotrzebowania [MW] dla każdej godziny
-
-        Returns:
-            Lista słowników {plant_id: output_mw} dla każdej godziny
-        """
-        schedule = []
-
-        for hour, demand in enumerate(demand_profile):
-            # Sortuj wg kosztu (merit order)
-            sorted_plants = sorted(self.plants, key=lambda p: p.cost_per_mwh)
-
-            hour_schedule = {}
-            remaining_demand = demand
-
-            for plant in sorted_plants:
-                if remaining_demand <= 0:
-                    hour_schedule[plant.id] = 0
-                    continue
-
-                # Must-run dla nuklearnych
-                if plant.type == 'nuclear':
-                    output = plant.capacity_mw
-                else:
-                    output = min(plant.capacity_mw, remaining_demand)
-                    output = max(output, plant.min_output_mw) if output > 0 else 0
-
-                hour_schedule[plant.id] = output
-                remaining_demand -= output
-
-            schedule.append(hour_schedule)
-
-        return schedule
-
-    def calculate_cost(self, schedule: list[dict[str, float]]) -> dict:
-        """Oblicz koszty i emisje."""
-        total_cost = 0
-        total_co2 = 0
-
-        for hour_schedule in schedule:
-            for plant in self.plants:
-                output = hour_schedule.get(plant.id, 0)
-                total_cost += output * plant.cost_per_mwh
-                total_co2 += output * plant.co2_tons_per_mwh
-
-        return {
-            'total_cost': total_cost,
-            'total_co2_tons': total_co2,
-            'avg_cost_per_mwh': total_cost / sum(
-                sum(h.values()) for h in schedule
-            ) if schedule else 0,
-        }
-
 
 async def demo_unit_commitment():
     """Demonstracja harmonogramowania elektrowni."""
@@ -623,82 +211,6 @@ async def demo_unit_commitment():
     print(f"      Avg cost: ${costs['avg_cost_per_mwh']:.2f}/MWh")
     print(f"      CO2 emissions: {costs['total_co2_tons']:,.0f} tons")
 
-
-# =============================================================================
-# 6. Bioinformatyka - Genomic Pipeline Scheduling
-# =============================================================================
-
-@dataclass
-class GenomicSample:
-    """Próbka genomowa do analizy."""
-    id: str
-    size_gb: float
-    priority: int = 3
-
-
-@dataclass
-class PipelineStep:
-    """Krok w pipeline genomicznym."""
-    name: str
-    time_per_gb: float  # minuty per GB
-    memory_gb: int
-    cpu_cores: int
-    depends_on: list[str]
-
-
-class GenomicPipelineScheduler:
-    """
-    Scheduler dla pipeline'u analizy genomowej.
-    """
-
-    def __init__(self,
-                 samples: list[GenomicSample],
-                 steps: list[PipelineStep],
-                 total_cores: int = 64,
-                 total_memory_gb: int = 256):
-        self.samples = samples
-        self.steps = steps
-        self.total_cores = total_cores
-        self.total_memory_gb = total_memory_gb
-
-    def estimate_time(self, sample: GenomicSample, step: PipelineStep) -> float:
-        """Szacowany czas wykonania kroku."""
-        return step.time_per_gb * sample.size_gb
-
-    def schedule(self) -> dict:
-        """Zaplanuj wykonanie pipeline'u."""
-        # Uproszczony scheduler - w produkcji użyj Langevin sampling
-        schedule = []
-        current_time = 0
-
-        for sample in sorted(self.samples, key=lambda s: s.priority):
-            sample_schedule = {'sample': sample.id, 'steps': []}
-            step_end_times = {}
-
-            for step in self.steps:
-                # Znajdź najwcześniejszy możliwy start
-                start_time = current_time
-                for dep in step.depends_on:
-                    if dep in step_end_times:
-                        start_time = max(start_time, step_end_times[dep])
-
-                duration = self.estimate_time(sample, step)
-                end_time = start_time + duration
-
-                sample_schedule['steps'].append({
-                    'step': step.name,
-                    'start': start_time,
-                    'end': end_time,
-                    'duration': duration,
-                })
-
-                step_end_times[step.name] = end_time
-
-            schedule.append(sample_schedule)
-
-        return schedule
-
-
 async def demo_genomic_pipeline():
     """Demonstracja harmonogramowania pipeline'u genomicznego."""
     print("\n" + "=" * 70)
@@ -747,11 +259,6 @@ async def demo_genomic_pipeline():
         for sample in schedule
     )
     print(f"\n   Total pipeline time: {total_time / 60:.1f} hours")
-
-
-# =============================================================================
-# Main - Uruchom wszystkie demo
-# =============================================================================
 
 async def main():
     """Uruchom wszystkie demonstracje."""
