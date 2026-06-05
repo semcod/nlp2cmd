@@ -21,20 +21,22 @@
 #   make publish           - Publish to PyPI (with automatic patch bump)
 # =============================================================================
 
-.PHONY: help install install-desktop setup-cache test test-unit test-e2e test-web-schema lint format clean \
+.PHONY: help install install-desktop setup-cache update setup-dev-integration test test-unit test-e2e test-web-schema lint format clean \
         docker-build docker-up docker-down docker-test docker-e2e docker-push \
         dev demo demo-benchmark test-examples bump-patch bump-minor bump-major publish publish-test push git-tag report \
         scripts-maintenance scripts-thermo scripts-test \
         all 01_basics 02_benchmarks 03_integrations 04_domain_specific 05_advanced_features 06_tools_and_utilities
+
+NLP2DSL_DIR ?= $(abspath ../nlp2dsl)
 
 # Default target
 .DEFAULT_GOAL := help
 
 # Project settings
 PROJECT_NAME := nlp2cmd
-PYTHON := /usr/bin/python3.12
+PYTHON ?= $(shell if [ -x ./.venv/bin/python3 ]; then echo ./.venv/bin/python3; elif [ -x ./venv/bin/python3 ]; then echo ./venv/bin/python3; else echo python3; fi)
 PIP := $(PYTHON) -m pip
-PYTEST := pytest
+PYTEST := $(if $(shell command -v uv 2>/dev/null),uv run --extra all pytest,$(PYTHON) -m pytest)
 DOCKER_COMPOSE := docker compose
 
 # Colors for output
@@ -92,6 +94,13 @@ setup-dev: ## Complete development setup
 	$(MAKE) setup-cache
 	@echo "$(YELLOW)Note: For desktop automation support, run: make install-desktop$(NC)"
 	@echo "$(GREEN)✓ Development setup complete!$(NC)"
+
+update: ## Reinstall nlp2cmd + nlp2dsl integration packages (editable, --upgrade)
+	@echo "$(BLUE)Updating nlp2cmd and integration dependencies...$(NC)"
+	@NLP2DSL_DIR="$(NLP2DSL_DIR)" bash scripts/update_integration_deps.sh
+	@echo "$(GREEN)✓ Update complete!$(NC)"
+
+setup-dev-integration: update ## Alias: full integration dev reinstall
 
 # =============================================================================
 # Testing
@@ -354,10 +363,10 @@ bump-major: ## Bump major version (X.Y.Z -> X+1.0.0)
 	@echo "$(YELLOW)Bumping major version...$(NC)"
 	$(PYTHON) scripts/bump_version.py major
 
-publish: build ## Publish to PyPI (with version bump)
+publish: update ## Publish to PyPI (update deps, bump patch, build, upload)
 	@echo "$(YELLOW)Bumping patch version...$(NC)"
 	$(MAKE) bump-patch
-	@echo "$(YELLOW)Rebuilding package with new version...$(NC)"
+	@echo "$(YELLOW)Building package with new version...$(NC)"
 	$(MAKE) build
 	@echo "$(YELLOW)Publishing to PyPI...$(NC)"
 	@echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)"

@@ -123,6 +123,36 @@ class ThermodynamicRouter:
             # Unknown intent - default to hybrid for safety
             return 'hybrid' if complexity > self.complexity_threshold else 'classic'
     
+    def score_optimization(self, text: str) -> float:
+        """Score how likely the text describes an optimization problem (0-1)."""
+        text_lower = text.lower()
+        score = 0.0
+
+        # Thermodynamic intent keywords
+        opt_keywords = {
+            'schedule', 'allocate', 'optimize', 'sample', 'plan',
+            'route', 'assign', 'balance', 'minimize', 'maximize',
+            'optimal', 'best', 'efficient', 'schedule', 'assign',
+            'allocate', 'route', 'plan', 'distribute', 'partition',
+        }
+        for kw in opt_keywords:
+            if kw in text_lower:
+                score += 0.15
+
+        # Complexity indicators
+        if any(c.isdigit() for c in text):
+            score += 0.1
+        if len(text.split()) > 10:
+            score += 0.05
+
+        # Conjunctions suggesting constraints
+        constraint_words = {'after', 'before', 'between', 'within', 'while', 'podczas'}
+        for cw in constraint_words:
+            if cw in text_lower:
+                score += 0.05
+
+        return min(1.0, score)
+
     def estimate_complexity(self, problem_description: str, entities: Dict[str, Any]) -> float:
         """
         Estimate problem complexity based on description and entities.

@@ -1,0 +1,1271 @@
+version: intract.v1
+project:
+  name: nlp2cmd
+  intent: translate:natural_language_to_command
+  domain: orchestration
+  meaning: NL → command/plan system. Intract covers semantic intent contracts; ActionRegistry remains
+    execution schema source of truth.
+contracts:
+- id: action.docker_logs
+  scope: action
+  intent: read:container_logs
+  domain: docker
+  priority: 3
+  input:
+  - container
+  - tail
+  - follow
+  output:
+  - container_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Get container logs; binds ActionRegistry:docker_logs
+- id: action.docker_ps
+  scope: action
+  intent: list:containers
+  domain: docker
+  priority: 3
+  input:
+  - all
+  - filter
+  output:
+  - result_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: List containers; binds ActionRegistry:docker_ps
+- id: action.docker_run
+  scope: action
+  intent: run:container
+  domain: docker
+  priority: 1
+  input:
+  - image
+  - name
+  - ports
+  - volumes
+  - environment
+  - detach
+  output:
+  - container_id
+  effect:
+  - write
+  - read
+  tags:
+  - confirm_required
+  - mutating
+  meaning: Run a container; binds ActionRegistry:docker_run
+- id: action.docker_stop
+  scope: action
+  intent: stop:container
+  domain: docker
+  priority: 1
+  input:
+  - container
+  - timeout
+  output:
+  - success_status
+  effect:
+  - write
+  - read
+  tags:
+  - confirm_required
+  - mutating
+  meaning: Stop a container; binds ActionRegistry:docker_stop
+- id: action.filter_results
+  scope: action
+  intent: filter:data
+  domain: utility
+  priority: 3
+  input:
+  - data
+  - condition
+  output:
+  - result_list
+  effect:
+  - read
+  meaning: Filter results based on criteria; binds ActionRegistry:filter_results
+- id: action.k8s_get
+  scope: action
+  intent: get:k8s_resource
+  domain: kubernetes
+  priority: 3
+  input:
+  - resource
+  - name
+  - namespace
+  - labels
+  - output
+  output:
+  - result_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Get Kubernetes resources; binds ActionRegistry:k8s_get
+- id: action.k8s_logs
+  scope: action
+  intent: read:pod_logs
+  domain: kubernetes
+  priority: 3
+  input:
+  - pod
+  - container
+  - namespace
+  - tail
+  - follow
+  output:
+  - log_output
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Get pod logs; binds ActionRegistry:k8s_logs
+- id: action.k8s_scale
+  scope: action
+  intent: scale:deployment
+  domain: kubernetes
+  priority: 1
+  input:
+  - deployment
+  - replicas
+  - namespace
+  output:
+  - success_status
+  effect:
+  - write
+  - read
+  tags:
+  - confirm_required
+  - mutating
+  meaning: Scale a deployment; binds ActionRegistry:k8s_scale
+- id: action.shell_count_pattern
+  scope: action
+  intent: count:pattern
+  domain: shell
+  priority: 3
+  input:
+  - file
+  - pattern
+  - case_sensitive
+  output:
+  - row_set
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Count pattern occurrences in file; binds ActionRegistry:shell_count_pattern
+- id: action.shell_find
+  scope: action
+  intent: find:files
+  domain: shell
+  priority: 3
+  input:
+  - path
+  - glob
+  - type
+  - size
+  - mtime
+  output:
+  - result_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Find files matching criteria; binds ActionRegistry:shell_find
+- id: action.shell_process_list
+  scope: action
+  intent: list:processes
+  domain: shell
+  priority: 3
+  input:
+  - filter
+  - sort_by
+  - limit
+  output:
+  - result_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: List running processes; binds ActionRegistry:shell_process_list
+- id: action.shell_read_file
+  scope: action
+  intent: read:file
+  domain: shell
+  priority: 3
+  input:
+  - path
+  - encoding
+  output:
+  - file_contents
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Read file contents; binds ActionRegistry:shell_read_file
+- id: action.sort_results
+  scope: action
+  intent: sort:data
+  domain: utility
+  priority: 3
+  input:
+  - data
+  - key
+  - reverse
+  output:
+  - result_list
+  effect:
+  - read
+  meaning: Sort results; binds ActionRegistry:sort_results
+- id: action.sql_aggregate
+  scope: action
+  intent: aggregate:query
+  domain: sql
+  priority: 3
+  input:
+  - table
+  - aggregations
+  - grouping
+  - having
+  output:
+  - result_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Execute aggregation query; binds ActionRegistry:sql_aggregate
+- id: action.sql_delete
+  scope: action
+  intent: mutate:delete
+  domain: sql
+  priority: 1
+  input:
+  - table
+  - filters
+  output:
+  - row_set
+  effect:
+  - write
+  - delete
+  tags:
+  - confirm_required
+  - mutating
+  meaning: Execute DELETE statement; binds ActionRegistry:sql_delete
+- id: action.sql_insert
+  scope: action
+  intent: mutate:insert
+  domain: sql
+  priority: 1
+  input:
+  - table
+  - values
+  output:
+  - row_set
+  effect:
+  - write
+  tags:
+  - confirm_required
+  - mutating
+  meaning: Execute INSERT statement; binds ActionRegistry:sql_insert
+- id: action.sql_select
+  scope: action
+  intent: query:select
+  domain: sql
+  priority: 3
+  input:
+  - table
+  - columns
+  - filters
+  - ordering
+  - limit
+  output:
+  - result_list
+  effect:
+  - read
+  tags:
+  - read_only
+  meaning: Execute SELECT query; binds ActionRegistry:sql_select
+- id: action.sql_update
+  scope: action
+  intent: mutate:update
+  domain: sql
+  priority: 1
+  input:
+  - table
+  - values
+  - filters
+  output:
+  - row_set
+  effect:
+  - write
+  tags:
+  - confirm_required
+  - mutating
+  meaning: Execute UPDATE statement; binds ActionRegistry:sql_update
+- id: action.summarize_results
+  scope: action
+  intent: summarize:data
+  domain: utility
+  priority: 3
+  input:
+  - data
+  - format
+  output:
+  - formatted_output
+  effect:
+  - read
+  meaning: Summarize results from previous steps; binds ActionRegistry:summarize_results
+- id: intent.select
+  scope: intent
+  intent: query:table
+  domain: sql
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'select' → ActionRegistry:sql_select
+- id: intent.get
+  scope: intent
+  intent: get:resource
+  domain: kubernetes
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'get' → ActionRegistry:k8s_get
+- id: intent.list
+  scope: intent
+  intent: list:resources
+  domain: any
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'list'
+- id: intent.show
+  scope: intent
+  intent: show:resource
+  domain: any
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'show'
+- id: intent.count
+  scope: intent
+  intent: count:resources
+  domain: any
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'count'
+- id: intent.describe
+  scope: intent
+  intent: describe:resource
+  domain: kubernetes
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'describe' → ActionRegistry:k8s_describe; MISSING_IN_REGISTRY
+- id: intent.status
+  scope: intent
+  intent: read:status
+  domain: any
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'status'
+- id: intent.version
+  scope: intent
+  intent: read:version
+  domain: any
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'version'
+- id: intent.help
+  scope: intent
+  intent: read:help
+  domain: any
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'help'
+- id: intent.analyze
+  scope: intent
+  intent: analyze:data
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'analyze'; complex multi-step
+- id: intent.compare
+  scope: intent
+  intent: compare:data
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'compare'; complex multi-step
+- id: intent.migrate
+  scope: intent
+  intent: migrate:resource
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'migrate'; complex multi-step
+- id: intent.refactor
+  scope: intent
+  intent: refactor:resource
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'refactor'; complex multi-step
+- id: intent.optimize
+  scope: intent
+  intent: optimize:resource
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'optimize'; complex multi-step
+- id: intent.diagnose
+  scope: intent
+  intent: diagnose:system
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'diagnose'; complex multi-step
+- id: intent.report
+  scope: intent
+  intent: report:summary
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'report'; complex multi-step
+- id: intent.audit
+  scope: intent
+  intent: audit:compliance
+  domain: any
+  priority: 2
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - multi_step
+  meaning: NL intent 'audit'; complex multi-step
+- id: intent.insert
+  scope: intent
+  intent: mutate:insert
+  domain: sql
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'insert' → ActionRegistry:sql_insert
+- id: intent.update
+  scope: intent
+  intent: mutate:update
+  domain: sql
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'update' → ActionRegistry:sql_update
+- id: intent.delete
+  scope: intent
+  intent: delete:resource
+  domain: sql
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'delete' → ActionRegistry:sql_delete
+- id: intent.aggregate
+  scope: intent
+  intent: aggregate:data
+  domain: sql
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'aggregate' → ActionRegistry:sql_aggregate
+- id: intent.file_search
+  scope: intent
+  intent: search:files
+  domain: shell
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'file_search' → ActionRegistry:shell_find
+- id: intent.file_operation
+  scope: intent
+  intent: mutate:file
+  domain: shell
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'file_operation' → ActionRegistry:shell_file_op; MISSING_IN_REGISTRY
+- id: intent.process_monitoring
+  scope: intent
+  intent: monitor:processes
+  domain: shell
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'process_monitoring' → ActionRegistry:shell_process; MISSING_IN_REGISTRY
+- id: intent.network
+  scope: intent
+  intent: inspect:network
+  domain: shell
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'network' → ActionRegistry:shell_network; MISSING_IN_REGISTRY
+- id: intent.container_run
+  scope: intent
+  intent: run:container
+  domain: docker
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'container_run' → ActionRegistry:docker_run
+- id: intent.container_stop
+  scope: intent
+  intent: stop:container
+  domain: docker
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'container_stop' → ActionRegistry:docker_stop
+- id: intent.container_list
+  scope: intent
+  intent: list:containers
+  domain: docker
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'container_list' → ActionRegistry:docker_ps
+- id: intent.image_build
+  scope: intent
+  intent: build:image
+  domain: docker
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'image_build' → ActionRegistry:docker_build; MISSING_IN_REGISTRY
+- id: intent.scale
+  scope: intent
+  intent: scale:deployment
+  domain: kubernetes
+  priority: 1
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  - confirm_required
+  meaning: NL intent 'scale' → ActionRegistry:k8s_scale
+- id: intent.logs
+  scope: intent
+  intent: read:logs
+  domain: kubernetes
+  priority: 3
+  input:
+  - user_query
+  - entities
+  output:
+  - action_plan_or_command
+  effect:
+  - read
+  tags:
+  - pre_execute_gate
+  meaning: NL intent 'logs' → ActionRegistry:k8s_logs
+- id: dom.explore_for_content
+  scope: dom_action
+  intent: explore:page_content
+  domain: browser
+  priority: 3
+  input:
+  - page_context
+  output:
+  - step_result
+  effect:
+  - network
+  - read
+  tags:
+  - browser_step
+  meaning: DOM action 'explore_for_content'; binds DomActionRegistry:explore_for_content
+- id: dom.explore_for_form
+  scope: dom_action
+  intent: explore:form
+  domain: browser
+  priority: 3
+  input:
+  - page_context
+  output:
+  - step_result
+  effect:
+  - network
+  - read
+  tags:
+  - browser_step
+  meaning: DOM action 'explore_for_form'; binds DomActionRegistry:explore_for_form
+- id: dom.extract_companies
+  scope: dom_action
+  intent: extract:structured_data
+  domain: browser
+  priority: 3
+  input:
+  - page_context
+  output:
+  - company_list
+  effect:
+  - read
+  tags:
+  - browser_step
+  meaning: DOM action 'extract_companies'; binds DomActionRegistry:extract_companies
+- id: dom.extract_company_websites_deep
+  scope: dom_action
+  intent: extract:structured_data
+  domain: browser
+  priority: 3
+  input:
+  - page_context
+  output:
+  - company_list
+  effect:
+  - read
+  tags:
+  - browser_step
+  meaning: DOM action 'extract_company_websites_deep'; binds DomActionRegistry:extract_company_websites_deep
+- id: dom.fill_form
+  scope: dom_action
+  intent: fill:form_field
+  domain: browser
+  priority: 3
+  input:
+  - selector
+  - value
+  output:
+  - field_filled
+  effect:
+  - write_dom
+  tags:
+  - browser_step
+  - step_pre_gate
+  meaning: DOM action 'fill_form'; binds DomActionRegistry:fill_form
+- id: dom.goto
+  scope: dom_action
+  intent: navigate:url
+  domain: browser
+  priority: 3
+  input:
+  - url
+  output:
+  - page_loaded
+  effect:
+  - network
+  - read
+  tags:
+  - browser_step
+  - step_pre_gate
+  meaning: DOM action 'goto'; binds DomActionRegistry:goto
+- id: dom.navigate
+  scope: dom_action
+  intent: navigate:url
+  domain: browser
+  priority: 3
+  input:
+  - url
+  output:
+  - page_loaded
+  effect:
+  - network
+  - read
+  tags:
+  - browser_step
+  - step_pre_gate
+  meaning: DOM action 'navigate'; binds DomActionRegistry:navigate
+- id: dom.save_to_csv
+  scope: dom_action
+  intent: persist:csv
+  domain: browser
+  priority: 3
+  input:
+  - data
+  - filepath
+  output:
+  - file_written
+  effect:
+  - write
+  tags:
+  - browser_step
+  meaning: DOM action 'save_to_csv'; binds DomActionRegistry:save_to_csv
+- id: dom.save_to_file
+  scope: dom_action
+  intent: persist:data
+  domain: browser
+  priority: 3
+  input:
+  - data
+  - filepath
+  output:
+  - file_written
+  effect:
+  - write
+  tags:
+  - browser_step
+  meaning: DOM action 'save_to_file'; binds DomActionRegistry:save_to_file
+- id: action.shell_list
+  scope: plan_action
+  intent: list:directory
+  domain: shell
+  priority: 3
+  input:
+  - path
+  output:
+  - directory_listing
+  effect:
+  - read
+  tags:
+  - pact_ir
+  - read_only
+  meaning: Planner action shell_list; binds pact-ir RuleShellPlanStrategy
+- id: dom.click_canvas
+  scope: canvas_step
+  intent: canvas:click
+  domain: browser
+  priority: 3
+  input:
+  - offset
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'click_canvas'; binds HandlerRegistry:click_canvas
+- id: dom.draw_arc
+  scope: canvas_step
+  intent: canvas:draw_stroke
+  domain: browser
+  priority: 3
+  input:
+  - radius
+  - start_angle
+  - end_angle
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_arc'; binds HandlerRegistry:draw_arc
+- id: dom.draw_bezier
+  scope: canvas_step
+  intent: canvas:draw_shape
+  domain: browser
+  priority: 3
+  input:
+  - curves
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_bezier'; binds HandlerRegistry:draw_bezier
+- id: dom.draw_circle
+  scope: canvas_step
+  intent: canvas:draw_stroke
+  domain: browser
+  priority: 3
+  input:
+  - radius
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_circle'; binds HandlerRegistry:draw_circle
+- id: dom.draw_ellipse
+  scope: canvas_step
+  intent: canvas:draw_stroke
+  domain: browser
+  priority: 3
+  input:
+  - rx
+  - ry
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_ellipse'; binds HandlerRegistry:draw_ellipse
+- id: dom.draw_filled_circle
+  scope: canvas_step
+  intent: canvas:draw_fill
+  domain: browser
+  priority: 3
+  input:
+  - radius
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_filled_circle'; binds HandlerRegistry:draw_filled_circle
+- id: dom.draw_filled_ellipse
+  scope: canvas_step
+  intent: canvas:draw_fill
+  domain: browser
+  priority: 3
+  input:
+  - rx
+  - ry
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_filled_ellipse'; binds HandlerRegistry:draw_filled_ellipse
+- id: dom.draw_filled_rectangle
+  scope: canvas_step
+  intent: canvas:draw_fill
+  domain: browser
+  priority: 3
+  input:
+  - width
+  - height
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_filled_rectangle'; binds HandlerRegistry:draw_filled_rectangle
+- id: dom.draw_line
+  scope: canvas_step
+  intent: canvas:draw_stroke
+  domain: browser
+  priority: 3
+  input:
+  - from_offset
+  - to_offset
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_line'; binds HandlerRegistry:draw_line
+- id: dom.draw_polygon
+  scope: canvas_step
+  intent: canvas:draw_shape
+  domain: browser
+  priority: 3
+  input:
+  - points
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_polygon'; binds HandlerRegistry:draw_polygon
+- id: dom.draw_rectangle
+  scope: canvas_step
+  intent: canvas:draw_stroke
+  domain: browser
+  priority: 3
+  input:
+  - width
+  - height
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_rectangle'; binds HandlerRegistry:draw_rectangle
+- id: dom.draw_svg_path
+  scope: canvas_step
+  intent: canvas:draw_path
+  domain: browser
+  priority: 3
+  input:
+  - path
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'draw_svg_path'; binds HandlerRegistry:draw_svg_path
+- id: dom.fill_at
+  scope: canvas_step
+  intent: canvas:flood_fill
+  domain: browser
+  priority: 3
+  input:
+  - offset
+  output:
+  - canvas_mutated
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'fill_at'; binds HandlerRegistry:fill_at
+- id: dom.get_canvas_center
+  scope: canvas_step
+  intent: canvas:measure_center
+  domain: browser
+  priority: 3
+  output:
+  - canvas_center
+  effect:
+  - read_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'get_canvas_center'; binds HandlerRegistry:get_canvas_center
+- id: dom.screenshot
+  scope: canvas_step
+  intent: browser:screenshot
+  domain: browser
+  priority: 3
+  output:
+  - screenshot_file
+  effect:
+  - read
+  - write
+  tags:
+  - canvas_step
+  meaning: Canvas step 'screenshot'; binds HandlerRegistry:screenshot
+- id: dom.select_tool
+  scope: canvas_step
+  intent: canvas:select_tool
+  domain: browser
+  priority: 3
+  input:
+  - tool
+  output:
+  - step_result
+  effect:
+  - read_canvas
+  tags:
+  - canvas_step
+  meaning: Canvas step 'select_tool'; binds HandlerRegistry:select_tool
+- id: dom.set_color
+  scope: canvas_step
+  intent: canvas:set_color
+  domain: browser
+  priority: 3
+  input:
+  - color
+  output:
+  - step_result
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  - step_pre_gate
+  meaning: Canvas step 'set_color'; binds HandlerRegistry:set_color
+- id: dom.set_line_width
+  scope: canvas_step
+  intent: canvas:set_stroke_width
+  domain: browser
+  priority: 3
+  input:
+  - width
+  output:
+  - step_result
+  effect:
+  - write_canvas
+  tags:
+  - canvas_step
+  - step_pre_gate
+  meaning: Canvas step 'set_line_width'; binds HandlerRegistry:set_line_width
+- id: dom.wait
+  scope: canvas_step
+  intent: browser:wait
+  domain: browser
+  priority: 3
+  output:
+  - step_result
+  effect:
+  - read
+  tags:
+  - canvas_step
+  meaning: Canvas step 'wait'; binds HandlerRegistry:wait
+- id: dom.wait_for_canvas
+  scope: canvas_step
+  intent: canvas:wait_ready
+  domain: browser
+  priority: 3
+  output:
+  - canvas_ready
+  effect:
+  - read_canvas
+  tags:
+  - canvas_step
+  - step_pre_gate
+  meaning: Canvas step 'wait_for_canvas'; binds HandlerRegistry:wait_for_canvas
+files:
+  src/nlp2cmd/validators/shell_validator.py:
+  - id: guard.shell_safety
+    scope: guard
+    intent: guard:shell_execution
+    domain: shell
+    forbid:
+    - eval
+    - pipe_to_shell
+    - rm_wildcard
+    - rm_root
+    require:
+    - confirm.destructive
+    meaning: ShellValidator dangerous-pattern gate
+  src/nlp2cmd/pipeline_runner_shell.py:
+  - id: guard.shell_dispatch
+    scope: guard
+    intent: gate:pre_execute
+    domain: shell
+    require:
+    - guard.shell_safety
+    forbid:
+    - blocked_pattern
+    meaning: Shell dispatch gate before ExecutionRunner
+  src/nlp2cmd/automation/step_validator.py:
+  - id: guard.step_pre_post
+    scope: guard
+    intent: guard:browser_step
+    domain: browser
+    require:
+    - page_loaded
+    - session_valid
+    forbid:
+    - log_secret
+    meaning: StepValidator pre/post browser conditions

@@ -7,6 +7,7 @@ and configuration files.
 
 from nlp2cmd.validators.base_validator import BaseValidator
 from nlp2cmd.validators.composite_validator import CompositeValidator
+from nlp2cmd.validators.factory import TransformValidator, build_transform_validator
 from nlp2cmd.validators.docker_validator import DockerValidator
 from nlp2cmd.validators.kubernetes_validator import KubernetesValidator
 from nlp2cmd.validators.shell_validator import ShellValidator
@@ -23,4 +24,6 @@ __all__ = [
     "DockerValidator",
     "KubernetesValidator",
     "CompositeValidator",
+    "TransformValidator",
+    "build_transform_validator",
 ]

@@ -1,0 +1,23 @@
+{
+  "fail_on": [
+    "violation"
+  ],
+  "warn_on": [
+    "partial",
+    "missing_binding"
+  ],
+  "ci_commands": [
+    "intract check-manifest intract.yaml",
+    "intract duplicates --threshold 0.85",
+    "intract graph --format mermaid"
+  ],
+  "runtime_policy_source": "contract_policy in intract-bindings.json",
+  "graph_required": [
+    "intent.file_search preferred_action action.shell_find",
+    "intent.delete confirm_required",
+    "action.docker_run confirm_required",
+    "dom.goto step_pre_gate",
+    "dom.set_color step_pre_gate",
+    "dom.draw_filled_circle canvas_write"
+  ]
+}

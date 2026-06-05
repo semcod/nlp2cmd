@@ -79,6 +79,10 @@ def handle_run_mode(
             print_yaml_block({"verbose": msg, "data": data}, console=console)
     
     _verbose_log("handle_run_mode started", {"query": query, "dsl": dsl})
+
+    from nlp2cmd.bridge.query_input import attach_query_input
+
+    attach_query_input(query, explain=False, verbose=verbose)
     
     from nlp2cmd.generation.pipeline import RuleBasedPipeline
     from nlp2cmd import NLP2CMD
@@ -103,7 +107,15 @@ def handle_run_mode(
         console.print(syntax)
         print(f"```")
         print()
-    
+
+        # Show active LLM backend (OpenRouter / Ollama / fallback)
+        try:
+            from nlp2cmd.llm.info import format_llm_banner
+            console.print(format_llm_banner())
+        except Exception:
+            pass  # banner is best-effort; never block generation
+        print()
+
     # Step 0: Check for similar queries in history (disambiguation)
     _verbose_log("Step 0: Checking history for similar queries")
     try:
@@ -322,10 +334,13 @@ def handle_run_mode(
             # Multi-step ActionPlan execution (browser + prompts + file updates)
             if detected_domain == "multi_step" and getattr(result, "action_plan", None):
                 if not only_output:
+                    from nlp2cmd.plan_execution.execution_record import build_planning_preview
+
                     print_yaml_block(
                         {
                             "status": "multistep_plan_detected",
                             "intent": detected_intent,
+                            "planning": build_planning_preview(result.action_plan),
                             "steps": [
                                 getattr(s, "action", "")
                                 for s in (getattr(result.action_plan, "steps", None) or [])
@@ -389,14 +404,18 @@ def handle_run_mode(
                             )
 
                     if not only_output:
-                        print_yaml_block(
-                            {
-                                "status": "multistep_plan_completed",
-                                "success": bool(plan_res.success),
-                                "error": str(plan_res.error or "") if not plan_res.success else "",
-                            },
-                            console=console,
-                        )
+                        completion_payload = {
+                            "status": "multistep_plan_completed",
+                            "success": bool(plan_res.success),
+                            "error": str(plan_res.error or "") if not plan_res.success else "",
+                        }
+                        intract_gate = (plan_res.data or {}).get("intract_gate")
+                        if intract_gate:
+                            completion_payload["intract_gate"] = intract_gate
+                        execution_artifacts = (plan_res.data or {}).get("execution_artifacts")
+                        if execution_artifacts:
+                            completion_payload["execution_artifacts"] = execution_artifacts
+                        print_yaml_block(completion_payload, console=console)
                     return
                 except Exception as e:
                     if not only_output:
@@ -416,7 +435,9 @@ def handle_run_mode(
             return
     else:
         adapter = adapter_map.get(dsl, lambda: ShellAdapter())()
-        nlp = NLP2CMD(adapter=adapter)
+        from nlp2cmd.validators.factory import build_transform_validator
+
+        nlp = NLP2CMD(adapter=adapter, validator=build_transform_validator(adapter.DSL_NAME))
         transform_result = nlp.transform(query)
         command = transform_result.command
         detected_domain = dsl
@@ -578,7 +599,12 @@ def handle_run_mode(
             print("DEBUG: Entering try block", file=sys.stderr, flush=True)
             browser_adapter = BrowserAdapter()
             _verbose_log("BrowserAdapter created successfully")
-            nlp_browser = NLP2CMD(adapter=browser_adapter)
+            from nlp2cmd.validators.factory import build_transform_validator
+
+            nlp_browser = NLP2CMD(
+                adapter=browser_adapter,
+                validator=build_transform_validator(browser_adapter.DSL_NAME),
+            )
             _verbose_log("NLP2CMD created successfully")
             
             _verbose_log("Transforming query to IR via BrowserAdapter")

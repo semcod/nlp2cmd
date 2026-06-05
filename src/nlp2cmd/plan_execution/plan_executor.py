@@ -316,11 +316,22 @@ class PlanExecutor:
                 f"z {len(plan.steps)} | Czas: {total_ms/1000:.1f}s"
                 f"{' | PRZERWANY' if plan_aborted else ''}"
             )
-            
+            console_wrapper.flush()
+
+            execution_summary = {
+                "success": not plan_aborted and all(r["status"] not in ("failed", "error") for r in results_log),
+                "mode": "desktop",
+                "steps_ok": ok_count,
+                "steps_total": len(results_log),
+                "total_ms": total_ms,
+            }
             result_data = {"steps": results_log, "variables": variables, "mode": "desktop"}
-            
+            result_data = self._attach_execution_artifacts(
+                plan, result_data, execution_summary, "./recordings", console_wrapper,
+            )
+
             return RunnerResult(
-                success=(not plan_aborted and all(r["status"] not in ("failed", "error") for r in results_log)),
+                success=execution_summary["success"],
                 kind="action_plan",
                 data=result_data,
             )
@@ -424,6 +435,7 @@ class PlanExecutor:
             
             # Cleanup
             self._cleanup(context, page, video_dir, console_wrapper)
+            console_wrapper.flush()
             
             # Build result
             result_data = {
@@ -431,10 +443,38 @@ class PlanExecutor:
                 "variables": orchestrator.variables,
                 "mode": "playwright",
             }
+            if orchestrator.validator and hasattr(orchestrator.validator, "summary"):
+                result_data["intract_gate"] = orchestrator.validator.summary()
             if self.video_saved_path:
                 result_data["video"] = self.video_saved_path
             if self.screenshot_path:
                 result_data["screenshot"] = self.screenshot_path
+
+            execution_summary = {
+                "success": all(
+                    r.status not in ("failed", "error", "failed_validation")
+                    for r in orchestrator.results_log
+                ),
+                "mode": "playwright",
+                "steps_ok": sum(1 for r in orchestrator.results_log if r.status in ("ok", "ok_retry", "ok_fallback")),
+                "steps_total": len(orchestrator.results_log),
+                "total_ms": sum(r.elapsed_ms for r in orchestrator.results_log),
+                "screenshot": self.screenshot_path,
+                "video": self.video_saved_path,
+            }
+            if result_data.get("intract_gate"):
+                execution_summary["intract_gate"] = result_data["intract_gate"]
+
+            result_data = self._attach_execution_artifacts(
+                plan, result_data, execution_summary, video_dir, console_wrapper,
+            )
+
+            if result_data.get("intract_gate", {}).get("enabled"):
+                from nlp2cmd.cli.markdown_output import print_yaml_block
+                print_yaml_block(
+                    {"status": "intract_gate", **result_data["intract_gate"]},
+                    console=self.console,
+                )
             
             return RunnerResult(
                 success=all(r.status not in ("failed", "error", "failed_validation") for r in orchestrator.results_log),
@@ -442,6 +482,44 @@ class PlanExecutor:
                 data=result_data,
             )
     
+    def _attach_execution_artifacts(
+        self,
+        plan: Any,
+        result_data: dict[str, Any],
+        execution_summary: dict[str, Any],
+        output_dir: str | Path,
+        console_wrapper: Any | None = None,
+    ) -> dict[str, Any]:
+        """Persist DOM DSL / VQL / record files and optionally print summary blocks."""
+        try:
+            from nlp2cmd.plan_execution.execution_record import (
+                execution_record_enabled,
+                format_dom_dsl_text,
+                save_execution_artifacts,
+            )
+            from nlp2cmd.cli.markdown_output import print_markdown_block, print_yaml_block
+
+            if not execution_record_enabled():
+                return result_data
+
+            artifacts = save_execution_artifacts(
+                plan,
+                output_dir=output_dir,
+                execution_result=execution_summary,
+            )
+            result_data["execution_artifacts"] = artifacts.to_summary_dict()
+            target = console_wrapper or self.console
+            print_yaml_block(artifacts.to_summary_dict(), console=target)
+            print_markdown_block(
+                format_dom_dsl_text(artifacts.record["dom_dql"]),
+                language="dsl",
+                title="dom_dql",
+                console=target,
+            )
+        except Exception as exc:
+            _debug(f"Failed to save execution artifacts: {exc}")
+        return result_data
+
     def _create_orchestrator(self, plan: Any) -> StepOrchestrator:
         """Create step orchestrator with all dependencies."""
         # Try to import optional components
@@ -451,7 +529,13 @@ class PlanExecutor:
         
         try:
             from nlp2cmd.automation.step_validator import StepValidator
+            from nlp2cmd.intract.pipeline_gate import intract_gate_enabled
+
             validator = StepValidator()
+            if intract_gate_enabled():
+                from nlp2cmd.intract.step_gate import IntractStepGate
+
+                validator = IntractStepGate(inner=validator)
         except ImportError:
             pass
         

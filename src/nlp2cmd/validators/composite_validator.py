@@ -15,12 +15,14 @@ class CompositeValidator(BaseValidator):
     def __init__(self, validators: list[BaseValidator]):
         self.validators = validators
 
-    def validate(self, content: str) -> ValidationResult:
+    def validate(self, content: str, plan: Any = None) -> ValidationResult:
         """Run all validators and merge results."""
+        from nlp2cmd.validators.factory import _call_validator
+
         result = ValidationResult(is_valid=True)
 
         for validator in self.validators:
-            validator_result = validator.validate(content)
+            validator_result = _call_validator(validator, content, plan)
             result = result.merge(validator_result)
 
         return result

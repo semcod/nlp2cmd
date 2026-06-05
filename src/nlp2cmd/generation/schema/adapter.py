@@ -69,7 +69,7 @@ class SchemaDrivenAppSpecAdapter(AppSpecAdapter):
             description=action.description or f"{command} command",
             category=self._infer_category(action),
             parameters=[],
-            examples=action.examples or [],
+            examples=getattr(action, 'examples', []) or [],
             patterns=action.match.get('patterns', []) if action.match else [],
             source_type="appspec",
             metadata={'action_id': action.id},

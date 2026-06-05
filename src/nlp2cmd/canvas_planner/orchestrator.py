@@ -2,10 +2,13 @@
 
 LLM-first dynamic planning (default):
 1. LLM generation (arbitrary objects via LLM_MODEL / router)
-2. Vector DB semantic search (learned patterns cache)
-3. Blueprint match (opt-in via CANVAS_USE_BLUEPRINTS=1)
+2. Blueprint match (known objects — also first when CANVAS_USE_BLUEPRINTS=1)
+3. Vector DB semantic search (learned patterns cache)
 4. Template matching (opt-in via CANVAS_USE_TEMPLATES=1)
 5. Rule-based fallback (opt-out via CANVAS_USE_RULE_FALLBACK=0)
+
+LLM plans with fewer than CANVAS_MIN_DRAW_STEPS draw actions are rejected
+and fall through to blueprint / vector / rule fallbacks.
 """
 
 from __future__ import annotations
@@ -37,22 +40,48 @@ class CanvasPlanningOrchestrator:
         self.llm = LLMCanvasPlanner(self.ollama_url, self.model)
         self.rule = RuleBasedCanvasPlanner(self.ollama_url, self.model)
     
+    @staticmethod
+    def _count_draw_actions(steps: list[dict[str, Any]]) -> int:
+        return sum(
+            1 for s in steps
+            if str(s.get("action", "")).startswith("draw_")
+        )
+
+    @staticmethod
+    def _has_blueprint_match(text: str) -> bool:
+        try:
+            from nlp2cmd.automation.drawing_blueprints import lookup_blueprint
+            return lookup_blueprint(text) is not None
+        except ImportError:
+            return False
+
     def plan(self, query: str, text: str | None = None, canvas_url: str = "https://jspaint.app") -> CanvasPlanResult | None:
         """Generate drawing plan using tiered strategy."""
         text = text or query.lower()
 
-        # Opt-in handcrafted blueprints (CANVAS_USE_BLUEPRINTS=1)
+        # Known objects: rich handcrafted blueprint always wins (cat, ladybug, …)
+        if self._has_blueprint_match(text):
+            result = self._try_blueprint(query, text, canvas_url)
+            if result:
+                return result
+
+        # Fast path: blueprints-only mode when explicitly enabled
         if self.config.use_blueprints:
             result = self._try_blueprint(query, text, canvas_url)
             if result:
                 return result
 
-        # Tier 1: LLM generation (primary dynamic path)
+        # Tier 1: LLM generation (primary dynamic path for novel objects)
         result = self._try_llm(query, text, canvas_url)
         if result:
             return result
+
+        # Tier 2: Blueprint fallback when LLM plan was too simple
+        result = self._try_blueprint(query, text, canvas_url)
+        if result:
+            return result
         
-        # Tier 2: Vector DB semantic search (cached learned plans)
+        # Tier 3: Vector DB semantic search (cached learned plans)
         result = self._try_vector_db(query, text, canvas_url)
         if result:
             return result
@@ -134,6 +163,14 @@ class CanvasPlanningOrchestrator:
         try:
             result = self.llm.plan(query, text, canvas_url)
             if result:
+                draw_count = self._count_draw_actions(result.steps)
+                if draw_count < self.config.min_draw_actions:
+                    log.info(
+                        "[Orchestrator] LLM plan too simple (%d draw steps, need %d), trying next",
+                        draw_count,
+                        self.config.min_draw_actions,
+                    )
+                    return None
                 log.info("[Orchestrator] Using LLM plan (%s)", self.model)
                 return result
         except Exception as e:

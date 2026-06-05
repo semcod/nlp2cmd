@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-01-28T08:16:05.569068",
+  "timestamp": "2026-06-05T14:49:15.421006",
   "summary": {
-    "average_single_command_latency_ms": 35.94405886542518,
-    "average_sequential_latency_ms": 32.63801259890897,
-    "average_throughput_commands_per_second": 30.62583490952891,
-    "fastest_adapter_single": "sql",
+    "average_single_command_latency_ms": 2.435900268998618,
+    "average_sequential_latency_ms": 0.20096763231170675,
+    "average_throughput_commands_per_second": 15441.641575395297,
+    "fastest_adapter_single": "docker",
     "fastest_adapter_sequential": "sql",
     "highest_throughput_adapter": "sql"
   },
@@ -12,105 +12,105 @@
     "shell": {
       "single_command": {
         "command": "Find all Python files in the current directory",
-        "average_latency_ms": 40.32414479588624,
+        "average_latency_ms": 7.087088405387476,
         "all_latencies": [
-          76.20273600332439,
-          31.279382994398475,
-          30.87773799779825,
-          31.903258990496397,
-          31.357607993413694
+          33.00833702087402,
+          0.7829059904906899,
+          0.5858060030732304,
+          0.5335129972081631,
+          0.5248800152912736
         ]
       },
       "sequential": {
-        "total_time_ms": 324.0347370010568,
+        "total_time_ms": 5.221676983637735,
         "individual_latencies": [
-          33.467568006017245,
-          31.804056008695625,
-          32.36381700844504,
-          32.52707599312998,
-          32.08761499263346,
-          33.01446000114083,
-          32.03096099605318,
-          31.823022989556193,
-          32.008044989197515,
-          32.54788200138137
+          0.5091189814265817,
+          0.6153470021672547,
+          0.5504169967025518,
+          0.6426319887395948,
+          0.45257798046804965,
+          0.49354700604453683,
+          0.5602829915005714,
+          0.47772101243026555,
+          0.4137330106459558,
+          0.4565419803839177
         ],
-        "average_latency_ms": 32.367450298625045,
-        "min_latency_ms": 31.804056008695625,
-        "max_latency_ms": 33.467568006017245,
-        "median_latency_ms": 32.22571600053925,
-        "std_deviation_ms": 0.5396963070123716
+        "average_latency_ms": 0.517191895050928,
+        "min_latency_ms": 0.4137330106459558,
+        "max_latency_ms": 0.6426319887395948,
+        "median_latency_ms": 0.5013329937355593,
+        "std_deviation_ms": 0.07383894356800981
       },
-      "throughput_commands_per_second": 30.860888843430963
+      "throughput_commands_per_second": 1915.0935669393698
     },
     "sql": {
       "single_command": {
         "command": "Select all users from the database",
-        "average_latency_ms": 32.54343059961684,
+        "average_latency_ms": 0.16924780211411417,
         "all_latencies": [
-          32.927316991845146,
-          31.726464003440924,
-          31.504022001172416,
-          33.30531800747849,
-          33.254031994147226
+          0.6434120004996657,
+          0.06613001460209489,
+          0.0485139898955822,
+          0.04952101153321564,
+          0.03866199404001236
         ]
       },
       "sequential": {
-        "total_time_ms": 318.8088169990806,
+        "total_time_ms": 0.42600801680237055,
         "individual_latencies": [
-          31.55291899747681,
-          32.02463599154726,
-          31.77044900075998,
-          31.760181998834014,
-          31.616256994311698,
-          33.5527850111248,
-          31.536783004412428,
-          31.806978993699886,
-          31.5058179985499,
-          31.36844400432892
+          0.04690501373261213,
+          0.04224502481520176,
+          0.04113101749680936,
+          0.04678999539464712,
+          0.03945198841392994,
+          0.03856699913740158,
+          0.03689900040626526,
+          0.03712897887453437,
+          0.03561598714441061,
+          0.037326011806726456
         ],
-        "average_latency_ms": 31.84952519950457,
-        "min_latency_ms": 31.36844400432892,
-        "max_latency_ms": 33.5527850111248,
-        "median_latency_ms": 31.688219496572856,
-        "std_deviation_ms": 0.6269479811204195
+        "average_latency_ms": 0.04020600172225386,
+        "min_latency_ms": 0.03561598714441061,
+        "max_latency_ms": 0.04690501373261213,
+        "median_latency_ms": 0.03900949377566576,
+        "std_deviation_ms": 0.004031277334649975
       },
-      "throughput_commands_per_second": 31.366761101932884
+      "throughput_commands_per_second": 23473.736656554756
     },
     "docker": {
       "single_command": {
         "command": "List all running containers",
-        "average_latency_ms": 34.96460120077245,
+        "average_latency_ms": 0.05136459949426353,
         "all_latencies": [
-          42.06643199722748,
-          37.1840650041122,
-          31.96089899574872,
-          31.68982001079712,
-          31.921789995976724
+          0.07191402255557477,
+          0.053674011724069715,
+          0.0451349769718945,
+          0.04532799357548356,
+          0.040771992644295096
         ]
       },
       "sequential": {
-        "total_time_ms": 337.2697800077731,
+        "total_time_ms": 0.47764400369487703,
         "individual_latencies": [
-          32.63062299811281,
-          32.65002199623268,
-          34.00444900034927,
-          34.86479099956341,
-          34.10189699206967,
-          34.97604400035925,
-          33.94664700317662,
-          34.2609259969322,
-          33.191403999808244,
-          32.34381999936886
+          0.05572199006564915,
+          0.04711898509413004,
+          0.0509209930896759,
+          0.04149999585933983,
+          0.041534018237143755,
+          0.041615014197304845,
+          0.0427470076829195,
+          0.04561399691738188,
+          0.0440030125901103,
+          0.04427498788572848
         ],
-        "average_latency_ms": 33.6970622985973,
-        "min_latency_ms": 32.34381999936886,
-        "max_latency_ms": 34.97604400035925,
-        "median_latency_ms": 33.975548001762945,
-        "std_deviation_ms": 0.9403627097481251
+        "average_latency_ms": 0.04550500016193837,
+        "min_latency_ms": 0.04149999585933983,
+        "max_latency_ms": 0.05572199006564915,
+        "median_latency_ms": 0.04413900023791939,
+        "std_deviation_ms": 0.004650601595918912
       },
-      "throughput_commands_per_second": 29.64985478322288
+      "throughput_commands_per_second": 20936.094502691765
     }
   },
-  "markdown_report": "# NLP2CMD Performance Benchmark Report\n\n*Generated on: 2026-01-28T08:16:05.569068*\n\n## Executive Summary\n\nThis report analyzes the performance characteristics of NLP2CMD when processing single versus sequential commands, with focus on identifying bottlenecks and optimizing for energy efficiency and throughput based on thermodynamic principles.\n\n### Key Findings\n\n- **Total Time Saved (10 commands)**: 98.2ms (9.1% efficiency gain)\n- **Average Throughput**: 30.63 commands/sec\n- **Best Performing Adapter**: sql (sequential processing)\n\n## Performance Comparison Table\n\n| Adapter | Single Command (ms) | Sequential Avg (ms) | Total Time (10 cmd) | Throughput (cmd/s) | Time Saved (ms) |\n|---------|-------------------|-------------------|-------------------|------------------|----------------|\n| SHELL | 40.3 | 32.4 | 324.0 | 30.86 | 79.2 |\n| SQL | 32.5 | 31.8 | 318.8 | 31.37 | 6.6 |\n| DOCKER | 35.0 | 33.7 | 337.3 | 29.65 | 12.4 |\n\n## Thermodynamic Performance Analysis\n\n### Energy Efficiency Metrics\n\nBased on thermodynamic principles, we analyze the system's energy consumption patterns:\n\n1. **Initialization Energy (E_init)**: Energy required to cold-start the NLP2CMD system\n2. **Processing Energy (E_proc)**: Energy per command during steady state\n3. **Idle Energy (E_idle)**: Energy consumption between commands\n\n#### Calculated Energy Savings\n\n| Adapter | E_init (ms) | E_proc per cmd (ms) | Total Energy (10 cmd) | Energy Saved |\n|---------|------------|-------------------|---------------------|-------------|\n| SHELL | 79.2 | 32.4 | 324.0 | 63.4 |\n| SQL | 6.6 | 31.8 | 318.8 | 5.3 |\n| DOCKER | 12.4 | 33.7 | 337.3 | 9.9 |\n\n## Bottleneck Analysis\n\n### Identified Performance Bottlenecks\n\n1. **Model Loading Time**\n   - Average initialization overhead: 32.7ms\n   - Impact: Most significant for single command execution\n   - Recommendation: Implement model pre-loading and connection pooling\n\n2. **Memory Allocation Patterns**\n   - Sequential processing shows 9.1% efficiency gain\n   - Indicates memory reuse benefits\n   - Recommendation: Maintain persistent memory pools\n\n3. **Adapter Initialization**\n   - Fastest adapter: sql (31.8ms avg)\n   - Slowest adapter: docker\n   - Recommendation: Optimize adapter factory patterns\n\n### Optimization Strategies\n\n#### 1. Thermodynamic Minimization (Energy Focus)\n- Keep system at \"thermal equilibrium\" (warm state)\n- Minimize phase transitions (cold starts)\n- Use lazy loading with persistent caches\n- **Expected improvement**: 30-40% energy reduction\n\n#### 2. Entropy Reduction (Speed Focus)\n- Pre-compile command patterns\n- Use deterministic routing\n- Implement command batching\n- **Expected improvement**: 20-25% speed increase\n\n#### 3. Free Energy Optimization (Balance)\n- Balance between initialization cost and processing speed\n- Adaptive timeout based on command complexity\n- Dynamic resource allocation\n- **Expected improvement**: 25-35% overall efficiency\n\n## Processing Mode Comparison\n\n### Mode 1: Individual Command Processing\n```\nTotal Time = n \u00d7 (T_init + T_proc)\nEnergy = n \u00d7 (E_init + E_proc)\n```\n- **Pros**: Isolated execution, no state pollution\n- **Cons**: High initialization overhead\n- **Best for**: Sporadic, low-frequency usage\n\n### Mode 2: Sequential Batch Processing\n```\nTotal Time = T_init + n \u00d7 T_proc\nEnergy = E_init + n \u00d7 E_proc\n```\n- **Pros**: Amortized initialization cost\n- **Cons**: State persistence required\n- **Best for**: High-frequency, batch operations\n\n### Mode 3: Thermodynamic Hybrid (Recommended)\n```\nTotal Time = T_init + n \u00d7 T_proc - T_adaptive\nEnergy = E_init + n \u00d7 E_proc - E_reclaimed\n```\n- **Pros**: Adaptive optimization, energy reclamation\n- **Cons**: Complex implementation\n- **Best for**: Production systems with variable load\n\n## Recommendations\n\n### Immediate Actions (Week 1)\n1. Implement connection pooling for adapters\n2. Add model pre-loading option\n3. Create batch processing API\n\n### Short Term (Month 1)\n1. Develop thermodynamic scheduler\n2. Implement energy monitoring\n3. Add adaptive timeout mechanisms\n\n### Long Term (Quarter 1)\n1. Full thermodynamic optimization engine\n2. Predictive pre-loading based on usage patterns\n3. Energy-efficient resource orchestration\n\n## Conclusion\n\nThe benchmark demonstrates significant efficiency gains (9.1%) when using sequential processing. The thermodynamic approach to optimization provides a framework for balancing energy consumption with processing speed, leading to more sustainable and efficient NLP2CMD deployments.\n\n---\n*Report generated by NLP2CMD Benchmark Tool v1.0*\n"
+  "markdown_report": "# NLP2CMD Performance Benchmark Report\n\n*Generated on: 2026-06-05T14:49:15.421006*\n\n## Executive Summary\n\nThis report analyzes the performance characteristics of NLP2CMD when processing single versus sequential commands, with focus on identifying bottlenecks and optimizing for energy efficiency and throughput based on thermodynamic principles.\n\n### Key Findings\n\n- **Total Time Saved (10 commands)**: 67.0ms (91.6% efficiency gain)\n- **Average Throughput**: 15441.64 commands/sec\n- **Best Performing Adapter**: sql (sequential processing)\n\n## Performance Comparison Table\n\n| Adapter | Single Command (ms) | Sequential Avg (ms) | Total Time (10 cmd) | Throughput (cmd/s) | Time Saved (ms) |\n|---------|-------------------|-------------------|-------------------|------------------|----------------|\n| SHELL | 7.1 | 0.5 | 5.2 | 1915.09 | 65.6 |\n| SQL | 0.2 | 0.0 | 0.4 | 23473.74 | 1.3 |\n| DOCKER | 0.1 | 0.0 | 0.5 | 20936.09 | 0.0 |\n\n## Thermodynamic Performance Analysis\n\n### Energy Efficiency Metrics\n\nBased on thermodynamic principles, we analyze the system's energy consumption patterns:\n\n1. **Initialization Energy (E_init)**: Energy required to cold-start the NLP2CMD system\n2. **Processing Energy (E_proc)**: Energy per command during steady state\n3. **Idle Energy (E_idle)**: Energy consumption between commands\n\n#### Calculated Energy Savings\n\n| Adapter | E_init (ms) | E_proc per cmd (ms) | Total Energy (10 cmd) | Energy Saved |\n|---------|------------|-------------------|---------------------|-------------|\n| SHELL | 65.6 | 0.5 | 5.2 | 52.5 |\n| SQL | 1.3 | 0.0 | 0.4 | 1.0 |\n| DOCKER | 0.0 | 0.0 | 0.5 | 0.0 |\n\n## Bottleneck Analysis\n\n### Identified Performance Bottlenecks\n\n1. **Model Loading Time**\n   - Average initialization overhead: 22.3ms\n   - Impact: Most significant for single command execution\n   - Recommendation: Implement model pre-loading and connection pooling\n\n2. **Memory Allocation Patterns**\n   - Sequential processing shows 91.6% efficiency gain\n   - Indicates memory reuse benefits\n   - Recommendation: Maintain persistent memory pools\n\n3. **Adapter Initialization**\n   - Fastest adapter: sql (0.0ms avg)\n   - Slowest adapter: shell\n   - Recommendation: Optimize adapter factory patterns\n\n### Optimization Strategies\n\n#### 1. Thermodynamic Minimization (Energy Focus)\n- Keep system at \"thermal equilibrium\" (warm state)\n- Minimize phase transitions (cold starts)\n- Use lazy loading with persistent caches\n- **Expected improvement**: 30-40% energy reduction\n\n#### 2. Entropy Reduction (Speed Focus)\n- Pre-compile command patterns\n- Use deterministic routing\n- Implement command batching\n- **Expected improvement**: 20-25% speed increase\n\n#### 3. Free Energy Optimization (Balance)\n- Balance between initialization cost and processing speed\n- Adaptive timeout based on command complexity\n- Dynamic resource allocation\n- **Expected improvement**: 25-35% overall efficiency\n\n## Processing Mode Comparison\n\n### Mode 1: Individual Command Processing\n```\nTotal Time = n \u00d7 (T_init + T_proc)\nEnergy = n \u00d7 (E_init + E_proc)\n```\n- **Pros**: Isolated execution, no state pollution\n- **Cons**: High initialization overhead\n- **Best for**: Sporadic, low-frequency usage\n\n### Mode 2: Sequential Batch Processing\n```\nTotal Time = T_init + n \u00d7 T_proc\nEnergy = E_init + n \u00d7 E_proc\n```\n- **Pros**: Amortized initialization cost\n- **Cons**: State persistence required\n- **Best for**: High-frequency, batch operations\n\n### Mode 3: Thermodynamic Hybrid (Recommended)\n```\nTotal Time = T_init + n \u00d7 T_proc - T_adaptive\nEnergy = E_init + n \u00d7 E_proc - E_reclaimed\n```\n- **Pros**: Adaptive optimization, energy reclamation\n- **Cons**: Complex implementation\n- **Best for**: Production systems with variable load\n\n## Recommendations\n\n### Immediate Actions (Week 1)\n1. Implement connection pooling for adapters\n2. Add model pre-loading option\n3. Create batch processing API\n\n### Short Term (Month 1)\n1. Develop thermodynamic scheduler\n2. Implement energy monitoring\n3. Add adaptive timeout mechanisms\n\n### Long Term (Quarter 1)\n1. Full thermodynamic optimization engine\n2. Predictive pre-loading based on usage patterns\n3. Energy-efficient resource orchestration\n\n## Conclusion\n\nThe benchmark demonstrates significant efficiency gains (91.6%) when using sequential processing. The thermodynamic approach to optimization provides a framework for balancing energy consumption with processing speed, leading to more sustainable and efficient NLP2CMD deployments.\n\n---\n*Report generated by NLP2CMD Benchmark Tool v1.0*\n"
 }

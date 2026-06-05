@@ -45,7 +45,16 @@ async def demo_hyperparameter_optimization():
         problem=problem,
     )
     
-    raw_sample = result.solution.get("raw_sample", [])
+    solution = result.solution
+    if isinstance(solution, dict):
+        raw_sample = solution.get("raw_sample", [])
+    elif isinstance(solution, list) and solution:
+        raw_sample = solution[0]
+    else:
+        raw_sample = []
+    # Ensure plain Python floats (may come from numpy sampling)
+    if hasattr(raw_sample, "tolist"):
+        raw_sample = raw_sample.tolist()
     projected = project_sample(problem, raw_sample)
 
     print_projected("\n✅ Projected hyperparameters:", projected)

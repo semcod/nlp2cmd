@@ -1,0 +1,931 @@
+{
+  "version": 1,
+  "generated_at": "2026-06-05T12:32:58.859903+00:00",
+  "sources": {
+    "router_config": "src/nlp2cmd/data/router_config.json",
+    "action_registry": "src/nlp2cmd/registry/action_registry.py",
+    "dom_registry": "src/nlp2cmd/dom_actions/registry.py",
+    "step_handler_registry": "src/nlp2cmd/step_handlers/registry.py",
+    "pact_ir_planner": "nlp2cmd_planner/strategies/rule_shell.py"
+  },
+  "intent_to_contract": {
+    "select": "intent.select",
+    "get": "intent.get",
+    "list": "intent.list",
+    "show": "intent.show",
+    "count": "intent.count",
+    "describe": "intent.describe",
+    "status": "intent.status",
+    "version": "intent.version",
+    "help": "intent.help",
+    "analyze": "intent.analyze",
+    "compare": "intent.compare",
+    "migrate": "intent.migrate",
+    "refactor": "intent.refactor",
+    "optimize": "intent.optimize",
+    "diagnose": "intent.diagnose",
+    "report": "intent.report",
+    "audit": "intent.audit",
+    "insert": "intent.insert",
+    "update": "intent.update",
+    "delete": "intent.delete",
+    "aggregate": "intent.aggregate",
+    "file_search": "intent.file_search",
+    "file_operation": "intent.file_operation",
+    "process_monitoring": "intent.process_monitoring",
+    "network": "intent.network",
+    "container_run": "intent.container_run",
+    "container_stop": "intent.container_stop",
+    "container_list": "intent.container_list",
+    "image_build": "intent.image_build",
+    "scale": "intent.scale",
+    "logs": "intent.logs",
+    "find": "intent.file_search",
+    "search": "intent.file_search",
+    "ls": "intent.list",
+    "dir": "intent.list"
+  },
+  "intent_to_action": {
+    "select": "sql_select",
+    "get": "k8s_get",
+    "describe": "k8s_describe",
+    "insert": "sql_insert",
+    "update": "sql_update",
+    "delete": "sql_delete",
+    "aggregate": "sql_aggregate",
+    "file_search": "shell_find",
+    "file_operation": "shell_file_op",
+    "process_monitoring": "shell_process",
+    "network": "shell_network",
+    "container_run": "docker_run",
+    "container_stop": "docker_stop",
+    "container_list": "docker_ps",
+    "image_build": "docker_build",
+    "scale": "k8s_scale",
+    "logs": "k8s_logs"
+  },
+  "action_to_contract": {
+    "docker_logs": "action.docker_logs",
+    "docker_ps": "action.docker_ps",
+    "docker_run": "action.docker_run",
+    "docker_stop": "action.docker_stop",
+    "filter_results": "action.filter_results",
+    "k8s_get": "action.k8s_get",
+    "k8s_logs": "action.k8s_logs",
+    "k8s_scale": "action.k8s_scale",
+    "shell_count_pattern": "action.shell_count_pattern",
+    "shell_find": "action.shell_find",
+    "shell_process_list": "action.shell_process_list",
+    "shell_read_file": "action.shell_read_file",
+    "sort_results": "action.sort_results",
+    "sql_aggregate": "action.sql_aggregate",
+    "sql_delete": "action.sql_delete",
+    "sql_insert": "action.sql_insert",
+    "sql_select": "action.sql_select",
+    "sql_update": "action.sql_update",
+    "summarize_results": "action.summarize_results",
+    "shell_list": "action.shell_list"
+  },
+  "dom_to_contract": {
+    "explore_for_content": "dom.explore_for_content",
+    "explore_for_form": "dom.explore_for_form",
+    "extract_companies": "dom.extract_companies",
+    "extract_company_websites_deep": "dom.extract_company_websites_deep",
+    "fill_form": "dom.fill_form",
+    "goto": "dom.goto",
+    "navigate": "dom.goto",
+    "save_to_csv": "dom.save_to_csv",
+    "save_to_file": "dom.save_to_file",
+    "click_canvas": "dom.click_canvas",
+    "draw_arc": "dom.draw_arc",
+    "draw_bezier": "dom.draw_bezier",
+    "draw_circle": "dom.draw_circle",
+    "draw_ellipse": "dom.draw_ellipse",
+    "draw_filled_circle": "dom.draw_filled_circle",
+    "draw_filled_ellipse": "dom.draw_filled_ellipse",
+    "draw_filled_rectangle": "dom.draw_filled_rectangle",
+    "draw_line": "dom.draw_line",
+    "draw_polygon": "dom.draw_polygon",
+    "draw_rectangle": "dom.draw_rectangle",
+    "draw_svg_path": "dom.draw_svg_path",
+    "fill_at": "dom.fill_at",
+    "get_canvas_center": "dom.get_canvas_center",
+    "screenshot": "dom.screenshot",
+    "select_tool": "dom.select_tool",
+    "set_color": "dom.set_color",
+    "set_line_width": "dom.set_line_width",
+    "wait": "dom.wait",
+    "wait_for_canvas": "dom.wait_for_canvas"
+  },
+  "contract_to_registry": {
+    "action.docker_logs": {
+      "registry": "ActionRegistry",
+      "name": "docker_logs",
+      "param_source": "ActionSchema.params"
+    },
+    "action.docker_ps": {
+      "registry": "ActionRegistry",
+      "name": "docker_ps",
+      "param_source": "ActionSchema.params"
+    },
+    "action.docker_run": {
+      "registry": "ActionRegistry",
+      "name": "docker_run",
+      "param_source": "ActionSchema.params"
+    },
+    "action.docker_stop": {
+      "registry": "ActionRegistry",
+      "name": "docker_stop",
+      "param_source": "ActionSchema.params"
+    },
+    "action.filter_results": {
+      "registry": "ActionRegistry",
+      "name": "filter_results",
+      "param_source": "ActionSchema.params"
+    },
+    "action.k8s_get": {
+      "registry": "ActionRegistry",
+      "name": "k8s_get",
+      "param_source": "ActionSchema.params"
+    },
+    "action.k8s_logs": {
+      "registry": "ActionRegistry",
+      "name": "k8s_logs",
+      "param_source": "ActionSchema.params"
+    },
+    "action.k8s_scale": {
+      "registry": "ActionRegistry",
+      "name": "k8s_scale",
+      "param_source": "ActionSchema.params"
+    },
+    "action.shell_count_pattern": {
+      "registry": "ActionRegistry",
+      "name": "shell_count_pattern",
+      "param_source": "ActionSchema.params"
+    },
+    "action.shell_find": {
+      "registry": "ActionRegistry",
+      "name": "shell_find",
+      "param_source": "ActionSchema.params"
+    },
+    "action.shell_process_list": {
+      "registry": "ActionRegistry",
+      "name": "shell_process_list",
+      "param_source": "ActionSchema.params"
+    },
+    "action.shell_read_file": {
+      "registry": "ActionRegistry",
+      "name": "shell_read_file",
+      "param_source": "ActionSchema.params"
+    },
+    "action.sort_results": {
+      "registry": "ActionRegistry",
+      "name": "sort_results",
+      "param_source": "ActionSchema.params"
+    },
+    "action.sql_aggregate": {
+      "registry": "ActionRegistry",
+      "name": "sql_aggregate",
+      "param_source": "ActionSchema.params"
+    },
+    "action.sql_delete": {
+      "registry": "ActionRegistry",
+      "name": "sql_delete",
+      "param_source": "ActionSchema.params"
+    },
+    "action.sql_insert": {
+      "registry": "ActionRegistry",
+      "name": "sql_insert",
+      "param_source": "ActionSchema.params"
+    },
+    "action.sql_select": {
+      "registry": "ActionRegistry",
+      "name": "sql_select",
+      "param_source": "ActionSchema.params"
+    },
+    "action.sql_update": {
+      "registry": "ActionRegistry",
+      "name": "sql_update",
+      "param_source": "ActionSchema.params"
+    },
+    "action.summarize_results": {
+      "registry": "ActionRegistry",
+      "name": "summarize_results",
+      "param_source": "ActionSchema.params"
+    },
+    "dom.explore_for_content": {
+      "registry": "DomActionRegistry",
+      "name": "explore_for_content"
+    },
+    "dom.explore_for_form": {
+      "registry": "DomActionRegistry",
+      "name": "explore_for_form"
+    },
+    "dom.extract_companies": {
+      "registry": "DomActionRegistry",
+      "name": "extract_companies"
+    },
+    "dom.extract_company_websites_deep": {
+      "registry": "DomActionRegistry",
+      "name": "extract_company_websites_deep"
+    },
+    "dom.fill_form": {
+      "registry": "DomActionRegistry",
+      "name": "fill_form"
+    },
+    "dom.goto": {
+      "registry": "DomActionRegistry",
+      "name": "goto"
+    },
+    "dom.navigate": {
+      "registry": "DomActionRegistry",
+      "name": "navigate"
+    },
+    "dom.save_to_csv": {
+      "registry": "DomActionRegistry",
+      "name": "save_to_csv"
+    },
+    "dom.save_to_file": {
+      "registry": "DomActionRegistry",
+      "name": "save_to_file"
+    },
+    "action.shell_list": {
+      "registry": "pact_ir",
+      "name": "shell_list",
+      "param_source": "PlanStep.params"
+    },
+    "dom.click_canvas": {
+      "registry": "HandlerRegistry",
+      "name": "click_canvas"
+    },
+    "dom.draw_arc": {
+      "registry": "HandlerRegistry",
+      "name": "draw_arc"
+    },
+    "dom.draw_bezier": {
+      "registry": "HandlerRegistry",
+      "name": "draw_bezier"
+    },
+    "dom.draw_circle": {
+      "registry": "HandlerRegistry",
+      "name": "draw_circle"
+    },
+    "dom.draw_ellipse": {
+      "registry": "HandlerRegistry",
+      "name": "draw_ellipse"
+    },
+    "dom.draw_filled_circle": {
+      "registry": "HandlerRegistry",
+      "name": "draw_filled_circle"
+    },
+    "dom.draw_filled_ellipse": {
+      "registry": "HandlerRegistry",
+      "name": "draw_filled_ellipse"
+    },
+    "dom.draw_filled_rectangle": {
+      "registry": "HandlerRegistry",
+      "name": "draw_filled_rectangle"
+    },
+    "dom.draw_line": {
+      "registry": "HandlerRegistry",
+      "name": "draw_line"
+    },
+    "dom.draw_polygon": {
+      "registry": "HandlerRegistry",
+      "name": "draw_polygon"
+    },
+    "dom.draw_rectangle": {
+      "registry": "HandlerRegistry",
+      "name": "draw_rectangle"
+    },
+    "dom.draw_svg_path": {
+      "registry": "HandlerRegistry",
+      "name": "draw_svg_path"
+    },
+    "dom.fill_at": {
+      "registry": "HandlerRegistry",
+      "name": "fill_at"
+    },
+    "dom.get_canvas_center": {
+      "registry": "HandlerRegistry",
+      "name": "get_canvas_center"
+    },
+    "dom.screenshot": {
+      "registry": "HandlerRegistry",
+      "name": "screenshot"
+    },
+    "dom.select_tool": {
+      "registry": "HandlerRegistry",
+      "name": "select_tool"
+    },
+    "dom.set_color": {
+      "registry": "HandlerRegistry",
+      "name": "set_color"
+    },
+    "dom.set_line_width": {
+      "registry": "HandlerRegistry",
+      "name": "set_line_width"
+    },
+    "dom.wait": {
+      "registry": "HandlerRegistry",
+      "name": "wait"
+    },
+    "dom.wait_for_canvas": {
+      "registry": "HandlerRegistry",
+      "name": "wait_for_canvas"
+    }
+  },
+  "contract_policy": {
+    "action.docker_logs": {
+      "forbid": [
+        "host_network",
+        "privileged"
+      ],
+      "require": []
+    },
+    "action.docker_ps": {
+      "forbid": [
+        "host_network",
+        "privileged"
+      ],
+      "require": []
+    },
+    "action.docker_run": {
+      "forbid": [
+        "host_network",
+        "privileged",
+        "recursive_root",
+        "wildcard_delete"
+      ],
+      "require": [
+        "confirm.destructive"
+      ]
+    },
+    "action.docker_stop": {
+      "forbid": [
+        "host_network",
+        "privileged",
+        "recursive_root",
+        "wildcard_delete"
+      ],
+      "require": [
+        "confirm.destructive"
+      ]
+    },
+    "action.filter_results": {
+      "forbid": [],
+      "require": []
+    },
+    "action.k8s_get": {
+      "forbid": [],
+      "require": []
+    },
+    "action.k8s_logs": {
+      "forbid": [],
+      "require": []
+    },
+    "action.k8s_scale": {
+      "forbid": [
+        "recursive_root",
+        "scale_to_zero_production",
+        "wildcard_delete"
+      ],
+      "require": [
+        "confirm.destructive"
+      ]
+    },
+    "action.shell_count_pattern": {
+      "forbid": [
+        "delete",
+        "eval",
+        "network",
+        "write"
+      ],
+      "require": []
+    },
+    "action.shell_find": {
+      "forbid": [
+        "delete",
+        "eval",
+        "network",
+        "write"
+      ],
+      "require": []
+    },
+    "action.shell_process_list": {
+      "forbid": [
+        "delete",
+        "eval",
+        "network",
+        "write"
+      ],
+      "require": []
+    },
+    "action.shell_read_file": {
+      "forbid": [
+        "delete",
+        "eval",
+        "network",
+        "write"
+      ],
+      "require": []
+    },
+    "action.sort_results": {
+      "forbid": [],
+      "require": []
+    },
+    "action.sql_aggregate": {
+      "forbid": [
+        "ddl",
+        "delete",
+        "drop",
+        "write"
+      ],
+      "require": []
+    },
+    "action.sql_delete": {
+      "forbid": [
+        "recursive_root",
+        "wildcard_delete"
+      ],
+      "require": [
+        "confirm.destructive"
+      ]
+    },
+    "action.sql_insert": {
+      "forbid": [
+        "recursive_root",
+        "wildcard_delete"
+      ],
+      "require": [
+        "confirm.destructive"
+      ]
+    },
+    "action.sql_select": {
+      "forbid": [
+        "ddl",
+        "delete",
+        "drop",
+        "write"
+      ],
+      "require": []
+    },
+    "action.sql_update": {
+      "forbid": [
+        "recursive_root",
+        "wildcard_delete"
+      ],
+      "require": [
+        "confirm.destructive"
+      ]
+    },
+    "action.summarize_results": {
+      "forbid": [],
+      "require": []
+    },
+    "intent.select": {
+      "preferred_action": "action.sql_select",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.get": {
+      "preferred_action": "action.k8s_get",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.list": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.show": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.count": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.describe": {
+      "preferred_action": "action.k8s_describe",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.status": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.version": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.help": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.analyze": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.compare": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.migrate": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.refactor": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.optimize": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.diagnose": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.report": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.audit": {
+      "preferred_action": null,
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.insert": {
+      "preferred_action": "action.sql_insert",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.update": {
+      "preferred_action": "action.sql_update",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.delete": {
+      "preferred_action": "action.sql_delete",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.aggregate": {
+      "preferred_action": "action.sql_aggregate",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.file_search": {
+      "preferred_action": "action.shell_find",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.file_operation": {
+      "preferred_action": "action.shell_file_op",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.process_monitoring": {
+      "preferred_action": "action.shell_process",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.network": {
+      "preferred_action": "action.shell_network",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.container_run": {
+      "preferred_action": "action.docker_run",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.container_stop": {
+      "preferred_action": "action.docker_stop",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.container_list": {
+      "preferred_action": "action.docker_ps",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "intent.image_build": {
+      "preferred_action": "action.docker_build",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.scale": {
+      "preferred_action": "action.k8s_scale",
+      "require": [
+        "confirm.destructive",
+        "validate.pre_execute"
+      ],
+      "forbid": [
+        "destructive_without_confirm",
+        "recursive_root",
+        "wildcard_delete"
+      ]
+    },
+    "intent.logs": {
+      "preferred_action": "action.k8s_logs",
+      "require": [
+        "validate.pre_execute"
+      ],
+      "forbid": []
+    },
+    "dom.explore_for_content": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.explore_for_form": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.extract_companies": {
+      "forbid": [
+        "network_post_extract"
+      ],
+      "require": []
+    },
+    "dom.extract_company_websites_deep": {
+      "forbid": [
+        "network_post_extract"
+      ],
+      "require": []
+    },
+    "dom.fill_form": {
+      "forbid": [
+        "submit_without_confirm",
+        "password_autofill"
+      ],
+      "require": [
+        "validate.step_pre"
+      ]
+    },
+    "dom.goto": {
+      "forbid": [
+        "local_file_access",
+        "credential_exfil"
+      ],
+      "require": [
+        "validate.step_pre"
+      ]
+    },
+    "dom.navigate": {
+      "forbid": [
+        "local_file_access",
+        "credential_exfil"
+      ],
+      "require": [
+        "validate.step_pre"
+      ]
+    },
+    "dom.save_to_csv": {
+      "forbid": [
+        "overwrite_system_path"
+      ],
+      "require": []
+    },
+    "dom.save_to_file": {
+      "forbid": [
+        "overwrite_system_path"
+      ],
+      "require": []
+    },
+    "action.shell_list": {
+      "forbid": [
+        "write",
+        "delete",
+        "network",
+        "eval"
+      ],
+      "require": [
+        "validate.pre_execute"
+      ]
+    },
+    "dom.click_canvas": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_arc": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_bezier": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_circle": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_ellipse": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_filled_circle": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_filled_ellipse": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_filled_rectangle": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_line": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_polygon": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_rectangle": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.draw_svg_path": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.fill_at": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.get_canvas_center": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.screenshot": {
+      "forbid": [
+        "overwrite_system_path"
+      ],
+      "require": []
+    },
+    "dom.select_tool": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.set_color": {
+      "forbid": [
+        "invalid_hex_color"
+      ],
+      "require": [
+        "validate.step_pre"
+      ]
+    },
+    "dom.set_line_width": {
+      "forbid": [],
+      "require": [
+        "validate.step_pre"
+      ]
+    },
+    "dom.wait": {
+      "forbid": [],
+      "require": []
+    },
+    "dom.wait_for_canvas": {
+      "forbid": [],
+      "require": [
+        "validate.step_pre"
+      ]
+    }
+  },
+  "missing_bindings": [
+    {
+      "intent": "describe",
+      "expected_action": "k8s_describe",
+      "reason": "in intent_action_map but not in ActionRegistry"
+    },
+    {
+      "intent": "file_operation",
+      "expected_action": "shell_file_op",
+      "reason": "in intent_action_map but not in ActionRegistry"
+    },
+    {
+      "intent": "process_monitoring",
+      "expected_action": "shell_process",
+      "reason": "in intent_action_map but not in ActionRegistry"
+    },
+    {
+      "intent": "network",
+      "expected_action": "shell_network",
+      "reason": "in intent_action_map but not in ActionRegistry"
+    },
+    {
+      "intent": "image_build",
+      "expected_action": "docker_build",
+      "reason": "in intent_action_map but not in ActionRegistry"
+    }
+  ]
+}

@@ -36,8 +36,11 @@ def handle_generate_query(
     **_ignored_kwargs,
 ) -> None:
     """Handle single-query generation (no --run, dsl=auto fast path)."""
+    from nlp2cmd.bridge.query_input import attach_query_input
     from nlp2cmd.generation.pipeline import RuleBasedPipeline
     from nlp2cmd.monitoring import measure_resources, format_last_metrics
+
+    attach_query_input(query, explain=explain, verbose=verbose)
 
     pipeline = RuleBasedPipeline()
     _measure = str(os.environ.get("NLP2CMD_MEASURE_RESOURCES", "1") or "").strip().lower() not in {
@@ -196,8 +199,10 @@ def handle_generate_query(
             from nlp2cmd.adapters import BrowserAdapter
             from nlp2cmd.pipeline_runner import PipelineRunner
 
+            from nlp2cmd.validators.factory import build_transform_validator
+
             adapter = BrowserAdapter()
-            nlp = NLP2CMD(adapter=adapter)
+            nlp = NLP2CMD(adapter=adapter, validator=build_transform_validator(adapter.DSL_NAME))
             ir = nlp.transform_ir(query)
             runner = PipelineRunner(headless=False)
             res = runner.run(ir, dry_run=False, confirm=True)
@@ -235,8 +240,10 @@ def handle_appspec_query(
             from nlp2cmd.adapters import AppSpecAdapter
             from nlp2cmd.pipeline_runner import PipelineRunner
 
+            from nlp2cmd.validators.factory import build_transform_validator
+
             adapter = AppSpecAdapter(appspec_path=str(appspec))
-            nlp = NLP2CMD(adapter=adapter)
+            nlp = NLP2CMD(adapter=adapter, validator=build_transform_validator(adapter.DSL_NAME))
             ir = nlp.transform_ir(query)
             runner = PipelineRunner(headless=False)
             res = runner.run(ir, dry_run=False, confirm=True)

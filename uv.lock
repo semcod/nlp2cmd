@@ -2909,13 +2909,14 @@ wheels = [
 
 [[package]]
 name = "nlp2cmd"
-version = "1.1.17"
+version = "1.1.18"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
     { name = "httpx" },
     { name = "jinja2" },
     { name = "jsonschema" },
+    { name = "nlp2cmd-intent" },
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "psutil" },
@@ -2941,7 +2942,11 @@ all = [
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
     { name = "mypy" },
+    { name = "nlp2cmd-planner" },
+    { name = "nlp2cmd-propact" },
+    { name = "nlp2dsl-show" },
     { name = "openai" },
+    { name = "pact-ir" },
     { name = "pfix" },
     { name = "pillow" },
     { name = "playwright" },
@@ -2987,6 +2992,12 @@ dev = [
     { name = "pytest-mock" },
     { name = "pytest-xdist" },
     { name = "ruff" },
+]
+integration = [
+    { name = "nlp2cmd-planner" },
+    { name = "nlp2cmd-propact" },
+    { name = "nlp2dsl-show" },
+    { name = "pact-ir" },
 ]
 llm = [
     { name = "anthropic" },
@@ -3045,9 +3056,14 @@ requires-dist = [
     { name = "mkdocs-material", marker = "extra == 'dev'", specifier = ">=9.0" },
     { name = "mkdocstrings", extras = ["python"], marker = "extra == 'dev'", specifier = ">=0.24" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0" },
-    { name = "nlp2cmd", extras = ["nlp", "llm", "router", "sql", "thermodynamic", "browser", "vql", "dev"], marker = "extra == 'all'" },
+    { name = "nlp2cmd", extras = ["nlp", "llm", "router", "sql", "thermodynamic", "browser", "vql", "integration", "dev"], marker = "extra == 'all'" },
+    { name = "nlp2cmd-intent", editable = "../nlp2dsl/packages/nlp2cmd-intent" },
+    { name = "nlp2cmd-planner", marker = "extra == 'integration'", editable = "../nlp2dsl/packages/nlp2cmd-planner" },
+    { name = "nlp2cmd-propact", marker = "extra == 'integration'", editable = "../nlp2dsl/packages/nlp2cmd-propact" },
+    { name = "nlp2dsl-show", marker = "extra == 'integration'", editable = "../nlp2dsl/packages/nlp2dsl-show" },
     { name = "numpy", specifier = ">=1.24.0" },
     { name = "openai", marker = "extra == 'llm'", specifier = ">=1.0" },
+    { name = "pact-ir", marker = "extra == 'integration'", editable = "../nlp2dsl/packages/pact-ir" },
     { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
     { name = "pillow", marker = "extra == 'automation'", specifier = ">=10.0" },
     { name = "pillow", marker = "extra == 'llm-vision'", specifier = ">=10.0" },
@@ -3077,7 +3093,87 @@ requires-dist = [
     { name = "uvicorn", marker = "extra == 'service'", specifier = ">=0.23" },
     { name = "watchdog", specifier = ">=3.0" },
 ]
-provides-extras = ["service", "nlp", "llm", "router", "sql", "thermodynamic", "browser", "desktop", "automation", "llm-vision", "vql", "dev", "all"]
+provides-extras = ["service", "nlp", "llm", "router", "sql", "thermodynamic", "browser", "desktop", "automation", "llm-vision", "vql", "integration", "dev", "all"]
+
+[[package]]
+name = "nlp2cmd-intent"
+version = "0.1.1"
+source = { editable = "../nlp2dsl/packages/nlp2cmd-intent" }
+dependencies = [
+    { name = "pact-ir" },
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "pact-ir", specifier = ">=0.1.0" },
+    { name = "pydantic", specifier = ">=2.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+]
+provides-extras = ["dev"]
+
+[[package]]
+name = "nlp2cmd-planner"
+version = "0.1.2"
+source = { editable = "../nlp2dsl/packages/nlp2cmd-planner" }
+dependencies = [
+    { name = "nlp2cmd-intent" },
+    { name = "pact-ir" },
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "nlp2cmd-intent", specifier = ">=0.1.0" },
+    { name = "pact-ir", specifier = ">=0.1.0" },
+    { name = "pydantic", specifier = ">=2.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+]
+provides-extras = ["dev"]
+
+[[package]]
+name = "nlp2cmd-propact"
+version = "0.1.3"
+source = { editable = "../nlp2dsl/packages/nlp2cmd-propact" }
+dependencies = [
+    { name = "nlp2cmd-planner" },
+    { name = "pact-ir" },
+    { name = "pydantic" },
+    { name = "pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "nlp2cmd", marker = "extra == 'nlp2cmd'" },
+    { name = "nlp2cmd-planner", specifier = ">=0.1.0" },
+    { name = "pact-ir", specifier = ">=0.1.0" },
+    { name = "propact", marker = "extra == 'propact'", specifier = ">=0.0.9" },
+    { name = "pydantic", specifier = ">=2.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+    { name = "pyyaml", specifier = ">=6.0" },
+]
+provides-extras = ["propact", "nlp2cmd", "dev"]
+
+[[package]]
+name = "nlp2dsl-show"
+version = "0.1.0"
+source = { editable = "../nlp2dsl/packages/nlp2dsl-show" }
+dependencies = [
+    { name = "nlp2cmd-intent" },
+    { name = "nlp2cmd-planner" },
+    { name = "pact-ir" },
+    { name = "pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "nlp2cmd-intent", specifier = ">=0.1.0" },
+    { name = "nlp2cmd-planner", specifier = ">=0.1.0" },
+    { name = "pact-ir", specifier = ">=0.1.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+    { name = "pyyaml", specifier = ">=6.0" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "nodeenv"
@@ -3270,6 +3366,21 @@ sdist = { url = "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626
 wheels = [
     { url = "https://files.pythonhosted.org/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl", hash = "sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e", size = 100195, upload-time = "2026-04-24T20:15:22.081Z" },
 ]
+
+[[package]]
+name = "pact-ir"
+version = "0.1.0"
+source = { editable = "../nlp2dsl/packages/pact-ir" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "pydantic", specifier = ">=2.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "paginate"

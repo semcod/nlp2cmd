@@ -1,0 +1,29 @@
+{
+  "format": "nlp2cmd.dynamic_schema_export",
+  "version": 1,
+  "detected_type": "shell",
+  "sources": {
+    "kubectl": {
+      "source_type": "shell",
+      "commands": [
+        {
+          "name": "kubectl",
+          "description": "kubectl controls the Kubernetes cluster manager.",
+          "category": "shell",
+          "template": null,
+          "parameters": [],
+          "examples": [],
+          "patterns": [
+            "kubectl"
+          ],
+          "source_type": "shell",
+          "metadata": {}
+        }
+      ],
+      "metadata": {}
+    }
+  },
+  "metadata": {
+    "target": "kubectl"
+  }
+}

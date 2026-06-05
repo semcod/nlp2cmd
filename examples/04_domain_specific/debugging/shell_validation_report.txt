@@ -1,0 +1,63 @@
+
+📊 RAPORT WALIDACJI KOMEND SHELL
+======================================================================
+Podsumowanie:
+- Łącznie testów: 79
+- Dokładne trafienia: 0 (0.0%)
+- Podobne trafienia: 0 (0.0%)
+- Sukcesy ogólnie: 0 (0.0%)
+- Średnia latencja: 0.0ms
+
+Statystyki per kategorii:
+- backup: 0/9 (0.0%) | Dokładne: 0/9 (0.0%) | Śr. latencja: 0.0ms
+- bezpieczeństwo: 0/10 (0.0%) | Dokładne: 0/10 (0.0%) | Śr. latencja: 0.0ms
+- dev: 0/10 (0.0%) | Dokładne: 0/10 (0.0%) | Śr. latencja: 0.0ms
+- konserwacja: 0/10 (0.0%) | Dokładne: 0/10 (0.0%) | Śr. latencja: 0.0ms
+- pliki: 0/10 (0.0%) | Dokładne: 0/10 (0.0%) | Śr. latencja: 0.0ms
+- procesy: 0/10 (0.0%) | Dokładne: 0/10 (0.0%) | Śr. latencja: 0.0ms
+- sieć: 0/12 (0.0%) | Dokładne: 0/12 (0.0%) | Śr. latencja: 0.0ms
+- system: 0/8 (0.0%) | Dokładne: 0/8 (0.0%) | Śr. latencja: 0.0ms
+
+Najgorsze wyniki (najmniej podobne):
+1. znajdź pliki z rozszerzeniem .py w katalogu src
+   Expected: find src -name '*.py' -type f
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+2. skopiuj plik config.json do backup/
+   Expected: cp config.json backup/
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+3. usuń wszystkie pliki .tmp
+   Expected: find . -name '*.tmp' -delete
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+4. pokaż zawartość pliku /var/log/syslog
+   Expected: cat /var/log/syslog
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+5. zmień nazwę pliku old.txt na new.txt
+   Expected: mv old.txt new.txt
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+
+Najlepsze wyniki (najbardziej podobne):
+1. znajdź pliki z rozszerzeniem .py w katalogu src
+   Expected: find src -name '*.py' -type f
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+2. skopiuj plik config.json do backup/
+   Expected: cp config.json backup/
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+3. usuń wszystkie pliki .tmp
+   Expected: find . -name '*.tmp' -delete
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+4. pokaż zawartość pliku /var/log/syslog
+   Expected: cat /var/log/syslog
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%
+5. zmień nazwę pliku old.txt na new.txt
+   Expected: mv old.txt new.txt
+   Actual: ERROR: 'ThermodynamicRouter' object has no attribute 'score_optimization'
+   Similarity: 0.0%

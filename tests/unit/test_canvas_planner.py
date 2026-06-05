@@ -306,11 +306,17 @@ class TestCanvasPlanningOrchestrator:
         assert orch.rule is not None
     
     def test_plan_uses_llm_first(self):
-        """Test that plan prefers LLM before fallbacks."""
+        """Test that plan prefers LLM before fallbacks when plan is detailed enough."""
         orch = CanvasPlanningOrchestrator()
 
         expected_result = CanvasPlanResult(
-            steps=[{"action": "test", "params": {}, "description": "Test"}],
+            steps=[
+                {"action": "navigate", "params": {}, "description": "Go"},
+                *[
+                    {"action": f"draw_filled_circle", "params": {"radius": i}, "description": f"Step {i}"}
+                    for i in range(5)
+                ],
+            ],
             confidence=0.8,
             source="canvas_llm",
             estimated_time_ms=1000,
@@ -326,6 +332,51 @@ class TestCanvasPlanningOrchestrator:
         assert result.source == "canvas_llm"
         orch.rule.plan.assert_not_called()
 
+    def test_plan_known_object_prefers_blueprint(self):
+        """Known objects (cat) should use blueprint without calling LLM."""
+        orch = CanvasPlanningOrchestrator()
+        orch.llm.plan = MagicMock(return_value=None)
+        orch.rule.plan = MagicMock(return_value=None)
+        orch.vector.plan = MagicMock(return_value=None)
+        orch.vector.is_available = MagicMock(return_value=False)
+
+        result = orch.plan("wejdź na jspaint.app i narysuj kota", "wejdź na jspaint.app i narysuj kota")
+
+        assert result is not None
+        assert result.source == "canvas_blueprint"
+        orch.llm.plan.assert_not_called()
+
+    def test_plan_rejects_simple_llm_and_uses_blueprint(self):
+        """Test that overly simple LLM plans fall through to blueprint for unknown objects."""
+        orch = CanvasPlanningOrchestrator()
+
+        simple_llm = CanvasPlanResult(
+            steps=[
+                {"action": "navigate", "params": {}, "description": "Go"},
+                {"action": "set_color", "params": {"color": "#FF0000"}, "description": "Red"},
+                {"action": "draw_filled_ellipse", "params": {"rx": 50, "ry": 50}, "description": "Body"},
+                {"action": "screenshot", "params": {}, "description": "Shot"},
+            ],
+            confidence=0.8,
+            source="canvas_llm",
+            estimated_time_ms=1000,
+        )
+        blueprint_result = CanvasPlanResult(
+            steps=[{"action": "draw_filled_circle", "params": {}, "description": "Cat body"}] * 10,
+            confidence=0.95,
+            source="canvas_blueprint",
+            estimated_time_ms=2000,
+        )
+        orch.llm.plan = MagicMock(return_value=simple_llm)
+        orch.blueprint.plan = MagicMock(return_value=blueprint_result)
+        orch.vector.plan = MagicMock(return_value=None)
+        orch.rule.plan = MagicMock(return_value=None)
+
+        result = orch.plan("narysuj dinozaura", "narysuj dinozaura")
+
+        assert result is not None
+        assert result.source == "canvas_blueprint"
+        orch.llm.plan.assert_called_once()
     def test_plan_falls_back_to_rule_when_llm_fails(self):
         """Test rule fallback when LLM and vector DB fail."""
         orch = CanvasPlanningOrchestrator()

@@ -4,26 +4,20 @@
   "detected_type": "shell",
   "sources": {
     "kubectl": {
-      "source_type": "shell_help",
+      "source_type": "shell",
       "commands": [
         {
           "name": "kubectl",
           "description": "kubectl controls the Kubernetes cluster manager.",
           "category": "shell",
-          "template": "kubectl {subcommand} {options}",
+          "template": null,
           "parameters": [],
-          "examples": [
-            ""
-          ],
+          "examples": [],
           "patterns": [
-            "",
-            "kubectl controls the kubernetes cluster manager."
+            "kubectl"
           ],
-          "source_type": "shell_help",
-          "metadata": {
-            "command": "kubectl",
-            "help_lines": 70
-          }
+          "source_type": "shell",
+          "metadata": {}
         }
       ],
       "metadata": {}

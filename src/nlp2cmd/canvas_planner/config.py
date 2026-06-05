@@ -37,6 +37,7 @@ class CanvasLLMConfig:
     model: str
     timeout: float
     max_retries: int
+    min_draw_actions: int
     use_blueprints: bool
     use_templates: bool
     use_rule_fallback: bool
@@ -53,6 +54,7 @@ class CanvasLLMConfig:
             model=resolve_canvas_model(model),
             timeout=float(os.getenv("CANVAS_LLM_TIMEOUT", "60")),
             max_retries=int(os.getenv("CANVAS_LLM_RETRIES", "2")),
+            min_draw_actions=int(os.getenv("CANVAS_MIN_DRAW_STEPS", "4")),
             use_blueprints=_env_flag("CANVAS_USE_BLUEPRINTS", default=False),
             use_templates=_env_flag("CANVAS_USE_TEMPLATES", default=False),
             use_rule_fallback=_env_flag("CANVAS_USE_RULE_FALLBACK", default=True),

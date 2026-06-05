@@ -51,6 +51,7 @@ class PipelineRunner:
         enable_history: bool = True,
         video_fmt: Optional[str] = None,
         video_dir: str = "./recordings",
+        intract_gate: Optional[Any] = None,
     ):
         self.shell_policy = shell_policy or ShellExecutionPolicy()
         try:
@@ -67,6 +68,16 @@ class PipelineRunner:
         self.enable_history = enable_history
         self._history = None
         self._executor_registry = None
+        self._intract_gate = intract_gate
+        if self._intract_gate is None and os.getenv("NLP2CMD_INTRACT_GATE", "0").strip().lower() in {
+            "1", "true", "yes", "on",
+        }:
+            try:
+                from nlp2cmd.intract.pipeline_gate import PipelineRunnerGate
+
+                self._intract_gate = PipelineRunnerGate()
+            except Exception:
+                self._intract_gate = None
 
         # Etap 3: opt-in modular executor dispatch
         if os.getenv("NLP2CMD_USE_EXECUTOR_REGISTRY", "1") == "1":
@@ -100,6 +111,17 @@ class PipelineRunner:
     ) -> RunnerResult:
         started = time.time()
         try:
+            if self._intract_gate is not None:
+                gate_result = self._intract_gate.check(ir)
+                if not gate_result.passed:
+                    return RunnerResult(
+                        success=False,
+                        kind=str(ir.dsl_kind),
+                        error=self._intract_gate.failure_message(gate_result),
+                        data=self._intract_gate.gate_result_metadata(gate_result),
+                        duration_ms=(time.time() - started) * 1000.0,
+                    )
+
             if ir.dsl_kind == "shell" and self._executor_registry and "shell" in self._executor_registry:
                 from nlp2cmd.execution.base import ExecutorContext
                 ctx = ExecutorContext(

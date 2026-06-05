@@ -56,7 +56,15 @@ async def demo_lead_optimization() -> None:
         problem=problem,
     )
 
-    raw_sample = result.solution.get("raw_sample", [])
+    solution = result.solution
+    if isinstance(solution, dict):
+        raw_sample = solution.get("raw_sample", [])
+    elif isinstance(solution, list) and solution:
+        raw_sample = solution[0]
+    else:
+        raw_sample = []
+    if hasattr(raw_sample, "tolist"):
+        raw_sample = raw_sample.tolist()
     projected = project_sample(problem, raw_sample)
 
     print(result.decoded_output)
@@ -94,7 +102,15 @@ async def demo_admet_balancing() -> None:
         leading_newline=True,
     )
 
-    raw_sample = result.solution.get("raw_sample", [])
+    solution = result.solution
+    if isinstance(solution, dict):
+        raw_sample = solution.get("raw_sample", [])
+    elif isinstance(solution, list) and solution:
+        raw_sample = solution[0]
+    else:
+        raw_sample = []
+    if hasattr(raw_sample, "tolist"):
+        raw_sample = raw_sample.tolist()
     projected = project_sample(problem, raw_sample)
 
     print(result.decoded_output)

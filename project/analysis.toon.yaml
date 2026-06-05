@@ -1,8 +1,9 @@
-# code2llm | 1002f 1785315L | python:731,json:153,shell:73,yaml:25,txt:11,yml:3,toml:1,ini:1 | 2026-06-05
-# generated in 1.08s
-# CC̅=5.0 | critical:215/3924 | dups:0 | cycles:0
+# code2llm | 1012f 1788441L | python:738,json:155,shell:73,yaml:26,txt:11,yml:3,ini:1,toml:1 | 2026-06-05
+# generated in 0.74s
+# CC̅=5.0 | critical:219/3973 | dups:0 | cycles:0
 
 HEALTH[20]:
+  🔴 GOD   src/nlp2cmd/pipeline_runner_utils.py = 517L, 4 classes, 21m, max CC=20
   🟡 CC    main CC=15 (limit:15)
   🟡 CC    main CC=18 (limit:15)
   🟡 CC    to_compose CC=17 (limit:15)
@@ -22,12 +23,12 @@ HEALTH[20]:
   🟡 CC    run_benchmark CC=28 (limit:15)
   🟡 CC    compare_benchmarks CC=16 (limit:15)
   🟡 CC    test_prompt CC=15 (limit:15)
-  🟡 CC    generate_pdf_search_command CC=25 (limit:15)
 
-REFACTOR[1]:
-  1. split 20 high-CC methods  (CC>15)
+REFACTOR[2]:
+  1. split src/nlp2cmd/pipeline_runner_utils.py  (god module)
+  2. split 19 high-CC methods  (CC>15)
 
-PIPELINES[2907]:
+PIPELINES[2930]:
   [1] Src [run]: run → print
       PURITY: 100% pure
   [2] Src [main]: main → get_workspace
@@ -169,7 +170,7 @@ LAYERS:
   │ !! __init__                   909L  2C   43m  CC=26     ←0
   │ !! regex                      906L  3C   12m  CC=38     ←0
   │ !! generate                   903L  0C    4m  CC=64     ←1
-  │ !! run                        893L  0C    4m  CC=178    ←0
+  │ !! run                        901L  0C    4m  CC=179    ←0
   │ !! templates.json             855L  0C    0m  CC=0.0    ←0
   │ !! drawing_blueprints         826L  1C   20m  CC=3      ←1
   │ !! runner                     826L  3C   10m  CC=54     ←0
@@ -178,11 +179,12 @@ LAYERS:
   │ !! form_handler               787L  3C    9m  CC=37     ←0
   │ !! semantic_matcher_optimized   750L  3C   30m  CC=12     ←0
   │ !! kubernetes                 731L  3C   23m  CC=12     ←0
+  │ !! intract-bindings.json      718L  0C    0m  CC=0.0    ←0
   │ !! handlers                   714L  0C   19m  CC=18     ←2
   │ !! validator                  692L  2C   13m  CC=43     ←0
   │ !! dynamic                    650L  2C   21m  CC=25     ←0
   │ !! desktop                    649L  3C   21m  CC=31     ←0
-  │ !! examples                   641L  3C   13m  CC=13     ←74
+  │ !! examples                   641L  3C   13m  CC=13     ←75
   │ !! docker                     635L  3C   19m  CC=14     ←0
   │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←2
   │ !! step_orchestrator          615L  2C   12m  CC=16     ←0
@@ -190,18 +192,18 @@ LAYERS:
   │ !! auto_repair                580L  3C   12m  CC=22     ←1
   │ !! enhanced_context           570L  2C   14m  CC=22     ←0
   │ !! core_transform             569L  1C   22m  CC=19     ←0
-  │ !! plan_executor              561L  1C   17m  CC=34     ←0
+  │ !! plan_executor              569L  1C   17m  CC=34     ←0
   │ !! multilingual_phrases.json   545L  0C    0m  CC=0.0    ←0
   │ !! pipeline                   543L  1C   15m  CC=54     ←0
   │ !! interactive                536L  1C    9m  CC=24     ←0
   │ !! vector_store               534L  2C   15m  CC=8      ←1
   │ !! captcha_solver             528L  2C   10m  CC=12     ←0
-  │ !! complex_planner            524L  3C   10m  CC=24     ←0
+  │ !! complex_planner            524L  3C   10m  CC=24     ←18
   │ !! browser                    522L  2C   15m  CC=13     ←1
+  │ !! pipeline_runner_utils      517L  4C   21m  CC=20     ←5
   │ !! __init__                   509L  2C   14m  CC=12     ←0
   │ !! orchestrator               507L  1C   11m  CC=19     ←0
   │ !! thermodynamic_generator    506L  1C   10m  CC=24     ←0
-  │ !! pipeline_runner_utils      490L  4C   19m  CC=20     ←21
   │ resource_discovery         489L  3C   10m  CC=11     ←3
   │ !! environment_analyzer       486L  1C   15m  CC=15     ←0
   │ !! sql                        478L  3C   15m  CC=15     ←1
@@ -301,14 +303,15 @@ LAYERS:
   │ !! keyword_patterns           227L  1C   15m  CC=33     ←0
   │ config                     226L  4C   19m  CC=9      ←2
   │ adapter                    225L  1C   10m  CC=6      ←0
-  │ disambiguator              225L  2C    5m  CC=11     ←0
   │ nl_parser                  225L  1C    8m  CC=11     ←0
+  │ disambiguator              225L  2C    5m  CC=11     ←0
   │ !! debug_info                 224L  0C    3m  CC=20     ←2
   │ desktop_action_executor    223L  1C   13m  CC=5      ←0
   │ toon_integration           223L  1C   32m  CC=9      ←1
   │ !! save                       222L  2C    6m  CC=18     ←1
   │ !! libvirt_stream             219L  1C   14m  CC=17     ←0
   │ !! pipeline_runner_shell      217L  1C    3m  CC=27     ←0
+  │ !! runtime_bridge             216L  3C   10m  CC=18     ←0
   │ playwright                 215L  1C    8m  CC=9      ←0
   │ keyword_intent_detector_config.json   215L  0C    0m  CC=0.0    ←0
   │ base                       214L  3C   12m  CC=6      ←0
@@ -318,6 +321,7 @@ LAYERS:
   │ langevin_sampler           198L  1C    4m  CC=12     ←0
   │ kee_pass_xc_reader         193L  1C    5m  CC=10     ←0
   │ pipeline_components        192L  3C   10m  CC=7      ←1
+  │ pipeline_runner            192L  1C    2m  CC=11     ←0
   │ !! svg_path_parser            189L  0C    1m  CC=41     ←3
   │ function_cache             189L  1C    8m  CC=11     ←0
   │ session_logger             188L  1C   12m  CC=9      ←0
@@ -327,10 +331,10 @@ LAYERS:
   │ !! page_analyzer              176L  1C    3m  CC=29     ←0
   │ tools                      176L  0C    3m  CC=12     ←1
   │ object_fetcher_class       176L  1C    6m  CC=13     ←0
+  │ orchestrator               176L  1C    8m  CC=12     ←0
   │ multi_command              175L  2C    8m  CC=5      ←1
   │ yaml_compat                175L  0C    0m  CC=0.0    ←0
   │ allocation_energy          173L  1C    4m  CC=8      ←0
-  │ pipeline_runner            170L  1C    2m  CC=9      ←0
   │ display                    170L  0C   12m  CC=7      ←2
   │ llm_planner                169L  1C    4m  CC=7      ←0
   │ iconify_fetcher            164L  1C    3m  CC=6      ←0
@@ -341,27 +345,27 @@ LAYERS:
   │ routing_energy             159L  1C    5m  CC=9      ←0
   │ dispatcher                 158L  1C    4m  CC=7      ←0
   │ registry                   157L  1C   11m  CC=7      ←0
+  │ step_gate                  154L  1C    8m  CC=13     ←0
   │ autonomous_drawing_pipeline   152L  1C    2m  CC=14     ←0
-  │ orchestrator               152L  1C    7m  CC=10     ←0
   │ thermodynamic_router       151L  1C    3m  CC=5      ←0
   │ registry                   149L  1C    7m  CC=1      ←0
   │ rule_planner               148L  1C    8m  CC=11     ←0
   │ runner                     148L  1C    4m  CC=6      ←0
   │ __init__                   147L  1C   11m  CC=9      ←0
   │ path_optimizer             144L  1C    7m  CC=9      ←0
+  │ markdown_output            144L  2C   15m  CC=9      ←16
   │ !! kubernetes_validator       143L  1C    2m  CC=58     ←0
   │ cli                        143L  0C    1m  CC=2      ←1
   │ !! browser_connector          143L  1C    4m  CC=21     ←0
+  │ legacy_drawcommand         142L  0C    3m  CC=9      ←4
   │ events                     142L  7C    7m  CC=1      ←0
   │ queries                    142L  6C    7m  CC=7      ←0
-  │ legacy_drawcommand         142L  0C    3m  CC=9      ←4
   │ router                     140L  1C    7m  CC=4      ←0
   │ colors                     135L  1C    6m  CC=6      ←0
   │ data_files                 134L  0C    6m  CC=8      ←10
   │ hybrid_thermodynamic_generator   133L  1C    3m  CC=2      ←0
   │ correction_engine          133L  1C    7m  CC=4      ←0
   │ vector_planner             131L  1C    6m  CC=8      ←0
-  │ markdown_output            131L  2C   14m  CC=9      ←16
   │ majority_voter             131L  1C    3m  CC=7      ←0
   │ !! plan_validator             131L  1C    3m  CC=16     ←0
   │ field_classifier           129L  1C    4m  CC=14     ←0
@@ -371,6 +375,7 @@ LAYERS:
   │ navigation                 125L  3C    3m  CC=7      ←0
   │ bitwarden_reader           124L  1C    3m  CC=11     ←0
   │ energy_estimator           124L  1C    1m  CC=1      ←0
+  │ info                       121L  1C    4m  CC=9      ←1
   │ vnc_stream                 121L  1C    7m  CC=11     ←0
   │ env_password_reader        120L  1C    1m  CC=13     ←0
   │ store                      120L  1C    7m  CC=13     ←0
@@ -407,15 +412,17 @@ LAYERS:
   │ !! token_navigator             97L  2C    3m  CC=18     ←0
   │ entropy_production_regularizer    97L  1C    3m  CC=1      ←0
   │ backend_detector            96L  1C    6m  CC=6      ←0
+  │ facade                      95L  2C    7m  CC=2      ←0
   │ model_performance           94L  1C    3m  CC=3      ←0
   │ token_prompt_handler        93L  1C    5m  CC=5      ←0
   │ appspec                     93L  2C    6m  CC=12     ←0
   │ svg                         92L  1C    8m  CC=6      ←0
   │ validation_result           91L  1C    9m  CC=6      ←0
-  │ link_extractor              91L  1C    4m  CC=10     ←0
-  │ facade                      91L  2C    6m  CC=2      ←0
   │ spec                        91L  1C    5m  CC=4      ←1
+  │ link_extractor              91L  1C    4m  CC=10     ←0
+  │ !! pipeline_gate               91L  1C    6m  CC=20     ←2
   │ desktop_templates           91L  0C    0m  CC=0.0    ←0
+  │ canvas_plan                 90L  0C    2m  CC=11     ←1
   │ ws_stream                   90L  1C    8m  CC=8      ←0
   │ services.yaml               88L  0C    0m  CC=0.0    ←0
   │ quadratic_energy            87L  1C    3m  CC=2      ←0
@@ -426,7 +433,6 @@ LAYERS:
   │ task_metric                 83L  1C    2m  CC=3      ←0
   │ cli                         83L  0C    1m  CC=3      ←0
   │ drawing                     82L  0C    1m  CC=1      ←0
-  │ canvas_plan                 82L  0C    2m  CC=10     ←1
   │ langevin_config             82L  1C    0m  CC=0.0    ←0
   │ fuzzy_schema_matcher        81L  0C    1m  CC=5      ←1
   │ page_schema_extractor       80L  1C    3m  CC=6      ←0
@@ -451,8 +457,8 @@ LAYERS:
   │ scheduling_energy           70L  1C    0m  CC=0.0    ←0
   │ routing_energy              70L  1C    0m  CC=0.0    ←0
   │ rag_templates               70L  0C    0m  CC=0.0    ←0
-  │ base                        69L  3C    2m  CC=1      ←0
   │ nl_to_vql                   69L  0C    1m  CC=6      ←2
+  │ base                        69L  3C    2m  CC=1      ←0
   │ credential                  68L  1C    1m  CC=4      ←0
   │ fuzzy_schema_matcher_config    68L  1C    3m  CC=4      ←0
   │ blueprint_planner           68L  1C    2m  CC=5      ←0
@@ -461,14 +467,15 @@ LAYERS:
   │ !! engine                      67L  0C    1m  CC=17     ←0
   │ iot_templates               67L  0C    0m  CC=0.0    ←0
   │ button_extractor            66L  1C    2m  CC=9      ←0
-  │ execution_context           66L  1C    3m  CC=8      ←62
+  │ execution_context           66L  1C    3m  CC=8      ←64
+  │ base                        65L  2C    3m  CC=1      ←1
   │ learned_rule                65L  1C    3m  CC=3      ←0
   │ learned_path                65L  1C    1m  CC=1      ←4
-  │ base                        65L  2C    3m  CC=1      ←1
   │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
   │ base                        64L  3C    1m  CC=7      ←0
   │ base                        64L  3C    3m  CC=3      ←0
   │ draw_polygon_handler        64L  1C    1m  CC=4      ←0
+  │ validator                   64L  1C    2m  CC=8      ←0
   │ browser_templates           64L  0C    0m  CC=0.0    ←0
   │ remote_templates            64L  0C    0m  CC=0.0    ←0
   │ castle_generator            63L  1C    1m  CC=3      ←0
@@ -485,13 +492,13 @@ LAYERS:
   │ canvas_mixin                62L  1C    3m  CC=1      ←0
   │ execution_plan              61L  1C    2m  CC=2      ←0
   │ draw_line_handler           61L  1C    1m  CC=4      ←0
+  │ config                      61L  1C    4m  CC=6      ←1
   │ feedback_result             60L  1C    1m  CC=1      ←0
   │ draw_arc_handler            60L  1C    1m  CC=3      ←0
   │ api_templates               60L  0C    0m  CC=0.0    ←0
   │ junk_field_patterns.yaml    60L  0C    0m  CC=0.0    ←0
   │ token_extractor             59L  1C    2m  CC=6      ←0
   │ phrase_schema               59L  1C    2m  CC=4      ←0
-  │ config                      59L  1C    4m  CC=6      ←1
   │ validation_constants        58L  0C    0m  CC=0.0    ←0
   │ media_templates             57L  0C    0m  CC=0.0    ←0
   │ __init__                    57L  0C    0m  CC=0.0    ←0
@@ -499,14 +506,15 @@ LAYERS:
   │ appspec_runtime             56L  2C    2m  CC=10     ←3
   │ cat_generator               55L  1C    1m  CC=4      ←0
   │ base                        55L  2C    1m  CC=2      ←0
+  │ __init__                    54L  0C    0m  CC=0.0    ←0
+  │ api                         54L  0C    0m  CC=0.0    ←0
   │ rdp_stream                  53L  1C    3m  CC=5      ←0
   │ base                        53L  2C    0m  CC=0.0    ←0
   │ task_result                 53L  1C    0m  CC=0.0    ←0
   │ selectors.yaml              53L  0C    0m  CC=0.0    ←0
-  │ api                         53L  0C    0m  CC=0.0    ←0
   │ rocket_generator            52L  1C    1m  CC=2      ←0
   │ step_def                    52L  1C    1m  CC=1      ←0
-  │ __init__                    52L  0C    0m  CC=0.0    ←0
+  │ svg                         50L  1C    2m  CC=2      ←1
   │ butterfly_generator         50L  1C    1m  CC=5      ←0
   │ __base_fetcher              50L  1C    1m  CC=1      ←0
   │ step_diagnosis              50L  1C    0m  CC=0.0    ←0
@@ -605,7 +613,6 @@ LAYERS:
   │ __init__                    27L  0C    0m  CC=0.0    ←0
   │ triangle_generator          26L  1C    1m  CC=1      ←0
   │ rectangle_generator         26L  1C    1m  CC=1      ←0
-  │ svg                         26L  1C    1m  CC=1      ←1
   │ execution_result            26L  1C    0m  CC=0.0    ←0
   │ correction_rule             26L  1C    0m  CC=0.0    ←0
   │ feedback_type               26L  1C    0m  CC=0.0    ←0
@@ -619,11 +626,11 @@ LAYERS:
   │ evolutionary_orchestrator    25L  0C    0m  CC=0.0    ←0
   │ __init__                    24L  0C    0m  CC=0.0    ←0
   │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
   │ shell_execution_policy.json    24L  0C    0m  CC=0.0    ←0
   │ __init__                    24L  0C    0m  CC=0.0    ←0
-  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    23L  0C    1m  CC=2      ←0
   │ form_data.json              23L  0C    0m  CC=0.0    ←0
-  │ __init__                    22L  0C    1m  CC=2      ←0
   │ playwright                  22L  1C    1m  CC=1      ←0
   │ step_status                 22L  1C    0m  CC=0.0    ←0
   │ __init__                    22L  0C    0m  CC=0.0    ←0
@@ -633,6 +640,7 @@ LAYERS:
   │ __init__                    21L  0C    0m  CC=0.0    ←0
   │ validation                  21L  0C    0m  CC=0.0    ←0
   │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ intract-policy.json         21L  0C    0m  CC=0.0    ←0
   │ get_registry                20L  0C    1m  CC=2      ←6
   │ __init__                    20L  0C    0m  CC=0.0    ←0
   │ object_fetcher              19L  0C    0m  CC=0.0    ←0
@@ -643,6 +651,7 @@ LAYERS:
   │ __init__                    17L  0C    0m  CC=0.0    ←0
   │ __init__                    17L  0C    0m  CC=0.0    ←0
   │ energy_models               17L  0C    0m  CC=0.0    ←0
+  │ __init__                    16L  0C    0m  CC=0.0    ←0
   │ __init__                    16L  0C    0m  CC=0.0    ←0
   │ __init__                    15L  0C    0m  CC=0.0    ←0
   │ __init__                    15L  0C    0m  CC=0.0    ←0
@@ -668,6 +677,51 @@ LAYERS:
   │ __init__                     3L  0C    0m  CC=0.0    ←0
   │ defaults.json                1L  0C    0m  CC=0.0    ←0
   │ semantic_embeddings.json     1L  0C    0m  CC=0.0    ←0
+  │
+  scripts/                        CC̄=3.9    ←in:0  →out:27  !! split
+  │ !! implement_core_integration   805L  1C   10m  CC=11     ←0
+  │ !! generate_intract_manifest   600L  0C   13m  CC=18     ←0
+  │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0
+  │ final_analysis_and_next_steps   476L  1C   10m  CC=9      ←0
+  │ final_project_summary      461L  1C   10m  CC=7      ←0
+  │ !! fix_comprehensive_test_issues   395L  1C    9m  CC=17     ←0
+  │ run_e2e_tests              354L  1C   16m  CC=6      ←0
+  │ !! auto_apply_refactors       289L  0C    3m  CC=20     ←0
+  │ termo2                     283L  0C    7m  CC=6      ←0
+  │ !! llx_refactor               256L  0C    6m  CC=19     ←0
+  │ refactor_detect_normalized   249L  0C   10m  CC=7      ←2
+  │ apply_refactors_to_source   235L  0C    4m  CC=1      ←0
+  │ refactor_shell_entities    234L  0C   11m  CC=3      ←2
+  │ termo_demo                 226L  0C    5m  CC=6      ←0
+  │ !! split_god_modules          217L  1C   10m  CC=16     ←0
+  │ generate_refactor_report   186L  0C    1m  CC=8      ←0
+  │ split_pipeline_runner      177L  0C    2m  CC=3      ←0
+  │ install_desktop_tools.sh   167L  0C    5m  CC=0.0    ←0
+  │ compare_entity_extractors   158L  0C    7m  CC=11     ←0
+  │ vrp_solver                 135L  1C   12m  CC=8      ←0
+  │ apply_polish_integration   124L  0C    4m  CC=9      ←0
+  │ termo                      116L  0C    4m  CC=3      ←0
+  │ restore_system             115L  0C    4m  CC=9      ←0
+  │ cyclomatic_complexity_refactor_report.json   107L  0C    0m  CC=0.0    ←0
+  │ or_scheduler               104L  1C    9m  CC=5      ←0
+  │ !! split_web_controller        96L  1C    4m  CC=16     ←0
+  │ refactoring_summary         92L  0C    1m  CC=1      ←0
+  │ hyperparameter_optimizer    85L  1C    4m  CC=3      ←0
+  │ apply_nlp2cmd_fixes         84L  0C    5m  CC=2      ←0
+  │ unit_commitment_solver      80L  1C    3m  CC=6      ←0
+  │ test_commands_docker.sh     78L  0C    0m  CC=0.0    ←0
+  │ genomic_pipeline_scheduler    65L  1C    3m  CC=5      ←0
+  │ setup_external              63L  0C    1m  CC=7      ←0
+  │ bump_version                62L  0C    1m  CC=6      ←0
+  │ apply_complexity_refactors    60L  0C    1m  CC=2      ←0
+  │ termo1                      25L  0C    1m  CC=3      ←0
+  │ power_plant                 23L  1C    0m  CC=0.0    ←0
+  │ pipeline_step               20L  1C    0m  CC=0.0    ←0
+  │ surgery                     20L  1C    0m  CC=0.0    ←0
+  │ hyperparameter_space        20L  1C    0m  CC=0.0    ←0
+  │ delivery_point              20L  1C    0m  CC=0.0    ←0
+  │ genomic_sample              18L  1C    0m  CC=0.0    ←0
+  │ operating_room              18L  1C    0m  CC=0.0    ←0
   │
   test_screenshots/               CC̄=3.9    ←in:0  →out:62  !! split
   │ test_openrouter_workflow.sh   225L  0C    4m  CC=0.0    ←0
@@ -950,50 +1004,6 @@ LAYERS:
   │ run.sh                      14L  0C    0m  CC=0.0    ←0
   │ nlp2cmd_web_controller      12L  0C    0m  CC=0.0    ←0
   │
-  scripts/                        CC̄=3.7    ←in:0  →out:19  !! split
-  │ !! implement_core_integration   805L  1C   10m  CC=11     ←0
-  │ !! implement_high_priority_fixes   518L  1C   10m  CC=6      ←0
-  │ final_analysis_and_next_steps   476L  1C   10m  CC=9      ←0
-  │ final_project_summary      461L  1C   10m  CC=7      ←0
-  │ !! fix_comprehensive_test_issues   395L  1C    9m  CC=17     ←0
-  │ run_e2e_tests              354L  1C   16m  CC=6      ←0
-  │ !! auto_apply_refactors       289L  0C    3m  CC=20     ←0
-  │ termo2                     283L  0C    7m  CC=6      ←0
-  │ !! llx_refactor               256L  0C    6m  CC=19     ←0
-  │ refactor_detect_normalized   249L  0C   10m  CC=7      ←2
-  │ apply_refactors_to_source   235L  0C    4m  CC=1      ←0
-  │ refactor_shell_entities    234L  0C   11m  CC=3      ←2
-  │ termo_demo                 226L  0C    5m  CC=6      ←0
-  │ !! split_god_modules          217L  1C   10m  CC=16     ←0
-  │ generate_refactor_report   186L  0C    1m  CC=8      ←0
-  │ split_pipeline_runner      177L  0C    2m  CC=3      ←0
-  │ install_desktop_tools.sh   167L  0C    5m  CC=0.0    ←0
-  │ compare_entity_extractors   158L  0C    7m  CC=11     ←0
-  │ vrp_solver                 135L  1C   12m  CC=8      ←0
-  │ apply_polish_integration   124L  0C    4m  CC=9      ←0
-  │ termo                      116L  0C    4m  CC=3      ←0
-  │ restore_system             115L  0C    4m  CC=9      ←0
-  │ cyclomatic_complexity_refactor_report.json   107L  0C    0m  CC=0.0    ←0
-  │ or_scheduler               104L  1C    9m  CC=5      ←0
-  │ !! split_web_controller        96L  1C    4m  CC=16     ←0
-  │ refactoring_summary         92L  0C    1m  CC=1      ←0
-  │ hyperparameter_optimizer    85L  1C    4m  CC=3      ←0
-  │ apply_nlp2cmd_fixes         84L  0C    5m  CC=2      ←0
-  │ unit_commitment_solver      80L  1C    3m  CC=6      ←0
-  │ test_commands_docker.sh     78L  0C    0m  CC=0.0    ←0
-  │ genomic_pipeline_scheduler    65L  1C    3m  CC=5      ←0
-  │ setup_external              63L  0C    1m  CC=7      ←0
-  │ bump_version                62L  0C    1m  CC=6      ←0
-  │ apply_complexity_refactors    60L  0C    1m  CC=2      ←0
-  │ termo1                      25L  0C    1m  CC=3      ←0
-  │ power_plant                 23L  1C    0m  CC=0.0    ←0
-  │ pipeline_step               20L  1C    0m  CC=0.0    ←0
-  │ surgery                     20L  1C    0m  CC=0.0    ←0
-  │ hyperparameter_space        20L  1C    0m  CC=0.0    ←0
-  │ delivery_point              20L  1C    0m  CC=0.0    ←0
-  │ genomic_sample              18L  1C    0m  CC=0.0    ←0
-  │ operating_room              18L  1C    0m  CC=0.0    ←0
-  │
   docker/                         CC̄=3.5    ←in:0  →out:0
   │ demo_desktop_gui           283L  0C    6m  CC=9      ←0
   │ Dockerfile                  69L  0C    0m  CC=0.0    ←0
@@ -1003,11 +1013,12 @@ LAYERS:
   ./                              CC̄=0.1    ←in:0  →out:0
   │ !! planfile.yaml            29074L  0C    0m  CC=0.0    ←0
   │ !! out_interprocedural_decision_paths.json  8372L  0C    0m  CC=0.0    ←0
+  │ !! intract.yaml               973L  0C    0m  CC=0.0    ←0
   │ !! Makefile                   546L  0C    0m  CC=0.0    ←0
   │ goal.yaml                  430L  0C    0m  CC=0.0    ←0
   │ test_nlp2cmd_enhanced.sh   380L  0C   14m  CC=0.0    ←0
-  │ test_nlp2cmd_commands.sh   320L  0C    5m  CC=0.0    ←264
-  │ pyproject.toml             272L  0C    0m  CC=0.0    ←0
+  │ test_nlp2cmd_commands.sh   320L  0C    5m  CC=0.0    ←265
+  │ pyproject.toml             280L  0C    0m  CC=0.0    ←0
   │ docker-compose.yml         223L  0C    0m  CC=0.0    ←0
   │ out_call_graph.json        166L  0C    0m  CC=0.0    ←0
   │ manual_appspec.json        160L  0C    0m  CC=0.0    ←0
@@ -1161,12 +1172,12 @@ LAYERS:
 
 COUPLING:
                                              test_nlp2cmd_commands      examples.04_domain_specific         examples.03_integrations              scripts.maintenance    examples.05_advanced_features                      src.nlp2cmd       examples.09_online_drawing                         examples               examples.01_basics  examples.10_online_code_editors            scripts.thermodynamic  examples.06_tools_and_utilities                     tools.schema   examples.08_api_key_management     examples.07_stream_protocols
-            test_nlp2cmd_commands                               ──                             ←795                             ←793                             ←593                             ←458                             ←355                             ←377                              ←80                             ←266                             ←139                             ←159                             ←136                             ←127                             ←104                              ←90  hub
+            test_nlp2cmd_commands                               ──                             ←795                             ←793                             ←593                             ←458                             ←356                             ←377                              ←80                             ←266                             ←139                             ←159                             ←136                             ←127                             ←104                              ←90  hub
       examples.04_domain_specific                              795                               ──                                                                                                                                  11                                                                50                                                                                                 ←5                                                                                                                                      hub
          examples.03_integrations                              793                                                                ──                                                                                                 11                                                                48                                                                                                                                                                                                                                         !! fan-out
               scripts.maintenance                              593                                                                                                 ──                                                                 5                                                                                                                                                                                                                                                                                                           !! fan-out
     examples.05_advanced_features                              458                                                                                                                                  ──                               10                                                                10                                                                                                                                                                                                                                         !! fan-out
-                      src.nlp2cmd                              355                              ←11                              ←11                               ←5                              ←10                               ──                                1                               ←5                               ←1                                1                               ←6                               ←1                               ←5                               ←9                               ←6  hub
+                      src.nlp2cmd                              356                              ←11                              ←11                               ←5                              ←10                               ──                                1                               ←5                               ←1                                1                               ←6                               ←1                               ←5                               ←9                               ←6  hub
        examples.09_online_drawing                              377                                                                                                                                                                   15                               ──                               21                                                                                                                                                                                                                                         !! fan-out
                          examples                               80                              ←50                              ←48                                                               ←10                                5                              ←21                               ──                              ←69                              ←72                                                                                                                                                                       hub
                examples.01_basics                              266                                                                                                                                                                    1                                                                69                               ──                                                                                                                                                                                                        !! fan-out
@@ -1177,36 +1188,36 @@ COUPLING:
    examples.08_api_key_management                              104                                                                                                                                                                    9                                                                                                                                                                                                                                                                      ──                                   !! fan-out
      examples.07_stream_protocols                               90                                                                                                                                                                    6                                                                                                                                                                                                                                                                                                       ──  !! fan-out
   CYCLES: none
-  HUB: examples/ (fan-in=275)
-  HUB: examples.04_domain_specific/ (fan-in=5)
-  HUB: src.nlp2cmd/ (fan-in=110)
-  HUB: test_nlp2cmd_commands/ (fan-in=4971)
+  HUB: src.nlp2cmd/ (fan-in=113)
   HUB: src.app2schema/ (fan-in=12)
-  SMELL: examples.05_advanced_features/ fan-out=485 → split needed
-  SMELL: examples.10_online_code_editors/ fan-out=216 → split needed
-  SMELL: tools.manual_tests/ fan-out=11 → split needed
-  SMELL: examples.08_llm_validation/ fan-out=24 → split needed
-  SMELL: examples.03_integrations/ fan-out=852 → split needed
-  SMELL: scripts.thermodynamic/ fan-out=170 → split needed
-  SMELL: docker.novnc/ fan-out=30 → split needed
+  HUB: examples/ (fan-in=275)
+  HUB: test_nlp2cmd_commands/ (fan-in=4977)
+  HUB: examples.04_domain_specific/ (fan-in=5)
   SMELL: tools.schema/ fan-out=132 → split needed
-  SMELL: examples/ fan-out=85 → split needed
-  SMELL: examples.07_stream_protocols/ fan-out=96 → split needed
-  SMELL: examples.06_desktop_automation/ fan-out=51 → split needed
-  SMELL: examples.06_tools_and_utilities/ fan-out=137 → split needed
-  SMELL: benchmarks/ fan-out=85 → split needed
-  SMELL: examples.09_online_drawing/ fan-out=413 → split needed
   SMELL: test_screenshots/ fan-out=62 → split needed
   SMELL: examples.02_benchmarks/ fan-out=72 → split needed
-  SMELL: examples.04_domain_specific/ fan-out=856 → split needed
-  SMELL: examples.01_basics/ fan-out=341 → split needed
-  SMELL: src.nlp2cmd/ fan-out=357 → split needed
+  SMELL: examples.03_integrations/ fan-out=852 → split needed
+  SMELL: docker.novnc/ fan-out=30 → split needed
+  SMELL: benchmarks/ fan-out=85 → split needed
+  SMELL: src.nlp2cmd/ fan-out=358 → split needed
+  SMELL: examples.06_tools_and_utilities/ fan-out=137 → split needed
+  SMELL: tools.manual_tests/ fan-out=11 → split needed
+  SMELL: scripts/ fan-out=27 → split needed
   SMELL: scripts.testing/ fan-out=31 → split needed
-  SMELL: scripts.maintenance/ fan-out=598 → split needed
-  SMELL: tools.generation/ fan-out=56 → split needed
-  SMELL: scripts/ fan-out=19 → split needed
+  SMELL: examples.08_llm_validation/ fan-out=24 → split needed
   SMELL: tools.analysis/ fan-out=77 → split needed
+  SMELL: examples.05_advanced_features/ fan-out=485 → split needed
+  SMELL: examples.10_online_code_editors/ fan-out=216 → split needed
+  SMELL: examples.01_basics/ fan-out=341 → split needed
+  SMELL: examples.06_desktop_automation/ fan-out=51 → split needed
+  SMELL: scripts.maintenance/ fan-out=598 → split needed
+  SMELL: examples.09_online_drawing/ fan-out=413 → split needed
   SMELL: examples.08_api_key_management/ fan-out=113 → split needed
+  SMELL: examples/ fan-out=85 → split needed
+  SMELL: examples.07_stream_protocols/ fan-out=96 → split needed
+  SMELL: examples.04_domain_specific/ fan-out=856 → split needed
+  SMELL: tools.generation/ fan-out=56 → split needed
+  SMELL: scripts.thermodynamic/ fan-out=170 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon

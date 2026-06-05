@@ -1,0 +1,100 @@
+{
+  "schemas": {
+    "shell.docker": {
+      "source_type": "appspec",
+      "commands": [
+        {
+          "name": "shell.docker",
+          "description": "A self-sufficient runtime for containers",
+          "category": "system",
+          "parameters": [],
+          "examples": [],
+          "patterns": [
+            "docker"
+          ],
+          "source_type": "appspec",
+          "metadata": {
+            "action_id": "shell.docker"
+          },
+          "template": null
+        }
+      ],
+      "metadata": {
+        "appspec_action": true
+      }
+    },
+    "shell.git": {
+      "source_type": "appspec",
+      "commands": [
+        {
+          "name": "shell.git",
+          "description": "usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]",
+          "category": "system",
+          "parameters": [],
+          "examples": [],
+          "patterns": [
+            "git"
+          ],
+          "source_type": "appspec",
+          "metadata": {
+            "action_id": "shell.git"
+          },
+          "template": null
+        }
+      ],
+      "metadata": {
+        "appspec_action": true
+      }
+    },
+    "shell.kubectl": {
+      "source_type": "appspec",
+      "commands": [
+        {
+          "name": "shell.kubectl",
+          "description": "kubectl controls the Kubernetes cluster manager.",
+          "category": "system",
+          "parameters": [],
+          "examples": [],
+          "patterns": [
+            "kubectl"
+          ],
+          "source_type": "appspec",
+          "metadata": {
+            "action_id": "shell.kubectl"
+          },
+          "template": null
+        }
+      ],
+      "metadata": {
+        "appspec_action": true
+      }
+    },
+    "shell.curl": {
+      "source_type": "appspec",
+      "commands": [
+        {
+          "name": "shell.curl",
+          "description": "This is not the full help; this menu is split into categories.",
+          "category": "system",
+          "parameters": [],
+          "examples": [],
+          "patterns": [
+            "curl"
+          ],
+          "source_type": "appspec",
+          "metadata": {
+            "action_id": "shell.curl"
+          },
+          "template": null
+        }
+      ],
+      "metadata": {
+        "appspec_action": true
+      }
+    }
+  },
+  "metadata": {
+    "improved": true,
+    "total_schemas": 4
+  }
+}

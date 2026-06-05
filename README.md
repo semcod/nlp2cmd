@@ -10,11 +10,11 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-1.1.17-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$45.58-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-101.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-1.1.18-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$34.38-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-102.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $45.5753 (289 commits)
-- 👤 **Human dev:** ~$10187 (101.9h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $34.3769 (290 commits)
+- 👤 **Human dev:** ~$10235 (102.4h @ $100/h, 30min dedup)
 
 Generated on 2026-06-05 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
@@ -46,6 +46,145 @@ nlp2cmd -r "wejdź na jspaint.app i narysuj dziecko" --video webm
 # Web form filling
 nlp2cmd -r "otwórz https://example.com/kontakt i wypełnij formularz i wyślij"
 ```
+
+## Integracja z nlp2dsl / Propact
+
+nlp2cmd to **runner** — planowanie i wykonanie. **Struktura zapytania** (IntentIR) pochodzi z pakietów nlp2dsl; na wejściu każdego zapytania uruchamiana jest analiza nlp2dsl.
+
+| Narzędzie | Rola |
+|-----------|------|
+| `nlp2dsl show` | Tylko struktura (IntentIR) — bez wykonania |
+| `nlp2cmd plan` | Plan → Propact markdown; `--execute` → hybrid executor |
+| `nlp2cmd -q … -r` | Legacy runtime (shell / browser / canvas) |
+
+### Routing wykonania (`--execute`)
+
+| `target_kind` | Executor |
+|---------------|----------|
+| `shell`, `rest`, `mcp`, `ws` | Propact (shell: fallback subprocess gdy brak CLI) |
+| `browser`, `sql`, `desktop` | nlp2cmd `PipelineRunner` |
+
+`--explain` / `--json` pokazują `execution_routes` per krok.
+
+### Instalacja (dev, monorepo)
+
+```bash
+# Zalecane — jedna komenda (nlp2dsl packages + nlp2cmd[integration])
+cd nlp2cmd && make update
+
+# lub ręcznie:
+cd ../nlp2dsl && ./scripts/setup-dev.sh
+
+export NLP2CMD_INTEGRATION=1
+export LANG=C.UTF-8
+```
+
+> **Uwaga:** `nlp2cmd` wymaga pakietów z `nlp2dsl/packages/` (editable).
+> Uruchamiaj CLI z **tego samego venv** co `make update` (`which nlp2cmd` → `.venv/bin/nlp2cmd`).
+> Stary `~/.local/bin/nlp2cmd` nie widzi integracji.
+
+```bash
+make update          # przeinstaluj zależności integracji (--upgrade)
+make publish         # update + bump patch + PyPI (nie uruchamiaj bez potrzeby)
+```
+
+### Przykłady
+
+```bash
+# Struktura zapytania (nlp2dsl — bez wykonania)
+nlp2dsl show "znajdz pliki *.py w src"
+nlp2dsl show "znajdz pliki *.py w src" --plan
+
+# Plan + Propact (nlp2cmd)
+nlp2cmd plan "znajdz pliki *.py w src"
+nlp2cmd plan "znajdz pliki *.py w src" --explain
+nlp2cmd plan "znajdz pliki *.py w src" --json
+nlp2cmd plan "znajdz pliki *.py w src" --execute
+
+# Workflow REST (backend nlp2dsl)
+export NLP2CMD_NLP2DSL_WORKFLOW=1 NLP2DSL_BACKEND_URL=http://127.0.0.1:8010
+nlp2cmd plan "Wyslij fakture na 1500 PLN do a@b.pl" --json
+
+# Analiza wejścia przy zwykłym generate/run
+NLP2CMD_SHOW_STRUCTURE=1 nlp2cmd -q "znajdz pliki *.py w src"
+nlp2cmd -q "znajdz pliki *.py w src" --explain
+```
+
+### Zmienne środowiskowe
+
+| Zmienna | Domyślnie | Opis |
+|---------|-----------|------|
+| `NLP2CMD_INTEGRATION` | `0` | Włącza `nlp2cmd plan` i bridge do pakietów nlp2dsl |
+| `NLP2CMD_QUERY_INPUT` | `1` | Analiza IntentIR na wejściu (`-q`, `-r`, `plan`) |
+| `NLP2CMD_SHOW_STRUCTURE` | `0` | Zawsze pokaż analizę tekstu |
+| `NLP2CMD_NLP2DSL_WORKFLOW` | `0` | Planner REST via `/workflow/from-text` |
+| `NLP2DSL_BACKEND_URL` | `http://localhost:8010` | Backend nlp2dsl |
+| `NLP2CMD_PROPACT_BIN` | `propact` | Ścieżka do Propact CLI |
+| `NLP2CMD_PROPACT_FALLBACK` | `shell` | Subprocess gdy brak propact (tylko shell-only) |
+| `NLP2CMD_INTRACT_GATE` | `0` | Intract: `plan`, `show --plan`, transform (`-q`), `PipelineRunner`, kroki DOM |
+| `NLP2CMD_ENFORCE_CLARIFICATION` | `0` | `nlp2dsl show` blokuje niską pewność (`plan` — zawsze) |
+| `NLP2CMD_POST_CHECK` | `0` | Po `plan --execute`: walidacja stdout vs oczekiwanie |
+| `NLP2CMD_POST_CHECK_STRICT` | `0` | Post-check: ostrzeżenia → błędy |
+| `NLP2CMD_EMIT_TESTQL` | `0` | Eksport scenariusza TestQL z execution record (browser) |
+| `LANG` | — | `C.UTF-8` dla polskich znaków |
+
+Pakiet `KeywordIntentDetector` jest kanonicznie w `nlp2cmd-intent`; nlp2cmd re-eksportuje go z `nlp2cmd.generation.keywords`.
+
+`nlp2dsl-run` jest **deprecated** — użyj `nlp2cmd plan`.
+
+### Intract — kontrakty przed wykonaniem
+
+Opcjonalna warstwa policy ([Intract](https://github.com/semcod/intract)): zakazane efekty, wymagane inputy, zgodność z `intract.yaml`. **Nie** weryfikuje stdout.
+
+```mermaid
+flowchart TB
+    subgraph integration [Ścieżka plan / show]
+        I[IntentIR] --> P[ExecutionPlanIR]
+        P --> PG[PlanStepGate]
+    end
+
+    subgraph legacy [Ścieżka -q -r]
+        T[NLP2CMD.transform] --> TV[TransformValidator]
+        TV --> PR[PipelineRunner]
+        PR --> PG2[PipelineRunnerGate]
+        PR --> SG[IntractStepGate — DOM]
+    end
+
+    PG --> RB[RuntimeBridge]
+    TV --> RB
+    PG2 --> RB
+    SG --> RB
+    RB --> M[intract.yaml + bindings.json]
+```
+
+```bash
+export NLP2CMD_INTEGRATION=1
+export NLP2CMD_INTRACT_GATE=1
+
+nlp2cmd plan "znajdź pliki *.py w src" --json    # pole contract_check
+nlp2dsl show "znajdź pliki *.py w src" --plan    # contract_check w output
+nlp2cmd -q "znajdź pliki *.py" -r                # transform + pre-execute gate
+```
+
+Szczegóły: [`docs/architecture/intract-integration.md`](docs/architecture/intract-integration.md)
+
+### Post-execution — stdout vs oczekiwanie
+
+Osobna warstwa od Intract: sprawdza **wynik** wykonania (linie stdout, regex, returncode).
+
+```mermaid
+flowchart LR
+    EX[plan --execute] --> OUT[stdout/stderr]
+    OUT --> PC[PostExecutionChecker]
+    PC -->|NLP2CMD_POST_CHECK=1| OK[passed / violations]
+```
+
+```bash
+export NLP2CMD_POST_CHECK=1
+nlp2cmd plan "znajdź pliki *.py w src" --execute --explain
+```
+
+Szczegóły: [`docs/architecture/post-execution-validation.md`](docs/architecture/post-execution-validation.md)
 
 ## Key Features
 
@@ -313,6 +452,11 @@ nlp2cmd service --host 0.0.0.0 --port 8000
 nlp2cmd doctor --fix
 nlp2cmd --show-decision-tree "zapytanie"
 nlp2cmd --show-schema
+
+# nlp2dsl / Propact integration (requires nlp2cmd[integration])
+nlp2cmd plan "znajdź pliki *.py w src"
+nlp2cmd plan "znajdź pliki *.py w src" --execute
+nlp2dsl show "znajdź pliki *.py w src"   # structure only
 ```
 
 ## Python API
@@ -338,6 +482,16 @@ from nlp2cmd.pipeline_runner import PipelineRunner
 
 runner = PipelineRunner()
 result = runner.execute_action_plan(plan, dry_run=False)
+```
+
+```python
+# Integration bridge (nlp2dsl packages)
+from nlp2cmd.bridge import plan_query_via_integration, attach_query_input
+
+attach_query_input("znajdź pliki *.py w src", verbose=True)
+payload = plan_query_via_integration("znajdź pliki *.py w src")
+print(payload["intent_ir"])
+print(payload["propact_markdown"])
 ```
 
 ## Testing
@@ -369,6 +523,7 @@ pytest --cov=nlp2cmd --cov-report=html  # With coverage
 | [Evolutionary Cache](docs/EVOLUTIONARY_CACHE.md) | Self-learning cache |
 | [Stream Protocols](docs/STREAM_PROTOCOLS.md) | SSH, RTSP, VNC, etc. |
 | [Service Mode](docs/SERVICE_MODE.md) | HTTP API service |
+| [nlp2dsl packages](../nlp2dsl/packages/README.md) | IntentIR, planner, Propact bridge |
 | [Contributing](CONTRIBUTING.md) | Development guidelines |
 
 ## License

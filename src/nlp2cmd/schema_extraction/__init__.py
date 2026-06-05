@@ -14,7 +14,7 @@ command patterns, parameters, and metadata from various sources.
 
 from __future__ import annotations
 
-from .registry import SchemaRegistry
+from .registry import SchemaRegistry, DynamicSchemaRegistry
 from .extractors import (
     CommandParameter, 
     CommandSchema, 

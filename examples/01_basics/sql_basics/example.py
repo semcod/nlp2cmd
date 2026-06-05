@@ -94,11 +94,6 @@ def main():
             for warning in result.warnings:
                 print(f"   - {warning}")
 
-        if result.suggestions:
-            print(f"\n💡 Suggestions:")
-            for suggestion in result.suggestions:
-                print(f"   - {suggestion}")
-
     # Example: Blocked operation
     print_separator("Safety Policy Demo: Blocked Operation", leading_newline=True, width=60)
 
@@ -110,11 +105,6 @@ def main():
         print(f"\n❌ Blocked:")
         for error in result.errors:
             print(f"   - {error}")
-
-    if result.suggestions:
-        print(f"\n💡 Alternative:")
-        for suggestion in result.suggestions:
-            print(f"   - {suggestion}")
 
 
 if __name__ == "__main__":

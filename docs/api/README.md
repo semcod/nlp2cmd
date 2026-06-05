@@ -9,6 +9,8 @@
 - **[Examples Guide](../reference/examples-guide.md)** - Practical examples
 - **[Schema System](../architecture/schema-system.md)** - Schema extraction
 - **[Thermodynamic Integration](../architecture/thermodynamic-computing.md)** - Advanced optimization
+- **[Intract Integration](../architecture/intract-integration.md)** - Kontrakty, gates, nlp2dsl bridge (diagramy Mermaid)
+- **[Post-execution Validation](../architecture/post-execution-validation.md)** - stdout vs oczekiwanie, TestQL (diagramy Mermaid)
 - **[Contributing Guide](../maintainers/IMPROVEMENTS.md)** - Development guidelines
 - **[Installation Guide](../README.md#installation)** - Setup instructions (in main README)
 

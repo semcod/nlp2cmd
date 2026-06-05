@@ -8,14 +8,27 @@ from typing import Any, Optional
 from rich.console import Console
 
 
+def _looks_like_rich_markup(text: str) -> bool:
+    """Heuristic: Rich markup tags look like [bold], [cyan]text[/cyan], etc."""
+    import re
+
+    return bool(re.search(r"\[[/\a-zA-Z0-9_.-]+\]", text))
+
+
 def _render_to_text(renderable: Any) -> str:
-    """Render any Rich renderable or string to plain text."""
+    """Render any Rich renderable or string to plain text (no markup tags)."""
     if renderable is None:
         return ""
-    if isinstance(renderable, str):
-        return renderable.rstrip()
     stream = io.StringIO()
     capture_console = Console(record=True, force_terminal=False, color_system=None, file=stream)
+    if isinstance(renderable, str):
+        text = renderable.rstrip()
+        if not text:
+            return ""
+        if _looks_like_rich_markup(text):
+            capture_console.print(text, markup=True, highlight=False)
+            return capture_console.export_text().rstrip()
+        return text
     capture_console.print(renderable)
     return capture_console.export_text().rstrip()
 

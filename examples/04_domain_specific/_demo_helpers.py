@@ -67,18 +67,23 @@ def print_metrics(
     if converged:
         print(f"{indent}Converged: {result.converged}")
     if solution_quality:
-        print(f"{indent}Solution quality: {result.solution_quality.explanation}")
+        sq = result.solution_quality
+        explanation = getattr(sq, 'explanation', None) or f"score={getattr(sq, 'quality_score', 'N/A')}"
+        print(f"{indent}Solution quality: {explanation}")
     if solution_feasible:
-        print(f"{indent}Solution feasible: {result.solution_quality.is_feasible}")
+        sq = result.solution_quality
+        print(f"{indent}Solution feasible: {getattr(sq, 'is_feasible', 'N/A')}")
     if latency:
         print(f"{indent}Latency: {result.latency_ms:.1f}ms")
     if sampler_steps:
-        print(f"{indent}Sampler steps: {result.sampler_steps}")
+        print(f"{indent}Sampler steps: {getattr(result, 'sampler_steps', 'N/A')}")
     if energy_estimate:
         estimate = getattr(result, "energy_estimate", None)
-        if estimate:
+        if isinstance(estimate, dict):
             savings = estimate.get("savings_digital_percent", 0)
             print(f"{indent}{energy_estimate_label}: {savings:.1f}%")
+        elif isinstance(estimate, (int, float)):
+            print(f"{indent}{energy_estimate_label}: {estimate:.4f}")
         else:
             print(f"{indent}{energy_estimate_label}: N/A")
 
@@ -87,6 +92,8 @@ def print_simple_result(query: str, result: dict, elapsed_ms: float) -> None:
     print(f"\n📝 Query: {query}")
 
     if result["source"] == "dsl":
+        print(f"   Command: {result['result'].command}")
+    elif result["source"] == "pipeline":
         print(f"   Command: {result['result'].command}")
     else:
         print(f"   Solution: {result['result'].decoded_output}")
@@ -120,7 +127,12 @@ def print_full_result(
 
 
 def sigmoid(value: float) -> float:
-    return 1.0 / (1.0 + math.exp(-value))
+    import numpy as np
+    if hasattr(value, "item"):
+        v = value.item()
+    else:
+        v = float(value)
+    return 1.0 / (1.0 + math.exp(-v))
 
 
 def project_sample(problem, raw_sample: List[float]) -> Dict[str, float]:

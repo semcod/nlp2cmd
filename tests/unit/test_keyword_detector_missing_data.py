@@ -2,11 +2,11 @@ import os
 
 import pytest
 
-import nlp2cmd.generation.keywords as keywords_module
+import nlp2cmd_intent.keywords as keywords_module
 from nlp2cmd.generation.keywords import KeywordIntentDetector
 
 
-def _empty_find_data_files(*, explicit_path, default_filename):
+def _empty_find_data_files(*, explicit_path, default_filename, alt_filenames=()):
     return []
 
 

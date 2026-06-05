@@ -23,7 +23,7 @@ class SchemaRegistry:
     ):
         from .extractors import OpenAPISchemaExtractor, ShellHelpExtractor
         from .llm_extractor import LLMSchemaExtractor
-        from .storage import PerCommandSchemaStore
+        from nlp2cmd.storage.per_command_store import PerCommandSchemaStore
         
         self.schemas: Dict[str, ExtractedSchema] = {}
         self.openapi_extractor = OpenAPISchemaExtractor()
@@ -155,3 +155,155 @@ class SchemaRegistry:
     def clear(self) -> None:
         """Clear all registered schemas."""
         self.schemas.clear()
+
+
+class DynamicSchemaRegistry(SchemaRegistry):
+    """Extended schema registry with command-level operations for DynamicAdapter."""
+
+    def register_python_code(self, source: Union[str, Path]) -> ExtractedSchema:
+        """Register Python code schema from file."""
+        schema = self.python_extractor.extract_from_file(source)
+        self.schemas[schema.source] = schema
+        self._auto_save()
+        return schema
+
+    def register_shell_script(self, source: Union[str, Path]) -> ExtractedSchema:
+        """Register shell script schema from file."""
+        schema = self.shell_script_extractor.extract_from_file(source)
+        self.schemas[schema.source] = schema
+        self._auto_save()
+        return schema
+
+    def register_makefile(self, source: Union[str, Path]) -> ExtractedSchema:
+        """Register Makefile schema from file."""
+        schema = self.makefile_extractor.extract_from_file(source)
+        self.schemas[schema.source] = schema
+        self._auto_save()
+        return schema
+
+    def register_appspec_export(self, source: Union[str, Path]) -> ExtractedSchema:
+        """Register AppSpec export JSON."""
+        from .extractors import CommandSchema, CommandParameter
+        path = Path(source)
+        data = json.loads(path.read_text(encoding="utf-8"))
+        commands = []
+        for cmd in data.get("commands", []):
+            params = [
+                CommandParameter(
+                    name=p["name"],
+                    type=p.get("type", "string"),
+                    description=p.get("description", ""),
+                    required=p.get("required", False),
+                )
+                for p in cmd.get("parameters", [])
+            ]
+            commands.append(
+                CommandSchema(
+                    name=cmd["name"],
+                    description=cmd.get("description", ""),
+                    category=cmd.get("category", "general"),
+                    parameters=params,
+                    examples=cmd.get("examples", []),
+                    patterns=cmd.get("patterns", []),
+                    source_type="appspec",
+                    metadata=cmd.get("metadata", {}),
+                )
+            )
+        schema = ExtractedSchema(
+            source=str(source),
+            source_type="appspec",
+            commands=commands,
+            metadata={"format": "app2schema.appspec"},
+        )
+        self.schemas[schema.source] = schema
+        self._auto_save()
+        return schema
+
+    def register_dynamic_export(self, source: Union[str, Path]) -> list[ExtractedSchema]:
+        """Register dynamic schema export JSON."""
+        from .extractors import CommandSchema, CommandParameter
+        path = Path(source)
+        data = json.loads(path.read_text(encoding="utf-8"))
+        schemas: list[ExtractedSchema] = []
+        for entry in data.get("schemas", []):
+            commands = []
+            for cmd in entry.get("commands", []):
+                params = [
+                    CommandParameter(
+                        name=p["name"],
+                        type=p.get("type", "string"),
+                        description=p.get("description", ""),
+                        required=p.get("required", False),
+                    )
+                    for p in cmd.get("parameters", [])
+                ]
+                commands.append(
+                    CommandSchema(
+                        name=cmd["name"],
+                        description=cmd.get("description", ""),
+                        category=cmd.get("category", "general"),
+                        parameters=params,
+                        examples=cmd.get("examples", []),
+                        patterns=cmd.get("patterns", []),
+                        source_type="dynamic_export",
+                        metadata=cmd.get("metadata", {}),
+                    )
+                )
+            extracted = ExtractedSchema(
+                source=entry.get("source", str(source)),
+                source_type="dynamic_export",
+                commands=commands,
+                metadata=entry.get("metadata", {}),
+            )
+            self.schemas[extracted.source] = extracted
+            schemas.append(extracted)
+        self._auto_save()
+        return schemas
+
+    def get_command_by_name(self, name: str) -> Optional[CommandSchema]:
+        """Get a single command schema by name across all sources."""
+        for extracted in self.schemas.values():
+            for cmd in extracted.commands:
+                if cmd.name == name:
+                    return cmd
+        return None
+
+    def get_all_commands(self) -> list[CommandSchema]:
+        """Get all command schemas from all sources."""
+        commands: list[CommandSchema] = []
+        for extracted in self.schemas.values():
+            commands.extend(extracted.commands)
+        return commands
+
+    def search_commands(self, query: str, limit: int = 10) -> list[CommandSchema]:
+        """Search commands by name or patterns."""
+        query_lower = query.lower()
+        matches: list[tuple[CommandSchema, int]] = []
+        for extracted in self.schemas.values():
+            for cmd in extracted.commands:
+                score = 0
+                if query_lower in cmd.name.lower():
+                    score += 10
+                for pattern in cmd.patterns:
+                    if query_lower in pattern.lower():
+                        score += 5
+                if query_lower in cmd.description.lower():
+                    score += 3
+                if score > 0:
+                    matches.append((cmd, score))
+        matches.sort(key=lambda x: x[1], reverse=True)
+        return [cmd for cmd, _ in matches[:limit]]
+
+    def register_command(self, schema: CommandSchema) -> None:
+        """Register a single command schema."""
+        extracted = self.schemas.get(schema.name)
+        if extracted is None:
+            extracted = ExtractedSchema(
+                source=schema.name,
+                source_type=schema.source_type,
+                commands=[schema],
+            )
+        else:
+            extracted.commands.append(schema)
+        self.schemas[schema.name] = extracted
+        self._auto_save()

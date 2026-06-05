@@ -224,7 +224,7 @@ git:
     format: '{prefix}{version}'
 strategies:
   python:
-    test: pytest tests/ -v
+    test: uv run --extra all pytest tests/ -v
     build: python -m build
     publish: twine upload dist/nlp2cmd-{version}*
     publish_enabled: true

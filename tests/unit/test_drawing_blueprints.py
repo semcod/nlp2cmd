@@ -239,7 +239,7 @@ class TestCanvasDecompositionIntegration:
             assert plan.source not in {"canvas_blueprint", "canvas_llm", "canvas_rule_based"}
 
     def test_llm_first_routing_uses_orchestrator(self, monkeypatch):
-        """Default routing should prefer LLM over blueprints."""
+        """Default routing should prefer LLM over blueprints when LLM plan is detailed."""
         monkeypatch.delenv("CANVAS_USE_BLUEPRINTS", raising=False)
         from unittest.mock import MagicMock, patch
         from nlp2cmd.automation.action_planner import ActionPlanner
@@ -249,7 +249,10 @@ class TestCanvasDecompositionIntegration:
             steps=[
                 {"action": "navigate", "params": {"url": "https://jspaint.app"}, "description": "Go"},
                 {"action": "set_color", "params": {"color": "#FF0000"}, "description": "Red"},
-                {"action": "draw_filled_circle", "params": {"radius": 10}, "description": "Circle"},
+                *[
+                    {"action": "draw_filled_circle", "params": {"radius": 10 + i}, "description": f"Part {i}"}
+                    for i in range(4)
+                ],
                 {"action": "screenshot", "params": {"suffix": "test"}, "description": "Shot"},
             ],
             confidence=0.8,

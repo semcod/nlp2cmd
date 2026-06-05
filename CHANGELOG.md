@@ -2959,6 +2959,46 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.18] - 2026-06-05
+
+### Docs
+- Update .devin/workflows/feedback-loop.md
+- Update .devin/workflows/intelligent-saas-key-retrieval.md
+- Update README.md
+- Update docs/api/README.md
+- Update docs/architecture/intract-integration.md
+- Update docs/architecture/post-execution-validation.md
+- Update examples/02_benchmarks/performance_testing/benchmark_report.md
+- Update examples/benchmark_report.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/unit/test_bridge_intent_ir.py
+- Update tests/unit/test_bridge_ir_convert.py
+- Update tests/unit/test_canvas_planner.py
+- Update tests/unit/test_canvas_to_vql.py
+- Update tests/unit/test_drawing_blueprints.py
+- Update tests/unit/test_execution_record.py
+- Update tests/unit/test_intract_manifest_generator.py
+- Update tests/unit/test_intract_pipeline_gate.py
+- Update tests/unit/test_intract_plan_gate.py
+- Update tests/unit/test_intract_runtime_bridge.py
+- ... and 9 more files
+
+### Other
+- Update .env.example
+- Update .gitignore
+- Update Makefile
+- Update examples/01_basics/app2schema/generated_appspec.json
+- Update examples/01_basics/docker_basics/command_schemas/commands/docker.appspec.json
+- Update examples/01_basics/kubernetes_basics/command_schemas/exports/dynamic/kubectl_dynamic_schema.json
+- Update examples/01_basics/shell_fundamentals/example.py
+- Update examples/01_basics/shell_fundamentals/generated_shell_appspec.json
+- Update examples/01_basics/shell_fundamentals/learned_schemas.json
+- Update examples/01_basics/sql_basics/example.py
+- ... and 38 more files
+
 ## [1.1.17] - 2026-06-05
 
 ### Docs

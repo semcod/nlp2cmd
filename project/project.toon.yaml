@@ -1,22 +1,22 @@
-# nlp2cmd | 3924 func | 598f | 1785315L | python | 2026-06-05
+# nlp2cmd | 3973 func | 604f | 1788441L | python | 2026-06-05
 # generated in 0.00s
 
 HEALTH:
-  CC̄=5.0  critical=458 (limit:10)  dup=41  cycles=0
+  CC̄=5.0  critical=468 (limit:10)  dup=41  cycles=0
 
 ALERTS[20]:
   !!! cc_exceeded      BrowserExecutionMixin._run_dom_multi_action = 280 (limit:15)
   !!! cc_exceeded      generate_command = 187 (limit:15)
-  !!! cc_exceeded      handle_run_mode = 178 (limit:15)
+  !!! cc_exceeded      handle_run_mode = 179 (limit:15)
   !!! cc_exceeded      PlanExecutionMixin.execute_action_plan = 168 (limit:15)
   !!! cc_exceeded      CommandGenerator._generate_simple = 144 (limit:15)
   !!! high_fan_out     BrowserExecutionMixin._run_dom_multi_action = 108 (limit:10)
-  !!! high_fan_out     handle_run_mode = 75 (limit:10)
+  !!! high_fan_out     handle_run_mode = 76 (limit:10)
   !!! high_fan_out     PlanExecutionMixin.execute_action_plan = 74 (limit:10)
   !!! cc_exceeded      KeywordIntentDetector._fast_path_detection = 73 (limit:15)
   !!! cc_exceeded      SiteExplorer.find_form = 72 (limit:15)
 
-MODULES[1002] (top by size):
+MODULES[1012] (top by size):
   M[src/nlp2cmd/data/phrase_database.json] 772539L C:0 F:0 CC↑0 D:0 (json)
   M[data/phrase_database.json] 771890L C:0 F:0 CC↑0 D:0 (json)
   M[planfile.yaml] 29074L C:0 F:0 CC↑0 D:0 (yaml)
@@ -32,11 +32,11 @@ MODULES[1002] (top by size):
   M[src/nlp2cmd/pipeline_runner_browser.py] 1692L C:1 F:3 CC↑280 D:0 (python)
   M[src/nlp2cmd/data/command_detector.json] 1630L C:0 F:0 CC↑0 D:0 (json)
   M[artifacts/comprehensive_test_results.json] 1625L C:0 F:0 CC↑0 D:0 (json)
-  LANGS: python:731/json:153/shell:73/yaml:25/txt:11/other:4/yml:3/toml:1/ini:1
+  LANGS: python:738/json:155/shell:73/yaml:26/txt:11/other:4/yml:3/toml:1/ini:1
 
 HOTSPOTS[10]:
   ★ BrowserExecutionMixin._run_dom_multi_action fan=108  // Execute multiple browser actions in sequence.
-  ★ handle_run_mode fan=75  // Handle --run option: generate and execute command with error recovery.
+  ★ handle_run_mode fan=76  // Handle --run option: generate and execute command with error recovery.
 
 Features
   ★ PlanExecutionMixin.execute_action_plan fan=74  // Execute an ActionPlan step by step using Playwright.
@@ -54,4 +54,4 @@ REFACTOR[15]:
   [5] H/L Split build_summary (CC=41)
 
 EVOLUTION:
-  2026-06-05 CC̄=5.0 crit=458 1785315L // Automated analysis
+  2026-06-05 CC̄=5.0 crit=468 1788441L // Automated analysis

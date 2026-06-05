@@ -111,6 +111,8 @@ class RegexEntityExtractor:
             r'(?:użytkownika|usera|user)\s+(?:foldery|folders?)\b',
             # Direct match for "user folders" pattern
             r'user\s+folders',
+            # "w src" / "in src" at end (relative path without slash prefix)
+            r'(?:w|we|in)\s+([a-zA-Z0-9_.-]+)\s*$',
             # Generic path patterns with capture groups
             r'(?:w\s+)?(?:katalogu|folderze|ścieżce|directory|folder|path)?\s*[`"\']?([/~][\w\.\-/]+)[`"\']?',
             r'(?:w\s+)?(?:katalogu|folderze)?\s+(?:użytkownika|user|home)\b\s*[`"\']?([/~][\w\.\-/]*)[`"\']?',

@@ -709,6 +709,38 @@ _command_decorator = main.command if hasattr(main, 'command') else lambda *args,
 
 
 @_command_decorator
+@click.argument("query")
+@click.option("--json", "as_json", is_flag=True, help="Output full payload as JSON")
+@click.option("--execute", is_flag=True, help="Execute plan via Propact CLI")
+@click.option("--dry-run", is_flag=True, help="With --execute: validate routes only, do not run")
+@click.option("--explain", is_flag=True, help="Show IntentIR, execution routes, contract/post-check hints")
+@click.option("--verbose", is_flag=True, help="Verbose query-input analysis (implies --explain)")
+@click.pass_context
+def plan(
+    ctx,
+    query: str,
+    as_json: bool,
+    execute: bool,
+    dry_run: bool,
+    explain: bool,
+    verbose: bool,
+):
+    """Plan NL query → Propact markdown (requires nlp2cmd[integration])."""
+    from nlp2cmd.cli.commands.plan import cmd_plan
+
+    raise SystemExit(
+        cmd_plan(
+            query,
+            as_json=as_json,
+            execute=execute,
+            dry_run=dry_run,
+            explain=explain or verbose,
+            verbose=verbose,
+        )
+    )
+
+
+@_command_decorator
 @click.argument("file", type=click.Path(exists=True))
 @click.option("--backup", is_flag=True, help="Create backup before repair")
 @click.pass_context
@@ -761,7 +793,10 @@ def cli_entry_point():
     
     # Skip rewriting when first arg is a known subcommand — subcommands handle
     # their own positional arguments (e.g. "examples autonomous 'draw a star'")
-    _KNOWN_SUBCOMMANDS = {"examples", "doctor", "web-schema", "history", "cache", "service"}
+    _KNOWN_SUBCOMMANDS = {
+        "examples", "doctor", "web-schema", "history", "cache", "service",
+        "plan", "repair", "validate", "analyze_env",
+    }
     is_subcommand = args and args[0] in _KNOWN_SUBCOMMANDS
     
     if (not is_subcommand and
