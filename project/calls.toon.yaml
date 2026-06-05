@@ -1,13 +1,13 @@
 # code2llm call graph | /home/tom/github/wronai/nlp2cmd
-# generated in 0.35s
+# generated in 0.63s
 # nodes: 312 | edges: 500 | modules: 114
-# CC̄=5.1
+# CC̄=5.0
 
 HUBS[20]:
   test_nlp2cmd_commands.print
     CC=0  in:4971  out:0  total:4971
   src.nlp2cmd.cli.commands.examples.ExamplesRegistry.list
-    CC=4  in:142  out:2  total:144
+    CC=4  in:150  out:2  total:152
   examples._example_helpers.print_rule
     CC=2  in:106  out:1  total:107
   src.nlp2cmd.executor.execution_context.ExecutionContext.set
@@ -20,20 +20,20 @@ HUBS[20]:
     CC=10  in:0  out:81  total:81
   examples._verbose_helper.vlog
     CC=2  in:77  out:1  total:78
-  examples.03_integrations.toon_format.usage_example.main
-    CC=9  in:0  out:77  total:77
   examples.show_metrics.main
     CC=15  in:0  out:77  total:77
+  examples.03_integrations.toon_format.usage_example.main
+    CC=9  in:0  out:77  total:77
   examples._example_helpers.print_separator
     CC=2  in:73  out:3  total:76
   examples.03_integrations.validation.config_validation.main
     CC=5  in:0  out:68  total:68
   examples.02_benchmarks.sequential_testing.benchmark.main
     CC=6  in:0  out:67  total:67
-  examples.09_online_drawing.05_autonomous.run.run_autonomous
-    CC=18  in:1  out:65  total:66
   examples.09_online_drawing._old.04_object_database_drawing.main
     CC=18  in:0  out:66  total:66
+  examples.09_online_drawing.05_autonomous.run.run_autonomous
+    CC=18  in:1  out:65  total:66
   examples.09_online_drawing.06_visual_validator.run.draw_and_validate
     CC=21  in:2  out:62  total:64
   examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous

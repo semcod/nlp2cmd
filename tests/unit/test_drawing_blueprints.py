@@ -17,7 +17,7 @@ class TestDrawingBlueprints:
             list_available_blueprints,
             OBJECT_BLUEPRINTS,
         )
-        assert len(OBJECT_BLUEPRINTS) >= 14
+        assert len(OBJECT_BLUEPRINTS) >= 16
 
     def test_list_available(self):
         from nlp2cmd.automation.drawing_blueprints import list_available_blueprints
@@ -29,6 +29,8 @@ class TestDrawingBlueprints:
         assert "house" in names
         assert "heart" in names
         assert "snowman" in names
+        assert "child" in names
+        assert "spider" in names
 
     @pytest.mark.parametrize("query,expected_name", [
         ("narysuj zajaca", "rabbit"),
@@ -53,6 +55,10 @@ class TestDrawingBlueprints:
         ("draw snowman", "snowman"),
         ("narysuj biedronkę", "ladybug"),
         ("draw ladybug", "ladybug"),
+        ("narysuj dziecko", "child"),
+        ("draw a child", "child"),
+        ("narysuj pająka", "spider"),
+        ("draw spider", "spider"),
     ])
     def test_lookup_blueprint_polish_and_english(self, query, expected_name):
         from nlp2cmd.automation.drawing_blueprints import lookup_blueprint
@@ -68,7 +74,7 @@ class TestDrawingBlueprints:
     @pytest.mark.parametrize("name", [
         "rabbit", "cat", "dog", "car", "house", "tree",
         "sun", "flower", "star", "heart", "fish", "butterfly",
-        "snowman", "ladybug",
+        "snowman", "ladybug", "child", "spider",
     ])
     def test_blueprint_steps_valid(self, name):
         """Each blueprint should produce valid steps with screenshot at end."""
@@ -131,6 +137,22 @@ class TestDrawingBlueprints:
         has_bezier = any(s.action == "draw_bezier" for s in steps)
         assert has_bezier, "Cat should use draw_bezier for tail"
 
+    def test_child_has_body_parts(self):
+        from nlp2cmd.automation.drawing_blueprints import get_blueprint_steps
+        steps = get_blueprint_steps("narysuj dziecko")
+        assert steps is not None
+        descs = " ".join(s.description for s in steps)
+        assert "Head" in descs
+        assert "Torso" in descs
+        assert "leg" in descs.lower()
+
+    def test_spider_has_eight_legs(self):
+        from nlp2cmd.automation.drawing_blueprints import get_blueprint_steps
+        steps = get_blueprint_steps("narysuj pająka")
+        assert steps is not None
+        leg_steps = [s for s in steps if "Leg" in s.description]
+        assert len(leg_steps) == 8
+
     def test_sun_uses_arc_for_smile(self):
         from nlp2cmd.automation.drawing_blueprints import get_blueprint_steps
         steps = get_blueprint_steps("narysuj słońce")
@@ -153,10 +175,11 @@ class TestDrawingBlueprints:
 
 
 class TestCanvasDecompositionIntegration:
-    """Test that ActionPlanner routes to blueprints via decompose_sync."""
+    """Test that ActionPlanner routes canvas queries via orchestrator."""
 
-    def test_blueprint_takes_priority(self):
-        """Blueprint match should produce canvas_blueprint source."""
+    def test_blueprint_takes_priority_when_enabled(self, monkeypatch):
+        """Blueprint match is opt-in via CANVAS_USE_BLUEPRINTS=1."""
+        monkeypatch.setenv("CANVAS_USE_BLUEPRINTS", "1")
         from nlp2cmd.automation.action_planner import ActionPlanner
         planner = ActionPlanner()
         plan = planner.decompose_sync("narysuj kota na jspaint.app")
@@ -168,8 +191,9 @@ class TestCanvasDecompositionIntegration:
         assert "wait_for_canvas" in actions
         assert "draw_filled_ellipse" in actions or "draw_filled_circle" in actions
 
-    def test_blueprint_extracts_url(self):
+    def test_blueprint_extracts_url(self, monkeypatch):
         """URL from query should be used for navigation."""
+        monkeypatch.setenv("CANVAS_USE_BLUEPRINTS", "1")
         from nlp2cmd.automation.action_planner import ActionPlanner
         planner = ActionPlanner()
         plan = planner.decompose_sync("narysuj psa na jspaint.app")
@@ -177,8 +201,9 @@ class TestCanvasDecompositionIntegration:
         nav = next(s for s in plan.steps if s.action == "navigate")
         assert "jspaint.app" in nav.params["url"]
 
-    def test_blueprint_default_url(self):
+    def test_blueprint_default_url(self, monkeypatch):
         """Default to jspaint.app when no URL specified."""
+        monkeypatch.setenv("CANVAS_USE_BLUEPRINTS", "1")
         from nlp2cmd.automation.action_planner import ActionPlanner
         planner = ActionPlanner()
         plan = planner.decompose_sync("narysuj dom")
@@ -192,8 +217,10 @@ class TestCanvasDecompositionIntegration:
         ("narysuj auto", "car"),
         ("draw a flower", "flower"),
         ("narysuj bałwana", "snowman"),
+        ("wejdź na jspaint.app i narysuj dziecko", "child"),
     ])
-    def test_various_objects_route_to_blueprint(self, query, blueprint_name):
+    def test_various_objects_route_to_blueprint(self, query, blueprint_name, monkeypatch):
+        monkeypatch.setenv("CANVAS_USE_BLUEPRINTS", "1")
         from nlp2cmd.automation.action_planner import ActionPlanner
         planner = ActionPlanner()
         plan = planner.decompose_sync(query)
@@ -209,4 +236,27 @@ class TestCanvasDecompositionIntegration:
         planner = ActionPlanner()
         plan = planner.decompose_sync("otwórz przeglądarkę")
         if plan:
-            assert plan.source != "canvas_blueprint"
+            assert plan.source not in {"canvas_blueprint", "canvas_llm", "canvas_rule_based"}
+
+    def test_llm_first_routing_uses_orchestrator(self, monkeypatch):
+        """Default routing should prefer LLM over blueprints."""
+        monkeypatch.delenv("CANVAS_USE_BLUEPRINTS", raising=False)
+        from unittest.mock import MagicMock, patch
+        from nlp2cmd.automation.action_planner import ActionPlanner
+        from nlp2cmd.canvas_planner import CanvasPlanResult
+
+        llm_result = CanvasPlanResult(
+            steps=[
+                {"action": "navigate", "params": {"url": "https://jspaint.app"}, "description": "Go"},
+                {"action": "set_color", "params": {"color": "#FF0000"}, "description": "Red"},
+                {"action": "draw_filled_circle", "params": {"radius": 10}, "description": "Circle"},
+                {"action": "screenshot", "params": {"suffix": "test"}, "description": "Shot"},
+            ],
+            confidence=0.8,
+            source="canvas_llm",
+            estimated_time_ms=1200,
+        )
+        with patch("nlp2cmd.canvas_planner.orchestrator.CanvasPlanningOrchestrator.plan", return_value=llm_result):
+            plan = ActionPlanner().decompose_sync("narysuj dinozaura na jspaint.app")
+        assert plan is not None
+        assert plan.source == "canvas_llm"

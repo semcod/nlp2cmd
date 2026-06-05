@@ -132,11 +132,8 @@ class DrawObjectSkill:
 
     def _get_router(self):
         if self._router is None:
-            try:
-                from nlp2cmd.llm.router import get_router
-                self._router = get_router()
-            except ImportError:
-                self._router = None
+            from nlp2cmd.skills.drawing.llm_helpers import get_drawing_router
+            self._router = get_drawing_router()
         return self._router
 
     def _ensure_skill(self):
@@ -369,25 +366,5 @@ class DrawObjectSkill:
 
     @staticmethod
     def _parse_json(text: str) -> dict | None:
-        """Robustly parse JSON from LLM output."""
-        import json
-        import re
-
-        clean = text.strip()
-        if "```json" in clean:
-            clean = clean.split("```json")[1].split("```")[0]
-        elif "```" in clean:
-            clean = clean.split("```")[1].split("```")[0]
-
-        if not clean.startswith("{"):
-            start = clean.find("{")
-            end = clean.rfind("}")
-            if start >= 0 and end > start:
-                clean = clean[start:end + 1]
-
-        try:
-            clean = re.sub(r',\s*}', '}', clean)
-            clean = re.sub(r',\s*]', ']', clean)
-            return json.loads(clean)
-        except json.JSONDecodeError:
-            return None
+        from nlp2cmd.skills.drawing.llm_helpers import parse_llm_json_object
+        return parse_llm_json_object(text)

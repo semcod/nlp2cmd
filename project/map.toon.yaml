@@ -1,11 +1,11 @@
-# nlp2cmd | 981f 1785367L | shell:73,json:153,python:710,txt:11,yaml:25,yml:3,ini:1,toml:1 | 2026-06-05
-# generated in 0.39s
-# stats: 3862 func | 0 cls | 981 mod | CC̄=5.1 | critical:222 | cycles:0
+# nlp2cmd | 1002f 1785315L | shell:73,json:153,python:731,txt:11,yaml:25,yml:3,toml:1,ini:1 | 2026-06-05
+# generated in 0.52s
+# stats: 3924 func | 0 cls | 1002 mod | CC̄=5.0 | critical:215 | cycles:0
 # alerts[5]: CC BrowserExecutionMixin._run_dom_multi_action=280; CC generate_command=187; CC handle_run_mode=178; CC PlanExecutionMixin.execute_action_plan=168; CC CommandGenerator._generate_simple=144
 # hotspots[5]: BrowserExecutionMixin._run_dom_multi_action fan=108; handle_run_mode fan=75; PlanExecutionMixin.execute_action_plan fan=74; main fan=56; main fan=55
-# evolution: CC̄ 5.5→5.1 (improved -0.4)
+# evolution: CC̄ 5.4→5.0 (improved -0.4)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[981]:
+M[1002]:
   .markdownlint.json,10
   Dockerfile,105
   Makefile,546
@@ -481,7 +481,7 @@ M[981]:
   src/nlp2cmd/adapters/base.py,214
   src/nlp2cmd/adapters/browser.py,595
   src/nlp2cmd/adapters/canvas.py,8
-  src/nlp2cmd/adapters/canvas_adapter.py,410
+  src/nlp2cmd/adapters/canvas_adapter.py,434
   src/nlp2cmd/adapters/canvas_constants.py,19
   src/nlp2cmd/adapters/canvas_execution.py,461
   src/nlp2cmd/adapters/canvas_safety_policy.py,31
@@ -498,12 +498,12 @@ M[981]:
   src/nlp2cmd/aggregator/__init__.py,383
   src/nlp2cmd/appspec_runtime.py,56
   src/nlp2cmd/automation/__init__.py,33
-  src/nlp2cmd/automation/action_planner.py,1772
+  src/nlp2cmd/automation/action_planner.py,1226
   src/nlp2cmd/automation/bitwarden_reader.py,124
   src/nlp2cmd/automation/captcha_solver.py,528
   src/nlp2cmd/automation/complex_planner.py,524
   src/nlp2cmd/automation/credential.py,68
-  src/nlp2cmd/automation/drawing_blueprints.py,740
+  src/nlp2cmd/automation/drawing_blueprints.py,826
   src/nlp2cmd/automation/env_extractor.py,439
   src/nlp2cmd/automation/env_password_reader.py,120
   src/nlp2cmd/automation/failure_type.py,44
@@ -537,10 +537,13 @@ M[981]:
   src/nlp2cmd/browser_token/token_navigator.py,99
   src/nlp2cmd/browser_token/token_prompt_handler.py,93
   src/nlp2cmd/canvas_planner/__init__.py,22
-  src/nlp2cmd/canvas_planner/base.py,73
+  src/nlp2cmd/canvas_planner/base.py,79
   src/nlp2cmd/canvas_planner/blueprint_planner.py,68
-  src/nlp2cmd/canvas_planner/llm_planner.py,219
-  src/nlp2cmd/canvas_planner/orchestrator.py,159
+  src/nlp2cmd/canvas_planner/config.py,59
+  src/nlp2cmd/canvas_planner/json_parse.py,98
+  src/nlp2cmd/canvas_planner/llm_client.py,109
+  src/nlp2cmd/canvas_planner/llm_planner.py,169
+  src/nlp2cmd/canvas_planner/orchestrator.py,152
   src/nlp2cmd/canvas_planner/rule_planner.py,148
   src/nlp2cmd/canvas_planner/vector_planner.py,131
   src/nlp2cmd/cli/__init__.py,6
@@ -677,7 +680,7 @@ M[981]:
   src/nlp2cmd/generation/semantic_entities.py,97
   src/nlp2cmd/generation/semantic_matcher_optimized.py,750
   src/nlp2cmd/generation/structured.py,371
-  src/nlp2cmd/generation/template_generator.py,1201
+  src/nlp2cmd/generation/template_generator.py,1238
   src/nlp2cmd/generation/templates/__init__.py,43
   src/nlp2cmd/generation/templates/api_templates.py,60
   src/nlp2cmd/generation/templates/browser_templates.py,64
@@ -774,7 +777,7 @@ M[981]:
   src/nlp2cmd/plan_execution/__init__.py,16
   src/nlp2cmd/plan_execution/browser_setup.py,183
   src/nlp2cmd/plan_execution/plan_executor.py,561
-  src/nlp2cmd/plan_execution/step_orchestrator.py,611
+  src/nlp2cmd/plan_execution/step_orchestrator.py,615
   src/nlp2cmd/planner/__init__.py,419
   src/nlp2cmd/polish_support.py,318
   src/nlp2cmd/registry/__init__.py,24
@@ -802,7 +805,7 @@ M[981]:
   src/nlp2cmd/service/docker_app.py,41
   src/nlp2cmd/skills/__init__.py,21
   src/nlp2cmd/skills/drawing/__init__.py,129
-  src/nlp2cmd/skills/drawing/__base_fetcher.py,232
+  src/nlp2cmd/skills/drawing/__base_fetcher.py,50
   src/nlp2cmd/skills/drawing/arrow_generator.py,46
   src/nlp2cmd/skills/drawing/autonomous_drawing_pipeline.py,152
   src/nlp2cmd/skills/drawing/bird_generator.py,49
@@ -817,7 +820,7 @@ M[981]:
   src/nlp2cmd/skills/drawing/colors.py,135
   src/nlp2cmd/skills/drawing/commands.py,267
   src/nlp2cmd/skills/drawing/correction_engine.py,9
-  src/nlp2cmd/skills/drawing/correction_engine_class.py,360
+  src/nlp2cmd/skills/drawing/correction_engine_class.py,357
   src/nlp2cmd/skills/drawing/correction_plan.py,36
   src/nlp2cmd/skills/drawing/correction_result.py,37
   src/nlp2cmd/skills/drawing/correction_step.py,34
@@ -825,31 +828,32 @@ M[981]:
   src/nlp2cmd/skills/drawing/cross_generator.py,33
   src/nlp2cmd/skills/drawing/diamond_generator.py,36
   src/nlp2cmd/skills/drawing/dot_generator.py,29
-  src/nlp2cmd/skills/drawing/draw_navigation_skill.py,480
-  src/nlp2cmd/skills/drawing/draw_object.py,393
-  src/nlp2cmd/skills/drawing/draw_validation_skill.py,416
+  src/nlp2cmd/skills/drawing/draw_navigation_skill.py,457
+  src/nlp2cmd/skills/drawing/draw_object.py,370
+  src/nlp2cmd/skills/drawing/draw_validation_skill.py,394
   src/nlp2cmd/skills/drawing/ellipse_generator.py,30
   src/nlp2cmd/skills/drawing/event_store.py,101
   src/nlp2cmd/skills/drawing/events.py,142
-  src/nlp2cmd/skills/drawing/fetched_shape.py,225
+  src/nlp2cmd/skills/drawing/fetched_shape.py,43
   src/nlp2cmd/skills/drawing/fish_generator.py,46
   src/nlp2cmd/skills/drawing/flower_generator.py,35
   src/nlp2cmd/skills/drawing/grid_generator.py,36
   src/nlp2cmd/skills/drawing/heart_generator.py,30
   src/nlp2cmd/skills/drawing/hexagon_generator.py,27
   src/nlp2cmd/skills/drawing/house_generator.py,30
-  src/nlp2cmd/skills/drawing/iconify_fetcher.py,346
+  src/nlp2cmd/skills/drawing/iconify_fetcher.py,164
   src/nlp2cmd/skills/drawing/line_generator.py,25
+  src/nlp2cmd/skills/drawing/llm_helpers.py,39
   src/nlp2cmd/skills/drawing/mountain_generator.py,39
   src/nlp2cmd/skills/drawing/navigation.py,29
   src/nlp2cmd/skills/drawing/navigation_constants.py,100
   src/nlp2cmd/skills/drawing/navigation_result.py,43
   src/nlp2cmd/skills/drawing/navigation_state.py,33
   src/nlp2cmd/skills/drawing/navigation_step.py,34
-  src/nlp2cmd/skills/drawing/nl_parser.py,199
+  src/nlp2cmd/skills/drawing/nl_parser.py,225
   src/nlp2cmd/skills/drawing/object_assessment.py,38
   src/nlp2cmd/skills/drawing/object_fetcher.py,19
-  src/nlp2cmd/skills/drawing/object_fetcher_class.py,358
+  src/nlp2cmd/skills/drawing/object_fetcher_class.py,176
   src/nlp2cmd/skills/drawing/object_status.py,32
   src/nlp2cmd/skills/drawing/octagon_generator.py,27
   src/nlp2cmd/skills/drawing/pentagon_generator.py,27
@@ -863,22 +867,22 @@ M[981]:
   src/nlp2cmd/skills/drawing/shape_generator.py,37
   src/nlp2cmd/skills/drawing/shape_registry.py,102
   src/nlp2cmd/skills/drawing/shapes.py,78
-  src/nlp2cmd/skills/drawing/simple_icons_fetcher.py,245
+  src/nlp2cmd/skills/drawing/simple_icons_fetcher.py,63
   src/nlp2cmd/skills/drawing/skill.py,290
   src/nlp2cmd/skills/drawing/spiral_generator.py,32
   src/nlp2cmd/skills/drawing/square_generator.py,25
   src/nlp2cmd/skills/drawing/star_generator.py,33
   src/nlp2cmd/skills/drawing/sun_generator.py,36
   src/nlp2cmd/skills/drawing/svg_path_parser.py,189
-  src/nlp2cmd/skills/drawing/svg_repo_fetcher.py,249
+  src/nlp2cmd/skills/drawing/svg_repo_fetcher.py,67
   src/nlp2cmd/skills/drawing/task_plan.py,37
-  src/nlp2cmd/skills/drawing/text_to_shape.py,373
+  src/nlp2cmd/skills/drawing/text_to_shape.py,370
   src/nlp2cmd/skills/drawing/tree_generator.py,33
   src/nlp2cmd/skills/drawing/triangle_generator.py,26
   src/nlp2cmd/skills/drawing/validation.py,21
   src/nlp2cmd/skills/drawing/validation_constants.py,58
   src/nlp2cmd/skills/drawing/validation_report.py,85
-  src/nlp2cmd/skills/drawing/visual_validator.py,402
+  src/nlp2cmd/skills/drawing/visual_validator.py,399
   src/nlp2cmd/skills/drawing/wave_generator.py,34
   src/nlp2cmd/skills/search/__init__.py,44
   src/nlp2cmd/skills/search/engine.py,453
@@ -958,6 +962,23 @@ M[981]:
   src/nlp2cmd/validators/sql_validator.py,113
   src/nlp2cmd/validators/syntax_validator.py,47
   src/nlp2cmd/validators/validation_result.py,91
+  src/nlp2cmd/vql/__init__.py,52
+  src/nlp2cmd/vql/adapters/__init__.py,11
+  src/nlp2cmd/vql/adapters/canvas_plan.py,82
+  src/nlp2cmd/vql/api.py,53
+  src/nlp2cmd/vql/compiler/__init__.py,15
+  src/nlp2cmd/vql/compiler/legacy_drawcommand.py,142
+  src/nlp2cmd/vql/compiler/nl_to_vql.py,69
+  src/nlp2cmd/vql/facade.py,91
+  src/nlp2cmd/vql/library/__init__.py,24
+  src/nlp2cmd/vql/renderers/__init__.py,22
+  src/nlp2cmd/vql/renderers/base.py,65
+  src/nlp2cmd/vql/renderers/playwright.py,22
+  src/nlp2cmd/vql/renderers/svg.py,26
+  src/nlp2cmd/vql/schema/__init__.py,33
+  src/nlp2cmd/vql/schema/program.py,423
+  src/nlp2cmd/vql/validation/__init__.py,11
+  src/nlp2cmd/vql/validation/spec.py,91
   src/nlp2cmd/web_schema/__init__.py,31
   src/nlp2cmd/web_schema/browser_config.py,331
   src/nlp2cmd/web_schema/extractor.py,389
@@ -1137,38 +1158,8 @@ Uses a...
     e: MatchResult,SchemaDrivenNLP2CMD
     MatchResult:
     SchemaDrivenNLP2CMD: __init__(1),transform(1),_select_action(1),_extract_params(2),_render_dsl(3),_render_dom(2),_render_http(2),_render_shell(3)
-  src/nlp2cmd/skills/drawing/iconify_fetcher.py:
-    e: IconifyFetcher,parse_svg_path
-    IconifyFetcher(_BaseFetcher): fetch(1),_search(1),_fetch_icon(2)  # Fetch icons from Iconify API (api.iconify.design).
-
-Unified ...
-    parse_svg_path(d;scale;center)
-  src/nlp2cmd/skills/drawing/object_fetcher_class.py:
-    e: ObjectFetcher,parse_svg_path
-    ObjectFetcher: __init__(2),fetch(2),_load_cache(1),_save_cache(2),clear_cache(0),known_objects(-1)  # Autonomous shape fetcher with multi-database search and loca...
-    parse_svg_path(d;scale;center)
   src/nlp2cmd/skills/drawing/svg_path_parser.py:
     e: parse_svg_path
-    parse_svg_path(d;scale;center)
-  src/nlp2cmd/skills/drawing/fetched_shape.py:
-    e: FetchedShape,parse_svg_path
-    FetchedShape:  # Shape data retrieved from an external database...
-    parse_svg_path(d;scale;center)
-  src/nlp2cmd/skills/drawing/svg_repo_fetcher.py:
-    e: SVGRepoFetcher,parse_svg_path
-    SVGRepoFetcher(_BaseFetcher): fetch(1)  # Search and fetch from SVG Repo (svgrepo.com).
-
-1M+ free SVG ...
-    parse_svg_path(d;scale;center)
-  src/nlp2cmd/skills/drawing/simple_icons_fetcher.py:
-    e: SimpleIconsFetcher,parse_svg_path
-    SimpleIconsFetcher(_BaseFetcher): fetch(1)  # Fetch SVG icons from Simple Icons (simpleicons.org).
-
-3000+ ...
-    parse_svg_path(d;scale;center)
-  src/nlp2cmd/skills/drawing/__base_fetcher.py:
-    e: _BaseFetcher,parse_svg_path
-    _BaseFetcher: _get(1)  # Base HTTP fetcher with timeout and SSL handling...
     parse_svg_path(d;scale;center)
   src/nlp2cmd/feedback/feedback_analyzer.py:
     e: FeedbackAnalyzer
@@ -1335,13 +1326,6 @@ Co...
     MockPolishPDFSearchLLM: __init__(0),generate_pdf_search_command(1)  # Mock implementation dla demonstracji bez prawdziwego LLM...
     test_pdf_search_queries()
     show_configuration_guide()
-  src/nlp2cmd/automation/action_planner.py:
-    e: ActionStep,ActionPlan,ActionPlanner,_load_known_services,_can_use_desktop_automation
-    ActionStep: to_dict(0)  # Single step in an execution plan...
-    ActionPlan: to_cache_dict(0),from_cache_dict(1)  # Complete execution plan for a complex command...
-    ActionPlanner: __init__(2),decompose(2),decompose_sync(2),_try_rule_decomposition(1),_resolve_service(0),_wants_new_tab(0),_wants_existing_firefox(0),_wants_create_key(0),_build_navigation_steps(4),_build_session_check_steps(2),_build_create_key_steps(2),_build_manual_key_steps(3),_try_canvas_decomposition(1),_try_canvas_decomposition_dispatch(1),_generate_canvas_plan_with_llm(2),_generate_rule_based_canvas_plan(3),_search_vector_db_for_pattern(3),_try_multi_tab_decomposition(1),_call_llm(1),_call_llm_sync(1),_parse_llm_response(2),_heuristic_decomposition(1)  # Decomposes complex NL commands into ActionPlan via rules or ...
-    _load_known_services()
-    _can_use_desktop_automation()
   src/nlp2cmd/adapters/dynamic.py:
     e: DynamicSafetyPolicy,DynamicAdapter
     DynamicSafetyPolicy(SafetyPolicy): __init__(0),check_command(2)  # Enhanced safety policy that adapts based on extracted schema...
@@ -1471,6 +1455,11 @@ Tracks a drawi...
     e: PolishLanguageSupport,get_polish_support
     PolishLanguageSupport: __init__(0),_load_patterns(0),normalize_polish_text(1),normalize_stt_errors(1),_find_best_phrase_match(2),_similar(3),match_polish_patterns(2),translate_polish_intent(1),translate_polish_table(1),get_domain_weight(1),enhance_domain_detection(2),enhance_intent_detection(2)  # Polish language support for NLP2CMD...
     get_polish_support()
+  src/nlp2cmd/canvas_planner/json_parse.py:
+    e: clean_llm_json_text,_salvage_truncated_json_array,parse_canvas_steps_json
+    clean_llm_json_text(raw)
+    _salvage_truncated_json_array(text)
+    parse_canvas_steps_json(raw)
   src/nlp2cmd/cli/debug_info.py:
     e: show_schema_info,show_decision_tree_info,generate_debug_log_md
     show_schema_info(console)
@@ -1613,6 +1602,9 @@ Lifecycle:...
     _resolve_env_refs(obj)
     get_router()
     reset_router()
+  src/nlp2cmd/orchestration/engine.py:
+    e: _parse_json
+    _parse_json(text)
   src/nlp2cmd/streams/libvirt_stream.py:
     e: LibvirtStreamAdapter
     LibvirtStreamAdapter(StreamAdapter): __init__(1),_build_libvirt_uri(0),_virsh(0),connect(0),execute(1),query(1),_list_vms(0),_extract_vm_name(1),_create_vm(1),_start_vm(1),_stop_vm(1),_delete_vm(1),_vm_info(1),_connect_display(1)  # Manage VMs via libvirt and control their desktops via SPICE/...
@@ -1634,9 +1626,6 @@ Lifecycle:...
   scripts/maintenance/fix_comprehensive_test_issues.py:
     e: ComprehensiveTestFixer
     ComprehensiveTestFixer: __init__(0),load_results(0),analyze_issues(1),identify_root_causes(1),generate_fixes(1),create_fixed_test_expectations(1),generate_improved_test_suite(2),save_improved_results(3),run_analysis(0)  # Analyzes and fixes issues in comprehensive test results...
-  src/nlp2cmd/orchestration/engine.py:
-    e: _parse_json
-    _parse_json(text)
   examples/06_desktop_automation/09_complex_commands/run.py:
     e: main
     main()
@@ -1651,7 +1640,7 @@ Lifecycle:...
   src/nlp2cmd/plan_execution/step_orchestrator.py:
     e: StepResult,StepOrchestrator
     StepResult:  # Result of executing a single step...
-    StepOrchestrator: __init__(7),execute_step(8),_handle_new_tab(5),_pre_validate(4),_check_already_available(5),_post_validate_and_fallback(9),_trigger_fallback(7),_inject_fallback_steps(5),_print_step_result(4),_handle_step_error(10),_trigger_error_fallback(8),get_summary(0)  # Orchestrates step execution with validation, fallback, and r...
+    StepOrchestrator: __init__(7),execute_step(8),_handle_new_tab(5),_pre_validate(4),_check_already_available(6),_post_validate_and_fallback(9),_trigger_fallback(7),_inject_fallback_steps(5),_print_step_result(4),_handle_step_error(10),_trigger_error_fallback(8),get_summary(0)  # Orchestrates step execution with validation, fallback, and r...
   src/nlp2cmd/exploration/data_tree.py:
     e: DataNode,DataMatch,DataTreeExplorer,quick_find_in_data
     DataNode:  # A node in a data tree...
@@ -1937,6 +1926,9 @@ Supports:
     RepairResult:  # Result from LLM repair...
     LLMRepair: __init__(7),repair(5),_call_openrouter(1),_parse_and_apply(1),_apply_patterns_patch(1),_apply_templates_patch(1)  # Repairs failed commands and optionally patches data files us...
     _debug(msg)
+  src/nlp2cmd/skills/drawing/object_fetcher_class.py:
+    e: ObjectFetcher
+    ObjectFetcher: __init__(2),fetch(2),_load_cache(1),_save_cache(2),clear_cache(0),known_objects(-1)  # Autonomous shape fetcher with multi-database search and loca...
   src/nlp2cmd/adapters/shell.py:
     e: ShellSafetyPolicy,EnvironmentContext,ShellAdapter
     ShellSafetyPolicy(SafetyPolicy):  # Shell-specific safety policy...
@@ -1980,6 +1972,13 @@ Automatically records all ...
     estimate_token_cost(time_ms;cpu_percent;memory_mb;energy_mj)
     format_token_estimate(estimate)
     parse_metrics_string(metrics_str)
+  src/nlp2cmd/automation/action_planner.py:
+    e: ActionStep,ActionPlan,ActionPlanner,_load_known_services,_can_use_desktop_automation
+    ActionStep: to_dict(0)  # Single step in an execution plan...
+    ActionPlan: to_cache_dict(0),from_cache_dict(1)  # Complete execution plan for a complex command...
+    ActionPlanner: __init__(2),decompose(2),decompose_sync(2),_try_rule_decomposition(1),_resolve_service(0),_wants_new_tab(0),_wants_existing_firefox(0),_wants_create_key(0),_build_navigation_steps(4),_build_session_check_steps(2),_build_create_key_steps(2),_build_manual_key_steps(3),_try_canvas_decomposition(1),_try_multi_tab_decomposition(1),_call_llm(1),_call_llm_sync(1),_parse_llm_response(2),_heuristic_decomposition(1)  # Decomposes complex NL commands into ActionPlan via rules or ...
+    _load_known_services()
+    _can_use_desktop_automation()
   src/nlp2cmd/automation/captcha_solver.py:
     e: CaptchaInfo,CaptchaSolver,_debug
     CaptchaInfo:  # Detected CAPTCHA information...
@@ -2051,6 +2050,11 @@ Composes:...
     VisualValidator: __init__(1),_get_router(0),validate(3),revalidate(5),_parse_validation(3),_heuristic_validate(3),_print_result(2)  # Validates drawings using vision LLM models.
 
 Uses the LLM Ro...
+  src/nlp2cmd/skills/drawing/draw_navigation_skill.py:
+    e: DrawNavigationSkill
+    DrawNavigationSkill: __init__(2),_get_router(0),_vision_call(2),navigate(4),_try_site(4),_navigate_to_site(4),_dismiss_popups_heuristic(2),_verify_canvas_vision(2),_dismiss_popups_vision(2),_discover_canvas(3),_select_tool(3),_build_site_order(2),_check_canvas_dom(1),_parse_canvas_info(3),_parse_json(0)  # Vision-guided navigation to drawing canvas.
+
+Uses Qwen VL to...
   src/nlp2cmd/thermodynamic/langevin_sampler.py:
     e: LangevinSampler
     LangevinSampler: __init__(2),sample(3),_sample_single(2),sample_parallel(3)  # Thermodynamic sampler using overdamped Langevin dynamics.
@@ -2073,11 +2077,6 @@ Tran...
     analyze_screenshots(folder)
     resize_screenshots(folder;scale_factor)
     main()
-  src/nlp2cmd/skills/drawing/draw_navigation_skill.py:
-    e: DrawNavigationSkill
-    DrawNavigationSkill: __init__(2),_get_router(0),_vision_call(2),navigate(4),_try_site(4),_navigate_to_site(4),_dismiss_popups_heuristic(2),_verify_canvas_vision(2),_dismiss_popups_vision(2),_discover_canvas(3),_select_tool(3),_build_site_order(2),_check_canvas_dom(1),_parse_canvas_info(3),_parse_json(0)  # Vision-guided navigation to drawing canvas.
-
-Uses Qwen VL to...
   examples/run_task.py:
     e: main
     main()
@@ -2149,9 +2148,6 @@ Feature...
     _generate_variations(phrase;domain;intent;language)
     create_default_training_data()
     get_ml_classifier(force_retrain)
-  src/nlp2cmd/canvas_planner/llm_planner.py:
-    e: LLMCanvasPlanner
-    LLMCanvasPlanner(CanvasPlannerBase): plan(3),_call_llm(1),_parse_response(1),_build_full_plan(3)  # Generates drawing plans using LLM for arbitrary objects...
   src/nlp2cmd/canvas_planner/rule_planner.py:
     e: RuleBasedCanvasPlanner
     RuleBasedCanvasPlanner(CanvasPlannerBase): plan(3),_build_base_steps(1),_rabbit_shape(0),_car_shape(0),_house_shape(0),_sun_shape(0),_tree_shape(0),_generic_shape(1)  # Generates drawing plans using hardcoded shape rules.
@@ -2163,12 +2159,13 @@ This i...
     DiscoveryDecision:  # Decision about whether to attempt discovery or fail...
     ResourceDiscoveryManager: __init__(4),analyze_error(2),should_attempt_discovery(3),discover_missing_resource(2),_discover_file_resource(2),_discover_endpoint_resource(2),_discover_data_resource(2),adapt_command(2),handle_execution_failure(3)  # Manages automatic resource discovery during command executio...
     get_resource_discovery_manager()
-  src/nlp2cmd/skills/drawing/nl_parser.py:
-    e: NLDrawingParser
-    NLDrawingParser: __init__(1),parse(3),detect_shape(1),detect_color(2),_extract_shapes(1),_extract_size_params(1),_extract_shape_specific_params(2)  # Parse natural language drawing instructions into DrawCommand...
   src/nlp2cmd/skills/drawing/skill.py:
     e: DrawingSkill
     DrawingSkill: __init__(1),init_canvas(4),draw(5),set_color(1),select_tool(1),clear(0),execute_nl(1),detect_shape(1),detect_color(2),get_state(0),get_history(1),get_shapes(0),available_shapes(-1),render(3),render_and_screenshot(4),save_session(1),load_session(1),__repr__(0)  # Facade for the drawing skill — single entry point for all dr...
+  src/nlp2cmd/orchestration/function_cache.py:
+    e: FunctionCache,get_workspace
+    FunctionCache: __init__(1),_load_index(0),_save_index(0),store(6),lookup(3),get_code(1),get_stats(0)  # Caches auto-generated JS and Python functions in .nlp2cmd/ge...
+    get_workspace()
   src/nlp2cmd/context/disambiguator.py:
     e: DisambiguationResult,CommandDisambiguator
     DisambiguationResult:  # Result of disambiguation process...
@@ -2203,10 +2200,9 @@ When a query ...
     _set_extractor_env(mode;ab_ratio)
     _restore_extractor_env(prev)
     main(argv)
-  src/nlp2cmd/orchestration/function_cache.py:
-    e: FunctionCache,get_workspace
-    FunctionCache: __init__(1),_load_index(0),_save_index(0),store(6),lookup(3),get_code(1),get_stats(0)  # Caches auto-generated JS and Python functions in .nlp2cmd/ge...
-    get_workspace()
+  src/nlp2cmd/skills/drawing/nl_parser.py:
+    e: NLDrawingParser
+    NLDrawingParser: __init__(1),parse(3),to_vql(5),detect_shape(1),detect_color(2),_extract_shapes(1),_extract_size_params(1),_extract_shape_specific_params(2)  # Parse natural language drawing instructions into DrawCommand...
   examples/08_api_key_management/06_multi_provider/run.py:
     e: scan,plan_all,setup_providers,setup_all,main
     scan()
@@ -2255,10 +2251,6 @@ Requirement...
   src/nlp2cmd/desktop_executor/window_manager.py:
     e: WindowManager
     WindowManager: __init__(1),focus_window(3),_focus_with_ydotool(2),_focus_with_wmctrl(2),_focus_with_xdotool(3)  # Manage application windows via desktop automation tools...
-  src/nlp2cmd/adapters/canvas_adapter.py:
-    e: CanvasAdapter,_debug
-    CanvasAdapter(BaseDSLAdapter): __init__(2),generate(1),_create_drawing_plan(1),_plan_ladybug(2),_plan_shape(3),_plan_text(3),_extract_colors(1),_extract_shapes(1),_extract_draw_text(0),validate_syntax(1),execute_drawing_plan(1)  # Adapter for canvas-based drawing via Playwright mouse contro...
-    _debug(msg)
   src/nlp2cmd/utils/playwright_installer.py:
     e: _is_pep668_externally_managed_error,is_playwright_installed,is_playwright_browsers_installed,install_playwright,install_playwright_browsers,ensure_playwright_installed
     _is_pep668_externally_managed_error(stderr)
@@ -2273,6 +2265,17 @@ Requirement...
   src/nlp2cmd/step_handlers/navigate.py:
     e: NavigateHandler
     NavigateHandler(StepHandler): execute(1),_handle_security_checkup(2)  # Handle navigate action - navigate to URL with security check...
+  src/nlp2cmd/canvas_planner/orchestrator.py:
+    e: CanvasPlanningOrchestrator
+    CanvasPlanningOrchestrator: __init__(2),plan(3),_try_blueprint(3),_try_vector_db(3),_try_template(3),_try_llm(3),_try_rule(3)  # Orchestrates multiple canvas planners in priority order...
+  src/nlp2cmd/vql/adapters/canvas_plan.py:
+    e: program_to_canvas_steps,program_to_canvas_payload
+    program_to_canvas_steps(program)
+    program_to_canvas_payload(program)
+  src/nlp2cmd/adapters/canvas_adapter.py:
+    e: CanvasAdapter,_debug
+    CanvasAdapter(BaseDSLAdapter): __init__(2),generate(1),generate_from_vql(1),_create_drawing_plan(1),_plan_ladybug(2),_plan_shape(3),_plan_text(3),_extract_colors(1),_extract_shapes(1),_extract_draw_text(0),validate_syntax(1),execute_drawing_plan(1)  # Adapter for canvas-based drawing via Playwright mouse contro...
+    _debug(msg)
   examples/03_integrations/web_development/_demo_helpers.py:
     e: print_config,print_containers,print_files_saved,print_docker_result,print_command_result,show_container_status,show_container_logs,stop_all_containers,_run_subprocess,test_chat_service,test_redis_service,test_postgres_service,test_container_service,test_services,handle_docker_execution,print_batch_banner,print_execution_summary,dispatch_management_command
     print_config(config)
@@ -2433,6 +2436,10 @@ Decompose complex queries in...
     RoutingEnergy(EnergyModel): __init__(4),energy(2),gradient(2),_softmax_matrix(1),decode_route(1)  # Energy model for routing problems (TSP, VRP).
 
 Encodes z as ...
+  src/nlp2cmd/orchestration/path_optimizer.py:
+    e: PathOptimizer,get_workspace
+    PathOptimizer: __init__(1),_load(0),_save(0),lookup(1),record_success(1),get_stats(0)  # Stores successful decision paths for reuse on similar goals...
+    get_workspace()
   src/nlp2cmd/enhanced/__init__.py:
     e: EnhancedNLP2CMD,create_enhanced_nlp2cmd
     EnhancedNLP2CMD(NLP2CMD): __init__(3),load_appspec(1),get_available_commands(1),get_command_categories(0),search_commands(2),get_command_help(1),transform_with_explanation(3),export_schemas(1),transform_ir(3),analyze_query(1)  # Enhanced NLP2CMD with dynamic schema capabilities.
@@ -2477,10 +2484,11 @@ This cla...
     detect_changes(folder)
     create_diff_images(folder;output_folder)
     main()
-  src/nlp2cmd/orchestration/path_optimizer.py:
-    e: PathOptimizer,get_workspace
-    PathOptimizer: __init__(1),_load(0),_save(0),lookup(1),record_success(1),get_stats(0)  # Stores successful decision paths for reuse on similar goals...
-    get_workspace()
+  src/nlp2cmd/vql/compiler/legacy_drawcommand.py:
+    e: program_to_commands,commands_to_program,compile_to_events
+    program_to_commands(program)
+    commands_to_program(commands)
+    compile_to_events(program)
   examples/08_api_key_management/05_openai_key/run.py:
     e: check,run_flow,main
     check()
@@ -2551,9 +2559,12 @@ This cla...
   src/nlp2cmd/canvas_planner/vector_planner.py:
     e: VectorDBPlanner
     VectorDBPlanner(CanvasPlannerBase): is_available(0),plan(3),_extract_search_query(1),_find_best_pattern(2),_calculate_confidence(3),_build_plan_from_pattern(2)  # Searches vector database for semantically similar drawing pa...
-  src/nlp2cmd/canvas_planner/orchestrator.py:
-    e: CanvasPlanningOrchestrator
-    CanvasPlanningOrchestrator: __init__(2),plan(3),_try_blueprint(3),_try_vector_db(3),_try_template(3),_try_llm(3),_try_rule(3)  # Orchestrates multiple canvas planners in priority order...
+  src/nlp2cmd/canvas_planner/llm_client.py:
+    e: _normalize_ollama_model,_call_via_router,_call_via_ollama,call_canvas_llm
+    _normalize_ollama_model(model)
+    _call_via_router(prompt;config)
+    _call_via_ollama(prompt;config)
+    call_canvas_llm(prompt;config)
   src/nlp2cmd/exploration/base.py:
     e: ExplorationResult,ExplorationContext,BaseExplorer,ExplorerRegistry,explore
     ExplorationResult(<ast.Subscript object at 0x7aafb35c0b90>):  # Result of exploration in any space...
@@ -2563,6 +2574,10 @@ This cla...
 Implementations must...
     ExplorerRegistry: register(2),get(1),list_supported(0),auto_detect(1)  # Registry of available explorers...
     explore(root;intent;search_term;space_type)
+  src/nlp2cmd/skills/drawing/llm_helpers.py:
+    e: get_drawing_router,parse_llm_json_object
+    get_drawing_router()
+    parse_llm_json_object(text)
   src/nlp2cmd/skills/drawing/validation_report.py:
     e: ValidationReport
     ValidationReport: summary(0),next_actions(0)  # Full validation report: what's done, what remains, what's wr...
@@ -2693,6 +2708,9 @@ Automatically adj...
   src/nlp2cmd/desktop_executor/env_manager.py:
     e: EnvManager
     EnvManager: __init__(1),verify_env(3),_validate_value(2),_load_env_file(1)  # Manage environment variables and .env files...
+  src/nlp2cmd/canvas_planner/llm_planner.py:
+    e: LLMCanvasPlanner
+    LLMCanvasPlanner(CanvasPlannerBase): plan(3),_call_llm(1),_parse_response(1),_build_full_plan(3)  # Generates drawing plans using LLM for arbitrary objects...
   src/nlp2cmd/browser_manager/base.py:
     e: ConnectionStatus,BrowserConfig,BrowserConnectionResult
     ConnectionStatus(Enum):  # Status of browser connection attempt...
@@ -2964,6 +2982,12 @@ Example:
   src/nlp2cmd/desktop_executor/browser_controller.py:
     e: BrowserController
     BrowserController: __init__(0),open_tab(2),check_session(3),_find_firefox(0),is_available(0)  # Control Firefox browser via command-line interface...
+  src/nlp2cmd/canvas_planner/config.py:
+    e: CanvasLLMConfig,_env_flag,resolve_canvas_model,resolve_ollama_url
+    CanvasLLMConfig: from_env(0)
+    _env_flag(name;default)
+    resolve_canvas_model(explicit)
+    resolve_ollama_url(explicit)
   src/nlp2cmd/planner/__init__.py:
     e: PlannerConfig,PlanningResult,LLMPlanner
     PlannerConfig:  # Configuration for LLM Planner...
@@ -2990,6 +3014,11 @@ Usag...
   src/nlp2cmd/evolutionary/runner.py:
     e: AutonomousExampleRunner
     AutonomousExampleRunner: __init__(1),_print(2),run_example(4),get_learning_report(0)  # Autonomiczny runner z evolutionary recovery...
+  src/nlp2cmd/skills/drawing/iconify_fetcher.py:
+    e: IconifyFetcher
+    IconifyFetcher(_BaseFetcher): fetch(1),_search(1),_fetch_icon(2)  # Fetch icons from Iconify API (api.iconify.design).
+
+Unified ...
   src/nlp2cmd/skills/drawing/colors.py:
     e: ColorResolver
     ColorResolver: __init__(0),register(2),resolve(2),extract_colors(1),available(0),unique_colors(0)  # Resolves color names to hex codes with Polish + English supp...
@@ -2999,6 +3028,13 @@ Usag...
 
 Usage:
     renderer = SVGRen...
+  src/nlp2cmd/orchestration/metrics_collector.py:
+    e: MetricsCollector,get_workspace
+    MetricsCollector: __init__(1),start_task(3),record_step(7),record_generated_function(1),finish_task(3),get_summary(0),get_recent_tasks(1),_update_summary(1),_empty_summary(-1)  # Collects and persists orchestration metrics.
+
+Usage:
+    mc ...
+    get_workspace()
   src/nlp2cmd/adapters/base.py:
     e: SafetyPolicy,AdapterConfig,BaseDSLAdapter
     SafetyPolicy:  # Base safety policy configuration...
@@ -3049,13 +3085,9 @@ Decyduje które elektro...
     e: SimpleE2ETester,main
     SimpleE2ETester: __init__(2),start_service(0),wait_for_ready(1),stop_service(0),run_test(2),test_health_check(0),test_service_info(0),test_basic_query(0),test_polish_queries(0),test_query_with_explanation(0),test_config_management(0),test_error_handling(0),test_concurrent_requests(0),run_all_tests(0),cleanup(0)  # Simple E2E test runner for NLP2CMD service...
     main()
-  src/nlp2cmd/orchestration/metrics_collector.py:
-    e: MetricsCollector,get_workspace
-    MetricsCollector: __init__(1),start_task(3),record_step(7),record_generated_function(1),finish_task(3),get_summary(0),get_recent_tasks(1),_update_summary(1),_empty_summary(-1)  # Collects and persists orchestration metrics.
-
-Usage:
-    mc ...
-    get_workspace()
+  src/nlp2cmd/vql/compiler/nl_to_vql.py:
+    e: nl_to_program
+    nl_to_program(text)
   examples/05_advanced_features/schema_driven_architecture/05_result_aggregator/demo.py:
     e: OutputFormat,ExecutionResult,ResultAggregator,main
     OutputFormat(Enum):  # Format wyjściowy...
@@ -3126,6 +3158,9 @@ Usage:
     e: Point,MouseController
     Point: __add__(1),__sub__(1),__mul__(1),distance_to(1)  # 2D point for mouse operations...
     MouseController: __init__(2),_jitter(2),_human_delay(2),click(3),double_click(2),right_click(2),move_to(2),drag(4),_compute_bezier(2),bezier_move(2),bezier_draw(2),draw_circle(3),draw_ellipse(4),draw_rectangle(3),draw_line(3),draw_dots(3),fill_at(2),scroll(4),human_move(3)  # Advanced mouse control via Playwright with human-like moveme...
+  src/nlp2cmd/generation/fuzzy_schema_matcher.py:
+    e: create_multilingual_matcher
+    create_multilingual_matcher(phrases_dict;schema_path)
   src/nlp2cmd/generation/multi_command.py:
     e: MultiCommandResult,MultiCommandDetector,get_multi_command_detector,detect_multi_commands
     MultiCommandResult: get_domains(0),get_intents(0)  # Result of multi-command detection...
@@ -3179,6 +3214,11 @@ Models:...
   src/nlp2cmd/skills/drawing/butterfly_generator.py:
     e: ButterflyGenerator
     ButterflyGenerator(ShapeGenerator): generate(3)
+  src/nlp2cmd/skills/drawing/svg_repo_fetcher.py:
+    e: SVGRepoFetcher
+    SVGRepoFetcher(_BaseFetcher): fetch(1)  # Search and fetch from SVG Repo (svgrepo.com).
+
+1M+ free SVG ...
   src/nlp2cmd/registry/action_registry.py:
     e: ActionRegistry
     ActionRegistry: __init__(0),_register_builtin_actions(0),register(2),get(1),get_handler(1),has(1),list_actions(1),list_domains(0),get_by_tag(1),get_destructive_actions(0),validate_action(2),to_llm_prompt(1)  # Central registry for all system actions.
@@ -3212,9 +3252,22 @@ Provides:
     ORScheduler: __init__(2),_can_perform(2),schedule(0),_sort_surgeries_by_priority(0),_initialize_schedule(0),_get_room_end_times(0),_find_best_room_for_surgery(2),_schedule_surgery_in_room(5),print_schedule(1)  # Scheduler dla sal operacyjnych.
 
 Optymalizuje przydzielenie ...
-  src/nlp2cmd/generation/fuzzy_schema_matcher.py:
-    e: create_multilingual_matcher
-    create_multilingual_matcher(phrases_dict;schema_path)
+  src/nlp2cmd/vql/schema/program.py:
+    e: RenderTarget,Style,Transform,Anchor,Constraint,Relation,Primitive,Object,Layer,Scene,ValidationSpec,VQLProgram
+    RenderTarget(str,Enum):  # Supported render backends for a VQL program...
+    Style: validate(0),to_dict(0),from_dict(1)  # Visual style for an object/primitive...
+    Transform: is_identity(0),to_dict(0),from_dict(1)  # Affine transform applied to an object...
+    Anchor: to_dict(0),from_dict(1)  # A named reference point on the canvas/object...
+    Constraint: to_dict(0),from_dict(1)  # A declarative constraint on an object (placeholder for solve...
+    Relation: to_dict(0),from_dict(1)  # A relation between two objects (placeholder for layout engin...
+    Primitive: validate(0),to_dict(0),from_dict(1)  # A drawable primitive — the smallest unit of geometry.
+
+``sha...
+    Object: validate(0),to_dict(0),from_dict(1)  # A logical drawing object — one or more primitives sharing a ...
+    Layer: validate(0),to_dict(0),from_dict(1)  # An ordered group of objects...
+    Scene: validate(0),iter_objects(0),to_dict(0),from_dict(1)  # The root container — canvas dimensions, background, and laye...
+    ValidationSpec: to_dict(0),from_dict(1)  # Declarative expectation describing what a correct render mus...
+    VQLProgram: validate(0),is_valid(0),object_count(0),to_dict(0),from_dict(1)  # Top-level VQL program — the contract between NL parsing and ...
   examples/_dynamic_orchestrator.py:
     e: DynamicOrchestrator
     DynamicOrchestrator: __init__(2),execute_task(2)  # Backward-compatible wrapper around nlp2cmd.orchestration.Orc...
@@ -3288,6 +3341,9 @@ Optymalizuje przydzielenie ...
     get_last_metrics()
     format_last_metrics()
     get_system_info()
+  src/nlp2cmd/automation/credential.py:
+    e: Credential
+    Credential: matches_domain(1)  # Single credential entry...
   src/nlp2cmd/generation/phrase_schema.py:
     e: PhraseSchema,_get_jellyfish,_get_rapidfuzz
     PhraseSchema:  # Schema for a phrase with metadata...
@@ -3321,6 +3377,11 @@ Wraps OpenRouterClien...
   src/nlp2cmd/skills/drawing/cat_generator.py:
     e: CatGenerator
     CatGenerator(ShapeGenerator): generate(3)
+  src/nlp2cmd/skills/drawing/simple_icons_fetcher.py:
+    e: SimpleIconsFetcher
+    SimpleIconsFetcher(_BaseFetcher): fetch(1)  # Fetch SVG icons from Simple Icons (simpleicons.org).
+
+3000+ ...
   src/nlp2cmd/skills/drawing/cloud_detailed_generator.py:
     e: CloudDetailedGenerator
     CloudDetailedGenerator(ShapeGenerator): generate(3)
@@ -3345,9 +3406,13 @@ Provi...
   src/nlp2cmd/step_handlers/draw_polygon_handler.py:
     e: DrawPolygonHandler
     DrawPolygonHandler(StepHandler,CanvasMixin): execute(1)  # Draw a polygon on canvas...
-  src/nlp2cmd/automation/credential.py:
-    e: Credential
-    Credential: matches_domain(1)  # Single credential entry...
+  src/nlp2cmd/vql/validation/spec.py:
+    e: VQLValidationReport,_program_shapes,_program_colors,_match_items,validate_program
+    VQLValidationReport: to_dict(0)  # Outcome of validating a program against a spec...
+    _program_shapes(program)
+    _program_colors(program)
+    _match_items(expected;present;label)
+    validate_program(program;spec)
   examples/03_integrations/web_development/web_app_example.py:
     e: CommandRequest,CommandResponse,HistoryResponse,process_command,get_status,get_history,get_services,home,history_page,services_page,get_examples
     CommandRequest(BaseModel):
@@ -3422,7 +3487,7 @@ Provi...
     e: debug_keywords
     debug_keywords()
   src/nlp2cmd/automation/drawing_blueprints.py:
-    e: DrawStep,_step,_rabbit_steps,_cat_steps,_dog_steps,_car_steps,_house_steps,_tree_steps,_sun_steps,_flower_steps,_star_steps,_heart_steps,_fish_steps,_butterfly_steps,_snowman_steps,_ladybug_steps,lookup_blueprint,get_blueprint_steps,list_available_blueprints
+    e: DrawStep,_step,_rabbit_steps,_cat_steps,_dog_steps,_car_steps,_house_steps,_tree_steps,_sun_steps,_flower_steps,_star_steps,_heart_steps,_fish_steps,_butterfly_steps,_snowman_steps,_ladybug_steps,_child_steps,_spider_steps,lookup_blueprint,get_blueprint_steps,list_available_blueprints
     DrawStep:  # Single drawing step in a blueprint...
     _step(action;params;desc)
     _rabbit_steps()
@@ -3439,6 +3504,8 @@ Provi...
     _butterfly_steps()
     _snowman_steps()
     _ladybug_steps()
+    _child_steps()
+    _spider_steps()
     lookup_blueprint(query)
     get_blueprint_steps(query)
     list_available_blueprints()
@@ -3514,6 +3581,10 @@ Concrete implementations:
     ConstraintEnergy(EnergyModel): __init__(0),add_penalty(4),energy(2),gradient(2)  # Energy model for constraint satisfaction problems.
 
 V(z; c) ...
+  src/nlp2cmd/orchestration/task_metric.py:
+    e: TaskMetric,get_workspace
+    TaskMetric: __post_init__(0)  # Metrics for a complete orchestrated task...
+    get_workspace()
   src/nlp2cmd/dom_actions/base.py:
     e: ActionContext,ActionResult,DomAction
     ActionContext:  # Context passed to DOM action handlers...
@@ -3568,10 +3639,6 @@ Each handler implements ...
     _apply_shell_service_defaults(intent;entities;result)
     _apply_shell_browser_defaults(intent;entities;result)
     apply_refactor_to_template_generator()
-  src/nlp2cmd/orchestration/task_metric.py:
-    e: TaskMetric,get_workspace
-    TaskMetric: __post_init__(0)  # Metrics for a complete orchestrated task...
-    get_workspace()
   jspaint_app_test4.py:
     e: run
     run()
@@ -3761,6 +3828,10 @@ Energy function V(z;...
     e: GeneratedFunction,get_workspace
     GeneratedFunction: __post_init__(0)  # A generated JS or Python function cached for reuse...
     get_workspace()
+  src/nlp2cmd/orchestration/metrics_helpers.py:
+    e: _hash_goal,_func_id
+    _hash_goal(goal)
+    _func_id(code;language)
   src/nlp2cmd/page_analysis/base.py:
     e: FieldInfo,PageAnalysisResult
     FieldInfo:  # Information about a form field...
@@ -3805,10 +3876,13 @@ Energy function V(z;...
   scripts/maintenance/apply_complexity_refactors.py:
     e: main
     main()
-  src/nlp2cmd/orchestration/metrics_helpers.py:
-    e: _hash_goal,_func_id
-    _hash_goal(goal)
-    _func_id(code;language)
+  src/nlp2cmd/vql/facade.py:
+    e: VQLResult,VQLFacade
+    VQLResult:  # Bundle returned by :meth:`VQLFacade.run`...
+    VQLFacade: compile(1),validate(1),render_svg(1),to_commands(1),to_events(1),run(1)  # Stateless high-level entry point for the VQL pipeline...
+  src/nlp2cmd/vql/renderers/__init__.py:
+    e: __getattr__
+    __getattr__(name)
   examples/05_advanced_features/schema_driven_architecture/manual_appspec.py:
     e: main
     main()
@@ -4003,6 +4077,9 @@ Subclasses implement ``exe...
   src/nlp2cmd/skills/drawing/square_generator.py:
     e: SquareGenerator
     SquareGenerator(ShapeGenerator): generate(3)
+  src/nlp2cmd/skills/drawing/__base_fetcher.py:
+    e: _BaseFetcher
+    _BaseFetcher: _get(1)  # Base HTTP fetcher with timeout and SSL handling...
   src/nlp2cmd/skills/drawing/boat_generator.py:
     e: BoatGenerator
     BoatGenerator(ShapeGenerator): generate(3)
@@ -4023,6 +4100,13 @@ Compares:
   src/nlp2cmd/orchestration/learned_path.py:
     e: LearnedPath,get_workspace
     LearnedPath:  # A successful decision path that can be reused for similar go...
+    get_workspace()
+  src/nlp2cmd/orchestration/step_metric.py:
+    e: StepMetric,get_workspace
+    StepMetric:  # Metrics for a single orchestration step...
+    get_workspace()
+  src/nlp2cmd/orchestration/metrics.py:
+    e: get_workspace
     get_workspace()
   src/nlp2cmd/orchestration/step_def.py:
     e: StepDef
@@ -4060,13 +4144,18 @@ Compares:
     apply_to_templates_py()
     create_patch_files()
     main()
-  src/nlp2cmd/orchestration/step_metric.py:
-    e: StepMetric,get_workspace
-    StepMetric:  # Metrics for a single orchestration step...
-    get_workspace()
-  src/nlp2cmd/orchestration/metrics.py:
-    e: get_workspace
-    get_workspace()
+  src/nlp2cmd/vql/renderers/base.py:
+    e: VQLRenderer,VQLRendererAdapter,render_program
+    VQLRenderer(Protocol): render(1)  # Structural protocol for any backend able to render a VQL pro...
+    VQLRendererAdapter: render(1)  # Mixin granting an existing ``Renderer`` subclass a ``render(...
+    render_program(renderer;program)
+  src/nlp2cmd/vql/renderers/playwright.py:
+    e: PlaywrightVQLRenderer
+    PlaywrightVQLRenderer(VQLRendererAdapter,PlaywrightRenderer): __init__(2)  # Playwright renderer that can consume a :class:`VQLProgram` d...
+  src/nlp2cmd/vql/renderers/svg.py:
+    e: SVGVQLRenderer,render_to_svg
+    SVGVQLRenderer(VQLRendererAdapter,SVGRenderer):  # SVG renderer that can consume a :class:`VQLProgram` directly...
+    render_to_svg(program)
   run_test.sh:
   out_call_graph.json:
   generate_quick.py:
@@ -4125,6 +4214,7 @@ Compares:
   requirements.txt:
   requirements-enhanced.txt:
   generated_appspec.json:
+  pyproject.toml:
   tree.sh:
   generate_chunks.py:
   requirements-thermodynamic.txt:
@@ -4313,6 +4403,7 @@ Compares:
   examples/08_llm_validation/benchmark_after.json:
   examples/08_llm_validation/test_results.json:
   examples/08_llm_validation/demo_validation.sh:
+  examples/04_domain_specific/__init__.py:
   examples/04_domain_specific/polish_llm_integration/01_pdf_extraction/run.sh:
   examples/04_domain_specific/polish_llm_integration/05_integration/run.sh:
   examples/04_domain_specific/polish_llm_integration/04_results_ranking/run.sh:
@@ -4347,6 +4438,7 @@ Compares:
   artifacts/results/test_results_with_llm.json:
   artifacts/results/test_results_no_llm.json:
   artifacts/results/intelligent_nlp2cmd_results.json:
+  src/nlp2cmd/__init__.py:
   src/nlp2cmd/optimization_report.yaml:
   src/nlp2cmd/__main__.py:
   src/nlp2cmd/evolutionary_orchestrator.py:
@@ -4434,13 +4526,22 @@ Compares:
   src/nlp2cmd/skills/drawing/object_status.py:
     e: ObjectStatus
     ObjectStatus(Enum):  # Status of a single requested object...
+  src/nlp2cmd/skills/drawing/canvas_info.py:
+    e: CanvasInfo
+    CanvasInfo:  # Information about the discovered canvas...
   src/nlp2cmd/skills/drawing/validation_constants.py:
   src/nlp2cmd/skills/drawing/__init__.py:
   src/nlp2cmd/skills/drawing/navigation_state.py:
     e: NavigationState
     NavigationState(Enum):  # State of the navigation process...
   src/nlp2cmd/skills/drawing/navigation.py:
+  src/nlp2cmd/skills/drawing/object_assessment.py:
+    e: ObjectAssessment
+    ObjectAssessment:  # Vision assessment of a single requested object...
   src/nlp2cmd/skills/drawing/shapes.py:
+  src/nlp2cmd/skills/drawing/fetched_shape.py:
+    e: FetchedShape
+    FetchedShape:  # Shape data retrieved from an external database...
   src/nlp2cmd/skills/drawing/validation.py:
   src/nlp2cmd/skills/drawing/correction_plan.py:
     e: CorrectionPlan
@@ -4448,6 +4549,9 @@ Compares:
   src/nlp2cmd/skills/drawing/correction_result.py:
     e: CorrectionResult
     CorrectionResult:  # Result of applying corrections...
+  src/nlp2cmd/skills/drawing/navigation_step.py:
+    e: NavigationStep
+    NavigationStep:  # A single step in the navigation process...
   src/nlp2cmd/skills/drawing/navigation_constants.py:
   src/nlp2cmd/skills/drawing/renderers/__init__.py:
   src/nlp2cmd/registry/param_schema.py:
@@ -4511,7 +4615,13 @@ Compares:
   src/nlp2cmd/environment/tool_info.py:
     e: ToolInfo
     ToolInfo:  # Information about an installed tool...
+  src/nlp2cmd/environment/service_info.py:
+    e: ServiceInfo
+    ServiceInfo:  # Information about a running service...
   src/nlp2cmd/environment/__init__.py:
+  src/nlp2cmd/environment/environment_report.py:
+    e: EnvironmentReport
+    EnvironmentReport:  # Complete environment analysis report...
   src/nlp2cmd/context/__init__.py:
   src/nlp2cmd/streams/__init__.py:
   src/nlp2cmd/feedback/__init__.py:
@@ -4617,21 +4727,10 @@ Compares:
     log_error()
     log_warning()
   test_screenshots/raport_testu.txt:
-  pyproject.toml:
-  examples/04_domain_specific/__init__.py:
-  src/nlp2cmd/__init__.py:
-  src/nlp2cmd/skills/drawing/canvas_info.py:
-    e: CanvasInfo
-    CanvasInfo:  # Information about the discovered canvas...
-  src/nlp2cmd/skills/drawing/object_assessment.py:
-    e: ObjectAssessment
-    ObjectAssessment:  # Vision assessment of a single requested object...
-  src/nlp2cmd/skills/drawing/navigation_step.py:
-    e: NavigationStep
-    NavigationStep:  # A single step in the navigation process...
-  src/nlp2cmd/environment/service_info.py:
-    e: ServiceInfo
-    ServiceInfo:  # Information about a running service...
-  src/nlp2cmd/environment/environment_report.py:
-    e: EnvironmentReport
-    EnvironmentReport:  # Complete environment analysis report...
+  src/nlp2cmd/vql/__init__.py:
+  src/nlp2cmd/vql/api.py:
+  src/nlp2cmd/vql/schema/__init__.py:
+  src/nlp2cmd/vql/compiler/__init__.py:
+  src/nlp2cmd/vql/validation/__init__.py:
+  src/nlp2cmd/vql/adapters/__init__.py:
+  src/nlp2cmd/vql/library/__init__.py:

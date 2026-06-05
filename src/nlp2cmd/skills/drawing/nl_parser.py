@@ -129,6 +129,32 @@ class NLDrawingParser:
 
         return commands
 
+    def to_vql(
+        self,
+        text: str,
+        canvas_width: float = 1024.0,
+        canvas_height: float = 768.0,
+        url: str = "",
+        app: str = "generic",
+    ):
+        """
+        Parse natural language directly into a :class:`VQLProgram`.
+
+        This is the VQL-first entry point: NL → VQL (the contract) instead of
+        NL → raw ``DrawCommand`` actions. ``parse`` remains available for the
+        legacy command path. Returns a ``nlp2cmd.vql.VQLProgram``.
+        """
+        from nlp2cmd.vql.compiler.nl_to_vql import nl_to_program
+
+        return nl_to_program(
+            text,
+            width=canvas_width,
+            height=canvas_height,
+            url=url,
+            app=app,
+            parser=self,
+        )
+
     def detect_shape(self, text: str) -> str:
         """Detect the primary shape from text. Returns shape name or 'circle'."""
         shapes = self._extract_shapes(text.lower())

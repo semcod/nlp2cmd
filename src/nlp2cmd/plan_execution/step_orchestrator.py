@@ -18,6 +18,7 @@ class StepResult:
     stored: str | None = None
     error: str | None = None
     result_value: Any = None
+    note: str | None = None
 
 
 class StepOrchestrator:
@@ -96,7 +97,9 @@ class StepOrchestrator:
         
         # Check if already available (for prompt_secret)
         if step.action == "prompt_secret":
-            should_skip = self._check_already_available(step, pre_ok, pre_message, resolve_vars_fn, console)
+            should_skip = self._check_already_available(
+                step, step_idx, pre_ok, pre_message, resolve_vars_fn, console
+            )
             if should_skip:
                 return True, True
         
@@ -194,6 +197,7 @@ class StepOrchestrator:
     def _check_already_available(
         self,
         step: Any,
+        step_idx: int,
         pre_ok: bool,
         pre_message: str,
         resolve_vars_fn: callable,
@@ -236,7 +240,7 @@ class StepOrchestrator:
                 if step.store_as:
                     self.variables[step.store_as] = existing_val
                 self.results_log.append(StepResult(
-                    step_index=0,  # Will be set by caller
+                    step_index=step_idx + 1,
                     action=step.action,
                     status="ok",
                     elapsed_ms=0,

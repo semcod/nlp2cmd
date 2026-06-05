@@ -173,6 +173,30 @@ class CanvasAdapter(BaseDSLAdapter):
 
         return self.last_action_ir.dsl
 
+    def generate_from_vql(self, program: Any) -> str:
+        """
+        Generate a ``canvas_dql.v1`` command from a VQL program.
+
+        This is the VQL-first path: instead of re-parsing NL here, the adapter
+        consumes a validated :class:`~nlp2cmd.vql.VQLProgram` and lowers it to
+        canvas steps via the shared VQL→canvas adapter. The default
+        :meth:`generate` (NL → steps) remains unchanged for compatibility.
+        """
+        from nlp2cmd.vql.adapters.canvas_plan import program_to_canvas_payload
+
+        payload = program_to_canvas_payload(program)
+
+        self.last_action_ir = ActionIR(
+            action_id=f"canvas.draw_{payload['app']}",
+            dsl=json.dumps(payload, ensure_ascii=False),
+            dsl_kind="dom",
+            params={"url": payload["url"], "app": payload["app"]},
+            output_format="raw",
+            confidence=0.8,
+            explanation=f"canvas adapter (VQL): draw on {payload['app']}",
+        )
+        return self.last_action_ir.dsl
+
     def _create_drawing_plan(self, text: str) -> DrawingPlan:
         """Create a drawing plan from natural language text."""
         text_lower = text.lower()

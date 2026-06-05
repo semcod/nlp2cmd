@@ -1,13 +1,12 @@
 """LLM-based canvas planner for arbitrary object generation."""
 
 from __future__ import annotations
-import json
 import logging
-import os
-import re
 from typing import Any
 
 from .base import CanvasPlannerBase, CanvasPlanResult
+from .json_parse import parse_canvas_steps_json
+from .llm_client import call_canvas_llm
 
 log = logging.getLogger("nlp2cmd.canvas_planner.llm")
 
@@ -103,87 +102,38 @@ Przykład (kot — 18 kroków):
             return None
     
     def _call_llm(self, prompt: str) -> list[dict[str, Any]] | None:
-        """Call Ollama LLM with retry logic."""
-        try:
-            import requests
-        except ImportError:
-            log.debug("requests not available")
-            return None
-        
-        timeout = float(os.getenv("CANVAS_LLM_TIMEOUT", "60"))
-        max_retries = int(os.getenv("CANVAS_LLM_RETRIES", "2"))
-        
-        resp = None
-        last_error = None
-        
-        for attempt in range(max_retries + 1):
+        """Call configured LLM (router or Ollama) with retry logic."""
+        raw = None
+        for attempt in range(self.config.max_retries + 1):
             try:
-                resp = requests.post(
-                    f"{self.ollama_url}/api/generate",
-                    json={
-                        "model": self.model,
-                        "prompt": prompt,
-                        "stream": False,
-                        "options": {"temperature": 0.3, "num_predict": 3000},
-                    },
-                    timeout=timeout,
-                )
-                if resp.status_code == 200:
+                raw = call_canvas_llm(prompt, self.config)
+                if raw:
                     break
-                if attempt < max_retries:
-                    log.warning("Canvas LLM returned %d, retrying...", resp.status_code)
-                    import time
-                    time.sleep(1.0 * (attempt + 1))
-                    
-            except requests.exceptions.Timeout as e:
-                last_error = e
-                if attempt < max_retries:
-                    log.warning("Canvas LLM timeout (attempt %d/%d), retrying...", attempt + 1, max_retries + 1)
-                    import time
-                    time.sleep(1.0 * (attempt + 1))
-                else:
-                    raise
-            except Exception as e:
-                last_error = e
-                if attempt < max_retries:
-                    log.warning("Canvas LLM error (attempt %d/%d): %s", attempt + 1, max_retries + 1, e)
+            except Exception as exc:
+                if attempt < self.config.max_retries:
+                    log.warning(
+                        "Canvas LLM error (attempt %d/%d): %s",
+                        attempt + 1,
+                        self.config.max_retries + 1,
+                        exc,
+                    )
                     import time
                     time.sleep(1.0 * (attempt + 1))
                 else:
                     raise
-        
-        if resp is None or resp.status_code != 200:
-            log.warning("Canvas LLM failed after %d attempts", max_retries + 1)
+
+        if not raw:
+            log.warning("Canvas LLM failed after %d attempts", self.config.max_retries + 1)
             return None
-        
-        raw = resp.json().get("response", "").strip()
+
         return self._parse_response(raw)
     
     def _parse_response(self, raw: str) -> list[dict[str, Any]] | None:
-        """Parse LLM JSON response with cleanup."""
-        # Strip markdown fences
-        raw = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.MULTILINE)
-        raw = re.sub(r"\s*```$", "", raw, flags=re.MULTILINE)
-        
-        # Basic cleanup for common LLM JSON mistakes
-        raw = raw.strip()
-        if raw.startswith("```json"): raw = raw[7:]
-        if raw.startswith("```"): raw = raw[3:]
-        if raw.endswith("```"): raw = raw[:-3]
-        raw = raw.strip()
-        
-        # Fix trailing commas
-        raw = re.sub(r",(\s*[\}\]])", r"\1", raw)
-        
-        try:
-            steps_data = json.loads(raw)
-            if not isinstance(steps_data, list) or len(steps_data) < 2:
-                log.warning("Canvas LLM returned invalid plan")
-                return None
-            return steps_data
-        except json.JSONDecodeError as e:
-            log.warning("Failed to parse LLM response: %s", e)
-            return None
+        """Parse LLM JSON response with cleanup and truncation salvage."""
+        steps_data = parse_canvas_steps_json(raw)
+        if steps_data is None:
+            log.warning("Canvas LLM returned invalid plan")
+        return steps_data
     
     def _build_full_plan(self, text: str, steps_data: list, object_name: str) -> list[dict[str, Any]]:
         """Build complete plan with navigation and setup."""

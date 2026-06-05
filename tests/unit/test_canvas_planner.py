@@ -12,6 +12,21 @@ from nlp2cmd.canvas_planner import (
     BlueprintPlanner,
     CanvasPlanningOrchestrator,
 )
+from nlp2cmd.canvas_planner.json_parse import parse_canvas_steps_json
+from nlp2cmd.canvas_planner.config import resolve_canvas_model, CanvasLLMConfig
+
+
+class TestCanvasLLMConfig:
+    def test_resolve_canvas_model_prefers_llm_model(self, monkeypatch):
+        monkeypatch.setenv("LLM_MODEL", "openrouter/test-model")
+        monkeypatch.setenv("NLP2CMD_PLANNER_MODEL", "qwen2.5:3b")
+        assert resolve_canvas_model() == "openrouter/test-model"
+
+    def test_blueprints_disabled_by_default(self, monkeypatch):
+        monkeypatch.delenv("CANVAS_USE_BLUEPRINTS", raising=False)
+        cfg = CanvasLLMConfig.from_env()
+        assert cfg.use_blueprints is False
+        assert cfg.use_rule_fallback is True
 
 
 class TestCanvasPlanResult:
@@ -202,6 +217,19 @@ class TestLLMCanvasPlanner:
         result = planner._parse_response(raw)
         
         assert result is None
+
+    def test_parse_response_salvages_truncated_array(self):
+        """Truncated LLM output should still yield complete leading steps."""
+        raw = (
+            '[{"action":"set_color","params":{"color":"#FF0000"}},'
+            '{"action":"draw_filled_circle","params":{"radius":10,"offset":[0,0]}},'
+            '{"action":"set_color","params":{"color":"#00'
+        )
+        result = parse_canvas_steps_json(raw)
+        assert result is not None
+        assert len(result) == 2
+        assert result[0]["action"] == "set_color"
+        assert result[1]["action"] == "draw_filled_circle"
     
     def test_build_full_plan(self):
         """Test building full plan from LLM steps."""
@@ -277,28 +305,45 @@ class TestCanvasPlanningOrchestrator:
         assert orch.blueprint is not None
         assert orch.rule is not None
     
-    def test_plan_uses_first_successful(self):
-        """Test that plan uses first successful planner."""
+    def test_plan_uses_llm_first(self):
+        """Test that plan prefers LLM before fallbacks."""
         orch = CanvasPlanningOrchestrator()
-        
-        # Mock rule planner to return a result
+
+        expected_result = CanvasPlanResult(
+            steps=[{"action": "test", "params": {}, "description": "Test"}],
+            confidence=0.8,
+            source="canvas_llm",
+            estimated_time_ms=1000,
+        )
+        orch.llm.plan = MagicMock(return_value=expected_result)
+        orch.rule.plan = MagicMock(return_value=None)
+        orch.blueprint.plan = MagicMock(return_value=None)
+        orch.vector.plan = MagicMock(return_value=None)
+
+        result = orch.plan("narysuj test", "narysuj test")
+
+        assert result is not None
+        assert result.source == "canvas_llm"
+        orch.rule.plan.assert_not_called()
+
+    def test_plan_falls_back_to_rule_when_llm_fails(self):
+        """Test rule fallback when LLM and vector DB fail."""
+        orch = CanvasPlanningOrchestrator()
+
         expected_result = CanvasPlanResult(
             steps=[{"action": "test", "params": {}, "description": "Test"}],
             confidence=0.75,
-            source="rule",
+            source="canvas_rule_based",
             estimated_time_ms=1000,
         )
-        orch.rule.plan = MagicMock(return_value=expected_result)
-        orch.blueprint.plan = MagicMock(return_value=None)
+        orch.llm.plan = MagicMock(return_value=None)
         orch.vector.plan = MagicMock(return_value=None)
-        
-        # Patch _try_template to return None (avoid complex_planner import)
-        with patch.object(orch, '_try_template', return_value=None):
-            with patch.object(orch, '_try_llm', return_value=None):
-                result = orch.plan("narysuj test", "narysuj test")
-        
+        orch.rule.plan = MagicMock(return_value=expected_result)
+
+        result = orch.plan("narysuj test", "narysuj test")
+
         assert result is not None
-        assert result.source == "rule"
+        assert result.source == "canvas_rule_based"
     
     def test_plan_all_fail(self):
         """Test that plan returns None when all planners fail."""

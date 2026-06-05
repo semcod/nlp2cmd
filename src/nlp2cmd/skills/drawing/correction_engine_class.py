@@ -65,11 +65,8 @@ class CorrectionEngine:
     def _get_router(self):
         """Lazy-init LLM router for advanced correction planning."""
         if self._llm_router is None:
-            try:
-                from nlp2cmd.llm.router import get_router
-                self._llm_router = get_router()
-            except ImportError:
-                pass
+            from nlp2cmd.skills.drawing.llm_helpers import get_drawing_router
+            self._llm_router = get_drawing_router()
         return self._llm_router
 
     async def correct(self, validation_result: ValidationResult, description: str,

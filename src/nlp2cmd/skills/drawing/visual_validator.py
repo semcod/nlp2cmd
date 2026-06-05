@@ -139,11 +139,8 @@ class VisualValidator:
     def _get_router(self):
         """Lazy-init LLM router."""
         if self._router is None:
-            try:
-                from nlp2cmd.llm.router import get_router
-                self._router = get_router()
-            except ImportError:
-                self._router = None
+            from nlp2cmd.skills.drawing.llm_helpers import get_drawing_router
+            self._router = get_drawing_router()
         return self._router
 
     async def validate(self, screenshot_path: str, description: str,

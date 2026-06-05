@@ -1,16 +1,16 @@
 # System Architecture Analysis
-<!-- generated in 0.01s -->
+<!-- generated in 0.03s -->
 
 ## Overview
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
 - **Primary Language**: python
-- **Languages**: python: 710, json: 153, shell: 73, yaml: 25, txt: 11
+- **Languages**: python: 731, json: 153, shell: 73, yaml: 25, txt: 11
 - **Analysis Mode**: static
-- **Total Functions**: 3862
-- **Total Classes**: 715
-- **Modules**: 981
-- **Entry Points**: 3243
+- **Total Functions**: 3924
+- **Total Classes**: 735
+- **Modules**: 1002
+- **Entry Points**: 3280
 
 ## Architecture by Module
 
@@ -44,6 +44,11 @@
 - **Classes**: 1
 - **File**: `toon_integration.py`
 
+### src.nlp2cmd.vql.schema.program
+- **Functions**: 32
+- **Classes**: 12
+- **File**: `program.py`
+
 ### examples.03_integrations.web_development.nlp2_cmd_web_controller
 - **Functions**: 30
 - **Classes**: 1
@@ -69,11 +74,6 @@
 - **Classes**: 3
 - **File**: `non_llm_schema_extractor.py`
 
-### src.nlp2cmd.automation.action_planner
-- **Functions**: 27
-- **Classes**: 3
-- **File**: `action_planner.py`
-
 ### src.nlp2cmd.adapters.browser
 - **Functions**: 26
 - **Classes**: 2
@@ -88,6 +88,11 @@
 - **Functions**: 24
 - **Classes**: 3
 - **File**: `comprehensive_command_scanner.py`
+
+### src.nlp2cmd.automation.action_planner
+- **Functions**: 23
+- **Classes**: 3
+- **File**: `action_planner.py`
 
 ### src.nlp2cmd.automation.mouse_controller
 - **Functions**: 23
@@ -108,11 +113,6 @@
 - **Functions**: 23
 - **Classes**: 3
 - **File**: `kubernetes.py`
-
-### src.nlp2cmd.core.core_transform
-- **Functions**: 22
-- **Classes**: 1
-- **File**: `core_transform.py`
 
 ## Key Entry Points
 
@@ -160,13 +160,6 @@ Supports three backends:
 
 ### examples.09_online_drawing._old.03_adaptive_drawing.main
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, examples._verbose_helper.init_verbose
-
-### src.nlp2cmd.automation.action_planner.ActionPlanner._generate_rule_based_canvas_plan
-> Generate a drawing plan for an arbitrary object using rules.
-
-This is a fallback when LLM is not available. Uses object name to determine
-shape compos
-- **Calls**: re.search, None.strip, object_name.lower, any, ActionPlan, None.strip, ActionStep, ActionStep
 
 ### examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main
 - **Calls**: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.print_section, examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.print_step, DecisionRouter, src.nlp2cmd.registry.get_registry.get_registry, LLMPlanner, PlanExecutor, executor.register_handler, executor.register_handler
@@ -242,26 +235,24 @@ Args:
 > Rule-based fallback for known failure patterns.
 - **Calls**: test_nlp2cmd_commands.print, ctx.failed_params.get, ctx.failed_params.get, ctx.failed_params.get, self._get_alternative_selectors, svc.get, FallbackResult, FallbackResult
 
-### src.nlp2cmd.skills.drawing.object_fetcher_class.parse_svg_path
-> Parse SVG path 'd' attribute into point groups.
+### examples.01_basics.sql_basics.advanced.main
+- **Calls**: SQLAdapter, NLP2CMD, examples._example_helpers.print_separator, examples._example_helpers.print_rule, test_nlp2cmd_commands.print, examples._example_helpers.print_rule, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print
 
-Supports: M, L, H, V, C, Q, Z (absolute) and m, l, h, v, c, q, z (relative).
-Arcs (A/a) are approxima
-- **Calls**: re.findall, len, groups.append, min, max, min, max, result.append
+### src.nlp2cmd.web_schema.site_explorer.SiteExplorer.find_content
+> Find content on the website (articles, products, docs, etc.).
 
-### src.nlp2cmd.skills.drawing.svg_path_parser.parse_svg_path
-> Parse SVG path 'd' attribute into point groups.
+Args:
+    url: Starting URL (homepage)
+    content_type: Type of content to find (artic
+- **Calls**: time.perf_counter, self._resolve_platform_url, self._try_github_api, src.nlp2cmd.executor.execution_context.ExecutionContext.set, self._explore_recursive, src.nlp2cmd.pipeline_runner_utils._debug, self._find_best_content_candidate, ExplorationResult
 
-Supports: M, L, H, V, C, Q, Z (absolute) and m, l, h, v, c, q, z (relative).
-Arcs (A/a) are approxima
-- **Calls**: re.findall, len, groups.append, min, max, min, max, result.append
+### examples.03_integrations.pipelines.infrastructure_health.main
+- **Calls**: examples._example_helpers.print_separator, src.nlp2cmd.registry.get_registry.get_registry, PlanExecutor, ResultAggregator, executor.register_handler, executor.register_handler, executor.register_handler, executor.register_handler
 
-### src.nlp2cmd.skills.drawing.fetched_shape.parse_svg_path
-> Parse SVG path 'd' attribute into point groups.
-
-Supports: M, L, H, V, C, Q, Z (absolute) and m, l, h, v, c, q, z (relative).
-Arcs (A/a) are approxima
-- **Calls**: re.findall, len, groups.append, min, max, min, max, result.append
+### src.nlp2cmd.generation.evolutionary_cache.EvolutionaryCache.lookup
+> 4-tier lookup: cache → template → regex → LLM teacher.
+Returns LookupResult with command and timing.
+- **Calls**: time.perf_counter, src.nlp2cmd.generation.evolutionary_cache.fingerprint, src.nlp2cmd.generation.evolutionary_cache.fuzzy_fingerprint, LookupResult, self.stats.get, None.lower, None.isoformat, self.save
 
 ## Process Flows
 
@@ -297,24 +288,25 @@ _register_builtin_actions [src.nlp2cmd.registry.action_registry.ActionRegistry]
 _execute_desktop_plan_step [src.nlp2cmd.pipeline_runner_desktop.DesktopExecutionMixin]
 ```
 
-### Flow 7: _generate_rule_based_canvas_plan
-```
-_generate_rule_based_canvas_plan [src.nlp2cmd.automation.action_planner.ActionPlanner]
-```
-
-### Flow 8: detect_form_fields
+### Flow 7: detect_form_fields
 ```
 detect_form_fields [src.nlp2cmd.web_schema.form_handler.FormHandler]
 ```
 
-### Flow 9: get_test_cases
+### Flow 8: get_test_cases
 ```
 get_test_cases [examples.04_domain_specific.debugging.validation.ShellCommandValidator]
 ```
 
-### Flow 10: find_form
+### Flow 9: find_form
 ```
 find_form [src.nlp2cmd.web_schema.site_explorer.SiteExplorer]
+  └─ →> set
+```
+
+### Flow 10: _analyze_page
+```
+_analyze_page [src.nlp2cmd.web_schema.site_explorer.SiteExplorer]
   └─ →> set
 ```
 
@@ -387,14 +379,6 @@ This class orchestrates the transformati
 - **Methods**: 23
 - **Key Methods**: tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner.__init__, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner.scan_command, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._parse_all_options, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._parse_options_from_text, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._parse_option_line, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._detect_option_type, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._detect_relationships, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._create_parameters_from_options, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._map_option_type_to_param_type, tools.schema.comprehensive_command_scanner.ComprehensiveCommandScanner._generate_comprehensive_examples
 
-### src.nlp2cmd.automation.action_planner.ActionPlanner
-> Decomposes complex NL commands into ActionPlan via rules or LLM.
-
-Costs:
-- Rule match (known service
-- **Methods**: 22
-- **Key Methods**: src.nlp2cmd.automation.action_planner.ActionPlanner.__init__, src.nlp2cmd.automation.action_planner.ActionPlanner.decompose, src.nlp2cmd.automation.action_planner.ActionPlanner.decompose_sync, src.nlp2cmd.automation.action_planner.ActionPlanner._try_rule_decomposition, src.nlp2cmd.automation.action_planner.ActionPlanner._resolve_service, src.nlp2cmd.automation.action_planner.ActionPlanner._wants_new_tab, src.nlp2cmd.automation.action_planner.ActionPlanner._wants_existing_firefox, src.nlp2cmd.automation.action_planner.ActionPlanner._wants_create_key, src.nlp2cmd.automation.action_planner.ActionPlanner._build_navigation_steps, src.nlp2cmd.automation.action_planner.ActionPlanner._build_session_check_steps
-
 ### src.nlp2cmd.adapters.kubernetes.KubernetesAdapter
 > Kubernetes adapter for kubectl commands and manifests.
 
@@ -454,6 +438,14 @@ Supports:
 Works with any language by using character-leve
 - **Methods**: 19
 - **Key Methods**: src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher.__init__, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher.load_schema, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher.add_phrase, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher.add_phrases_from_dict, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher._build_index, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher._index_phrase, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher._normalize, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher._remove_spaces, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher._get_ngrams, src.nlp2cmd.generation.fuzzy_schema_matcher_class.FuzzySchemaMatcher._ngram_similarity
+
+### src.nlp2cmd.adapters.dynamic.DynamicAdapter
+> Dynamic adapter that uses extracted schemas instead of hardcoded patterns.
+
+This adapter can work wi
+- **Methods**: 19
+- **Key Methods**: src.nlp2cmd.adapters.dynamic.DynamicAdapter.__init__, src.nlp2cmd.adapters.dynamic.DynamicAdapter.check_safety, src.nlp2cmd.adapters.dynamic.DynamicAdapter._load_common_commands, src.nlp2cmd.adapters.dynamic.DynamicAdapter.register_schema_source, src.nlp2cmd.adapters.dynamic.DynamicAdapter.generate, src.nlp2cmd.adapters.dynamic.DynamicAdapter._find_matching_commands, src.nlp2cmd.adapters.dynamic.DynamicAdapter._generate_from_schema, src.nlp2cmd.adapters.dynamic.DynamicAdapter._generate_make_command, src.nlp2cmd.adapters.dynamic.DynamicAdapter._generate_web_dql, src.nlp2cmd.adapters.dynamic.DynamicAdapter._generate_from_template
+- **Inherits**: BaseDSLAdapter
 
 ## Data Transformation Functions
 
@@ -664,19 +656,19 @@ Functions exposed as public API (no underscore prefix):
 - `src.nlp2cmd.cli.commands.generate.handle_generate_query` - 66 calls
 - `src.nlp2cmd.adapters.browser.BrowserAdapter.generate` - 66 calls
 - `examples.09_online_drawing.05_autonomous.run.run_autonomous` - 65 calls
-- `src.nlp2cmd.skills.drawing.iconify_fetcher.parse_svg_path` - 64 calls
-- `src.nlp2cmd.skills.drawing.object_fetcher_class.parse_svg_path` - 64 calls
 - `src.nlp2cmd.skills.drawing.svg_path_parser.parse_svg_path` - 64 calls
-- `src.nlp2cmd.skills.drawing.fetched_shape.parse_svg_path` - 64 calls
-- `src.nlp2cmd.skills.drawing.svg_repo_fetcher.parse_svg_path` - 64 calls
-- `src.nlp2cmd.skills.drawing.simple_icons_fetcher.parse_svg_path` - 64 calls
-- `src.nlp2cmd.skills.drawing.__base_fetcher.parse_svg_path` - 64 calls
 - `examples.09_online_drawing.06_visual_validator.run.draw_and_validate` - 62 calls
 - `examples.01_basics.sql_basics.advanced.main` - 60 calls
 - `src.nlp2cmd.web_schema.site_explorer.SiteExplorer.find_content` - 60 calls
 - `examples.03_integrations.pipelines.infrastructure_health.main` - 59 calls
 - `examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous` - 59 calls
 - `benchmarks.llm_benchmark.run_benchmark` - 57 calls
+- `src.nlp2cmd.generation.evolutionary_cache.EvolutionaryCache.lookup` - 57 calls
+- `src.nlp2cmd.cli.debug_info.show_schema_info` - 57 calls
+- `tools.schema.update_schemas.update_all_schemas` - 57 calls
+- `examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_schema_flow` - 56 calls
+- `src.nlp2cmd.cli.debug_info.show_decision_tree_info` - 56 calls
+- `benchmarks.llm_benchmark.generate_command_errors_report` - 55 calls
 
 ## System Interactions
 
@@ -704,16 +696,16 @@ graph TD
     _execute_desktop_pla --> str
     _execute_desktop_pla --> _detect_desktop_back
     _execute_desktop_pla --> ValueError
-    _generate_rule_based --> search
-    _generate_rule_based --> strip
-    _generate_rule_based --> lower
-    _generate_rule_based --> any
-    _generate_rule_based --> ActionPlan
     main --> print_section
     main --> print_step
     main --> DecisionRouter
     main --> get_registry
     main --> LLMPlanner
+    detect_form_fields --> query_selector_all
+    detect_form_fields --> _print_yaml
+    main --> SQLAdapter
+    main --> generate
+    main --> print
 ```
 
 ## Reverse Engineering Guidelines

@@ -613,6 +613,80 @@ def _ladybug_steps() -> list[DrawStep]:
     ]
 
 
+# ── Child / Dziecko ─────────────────────────────────────────────────
+
+def _child_steps() -> list[DrawStep]:
+    """Cartoon child with head, hair, shirt, arms, legs, shoes, and face."""
+    return [
+        _step("set_color", {"color": "#1E3A8A"}, "Blue pants"),
+        _step("draw_filled_ellipse", {"rx": 12, "ry": 40, "offset": [-18, 55]}, "Left leg"),
+        _step("draw_filled_ellipse", {"rx": 12, "ry": 40, "offset": [18, 55]}, "Right leg"),
+        _step("set_color", {"color": "#8B4513"}, "Brown shoes"),
+        _step("draw_filled_ellipse", {"rx": 18, "ry": 8, "offset": [-18, 92]}, "Left shoe"),
+        _step("draw_filled_ellipse", {"rx": 18, "ry": 8, "offset": [18, 92]}, "Right shoe"),
+        _step("set_color", {"color": "#FF6B6B"}, "Red shirt"),
+        _step("draw_filled_ellipse", {"rx": 35, "ry": 45, "offset": [0, 5]}, "Torso"),
+        _step("set_line_width", {"width": 10}),
+        _step("set_color", {"color": "#FF6B6B"}, "Shirt sleeves"),
+        _step("draw_line", {"from_offset": [-35, 0], "to_offset": [-60, 25]}, "Left arm"),
+        _step("draw_line", {"from_offset": [35, 0], "to_offset": [60, 25]}, "Right arm"),
+        _step("set_color", {"color": "#FDBCB4"}, "Skin hands"),
+        _step("draw_filled_circle", {"radius": 8, "offset": [-62, 30]}, "Left hand"),
+        _step("draw_filled_circle", {"radius": 8, "offset": [62, 30]}, "Right hand"),
+        _step("set_color", {"color": "#FDBCB4"}, "Skin"),
+        _step("draw_filled_circle", {"radius": 32, "offset": [0, -55]}, "Head"),
+        _step("set_color", {"color": "#4A3728"}, "Brown hair"),
+        _step("draw_filled_ellipse", {"rx": 34, "ry": 20, "offset": [0, -72]}, "Hair top"),
+        _step("draw_filled_ellipse", {"rx": 8, "ry": 25, "offset": [-32, -58]}, "Hair left"),
+        _step("draw_filled_ellipse", {"rx": 8, "ry": 25, "offset": [32, -58]}, "Hair right"),
+        _step("set_color", {"color": "#FFFFFF"}, "White eyes"),
+        _step("draw_filled_circle", {"radius": 7, "offset": [-12, -58]}, "Left eye white"),
+        _step("draw_filled_circle", {"radius": 7, "offset": [12, -58]}, "Right eye white"),
+        _step("set_color", {"color": "#4169E1"}, "Blue pupils"),
+        _step("draw_filled_circle", {"radius": 4, "offset": [-11, -57]}, "Left pupil"),
+        _step("draw_filled_circle", {"radius": 4, "offset": [11, -57]}, "Right pupil"),
+        _step("set_color", {"color": "#C0392B"}, "Mouth"),
+        _step("draw_arc", {"radius": 12, "start_angle": 0.2, "end_angle": 2.9, "offset": [0, -48], "fill": False}, "Smile"),
+        _step("set_color", {"color": "#FFB6C1"}, "Rosy cheeks"),
+        _step("draw_filled_ellipse", {"rx": 8, "ry": 5, "offset": [-22, -52]}, "Left cheek"),
+        _step("draw_filled_ellipse", {"rx": 8, "ry": 5, "offset": [22, -52]}, "Right cheek"),
+        _step("screenshot", {"suffix": "child"}, "Screenshot"),
+    ]
+
+
+# ── Spider / Pająk ──────────────────────────────────────────────────
+
+def _spider_steps() -> list[DrawStep]:
+    """Spider with abdomen, head, eight legs, and eyes."""
+    return [
+        _step("set_color", {"color": "#000000"}, "Black legs"),
+        _step("set_line_width", {"width": 3}),
+        _step("draw_line", {"from_offset": [-12, 0], "to_offset": [-65, -55]}, "Leg L1"),
+        _step("draw_line", {"from_offset": [-18, 8], "to_offset": [-75, 15]}, "Leg L2"),
+        _step("draw_line", {"from_offset": [-18, 18], "to_offset": [-75, 55]}, "Leg L3"),
+        _step("draw_line", {"from_offset": [-12, 25], "to_offset": [-65, 75]}, "Leg L4"),
+        _step("draw_line", {"from_offset": [12, 0], "to_offset": [65, -55]}, "Leg R1"),
+        _step("draw_line", {"from_offset": [18, 8], "to_offset": [75, 15]}, "Leg R2"),
+        _step("draw_line", {"from_offset": [18, 18], "to_offset": [75, 55]}, "Leg R3"),
+        _step("draw_line", {"from_offset": [12, 25], "to_offset": [65, 75]}, "Leg R4"),
+        _step("set_color", {"color": "#1A1A1A"}, "Black body"),
+        _step("draw_filled_ellipse", {"rx": 50, "ry": 35, "offset": [0, 15]}, "Abdomen"),
+        _step("draw_filled_circle", {"radius": 28, "offset": [0, -35]}, "Head"),
+        _step("set_color", {"color": "#CC0000"}, "Red marking"),
+        _step("draw_filled_ellipse", {"rx": 8, "ry": 12, "offset": [0, 5]}, "Back marking"),
+        _step("set_color", {"color": "#FFFFFF"}, "White eyes"),
+        _step("draw_filled_circle", {"radius": 8, "offset": [-12, -40]}, "Left eye"),
+        _step("draw_filled_circle", {"radius": 8, "offset": [12, -40]}, "Right eye"),
+        _step("set_color", {"color": "#000000"}, "Black pupils"),
+        _step("draw_filled_circle", {"radius": 4, "offset": [-10, -40]}, "Left pupil"),
+        _step("draw_filled_circle", {"radius": 4, "offset": [10, -40]}, "Right pupil"),
+        _step("set_color", {"color": "#000000"}, "Fangs"),
+        _step("draw_line", {"from_offset": [-6, -22], "to_offset": [-10, -8]}, "Left fang"),
+        _step("draw_line", {"from_offset": [6, -22], "to_offset": [10, -8]}, "Right fang"),
+        _step("screenshot", {"suffix": "spider"}, "Screenshot"),
+    ]
+
+
 # ── Registry ─────────────────────────────────────────────────────────
 
 # Maps (Polish regex pattern, English regex pattern) → (description, steps_fn)
@@ -700,6 +774,18 @@ OBJECT_BLUEPRINTS: list[dict[str, Any]] = [
         "name": "ladybug",
         "description": "Draw a ladybug (body, dots, head, antennae, legs)",
         "steps_fn": _ladybug_steps,
+    },
+    {
+        "pattern": r"(?:dziecko|dziecka|dzieckiem|child|boy|girl|ch[lł]op(?:iec|ca)|dziewczynk[aęeą]|dziewczyn[aęeą])",
+        "name": "child",
+        "description": "Draw a child (head, hair, shirt, arms, legs, face)",
+        "steps_fn": _child_steps,
+    },
+    {
+        "pattern": r"(?:paj[aąę]k(?:a|iem|iem)?|spider)",
+        "name": "spider",
+        "description": "Draw a spider (body, head, eight legs, eyes)",
+        "steps_fn": _spider_steps,
     },
 ]
 

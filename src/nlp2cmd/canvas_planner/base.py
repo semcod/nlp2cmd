@@ -36,8 +36,14 @@ class CanvasPlannerBase:
     """Base class for canvas planners."""
     
     def __init__(self, ollama_url: str | None = None, model: str | None = None):
-        self.ollama_url = ollama_url
-        self.model = model
+        from .config import CanvasLLMConfig
+
+        self.config = CanvasLLMConfig.from_env(
+            ollama_url=ollama_url,
+            model=model,
+        )
+        self.ollama_url = self.config.ollama_url
+        self.model = self.config.model
     
     def plan(self, query: str, text: str, canvas_url: str = "https://jspaint.app") -> CanvasPlanResult | None:
         """Generate a drawing plan. Override in subclasses."""

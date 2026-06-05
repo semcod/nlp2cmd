@@ -96,6 +96,17 @@ class TestStepResult:
         assert result.stored == "url"
         assert result.error is None
 
+    def test_step_result_accepts_note(self):
+        """Regression: prompt_secret skip records note without TypeError."""
+        result = StepResult(
+            step_index=24,
+            action="prompt_secret",
+            status="ok",
+            elapsed_ms=0,
+            note="skipped_already_available",
+        )
+        assert result.note == "skipped_already_available"
+
 
 class TestStepOrchestrator:
     """Test StepOrchestrator class."""
@@ -271,6 +282,28 @@ class TestIntegration:
         summary = orchestrator.get_summary()
         assert summary["ok_count"] == 2
         assert summary["total_steps"] == 2
+
+    def test_check_already_available_records_skip_note(self):
+        """When env already has key, prompt_secret skip must not crash on StepResult(note=...)."""
+        from unittest.mock import MagicMock, patch
+        from nlp2cmd.automation.step_validator import StepValidator
+
+        orch = StepOrchestrator(validator=StepValidator())
+        step = MagicMock()
+        step.action = "prompt_secret"
+        step.params = {"env_var": "OPENROUTER_API_KEY", "key_pattern": r"sk-or-v1-[A-Za-z0-9]{64}"}
+        step.store_as = "api_key"
+        console = MagicMock()
+
+        with patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-or-v1-" + "a" * 64}, clear=True):
+            skipped = orch._check_already_available(
+                step, step_idx=23, pre_ok=True, pre_message="", resolve_vars_fn=lambda p, v: p, console=console
+            )
+
+        assert skipped is True
+        assert len(orch.results_log) == 1
+        assert orch.results_log[0].note == "skipped_already_available"
+        assert orch.results_log[0].step_index == 24
 
 
 class TestEnvironmentVariables:
