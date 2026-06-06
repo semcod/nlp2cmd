@@ -5,1426 +5,12 @@ stats:
   total_edges: 500
   modules_count: 114
 nodes:
-  examples.09_online_drawing.05_autonomous.run.fetch_only:
-    name: fetch_only
-    module: examples.09_online_drawing.05_autonomous.run
-    line: 189
-    cyclomatic_complexity: 5
-    calls_out: 12
-    calls_in: 1
-  examples.03_integrations.toon_format.practical_usage.ToonDemo._load_toon_data:
-    name: _load_toon_data
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 21
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection.demonstrate_version_detection:
-    name: demonstrate_version_detection
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 106
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  test_nlp2cmd_commands.print:
-    name: print
-    module: test_nlp2cmd_commands
-    line: 277
-    cyclomatic_complexity: 0
-    calls_out: 0
-    calls_in: 4996
-  examples.05_advanced_features.thermodynamic_computing.example.example_majority_voting:
-    name: example_majority_voting
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 131
-    cyclomatic_complexity: 2
-    calls_out: 11
-    calls_in: 1
-  examples.03_integrations.web_development.demo_batch.run_batch_demo:
-    name: run_batch_demo
-    module: examples.03_integrations.web_development.demo_batch
-    line: 88
-    cyclomatic_complexity: 5
-    calls_out: 23
-    calls_in: 0
-  examples.08_api_key_management.02_openrouter_key.run.check_credentials:
-    name: check_credentials
-    module: examples.08_api_key_management.02_openrouter_key.run
-    line: 39
-    cyclomatic_complexity: 11
-    calls_out: 19
-    calls_in: 1
-  examples.03_integrations.toon_format.14_batch_processing.demo.batch_validate:
-    name: batch_validate
-    module: examples.03_integrations.toon_format.14_batch_processing.demo
-    line: 14
-    cyclomatic_complexity: 4
-    calls_out: 3
-    calls_in: 1
-  src.nlp2cmd.streams.base.parse_source_uri:
-    name: parse_source_uri
-    module: src.nlp2cmd.streams.base
-    line: 66
-    cyclomatic_complexity: 7
-    calls_out: 9
-    calls_in: 8
-  examples.07_stream_protocols.example_ssh.main:
-    name: main
-    module: examples.07_stream_protocols.example_ssh
-    line: 20
-    cyclomatic_complexity: 3
-    calls_out: 14
-    calls_in: 0
-  examples.08_api_key_management.03_github_token.run.check:
-    name: check
-    module: examples.08_api_key_management.03_github_token.run
-    line: 35
-    cyclomatic_complexity: 8
-    calls_out: 14
-    calls_in: 1
-  examples._verbose_helper.auto_navigate_with_fallback:
-    name: auto_navigate_with_fallback
-    module: examples._verbose_helper
-    line: 317
-    cyclomatic_complexity: 6
-    calls_out: 10
-    calls_in: 1
-  examples._verbose_helper.init_verbose:
-    name: init_verbose
-    module: examples._verbose_helper
-    line: 31
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 11
-  examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd.run_nlp2cmd_command:
-    name: run_nlp2cmd_command
-    module: examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd
-    line: 27
-    cyclomatic_complexity: 6
-    calls_out: 6
-    calls_in: 1
-  examples.06_tools_and_utilities.migration_tools.guide.practical_examples:
-    name: practical_examples
-    module: examples.06_tools_and_utilities.migration_tools.guide
-    line: 244
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  examples.01_basics.docker_basics.01_basics_docker_nlp2cmd.get_command_for_task:
-    name: get_command_for_task
-    module: examples.01_basics.docker_basics.01_basics_docker_nlp2cmd
-    line: 49
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  examples.09_online_drawing._old.05_autonomous_drawing.resolve_shapes:
-    name: resolve_shapes
-    module: examples.09_online_drawing._old.05_autonomous_drawing
-    line: 46
-    cyclomatic_complexity: 14
-    calls_out: 21
-    calls_in: 1
-  examples.01_basics.sql_basics.advanced.main:
-    name: main
-    module: examples.01_basics.sql_basics.advanced
-    line: 23
-    cyclomatic_complexity: 2
-    calls_out: 60
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.show_schema_extraction_flow:
-    name: show_schema_extraction_flow
-    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
-    line: 14
-    cyclomatic_complexity: 7
-    calls_out: 42
-    calls_in: 1
-  examples.09_online_drawing._run_utils.check_page_health:
-    name: check_page_health
-    module: examples.09_online_drawing._run_utils
-    line: 327
-    cyclomatic_complexity: 12
-    calls_out: 9
-    calls_in: 2
-  examples.03_integrations.toon_format.07_loading_performance.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.07_loading_performance.demo
-    line: 52
-    cyclomatic_complexity: 2
-    calls_out: 26
-    calls_in: 0
-  examples.03_integrations.toon_format.04_search_and_filter.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.04_search_and_filter.demo
-    line: 13
-    cyclomatic_complexity: 2
-    calls_out: 14
-    calls_in: 0
-  src.app2schema.extract.extract_schema_to_file:
-    name: extract_schema_to_file
-    module: src.app2schema.extract
-    line: 891
-    cyclomatic_complexity: 20
-    calls_out: 34
-    calls_in: 2
-  examples.03_integrations.web_development._demo_helpers.print_files_saved:
-    name: print_files_saved
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 33
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 3
-  examples.09_online_drawing.09_evolutionary_orchestrator.run.run_scenario:
-    name: run_scenario
-    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
-    line: 117
-    cyclomatic_complexity: 3
-    calls_out: 9
-    calls_in: 3
-  examples.05_advanced_features.thermodynamic_computing.example.example_scheduling:
-    name: example_scheduling
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 43
-    cyclomatic_complexity: 3
-    calls_out: 14
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.stop_all_containers:
-    name: stop_all_containers
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 103
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 1
-  examples.01_basics.sql_basics.workflows.main:
-    name: main
-    module: examples.01_basics.sql_basics.workflows
-    line: 30
-    cyclomatic_complexity: 10
-    calls_out: 81
-    calls_in: 0
-  examples.03_integrations.web_development.docker_manager.DockerManager.stop_services:
-    name: stop_services
+  examples.03_integrations.web_development.docker_manager.DockerManager.show_logs:
+    name: show_logs
     module: examples.03_integrations.web_development.docker_manager
-    line: 222
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  examples.01_basics.shell_fundamentals._environment_sections.print_service_status:
-    name: print_service_status
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 70
-    cyclomatic_complexity: 6
-    calls_out: 5
-    calls_in: 1
-  examples.09_online_drawing.05_autonomous.run.run_autonomous:
-    name: run_autonomous
-    module: examples.09_online_drawing.05_autonomous.run
-    line: 46
-    cyclomatic_complexity: 18
-    calls_out: 65
-    calls_in: 1
-  examples.03_integrations.toon_format.comparison_demo.SimpleToonParser._read_file_content:
-    name: _read_file_content
-    module: examples.03_integrations.toon_format.comparison_demo
-    line: 27
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 0
-  examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd.get_adaptive_command:
-    name: get_adaptive_command
-    module: examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd
-    line: 71
-    cyclomatic_complexity: 2
-    calls_out: 0
-    calls_in: 1
-  examples.06_tools_and_utilities.migration_tools.guide.migration_steps:
-    name: migration_steps
-    module: examples.06_tools_and_utilities.migration_tools.guide
-    line: 150
-    cyclomatic_complexity: 1
-    calls_out: 11
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.feedback_loop._print_summary:
-    name: _print_summary
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 164
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  examples.03_integrations.web_development.demo_auto.troubleshoot_and_fix:
-    name: troubleshoot_and_fix
-    module: examples.03_integrations.web_development.demo_auto
-    line: 110
-    cyclomatic_complexity: 11
-    calls_out: 23
-    calls_in: 1
-  examples.03_integrations.toon_format.old_system_loader.OldSystemLoader.load_command_schemas:
-    name: load_command_schemas
-    module: examples.03_integrations.toon_format.old_system_loader
-    line: 17
-    cyclomatic_complexity: 8
-    calls_out: 12
-    calls_in: 0
-  examples.03_integrations.toon_format.comparison_demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.comparison_demo
-    line: 314
-    cyclomatic_complexity: 3
-    calls_out: 17
-    calls_in: 0
-  examples.03_integrations.web_development.demo_batch._execute_command:
-    name: _execute_command
-    module: examples.03_integrations.web_development.demo_batch
-    line: 45
-    cyclomatic_complexity: 2
-    calls_out: 11
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.print_config:
-    name: print_config
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 12
-    cyclomatic_complexity: 4
-    calls_out: 6
-    calls_in: 3
-  examples.02_benchmarks.performance_testing.benchmark.benchmark_adapters:
-    name: benchmark_adapters
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 78
-    cyclomatic_complexity: 3
-    calls_out: 22
-    calls_in: 1
-  examples.08_api_key_management.03_github_token.run.main:
-    name: main
-    module: examples.08_api_key_management.03_github_token.run
-    line: 86
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 0
-  src.nlp2cmd.orchestration.learned_path.get_workspace:
-    name: get_workspace
-    module: src.nlp2cmd.orchestration.learned_path
-    line: 44
-    cyclomatic_complexity: 1
-    calls_out: 5
-    calls_in: 4
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection.show_version_mapping:
-    name: show_version_mapping
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 134
-    cyclomatic_complexity: 2
-    calls_out: 13
-    calls_in: 1
-  examples.03_integrations.validation.config_validation.print_result:
-    name: print_result
-    module: examples.03_integrations.validation.config_validation
-    line: 31
-    cyclomatic_complexity: 6
-    calls_out: 8
-    calls_in: 10
-  examples.09_online_drawing._run_utils._click_if_visible:
-    name: _click_if_visible
-    module: examples.09_online_drawing._run_utils
-    line: 180
-    cyclomatic_complexity: 5
-    calls_out: 5
-    calls_in: 2
-  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase._generate_shape_via_llm:
-    name: _generate_shape_via_llm
-    module: examples.09_online_drawing._old.04_object_database_drawing
-    line: 302
-    cyclomatic_complexity: 11
-    calls_out: 15
-    calls_in: 0
-  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase.get_shape:
-    name: get_shape
-    module: examples.09_online_drawing._old.04_object_database_drawing
-    line: 272
-    cyclomatic_complexity: 7
-    calls_out: 8
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection.main:
-    name: main
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 158
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 0
-  examples.08_api_key_management.05_openai_key.run.run_flow:
-    name: run_flow
-    module: examples.08_api_key_management.05_openai_key.run
-    line: 53
-    cyclomatic_complexity: 7
-    calls_out: 12
-    calls_in: 1
-  examples.01_basics.sql_basics.llm_integration.main:
-    name: main
-    module: examples.01_basics.sql_basics.llm_integration
-    line: 312
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 0
-  examples.09_online_drawing.04_object_database.run.show_database:
-    name: show_database
-    module: examples.09_online_drawing.04_object_database.run
-    line: 173
-    cyclomatic_complexity: 3
-    calls_out: 19
-    calls_in: 1
-  examples.03_integrations.web_development.docker_manager.DockerManager.__init__:
-    name: __init__
-    module: examples.03_integrations.web_development.docker_manager
-    line: 45
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 0
-  examples.03_integrations.toon_format.comparison_demo.demonstrate_llm_friendly_format:
-    name: demonstrate_llm_friendly_format
-    module: examples.03_integrations.toon_format.comparison_demo
-    line: 269
-    cyclomatic_complexity: 1
-    calls_out: 38
-    calls_in: 1
-  examples._verbose_helper.dump_selectors:
-    name: dump_selectors
-    module: examples._verbose_helper
-    line: 83
-    cyclomatic_complexity: 5
-    calls_out: 7
-    calls_in: 4
-  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.main:
-    name: main
-    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
-    line: 167
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 0
-  examples.08_api_key_management.02_openrouter_key.run.main:
-    name: main
-    module: examples.08_api_key_management.02_openrouter_key.run
-    line: 109
-    cyclomatic_complexity: 4
-    calls_out: 9
-    calls_in: 0
-  examples.01_basics.shell_fundamentals.schema_cache.main:
-    name: main
-    module: examples.01_basics.shell_fundamentals.schema_cache
-    line: 10
-    cyclomatic_complexity: 5
-    calls_out: 12
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_ps:
-    name: _demo_ps
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 65
-    cyclomatic_complexity: 1
-    calls_out: 10
-    calls_in: 1
-  examples.03_integrations.toon_format.11_basic_integration.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.11_basic_integration.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 17
-    calls_in: 0
-  examples.09_online_drawing._run_utils._dismiss_text_popups:
-    name: _dismiss_text_popups
-    module: examples.09_online_drawing._run_utils
-    line: 194
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 1
-  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_basic_usage:
-    name: show_basic_usage
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 33
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 0
-  examples.08_api_key_management.02_openrouter_key.run.run_flow:
-    name: run_flow
-    module: examples.08_api_key_management.02_openrouter_key.run
-    line: 75
-    cyclomatic_complexity: 7
-    calls_out: 18
-    calls_in: 2
-  examples.06_tools_and_utilities.migration_tools.guide.old_way_examples:
-    name: old_way_examples
-    module: examples.06_tools_and_utilities.migration_tools.guide
-    line: 14
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 1
-  examples.03_integrations.web_development.demo.demo_nlp_commands:
-    name: demo_nlp_commands
-    module: examples.03_integrations.web_development.demo
-    line: 85
-    cyclomatic_complexity: 9
-    calls_out: 22
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.show_container_status:
-    name: show_container_status
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 81
-    cyclomatic_complexity: 3
-    calls_out: 9
-    calls_in: 1
-  examples._verbose_helper.vlog_decision:
-    name: vlog_decision
-    module: examples._verbose_helper
-    line: 106
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 14
-  examples.09_online_drawing._run_utils._try_discovery_url:
-    name: _try_discovery_url
-    module: examples.09_online_drawing._run_utils
-    line: 410
-    cyclomatic_complexity: 12
-    calls_out: 11
-    calls_in: 1
-  examples.03_integrations.web_development.demo.run_example:
-    name: run_example
-    module: examples.03_integrations.web_development.demo
-    line: 130
-    cyclomatic_complexity: 4
-    calls_out: 22
-    calls_in: 4
-  examples.03_integrations.pipelines.infrastructure_health.main:
-    name: main
-    module: examples.03_integrations.pipelines.infrastructure_health
-    line: 118
-    cyclomatic_complexity: 19
-    calls_out: 59
-    calls_in: 0
-  examples.06_tools_and_utilities.migration_tools.guide.main:
-    name: main
-    module: examples.06_tools_and_utilities.migration_tools.guide
-    line: 307
-    cyclomatic_complexity: 1
-    calls_out: 28
-    calls_in: 0
-  examples.01_basics.docker_basics.file_repair.validate_file:
-    name: validate_file
-    module: examples.01_basics.docker_basics.file_repair
-    line: 105
-    cyclomatic_complexity: 6
-    calls_out: 11
-    calls_in: 5
-  examples.09_online_drawing._run_utils.ExampleLogger.save:
-    name: save
-    module: examples.09_online_drawing._run_utils
-    line: 97
-    cyclomatic_complexity: 8
-    calls_out: 11
-    calls_in: 0
-  examples.03_integrations.web_development.demo_batch._load_commands:
-    name: _load_commands
-    module: examples.03_integrations.web_development.demo_batch
-    line: 37
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  examples.02_benchmarks.performance_testing.benchmark.main:
-    name: main
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 436
-    cyclomatic_complexity: 2
-    calls_out: 15
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.example.main:
-    name: main
-    module: examples.05_advanced_features.dynamic_schemas.example
-    line: 24
-    cyclomatic_complexity: 1
-    calls_out: 15
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_schema_flow:
-    name: demonstrate_schema_flow
-    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
-    line: 24
-    cyclomatic_complexity: 6
-    calls_out: 56
-    calls_in: 1
-  examples.03_integrations.web_development.03_docker_compose.demo.main:
-    name: main
-    module: examples.03_integrations.web_development.03_docker_compose.demo
-    line: 52
-    cyclomatic_complexity: 1
-    calls_out: 16
-    calls_in: 0
-  examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.print_section:
-    name: print_section
-    module: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo
-    line: 54
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 6
-  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_performance_tips:
-    name: show_performance_tips
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 391
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 0
-  examples.07_stream_protocols.example_libvirt.main:
-    name: main
-    module: examples.07_stream_protocols.example_libvirt
-    line: 24
-    cyclomatic_complexity: 3
-    calls_out: 30
-    calls_in: 0
-  examples.01_basics.shell_fundamentals._environment_sections.print_resources:
-    name: print_resources
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 100
-    cyclomatic_complexity: 3
-    calls_out: 31
-    calls_in: 1
-  examples.03_integrations.toon_format.03_data_manager.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.03_data_manager.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 13
-    calls_in: 0
-  examples.05_advanced_features.thermodynamic_computing.example.main:
-    name: main
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 237
-    cyclomatic_complexity: 3
-    calls_out: 14
-    calls_in: 0
-  examples.09_online_drawing.06_visual_validator.run.draw_and_validate:
-    name: draw_and_validate
-    module: examples.09_online_drawing.06_visual_validator.run
-    line: 52
-    cyclomatic_complexity: 21
-    calls_out: 62
-    calls_in: 2
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_kubectl:
-    name: _demo_kubectl
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 44
-    cyclomatic_complexity: 1
-    calls_out: 11
-    calls_in: 1
-  examples.09_online_drawing._run_utils._classify_page_title:
-    name: _classify_page_title
-    module: examples.09_online_drawing._run_utils
-    line: 239
-    cyclomatic_complexity: 7
-    calls_out: 3
-    calls_in: 1
-  examples.01_basics.shell_fundamentals._environment_sections.print_system_info:
-    name: print_system_info
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 31
-    cyclomatic_complexity: 2
-    calls_out: 10
-    calls_in: 1
-  examples.03_integrations.toon_format.comparison_demo.compare_usage_patterns:
-    name: compare_usage_patterns
-    module: examples.03_integrations.toon_format.comparison_demo
-    line: 190
-    cyclomatic_complexity: 1
-    calls_out: 30
-    calls_in: 1
-  examples.03_integrations.toon_format.simple_demo.demo_advanced_features:
-    name: demo_advanced_features
-    module: examples.03_integrations.toon_format.simple_demo
-    line: 141
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  examples.03_integrations.web_development.demo_batch._cleanup:
-    name: _cleanup
-    module: examples.03_integrations.web_development.demo_batch
-    line: 79
-    cyclomatic_complexity: 3
-    calls_out: 6
-    calls_in: 1
-  examples.01_basics.shell_fundamentals._environment_sections.print_command_validation:
-    name: print_command_validation
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 121
-    cyclomatic_complexity: 4
-    calls_out: 6
-    calls_in: 1
-  examples._verbose_helper.ensure_playwright_browsers:
-    name: ensure_playwright_browsers
-    module: examples._verbose_helper
-    line: 116
-    cyclomatic_complexity: 6
-    calls_out: 19
-    calls_in: 0
-  examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd.run_nlp2cmd_command:
-    name: run_nlp2cmd_command
-    module: examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd
-    line: 29
-    cyclomatic_complexity: 7
-    calls_out: 7
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.feedback_loop._scenario_success:
-    name: _scenario_success
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 31
-    cyclomatic_complexity: 2
-    calls_out: 9
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.feedback_loop.simulate_interactive_session:
-    name: simulate_interactive_session
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 172
-    cyclomatic_complexity: 1
-    calls_out: 13
-    calls_in: 0
-  examples._dynamic_orchestrator.DynamicOrchestrator.execute_task:
-    name: execute_task
-    module: examples._dynamic_orchestrator
-    line: 58
-    cyclomatic_complexity: 4
-    calls_out: 13
-    calls_in: 0
-  src.nlp2cmd.cli.commands.examples.ExamplesRegistry.list:
-    name: list
-    module: src.nlp2cmd.cli.commands.examples
-    line: 150
-    cyclomatic_complexity: 4
-    calls_out: 2
-    calls_in: 151
-  examples.01_basics.shell_fundamentals.environment_analysis.main:
-    name: main
-    module: examples.01_basics.shell_fundamentals.environment_analysis
-    line: 24
-    cyclomatic_complexity: 6
-    calls_out: 23
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.main:
-    name: main
-    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
-    line: 219
-    cyclomatic_complexity: 2
-    calls_out: 9
-    calls_in: 0
-  examples._example_helpers.print_separator:
-    name: print_separator
-    module: examples._example_helpers
-    line: 4
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 75
-  examples.08_api_key_management.05_openai_key.run.check:
-    name: check
-    module: examples.08_api_key_management.05_openai_key.run
-    line: 29
-    cyclomatic_complexity: 8
-    calls_out: 13
-    calls_in: 1
-  examples.01_basics.app2schema.example.main:
-    name: main
-    module: examples.01_basics.app2schema.example
-    line: 11
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 0
-  examples.05_advanced_features.schema_driven_architecture.02_decision_router.demo.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.02_decision_router.demo
-    line: 48
-    cyclomatic_complexity: 3
-    calls_out: 20
-    calls_in: 0
-  examples.02_benchmarks.performance_testing.benchmark.run_sequential_benchmark:
-    name: run_sequential_benchmark
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 49
-    cyclomatic_complexity: 3
-    calls_out: 16
-    calls_in: 1
-  examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd.run_nlp2cmd_command:
-    name: run_nlp2cmd_command
-    module: examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd
-    line: 29
-    cyclomatic_complexity: 7
-    calls_out: 7
-    calls_in: 1
-  examples.03_integrations.web_development.demo._print_help:
-    name: _print_help
-    module: examples.03_integrations.web_development.demo
-    line: 48
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 1
-  examples.03_integrations.web_development.docker_manager.DockerManager.start_services:
-    name: start_services
-    module: examples.03_integrations.web_development.docker_manager
-    line: 50
-    cyclomatic_complexity: 6
-    calls_out: 8
-    calls_in: 0
-  examples.08_api_key_management.04_huggingface_token.run.main:
-    name: main
-    module: examples.08_api_key_management.04_huggingface_token.run
-    line: 93
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 0
-  examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo
-    line: 145
-    cyclomatic_complexity: 12
-    calls_out: 87
-    calls_in: 0
-  examples.08_api_key_management.06_multi_provider.run.plan_all:
-    name: plan_all
-    module: examples.08_api_key_management.06_multi_provider.run
-    line: 38
-    cyclomatic_complexity: 10
-    calls_out: 15
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd.get_command_for_task:
-    name: get_command_for_task
-    module: examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd
-    line: 65
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run.draw_on_canvas:
-    name: draw_on_canvas
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 280
-    cyclomatic_complexity: 8
-    calls_out: 29
-    calls_in: 2
-  src.app2schema.extract.extract_appspec_to_file:
-    name: extract_appspec_to_file
-    module: src.app2schema.extract
-    line: 822
-    cyclomatic_complexity: 27
-    calls_out: 44
-    calls_in: 12
-  src.nlp2cmd.core.toon_integration.get_data_manager:
-    name: get_data_manager
-    module: src.nlp2cmd.core.toon_integration
-    line: 195
-    cyclomatic_complexity: 3
-    calls_out: 1
-    calls_in: 4
-  examples.03_integrations.toon_format.12_advanced_integration.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.12_advanced_integration.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 17
-    calls_in: 0
-  examples.03_integrations.toon_format.08_memory_usage.demo.estimate_old_system_memory:
-    name: estimate_old_system_memory
-    module: examples.03_integrations.toon_format.08_memory_usage.demo
-    line: 15
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 1
-  examples.02_benchmarks.performance_testing.benchmark.save_report:
-    name: save_report
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 377
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.feedback_loop._scenario_refinement:
-    name: _scenario_refinement
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 146
-    cyclomatic_complexity: 3
-    calls_out: 9
-    calls_in: 1
-  examples.03_integrations.toon_format.simple_demo.demo_integration_example:
-    name: demo_integration_example
-    module: examples.03_integrations.toon_format.simple_demo
-    line: 106
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 1
-  examples.09_online_drawing.01_draw_chat.run.main:
-    name: main
-    module: examples.09_online_drawing.01_draw_chat.run
-    line: 39
-    cyclomatic_complexity: 9
-    calls_out: 46
-    calls_in: 0
-  examples.09_online_drawing.09_evolutionary_orchestrator.run.mock_example_execution:
-    name: mock_example_execution
-    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
-    line: 80
-    cyclomatic_complexity: 5
-    calls_out: 13
-    calls_in: 1
-  examples.03_integrations.toon_format.13_query_system.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.13_query_system.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 17
-    calls_in: 0
-  examples.01_basics.shell_fundamentals.feedback_loop._scenario_ambiguous:
-    name: _scenario_ambiguous
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 111
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 1
-  examples._verbose_helper.dump_page_schema:
-    name: dump_page_schema
-    module: examples._verbose_helper
-    line: 49
-    cyclomatic_complexity: 3
-    calls_out: 8
-    calls_in: 12
-  examples.08_api_key_management.01_diagnose_credentials_nlp2cmd.get_command_for_service:
-    name: get_command_for_service
-    module: examples.08_api_key_management.01_diagnose_credentials_nlp2cmd
-    line: 50
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  examples.03_integrations.toon_format.simple_demo.demo_basic_usage:
-    name: demo_basic_usage
-    module: examples.03_integrations.toon_format.simple_demo
-    line: 14
-    cyclomatic_complexity: 1
-    calls_out: 5
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run.generate_svg:
-    name: generate_svg
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 159
-    cyclomatic_complexity: 4
-    calls_out: 6
-    calls_in: 2
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_docker:
-    name: _demo_docker
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 22
-    cyclomatic_complexity: 1
-    calls_out: 12
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.show_container_logs:
-    name: show_container_logs
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 96
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 2
-  examples.05_advanced_features.schema_driven_architecture.05_result_aggregator.demo.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.05_result_aggregator.demo
-    line: 92
-    cyclomatic_complexity: 2
-    calls_out: 23
-    calls_in: 0
-  src.nlp2cmd.executor.execution_context.ExecutionContext.set:
-    name: set
-    module: src.nlp2cmd.executor.execution_context
-    line: 25
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 105
-  examples.01_basics.sql_basics.example.main:
-    name: main
-    module: examples.01_basics.sql_basics.example
-    line: 27
-    cyclomatic_complexity: 6
-    calls_out: 19
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.print_docker_result:
-    name: print_docker_result
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 39
-    cyclomatic_complexity: 4
-    calls_out: 11
-    calls_in: 1
-  examples.09_online_drawing._old.02_picsart_painting_nlp2cmd.get_command_for_pattern_and_color:
-    name: get_command_for_pattern_and_color
-    module: examples.09_online_drawing._old.02_picsart_painting_nlp2cmd
-    line: 71
-    cyclomatic_complexity: 2
-    calls_out: 0
-    calls_in: 1
-  examples.03_integrations.web_development.nlp2_cmd_web_controller.NLP2CMDWebController.save_full_deployment_plan:
-    name: save_full_deployment_plan
-    module: examples.03_integrations.web_development.nlp2_cmd_web_controller
-    line: 470
-    cyclomatic_complexity: 7
-    calls_out: 13
-    calls_in: 0
-  src.nlp2cmd.orchestration.handlers.register_default_handlers:
-    name: register_default_handlers
-    module: src.nlp2cmd.orchestration.handlers
-    line: 682
-    cyclomatic_complexity: 1
-    calls_out: 16
-    calls_in: 2
-  examples.01_basics.shell_fundamentals.feedback_loop._scenario_auto_correction:
-    name: _scenario_auto_correction
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 88
-    cyclomatic_complexity: 4
-    calls_out: 15
-    calls_in: 1
-  examples.09_online_drawing.06_visual_validator.run.validate_screenshot:
-    name: validate_screenshot
-    module: examples.09_online_drawing.06_visual_validator.run
-    line: 197
-    cyclomatic_complexity: 5
-    calls_out: 14
-    calls_in: 1
-  examples._verbose_helper.ensure_playwright_browsers_async:
-    name: ensure_playwright_browsers_async
-    module: examples._verbose_helper
-    line: 176
-    cyclomatic_complexity: 6
-    calls_out: 19
-    calls_in: 11
-  examples.08_api_key_management.06_multi_provider.run.setup_all:
-    name: setup_all
-    module: examples.08_api_key_management.06_multi_provider.run
-    line: 128
-    cyclomatic_complexity: 5
-    calls_out: 7
-    calls_in: 1
-  examples.09_online_drawing.06_visual_validator.run.run_demo:
-    name: run_demo
-    module: examples.09_online_drawing.06_visual_validator.run
-    line: 222
-    cyclomatic_complexity: 5
-    calls_out: 19
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run._print_shape_group:
-    name: _print_shape_group
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 109
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 2
-  examples.05_advanced_features.thermodynamic_computing.example.example_routing:
-    name: example_routing
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 173
-    cyclomatic_complexity: 4
-    calls_out: 12
-    calls_in: 1
-  examples.03_integrations.toon_format.07_loading_performance.demo.benchmark_old_system:
-    name: benchmark_old_system
-    module: examples.03_integrations.toon_format.07_loading_performance.demo
-    line: 15
-    cyclomatic_complexity: 4
-    calls_out: 9
-    calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.demo_persistent_storage.demonstrate_persistent_storage:
-    name: demonstrate_persistent_storage
-    module: examples.05_advanced_features.dynamic_schemas.demo_persistent_storage
-    line: 13
-    cyclomatic_complexity: 11
-    calls_out: 48
-    calls_in: 0
-  examples.01_basics.docker_basics.file_repair.repair_file:
-    name: repair_file
-    module: examples.01_basics.docker_basics.file_repair
-    line: 131
-    cyclomatic_complexity: 11
-    calls_out: 21
-    calls_in: 5
-  examples.01_basics.sql_basics.llm_integration.demonstrate_rule_based_fallback:
-    name: demonstrate_rule_based_fallback
-    module: examples.01_basics.sql_basics.llm_integration
-    line: 167
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  examples.09_online_drawing.09_evolutionary_orchestrator.run.print_learning_report:
-    name: print_learning_report
-    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
-    line: 194
-    cyclomatic_complexity: 2
-    calls_out: 27
-    calls_in: 1
-  examples.03_integrations.web_development.02_deployment_planning.demo.main:
-    name: main
-    module: examples.03_integrations.web_development.02_deployment_planning.demo
-    line: 46
-    cyclomatic_complexity: 3
-    calls_out: 26
-    calls_in: 0
-  examples.08_api_key_management.05_openai_key.run.main:
-    name: main
-    module: examples.08_api_key_management.05_openai_key.run
-    line: 78
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 0
-  examples.02_benchmarks.sequential_testing.benchmark.main:
-    name: main
-    module: examples.02_benchmarks.sequential_testing.benchmark
-    line: 44
-    cyclomatic_complexity: 6
-    calls_out: 67
-    calls_in: 0
-  examples.01_basics.shell_fundamentals.example.main:
-    name: main
-    module: examples.01_basics.shell_fundamentals.example
-    line: 33
-    cyclomatic_complexity: 10
-    calls_out: 31
-    calls_in: 0
-  examples.09_online_drawing._old.04_object_database_drawing.main:
-    name: main
-    module: examples.09_online_drawing._old.04_object_database_drawing
-    line: 474
-    cyclomatic_complexity: 18
-    calls_out: 66
-    calls_in: 0
-  src.nlp2cmd.llm.router.get_router:
-    name: get_router
-    module: src.nlp2cmd.llm.router
-    line: 940
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 4
-  src.nlp2cmd.generation.thermodynamic.create_thermodynamic_generator:
-    name: create_thermodynamic_generator
-    module: src.nlp2cmd.generation.thermodynamic
-    line: 23
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 12
-  examples.02_benchmarks.sequential_testing.benchmark.print_section:
-    name: print_section
-    module: examples.02_benchmarks.sequential_testing.benchmark
-    line: 28
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 5
-  examples.03_integrations.toon_format.comparison_demo.compare_data_structure:
-    name: compare_data_structure
-    module: examples.03_integrations.toon_format.comparison_demo
-    line: 228
-    cyclomatic_complexity: 1
-    calls_out: 34
-    calls_in: 1
-  examples.run_task.main:
-    name: main
-    module: examples.run_task
-    line: 34
-    cyclomatic_complexity: 11
-    calls_out: 34
-    calls_in: 0
-  examples.06_tools_and_utilities.migration_tools.guide.performance_comparison:
-    name: performance_comparison
-    module: examples.06_tools_and_utilities.migration_tools.guide
-    line: 217
-    cyclomatic_complexity: 1
-    calls_out: 20
-    calls_in: 1
-  examples.08_api_key_management.06_multi_provider.run.main:
-    name: main
-    module: examples.08_api_key_management.06_multi_provider.run
-    line: 145
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 0
-  examples.03_integrations.web_development.demo.main:
-    name: main
-    module: examples.03_integrations.web_development.demo
-    line: 179
-    cyclomatic_complexity: 9
-    calls_out: 19
-    calls_in: 0
-  examples.01_basics.shell_fundamentals._environment_sections.print_export_preview:
-    name: print_export_preview
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 146
-    cyclomatic_complexity: 6
-    calls_out: 15
-    calls_in: 1
-  examples.05_advanced_features.schema_driven_architecture.04_plan_executor.demo.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.04_plan_executor.demo
-    line: 92
-    cyclomatic_complexity: 4
-    calls_out: 23
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.print_command_result:
-    name: print_command_result
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 56
-    cyclomatic_complexity: 9
-    calls_out: 17
-    calls_in: 1
-  examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.print_step:
-    name: print_step
-    module: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo
-    line: 60
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  examples.03_integrations.web_development.demo._print_generated_files:
-    name: _print_generated_files
-    module: examples.03_integrations.web_development.demo
-    line: 59
-    cyclomatic_complexity: 5
-    calls_out: 7
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.feedback_loop._print_feedback:
-    name: _print_feedback
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 24
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 3
-  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_advanced_usage:
-    name: show_advanced_usage
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 79
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 0
-  examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd.main:
-    name: main
-    module: examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd
-    line: 95
-    cyclomatic_complexity: 5
-    calls_out: 30
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.dispatch_management_command:
-    name: dispatch_management_command
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 230
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 2
-  examples.08_api_key_management.06_multi_provider.run.setup_providers:
-    name: setup_providers
-    module: examples.08_api_key_management.06_multi_provider.run
-    line: 73
-    cyclomatic_complexity: 8
-    calls_out: 18
-    calls_in: 2
-  examples.07_stream_protocols.example_rtsp.main:
-    name: main
-    module: examples.07_stream_protocols.example_rtsp
-    line: 24
-    cyclomatic_complexity: 3
-    calls_out: 22
-    calls_in: 0
-  examples.08_api_key_management.06_multi_provider.run.scan:
-    name: scan
-    module: examples.08_api_key_management.06_multi_provider.run
-    line: 31
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd.IntelligentNLP2CMD.transform:
-    name: transform
-    module: examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd
-    line: 41
-    cyclomatic_complexity: 5
-    calls_out: 5
-    calls_in: 0
-  examples.01_basics.shell_fundamentals._environment_sections.print_config_files:
-    name: print_config_files
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 82
-    cyclomatic_complexity: 6
-    calls_out: 14
-    calls_in: 1
-  examples.08_api_key_management.04_huggingface_token.run.run_flow:
-    name: run_flow
-    module: examples.08_api_key_management.04_huggingface_token.run
-    line: 67
-    cyclomatic_complexity: 7
-    calls_out: 12
-    calls_in: 1
-  examples.01_basics.sql_basics.llm_integration.demonstrate_hybrid_approach:
-    name: demonstrate_hybrid_approach
-    module: examples.01_basics.sql_basics.llm_integration
-    line: 270
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  examples.03_integrations.web_development.03_docker_compose.demo.generate_compose:
-    name: generate_compose
-    module: examples.03_integrations.web_development.03_docker_compose.demo
-    line: 26
-    cyclomatic_complexity: 5
-    calls_out: 0
-    calls_in: 1
-  examples.03_integrations.toon_format.comparison_demo.benchmark_performance:
-    name: benchmark_performance
-    module: examples.03_integrations.toon_format.comparison_demo
-    line: 144
-    cyclomatic_complexity: 3
-    calls_out: 37
-    calls_in: 1
-  examples.01_basics.sql_basics.llm_integration.demonstrate_mock_llm:
-    name: demonstrate_mock_llm
-    module: examples.01_basics.sql_basics.llm_integration
-    line: 125
-    cyclomatic_complexity: 2
-    calls_out: 13
-    calls_in: 1
-  examples.01_basics.shell_fundamentals._environment_sections.print_full_report:
-    name: print_full_report
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 133
-    cyclomatic_complexity: 3
-    calls_out: 6
-    calls_in: 1
-  examples.03_integrations.toon_format.02_command_generator.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.02_command_generator.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 14
-    calls_in: 0
-  examples.01_basics.sql_basics.llm_integration.demonstrate_real_llm_setup:
-    name: demonstrate_real_llm_setup
-    module: examples.01_basics.sql_basics.llm_integration
-    line: 196
-    cyclomatic_complexity: 5
-    calls_out: 13
-    calls_in: 1
-  examples.09_online_drawing._old.02_picsart_painting.main:
-    name: main
-    module: examples.09_online_drawing._old.02_picsart_painting
-    line: 43
-    cyclomatic_complexity: 3
-    calls_out: 48
-    calls_in: 0
-  examples.09_online_drawing._run_utils.take_screenshot:
-    name: take_screenshot
-    module: examples.09_online_drawing._run_utils
-    line: 615
-    cyclomatic_complexity: 5
-    calls_out: 15
-    calls_in: 3
-  examples.03_integrations.web_development._demo_helpers.handle_docker_execution:
-    name: handle_docker_execution
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 191
-    cyclomatic_complexity: 4
-    calls_out: 11
-    calls_in: 2
-  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.show_file_locations:
-    name: show_file_locations
-    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
-    line: 89
-    cyclomatic_complexity: 4
-    calls_out: 17
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.test_services:
-    name: test_services
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 169
-    cyclomatic_complexity: 7
-    calls_out: 8
-    calls_in: 3
-  examples.03_integrations.web_development.01_basic_service_config.demo.main:
-    name: main
-    module: examples.03_integrations.web_development.01_basic_service_config.demo
-    line: 42
-    cyclomatic_complexity: 4
-    calls_out: 19
-    calls_in: 0
-  examples.09_online_drawing.04_object_database.run.main:
-    name: main
-    module: examples.09_online_drawing.04_object_database.run
-    line: 193
-    cyclomatic_complexity: 6
-    calls_out: 18
-    calls_in: 0
-  examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd.main:
-    name: main
-    module: examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd
-    line: 94
-    cyclomatic_complexity: 4
-    calls_out: 24
-    calls_in: 0
-  examples.03_integrations.validation.config_validation.main:
-    name: main
-    module: examples.03_integrations.validation.config_validation
-    line: 47
-    cyclomatic_complexity: 5
-    calls_out: 68
-    calls_in: 0
-  examples.08_api_key_management.03_github_token.run.run_flow:
-    name: run_flow
-    module: examples.08_api_key_management.03_github_token.run
-    line: 60
-    cyclomatic_complexity: 7
-    calls_out: 12
-    calls_in: 1
-  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_real_world_examples:
-    name: show_real_world_examples
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 144
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 0
-  examples.09_online_drawing._old.05_autonomous_drawing.fetch_only:
-    name: fetch_only
-    module: examples.09_online_drawing._old.05_autonomous_drawing
-    line: 228
-    cyclomatic_complexity: 5
-    calls_out: 12
-    calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.demo_enhanced.main:
-    name: main
-    module: examples.05_advanced_features.dynamic_schemas.demo_enhanced
-    line: 24
-    cyclomatic_complexity: 12
-    calls_out: 49
-    calls_in: 0
-  examples.02_benchmarks.performance_testing.benchmark.generate_report:
-    name: generate_report
-    module: examples.02_benchmarks.performance_testing.benchmark
     line: 166
-    cyclomatic_complexity: 2
-    calls_out: 16
-    calls_in: 1
-  examples.09_online_drawing._run_utils.discover_working_url:
-    name: discover_working_url
-    module: examples.09_online_drawing._run_utils
-    line: 449
-    cyclomatic_complexity: 12
-    calls_out: 15
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_python:
-    name: _demo_python
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 86
-    cyclomatic_complexity: 1
-    calls_out: 10
-    calls_in: 1
-  examples.03_integrations.web_development.02_deployment_planning.demo.DeploymentPlan.summary:
-    name: summary
-    module: examples.03_integrations.web_development.02_deployment_planning.demo
-    line: 32
-    cyclomatic_complexity: 5
-    calls_out: 3
-    calls_in: 0
-  examples.09_online_drawing._run_utils._inspect_required_element:
-    name: _inspect_required_element
-    module: examples.09_online_drawing._run_utils
-    line: 249
-    cyclomatic_complexity: 7
-    calls_out: 5
-    calls_in: 1
-  examples.03_integrations.pipelines.log_analysis.main:
-    name: main
-    module: examples.03_integrations.pipelines.log_analysis
-    line: 56
-    cyclomatic_complexity: 15
-    calls_out: 52
+    cyclomatic_complexity: 13
+    calls_out: 19
     calls_in: 0
   examples.09_online_drawing.02_picsart.run.main:
     name: main
@@ -1433,139 +19,13 @@ nodes:
     cyclomatic_complexity: 6
     calls_out: 45
     calls_in: 0
-  examples.05_advanced_features.thermodynamic_computing.example.example_allocation:
-    name: example_allocation
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 78
-    cyclomatic_complexity: 2
-    calls_out: 11
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.feedback_loop._scenario_exceptions:
-    name: _scenario_exceptions
-    module: examples.01_basics.shell_fundamentals.feedback_loop
-    line: 125
-    cyclomatic_complexity: 4
-    calls_out: 12
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run.generate_html_gallery:
-    name: generate_html_gallery
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 195
-    cyclomatic_complexity: 4
-    calls_out: 13
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run.list_shapes:
-    name: list_shapes
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 127
-    cyclomatic_complexity: 8
-    calls_out: 26
-    calls_in: 1
-  examples.01_basics.docker_basics.example.main:
-    name: main
-    module: examples.01_basics.docker_basics.example
-    line: 23
-    cyclomatic_complexity: 5
-    calls_out: 22
-    calls_in: 0
-  examples.02_benchmarks.performance_testing.benchmark.print_report_summary:
-    name: print_report_summary
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 390
-    cyclomatic_complexity: 4
-    calls_out: 30
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run._print_shape_line:
-    name: _print_shape_line
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 104
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  examples.09_online_drawing.08_search_demo.run.main:
-    name: main
-    module: examples.09_online_drawing.08_search_demo.run
-    line: 68
+  examples.03_integrations.web_development._demo_helpers.show_container_status:
+    name: show_container_status
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 81
     cyclomatic_complexity: 3
-    calls_out: 10
-    calls_in: 0
-  examples.09_online_drawing._run_utils.ExampleRunner.screenshot:
-    name: screenshot
-    module: examples.09_online_drawing._run_utils
-    line: 754
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  examples._verbose_helper.vlog:
-    name: vlog
-    module: examples._verbose_helper
-    line: 41
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 77
-  examples.06_tools_and_utilities.migration_tools.guide.new_way_examples:
-    name: new_way_examples
-    module: examples.06_tools_and_utilities.migration_tools.guide
-    line: 82
-    cyclomatic_complexity: 1
     calls_out: 9
     calls_in: 1
-  examples.01_basics.docker_basics.file_repair.main:
-    name: main
-    module: examples.01_basics.docker_basics.file_repair
-    line: 177
-    cyclomatic_complexity: 4
-    calls_out: 54
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.show_schema_details:
-    name: show_schema_details
-    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
-    line: 182
-    cyclomatic_complexity: 6
-    calls_out: 18
-    calls_in: 1
-  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_integration_examples:
-    name: show_integration_examples
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 295
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 0
-  examples.09_online_drawing.09_evolutionary_orchestrator.run.main:
-    name: main
-    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
-    line: 220
-    cyclomatic_complexity: 8
-    calls_out: 32
-    calls_in: 0
-  examples.03_integrations.web_development.demo._maybe_save_deployment_plan:
-    name: _maybe_save_deployment_plan
-    module: examples.03_integrations.web_development.demo
-    line: 72
-    cyclomatic_complexity: 4
-    calls_out: 6
-    calls_in: 1
-  examples.03_integrations.web_development.demo_auto.run_demo_with_test:
-    name: run_demo_with_test
-    module: examples.03_integrations.web_development.demo_auto
-    line: 35
-    cyclomatic_complexity: 12
-    calls_out: 46
-    calls_in: 0
-  examples.09_online_drawing._run_utils._collect_discovery_urls:
-    name: _collect_discovery_urls
-    module: examples.09_online_drawing._run_utils
-    line: 393
-    cyclomatic_complexity: 6
-    calls_out: 5
-    calls_in: 1
-  examples.05_advanced_features.schema_driven_architecture.manual_appspec.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.manual_appspec
-    line: 10
-    cyclomatic_complexity: 1
-    calls_out: 13
-    calls_in: 0
   examples.09_online_drawing._run_utils.wait_for_canvas:
     name: wait_for_canvas
     module: examples.09_online_drawing._run_utils
@@ -1573,494 +33,11 @@ nodes:
     cyclomatic_complexity: 9
     calls_out: 9
     calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run._shape_stats:
-    name: _shape_stats
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 99
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.test_chat_service:
-    name: test_chat_service
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 117
-    cyclomatic_complexity: 3
-    calls_out: 6
-    calls_in: 1
-  examples.03_integrations.toon_format.practical_usage.main:
-    name: main
-    module: examples.03_integrations.toon_format.practical_usage
-    line: 442
-    cyclomatic_complexity: 2
-    calls_out: 18
-    calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.simple_schema_demo.main:
-    name: main
-    module: examples.05_advanced_features.dynamic_schemas.simple_schema_demo
-    line: 17
-    cyclomatic_complexity: 6
-    calls_out: 46
-    calls_in: 0
-  src.nlp2cmd.registry.get_registry.get_registry:
-    name: get_registry
-    module: src.nlp2cmd.registry.get_registry
-    line: 14
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 6
-  examples.09_online_drawing._old.03_adaptive_drawing.main:
-    name: main
-    module: examples.09_online_drawing._old.03_adaptive_drawing
-    line: 101
-    cyclomatic_complexity: 11
-    calls_out: 93
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.print_batch_banner:
-    name: print_batch_banner
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 206
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  examples.08_api_key_management.01_diagnose_credentials_nlp2cmd.main:
-    name: main
-    module: examples.08_api_key_management.01_diagnose_credentials_nlp2cmd
-    line: 62
-    cyclomatic_complexity: 1
-    calls_out: 12
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.test_redis_service:
-    name: test_redis_service
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 131
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  examples.09_online_drawing._run_utils.dismiss_popups:
-    name: dismiss_popups
-    module: examples.09_online_drawing._run_utils
-    line: 217
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  examples.05_advanced_features.schema_driven_architecture.03_llm_planner.demo.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.03_llm_planner.demo
-    line: 52
-    cyclomatic_complexity: 4
-    calls_out: 25
-    calls_in: 0
-  examples._verbose_schema._log_list:
-    name: _log_list
-    module: examples._verbose_schema
-    line: 102
-    cyclomatic_complexity: 6
-    calls_out: 7
-    calls_in: 6
-  examples._verbose_schema.log_schema_summary:
-    name: log_schema_summary
-    module: examples._verbose_schema
-    line: 113
-    cyclomatic_complexity: 13
-    calls_out: 28
-    calls_in: 1
-  examples.09_online_drawing._old.02_picsart_painting_nlp2cmd.main:
-    name: main
-    module: examples.09_online_drawing._old.02_picsart_painting_nlp2cmd
-    line: 102
-    cyclomatic_complexity: 5
-    calls_out: 32
-    calls_in: 0
-  examples.09_online_drawing.07_shape_gallery.run.analyze_image_and_draw:
-    name: analyze_image_and_draw
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 246
-    cyclomatic_complexity: 8
-    calls_out: 15
-    calls_in: 1
-  examples.05_advanced_features.thermodynamic_computing.example.example_direct_problem:
-    name: example_direct_problem
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 205
-    cyclomatic_complexity: 3
-    calls_out: 12
-    calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_tool_version:
-    name: _demo_tool_version
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 8
-    cyclomatic_complexity: 4
-    calls_out: 9
-    calls_in: 4
-  examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd.demo_intelligent_nlp2cmd:
-    name: demo_intelligent_nlp2cmd
-    module: examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd
-    line: 234
-    cyclomatic_complexity: 8
-    calls_out: 32
-    calls_in: 0
-  examples.09_online_drawing._old.02_picsart_painting_nlp2cmd.run_nlp2cmd_command:
+  examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd.run_nlp2cmd_command:
     name: run_nlp2cmd_command
-    module: examples.09_online_drawing._old.02_picsart_painting_nlp2cmd
+    module: examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd
     line: 29
     cyclomatic_complexity: 7
-    calls_out: 7
-    calls_in: 1
-  examples.01_basics.shell_fundamentals._environment_sections.print_section_header:
-    name: print_section_header
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 25
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 8
-  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_multiple_commands:
-    name: demonstrate_multiple_commands
-    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
-    line: 131
-    cyclomatic_complexity: 4
-    calls_out: 15
-    calls_in: 1
-  examples.05_advanced_features.schema_driven_architecture.mvp.main:
-    name: main
-    module: examples.05_advanced_features.schema_driven_architecture.mvp
-    line: 11
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.print_containers:
-    name: print_containers
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 23
-    cyclomatic_complexity: 5
-    calls_out: 6
-    calls_in: 4
-  examples.show_metrics.main:
-    name: main
-    module: examples.show_metrics
-    line: 33
-    cyclomatic_complexity: 15
-    calls_out: 77
-    calls_in: 0
-  examples.03_integrations.toon_format.08_memory_usage.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.08_memory_usage.demo
-    line: 61
-    cyclomatic_complexity: 2
-    calls_out: 30
-    calls_in: 0
-  examples.09_online_drawing._run_utils.ExampleRunner.__aexit__:
-    name: __aexit__
-    module: examples.09_online_drawing._run_utils
-    line: 709
-    cyclomatic_complexity: 8
-    calls_out: 8
-    calls_in: 0
-  examples.01_basics.shell_fundamentals._environment_sections.print_tool_detection:
-    name: print_tool_detection
-    module: examples.01_basics.shell_fundamentals._environment_sections
-    line: 44
-    cyclomatic_complexity: 11
-    calls_out: 11
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run._categories_to_show:
-    name: _categories_to_show
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 117
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  examples.09_online_drawing.03_adaptive.run.main:
-    name: main
-    module: examples.09_online_drawing.03_adaptive.run
-    line: 50
-    cyclomatic_complexity: 8
-    calls_out: 53
-    calls_in: 0
-  examples.09_online_drawing._old.04_object_database_drawing.run_nlp2cmd_command:
-    name: run_nlp2cmd_command
-    module: examples.09_online_drawing._old.04_object_database_drawing
-    line: 440
-    cyclomatic_complexity: 6
-    calls_out: 7
-    calls_in: 1
-  examples.09_online_drawing.04_object_database.run.run_scene:
-    name: run_scene
-    module: examples.09_online_drawing.04_object_database.run
-    line: 66
-    cyclomatic_complexity: 14
-    calls_out: 52
-    calls_in: 1
-  examples.09_online_drawing.07_shape_gallery.run.map_vision_to_shapes:
-    name: map_vision_to_shapes
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 80
-    cyclomatic_complexity: 6
-    calls_out: 6
-    calls_in: 1
-  examples.03_integrations.web_development.docker_manager.DockerManager.show_logs:
-    name: show_logs
-    module: examples.03_integrations.web_development.docker_manager
-    line: 166
-    cyclomatic_complexity: 13
-    calls_out: 19
-    calls_in: 0
-  examples.03_integrations.validation.config_validation.print_section:
-    name: print_section
-    module: examples.03_integrations.validation.config_validation
-    line: 25
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 8
-  examples.03_integrations.toon_format.simple_demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.simple_demo
-    line: 223
-    cyclomatic_complexity: 2
-    calls_out: 27
-    calls_in: 0
-  examples.03_integrations.web_development.demo_batch._print_batch_result:
-    name: _print_batch_result
-    module: examples.03_integrations.web_development.demo_batch
-    line: 28
-    cyclomatic_complexity: 3
-    calls_out: 8
-    calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.demo_version_detection.show_integration_example:
-    name: show_integration_example
-    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
-    line: 117
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 1
-  examples.03_integrations.toon_format.05_advanced_patterns.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.05_advanced_patterns.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 18
-    calls_in: 0
-  examples.03_integrations.toon_format.simple_demo.demo_real_world_example:
-    name: demo_real_world_example
-    module: examples.03_integrations.toon_format.simple_demo
-    line: 54
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 1
-  examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.migrate_existing_schemas:
-    name: migrate_existing_schemas
-    module: examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas
-    line: 17
-    cyclomatic_complexity: 7
-    calls_out: 44
-    calls_in: 1
-  examples.05_advanced_features.thermodynamic_computing.example.example_energy_savings:
-    name: example_energy_savings
-    module: examples.05_advanced_features.thermodynamic_computing.example
-    line: 106
-    cyclomatic_complexity: 1
-    calls_out: 10
-    calls_in: 1
-  examples.08_api_key_management.01_diagnose_credentials.run.main:
-    name: main
-    module: examples.08_api_key_management.01_diagnose_credentials.run
-    line: 21
-    cyclomatic_complexity: 18
-    calls_out: 21
-    calls_in: 0
-  examples.03_integrations.toon_format.01_basic_usage.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.01_basic_usage.demo
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 16
-    calls_in: 0
-  examples.03_integrations.web_development._demo_helpers.print_execution_summary:
-    name: print_execution_summary
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 216
-    cyclomatic_complexity: 5
-    calls_out: 10
-    calls_in: 1
-  examples._dynamic_orchestrator.DynamicOrchestrator.__init__:
-    name: __init__
-    module: examples._dynamic_orchestrator
-    line: 53
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  examples.09_online_drawing.07_shape_gallery.run.generate_svg_files:
-    name: generate_svg_files
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 180
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd.IntelligentNLP2CMD.update_command_schema:
-    name: update_command_schema
-    module: examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd
-    line: 181
-    cyclomatic_complexity: 6
-    calls_out: 8
-    calls_in: 0
-  examples.01_basics.docker_basics.file_repair.create_sample_files:
-    name: create_sample_files
-    module: examples.01_basics.docker_basics.file_repair
-    line: 24
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 1
-  examples._verbose_helper._try_url_for_selector:
-    name: _try_url_for_selector
-    module: examples._verbose_helper
-    line: 261
-    cyclomatic_complexity: 6
-    calls_out: 9
-    calls_in: 1
-  examples.09_online_drawing._run_utils._dismiss_selector_popups:
-    name: _dismiss_selector_popups
-    module: examples.09_online_drawing._run_utils
-    line: 205
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 2
-  examples.03_integrations.web_development.04_service_deployment.demo.main:
-    name: main
-    module: examples.03_integrations.web_development.04_service_deployment.demo
-    line: 23
-    cyclomatic_complexity: 3
-    calls_out: 19
-    calls_in: 0
-  examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.demonstrate_schema_updates:
-    name: demonstrate_schema_updates
-    module: examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas
-    line: 99
-    cyclomatic_complexity: 11
-    calls_out: 41
-    calls_in: 1
-  examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd.main:
-    name: main
-    module: examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd
-    line: 78
-    cyclomatic_complexity: 2
-    calls_out: 13
-    calls_in: 0
-  examples.03_integrations.web_development.demo_batch._print_final_status:
-    name: _print_final_status
-    module: examples.03_integrations.web_development.demo_batch
-    line: 64
-    cyclomatic_complexity: 5
-    calls_out: 8
-    calls_in: 1
-  examples.09_online_drawing.08_search_demo.run.search_demo:
-    name: search_demo
-    module: examples.09_online_drawing.08_search_demo.run
-    line: 25
-    cyclomatic_complexity: 6
-    calls_out: 28
-    calls_in: 1
-  examples.03_integrations.web_development._demo_helpers.test_container_service:
-    name: test_container_service
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 159
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 1
-  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase.fetch_online_database:
-    name: fetch_online_database
-    module: examples.09_online_drawing._old.04_object_database_drawing
-    line: 176
-    cyclomatic_complexity: 8
-    calls_out: 19
-    calls_in: 0
-  examples.03_integrations.toon_format.14_batch_processing.demo.main:
-    name: main
-    module: examples.03_integrations.toon_format.14_batch_processing.demo
-    line: 38
-    cyclomatic_complexity: 1
-    calls_out: 29
-    calls_in: 0
-  examples.09_online_drawing.07_shape_gallery.run.main:
-    name: main
-    module: examples.09_online_drawing.07_shape_gallery.run
-    line: 347
-    cyclomatic_complexity: 5
-    calls_out: 18
-    calls_in: 0
-  examples.01_basics.docker_basics.01_basics_docker_nlp2cmd.main:
-    name: main
-    module: examples.01_basics.docker_basics.01_basics_docker_nlp2cmd
-    line: 62
-    cyclomatic_complexity: 1
-    calls_out: 12
-    calls_in: 0
-  examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous:
-    name: run_autonomous
-    module: examples.09_online_drawing._old.05_autonomous_drawing
-    line: 104
-    cyclomatic_complexity: 12
-    calls_out: 59
-    calls_in: 1
-  jspaint_app_test4.run:
-    name: run
-    module: jspaint_app_test4
-    line: 6
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 0
-  examples.01_basics.kubernetes_basics.example.main:
-    name: main
-    module: examples.01_basics.kubernetes_basics.example
-    line: 23
-    cyclomatic_complexity: 7
-    calls_out: 27
-    calls_in: 0
-  examples.01_basics.sql_basics.workflows.print_section:
-    name: print_section
-    module: examples.01_basics.sql_basics.workflows
-    line: 24
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 8
-  examples.03_integrations.web_development._demo_helpers.test_postgres_service:
-    name: test_postgres_service
-    module: examples.03_integrations.web_development._demo_helpers
-    line: 145
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  examples.02_benchmarks.performance_testing.benchmark.print_section:
-    name: print_section
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 33
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 3
-  examples.09_online_drawing._run_utils.ExampleRunner.navigate:
-    name: navigate
-    module: examples.09_online_drawing._run_utils
-    line: 737
-    cyclomatic_complexity: 3
-    calls_out: 6
-    calls_in: 0
-  examples.02_benchmarks.performance_testing.benchmark.generate_markdown_report:
-    name: generate_markdown_report
-    module: examples.02_benchmarks.performance_testing.benchmark
-    line: 200
-    cyclomatic_complexity: 4
-    calls_out: 10
-    calls_in: 1
-  examples.03_integrations.toon_format.usage_example.main:
-    name: main
-    module: examples.03_integrations.toon_format.usage_example
-    line: 17
-    cyclomatic_complexity: 9
-    calls_out: 77
-    calls_in: 0
-  examples.03_integrations.toon_format.simple_demo.demo_performance_tips:
-    name: demo_performance_tips
-    module: examples.03_integrations.toon_format.simple_demo
-    line: 185
-    cyclomatic_complexity: 1
     calls_out: 7
     calls_in: 1
   examples.09_online_drawing._old.01_draw_chat_shapes.main:
@@ -2070,12 +47,82 @@ nodes:
     cyclomatic_complexity: 3
     calls_out: 47
     calls_in: 0
-  examples.05_advanced_features.dynamic_schemas.demo_persistent_storage.show_storage_benefits:
-    name: show_storage_benefits
-    module: examples.05_advanced_features.dynamic_schemas.demo_persistent_storage
-    line: 113
+  examples.03_integrations.toon_format.05_advanced_patterns.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.05_advanced_patterns.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 18
+    calls_in: 0
+  examples.03_integrations.web_development.docker_manager.DockerManager.stop_services:
+    name: stop_services
+    module: examples.03_integrations.web_development.docker_manager
+    line: 222
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  examples.03_integrations.web_development.demo_batch._load_commands:
+    name: _load_commands
+    module: examples.03_integrations.web_development.demo_batch
+    line: 37
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  examples.03_integrations.toon_format.03_data_manager.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.03_data_manager.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 13
+    calls_in: 0
+  examples.03_integrations.web_development.docker_manager.DockerManager.start_services:
+    name: start_services
+    module: examples.03_integrations.web_development.docker_manager
+    line: 50
+    cyclomatic_complexity: 6
+    calls_out: 8
+    calls_in: 0
+  examples.09_online_drawing.08_search_demo.run.search_demo:
+    name: search_demo
+    module: examples.09_online_drawing.08_search_demo.run
+    line: 25
+    cyclomatic_complexity: 6
+    calls_out: 28
+    calls_in: 1
+  examples.03_integrations.toon_format.comparison_demo.demonstrate_llm_friendly_format:
+    name: demonstrate_llm_friendly_format
+    module: examples.03_integrations.toon_format.comparison_demo
+    line: 269
+    cyclomatic_complexity: 1
+    calls_out: 38
+    calls_in: 1
+  examples.01_basics.shell_fundamentals._environment_sections.print_resources:
+    name: print_resources
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 100
+    cyclomatic_complexity: 3
+    calls_out: 31
+    calls_in: 1
+  examples.03_integrations.validation.config_validation.print_result:
+    name: print_result
+    module: examples.03_integrations.validation.config_validation
+    line: 31
+    cyclomatic_complexity: 6
+    calls_out: 8
+    calls_in: 10
+  examples.03_integrations.toon_format.simple_demo.demo_integration_example:
+    name: demo_integration_example
+    module: examples.03_integrations.toon_format.simple_demo
+    line: 106
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  examples.03_integrations.toon_format.08_memory_usage.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.08_memory_usage.demo
+    line: 61
     cyclomatic_complexity: 2
-    calls_out: 6
+    calls_out: 30
     calls_in: 0
   examples.01_basics.shell_fundamentals.feedback_loop._scenario_warnings:
     name: _scenario_warnings
@@ -2084,26 +131,481 @@ nodes:
     cyclomatic_complexity: 5
     calls_out: 11
     calls_in: 1
-  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.show_api_usage:
-    name: show_api_usage
-    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
-    line: 121
+  examples.03_integrations.toon_format.practical_usage.ToonDemo._load_toon_data:
+    name: _load_toon_data
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 21
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_ps:
+    name: _demo_ps
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 65
     cyclomatic_complexity: 1
-    calls_out: 9
+    calls_out: 10
     calls_in: 1
-  examples._verbose_helper.discover_working_url:
-    name: discover_working_url
-    module: examples._verbose_helper
-    line: 281
+  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase.fetch_online_database:
+    name: fetch_online_database
+    module: examples.09_online_drawing._old.04_object_database_drawing
+    line: 176
+    cyclomatic_complexity: 8
+    calls_out: 19
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_tool_version:
+    name: _demo_tool_version
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 8
     cyclomatic_complexity: 4
-    calls_out: 11
-    calls_in: 3
-  examples.03_integrations.web_development.05_infrastructure_management.demo.main:
+    calls_out: 9
+    calls_in: 4
+  examples.05_advanced_features.thermodynamic_computing.example.example_energy_savings:
+    name: example_energy_savings
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 106
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 1
+  examples.09_online_drawing.07_shape_gallery.run._shape_stats:
+    name: _shape_stats
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 99
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.test_postgres_service:
+    name: test_postgres_service
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 145
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  examples.03_integrations.web_development.demo_auto.run_demo_with_test:
+    name: run_demo_with_test
+    module: examples.03_integrations.web_development.demo_auto
+    line: 35
+    cyclomatic_complexity: 12
+    calls_out: 46
+    calls_in: 0
+  examples.01_basics.shell_fundamentals.example.main:
     name: main
-    module: examples.03_integrations.web_development.05_infrastructure_management.demo
+    module: examples.01_basics.shell_fundamentals.example
+    line: 33
+    cyclomatic_complexity: 10
+    calls_out: 31
+    calls_in: 0
+  examples.03_integrations.web_development.demo_batch._execute_command:
+    name: _execute_command
+    module: examples.03_integrations.web_development.demo_batch
+    line: 45
+    cyclomatic_complexity: 2
+    calls_out: 11
+    calls_in: 1
+  examples.09_online_drawing._run_utils._classify_page_title:
+    name: _classify_page_title
+    module: examples.09_online_drawing._run_utils
+    line: 239
+    cyclomatic_complexity: 7
+    calls_out: 3
+    calls_in: 1
+  examples.06_tools_and_utilities.migration_tools.guide.main:
+    name: main
+    module: examples.06_tools_and_utilities.migration_tools.guide
+    line: 307
+    cyclomatic_complexity: 1
+    calls_out: 28
+    calls_in: 0
+  examples.09_online_drawing._run_utils._dismiss_selector_popups:
+    name: _dismiss_selector_popups
+    module: examples.09_online_drawing._run_utils
+    line: 205
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 2
+  examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd.run_nlp2cmd_command:
+    name: run_nlp2cmd_command
+    module: examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd
+    line: 27
+    cyclomatic_complexity: 6
+    calls_out: 6
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd.main:
+    name: main
+    module: examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd
+    line: 78
+    cyclomatic_complexity: 2
+    calls_out: 13
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.main:
+    name: main
+    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
+    line: 167
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 0
+  examples.03_integrations.toon_format.comparison_demo.compare_usage_patterns:
+    name: compare_usage_patterns
+    module: examples.03_integrations.toon_format.comparison_demo
+    line: 190
+    cyclomatic_complexity: 1
+    calls_out: 30
+    calls_in: 1
+  examples.03_integrations.web_development.demo_batch._print_final_status:
+    name: _print_final_status
+    module: examples.03_integrations.web_development.demo_batch
+    line: 64
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  examples.09_online_drawing._old.05_autonomous_drawing.resolve_shapes:
+    name: resolve_shapes
+    module: examples.09_online_drawing._old.05_autonomous_drawing
+    line: 46
+    cyclomatic_complexity: 14
+    calls_out: 21
+    calls_in: 1
+  examples.01_basics.shell_fundamentals._environment_sections.print_system_info:
+    name: print_system_info
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 31
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 1
+  examples.03_integrations.web_development.01_basic_service_config.demo.main:
+    name: main
+    module: examples.03_integrations.web_development.01_basic_service_config.demo
+    line: 42
+    cyclomatic_complexity: 4
+    calls_out: 19
+    calls_in: 0
+  examples._dynamic_orchestrator.DynamicOrchestrator.execute_task:
+    name: execute_task
+    module: examples._dynamic_orchestrator
+    line: 58
+    cyclomatic_complexity: 4
+    calls_out: 13
+    calls_in: 0
+  examples.09_online_drawing._old.02_picsart_painting_nlp2cmd.get_command_for_pattern_and_color:
+    name: get_command_for_pattern_and_color
+    module: examples.09_online_drawing._old.02_picsart_painting_nlp2cmd
+    line: 71
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 1
+  examples.09_online_drawing._old.02_picsart_painting_nlp2cmd.main:
+    name: main
+    module: examples.09_online_drawing._old.02_picsart_painting_nlp2cmd
+    line: 102
+    cyclomatic_complexity: 5
+    calls_out: 32
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.show_file_locations:
+    name: show_file_locations
+    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
+    line: 89
+    cyclomatic_complexity: 4
+    calls_out: 17
+    calls_in: 1
+  examples.09_online_drawing._run_utils.take_screenshot:
+    name: take_screenshot
+    module: examples.09_online_drawing._run_utils
+    line: 615
+    cyclomatic_complexity: 5
+    calls_out: 15
+    calls_in: 3
+  examples.01_basics.shell_fundamentals.feedback_loop.simulate_interactive_session:
+    name: simulate_interactive_session
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 172
+    cyclomatic_complexity: 1
+    calls_out: 13
+    calls_in: 0
+  examples.09_online_drawing.08_search_demo.run.main:
+    name: main
+    module: examples.09_online_drawing.08_search_demo.run
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.migrate_existing_schemas:
+    name: migrate_existing_schemas
+    module: examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas
+    line: 17
+    cyclomatic_complexity: 7
+    calls_out: 44
+    calls_in: 1
+  examples.03_integrations.toon_format.06_old_system_mock.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.06_old_system_mock.demo
+    line: 18
+    cyclomatic_complexity: 3
+    calls_out: 26
+    calls_in: 0
+  examples.02_benchmarks.performance_testing.benchmark.save_report:
+    name: save_report
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 377
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  examples.03_integrations.validation.config_validation.print_section:
+    name: print_section
+    module: examples.03_integrations.validation.config_validation
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 8
+  examples.03_integrations.web_development.docker_manager.DockerManager.__init__:
+    name: __init__
+    module: examples.03_integrations.web_development.docker_manager
+    line: 45
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 0
+  examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.print_step:
+    name: print_step
+    module: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo
+    line: 60
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.show_schema_details:
+    name: show_schema_details
+    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
+    line: 182
+    cyclomatic_complexity: 6
+    calls_out: 18
+    calls_in: 1
+  examples.09_online_drawing._run_utils._collect_discovery_urls:
+    name: _collect_discovery_urls
+    module: examples.09_online_drawing._run_utils
+    line: 393
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  examples.03_integrations.web_development.demo.main:
+    name: main
+    module: examples.03_integrations.web_development.demo
+    line: 179
+    cyclomatic_complexity: 9
+    calls_out: 19
+    calls_in: 0
+  examples.03_integrations.toon_format.simple_demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.simple_demo
+    line: 223
+    cyclomatic_complexity: 2
+    calls_out: 27
+    calls_in: 0
+  examples.03_integrations.web_development.demo_batch._cleanup:
+    name: _cleanup
+    module: examples.03_integrations.web_development.demo_batch
+    line: 79
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  examples.06_tools_and_utilities.migration_tools.guide.practical_examples:
+    name: practical_examples
+    module: examples.06_tools_and_utilities.migration_tools.guide
+    line: 244
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  examples.05_advanced_features.thermodynamic_computing.example.example_direct_problem:
+    name: example_direct_problem
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 205
+    cyclomatic_complexity: 3
+    calls_out: 12
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_docker:
+    name: _demo_docker
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 22
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 1
+  examples.02_benchmarks.performance_testing.benchmark.generate_report:
+    name: generate_report
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 166
+    cyclomatic_complexity: 2
+    calls_out: 16
+    calls_in: 1
+  examples.show_metrics.main:
+    name: main
+    module: examples.show_metrics
+    line: 33
+    cyclomatic_complexity: 15
+    calls_out: 77
+    calls_in: 0
+  examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd.main:
+    name: main
+    module: examples.09_online_drawing._old.01_draw_chat_shapes_nlp2cmd
+    line: 94
+    cyclomatic_complexity: 4
+    calls_out: 24
+    calls_in: 0
+  examples.01_basics.sql_basics.advanced.main:
+    name: main
+    module: examples.01_basics.sql_basics.advanced
     line: 23
     cyclomatic_complexity: 2
+    calls_out: 60
+    calls_in: 0
+  examples.03_integrations.web_development._demo_helpers.print_files_saved:
+    name: print_files_saved
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 33
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 3
+  examples.09_online_drawing._old.02_picsart_painting.main:
+    name: main
+    module: examples.09_online_drawing._old.02_picsart_painting
+    line: 43
+    cyclomatic_complexity: 3
+    calls_out: 48
+    calls_in: 0
+  examples.09_online_drawing._run_utils._click_if_visible:
+    name: _click_if_visible
+    module: examples.09_online_drawing._run_utils
+    line: 180
+    cyclomatic_complexity: 5
+    calls_out: 5
+    calls_in: 2
+  examples.09_online_drawing._old.04_object_database_drawing.run_nlp2cmd_command:
+    name: run_nlp2cmd_command
+    module: examples.09_online_drawing._old.04_object_database_drawing
+    line: 440
+    cyclomatic_complexity: 6
+    calls_out: 7
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd.demo_intelligent_nlp2cmd:
+    name: demo_intelligent_nlp2cmd
+    module: examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd
+    line: 234
+    cyclomatic_complexity: 8
+    calls_out: 32
+    calls_in: 0
+  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_real_world_examples:
+    name: show_real_world_examples
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 144
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  examples.08_api_key_management.01_diagnose_credentials.run.main:
+    name: main
+    module: examples.08_api_key_management.01_diagnose_credentials.run
+    line: 21
+    cyclomatic_complexity: 18
+    calls_out: 21
+    calls_in: 0
+  examples.08_api_key_management.02_openrouter_key.run.run_flow:
+    name: run_flow
+    module: examples.08_api_key_management.02_openrouter_key.run
+    line: 75
+    cyclomatic_complexity: 7
+    calls_out: 18
+    calls_in: 2
+  examples.08_api_key_management.03_github_token.run.check:
+    name: check
+    module: examples.08_api_key_management.03_github_token.run
+    line: 35
+    cyclomatic_complexity: 8
+    calls_out: 14
+    calls_in: 1
+  examples.01_basics.sql_basics.llm_integration.main:
+    name: main
+    module: examples.01_basics.sql_basics.llm_integration
+    line: 312
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 0
+  examples.03_integrations.web_development.demo_batch._print_batch_result:
+    name: _print_batch_result
+    module: examples.03_integrations.web_development.demo_batch
+    line: 28
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 1
+  examples.02_benchmarks.performance_testing.benchmark.run_sequential_benchmark:
+    name: run_sequential_benchmark
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 49
+    cyclomatic_complexity: 3
+    calls_out: 16
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_persistent_storage.show_storage_benefits:
+    name: show_storage_benefits
+    module: examples.05_advanced_features.dynamic_schemas.demo_persistent_storage
+    line: 113
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd.get_adaptive_command:
+    name: get_adaptive_command
+    module: examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd
+    line: 71
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.schema_cache.main:
+    name: main
+    module: examples.01_basics.shell_fundamentals.schema_cache
+    line: 10
+    cyclomatic_complexity: 5
+    calls_out: 12
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_python:
+    name: _demo_python
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 86
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.print_execution_summary:
+    name: print_execution_summary
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 216
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 1
+  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_basic_usage:
+    name: show_basic_usage
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 33
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  examples.03_integrations.web_development._demo_helpers.dispatch_management_command:
+    name: dispatch_management_command
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 230
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 2
+  examples.01_basics.sql_basics.example.main:
+    name: main
+    module: examples.01_basics.sql_basics.example
+    line: 27
+    cyclomatic_complexity: 6
     calls_out: 19
+    calls_in: 0
+  examples.03_integrations.web_development.demo_auto.troubleshoot_and_fix:
+    name: troubleshoot_and_fix
+    module: examples.03_integrations.web_development.demo_auto
+    line: 110
+    cyclomatic_complexity: 11
+    calls_out: 23
+    calls_in: 1
+  examples.01_basics.app2schema.example.main:
+    name: main
+    module: examples.01_basics.app2schema.example
+    line: 11
+    cyclomatic_complexity: 1
+    calls_out: 8
     calls_in: 0
   examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.demonstrate_dual_versions:
     name: demonstrate_dual_versions
@@ -2112,41 +614,6 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 34
     calls_in: 1
-  examples.03_integrations.web_development.demo_auto.interactive_mode:
-    name: interactive_mode
-    module: examples.03_integrations.web_development.demo_auto
-    line: 167
-    cyclomatic_complexity: 12
-    calls_out: 30
-    calls_in: 1
-  examples.09_online_drawing._run_utils.get_platform_info:
-    name: get_platform_info
-    module: examples.09_online_drawing._run_utils
-    line: 122
-    cyclomatic_complexity: 1
-    calls_out: 5
-    calls_in: 3
-  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase._fetch_from_url:
-    name: _fetch_from_url
-    module: examples.09_online_drawing._old.04_object_database_drawing
-    line: 210
-    cyclomatic_complexity: 10
-    calls_out: 25
-    calls_in: 0
-  src.nlp2cmd.appspec_runtime.load_appspec:
-    name: load_appspec
-    module: src.nlp2cmd.appspec_runtime
-    line: 33
-    cyclomatic_complexity: 10
-    calls_out: 27
-    calls_in: 3
-  examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.main:
-    name: main
-    module: examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas
-    line: 359
-    cyclomatic_complexity: 5
-    calls_out: 23
-    calls_in: 0
   examples.08_api_key_management.04_huggingface_token.run.check:
     name: check
     module: examples.08_api_key_management.04_huggingface_token.run
@@ -2154,18 +621,452 @@ nodes:
     cyclomatic_complexity: 7
     calls_out: 16
     calls_in: 1
-  src.nlp2cmd.automation.password_store.get_password_store:
-    name: get_password_store
-    module: src.nlp2cmd.automation.password_store
-    line: 31
+  src.nlp2cmd.registry.get_registry.get_registry:
+    name: get_registry
+    module: src.nlp2cmd.registry.get_registry
+    line: 14
     cyclomatic_complexity: 2
     calls_out: 1
-    calls_in: 10
-  examples.03_integrations.toon_format.06_old_system_mock.demo.main:
+    calls_in: 6
+  examples.09_online_drawing.07_shape_gallery.run._print_shape_line:
+    name: _print_shape_line
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 104
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  examples.08_api_key_management.06_multi_provider.run.plan_all:
+    name: plan_all
+    module: examples.08_api_key_management.06_multi_provider.run
+    line: 38
+    cyclomatic_complexity: 10
+    calls_out: 15
+    calls_in: 1
+  src.app2schema.extract.extract_schema_to_file:
+    name: extract_schema_to_file
+    module: src.app2schema.extract
+    line: 891
+    cyclomatic_complexity: 20
+    calls_out: 34
+    calls_in: 2
+  examples.03_integrations.toon_format.comparison_demo.main:
     name: main
-    module: examples.03_integrations.toon_format.06_old_system_mock.demo
-    line: 18
+    module: examples.03_integrations.toon_format.comparison_demo
+    line: 314
     cyclomatic_complexity: 3
+    calls_out: 17
+    calls_in: 0
+  examples.03_integrations.toon_format.simple_demo.demo_real_world_example:
+    name: demo_real_world_example
+    module: examples.03_integrations.toon_format.simple_demo
+    line: 54
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.main:
+    name: main
+    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
+    line: 219
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 0
+  examples.03_integrations.web_development._demo_helpers.print_docker_result:
+    name: print_docker_result
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 39
+    cyclomatic_complexity: 4
+    calls_out: 11
+    calls_in: 1
+  examples.01_basics.docker_basics.file_repair.create_sample_files:
+    name: create_sample_files
+    module: examples.01_basics.docker_basics.file_repair
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 1
+  examples.09_online_drawing.07_shape_gallery.run.generate_html_gallery:
+    name: generate_html_gallery
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 195
+    cyclomatic_complexity: 4
+    calls_out: 13
+    calls_in: 1
+  examples.05_advanced_features.schema_driven_architecture.02_decision_router.demo.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.02_decision_router.demo
+    line: 48
+    cyclomatic_complexity: 3
+    calls_out: 20
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection.show_version_mapping:
+    name: show_version_mapping
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 134
+    cyclomatic_complexity: 2
+    calls_out: 13
+    calls_in: 1
+  examples._verbose_helper.dump_selectors:
+    name: dump_selectors
+    module: examples._verbose_helper
+    line: 83
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 4
+  examples.09_online_drawing.05_autonomous.run.run_autonomous:
+    name: run_autonomous
+    module: examples.09_online_drawing.05_autonomous.run
+    line: 46
+    cyclomatic_complexity: 18
+    calls_out: 65
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.feedback_loop._print_summary:
+    name: _print_summary
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 164
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.test_container_service:
+    name: test_container_service
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 159
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 1
+  examples.09_online_drawing._run_utils.discover_working_url:
+    name: discover_working_url
+    module: examples.09_online_drawing._run_utils
+    line: 449
+    cyclomatic_complexity: 12
+    calls_out: 15
+    calls_in: 0
+  examples.01_basics.sql_basics.llm_integration.demonstrate_hybrid_approach:
+    name: demonstrate_hybrid_approach
+    module: examples.01_basics.sql_basics.llm_integration
+    line: 270
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  examples.09_online_drawing.04_object_database.run.run_scene:
+    name: run_scene
+    module: examples.09_online_drawing.04_object_database.run
+    line: 66
+    cyclomatic_complexity: 14
+    calls_out: 52
+    calls_in: 1
+  examples.09_online_drawing._run_utils.ExampleRunner.navigate:
+    name: navigate
+    module: examples.09_online_drawing._run_utils
+    line: 737
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 0
+  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase._fetch_from_url:
+    name: _fetch_from_url
+    module: examples.09_online_drawing._old.04_object_database_drawing
+    line: 210
+    cyclomatic_complexity: 10
+    calls_out: 25
+    calls_in: 0
+  examples.09_online_drawing.07_shape_gallery.run.list_shapes:
+    name: list_shapes
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 127
+    cyclomatic_complexity: 8
+    calls_out: 26
+    calls_in: 1
+  examples.05_advanced_features.thermodynamic_computing.example.main:
+    name: main
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 237
+    cyclomatic_complexity: 3
+    calls_out: 14
+    calls_in: 0
+  examples.01_basics.docker_basics.file_repair.validate_file:
+    name: validate_file
+    module: examples.01_basics.docker_basics.file_repair
+    line: 105
+    cyclomatic_complexity: 6
+    calls_out: 11
+    calls_in: 5
+  examples._verbose_helper.vlog:
+    name: vlog
+    module: examples._verbose_helper
+    line: 41
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 77
+  examples.03_integrations.toon_format.comparison_demo.SimpleToonParser._read_file_content:
+    name: _read_file_content
+    module: examples.03_integrations.toon_format.comparison_demo
+    line: 27
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 0
+  examples.03_integrations.web_development.demo_batch.run_batch_demo:
+    name: run_batch_demo
+    module: examples.03_integrations.web_development.demo_batch
+    line: 88
+    cyclomatic_complexity: 5
+    calls_out: 23
+    calls_in: 0
+  examples.03_integrations.web_development._demo_helpers.print_command_result:
+    name: print_command_result
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 56
+    cyclomatic_complexity: 9
+    calls_out: 17
+    calls_in: 1
+  examples.03_integrations.web_development.03_docker_compose.demo.main:
+    name: main
+    module: examples.03_integrations.web_development.03_docker_compose.demo
+    line: 52
+    cyclomatic_complexity: 1
+    calls_out: 16
+    calls_in: 0
+  examples.09_online_drawing.07_shape_gallery.run.main:
+    name: main
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 347
+    cyclomatic_complexity: 5
+    calls_out: 18
+    calls_in: 0
+  examples.09_online_drawing._run_utils._dismiss_text_popups:
+    name: _dismiss_text_popups
+    module: examples.09_online_drawing._run_utils
+    line: 194
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  examples._dynamic_orchestrator.DynamicOrchestrator.__init__:
+    name: __init__
+    module: examples._dynamic_orchestrator
+    line: 53
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  examples.01_basics.shell_fundamentals._environment_sections.print_section_header:
+    name: print_section_header
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 8
+  examples.03_integrations.toon_format.07_loading_performance.demo.benchmark_old_system:
+    name: benchmark_old_system
+    module: examples.03_integrations.toon_format.07_loading_performance.demo
+    line: 15
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 1
+  examples.08_api_key_management.02_openrouter_key.run.main:
+    name: main
+    module: examples.08_api_key_management.02_openrouter_key.run
+    line: 109
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 0
+  examples.03_integrations.web_development.demo._print_help:
+    name: _print_help
+    module: examples.03_integrations.web_development.demo
+    line: 48
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 1
+  examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.main:
+    name: main
+    module: examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas
+    line: 359
+    cyclomatic_complexity: 5
+    calls_out: 23
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection.demonstrate_version_detection:
+    name: demonstrate_version_detection
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 106
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.print_config:
+    name: print_config
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 12
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 3
+  examples.09_online_drawing.01_draw_chat.run.main:
+    name: main
+    module: examples.09_online_drawing.01_draw_chat.run
+    line: 39
+    cyclomatic_complexity: 9
+    calls_out: 46
+    calls_in: 0
+  src.nlp2cmd.generation.thermodynamic.create_thermodynamic_generator:
+    name: create_thermodynamic_generator
+    module: src.nlp2cmd.generation.thermodynamic
+    line: 23
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 12
+  test_nlp2cmd_commands.print:
+    name: print
+    module: test_nlp2cmd_commands
+    line: 277
+    cyclomatic_complexity: 0
+    calls_out: 0
+    calls_in: 4996
+  examples.03_integrations.web_development._demo_helpers.handle_docker_execution:
+    name: handle_docker_execution
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 191
+    cyclomatic_complexity: 4
+    calls_out: 11
+    calls_in: 2
+  examples.03_integrations.toon_format.12_advanced_integration.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.12_advanced_integration.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 17
+    calls_in: 0
+  examples.09_online_drawing.09_evolutionary_orchestrator.run.main:
+    name: main
+    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
+    line: 220
+    cyclomatic_complexity: 8
+    calls_out: 32
+    calls_in: 0
+  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_integration_examples:
+    name: show_integration_examples
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 295
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 0
+  examples.03_integrations.web_development.nlp2_cmd_web_controller.NLP2CMDWebController.save_full_deployment_plan:
+    name: save_full_deployment_plan
+    module: examples.03_integrations.web_development.nlp2_cmd_web_controller
+    line: 470
+    cyclomatic_complexity: 7
+    calls_out: 13
+    calls_in: 0
+  examples.08_api_key_management.05_openai_key.run.check:
+    name: check
+    module: examples.08_api_key_management.05_openai_key.run
+    line: 29
+    cyclomatic_complexity: 8
+    calls_out: 13
+    calls_in: 1
+  examples.03_integrations.web_development.demo._print_generated_files:
+    name: _print_generated_files
+    module: examples.03_integrations.web_development.demo
+    line: 59
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  src.nlp2cmd.orchestration.learned_path.get_workspace:
+    name: get_workspace
+    module: src.nlp2cmd.orchestration.learned_path
+    line: 44
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 4
+  examples.03_integrations.toon_format.01_basic_usage.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.01_basic_usage.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 16
+    calls_in: 0
+  examples.01_basics.shell_fundamentals.feedback_loop._scenario_exceptions:
+    name: _scenario_exceptions
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 125
+    cyclomatic_complexity: 4
+    calls_out: 12
+    calls_in: 1
+  examples.02_benchmarks.performance_testing.benchmark.print_report_summary:
+    name: print_report_summary
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 390
+    cyclomatic_complexity: 4
+    calls_out: 30
+    calls_in: 1
+  examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd.run_nlp2cmd_command:
+    name: run_nlp2cmd_command
+    module: examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd
+    line: 29
+    cyclomatic_complexity: 7
+    calls_out: 7
+    calls_in: 1
+  examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.print_section:
+    name: print_section
+    module: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo
+    line: 54
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 6
+  examples._verbose_helper._try_url_for_selector:
+    name: _try_url_for_selector
+    module: examples._verbose_helper
+    line: 261
+    cyclomatic_complexity: 6
+    calls_out: 9
+    calls_in: 1
+  src.nlp2cmd.core.toon_integration.get_data_manager:
+    name: get_data_manager
+    module: src.nlp2cmd.core.toon_integration
+    line: 195
+    cyclomatic_complexity: 3
+    calls_out: 1
+    calls_in: 4
+  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.show_api_usage:
+    name: show_api_usage
+    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
+    line: 121
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 1
+  examples.08_api_key_management.01_diagnose_credentials_nlp2cmd.get_command_for_service:
+    name: get_command_for_service
+    module: examples.08_api_key_management.01_diagnose_credentials_nlp2cmd
+    line: 50
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  examples.09_online_drawing._old.04_object_database_drawing.main:
+    name: main
+    module: examples.09_online_drawing._old.04_object_database_drawing
+    line: 474
+    cyclomatic_complexity: 18
+    calls_out: 66
+    calls_in: 0
+  examples.01_basics.shell_fundamentals._environment_sections.print_tool_detection:
+    name: print_tool_detection
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 44
+    cyclomatic_complexity: 11
+    calls_out: 11
+    calls_in: 1
+  examples.05_advanced_features.schema_driven_architecture.04_plan_executor.demo.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.04_plan_executor.demo
+    line: 92
+    cyclomatic_complexity: 4
+    calls_out: 23
+    calls_in: 0
+  examples.03_integrations.toon_format.14_batch_processing.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.14_batch_processing.demo
+    line: 38
+    cyclomatic_complexity: 1
+    calls_out: 29
+    calls_in: 0
+  examples.03_integrations.toon_format.07_loading_performance.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.07_loading_performance.demo
+    line: 52
+    cyclomatic_complexity: 2
     calls_out: 26
     calls_in: 0
   examples._verbose_helper._build_url_candidates:
@@ -2175,12 +1076,432 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 3
     calls_in: 1
+  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_advanced_usage:
+    name: show_advanced_usage
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 79
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  examples.03_integrations.toon_format.04_search_and_filter.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.04_search_and_filter.demo
+    line: 13
+    cyclomatic_complexity: 2
+    calls_out: 14
+    calls_in: 0
+  examples.03_integrations.web_development.04_service_deployment.demo.main:
+    name: main
+    module: examples.03_integrations.web_development.04_service_deployment.demo
+    line: 23
+    cyclomatic_complexity: 3
+    calls_out: 19
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.schema_flow_demo.show_schema_extraction_flow:
+    name: show_schema_extraction_flow
+    module: examples.05_advanced_features.dynamic_schemas.schema_flow_demo
+    line: 14
+    cyclomatic_complexity: 7
+    calls_out: 42
+    calls_in: 1
+  examples._verbose_helper.dump_page_schema:
+    name: dump_page_schema
+    module: examples._verbose_helper
+    line: 49
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 12
+  examples._verbose_helper.ensure_playwright_browsers:
+    name: ensure_playwright_browsers
+    module: examples._verbose_helper
+    line: 116
+    cyclomatic_complexity: 6
+    calls_out: 19
+    calls_in: 0
+  examples.01_basics.kubernetes_basics.example.main:
+    name: main
+    module: examples.01_basics.kubernetes_basics.example
+    line: 23
+    cyclomatic_complexity: 7
+    calls_out: 27
+    calls_in: 0
+  examples.03_integrations.toon_format.11_basic_integration.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.11_basic_integration.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 17
+    calls_in: 0
+  src.nlp2cmd.automation.password_store.get_password_store:
+    name: get_password_store
+    module: src.nlp2cmd.automation.password_store
+    line: 31
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 10
+  examples.05_advanced_features.schema_driven_architecture.03_llm_planner.demo.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.03_llm_planner.demo
+    line: 52
+    cyclomatic_complexity: 4
+    calls_out: 25
+    calls_in: 0
+  examples.09_online_drawing.09_evolutionary_orchestrator.run.mock_example_execution:
+    name: mock_example_execution
+    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
+    line: 80
+    cyclomatic_complexity: 5
+    calls_out: 13
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.feedback_loop._print_feedback:
+    name: _print_feedback
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 3
+  examples.01_basics.sql_basics.workflows.main:
+    name: main
+    module: examples.01_basics.sql_basics.workflows
+    line: 30
+    cyclomatic_complexity: 10
+    calls_out: 81
+    calls_in: 0
+  examples._verbose_helper.discover_working_url:
+    name: discover_working_url
+    module: examples._verbose_helper
+    line: 281
+    cyclomatic_complexity: 4
+    calls_out: 11
+    calls_in: 3
+  examples.03_integrations.web_development.03_docker_compose.demo.generate_compose:
+    name: generate_compose
+    module: examples.03_integrations.web_development.03_docker_compose.demo
+    line: 26
+    cyclomatic_complexity: 5
+    calls_out: 0
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.feedback_loop._scenario_refinement:
+    name: _scenario_refinement
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 146
+    cyclomatic_complexity: 3
+    calls_out: 9
+    calls_in: 1
+  examples.02_benchmarks.performance_testing.benchmark.print_section:
+    name: print_section
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 33
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
   examples.09_online_drawing._old.03_adaptive_drawing.generate_plan_with_llm:
     name: generate_plan_with_llm
     module: examples.09_online_drawing._old.03_adaptive_drawing
     line: 46
     cyclomatic_complexity: 9
     calls_out: 11
+    calls_in: 1
+  examples.08_api_key_management.03_github_token.run.run_flow:
+    name: run_flow
+    module: examples.08_api_key_management.03_github_token.run
+    line: 60
+    cyclomatic_complexity: 7
+    calls_out: 12
+    calls_in: 1
+  examples.09_online_drawing._old.05_autonomous_drawing.fetch_only:
+    name: fetch_only
+    module: examples.09_online_drawing._old.05_autonomous_drawing
+    line: 228
+    cyclomatic_complexity: 5
+    calls_out: 12
+    calls_in: 1
+  examples.01_basics.shell_fundamentals._environment_sections.print_full_report:
+    name: print_full_report
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 133
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  examples.09_online_drawing._run_utils.check_page_health:
+    name: check_page_health
+    module: examples.09_online_drawing._run_utils
+    line: 327
+    cyclomatic_complexity: 12
+    calls_out: 9
+    calls_in: 2
+  examples.05_advanced_features.dynamic_schemas.simple_schema_demo.main:
+    name: main
+    module: examples.05_advanced_features.dynamic_schemas.simple_schema_demo
+    line: 17
+    cyclomatic_complexity: 6
+    calls_out: 46
+    calls_in: 0
+  src.nlp2cmd.executor.execution_context.ExecutionContext.set:
+    name: set
+    module: src.nlp2cmd.executor.execution_context
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 105
+  examples.05_advanced_features.schema_driven_architecture.mvp.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.mvp
+    line: 11
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  examples.09_online_drawing.09_evolutionary_orchestrator.run.print_learning_report:
+    name: print_learning_report
+    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
+    line: 194
+    cyclomatic_complexity: 2
+    calls_out: 27
+    calls_in: 1
+  examples.09_online_drawing._run_utils.ExampleRunner.__aexit__:
+    name: __aexit__
+    module: examples.09_online_drawing._run_utils
+    line: 709
+    cyclomatic_complexity: 8
+    calls_out: 8
+    calls_in: 0
+  jspaint_app_test4.run:
+    name: run
+    module: jspaint_app_test4
+    line: 6
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  examples.03_integrations.toon_format.14_batch_processing.demo.batch_validate:
+    name: batch_validate
+    module: examples.03_integrations.toon_format.14_batch_processing.demo
+    line: 14
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 1
+  examples.08_api_key_management.05_openai_key.run.main:
+    name: main
+    module: examples.08_api_key_management.05_openai_key.run
+    line: 78
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 0
+  examples.08_api_key_management.06_multi_provider.run.setup_providers:
+    name: setup_providers
+    module: examples.08_api_key_management.06_multi_provider.run
+    line: 73
+    cyclomatic_complexity: 8
+    calls_out: 18
+    calls_in: 2
+  examples.03_integrations.web_development.02_deployment_planning.demo.main:
+    name: main
+    module: examples.03_integrations.web_development.02_deployment_planning.demo
+    line: 46
+    cyclomatic_complexity: 3
+    calls_out: 26
+    calls_in: 0
+  examples.run_task.main:
+    name: main
+    module: examples.run_task
+    line: 34
+    cyclomatic_complexity: 11
+    calls_out: 34
+    calls_in: 0
+  examples.02_benchmarks.sequential_testing.benchmark.main:
+    name: main
+    module: examples.02_benchmarks.sequential_testing.benchmark
+    line: 44
+    cyclomatic_complexity: 6
+    calls_out: 67
+    calls_in: 0
+  examples.01_basics.shell_fundamentals.environment_analysis.main:
+    name: main
+    module: examples.01_basics.shell_fundamentals.environment_analysis
+    line: 24
+    cyclomatic_complexity: 6
+    calls_out: 23
+    calls_in: 0
+  examples.01_basics.shell_fundamentals._environment_sections.print_service_status:
+    name: print_service_status
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 70
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  examples.01_basics.sql_basics.workflows.print_section:
+    name: print_section
+    module: examples.01_basics.sql_basics.workflows
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 8
+  examples.09_online_drawing.09_evolutionary_orchestrator.run.run_scenario:
+    name: run_scenario
+    module: examples.09_online_drawing.09_evolutionary_orchestrator.run
+    line: 117
+    cyclomatic_complexity: 3
+    calls_out: 9
+    calls_in: 3
+  examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.end_to_end_demo
+    line: 145
+    cyclomatic_complexity: 12
+    calls_out: 87
+    calls_in: 0
+  examples.03_integrations.web_development.demo_auto.interactive_mode:
+    name: interactive_mode
+    module: examples.03_integrations.web_development.demo_auto
+    line: 167
+    cyclomatic_complexity: 12
+    calls_out: 30
+    calls_in: 1
+  examples.01_basics.shell_fundamentals._environment_sections.print_export_preview:
+    name: print_export_preview
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 146
+    cyclomatic_complexity: 6
+    calls_out: 15
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd.IntelligentNLP2CMD.transform:
+    name: transform
+    module: examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd
+    line: 41
+    cyclomatic_complexity: 5
+    calls_out: 5
+    calls_in: 0
+  examples.09_online_drawing.04_object_database.run.main:
+    name: main
+    module: examples.09_online_drawing.04_object_database.run
+    line: 193
+    cyclomatic_complexity: 6
+    calls_out: 18
+    calls_in: 0
+  examples.08_api_key_management.03_github_token.run.main:
+    name: main
+    module: examples.08_api_key_management.03_github_token.run
+    line: 86
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 0
+  examples.03_integrations.toon_format.08_memory_usage.demo.estimate_old_system_memory:
+    name: estimate_old_system_memory
+    module: examples.03_integrations.toon_format.08_memory_usage.demo
+    line: 15
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.stop_all_containers:
+    name: stop_all_containers
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 103
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  examples.08_api_key_management.04_huggingface_token.run.run_flow:
+    name: run_flow
+    module: examples.08_api_key_management.04_huggingface_token.run
+    line: 67
+    cyclomatic_complexity: 7
+    calls_out: 12
+    calls_in: 1
+  src.nlp2cmd.orchestration.handlers.register_default_handlers:
+    name: register_default_handlers
+    module: src.nlp2cmd.orchestration.handlers
+    line: 682
+    cyclomatic_complexity: 1
+    calls_out: 16
+    calls_in: 2
+  examples.03_integrations.toon_format.usage_example.main:
+    name: main
+    module: examples.03_integrations.toon_format.usage_example
+    line: 17
+    cyclomatic_complexity: 9
+    calls_out: 77
+    calls_in: 0
+  examples.05_advanced_features.schema_driven_architecture.manual_appspec.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.manual_appspec
+    line: 10
+    cyclomatic_complexity: 1
+    calls_out: 13
+    calls_in: 0
+  src.nlp2cmd.appspec_runtime.load_appspec:
+    name: load_appspec
+    module: src.nlp2cmd.appspec_runtime
+    line: 33
+    cyclomatic_complexity: 10
+    calls_out: 27
+    calls_in: 3
+  examples.03_integrations.web_development._demo_helpers.test_services:
+    name: test_services
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 169
+    cyclomatic_complexity: 7
+    calls_out: 8
+    calls_in: 3
+  examples.05_advanced_features.thermodynamic_computing.example.example_allocation:
+    name: example_allocation
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 78
+    cyclomatic_complexity: 2
+    calls_out: 11
+    calls_in: 1
+  examples.03_integrations.toon_format.comparison_demo.compare_data_structure:
+    name: compare_data_structure
+    module: examples.03_integrations.toon_format.comparison_demo
+    line: 228
+    cyclomatic_complexity: 1
+    calls_out: 34
+    calls_in: 1
+  examples.02_benchmarks.performance_testing.benchmark.generate_markdown_report:
+    name: generate_markdown_report
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 200
+    cyclomatic_complexity: 4
+    calls_out: 10
+    calls_in: 1
+  src.nlp2cmd.cli.commands.examples.ExamplesRegistry.list:
+    name: list
+    module: src.nlp2cmd.cli.commands.examples
+    line: 150
+    cyclomatic_complexity: 4
+    calls_out: 2
+    calls_in: 151
+  examples.05_advanced_features.dynamic_schemas.demo_enhanced.main:
+    name: main
+    module: examples.05_advanced_features.dynamic_schemas.demo_enhanced
+    line: 24
+    cyclomatic_complexity: 12
+    calls_out: 49
+    calls_in: 0
+  examples.09_online_drawing.06_visual_validator.run.run_demo:
+    name: run_demo
+    module: examples.09_online_drawing.06_visual_validator.run
+    line: 222
+    cyclomatic_complexity: 5
+    calls_out: 19
+    calls_in: 1
+  examples.09_online_drawing.03_adaptive.run.main:
+    name: main
+    module: examples.09_online_drawing.03_adaptive.run
+    line: 50
+    cyclomatic_complexity: 8
+    calls_out: 53
+    calls_in: 0
+  examples.03_integrations.pipelines.log_analysis.main:
+    name: main
+    module: examples.03_integrations.pipelines.log_analysis
+    line: 56
+    cyclomatic_complexity: 15
+    calls_out: 52
+    calls_in: 0
+  examples.09_online_drawing.07_shape_gallery.run.generate_svg_files:
+    name: generate_svg_files
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 180
+    cyclomatic_complexity: 3
+    calls_out: 7
     calls_in: 1
   examples._example_helpers.print_rule:
     name: print_rule
@@ -2189,6 +1510,685 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 1
     calls_in: 107
+  examples.01_basics.docker_basics.01_basics_docker_nlp2cmd.get_command_for_task:
+    name: get_command_for_task
+    module: examples.01_basics.docker_basics.01_basics_docker_nlp2cmd
+    line: 49
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  examples.03_integrations.web_development.demo.demo_nlp_commands:
+    name: demo_nlp_commands
+    module: examples.03_integrations.web_development.demo
+    line: 85
+    cyclomatic_complexity: 9
+    calls_out: 22
+    calls_in: 1
+  examples._verbose_schema._log_list:
+    name: _log_list
+    module: examples._verbose_schema
+    line: 102
+    cyclomatic_complexity: 6
+    calls_out: 7
+    calls_in: 6
+  examples.09_online_drawing.07_shape_gallery.run.analyze_image_and_draw:
+    name: analyze_image_and_draw
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 246
+    cyclomatic_complexity: 8
+    calls_out: 15
+    calls_in: 1
+  examples.09_online_drawing.07_shape_gallery.run._print_shape_group:
+    name: _print_shape_group
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 109
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 2
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection.show_integration_example:
+    name: show_integration_example
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 117
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 1
+  examples.01_basics.sql_basics.llm_integration.demonstrate_mock_llm:
+    name: demonstrate_mock_llm
+    module: examples.01_basics.sql_basics.llm_integration
+    line: 125
+    cyclomatic_complexity: 2
+    calls_out: 13
+    calls_in: 1
+  examples.09_online_drawing.07_shape_gallery.run.draw_on_canvas:
+    name: draw_on_canvas
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 280
+    cyclomatic_complexity: 8
+    calls_out: 29
+    calls_in: 2
+  examples.03_integrations.toon_format.02_command_generator.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.02_command_generator.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 14
+    calls_in: 0
+  examples.03_integrations.toon_format.simple_demo.demo_basic_usage:
+    name: demo_basic_usage
+    module: examples.03_integrations.toon_format.simple_demo
+    line: 14
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 1
+  examples.09_online_drawing.04_object_database.run.show_database:
+    name: show_database
+    module: examples.09_online_drawing.04_object_database.run
+    line: 173
+    cyclomatic_complexity: 3
+    calls_out: 19
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.example.main:
+    name: main
+    module: examples.05_advanced_features.dynamic_schemas.example
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 15
+    calls_in: 0
+  examples.03_integrations.toon_format.simple_demo.demo_advanced_features:
+    name: demo_advanced_features
+    module: examples.03_integrations.toon_format.simple_demo
+    line: 141
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  examples.09_online_drawing._run_utils.ExampleLogger.save:
+    name: save
+    module: examples.09_online_drawing._run_utils
+    line: 97
+    cyclomatic_complexity: 8
+    calls_out: 11
+    calls_in: 0
+  examples.01_basics.shell_fundamentals._environment_sections.print_command_validation:
+    name: print_command_validation
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 121
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  examples.08_api_key_management.04_huggingface_token.run.main:
+    name: main
+    module: examples.08_api_key_management.04_huggingface_token.run
+    line: 93
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 0
+  examples.01_basics.sql_basics.llm_integration.demonstrate_real_llm_setup:
+    name: demonstrate_real_llm_setup
+    module: examples.01_basics.sql_basics.llm_integration
+    line: 196
+    cyclomatic_complexity: 5
+    calls_out: 13
+    calls_in: 1
+  examples.09_online_drawing._run_utils._inspect_required_element:
+    name: _inspect_required_element
+    module: examples.09_online_drawing._run_utils
+    line: 249
+    cyclomatic_complexity: 7
+    calls_out: 5
+    calls_in: 1
+  examples.01_basics.docker_basics.file_repair.main:
+    name: main
+    module: examples.01_basics.docker_basics.file_repair
+    line: 177
+    cyclomatic_complexity: 4
+    calls_out: 54
+    calls_in: 0
+  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase._generate_shape_via_llm:
+    name: _generate_shape_via_llm
+    module: examples.09_online_drawing._old.04_object_database_drawing
+    line: 302
+    cyclomatic_complexity: 11
+    calls_out: 15
+    calls_in: 0
+  examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas.demonstrate_schema_updates:
+    name: demonstrate_schema_updates
+    module: examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas
+    line: 99
+    cyclomatic_complexity: 11
+    calls_out: 41
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd.IntelligentNLP2CMD.update_command_schema:
+    name: update_command_schema
+    module: examples.05_advanced_features.dynamic_schemas.demo_intelligent_nlp2cmd
+    line: 181
+    cyclomatic_complexity: 6
+    calls_out: 8
+    calls_in: 0
+  examples.03_integrations.toon_format.practical_usage.main:
+    name: main
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 442
+    cyclomatic_complexity: 2
+    calls_out: 18
+    calls_in: 0
+  examples.09_online_drawing._run_utils.dismiss_popups:
+    name: dismiss_popups
+    module: examples.09_online_drawing._run_utils
+    line: 217
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  examples.05_advanced_features.thermodynamic_computing.example.example_routing:
+    name: example_routing
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 173
+    cyclomatic_complexity: 4
+    calls_out: 12
+    calls_in: 1
+  examples.03_integrations.toon_format.comparison_demo.benchmark_performance:
+    name: benchmark_performance
+    module: examples.03_integrations.toon_format.comparison_demo
+    line: 144
+    cyclomatic_complexity: 3
+    calls_out: 37
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.show_container_logs:
+    name: show_container_logs
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 96
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 2
+  examples.03_integrations.validation.config_validation.main:
+    name: main
+    module: examples.03_integrations.validation.config_validation
+    line: 47
+    cyclomatic_complexity: 5
+    calls_out: 68
+    calls_in: 0
+  examples.02_benchmarks.performance_testing.benchmark.benchmark_adapters:
+    name: benchmark_adapters
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 78
+    cyclomatic_complexity: 3
+    calls_out: 22
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.test_redis_service:
+    name: test_redis_service
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 131
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  examples.09_online_drawing.06_visual_validator.run.draw_and_validate:
+    name: draw_and_validate
+    module: examples.09_online_drawing.06_visual_validator.run
+    line: 52
+    cyclomatic_complexity: 21
+    calls_out: 62
+    calls_in: 2
+  examples.05_advanced_features.thermodynamic_computing.example.example_scheduling:
+    name: example_scheduling
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 43
+    cyclomatic_complexity: 3
+    calls_out: 14
+    calls_in: 1
+  examples.05_advanced_features.thermodynamic_computing.example.example_majority_voting:
+    name: example_majority_voting
+    module: examples.05_advanced_features.thermodynamic_computing.example
+    line: 131
+    cyclomatic_complexity: 2
+    calls_out: 11
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.test_chat_service:
+    name: test_chat_service
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 117
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  examples.08_api_key_management.02_openrouter_key.run.check_credentials:
+    name: check_credentials
+    module: examples.08_api_key_management.02_openrouter_key.run
+    line: 39
+    cyclomatic_complexity: 11
+    calls_out: 19
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection._demo_kubectl:
+    name: _demo_kubectl
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 44
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 1
+  examples.09_online_drawing._old.02_picsart_painting_nlp2cmd.run_nlp2cmd_command:
+    name: run_nlp2cmd_command
+    module: examples.09_online_drawing._old.02_picsart_painting_nlp2cmd
+    line: 29
+    cyclomatic_complexity: 7
+    calls_out: 7
+    calls_in: 1
+  examples.09_online_drawing._run_utils._try_discovery_url:
+    name: _try_discovery_url
+    module: examples.09_online_drawing._run_utils
+    line: 410
+    cyclomatic_complexity: 12
+    calls_out: 11
+    calls_in: 1
+  examples.09_online_drawing.07_shape_gallery.run.map_vision_to_shapes:
+    name: map_vision_to_shapes
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 80
+    cyclomatic_complexity: 6
+    calls_out: 6
+    calls_in: 1
+  examples._verbose_helper.init_verbose:
+    name: init_verbose
+    module: examples._verbose_helper
+    line: 31
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 11
+  src.app2schema.extract.extract_appspec_to_file:
+    name: extract_appspec_to_file
+    module: src.app2schema.extract
+    line: 822
+    cyclomatic_complexity: 27
+    calls_out: 44
+    calls_in: 12
+  examples.01_basics.shell_fundamentals.feedback_loop._scenario_success:
+    name: _scenario_success
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 31
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 1
+  examples.07_stream_protocols.example_ssh.main:
+    name: main
+    module: examples.07_stream_protocols.example_ssh
+    line: 20
+    cyclomatic_complexity: 3
+    calls_out: 14
+    calls_in: 0
+  examples.03_integrations.toon_format.simple_demo.demo_performance_tips:
+    name: demo_performance_tips
+    module: examples.03_integrations.toon_format.simple_demo
+    line: 185
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  examples.09_online_drawing.06_visual_validator.run.validate_screenshot:
+    name: validate_screenshot
+    module: examples.09_online_drawing.06_visual_validator.run
+    line: 197
+    cyclomatic_complexity: 5
+    calls_out: 14
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.feedback_loop._scenario_ambiguous:
+    name: _scenario_ambiguous
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 111
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  src.nlp2cmd.llm.router.get_router:
+    name: get_router
+    module: src.nlp2cmd.llm.router
+    line: 940
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 4
+  examples.03_integrations.web_development._demo_helpers.print_batch_banner:
+    name: print_batch_banner
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 206
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  examples.08_api_key_management.06_multi_provider.run.main:
+    name: main
+    module: examples.08_api_key_management.06_multi_provider.run
+    line: 145
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 0
+  examples.09_online_drawing.07_shape_gallery.run.generate_svg:
+    name: generate_svg
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 159
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 2
+  examples.01_basics.sql_basics.llm_integration.demonstrate_rule_based_fallback:
+    name: demonstrate_rule_based_fallback
+    module: examples.01_basics.sql_basics.llm_integration
+    line: 167
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  examples.01_basics.shell_fundamentals.feedback_loop._scenario_auto_correction:
+    name: _scenario_auto_correction
+    module: examples.01_basics.shell_fundamentals.feedback_loop
+    line: 88
+    cyclomatic_complexity: 4
+    calls_out: 15
+    calls_in: 1
+  examples.06_tools_and_utilities.migration_tools.guide.new_way_examples:
+    name: new_way_examples
+    module: examples.06_tools_and_utilities.migration_tools.guide
+    line: 82
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 1
+  examples._verbose_helper.vlog_decision:
+    name: vlog_decision
+    module: examples._verbose_helper
+    line: 106
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 14
+  examples.02_benchmarks.performance_testing.benchmark.main:
+    name: main
+    module: examples.02_benchmarks.performance_testing.benchmark
+    line: 436
+    cyclomatic_complexity: 2
+    calls_out: 15
+    calls_in: 0
+  examples.07_stream_protocols.example_rtsp.main:
+    name: main
+    module: examples.07_stream_protocols.example_rtsp
+    line: 24
+    cyclomatic_complexity: 3
+    calls_out: 22
+    calls_in: 0
+  src.nlp2cmd.streams.base.parse_source_uri:
+    name: parse_source_uri
+    module: src.nlp2cmd.streams.base
+    line: 66
+    cyclomatic_complexity: 7
+    calls_out: 9
+    calls_in: 8
+  examples.05_advanced_features.dynamic_schemas.demo_persistent_storage.demonstrate_persistent_storage:
+    name: demonstrate_persistent_storage
+    module: examples.05_advanced_features.dynamic_schemas.demo_persistent_storage
+    line: 13
+    cyclomatic_complexity: 11
+    calls_out: 48
+    calls_in: 0
+  examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous:
+    name: run_autonomous
+    module: examples.09_online_drawing._old.05_autonomous_drawing
+    line: 104
+    cyclomatic_complexity: 12
+    calls_out: 59
+    calls_in: 1
+  examples.05_advanced_features.schema_driven_architecture.05_result_aggregator.demo.main:
+    name: main
+    module: examples.05_advanced_features.schema_driven_architecture.05_result_aggregator.demo
+    line: 92
+    cyclomatic_complexity: 2
+    calls_out: 23
+    calls_in: 0
+  examples.03_integrations.toon_format.practical_usage.ToonDemo.show_performance_tips:
+    name: show_performance_tips
+    module: examples.03_integrations.toon_format.practical_usage
+    line: 391
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  examples.09_online_drawing._run_utils.ExampleRunner.screenshot:
+    name: screenshot
+    module: examples.09_online_drawing._run_utils
+    line: 754
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  examples.01_basics.shell_fundamentals._environment_sections.print_config_files:
+    name: print_config_files
+    module: examples.01_basics.shell_fundamentals._environment_sections
+    line: 82
+    cyclomatic_complexity: 6
+    calls_out: 14
+    calls_in: 1
+  examples.06_tools_and_utilities.migration_tools.guide.performance_comparison:
+    name: performance_comparison
+    module: examples.06_tools_and_utilities.migration_tools.guide
+    line: 217
+    cyclomatic_complexity: 1
+    calls_out: 20
+    calls_in: 1
+  examples.01_basics.docker_basics.file_repair.repair_file:
+    name: repair_file
+    module: examples.01_basics.docker_basics.file_repair
+    line: 131
+    cyclomatic_complexity: 11
+    calls_out: 21
+    calls_in: 5
+  examples.07_stream_protocols.example_libvirt.main:
+    name: main
+    module: examples.07_stream_protocols.example_libvirt
+    line: 24
+    cyclomatic_complexity: 3
+    calls_out: 30
+    calls_in: 0
+  examples.01_basics.docker_basics.example.main:
+    name: main
+    module: examples.01_basics.docker_basics.example
+    line: 23
+    cyclomatic_complexity: 5
+    calls_out: 22
+    calls_in: 0
+  examples._verbose_schema.log_schema_summary:
+    name: log_schema_summary
+    module: examples._verbose_schema
+    line: 113
+    cyclomatic_complexity: 13
+    calls_out: 28
+    calls_in: 1
+  examples.09_online_drawing.07_shape_gallery.run._categories_to_show:
+    name: _categories_to_show
+    module: examples.09_online_drawing.07_shape_gallery.run
+    line: 117
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  examples.08_api_key_management.06_multi_provider.run.setup_all:
+    name: setup_all
+    module: examples.08_api_key_management.06_multi_provider.run
+    line: 128
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  examples.03_integrations.toon_format.old_system_loader.OldSystemLoader.load_command_schemas:
+    name: load_command_schemas
+    module: examples.03_integrations.toon_format.old_system_loader
+    line: 17
+    cyclomatic_complexity: 8
+    calls_out: 12
+    calls_in: 0
+  examples.08_api_key_management.01_diagnose_credentials_nlp2cmd.main:
+    name: main
+    module: examples.08_api_key_management.01_diagnose_credentials_nlp2cmd
+    line: 62
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 0
+  examples.03_integrations.web_development.demo._maybe_save_deployment_plan:
+    name: _maybe_save_deployment_plan
+    module: examples.03_integrations.web_development.demo
+    line: 72
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_schema_flow:
+    name: demonstrate_schema_flow
+    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
+    line: 24
+    cyclomatic_complexity: 6
+    calls_out: 56
+    calls_in: 1
+  examples.03_integrations.pipelines.infrastructure_health.main:
+    name: main
+    module: examples.03_integrations.pipelines.infrastructure_health
+    line: 118
+    cyclomatic_complexity: 19
+    calls_out: 59
+    calls_in: 0
+  examples.03_integrations.web_development.demo.run_example:
+    name: run_example
+    module: examples.03_integrations.web_development.demo
+    line: 130
+    cyclomatic_complexity: 4
+    calls_out: 22
+    calls_in: 4
+  examples._example_helpers.print_separator:
+    name: print_separator
+    module: examples._example_helpers
+    line: 4
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 75
+  examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd.get_command_for_task:
+    name: get_command_for_task
+    module: examples.01_basics.shell_fundamentals.01_basics_shell_nlp2cmd
+    line: 65
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_multiple_commands:
+    name: demonstrate_multiple_commands
+    module: examples.05_advanced_features.dynamic_schemas.demo_schema_flow
+    line: 131
+    cyclomatic_complexity: 4
+    calls_out: 15
+    calls_in: 1
+  examples.03_integrations.web_development.02_deployment_planning.demo.DeploymentPlan.summary:
+    name: summary
+    module: examples.03_integrations.web_development.02_deployment_planning.demo
+    line: 32
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 0
+  examples.06_tools_and_utilities.migration_tools.guide.migration_steps:
+    name: migration_steps
+    module: examples.06_tools_and_utilities.migration_tools.guide
+    line: 150
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 1
+  examples.09_online_drawing._old.04_object_database_drawing.ShapeDatabase.get_shape:
+    name: get_shape
+    module: examples.09_online_drawing._old.04_object_database_drawing
+    line: 272
+    cyclomatic_complexity: 7
+    calls_out: 8
+    calls_in: 0
+  examples.03_integrations.toon_format.13_query_system.demo.main:
+    name: main
+    module: examples.03_integrations.toon_format.13_query_system.demo
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 17
+    calls_in: 0
+  examples.08_api_key_management.06_multi_provider.run.scan:
+    name: scan
+    module: examples.08_api_key_management.06_multi_provider.run
+    line: 31
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  examples.09_online_drawing.05_autonomous.run.fetch_only:
+    name: fetch_only
+    module: examples.09_online_drawing.05_autonomous.run
+    line: 189
+    cyclomatic_complexity: 5
+    calls_out: 12
+    calls_in: 1
+  examples.02_benchmarks.sequential_testing.benchmark.print_section:
+    name: print_section
+    module: examples.02_benchmarks.sequential_testing.benchmark
+    line: 28
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 5
+  examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd.main:
+    name: main
+    module: examples.09_online_drawing._old.03_adaptive_drawing_nlp2cmd
+    line: 95
+    cyclomatic_complexity: 5
+    calls_out: 30
+    calls_in: 0
+  examples._verbose_helper.auto_navigate_with_fallback:
+    name: auto_navigate_with_fallback
+    module: examples._verbose_helper
+    line: 317
+    cyclomatic_complexity: 6
+    calls_out: 10
+    calls_in: 1
+  examples.01_basics.docker_basics.01_basics_docker_nlp2cmd.main:
+    name: main
+    module: examples.01_basics.docker_basics.01_basics_docker_nlp2cmd
+    line: 62
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 0
+  examples.06_tools_and_utilities.migration_tools.guide.old_way_examples:
+    name: old_way_examples
+    module: examples.06_tools_and_utilities.migration_tools.guide
+    line: 14
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 1
+  examples.08_api_key_management.05_openai_key.run.run_flow:
+    name: run_flow
+    module: examples.08_api_key_management.05_openai_key.run
+    line: 53
+    cyclomatic_complexity: 7
+    calls_out: 12
+    calls_in: 1
+  examples.03_integrations.web_development._demo_helpers.print_containers:
+    name: print_containers
+    module: examples.03_integrations.web_development._demo_helpers
+    line: 23
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 4
+  examples._verbose_helper.ensure_playwright_browsers_async:
+    name: ensure_playwright_browsers_async
+    module: examples._verbose_helper
+    line: 176
+    cyclomatic_complexity: 6
+    calls_out: 19
+    calls_in: 11
+  examples.09_online_drawing._run_utils.get_platform_info:
+    name: get_platform_info
+    module: examples.09_online_drawing._run_utils
+    line: 122
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 3
+  examples.03_integrations.web_development.05_infrastructure_management.demo.main:
+    name: main
+    module: examples.03_integrations.web_development.05_infrastructure_management.demo
+    line: 23
+    cyclomatic_complexity: 2
+    calls_out: 19
+    calls_in: 0
+  examples.09_online_drawing._old.03_adaptive_drawing.main:
+    name: main
+    module: examples.09_online_drawing._old.03_adaptive_drawing
+    line: 101
+    cyclomatic_complexity: 11
+    calls_out: 93
+    calls_in: 0
+  examples.05_advanced_features.dynamic_schemas.demo_version_detection.main:
+    name: main
+    module: examples.05_advanced_features.dynamic_schemas.demo_version_detection
+    line: 158
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 0
 edges:
 - caller: jspaint_app_test4.run
   callee: test_nlp2cmd_commands.print
@@ -4203,8 +4203,11 @@ entry_points:
 - examples.03_integrations.web_development.demo.main
 - examples.03_integrations.web_development.demo_auto.run_demo_with_test
 - examples.03_integrations.web_development.demo_batch.run_batch_demo
+- examples.03_integrations.web_development.deployment_plan.DeploymentPlan._add_dependency_services
+- examples.03_integrations.web_development.deployment_plan.DeploymentPlan._collect_volumes
 - examples.03_integrations.web_development.deployment_plan.DeploymentPlan._create_postgres_service
 - examples.03_integrations.web_development.deployment_plan.DeploymentPlan._create_redis_service
+- examples.03_integrations.web_development.deployment_plan.DeploymentPlan._create_service_def
 - examples.03_integrations.web_development.deployment_plan.DeploymentPlan.to_compose
 - examples.03_integrations.web_development.docker_manager.DockerManager.__init__
 - examples.03_integrations.web_development.docker_manager.DockerManager.get_container_status
@@ -6487,7 +6490,9 @@ entry_points:
 - src.nlp2cmd.router.DecisionRouter.route
 - src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD.__init__
 - src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._apply_pattern_bonus
+- src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._convert_param_value
 - src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._extract_params
+- src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._extract_quoted_value
 - src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._extract_text_tokens
 - src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._render_dom
 - src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD._render_dsl

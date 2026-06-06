@@ -1,11 +1,10 @@
-# code2llm | 1043f 1790718L | python:762,json:158,shell:76,yaml:26,txt:12,yml:3,toml:1,ini:1 | 2026-06-07
-# generated in 0.67s
-# CC̅=4.9 | critical:215/4095 | dups:0 | cycles:0
+# code2llm | 1043f 1790734L | python:762,json:158,shell:76,yaml:26,txt:12,yml:3,toml:1,ini:1 | 2026-06-07
+# generated in 0.73s
+# CC̅=4.9 | critical:213/4100 | dups:0 | cycles:0
 
 HEALTH[20]:
   🟡 CC    main CC=15 (limit:15)
   🟡 CC    main CC=18 (limit:15)
-  🟡 CC    to_compose CC=17 (limit:15)
   🟡 CC    _detect_intent CC=19 (limit:15)
   🟡 CC    _extract_entities CC=16 (limit:15)
   🟡 CC    main CC=19 (limit:15)
@@ -22,12 +21,13 @@ HEALTH[20]:
   🟡 CC    test_prompt CC=15 (limit:15)
   🟡 CC    _get_command_for_query CC=15 (limit:15)
   🟡 CC    run_learning_benchmark CC=15 (limit:15)
-  🟡 CC    _extract_params CC=17 (limit:15)
+  🟡 CC    _execute_desktop_plan_step CC=44 (limit:15)
+  🟡 CC    _run_shell CC=27 (limit:15)
 
 REFACTOR[1]:
   1. split 20 high-CC methods  (CC>15)
 
-PIPELINES[2973]:
+PIPELINES[2977]:
   [1] Src [run]: run → print
       PURITY: 100% pure
   [2] Src [main]: main → get_workspace
@@ -275,9 +275,9 @@ LAYERS:
   │ helpers                    307L  0C   10m  CC=13     ←1
   │ !! interaction                299L  10C   10m  CC=19     ←0
   │ validating                 297L  8C    9m  CC=9      ←0
+  │ !! schema_driven              296L  2C   16m  CC=29     ←0
   │ skill                      290L  1C   18m  CC=11     ←0
   │ openrouter                 289L  2C    8m  CC=5      ←0
-  │ !! schema_driven              288L  2C   14m  CC=29     ←0
   │ entity_resolver            288L  2C   17m  CC=7      ←0
   │ vision                     281L  2C    9m  CC=4      ←0
   │ playwright_installer       281L  0C    6m  CC=10     ←3
@@ -858,12 +858,12 @@ LAYERS:
   │ commands_demo.sh           140L  0C    0m  CC=0.0    ←0
   │ run_all                    139L  0C    2m  CC=5      ←0
   │ intents                    139L  0C    1m  CC=8      ←0
+  │ deployment_plan            139L  1C    6m  CC=6      ←0
   │ run                        136L  0C    1m  CC=6      ←0
   │ demo                       134L  1C    5m  CC=6      ←0
   │ example                    133L  0C    3m  CC=5      ←0
   │ demo                       132L  2C    9m  CC=4      ←0
   │ run                        132L  0C    1m  CC=9      ←0
-  │ !! deployment_plan            131L  1C    3m  CC=17     ←0
   │ nlp2_cmd_web_api           130L  1C    5m  CC=2      ←0
   │ demo                       128L  3C    6m  CC=5      ←0
   │ demo_batch                 128L  0C    6m  CC=5      ←0
@@ -1218,36 +1218,36 @@ COUPLING:
    examples.08_api_key_management                              104                                                                                                                                                                    9                                                                                                                                                                                                                                                                      ──                                   !! fan-out
      examples.07_stream_protocols                               90                                                                                                                                                                    6                                                                                                                                                                                                                                                                                                       ──  !! fan-out
   CYCLES: none
-  HUB: examples/ (fan-in=278)
-  HUB: src.app2schema/ (fan-in=12)
-  HUB: src.nlp2cmd/ (fan-in=114)
   HUB: test_nlp2cmd_commands/ (fan-in=4996)
+  HUB: src.nlp2cmd/ (fan-in=114)
+  HUB: src.app2schema/ (fan-in=12)
   HUB: examples.04_domain_specific/ (fan-in=5)
-  SMELL: examples.10_online_code_editors/ fan-out=216 → split needed
-  SMELL: scripts/ fan-out=28 → split needed
-  SMELL: tools.generation/ fan-out=56 → split needed
-  SMELL: examples.01_basics/ fan-out=348 → split needed
-  SMELL: examples.09_online_drawing/ fan-out=413 → split needed
-  SMELL: examples.06_tools_and_utilities/ fan-out=137 → split needed
-  SMELL: examples/ fan-out=85 → split needed
-  SMELL: examples.06_desktop_automation/ fan-out=51 → split needed
-  SMELL: tools.analysis/ fan-out=77 → split needed
+  HUB: examples/ (fan-in=278)
   SMELL: scripts.testing/ fan-out=31 → split needed
-  SMELL: src.nlp2cmd/ fan-out=371 → split needed
-  SMELL: examples.05_advanced_features/ fan-out=485 → split needed
-  SMELL: docker.novnc/ fan-out=30 → split needed
   SMELL: scripts.maintenance/ fan-out=598 → split needed
-  SMELL: benchmarks/ fan-out=85 → split needed
-  SMELL: test_screenshots/ fan-out=62 → split needed
-  SMELL: examples.04_domain_specific/ fan-out=858 → split needed
-  SMELL: examples.02_benchmarks/ fan-out=72 → split needed
-  SMELL: examples.08_api_key_management/ fan-out=113 → split needed
-  SMELL: tools.schema/ fan-out=132 → split needed
-  SMELL: scripts.thermodynamic/ fan-out=170 → split needed
-  SMELL: examples.08_llm_validation/ fan-out=24 → split needed
-  SMELL: examples.03_integrations/ fan-out=852 → split needed
+  SMELL: src.nlp2cmd/ fan-out=371 → split needed
+  SMELL: examples.10_online_code_editors/ fan-out=216 → split needed
+  SMELL: tools.generation/ fan-out=56 → split needed
+  SMELL: scripts/ fan-out=28 → split needed
   SMELL: tools.manual_tests/ fan-out=11 → split needed
+  SMELL: examples.08_api_key_management/ fan-out=113 → split needed
+  SMELL: scripts.thermodynamic/ fan-out=170 → split needed
+  SMELL: examples.04_domain_specific/ fan-out=858 → split needed
   SMELL: examples.07_stream_protocols/ fan-out=96 → split needed
+  SMELL: examples.06_tools_and_utilities/ fan-out=137 → split needed
+  SMELL: examples.05_advanced_features/ fan-out=485 → split needed
+  SMELL: examples.09_online_drawing/ fan-out=413 → split needed
+  SMELL: examples/ fan-out=85 → split needed
+  SMELL: test_screenshots/ fan-out=62 → split needed
+  SMELL: tools.analysis/ fan-out=77 → split needed
+  SMELL: benchmarks/ fan-out=85 → split needed
+  SMELL: examples.02_benchmarks/ fan-out=72 → split needed
+  SMELL: tools.schema/ fan-out=132 → split needed
+  SMELL: examples.03_integrations/ fan-out=852 → split needed
+  SMELL: examples.06_desktop_automation/ fan-out=51 → split needed
+  SMELL: docker.novnc/ fan-out=30 → split needed
+  SMELL: examples.08_llm_validation/ fan-out=24 → split needed
+  SMELL: examples.01_basics/ fan-out=348 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon

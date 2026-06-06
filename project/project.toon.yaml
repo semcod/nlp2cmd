@@ -1,8 +1,8 @@
-# nlp2cmd | 4095 func | 622f | 1790718L | python | 2026-06-07
-# generated in 0.01s
+# nlp2cmd | 4100 func | 622f | 1790734L | python | 2026-06-07
+# generated in 0.00s
 
 HEALTH:
-  CC̄=4.9  critical=469 (limit:10)  dup=41  cycles=0
+  CC̄=4.9  critical=468 (limit:10)  dup=41  cycles=0
 
 ALERTS[20]:
   !!! cc_exceeded      BrowserExecutionMixin._run_dom_multi_action = 280 (limit:15)
@@ -50,8 +50,8 @@ REFACTOR[15]:
   [1] H/L Split main (CC=32)
   [2] H/L Split main (CC=37)
   [3] H/L Split run_benchmark (CC=28)
-  [4] H/L Split SchemaDrivenNLP2CMD._render_http (CC=29)
-  [5] H/L Split SchemaDrivenNLP2CMD._render_shell (CC=25)
+  [4] H/L Split DesktopExecutionMixin._execute_desktop_plan_step (CC=44)
+  [5] H/L Split ShellExecutionMixin._run_shell (CC=27)
 
 EVOLUTION:
-  2026-06-07 CC̄=4.9 crit=469 1790718L // Automated analysis
+  2026-06-07 CC̄=4.9 crit=468 1790734L // Automated analysis

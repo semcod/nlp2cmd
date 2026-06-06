@@ -7,10 +7,10 @@
 - **Primary Language**: python
 - **Languages**: python: 762, json: 158, shell: 76, yaml: 26, txt: 12
 - **Analysis Mode**: static
-- **Total Functions**: 4095
+- **Total Functions**: 4100
 - **Total Classes**: 747
 - **Modules**: 1043
-- **Entry Points**: 3357
+- **Entry Points**: 3362
 
 ## Architecture by Module
 
@@ -542,11 +542,12 @@ Returns JSON-serializable result.
 ### examples.04_domain_specific.debugging.10_advanced_validation.demo.AdvancedValidator.validate
 - **Output to**: self._calculate_similarity, ValidationResult, self.results.append
 
-### src.nlp2cmd.schema_driven.SchemaDrivenNLP2CMD.transform
-- **Output to**: self._select_action, self._extract_params, self._render_dsl, str, ActionIR
-
 ### src.nlp2cmd.pipeline_runner_shell.ShellExecutionMixin._parse_shell_command
 - **Output to**: command.strip, cmd.lower, any, any, re.search
+
+### src.nlp2cmd.monitoring.resources.ResourceMonitor._process_cpu_time_seconds
+> Return process CPU time in seconds (user+system).
+- **Output to**: self.process.cpu_times, float, float, getattr, getattr
 
 ## Behavioral Patterns
 

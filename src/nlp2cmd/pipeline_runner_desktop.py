@@ -114,6 +114,144 @@ class DesktopExecutionMixin:
             return "wmctrl"  # wmctrl only for focus, not type/key
         return "none"
 
+    def _execute_desktop_focus_app(self, title: str, backend: str) -> None:
+        """Focus an application window."""
+        if backend == "ydotool":
+            _debug(f"desktop_focus_app: ydotool can't focus windows, trying Alt+Tab")
+            subprocess.run(["ydotool", "key", "56:1", "15:1", "15:0", "56:0"], check=False)
+            time.sleep(0.3)
+            return
+        if shutil.which("wmctrl") is not None:
+            subprocess.run(["wmctrl", "-a", title], check=True)
+            return
+        # xdotool fallback
+        candidates = [
+            ("--name", title),
+            ("--name", "Mozilla Firefox"),
+            ("--class", title),
+            ("--class", "firefox"),
+            ("--class", "Navigator"),
+        ]
+        win_id = ""
+        for flag, value in candidates:
+            try:
+                out = subprocess.check_output(
+                    ["xdotool", "search", "--onlyvisible", flag, value],
+                    stderr=subprocess.DEVNULL,
+                    text=True,
+                )
+                win_id = (out.strip().splitlines() or [""])[0].strip()
+                if win_id:
+                    break
+            except Exception:
+                continue
+        if win_id:
+            subprocess.run(["xdotool", "windowactivate", "--sync", win_id], check=True)
+        else:
+            _debug(f"desktop_focus_app: could not find visible window for '{title}', continuing")
+
+    def _execute_desktop_shortcut(self, keys: str, backend: str) -> None:
+        """Execute keyboard shortcut."""
+        if backend == "ydotool":
+            ydotool_keys = self._xdotool_keys_to_ydotool(keys)
+            subprocess.run(["ydotool", "key"] + ydotool_keys, check=True)
+        else:
+            subprocess.run(["xdotool", "key", keys], check=True)
+
+    def _execute_desktop_key(self, key: str, backend: str) -> None:
+        """Execute single key press."""
+        if backend == "ydotool":
+            ydotool_keys = self._xdotool_keys_to_ydotool(key)
+            subprocess.run(["ydotool", "key"] + ydotool_keys, check=True)
+        else:
+            subprocess.run(["xdotool", "key", key], check=True)
+
+    def _execute_desktop_type(self, text: str, backend: str) -> None:
+        """Type text."""
+        if not text.strip():
+            return
+        if backend == "ydotool":
+            subprocess.run(["ydotool", "type", "--key-delay", "20", text], check=True)
+        else:
+            subprocess.run(["xdotool", "type", "--delay", "20", text], check=True)
+
+    def _execute_wait(self, ms: int) -> None:
+        """Wait for specified milliseconds."""
+        time.sleep(max(ms, 0) / 1000.0)
+
+    def _execute_open_firefox_tab(self, url: str) -> None:
+        """Open URL in Firefox."""
+        if not url:
+            return
+        if shutil.which("firefox") is None:
+            raise ValueError("Firefox executable not found in PATH")
+        try:
+            subprocess.run(["firefox", "--new-tab", url], check=True)
+        except Exception:
+            subprocess.run(["firefox", "--new-window", url], check=True)
+
+    def _execute_check_session(self, service: str) -> str:
+        """Check user session status."""
+        console = Console()
+        console.print(f"  [dim]🔍 Strona {service} została otwarta w Twojej przeglądarce.[/dim]")
+        console.print(f"  [dim]   Sprawdź, czy jesteś zalogowany. Jeśli nie — zaloguj się teraz.[/dim]")
+        time.sleep(2)
+        return "desktop_skipped"
+
+    def _execute_echo(self, msg: str) -> None:
+        """Print message to console."""
+        if msg:
+            _debug(msg)
+            console = Console()
+            for line in msg.split("\n"):
+                console.print(f"  [dim]{line}[/dim]")
+
+    def _execute_prompt_secret(self, step, params: dict, variables: dict) -> Optional[str]:
+        """Prompt user for secret."""
+        from nlp2cmd.automation.action_planner import ActionStep as _ActionStep
+        _step = _ActionStep(
+            action="prompt_secret",
+            params=params,
+            store_as=getattr(step, "store_as", None),
+            retry_on_fail=getattr(step, "retry_on_fail", False),
+        )
+        console = Console()
+        console.print(f"  [dim]🔐 prompt_secret: env_var={params.get('env_var', '?')}[/dim]")
+        result = self._execute_plan_step(page=None, context=None, step=_step, variables=variables)
+        if result:
+            console.print(f"  [dim]   ✓ Otrzymano klucz ({len(result)} znaków)[/dim]")
+            key_pattern = variables.get("_key_pattern", "")
+            if key_pattern:
+                import re as _re
+                if _re.match(key_pattern, result):
+                    console.print(f"  [green]   ✓ Klucz pasuje do wzorca: {key_pattern}[/green]")
+                else:
+                    console.print(f"  [yellow]   ⚠ Klucz NIE pasuje do wzorca: {key_pattern}[/yellow]")
+                    console.print(f"  [yellow]     Kontynuuję mimo to — sprawdź poprawność klucza.[/yellow]")
+        else:
+            console.print(f"  [red]   ✗ Nie otrzymano klucza![/red]")
+        return result
+
+    def _execute_save_env(self, step, params: dict, variables: dict) -> Optional[str]:
+        """Save environment variable."""
+        from nlp2cmd.automation.action_planner import ActionStep as _ActionStep
+        _step = _ActionStep(
+            action="save_env",
+            params=params,
+            store_as=getattr(step, "store_as", None),
+            retry_on_fail=getattr(step, "retry_on_fail", False),
+        )
+        console = Console()
+        var_name = params.get("var_name", "?")
+        file_path = params.get("file", ".env")
+        console.print(f"  [dim]💾 save_env: {var_name} → {file_path}[/dim]")
+        result = self._execute_plan_step(page=None, context=None, step=_step, variables=variables)
+        if result:
+            console.print(f"  [green]   ✓ Zapisano {var_name} ({len(result)} znaków) do {file_path}[/green]")
+        else:
+            console.print(f"  [red]   ✗ Nie zapisano wartości![/red]")
+        return result
+
     def _execute_desktop_plan_step(self, step, variables: dict) -> Optional[str]:
         """Execute an ActionPlan step via local desktop automation.
 
@@ -133,168 +271,23 @@ class DesktopExecutionMixin:
                 "On X11: sudo apt install xdotool wmctrl."
             )
 
-        if action == "desktop_focus_app":
-            title = str(params.get("title") or "Firefox")
-            if backend == "ydotool":
-                # ydotool can't focus windows; try gdbus on GNOME
-                _debug(f"desktop_focus_app: ydotool can't focus windows, trying Alt+Tab")
-                subprocess.run(["ydotool", "key", "56:1", "15:1", "15:0", "56:0"], check=False)
-                time.sleep(0.3)
-                return None
-            if shutil.which("wmctrl") is not None:
-                subprocess.run(["wmctrl", "-a", title], check=True)
-                return None
-            # xdotool fallback
-            candidates = [
-                ("--name", title),
-                ("--name", "Mozilla Firefox"),
-                ("--class", title),
-                ("--class", "firefox"),
-                ("--class", "Navigator"),
-            ]
-            win_id = ""
-            for flag, value in candidates:
-                try:
-                    out = subprocess.check_output(
-                        ["xdotool", "search", "--onlyvisible", flag, value],
-                        stderr=subprocess.DEVNULL,
-                        text=True,
-                    )
-                    win_id = (out.strip().splitlines() or [""])[0].strip()
-                    if win_id:
-                        break
-                except Exception:
-                    continue
-            if win_id:
-                subprocess.run(["xdotool", "windowactivate", "--sync", win_id], check=True)
-            else:
-                _debug(f"desktop_focus_app: could not find visible window for '{title}', continuing")
-            return None
+        action_handlers = {
+            "desktop_focus_app": lambda: self._execute_desktop_focus_app(str(params.get("title") or "Firefox"), backend),
+            "desktop_shortcut": lambda: self._execute_desktop_shortcut(str(params.get("keys") or "").strip() or "ctrl+t", backend),
+            "desktop_key": lambda: self._execute_desktop_key(str(params.get("key") or "Return").strip() or "Return", backend),
+            "desktop_type": lambda: self._execute_desktop_type(str(params.get("text") or ""), backend),
+            "wait": lambda: self._execute_wait(int(params.get("ms", 500))),
+            "desktop_wait": lambda: self._execute_wait(int(params.get("ms", 500))),
+            "open_firefox_tab": lambda: self._execute_open_firefox_tab(str(params.get("url") or "").strip()),
+            "check_session": lambda: self._execute_check_session(params.get("service", "unknown")),
+            "echo": lambda: self._execute_echo(str(params.get("message", "") or params.get("text", ""))),
+            "prompt_secret": lambda: self._execute_prompt_secret(step, params, variables),
+            "save_env": lambda: self._execute_save_env(step, params, variables),
+            "verify_env": lambda: self._do_verify_env(Console(), params.get("var_name", "UNKNOWN"), params.get("file", ".env"), variables),
+        }
 
-        if action == "desktop_shortcut":
-            keys = str(params.get("keys") or "").strip() or "ctrl+t"
-            if backend == "ydotool":
-                ydotool_keys = self._xdotool_keys_to_ydotool(keys)
-                subprocess.run(["ydotool", "key"] + ydotool_keys, check=True)
-            else:
-                subprocess.run(["xdotool", "key", keys], check=True)
-            return None
-
-        if action == "desktop_key":
-            key = str(params.get("key") or "Return").strip() or "Return"
-            if backend == "ydotool":
-                ydotool_keys = self._xdotool_keys_to_ydotool(key)
-                subprocess.run(["ydotool", "key"] + ydotool_keys, check=True)
-            else:
-                subprocess.run(["xdotool", "key", key], check=True)
-            return None
-
-        if action == "desktop_type":
-            txt = str(params.get("text") or "")
-            if not txt.strip():
-                return None
-            if backend == "ydotool":
-                subprocess.run(["ydotool", "type", "--key-delay", "20", txt], check=True)
-            else:
-                subprocess.run(["xdotool", "type", "--delay", "20", txt], check=True)
-            return None
-
-        if action == "wait":
-            ms = int(params.get("ms", 500))
-            time.sleep(max(ms, 0) / 1000.0)
-            return None
-
-        if action == "desktop_wait":
-            ms = int(params.get("ms", 500))
-            time.sleep(max(ms, 0) / 1000.0)
-            return None
-
-        if action == "open_firefox_tab":
-            url = str(params.get("url") or "").strip()
-            if not url:
-                return None
-            if shutil.which("firefox") is None:
-                raise ValueError("Firefox executable not found in PATH")
-
-            # Open a new tab in existing Firefox instance (remote command).
-            # This is more reliable than synthetic key events.
-            try:
-                subprocess.run(["firefox", "--new-tab", url], check=True)
-            except Exception:
-                subprocess.run(["firefox", "--new-window", url], check=True)
-            return None
-
-        if action == "check_session":
-            # In desktop mode we opened the URL in the user's real Firefox.
-            # We don't have a Playwright page to inspect, so just inform the user.
-            service = params.get("service", "unknown")
-            console = Console()
-            console.print(f"  [dim]🔍 Strona {service} została otwarta w Twojej przeglądarce.[/dim]")
-            console.print(f"  [dim]   Sprawdź, czy jesteś zalogowany. Jeśli nie — zaloguj się teraz.[/dim]")
-            # Give user time to check
-            time.sleep(2)
-            return "desktop_skipped"
-
-        # Reuse safe non-desktop steps
-        if action == "echo":
-            msg = str(params.get("message", "") or params.get("text", ""))
-            if msg:
-                _debug(msg)
-                console = Console()
-                for line in msg.split("\n"):
-                    console.print(f"  [dim]{line}[/dim]")
-            return None
-
-        if action == "prompt_secret":
-            from nlp2cmd.automation.action_planner import ActionStep as _ActionStep
-            _step = _ActionStep(
-                action="prompt_secret",
-                params=params,
-                store_as=getattr(step, "store_as", None),
-                retry_on_fail=getattr(step, "retry_on_fail", False),
-            )
-            console = Console()
-            console.print(f"  [dim]🔐 prompt_secret: env_var={params.get('env_var', '?')}[/dim]")
-            result = self._execute_plan_step(page=None, context=None, step=_step, variables=variables)
-            if result:
-                console.print(f"  [dim]   ✓ Otrzymano klucz ({len(result)} znaków)[/dim]")
-                # Validate key pattern if available in variables
-                key_pattern = variables.get("_key_pattern", "")
-                if key_pattern:
-                    import re as _re
-                    if _re.match(key_pattern, result):
-                        console.print(f"  [green]   ✓ Klucz pasuje do wzorca: {key_pattern}[/green]")
-                    else:
-                        console.print(f"  [yellow]   ⚠ Klucz NIE pasuje do wzorca: {key_pattern}[/yellow]")
-                        console.print(f"  [yellow]     Kontynuuję mimo to — sprawdź poprawność klucza.[/yellow]")
-            else:
-                console.print(f"  [red]   ✗ Nie otrzymano klucza![/red]")
-            return result
-
-        if action == "save_env":
-            from nlp2cmd.automation.action_planner import ActionStep as _ActionStep
-            _step = _ActionStep(
-                action="save_env",
-                params=params,
-                store_as=getattr(step, "store_as", None),
-                retry_on_fail=getattr(step, "retry_on_fail", False),
-            )
-            console = Console()
-            var_name = params.get("var_name", "?")
-            file_path = params.get("file", ".env")
-            console.print(f"  [dim]💾 save_env: {var_name} → {file_path}[/dim]")
-            result = self._execute_plan_step(page=None, context=None, step=_step, variables=variables)
-            if result:
-                console.print(f"  [green]   ✓ Zapisano {var_name} ({len(result)} znaków) do {file_path}[/green]")
-            else:
-                console.print(f"  [red]   ✗ Nie zapisano wartości![/red]")
-            return result
-
-        if action == "verify_env":
-            console = Console()
-            var_name = params.get("var_name", "UNKNOWN")
-            file_path = params.get("file", ".env")
-            return self._do_verify_env(console, var_name, file_path, variables)
+        if action in action_handlers:
+            return action_handlers[action]()
 
         raise ValueError(f"Unsupported desktop plan action: {action}")
 

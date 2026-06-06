@@ -2959,6 +2959,26 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.24] - 2026-06-07
+
+### Docs
+- Update README.md
+- Update project/README.md
+- Update project/context.md
+
+### Other
+- Update .code2llm_cache/deployment_plan_1780785470417047694_4884.pkl
+- Update .code2llm_cache/schema_driven_1780785301421639035_10760.pkl
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/calls.png
+- Update project/calls.toon.yaml
+- Update project/calls.yaml
+- Update project/compact_flow.mmd
+- Update project/compact_flow.png
+- Update project/evolution.toon.yaml
+- ... and 7 more files
+
 ## [1.1.23] - 2026-06-07
 
 ### Docs

@@ -1,5 +1,5 @@
 # code2llm call graph | /home/tom/github/wronai/nlp2cmd
-# generated in 0.30s
+# generated in 0.33s
 # nodes: 312 | edges: 500 | modules: 114
 # CC̄=4.9
 
@@ -18,10 +18,10 @@ HUBS[20]:
     CC=12  in:0  out:87  total:87
   examples.01_basics.sql_basics.workflows.main
     CC=10  in:0  out:81  total:81
-  examples._example_helpers.print_separator
-    CC=2  in:75  out:3  total:78
   examples._verbose_helper.vlog
     CC=2  in:77  out:1  total:78
+  examples._example_helpers.print_separator
+    CC=2  in:75  out:3  total:78
   examples.show_metrics.main
     CC=15  in:0  out:77  total:77
   examples.03_integrations.toon_format.usage_example.main
