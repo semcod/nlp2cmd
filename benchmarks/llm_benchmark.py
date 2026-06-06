@@ -523,25 +523,25 @@ def clean_command(raw: str) -> str:
 # ---------------------------------------------------------------------------
 # Main benchmark runner
 # ---------------------------------------------------------------------------
-def run_benchmark() -> BenchmarkResults:
-    log.info("=" * 70)
-    log.info("NLP2CMD LLM Benchmark")
-    log.info("=" * 70)
-
-    # Check ollama
+def _check_ollama_available() -> None:
+    """Check if ollama is running and exit if not."""
     if not ollama_available():
         log.error("Ollama is not running at %s", OLLAMA_BASE)
         sys.exit(1)
     log.info("✅ Ollama available at %s", OLLAMA_BASE)
 
-    # Ensure bielik-1.5b exists in ollama
+
+def _setup_bielik_model() -> None:
+    """Ensure bielik-1.5b model exists in ollama."""
     if not ollama_model_exists("bielik-1.5b"):
         log.info("Bielik-1.5b not found in ollama — creating from GGUF …")
         if not ollama_create_bielik():
             log.warning("⚠️  Skipping Bielik-1.5B (GGUF not available)")
             MODELS[:] = [m for m in MODELS if m["name"] != "bielik-1.5b"]
 
-    # Verify other models
+
+def _verify_and_pull_models() -> None:
+    """Verify all models exist and pull if needed."""
     for model_cfg in MODELS[:]:
         if not ollama_model_exists(model_cfg["name"]):
             log.warning("Model %s not in ollama — trying pull …", model_cfg["name"])
@@ -559,6 +559,94 @@ def run_benchmark() -> BenchmarkResults:
         log.error("No models available — aborting")
         sys.exit(1)
 
+
+def _warmup_model(model_name: str) -> bool:
+    """Warm up a model with a simple query."""
+    try:
+        ollama_generate(model_name, "hello", max_tokens=5)
+        return True
+    except Exception as exc:
+        log.error("  Warmup failed: %s — skipping model", exc)
+        return False
+
+
+def _run_query(model_name: str, domain: str, query: dict[str, str], system_prompt: str) -> QueryResult:
+    """Run a single benchmark query."""
+    qr = QueryResult(
+        model=model_name,
+        domain=domain,
+        query=query["query"],
+        description=query["description"],
+        raw_response="",
+        cleaned_command="",
+        expected_pattern=query["expected_pattern"],
+        pattern_match=False,
+        response_time_sec=0.0,
+    )
+
+    try:
+        raw, elapsed = ollama_generate(
+            model_name, query["query"], system=system_prompt,
+            max_tokens=200,
+        )
+        qr.raw_response = raw
+        qr.cleaned_command = clean_command(raw)
+        qr.response_time_sec = round(elapsed, 3)
+
+        if not qr.cleaned_command.strip():
+            qr.error = "empty_response"
+
+        qr.pattern_match = bool(
+            re.search(query["expected_pattern"], qr.cleaned_command, re.IGNORECASE)
+        )
+
+        status = "✅" if qr.pattern_match else "⚠️"
+        log.info("      %s %.2fs | %s", status, elapsed, qr.cleaned_command[:70])
+
+    except Exception as exc:
+        qr.error = str(exc)
+        qr.response_time_sec = 0.0
+        log.error("      ❌ Error: %s", exc)
+
+    return qr
+
+
+def _run_model_benchmark(model_cfg: dict[str, str], total_queries: int) -> list[dict[str, Any]]:
+    """Run benchmark for a single model across all domains."""
+    model_name = model_cfg["name"]
+    log.info("-" * 60)
+    log.info("🤖 Model: %s (%s)", model_cfg["display"], model_cfg["params"])
+    log.info("-" * 60)
+
+    if not _warmup_model(model_name):
+        return []
+
+    results = []
+    query_num = 0
+
+    for domain, queries in BENCHMARK_QUERIES.items():
+        system_prompt = SYSTEM_PROMPTS.get(domain, "")
+        log.info("  📂 Domain: %s (%d queries)", domain, len(queries))
+
+        for q in queries:
+            query_num += 1
+            log.info("    [%d/%d] %s: %s", query_num, total_queries, domain, q["query"][:60])
+
+            qr = _run_query(model_name, domain, q, system_prompt)
+            results.append(asdict(qr))
+
+    return results
+
+
+def run_benchmark() -> BenchmarkResults:
+    log.info("=" * 70)
+    log.info("NLP2CMD LLM Benchmark")
+    log.info("=" * 70)
+
+    _check_ollama_available()
+    _setup_bielik_model()
+    _verify_and_pull_models()
+
     log.info("Models to benchmark: %s", [m["display"] for m in MODELS])
     log.info("Domains: %s", list(BENCHMARK_QUERIES.keys()))
 
@@ -572,75 +660,10 @@ def run_benchmark() -> BenchmarkResults:
         total_queries=total_queries,
     )
 
-    query_num = 0
     for model_cfg in MODELS:
-        model_name = model_cfg["name"]
-        log.info("-" * 60)
-        log.info("🤖 Model: %s (%s)", model_cfg["display"], model_cfg["params"])
-        log.info("-" * 60)
+        model_results = _run_model_benchmark(model_cfg, total_queries)
+        results.results.extend(model_results)
 
-        # Warm up model
-        log.info("  Warming up %s …", model_name)
-        try:
-            ollama_generate(model_name, "hello", max_tokens=5)
-        except Exception as exc:
-            log.error("  Warmup failed: %s — skipping model", exc)
-            continue
-
-        for domain, queries in BENCHMARK_QUERIES.items():
-            system_prompt = SYSTEM_PROMPTS.get(domain, "")
-            log.info("  📂 Domain: %s (%d queries)", domain, len(queries))
-
-            for q in queries:
-                query_num += 1
-                log.info(
-                    "    [%d/%d] %s: %s",
-                    query_num, total_queries, domain, q["query"][:60],
-                )
-
-                qr = QueryResult(
-                    model=model_name,
-                    domain=domain,
-                    query=q["query"],
-                    description=q["description"],
-                    raw_response="",
-                    cleaned_command="",
-                    expected_pattern=q["expected_pattern"],
-                    pattern_match=False,
-                    response_time_sec=0.0,
-                )
-
-                try:
-                    raw, elapsed = ollama_generate(
-                        model_name, q["query"], system=system_prompt,
-                        max_tokens=200,
-                    )
-                    qr.raw_response = raw
-                    qr.cleaned_command = clean_command(raw)
-                    qr.response_time_sec = round(elapsed, 3)
-
-                    if not qr.cleaned_command.strip():
-                        qr.error = "empty_response"
-
-                    # Check pattern match
-                    qr.pattern_match = bool(
-                        re.search(q["expected_pattern"], qr.cleaned_command, re.IGNORECASE)
-                    )
-
-                    status = "✅" if qr.pattern_match else "⚠️"
-                    log.info(
-                        "      %s %.2fs | %s",
-                        status, elapsed, qr.cleaned_command[:70],
-                    )
-
-                except Exception as exc:
-                    qr.error = str(exc)
-                    qr.response_time_sec = 0.0
-                    log.error("      ❌ Error: %s", exc)
-
-                results.results.append(asdict(qr))
-
-    # Build summary
     results.summary = build_summary(results)
     return results
 

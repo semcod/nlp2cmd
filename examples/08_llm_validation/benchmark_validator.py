@@ -337,6 +337,42 @@ def run_benchmark(
     return summary
 
 
+def _print_metric_comparison(name: str, key: str, unit: str, higher_better: bool, before: dict, after: dict) -> None:
+    """Print comparison for a single metric."""
+    b = before[key]
+    a = after[key]
+    delta = a - b
+    arrow = "↑" if delta > 0 else ("↓" if delta < 0 else "=")
+    good = (delta > 0) == higher_better if delta != 0 else True
+    color = "+" if good else "-"
+    print(f"  {name:15s}: {b:6.1f}{unit} → {a:6.1f}{unit}  ({color}{abs(delta):.1f}{unit} {arrow})")
+
+
+def _find_changed_cases(before: dict, after: dict) -> list[tuple[str, dict, dict]]:
+    """Find cases that changed between benchmark runs."""
+    before_map = {r["name"]: r for r in before["results"]}
+    after_map = {r["name"]: r for r in after["results"]}
+
+    changed = []
+    for name in before_map:
+        if name in after_map:
+            b = before_map[name]
+            a = after_map[name]
+            if b["correct"] != a["correct"] or b["consistent"] != a["consistent"]:
+                changed.append((name, b, a))
+    return changed
+
+
+def _print_changed_cases(changed: list[tuple[str, dict, dict]]) -> None:
+    """Print list of changed cases."""
+    if changed:
+        print(f"\n  Changed cases:")
+        for name, b, a in changed:
+            bc = "✅" if b["correct"] else "❌"
+            ac = "✅" if a["correct"] else "❌"
+            print(f"    {name}: {bc}→{ac}  consistency: {b['consistent']}→{a['consistent']}")
+
+
 def compare_benchmarks(before: dict, after: dict) -> None:
     """Print comparison of two benchmark runs."""
     print(f"\n{'='*80}")
@@ -351,32 +387,10 @@ def compare_benchmarks(before: dict, after: dict) -> None:
     ]
 
     for name, key, unit, higher_better in metrics:
-        b = before[key]
-        a = after[key]
-        delta = a - b
-        arrow = "↑" if delta > 0 else ("↓" if delta < 0 else "=")
-        good = (delta > 0) == higher_better if delta != 0 else True
-        color = "+" if good else "-"
-        print(f"  {name:15s}: {b:6.1f}{unit} → {a:6.1f}{unit}  ({color}{abs(delta):.1f}{unit} {arrow})")
+        _print_metric_comparison(name, key, unit, higher_better, before, after)
 
-    # Per-case comparison
-    before_map = {r["name"]: r for r in before["results"]}
-    after_map = {r["name"]: r for r in after["results"]}
-
-    changed = []
-    for name in before_map:
-        if name in after_map:
-            b = before_map[name]
-            a = after_map[name]
-            if b["correct"] != a["correct"] or b["consistent"] != a["consistent"]:
-                changed.append((name, b, a))
-
-    if changed:
-        print(f"\n  Changed cases:")
-        for name, b, a in changed:
-            bc = "✅" if b["correct"] else "❌"
-            ac = "✅" if a["correct"] else "❌"
-            print(f"    {name}: {bc}→{ac}  consistency: {b['consistent']}→{a['consistent']}")
+    changed = _find_changed_cases(before, after)
+    _print_changed_cases(changed)
 
     print(f"{'='*80}\n")
 

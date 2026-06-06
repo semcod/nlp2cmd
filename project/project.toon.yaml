@@ -1,8 +1,8 @@
-# nlp2cmd | 4014 func | 615f | 1790762L | python | 2026-06-06
+# nlp2cmd | 4050 func | 622f | 1790503L | python | 2026-06-06
 # generated in 0.01s
 
 HEALTH:
-  CC̄=5.0  critical=472 (limit:10)  dup=41  cycles=0
+  CC̄=5.0  critical=469 (limit:10)  dup=41  cycles=0
 
 ALERTS[20]:
   !!! cc_exceeded      BrowserExecutionMixin._run_dom_multi_action = 280 (limit:15)
@@ -16,7 +16,7 @@ ALERTS[20]:
   !!! cc_exceeded      SiteExplorer.find_form = 72 (limit:15)
   !!! cc_exceeded      main = 71 (limit:15)
 
-MODULES[1037] (top by size):
+MODULES[1043] (top by size):
   M[src/nlp2cmd/data/phrase_database.json] 772539L C:0 F:0 CC↑0 D:0 (json)
   M[data/phrase_database.json] 771890L C:0 F:0 CC↑0 D:0 (json)
   M[planfile.yaml] 29074L C:0 F:0 CC↑0 D:0 (yaml)
@@ -32,7 +32,7 @@ MODULES[1037] (top by size):
   M[src/nlp2cmd/pipeline_runner_browser.py] 1692L C:1 F:3 CC↑280 D:0 (python)
   M[src/nlp2cmd/data/command_detector.json] 1630L C:0 F:0 CC↑0 D:0 (json)
   M[artifacts/comprehensive_test_results.json] 1625L C:0 F:0 CC↑0 D:0 (json)
-  LANGS: python:753/json:163/shell:74/yaml:26/txt:12/other:4/yml:3/toml:1/ini:1
+  LANGS: python:762/json:158/shell:76/yaml:26/txt:12/other:4/yml:3/toml:1/ini:1
 
 HOTSPOTS[10]:
   ★ BrowserExecutionMixin._run_dom_multi_action fan=108  // Execute multiple browser actions in sequence.
@@ -54,4 +54,4 @@ REFACTOR[15]:
   [5] H/L Split build_summary (CC=41)
 
 EVOLUTION:
-  2026-06-06 CC̄=5.0 crit=472 1790762L // Automated analysis
+  2026-06-06 CC̄=5.0 crit=469 1790503L // Automated analysis

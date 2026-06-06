@@ -219,37 +219,44 @@ class ShellAdapter(BaseDSLAdapter):
         plan = {"intent": intent, "entities": entities}
         return self.generate(plan)
 
+    def _get_generator_method(self, intent: str, entities: dict[str, Any]):
+        """Get the appropriate generator method for an intent."""
+        generator_map = {
+            "file_search": (self.file_generator, "generate_file_search"),
+            "file_operation": (self.file_generator, "generate_file_operation"),
+            "network": (self.network_generator, "generate_network"),
+            "system_maintenance": (self.system_generator, "generate_system_maintenance"),
+            "development": (self.dev_generator, "generate_development"),
+            "git": (self.git_generator, "generate_git"),
+            "docker": (self.docker_generator, "generate_docker"),
+            "text_processing": (self.text_generator, "generate_text_processing"),
+        }
+        
+        if intent in generator_map:
+            generator, method_name = generator_map[intent]
+            return getattr(generator, method_name)
+        
+        # Handle process_management/process_monitoring with special logic
+        if intent in ("process_management", "process_monitoring"):
+            if entities.get("metric") or intent == "process_monitoring":
+                return self.process_generator.generate_process_monitoring
+            else:
+                return self.process_generator.generate_process_management
+        
+        return None
+
     def generate(self, plan: dict[str, Any]) -> str:
         """Generate shell command from execution plan."""
         intent = plan.get("intent", "")
         entities = plan.get("entities", {})
         
         # Route to appropriate generator
-        if intent == "file_search":
-            return self.file_generator.generate_file_search(entities)
-        elif intent == "file_operation":
-            return self.file_generator.generate_file_operation(entities)
-        elif intent == "process_management" or intent == "process_monitoring":
-            # Check if this is monitoring or management
-            if entities.get("metric") or intent == "process_monitoring":
-                return self.process_generator.generate_process_monitoring(entities)
-            else:
-                return self.process_generator.generate_process_management(entities)
-        elif intent == "network":
-            return self.network_generator.generate_network(entities)
-        elif intent == "system_maintenance":
-            return self.system_generator.generate_system_maintenance(entities)
-        elif intent == "development":
-            return self.dev_generator.generate_development(entities)
-        elif intent == "git":
-            return self.git_generator.generate_git(entities)
-        elif intent == "docker":
-            return self.docker_generator.generate_docker(entities)
-        elif intent == "text_processing":
-            return self.text_generator.generate_text_processing(entities)
-        else:
-            # Fallback: try to construct command from entities
-            return self._generate_generic(entities)
+        generator_method = self._get_generator_method(intent, entities)
+        if generator_method:
+            return generator_method(entities)
+        
+        # Fallback: try to construct command from entities
+        return self._generate_generic(entities)
 
     def _detect_intent(self, text: str) -> str:
         """Detect intent from text."""

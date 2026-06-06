@@ -1,0 +1,736 @@
+# code2llm | 548f 879175L | python:526,json:16,yaml:6 | 2026-06-06
+# generated in 0.42s
+# CC̅=5.2 | critical:178/2929 | dups:0 | cycles:0
+
+HEALTH[20]:
+  🟡 CC    _select_action CC=41 (limit:15)
+  🟡 CC    _extract_params CC=17 (limit:15)
+  🟡 CC    _render_http CC=29 (limit:15)
+  🟡 CC    _render_shell CC=25 (limit:15)
+  🟡 CC    normalize_stt_errors CC=20 (limit:15)
+  🟡 CC    _execute_desktop_plan_step CC=44 (limit:15)
+  🟡 CC    _run_shell CC=27 (limit:15)
+  🟡 CC    _parse_shell_command CC=15 (limit:15)
+  🟡 CC    _run_dom_dql CC=28 (limit:15)
+  🟡 CC    _run_dom_multi_action CC=280 (limit:15)
+  🟡 CC    _run_dom_multi_action_dispatch CC=15 (limit:15)
+  🟡 CC    execute_action_plan CC=168 (limit:15)
+  🟡 CC    _llm_suggest_article_selectors CC=21 (limit:15)
+  🟡 CC    _validate_dockerfile CC=26 (limit:15)
+  🟡 CC    generate_fallback CC=22 (limit:15)
+  🟡 CC    _try_rule_based CC=24 (limit:15)
+  🟡 CC    _try_dynamic_page_schema CC=27 (limit:15)
+  🟡 CC    _extract_page_schema CC=48 (limit:15)
+  🟡 CC    _try_page_analysis CC=24 (limit:15)
+  🟡 CC    _parse_llm_steps CC=18 (limit:15)
+
+REFACTOR[1]:
+  1. split 20 high-CC methods  (CC>15)
+
+PIPELINES[2361]:
+  [1] Src [__init__]: __init__ → create_default_registry
+      PURITY: 100% pure
+  [2] Src [run]: run
+      PURITY: 100% pure
+  [3] Src [transform]: transform
+      PURITY: 100% pure
+  [4] Src [_select_action]: _select_action → list
+      PURITY: 100% pure
+  [5] Src [_extract_params]: _extract_params
+      PURITY: 100% pure
+  [6] Src [_render_dsl]: _render_dsl
+      PURITY: 100% pure
+  [7] Src [_render_dom]: _render_dom
+      PURITY: 100% pure
+  [8] Src [_render_http]: _render_http
+      PURITY: 100% pure
+  [9] Src [_render_shell]: _render_shell
+      PURITY: 100% pure
+  [10] Src [__init__]: __init__
+      PURITY: 100% pure
+  [11] Src [_load_patterns]: _load_patterns → find_data_file → find_data_files → get_user_config_dir
+      PURITY: 100% pure
+  [12] Src [normalize_polish_text]: normalize_polish_text
+      PURITY: 100% pure
+  [13] Src [normalize_stt_errors]: normalize_stt_errors
+      PURITY: 100% pure
+  [14] Src [_find_best_phrase_match]: _find_best_phrase_match
+      PURITY: 100% pure
+  [15] Src [_similar]: _similar
+      PURITY: 100% pure
+  [16] Src [match_polish_patterns]: match_polish_patterns
+      PURITY: 100% pure
+  [17] Src [translate_polish_intent]: translate_polish_intent
+      PURITY: 100% pure
+  [18] Src [translate_polish_table]: translate_polish_table
+      PURITY: 100% pure
+  [19] Src [get_domain_weight]: get_domain_weight
+      PURITY: 100% pure
+  [20] Src [enhance_domain_detection]: enhance_domain_detection
+      PURITY: 100% pure
+  [21] Src [enhance_intent_detection]: enhance_intent_detection
+      PURITY: 100% pure
+  [22] Src [_dismiss_popups]: _dismiss_popups
+      PURITY: 100% pure
+  [23] Src [_extract_json_from_llm_response]: _extract_json_from_llm_response
+      PURITY: 100% pure
+  [24] Src [_detect_desktop_backend]: _detect_desktop_backend
+      PURITY: 100% pure
+  [25] Src [_execute_desktop_plan_step]: _execute_desktop_plan_step → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [26] Src [_xdotool_keys_to_ydotool]: _xdotool_keys_to_ydotool
+      PURITY: 100% pure
+  [27] Src [_execute_desktop_plan_step_dispatch]: _execute_desktop_plan_step_dispatch → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [28] Src [_normalize_llm_article_selector_payload]: _normalize_llm_article_selector_payload
+      PURITY: 100% pure
+  [29] Src [_collect_page_links_for_llm]: _collect_page_links_for_llm
+      PURITY: 100% pure
+  [30] Src [_run_shell]: _run_shell → get_resource_discovery_manager
+      PURITY: 100% pure
+  [31] Src [_parse_shell_command]: _parse_shell_command
+      PURITY: 100% pure
+  [32] Src [_check_against_safety_policy]: _check_against_safety_policy
+      PURITY: 100% pure
+  [33] Src [_run_dom_dql]: _run_dom_dql
+      PURITY: 100% pure
+  [34] Src [_run_dom_multi_action]: _run_dom_multi_action → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [35] Src [_run_dom_multi_action_dispatch]: _run_dom_multi_action_dispatch → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [36] Src [_sanitize_replacement_steps]: _sanitize_replacement_steps → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [37] Src [_detect_desktop_steps]: _detect_desktop_steps
+      PURITY: 100% pure
+  [38] Src [_initialize_plan_variables]: _initialize_plan_variables
+      PURITY: 100% pure
+  [39] Src [_build_service_context]: _build_service_context
+      PURITY: 100% pure
+  [40] Src [_inject_replacement_steps]: _inject_replacement_steps
+      PURITY: 100% pure
+  [41] Src [_summarize_results]: _summarize_results
+      PURITY: 100% pure
+  [42] Src [execute_action_plan]: execute_action_plan → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [43] Src [execute_action_plan_dispatch]: execute_action_plan_dispatch → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [44] Src [_execute_plan_step]: _execute_plan_step → print → print_markdown_block → _render_to_text → ...(1 more)
+      PURITY: 100% pure
+  [45] Src [_execute_plan_step_dispatch]: _execute_plan_step_dispatch → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [46] Src [_resolve_plan_variables]: _resolve_plan_variables
+      PURITY: 100% pure
+  [47] Src [_do_verify_env]: _do_verify_env → _debug → print → print_markdown_block → ...(2 more)
+      PURITY: 100% pure
+  [48] Src [_llm_suggest_article_selectors]: _llm_suggest_article_selectors → completion → _debug → print → ...(3 more)
+      PURITY: 100% pure
+  [49] Src [__init__]: __init__
+      PURITY: 100% pure
+  [50] Src [_process_cpu_time_seconds]: _process_cpu_time_seconds
+      PURITY: 100% pure
+
+LAYERS:
+  app2schema/                     CC̄=12.8   ←in:0  →out:4
+  │ !! extract                    942L  2C   15m  CC=45     ←1
+  │ cli                         83L  0C    1m  CC=3      ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ __main__                     7L  0C    0m  CC=0.0    ←0
+  │
+  nlp2cmd/                        CC̄=5.2    ←in:4  →out:104  !! split
+  │ !! phrase_database.json     772539L  0C    0m  CC=0.0    ←0
+  │ !! patterns.json             2016L  0C    0m  CC=0.0    ←0
+  │ !! site_explorer             1716L  3C   34m  CC=72     ←1
+  │ !! pipeline_runner_browser   1692L  1C    3m  CC=280    ←0
+  │ !! command_detector.json     1630L  0C    0m  CC=0.0    ←0
+  │ !! doctor                    1388L  3C   23m  CC=56     ←3
+  │ !! template_generator        1238L  2C   98m  CC=34     ←0
+  │ !! action_planner            1226L  3C   23m  CC=12     ←0
+  │ !! pipeline_runner_plans     1202L  1C   13m  CC=168    ←0
+  │ !! schema_fallback           1169L  3C   17m  CC=48     ←0
+  │ !! evolutionary_cache        1048L  3C   24m  CC=23     ←1
+  │ !! router                     951L  3C   22m  CC=17     ←6
+  │ !! intract-bindings.json      931L  0C    0m  CC=0.0    ←0
+  │ !! run                        919L  0C    4m  CC=183    ←0
+  │ !! generate                   910L  0C    4m  CC=64     ←1
+  │ !! __init__                   909L  2C   43m  CC=26     ←0
+  │ !! regex                      908L  3C   12m  CC=38     ←0
+  │ !! templates.json             855L  0C    0m  CC=0.0    ←0
+  │ !! main                       843L  0C   11m  CC=71     ←0
+  │ !! drawing_blueprints         826L  1C   20m  CC=3      ←2
+  │ !! runner                     826L  3C   10m  CC=54     ←0
+  │ !! form_data_loader           823L  1C   47m  CC=18     ←0
+  │ !! form_handler               787L  3C    9m  CC=37     ←0
+  │ !! semantic_matcher_optimized   750L  3C   30m  CC=12     ←0
+  │ !! kubernetes                 731L  3C   23m  CC=12     ←0
+  │ !! handlers                   714L  0C   19m  CC=18     ←0
+  │ !! validator                  692L  2C   13m  CC=43     ←0
+  │ !! dynamic                    650L  2C   21m  CC=25     ←0
+  │ !! desktop                    649L  3C   21m  CC=31     ←0
+  │ !! plan_executor              645L  1C   18m  CC=34     ←0
+  │ !! examples                   641L  3C   13m  CC=13     ←50
+  │ !! docker                     635L  3C   19m  CC=14     ←0
+  │ !! ml_intent_classifier       615L  3C   14m  CC=11     ←1
+  │ !! step_orchestrator          615L  2C   12m  CC=16     ←0
+  │ !! browser                    595L  2C   26m  CC=40     ←0
+  │ !! auto_repair                580L  3C   12m  CC=22     ←1
+  │ !! enhanced_context           570L  2C   14m  CC=22     ←0
+  │ !! core_transform             569L  1C   22m  CC=19     ←0
+  │ !! multilingual_phrases.json   545L  0C    0m  CC=0.0    ←0
+  │ !! pipeline                   543L  1C   15m  CC=54     ←0
+  │ !! interactive                536L  1C    9m  CC=24     ←0
+  │ !! vector_store               534L  2C   15m  CC=8      ←1
+  │ !! captcha_solver             528L  2C   10m  CC=12     ←0
+  │ !! complex_planner            524L  3C   10m  CC=24     ←18
+  │ !! browser                    522L  2C   15m  CC=13     ←1
+  │ !! __init__                   509L  2C   14m  CC=12     ←0
+  │ !! orchestrator               507L  1C   11m  CC=19     ←0
+  │ !! thermodynamic_generator    506L  1C   10m  CC=24     ←0
+  │ resource_discovery         489L  3C   10m  CC=11     ←3
+  │ !! environment_analyzer       486L  1C   15m  CC=15     ←0
+  │ !! sql                        478L  3C   15m  CC=15     ←1
+  │ firefox_sessions           472L  1C   11m  CC=14     ←0
+  │ canvas_execution           461L  1C   20m  CC=8      ←0
+  │ draw_navigation_skill      457L  1C   15m  CC=12     ←0
+  │ !! feedback_analyzer          454L  1C   11m  CC=41     ←0
+  │ engine                     453L  3C   20m  CC=14     ←0
+  │ fuzzy_schema_matcher_class   449L  1C   21m  CC=9      ←0
+  │ !! train_model                444L  0C    7m  CC=29     ←0
+  │ !! llm_extractor              443L  1C   11m  CC=15     ←0
+  │ env_extractor              439L  2C   11m  CC=13     ←0
+  │ !! thermodynamic_components   438L  4C   11m  CC=38     ←0
+  │ action_registry            437L  1C   12m  CC=5      ←0
+  │ !! pipeline_runner_desktop    435L  1C    8m  CC=44     ←0
+  │ canvas_adapter             434L  1C   13m  CC=10     ←0
+  │ !! dql                        431L  3C   13m  CC=22     ←0
+  │ shell                      426L  3C   13m  CC=13     ←0
+  │ intents.yaml               424L  0C    0m  CC=0.0    ←0
+  │ program                    423L  12C   32m  CC=5      ←0
+  │ !! adaptive_learner_class     422L  1C   14m  CC=31     ←0
+  │ versioned_store            421L  1C   13m  CC=14     ←0
+  │ llm_simple                 420L  10C   19m  CC=13     ←0
+  │ !! python_extractors          420L  2C   11m  CC=30     ←0
+  │ __init__                   419L  3C    7m  CC=6      ←0
+  │ !! toon_parser                418L  3C   22m  CC=28     ←1
+  │ !! command_detector           415L  2C    5m  CC=31     ←0
+  │ repair                     413L  2C    7m  CC=13     ←0
+  │ __init__                   410L  4C   11m  CC=8      ←1
+  │ !! session                    405L  3C   10m  CC=30     ←0
+  │ normalizer                 400L  2C   13m  CC=6      ←0
+  │ cache                      400L  0C    9m  CC=9      ←0
+  │ !! extractors                 400L  5C   10m  CC=16     ←0
+  │ visual_validator           399L  4C    8m  CC=12     ←0
+  │ !! planner                    397L  1C   17m  CC=18     ←0
+  │ !! companies                  396L  1C    8m  CC=21     ←1
+  │ per_command_store          395L  1C   14m  CC=7      ←0
+  │ service_configs            394L  0C    2m  CC=6      ←0
+  │ !! draw_validation_skill      394L  1C   11m  CC=21     ←1
+  │ !! extractor                  389L  3C   10m  CC=15     ←1
+  │ plan_executor              389L  1C    9m  CC=14     ←1
+  │ __init__                   383L  3C   11m  CC=14     ←0
+  │ hybrid                     381L  4C   12m  CC=7      ←0
+  │ !! __init__                   377L  4C   11m  CC=34     ←0
+  │ expanded_phrases.json      373L  0C    0m  CC=0.0    ←0
+  │ structured                 371L  5C    7m  CC=9      ←0
+  │ step_validator             370L  3C   18m  CC=11     ←0
+  │ data_loader                370L  3C   28m  CC=5      ←2
+  │ !! text_to_shape              370L  3C    9m  CC=24     ←0
+  │ draw_object                370L  4C   11m  CC=12     ←0
+  │ !! extraction                 370L  8C   10m  CC=24     ←0
+  │ !! semantic_shell             369L  2C   14m  CC=32     ←0
+  │ mouse_controller           358L  2C   23m  CC=5      ←0
+  │ correction_engine_class    357L  1C    7m  CC=14     ←0
+  │ !! data_tree                  355L  3C   12m  CC=16     ←0
+  │ rtsp_stream                354L  1C   17m  CC=13     ←0
+  │ !! version_aware_generator    353L  1C   11m  CC=17     ←0
+  │ history                    349L  2C   15m  CC=12     ←0
+  │ auto_repair                341L  1C   12m  CC=6      ←1
+  │ !! reflection                 338L  3C    9m  CC=29     ←1
+  │ !! session_password_store     337L  1C    7m  CC=36     ←0
+  │ service                    337L  3C   11m  CC=9      ←0
+  │ !! feedback_loop_class        336L  1C    6m  CC=21     ←0
+  │ browser_config             331L  2C   23m  CC=14     ←0
+  │ tracker                    325L  3C   18m  CC=13     ←3
+  │ !! shell_generators           321L  8C   11m  CC=23     ←0
+  │ !! polish_support             318L  1C   13m  CC=20     ←0
+  │ !! external_cache             316L  1C   13m  CC=16     ←0
+  │ registry                   309L  2C   20m  CC=9      ←0
+  │ !! core_backends              308L  4C   12m  CC=19     ←0
+  │ disk                       308L  2C   14m  CC=12     ←0
+  │ helpers                    307L  0C   10m  CC=13     ←1
+  │ !! interaction                299L  10C   10m  CC=19     ←0
+  │ validating                 297L  8C    9m  CC=9      ←0
+  │ skill                      290L  1C   18m  CC=11     ←0
+  │ openrouter                 289L  2C    8m  CC=5      ←0
+  │ entity_resolver            288L  2C   17m  CC=7      ←0
+  │ vision                     281L  2C    9m  CC=4      ←0
+  │ playwright_installer       281L  0C    6m  CC=10     ←3
+  │ !! script_extractors          279L  2C    6m  CC=30     ←0
+  │ !! schema_driven              276L  2C    8m  CC=41     ←0
+  │ step_gate                  271L  1C   11m  CC=14     ←0
+  │ !! dynamic_generator          269L  1C    6m  CC=15     ←0
+  │ !! firefox_password_reader    267L  1C    6m  CC=16     ←0
+  │ llm_multi                  267L  5C   10m  CC=6      ←0
+  │ history                    267L  0C    6m  CC=9      ←0
+  │ commands                   267L  8C   19m  CC=7      ←1
+  │ generator                  265L  2C   15m  CC=12     ←0
+  │ token_costs                260L  2C   10m  CC=12     ←2
+  │ !! checker                    257L  2C    9m  CC=36     ←1
+  │ !! docker_validator           255L  1C    5m  CC=50     ←0
+  │ forms                      252L  1C    8m  CC=6      ←0
+  │ web_schema                 249L  0C    5m  CC=14     ←0
+  │ metrics_collector          249L  1C   10m  CC=6      ←0
+  │ execution_record           248L  1C   11m  CC=9      ←2
+  │ scheduling_energy          247L  1C    8m  CC=8      ←0
+  │ core_models                244L  5C   12m  CC=5      ←0
+  │ intent_matcher             241L  3C   10m  CC=12     ←0
+  │ !! runtime_bridge             238L  3C   10m  CC=22     ←0
+  │ !! shell_executor             235L  1C    6m  CC=17     ←0
+  │ base                       230L  4C   12m  CC=8      ←0
+  │ config                     226L  4C   19m  CC=9      ←2
+  │ adapter                    225L  1C   10m  CC=6      ←0
+  │ nl_parser                  225L  1C    8m  CC=11     ←0
+  │ disambiguator              225L  2C    5m  CC=11     ←0
+  │ !! debug_info                 224L  0C    3m  CC=20     ←2
+  │ tools                      224L  0C    9m  CC=8      ←1
+  │ desktop_action_executor    223L  1C   13m  CC=5      ←0
+  │ toon_integration           223L  1C   32m  CC=9      ←0
+  │ !! save                       222L  2C    6m  CC=18     ←1
+  │ !! libvirt_stream             219L  1C   14m  CC=17     ←0
+  │ !! pipeline_runner_shell      217L  1C    3m  CC=27     ←0
+  │ playwright                 215L  1C    8m  CC=9      ←0
+  │ keyword_intent_detector_config.json   215L  0C    0m  CC=0.0    ←0
+  │ base                       214L  3C   12m  CC=6      ←0
+  │ complex_detector           203L  2C    1m  CC=14     ←0
+  │ keyboard_controller        202L  1C   11m  CC=4      ←0
+  │ skill                      200L  2C    9m  CC=7      ←0
+  │ langevin_sampler           198L  1C    4m  CC=12     ←0
+  │ autonomous_drawing_pipeline   194L  1C   10m  CC=5      ←0
+  │ kee_pass_xc_reader         193L  1C    5m  CC=10     ←0
+  │ pipeline_runner            192L  1C    2m  CC=11     ←0
+  │ pipeline_components        192L  3C   10m  CC=7      ←1
+  │ orchestrator               189L  1C    9m  CC=13     ←0
+  │ !! svg_path_parser            189L  0C    1m  CC=41     ←3
+  │ function_cache             189L  1C    8m  CC=11     ←0
+  │ session_logger             188L  1C   12m  CC=9      ←0
+  │ base                       186L  3C   10m  CC=7      ←1
+  │ browser_setup              183L  2C    6m  CC=14     ←0
+  │ thermodynamic_router       181L  1C    4m  CC=8      ←0
+  │ resources                  176L  2C   11m  CC=4      ←2
+  │ !! page_analyzer              176L  1C    3m  CC=29     ←0
+  │ tools                      176L  0C    3m  CC=12     ←1
+  │ object_fetcher_class       176L  1C    6m  CC=13     ←0
+  │ multi_command              175L  2C    8m  CC=5      ←1
+  │ yaml_compat                175L  0C    0m  CC=0.0    ←0
+  │ allocation_energy          173L  1C    4m  CC=8      ←0
+  │ !! query_input                172L  1C    7m  CC=15     ←4
+  │ display                    170L  0C   12m  CC=7      ←2
+  │ llm_planner                169L  1C    4m  CC=7      ←0
+  │ media_utils                165L  1C    8m  CC=7      ←5
+  │ iconify_fetcher            164L  1C    3m  CC=6      ←0
+  │ __init__                   160L  0C    2m  CC=2      ←0
+  │ !! existing_browser_manager   160L  1C    3m  CC=28     ←0
+  │ __init__                   160L  0C    0m  CC=0.0    ←0
+  │ media_recorder             159L  1C    7m  CC=5      ←1
+  │ routing_energy             159L  1C    5m  CC=9      ←0
+  │ dispatcher                 158L  1C    4m  CC=7      ←0
+  │ registry                   149L  1C    7m  CC=1      ←0
+  │ rule_planner               148L  1C    8m  CC=11     ←0
+  │ runner                     148L  1C    4m  CC=6      ←0
+  │ !! form_field_filters         147L  0C    5m  CC=20     ←2
+  │ __init__                   147L  1C   11m  CC=9      ←1
+  │ !! plan                       145L  0C    2m  CC=29     ←1
+  │ markdown_output            144L  2C   15m  CC=9      ←71
+  │ path_optimizer             144L  1C    7m  CC=9      ←0
+  │ !! kubernetes_validator       143L  1C    2m  CC=58     ←0
+  │ cli                        143L  0C    1m  CC=2      ←1
+  │ !! browser_connector          143L  1C    4m  CC=21     ←0
+  │ legacy_drawcommand         142L  0C    3m  CC=9      ←4
+  │ events                     142L  7C    7m  CC=1      ←0
+  │ queries                    142L  6C    7m  CC=7      ←0
+  │ router                     140L  1C    7m  CC=4      ←0
+  │ colors                     135L  1C    6m  CC=6      ←0
+  │ data_files                 134L  0C    6m  CC=8      ←10
+  │ hybrid_thermodynamic_generator   133L  1C    3m  CC=2      ←0
+  │ correction_engine          133L  1C    7m  CC=4      ←0
+  │ vector_planner             131L  1C    6m  CC=8      ←0
+  │ majority_voter             131L  1C    3m  CC=7      ←0
+  │ !! plan_validator             131L  1C    3m  CC=16     ←0
+  │ field_classifier           129L  1C    4m  CC=14     ←0
+  │ __init__                   129L  0C    0m  CC=0.0    ←0
+  │ window_manager             127L  1C    5m  CC=10     ←0
+  │ !! canvas_to_vql              125L  0C    3m  CC=17     ←1
+  │ engine                     125L  1C    4m  CC=7      ←0
+  │ navigation                 125L  3C    3m  CC=7      ←0
+  │ bitwarden_reader           124L  1C    3m  CC=11     ←0
+  │ energy_estimator           124L  1C    1m  CC=1      ←0
+  │ info                       121L  1C    4m  CC=9      ←1
+  │ vnc_stream                 121L  1C    7m  CC=11     ←0
+  │ env_password_reader        120L  1C    1m  CC=13     ←0
+  │ store                      120L  1C    7m  CC=13     ←0
+  │ plan_gate                  119L  2C    8m  CC=9      ←1
+  │ error_pattern              118L  1C    4m  CC=4      ←2
+  │ !! testql_export              117L  0C    5m  CC=19     ←1
+  │ dispatcher                 117L  1C    4m  CC=6      ←0
+  │ env_manager                116L  1C    4m  CC=7      ←0
+  │ page_analyzer              116L  1C    3m  CC=7      ←0
+  │ shape_planner              115L  1C    5m  CC=8      ←0
+  │ syntax_cache               115L  1C    8m  CC=3      ←4
+  │ git_templates              115L  0C    0m  CC=0.0    ←0
+  │ sql_templates              114L  0C    0m  CC=0.0    ←0
+  │ form_schema.json           114L  0C    0m  CC=0.0    ←0
+  │ !! sql_validator              113L  1C    2m  CC=34     ←0
+  │ browser_controller         111L  1C    5m  CC=6      ←0
+  │ constraint_energy          111L  1C    4m  CC=3      ←0
+  │ server                     110L  0C    7m  CC=10     ←0
+  │ llm_client                 109L  0C    4m  CC=8      ←1
+  │ hf_token_retriever         109L  1C    2m  CC=7      ←0
+  │ energy_model               108L  1C    4m  CC=2      ←0
+  │ shell_templates            108L  0C    0m  CC=0.0    ←0
+  │ ssh_stream                 107L  1C    8m  CC=5      ←0
+  │ !! action_handler             106L  1C    4m  CC=15     ←0
+  │ __init__                   106L  0C    0m  CC=0.0    ←0
+  │ !! shell_validator            105L  1C    2m  CC=31     ←0
+  │ package_mgmt_templates     104L  0C    0m  CC=0.0    ←0
+  │ shape_registry             102L  1C    4m  CC=3      ←0
+  │ executor_registry          101L  1C    7m  CC=3      ←1
+  │ event_store                101L  1C   13m  CC=3      ←0
+  │ form_analyzer              101L  1C    7m  CC=4      ←0
+  │ navigation_constants       100L  0C    0m  CC=0.0    ←0
+  │ token_navigator             99L  2C    4m  CC=5      ←0
+  │ !! json_parse                  98L  0C    3m  CC=20     ←1
+  │ cdp_detector                98L  1C    4m  CC=13     ←0
+  │ semantic_entities           97L  1C    7m  CC=9      ←0
+  │ !! token_navigator             97L  2C    3m  CC=18     ←0
+  │ entropy_production_regularizer    97L  1C    3m  CC=1      ←0
+  │ backend_detector            96L  1C    6m  CC=6      ←0
+  │ facade                      95L  2C    7m  CC=2      ←0
+  │ model_performance           94L  1C    3m  CC=3      ←0
+  │ token_prompt_handler        93L  1C    5m  CC=5      ←0
+  │ appspec                     93L  2C    6m  CC=12     ←0
+  │ svg                         92L  1C    8m  CC=6      ←0
+  │ validation_result           91L  1C    9m  CC=6      ←0
+  │ spec                        91L  1C    5m  CC=4      ←1
+  │ !! pipeline_gate               91L  1C    6m  CC=20     ←4
+  │ link_extractor              91L  1C    4m  CC=10     ←0
+  │ desktop_templates           91L  0C    0m  CC=0.0    ←0
+  │ canvas_plan                 90L  0C    2m  CC=11     ←1
+  │ ws_stream                   90L  1C    8m  CC=8      ←0
+  │ services.yaml               88L  0C    0m  CC=0.0    ←0
+  │ quadratic_energy            87L  1C    3m  CC=2      ←0
+  │ !! ftp_stream                  87L  1C    4m  CC=16     ←0
+  │ validation_report           85L  1C    2m  CC=8      ←0
+  │ base                        84L  1C    8m  CC=3      ←0
+  │ draw_filled_circle_handler    84L  1C    2m  CC=5      ←0
+  │ task_metric                 83L  1C    2m  CC=3      ←0
+  │ drawing                     82L  0C    1m  CC=1      ←0
+  │ langevin_config             82L  1C    0m  CC=0.0    ←0
+  │ fuzzy_schema_matcher        81L  0C    1m  CC=5      ←0
+  │ page_schema_extractor       80L  1C    3m  CC=6      ←0
+  │ browser_launcher            80L  1C    4m  CC=3      ←0
+  │ base                        79L  2C    6m  CC=3      ←0
+  │ docker_templates            78L  0C    0m  CC=0.0    ←0
+  │ shapes                      78L  0C    0m  CC=0.0    ←0
+  │ factory                     77L  1C    6m  CC=6      ←3
+  │ !! http_stream                 77L  1C    3m  CC=15     ←0
+  │ sampler_result              77L  1C    0m  CC=0.0    ←0
+  │ devops_templates            77L  0C    0m  CC=0.0    ←0
+  │ __init__                    77L  0C    0m  CC=0.0    ←0
+  │ navigate                    76L  1C    2m  CC=10     ←0
+  │ kubernetes_templates        76L  0C    0m  CC=0.0    ←0
+  │ registry                    74L  1C    7m  CC=1      ←0
+  │ draw_bezier_handler         74L  1C    1m  CC=5      ←0
+  │ csp_energy                  72L  1C    4m  CC=2      ←0
+  │ data_templates              72L  0C    0m  CC=0.0    ←0
+  │ router_config.json          72L  0C    0m  CC=0.0    ←0
+  │ !! execution_policy            71L  1C    1m  CC=18     ←0
+  │ radio_extractor             70L  1C    2m  CC=13     ←0
+  │ generated_function          70L  1C    2m  CC=2      ←0
+  │ allocation_energy           70L  1C    0m  CC=0.0    ←0
+  │ scheduling_energy           70L  1C    0m  CC=0.0    ←0
+  │ routing_energy              70L  1C    0m  CC=0.0    ←0
+  │ rag_templates               70L  0C    0m  CC=0.0    ←0
+  │ nl_to_vql                   69L  0C    1m  CC=6      ←2
+  │ base                        69L  3C    2m  CC=1      ←0
+  │ credential                  68L  1C    1m  CC=4      ←0
+  │ fuzzy_schema_matcher_config    68L  1C    3m  CC=4      ←0
+  │ blueprint_planner           68L  1C    2m  CC=5      ←0
+  │ console_wrapper             68L  1C    5m  CC=6      ←0
+  │ pipeline_runner_utils       68L  0C    0m  CC=0.0    ←0
+  │ base                        67L  4C    3m  CC=1      ←0
+  │ svg_repo_fetcher            67L  1C    1m  CC=5      ←0
+  │ !! engine                      67L  0C    1m  CC=17     ←0
+  │ iot_templates               67L  0C    0m  CC=0.0    ←0
+  │ button_extractor            66L  1C    2m  CC=9      ←0
+  │ execution_context           66L  1C    3m  CC=8      ←46
+  │ base                        65L  2C    3m  CC=1      ←1
+  │ learned_rule                65L  1C    3m  CC=3      ←0
+  │ learned_path                65L  1C    1m  CC=1      ←3
+  │ ffmpeg_templates            65L  0C    0m  CC=0.0    ←0
+  │ base                        64L  3C    1m  CC=7      ←0
+  │ validator                   64L  1C    2m  CC=8      ←0
+  │ base                        64L  3C    3m  CC=3      ←0
+  │ draw_polygon_handler        64L  1C    1m  CC=4      ←0
+  │ browser_templates           64L  0C    0m  CC=0.0    ←0
+  │ remote_templates            64L  0C    0m  CC=0.0    ←0
+  │ castle_generator            63L  1C    1m  CC=3      ←0
+  │ simple_icons_fetcher        63L  1C    1m  CC=4      ←0
+  │ step_metric                 63L  1C    1m  CC=1      ←0
+  │ spice_stream                63L  1C    3m  CC=4      ←0
+  │ draw_svg_path_handler       63L  1C    1m  CC=5      ←0
+  │ types                       63L  3C    0m  CC=0.0    ←0
+  │ presentation_templates      63L  0C    0m  CC=0.0    ←0
+  │ form_extractor              62L  1C    2m  CC=8      ←0
+  │ copy_button_extractor       62L  1C    2m  CC=7      ←0
+  │ match_result                62L  1C    2m  CC=4      ←0
+  │ base                        62L  3C    3m  CC=3      ←0
+  │ canvas_mixin                62L  1C    3m  CC=1      ←0
+  │ config                      61L  1C    4m  CC=6      ←1
+  │ execution_plan              61L  1C    2m  CC=2      ←0
+  │ draw_line_handler           61L  1C    1m  CC=4      ←0
+  │ feedback_result             60L  1C    1m  CC=1      ←0
+  │ draw_arc_handler            60L  1C    1m  CC=3      ←0
+  │ api_templates               60L  0C    0m  CC=0.0    ←0
+  │ junk_field_patterns.yaml    60L  0C    0m  CC=0.0    ←0
+  │ token_extractor             59L  1C    2m  CC=6      ←0
+  │ phrase_schema               59L  1C    2m  CC=4      ←0
+  │ validation_constants        58L  0C    0m  CC=0.0    ←0
+  │ media_templates             57L  0C    0m  CC=0.0    ←0
+  │ __init__                    57L  0C    0m  CC=0.0    ←0
+  │ optimization_schema.json    57L  0C    0m  CC=0.0    ←0
+  │ appspec_runtime             56L  2C    2m  CC=10     ←1
+  │ debug_helpers               56L  0C    2m  CC=7      ←0
+  │ cat_generator               55L  1C    1m  CC=4      ←0
+  │ base                        55L  2C    1m  CC=2      ←0
+  │ integration                 54L  0C    2m  CC=3      ←3
+  │ __init__                    54L  0C    0m  CC=0.0    ←0
+  │ api                         54L  0C    0m  CC=0.0    ←0
+  │ rdp_stream                  53L  1C    3m  CC=5      ←0
+  │ base                        53L  2C    0m  CC=0.0    ←0
+  │ task_result                 53L  1C    0m  CC=0.0    ←0
+  │ selectors.yaml              53L  0C    0m  CC=0.0    ←0
+  │ rocket_generator            52L  1C    1m  CC=2      ←0
+  │ step_def                    52L  1C    1m  CC=1      ←0
+  │ svg                         50L  1C    2m  CC=2      ←1
+  │ butterfly_generator         50L  1C    1m  CC=5      ←0
+  │ __base_fetcher              50L  1C    1m  CC=1      ←0
+  │ step_diagnosis              50L  1C    0m  CC=0.0    ←0
+  │ task_schema                 50L  1C    0m  CC=0.0    ←0
+  │ bird_generator              49L  1C    1m  CC=2      ←0
+  │ fill_at_handler             49L  1C    1m  CC=2      ←0
+  │ click_canvas_handler        49L  1C    1m  CC=2      ←0
+  │ draw_filled_ellipse_handler    49L  1C    1m  CC=2      ←0
+  │ step_result                 49L  1C    0m  CC=0.0    ←0
+  │ thermodynamic               48L  0C    1m  CC=1      ←0
+  │ car_generator               48L  1C    1m  CC=3      ←0
+  │ ir_convert                  48L  0C    1m  CC=5      ←1
+  │ draw_ellipse_handler        48L  1C    1m  CC=2      ←0
+  │ syntax_validator            47L  1C    1m  CC=6      ←0
+  │ cloud_detailed_generator    47L  1C    1m  CC=4      ←0
+  │ draw_rectangle_handler      47L  1C    1m  CC=2      ←0
+  │ repair_attempt              47L  1C    0m  CC=0.0    ←0
+  │ feedback_result             47L  1C    0m  CC=0.0    ←0
+  │ step_status                 47L  1C    0m  CC=0.0    ←0
+  │ fish_generator              46L  1C    1m  CC=3      ←0
+  │ arrow_generator             46L  1C    1m  CC=3      ←0
+  │ draw_circle_handler         46L  1C    1m  CC=2      ←0
+  │ draw_filled_rectangle_handler    46L  1C    1m  CC=2      ←0
+  │ contact_paths.yaml          46L  0C    0m  CC=0.0    ←0
+  │ plan_execute                45L  0C    2m  CC=4      ←0
+  │ iframe_analyzer             45L  1C    2m  CC=6      ←0
+  │ __init__                    44L  0C    1m  CC=2      ←0
+  │ select_tool_handler         44L  1C    1m  CC=2      ←0
+  │ failure_type                44L  1C    0m  CC=0.0    ←0
+  │ base_validator              43L  1C    2m  CC=1      ←0
+  │ navigation_result           43L  1C    0m  CC=0.0    ←0
+  │ fetched_shape               43L  1C    0m  CC=0.0    ←0
+  │ __init__                    43L  0C    0m  CC=0.0    ←0
+  │ action_schema               41L  1C    3m  CC=3      ←0
+  │ canvas_info                 41L  1C    0m  CC=0.0    ←0
+  │ docker_app                  41L  0C    0m  CC=0.0    ←0
+  │ boat_generator              40L  1C    1m  CC=1      ←0
+  │ __init__                    40L  0C    0m  CC=0.0    ←0
+  │ mountain_generator          39L  1C    1m  CC=1      ←0
+  │ llm_helpers                 39L  0C    2m  CC=8      ←6
+  │ object_assessment           38L  1C    0m  CC=0.0    ←0
+  │ __init__                    38L  0C    0m  CC=0.0    ←0
+  │ base                        37L  2C    3m  CC=1      ←0
+  │ shape_generator             37L  1C    1m  CC=1      ←0
+  │ task_plan                   37L  1C    1m  CC=1      ←0
+  │ metrics                     37L  0C    1m  CC=1      ←0
+  │ set_line_width_handler      37L  1C    1m  CC=2      ←0
+  │ correction_result           37L  1C    0m  CC=0.0    ←0
+  │ drawing_plan                37L  1C    0m  CC=0.0    ←0
+  │ optimization_report.yaml    37L  0C    0m  CC=0.0    ←0
+  │ __init__                    37L  0C    0m  CC=0.0    ←0
+  │ password_store              36L  0C    1m  CC=2      ←1
+  │ diamond_generator           36L  1C    1m  CC=1      ←0
+  │ crescent_generator          36L  1C    1m  CC=3      ←0
+  │ sun_generator               36L  1C    1m  CC=3      ←0
+  │ grid_generator              36L  1C    1m  CC=3      ←0
+  │ correction_plan             36L  1C    0m  CC=0.0    ←0
+  │ flower_generator            35L  1C    1m  CC=3      ←0
+  │ drawing_step                35L  1C    0m  CC=0.0    ←0
+  │ __init__                    35L  0C    0m  CC=0.0    ←0
+  │ ir                          34L  1C    1m  CC=1      ←0
+  │ wave_generator              34L  1C    1m  CC=2      ←0
+  │ correction_step             34L  1C    0m  CC=0.0    ←0
+  │ navigation_step             34L  1C    0m  CC=0.0    ←0
+  │ tree_generator              33L  1C    1m  CC=2      ←0
+  │ star_generator              33L  1C    1m  CC=2      ←0
+  │ cross_generator             33L  1C    1m  CC=1      ←0
+  │ navigation_state            33L  1C    0m  CC=0.0    ←0
+  │ task                        33L  1C    0m  CC=0.0    ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ spiral_generator            32L  1C    1m  CC=2      ←0
+  │ set_color_handler           32L  1C    1m  CC=2      ←0
+  │ object_status               32L  1C    0m  CC=0.0    ←0
+  │ environment_report          32L  1C    0m  CC=0.0    ←0
+  │ __init__                    32L  0C    0m  CC=0.0    ←0
+  │ plan_step                   31L  1C    1m  CC=2      ←0
+  │ resource                    31L  1C    0m  CC=0.0    ←0
+  │ canvas_safety_policy        31L  1C    0m  CC=0.0    ←0
+  │ __init__                    31L  0C    0m  CC=0.0    ←0
+  │ house_generator             30L  1C    1m  CC=1      ←0
+  │ ellipse_generator           30L  1C    1m  CC=2      ←0
+  │ heart_generator             30L  1C    1m  CC=2      ←0
+  │ __init__                    30L  0C    0m  CC=0.0    ←0
+  │ composite_validator         29L  1C    2m  CC=2      ←0
+  │ dot_generator               29L  1C    1m  CC=2      ←0
+  │ circle_generator            29L  1C    1m  CC=2      ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ navigation                  29L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ action_result               28L  1C    2m  CC=1      ←0
+  │ service_info                28L  1C    0m  CC=0.0    ←0
+  │ octagon_generator           27L  1C    1m  CC=2      ←0
+  │ hexagon_generator           27L  1C    1m  CC=2      ←0
+  │ pentagon_generator          27L  1C    1m  CC=2      ←0
+  │ step_result                 27L  1C    0m  CC=0.0    ←0
+  │ tool_info                   27L  1C    0m  CC=0.0    ←0
+  │ __init__                    27L  0C    0m  CC=0.0    ←0
+  │ triangle_generator          26L  1C    1m  CC=1      ←0
+  │ rectangle_generator         26L  1C    1m  CC=1      ←0
+  │ execution_result            26L  1C    0m  CC=0.0    ←0
+  │ correction_rule             26L  1C    0m  CC=0.0    ←0
+  │ feedback_type               26L  1C    0m  CC=0.0    ←0
+  │ __init__                    26L  0C    0m  CC=0.0    ←0
+  │ line_generator              25L  1C    1m  CC=1      ←0
+  │ square_generator            25L  1C    1m  CC=1      ←0
+  │ intent_ir                   25L  0C    2m  CC=2      ←0
+  │ get_canvas_center_handler    25L  1C    1m  CC=3      ←0
+  │ param_schema                25L  1C    0m  CC=0.0    ←0
+  │ param_type                  25L  1C    0m  CC=0.0    ←0
+  │ evolutionary_orchestrator    25L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ shell_execution_policy.json    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    24L  0C    0m  CC=0.0    ←0
+  │ __init__                    23L  0C    1m  CC=2      ←0
+  │ form_data.json              23L  0C    0m  CC=0.0    ←0
+  │ intract-policy.json         23L  0C    0m  CC=0.0    ←0
+  │ playwright                  22L  1C    1m  CC=1      ←0
+  │ step_status                 22L  1C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    22L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    1m  CC=2      ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ validation                  21L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ __init__                    21L  0C    0m  CC=0.0    ←0
+  │ get_registry                20L  0C    1m  CC=2      ←3
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ object_fetcher              19L  0C    0m  CC=0.0    ←0
+  │ canvas_constants            19L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ metrics_helpers             18L  0C    2m  CC=2      ←5
+  │ wait_for_canvas_handler     17L  1C    1m  CC=1      ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ __init__                    17L  0C    0m  CC=0.0    ←0
+  │ energy_models               17L  0C    0m  CC=0.0    ←0
+  │ color_validation            16L  0C    1m  CC=2      ←2
+  │ __init__                    16L  0C    0m  CC=0.0    ←0
+  │ __init__                    16L  0C    0m  CC=0.0    ←0
+  │ runner_result               15L  1C    0m  CC=0.0    ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ adaptive_learner            14L  0C    0m  CC=0.0    ←0
+  │ __init__                    14L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ keyword_detector            12L  0C    0m  CC=0.0    ←0
+  │ __init__                    12L  0C    0m  CC=0.0    ←0
+  │ generator                   12L  0C    0m  CC=0.0    ←0
+  │ __init__                    11L  0C    0m  CC=0.0    ←0
+  │ feedback_loop               10L  0C    0m  CC=0.0    ←0
+  │ correction_engine            9L  0C    0m  CC=0.0    ←0
+  │ __init__                     9L  0C    0m  CC=0.0    ←0
+  │ adapter                      9L  0C    0m  CC=0.0    ←0
+  │ __main__                     8L  0C    0m  CC=0.0    ←0
+  │ canvas                       8L  0C    0m  CC=0.0    ←0
+  │ __init__                     8L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ keyword_patterns             5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     3L  0C    0m  CC=0.0    ←0
+  │ defaults.json                1L  0C    0m  CC=0.0    ←0
+  │ semantic_embeddings.json     1L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+                                           nlp2cmd.cli         nlp2cmd.automation                    nlp2cmd         nlp2cmd.generation                nlp2cmd.llm              nlp2cmd.utils           nlp2cmd.executor         nlp2cmd.web_schema             nlp2cmd.skills            nlp2cmd.storage           nlp2cmd.adapters        nlp2cmd.intelligent          nlp2cmd.execution     nlp2cmd.plan_execution  nlp2cmd.schema_extraction
+                nlp2cmd.cli                         ──                        ←11                        ←36                          1                          1                          5                                                     1                        ←57                        ←51                        ←12                        ←31                          2                          1                        ←15  hub
+         nlp2cmd.automation                         11                         ──                        ←43                                                   ←54                                                                              ←36                                                                              ←21                                                                              ←10                             hub
+                    nlp2cmd                         36                         43                         ──                                                     1                         14                          3                                                                                                          ←1                                                     2                                                        !! fan-out
+         nlp2cmd.generation                         51                                                                               ──                          1                          4                         14                                                                                                           4                                                    ←3                                                        hub
+                nlp2cmd.llm                         10                         54                         ←1                         ←1                         ──                          1                         10                                                    ←2                                                                                                                                                                ←1  hub
+              nlp2cmd.utils                         38                                                   ←14                         ←4                         ←1                         ──                          1                         ←2                                                                                                          ←1                         ←3                         ←4                             hub
+           nlp2cmd.executor                                                                               ←3                        ←14                        ←10                         ←1                         ──                         ←9                         ←4                                                    ←2                         ←1                                                    ←1                         ←5  hub
+         nlp2cmd.web_schema                         20                         36                                                                                                           2                          9                         ──                                                                                                                                     ←1                                                        !! fan-out
+             nlp2cmd.skills                         57                                                                                                           2                                                     4                                                    ──                                                                                                                                                                    !! fan-out
+            nlp2cmd.storage                         51                                                                                                                                                                                                                                                 ──                                                                                                                                         !! fan-out
+           nlp2cmd.adapters                         12                         21                          1                         ←4                                                                                2                                                                                                          ──                                                                                                              !! fan-out
+        nlp2cmd.intelligent                         31                                                                                                                                      1                          1                                                                                                                                     ──                                                                                   !! fan-out
+          nlp2cmd.execution                          9                                                    ←2                          3                                                     3                                                     1                                                                                                                                     ──                                                        !! fan-out
+     nlp2cmd.plan_execution                          4                         10                                                                                                           4                          1                                                                                                                                                                                           ──                             !! fan-out
+  nlp2cmd.schema_extraction                         15                                                                                                           1                                                     5                                                                                                                                                                                                                      ──  !! fan-out
+  CYCLES: none
+  HUB: nlp2cmd.llm/ (fan-in=8)
+  HUB: nlp2cmd.monitoring/ (fan-in=9)
+  HUB: nlp2cmd.bridge/ (fan-in=8)
+  HUB: nlp2cmd.cli/ (fan-in=420)
+  HUB: nlp2cmd.generation/ (fan-in=15)
+  HUB: nlp2cmd.history/ (fan-in=7)
+  HUB: nlp2cmd.automation/ (fan-in=168)
+  HUB: nlp2cmd.utils/ (fan-in=40)
+  HUB: nlp2cmd.executor/ (fan-in=76)
+  SMELL: nlp2cmd.browser_manager/ fan-out=12 → split needed
+  SMELL: nlp2cmd.skills/ fan-out=64 → split needed
+  SMELL: nlp2cmd.llm/ fan-out=75 → split needed
+  SMELL: nlp2cmd.intelligent/ fan-out=33 → split needed
+  SMELL: nlp2cmd/ fan-out=104 → split needed
+  SMELL: nlp2cmd.web_schema/ fan-out=67 → split needed
+  SMELL: nlp2cmd.execution/ fan-out=19 → split needed
+  SMELL: nlp2cmd.adapters/ fan-out=37 → split needed
+  SMELL: nlp2cmd.cli/ fan-out=36 → split needed
+  SMELL: nlp2cmd.generation/ fan-out=74 → split needed
+  SMELL: nlp2cmd.automation/ fan-out=15 → split needed
+  SMELL: nlp2cmd.utils/ fan-out=39 → split needed
+  SMELL: nlp2cmd.nlp/ fan-out=10 → split needed
+  SMELL: nlp2cmd.storage/ fan-out=51 → split needed
+  SMELL: nlp2cmd.core/ fan-out=11 → split needed
+  SMELL: nlp2cmd.evolutionary/ fan-out=16 → split needed
+  SMELL: nlp2cmd.schema_extraction/ fan-out=21 → split needed
+  SMELL: nlp2cmd.dom_actions/ fan-out=10 → split needed
+  SMELL: nlp2cmd.vql/ fan-out=8 → split needed
+  SMELL: nlp2cmd.plan_execution/ fan-out=21 → split needed
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

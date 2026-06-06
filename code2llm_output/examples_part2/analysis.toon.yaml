@@ -1,0 +1,588 @@
+# code2llm | 376f 50286L | python:171,md:97,shell:61,json:42,txt:3,yml:1 | 2026-06-06
+# generated in 0.05s
+# CC̅=3.7 | critical:21/683 | dups:0 | cycles:0
+
+HEALTH[20]:
+  🟡 CC    main CC=15 (limit:15)
+  🟡 CC    main CC=18 (limit:15)
+  🟡 CC    to_compose CC=17 (limit:15)
+  🟡 CC    _detect_intent CC=19 (limit:15)
+  🟡 CC    _extract_entities CC=16 (limit:15)
+  🟡 CC    _parse_file CC=17 (limit:15)
+  🟡 CC    main CC=19 (limit:15)
+  🟡 CC    main CC=15 (limit:15)
+  🟡 CC    run_autonomous CC=18 (limit:15)
+  🟡 CC    main CC=18 (limit:15)
+  🟡 CC    draw_and_validate CC=21 (limit:15)
+  🟡 CC    main CC=16 (limit:15)
+  🟡 CC    main CC=32 (limit:15)
+  🟡 CC    main CC=19 (limit:15)
+  🟡 CC    main CC=37 (limit:15)
+  🟡 CC    main CC=21 (limit:15)
+  🟡 CC    run_benchmark CC=28 (limit:15)
+  🟡 CC    compare_benchmarks CC=16 (limit:15)
+  🟡 CC    test_prompt CC=15 (limit:15)
+  🟡 CC    generate_pdf_search_command CC=25 (limit:15)
+
+REFACTOR[1]:
+  1. split 20 high-CC methods  (CC>15)
+
+PIPELINES[334]:
+  [1] Src [main]: main
+      PURITY: 100% pure
+  [2] Src [__init__]: __init__
+      PURITY: 100% pure
+  [3] Src [execute_task]: execute_task
+      PURITY: 100% pure
+  [4] Src [ensure_playwright_browsers]: ensure_playwright_browsers → vlog
+      PURITY: 100% pure
+  [5] Src [main]: main
+      PURITY: 100% pure
+  [6] Src [main]: main → print_separator
+      PURITY: 100% pure
+  [7] Src [main]: main
+      PURITY: 100% pure
+  [8] Src [mock_sql_select]: mock_sql_select
+      PURITY: 100% pure
+  [9] Src [mock_shell_count_pattern]: mock_shell_count_pattern
+      PURITY: 100% pure
+  [10] Src [mock_k8s_get]: mock_k8s_get
+      PURITY: 100% pure
+  [11] Src [main]: main → print_section → print_separator
+      PURITY: 100% pure
+  [12] Src [main]: main
+      PURITY: 100% pure
+  [13] Src [aggregate]: aggregate
+      PURITY: 100% pure
+  [14] Src [_to_json]: _to_json
+      PURITY: 100% pure
+  [15] Src [_to_yaml]: _to_yaml
+      PURITY: 100% pure
+  [16] Src [_to_table]: _to_table
+      PURITY: 100% pure
+  [17] Src [_to_markdown]: _to_markdown
+      PURITY: 100% pure
+  [18] Src [main]: main
+      PURITY: 100% pure
+  [19] Src [route]: route
+      PURITY: 100% pure
+  [20] Src [main]: main
+      PURITY: 100% pure
+  [21] Src [_mock_execute]: _mock_execute
+      PURITY: 100% pure
+  [22] Src [execute_step]: execute_step
+      PURITY: 100% pure
+  [23] Src [execute_plan]: execute_plan
+      PURITY: 100% pure
+  [24] Src [main]: main
+      PURITY: 100% pure
+  [25] Src [generate_plan]: generate_plan
+      PURITY: 100% pure
+  [26] Src [main]: main
+      PURITY: 100% pure
+  [27] Src [main]: main
+      PURITY: 100% pure
+  [28] Src [__init__]: __init__
+      PURITY: 100% pure
+  [29] Src [transform]: transform
+      PURITY: 100% pure
+  [30] Src [detect_and_adapt]: detect_and_adapt
+      PURITY: 100% pure
+  [31] Src [_select_best_version]: _select_best_version
+      PURITY: 100% pure
+  [32] Src [_needs_update]: _needs_update
+      PURITY: 100% pure
+  [33] Src [update_command_schema]: update_command_schema
+      PURITY: 100% pure
+  [34] Src [_increment_version]: _increment_version
+      PURITY: 100% pure
+  [35] Src [clear_cache]: clear_cache
+      PURITY: 100% pure
+  [36] Src [demo_intelligent_nlp2cmd]: demo_intelligent_nlp2cmd
+      PURITY: 100% pure
+  [37] Src [demonstrate_persistent_storage]: demonstrate_persistent_storage
+      PURITY: 100% pure
+  [38] Src [show_storage_benefits]: show_storage_benefits
+      PURITY: 100% pure
+  [39] Src [main]: main
+      PURITY: 100% pure
+  [40] Src [main]: main → demonstrate_schema_flow
+      PURITY: 100% pure
+  [41] Src [main]: main → demonstrate_version_detection → _demo_docker → _demo_tool_version
+      PURITY: 100% pure
+  [42] Src [main]: main → show_schema_extraction_flow
+      PURITY: 100% pure
+  [43] Src [main]: main
+      PURITY: 100% pure
+  [44] Src [main]: main → get_command_for_service
+      PURITY: 100% pure
+  [45] Src [main]: main → check
+      PURITY: 100% pure
+  [46] Src [main]: main
+      PURITY: 100% pure
+  [47] Src [main]: main → scan
+      PURITY: 100% pure
+  [48] Src [main]: main → check_credentials
+      PURITY: 100% pure
+  [49] Src [main]: main → check
+      PURITY: 100% pure
+  [50] Src [main]: main → check
+      PURITY: 100% pure
+
+LAYERS:
+  08_llm_validation/              CC̄=17.0   ←in:0  →out:0
+  │ benchmark_before.json      495L  0C    0m  CC=0.0    ←0
+  │ benchmark_after.json       495L  0C    0m  CC=0.0    ←0
+  │ !! benchmark_validator        411L  2C    3m  CC=28     ←0
+  │ test_results.json          175L  0C    0m  CC=0.0    ←0
+  │ README.md                   92L  0C    0m  CC=0.0    ←0
+  │ test_feedback_results.json    84L  0C    0m  CC=0.0    ←0
+  │ demo_validation.sh          67L  0C    0m  CC=0.0    ←0
+  │
+  10_online_code_editors/         CC̄=7.4    ←in:0  →out:72  !! split
+  │ !! 03_adaptive_code           417L  0C    4m  CC=37     ←0
+  │ !! 02_mycompiler_run          393L  0C    1m  CC=32     ←0
+  │ !! 04_jsfiddle_frontend       297L  0C    1m  CC=19     ←0
+  │ !! 01_codepen_live            289L  0C    4m  CC=21     ←0
+  │ 05_dynamic_executor        153L  0C    2m  CC=8      ←0
+  │ README.md                  106L  0C    0m  CC=0.0    ←0
+  │ 02_mycompiler_run_nlp2cmd    90L  0C    3m  CC=6      ←0
+  │ 01_codepen_live_nlp2cmd     86L  0C    3m  CC=6      ←0
+  │ 04_jsfiddle_frontend_nlp2cmd    85L  0C    3m  CC=6      ←0
+  │ 03_adaptive_code_nlp2cmd    74L  0C    2m  CC=6      ←0
+  │ 05_dynamic_executor_nlp2cmd    74L  0C    2m  CC=6      ←0
+  │
+  06_desktop_automation/          CC̄=6.6    ←in:0  →out:0
+  │ run.sh                     255L  0C    1m  CC=0.0    ←0
+  │ README.md                  125L  0C    0m  CC=0.0    ←0
+  │ multi_app_session.md       109L  0C    0m  CC=0.0    ←0
+  │ !! run                        108L  0C    1m  CC=16     ←0
+  │ run                         98L  0C    1m  CC=7      ←0
+  │ run                         95L  0C    1m  CC=5      ←0
+  │ terminal_session.md         95L  0C    0m  CC=0.0    ←0
+  │ calculator_session.md       81L  0C    0m  CC=0.0    ←0
+  │ run.sh                      72L  0C    0m  CC=0.0    ←0
+  │ run.sh                      69L  0C    0m  CC=0.0    ←0
+  │ run.sh                      62L  0C    0m  CC=0.0    ←0
+  │ run                         61L  0C    1m  CC=5      ←0
+  │ README.md                   47L  0C    0m  CC=0.0    ←0
+  │ run.sh                      45L  0C    0m  CC=0.0    ←0
+  │ run.sh                      45L  0C    0m  CC=0.0    ←0
+  │ README.md                   43L  0C    0m  CC=0.0    ←0
+  │ README.md                   40L  0C    0m  CC=0.0    ←0
+  │ README.md                   36L  0C    0m  CC=0.0    ←0
+  │ README.md                   36L  0C    0m  CC=0.0    ←0
+  │ session.md                  32L  0C    0m  CC=0.0    ←0
+  │ README.md                   23L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │
+  08_api_key_management/          CC̄=6.0    ←in:0  →out:0
+  │ run                        165L  0C    5m  CC=10     ←0
+  │ run                        126L  0C    3m  CC=11     ←0
+  │ run                        108L  0C    3m  CC=7      ←0
+  │ run                        101L  0C    3m  CC=8      ←0
+  │ run                         93L  0C    3m  CC=8      ←0
+  │ 01_diagnose_credentials_nlp2cmd    85L  0C    3m  CC=5      ←0
+  │ !! run                         68L  0C    1m  CC=18     ←0
+  │ README.md                   43L  0C    0m  CC=0.0    ←0
+  │
+  09_online_drawing/              CC̄=5.3    ←in:0  →out:1
+  │ !! _run_utils                 757L  2C   29m  CC=13     ←0
+  │ !! 04_object_database_drawing   574L  3C   15m  CC=18     ←0
+  │ !! README.md                  501L  0C    0m  CC=0.0    ←0
+  │ 03_adaptive_20260303_143144.json   404L  0C    0m  CC=0.0    ←0
+  │ 03_adaptive_20260303_145342.json   404L  0C    0m  CC=0.0    ←0
+  │ 03_adaptive_20260303_145059.json   404L  0C    0m  CC=0.0    ←0
+  │ run                        384L  0C   12m  CC=8      ←0
+  │ 01_draw_chat_20260303_143953.json   320L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_144543.json   320L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_144325.json   320L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_142823.json   320L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_142636.json   320L  0C    0m  CC=0.0    ←0
+  │ run                        308L  0C    5m  CC=8      ←0
+  │ 05_autonomous_drawing      305L  0C    4m  CC=14     ←0
+  │ !! run                        297L  0C    4m  CC=21     ←0
+  │ 02_picsart_20260303_144922.json   290L  0C    0m  CC=0.0    ←0
+  │ !! run                        266L  0C    3m  CC=18     ←0
+  │ 02_picsart_20260303_142942.json   254L  0C    0m  CC=0.0    ←0
+  │ 03_adaptive_drawing        251L  0C    2m  CC=11     ←0
+  │ 02_picsart_20260303_144722.json   242L  0C    0m  CC=0.0    ←0
+  │ run                        231L  0C    4m  CC=14     ←0
+  │ 01_draw_chat_20260303_142425.json   224L  0C    0m  CC=0.0    ←0
+  │ run.sh                     206L  0C    4m  CC=0.0    ←0
+  │ README.md                  167L  0C    0m  CC=0.0    ←0
+  │ ANALYSIS.md                159L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_170506.json   158L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_170742.json   158L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_171110.json   158L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_170840.json   158L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_171804.json   158L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_20260303_170729.json   158L  0C    0m  CC=0.0    ←0
+  │ 02_picsart_painting_nlp2cmd   157L  0C    4m  CC=7      ←0
+  │ run                        154L  0C    1m  CC=8      ←0
+  │ 03_adaptive_drawing_nlp2cmd   146L  0C    4m  CC=7      ←0
+  │ 01_draw_chat_shapes_nlp2cmd   141L  0C    4m  CC=7      ←0
+  │ run                        136L  0C    1m  CC=6      ←0
+  │ run                        132L  0C    1m  CC=9      ←0
+  │ 03_adaptive_20260303_170926.json   122L  0C    0m  CC=0.0    ←0
+  │ 03_adaptive_20260303_171825.json   122L  0C    0m  CC=0.0    ←0
+  │ 03_adaptive_20260303_170902.json   122L  0C    0m  CC=0.0    ←0
+  │ 02_picsart_painting        117L  0C    1m  CC=3      ←0
+  │ README.md                  113L  0C    0m  CC=0.0    ←0
+  │ README.md                  110L  0C    0m  CC=0.0    ←0
+  │ 01_draw_chat_shapes        105L  0C    1m  CC=3      ←0
+  │ 02_picsart_20260303_171011.json   104L  0C    0m  CC=0.0    ←0
+  │ README.md                  103L  0C    0m  CC=0.0    ←0
+  │ README.md                  100L  0C    0m  CC=0.0    ←0
+  │ run                         99L  0C    2m  CC=6      ←0
+  │ README.md                   94L  0C    0m  CC=0.0    ←0
+  │ README.md                   92L  0C    0m  CC=0.0    ←0
+  │ README.md                   92L  0C    0m  CC=0.0    ←0
+  │ README.md                   91L  0C    0m  CC=0.0    ←0
+  │ CHANGELOG.md                42L  0C    0m  CC=0.0    ←0
+  │ validation_star_red.json    14L  0C    0m  CC=0.0    ←0
+  │
+  01_basics/                      CC̄=3.8    ←in:0  →out:0
+  │ !! runtime_schemas.json      3600L  0C    0m  CC=0.0    ←0
+  │ !! appspec_cache.json        1430L  0C    0m  CC=0.0    ←0
+  │ llm_integration            345L  1C    6m  CC=6      ←0
+  │ advanced                   334L  0C    1m  CC=2      ←0
+  │ workflows                  319L  0C    2m  CC=10     ←0
+  │ file_repair                299L  0C    4m  CC=11     ←0
+  │ generated_shell_dynamic_schema.json   207L  0C    0m  CC=0.0    ←0
+  │ feedback_loop              203L  0C    9m  CC=5      ←0
+  │ _environment_sections      179L  0C   11m  CC=11     ←1
+  │ example                    142L  0C    1m  CC=10     ←0
+  │ example                    111L  0C    1m  CC=6      ←0
+  │ example                    111L  0C    1m  CC=7      ←0
+  │ 01_basics_shell_nlp2cmd    103L  0C    3m  CC=6      ←0
+  │ example                     93L  0C    1m  CC=5      ←0
+  │ 01_basics_docker_nlp2cmd    84L  0C    3m  CC=5      ←0
+  │ environment_analysis        55L  0C    1m  CC=6      ←0
+  │ schema_cache                43L  0C    1m  CC=5      ←0
+  │ README.md                   36L  0C    0m  CC=0.0    ←0
+  │ README.md                   33L  0C    0m  CC=0.0    ←0
+  │ kubectl_dynamic_schema.json    30L  0C    0m  CC=0.0    ←0
+  │ README.md                   29L  0C    0m  CC=0.0    ←0
+  │ README.md                   27L  0C    0m  CC=0.0    ←0
+  │ example                     24L  0C    1m  CC=1      ←0
+  │
+  07_stream_protocols/            CC̄=3.8    ←in:0  →out:0
+  │ example_rtsp                89L  0C    1m  CC=3      ←0
+  │ example_multi_stream        88L  0C    1m  CC=7      ←0
+  │ example_libvirt             85L  0C    1m  CC=3      ←0
+  │ example_ssh                 59L  0C    1m  CC=3      ←0
+  │ example_http_api            54L  0C    1m  CC=3      ←0
+  │ README.md                   53L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=3.5    ←in:0  →out:0
+  │ _verbose_helper            356L  0C   11m  CC=6      ←16
+  │ generated_shell_appspec.json   352L  0C    0m  CC=0.0    ←0
+  │ run_examples.sh            282L  0C   10m  CC=0.0    ←0
+  │ README_NLP2CMD.md          265L  0C    0m  CC=0.0    ←0
+  │ _verbose_schema            189L  0C    2m  CC=13     ←1
+  │ !! show_metrics               124L  0C    1m  CC=15     ←0
+  │ benchmark_report.json      116L  0C    0m  CC=0.0    ←0
+  │ run_task                   101L  0C    1m  CC=11     ←0
+  │ learned_schemas.json       100L  0C    0m  CC=0.0    ←0
+  │ _dynamic_orchestrator       97L  1C    2m  CC=4      ←0
+  │ Makefile                    96L  0C    0m  CC=0.0    ←0
+  │ demo_screenshot_video.sh    56L  0C    0m  CC=0.0    ←0
+  │ generated_appspec.json      47L  0C    0m  CC=0.0    ←0
+  │ MAKEFILE_PROSTY.md          42L  0C    0m  CC=0.0    ←0
+  │ README.md                   31L  0C    0m  CC=0.0    ←0
+  │ sequential_benchmark_results.json    27L  0C    0m  CC=0.0    ←0
+  │ _example_helpers            24L  0C    2m  CC=2      ←47
+  │
+  03_integrations/                CC̄=3.5    ←in:0  →out:0
+  │ !! nlp2_cmd_web_controller    782L  1C   30m  CC=7      ←0
+  │ practical_usage            470L  1C    8m  CC=2      ←0
+  │ README_WEB_BACKEND.md      369L  0C    0m  CC=0.0    ←0
+  │ config_validation          328L  0C    3m  CC=6      ←0
+  │ !! comparison_demo            319L  1C   11m  CC=17     ←0
+  │ !! infrastructure_health      280L  0C    6m  CC=19     ←0
+  │ simple_demo                263L  0C    6m  CC=2      ←0
+  │ docker_manager             251L  1C    5m  CC=13     ←0
+  │ _demo_helpers              243L  0C   18m  CC=9      ←3
+  │ demo                       240L  0C    6m  CC=9      ←0
+  │ README.md                  232L  0C    0m  CC=0.0    ←0
+  │ demo_auto                  226L  0C    3m  CC=12     ←0
+  │ !! nl_command_parser          210L  1C    4m  CC=19     ←0
+  │ !! log_analysis               187L  0C    4m  CC=15     ←0
+  │ web_app_example            159L  3C    8m  CC=3      ←0
+  │ !! deployment_plan            131L  1C    3m  CC=17     ←0
+  │ nlp2_cmd_web_api           130L  1C    5m  CC=2      ←0
+  │ demo_batch                 128L  0C    6m  CC=5      ←0
+  │ usage_example              121L  0C    1m  CC=9      ←0
+  │ demo                       101L  0C    4m  CC=3      ←0
+  │ demo                        99L  2C    1m  CC=4      ←0
+  │ demo                        95L  2C    2m  CC=5      ←0
+  │ demo                        93L  0C    3m  CC=4      ←0
+  │ demo                        91L  0C    3m  CC=4      ←0
+  │ old_system_loader           89L  1C    5m  CC=8      ←0
+  │ demo                        83L  1C    2m  CC=5      ←0
+  │ output_file_manager         77L  1C    4m  CC=1      ←0
+  │ demo                        77L  1C    1m  CC=2      ←0
+  │ demo                        76L  0C    1m  CC=1      ←0
+  │ demo                        74L  0C    1m  CC=1      ←0
+  │ demo                        71L  0C    1m  CC=1      ←0
+  │ demo                        70L  0C    1m  CC=1      ←0
+  │ demo                        69L  0C    1m  CC=1      ←0
+  │ demo                        66L  0C    1m  CC=1      ←0
+  │ demo                        65L  1C    1m  CC=3      ←0
+  │ demo                        63L  0C    1m  CC=1      ←0
+  │ demo                        59L  0C    1m  CC=2      ←0
+  │ service_config              54L  1C    0m  CC=0.0    ←0
+  │ service_type                51L  1C    0m  CC=0.0    ←0
+  │ demo                        50L  0C    1m  CC=3      ←0
+  │ README.md                   34L  0C    0m  CC=0.0    ←0
+  │ README.md                   30L  0C    0m  CC=0.0    ←0
+  │ chat-service-docker-compose.yml    27L  0C    0m  CC=0.0    ←0
+  │ README.md                   25L  0C    0m  CC=0.0    ←0
+  │ README.md                   24L  0C    0m  CC=0.0    ←0
+  │ README.md                   24L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ prompt.txt                  21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   20L  0C    0m  CC=0.0    ←0
+  │ README.md                   20L  0C    0m  CC=0.0    ←0
+  │ chat-service-config.json    17L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ nlp2cmd_web_controller      12L  0C    0m  CC=0.0    ←0
+  │
+  06_tools_and_utilities/         CC̄=3.3    ←in:0  →out:0
+  │ demo_versioned_schemas     399L  0C    4m  CC=11     ←0
+  │ guide                      344L  0C    6m  CC=1      ←0
+  │ README.md                   15L  0C    0m  CC=0.0    ←0
+  │ README.md                   12L  0C    0m  CC=0.0    ←0
+  │
+  05_advanced_features/           CC̄=3.2    ←in:0  →out:0
+  │ end_to_end_demo            402L  0C    7m  CC=12     ←0
+  │ demo_intelligent_nlp2cmd   295L  1C    9m  CC=11     ←0
+  │ example                    267L  0C    7m  CC=4      ←0
+  │ demo_schema_flow           260L  0C    4m  CC=6      ←0
+  │ schema_flow_demo           194L  0C    4m  CC=7      ←0
+  │ demo_version_detection     177L  0C    9m  CC=4      ←0
+  │ demo_persistent_storage    154L  0C    2m  CC=11     ←0
+  │ demo                       132L  2C    9m  CC=4      ←0
+  │ demo                       128L  3C    6m  CC=5      ←0
+  │ demo_enhanced              126L  0C    1m  CC=12     ←0
+  │ simple_schema_demo         119L  0C    1m  CC=6      ←0
+  │ manual_appspec             102L  0C    1m  CC=1      ←0
+  │ demo                        97L  2C    2m  CC=4      ←0
+  │ demo                        96L  2C    3m  CC=6      ←0
+  │ example                     74L  0C    1m  CC=1      ←0
+  │ README.md                   29L  0C    0m  CC=0.0    ←0
+  │ mvp                         26L  0C    1m  CC=1      ←0
+  │ README.md                   24L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   18L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │
+  04_domain_specific/             CC̄=2.5    ←in:127  →out:9  !! split
+  │ !! validation                 708L  2C    7m  CC=16     ←0
+  │ !! README.md                  700L  0C    0m  CC=0.0    ←0
+  │ !! example_pdf_search         397L  2C    9m  CC=25     ←0
+  │ mock_test_polish_llm       378L  2C    7m  CC=10     ←0
+  │ !! api_key_prompts            343L  1C    2m  CC=15     ←0
+  │ README.md                  326L  0C    0m  CC=0.0    ←0
+  │ setup_and_test_bielik      311L  1C    8m  CC=9      ←0
+  │ dsl_demo                   264L  0C   11m  CC=3      ←0
+  │ complete_examples          262L  0C    7m  CC=6      ←0
+  │ simple_demo                244L  0C    7m  CC=2      ←0
+  │ SUMMARY.md                 194L  0C    0m  CC=0.0    ←0
+  │ example                    192L  0C    8m  CC=1      ←0
+  │ example                    190L  0C    8m  CC=1      ←0
+  │ example                    188L  0C    8m  CC=1      ←0
+  │ example                    186L  0C    8m  CC=1      ←0
+  │ example                    183L  0C    7m  CC=3      ←0
+  │ example                    183L  0C    8m  CC=1      ←0
+  │ _demo_helpers              182L  0C   12m  CC=11     ←13
+  │ example                    160L  0C    7m  CC=1      ←0
+  │ example                    153L  0C    5m  CC=5      ←0
+  │ example                    145L  0C    6m  CC=1      ←0
+  │ commands_demo.sh           140L  0C    0m  CC=0.0    ←0
+  │ run_all                    139L  0C    2m  CC=5      ←0
+  │ intents                    139L  0C    1m  CC=8      ←0
+  │ demo                       134L  1C    5m  CC=6      ←0
+  │ example                    133L  0C    3m  CC=5      ←0
+  │ demo                       119L  2C    5m  CC=5      ←0
+  │ demo                       108L  4C    8m  CC=2      ←0
+  │ demo                       108L  1C    4m  CC=7      ←0
+  │ example                    100L  0C    4m  CC=2      ←0
+  │ demo                       100L  1C    1m  CC=2      ←0
+  │ demo                        97L  2C    5m  CC=4      ←0
+  │ demo                        94L  1C    5m  CC=3      ←0
+  │ generator                   86L  0C    1m  CC=6      ←0
+  │ demo                        80L  2C    4m  CC=2      ←0
+  │ demo                        75L  1C    1m  CC=2      ←0
+  │ demo                        75L  1C    1m  CC=2      ←0
+  │ demo                        75L  1C    1m  CC=2      ←0
+  │ download_bielik             71L  0C    1m  CC=6      ←0
+  │ demo                        71L  1C    1m  CC=2      ←0
+  │ demo                        64L  1C    1m  CC=2      ←0
+  │ demo                        64L  1C    1m  CC=2      ←0
+  │ demo                        64L  1C    1m  CC=2      ←0
+  │ shell_validation_report.txt    63L  0C    0m  CC=0.0    ←0
+  │ validation_report.txt       63L  0C    0m  CC=0.0    ←0
+  │ demo                        61L  0C    1m  CC=1      ←0
+  │ demo                        60L  0C    1m  CC=1      ←0
+  │ demo                        60L  0C    1m  CC=2      ←0
+  │ keywords                    56L  0C    1m  CC=3      ←0
+  │ demo                        53L  0C    1m  CC=2      ←0
+  │ __init__                    52L  0C    0m  CC=0.0    ←0
+  │ demo                        51L  0C    1m  CC=2      ←0
+  │ README.md                   48L  0C    0m  CC=0.0    ←0
+  │ README.md                   31L  0C    0m  CC=0.0    ←0
+  │ README.md                   27L  0C    0m  CC=0.0    ←0
+  │ README.md                   26L  0C    0m  CC=0.0    ←0
+  │ README.md                   25L  0C    0m  CC=0.0    ←0
+  │ README.md                   23L  0C    0m  CC=0.0    ←0
+  │ README.md                   23L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   22L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ README.md                   21L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │ run.sh                      14L  0C    0m  CC=0.0    ←0
+  │
+  02_benchmarks/                  CC̄=2.4    ←in:0  →out:0
+  │ benchmark                  465L  0C    9m  CC=4      ←0
+  │ benchmark                  189L  0C    3m  CC=6      ←0
+  │ benchmark_report.json      116L  0C    0m  CC=0.0    ←0
+  │ README.md                   35L  0C    0m  CC=0.0    ←0
+  │ README.md                   31L  0C    0m  CC=0.0    ←0
+  │ sequential_benchmark_results.json    27L  0C    0m  CC=0.0    ←0
+  │
+  command_schemas/                CC̄=0.0    ←in:0  →out:0
+  │ docker.appspec.json        149L  0C    0m  CC=0.0    ←0
+  │ kubectl_dynamic_schema.json    29L  0C    0m  CC=0.0    ←0
+  │
+  07_browser_automation/          CC̄=0.0    ←in:0  →out:0
+  │ README.md                   45L  0C    0m  CC=0.0    ←0
+  │ 03_interactive_mode.sh      28L  0C    0m  CC=0.0    ←0
+  │ 07_batch_multiple.sh        28L  0C    0m  CC=0.0    ←0
+  │ 02_video_only.sh            26L  0C    0m  CC=0.0    ←0
+  │ 04_oferteo_extraction.sh    24L  0C    0m  CC=0.0    ←0
+  │ 01_screenshot_only.sh       23L  0C    0m  CC=0.0    ←0
+  │ 05_simple_formfill.sh       19L  0C    0m  CC=0.0    ←0
+  │ 06_formfill_with_discovery.sh    19L  0C    0m  CC=0.0    ←0
+  │
+  mcp/                            CC̄=0.0    ←in:0  →out:0
+  │ mcp-config.cursor.json      18L  0C    0m  CC=0.0    ←0
+  │ e2e.sh                      14L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+                                                  _example_helpers               04_domain_specific                  _verbose_helper           10_online_code_editors             01_basics.sql_basics     01_basics.shell_fundamentals     04_domain_specific.debugging          01_basics.docker_basics  03_integrations.web_development        03_integrations.pipelines  04_domain_specific.data_science     04_domain_specific.education        04_domain_specific.energy    04_domain_specific.healthcare       04_domain_specific.physics
+                 _example_helpers                               ──                               ←9                                                                                                ←27                              ←23                              ←21                              ←19                              ←18                              ←17                               ←5                               ←1                               ←1                               ←1                               ←1  hub
+               04_domain_specific                                9                               ──                                                                                                                                                                   ←1                                                                                                                                 ←12                              ←14                              ←14                              ←14                              ←14  hub
+                  _verbose_helper                                                                                                 ──                              ←72                                                                                                                                                                                                                                                                                                                                                                             hub
+           10_online_code_editors                                                                                                 72                               ──                                                                                                                                                                                                                                                                                                                                                                             !! fan-out
+             01_basics.sql_basics                               27                                                                                                                                  ──                                                                                                                                                                                                                                                                                                                                            !! fan-out
+     01_basics.shell_fundamentals                               23                                                                                                                                                                   ──                                                                                                                                                                                                                                                                                                           !! fan-out
+     04_domain_specific.debugging                               21                                1                                                                                                                                                                   ──                                                                                                                                                                                                                                                                          !! fan-out
+          01_basics.docker_basics                               19                                                                                                                                                                                                                                     ──                                                                                                                                                                                                                                         !! fan-out
+  03_integrations.web_development                               18                                                                                                                                                                                                                                                                      ──                                                                                                                                                                                                        !! fan-out
+        03_integrations.pipelines                               17                                                                                                                                                                                                                                                                                                       ──                                                                                                                                                                       !! fan-out
+  04_domain_specific.data_science                                5                               12                                                                                                                                                                                                                                                                                                       ──                                                                                                                                      !! fan-out
+     04_domain_specific.education                                1                               14                                                                                                                                                                                                                                                                                                                                        ──                                                                                                     !! fan-out
+        04_domain_specific.energy                                1                               14                                                                                                                                                                                                                                                                                                                                                                         ──                                                                    !! fan-out
+    04_domain_specific.healthcare                                1                               14                                                                                                                                                                                                                                                                                                                                                                                                          ──                                   !! fan-out
+       04_domain_specific.physics                                1                               14                                                                                                                                                                                                                                                                                                                                                                                                                                           ──  !! fan-out
+  CYCLES: none
+  HUB: _verbose_helper/ (fan-in=106)
+  HUB: _example_helpers/ (fan-in=182)
+  HUB: 04_domain_specific/ (fan-in=127)
+  SMELL: 04_domain_specific.debugging/ fan-out=22 → split needed
+  SMELL: 03_integrations.pipelines/ fan-out=17 → split needed
+  SMELL: 01_basics.docker_basics/ fan-out=19 → split needed
+  SMELL: 04_domain_specific.bioinformatics/ fan-out=12 → split needed
+  SMELL: 04_domain_specific.logistics/ fan-out=13 → split needed
+  SMELL: 05_advanced_features.thermodynamic_computing/ fan-out=8 → split needed
+  SMELL: 04_domain_specific.finance/ fan-out=13 → split needed
+  SMELL: 03_integrations.web_development/ fan-out=18 → split needed
+  SMELL: 01_basics.sql_basics/ fan-out=27 → split needed
+  SMELL: 04_domain_specific.smart_cities/ fan-out=15 → split needed
+  SMELL: 04_domain_specific.data_science/ fan-out=17 → split needed
+  SMELL: 01_basics.shell_fundamentals/ fan-out=23 → split needed
+  SMELL: 03_integrations.validation/ fan-out=13 → split needed
+  SMELL: 04_domain_specific.physics/ fan-out=15 → split needed
+  SMELL: 09_online_drawing._old/ fan-out=14 → split needed
+  SMELL: 04_domain_specific.drug_discovery/ fan-out=11 → split needed
+  SMELL: _verbose_schema/ fan-out=10 → split needed
+  SMELL: 04_domain_specific.healthcare/ fan-out=15 → split needed
+  SMELL: 04_domain_specific/ fan-out=9 → split needed
+  SMELL: 04_domain_specific.education/ fan-out=15 → split needed
+  SMELL: 10_online_code_editors/ fan-out=72 → split needed
+  SMELL: 04_domain_specific.energy/ fan-out=15 → split needed
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

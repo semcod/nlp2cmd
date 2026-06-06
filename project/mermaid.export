@@ -1,5 +1,5 @@
 flowchart TD
-%% generated in 0.02s
+%% generated in 0.05s
     subgraph benchmarks__learning_benchmark
         benchmarks__learning_benchmark___teacher_models["_teacher_models"]
         benchmarks__learning_benchmark__run_learning_benchmark{{run_learning_benchmark CC=15}}
@@ -16,7 +16,13 @@ flowchart TD
         benchmarks__llm_benchmark___get_benchmark_models["_get_benchmark_models"]
         benchmarks__llm_benchmark___default_models["_default_models"]
         benchmarks__llm_benchmark__clean_command{{clean_command CC=19}}
-        benchmarks__llm_benchmark__run_benchmark{{run_benchmark CC=22}}
+        benchmarks__llm_benchmark___check_ollama_available["_check_ollama_available"]
+        benchmarks__llm_benchmark___setup_bielik_model["_setup_bielik_model"]
+        benchmarks__llm_benchmark___verify_and_pull_models["_verify_and_pull_models"]
+        benchmarks__llm_benchmark___warmup_model["_warmup_model"]
+        benchmarks__llm_benchmark___run_query["_run_query"]
+        benchmarks__llm_benchmark___run_model_benchmark["_run_model_benchmark"]
+        benchmarks__llm_benchmark__run_benchmark["run_benchmark"]
         benchmarks__llm_benchmark__build_summary{{build_summary CC=41}}
         benchmarks__llm_benchmark__generate_html("generate_html CC=12")
         benchmarks__llm_benchmark__print_summary["print_summary"]
@@ -54,6 +60,7 @@ flowchart TD
         examples__01_basics__sql_basics__llm_integration__demonstrate_real_llm_setup["demonstrate_real_llm_setup"]
         examples__01_basics__sql_basics__llm_integration__demonstrate_hybrid_approach["demonstrate_hybrid_approach"]
         examples__01_basics__sql_basics__llm_integration__main["main"]
+        examples__01_basics__sql_basics__example__main["main"]
         examples__01_basics__kubernetes_basics__example__main["main"]
         examples__01_basics__app2schema__example__main["main"]
         examples__01_basics__shell_fundamentals__environment_analysis__main["main"]
@@ -81,6 +88,7 @@ flowchart TD
         examples__01_basics__shell_fundamentals___environment_sections__print_full_report["print_full_report"]
         examples__01_basics__shell_fundamentals___environment_sections__print_export_preview["print_export_preview"]
         examples__01_basics__shell_fundamentals__schema_cache__main["main"]
+        examples__01_basics__shell_fundamentals__example__main("main CC=10")
         examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__run_nlp2cmd_command["run_nlp2cmd_command"]
         examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__get_command_for_task["get_command_for_task"]
         examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main["main"]
@@ -89,8 +97,6 @@ flowchart TD
         examples__01_basics__docker_basics__file_repair__repair_file("repair_file CC=11")
         examples__01_basics__docker_basics__file_repair__main["main"]
         examples__01_basics__docker_basics__example__main["main"]
-        examples__01_basics__shell_fundamentals__example__main("main CC=10")
-        examples__01_basics__sql_basics__example__main["main"]
     end
     subgraph examples__02_benchmarks
         examples__02_benchmarks__performance_testing__benchmark__print_section["print_section"]
@@ -171,6 +177,18 @@ flowchart TD
     subgraph examples__04_domain_specific
         examples__04_domain_specific__api_key_prompts__test_prompt{{test_prompt CC=15}}
         examples__04_domain_specific__api_key_prompts__run_all_tests("run_all_tests CC=12")
+        examples__04_domain_specific___demo_helpers__print_separator["print_separator"]
+        examples__04_domain_specific___demo_helpers__print_rule["print_rule"]
+        examples__04_domain_specific___demo_helpers__rule_line["rule_line"]
+        examples__04_domain_specific___demo_helpers__print_demo_header["print_demo_header"]
+        examples__04_domain_specific___demo_helpers__run_thermo_demo["run_thermo_demo"]
+        examples__04_domain_specific___demo_helpers__print_metrics("print_metrics CC=11")
+        examples__04_domain_specific___demo_helpers__print_simple_result["print_simple_result"]
+        examples__04_domain_specific___demo_helpers__print_full_result["print_full_result"]
+        examples__04_domain_specific___demo_helpers__sigmoid["sigmoid"]
+        examples__04_domain_specific___demo_helpers__project_sample("project_sample CC=10")
+        examples__04_domain_specific___demo_helpers__print_projected["print_projected"]
+        examples__04_domain_specific___demo_helpers__print_fallback_note["print_fallback_note"]
         examples__04_domain_specific__run_all__run_all_demos["run_all_demos"]
         examples__04_domain_specific__run_all__print_summary_table["print_summary_table"]
         examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishLLMClient____init__["__init__"]
@@ -217,18 +235,6 @@ flowchart TD
         examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__ResultsRanker__get_top_k["get_top_k"]
         examples__04_domain_specific__polish_llm_integration__04_results_ranking__demo__main["main"]
         examples__04_domain_specific__polish_llm_integration__02_text_chunking__demo__TextChunker____init__["__init__"]
-        examples__04_domain_specific__polish_llm_integration__02_text_chunking__demo__TextChunker__chunk_text["chunk_text"]
-        examples__04_domain_specific__polish_llm_integration__02_text_chunking__demo__TextChunker__chunk_with_metadata["chunk_with_metadata"]
-        examples__04_domain_specific__polish_llm_integration__02_text_chunking__demo__main["main"]
-        examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__LLMSearcher____init__["__init__"]
-        examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__LLMSearcher__search["search"]
-        examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__LLMSearcher___calculate_relevance["_calculate_relevance"]
-        examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__LLMSearcher___extract_matches["_extract_matches"]
-        examples__04_domain_specific__polish_llm_integration__03_llm_search__demo__main["main"]
-        examples__04_domain_specific__energy__example__demo_unit_commitment["demo_unit_commitment"]
-        examples__04_domain_specific__energy__example__demo_renewable_integration["demo_renewable_integration"]
-        examples__04_domain_specific__energy__example__demo_water_distribution["demo_water_distribution"]
-        examples__04_domain_specific__energy__example__demo_gas_network["demo_gas_network"]
     end
     subgraph examples__05_advanced_features
         examples__05_advanced_features__thermodynamic_computing__example__example_scheduling["example_scheduling"]
@@ -343,7 +349,10 @@ flowchart TD
     end
     subgraph examples__08_llm_validation
         examples__08_llm_validation__benchmark_validator__run_benchmark{{run_benchmark CC=28}}
-        examples__08_llm_validation__benchmark_validator__compare_benchmarks{{compare_benchmarks CC=16}}
+        examples__08_llm_validation__benchmark_validator___print_metric_comparison["_print_metric_comparison"]
+        examples__08_llm_validation__benchmark_validator___find_changed_cases["_find_changed_cases"]
+        examples__08_llm_validation__benchmark_validator___print_changed_cases["_print_changed_cases"]
+        examples__08_llm_validation__benchmark_validator__compare_benchmarks["compare_benchmarks"]
         examples__08_llm_validation__benchmark_validator__main["main"]
     end
     subgraph examples__09_online_drawing
@@ -508,6 +517,10 @@ flowchart TD
         scripts__install_desktop_tools__echo_error["echo_error"]
         scripts__install_desktop_tools__main["main"]
     end
+    subgraph scripts__install_mcp_stack
+        scripts__install_mcp_stack__install_pkg["install_pkg"]
+        scripts__install_mcp_stack__print["print"]
+    end
     subgraph scripts__maintenance
         scripts__maintenance__implement_core_integration__CoreIntegrator____init__["__init__"]
         scripts__maintenance__implement_core_integration__CoreIntegrator__load_polish_fixes["load_polish_fixes"]
@@ -669,27 +682,6 @@ flowchart TD
     subgraph src__nlp2cmd
         src__nlp2cmd__pipeline_runner__PipelineRunner____init__("__init__ CC=11")
         src__nlp2cmd__pipeline_runner__PipelineRunner__run("run CC=11")
-        src__nlp2cmd__pipeline_runner_utils___debug["_debug"]
-        src__nlp2cmd__pipeline_runner_utils___with_epipe_retry["_with_epipe_retry"]
-        src__nlp2cmd__pipeline_runner_utils___field_attrs("_field_attrs CC=8")
-        src__nlp2cmd__pipeline_runner_utils___is_junk_field{{_is_junk_field CC=20}}
-        src__nlp2cmd__pipeline_runner_utils___is_contact_relevant_field["_is_contact_relevant_field"]
-        src__nlp2cmd__pipeline_runner_utils___looks_like_comment_form["_looks_like_comment_form"]
-        src__nlp2cmd__pipeline_runner_utils___filter_form_fields{{_filter_form_fields CC=18}}
-        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper____init__["__init__"]
-        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__print["print"]
-        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper___flush_stream["_flush_stream"]
-        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__flush["flush"]
-        src__nlp2cmd__pipeline_runner_utils___MarkdownConsoleWrapper__capture["capture"]
-        src__nlp2cmd__pipeline_runner_utils__ShellExecutionPolicy__load_from_data{{load_from_data CC=18}}
-        src__nlp2cmd__pipeline_runner_utils__get_timestamp["get_timestamp"]
-        src__nlp2cmd__pipeline_runner_utils__ensure_dir["ensure_dir"]
-        src__nlp2cmd__pipeline_runner_utils__ask_for_screenshot["ask_for_screenshot"]
-        src__nlp2cmd__pipeline_runner_utils__take_screenshot["take_screenshot"]
-        src__nlp2cmd__pipeline_runner_utils__VideoRecorder____init__["__init__"]
-        src__nlp2cmd__pipeline_runner_utils__VideoRecorder__start_recording["start_recording"]
-        src__nlp2cmd__pipeline_runner_utils__VideoRecorder__stop_recording["stop_recording"]
-        src__nlp2cmd__pipeline_runner_utils__ask_for_video_recording["ask_for_video_recording"]
         src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD____init__["__init__"]
         src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD__transform["transform"]
         src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___select_action{{_select_action CC=41}}
@@ -727,6 +719,27 @@ flowchart TD
         src__nlp2cmd__pipeline_runner_browser__BrowserExecutionMixin___run_dom_dql{{_run_dom_dql CC=28}}
         src__nlp2cmd__pipeline_runner_browser__BrowserExecutionMixin___run_dom_multi_action{{_run_dom_multi_action CC=280}}
         src__nlp2cmd__pipeline_runner_browser__BrowserExecutionMixin___run_dom_multi_action_dispatch{{_run_dom_multi_action_dispatch CC=15}}
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___sanitize_replacement_steps("_sanitize_replacement_steps CC=13")
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___detect_desktop_steps["_detect_desktop_steps"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___initialize_plan_variables["_initialize_plan_variables"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___build_service_context["_build_service_context"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___inject_replacement_steps["_inject_replacement_steps"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___summarize_results("_summarize_results CC=8")
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin__execute_action_plan{{execute_action_plan CC=168}}
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin__execute_action_plan_dispatch["execute_action_plan_dispatch"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___execute_plan_step["_execute_plan_step"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___execute_plan_step_dispatch["_execute_plan_step_dispatch"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___resolve_plan_variables["_resolve_plan_variables"]
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___do_verify_env("_do_verify_env CC=9")
+        src__nlp2cmd__pipeline_runner_plans__PlanExecutionMixin___llm_suggest_article_selectors{{_llm_suggest_article_selectors CC=21}}
+        src__nlp2cmd__ir__ActionIR__to_dict["to_dict"]
+        src__nlp2cmd__monitoring__resources__ResourceMonitor____init__["__init__"]
+        src__nlp2cmd__monitoring__resources__ResourceMonitor___process_cpu_time_seconds["_process_cpu_time_seconds"]
+        src__nlp2cmd__monitoring__resources__ResourceMonitor__get_current_metrics["get_current_metrics"]
+        src__nlp2cmd__monitoring__resources__ResourceMonitor__measure_execution["measure_execution"]
+        src__nlp2cmd__monitoring__resources__ResourceMonitor__get_last_metrics["get_last_metrics"]
+        src__nlp2cmd__monitoring__resources__ResourceMonitor__format_metrics["format_metrics"]
+        src__nlp2cmd__monitoring__resources__get_monitor["get_monitor"]
     end
     subgraph test_nlp2cmd_commands
         test_nlp2cmd_commands__print_status["print_status"]
@@ -1235,6 +1248,9 @@ flowchart TD
     examples__01_basics__sql_basics__llm_integration__main --> examples__01_basics__sql_basics__llm_integration__demonstrate_hybrid_approach
     examples__01_basics__sql_basics__llm_integration__main --> examples___example_helpers__print_separator
     examples__01_basics__sql_basics__llm_integration__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__example__main --> examples___example_helpers__print_separator
+    examples__01_basics__sql_basics__example__main --> test_nlp2cmd_commands__print
+    examples__01_basics__sql_basics__example__main --> examples___example_helpers__print_rule
     examples__01_basics__kubernetes_basics__example__main --> examples___example_helpers__print_separator
     examples__01_basics__kubernetes_basics__example__main --> src__app2schema__extract__extract_schema_to_file
     examples__01_basics__kubernetes_basics__example__main --> test_nlp2cmd_commands__print
@@ -1302,6 +1318,8 @@ flowchart TD
     examples__01_basics__shell_fundamentals___environment_sections__print_export_preview --> examples___example_helpers__print_rule
     examples__01_basics__shell_fundamentals__schema_cache__main --> test_nlp2cmd_commands__print
     examples__01_basics__shell_fundamentals__schema_cache__main --> src__app2schema__extract__extract_appspec_to_file
+    examples__01_basics__shell_fundamentals__example__main --> examples___example_helpers__print_separator
+    examples__01_basics__shell_fundamentals__example__main --> test_nlp2cmd_commands__print
     examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main --> examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__get_command_for_task
     examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main --> test_nlp2cmd_commands__print
     examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__main --> examples__01_basics__docker_basics__01_basics_docker_nlp2cmd__run_nlp2cmd_command
@@ -1447,34 +1465,29 @@ flowchart TD
     examples__10_online_code_editors__05_dynamic_executor__main --> examples__10_online_code_editors__05_dynamic_executor__build_prompt
     examples__10_online_code_editors__05_dynamic_executor__main --> test_nlp2cmd_commands__print
     examples__08_llm_validation__benchmark_validator__run_benchmark --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator___print_metric_comparison --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator___print_changed_cases --> test_nlp2cmd_commands__print
     examples__08_llm_validation__benchmark_validator__compare_benchmarks --> test_nlp2cmd_commands__print
+    examples__08_llm_validation__benchmark_validator__compare_benchmarks --> examples__08_llm_validation__benchmark_validator___find_changed_cases
+    examples__08_llm_validation__benchmark_validator__compare_benchmarks --> examples__08_llm_validation__benchmark_validator___print_changed_cases
+    examples__08_llm_validation__benchmark_validator__compare_benchmarks --> examples__08_llm_validation__benchmark_validator___print_metric_comparison
     examples__08_llm_validation__benchmark_validator__main --> examples__08_llm_validation__benchmark_validator__run_benchmark
     examples__08_llm_validation__benchmark_validator__main --> test_nlp2cmd_commands__print
     examples__08_llm_validation__benchmark_validator__main --> examples__08_llm_validation__benchmark_validator__compare_benchmarks
     examples__04_domain_specific__api_key_prompts__test_prompt --> test_nlp2cmd_commands__print
     examples__04_domain_specific__api_key_prompts__run_all_tests --> test_nlp2cmd_commands__print
     examples__04_domain_specific__api_key_prompts__run_all_tests --> examples__04_domain_specific__api_key_prompts__test_prompt
-    examples__04_domain_specific__run_all__run_all_demos --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__run_all__run_all_demos --> examples___example_helpers__print_rule
-    examples__04_domain_specific__run_all__print_summary_table --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__run_all__print_summary_table --> examples___example_helpers__print_rule
-    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishLLMClient____init__ --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__MockPolishNLP2CMD__process_query --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__test_polish_queries --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__test_integration_pattern --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__mock_test_polish_llm__show_real_setup_instructions --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__download_bielik__download_bielik --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__check_dependencies --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__download_model --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__setup_environment --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__test_integration --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__run_interactive_demo --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__run_interactive_demo --> src__nlp2cmd__cli__markdown_output__MarkdownConsoleProxy__input
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__BielikSetup__setup_complete --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__main --> test_nlp2cmd_commands__print
-    examples__04_domain_specific__polish_llm_integration__setup_and_test_bielik__main --> src__nlp2cmd__cli__markdown_output__MarkdownConsoleProxy__input
+    examples__04_domain_specific___demo_helpers__print_separator --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_rule --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_demo_header --> examples__04_domain_specific___demo_helpers__print_separator
+    examples__04_domain_specific___demo_helpers__run_thermo_demo --> examples__04_domain_specific___demo_helpers__print_demo_header
+    examples__04_domain_specific___demo_helpers__print_metrics --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_simple_result --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__print_full_result --> test_nlp2cmd_commands__print
+    examples__04_domain_specific___demo_helpers__project_sample --> examples__04_domain_specific___demo_helpers__sigmoid
+    examples__04_domain_specific___demo_helpers__print_projected --> test_nlp2cmd_commands__print
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class examples__show_metrics__main,examples__08_api_key_management__01_diagnose_credentials__run__main,examples__03_integrations__web_development__deployment_plan__DeploymentPlan__to_compose,examples__03_integrations__web_development__nl_command_parser__NLCommandParser___detect_intent,examples__03_integrations__web_development__nl_command_parser__NLCommandParser___extract_entities,examples__03_integrations__toon_format__comparison_demo__SimpleToonParser___parse_file,examples__03_integrations__pipelines__infrastructure_health__main,examples__03_integrations__pipelines__log_analysis__main,examples__09_online_drawing__05_autonomous__run__run_autonomous,examples__09_online_drawing___old__04_object_database_drawing__main,examples__09_online_drawing__06_visual_validator__run__draw_and_validate,examples__06_desktop_automation__09_complex_commands__run__main,examples__10_online_code_editors__02_mycompiler_run__main,examples__10_online_code_editors__04_jsfiddle_frontend__main,examples__10_online_code_editors__03_adaptive_code__main,examples__10_online_code_editors__01_codepen_live__main,examples__08_llm_validation__benchmark_validator__run_benchmark,examples__08_llm_validation__benchmark_validator__compare_benchmarks,examples__04_domain_specific__api_key_prompts__test_prompt,examples__04_domain_specific__polish_llm_integration__example_pdf_search__MockPolishPDFSearchLLM__generate_pdf_search_command,examples__04_domain_specific__debugging__validation__ShellCommandValidator__generate_report,benchmarks__llm_benchmark__clean_command,benchmarks__llm_benchmark__run_benchmark,benchmarks__llm_benchmark__build_summary,benchmarks__learning_benchmark__run_learning_benchmark,src__nlp2cmd__pipeline_runner_utils___is_junk_field,src__nlp2cmd__pipeline_runner_utils___filter_form_fields,src__nlp2cmd__pipeline_runner_utils__ShellExecutionPolicy__load_from_data,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___select_action,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___extract_params highCC
-    class examples___verbose_schema__log_schema_summary,examples__run_task__main,examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_sql_select,examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main,examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version,examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd,examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__demonstrate_persistent_storage,examples__05_advanced_features__dynamic_schemas__demo_enhanced__main,examples__08_api_key_management__05_openai_key__run__check,examples__08_api_key_management__06_multi_provider__run__plan_all,examples__08_api_key_management__06_multi_provider__run__setup_providers,examples__08_api_key_management__02_openrouter_key__run__check_credentials,examples__08_api_key_management__03_github_token__run__check,examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_schema_updates,examples__03_integrations__web_development__docker_manager__DockerManager__get_container_status,examples__03_integrations__web_development__docker_manager__DockerManager__show_logs,examples__03_integrations__web_development__demo_auto__run_demo_with_test,examples__03_integrations__web_development__demo_auto__troubleshoot_and_fix,examples__03_integrations__web_development__demo_auto__interactive_mode,examples__03_integrations__web_development___demo_helpers__print_command_result,examples__03_integrations__web_development__demo__demo_nlp_commands,examples__03_integrations__web_development__demo__main,examples__03_integrations__toon_format__old_system_loader__OldSystemLoader__load_command_schemas,examples__03_integrations__toon_format__usage_example__main,examples__03_integrations__pipelines__infrastructure_health__check_health,examples__01_basics__sql_basics__workflows__main,examples__01_basics__shell_fundamentals___environment_sections__print_tool_detection,examples__01_basics__docker_basics__file_repair__repair_file,examples__09_online_drawing___run_utils__ExampleLogger__save,examples__09_online_drawing___run_utils__check_page_health medCC
+    class examples__show_metrics__main,examples__08_api_key_management__01_diagnose_credentials__run__main,examples__03_integrations__web_development__deployment_plan__DeploymentPlan__to_compose,examples__03_integrations__web_development__nl_command_parser__NLCommandParser___detect_intent,examples__03_integrations__web_development__nl_command_parser__NLCommandParser___extract_entities,examples__03_integrations__toon_format__comparison_demo__SimpleToonParser___parse_file,examples__03_integrations__pipelines__infrastructure_health__main,examples__03_integrations__pipelines__log_analysis__main,examples__09_online_drawing__05_autonomous__run__run_autonomous,examples__09_online_drawing___old__04_object_database_drawing__main,examples__09_online_drawing__06_visual_validator__run__draw_and_validate,examples__06_desktop_automation__09_complex_commands__run__main,examples__10_online_code_editors__02_mycompiler_run__main,examples__10_online_code_editors__04_jsfiddle_frontend__main,examples__10_online_code_editors__03_adaptive_code__main,examples__10_online_code_editors__01_codepen_live__main,examples__08_llm_validation__benchmark_validator__run_benchmark,examples__04_domain_specific__api_key_prompts__test_prompt,examples__04_domain_specific__polish_llm_integration__example_pdf_search__MockPolishPDFSearchLLM__generate_pdf_search_command,examples__04_domain_specific__debugging__validation__ShellCommandValidator__generate_report,benchmarks__llm_benchmark__clean_command,benchmarks__llm_benchmark__build_summary,benchmarks__learning_benchmark__run_learning_benchmark,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___select_action,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___extract_params,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___render_http,src__nlp2cmd__schema_driven__SchemaDrivenNLP2CMD___render_shell,src__nlp2cmd__polish_support__PolishLanguageSupport__normalize_stt_errors,src__nlp2cmd__pipeline_runner_desktop__DesktopExecutionMixin___execute_desktop_plan_step,src__nlp2cmd__pipeline_runner_shell__ShellExecutionMixin___run_shell highCC
+    class examples___verbose_schema__log_schema_summary,examples__run_task__main,examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__mock_sql_select,examples__05_advanced_features__schema_driven_architecture__end_to_end_demo__main,examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__IntelligentNLP2CMD___select_best_version,examples__05_advanced_features__dynamic_schemas__demo_intelligent_nlp2cmd__demo_intelligent_nlp2cmd,examples__05_advanced_features__dynamic_schemas__demo_persistent_storage__demonstrate_persistent_storage,examples__05_advanced_features__dynamic_schemas__demo_enhanced__main,examples__08_api_key_management__05_openai_key__run__check,examples__08_api_key_management__06_multi_provider__run__plan_all,examples__08_api_key_management__06_multi_provider__run__setup_providers,examples__08_api_key_management__02_openrouter_key__run__check_credentials,examples__08_api_key_management__03_github_token__run__check,examples__06_tools_and_utilities__migration_tools__demo_versioned_schemas__demonstrate_schema_updates,examples__03_integrations__web_development__docker_manager__DockerManager__get_container_status,examples__03_integrations__web_development__docker_manager__DockerManager__show_logs,examples__03_integrations__web_development__demo_auto__run_demo_with_test,examples__03_integrations__web_development__demo_auto__troubleshoot_and_fix,examples__03_integrations__web_development__demo_auto__interactive_mode,examples__03_integrations__web_development___demo_helpers__print_command_result,examples__03_integrations__web_development__demo__demo_nlp_commands,examples__03_integrations__web_development__demo__main,examples__03_integrations__toon_format__old_system_loader__OldSystemLoader__load_command_schemas,examples__03_integrations__toon_format__usage_example__main,examples__03_integrations__pipelines__infrastructure_health__check_health,examples__01_basics__sql_basics__workflows__main,examples__01_basics__shell_fundamentals___environment_sections__print_tool_detection,examples__01_basics__shell_fundamentals__example__main,examples__01_basics__docker_basics__file_repair__repair_file,examples__09_online_drawing___run_utils__ExampleLogger__save medCC

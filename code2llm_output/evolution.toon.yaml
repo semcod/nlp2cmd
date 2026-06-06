@@ -1,0 +1,83 @@
+# code2llm/evolution | 2998 func | 414f | 2026-06-06
+# generated in 0.01s
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT-FUNC      BrowserExecutionMixin._run_dom_multi_action  CC=280  fan=108
+      WHY: CC=280 exceeds 15
+      EFFORT: ~1h  IMPACT: 30240
+
+  [2] !! SPLIT-FUNC      handle_run_mode  CC=183  fan=80
+      WHY: CC=183 exceeds 15
+      EFFORT: ~1h  IMPACT: 14640
+
+  [3] !! SPLIT-FUNC      PlanExecutionMixin.execute_action_plan  CC=168  fan=74
+      WHY: CC=168 exceeds 15
+      EFFORT: ~1h  IMPACT: 12432
+
+  [4] !! SPLIT-FUNC      main  CC=71  fan=56
+      WHY: CC=71 exceeds 15
+      EFFORT: ~1h  IMPACT: 3976
+
+  [5] !! SPLIT-FUNC      _execute_multi_step_with_video  CC=64  fan=54
+      WHY: CC=64 exceeds 15
+      EFFORT: ~1h  IMPACT: 3456
+
+  [6] !! SPLIT-FUNC      SiteExplorer.find_form  CC=72  fan=30
+      WHY: CC=72 exceeds 15
+      EFFORT: ~1h  IMPACT: 2160
+
+  [7] !! SPLIT-FUNC      ExecutionRunner.run_with_recovery  CC=54  fan=35
+      WHY: CC=54 exceeds 15
+      EFFORT: ~1h  IMPACT: 1890
+
+  [8] !! SPLIT-FUNC      _extract_web_dom_schema  CC=45  fan=37
+      WHY: CC=45 exceeds 15
+      EFFORT: ~1h  IMPACT: 1665
+
+  [9] !! SPLIT-FUNC      ExecutionRunner.run_command  CC=50  fan=32
+      WHY: CC=50 exceeds 15
+      EFFORT: ~1h  IMPACT: 1600
+
+  [10] !! SPLIT-FUNC      handle_generate_query  CC=41  fan=38
+      WHY: CC=41 exceeds 15
+      EFFORT: ~1h  IMPACT: 1558
+
+
+RISKS[3]:
+  ⚠ Splitting src/nlp2cmd/data/phrase_database.json may break 0 import paths
+  ⚠ Splitting data/phrase_database.json may break 0 import paths
+  ⚠ Splitting planfile.yaml may break 0 import paths
+
+METRICS-TARGET:
+  CC̄:          5.3 → ≤3.7
+  max-CC:      280 → ≤20
+  god-modules: 79 → 0
+  high-CC(≥15): 183 → ≤91
+  hub-types:   0 → ≤0
+
+PATTERNS (language parser shared logic):
+  _extract_declarations() in base.py — unified extraction for:
+    - TypeScript: interfaces, types, classes, functions, arrow funcs
+    - PHP: namespaces, traits, classes, functions, includes
+    - Ruby: modules, classes, methods, requires
+    - C++: classes, structs, functions, #includes
+    - C#: classes, interfaces, methods, usings
+    - Java: classes, interfaces, methods, imports
+    - Go: packages, functions, structs
+    - Rust: modules, functions, traits, use statements
+
+  Shared regex patterns per language:
+    - import: language-specific import/require/using patterns
+    - class: class/struct/trait declarations with inheritance
+    - function: function/method signatures with visibility
+    - brace_tracking: for C-family languages ({ })
+    - end_keyword_tracking: for Ruby (module/class/def...end)
+
+  Benefits:
+    - Consistent extraction logic across all languages
+    - Reduced code duplication (~70% reduction in parser LOC)
+    - Easier maintenance: fix once, apply everywhere
+    - Standardized FunctionInfo/ClassInfo models
+
+HISTORY:
+  (first run — no previous data)

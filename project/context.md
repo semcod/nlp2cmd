@@ -1,16 +1,16 @@
 # System Architecture Analysis
-<!-- generated in 0.01s -->
+<!-- generated in 0.03s -->
 
 ## Overview
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
 - **Primary Language**: python
-- **Languages**: python: 753, json: 163, shell: 74, yaml: 26, txt: 12
+- **Languages**: python: 762, json: 158, shell: 76, yaml: 26, txt: 12
 - **Analysis Mode**: static
-- **Total Functions**: 4014
+- **Total Functions**: 4050
 - **Total Classes**: 747
-- **Modules**: 1037
-- **Entry Points**: 3311
+- **Modules**: 1043
+- **Entry Points**: 3327
 
 ## Architecture by Module
 
@@ -208,7 +208,7 @@ Args:
 
 ### src.nlp2cmd.adapters.desktop.DesktopAdapter._build_actions
 > Build action sequence based on intent.
-- **Calls**: entities.get, self.APP_COMMANDS.get, src.nlp2cmd.pipeline_runner_utils._debug, actions.append, self._detect_followup_actions, actions.extend, self._extract_app_name, app_name.lower
+- **Calls**: entities.get, self.APP_COMMANDS.get, src.nlp2cmd.automation.complex_planner._debug, actions.append, self._detect_followup_actions, actions.extend, self._extract_app_name, app_name.lower
 
 ### scripts.maintenance.refactoring_summary.print_summary
 > Print a summary of the refactoring work completed.
@@ -225,7 +225,7 @@ Args:
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args
 
 ### src.nlp2cmd.adapters.browser.BrowserAdapter.generate
-- **Calls**: str, src.nlp2cmd.pipeline_runner_utils._debug, isinstance, src.nlp2cmd.pipeline_runner_utils._debug, self._has_fill_form_action, self._should_explore_for_forms, self._should_explore_for_content, self._has_type_action
+- **Calls**: str, src.nlp2cmd.automation.complex_planner._debug, isinstance, src.nlp2cmd.automation.complex_planner._debug, self._has_fill_form_action, self._should_explore_for_forms, self._should_explore_for_content, self._has_type_action
 
 ### src.nlp2cmd.automation.schema_fallback.SchemaFallback._try_rule_based
 > Rule-based fallback for known failure patterns.
@@ -240,7 +240,7 @@ Args:
 Args:
     url: Starting URL (homepage)
     content_type: Type of content to find (artic
-- **Calls**: time.perf_counter, self._resolve_platform_url, self._try_github_api, src.nlp2cmd.executor.execution_context.ExecutionContext.set, self._explore_recursive, src.nlp2cmd.pipeline_runner_utils._debug, self._find_best_content_candidate, ExplorationResult
+- **Calls**: time.perf_counter, self._resolve_platform_url, self._try_github_api, src.nlp2cmd.executor.execution_context.ExecutionContext.set, self._explore_recursive, src.nlp2cmd.automation.complex_planner._debug, self._find_best_content_candidate, ExplorationResult
 
 ### examples.03_integrations.pipelines.infrastructure_health.main
 - **Calls**: examples._example_helpers.print_separator, src.nlp2cmd.registry.get_registry.get_registry, PlanExecutor, ResultAggregator, executor.register_handler, executor.register_handler, executor.register_handler, executor.register_handler
@@ -560,6 +560,11 @@ Returns JSON-serializable result.
 - **Confidence**: 0.90
 - **Functions**: src.nlp2cmd.llm.router._resolve_env_refs
 
+### recursion__to_jsonable
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: src.nlp2cmd.mcp.tools._to_jsonable
+
 ### recursion__debug
 - **Type**: recursion
 - **Confidence**: 0.90
@@ -620,11 +625,6 @@ Returns JSON-serializable result.
 - **Confidence**: 0.70
 - **Functions**: src.nlp2cmd.streams.rtsp_stream.RTSPStreamAdapter.__init__, src.nlp2cmd.streams.rtsp_stream.RTSPStreamAdapter._build_rtsp_url, src.nlp2cmd.streams.rtsp_stream.RTSPStreamAdapter.connect, src.nlp2cmd.streams.rtsp_stream.RTSPStreamAdapter.execute, src.nlp2cmd.streams.rtsp_stream.RTSPStreamAdapter.query
 
-### state_machine_LibvirtStreamAdapter
-- **Type**: state_machine
-- **Confidence**: 0.70
-- **Functions**: src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter.__init__, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter._build_libvirt_uri, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter._virsh, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter.connect, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter.execute
-
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
@@ -662,13 +662,13 @@ Functions exposed as public API (no underscore prefix):
 - `src.nlp2cmd.web_schema.site_explorer.SiteExplorer.find_content` - 60 calls
 - `examples.03_integrations.pipelines.infrastructure_health.main` - 59 calls
 - `examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous` - 59 calls
-- `benchmarks.llm_benchmark.run_benchmark` - 57 calls
 - `src.nlp2cmd.generation.evolutionary_cache.EvolutionaryCache.lookup` - 57 calls
 - `src.nlp2cmd.cli.debug_info.show_schema_info` - 57 calls
 - `tools.schema.update_schemas.update_all_schemas` - 57 calls
 - `examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_schema_flow` - 56 calls
 - `src.nlp2cmd.cli.debug_info.show_decision_tree_info` - 56 calls
 - `benchmarks.llm_benchmark.generate_command_errors_report` - 55 calls
+- `examples.01_basics.docker_basics.file_repair.main` - 54 calls
 
 ## System Interactions
 

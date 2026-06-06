@@ -1,0 +1,782 @@
+// LESS format — define @variables here as needed
+
+app {
+  name: nlp2cmd;
+  version: 1.1.21;
+  description: "NLP2CMD - Transforms natural language into domain-specific commands (SQL, Shell, Docker, Kubernetes) using a multi-layered detection pipeline and thermodynamic optimization.";
+  license: Apache-2.0;
+  authors: "NLP2CMD Team <tom@sapletta.com>";
+  keywords: "nlp, natural-language-processing, command-generation, sql, shell, docker, kubernetes, dsl, llm, ai, thermodynamic, optimization, langevin, energy-models, constraint-satisfaction";
+  homepage: https://github.com/wronai/nlp2cmd;
+  repository: https://github.com/wronai/nlp2cmd;
+}
+
+dependencies {
+  runtime: "pyyaml>=6.0, pydantic>=2.0, rich>=13.0, click>=8.0, httpx>=0.25.0, jinja2>=3.0, jsonschema>=4.0, python-dotenv>=1.0, watchdog>=3.0, numpy>=1.24.0, psutil>=5.9.0, rapidfuzz>=3.0, nlp2cmd-intent>=0.1.1";
+  dev: "pytest>=7.0, pytest-cov>=4.0, pytest-asyncio>=0.21, pytest-xdist>=3.0, pytest-mock>=3.10, playwright>=1.40.0, black>=23.0, ruff>=0.1, mypy>=1.0, pre-commit>=3.0, mkdocs>=1.5, mkdocs-material>=9.0, goal>=2.1.0, costs>=0.1.20, pfix>=0.1.60, mkdocstrings[python]>=0.24";
+}
+
+entity[name="FlowNode"] {
+  id: string!;
+  type: string!;
+  label: string!;
+  function: string;
+  file: string;
+  line: int;
+  column: int;
+  conditions: List[str]!;
+  data_flow: List[str]!;
+  metadata: Dict[str, Any]!;
+}
+
+entity[name="FlowEdge"] {
+  source: string!;
+  target: string!;
+  edge_type: string!;
+  label: string;
+  conditions: List[str]!;
+}
+
+entity[name="FunctionInfo"] {
+  name: string!;
+  qualified_name: string!;
+  file: string!;
+  line: int!;
+  column: int!;
+  module: string!;
+  class_name: string;
+  is_method: bool!;
+  is_private: bool!;
+  is_property: bool!;
+  docstring: string;
+  args: List[str]!;
+  returns: string;
+  decorators: List[str]!;
+  cfg_entry: string;
+  cfg_exit: string;
+  cfg_nodes: List[str]!;
+  calls: List[str]!;
+  called_by: List[str]!;
+  complexity: Dict[str, Any]!;
+  centrality: float!;
+  reachability: string!;
+}
+
+entity[name="ClassInfo"] {
+  name: string!;
+  qualified_name: string!;
+  file: string!;
+  line: int!;
+  module: string!;
+  bases: List[str]!;
+  methods: List[str]!;
+  docstring: string;
+  is_state_machine: bool!;
+}
+
+entity[name="ModuleInfo"] {
+  name: string!;
+  file: string!;
+  is_package: bool!;
+  imports: List[str]!;
+  functions: List[str]!;
+  classes: List[str]!;
+}
+
+entity[name="Pattern"] {
+  name: string!;
+  type: string!;
+  confidence: float!;
+  functions: List[str]!;
+  entry_points: List[str]!;
+  exit_points: List[str]!;
+  metadata: Dict[str, Any]!;
+}
+
+entity[name="CodeSmell"] {
+  name: string!;
+  type: string!;
+  file: string!;
+  line: int!;
+  severity: float!;
+  description: string!;
+  context: Dict[str, Any]!;
+}
+
+entity[name="Mutation"] {
+  variable: string!;
+  file: string!;
+  line: int!;
+  type: string!;
+  scope: string!;
+  context: string!;
+}
+
+entity[name="DataFlow"] {
+  variable: string!;
+  dependencies: Set[str]!;
+  metadata: Dict[str, Any]!;
+}
+
+entity[name="Users"] {
+  id: serial;
+  uuid: uuid;
+}
+
+entity[name="Products"] {
+  id: serial;
+  sku: string;
+}
+
+entity[name="Orders"] {
+  id: serial;
+  user_id: int;
+}
+
+entity[name="OrderItems"] {
+  id: serial;
+  order_id: int;
+}
+
+entity[name="Logs"] {
+  id: serial;
+  timestamp: datetime;
+  level: string;
+}
+
+database[name="postgres"] {
+  type: postgresql;
+  url: env.DATABASE_URL;
+}
+
+database[name="redis"] {
+  type: redis;
+  url: env.REDIS_URL;
+}
+
+interface[type="api"] {
+  type: rest;
+  framework: fastapi;
+}
+
+interface[type="cli"] {
+  framework: click;
+}
+interface[type="cli"] page[name="nlp2cmd"] {
+
+}
+
+integration[name="email"] {
+  type: smtp;
+}
+
+integration[name="nlp"] {
+  type: api;
+}
+
+workflow[name="install"] {
+  trigger: manual;
+  step-1: run cmd=$(PIP) install -e ".[dev]" --break-system-packages;
+}
+
+workflow[name="install-all"] {
+  trigger: manual;
+  step-1: run cmd=$(PIP) install -e ".[all]" --break-system-packages;
+}
+
+workflow[name="install-desktop"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Installing desktop automation tools...$(NC)";
+  step-2: run cmd=./scripts/install_desktop_tools.sh;
+}
+
+workflow[name="install-ci"] {
+  trigger: manual;
+  step-1: run cmd=$(PIP) install ".[dev]" --break-system-packages;
+}
+
+workflow[name="deps"] {
+  trigger: manual;
+  step-1: run cmd=$(PIP) install -r requirements.txt --break-system-packages;
+}
+
+workflow[name="setup-cache"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Setting up external dependencies cache...$(NC)";
+  step-2: run cmd=$(PYTHON) -m $(PROJECT_NAME) cache auto-setup;
+  step-3: run cmd=echo "$(GREEN)✓ Cache setup complete!$(NC)";
+}
+
+workflow[name="setup-dev"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Setting up development environment...$(NC)";
+  step-2: run cmd=$(MAKE) install-all;
+  step-3: run cmd=$(MAKE) setup-cache;
+  step-4: run cmd=echo "$(YELLOW)Note: For desktop automation support, run: make install-desktop$(NC)";
+  step-5: run cmd=echo "$(GREEN)✓ Development setup complete!$(NC)";
+}
+
+workflow[name="update"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Updating nlp2cmd and integration dependencies...$(NC)";
+  step-2: run cmd=NLP2DSL_DIR="$(NLP2DSL_DIR)" bash scripts/update_integration_deps.sh;
+  step-3: run cmd=echo "$(GREEN)✓ Update complete!$(NC)";
+}
+
+workflow[name="setup-dev-integration"] {
+  trigger: manual;
+  step-1: depend target=update;
+}
+
+workflow[name="test"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/ -v --tb=short;
+}
+
+workflow[name="test-fast"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/ -v --tb=short -m "not e2e and not slow and not browser";
+}
+
+workflow[name="test-slow"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/ -v --tb=short -m "slow";
+}
+
+workflow[name="test-parallel"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/ -v --tb=short -n auto --dist=loadscope;
+}
+
+workflow[name="test-unit"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/unit/ -v --tb=short;
+}
+
+workflow[name="test-e2e"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/e2e/ -v --tb=short;
+}
+
+workflow[name="test-integration"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/integration/ -v --tb=short;
+}
+
+workflow[name="test-web-schema"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/iterative/test_typos_and_variations.py::TestTyposAndVariations::test_docker_typos -v;
+  step-2: run cmd=$(PYTEST) tests/iterative/test_typos_and_variations.py::TestTyposAndVariations::test_shell_service_variations -v;
+}
+
+workflow[name="test-nlp"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/iterative/test_typos_and_variations.py -v;
+}
+
+workflow[name="test-enhanced"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Testing enhanced NLP integration...$(NC)";
+  step-2: run cmd=$(PYTHON) -c "from src.nlp2cmd.generation.enhanced_context import get_enhanced_detector; detector = get_enhanced_detector(); print('✓ Enhanced NLP available' if detector else '✗ Enhanced NLP not available')";
+}
+
+workflow[name="test-interactive"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Testing interactive shell mode...$(NC)";
+  step-2: run cmd=echo "Testing shell emulation with Polish commands...";
+  step-3: run cmd=echo "Commands to test manually:";
+  step-4: run cmd=echo "  nlp2cmd --interactive --dsl shell";
+  step-5: run cmd=echo "  > pokaz pliki usera";
+  step-6: run cmd=echo "  > znajdz pliki .log";
+  step-7: run cmd=echo "  > uruchom usluge nginx";
+  step-8: run cmd=echo "  > exit";
+}
+
+workflow[name="test-cache"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Testing cache management...$(NC)";
+  step-2: run cmd=$(PYTHON) -m $(PROJECT_NAME) cache info;
+  step-3: run cmd=$(PYTHON) -m $(PROJECT_NAME) cache check;
+}
+
+workflow[name="test-cov"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTEST) tests/ -v --cov=$(PROJECT_NAME) --cov-report=html --cov-report=term;
+}
+
+workflow[name="test-watch"] {
+  trigger: manual;
+  step-1: run cmd=ptw tests/ -- -v --tb=short;
+}
+
+workflow[name="lint"] {
+  trigger: manual;
+  step-1: run cmd=ruff check src/$(PROJECT_NAME)/ tests/;
+  step-2: run cmd=mypy src/$(PROJECT_NAME)/ --ignore-missing-imports;
+}
+
+workflow[name="format"] {
+  trigger: manual;
+  step-1: run cmd=ruff format src/$(PROJECT_NAME)/ tests/;
+  step-2: run cmd=black src/$(PROJECT_NAME)/ tests/;
+}
+
+workflow[name="format-check"] {
+  trigger: manual;
+  step-1: run cmd=ruff format --check src/$(PROJECT_NAME)/ tests/;
+  step-2: run cmd=black --check src/$(PROJECT_NAME)/ tests/;
+}
+
+workflow[name="docker-build"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) build;
+}
+
+workflow[name="docker-build-no-cache"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) build --no-cache;
+}
+
+workflow[name="docker-up"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) up -d;
+}
+
+workflow[name="docker-up-dev"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) --profile dev up -d;
+}
+
+workflow[name="docker-down"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) down;
+}
+
+workflow[name="docker-down-v"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) down -v;
+}
+
+workflow[name="docker-test"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) --profile test run --rm nlp2cmd-test;
+}
+
+workflow[name="docker-e2e"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) --profile e2e run --rm nlp2cmd-e2e;
+}
+
+workflow[name="docker-logs"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) logs -f;
+}
+
+workflow[name="docker-shell"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) exec nlp2cmd /bin/bash;
+}
+
+workflow[name="docker-ps"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) ps;
+}
+
+workflow[name="docker-push"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Building Docker image...$(NC)";
+  step-2: run cmd=$(MAKE) docker-build;
+  step-3: run cmd=echo "$(YELLOW)Tagging Docker image with version...$(NC)";
+  step-4: run cmd=VERSION=$$($(PWD)/venv/bin/python -c "import toml; content = toml.load(open('pyproject.toml')); print(content['project']['version'])") && \;
+  step-5: run cmd=docker tag nlp2cmd:latest nlp2cmd:$$VERSION;
+  step-6: run cmd=echo "$(YELLOW)Pushing Docker image to registry...$(NC)";
+  step-7: run cmd=echo "$(BLUE)Note: Make sure you're authenticated with Docker Hub:$(NC)";
+  step-8: run cmd=echo "$(BLUE)  docker login$(NC)";
+  step-9: run cmd=if docker push nlp2cmd:latest 2>/dev/null && docker push nlp2cmd:$$VERSION 2>/dev/null; then \;
+  step-10: run cmd=echo "$(GREEN)Docker image pushed successfully!$(NC)"; \;
+  step-11: run cmd=else \;
+  step-12: run cmd=echo "$(YELLOW)Docker push failed. Please check:$(NC)"; \;
+  step-13: run cmd=echo "$(YELLOW)1. Are you logged in to Docker Hub? Run: docker login$(NC)"; \;
+  step-14: run cmd=echo "$(YELLOW)2. Do you have push permissions for the nlp2cmd repository?$(NC)"; \;
+  step-15: run cmd=echo "$(YELLOW)3. Is your internet connection working?$(NC)"; \;
+  step-16: run cmd=exit 1; \;
+  step-17: run cmd=fi;
+}
+
+workflow[name="demo"] {
+  trigger: manual;
+  step-1: run cmd=PYTHONPATH=src $(PYTHON) examples/05_advanced_features/schema_driven_architecture/end_to_end_demo.py;
+}
+
+workflow[name="demo-benchmark"] {
+  trigger: manual;
+  step-1: run cmd=PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py;
+}
+
+workflow[name="demo-web"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Demo: Web schema extraction...$(NC)";
+  step-2: run cmd=$(PYTHON) -m $(PROJECT_NAME) web-schema extract https://httpbin.org/forms/post --headless;
+}
+
+workflow[name="demo-cache"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Demo: Cache management...$(NC)";
+  step-2: run cmd=$(PYTHON) -m $(PROJECT_NAME) cache info;
+}
+
+workflow[name="demo-interactive"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Demo: Interactive shell mode...$(NC)";
+  step-2: run cmd=echo "$(YELLOW)Starting interactive shell with Polish NLP...$(NC)";
+  step-3: run cmd=echo "$(YELLOW)Try these commands:$(NC)";
+  step-4: run cmd=echo "  > pokaz pliki usera";
+  step-5: run cmd=echo "  > znajdz pliki .log wieksze niz 10MB";
+  step-6: run cmd=echo "  > uruchom usluge nginx";
+  step-7: run cmd=echo "  > pokaż procesy zużywające najwięcej pamięci";
+  step-8: run cmd=echo "  > exit";
+  step-9: run cmd=echo "";
+  step-10: run cmd=echo "$(BLUE)Press Enter to start interactive mode...$(NC)";
+  step-11: run cmd=read -r;
+  step-12: run cmd=$(PYTHON) -m $(PROJECT_NAME) --interactive --dsl shell;
+}
+
+workflow[name="test-examples"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Testing all examples...$(NC)";
+  step-2: run cmd=echo "$(YELLOW)Architecture examples:$(NC)";
+  step-3: run cmd=PYTHONPATH=src $(PYTHON) examples/architecture/end_to_end_demo.py;
+  step-4: run cmd=echo "";
+  step-5: run cmd=echo "$(YELLOW)Docker examples:$(NC)";
+  step-6: run cmd=PYTHONPATH=src $(PYTHON) examples/docker/basic_docker.py;
+  step-7: run cmd=PYTHONPATH=src $(PYTHON) examples/docker/file_repair.py;
+  step-8: run cmd=echo "";
+  step-9: run cmd=echo "$(YELLOW)Kubernetes examples:$(NC)";
+  step-10: run cmd=PYTHONPATH=src $(PYTHON) examples/kubernetes/basic_kubernetes.py;
+  step-11: run cmd=echo "";
+  step-12: run cmd=echo "$(YELLOW)Pipeline examples:$(NC)";
+  step-13: run cmd=PYTHONPATH=src $(PYTHON) examples/pipelines/infrastructure_health.py;
+  step-14: run cmd=PYTHONPATH=src $(PYTHON) examples/pipelines/log_analysis.py;
+  step-15: run cmd=echo "";
+  step-16: run cmd=echo "$(YELLOW)Shell examples:$(NC)";
+  step-17: run cmd=PYTHONPATH=src $(PYTHON) examples/shell/basic_shell.py;
+  step-18: run cmd=PYTHONPATH=src $(PYTHON) examples/shell/environment_analysis.py;
+  step-19: run cmd=PYTHONPATH=src $(PYTHON) examples/shell/feedback_loop.py;
+  step-20: run cmd=echo "";
+  step-21: run cmd=echo "$(YELLOW)SQL examples:$(NC)";
+  step-22: run cmd=for file in examples/sql/*.py; do \;
+  step-23: run cmd=if [ -f "$$file" ]; then \;
+  step-24: run cmd=echo "Running $$file..."; \;
+  step-25: run cmd=PYTHONPATH=src $(PYTHON) "$$file"; \;
+  step-26: run cmd=fi; \;
+  step-27: run cmd=done;
+  step-28: run cmd=echo "";
+  step-29: run cmd=echo "$(YELLOW)Validation examples:$(NC)";
+  step-30: run cmd=PYTHONPATH=src $(PYTHON) examples/validation/config_validation.py;
+  step-31: run cmd=echo "";
+  step-32: run cmd=echo "$(GREEN)All examples completed!$(NC)";
+}
+
+workflow[name="repl"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTHON) -m $(PROJECT_NAME).cli;
+}
+
+workflow[name="run-example"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTHON) examples/$(FILE);
+}
+
+workflow[name="clean"] {
+  trigger: manual;
+  step-1: run cmd=rm -rf build/;
+  step-2: run cmd=rm -rf dist/;
+  step-3: run cmd=rm -rf *.egg-info/;
+  step-4: run cmd=rm -rf .pytest_cache/;
+  step-5: run cmd=rm -rf .mypy_cache/;
+  step-6: run cmd=rm -rf .ruff_cache/;
+  step-7: run cmd=rm -rf htmlcov/;
+  step-8: run cmd=rm -rf .coverage;
+  step-9: run cmd=rm -rf .cache/;
+  step-10: run cmd=find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true;
+  step-11: run cmd=find . -type f -name "*.pyc" -delete 2>/dev/null || true;
+}
+
+workflow[name="clean-cache"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Cleaning external dependencies cache...$(NC)";
+  step-2: run cmd=$(PYTHON) -m $(PROJECT_NAME) cache clear --all;
+  step-3: run cmd=echo "$(GREEN)✓ Cache cleared!$(NC)";
+}
+
+workflow[name="clean-docker"] {
+  trigger: manual;
+  step-1: run cmd=$(DOCKER_COMPOSE) down -v --rmi local;
+  step-2: run cmd=docker system prune -f;
+}
+
+workflow[name="clean-all"] {
+  trigger: manual;
+  step-1: depend target=clean;
+  step-2: depend target=clean-docker;
+  step-3: depend target=clean-cache;
+}
+
+workflow[name="build"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTHON) -m build;
+}
+
+workflow[name="publish-test"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)";
+  step-2: run cmd=$(PYTHON) -m venv publish-test-env;
+  step-3: run cmd=publish-test-env/bin/pip install twine;
+  step-4: run cmd=publish-test-env/bin/python -m twine upload --repository testpypi dist/*;
+  step-5: run cmd=rm -rf publish-test-env;
+}
+
+workflow[name="bump-patch"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Bumping patch version...$(NC)";
+  step-2: run cmd=$(PYTHON) scripts/bump_version.py patch;
+}
+
+workflow[name="bump-minor"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Bumping minor version...$(NC)";
+  step-2: run cmd=$(PYTHON) scripts/bump_version.py minor;
+}
+
+workflow[name="bump-major"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Bumping major version...$(NC)";
+  step-2: run cmd=$(PYTHON) scripts/bump_version.py major;
+}
+
+workflow[name="publish"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Bumping patch version...$(NC)";
+  step-2: run cmd=$(MAKE) bump-patch;
+  step-3: run cmd=echo "$(YELLOW)Building package with new version...$(NC)";
+  step-4: run cmd=$(MAKE) build;
+  step-5: run cmd=echo "$(YELLOW)Publishing to PyPI...$(NC)";
+  step-6: run cmd=echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)";
+  step-7: run cmd=$(PYTHON) -m venv publish-env;
+  step-8: run cmd=publish-env/bin/pip install twine;
+  step-9: run cmd=publish-env/bin/python -m twine upload dist/*;
+  step-10: run cmd=rm -rf publish-env;
+}
+
+workflow[name="push"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Starting complete release process...$(NC)";
+  step-2: run cmd=echo "$(YELLOW)1. Bumping patch version...$(NC)";
+  step-3: run cmd=$(MAKE) bump-patch;
+  step-4: run cmd=echo "$(YELLOW)2. Building package...$(NC)";
+  step-5: run cmd=$(MAKE) build;
+  step-6: run cmd=echo "$(YELLOW)3. Publishing to PyPI...$(NC)";
+  step-7: run cmd=echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)";
+  step-8: run cmd=$(PYTHON) -m venv push-env;
+  step-9: run cmd=push-env/bin/pip install twine;
+  step-10: run cmd=push-env/bin/python -m twine upload dist/*;
+  step-11: run cmd=rm -rf push-env;
+  step-12: run cmd=echo "$(YELLOW)4. Building and pushing Docker image...$(NC)";
+  step-13: run cmd=if $(MAKE) docker-push; then \;
+  step-14: run cmd=echo "$(GREEN)Docker image pushed successfully!$(NC)"; \;
+  step-15: run cmd=echo "$(YELLOW)5. Creating and pushing git tag...$(NC)"; \;
+  step-16: run cmd=VERSION=$$($(PYTHON) -c "import toml; content = toml.load(open('pyproject.toml')); print(content['project']['version'])") && \;
+  step-17: run cmd=git tag v$$VERSION && \;
+  step-18: run cmd=git push origin v$$VERSION && \;
+  step-19: run cmd=echo "$(GREEN)🎉 Complete release finished successfully!$(NC)"; \;
+  step-20: run cmd=echo "$(GREEN)   - Package published to PyPI ✓$(NC)"; \;
+  step-21: run cmd=echo "$(GREEN)   - Docker image pushed to registry ✓$(NC)"; \;
+  step-22: run cmd=echo "$(GREEN)   - Git tag v$$VERSION pushed ✓$(NC)"; \;
+  step-23: run cmd=echo "$(GREEN)   - Version bumped automatically ✓$(NC)"; \;
+  step-24: run cmd=else \;
+  step-25: run cmd=echo "$(YELLOW)⚠️  Partial release completed!$(NC)"; \;
+  step-26: run cmd=echo "$(YELLOW)   - Package published to PyPI ✓$(NC)"; \;
+  step-27: run cmd=echo "$(YELLOW)   - Docker push failed ✗$(NC)"; \;
+  step-28: run cmd=echo "$(YELLOW)   - Version bumped automatically ✓$(NC)"; \;
+  step-29: run cmd=echo "$(BLUE)To complete the Docker push and git tag later:$(NC)"; \;
+  step-30: run cmd=echo "$(BLUE)  docker login && make docker-push && make git-tag$(NC)"; \;
+  step-31: run cmd=fi;
+}
+
+workflow[name="git-tag"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(YELLOW)Creating and pushing git tag...$(NC)";
+  step-2: run cmd=VERSION=$$($(PYTHON) -c "import toml; content = toml.load(open('pyproject.toml')); print(content['project']['version'])") && \;
+  step-3: run cmd=git tag v$$VERSION && \;
+  step-4: run cmd=git push origin v$$VERSION && \;
+  step-5: run cmd=echo "$(GREEN)Git tag v$$VERSION pushed successfully!$(NC)";
+}
+
+workflow[name="version"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTHON) -c "import $(PROJECT_NAME); print($(PROJECT_NAME).__version__)";
+}
+
+workflow[name="info"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Project:$(NC) $(PROJECT_NAME)";
+  step-2: run cmd=echo "$(BLUE)Python:$(NC) $(shell $(PYTHON) --version)";
+  step-3: run cmd=echo "$(BLUE)Pip:$(NC) $(shell $(PIP) --version)";
+  step-4: run cmd=echo "$(BLUE)Version:$(NC) $(shell $(PYTHON) -c 'import $(PROJECT_NAME); print($(PROJECT_NAME).__version__)');
+}
+
+workflow[name="report"] {
+  trigger: manual;
+  step-1: depend target=benchmark;
+}
+
+workflow[name="benchmark"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Running NLP2CMD LLM Benchmark...$(NC)";
+  step-2: run cmd=echo "$(YELLOW)Testing 5 local models (≤3B) across shell, docker, sql, kubernetes, browser, git$(NC)";
+  step-3: run cmd=echo "$(YELLOW)Requires: ollama running locally$(NC)";
+  step-4: run cmd=PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py;
+  step-5: run cmd=echo "";
+  step-6: run cmd=echo "$(GREEN)✓ Benchmark complete!$(NC)";
+  step-7: run cmd=echo "$(BLUE)Reports in benchmark_output/:$(NC)";
+  step-8: run cmd=echo "  - benchmark_results.json  (detailed JSON)";
+  step-9: run cmd=echo "  - benchmark_results.html  (interactive charts)";
+  step-10: run cmd=echo "  - refactoring_plan.md     (refactoring recommendations)";
+  step-11: run cmd=echo "  - benchmark.log           (execution log)";
+  step-12: run cmd=echo "";
+  step-13: run cmd=echo "$(YELLOW)Open HTML report:$(NC)";
+  step-14: run cmd=echo "  xdg-open benchmark_output/benchmark_results.html";
+}
+
+workflow[name="benchmark-no-cache"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Running NLP2CMD LLM Benchmark (NO CACHE)...$(NC)";
+  step-2: run cmd=echo "$(YELLOW)Testing pure LLM performance - all cache tiers disabled$(NC)";
+  step-3: run cmd=echo "$(YELLOW)This forces fresh LLM calls for every query$(NC)";
+  step-4: run cmd=echo "$(YELLOW)Requires: ollama running locally$(NC)";
+  step-5: run cmd=PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py --no-cache;
+  step-6: run cmd=echo "";
+  step-7: run cmd=echo "$(GREEN)✓ No-cache benchmark complete!$(NC)";
+  step-8: run cmd=echo "$(BLUE)Reports in benchmark_output/:$(NC)";
+  step-9: run cmd=echo "  - benchmark_results.json  (detailed JSON)";
+  step-10: run cmd=echo "  - benchmark_results.html  (interactive charts)";
+  step-11: run cmd=echo "";
+  step-12: run cmd=echo "$(YELLOW)Open HTML report:$(NC)";
+  step-13: run cmd=echo "  xdg-open benchmark_output/benchmark_results.html";
+}
+
+workflow[name="benchmark-view"] {
+  trigger: manual;
+  step-1: run cmd=if [ -f benchmark_output/benchmark_results.json ]; then \;
+  step-2: run cmd=echo "$(BLUE)Last Benchmark Summary:$(NC)"; \;
+  step-3: run cmd=cat benchmark_output/benchmark_results.json | jq '.summary'; \;
+  step-4: run cmd=else \;
+  step-5: run cmd=echo "$(YELLOW)No benchmark results found. Run 'make benchmark' first.$(NC)"; \;
+  step-6: run cmd=fi;
+}
+
+workflow[name="benchmark-html"] {
+  trigger: manual;
+  step-1: run cmd=if [ -f benchmark_output/benchmark_results.html ]; then \;
+  step-2: run cmd=xdg-open benchmark_output/benchmark_results.html; \;
+  step-3: run cmd=else \;
+  step-4: run cmd=echo "$(YELLOW)No HTML report found. Run 'make benchmark' first.$(NC)"; \;
+  step-5: run cmd=fi;
+}
+
+workflow[name="benchmark-plan"] {
+  trigger: manual;
+  step-1: run cmd=if [ -f benchmark_output/refactoring_plan.md ]; then \;
+  step-2: run cmd=cat benchmark_output/refactoring_plan.md; \;
+  step-3: run cmd=else \;
+  step-4: run cmd=echo "$(YELLOW)No refactoring plan found. Run 'make benchmark' first.$(NC)"; \;
+  step-5: run cmd=fi;
+}
+
+workflow[name="benchmark-learn"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Running NLP2CMD Learning Benchmark...$(NC)";
+  step-2: run cmd=echo "$(YELLOW)Tests evolutionary cache: cold → warm → hot across 16 domains$(NC)";
+  step-3: run cmd=PYTHONPATH=src $(PYTHON) benchmarks/learning_benchmark.py;
+  step-4: run cmd=echo "";
+  step-5: run cmd=echo "$(GREEN)✓ Learning benchmark complete!$(NC)";
+  step-6: run cmd=echo "$(BLUE)Reports in benchmark_output/:$(NC)";
+  step-7: run cmd=echo "  - learning_benchmark.json  (detailed results)";
+  step-8: run cmd=echo "  - learning_benchmark.html  (interactive charts)";
+  step-9: run cmd=echo "";
+  step-10: run cmd=echo "$(YELLOW)Open HTML report:$(NC)";
+  step-11: run cmd=echo "  xdg-open benchmark_output/learning_benchmark.html";
+}
+
+workflow[name="benchmark-clean"] {
+  trigger: manual;
+  step-1: run cmd=rm -rf benchmark_output/;
+  step-2: run cmd=echo "$(GREEN)✓ Benchmark output cleaned!$(NC)";
+}
+
+workflow[name="scripts-maintenance"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Maintenance Scripts:$(NC)";
+  step-2: run cmd=ls -la scripts/maintenance/;
+  step-3: run cmd=echo "";
+  step-4: run cmd=echo "$(YELLOW)Available scripts:$(NC)";
+  step-5: run cmd=for script in scripts/maintenance/*.py; do \;
+  step-6: run cmd=if [ -f "$$script" ]; then \;
+  step-7: run cmd=echo "  $$(basename $$script) - $$(grep '^"""' "$$script" | head -1 | sed 's/"""//g' | sed 's/^[[:space:]]*//')"; \;
+  step-8: run cmd=fi; \;
+  step-9: run cmd=done;
+}
+
+workflow[name="scripts-thermo"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Thermodynamic Scripts:$(NC)";
+  step-2: run cmd=ls -la scripts/thermodynamic/;
+  step-3: run cmd=echo "";
+  step-4: run cmd=echo "$(YELLOW)Available scripts:$(NC)";
+  step-5: run cmd=for script in scripts/thermodynamic/*.py; do \;
+  step-6: run cmd=if [ -f "$$script" ]; then \;
+  step-7: run cmd=echo "  $$(basename $$script) - $$(grep '^"""' "$$script" | head -1 | sed 's/"""//g' | sed 's/^[[:space:]]*//')"; \;
+  step-8: run cmd=fi; \;
+  step-9: run cmd=done;
+}
+
+workflow[name="scripts-test"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Testing Scripts:$(NC)";
+  step-2: run cmd=ls -la scripts/testing/;
+  step-3: run cmd=echo "";
+  step-4: run cmd=echo "$(YELLOW)Available scripts:$(NC)";
+  step-5: run cmd=for script in scripts/testing/*.py; do \;
+  step-6: run cmd=if [ -f "$$script" ]; then \;
+  step-7: run cmd=echo "  $$(basename $$script) - $$(grep '^"""' "$$script" | head -1 | sed 's/"""//g' | sed 's/^[[:space:]]*//')"; \;
+  step-8: run cmd=fi; \;
+  step-9: run cmd=done;
+}
+
+workflow[name="scripts-all"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)All Scripts Organization:$(NC)";
+  step-2: run cmd=echo "";
+  step-3: run cmd=$(MAKE) scripts-maintenance;
+  step-4: run cmd=echo "";
+  step-5: run cmd=$(MAKE) scripts-thermo;
+  step-6: run cmd=echo "";
+  step-7: run cmd=$(MAKE) scripts-test;
+}
+
+workflow[name="run-thermo"] {
+  trigger: manual;
+  step-1: run cmd=echo "$(BLUE)Running thermodynamic demo...$(NC)";
+  step-2: run cmd=$(PYTHON) scripts/thermodynamic/termo_demo.py;
+}
+
+deploy {
+  target: docker-compose;
+  compose_file: docker-compose.yml;
+}
+
+environment[name="local"] {
+  runtime: docker-compose;
+  env_file: .env;
+  python_version: >=3.10;
+}

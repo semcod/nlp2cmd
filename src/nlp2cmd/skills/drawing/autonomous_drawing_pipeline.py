@@ -53,30 +53,18 @@ class AutonomousDrawingPipeline:
             skill, renderer, self._validator
         )
 
-    async def draw_and_validate(self, description: str,
-                                screenshot_dir: str = ".",
-                                max_corrections: int = 3,
-                                verbose: bool = False) -> dict[str, Any]:
-        """
-        Autonomous drawing with validation and correction loop.
+    def _print_header(self, description: str) -> None:
+        """Print pipeline header."""
+        print("🎨 Autonomous Drawing Pipeline")
+        print(f"   Description: {description}")
+        print()
 
-        Args:
-            description: What to draw (natural language, PL or EN)
-            screenshot_dir: Directory for screenshots
-            max_corrections: Max correction iterations
-            verbose: Print detailed progress
-
+    async def _initial_drawing(self, description: str, verbose: bool) -> tuple[Any, dict[str, Any]]:
+        """Perform initial drawing from description.
+        
         Returns:
-            Dict with results: verdict, iterations, screenshots, etc.
+            Tuple of (events, canvas_info)
         """
-        t0 = time.time()
-
-        if verbose:
-            print(f"🎨 Autonomous Drawing Pipeline")
-            print(f"   Description: {description}")
-            print()
-
-        # Step 1: Initial drawing
         if verbose:
             print("  📝 Step 1: Drawing from description...")
 
@@ -84,46 +72,57 @@ class AutonomousDrawingPipeline:
         canvas_info = await self._skill.render(self._renderer)
 
         if verbose:
-            n_shapes = sum(1 for e in events
-                          if hasattr(e, 'shape_type'))
+            n_shapes = sum(1 for e in events if hasattr(e, 'shape_type'))
             print(f"     Drew {n_shapes} shapes on {canvas_info.get('width', '?')}x{canvas_info.get('height', '?')} canvas")
 
-        # Step 2: Screenshot
+        return events, canvas_info
+
+    async def _take_screenshot(self, screenshot_dir: str) -> str:
+        """Take screenshot and return path."""
         initial_screenshot = f"{screenshot_dir}/initial_drawing.png"
         await self._renderer.screenshot(initial_screenshot)
+        return initial_screenshot
 
-        # Step 3: Validate
+    async def _validate_drawing(self, screenshot_path: str, description: str, verbose: bool) -> ValidationResult:
+        """Validate drawing against description."""
         if verbose:
             print("\n  🔍 Step 2: Visual validation...")
 
-        validation = await self._validator.validate(
-            screenshot_path=initial_screenshot,
+        return await self._validator.validate(
+            screenshot_path=screenshot_path,
             description=description,
             verbose=verbose,
         )
 
-        # Step 4: Correct if needed
-        correction_result = None
-        if validation.needs_correction and max_corrections > 0:
-            if verbose:
-                print(f"\n  🔧 Step 3: Applying corrections ({len(validation.corrections)} issues)...")
+    async def _apply_corrections(self, validation: ValidationResult, description: str,
+                                 screenshot_dir: str, max_corrections: int, verbose: bool) -> Any:
+        """Apply corrections if needed."""
+        if not validation.needs_correction or max_corrections <= 0:
+            return None
 
-            correction_result = await self._correction.correct(
-                validation_result=validation,
-                description=description,
-                screenshot_dir=screenshot_dir,
-                max_iterations=max_corrections,
-                verbose=verbose,
-            )
+        if verbose:
+            print(f"\n  🔧 Step 3: Applying corrections ({len(validation.corrections)} issues)...")
 
-        elapsed = (time.time() - t0) * 1000
+        return await self._correction.correct(
+            validation_result=validation,
+            description=description,
+            screenshot_dir=screenshot_dir,
+            max_iterations=max_corrections,
+            verbose=verbose,
+        )
 
-        final_verdict = (
+    def _get_final_verdict(self, correction_result: Any, validation: ValidationResult) -> ValidationVerdict:
+        """Determine final verdict from correction result or initial validation."""
+        return (
             correction_result.final_verdict if correction_result
             else validation.verdict
         )
 
-        result = {
+    def _build_result(self, description: str, final_verdict: ValidationVerdict,
+                     validation: ValidationResult, correction_result: Any,
+                     elapsed: float, initial_screenshot: str) -> dict[str, Any]:
+        """Build result dictionary."""
+        return {
             "description": description,
             "verdict": final_verdict.value,
             "success": final_verdict == ValidationVerdict.CORRECT,
@@ -143,10 +142,53 @@ class AutonomousDrawingPipeline:
             },
         }
 
+    def _print_summary(self, final_verdict: ValidationVerdict, elapsed: float) -> None:
+        """Print execution summary."""
+        icons = {"correct": "✅", "partial": "⚠️", "wrong": "❌", "empty": "🔲", "error": "💥"}
+        icon = icons.get(final_verdict.value, "?")
+        print(f"\n  {icon} Final verdict: {final_verdict.value}")
+        print(f"     Total time: {elapsed:.0f}ms")
+
+    async def draw_and_validate(self, description: str,
+                                screenshot_dir: str = ".",
+                                max_corrections: int = 3,
+                                verbose: bool = False) -> dict[str, Any]:
+        """
+        Autonomous drawing with validation and correction loop.
+
+        Args:
+            description: What to draw (natural language, PL or EN)
+            screenshot_dir: Directory for screenshots
+            max_corrections: Max correction iterations
+            verbose: Print detailed progress
+
+        Returns:
+            Dict with results: verdict, iterations, screenshots, etc.
+        """
+        t0 = time.time()
+
         if verbose:
-            icons = {"correct": "✅", "partial": "⚠️", "wrong": "❌", "empty": "🔲", "error": "💥"}
-            icon = icons.get(final_verdict.value, "?")
-            print(f"\n  {icon} Final verdict: {final_verdict.value}")
-            print(f"     Total time: {elapsed:.0f}ms")
+            self._print_header(description)
+
+        # Step 1: Initial drawing
+        await self._initial_drawing(description, verbose)
+
+        # Step 2: Screenshot
+        initial_screenshot = await self._take_screenshot(screenshot_dir)
+
+        # Step 3: Validate
+        validation = await self._validate_drawing(initial_screenshot, description, verbose)
+
+        # Step 4: Correct if needed
+        correction_result = await self._apply_corrections(
+            validation, description, screenshot_dir, max_corrections, verbose
+        )
+
+        elapsed = (time.time() - t0) * 1000
+        final_verdict = self._get_final_verdict(correction_result, validation)
+        result = self._build_result(description, final_verdict, validation, correction_result, elapsed, initial_screenshot)
+
+        if verbose:
+            self._print_summary(final_verdict, elapsed)
 
         return result
