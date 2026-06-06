@@ -2959,6 +2959,29 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.21] - 2026-06-06
+
+### Docs
+- Update README.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/unit/test_mcp_server.py
+
+### Other
+- Update examples/mcp/e2e.sh
+- Update examples/mcp/mcp-config.cursor.json
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/calls.png
+- Update project/calls.toon.yaml
+- Update project/calls.yaml
+- Update project/compact_flow.mmd
+- Update project/compact_flow.png
+- Update project/duplication.toon.yaml
+- ... and 11 more files
+
 ## [1.1.20] - 2026-06-06
 
 ### Docs

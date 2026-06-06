@@ -1,14 +1,14 @@
-# nlp2cmd | 1012f 1788441L | shell:73,json:155,python:738,txt:11,yaml:26,yml:3,ini:1,toml:1 | 2026-06-05
-# generated in 0.39s
-# stats: 3973 func | 0 cls | 1012 mod | CC̄=5.0 | critical:219 | cycles:0
-# alerts[5]: CC BrowserExecutionMixin._run_dom_multi_action=280; CC generate_command=187; CC handle_run_mode=179; CC PlanExecutionMixin.execute_action_plan=168; CC CommandGenerator._generate_simple=144
-# hotspots[5]: BrowserExecutionMixin._run_dom_multi_action fan=108; handle_run_mode fan=76; PlanExecutionMixin.execute_action_plan fan=74; main fan=56; main fan=55
+# nlp2cmd | 1037f 1790762L | shell:74,json:163,python:753,txt:12,yaml:26,yml:3,ini:1,toml:1 | 2026-06-06
+# generated in 0.30s
+# stats: 4014 func | 0 cls | 1037 mod | CC̄=5.0 | critical:223 | cycles:0
+# alerts[5]: CC BrowserExecutionMixin._run_dom_multi_action=280; CC generate_command=187; CC handle_run_mode=183; CC PlanExecutionMixin.execute_action_plan=168; CC CommandGenerator._generate_simple=144
+# hotspots[5]: BrowserExecutionMixin._run_dom_multi_action fan=108; handle_run_mode fan=80; PlanExecutionMixin.execute_action_plan fan=74; main fan=56; main fan=55
 # evolution: CC̄ 5.3→5.0 (improved -0.3)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[1012]:
+M[1037]:
   .markdownlint.json,10
   Dockerfile,105
-  Makefile,546
+  Makefile,555
   artifacts/benchmark_report.json,116
   artifacts/ci_test_results.json,60
   artifacts/comprehensive_test_results.json,1625
@@ -131,25 +131,26 @@ M[1012]:
   docker/novnc/start-vnc.sh,51
   examples.sh,36
   examples/01_basics/app2schema/example.py,24
-  examples/01_basics/app2schema/generated_appspec.json,49
+  examples/01_basics/app2schema/generated_appspec.json,47
   examples/01_basics/docker_basics/01_basics_docker_nlp2cmd.py,84
-  examples/01_basics/docker_basics/command_schemas/commands/docker.appspec.json,106
+  examples/01_basics/docker_basics/command_schemas/commands/docker.appspec.json,149
   examples/01_basics/docker_basics/example.py,93
   examples/01_basics/docker_basics/file_repair.py,299
-  examples/01_basics/kubernetes_basics/command_schemas/exports/dynamic/kubectl_dynamic_schema.json,36
+  examples/01_basics/kubernetes_basics/command_schemas/exports/dynamic/kubectl_dynamic_schema.json,30
   examples/01_basics/kubernetes_basics/example.py,111
   examples/01_basics/shell_fundamentals/01_basics_shell_nlp2cmd.py,103
   examples/01_basics/shell_fundamentals/_environment_sections.py,179
   examples/01_basics/shell_fundamentals/appspec_cache.json,1430
   examples/01_basics/shell_fundamentals/environment_analysis.py,55
-  examples/01_basics/shell_fundamentals/example.py,368
+  examples/01_basics/shell_fundamentals/example.py,142
   examples/01_basics/shell_fundamentals/feedback_loop.py,203
-  examples/01_basics/shell_fundamentals/generated_shell_appspec.json,208
+  examples/01_basics/shell_fundamentals/generated_shell_appspec.json,352
   examples/01_basics/shell_fundamentals/generated_shell_dynamic_schema.json,207
+  examples/01_basics/shell_fundamentals/learned_schemas.json,100
   examples/01_basics/shell_fundamentals/runtime_schemas.json,3600
   examples/01_basics/shell_fundamentals/schema_cache.py,43
   examples/01_basics/sql_basics/advanced.py,334
-  examples/01_basics/sql_basics/example.py,121
+  examples/01_basics/sql_basics/example.py,111
   examples/01_basics/sql_basics/llm_integration.py,345
   examples/01_basics/sql_basics/workflows.py,319
   examples/02_benchmarks/performance_testing/benchmark.py,465
@@ -217,7 +218,7 @@ M[1012]:
   examples/03_integrations/web_development/web_generated/chat-service-config.json,17
   examples/03_integrations/web_development/web_generated/chat-service-docker-compose.yml,27
   examples/04_domain_specific/__init__.py,52
-  examples/04_domain_specific/_demo_helpers.py,170
+  examples/04_domain_specific/_demo_helpers.py,182
   examples/04_domain_specific/api_key_prompts.py,343
   examples/04_domain_specific/bioinformatics/01_sequence_analysis/demo.py,71
   examples/04_domain_specific/bioinformatics/01_sequence_analysis/run.sh,14
@@ -232,7 +233,7 @@ M[1012]:
   examples/04_domain_specific/bioinformatics/complete_examples.py,262
   examples/04_domain_specific/bioinformatics/example.py,145
   examples/04_domain_specific/data_science/dsl_demo.py,264
-  examples/04_domain_specific/data_science/example.py,144
+  examples/04_domain_specific/data_science/example.py,153
   examples/04_domain_specific/debugging/01_python_api_concept/demo.py,53
   examples/04_domain_specific/debugging/01_python_api_concept/run.sh,14
   examples/04_domain_specific/debugging/02_shell_commands/demo.py,51
@@ -257,11 +258,12 @@ M[1012]:
   examples/04_domain_specific/debugging/generator.py,86
   examples/04_domain_specific/debugging/intents.py,139
   examples/04_domain_specific/debugging/keywords.py,56
+  examples/04_domain_specific/debugging/shell_validation_report.txt,63
   examples/04_domain_specific/debugging/simple_demo.py,244
   examples/04_domain_specific/debugging/validation.py,708
   examples/04_domain_specific/debugging/validation_report.txt,63
   examples/04_domain_specific/devops/example.py,100
-  examples/04_domain_specific/drug_discovery/example.py,117
+  examples/04_domain_specific/drug_discovery/example.py,133
   examples/04_domain_specific/education/example.py,188
   examples/04_domain_specific/energy/example.py,186
   examples/04_domain_specific/finance/example.py,183
@@ -398,9 +400,16 @@ M[1012]:
   examples/_example_helpers.py,24
   examples/_verbose_helper.py,356
   examples/_verbose_schema.py,189
+  examples/benchmark_report.json,116
+  examples/command_schemas/commands/docker.appspec.json,149
+  examples/command_schemas/exports/dynamic/kubectl_dynamic_schema.json,29
   examples/demo_screenshot_video.sh,56
+  examples/generated_appspec.json,47
+  examples/generated_shell_appspec.json,352
+  examples/learned_schemas.json,100
   examples/run_examples.sh,282
   examples/run_task.py,101
+  examples/sequential_benchmark_results.json,27
   examples/show_metrics.py,124
   generate_chunks.py,57
   generate_quick.py,63
@@ -408,7 +417,7 @@ M[1012]:
   generated_appspec.json,47
   goal.yaml,430
   install_vnc.sh,1
-  intract.yaml,973
+  intract.yaml,1271
   jspaint_app_test4.py,18
   manual_appspec.json,160
   oferteo_pl_data.txt,20
@@ -419,7 +428,7 @@ M[1012]:
   prefact.yaml,82
   project.sh,48
   projektor.yaml,51
-  pyproject.toml,280
+  pyproject.toml,298
   pyqual.yaml,59
   pytest.ini,41
   requirements.txt,60
@@ -430,7 +439,7 @@ M[1012]:
   run_all_tests.sh,59
   run_test.sh,38
   scripts/bump_version.py,62
-  scripts/generate_intract_manifest.py,600
+  scripts/generate_intract_manifest.py,799
   scripts/install_desktop_tools.sh,167
   scripts/maintenance/apply_complexity_refactors.py,60
   scripts/maintenance/apply_nlp2cmd_fixes.py,84
@@ -472,6 +481,7 @@ M[1012]:
   scripts/thermodynamic/termo_demo.py,226
   scripts/thermodynamic/unit_commitment_solver.py,80
   scripts/thermodynamic/vrp_solver.py,135
+  scripts/update_integration_deps.sh,51
   src/app2schema/__init__.py,15
   src/app2schema/__main__.py,7
   src/app2schema/cli.py,83
@@ -526,6 +536,12 @@ M[1012]:
   src/nlp2cmd/automation/step_diagnosis.py,50
   src/nlp2cmd/automation/step_validator.py,370
   src/nlp2cmd/automation/vector_store.py,534
+  src/nlp2cmd/bridge/__init__.py,21
+  src/nlp2cmd/bridge/integration.py,54
+  src/nlp2cmd/bridge/intent_ir.py,25
+  src/nlp2cmd/bridge/ir_convert.py,48
+  src/nlp2cmd/bridge/plan_execute.py,45
+  src/nlp2cmd/bridge/query_input.py,172
   src/nlp2cmd/browser_manager/__init__.py,22
   src/nlp2cmd/browser_manager/base.py,64
   src/nlp2cmd/browser_manager/browser_connector.py,143
@@ -545,7 +561,7 @@ M[1012]:
   src/nlp2cmd/canvas_planner/json_parse.py,98
   src/nlp2cmd/canvas_planner/llm_client.py,109
   src/nlp2cmd/canvas_planner/llm_planner.py,169
-  src/nlp2cmd/canvas_planner/orchestrator.py,176
+  src/nlp2cmd/canvas_planner/orchestrator.py,189
   src/nlp2cmd/canvas_planner/rule_planner.py,148
   src/nlp2cmd/canvas_planner/vector_planner.py,131
   src/nlp2cmd/cli/__init__.py,6
@@ -554,15 +570,16 @@ M[1012]:
   src/nlp2cmd/cli/commands/__init__.py,3
   src/nlp2cmd/cli/commands/doctor.py,1388
   src/nlp2cmd/cli/commands/examples.py,641
-  src/nlp2cmd/cli/commands/generate.py,903
+  src/nlp2cmd/cli/commands/generate.py,910
   src/nlp2cmd/cli/commands/interactive.py,536
-  src/nlp2cmd/cli/commands/run.py,901
+  src/nlp2cmd/cli/commands/plan.py,145
+  src/nlp2cmd/cli/commands/run.py,919
   src/nlp2cmd/cli/commands/tools.py,176
   src/nlp2cmd/cli/debug_info.py,224
   src/nlp2cmd/cli/display.py,170
   src/nlp2cmd/cli/helpers.py,307
   src/nlp2cmd/cli/history.py,267
-  src/nlp2cmd/cli/main.py,808
+  src/nlp2cmd/cli/main.py,843
   src/nlp2cmd/cli/markdown_output.py,144
   src/nlp2cmd/cli/session_logger.py,188
   src/nlp2cmd/cli/syntax_cache.py,115
@@ -584,8 +601,8 @@ M[1012]:
   src/nlp2cmd/data/expanded_phrases.json,373
   src/nlp2cmd/data/form_data.json,23
   src/nlp2cmd/data/form_schema.json,114
-  src/nlp2cmd/data/intract-bindings.json,718
-  src/nlp2cmd/data/intract-policy.json,21
+  src/nlp2cmd/data/intract-bindings.json,931
+  src/nlp2cmd/data/intract-policy.json,23
   src/nlp2cmd/data/keyword_intent_detector_config.json,215
   src/nlp2cmd/data/multilingual_phrases.json,545
   src/nlp2cmd/data/optimization_schema.json,57
@@ -664,9 +681,9 @@ M[1012]:
   src/nlp2cmd/generation/fuzzy_schema_matcher_config.py,68
   src/nlp2cmd/generation/hybrid.py,381
   src/nlp2cmd/generation/hybrid_thermodynamic_generator.py,133
-  src/nlp2cmd/generation/keywords/__init__.py,17
-  src/nlp2cmd/generation/keywords/keyword_detector.py,1199
-  src/nlp2cmd/generation/keywords/keyword_patterns.py,227
+  src/nlp2cmd/generation/keywords/__init__.py,29
+  src/nlp2cmd/generation/keywords/keyword_detector.py,12
+  src/nlp2cmd/generation/keywords/keyword_patterns.py,5
   src/nlp2cmd/generation/llm_multi.py,267
   src/nlp2cmd/generation/llm_simple.py,420
   src/nlp2cmd/generation/match_result.py,62
@@ -675,7 +692,7 @@ M[1012]:
   src/nlp2cmd/generation/phrase_schema.py,59
   src/nlp2cmd/generation/pipeline.py,543
   src/nlp2cmd/generation/pipeline_components.py,192
-  src/nlp2cmd/generation/regex.py,906
+  src/nlp2cmd/generation/regex.py,908
   src/nlp2cmd/generation/routing_energy.py,70
   src/nlp2cmd/generation/scheduling_energy.py,70
   src/nlp2cmd/generation/schema/__init__.py,13
@@ -714,9 +731,11 @@ M[1012]:
   src/nlp2cmd/intelligent/dynamic_generator.py,269
   src/nlp2cmd/intelligent/version_aware_generator.py,353
   src/nlp2cmd/intract/__init__.py,16
+  src/nlp2cmd/intract/color_validation.py,16
   src/nlp2cmd/intract/pipeline_gate.py,91
-  src/nlp2cmd/intract/runtime_bridge.py,216
-  src/nlp2cmd/intract/step_gate.py,154
+  src/nlp2cmd/intract/plan_gate.py,119
+  src/nlp2cmd/intract/runtime_bridge.py,238
+  src/nlp2cmd/intract/step_gate.py,271
   src/nlp2cmd/intract/validator.py,64
   src/nlp2cmd/ir.py,34
   src/nlp2cmd/llm/__init__.py,35
@@ -786,10 +805,14 @@ M[1012]:
   src/nlp2cmd/pipeline_runner_utils.py,517
   src/nlp2cmd/plan_execution/__init__.py,16
   src/nlp2cmd/plan_execution/browser_setup.py,183
-  src/nlp2cmd/plan_execution/plan_executor.py,569
+  src/nlp2cmd/plan_execution/execution_record.py,248
+  src/nlp2cmd/plan_execution/plan_executor.py,645
   src/nlp2cmd/plan_execution/step_orchestrator.py,615
+  src/nlp2cmd/plan_execution/testql_export.py,117
   src/nlp2cmd/planner/__init__.py,419
   src/nlp2cmd/polish_support.py,318
+  src/nlp2cmd/post_execution/__init__.py,17
+  src/nlp2cmd/post_execution/checker.py,257
   src/nlp2cmd/registry/__init__.py,24
   src/nlp2cmd/registry/action_handler.py,106
   src/nlp2cmd/registry/action_registry.py,437
@@ -807,7 +830,7 @@ M[1012]:
   src/nlp2cmd/schema_extraction/extractors.py,400
   src/nlp2cmd/schema_extraction/llm_extractor.py,443
   src/nlp2cmd/schema_extraction/python_extractors.py,420
-  src/nlp2cmd/schema_extraction/registry.py,157
+  src/nlp2cmd/schema_extraction/registry.py,309
   src/nlp2cmd/schema_extraction/script_extractors.py,279
   src/nlp2cmd/schemas/__init__.py,909
   src/nlp2cmd/service/__init__.py,410
@@ -957,24 +980,26 @@ M[1012]:
   src/nlp2cmd/thermodynamic/sampler_result.py,77
   src/nlp2cmd/thermodynamic/scheduling_energy.py,247
   src/nlp2cmd/thermodynamic/task.py,33
-  src/nlp2cmd/thermodynamic/thermodynamic_router.py,151
+  src/nlp2cmd/thermodynamic/thermodynamic_router.py,181
   src/nlp2cmd/utils/__init__.py,20
   src/nlp2cmd/utils/data_files.py,134
   src/nlp2cmd/utils/external_cache.py,316
   src/nlp2cmd/utils/playwright_installer.py,281
   src/nlp2cmd/utils/yaml_compat.py,175
-  src/nlp2cmd/validators/__init__.py,26
+  src/nlp2cmd/validators/__init__.py,29
   src/nlp2cmd/validators/base_validator.py,43
-  src/nlp2cmd/validators/composite_validator.py,27
+  src/nlp2cmd/validators/composite_validator.py,29
   src/nlp2cmd/validators/docker_validator.py,255
+  src/nlp2cmd/validators/factory.py,77
   src/nlp2cmd/validators/kubernetes_validator.py,143
   src/nlp2cmd/validators/shell_validator.py,105
   src/nlp2cmd/validators/sql_validator.py,113
   src/nlp2cmd/validators/syntax_validator.py,47
   src/nlp2cmd/validators/validation_result.py,91
   src/nlp2cmd/vql/__init__.py,54
-  src/nlp2cmd/vql/adapters/__init__.py,11
+  src/nlp2cmd/vql/adapters/__init__.py,13
   src/nlp2cmd/vql/adapters/canvas_plan.py,90
+  src/nlp2cmd/vql/adapters/canvas_to_vql.py,125
   src/nlp2cmd/vql/api.py,54
   src/nlp2cmd/vql/compiler/__init__.py,15
   src/nlp2cmd/vql/compiler/legacy_drawcommand.py,142
@@ -1042,19 +1067,6 @@ D:
     CommandGenerator: __init__(1),generate_command(1),_generate_simple(1)  # Generate commands from prompts using NLP2CMD...
     create_enhanced_prompt_list()
     main()
-  src/nlp2cmd/generation/keywords/keyword_detector.py:
-    e: DetectionResult,KeywordIntentDetector,_get_query_normalizer,_get_polish_support,_get_fuzzy_schema_matcher,_get_ml_classifier,_get_semantic_matcher,_get_spacy_model,_normalize_url
-    DetectionResult: __post_init__(0)  # Result of intent detection...
-    KeywordIntentDetector: __init__(3),add_pattern(3),detect(1),detect_all(1),_match_keyword(2),_fast_path_detection(2),_fuzzy_detection(1),_ml_detection(1),_semantic_detection(1),_keyword_detection(2),_calculate_keyword_confidence(2),_tokenize_text(1),_keyword_matches(3)  # Rule-based intent detection using keyword matching.
-
-No LLM ...
-    _get_query_normalizer()
-    _get_polish_support()
-    _get_fuzzy_schema_matcher()
-    _get_ml_classifier()
-    _get_semantic_matcher()
-    _get_spacy_model()
-    _normalize_url(raw)
   src/nlp2cmd/web_schema/site_explorer.py:
     e: PageInfo,ExplorationResult,SiteExplorer,_debug,_github_readme_url,_github_docs_url,_pypi_to_docs_url,quick_find_content,quick_find_form
     PageInfo:  # Information about a discovered page...
@@ -1067,7 +1079,7 @@ No LLM ...
     quick_find_content(url;content_type;search_term;headless)
     quick_find_form(url;intent;headless)
   src/nlp2cmd/cli/main.py:
-    e: _ensure_click_stub,_handle_run_query,_register_subcommands_for_args,repair,validate,analyze_env,version,_run_preflight_checks,main,repair,validate,analyze_env,cli_entry_point
+    e: _ensure_click_stub,_handle_run_query,_register_subcommands_for_args,repair,validate,analyze_env,version,_run_preflight_checks,main,plan,repair,validate,analyze_env,cli_entry_point
     _ensure_click_stub()
     _handle_run_query()
     _register_subcommands_for_args(argv)
@@ -1077,6 +1089,7 @@ No LLM ...
     version()
     _run_preflight_checks(console;verbose;auto_fix;execute_web)
     main(ctx;interactive;dsl;appspec;query;stdin_mode;stdout_only;only_output;run;auto_repair;explain;execute_web;auto_confirm;no_submit;auto_install;source_uri;log_dir;do_screenshot;video_fmt;video_duration;do_md;version;verbose;show_schema;show_decision_tree;debug_log_md;record_session)
+    plan(ctx;query;as_json;execute;dry_run;explain;verbose)
     repair(ctx;file;backup)
     validate(ctx;file)
     analyze_env(ctx;output)
@@ -1181,6 +1194,12 @@ This...
     BrowserSafetyPolicy(SafetyPolicy):
     BrowserAdapter(BaseDSLAdapter): get_form_data_loader(0),__init__(2),site_explorer(1),site_explorer(1),form_data_loader(1),form_data_loader(1),_extract_url(0),_extract_type_text(1),_has_type_action(1),_should_explore_for_content(0),_should_explore_for_forms(0),_has_fill_form_action(1),_has_press_enter(1),_has_form_action(1),_has_submit_action(1),_has_extract_article_action(1),_is_plural_article_request(1),_extract_article_topic(1),_has_extract_companies_action(1),_has_save_to_file_action(1),_extract_save_filename(1),_has_deep_website_extraction(0),_has_csv_format(0),_wants_clipboard(0),_wants_print_terminal(0),generate(1),validate_syntax(1)  # Minimal adapter that turns NL into dom_dql.v1 navigation (Pl...
     _debug(msg)
+  src/nlp2cmd/generation/thermodynamic_components.py:
+    e: OptimizationProblem,ThermodynamicResult,ThermodynamicProblemDetector,ThermodynamicConfig
+    OptimizationProblem: __post_init__(0),to_condition(0)  # Structured optimization problem definition...
+    ThermodynamicResult: __init__(12)  # Result of thermodynamic optimization...
+    ThermodynamicProblemDetector: detect_problem(1),_is_optimization_problem(1),_detect_problem_type(1),_extract_variables(1),_extract_constraints(1),_extract_objective(1)  # Detects optimization problems in natural language...
+    ThermodynamicConfig: __init__(6),adapt_to_problem_size(1)  # Configuration for thermodynamic optimization...
   src/nlp2cmd/generation/regex.py:
     e: ExtractedEntity,ExtractionResult,RegexEntityExtractor
     ExtractedEntity:  # A single extracted entity...
@@ -1188,12 +1207,6 @@ This...
     RegexEntityExtractor: __init__(1),_load_patterns_from_json(0),extract(2),_process_match(2),_parse_columns(1),_normalize_direction(1),_normalize_time_unit(1),_post_process(3),extract_all_numbers(1),extract_quoted_strings(1),add_pattern(3)  # Extract entities from text using regex patterns.
 
 No LLM nee...
-  src/nlp2cmd/generation/thermodynamic_components.py:
-    e: OptimizationProblem,ThermodynamicResult,ThermodynamicProblemDetector,ThermodynamicConfig
-    OptimizationProblem: __post_init__(0),to_condition(0)  # Structured optimization problem definition...
-    ThermodynamicResult: __init__(12)  # Result of thermodynamic optimization...
-    ThermodynamicProblemDetector: detect_problem(1),_is_optimization_problem(1),_detect_problem_type(1),_extract_variables(1),_extract_constraints(1),_extract_objective(1)  # Detects optimization problems in natural language...
-    ThermodynamicConfig: __init__(6),adapt_to_problem_size(1)  # Configuration for thermodynamic optimization...
   examples/10_online_code_editors/03_adaptive_code.py:
     e: detect_language,detect_task,generate_code_with_llm,main
     detect_language(query)
@@ -1210,6 +1223,17 @@ No LLM nee...
     SessionPasswordStore: __init__(1),_ensure_loaded(0),get_credentials(1),get_all_for_domain(1),list_backends(0),diagnose_providers(1),print_diagnosis(0)  # Multi-backend password store with in-memory session cache.
 
 ...
+  src/nlp2cmd/post_execution/checker.py:
+    e: PostCheckResult,PostCheckViolation,post_check_enabled,post_check_strict,infer_post_check_spec,_check_output,check_step_output,check_plan_outputs,validate_plan_outputs_if_enabled
+    PostCheckResult: to_dict(0)
+    PostCheckViolation(Exception): __init__(1)  # Raised when post-execution validation fails in strict mode...
+    post_check_enabled()
+    post_check_strict()
+    infer_post_check_spec(step)
+    _check_output()
+    check_step_output(step)
+    check_plan_outputs(plan;intent;execution_result)
+    validate_plan_outputs_if_enabled(plan;intent;execution_result)
   src/nlp2cmd/generation/template_generator.py:
     e: TemplateResult,TemplateGenerator
     TemplateResult:  # Result of template generation...
@@ -1229,15 +1253,9 @@ Uses predefined templ...
 De...
   src/nlp2cmd/plan_execution/plan_executor.py:
     e: PlanExecutor
-    PlanExecutor: __init__(4),execute(1),_resolve_plan_variables(1),_execute_step_with_dispatch(4),_detect_desktop_steps(1),_display_plan(2),_setup_video_recording(4),_execute_desktop_mode(4),_execute_desktop_step(2),_assess_step_status(3),_execute_browser_mode(4),_create_orchestrator(1),_get_execute_fn(0),_get_resolve_fn(0),_print_final_summary(3),_cleanup(4),_step_result_to_dict(1)  # Main executor for ActionPlans with browser automation.
+    PlanExecutor: __init__(4),execute(1),_resolve_plan_variables(1),_execute_step_with_dispatch(4),_detect_desktop_steps(1),_display_plan(2),_setup_video_recording(4),_execute_desktop_mode(4),_execute_desktop_step(2),_assess_step_status(3),_execute_browser_mode(4),_attach_execution_artifacts(5),_create_orchestrator(1),_get_execute_fn(0),_get_resolve_fn(0),_print_final_summary(3),_cleanup(4),_step_result_to_dict(1)  # Main executor for ActionPlans with browser automation.
 
 This...
-  src/nlp2cmd/generation/keywords/keyword_patterns.py:
-    e: KeywordPatterns,_find_data_files,_normalize_polish_text,_dedupe_case_insensitive
-    KeywordPatterns: __init__(1),_load_patterns_from_json(1),_load_detector_config_from_json(0),get_domain_patterns(1),get_intent_patterns(2),has_domain(1),has_intent(2),list_domains(0),list_intents(1),add_pattern(3),get_domain_boosters(1),get_priority_intents(1)  # Manages keyword patterns for intent detection...
-    _find_data_files()
-    _normalize_polish_text(text)
-    _dedupe_case_insensitive(items)
   examples/10_online_code_editors/02_mycompiler_run.py:
     e: main
     main()
@@ -1304,6 +1322,10 @@ Learns from:
     classify_error(text)
     suggest_retry_strategy(error_type)
     _parse_json_safe(text)
+  src/nlp2cmd/cli/commands/plan.py:
+    e: _require_integration,cmd_plan
+    _require_integration()
+    cmd_plan(query)
   examples/08_llm_validation/benchmark_validator.py:
     e: BenchmarkCase,CaseResult,run_benchmark,compare_benchmarks,main
     BenchmarkCase:  # A single benchmark test case...
@@ -1372,6 +1394,23 @@ Uses ...
     PromptSecretHandler(StepHandler): execute(1),_getpass_with_timeout(2)  # Prompt user for secret/API key with timeout and validation...
     EchoHandler(StepHandler): execute(1)  # Echo a message to the console...
     ExtractTextHandler(StepHandler): execute(1)  # Extract text from page elements...
+  scripts/generate_intract_manifest.py:
+    e: _tags_to_effects,_semantic_output,_policy_tags,_policy_forbid,_priority,_contract,_action_contract,_intent_contract,_dom_contract,_pact_ir_plan_contract,_canvas_step_contract,generate_manifest,_yaml_dump,write_outputs,main
+    _tags_to_effects(tags)
+    _semantic_output(schema)
+    _policy_tags(schema)
+    _policy_forbid(schema)
+    _priority(schema)
+    _contract()
+    _action_contract(schema)
+    _intent_contract(intent)
+    _dom_contract(action_name)
+    _pact_ir_plan_contract(action_name;spec)
+    _canvas_step_contract(action_name)
+    generate_manifest()
+    _yaml_dump(data)
+    write_outputs(manifest;bindings;policy)
+    main()
   src/nlp2cmd/generation/evolutionary_cache.py:
     e: CacheEntry,LookupResult,EvolutionaryCache,fingerprint,fuzzy_fingerprint,detect_domain
     CacheEntry: touch(0)
@@ -1412,6 +1451,15 @@ Usage:
     DQLAdapter(BaseDSLAdapter): __init__(3),_parse_entity_context(1),_get_entity_fqcn(1),generate(1),_generate_query_builder(2),_generate_qb_select(1),_generate_qb_count(1),_generate_qb_aggregate(1),_generate_raw_dql(2),_php_value(1),_dql_value(1),validate_syntax(1),check_safety(1)  # DQL adapter for Doctrine ORM queries.
 
 Transforms natural la...
+  src/nlp2cmd/intract/runtime_bridge.py:
+    e: RuntimeArtifact,GateResult,RuntimeBridge,_default_bindings_path,_find_repo_root,_infer_effects_from_dsl,build_runtime_source
+    RuntimeArtifact:
+    GateResult:
+    RuntimeBridge: __init__(2),_load_bindings(0),resolve_contract_id(0),check_policy(1),check(1),_find_contract_in_manifest(1)  # Validate runtime artifacts against generated Intract binding...
+    _default_bindings_path()
+    _find_repo_root(start)
+    _infer_effects_from_dsl(artifact)
+    build_runtime_source(artifact)
   examples/09_online_drawing/06_visual_validator/run.py:
     e: draw_and_validate,validate_screenshot,run_demo,main
     draw_and_validate(shape;color;description;headless;correct;verbose;use_vision)
@@ -1443,25 +1491,6 @@ Tracks a drawi...
   tools/analysis/compare_batches.py:
     e: compare_batch_files
     compare_batch_files()
-  src/nlp2cmd/polish_support.py:
-    e: PolishLanguageSupport,get_polish_support
-    PolishLanguageSupport: __init__(0),_load_patterns(0),normalize_polish_text(1),normalize_stt_errors(1),_find_best_phrase_match(2),_similar(3),match_polish_patterns(2),translate_polish_intent(1),translate_polish_table(1),get_domain_weight(1),enhance_domain_detection(2),enhance_intent_detection(2)  # Polish language support for NLP2CMD...
-    get_polish_support()
-  src/nlp2cmd/canvas_planner/json_parse.py:
-    e: clean_llm_json_text,_salvage_truncated_json_array,parse_canvas_steps_json
-    clean_llm_json_text(raw)
-    _salvage_truncated_json_array(text)
-    parse_canvas_steps_json(raw)
-  src/nlp2cmd/cli/debug_info.py:
-    e: show_schema_info,show_decision_tree_info,generate_debug_log_md
-    show_schema_info(console)
-    show_decision_tree_info(query;console)
-    generate_debug_log_md(query;output_path)
-  scripts/maintenance/auto_apply_refactors.py:
-    e: apply_keywords_refactor,apply_templates_refactor,main
-    apply_keywords_refactor()
-    apply_templates_refactor()
-    main()
   src/nlp2cmd/pipeline_runner_utils.py:
     e: _MarkdownConsoleWrapper,ShellExecutionPolicy,RunnerResult,VideoRecorder,_debug,_with_epipe_retry,_field_attrs,_is_junk_field,_is_contact_relevant_field,_looks_like_comment_form,_filter_form_fields,get_timestamp,ensure_dir,ask_for_screenshot,take_screenshot,ask_for_video_recording
     _MarkdownConsoleWrapper: __init__(1),print(1),_flush_stream(0),flush(0),capture(0)  # Context manager that captures console output into Markdown c...
@@ -1480,10 +1509,29 @@ Tracks a drawi...
     ask_for_screenshot(console;default_path)
     take_screenshot(page;path;console)
     ask_for_video_recording(console)
+  src/nlp2cmd/polish_support.py:
+    e: PolishLanguageSupport,get_polish_support
+    PolishLanguageSupport: __init__(0),_load_patterns(0),normalize_polish_text(1),normalize_stt_errors(1),_find_best_phrase_match(2),_similar(3),match_polish_patterns(2),translate_polish_intent(1),translate_polish_table(1),get_domain_weight(1),enhance_domain_detection(2),enhance_intent_detection(2)  # Polish language support for NLP2CMD...
+    get_polish_support()
+  src/nlp2cmd/canvas_planner/json_parse.py:
+    e: clean_llm_json_text,_salvage_truncated_json_array,parse_canvas_steps_json
+    clean_llm_json_text(raw)
+    _salvage_truncated_json_array(text)
+    parse_canvas_steps_json(raw)
+  src/nlp2cmd/cli/debug_info.py:
+    e: show_schema_info,show_decision_tree_info,generate_debug_log_md
+    show_schema_info(console)
+    show_decision_tree_info(query;console)
+    generate_debug_log_md(query;output_path)
   src/nlp2cmd/intract/pipeline_gate.py:
     e: PipelineRunnerGate,intract_gate_enabled
     PipelineRunnerGate: __init__(1),artifact_from_ir(1),check(1),failure_message(1),gate_result_metadata(1)  # Validate ActionIR against Intract contracts before execution...
     intract_gate_enabled()
+  scripts/maintenance/auto_apply_refactors.py:
+    e: apply_keywords_refactor,apply_templates_refactor,main
+    apply_keywords_refactor()
+    apply_templates_refactor()
+    main()
   examples/03_integrations/web_development/nl_command_parser.py:
     e: NLCommandParser
     NLCommandParser: parse(1),_detect_intent(1),_detect_service_type(1),_extract_entities(1)  # Parse natural language commands into structured actions.
@@ -1536,6 +1584,13 @@ Lifecycle:...
     build_prompt(workdir;metrics;file_count)
     run_refactor(workdir;model;prompt;use_docker)
     main()
+  src/nlp2cmd/plan_execution/testql_export.py:
+    e: testql_export_enabled,_csv_cell,_count_draw_steps,build_testql_scenario_text,build_integrations_metadata
+    testql_export_enabled()
+    _csv_cell(value)
+    _count_draw_steps(steps)
+    build_testql_scenario_text(record)
+    build_integrations_metadata(record)
   examples/08_api_key_management/01_diagnose_credentials/run.py:
     e: main
     main()
@@ -1589,30 +1644,6 @@ Lifecycle:...
     e: SaveToFileAction,SaveToCsvAction
     SaveToFileAction(DomAction): execute(1),_extract_lines(1),_extract_candidate(3),_is_bad_website(1),_copy_to_clipboard(2)  # Save extracted data to a text file...
     SaveToCsvAction(DomAction): execute(1)  # Save extracted data to a CSV file...
-  src/nlp2cmd/intract/runtime_bridge.py:
-    e: RuntimeArtifact,GateResult,RuntimeBridge,_default_bindings_path,_find_repo_root,_infer_effects_from_dsl,build_runtime_source
-    RuntimeArtifact:
-    GateResult:
-    RuntimeBridge: __init__(2),_load_bindings(0),resolve_contract_id(0),check_policy(1),check(1),_find_contract_in_manifest(1)  # Validate runtime artifacts against generated Intract binding...
-    _default_bindings_path()
-    _find_repo_root(start)
-    _infer_effects_from_dsl(artifact)
-    build_runtime_source(artifact)
-  scripts/generate_intract_manifest.py:
-    e: _tags_to_effects,_semantic_output,_policy_tags,_policy_forbid,_priority,_contract,_action_contract,_intent_contract,_dom_contract,generate_manifest,_yaml_dump,write_outputs,main
-    _tags_to_effects(tags)
-    _semantic_output(schema)
-    _policy_tags(schema)
-    _policy_forbid(schema)
-    _priority(schema)
-    _contract()
-    _action_contract(schema)
-    _intent_contract(intent)
-    _dom_contract(action_name)
-    generate_manifest()
-    _yaml_dump(data)
-    write_outputs(manifest;bindings;policy)
-    main()
   examples/03_integrations/web_development/deployment_plan.py:
     e: DeploymentPlan
     DeploymentPlan: to_compose(0),_create_redis_service(0),_create_postgres_service(0)  # Plan for deploying services...
@@ -1664,6 +1695,11 @@ Lifecycle:...
   scripts/maintenance/fix_comprehensive_test_issues.py:
     e: ComprehensiveTestFixer
     ComprehensiveTestFixer: __init__(0),load_results(0),analyze_issues(1),identify_root_causes(1),generate_fixes(1),create_fixed_test_expectations(1),generate_improved_test_suite(2),save_improved_results(3),run_analysis(0)  # Analyzes and fixes issues in comprehensive test results...
+  src/nlp2cmd/vql/adapters/canvas_to_vql.py:
+    e: _offset,_action_to_primitive,action_plan_to_vql_program
+    _offset(params)
+    _action_to_primitive(action;params)
+    action_plan_to_vql_program(plan)
   examples/06_desktop_automation/09_complex_commands/run.py:
     e: main
     main()
@@ -1783,6 +1819,16 @@ Transfor...
     e: DynamicSchemaGenerator,test_dynamic_generation
     DynamicSchemaGenerator: __init__(1),generate_schema(2),_generate_template(2),_generate_description(2),_infer_category(2)  # Generates schemas dynamically without hardcoding...
     test_dynamic_generation()
+  src/nlp2cmd/bridge/query_input.py:
+    e: QueryInputAnalysis,query_input_enabled,show_structure_enabled,_try_nlp2dsl_workflow,analyze_query_input,display_query_analysis,_integration_plan_available,attach_query_input
+    QueryInputAnalysis:
+    query_input_enabled()
+    show_structure_enabled()
+    _try_nlp2dsl_workflow(query)
+    analyze_query_input(query)
+    display_query_analysis(analysis)
+    _integration_plan_available()
+    attach_query_input(query)
   examples/09_online_drawing/04_object_database/run.py:
     e: parse_objects_from_scene,run_scene,show_database,main
     parse_objects_from_scene(scene)
@@ -1871,6 +1917,10 @@ Transforms n...
   tools/schema/validate_schemas.py:
     e: validate_and_fix_schemas
     validate_and_fix_schemas()
+  src/nlp2cmd/intract/step_gate.py:
+    e: IntractStepGate,_dom_dsl
+    IntractStepGate: __init__(2),summary(0),_record(0),_missing_required_inputs(2),_policy_param_violations(3),_contract_check(2),validate_pre(4),validate_post(4),snapshot_clipboard(0),__getattr__(1)  # Wrap StepValidator with Intract contract checks for DOM plan...
+    _dom_dsl(action;params)
   examples/_verbose_schema.py:
     e: _log_list,log_schema_summary
     _log_list(vlog;title;items;formatter;limit)
@@ -1986,10 +2036,9 @@ Transforms n...
 Automatically records all ...
     get_global_history()
     record_command(query;dsl;command)
-  src/nlp2cmd/intract/step_gate.py:
-    e: IntractStepGate,_dom_dsl
-    IntractStepGate: __init__(2),_missing_required_inputs(2),_contract_check(2),validate_pre(4),validate_post(4),snapshot_clipboard(0),__getattr__(1)  # Wrap StepValidator with Intract contract checks for DOM plan...
-    _dom_dsl(action;params)
+  src/nlp2cmd/canvas_planner/orchestrator.py:
+    e: CanvasPlanningOrchestrator
+    CanvasPlanningOrchestrator: __init__(2),_count_draw_actions(0),_has_blueprint_match(0),plan(3),_try_blueprint(3),_try_vector_db(3),_try_template(3),_try_llm(3),_try_rule(3)  # Orchestrates multiple canvas planners in priority order...
   examples/05_advanced_features/schema_driven_architecture/end_to_end_demo.py:
     e: print_section,print_step,mock_sql_select,mock_shell_find,mock_shell_count_pattern,mock_k8s_get,main
     print_section(title)
@@ -2119,9 +2168,6 @@ Tran...
     analyze_screenshots(folder)
     resize_screenshots(folder;scale_factor)
     main()
-  src/nlp2cmd/canvas_planner/orchestrator.py:
-    e: CanvasPlanningOrchestrator
-    CanvasPlanningOrchestrator: __init__(2),_count_draw_actions(0),plan(3),_try_blueprint(3),_try_vector_db(3),_try_template(3),_try_llm(3),_try_rule(3)  # Orchestrates multiple canvas planners in priority order...
   examples/run_task.py:
     e: main
     main()
@@ -2167,6 +2213,16 @@ Tran...
     e: generate_plan_with_llm,main
     generate_plan_with_llm(query)
     main()
+  src/nlp2cmd/pipeline_runner.py:
+    e: PipelineRunner,PipelineRunner
+    PipelineRunner(ShellExecutionMixin,BrowserExecutionMixin,DesktopExecutionMixin,PlanExecutionMixin,_BasePipelineRunner):  # PipelineRunner composed from execution mixins.
+
+Mixins:
+- Sh...
+    PipelineRunner(ShellExecutionMixin,BrowserExecutionMixin,DesktopExecutionMixin,PlanExecutionMixin,_BasePipelineRunner):  # PipelineRunner composed from execution mixins.
+
+Mixins:
+- Sh...
   src/nlp2cmd/automation/bitwarden_reader.py:
     e: BitwardenReader
     BitwardenReader: __init__(1),available(0),search(1)  # Read passwords from Bitwarden via CLI.
@@ -2252,30 +2308,6 @@ When a query ...
     _set_extractor_env(mode;ab_ratio)
     _restore_extractor_env(prev)
     main(argv)
-  src/nlp2cmd/pipeline_runner.py:
-    e: PipelineRunner,PipelineRunner
-    PipelineRunner(ShellExecutionMixin,BrowserExecutionMixin,DesktopExecutionMixin,PlanExecutionMixin,_BasePipelineRunner):  # PipelineRunner composed from execution mixins.
-
-Mixins:
-- Sh...
-    PipelineRunner(ShellExecutionMixin,BrowserExecutionMixin,DesktopExecutionMixin,PlanExecutionMixin,_BasePipelineRunner):  # PipelineRunner composed from execution mixins.
-
-Mixins:
-- Sh...
-  examples/08_api_key_management/06_multi_provider/run.py:
-    e: scan,plan_all,setup_providers,setup_all,main
-    scan()
-    plan_all()
-    setup_providers(providers)
-    setup_all()
-    main()
-  examples/01_basics/sql_basics/workflows.py:
-    e: print_section,main
-    print_section(title)
-    main()
-  examples/01_basics/sql_basics/example.py:
-    e: main
-    main()
   examples/04_domain_specific/_demo_helpers.py:
     e: print_separator,print_rule,rule_line,print_demo_header,run_thermo_demo,print_metrics,print_simple_result,print_full_result,sigmoid,project_sample,print_projected,print_fallback_note
     print_separator(title)
@@ -2290,6 +2322,17 @@ Mixins:
     project_sample(problem;raw_sample)
     print_projected(title;projected)
     print_fallback_note(problem_name)
+  examples/08_api_key_management/06_multi_provider/run.py:
+    e: scan,plan_all,setup_providers,setup_all,main
+    scan()
+    plan_all()
+    setup_providers(providers)
+    setup_all()
+    main()
+  examples/01_basics/sql_basics/workflows.py:
+    e: print_section,main
+    print_section(title)
+    main()
   examples/04_domain_specific/polish_llm_integration/mock_test_polish_llm.py:
     e: MockPolishLLMClient,MockPolishNLP2CMD,test_polish_queries,test_integration_pattern,show_real_setup_instructions
     MockPolishLLMClient: __init__(1),generate_plan(2)  # Mock Polish LLM client for testing without actual model...
@@ -2328,6 +2371,9 @@ Requirement...
   src/nlp2cmd/step_handlers/navigate.py:
     e: NavigateHandler
     NavigateHandler(StepHandler): execute(1),_handle_security_checkup(2)  # Handle navigate action - navigate to URL with security check...
+  examples/01_basics/shell_fundamentals/example.py:
+    e: main
+    main()
   examples/03_integrations/web_development/_demo_helpers.py:
     e: print_config,print_containers,print_files_saved,print_docker_result,print_command_result,show_container_status,show_container_logs,stop_all_containers,_run_subprocess,test_chat_service,test_redis_service,test_postgres_service,test_container_service,test_services,handle_docker_execution,print_batch_banner,print_execution_summary,dispatch_management_command
     print_config(config)
@@ -2442,6 +2488,15 @@ Decompose complex queries in...
     _resize_to_thumbnail(png_bytes;max_width)
     _png_to_base64_md(png_bytes;alt;max_width)
     _slugify(text)
+  src/nlp2cmd/cli/markdown_output.py:
+    e: MarkdownConsoleProxy,MarkdownBlockStream,_looks_like_rich_markup,_render_to_text,_infer_markdown_title,print_markdown_block,print_yaml_block
+    MarkdownConsoleProxy: __init__(1),print(1),input(0),__getattr__(1)  # Proxy that forces all console.print output into markdown cod...
+    MarkdownBlockStream: __init__(1),__enter__(0),__exit__(3),_ensure_open(0),print(1),close(0)  # Context manager that streams multiple prints inside a single...
+    _looks_like_rich_markup(text)
+    _render_to_text(renderable)
+    _infer_markdown_title()
+    print_markdown_block(renderable)
+    print_yaml_block(data)
   src/nlp2cmd/cli/history.py:
     e: history_group,show_history,show_stats,show_popular,export_analytics,clear_history
     history_group()
@@ -2530,15 +2585,29 @@ This cla...
     detect_changes(folder)
     create_diff_images(folder;output_folder)
     main()
-  src/nlp2cmd/cli/markdown_output.py:
-    e: MarkdownConsoleProxy,MarkdownBlockStream,_looks_like_rich_markup,_render_to_text,_infer_markdown_title,print_markdown_block,print_yaml_block
-    MarkdownConsoleProxy: __init__(1),print(1),input(0),__getattr__(1)  # Proxy that forces all console.print output into markdown cod...
-    MarkdownBlockStream: __init__(1),__enter__(0),__exit__(3),_ensure_open(0),print(1),close(0)  # Context manager that streams multiple prints inside a single...
-    _looks_like_rich_markup(text)
-    _render_to_text(renderable)
-    _infer_markdown_title()
-    print_markdown_block(renderable)
-    print_yaml_block(data)
+  src/nlp2cmd/intract/plan_gate.py:
+    e: PlanContractViolation,PlanStepGate,check_plan_contracts,validate_plan_contracts_if_enabled
+    PlanContractViolation(Exception): __init__(1)  # Raised when one or more plan steps fail Intract contract che...
+    PlanStepGate: __init__(1),artifact_from_step(1),check_step(1),check_plan(2),validate_plan(2)  # Validate PlanStep artifacts against Intract contracts...
+    check_plan_contracts(plan;intent)
+    validate_plan_contracts_if_enabled(plan;intent)
+  src/nlp2cmd/schema_extraction/registry.py:
+    e: SchemaRegistry,DynamicSchemaRegistry
+    SchemaRegistry: __init__(5),_auto_save(0),_load_from_storage(0),_save_to_storage(0),register_openapi_schema(1),register_shell_help(1),save_cache(1),load_cache(1),get_schema(1),list_schemas(0),clear(0)  # Registry for managing dynamically extracted schemas...
+    DynamicSchemaRegistry(SchemaRegistry): register_python_code(1),register_shell_script(1),register_makefile(1),register_appspec_export(1),register_dynamic_export(1),get_command_by_name(1),get_all_commands(0),search_commands(2),register_command(1)  # Extended schema registry with command-level operations for D...
+  src/nlp2cmd/plan_execution/execution_record.py:
+    e: ExecutionArtifacts,_extract_canvas_url,_step_to_dict,build_dom_dsl_payload,execution_record_enabled,_infer_decision_path,build_planning_context,build_planning_preview,build_vql_program_from_plan,format_dom_dsl_text,save_execution_artifacts
+    ExecutionArtifacts: to_summary_dict(0)  # Paths and inline payloads for a completed plan run...
+    _extract_canvas_url(steps)
+    _step_to_dict(step)
+    build_dom_dsl_payload(plan)
+    execution_record_enabled()
+    _infer_decision_path(plan)
+    build_planning_context(plan)
+    build_planning_preview(plan)
+    build_vql_program_from_plan(plan)
+    format_dom_dsl_text(payload)
+    save_execution_artifacts(plan)
   examples/08_api_key_management/05_openai_key/run.py:
     e: check,run_flow,main
     check()
@@ -2615,6 +2684,9 @@ This cla...
     _call_via_router(prompt;config)
     _call_via_ollama(prompt;config)
     call_canvas_llm(prompt;config)
+  src/nlp2cmd/intract/validator.py:
+    e: IntractValidator
+    IntractValidator(BaseValidator): __init__(1),validate(2)  # Validate generated DSL against Intract semantic contracts...
   src/nlp2cmd/exploration/base.py:
     e: ExplorationResult,ExplorationContext,BaseExplorer,ExplorerRegistry,explore
     ExplorationResult(<ast.Subscript object at 0x7aafb35c0b90>):  # Result of exploration in any space...
@@ -2684,9 +2756,10 @@ Używa termodynamicznego...
   scripts/maintenance/generate_refactor_report.py:
     e: generate_refactor_report
     generate_refactor_report()
-  src/nlp2cmd/intract/validator.py:
-    e: IntractValidator
-    IntractValidator(BaseValidator): __init__(1),validate(2)  # Validate generated DSL against Intract semantic contracts...
+  src/nlp2cmd/thermodynamic/thermodynamic_router.py:
+    e: ThermodynamicRouter
+    ThermodynamicRouter: __init__(1),route(2),score_optimization(1),estimate_complexity(2)  # Routes problems to appropriate solver:
+- Classic DSL agents ...
   examples/05_advanced_features/dynamic_schemas/schema_flow_demo.py:
     e: show_schema_extraction_flow,show_file_locations,show_api_usage,main
     show_schema_extraction_flow()
@@ -2704,9 +2777,6 @@ Używa termodynamicznego...
 
 Thi...
   examples/01_basics/kubernetes_basics/example.py:
-    e: main
-    main()
-  examples/01_basics/shell_fundamentals/example.py:
     e: main
     main()
   examples/09_online_drawing/_old/01_draw_chat_shapes_nlp2cmd.py:
@@ -2846,9 +2916,6 @@ Subclasses imp...
     PageAnalyzer: __init__(4),analyze(2),analyze_quick(2)  # Main orchestrator for page analysis.
 
 Coordinates multiple a...
-  src/nlp2cmd/schema_extraction/registry.py:
-    e: SchemaRegistry
-    SchemaRegistry: __init__(5),_auto_save(0),_load_from_storage(0),_save_to_storage(0),register_openapi_schema(1),register_shell_help(1),save_cache(1),load_cache(1),get_schema(1),list_schemas(0),clear(0)  # Registry for managing dynamically extracted schemas...
   src/nlp2cmd/dom_actions/navigation.py:
     e: NavigateAction,ExploreForContentAction,ExploreForFormAction
     NavigateAction(DomAction): execute(1)  # Navigate to a URL...
@@ -3020,9 +3087,6 @@ E...
 Example:
    ...
     CachedMultiDomainGenerator(MultiDomainGenerator): __init__(3),generate(3),clear_cache(0)  # Multi-domain generator with response caching...
-  src/nlp2cmd/generation/schema/adapter.py:
-    e: SchemaDrivenAppSpecAdapter
-    SchemaDrivenAppSpecAdapter(AppSpecAdapter): __init__(0),_load_schemas(0),_action_to_schema(1),_infer_category(1),generate(1),transform_ir(1),_extract_command_from_text(1),_extract_context_from_text(1),learn_from_feedback(3),save_improvements(1)  # AppSpec adapter that uses schema-based generation...
   src/nlp2cmd/validators/syntax_validator.py:
     e: SyntaxValidator
     SyntaxValidator(BaseValidator): validate(1)  # Generic syntax validator for balanced brackets, quotes, etc...
@@ -3035,6 +3099,12 @@ Example:
   src/nlp2cmd/desktop_executor/browser_controller.py:
     e: BrowserController
     BrowserController: __init__(0),open_tab(2),check_session(3),_find_firefox(0),is_available(0)  # Control Firefox browser via command-line interface...
+  src/nlp2cmd/canvas_planner/config.py:
+    e: CanvasLLMConfig,_env_flag,resolve_canvas_model,resolve_ollama_url
+    CanvasLLMConfig: from_env(0)
+    _env_flag(name;default)
+    resolve_canvas_model(explicit)
+    resolve_ollama_url(explicit)
   src/nlp2cmd/vql/compiler/nl_to_vql.py:
     e: nl_to_program
     nl_to_program(text)
@@ -3135,12 +3205,19 @@ Decyduje które elektro...
     e: SimpleE2ETester,main
     SimpleE2ETester: __init__(2),start_service(0),wait_for_ready(1),stop_service(0),run_test(2),test_health_check(0),test_service_info(0),test_basic_query(0),test_polish_queries(0),test_query_with_explanation(0),test_config_management(0),test_error_handling(0),test_concurrent_requests(0),run_all_tests(0),cleanup(0)  # Simple E2E test runner for NLP2CMD service...
     main()
-  src/nlp2cmd/canvas_planner/config.py:
-    e: CanvasLLMConfig,_env_flag,resolve_canvas_model,resolve_ollama_url
-    CanvasLLMConfig: from_env(0)
-    _env_flag(name;default)
-    resolve_canvas_model(explicit)
-    resolve_ollama_url(explicit)
+  src/nlp2cmd/validators/factory.py:
+    e: TransformValidator,_call_validator,_domain_validator,build_transform_validator,build_default_composite_validator
+    TransformValidator(BaseValidator): __init__(1),validate(2)  # Domain validator plus optional Intract contract checks...
+    _call_validator(validator;content;plan)
+    _domain_validator(dsl_name)
+    build_transform_validator(dsl_name)
+    build_default_composite_validator(validators)
+  examples/01_basics/sql_basics/example.py:
+    e: main
+    main()
+  src/nlp2cmd/generation/schema/adapter.py:
+    e: SchemaDrivenAppSpecAdapter
+    SchemaDrivenAppSpecAdapter(AppSpecAdapter): __init__(0),_load_schemas(0),_action_to_schema(1),_infer_category(1),generate(1),transform_ir(1),_extract_command_from_text(1),_extract_context_from_text(1),learn_from_feedback(3),save_improvements(1)  # AppSpec adapter that uses schema-based generation...
   examples/05_advanced_features/schema_driven_architecture/05_result_aggregator/demo.py:
     e: OutputFormat,ExecutionResult,ResultAggregator,main
     OutputFormat(Enum):  # Format wyjściowy...
@@ -3294,10 +3371,6 @@ Models:...
 
 Provides:
 - Action...
-  src/nlp2cmd/thermodynamic/thermodynamic_router.py:
-    e: ThermodynamicRouter
-    ThermodynamicRouter: __init__(1),route(2),estimate_complexity(2)  # Routes problems to appropriate solver:
-- Classic DSL agents ...
   src/nlp2cmd/streams/rdp_stream.py:
     e: RDPStreamAdapter
     RDPStreamAdapter(StreamAdapter): connect(0),execute(1),query(1)
@@ -3321,6 +3394,21 @@ Provides:
     ORScheduler: __init__(2),_can_perform(2),schedule(0),_sort_surgeries_by_priority(0),_initialize_schedule(0),_get_room_end_times(0),_find_best_room_for_surgery(2),_schedule_surgery_in_room(5),print_schedule(1)  # Scheduler dla sal operacyjnych.
 
 Optymalizuje przydzielenie ...
+  examples/04_domain_specific/drug_discovery/example.py:
+    e: demo_lead_optimization,demo_admet_balancing,main
+    demo_lead_optimization()
+    demo_admet_balancing()
+    main()
+  src/nlp2cmd/bridge/ir_convert.py:
+    e: plan_step_to_action_ir
+    plan_step_to_action_ir(step)
+  examples/04_domain_specific/data_science/example.py:
+    e: demo_hyperparameter_optimization,demo_feature_selection,demo_experiment_scheduling,demo_model_ensemble_optimization,main
+    demo_hyperparameter_optimization()
+    demo_feature_selection()
+    demo_experiment_scheduling()
+    demo_model_ensemble_optimization()
+    main()
   examples/_dynamic_orchestrator.py:
     e: DynamicOrchestrator
     DynamicOrchestrator: __init__(2),execute_task(2)  # Backward-compatible wrapper around nlp2cmd.orchestration.Orc...
@@ -3466,6 +3554,10 @@ Provi...
   src/nlp2cmd/step_handlers/draw_polygon_handler.py:
     e: DrawPolygonHandler
     DrawPolygonHandler(StepHandler,CanvasMixin): execute(1)  # Draw a polygon on canvas...
+  src/nlp2cmd/bridge/plan_execute.py:
+    e: _runner_stdout,run_plan_step
+    _runner_stdout(result)
+    run_plan_step(step;plan)
   examples/03_integrations/web_development/web_app_example.py:
     e: CommandRequest,CommandResponse,HistoryResponse,process_command,get_status,get_history,get_services,home,history_page,services_page,get_examples
     CommandRequest(BaseModel):
@@ -3692,6 +3784,10 @@ Each handler implements ...
     _apply_shell_service_defaults(intent;entities;result)
     _apply_shell_browser_defaults(intent;entities;result)
     apply_refactor_to_template_generator()
+  src/nlp2cmd/bridge/integration.py:
+    e: plan_query_via_integration,integration_enabled
+    plan_query_via_integration(query)
+    integration_enabled()
   jspaint_app_test4.py:
     e: run
     run()
@@ -3804,9 +3900,6 @@ This class shows h...
   src/nlp2cmd/generation/hybrid_thermodynamic_generator.py:
     e: HybridThermodynamicGenerator
     HybridThermodynamicGenerator: __init__(0),generate(2),is_optimization_problem(1)  # Hybrid generator combining rule/LLM-based DSL with thermodyn...
-  src/nlp2cmd/validators/composite_validator.py:
-    e: CompositeValidator
-    CompositeValidator(BaseValidator): __init__(1),validate(1)  # Combines multiple validators...
   src/nlp2cmd/service/cli.py:
     e: add_service_command
     add_service_command(main_group)
@@ -3941,6 +4034,16 @@ Energy function V(z;...
   scripts/maintenance/apply_complexity_refactors.py:
     e: main
     main()
+  src/nlp2cmd/validators/composite_validator.py:
+    e: CompositeValidator
+    CompositeValidator(BaseValidator): __init__(1),validate(2)  # Combines multiple validators...
+  src/nlp2cmd/intract/color_validation.py:
+    e: is_valid_hex_color
+    is_valid_hex_color(color)
+  src/nlp2cmd/bridge/intent_ir.py:
+    e: has_integration_packages,detection_to_intent_ir
+    has_integration_packages()
+    detection_to_intent_ir(result)
   examples/05_advanced_features/schema_driven_architecture/manual_appspec.py:
     e: main
     main()
@@ -3995,11 +4098,6 @@ Energy function V(z;...
     demo_demand_response()
     demo_microgrid()
     main()
-  examples/04_domain_specific/drug_discovery/example.py:
-    e: demo_lead_optimization,demo_admet_balancing,main
-    demo_lead_optimization()
-    demo_admet_balancing()
-    main()
   examples/04_domain_specific/logistics/example.py:
     e: demo_vehicle_routing,demo_warehouse_optimization,demo_production_scheduling,demo_inventory_optimization,demo_supply_chain_network,demo_cross_docking,main
     demo_vehicle_routing()
@@ -4008,13 +4106,6 @@ Energy function V(z;...
     demo_inventory_optimization()
     demo_supply_chain_network()
     demo_cross_docking()
-    main()
-  examples/04_domain_specific/data_science/example.py:
-    e: demo_hyperparameter_optimization,demo_feature_selection,demo_experiment_scheduling,demo_model_ensemble_optimization,main
-    demo_hyperparameter_optimization()
-    demo_feature_selection()
-    demo_experiment_scheduling()
-    demo_model_ensemble_optimization()
     main()
   examples/04_domain_specific/smart_cities/example.py:
     e: demo_traffic_optimization,demo_smart_grid,demo_waste_management,demo_public_transport,demo_parking_management,demo_air_quality,demo_water_management,main
@@ -4230,7 +4321,6 @@ Compares:
     cleanup()
     main()
   oferteo_pl_data.txt:
-  goal.yaml:
   generate_working.py:
   test_nlp2cmd_commands.sh:
     e: print_status,print_success,print_warning,print_error,print,print,print,print,print,print,print,print,print,print,print,print,print,print
@@ -4261,7 +4351,6 @@ Compares:
   planfile.yaml:
   .markdownlint.json:
   run_all_tests.sh:
-  Makefile:
   config.yaml:
   docker-compose.yml:
   pyqual.yaml:
@@ -4398,15 +4487,9 @@ Compares:
   examples/03_integrations/toon_format/07_loading_performance/run.sh:
   examples/03_integrations/toon_format/11_basic_integration/run.sh:
   examples/03_integrations/toon_format/08_memory_usage/run.sh:
-  examples/02_benchmarks/performance_testing/benchmark_report.json:
-  examples/02_benchmarks/sequential_testing/sequential_benchmark_results.json:
-  examples/01_basics/kubernetes_basics/command_schemas/exports/dynamic/kubectl_dynamic_schema.json:
-  examples/01_basics/app2schema/generated_appspec.json:
   examples/01_basics/shell_fundamentals/runtime_schemas.json:
   examples/01_basics/shell_fundamentals/appspec_cache.json:
   examples/01_basics/shell_fundamentals/generated_shell_dynamic_schema.json:
-  examples/01_basics/shell_fundamentals/generated_shell_appspec.json:
-  examples/01_basics/docker_basics/command_schemas/commands/docker.appspec.json:
   examples/09_online_drawing/run.sh:
     e: show_help,check_nlp2cmd,Nlp2cmd,main
     show_help()
@@ -4537,8 +4620,6 @@ Compares:
   src/nlp2cmd/generation/templates/devops_templates.py:
   src/nlp2cmd/generation/templates/remote_templates.py:
   src/nlp2cmd/generation/templates/presentation_templates.py:
-  src/nlp2cmd/generation/keywords/__init__.py:
-  src/nlp2cmd/validators/__init__.py:
   src/nlp2cmd/desktop_executor/__init__.py:
   src/nlp2cmd/service/docker_app.py:
   src/nlp2cmd/canvas_planner/__init__.py:
@@ -4549,7 +4630,6 @@ Compares:
   src/nlp2cmd/vql/schema/__init__.py:
   src/nlp2cmd/vql/compiler/__init__.py:
   src/nlp2cmd/vql/validation/__init__.py:
-  src/nlp2cmd/vql/adapters/__init__.py:
   src/nlp2cmd/vql/library/__init__.py:
   src/nlp2cmd/core/__init__.py:
   src/nlp2cmd/nlp/__init__.py:
@@ -4561,6 +4641,7 @@ Compares:
   src/nlp2cmd/browser_token/__init__.py:
   src/nlp2cmd/cli/__init__.py:
   src/nlp2cmd/cli/commands/__init__.py:
+  src/nlp2cmd/intract/__init__.py:
   src/nlp2cmd/web_schema/__init__.py:
   src/nlp2cmd/execution/__init__.py:
   src/nlp2cmd/exploration/__init__.py:
@@ -4713,7 +4794,6 @@ Compares:
   src/nlp2cmd/schema_based/adapter.py:
   src/nlp2cmd/schema_based/__init__.py:
   src/nlp2cmd/history/__init__.py:
-  src/nlp2cmd/schema_extraction/__init__.py:
   src/nlp2cmd/dom_actions/__init__.py:
   src/nlp2cmd/step_handlers/__init__.py:
   src/app2schema/__init__.py:
@@ -4785,10 +4865,35 @@ Compares:
     log_error()
     log_warning()
   test_screenshots/raport_testu.txt:
-  intract.yaml:
+  goal.yaml:
   pyproject.toml:
+  examples/learned_schemas.json:
+  intract.yaml:
+  examples/generated_appspec.json:
+  Makefile:
+  examples/02_benchmarks/performance_testing/benchmark_report.json:
+  examples/02_benchmarks/sequential_testing/sequential_benchmark_results.json:
+  examples/sequential_benchmark_results.json:
+  examples/01_basics/shell_fundamentals/learned_schemas.json:
+  examples/benchmark_report.json:
+  examples/01_basics/app2schema/generated_appspec.json:
+  examples/01_basics/shell_fundamentals/generated_shell_appspec.json:
+  examples/01_basics/docker_basics/command_schemas/commands/docker.appspec.json:
+  examples/command_schemas/commands/docker.appspec.json:
+  examples/generated_shell_appspec.json:
+  examples/command_schemas/exports/dynamic/kubectl_dynamic_schema.json:
+  examples/01_basics/kubernetes_basics/command_schemas/exports/dynamic/kubectl_dynamic_schema.json:
+  examples/04_domain_specific/debugging/shell_validation_report.txt:
   examples/04_domain_specific/__init__.py:
+  src/nlp2cmd/generation/keywords/keyword_patterns.py:
+  src/nlp2cmd/generation/keywords/__init__.py:
+  src/nlp2cmd/validators/__init__.py:
+  src/nlp2cmd/vql/adapters/__init__.py:
   src/nlp2cmd/__init__.py:
-  src/nlp2cmd/intract/__init__.py:
+  src/nlp2cmd/post_execution/__init__.py:
+  src/nlp2cmd/generation/keywords/keyword_detector.py:
+  src/nlp2cmd/bridge/__init__.py:
   src/nlp2cmd/data/intract-bindings.json:
   src/nlp2cmd/data/intract-policy.json:
+  src/nlp2cmd/schema_extraction/__init__.py:
+  scripts/update_integration_deps.sh:

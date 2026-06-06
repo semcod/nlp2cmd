@@ -1,17 +1,17 @@
 # code2llm call graph | /home/tom/github/wronai/nlp2cmd
 # generated in 0.33s
-# nodes: 312 | edges: 500 | modules: 114
+# nodes: 314 | edges: 500 | modules: 116
 # CC̄=5.0
 
 HUBS[20]:
   test_nlp2cmd_commands.print
-    CC=0  in:4977  out:0  total:4977
+    CC=0  in:4995  out:0  total:4995
   src.nlp2cmd.cli.commands.examples.ExamplesRegistry.list
-    CC=4  in:152  out:2  total:154
-  src.nlp2cmd.executor.execution_context.ExecutionContext.set
-    CC=1  in:108  out:0  total:108
+    CC=4  in:151  out:2  total:153
   examples._example_helpers.print_rule
-    CC=2  in:106  out:1  total:107
+    CC=2  in:107  out:1  total:108
+  src.nlp2cmd.executor.execution_context.ExecutionContext.set
+    CC=1  in:105  out:0  total:105
   examples.09_online_drawing._old.03_adaptive_drawing.main
     CC=11  in:0  out:93  total:93
   examples.05_advanced_features.schema_driven_architecture.end_to_end_demo.main
@@ -20,26 +20,26 @@ HUBS[20]:
     CC=10  in:0  out:81  total:81
   examples._verbose_helper.vlog
     CC=2  in:77  out:1  total:78
+  examples._example_helpers.print_separator
+    CC=2  in:75  out:3  total:78
   examples.03_integrations.toon_format.usage_example.main
     CC=9  in:0  out:77  total:77
   examples.show_metrics.main
     CC=15  in:0  out:77  total:77
-  examples._example_helpers.print_separator
-    CC=2  in:73  out:3  total:76
   examples.03_integrations.validation.config_validation.main
     CC=5  in:0  out:68  total:68
   examples.02_benchmarks.sequential_testing.benchmark.main
     CC=6  in:0  out:67  total:67
-  examples.09_online_drawing.05_autonomous.run.run_autonomous
-    CC=18  in:1  out:65  total:66
   examples.09_online_drawing._old.04_object_database_drawing.main
     CC=18  in:0  out:66  total:66
+  examples.09_online_drawing.05_autonomous.run.run_autonomous
+    CC=18  in:1  out:65  total:66
   examples.09_online_drawing.06_visual_validator.run.draw_and_validate
     CC=21  in:2  out:62  total:64
-  examples.01_basics.sql_basics.advanced.main
-    CC=2  in:0  out:60  total:60
   examples.09_online_drawing._old.05_autonomous_drawing.run_autonomous
     CC=12  in:1  out:59  total:60
+  examples.01_basics.sql_basics.advanced.main
+    CC=2  in:0  out:60  total:60
   examples.03_integrations.pipelines.infrastructure_health.main
     CC=19  in:0  out:59  total:59
   examples.05_advanced_features.dynamic_schemas.demo_schema_flow.demonstrate_schema_flow
@@ -76,8 +76,6 @@ MODULES:
     print_tool_detection  CC=11  out:11
   examples.01_basics.shell_fundamentals.environment_analysis  [1 funcs]
     main  CC=6  out:23
-  examples.01_basics.shell_fundamentals.example  [1 funcs]
-    main  CC=7  out:17
   examples.01_basics.shell_fundamentals.feedback_loop  [9 funcs]
     _print_feedback  CC=1  out:4
     _print_summary  CC=1  out:2
@@ -92,8 +90,6 @@ MODULES:
     main  CC=5  out:12
   examples.01_basics.sql_basics.advanced  [1 funcs]
     main  CC=2  out:60
-  examples.01_basics.sql_basics.example  [1 funcs]
-    main  CC=10  out:23
   examples.01_basics.sql_basics.llm_integration  [5 funcs]
     demonstrate_hybrid_approach  CC=1  out:2
     demonstrate_mock_llm  CC=2  out:13
@@ -281,6 +277,10 @@ MODULES:
     example_routing  CC=4  out:12
     example_scheduling  CC=3  out:14
     main  CC=3  out:14
+  examples.06_desktop_automation.07_canvas_drawing.run  [1 funcs]
+    main  CC=5  out:40
+  examples.06_desktop_automation.09_complex_commands.run  [1 funcs]
+    main  CC=16  out:38
   examples.06_tools_and_utilities.migration_tools.demo_versioned_schemas  [4 funcs]
     demonstrate_dual_versions  CC=4  out:34
     demonstrate_schema_updates  CC=11  out:41
@@ -293,8 +293,12 @@ MODULES:
     old_way_examples  CC=1  out:9
     performance_comparison  CC=1  out:20
     practical_examples  CC=1  out:7
+  examples.07_stream_protocols.example_http_api  [1 funcs]
+    main  CC=3  out:21
   examples.07_stream_protocols.example_libvirt  [1 funcs]
     main  CC=3  out:30
+  examples.07_stream_protocols.example_multi_stream  [1 funcs]
+    main  CC=7  out:23
   examples.07_stream_protocols.example_rtsp  [1 funcs]
     main  CC=3  out:22
   examples.07_stream_protocols.example_ssh  [1 funcs]

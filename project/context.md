@@ -1,16 +1,16 @@
 # System Architecture Analysis
-<!-- generated in 0.02s -->
+<!-- generated in 0.01s -->
 
 ## Overview
 
 - **Project**: /home/tom/github/wronai/nlp2cmd
 - **Primary Language**: python
-- **Languages**: python: 738, json: 155, shell: 73, yaml: 26, txt: 11
+- **Languages**: python: 753, json: 163, shell: 74, yaml: 26, txt: 12
 - **Analysis Mode**: static
-- **Total Functions**: 3973
-- **Total Classes**: 742
-- **Modules**: 1012
-- **Entry Points**: 3304
+- **Total Functions**: 4014
+- **Total Classes**: 747
+- **Modules**: 1037
+- **Entry Points**: 3311
 
 ## Architecture by Module
 
@@ -208,15 +208,11 @@ Args:
 
 ### src.nlp2cmd.adapters.desktop.DesktopAdapter._build_actions
 > Build action sequence based on intent.
-- **Calls**: entities.get, self.APP_COMMANDS.get, src.nlp2cmd.automation.complex_planner._debug, actions.append, self._detect_followup_actions, actions.extend, self._extract_app_name, app_name.lower
+- **Calls**: entities.get, self.APP_COMMANDS.get, src.nlp2cmd.pipeline_runner_utils._debug, actions.append, self._detect_followup_actions, actions.extend, self._extract_app_name, app_name.lower
 
 ### scripts.maintenance.refactoring_summary.print_summary
 > Print a summary of the refactoring work completed.
 - **Calls**: test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print
-
-### src.nlp2cmd.generation.keywords.keyword_detector.KeywordIntentDetector._fast_path_detection
-> Fast path detection for common patterns.
-- **Calls**: None.join, text_lower.strip, _SQL_EXACT.items, any, _SHELL_TERMS.items, re.search, re.search, re.search
 
 ### examples.03_integrations.validation.config_validation.main
 - **Calls**: examples.03_integrations.validation.config_validation.print_section, SchemaRegistry, examples.03_integrations.validation.config_validation.print_section, test_nlp2cmd_commands.print, examples._example_helpers.print_rule, registry.validate, examples.03_integrations.validation.config_validation.print_result, test_nlp2cmd_commands.print
@@ -229,7 +225,7 @@ Args:
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args
 
 ### src.nlp2cmd.adapters.browser.BrowserAdapter.generate
-- **Calls**: str, src.nlp2cmd.automation.complex_planner._debug, isinstance, src.nlp2cmd.automation.complex_planner._debug, self._has_fill_form_action, self._should_explore_for_forms, self._should_explore_for_content, self._has_type_action
+- **Calls**: str, src.nlp2cmd.pipeline_runner_utils._debug, isinstance, src.nlp2cmd.pipeline_runner_utils._debug, self._has_fill_form_action, self._should_explore_for_forms, self._should_explore_for_content, self._has_type_action
 
 ### src.nlp2cmd.automation.schema_fallback.SchemaFallback._try_rule_based
 > Rule-based fallback for known failure patterns.
@@ -244,7 +240,7 @@ Args:
 Args:
     url: Starting URL (homepage)
     content_type: Type of content to find (artic
-- **Calls**: time.perf_counter, self._resolve_platform_url, self._try_github_api, src.nlp2cmd.executor.execution_context.ExecutionContext.set, self._explore_recursive, src.nlp2cmd.automation.complex_planner._debug, self._find_best_content_candidate, ExplorationResult
+- **Calls**: time.perf_counter, self._resolve_platform_url, self._try_github_api, src.nlp2cmd.executor.execution_context.ExecutionContext.set, self._explore_recursive, src.nlp2cmd.pipeline_runner_utils._debug, self._find_best_content_candidate, ExplorationResult
 
 ### examples.03_integrations.pipelines.infrastructure_health.main
 - **Calls**: examples._example_helpers.print_separator, src.nlp2cmd.registry.get_registry.get_registry, PlanExecutor, ResultAggregator, executor.register_handler, executor.register_handler, executor.register_handler, executor.register_handler
@@ -253,6 +249,10 @@ Args:
 > 4-tier lookup: cache → template → regex → LLM teacher.
 Returns LookupResult with command and timing.
 - **Calls**: time.perf_counter, src.nlp2cmd.generation.evolutionary_cache.fingerprint, src.nlp2cmd.generation.evolutionary_cache.fuzzy_fingerprint, LookupResult, self.stats.get, None.lower, None.isoformat, self.save
+
+### src.nlp2cmd.adapters.dql.DQLAdapter._generate_qb_select
+> Generate SELECT QueryBuilder.
+- **Calls**: entities.get, None.lower, entities.get, entities.get, entities.get, entities.get, entities.get, entities.get
 
 ## Process Flows
 
@@ -580,6 +580,11 @@ Returns JSON-serializable result.
 - **Confidence**: 0.70
 - **Functions**: src.nlp2cmd.browser_manager.browser_connector.BrowserConnector.__init__, src.nlp2cmd.browser_manager.browser_connector.BrowserConnector.connect, src.nlp2cmd.browser_manager.browser_connector.BrowserConnector._try_connect_chrome, src.nlp2cmd.browser_manager.browser_connector.BrowserConnector._try_connect_firefox
 
+### state_machine_MarkdownBlockStream
+- **Type**: state_machine
+- **Confidence**: 0.70
+- **Functions**: src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.__init__, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.__enter__, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.__exit__, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream._ensure_open, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.print
+
 ### state_machine_SearchEngine
 - **Type**: state_machine
 - **Confidence**: 0.70
@@ -620,16 +625,11 @@ Returns JSON-serializable result.
 - **Confidence**: 0.70
 - **Functions**: src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter.__init__, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter._build_libvirt_uri, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter._virsh, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter.connect, src.nlp2cmd.streams.libvirt_stream.LibvirtStreamAdapter.execute
 
-### state_machine_MarkdownBlockStream
-- **Type**: state_machine
-- **Confidence**: 0.70
-- **Functions**: src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.__init__, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.__enter__, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.__exit__, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream._ensure_open, src.nlp2cmd.cli.markdown_output.MarkdownBlockStream.print
-
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
 
-- `src.nlp2cmd.cli.commands.run.handle_run_mode` - 264 calls
+- `src.nlp2cmd.cli.commands.run.handle_run_mode` - 270 calls
 - `src.nlp2cmd.pipeline_runner_plans.PlanExecutionMixin.execute_action_plan` - 219 calls
 - `examples.10_online_code_editors.03_adaptive_code.main` - 133 calls
 - `examples.10_online_code_editors.02_mycompiler_run.main` - 116 calls
@@ -651,9 +651,9 @@ Functions exposed as public API (no underscore prefix):
 - `scripts.maintenance.refactoring_summary.print_summary` - 72 calls
 - `src.app2schema.extract.extract_schema` - 70 calls
 - `examples.03_integrations.validation.config_validation.main` - 68 calls
+- `src.nlp2cmd.cli.commands.generate.handle_generate_query` - 68 calls
 - `examples.02_benchmarks.sequential_testing.benchmark.main` - 67 calls
 - `examples.09_online_drawing._old.04_object_database_drawing.main` - 66 calls
-- `src.nlp2cmd.cli.commands.generate.handle_generate_query` - 66 calls
 - `src.nlp2cmd.adapters.browser.BrowserAdapter.generate` - 66 calls
 - `examples.09_online_drawing.05_autonomous.run.run_autonomous` - 65 calls
 - `src.nlp2cmd.skills.drawing.svg_path_parser.parse_svg_path` - 64 calls

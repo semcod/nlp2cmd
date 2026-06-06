@@ -20,7 +20,7 @@ flowchart TD
         test_nlp2cmd_enhanced__cleanup["cleanup"]
         test_nlp2cmd_enhanced__main["main"]
         test_nlp2cmd_commands__print_status["print_status"]
-        ...["+2600 more"]
+        ...["+2610 more"]
     end
 
     subgraph Exporters
@@ -35,6 +35,9 @@ flowchart TD
         src__nlp2cmd__enhanced__EnhancedNLP2CMD__export_schemas["export_schemas"]
         src__nlp2cmd__history__tracker__CommandHistory__export_analytics["export_analytics"]
         src__app2schema__extract__App2SchemaResult__to_export_dict["to_export_dict"]
+        src__nlp2cmd__plan_execution__testql_export__build_testql_scenario_text{{build_testql_scenario_text CC=19}}
+        src__nlp2cmd__schema_extraction__registry__DynamicSchemaRegistry__register_appspec_export["register_appspec_export"]
+        src__nlp2cmd__schema_extraction__registry__DynamicSchemaRegistry__register_dynamic_export["register_dynamic_export"]
     end
 
     class test_nlp2cmd_enhanced__print_status,test_nlp2cmd_enhanced__print_success,test_nlp2cmd_enhanced__print_warning,test_nlp2cmd_enhanced__print_error,test_nlp2cmd_enhanced__print_header,test_nlp2cmd_enhanced__check_nlp2cmd,test_nlp2cmd_enhanced__generate_command_schema,test_nlp2cmd_enhanced__create_placeholder_schema,test_nlp2cmd_enhanced__install_command_with_schema,test_nlp2cmd_enhanced__run_nlp2cmd_command entry

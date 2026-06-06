@@ -1,4 +1,4 @@
-# code2llm/evolution | 3057 func | 397f | 2026-06-05
+# code2llm/evolution | 3096 func | 408f | 2026-06-06
 # generated in 0.02s
 
 NEXT[10] (ranked by impact):
@@ -6,9 +6,9 @@ NEXT[10] (ranked by impact):
       WHY: CC=280 exceeds 15
       EFFORT: ~1h  IMPACT: 30240
 
-  [2] !! SPLIT-FUNC      handle_run_mode  CC=179  fan=76
-      WHY: CC=179 exceeds 15
-      EFFORT: ~1h  IMPACT: 13604
+  [2] !! SPLIT-FUNC      handle_run_mode  CC=183  fan=80
+      WHY: CC=183 exceeds 15
+      EFFORT: ~1h  IMPACT: 14640
 
   [3] !! SPLIT-FUNC      PlanExecutionMixin.execute_action_plan  CC=168  fan=74
       WHY: CC=168 exceeds 15
@@ -26,21 +26,21 @@ NEXT[10] (ranked by impact):
       WHY: CC=72 exceeds 15
       EFFORT: ~1h  IMPACT: 2160
 
-  [7] !! SPLIT-FUNC      KeywordIntentDetector._fast_path_detection  CC=73  fan=29
-      WHY: CC=73 exceeds 15
-      EFFORT: ~1h  IMPACT: 2117
-
-  [8] !! SPLIT-FUNC      ExecutionRunner.run_with_recovery  CC=54  fan=35
+  [7] !! SPLIT-FUNC      ExecutionRunner.run_with_recovery  CC=54  fan=35
       WHY: CC=54 exceeds 15
       EFFORT: ~1h  IMPACT: 1890
 
-  [9] !! SPLIT-FUNC      _extract_web_dom_schema  CC=45  fan=37
+  [8] !! SPLIT-FUNC      _extract_web_dom_schema  CC=45  fan=37
       WHY: CC=45 exceeds 15
       EFFORT: ~1h  IMPACT: 1665
 
-  [10] !! SPLIT-FUNC      ExecutionRunner.run_command  CC=50  fan=32
+  [9] !! SPLIT-FUNC      ExecutionRunner.run_command  CC=50  fan=32
       WHY: CC=50 exceeds 15
       EFFORT: ~1h  IMPACT: 1600
+
+  [10] !! SPLIT-FUNC      handle_generate_query  CC=41  fan=38
+      WHY: CC=41 exceeds 15
+      EFFORT: ~1h  IMPACT: 1558
 
 
 RISKS[3]:
@@ -51,8 +51,8 @@ RISKS[3]:
 METRICS-TARGET:
   CC̄:          5.3 → ≤3.7
   max-CC:      280 → ≤20
-  god-modules: 71 → 0
-  high-CC(≥15): 184 → ≤92
+  god-modules: 70 → 0
+  high-CC(≥15): 188 → ≤94
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):

@@ -24,13 +24,13 @@ flowchart TD
     examples__show_metrics["examples.show_metrics<br/>1 funcs"]
     jspaint_app_test4["jspaint_app_test4<br/>1 funcs"]
     scripts__bump_version["scripts.bump_version<br/>1 funcs"]
-    scripts__generate_intract_manifest["scripts.generate_intract_manifest<br/>13 funcs"]
+    scripts__generate_intract_manifest["scripts.generate_intract_manifest<br/>15 funcs"]
     scripts__maintenance["scripts.maintenance<br/>115 funcs"]
     scripts__setup_external["scripts.setup_external<br/>1 funcs"]
     scripts__testing["scripts.testing<br/>23 funcs"]
     scripts__thermodynamic["scripts.thermodynamic<br/>48 funcs"]
     src__app2schema["src.app2schema<br/>16 funcs"]
-    src__nlp2cmd["src.nlp2cmd<br/>2850 funcs"]
+    src__nlp2cmd["src.nlp2cmd<br/>2889 funcs"]
     test_nlp2cmd_commands["test_nlp2cmd_commands<br/>5 funcs"]
     test_screenshots__analyze_screenshots["test_screenshots.analyze_screenshots<br/>4 funcs"]
     test_screenshots__compare_screenshots["test_screenshots.compare_screenshots<br/>4 funcs"]
@@ -38,13 +38,13 @@ flowchart TD
     tools__generation["tools.generation<br/>27 funcs"]
     tools__manual_tests["tools.manual_tests<br/>1 funcs"]
     tools__schema["tools.schema<br/>116 funcs"]
-    examples__04_domain_specific ==>|795| test_nlp2cmd_commands
+    examples__04_domain_specific ==>|797| test_nlp2cmd_commands
     examples__03_integrations ==>|793| test_nlp2cmd_commands
     scripts__maintenance ==>|593| test_nlp2cmd_commands
     examples__05_advanced_features ==>|458| test_nlp2cmd_commands
     examples__09_online_drawing ==>|377| test_nlp2cmd_commands
-    src__nlp2cmd ==>|356| test_nlp2cmd_commands
-    examples__01_basics ==>|266| test_nlp2cmd_commands
+    src__nlp2cmd ==>|368| test_nlp2cmd_commands
+    examples__01_basics ==>|270| test_nlp2cmd_commands
     scripts__thermodynamic ==>|159| test_nlp2cmd_commands
     examples__10_online_code_editors ==>|139| test_nlp2cmd_commands
     examples__06_tools_and_utilities ==>|136| test_nlp2cmd_commands
@@ -52,9 +52,9 @@ flowchart TD
     examples__08_api_key_management ==>|104| test_nlp2cmd_commands
     examples__07_stream_protocols ==>|90| test_nlp2cmd_commands
     tools__analysis ==>|74| test_nlp2cmd_commands
+    examples__01_basics ==>|72| examples___example_helpers
     examples__10_online_code_editors ==>|72| examples___verbose_helper
     examples__02_benchmarks ==>|69| test_nlp2cmd_commands
-    examples__01_basics ==>|69| examples___example_helpers
     tools__generation ==>|56| test_nlp2cmd_commands
     examples__04_domain_specific ==>|50| examples___example_helpers
     examples__03_integrations ==>|48| examples___example_helpers
@@ -93,11 +93,11 @@ flowchart TD
     examples___example_helpers ==>|4| test_nlp2cmd_commands
     src__app2schema ==>|4| src__nlp2cmd
     scripts__bump_version ==>|4| test_nlp2cmd_commands
+    scripts__generate_intract_manifest ==>|4| src__nlp2cmd
     examples__06_desktop_automation -->|3| examples___verbose_helper
     benchmarks__llm_benchmark -->|3| src__nlp2cmd
     benchmarks__thermodynamic_benchmark -->|3| src__nlp2cmd
     tools__analysis -->|3| src__nlp2cmd
-    scripts__generate_intract_manifest -->|3| src__nlp2cmd
     jspaint_app_test4 -->|2| test_nlp2cmd_commands
     examples___verbose_helper -->|2| src__nlp2cmd
     examples__02_benchmarks -->|2| examples___example_helpers

@@ -1,12 +1,12 @@
-# redup/duplication | 151 groups | 998f 253649L | 2026-06-05
+# redup/duplication | 152 groups | 1012f 254100L | 2026-06-06
 
 SUMMARY:
-  files_scanned: 998
-  total_lines:   253649
-  dup_groups:    151
-  dup_fragments: 511
-  saved_lines:   5802
-  scan_ms:       11172
+  files_scanned: 1012
+  total_lines:   254100
+  dup_groups:    152
+  dup_fragments: 514
+  saved_lines:   5810
+  scan_ms:       13417
 
 HOTSPOTS[7] (files with most duplication):
   webops/voice_service.py  dup=752L  groups=12  frags=12  (0.3%)
@@ -17,7 +17,7 @@ HOTSPOTS[7] (files with most duplication):
   examples/06_tools_and_utilities/migration_tools/guide.py  dup=193L  groups=2  frags=3  (0.1%)
   networkx-3.6.1-py3-none-any/networkx/algorithms/components/connected.py  dup=183L  groups=3  frags=3  (0.1%)
 
-DUPLICATES[151] (ranked by impact):
+DUPLICATES[152] (ranked by impact):
   [1df9ba1fb4dcca4d] !! STRU  demo_protein_folding  L=23 N=35 saved=782 sim=1.00
       examples/04_domain_specific/bioinformatics/example.py:42-64  (demo_protein_folding)
       examples/04_domain_specific/bioinformatics/example.py:87-108  (demo_proteomics_analysis)
@@ -557,6 +557,10 @@ DUPLICATES[151] (ranked by impact):
       src/nlp2cmd/cli/syntax_cache.py:112-115  (get_cache_stats)
       src/nlp2cmd/core/toon_integration.py:210-213  (load_command_schemas)
       src/nlp2cmd/core/toon_integration.py:220-223  (get_project_info)
+  [6bab693518695269]   STRU  execution_record_enabled  L=4 N=3 saved=8 sim=1.00
+      src/nlp2cmd/plan_execution/execution_record.py:54-57  (execution_record_enabled)
+      src/nlp2cmd/post_execution/checker.py:11-17  (post_check_enabled)
+      src/nlp2cmd/post_execution/checker.py:20-26  (post_check_strict)
   [be10847759ce69a6]   EXAC  filter_iter  L=7 N=2 saved=7 sim=1.00
       networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py:681-687  (filter_iter)
       networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py:859-865  (filter_iter)
@@ -681,7 +685,7 @@ DUPLICATES[151] (ranked by impact):
       src/nlp2cmd/dom_actions/registry.py:72-74  (get_action)
       src/nlp2cmd/step_handlers/registry.py:147-149  (get_handler)
 
-REFACTOR[151] (ranked by priority):
+REFACTOR[152] (ranked by priority):
   [1] ○ extract_function   → examples/04_domain_specific/utils/demo_protein_folding.py
       WHY: 35 occurrences of 23-line block across 8 files — saves 782 lines
       FILES: examples/04_domain_specific/bioinformatics/example.py, examples/04_domain_specific/education/example.py, examples/04_domain_specific/energy/example.py, examples/04_domain_specific/finance/example.py, examples/04_domain_specific/healthcare/example.py +3 more
@@ -1015,60 +1019,60 @@ REFACTOR[151] (ranked by priority):
   [111] ○ extract_function   → src/nlp2cmd/utils/get_cache_stats.py
       WHY: 3 occurrences of 4-line block across 2 files — saves 8 lines
       FILES: src/nlp2cmd/cli/syntax_cache.py, src/nlp2cmd/core/toon_integration.py
-  [112] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_iter.py
+  [112] ○ extract_function   → src/nlp2cmd/utils/execution_record_enabled.py
+      WHY: 3 occurrences of 4-line block across 2 files — saves 8 lines
+      FILES: src/nlp2cmd/plan_execution/execution_record.py, src/nlp2cmd/post_execution/checker.py
+  [113] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_iter.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
-  [113] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_pred_iter.py
+  [114] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_pred_iter.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
-  [114] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_succ_iter.py
+  [115] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_succ_iter.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
-  [115] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_iter.py
+  [116] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/filter_iter.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
-  [116] ○ extract_function   → src/nlp2cmd/utils/_normalize_url.py
+  [117] ○ extract_function   → src/nlp2cmd/utils/_normalize_url.py
       WHY: 2 occurrences of 7-line block across 2 files — saves 7 lines
       FILES: src/nlp2cmd/page_analysis/link_extractor.py, src/nlp2cmd/web_schema/site_explorer.py
-  [117] ○ extract_function   → webops/utils/health_check.py
+  [118] ○ extract_function   → webops/utils/health_check.py
       WHY: 2 occurrences of 7-line block across 2 files — saves 7 lines
       FILES: webops/voice_service.py, webops/voice_service_clean.py
-  [118] ○ extract_function   → src/nlp2cmd/schema_extraction/utils/extract_from_file.py
+  [119] ○ extract_function   → src/nlp2cmd/schema_extraction/utils/extract_from_file.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: src/nlp2cmd/schema_extraction/script_extractors.py
-  [119] ○ extract_function   → src/nlp2cmd/skills/drawing/utils/_parse_json.py
+  [120] ○ extract_function   → src/nlp2cmd/skills/drawing/utils/_parse_json.py
       WHY: 3 occurrences of 3-line block across 3 files — saves 6 lines
       FILES: src/nlp2cmd/skills/drawing/draw_navigation_skill.py, src/nlp2cmd/skills/drawing/draw_object.py, src/nlp2cmd/skills/drawing/draw_validation_skill.py
-  [120] ○ extract_class      → webops/utils/__init__.py
-      WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
-      FILES: webops/voice_service.py, webops/voice_service_clean.py
   [121] ○ extract_class      → webops/utils/__init__.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: webops/voice_service.py, webops/voice_service_clean.py
-  [122] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/neighbors.py
+  [122] ○ extract_class      → webops/utils/__init__.py
+      WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
+      FILES: webops/voice_service.py, webops/voice_service_clean.py
+  [123] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/neighbors.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/function.py
-  [123] ○ extract_function   → src/nlp2cmd/cli/utils/cache_group.py
+  [124] ○ extract_function   → src/nlp2cmd/cli/utils/cache_group.py
       WHY: 3 occurrences of 3-line block across 3 files — saves 6 lines
       FILES: src/nlp2cmd/cli/cache.py, src/nlp2cmd/cli/history.py, src/nlp2cmd/cli/web_schema.py
-  [124] ○ extract_function   → utils/get_monitor.py
+  [125] ○ extract_function   → utils/get_monitor.py
       WHY: 3 occurrences of 3-line block across 3 files — saves 6 lines
       FILES: src/nlp2cmd/monitoring/resources.py, webops/docker_app.py, webops/voice_service.py
-  [125] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edges_from.py
+  [126] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edges_from.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgebfs.py, networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgedfs.py
-  [126] ○ extract_function   → scripts/maintenance/utils/module_filename.py
+  [127] ○ extract_function   → scripts/maintenance/utils/module_filename.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: scripts/maintenance/split_god_modules.py, scripts/maintenance/split_web_controller.py
-  [127] ○ extract_function   → src/nlp2cmd/utils/print_yaml_block.py
+  [128] ○ extract_function   → src/nlp2cmd/utils/print_yaml_block.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: src/nlp2cmd/cli/helpers.py, src/nlp2cmd/context/disambiguator.py
-  [128] ○ extract_function   → examples/utils/print_section.py
+  [129] ○ extract_function   → examples/utils/print_section.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: examples/01_basics/sql_basics/workflows.py, examples/03_integrations/validation/config_validation.py
-  [129] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/iterate.py
-      WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
-      FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
   [130] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/iterate.py
       WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
@@ -1078,65 +1082,68 @@ REFACTOR[151] (ranked by priority):
   [132] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/iterate.py
       WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
-  [133] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/__init__.py
+  [133] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/utils/iterate.py
+      WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
+      FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/simple_paths.py
+  [134] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/__init__.py
       WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/reportviews.py
-  [134] ○ extract_class      → webops/utils/connect.py
+  [135] ○ extract_class      → webops/utils/connect.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: webops/docker_app.py, webops/voice_service.py
-  [135] ○ extract_class      → webops/utils/disconnect.py
+  [136] ○ extract_class      → webops/utils/disconnect.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: webops/docker_app.py, webops/voice_service.py
-  [136] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edge_id.py
-      WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
-      FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgebfs.py, networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgedfs.py
-  [137] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edges_from.py
+  [137] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edge_id.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgebfs.py, networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgedfs.py
   [138] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edges_from.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgebfs.py, networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgedfs.py
-  [139] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/__setstate__.py
+  [139] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/utils/edges_from.py
+      WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
+      FILES: networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgebfs.py, networkx-3.6.1-py3-none-any/networkx/algorithms/traversal/edgedfs.py
+  [140] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/__setstate__.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/coreviews.py
-  [140] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_multigraph.py
+  [141] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_multigraph.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/digraph.py, networkx-3.6.1-py3-none-any/networkx/classes/graph.py
-  [141] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_directed.py
-      WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
-      FILES: networkx-3.6.1-py3-none-any/networkx/classes/digraph.py, networkx-3.6.1-py3-none-any/networkx/classes/multidigraph.py
   [142] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_directed.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
+      FILES: networkx-3.6.1-py3-none-any/networkx/classes/digraph.py, networkx-3.6.1-py3-none-any/networkx/classes/multidigraph.py
+  [143] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_directed.py
+      WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/graph.py, networkx-3.6.1-py3-none-any/networkx/classes/multigraph.py
-  [143] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_multigraph.py
+  [144] ○ extract_function   → networkx-3.6.1-py3-none-any/networkx/classes/utils/is_multigraph.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: networkx-3.6.1-py3-none-any/networkx/classes/multidigraph.py, networkx-3.6.1-py3-none-any/networkx/classes/multigraph.py
-  [144] ○ extract_function   → scripts/maintenance/utils/camel_to_snake.py
+  [145] ○ extract_function   → scripts/maintenance/utils/camel_to_snake.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: scripts/maintenance/split_god_modules.py, scripts/maintenance/split_web_controller.py
-  [145] ○ extract_function   → src/nlp2cmd/utils/list_actions.py
+  [146] ○ extract_function   → src/nlp2cmd/utils/list_actions.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: src/nlp2cmd/dom_actions/registry.py, src/nlp2cmd/step_handlers/registry.py
-  [146] ○ extract_class      → src/nlp2cmd/generation/utils/_shell_intent_file_search.py
+  [147] ○ extract_class      → src/nlp2cmd/generation/utils/_shell_intent_file_search.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: src/nlp2cmd/generation/template_generator.py
-  [147] ○ extract_function   → src/nlp2cmd/skills/drawing/renderers/utils/dispose.py
+  [148] ○ extract_function   → src/nlp2cmd/skills/drawing/renderers/utils/dispose.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: src/nlp2cmd/skills/drawing/renderers/base.py, src/nlp2cmd/skills/drawing/renderers/playwright.py
-  [148] ○ extract_function   → src/nlp2cmd/skills/search/utils/__aexit__.py
+  [149] ○ extract_function   → src/nlp2cmd/skills/search/utils/__aexit__.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: src/nlp2cmd/skills/search/engine.py, src/nlp2cmd/skills/search/skill.py
-  [149] ○ extract_class      → webops/utils/__init__.py
+  [150] ○ extract_class      → webops/utils/__init__.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: webops/docker_app.py, webops/voice_service.py
-  [150] ○ extract_function   → examples/03_integrations/web_development/utils/get_status.py
+  [151] ○ extract_function   → examples/03_integrations/web_development/utils/get_status.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: examples/03_integrations/web_development/web_app_example.py
-  [151] ○ extract_function   → src/nlp2cmd/utils/get_action.py
+  [152] ○ extract_function   → src/nlp2cmd/utils/get_action.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: src/nlp2cmd/dom_actions/registry.py, src/nlp2cmd/step_handlers/registry.py
 
-QUICK_WINS[110] (low risk, high savings — do first):
+QUICK_WINS[111] (low risk, high savings — do first):
   [1] extract_function   saved=782L  → examples/04_domain_specific/utils/demo_protein_folding.py
       FILES: example.py, example.py, example.py +5
   [4] extract_function   saved=294L  → networkx-3.6.1-py3-none-any/networkx/drawing/utils/draw_bipartite.py
@@ -1164,7 +1171,7 @@ DEPENDENCY_RISK[1] (duplicates spanning multiple packages):
       webops/docker_app.py
       webops/voice_service.py
 
-EFFORT_ESTIMATE (total ≈ 240.4h):
+EFFORT_ESTIMATE (total ≈ 240.7h):
   hard   demo_protein_folding                saved=782L  ~1564min
   hard   root                                saved=392L  ~1176min
   hard   boykov_kolmogorov                   saved=294L  ~882min
@@ -1175,8 +1182,8 @@ EFFORT_ESTIMATE (total ≈ 240.4h):
   hard   main                                saved=108L  ~324min
   hard   disjoint_union                      saved=102L  ~306min
   hard   number_attracting_components        saved=100L  ~200min
-  ... +141 more (~8273min)
+  ... +142 more (~8289min)
 
 METRICS-TARGET:
-  dup_groups:  151 → 0
-  saved_lines: 5802 lines recoverable
+  dup_groups:  152 → 0
+  saved_lines: 5810 lines recoverable
