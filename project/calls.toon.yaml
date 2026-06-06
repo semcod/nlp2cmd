@@ -1,7 +1,7 @@
 # code2llm call graph | /home/tom/github/wronai/nlp2cmd
-# generated in 0.73s
+# generated in 0.30s
 # nodes: 312 | edges: 500 | modules: 114
-# CC̄=5.0
+# CC̄=4.9
 
 HUBS[20]:
   test_nlp2cmd_commands.print
@@ -147,7 +147,7 @@ MODULES:
     batch_validate  CC=4  out:3
     main  CC=1  out:29
   examples.03_integrations.toon_format.comparison_demo  [6 funcs]
-    _parse_file  CC=17  out:16
+    _read_file_content  CC=2  out:4
     benchmark_performance  CC=3  out:37
     compare_data_structure  CC=1  out:34
     compare_usage_patterns  CC=1  out:30

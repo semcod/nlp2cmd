@@ -47,52 +47,60 @@ class DeploymentPlan:
     network: str = "nlp2cmd-network"
     compose_version: str = "3.8"
     
+    def _create_service_def(self, svc) -> dict[str, Any]:
+        """Create service definition for docker-compose."""
+        service_def = {
+            "image": svc.image or f"nlp2cmd/{svc.name}:latest",
+            "ports": [f"{svc.port}:{svc.port}"],
+            "environment": svc.env_vars,
+            "networks": [self.network],
+        }
+        if svc.volumes:
+            service_def["volumes"] = svc.volumes
+        if svc.depends_on:
+            service_def["depends_on"] = svc.depends_on
+        if svc.healthcheck:
+            service_def["healthcheck"] = {
+                "test": svc.healthcheck,
+                "interval": "30s",
+                "timeout": "10s",
+                "retries": 3,
+            }
+        if svc.replicas > 1:
+            service_def["deploy"] = {"replicas": svc.replicas}
+        return service_def
+
+    def _add_dependency_services(self, svc, dependency_services: dict[str, Any]) -> None:
+        """Auto-add dependency services based on depends_on."""
+        for dep in svc.depends_on:
+            if dep == "redis" and dep not in dependency_services:
+                dependency_services[dep] = self._create_redis_service()
+            elif dep == "postgres" and dep not in dependency_services:
+                dependency_services[dep] = self._create_postgres_service()
+
+    def _collect_volumes(self, services: dict[str, Any]) -> dict[str, Any]:
+        """Collect all named volumes from services."""
+        volumes = {}
+        for service_name, service_def in services.items():
+            if 'volumes' in service_def:
+                for volume in service_def['volumes']:
+                    if ':' in volume and not volume.startswith('/'):
+                        volume_name = volume.split(':')[0]
+                        volumes[volume_name] = None
+        return volumes
+
     def to_compose(self) -> dict[str, Any]:
         """Convert to docker-compose format."""
         services = {}
         dependency_services = {}
         
         for svc in self.services:
-            service_def = {
-                "image": svc.image or f"nlp2cmd/{svc.name}:latest",
-                "ports": [f"{svc.port}:{svc.port}"],
-                "environment": svc.env_vars,
-                "networks": [self.network],
-            }
-            if svc.volumes:
-                service_def["volumes"] = svc.volumes
+            services[svc.name] = self._create_service_def(svc)
             if svc.depends_on:
-                service_def["depends_on"] = svc.depends_on
-                # Auto-add dependency services
-                for dep in svc.depends_on:
-                    if dep == "redis" and dep not in dependency_services:
-                        dependency_services[dep] = self._create_redis_service()
-                    elif dep == "postgres" and dep not in dependency_services:
-                        dependency_services[dep] = self._create_postgres_service()
-            if svc.healthcheck:
-                service_def["healthcheck"] = {
-                    "test": svc.healthcheck,
-                    "interval": "30s",
-                    "timeout": "10s",
-                    "retries": 3,
-                }
-            if svc.replicas > 1:
-                service_def["deploy"] = {"replicas": svc.replicas}
-            
-            services[svc.name] = service_def
+                self._add_dependency_services(svc, dependency_services)
         
-        # Add dependency services
         services.update(dependency_services)
-        
-        # Collect all volumes from services
-        volumes = {}
-        for service_name, service_def in services.items():
-            if 'volumes' in service_def:
-                for volume in service_def['volumes']:
-                    if ':' in volume and not volume.startswith('/'):
-                        # Named volume (e.g., "postgres_data:/var/lib/postgresql/data")
-                        volume_name = volume.split(':')[0]
-                        volumes[volume_name] = None  # Use default driver
+        volumes = self._collect_volumes(services)
         
         return {
             "services": services,

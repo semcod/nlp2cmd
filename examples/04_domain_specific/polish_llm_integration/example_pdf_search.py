@@ -287,54 +287,43 @@ class MockPolishPDFSearchLLM:
     def __init__(self):
         print("🤖 Używam mock implementacji")
     
+    def _get_command_for_query(self, query_lower: str) -> str:
+        """Get find command based on query patterns."""
+        pattern_map = [
+            (lambda q: "wszystkie" in q or "wszystkich" in q, lambda: "find . -name '*.pdf'"),
+            (lambda q: "megabajt" in q or "mb" in q or "rozmiar" in q, lambda: self._get_size_command(query_lower)),
+            (lambda q: "30" in q or "miesiąc" in q or "miesiąca" in q or "miesiącu" in q or "bieżącym" in q, lambda: "find . -name '*.pdf' -mtime -30"),
+            (lambda q: "dni" in q or "ostatnich" in q, lambda: "find . -name '*.pdf' -mtime -7"),
+            (lambda q: "faktura" in q, lambda: "find . -name '*faktura*.pdf'"),
+            (lambda q: "posortuj" in q or "sortuj" in q, lambda: self._get_sort_command(query_lower)),
+            (lambda q: "10" in q or "największych" in q, lambda: "find . -name '*.pdf' -exec ls -s {} \\; | sort -nr | head -10"),
+            (lambda q: "starsze" in q or "rok" in q, lambda: "find . -name '*.pdf' -mtime +365"),
+            (lambda q: "/home/user" in q, lambda: "find /home/user/Documents -name '*.pdf'"),
+            (lambda q: "liczbę" in q or "policz" in q, lambda: "find . -name '*.pdf' | wc -l"),
+        ]
+        
+        for condition, command in pattern_map:
+            if condition(query_lower):
+                return command()
+        
+        return "find . -name '*.pdf'"
+    
+    def _get_size_command(self, query_lower: str) -> str:
+        """Get size-based find command."""
+        if "5" in query_lower:
+            return "find . -name '*.pdf' -size +5M"
+        return "find . -name '*.pdf' -size +1M"
+    
+    def _get_sort_command(self, query_lower: str) -> str:
+        """Get sort-based find command."""
+        if "rozmiar" in query_lower:
+            return "find . -name '*.pdf' -exec ls -h {} \\; | sort -hr"
+        return "find . -name '*.pdf' | sort"
+    
     def generate_pdf_search_command(self, query: str) -> Dict[str, Any]:
         """Generuj mock komendę wyszukiwania PDF."""
-        
         query_lower = query.lower()
-        
-        # Proste reguły dla różnych typów zapytań
-        if "wszystkie" in query_lower or "wszystkich" in query_lower:
-            command = "find . -name '*.pdf'"
-        
-        elif "megabajt" in query_lower or "mb" in query_lower or "rozmiar" in query_lower:
-            if "5" in query_lower:
-                command = "find . -name '*.pdf' -size +5M"
-            else:
-                command = "find . -name '*.pdf' -size +1M"
-        
-        elif "30" in query_lower or "miesiąc" in query_lower or "miesiąca" in query_lower:
-            command = "find . -name '*.pdf' -mtime -30"
-        
-        elif "dni" in query_lower or "ostatnich" in query_lower:
-            command = "find . -name '*.pdf' -mtime -7"
-        
-        elif "faktura" in query_lower:
-            command = "find . -name '*faktura*.pdf'"
-        
-        elif "posortuj" in query_lower or "sortuj" in query_lower:
-            if "rozmiar" in query_lower:
-                command = "find . -name '*.pdf' -exec ls -h {} \\; | sort -hr"
-            else:
-                command = "find . -name '*.pdf' | sort"
-        
-        elif "10" in query_lower or "największych" in query_lower:
-            command = "find . -name '*.pdf' -exec ls -s {} \\; | sort -nr | head -10"
-        
-        elif "starsze" in query_lower or "rok" in query_lower:
-            command = "find . -name '*.pdf' -mtime +365"
-        
-        elif "/home/user" in query_lower:
-            command = "find /home/user/Documents -name '*.pdf'"
-        
-        elif "miesiącu" in query_lower or "bieżącym" in query_lower:
-            command = "find . -name '*.pdf' -mtime -30"
-        
-        elif "liczbę" in query_lower or "policz" in query_lower:
-            command = "find . -name '*.pdf' | wc -l"
-        
-        else:
-            # Domyślne
-            command = "find . -name '*.pdf'"
+        command = self._get_command_for_query(query_lower)
         
         return {
             "query": query,

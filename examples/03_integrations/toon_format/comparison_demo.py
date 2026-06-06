@@ -24,16 +24,59 @@ class SimpleToonParser:
         self.data = {}
         self._parse_file()
     
-    def _parse_file(self):
-        """Parse TOON file"""
+    def _read_file_content(self) -> str:
+        """Read TOON file content."""
         if not self.file_path.exists():
             print(f"TOON file not found: {self.file_path}")
-            return
+            return ""
         
         with open(self.file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+            return f.read()
+    
+    def _is_section_header(self, line: str) -> bool:
+        """Check if line is a section header."""
+        return line.startswith('===') and line.endswith('===')
+    
+    def _is_object_definition(self, line: str) -> bool:
+        """Check if line is an object definition."""
+        return '{' in line and '}' in line
+    
+    def _is_array_definition(self, line: str) -> bool:
+        """Check if line is an array definition."""
+        return '[' in line and ']' in line
+    
+    def _extract_name(self, line: str) -> str:
+        """Extract name from definition line."""
+        if ':' in line:
+            return line.split(':')[0].strip()
+        return ""
+    
+    def _handle_section_header(self, line: str, current_section: str) -> str:
+        """Handle section header and return new section name."""
+        new_section = line.strip('=').strip().lower()
+        self.data[new_section] = {}
+        return new_section
+    
+    def _handle_object_definition(self, line: str, current_section: str, current_object: str) -> str:
+        """Handle object definition and return new object name."""
+        name = self._extract_name(line)
+        if name and current_section:
+            self.data[current_section][name] = {}
+        return name
+    
+    def _handle_array_definition(self, line: str, current_section: str, current_object: str) -> str:
+        """Handle array definition and return new object name."""
+        name = self._extract_name(line)
+        if name and current_section:
+            self.data[current_section][name] = []
+        return name
+    
+    def _parse_file(self):
+        """Parse TOON file"""
+        content = self._read_file_content()
+        if not content:
+            return
         
-        # Simple parsing for demo
         lines = content.split('\n')
         current_section = None
         current_object = None
@@ -43,29 +86,13 @@ class SimpleToonParser:
             if not line or line.startswith('#'):
                 continue
             
-            # Section headers
-            if line.startswith('===') and line.endswith('==='):
-                current_section = line.strip('=').strip().lower()
-                self.data[current_section] = {}
-                continue
-            
-            # Object definitions
-            if '{' in line and '}' in line:
-                if ':' in line:
-                    name = line.split(':')[0].strip()
-                    current_object = name
-                    if current_section and current_object:
-                        self.data[current_section][current_object] = {}
-                continue
-            
-            # Array definitions
-            if '[' in line and ']' in line:
-                if ':' in line:
-                    name = line.split(':')[0].strip()
-                    current_object = name
-                    if current_section and current_object:
-                        self.data[current_section][current_object] = []
-                continue
+            if self._is_section_header(line):
+                current_section = self._handle_section_header(line, current_section)
+                current_object = None
+            elif self._is_object_definition(line):
+                current_object = self._handle_object_definition(line, current_section, current_object)
+            elif self._is_array_definition(line):
+                current_object = self._handle_array_definition(line, current_section, current_object)
     
     def get_commands(self, category=None):
         """Get commands from TOON"""

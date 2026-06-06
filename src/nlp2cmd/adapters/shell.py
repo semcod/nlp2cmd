@@ -258,22 +258,22 @@ class ShellAdapter(BaseDSLAdapter):
         # Fallback: try to construct command from entities
         return self._generate_generic(entities)
 
-    def _detect_intent(self, text: str) -> str:
-        """Detect intent from text."""
-        text_lower = text.lower()
-        
+    def _match_intent_patterns(self, text_lower: str) -> Optional[str]:
+        """Match text against intent patterns."""
         for intent, config in self.INTENTS.items():
             for pattern in config["patterns"]:
                 if pattern in text_lower:
                     return intent
-        
-        return "file_search"  # Default intent
+        return None
+    
+    def _detect_intent(self, text: str) -> str:
+        """Detect intent from text."""
+        text_lower = text.lower()
+        matched_intent = self._match_intent_patterns(text_lower)
+        return matched_intent if matched_intent else "file_search"
 
-    def _extract_entities(self, text: str, intent: str) -> dict[str, Any]:
-        """Extract entities from text based on intent."""
-        entities = {}
-        
-        # Extract file paths
+    def _extract_file_target(self, text: str) -> Optional[str]:
+        """Extract file target from text."""
         file_patterns = [
             r'([~/][\w/.-]+)',
             r'(\w+\.\w+)',
@@ -283,25 +283,47 @@ class ShellAdapter(BaseDSLAdapter):
         for pattern in file_patterns:
             matches = re.findall(pattern, text)
             if matches:
-                entities["target"] = matches[0].strip('"')
-                break
+                return matches[0].strip('"')
+        return None
+    
+    def _extract_operation_action(self, text: str) -> Optional[str]:
+        """Extract operation action from text."""
+        actions = ["kopiuj", "copy", "przenieś", "move", "usuń", "delete", "remove", 
+                  "utwórz", "create", "zmień nazwę", "rename"]
+        text_lower = text.lower()
+        for action in actions:
+            if action in text_lower:
+                return action
+        return None
+    
+    def _extract_process_name(self, text: str) -> Optional[str]:
+        """Extract process name from text."""
+        words = text.split()
+        for word in words:
+            if word.isalpha() and len(word) > 2:
+                return word
+        return None
+    
+    def _extract_entities(self, text: str, intent: str) -> dict[str, Any]:
+        """Extract entities from text based on intent."""
+        entities = {}
+        
+        # Extract file paths
+        target = self._extract_file_target(text)
+        if target:
+            entities["target"] = target
         
         # Extract actions
         if intent == "file_operation":
-            actions = ["kopiuj", "copy", "przenieś", "move", "usuń", "delete", "remove", 
-                      "utwórz", "create", "zmień nazwę", "rename"]
-            for action in actions:
-                if action in text_lower:
-                    entities["operation"] = action
-                    break
+            operation = self._extract_operation_action(text)
+            if operation:
+                entities["operation"] = operation
         
         # Extract process names
         if intent == "process_management":
-            words = text.split()
-            for word in words:
-                if word.isalpha() and len(word) > 2:
-                    entities["process_name"] = word
-                    break
+            process_name = self._extract_process_name(text)
+            if process_name:
+                entities["process_name"] = process_name
         
         return entities
 

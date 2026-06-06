@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nlp2cmd"
-version = "1.1.22"
+version = "1.1.23"
 description = "NLP2CMD - Transforms natural language into domain-specific commands (SQL, Shell, Docker, Kubernetes) using a multi-layered detection pipeline and thermodynamic optimization."
 readme = "README.md"
 license = "Apache-2.0"
@@ -87,6 +87,10 @@ thermodynamic = [
 ]
 browser = [
     "playwright>=1.40.0",
+    "testql>=1.2.55",
+]
+testql = [
+    "testql>=1.2.55",
 ]
 desktop = [
     "python-xlib>=0.33",

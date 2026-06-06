@@ -459,65 +459,70 @@ class BenchmarkResults:
 # ---------------------------------------------------------------------------
 # Cleaning helper
 # ---------------------------------------------------------------------------
-def clean_command(raw: str) -> str:
-    """Extract clean command from LLM response."""
-    text = raw.strip()
-
-    # Remove inline markdown code formatting: `command`
+def _remove_inline_backticks(text: str) -> str:
+    """Remove inline markdown code formatting: `command`."""
     if text.startswith("`") and text.endswith("`") and text.count("`") >= 2:
-        text = text.strip("`").strip()
+        return text.strip("`").strip()
+    return text
 
-    # Remove <think>...</think> blocks (DeepSeek-R1 reasoning)
-    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
-    # Handle unclosed <think> — remove everything from <think> to end
-    if "<think>" in text.lower():
-        idx = text.lower().find("<think>")
-        # If there's content AFTER the think block, keep it
-        think_end = text.lower().find("</think>", idx)
+def _remove_think_blocks(text: str) -> str:
+    """Remove DeepSeek-R1 reasoning blocks."""
+    # Remove complete  blocks
+    text = re.sub(r".*?", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
+    # Handle unclosed  — remove everything from  to end
+    if "" in text.lower():
+        idx = text.lower().find("")
+        think_end = text.lower().find("", idx)
         if think_end >= 0:
             text = text[:idx] + text[think_end + 8:]
         else:
-            # Unclosed <think> — everything after it is reasoning, discard
             text = text[:idx]
         text = text.strip()
+    return text
 
-    # Remove markdown code blocks
+def _extract_fenced_code(text: str) -> str:
+    """Remove markdown code blocks and extract content."""
     m = re.search(r"```(?:bash|shell|sql|sh)?\s*(.*?)\s*```", text, re.DOTALL)
     if m:
-        text = m.group(1).strip()
+        return m.group(1).strip()
+    return text
 
-    # Re-check inline backticks after extracting fenced code blocks
-    if text.startswith("`") and text.endswith("`") and text.count("`") >= 2:
-        text = text.strip("`").strip()
+def _is_explanation_line(line: str) -> bool:
+    """Check if line is an explanation/conversational filler."""
+    lower = line.lower()
+    if lower.startswith(("sure", "ok", "okay", "i'm sorry", "im sorry", "i cannot", "i can't", "as an ai", "here's", "here is")):
+        return True
+    if line.startswith("#") or line.startswith("//"):
+        return True
+    # Skip lines that look like natural language (long sentences without shell operators)
+    if len(line) > 120 and not any(c in line for c in ["|", "&&", ";", ">"]):
+        return True
+    return False
 
-    # Remove leading explanation lines (keep only command-looking lines)
+def _filter_command_lines(text: str) -> str:
+    """Remove leading explanation lines, keep only command-looking lines."""
     lines = text.split("\n")
     cmd_lines = []
     for line in lines:
         line = line.strip()
         if not line:
             continue
-        if line.lower().startswith((
-            "sure",
-            "ok",
-            "okay",
-            "i'm sorry",
-            "im sorry",
-            "i cannot",
-            "i can't",
-            "as an ai",
-            "here's",
-            "here is",
-        )):
-            continue
-        if line.startswith("#") or line.startswith("//"):
-            continue
-        # Skip lines that look like natural language (long sentences)
-        if len(line) > 120 and not any(c in line for c in ["|", "&&", ";", ">"]):
-            continue
-        cmd_lines.append(line)
-
+        if not _is_explanation_line(line):
+            cmd_lines.append(line)
     return " ".join(cmd_lines) if cmd_lines else text
+
+# ---------------------------------------------------------------------------
+def clean_command(raw: str) -> str:
+    """Extract clean command from LLM response."""
+    text = raw.strip()
+    
+    text = _remove_inline_backticks(text)
+    text = _remove_think_blocks(text)
+    text = _extract_fenced_code(text)
+    text = _remove_inline_backticks(text)  # Re-check after extracting fenced code
+    text = _filter_command_lines(text)
+    
+    return text
 
 
 # ---------------------------------------------------------------------------
@@ -668,68 +673,74 @@ def run_benchmark() -> BenchmarkResults:
     return results
 
 
-def build_summary(results: BenchmarkResults) -> dict[str, Any]:
-    """Aggregate per-model and per-domain stats."""
-    summary: dict[str, Any] = {"models": {}, "domains": {}, "overall": {}}
+def _calculate_model_stats(model_cfg: dict, results: list) -> dict[str, Any]:
+    """Calculate statistics for a single model."""
+    mname = model_cfg["name"]
+    model_results = [r for r in results if r["model"] == mname]
+    if not model_results:
+        return None
+    
+    total = len(model_results)
+    matched = sum(1 for r in model_results if r["pattern_match"])
+    errors = sum(1 for r in model_results if r.get("error"))
+    times = [r["response_time_sec"] for r in model_results if not r.get("error")]
+    avg_time = round(sum(times) / len(times), 3) if times else 0
+    
+    return {
+        "display": model_cfg["display"],
+        "params": model_cfg["params"],
+        "total": total,
+        "matched": matched,
+        "accuracy_pct": round(matched / total * 100, 1) if total else 0,
+        "errors": errors,
+        "avg_response_sec": avg_time,
+        "min_response_sec": round(min(times), 3) if times else 0,
+        "max_response_sec": round(max(times), 3) if times else 0,
+    }
 
-    for model_cfg in results.models:
+def _calculate_domain_model_stats(domain_results: list, models: list) -> dict[str, dict[str, Any]]:
+    """Calculate per-model statistics for a domain."""
+    per_model: dict[str, dict[str, Any]] = {}
+    for model_cfg in models:
         mname = model_cfg["name"]
-        model_results = [r for r in results.results if r["model"] == mname]
-        if not model_results:
-            continue
-        total = len(model_results)
-        matched = sum(1 for r in model_results if r["pattern_match"])
-        errors = sum(1 for r in model_results if r.get("error"))
-        times = [r["response_time_sec"] for r in model_results if not r.get("error")]
-        avg_time = round(sum(times) / len(times), 3) if times else 0
+        mr = [r for r in domain_results if r["model"] == mname]
+        if mr:
+            m_matched = sum(1 for r in mr if r["pattern_match"])
+            m_times = [r["response_time_sec"] for r in mr if not r.get("error")]
+            per_model[mname] = {
+                "matched": m_matched,
+                "total": len(mr),
+                "accuracy_pct": round(m_matched / len(mr) * 100, 1),
+                "avg_time": round(sum(m_times) / len(m_times), 3) if m_times else 0,
+            }
+    return per_model
 
-        summary["models"][mname] = {
-            "display": model_cfg["display"],
-            "params": model_cfg["params"],
-            "total": total,
-            "matched": matched,
-            "accuracy_pct": round(matched / total * 100, 1) if total else 0,
-            "errors": errors,
-            "avg_response_sec": avg_time,
-            "min_response_sec": round(min(times), 3) if times else 0,
-            "max_response_sec": round(max(times), 3) if times else 0,
-        }
+def _calculate_domain_stats(domain: str, results: list, models: list) -> dict[str, Any]:
+    """Calculate statistics for a single domain."""
+    domain_results = [r for r in results if r["domain"] == domain]
+    if not domain_results:
+        return None
+    
+    total = len(domain_results)
+    matched = sum(1 for r in domain_results if r["pattern_match"])
+    times = [r["response_time_sec"] for r in domain_results if not r.get("error")]
+    per_model = _calculate_domain_model_stats(domain_results, models)
+    
+    return {
+        "total": total,
+        "matched": matched,
+        "accuracy_pct": round(matched / total * 100, 1) if total else 0,
+        "avg_response_sec": round(sum(times) / len(times), 3) if times else 0,
+        "per_model": per_model,
+    }
 
-    for domain in results.domains:
-        domain_results = [r for r in results.results if r["domain"] == domain]
-        if not domain_results:
-            continue
-        total = len(domain_results)
-        matched = sum(1 for r in domain_results if r["pattern_match"])
-        times = [r["response_time_sec"] for r in domain_results if not r.get("error")]
-
-        per_model: dict[str, dict[str, Any]] = {}
-        for model_cfg in results.models:
-            mname = model_cfg["name"]
-            mr = [r for r in domain_results if r["model"] == mname]
-            if mr:
-                m_matched = sum(1 for r in mr if r["pattern_match"])
-                m_times = [r["response_time_sec"] for r in mr if not r.get("error")]
-                per_model[mname] = {
-                    "matched": m_matched,
-                    "total": len(mr),
-                    "accuracy_pct": round(m_matched / len(mr) * 100, 1),
-                    "avg_time": round(sum(m_times) / len(m_times), 3) if m_times else 0,
-                }
-
-        summary["domains"][domain] = {
-            "total": total,
-            "matched": matched,
-            "accuracy_pct": round(matched / total * 100, 1) if total else 0,
-            "avg_response_sec": round(sum(times) / len(times), 3) if times else 0,
-            "per_model": per_model,
-        }
-
-    all_results = results.results
-    total = len(all_results)
-    matched = sum(1 for r in all_results if r["pattern_match"])
-    times = [r["response_time_sec"] for r in all_results if not r.get("error")]
-    summary["overall"] = {
+def _calculate_overall_stats(results: list) -> dict[str, Any]:
+    """Calculate overall statistics across all results."""
+    total = len(results)
+    matched = sum(1 for r in results if r["pattern_match"])
+    times = [r["response_time_sec"] for r in results if not r.get("error")]
+    
+    return {
         "total_queries": total,
         "total_matched": matched,
         "accuracy_pct": round(matched / total * 100, 1) if total else 0,
@@ -737,6 +748,22 @@ def build_summary(results: BenchmarkResults) -> dict[str, Any]:
         "total_time_sec": round(sum(times), 1) if times else 0,
     }
 
+def build_summary(results: BenchmarkResults) -> dict[str, Any]:
+    """Aggregate per-model and per-domain stats."""
+    summary: dict[str, Any] = {"models": {}, "domains": {}, "overall": {}}
+    
+    for model_cfg in results.models:
+        model_stats = _calculate_model_stats(model_cfg, results.results)
+        if model_stats:
+            summary["models"][model_cfg["name"]] = model_stats
+    
+    for domain in results.domains:
+        domain_stats = _calculate_domain_stats(domain, results.results, results.models)
+        if domain_stats:
+            summary["domains"][domain] = domain_stats
+    
+    summary["overall"] = _calculate_overall_stats(results.results)
+    
     return summary
 
 

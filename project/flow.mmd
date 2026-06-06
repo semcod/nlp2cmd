@@ -1,5 +1,5 @@
 flowchart TD
-%% generated in 0.17s
+%% generated in 0.06s
 
     %% Entry points (blue)
     classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
@@ -20,7 +20,7 @@ flowchart TD
         test_nlp2cmd_enhanced__cleanup["cleanup"]
         test_nlp2cmd_enhanced__main["main"]
         test_nlp2cmd_commands__print_status["print_status"]
-        ...["+2624 more"]
+        ...["+2638 more"]
     end
 
     subgraph Exporters
@@ -28,7 +28,7 @@ flowchart TD
         src__nlp2cmd__automation__vector_store__export_patterns_to_file["export_patterns_to_file"]
         src__nlp2cmd__automation__firefox_sessions__FirefoxSessionImporter__export_cookies_for_chromium["export_cookies_for_chromium"]
         src__nlp2cmd__generation__fuzzy_schema_matcher_class__FuzzySchemaMatcher__export_schema["export_schema"]
-        src__nlp2cmd__plan_execution__testql_export__build_testql_scenario_text{{build_testql_scenario_text CC=19}}
+        src__nlp2cmd__plan_execution__testql_export__build_testql_scenario_text{{build_testql_scenario_text CC=22}}
         src__nlp2cmd__core__toon_integration__ToonDataManager__export_category["export_category"]
         src__nlp2cmd__cli__web_schema__export_learned_schema["export_learned_schema"]
         src__nlp2cmd__cli__history__export_analytics["export_analytics"]

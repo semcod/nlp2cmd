@@ -19,6 +19,62 @@ class SchemaDrivenNLP2CMD:
     def __init__(self, spec: AppSpec):
         self.spec = spec
 
+    _STOP_WORDS = {
+        "a", "an", "and", "check", "dla", "for", "in", "into", "na",
+        "of", "on", "please", "pokaż", "show", "the", "to", "usage",
+    }
+
+    def _extract_text_tokens(self, text_lower: str) -> set[str]:
+        """Extract meaningful tokens from text, filtering stop words."""
+        return {w for w in re.split(r"\W+", text_lower) if w and w not in self._STOP_WORDS}
+
+    def _score_patterns(self, patterns: list, text_lower: str) -> float:
+        """Score based on pattern matching."""
+        for p in patterns:
+            if isinstance(p, str) and p and p.lower() in text_lower:
+                return 0.6
+        return 0.0
+
+    def _score_examples(self, examples: list, text_lower: str) -> float:
+        """Score based on example matching."""
+        for ex in examples:
+            if isinstance(ex, str) and ex:
+                ex_words = [w for w in re.split(r"\W+", ex.lower()) if w]
+                if ex_words and any(w in text_lower for w in ex_words[:3]):
+                    return 0.2
+        return 0.0
+
+    def _score_token_overlap(self, action: AppAction, text_tokens: set[str]) -> float:
+        """Fallback scoring based on token overlap with action id and description."""
+        aid = str(action.id or "").lower()
+        desc = str(action.description or "").lower()
+        a_tokens = {w for w in re.split(r"\W+", aid + " " + desc) if w}
+        overlap = len(text_tokens & a_tokens)
+        if overlap:
+            return min(overlap, 4) * 0.12
+        return 0.0
+
+    def _score_command_boosts(self, action: AppAction, text_tokens: set[str]) -> float:
+        """Apply command-specific scoring boosts."""
+        schema = action.schema or {}
+        cmd = str(schema.get("command") or "")
+        boost = 0.0
+        
+        if cmd == "git" and "git" in text_tokens:
+            boost += 0.2
+        if cmd in {"df", "du"} and any(k in text_tokens for k in {"disk", "space", "dysk", "miejsce"}):
+            boost += 0.35
+        if cmd == "du" and any(k in text_tokens for k in {"directory", "dir", "katalog"}):
+            boost += 0.2
+            
+        return boost
+
+    def _apply_pattern_bonus(self, patterns: list, score: float) -> float:
+        """Apply bonus for having patterns."""
+        if score > 0:
+            return score + min(len(patterns), 5) * 0.02
+        return score
+
     def transform(self, text: str) -> ActionIR:
         match = self._select_action(text)
         params = self._extract_params(match.action, text)
@@ -39,65 +95,21 @@ class SchemaDrivenNLP2CMD:
 
     def _select_action(self, text: str) -> MatchResult:
         text_lower = text.lower()
-        stop = {
-            "a",
-            "an",
-            "and",
-            "check",
-            "dla",
-            "for",
-            "in",
-            "into",
-            "na",
-            "of",
-            "on",
-            "please",
-            "pokaż",
-            "show",
-            "the",
-            "to",
-            "usage",
-        }
-        text_tokens = {w for w in re.split(r"\W+", text_lower) if w and w not in stop}
+        text_tokens = self._extract_text_tokens(text_lower)
         best: Optional[MatchResult] = None
 
         for action in self.spec.actions:
-            score = 0.0
             patterns = list((action.match or {}).get("patterns", []) or [])
             examples = list((action.match or {}).get("examples", []) or [])
 
-            for p in patterns:
-                if isinstance(p, str) and p and p.lower() in text_lower:
-                    score += 0.6
-                    break
+            score = self._score_patterns(patterns, text_lower)
+            score += self._score_examples(examples, text_lower)
 
-            for ex in examples:
-                if isinstance(ex, str) and ex:
-                    ex_words = [w for w in re.split(r"\W+", ex.lower()) if w]
-                    if ex_words and any(w in text_lower for w in ex_words[:3]):
-                        score += 0.2
-                        break
-
-            # Fallback: token overlap with action id and description.
             if score == 0.0:
-                aid = str(action.id or "").lower()
-                desc = str(action.description or "").lower()
-                a_tokens = {w for w in re.split(r"\W+", aid + " " + desc) if w}
-                overlap = len(text_tokens & a_tokens)
-                if overlap:
-                    score += min(overlap, 4) * 0.12
+                score += self._score_token_overlap(action, text_tokens)
 
-            schema = action.schema or {}
-            cmd = str(schema.get("command") or "")
-            if cmd == "git" and "git" in text_tokens:
-                score += 0.2
-            if cmd in {"df", "du"} and any(k in text_tokens for k in {"disk", "space", "dysk", "miejsce"}):
-                score += 0.35
-            if cmd == "du" and any(k in text_tokens for k in {"directory", "dir", "katalog"}):
-                score += 0.2
-
-            if score > 0:
-                score += min(len(patterns), 5) * 0.02
+            score += self._score_command_boosts(action, text_tokens)
+            score = self._apply_pattern_bonus(patterns, score)
 
             if best is None or score > best.score:
                 best = MatchResult(action=action, score=score)
@@ -106,6 +118,30 @@ class SchemaDrivenNLP2CMD:
             raise ValueError("AppSpec has no actions")
 
         return best
+
+    def _convert_param_value(self, value: str, param_type: str) -> Any:
+        """Convert parameter value based on type specification."""
+        if param_type == "integer":
+            try:
+                return int(value)
+            except ValueError:
+                return value
+        elif param_type == "number":
+            try:
+                return float(value)
+            except ValueError:
+                return value
+        elif param_type == "boolean":
+            return value.lower() in {"1", "true", "yes", "y", "on"}
+        else:
+            return value
+
+    def _extract_quoted_value(self, text: str) -> str | None:
+        """Extract quoted value from text."""
+        m = re.search(r"\"([^\"]+)\"|'([^']+)'", text)
+        if m:
+            return m.group(1) or m.group(2)
+        return None
 
     def _extract_params(self, action: AppAction, text: str) -> dict[str, Any]:
         params: dict[str, Any] = {}
@@ -117,33 +153,17 @@ class SchemaDrivenNLP2CMD:
             key, value = tok.split("=", 1)
             key = key.strip()
             value = value.strip()
-            if not key:
-                continue
-            if key not in action.params:
+            if not key or key not in action.params:
                 continue
 
             spec = action.params.get(key) or {}
-            t = str(spec.get("type") or "string")
-
-            if t == "integer":
-                try:
-                    params[key] = int(value)
-                except ValueError:
-                    params[key] = value
-            elif t == "number":
-                try:
-                    params[key] = float(value)
-                except ValueError:
-                    params[key] = value
-            elif t == "boolean":
-                params[key] = value.lower() in {"1", "true", "yes", "y", "on"}
-            else:
-                params[key] = value
+            param_type = str(spec.get("type") or "string")
+            params[key] = self._convert_param_value(value, param_type)
 
         if "value" in (action.params or {}) and "value" not in params:
-            m = re.search(r"\"([^\"]+)\"|'([^']+)'", text)
-            if m:
-                params["value"] = m.group(1) or m.group(2)
+            quoted_value = self._extract_quoted_value(text)
+            if quoted_value:
+                params["value"] = quoted_value
 
         return params
 

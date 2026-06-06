@@ -2959,6 +2959,32 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.23] - 2026-06-07
+
+### Docs
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/unit/test_service_query_shadow_metadata.py
+- Update tests/unit/test_testql_export.py
+
+### Other
+- Update .code2llm_cache/__init___1780784961388736798_15983.pkl
+- Update .code2llm_cache/polish_support_1780785080511206444_11246.pkl
+- Update .code2llm_cache/schema_driven_1780784618117881429_10408.pkl
+- Update .gitignore
+- Update app.doql.less
+- Update benchmarks/llm_benchmark.py
+- Update examples/03_integrations/toon_format/comparison_demo.py
+- Update examples/03_integrations/web_development/deployment_plan.py
+- Update examples/04_domain_specific/debugging/validation.py
+- Update examples/04_domain_specific/polish_llm_integration/example_pdf_search.py
+- ... and 19 more files
+
 ## [1.1.22] - 2026-06-06
 
 ### Docs

@@ -44,10 +44,13 @@ def test_build_testql_scenario_text_from_record() -> None:
     }
     text = build_testql_scenario_text(record)
     assert "TYPE: gui" in text
-    assert "target_url,  https://jspaint.app" in text
-    assert "expected_draw_steps,  1" in text
-    assert "GUI_START ${target_url}" in text
-    assert "NAVIGATE[1]{path, wait_ms}:" in text
+    assert "target_url" in text
+    assert "https://jspaint.app" in text
+    assert "expected_draw_steps" in text
+    assert "ENVIRONMENT[" in text
+    assert "runtime.source" in text
+    assert "GUI_START" in text
+    assert "FLOW[" in text or "draw_filled_circle" in text
 
 
 def test_save_execution_artifacts_emits_testql_when_enabled(

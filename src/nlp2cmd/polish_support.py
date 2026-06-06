@@ -134,6 +134,60 @@ class PolishLanguageSupport:
         
         return text
     
+    _ENGLISH_COMMAND_WORDS = {
+        'stop', 'start', 'run', 'list', 'show', 'get', 'set', 'delete', 'remove',
+        'create', 'update', 'find', 'search', 'copy', 'move', 'kill', 'restart',
+        'build', 'push', 'pull', 'exec', 'logs', 'stats', 'inspect', 'container',
+        'image', 'volume', 'network', 'service', 'deploy', 'install', 'config'
+    }
+
+    _PREPOSITIONS = {
+        "na", "w", "we", "do", "z", "ze", "od", "po", "pod", "nad",
+        "przed", "za", "o", "u",
+    }
+
+    def _apply_direct_corrections(self, text_lower: str) -> str:
+        """Apply direct STT corrections from the corrections dictionary."""
+        for incorrect, correct in STT_CORRECTIONS.items():
+            if incorrect in text_lower:
+                return text_lower.replace(incorrect, correct)
+        return text_lower
+
+    def _has_english_command_words(self, words: list[str]) -> bool:
+        """Check if text contains common English command words."""
+        return any(word in self._ENGLISH_COMMAND_WORDS for word in words)
+
+    def _try_adjacent_word_joining(self, words: list[str]) -> str | None:
+        """Try joining adjacent words to match known patterns."""
+        if len(words) < 2:
+            return None
+
+        for i in range(len(words) - 1):
+            if words[i] in self._PREPOSITIONS or words[i + 1] in self._PREPOSITIONS:
+                continue
+            joined = words[i] + words[i + 1]
+            for phrase in KNOWN_PHRASES:
+                phrase_words = phrase.split()
+                for pw in phrase_words:
+                    pw_normalized = self.normalize_polish_text(pw)
+                    joined_normalized = self.normalize_polish_text(joined)
+                    if self._similar(joined_normalized, pw_normalized, threshold=0.8):
+                        return ' '.join(words[:i] + [pw] + words[i+2:])
+        return None
+
+    def _try_fuzzy_phrase_match(self, text_lower: str) -> str | None:
+        """Try fuzzy matching against known phrases."""
+        best_match = self._find_best_phrase_match(text_lower)
+        if not best_match:
+            return None
+
+        input_words = text_lower.split()
+        match_words = best_match.split()
+        dropped = [w for w in input_words if w in self._PREPOSITIONS and w not in match_words]
+        if not dropped:
+            return best_match
+        return None
+
     def normalize_stt_errors(self, text):
         """Fix common STT word boundary errors.
         
@@ -142,80 +196,30 @@ class PolishLanguageSupport:
         - 'znajdź plik' -> 'z najdź plik' (split first letter)
         """
         text_lower = text.lower()
-        
-        # Skip correction for common English command words to avoid false positives
-        english_command_words = {
-            'stop', 'start', 'run', 'list', 'show', 'get', 'set', 'delete', 'remove',
-            'create', 'update', 'find', 'search', 'copy', 'move', 'kill', 'restart',
-            'build', 'push', 'pull', 'exec', 'logs', 'stats', 'inspect', 'container',
-            'image', 'volume', 'network', 'service', 'deploy', 'install', 'config'
-        }
-        
         words = text_lower.split()
-        if any(word in english_command_words for word in words):
-            # If we have common English command words, be more conservative
-            # Only apply direct corrections, not fuzzy matching
-            for incorrect, correct in STT_CORRECTIONS.items():
-                if incorrect in text_lower:
-                    text_lower = text_lower.replace(incorrect, correct)
-                    return text_lower
-            return text_lower
-        
-        # Try direct corrections first
-        for incorrect, correct in STT_CORRECTIONS.items():
-            if incorrect in text_lower:
-                text_lower = text_lower.replace(incorrect, correct)
-                return text_lower
 
-        words = text_lower.split()
+        # Conservative mode for English command words
+        if self._has_english_command_words(words):
+            return self._apply_direct_corrections(text_lower)
+
+        # Try direct corrections
+        corrected = self._apply_direct_corrections(text_lower)
+        if corrected != text_lower:
+            return corrected
+
         if len(words) < 3:
             return text_lower
 
-        prepositions = {
-            "na",
-            "w",
-            "we",
-            "do",
-            "z",
-            "ze",
-            "od",
-            "po",
-            "pod",
-            "nad",
-            "przed",
-            "za",
-            "o",
-            "u",
-        }
-        
-        # Try fuzzy matching against known phrases
-        best_match = self._find_best_phrase_match(text_lower)
-        if best_match:
-            input_words = text_lower.split()
-            match_words = best_match.split()
-            dropped = [w for w in input_words if w in prepositions and w not in match_words]
-            if not dropped:
-                return best_match
-        
-        # Try joining adjacent words and matching
-        if len(words) >= 2:
-            # Try joining pairs of words
-            for i in range(len(words) - 1):
-                if words[i] in prepositions or words[i + 1] in prepositions:
-                    continue
-                joined = words[i] + words[i + 1]
-                # Check if joined word matches any known pattern
-                for phrase in KNOWN_PHRASES:
-                    phrase_words = phrase.split()
-                    for pw in phrase_words:
-                        # Remove diacritics for comparison
-                        pw_normalized = self.normalize_polish_text(pw)
-                        joined_normalized = self.normalize_polish_text(joined)
-                        if self._similar(joined_normalized, pw_normalized, threshold=0.8):
-                            # Reconstruct with corrected word
-                            new_words = words[:i] + [pw] + words[i+2:]
-                            return ' '.join(new_words)
-        
+        # Try fuzzy phrase matching
+        fuzzy_match = self._try_fuzzy_phrase_match(text_lower)
+        if fuzzy_match:
+            return fuzzy_match
+
+        # Try adjacent word joining
+        joined_match = self._try_adjacent_word_joining(words)
+        if joined_match:
+            return joined_match
+
         return text_lower
     
     def _find_best_phrase_match(self, text, threshold=0.85):

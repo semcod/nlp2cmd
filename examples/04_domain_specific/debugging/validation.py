@@ -619,16 +619,24 @@ class ShellCommandValidator:
         
         return results
     
-    def generate_report(self, results: List[Dict[str, any]]) -> str:
-        """Generuj raport walidacji."""
+    def _calculate_overall_stats(self, results: List[Dict[str, any]]) -> dict:
+        """Calculate overall statistics."""
         total_tests = len(results)
         exact_matches = sum(1 for r in results if r['is_exact_match'])
         similar_matches = sum(1 for r in results if r['similarity'] > 0.8)
         successful_tests = sum(1 for r in results if r['success'])
-        
         avg_latency = sum(r['latency_ms'] for r in results) / total_tests
         
-        # Statystyki per kategorii
+        return {
+            'total_tests': total_tests,
+            'exact_matches': exact_matches,
+            'similar_matches': similar_matches,
+            'successful_tests': successful_tests,
+            'avg_latency': avg_latency
+        }
+    
+    def _calculate_category_stats(self, results: List[Dict[str, any]]) -> dict:
+        """Calculate per-category statistics."""
         categories = {}
         for result in results:
             cat = result['category']
@@ -639,47 +647,63 @@ class ShellCommandValidator:
             categories[cat]['exact'] += 1 if result['is_exact_match'] else 0
             categories[cat]['avg_latency'] += result['latency_ms']
         
-        # Oblicz średnie dla kategorii
         for cat in categories:
             categories[cat]['avg_latency'] /= categories[cat]['total']
         
-        report = f"""
+        return categories
+    
+    def _format_summary(self, stats: dict) -> str:
+        """Format overall summary section."""
+        return f"""
 📊 RAPORT WALIDACJI KOMEND SHELL
 {rule_line(width=70, char="=")}
 Podsumowanie:
-- Łącznie testów: {total_tests}
-- Dokładne trafienia: {exact_matches} ({exact_matches/total_tests*100:.1f}%)
-- Podobne trafienia: {similar_matches} ({similar_matches/total_tests*100:.1f}%)
-- Sukcesy ogólnie: {successful_tests} ({successful_tests/total_tests*100:.1f}%)
-- Średnia latencja: {avg_latency:.1f}ms
+- Łącznie testów: {stats['total_tests']}
+- Dokładne trafienia: {stats['exact_matches']} ({stats['exact_matches']/stats['total_tests']*100:.1f}%)
+- Podobne trafienia: {stats['similar_matches']} ({stats['similar_matches']/stats['total_tests']*100:.1f}%)
+- Sukcesy ogólnie: {stats['successful_tests']} ({stats['successful_tests']/stats['total_tests']*100:.1f}%)
+- Średnia latencja: {stats['avg_latency']:.1f}ms
 
 Statystyki per kategorii:
 """
-        
+    
+    def _format_category_stats(self, categories: dict) -> str:
+        """Format per-category statistics section."""
+        report = ""
         for cat, stats in sorted(categories.items()):
             success_rate = stats['success'] / stats['total'] * 100
             exact_rate = stats['exact'] / stats['total'] * 100
             report += f"- {cat}: {stats['success']}/{stats['total']} ({success_rate:.1f}%) | "
             report += f"Dokładne: {stats['exact']}/{stats['total']} ({exact_rate:.1f}%) | "
             report += f"Śr. latencja: {stats['avg_latency']:.1f}ms\n"
+        return report
+    
+    def _format_extreme_results(self, results: List[Dict[str, any]], best: bool = False) -> str:
+        """Format best or worst results section."""
+        if best:
+            sorted_results = sorted(results, key=lambda x: x['similarity'], reverse=True)[:5]
+            title = "Najlepsze wyniki (najbardziej podobne):"
+        else:
+            sorted_results = sorted(results, key=lambda x: x['similarity'])[:5]
+            title = "Najgorsze wyniki (najmniej podobne):"
         
-        # Najgorsze wyniki
-        worst_results = sorted(results, key=lambda x: x['similarity'])[:5]
-        report += f"\nNajgorsze wyniki (najmniej podobne):\n"
-        for i, result in enumerate(worst_results, 1):
+        report = f"\n{title}\n"
+        for i, result in enumerate(sorted_results, 1):
             report += f"{i}. {result['query']}\n"
             report += f"   Expected: {result['expected']}\n"
             report += f"   Actual: {result['actual']}\n"
             report += f"   Similarity: {result['similarity']*100:.1f}%\n"
+        return report
+    
+    def generate_report(self, results: List[Dict[str, any]]) -> str:
+        """Generuj raport walidacji."""
+        stats = self._calculate_overall_stats(results)
+        categories = self._calculate_category_stats(results)
         
-        # Najlepsze wyniki
-        best_results = sorted(results, key=lambda x: x['similarity'], reverse=True)[:5]
-        report += f"\nNajlepsze wyniki (najbardziej podobne):\n"
-        for i, result in enumerate(best_results, 1):
-            report += f"{i}. {result['query']}\n"
-            report += f"   Expected: {result['expected']}\n"
-            report += f"   Actual: {result['actual']}\n"
-            report += f"   Similarity: {result['similarity']*100:.1f}%\n"
+        report = self._format_summary(stats)
+        report += self._format_category_stats(categories)
+        report += self._format_extreme_results(results, best=False)
+        report += self._format_extreme_results(results, best=True)
         
         return report
 

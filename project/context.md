@@ -1,5 +1,5 @@
 # System Architecture Analysis
-<!-- generated in 0.03s -->
+<!-- generated in 0.02s -->
 
 ## Overview
 
@@ -7,10 +7,10 @@
 - **Primary Language**: python
 - **Languages**: python: 762, json: 158, shell: 76, yaml: 26, txt: 12
 - **Analysis Mode**: static
-- **Total Functions**: 4050
+- **Total Functions**: 4095
 - **Total Classes**: 747
 - **Modules**: 1043
-- **Entry Points**: 3327
+- **Entry Points**: 3357
 
 ## Architecture by Module
 
@@ -64,6 +64,11 @@
 - **Classes**: 2
 - **File**: `_run_utils.py`
 
+### benchmarks.llm_benchmark
+- **Functions**: 29
+- **Classes**: 2
+- **File**: `llm_benchmark.py`
+
 ### src.nlp2cmd.generation.data_loader
 - **Functions**: 28
 - **Classes**: 3
@@ -108,11 +113,6 @@
 - **Functions**: 23
 - **Classes**: 2
 - **File**: `browser_config.py`
-
-### src.nlp2cmd.adapters.kubernetes
-- **Functions**: 23
-- **Classes**: 3
-- **File**: `kubernetes.py`
 
 ## Key Entry Points
 
@@ -477,7 +477,7 @@ Returns JSON-serializable result.
 
 ### examples.03_integrations.toon_format.comparison_demo.SimpleToonParser._parse_file
 > Parse TOON file
-- **Output to**: content.split, self.file_path.exists, test_nlp2cmd_commands.print, open, f.read
+- **Output to**: self._read_file_content, content.split, line.strip, self._is_section_header, line.startswith
 
 ### examples.03_integrations.toon_format.comparison_demo.demonstrate_llm_friendly_format
 > Show how TOON format is LLM-friendly
@@ -527,6 +527,18 @@ Returns JSON-serializable result.
 > Waliduje wszystkie komendy.
 - **Output to**: self.get_test_cases, test_nlp2cmd_commands.print, test_nlp2cmd_commands.print, examples._example_helpers.print_rule, enumerate
 
+### examples.04_domain_specific.debugging.validation.ShellCommandValidator._format_summary
+> Format overall summary section.
+- **Output to**: examples.04_domain_specific._demo_helpers.rule_line
+
+### examples.04_domain_specific.debugging.validation.ShellCommandValidator._format_category_stats
+> Format per-category statistics section.
+- **Output to**: sorted, categories.items
+
+### examples.04_domain_specific.debugging.validation.ShellCommandValidator._format_extreme_results
+> Format best or worst results section.
+- **Output to**: enumerate, sorted, sorted
+
 ### examples.04_domain_specific.debugging.10_advanced_validation.demo.AdvancedValidator.validate
 - **Output to**: self._calculate_similarity, ValidationResult, self.results.append
 
@@ -535,18 +547,6 @@ Returns JSON-serializable result.
 
 ### src.nlp2cmd.pipeline_runner_shell.ShellExecutionMixin._parse_shell_command
 - **Output to**: command.strip, cmd.lower, any, any, re.search
-
-### src.nlp2cmd.monitoring.resources.ResourceMonitor._process_cpu_time_seconds
-> Return process CPU time in seconds (user+system).
-- **Output to**: self.process.cpu_times, float, float, getattr, getattr
-
-### src.nlp2cmd.monitoring.resources.ResourceMonitor.format_metrics
-> Format metrics for display.
-- **Output to**: None.join, lines.append
-
-### src.nlp2cmd.monitoring.resources.format_last_metrics
-> Format metrics from last execution for display.
-- **Output to**: src.nlp2cmd.monitoring.resources.get_last_metrics, _monitor.format_metrics
 
 ## Behavioral Patterns
 

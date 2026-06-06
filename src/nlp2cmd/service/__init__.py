@@ -30,24 +30,40 @@ if TYPE_CHECKING:  # pragma: no cover
     from fastapi.middleware.cors import CORSMiddleware as _CORSMiddleware
 
 
-def _ensure_service_deps() -> None:
-    """Lazily import FastAPI/uvicorn dependencies for service mode."""
-    global FastAPI, HTTPException, BackgroundTasks, JSONResponse, CORSMiddleware, uvicorn
+def _ensure_fastapi_deps() -> None:
+    """Lazily import FastAPI dependencies for service mode."""
+    global FastAPI, HTTPException, BackgroundTasks, JSONResponse, CORSMiddleware
 
-    if FastAPI is not None and uvicorn is not None:
+    if FastAPI is not None:
         return
 
     from fastapi import FastAPI as _FastAPI, HTTPException as _HTTPException, BackgroundTasks as _BackgroundTasks
     from fastapi.responses import JSONResponse as _JSONResponse
     from fastapi.middleware.cors import CORSMiddleware as _CORSMiddleware
-    import uvicorn as _uvicorn
 
     FastAPI = _FastAPI
     HTTPException = _HTTPException
     BackgroundTasks = _BackgroundTasks
     JSONResponse = _JSONResponse
     CORSMiddleware = _CORSMiddleware
+
+
+def _ensure_uvicorn() -> None:
+    """Lazily import uvicorn for running the HTTP server."""
+    global uvicorn
+
+    if uvicorn is not None:
+        return
+
+    import uvicorn as _uvicorn
+
     uvicorn = _uvicorn
+
+
+def _ensure_service_deps() -> None:
+    """Lazily import FastAPI/uvicorn dependencies for service mode."""
+    _ensure_fastapi_deps()
+    _ensure_uvicorn()
 
 
 from ..generation.pipeline import RuleBasedPipeline
@@ -177,7 +193,7 @@ class NLP2CMDService:
         
     def _create_app(self) -> 'FastAPI':
         """Create FastAPI application."""
-        _ensure_service_deps()
+        _ensure_fastapi_deps()
 
         app = FastAPI(
             title="NLP2CMD API",
@@ -368,7 +384,7 @@ class NLP2CMDService:
 
 def create_app() -> 'FastAPI':
     """Create FastAPI application for uvicorn import."""
-    _ensure_service_deps()
+    _ensure_fastapi_deps()
     # Read configuration from environment variables (for workers/reload mode)
     config = ServiceConfig()
     service = NLP2CMDService(config)

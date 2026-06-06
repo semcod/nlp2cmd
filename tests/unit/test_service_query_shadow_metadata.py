@@ -5,7 +5,7 @@ import pytest
 
 def test_service_query_returns_shadow_metadata(monkeypatch: pytest.MonkeyPatch) -> None:
     pytest.importorskip("fastapi")
-    pytest.importorskip("httpx")
+    pytest.importorskip("httpx")  # TestClient dependency
 
     monkeypatch.setenv("NLP2CMD_ENTITY_EXTRACTOR_MODE", "shadow")
 

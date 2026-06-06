@@ -1,10 +1,10 @@
 % ── Project Metadata ─────────────────────────────────────
-project_metadata('nlp2cmd', '1.1.21', 'python').
+project_metadata('nlp2cmd', '1.1.22', 'python').
 
 % ── Project Files ────────────────────────────────────────
 project_file('app.doql.less', 777, 'less').
 project_file('benchmarks/learning_benchmark.py', 594, 'python').
-project_file('benchmarks/llm_benchmark.py', 1239, 'python').
+project_file('benchmarks/llm_benchmark.py', 1266, 'python').
 project_file('benchmarks/thermodynamic_benchmark.py', 396, 'python').
 project_file('code2llm_workaround.py', 11, 'python').
 project_file('docker/novnc/demos/demo_desktop_gui.py', 284, 'python').
@@ -53,7 +53,7 @@ project_file('examples/03_integrations/toon_format/13_query_system/demo.py', 72,
 project_file('examples/03_integrations/toon_format/13_query_system/run.sh', 15, 'shell').
 project_file('examples/03_integrations/toon_format/14_batch_processing/demo.py', 92, 'python').
 project_file('examples/03_integrations/toon_format/14_batch_processing/run.sh', 15, 'shell').
-project_file('examples/03_integrations/toon_format/comparison_demo.py', 320, 'python').
+project_file('examples/03_integrations/toon_format/comparison_demo.py', 347, 'python').
 project_file('examples/03_integrations/toon_format/old_system_loader.py', 90, 'python').
 project_file('examples/03_integrations/toon_format/practical_usage.py', 471, 'python').
 project_file('examples/03_integrations/toon_format/simple_demo.py', 264, 'python').
@@ -127,7 +127,7 @@ project_file('examples/04_domain_specific/debugging/intents.py', 140, 'python').
 project_file('examples/04_domain_specific/debugging/keywords.py', 57, 'python').
 project_file('examples/04_domain_specific/debugging/simple_demo.py', 245, 'python').
 project_file('examples/04_domain_specific/debugging/test_improvements.py', 168, 'python').
-project_file('examples/04_domain_specific/debugging/validation.py', 709, 'python').
+project_file('examples/04_domain_specific/debugging/validation.py', 733, 'python').
 project_file('examples/04_domain_specific/devops/example.py', 101, 'python').
 project_file('examples/04_domain_specific/drug_discovery/example.py', 134, 'python').
 project_file('examples/04_domain_specific/education/example.py', 189, 'python').
@@ -147,7 +147,7 @@ project_file('examples/04_domain_specific/polish_llm_integration/04_results_rank
 project_file('examples/04_domain_specific/polish_llm_integration/05_integration/demo.py', 109, 'python').
 project_file('examples/04_domain_specific/polish_llm_integration/05_integration/run.sh', 15, 'shell').
 project_file('examples/04_domain_specific/polish_llm_integration/download_bielik.py', 72, 'python').
-project_file('examples/04_domain_specific/polish_llm_integration/example_pdf_search.py', 398, 'python').
+project_file('examples/04_domain_specific/polish_llm_integration/example_pdf_search.py', 387, 'python').
 project_file('examples/04_domain_specific/polish_llm_integration/mock_test_polish_llm.py', 379, 'python').
 project_file('examples/04_domain_specific/polish_llm_integration/setup_and_test_bielik.py', 312, 'python').
 project_file('examples/04_domain_specific/polish_llm_integration/test_bielik_simple.py', 286, 'python').
@@ -336,7 +336,7 @@ project_file('src/nlp2cmd/adapters/drawing_plan.py', 38, 'python').
 project_file('src/nlp2cmd/adapters/drawing_step.py', 36, 'python').
 project_file('src/nlp2cmd/adapters/dynamic.py', 651, 'python').
 project_file('src/nlp2cmd/adapters/kubernetes.py', 732, 'python').
-project_file('src/nlp2cmd/adapters/shell.py', 434, 'python').
+project_file('src/nlp2cmd/adapters/shell.py', 456, 'python').
 project_file('src/nlp2cmd/adapters/shell_generators.py', 322, 'python').
 project_file('src/nlp2cmd/adapters/sql.py', 479, 'python').
 project_file('src/nlp2cmd/aggregator/__init__.py', 384, 'python').
@@ -621,9 +621,9 @@ project_file('src/nlp2cmd/plan_execution/browser_setup.py', 184, 'python').
 project_file('src/nlp2cmd/plan_execution/execution_record.py', 249, 'python').
 project_file('src/nlp2cmd/plan_execution/plan_executor.py', 646, 'python').
 project_file('src/nlp2cmd/plan_execution/step_orchestrator.py', 616, 'python').
-project_file('src/nlp2cmd/plan_execution/testql_export.py', 118, 'python').
+project_file('src/nlp2cmd/plan_execution/testql_export.py', 208, 'python').
 project_file('src/nlp2cmd/planner/__init__.py', 420, 'python').
-project_file('src/nlp2cmd/polish_support.py', 319, 'python').
+project_file('src/nlp2cmd/polish_support.py', 323, 'python').
 project_file('src/nlp2cmd/post_execution/__init__.py', 18, 'python').
 project_file('src/nlp2cmd/post_execution/checker.py', 258, 'python').
 project_file('src/nlp2cmd/registry/__init__.py', 25, 'python').
@@ -638,7 +638,7 @@ project_file('src/nlp2cmd/router/__init__.py', 378, 'python').
 project_file('src/nlp2cmd/schema_based/__init__.py', 15, 'python').
 project_file('src/nlp2cmd/schema_based/adapter.py', 10, 'python').
 project_file('src/nlp2cmd/schema_based/generator.py', 13, 'python').
-project_file('src/nlp2cmd/schema_driven.py', 277, 'python').
+project_file('src/nlp2cmd/schema_driven.py', 297, 'python').
 project_file('src/nlp2cmd/schema_extraction/__init__.py', 41, 'python').
 project_file('src/nlp2cmd/schema_extraction/extractors.py', 401, 'python').
 project_file('src/nlp2cmd/schema_extraction/llm_extractor.py', 444, 'python').
@@ -646,7 +646,7 @@ project_file('src/nlp2cmd/schema_extraction/python_extractors.py', 421, 'python'
 project_file('src/nlp2cmd/schema_extraction/registry.py', 310, 'python').
 project_file('src/nlp2cmd/schema_extraction/script_extractors.py', 280, 'python').
 project_file('src/nlp2cmd/schemas/__init__.py', 910, 'python').
-project_file('src/nlp2cmd/service/__init__.py', 411, 'python').
+project_file('src/nlp2cmd/service/__init__.py', 427, 'python').
 project_file('src/nlp2cmd/service/cli.py', 144, 'python').
 project_file('src/nlp2cmd/service/docker_app.py', 42, 'python').
 project_file('src/nlp2cmd/skills/__init__.py', 22, 'python').
@@ -990,7 +990,7 @@ project_file('tests/unit/test_shell_validators.py', 125, 'python').
 project_file('tests/unit/test_similarity_cache.py', 260, 'python').
 project_file('tests/unit/test_sql_validators.py', 106, 'python').
 project_file('tests/unit/test_step_handlers.py', 288, 'python').
-project_file('tests/unit/test_testql_export.py', 69, 'python').
+project_file('tests/unit/test_testql_export.py', 72, 'python').
 project_file('tests/unit/test_thermodynamic.py', 917, 'python').
 project_file('tests/unit/test_transform_result.py', 396, 'python').
 project_file('tests/unit/test_transform_validator_factory.py', 91, 'python').
@@ -1036,7 +1036,12 @@ python_function('benchmarks/llm_benchmark.py', 'ollama_create_bielik', 0, 3, 13)
 python_function('benchmarks/llm_benchmark.py', 'ollama_generate', 5, 3, 6).
 python_function('benchmarks/llm_benchmark.py', '_get_benchmark_models', 0, 7, 6).
 python_function('benchmarks/llm_benchmark.py', '_default_models', 0, 1, 0).
-python_function('benchmarks/llm_benchmark.py', 'clean_command', 1, 19, 14).
+python_function('benchmarks/llm_benchmark.py', '_remove_inline_backticks', 1, 4, 4).
+python_function('benchmarks/llm_benchmark.py', '_remove_think_blocks', 1, 3, 4).
+python_function('benchmarks/llm_benchmark.py', '_extract_fenced_code', 1, 2, 3).
+python_function('benchmarks/llm_benchmark.py', '_is_explanation_line', 1, 7, 4).
+python_function('benchmarks/llm_benchmark.py', '_filter_command_lines', 1, 5, 5).
+python_function('benchmarks/llm_benchmark.py', 'clean_command', 1, 1, 5).
 python_function('benchmarks/llm_benchmark.py', '_check_ollama_available', 0, 2, 4).
 python_function('benchmarks/llm_benchmark.py', '_setup_bielik_model', 0, 5, 4).
 python_function('benchmarks/llm_benchmark.py', '_verify_and_pull_models', 0, 7, 6).
@@ -1044,7 +1049,11 @@ python_function('benchmarks/llm_benchmark.py', '_warmup_model', 1, 2, 2).
 python_function('benchmarks/llm_benchmark.py', '_run_query', 4, 4, 10).
 python_function('benchmarks/llm_benchmark.py', '_run_model_benchmark', 2, 4, 8).
 python_function('benchmarks/llm_benchmark.py', 'run_benchmark', 0, 5, 16).
-python_function('benchmarks/llm_benchmark.py', 'build_summary', 1, 41, 6).
+python_function('benchmarks/llm_benchmark.py', '_calculate_model_stats', 2, 14, 6).
+python_function('benchmarks/llm_benchmark.py', '_calculate_domain_model_stats', 2, 10, 4).
+python_function('benchmarks/llm_benchmark.py', '_calculate_domain_stats', 3, 10, 5).
+python_function('benchmarks/llm_benchmark.py', '_calculate_overall_stats', 1, 8, 4).
+python_function('benchmarks/llm_benchmark.py', 'build_summary', 1, 5, 3).
 python_function('benchmarks/llm_benchmark.py', 'generate_html', 1, 12, 9).
 python_function('benchmarks/llm_benchmark.py', 'print_summary', 1, 3, 3).
 python_function('benchmarks/llm_benchmark.py', 'generate_refactoring_notes', 1, 10, 4).
@@ -2081,8 +2090,12 @@ python_function('src/nlp2cmd/plan_execution/execution_record.py', 'save_executio
 python_function('src/nlp2cmd/plan_execution/testql_export.py', 'testql_export_enabled', 0, 1, 3).
 python_function('src/nlp2cmd/plan_execution/testql_export.py', '_csv_cell', 1, 3, 3).
 python_function('src/nlp2cmd/plan_execution/testql_export.py', '_count_draw_steps', 1, 4, 4).
-python_function('src/nlp2cmd/plan_execution/testql_export.py', 'build_testql_scenario_text', 1, 19, 8).
-python_function('src/nlp2cmd/plan_execution/testql_export.py', 'build_integrations_metadata', 1, 6, 2).
+python_function('src/nlp2cmd/plan_execution/testql_export.py', '_detect_environment', 1, 8, 7).
+python_function('src/nlp2cmd/plan_execution/testql_export.py', '_map_dom_step_to_gui_row', 1, 12, 4).
+python_function('src/nlp2cmd/plan_execution/testql_export.py', '_map_dom_step_to_flow_row', 1, 6, 6).
+python_function('src/nlp2cmd/plan_execution/testql_export.py', 'build_testql_scenario_text', 1, 22, 18).
+python_function('src/nlp2cmd/plan_execution/testql_export.py', '_legacy_build_testql_scenario_text', 1, 12, 9).
+python_function('src/nlp2cmd/plan_execution/testql_export.py', 'build_integrations_metadata', 1, 8, 2).
 python_function('src/nlp2cmd/polish_support.py', 'get_polish_support', 0, 1, 0).
 python_function('src/nlp2cmd/post_execution/checker.py', 'post_check_enabled', 0, 1, 3).
 python_function('src/nlp2cmd/post_execution/checker.py', 'post_check_strict', 0, 1, 3).
@@ -2096,7 +2109,9 @@ python_function('src/nlp2cmd/schema_extraction/python_extractors.py', '_ast_unpa
 python_function('src/nlp2cmd/schema_extraction/python_extractors.py', '_python_annotation_to_param_type', 1, 10, 3).
 python_function('src/nlp2cmd/schema_extraction/script_extractors.py', '_shell_opt_to_param_name', 1, 1, 2).
 python_function('src/nlp2cmd/schema_extraction/script_extractors.py', '_dedupe_params', 1, 3, 3).
-python_function('src/nlp2cmd/service/__init__.py', '_ensure_service_deps', 0, 3, 0).
+python_function('src/nlp2cmd/service/__init__.py', '_ensure_fastapi_deps', 0, 2, 0).
+python_function('src/nlp2cmd/service/__init__.py', '_ensure_uvicorn', 0, 2, 0).
+python_function('src/nlp2cmd/service/__init__.py', '_ensure_service_deps', 0, 1, 2).
 python_function('src/nlp2cmd/service/__init__.py', 'create_app', 0, 1, 5).
 python_function('src/nlp2cmd/service/__init__.py', 'create_service_config_from_args', 10, 4, 5).
 python_function('src/nlp2cmd/service/cli.py', 'add_service_command', 1, 2, 12).
@@ -2386,7 +2401,7 @@ python_function('tests/unit/test_shadow_entity_metadata_capture.py', 'test_trans
 python_function('tests/unit/test_similarity_cache.py', 'cache_dir', 1, 1, 2).
 python_function('tests/unit/test_similarity_cache.py', '_seed_cache', 2, 2, 5).
 python_function('tests/unit/test_testql_export.py', 'test_is_valid_hex_color', 2, 2, 2).
-python_function('tests/unit/test_testql_export.py', 'test_build_testql_scenario_text_from_record', 0, 6, 1).
+python_function('tests/unit/test_testql_export.py', 'test_build_testql_scenario_text_from_record', 0, 9, 1).
 python_function('tests/unit/test_testql_export.py', 'test_save_execution_artifacts_emits_testql_when_enabled', 2, 5, 9).
 python_function('tests/unit/test_transform_validator_factory.py', 'test_bindings_include_pact_ir_shell_list', 0, 4, 1).
 python_function('tests/unit/test_transform_validator_factory.py', 'test_bindings_include_planner_intent_aliases', 0, 3, 1).
@@ -2474,7 +2489,15 @@ python_class('examples/01_basics/sql_basics/llm_integration.py', 'MockLLMBackend
 python_method('MockLLMBackend', 'generate_plan', 2, 6, 6).
 python_class('examples/03_integrations/toon_format/comparison_demo.py', 'SimpleToonParser').
 python_method('SimpleToonParser', '__init__', 1, 1, 2).
-python_method('SimpleToonParser', '_parse_file', 0, 17, 9).
+python_method('SimpleToonParser', '_read_file_content', 0, 2, 4).
+python_method('SimpleToonParser', '_is_section_header', 1, 2, 2).
+python_method('SimpleToonParser', '_is_object_definition', 1, 2, 0).
+python_method('SimpleToonParser', '_is_array_definition', 1, 2, 0).
+python_method('SimpleToonParser', '_extract_name', 1, 2, 2).
+python_method('SimpleToonParser', '_handle_section_header', 2, 1, 2).
+python_method('SimpleToonParser', '_handle_object_definition', 3, 3, 1).
+python_method('SimpleToonParser', '_handle_array_definition', 3, 3, 1).
+python_method('SimpleToonParser', '_parse_file', 0, 8, 10).
 python_method('SimpleToonParser', 'get_commands', 1, 2, 1).
 python_method('SimpleToonParser', 'get_config', 1, 5, 3).
 python_method('SimpleToonParser', 'get_command_by_name', 1, 4, 3).
@@ -2596,7 +2619,12 @@ python_method('ShellCommandValidator', 'get_test_cases', 0, 1, 1).
 python_method('ShellCommandValidator', 'validate_command', 1, 6, 5).
 python_method('ShellCommandValidator', '_calculate_similarity', 2, 4, 3).
 python_method('ShellCommandValidator', 'validate_all', 0, 4, 7).
-python_method('ShellCommandValidator', 'generate_report', 1, 16, 6).
+python_method('ShellCommandValidator', '_calculate_overall_stats', 1, 8, 2).
+python_method('ShellCommandValidator', '_calculate_category_stats', 1, 6, 0).
+python_method('ShellCommandValidator', '_format_summary', 1, 1, 1).
+python_method('ShellCommandValidator', '_format_category_stats', 1, 2, 2).
+python_method('ShellCommandValidator', '_format_extreme_results', 2, 3, 2).
+python_method('ShellCommandValidator', 'generate_report', 1, 1, 5).
 python_class('examples/04_domain_specific/polish_llm_integration/01_pdf_extraction/demo.py', 'PDFExtractor').
 python_method('PDFExtractor', '__init__', 0, 1, 0).
 python_method('PDFExtractor', 'extract_text', 1, 2, 1).
@@ -2630,13 +2658,16 @@ python_method('PDFSearchPipeline', 'search_pdf', 2, 1, 4).
 python_method('PDFSearchPipeline', 'batch_search', 2, 2, 1).
 python_class('examples/04_domain_specific/polish_llm_integration/example_pdf_search.py', 'PolishPDFSearchLLM').
 python_method('PolishPDFSearchLLM', '__init__', 2, 1, 7).
-python_method('PolishPDFSearchLLM', 'generate_pdf_search_command', 1, 25, 2).
+python_method('PolishPDFSearchLLM', 'generate_pdf_search_command', 1, 1, 2).
 python_method('PolishPDFSearchLLM', '_generate_with_lite_llm', 1, 1, 7).
 python_method('PolishPDFSearchLLM', '_generate_with_local_llm', 1, 1, 3).
 python_method('PolishPDFSearchLLM', '_clean_command', 1, 6, 7).
 python_class('examples/04_domain_specific/polish_llm_integration/example_pdf_search.py', 'MockPolishPDFSearchLLM').
 python_method('MockPolishPDFSearchLLM', '__init__', 0, 1, 1).
-python_method('MockPolishPDFSearchLLM', 'generate_pdf_search_command', 1, 25, 1).
+python_method('MockPolishPDFSearchLLM', '_get_command_for_query', 1, 15, 4).
+python_method('MockPolishPDFSearchLLM', '_get_size_command', 1, 2, 0).
+python_method('MockPolishPDFSearchLLM', '_get_sort_command', 1, 2, 0).
+python_method('MockPolishPDFSearchLLM', 'generate_pdf_search_command', 1, 1, 2).
 python_class('examples/04_domain_specific/polish_llm_integration/mock_test_polish_llm.py', 'MockPolishLLMClient').
 python_method('MockPolishLLMClient', '__init__', 1, 1, 1).
 python_method('MockPolishLLMClient', 'generate_plan', 2, 5, 4).
@@ -3157,8 +3188,12 @@ python_method('ShellAdapter', 'transform', 1, 1, 5).
 python_method('ShellAdapter', 'generate_command', 2, 1, 1).
 python_method('ShellAdapter', '_get_generator_method', 2, 5, 2).
 python_method('ShellAdapter', 'generate', 1, 2, 4).
-python_method('ShellAdapter', '_detect_intent', 1, 4, 2).
-python_method('ShellAdapter', '_extract_entities', 2, 10, 5).
+python_method('ShellAdapter', '_match_intent_patterns', 1, 4, 1).
+python_method('ShellAdapter', '_detect_intent', 1, 2, 2).
+python_method('ShellAdapter', '_extract_file_target', 1, 3, 2).
+python_method('ShellAdapter', '_extract_operation_action', 1, 3, 1).
+python_method('ShellAdapter', '_extract_process_name', 1, 4, 3).
+python_method('ShellAdapter', '_extract_entities', 2, 6, 3).
 python_method('ShellAdapter', '_calculate_confidence', 2, 3, 2).
 python_method('ShellAdapter', '_generate_generic', 1, 3, 5).
 python_method('ShellAdapter', 'validate_command', 1, 8, 6).
@@ -5021,7 +5056,11 @@ python_class('src/nlp2cmd/polish_support.py', 'PolishLanguageSupport').
 python_method('PolishLanguageSupport', '__init__', 0, 1, 1).
 python_method('PolishLanguageSupport', '_load_patterns', 0, 6, 4).
 python_method('PolishLanguageSupport', 'normalize_polish_text', 1, 2, 3).
-python_method('PolishLanguageSupport', 'normalize_stt_errors', 1, 20, 11).
+python_method('PolishLanguageSupport', '_apply_direct_corrections', 1, 3, 2).
+python_method('PolishLanguageSupport', '_has_english_command_words', 1, 2, 1).
+python_method('PolishLanguageSupport', '_try_adjacent_word_joining', 1, 8, 6).
+python_method('PolishLanguageSupport', '_try_fuzzy_phrase_match', 1, 6, 2).
+python_method('PolishLanguageSupport', 'normalize_stt_errors', 1, 6, 7).
 python_method('PolishLanguageSupport', '_find_best_phrase_match', 2, 4, 2).
 python_method('PolishLanguageSupport', '_similar', 3, 2, 2).
 python_method('PolishLanguageSupport', 'match_polish_patterns', 2, 6, 4).
@@ -5079,9 +5118,17 @@ python_method('DecisionRouter', '_orchestrator_available', 0, 2, 0).
 python_class('src/nlp2cmd/schema_driven.py', 'MatchResult').
 python_class('src/nlp2cmd/schema_driven.py', 'SchemaDrivenNLP2CMD').
 python_method('SchemaDrivenNLP2CMD', '__init__', 1, 1, 0).
+python_method('SchemaDrivenNLP2CMD', '_extract_text_tokens', 1, 4, 1).
+python_method('SchemaDrivenNLP2CMD', '_score_patterns', 2, 5, 2).
+python_method('SchemaDrivenNLP2CMD', '_score_examples', 2, 9, 4).
+python_method('SchemaDrivenNLP2CMD', '_score_token_overlap', 2, 6, 5).
+python_method('SchemaDrivenNLP2CMD', '_score_command_boosts', 2, 11, 3).
+python_method('SchemaDrivenNLP2CMD', '_apply_pattern_bonus', 2, 2, 2).
 python_method('SchemaDrivenNLP2CMD', 'transform', 1, 2, 8).
-python_method('SchemaDrivenNLP2CMD', '_select_action', 1, 41, 11).
-python_method('SchemaDrivenNLP2CMD', '_extract_params', 2, 17, 9).
+python_method('SchemaDrivenNLP2CMD', '_select_action', 1, 10, 11).
+python_method('SchemaDrivenNLP2CMD', '_convert_param_value', 2, 6, 3).
+python_method('SchemaDrivenNLP2CMD', '_extract_quoted_value', 1, 3, 2).
+python_method('SchemaDrivenNLP2CMD', '_extract_params', 2, 11, 6).
 python_method('SchemaDrivenNLP2CMD', '_render_dsl', 3, 7, 7).
 python_method('SchemaDrivenNLP2CMD', '_render_dom', 2, 9, 5).
 python_method('SchemaDrivenNLP2CMD', '_render_http', 2, 29, 11).
@@ -9791,4 +9838,384 @@ env_variable('FORM_SUBJECT', '"Zapytanie"', '').
 % ── TestQL Scenarios ─────────────────────────────────────
 
 % ── Semantic Facts from SUMD.md ──────────────────────────
+sumd_declared_file('app.doql.less', 'doql').
+sumd_declared_file('pyqual.yaml', 'pyqual').
+sumd_declared_file('project/map.toon.yaml', 'analysis').
+sumd_declared_file('project/logic.pl', 'analysis').
+sumd_declared_file('project/calls.toon.yaml', 'analysis').
+sumd_interface('api', '').
+sumd_interface('cli', 'click').
+sumd_interface('cli', '').
+sumd_workflow('install', 'manual').
+sumd_workflow_step('install', 1, '$(PIP) install -e ".[dev]" --break-system-packages').
+sumd_workflow('install-all', 'manual').
+sumd_workflow_step('install-all', 1, '$(PIP) install -e ".[all]" --break-system-packages').
+sumd_workflow('install-desktop', 'manual').
+sumd_workflow_step('install-desktop', 1, 'echo "$(BLUE)Installing desktop automation tools...$(NC)"').
+sumd_workflow_step('install-desktop', 2, './scripts/install_desktop_tools.sh').
+sumd_workflow('install-ci', 'manual').
+sumd_workflow_step('install-ci', 1, '$(PIP) install ".[dev]" --break-system-packages').
+sumd_workflow('deps', 'manual').
+sumd_workflow_step('deps', 1, '$(PIP) install -r requirements.txt --break-system-packages').
+sumd_workflow('setup-cache', 'manual').
+sumd_workflow_step('setup-cache', 1, 'echo "$(BLUE)Setting up external dependencies cache...$(NC)"').
+sumd_workflow_step('setup-cache', 2, '$(PYTHON) -m $(PROJECT_NAME) cache auto-setup').
+sumd_workflow_step('setup-cache', 3, 'echo "$(GREEN)✓ Cache setup complete!$(NC)"').
+sumd_workflow('setup-dev', 'manual').
+sumd_workflow_step('setup-dev', 1, 'echo "$(BLUE)Setting up development environment...$(NC)"').
+sumd_workflow_step('setup-dev', 2, '$(MAKE) install-all').
+sumd_workflow_step('setup-dev', 3, '$(MAKE) setup-cache').
+sumd_workflow_step('setup-dev', 4, 'echo "$(YELLOW)Note: For desktop automation support, run: make install-desktop$(NC)"').
+sumd_workflow_step('setup-dev', 5, 'echo "$(GREEN)✓ Development setup complete!$(NC)"').
+sumd_workflow('update', 'manual').
+sumd_workflow_step('update', 1, 'echo "$(BLUE)Updating nlp2cmd and integration dependencies...$(NC)"').
+sumd_workflow_step('update', 2, 'NLP2DSL_DIR="$(NLP2DSL_DIR)" bash scripts/update_integration_deps.sh').
+sumd_workflow_step('update', 3, 'echo "$(GREEN)✓ Update complete!$(NC)"').
+sumd_workflow('setup-dev-integration', 'manual').
+sumd_workflow('test', 'manual').
+sumd_workflow_step('test', 1, '$(PYTEST) tests/ -v --tb=short').
+sumd_workflow('test-fast', 'manual').
+sumd_workflow_step('test-fast', 1, '$(PYTEST) tests/ -v --tb=short -m "not e2e and not slow and not browser"').
+sumd_workflow('test-slow', 'manual').
+sumd_workflow_step('test-slow', 1, '$(PYTEST) tests/ -v --tb=short -m "slow"').
+sumd_workflow('test-parallel', 'manual').
+sumd_workflow_step('test-parallel', 1, '$(PYTEST) tests/ -v --tb=short -n auto --dist=loadscope').
+sumd_workflow('test-unit', 'manual').
+sumd_workflow_step('test-unit', 1, '$(PYTEST) tests/unit/ -v --tb=short').
+sumd_workflow('test-e2e', 'manual').
+sumd_workflow_step('test-e2e', 1, '$(PYTEST) tests/e2e/ -v --tb=short').
+sumd_workflow('test-integration', 'manual').
+sumd_workflow_step('test-integration', 1, '$(PYTEST) tests/integration/ -v --tb=short').
+sumd_workflow('test-web-schema', 'manual').
+sumd_workflow_step('test-web-schema', 1, '$(PYTEST) tests/iterative/test_typos_and_variations.py::TestTyposAndVariations::test_docker_typos -v').
+sumd_workflow_step('test-web-schema', 2, '$(PYTEST) tests/iterative/test_typos_and_variations.py::TestTyposAndVariations::test_shell_service_variations -v').
+sumd_workflow('test-nlp', 'manual').
+sumd_workflow_step('test-nlp', 1, '$(PYTEST) tests/iterative/test_typos_and_variations.py -v').
+sumd_workflow('test-enhanced', 'manual').
+sumd_workflow_step('test-enhanced', 1, 'echo "$(BLUE)Testing enhanced NLP integration...$(NC)"').
+sumd_workflow_step('test-enhanced', 2, '$(PYTHON) -c "from src.nlp2cmd.generation.enhanced_context import get_enhanced_detector').
+sumd_workflow('test-interactive', 'manual').
+sumd_workflow_step('test-interactive', 1, 'echo "$(BLUE)Testing interactive shell mode...$(NC)"').
+sumd_workflow_step('test-interactive', 2, 'echo "Testing shell emulation with Polish commands..."').
+sumd_workflow_step('test-interactive', 3, 'echo "Commands to test manually:"').
+sumd_workflow_step('test-interactive', 4, 'echo "  nlp2cmd --interactive --dsl shell"').
+sumd_workflow_step('test-interactive', 5, 'echo "  > pokaz pliki usera"').
+sumd_workflow_step('test-interactive', 6, 'echo "  > znajdz pliki .log"').
+sumd_workflow_step('test-interactive', 7, 'echo "  > uruchom usluge nginx"').
+sumd_workflow_step('test-interactive', 8, 'echo "  > exit"').
+sumd_workflow('test-cache', 'manual').
+sumd_workflow_step('test-cache', 1, 'echo "$(BLUE)Testing cache management...$(NC)"').
+sumd_workflow_step('test-cache', 2, '$(PYTHON) -m $(PROJECT_NAME) cache info').
+sumd_workflow_step('test-cache', 3, '$(PYTHON) -m $(PROJECT_NAME) cache check').
+sumd_workflow('test-cov', 'manual').
+sumd_workflow_step('test-cov', 1, '$(PYTEST) tests/ -v --cov=$(PROJECT_NAME) --cov-report=html --cov-report=term').
+sumd_workflow('test-watch', 'manual').
+sumd_workflow_step('test-watch', 1, 'ptw tests/ -- -v --tb=short').
+sumd_workflow('lint', 'manual').
+sumd_workflow_step('lint', 1, 'ruff check src/$(PROJECT_NAME)/ tests/').
+sumd_workflow_step('lint', 2, 'mypy src/$(PROJECT_NAME)/ --ignore-missing-imports').
+sumd_workflow('format', 'manual').
+sumd_workflow_step('format', 1, 'ruff format src/$(PROJECT_NAME)/ tests/').
+sumd_workflow_step('format', 2, 'black src/$(PROJECT_NAME)/ tests/').
+sumd_workflow('format-check', 'manual').
+sumd_workflow_step('format-check', 1, 'ruff format --check src/$(PROJECT_NAME)/ tests/').
+sumd_workflow_step('format-check', 2, 'black --check src/$(PROJECT_NAME)/ tests/').
+sumd_workflow('docker-build', 'manual').
+sumd_workflow_step('docker-build', 1, '$(DOCKER_COMPOSE) build').
+sumd_workflow('docker-build-no-cache', 'manual').
+sumd_workflow_step('docker-build-no-cache', 1, '$(DOCKER_COMPOSE) build --no-cache').
+sumd_workflow('docker-up', 'manual').
+sumd_workflow_step('docker-up', 1, '$(DOCKER_COMPOSE) up -d').
+sumd_workflow('docker-up-dev', 'manual').
+sumd_workflow_step('docker-up-dev', 1, '$(DOCKER_COMPOSE) --profile dev up -d').
+sumd_workflow('docker-down', 'manual').
+sumd_workflow_step('docker-down', 1, '$(DOCKER_COMPOSE) down').
+sumd_workflow('docker-down-v', 'manual').
+sumd_workflow_step('docker-down-v', 1, '$(DOCKER_COMPOSE) down -v').
+sumd_workflow('docker-test', 'manual').
+sumd_workflow_step('docker-test', 1, '$(DOCKER_COMPOSE) --profile test run --rm nlp2cmd-test').
+sumd_workflow('docker-e2e', 'manual').
+sumd_workflow_step('docker-e2e', 1, '$(DOCKER_COMPOSE) --profile e2e run --rm nlp2cmd-e2e').
+sumd_workflow('docker-logs', 'manual').
+sumd_workflow_step('docker-logs', 1, '$(DOCKER_COMPOSE) logs -f').
+sumd_workflow('docker-shell', 'manual').
+sumd_workflow_step('docker-shell', 1, '$(DOCKER_COMPOSE) exec nlp2cmd /bin/bash').
+sumd_workflow('docker-ps', 'manual').
+sumd_workflow_step('docker-ps', 1, '$(DOCKER_COMPOSE) ps').
+sumd_workflow('docker-push', 'manual').
+sumd_workflow_step('docker-push', 1, 'echo "$(YELLOW)Building Docker image...$(NC)"').
+sumd_workflow_step('docker-push', 2, '$(MAKE) docker-build').
+sumd_workflow_step('docker-push', 3, 'echo "$(YELLOW)Tagging Docker image with version...$(NC)"').
+sumd_workflow_step('docker-push', 4, 'VERSION=$$($(PWD)/venv/bin/python -c "import toml').
+sumd_workflow_step('docker-push', 5, 'docker tag nlp2cmd:latest nlp2cmd:$$VERSION').
+sumd_workflow_step('docker-push', 6, 'echo "$(YELLOW)Pushing Docker image to registry...$(NC)"').
+sumd_workflow_step('docker-push', 7, 'echo "$(BLUE)Note: Make sure you\'re authenticated with Docker Hub:$(NC)"').
+sumd_workflow_step('docker-push', 8, 'echo "$(BLUE)  docker login$(NC)"').
+sumd_workflow_step('docker-push', 9, 'if docker push nlp2cmd:latest 2>/dev/null && docker push nlp2cmd:$$VERSION 2>/dev/null').
+sumd_workflow_step('docker-push', 10, 'echo "$(GREEN)Docker image pushed successfully!$(NC)"').
+sumd_workflow_step('docker-push', 11, 'else \').
+sumd_workflow_step('docker-push', 12, 'echo "$(YELLOW)Docker push failed. Please check:$(NC)"').
+sumd_workflow_step('docker-push', 13, 'echo "$(YELLOW)1. Are you logged in to Docker Hub? Run: docker login$(NC)"').
+sumd_workflow_step('docker-push', 14, 'echo "$(YELLOW)2. Do you have push permissions for the nlp2cmd repository?$(NC)"').
+sumd_workflow_step('docker-push', 15, 'echo "$(YELLOW)3. Is your internet connection working?$(NC)"').
+sumd_workflow_step('docker-push', 16, 'exit 1').
+sumd_workflow_step('docker-push', 17, 'fi').
+sumd_workflow('demo', 'manual').
+sumd_workflow_step('demo', 1, 'PYTHONPATH=src $(PYTHON) examples/05_advanced_features/schema_driven_architecture/end_to_end_demo.py').
+sumd_workflow('demo-benchmark', 'manual').
+sumd_workflow_step('demo-benchmark', 1, 'PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py').
+sumd_workflow('demo-web', 'manual').
+sumd_workflow_step('demo-web', 1, 'echo "$(BLUE)Demo: Web schema extraction...$(NC)"').
+sumd_workflow_step('demo-web', 2, '$(PYTHON) -m $(PROJECT_NAME) web-schema extract https://httpbin.org/forms/post --headless').
+sumd_workflow('demo-cache', 'manual').
+sumd_workflow_step('demo-cache', 1, 'echo "$(BLUE)Demo: Cache management...$(NC)"').
+sumd_workflow_step('demo-cache', 2, '$(PYTHON) -m $(PROJECT_NAME) cache info').
+sumd_workflow('demo-interactive', 'manual').
+sumd_workflow_step('demo-interactive', 1, 'echo "$(BLUE)Demo: Interactive shell mode...$(NC)"').
+sumd_workflow_step('demo-interactive', 2, 'echo "$(YELLOW)Starting interactive shell with Polish NLP...$(NC)"').
+sumd_workflow_step('demo-interactive', 3, 'echo "$(YELLOW)Try these commands:$(NC)"').
+sumd_workflow_step('demo-interactive', 4, 'echo "  > pokaz pliki usera"').
+sumd_workflow_step('demo-interactive', 5, 'echo "  > znajdz pliki .log wieksze niz 10MB"').
+sumd_workflow_step('demo-interactive', 6, 'echo "  > uruchom usluge nginx"').
+sumd_workflow_step('demo-interactive', 7, 'echo "  > pokaż procesy zużywające najwięcej pamięci"').
+sumd_workflow_step('demo-interactive', 8, 'echo "  > exit"').
+sumd_workflow_step('demo-interactive', 9, 'echo ""').
+sumd_workflow_step('demo-interactive', 10, 'echo "$(BLUE)Press Enter to start interactive mode...$(NC)"').
+sumd_workflow_step('demo-interactive', 11, 'read -r').
+sumd_workflow_step('demo-interactive', 12, '$(PYTHON) -m $(PROJECT_NAME) --interactive --dsl shell').
+sumd_workflow('test-examples', 'manual').
+sumd_workflow_step('test-examples', 1, 'echo "$(BLUE)Testing all examples...$(NC)"').
+sumd_workflow_step('test-examples', 2, 'echo "$(YELLOW)Architecture examples:$(NC)"').
+sumd_workflow_step('test-examples', 3, 'PYTHONPATH=src $(PYTHON) examples/architecture/end_to_end_demo.py').
+sumd_workflow_step('test-examples', 4, 'echo ""').
+sumd_workflow_step('test-examples', 5, 'echo "$(YELLOW)Docker examples:$(NC)"').
+sumd_workflow_step('test-examples', 6, 'PYTHONPATH=src $(PYTHON) examples/docker/basic_docker.py').
+sumd_workflow_step('test-examples', 7, 'PYTHONPATH=src $(PYTHON) examples/docker/file_repair.py').
+sumd_workflow_step('test-examples', 8, 'echo ""').
+sumd_workflow_step('test-examples', 9, 'echo "$(YELLOW)Kubernetes examples:$(NC)"').
+sumd_workflow_step('test-examples', 10, 'PYTHONPATH=src $(PYTHON) examples/kubernetes/basic_kubernetes.py').
+sumd_workflow_step('test-examples', 11, 'echo ""').
+sumd_workflow_step('test-examples', 12, 'echo "$(YELLOW)Pipeline examples:$(NC)"').
+sumd_workflow_step('test-examples', 13, 'PYTHONPATH=src $(PYTHON) examples/pipelines/infrastructure_health.py').
+sumd_workflow_step('test-examples', 14, 'PYTHONPATH=src $(PYTHON) examples/pipelines/log_analysis.py').
+sumd_workflow_step('test-examples', 15, 'echo ""').
+sumd_workflow_step('test-examples', 16, 'echo "$(YELLOW)Shell examples:$(NC)"').
+sumd_workflow_step('test-examples', 17, 'PYTHONPATH=src $(PYTHON) examples/shell/basic_shell.py').
+sumd_workflow_step('test-examples', 18, 'PYTHONPATH=src $(PYTHON) examples/shell/environment_analysis.py').
+sumd_workflow_step('test-examples', 19, 'PYTHONPATH=src $(PYTHON) examples/shell/feedback_loop.py').
+sumd_workflow_step('test-examples', 20, 'echo ""').
+sumd_workflow_step('test-examples', 21, 'echo "$(YELLOW)SQL examples:$(NC)"').
+sumd_workflow_step('test-examples', 22, 'for file in examples/sql/*.py').
+sumd_workflow_step('test-examples', 23, 'if [ -f "$$file" ]').
+sumd_workflow_step('test-examples', 24, 'echo "Running $$file..."').
+sumd_workflow_step('test-examples', 25, 'PYTHONPATH=src $(PYTHON) "$$file"').
+sumd_workflow_step('test-examples', 26, 'fi').
+sumd_workflow_step('test-examples', 27, 'done').
+sumd_workflow_step('test-examples', 28, 'echo ""').
+sumd_workflow_step('test-examples', 29, 'echo "$(YELLOW)Validation examples:$(NC)"').
+sumd_workflow_step('test-examples', 30, 'PYTHONPATH=src $(PYTHON) examples/validation/config_validation.py').
+sumd_workflow_step('test-examples', 31, 'echo ""').
+sumd_workflow_step('test-examples', 32, 'echo "$(GREEN)All examples completed!$(NC)"').
+sumd_workflow('repl', 'manual').
+sumd_workflow_step('repl', 1, '$(PYTHON) -m $(PROJECT_NAME).cli').
+sumd_workflow('run-example', 'manual').
+sumd_workflow_step('run-example', 1, '$(PYTHON) examples/$(FILE)').
+sumd_workflow('clean', 'manual').
+sumd_workflow_step('clean', 1, 'rm -rf build/').
+sumd_workflow_step('clean', 2, 'rm -rf dist/').
+sumd_workflow_step('clean', 3, 'rm -rf *.egg-info/').
+sumd_workflow_step('clean', 4, 'rm -rf .pytest_cache/').
+sumd_workflow_step('clean', 5, 'rm -rf .mypy_cache/').
+sumd_workflow_step('clean', 6, 'rm -rf .ruff_cache/').
+sumd_workflow_step('clean', 7, 'rm -rf htmlcov/').
+sumd_workflow_step('clean', 8, 'rm -rf .coverage').
+sumd_workflow_step('clean', 9, 'rm -rf .cache/').
+sumd_workflow('clean-cache', 'manual').
+sumd_workflow_step('clean-cache', 1, 'echo "$(YELLOW)Cleaning external dependencies cache...$(NC)"').
+sumd_workflow_step('clean-cache', 2, '$(PYTHON) -m $(PROJECT_NAME) cache clear --all').
+sumd_workflow_step('clean-cache', 3, 'echo "$(GREEN)✓ Cache cleared!$(NC)"').
+sumd_workflow('clean-docker', 'manual').
+sumd_workflow_step('clean-docker', 1, '$(DOCKER_COMPOSE) down -v --rmi local').
+sumd_workflow_step('clean-docker', 2, 'docker system prune -f').
+sumd_workflow('clean-all', 'manual').
+sumd_workflow('build', 'manual').
+sumd_workflow_step('build', 1, '$(PYTHON) -m build').
+sumd_workflow('publish-test', 'manual').
+sumd_workflow_step('publish-test', 1, 'echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)"').
+sumd_workflow_step('publish-test', 2, '$(PYTHON) -m venv publish-test-env').
+sumd_workflow_step('publish-test', 3, 'publish-test-env/bin/pip install twine').
+sumd_workflow_step('publish-test', 4, 'publish-test-env/bin/python -m twine upload --repository testpypi dist/*').
+sumd_workflow_step('publish-test', 5, 'rm -rf publish-test-env').
+sumd_workflow('bump-patch', 'manual').
+sumd_workflow_step('bump-patch', 1, 'echo "$(YELLOW)Bumping patch version...$(NC)"').
+sumd_workflow_step('bump-patch', 2, '$(PYTHON) scripts/bump_version.py patch').
+sumd_workflow('bump-minor', 'manual').
+sumd_workflow_step('bump-minor', 1, 'echo "$(YELLOW)Bumping minor version...$(NC)"').
+sumd_workflow_step('bump-minor', 2, '$(PYTHON) scripts/bump_version.py minor').
+sumd_workflow('bump-major', 'manual').
+sumd_workflow_step('bump-major', 1, 'echo "$(YELLOW)Bumping major version...$(NC)"').
+sumd_workflow_step('bump-major', 2, '$(PYTHON) scripts/bump_version.py major').
+sumd_workflow('publish', 'manual').
+sumd_workflow_step('publish', 1, 'echo "$(YELLOW)Bumping patch version...$(NC)"').
+sumd_workflow_step('publish', 2, '$(MAKE) bump-patch').
+sumd_workflow_step('publish', 3, 'echo "$(YELLOW)Building package with new version...$(NC)"').
+sumd_workflow_step('publish', 4, '$(MAKE) build').
+sumd_workflow_step('publish', 5, 'echo "$(YELLOW)Publishing to PyPI...$(NC)"').
+sumd_workflow_step('publish', 6, 'echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)"').
+sumd_workflow_step('publish', 7, '$(PYTHON) -m venv publish-env').
+sumd_workflow_step('publish', 8, 'publish-env/bin/pip install twine').
+sumd_workflow_step('publish', 9, 'publish-env/bin/python -m twine upload dist/*').
+sumd_workflow_step('publish', 10, 'rm -rf publish-env').
+sumd_workflow('push', 'manual').
+sumd_workflow_step('push', 1, 'echo "$(YELLOW)Starting complete release process...$(NC)"').
+sumd_workflow_step('push', 2, 'echo "$(YELLOW)1. Bumping patch version...$(NC)"').
+sumd_workflow_step('push', 3, '$(MAKE) bump-patch').
+sumd_workflow_step('push', 4, 'echo "$(YELLOW)2. Building package...$(NC)"').
+sumd_workflow_step('push', 5, '$(MAKE) build').
+sumd_workflow_step('push', 6, 'echo "$(YELLOW)3. Publishing to PyPI...$(NC)"').
+sumd_workflow_step('push', 7, 'echo "$(YELLOW)Creating temporary virtual environment for twine...$(NC)"').
+sumd_workflow_step('push', 8, '$(PYTHON) -m venv push-env').
+sumd_workflow_step('push', 9, 'push-env/bin/pip install twine').
+sumd_workflow_step('push', 10, 'push-env/bin/python -m twine upload dist/*').
+sumd_workflow_step('push', 11, 'rm -rf push-env').
+sumd_workflow_step('push', 12, 'echo "$(YELLOW)4. Building and pushing Docker image...$(NC)"').
+sumd_workflow_step('push', 13, 'if $(MAKE) docker-push').
+sumd_workflow_step('push', 14, 'echo "$(GREEN)Docker image pushed successfully!$(NC)"').
+sumd_workflow_step('push', 15, 'echo "$(YELLOW)5. Creating and pushing git tag...$(NC)"').
+sumd_workflow_step('push', 16, 'VERSION=$$($(PYTHON) -c "import toml').
+sumd_workflow_step('push', 17, 'git tag v$$VERSION && \').
+sumd_workflow_step('push', 18, 'git push origin v$$VERSION && \').
+sumd_workflow_step('push', 19, 'echo "$(GREEN)🎉 Complete release finished successfully!$(NC)"').
+sumd_workflow_step('push', 20, 'echo "$(GREEN)   - Package published to PyPI ✓$(NC)"').
+sumd_workflow_step('push', 21, 'echo "$(GREEN)   - Docker image pushed to registry ✓$(NC)"').
+sumd_workflow_step('push', 22, 'echo "$(GREEN)   - Git tag v$$VERSION pushed ✓$(NC)"').
+sumd_workflow_step('push', 23, 'echo "$(GREEN)   - Version bumped automatically ✓$(NC)"').
+sumd_workflow_step('push', 24, 'else \').
+sumd_workflow_step('push', 25, 'echo "$(YELLOW)⚠️  Partial release completed!$(NC)"').
+sumd_workflow_step('push', 26, 'echo "$(YELLOW)   - Package published to PyPI ✓$(NC)"').
+sumd_workflow_step('push', 27, 'echo "$(YELLOW)   - Docker push failed ✗$(NC)"').
+sumd_workflow_step('push', 28, 'echo "$(YELLOW)   - Version bumped automatically ✓$(NC)"').
+sumd_workflow_step('push', 29, 'echo "$(BLUE)To complete the Docker push and git tag later:$(NC)"').
+sumd_workflow_step('push', 30, 'echo "$(BLUE)  docker login && make docker-push && make git-tag$(NC)"').
+sumd_workflow_step('push', 31, 'fi').
+sumd_workflow('git-tag', 'manual').
+sumd_workflow_step('git-tag', 1, 'echo "$(YELLOW)Creating and pushing git tag...$(NC)"').
+sumd_workflow_step('git-tag', 2, 'VERSION=$$($(PYTHON) -c "import toml').
+sumd_workflow_step('git-tag', 3, 'git tag v$$VERSION && \').
+sumd_workflow_step('git-tag', 4, 'git push origin v$$VERSION && \').
+sumd_workflow_step('git-tag', 5, 'echo "$(GREEN)Git tag v$$VERSION pushed successfully!$(NC)"').
+sumd_workflow('version', 'manual').
+sumd_workflow_step('version', 1, '$(PYTHON) -c "import $(PROJECT_NAME)').
+sumd_workflow('info', 'manual').
+sumd_workflow_step('info', 1, 'echo "$(BLUE)Project:$(NC) $(PROJECT_NAME)"').
+sumd_workflow_step('info', 2, 'echo "$(BLUE)Python:$(NC) $(shell $(PYTHON) --version)"').
+sumd_workflow_step('info', 3, 'echo "$(BLUE)Pip:$(NC) $(shell $(PIP) --version)"').
+sumd_workflow_step('info', 4, 'echo "$(BLUE)Version:$(NC) $(shell $(PYTHON) -c \'import $(PROJECT_NAME)').
+sumd_workflow('report', 'manual').
+sumd_workflow('benchmark', 'manual').
+sumd_workflow_step('benchmark', 1, 'echo "$(BLUE)Running NLP2CMD LLM Benchmark...$(NC)"').
+sumd_workflow_step('benchmark', 2, 'echo "$(YELLOW)Testing 5 local models (≤3B) across shell, docker, sql, kubernetes, browser, git$(NC)"').
+sumd_workflow_step('benchmark', 3, 'echo "$(YELLOW)Requires: ollama running locally$(NC)"').
+sumd_workflow_step('benchmark', 4, 'PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py').
+sumd_workflow_step('benchmark', 5, 'echo ""').
+sumd_workflow_step('benchmark', 6, 'echo "$(GREEN)✓ Benchmark complete!$(NC)"').
+sumd_workflow_step('benchmark', 7, 'echo "$(BLUE)Reports in benchmark_output/:$(NC)"').
+sumd_workflow_step('benchmark', 8, 'echo "  - benchmark_results.json  (detailed JSON)"').
+sumd_workflow_step('benchmark', 9, 'echo "  - benchmark_results.html  (interactive charts)"').
+sumd_workflow_step('benchmark', 10, 'echo "  - refactoring_plan.md     (refactoring recommendations)"').
+sumd_workflow_step('benchmark', 11, 'echo "  - benchmark.log           (execution log)"').
+sumd_workflow_step('benchmark', 12, 'echo ""').
+sumd_workflow_step('benchmark', 13, 'echo "$(YELLOW)Open HTML report:$(NC)"').
+sumd_workflow_step('benchmark', 14, 'echo "  xdg-open benchmark_output/benchmark_results.html"').
+sumd_workflow('benchmark-no-cache', 'manual').
+sumd_workflow_step('benchmark-no-cache', 1, 'echo "$(BLUE)Running NLP2CMD LLM Benchmark (NO CACHE)...$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 2, 'echo "$(YELLOW)Testing pure LLM performance - all cache tiers disabled$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 3, 'echo "$(YELLOW)This forces fresh LLM calls for every query$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 4, 'echo "$(YELLOW)Requires: ollama running locally$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 5, 'PYTHONPATH=src $(PYTHON) benchmarks/llm_benchmark.py --no-cache').
+sumd_workflow_step('benchmark-no-cache', 6, 'echo ""').
+sumd_workflow_step('benchmark-no-cache', 7, 'echo "$(GREEN)✓ No-cache benchmark complete!$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 8, 'echo "$(BLUE)Reports in benchmark_output/:$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 9, 'echo "  - benchmark_results.json  (detailed JSON)"').
+sumd_workflow_step('benchmark-no-cache', 10, 'echo "  - benchmark_results.html  (interactive charts)"').
+sumd_workflow_step('benchmark-no-cache', 11, 'echo ""').
+sumd_workflow_step('benchmark-no-cache', 12, 'echo "$(YELLOW)Open HTML report:$(NC)"').
+sumd_workflow_step('benchmark-no-cache', 13, 'echo "  xdg-open benchmark_output/benchmark_results.html"').
+sumd_workflow('benchmark-view', 'manual').
+sumd_workflow_step('benchmark-view', 1, 'if [ -f benchmark_output/benchmark_results.json ]').
+sumd_workflow_step('benchmark-view', 2, 'echo "$(BLUE)Last Benchmark Summary:$(NC)"').
+sumd_workflow_step('benchmark-view', 3, 'cat benchmark_output/benchmark_results.json | jq \'.summary\'').
+sumd_workflow_step('benchmark-view', 4, 'else \').
+sumd_workflow_step('benchmark-view', 5, 'echo "$(YELLOW)No benchmark results found. Run \'make benchmark\' first.$(NC)"').
+sumd_workflow_step('benchmark-view', 6, 'fi').
+sumd_workflow('benchmark-html', 'manual').
+sumd_workflow_step('benchmark-html', 1, 'if [ -f benchmark_output/benchmark_results.html ]').
+sumd_workflow_step('benchmark-html', 2, 'xdg-open benchmark_output/benchmark_results.html').
+sumd_workflow_step('benchmark-html', 3, 'else \').
+sumd_workflow_step('benchmark-html', 4, 'echo "$(YELLOW)No HTML report found. Run \'make benchmark\' first.$(NC)"').
+sumd_workflow_step('benchmark-html', 5, 'fi').
+sumd_workflow('benchmark-plan', 'manual').
+sumd_workflow_step('benchmark-plan', 1, 'if [ -f benchmark_output/refactoring_plan.md ]').
+sumd_workflow_step('benchmark-plan', 2, 'cat benchmark_output/refactoring_plan.md').
+sumd_workflow_step('benchmark-plan', 3, 'else \').
+sumd_workflow_step('benchmark-plan', 4, 'echo "$(YELLOW)No refactoring plan found. Run \'make benchmark\' first.$(NC)"').
+sumd_workflow_step('benchmark-plan', 5, 'fi').
+sumd_workflow('benchmark-learn', 'manual').
+sumd_workflow_step('benchmark-learn', 1, 'echo "$(BLUE)Running NLP2CMD Learning Benchmark...$(NC)"').
+sumd_workflow_step('benchmark-learn', 2, 'echo "$(YELLOW)Tests evolutionary cache: cold → warm → hot across 16 domains$(NC)"').
+sumd_workflow_step('benchmark-learn', 3, 'PYTHONPATH=src $(PYTHON) benchmarks/learning_benchmark.py').
+sumd_workflow_step('benchmark-learn', 4, 'echo ""').
+sumd_workflow_step('benchmark-learn', 5, 'echo "$(GREEN)✓ Learning benchmark complete!$(NC)"').
+sumd_workflow_step('benchmark-learn', 6, 'echo "$(BLUE)Reports in benchmark_output/:$(NC)"').
+sumd_workflow_step('benchmark-learn', 7, 'echo "  - learning_benchmark.json  (detailed results)"').
+sumd_workflow_step('benchmark-learn', 8, 'echo "  - learning_benchmark.html  (interactive charts)"').
+sumd_workflow_step('benchmark-learn', 9, 'echo ""').
+sumd_workflow_step('benchmark-learn', 10, 'echo "$(YELLOW)Open HTML report:$(NC)"').
+sumd_workflow_step('benchmark-learn', 11, 'echo "  xdg-open benchmark_output/learning_benchmark.html"').
+sumd_workflow('benchmark-clean', 'manual').
+sumd_workflow_step('benchmark-clean', 1, 'rm -rf benchmark_output/').
+sumd_workflow_step('benchmark-clean', 2, 'echo "$(GREEN)✓ Benchmark output cleaned!$(NC)"').
+sumd_workflow('scripts-maintenance', 'manual').
+sumd_workflow_step('scripts-maintenance', 1, 'echo "$(BLUE)Maintenance Scripts:$(NC)"').
+sumd_workflow_step('scripts-maintenance', 2, 'ls -la scripts/maintenance/').
+sumd_workflow_step('scripts-maintenance', 3, 'echo ""').
+sumd_workflow_step('scripts-maintenance', 4, 'echo "$(YELLOW)Available scripts:$(NC)"').
+sumd_workflow_step('scripts-maintenance', 5, 'for script in scripts/maintenance/*.py').
+sumd_workflow_step('scripts-maintenance', 6, 'if [ -f "$$script" ]').
+sumd_workflow_step('scripts-maintenance', 7, 'echo "  $$(basename $$script) - $$(grep \'^"""\' "$$script" | head -1 | sed \'s/"""//g\' | sed \'s/^[[:space:]]*//\')"').
+sumd_workflow_step('scripts-maintenance', 8, 'fi').
+sumd_workflow_step('scripts-maintenance', 9, 'done').
+sumd_workflow('scripts-thermo', 'manual').
+sumd_workflow_step('scripts-thermo', 1, 'echo "$(BLUE)Thermodynamic Scripts:$(NC)"').
+sumd_workflow_step('scripts-thermo', 2, 'ls -la scripts/thermodynamic/').
+sumd_workflow_step('scripts-thermo', 3, 'echo ""').
+sumd_workflow_step('scripts-thermo', 4, 'echo "$(YELLOW)Available scripts:$(NC)"').
+sumd_workflow_step('scripts-thermo', 5, 'for script in scripts/thermodynamic/*.py').
+sumd_workflow_step('scripts-thermo', 6, 'if [ -f "$$script" ]').
+sumd_workflow_step('scripts-thermo', 7, 'echo "  $$(basename $$script) - $$(grep \'^"""\' "$$script" | head -1 | sed \'s/"""//g\' | sed \'s/^[[:space:]]*//\')"').
+sumd_workflow_step('scripts-thermo', 8, 'fi').
+sumd_workflow_step('scripts-thermo', 9, 'done').
+sumd_workflow('scripts-test', 'manual').
+sumd_workflow_step('scripts-test', 1, 'echo "$(BLUE)Testing Scripts:$(NC)"').
+sumd_workflow_step('scripts-test', 2, 'ls -la scripts/testing/').
+sumd_workflow_step('scripts-test', 3, 'echo ""').
+sumd_workflow_step('scripts-test', 4, 'echo "$(YELLOW)Available scripts:$(NC)"').
+sumd_workflow_step('scripts-test', 5, 'for script in scripts/testing/*.py').
+sumd_workflow_step('scripts-test', 6, 'if [ -f "$$script" ]').
+sumd_workflow_step('scripts-test', 7, 'echo "  $$(basename $$script) - $$(grep \'^"""\' "$$script" | head -1 | sed \'s/"""//g\' | sed \'s/^[[:space:]]*//\')"').
+sumd_workflow_step('scripts-test', 8, 'fi').
+sumd_workflow_step('scripts-test', 9, 'done').
+sumd_workflow('scripts-all', 'manual').
+sumd_workflow_step('scripts-all', 1, 'echo "$(BLUE)All Scripts Organization:$(NC)"').
+sumd_workflow_step('scripts-all', 2, 'echo ""').
+sumd_workflow_step('scripts-all', 3, '$(MAKE) scripts-maintenance').
+sumd_workflow_step('scripts-all', 4, 'echo ""').
+sumd_workflow_step('scripts-all', 5, '$(MAKE) scripts-thermo').
+sumd_workflow_step('scripts-all', 6, 'echo ""').
+sumd_workflow_step('scripts-all', 7, '$(MAKE) scripts-test').
+sumd_workflow('run-thermo', 'manual').
+sumd_workflow_step('run-thermo', 1, 'echo "$(BLUE)Running thermodynamic demo...$(NC)"').
+sumd_workflow_step('run-thermo', 2, '$(PYTHON) scripts/thermodynamic/termo_demo.py').
+sumd_deploy_target('docker_compose').
+sumd_deploy_compose_file('docker-compose.yml').
 
