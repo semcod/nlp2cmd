@@ -2959,6 +2959,15 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.19] - 2026-06-06
+
+### Docs
+- Update README.md
+
+### Other
+- Update scripts/update_integration_deps.sh
+- Update uv.lock
+
 ## [1.1.18] - 2026-06-05
 
 ### Docs

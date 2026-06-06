@@ -25,6 +25,9 @@ else
   "$PY" -m pip install -e "$ROOT[integration]" --upgrade
 fi
 
+echo "==> nlp2cmd-intent >=0.1.1 (keywords module)"
+"$PY" -m pip install -U "nlp2cmd-intent>=0.1.1" -q
+
 if [[ -d "$NLP2DSL_DIR/packages" ]]; then
   echo "==> nlp2dsl packages from $NLP2DSL_DIR"
   NLP2DSL_DIR="$NLP2DSL_DIR" "$NLP2DSL_DIR/packages/install-dev.sh"

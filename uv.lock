@@ -2909,7 +2909,7 @@ wheels = [
 
 [[package]]
 name = "nlp2cmd"
-version = "1.1.18"
+version = "1.1.19"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
@@ -3124,7 +3124,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "nlp2cmd-intent", specifier = ">=0.1.0" },
+    { name = "nlp2cmd-intent", specifier = ">=0.1.1" },
     { name = "pact-ir", specifier = ">=0.1.0" },
     { name = "pydantic", specifier = ">=2.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
@@ -3167,7 +3167,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "nlp2cmd-intent", specifier = ">=0.1.0" },
+    { name = "nlp2cmd-intent", specifier = ">=0.1.1" },
     { name = "nlp2cmd-planner", specifier = ">=0.1.0" },
     { name = "pact-ir", specifier = ">=0.1.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },

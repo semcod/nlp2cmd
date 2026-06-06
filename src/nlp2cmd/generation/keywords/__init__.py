@@ -13,12 +13,12 @@ try:
     )
 except ImportError as exc:  # pragma: no cover - install hint
     raise ImportError(
-        "Pakiet nlp2cmd-intent nie jest zainstalowany (wymagany od v1.1.17).\n\n"
+        "Pakiet nlp2cmd-intent nie jest zainstalowany lub jest za stary (wymagany >=0.1.1 od nlp2cmd v1.1.17).\n\n"
+        "PyPI:\n"
+        "  pip install -U 'nlp2cmd-intent>=0.1.1'\n\n"
         "Monorepo dev (zalecane):\n"
-        "  cd ../nlp2dsl && ./scripts/setup-dev.sh\n\n"
-        "Ręcznie:\n"
-        "  cd ../nlp2dsl && ./packages/install-dev.sh\n"
-        "  pip install -e ../nlp2cmd[integration]\n"
+        "  cd ../nlp2cmd && make update\n"
+        "  # lub: cd ../nlp2dsl && ./scripts/setup-dev.sh\n"
     ) from exc
 
 __all__ = [
