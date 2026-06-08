@@ -271,7 +271,7 @@ def test_canvas_adapter_generate_from_vql():
 # ── Library namespace ─────────────────────────────────────────────────────────────
 
 def test_vql_library_exposes_primitives():
-    from nlp2cmd.vql.library import (
+    from vql.library import (
         ColorResolver,
         ShapeRegistry,
         parse_svg_path,
@@ -288,7 +288,7 @@ def test_vql_library_exposes_primitives():
 def test_playwright_vql_renderer_render_delegates_to_events():
     import asyncio
 
-    from nlp2cmd.vql.renderers.playwright import PlaywrightVQLRenderer
+    from vql.renderers.playwright import PlaywrightVQLRenderer
 
     program = nl_to_program("narysuj koło", width=400, height=400)
 
@@ -313,7 +313,7 @@ def test_playwright_vql_renderer_render_delegates_to_events():
 
 def test_playwright_vql_renderer_is_renderer_subclass():
     from nlp2cmd.skills.drawing.renderers.base import Renderer
-    from nlp2cmd.vql.renderers.playwright import PlaywrightVQLRenderer
+    from vql.renderers.playwright import PlaywrightVQLRenderer
 
     assert issubclass(PlaywrightVQLRenderer, Renderer)
     assert hasattr(PlaywrightVQLRenderer, "render")
