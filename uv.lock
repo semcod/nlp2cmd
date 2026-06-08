@@ -2922,7 +2922,7 @@ wheels = [
 
 [[package]]
 name = "nlp2cmd"
-version = "1.1.24"
+version = "1.1.25"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
@@ -2938,6 +2938,7 @@ dependencies = [
     { name = "pyyaml" },
     { name = "rapidfuzz" },
     { name = "rich" },
+    { name = "vql" },
     { name = "watchdog" },
 ]
 
@@ -2945,7 +2946,6 @@ dependencies = [
 all = [
     { name = "anthropic" },
     { name = "black" },
-    { name = "cairosvg" },
     { name = "costs" },
     { name = "goal" },
     { name = "httpx" },
@@ -2961,7 +2961,6 @@ all = [
     { name = "openai" },
     { name = "pact-ir" },
     { name = "pfix" },
-    { name = "pillow" },
     { name = "playwright" },
     { name = "pre-commit" },
     { name = "pytest" },
@@ -2977,6 +2976,7 @@ all = [
     { name = "sqlalchemy" },
     { name = "sqlparse" },
     { name = "testql" },
+    { name = "vql", extra = ["png"] },
 ]
 automation = [
     { name = "httpx" },
@@ -3056,15 +3056,13 @@ uri = [
     { name = "nlp2uri" },
 ]
 vql = [
-    { name = "cairosvg" },
-    { name = "pillow" },
+    { name = "vql", extra = ["png"] },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "anthropic", marker = "extra == 'llm'", specifier = ">=0.18" },
     { name = "black", marker = "extra == 'dev'", specifier = ">=23.0" },
-    { name = "cairosvg", marker = "extra == 'vql'", specifier = ">=2.7" },
     { name = "click", specifier = ">=8.0" },
     { name = "costs", marker = "extra == 'dev'", specifier = ">=0.1.20" },
     { name = "env2llm", marker = "extra == 'mcp'", specifier = ">=0.1.3" },
@@ -3097,7 +3095,6 @@ requires-dist = [
     { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
     { name = "pillow", marker = "extra == 'automation'", specifier = ">=10.0" },
     { name = "pillow", marker = "extra == 'llm-vision'", specifier = ">=10.0" },
-    { name = "pillow", marker = "extra == 'vql'", specifier = ">=10.0" },
     { name = "playwright", marker = "extra == 'automation'", specifier = ">=1.40.0" },
     { name = "playwright", marker = "extra == 'browser'", specifier = ">=1.40.0" },
     { name = "playwright", marker = "extra == 'dev'", specifier = ">=1.40.0" },
@@ -3123,6 +3120,8 @@ requires-dist = [
     { name = "testql", marker = "extra == 'browser'", specifier = ">=1.2.55" },
     { name = "testql", marker = "extra == 'testql'", specifier = ">=1.2.55" },
     { name = "uvicorn", marker = "extra == 'service'", specifier = ">=0.23" },
+    { name = "vql", editable = "../../oqlos/vql" },
+    { name = "vql", extras = ["png"], marker = "extra == 'vql'", editable = "../../oqlos/vql" },
     { name = "watchdog", specifier = ">=3.0" },
 ]
 provides-extras = ["service", "nlp", "llm", "router", "sql", "thermodynamic", "browser", "testql", "desktop", "automation", "llm-vision", "vql", "integration", "uri", "mcp", "dev", "all"]
@@ -5893,6 +5892,31 @@ sdist = { url = "https://files.pythonhosted.org/packages/e1/0d/4e93c8e6d1001a757
 wheels = [
     { url = "https://files.pythonhosted.org/packages/bf/c4/557dc082be035381b85fdb2b74e21d3d21b57750b74f2b47a32f3a639ff9/virtualenv-21.4.2-py3-none-any.whl", hash = "sha256:854210ca524a1a4d0d744734f4acbc721c3ffe163b85bbf5d56d14d5ae2f0fae", size = 7594079, upload-time = "2026-05-31T17:01:20.735Z" },
 ]
+
+[[package]]
+name = "vql"
+version = "0.1.0"
+source = { editable = "../../oqlos/vql" }
+
+[package.optional-dependencies]
+png = [
+    { name = "cairosvg" },
+    { name = "pillow" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "cairosvg", marker = "extra == 'dev'", specifier = ">=2.7" },
+    { name = "cairosvg", marker = "extra == 'png'", specifier = ">=2.7" },
+    { name = "costs", marker = "extra == 'dev'", specifier = ">=0.1.20" },
+    { name = "goal", marker = "extra == 'dev'", specifier = ">=2.1.0" },
+    { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
+    { name = "pillow", marker = "extra == 'dev'", specifier = ">=10.0" },
+    { name = "pillow", marker = "extra == 'png'", specifier = ">=10.0" },
+    { name = "playwright", marker = "extra == 'playwright'", specifier = ">=1.40.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+]
+provides-extras = ["png", "playwright", "dev"]
 
 [[package]]
 name = "wasabi"

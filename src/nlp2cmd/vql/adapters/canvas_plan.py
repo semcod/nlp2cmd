@@ -16,8 +16,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from nlp2cmd.vql.compiler.legacy_drawcommand import compile_to_events
-from nlp2cmd.vql.schema.program import VQLProgram
+from vql.compiler.legacy_drawcommand import compile_to_events
+from vql.schema.program import VQLProgram
 
 
 def program_to_canvas_steps(program: VQLProgram) -> list[dict[str, Any]]:

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from nlp2cmd.vql.schema.program import (
+from vql.schema.program import (
     Layer,
     Object,
     Primitive,

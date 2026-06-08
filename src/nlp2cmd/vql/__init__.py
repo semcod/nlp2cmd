@@ -1,28 +1,12 @@
-"""
-VQL — Visual Query Language for nlp2cmd.
+"""Backward-compat shim — VQL lives in the standalone ``vql`` package."""
 
-A self-contained domain package providing an intermediate representation (IR)
-for drawing/graphics tasks. ``nlp2cmd`` treats VQL as one of its target IRs
-(alongside shell, DOM, Docker, Kubernetes): it detects a drawing intent,
-compiles natural language into a :class:`VQLProgram`, validates it, and
-compiles it to a render backend (SVG today, Playwright/canvas next).
-
-Public surface (import from here or from ``nlp2cmd.vql.api``):
-
-    from nlp2cmd.vql import VQLFacade, VQLProgram, render_to_svg
-
-Internal modules (generators, event store, correction internals) remain
-private to the package and reachable only through the facade/api.
-"""
-
-from nlp2cmd.vql.api import (
+from vql import (
     RenderTarget,
     Scene,
     Style,
     ValidationSpec,
     VQLFacade,
     VQLProgram,
-    VQLResult,
     VQLValidationReport,
     commands_to_program,
     compile_to_events,
@@ -33,6 +17,10 @@ from nlp2cmd.vql.api import (
     render_to_svg,
     validate_program,
 )
+from vql.facade import VQLResult
+
+from nlp2cmd.vql.adapters.canvas_plan import program_to_canvas_payload, program_to_canvas_steps
+from nlp2cmd.vql.adapters.canvas_to_vql import action_plan_to_vql_program
 
 __all__ = [
     "VQLFacade",
@@ -51,4 +39,7 @@ __all__ = [
     "render_program",
     "validate_program",
     "VQLValidationReport",
+    "action_plan_to_vql_program",
+    "program_to_canvas_payload",
+    "program_to_canvas_steps",
 ]

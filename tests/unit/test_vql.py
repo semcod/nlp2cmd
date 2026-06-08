@@ -17,7 +17,7 @@ from nlp2cmd.vql import (
     render_to_svg,
     validate_program,
 )
-from nlp2cmd.vql.schema.program import Layer, Object, Primitive
+from vql.schema.program import Layer, Object, Primitive
 
 
 # ── Schema ───────────────────────────────────────────────────────────────────
@@ -147,7 +147,7 @@ def test_validate_program_passes_with_matching_spec():
 
 
 def test_validate_program_reports_missing_shape():
-    from nlp2cmd.vql.schema.program import ValidationSpec
+    from vql.schema.program import ValidationSpec
 
     program = nl_to_program("narysuj koło", width=400, height=400)
     program.validation = ValidationSpec(expected_shapes=["dragon"])
@@ -209,7 +209,7 @@ def test_program_to_canvas_payload_structure():
 def test_canvas_steps_cover_all_compiled_groups():
     """Every compiled point group must map to a canvas draw step (no dropped lines)."""
     from nlp2cmd.vql.adapters.canvas_plan import program_to_canvas_steps
-    from nlp2cmd.vql.compiler.legacy_drawcommand import compile_to_events
+    from vql.compiler.legacy_drawcommand import compile_to_events
 
     program = nl_to_program("narysuj kota i rakietę", width=800, height=600)
     total_groups = sum(len(e.points) for e in compile_to_events(program))
@@ -220,7 +220,7 @@ def test_canvas_steps_cover_all_compiled_groups():
 
 def test_canvas_steps_emit_draw_line_for_two_point_groups():
     from nlp2cmd.vql.adapters.canvas_plan import program_to_canvas_steps
-    from nlp2cmd.vql.schema.program import (
+    from vql.schema.program import (
         Layer,
         Object,
         Primitive,

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nlp2cmd"
-version = "1.1.24"
+version = "1.1.25"
 description = "NLP2CMD - Transforms natural language into domain-specific commands (SQL, Shell, Docker, Kubernetes) using a multi-layered detection pipeline and thermodynamic optimization."
 readme = "README.md"
 license = "Apache-2.0"
@@ -44,6 +44,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "vql>=0.1.0",
     "pyyaml>=6.0",
     "pydantic>=2.0",
     "rich>=13.0",
@@ -105,8 +106,7 @@ llm-vision = [
     "pillow>=10.0",
 ]
 vql = [
-    "cairosvg>=2.7",
-    "pillow>=10.0",
+    "vql[png]>=0.1.0",
 ]
 integration = [
     "pact-ir>=0.1.0",
@@ -159,6 +159,7 @@ Issues = "https://github.com/wronai/nlp2cmd/issues"
 Changelog = "https://github.com/wronai/nlp2cmd/blob/main/CHANGELOG.md"
 
 [tool.uv.sources]
+vql = { path = "../../oqlos/vql", editable = true }
 # Sibling monorepo packages (../nlp2dsl). Publish to PyPI for standalone installs.
 nlp2cmd-intent = { path = "../nlp2dsl/packages/nlp2cmd-intent", editable = true }
 pact-ir = { path = "../nlp2dsl/packages/pact-ir", editable = true }
@@ -283,7 +284,7 @@ exclude_lines = [
 
 [tool.pfix]
 # Self-healing Python configuration
-model = "openrouter/qwen/qwen3-coder-next"
+model = "openrouter/deep/deep-v4-pro"
 auto_apply = true
 auto_install_deps = true
 auto_restart = false
@@ -302,7 +303,7 @@ deduplicate = true
 badge = true
 update_readme = true
 readme_path = "README.md"
-default_model = "openrouter/qwen/qwen3-coder-next"
+default_model = "openrouter/deep/deep-v4-pro"
 analysis_mode = "byok"
 full_history = true
 max_commits = 500

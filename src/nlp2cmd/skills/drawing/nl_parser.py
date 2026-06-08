@@ -144,7 +144,7 @@ class NLDrawingParser:
         NL → raw ``DrawCommand`` actions. ``parse`` remains available for the
         legacy command path. Returns a ``nlp2cmd.vql.VQLProgram``.
         """
-        from nlp2cmd.vql.compiler.nl_to_vql import nl_to_program
+        from vql.compiler.nl_to_vql import nl_to_program
 
         return nl_to_program(
             text,
