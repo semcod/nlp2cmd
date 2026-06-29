@@ -2959,6 +2959,19 @@ feat(browser): add article extraction with plural and topic filtering
   - Action ID verification
 
 
+## [1.1.27] - 2026-06-29
+
+### Docs
+- Update README.md
+
+### Other
+- Update .continue/config.json
+- Update .cursor/mcp.json
+- Update .cursor/rules/semcod-mcp.mdc
+- Update .semcod-mcp.yaml
+- Update .windsurf/mcp.json
+- Update uv.lock
+
 ## [1.1.26] - 2026-06-08
 
 ### Docs

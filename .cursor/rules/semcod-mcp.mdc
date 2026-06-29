@@ -1,0 +1,23 @@
+---
+description: semcod MCP quality pipeline — analyze before large refactors
+globs:
+  - "**/*"
+---
+
+# semcod MCP
+
+Before non-trivial refactors in `semcod/nlp2cmd`:
+
+1. Run `semcod-mcp doctor` — stack must be healthy.
+2. Use MCP server `semcod-mcp-skills` or gateway model `mcp-skills/analyze`.
+3. After edits run `semcod-mcp validate` and local `pyqual run` if available.
+4. Stack path: `/home/tom/github/semcod/mcp`
+
+Prompt template for gateway:
+
+```
+Repo: semcod/nlp2cmd
+Branch: main
+Execute: false
+Zadanie: <opis zadania>
+```

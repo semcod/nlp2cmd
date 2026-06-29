@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "semcod-mcp-skills": {
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "/home/tom/github/semcod/mcp/docker-compose.yml",
+        "exec",
+        "-T",
+        "mcp-skills",
+        "python",
+        "server.py"
+      ],
+      "env": {
+        "MCP_SKILLS_TRANSPORT": "stdio",
+        "GIT_PROXY_URL": "http://mcp-git-proxy:8080",
+        "SKILLS_REPO_BASE": "/skills-cache"
+      }
+    }
+  }
+}

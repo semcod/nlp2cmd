@@ -15,7 +15,7 @@ Architecture (LLM as Planner + Typed Actions):
 Key principle: LLM plans. Code executes. System controls.
 """
 
-__version__ = "1.1.26"
+__version__ = "1.1.27"
 __author__ = "NLP2CMD Team"
 
 # Import core classes with fallback

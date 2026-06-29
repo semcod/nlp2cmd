@@ -2923,7 +2923,7 @@ wheels = [
 
 [[package]]
 name = "nlp2cmd"
-version = "1.1.26"
+version = "1.1.27"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
@@ -5899,7 +5899,7 @@ wheels = [
 
 [[package]]
 name = "vql"
-version = "0.1.0"
+version = "0.1.7"
 source = { editable = "../../oqlos/vql" }
 
 [package.optional-dependencies]
@@ -5915,14 +5915,17 @@ requires-dist = [
     { name = "costs", marker = "extra == 'dev'", specifier = ">=0.1.20" },
     { name = "goal", marker = "extra == 'dev'", specifier = ">=2.1.0" },
     { name = "jsonschema", marker = "extra == 'dev'", specifier = ">=4.0" },
+    { name = "mss", marker = "extra == 'desktop'", specifier = ">=9.0" },
     { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
+    { name = "pillow", marker = "extra == 'desktop'", specifier = ">=10.0" },
     { name = "pillow", marker = "extra == 'dev'", specifier = ">=10.0" },
     { name = "pillow", marker = "extra == 'png'", specifier = ">=10.0" },
     { name = "playwright", marker = "extra == 'playwright'", specifier = ">=1.40.0" },
     { name = "protobuf", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+    { name = "vql", extras = ["desktop", "png"], marker = "extra == 'pipeline'" },
 ]
-provides-extras = ["png", "playwright", "dev"]
+provides-extras = ["png", "desktop", "playwright", "pipeline", "dev"]
 
 [[package]]
 name = "wasabi"
