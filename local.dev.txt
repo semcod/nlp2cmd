@@ -1,0 +1,20 @@
+# local.dev.txt — locally developed dependencies of this project (generated 2026-07-04)
+# by ~/github/local.dev.sh — DO NOT EDIT; see ~/github/local.dev.md
+# project: nlp2cmd 1.1.27 (python) at /home/tom/github/semcod/nlp2cmd
+# deps declared: 63 | with local source: 12
+
+## LOCAL DEPS  (dep | required | local source (version) | installed | status)
+costs | >=0.1.20 | /home/tom/github/semcod/costs (0.1.53) | 0.1.51 non-editable | STALE-INSTALL (local 0.1.53) -> fix: pip install -e /home/tom/github/semcod/costs  [pyproject.toml[dev]]
+env2llm | >=0.1.3 | /home/tom/github/semcod/env2llm (0.1.13) | - | NOT-INSTALLED  [pyproject.toml[uri]]
+goal | >=2.1.0 | /home/tom/github/semcod/goal (2.1.266) | 2.1.246 non-editable | STALE-INSTALL (local 2.1.266) -> fix: pip install -e /home/tom/github/semcod/goal  [pyproject.toml[dev]]
+nlp2cmd-intent | >=0.1.1 | /home/tom/github/semcod/nlp2dsl/packages/nlp2cmd-intent (0.1.1) | 0.1.1 editable | OK-EDITABLE  [pyproject.toml]
+nlp2cmd-planner | >=0.1.0 | /home/tom/github/semcod/nlp2dsl/packages/nlp2cmd-planner (0.1.2) | 0.1.2 editable | OK-EDITABLE  [pyproject.toml[integration]]
+nlp2cmd-propact | >=0.1.0 | /home/tom/github/semcod/nlp2dsl/packages/nlp2cmd-propact (0.1.3) | 0.1.3 editable | OK-EDITABLE  [pyproject.toml[integration]]
+nlp2dsl-show | >=0.1.0 | /home/tom/github/semcod/nlp2dsl/packages/nlp2dsl-show (0.1.0) | 0.1.0 editable | OK-EDITABLE  [pyproject.toml[integration]]
+nlp2uri | >=0.4 | /home/tom/github/semcod/nlp2uri (0.4.19) | - | NOT-INSTALLED  [pyproject.toml[uri]]
+pact-ir | >=0.1.0 | /home/tom/github/semcod/nlp2dsl/packages/pact-ir (0.1.0) | 0.1.0 editable | OK-EDITABLE  [pyproject.toml[integration]]
+pfix | >=0.1.60 | /home/tom/github/semcod/pfix (0.1.76) | 0.1.73 non-editable | STALE-INSTALL (local 0.1.76) -> fix: pip install -e /home/tom/github/semcod/pfix  [pyproject.toml[dev]]
+testql | >=1.2.55 | /home/tom/github/oqlos/testql (1.2.60) | 1.2.59 non-editable | STALE-INSTALL (local 1.2.60) -> fix: pip install -e /home/tom/github/oqlos/testql  [pyproject.toml[browser]]
+vql | >=0.1.0 | /home/tom/github/oqlos/vql (0.1.7) | 0.1.7 editable | OK-EDITABLE  [pyproject.toml]
+
+## EXTERNAL DEPS (no local source, 50): anthropic, argparse, ast-tools, black, click, fastapi, httpx, jellyfish, jinja2, jsonschema, langdetect, litellm, matplotlib, mkdocs, mkdocs-material, mkdocstrings, mypy, nltk, numpy, openai, openapi-pydantic, pillow, playwright, prance, pre-commit, psutil, pydantic, pytest, pytest-asyncio, pytest-cov, pytest-mock, pytest-xdist, python-dotenv, python-xlib, pyyaml, rapidfuzz, requests, rich, ruff, scikit-learn, scipy, sentence-transformers, shell-gpt, spacy, sqlalchemy, sqlparse, textblob, transformers, uvicorn, watchdog
