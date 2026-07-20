@@ -2976,7 +2976,7 @@ all = [
     { name = "spacy" },
     { name = "sqlalchemy" },
     { name = "sqlparse" },
-    { name = "testql" },
+    { name = "testql", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
     { name = "vql", extra = ["png"] },
 ]
 automation = [
@@ -2986,7 +2986,7 @@ automation = [
 ]
 browser = [
     { name = "playwright" },
-    { name = "testql" },
+    { name = "testql", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
 ]
 desktop = [
     { name = "python-xlib" },
@@ -3045,7 +3045,7 @@ sql = [
     { name = "sqlparse" },
 ]
 testql = [
-    { name = "testql" },
+    { name = "testql", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
 ]
 thermodynamic = [
     { name = "matplotlib" },
@@ -3118,8 +3118,8 @@ requires-dist = [
     { name = "spacy", marker = "extra == 'nlp'", specifier = ">=3.7" },
     { name = "sqlalchemy", marker = "extra == 'sql'", specifier = ">=2.0" },
     { name = "sqlparse", marker = "extra == 'sql'", specifier = ">=0.4" },
-    { name = "testql", marker = "extra == 'browser'", specifier = ">=1.2.55" },
-    { name = "testql", marker = "extra == 'testql'", specifier = ">=1.2.55" },
+    { name = "testql", marker = "python_full_version >= '3.11' and python_full_version < '3.14' and extra == 'browser'", specifier = ">=1.2.63" },
+    { name = "testql", marker = "python_full_version >= '3.11' and python_full_version < '3.14' and extra == 'testql'", specifier = ">=1.2.63" },
     { name = "uvicorn", marker = "extra == 'service'", specifier = ">=0.23" },
     { name = "vql", editable = "../../oqlos/vql" },
     { name = "vql", extras = ["png"], marker = "extra == 'vql'", editable = "../../oqlos/vql" },
@@ -5531,23 +5531,24 @@ wheels = [
 
 [[package]]
 name = "testql"
-version = "1.2.59"
+version = "1.2.63"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "click" },
-    { name = "costs" },
-    { name = "fastapi" },
-    { name = "goal" },
-    { name = "httpx" },
-    { name = "pfix" },
-    { name = "pytest-cov" },
-    { name = "pyyaml" },
-    { name = "rich" },
-    { name = "websockets" },
+    { name = "click", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "costs", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "fastapi", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "goal", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "httpx", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "pfix", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "playwright", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "pytest-cov", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "pyyaml", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "rich", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
+    { name = "websockets", marker = "python_full_version >= '3.11' and python_full_version < '3.14'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2c/f1/83142ee26ea543dcbd05b2e98c05b3eb3735db21de2d180b20cd7b40cc8f/testql-1.2.59.tar.gz", hash = "sha256:9e6426c476d6cf9c6a0dc47ae2c3aa3137df1aaaa362c4c1cccb583ce52893f4", size = 389187, upload-time = "2026-06-06T21:39:38.167Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c2/ea/02574e9adcc5999e2e8d4f3adcb0bfe8385bf7d62e10404606e3f4beaca5/testql-1.2.63.tar.gz", hash = "sha256:ddb31d27c9713c5cbc53c4f0b185d6412acd78268fbf140a90454709c4cd0701", size = 406262, upload-time = "2026-07-20T07:47:21.852Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f1/8c/4750b8d87067e4cc713fcd331ab536b29464f995025dd2248d517ddaed43/testql-1.2.59-py3-none-any.whl", hash = "sha256:a465b1635f3d3d0392345c47b54535397cb7f38e423a49d012de5d2478fa2c34", size = 385945, upload-time = "2026-06-06T21:39:36.19Z" },
+    { url = "https://files.pythonhosted.org/packages/55/e0/d87c7912c7170af009af944d2105016f24953feb9d72c13518d9d35162f6/testql-1.2.63-py3-none-any.whl", hash = "sha256:3876af6538fe727cb63fa3174b1e6d6bec04d285c8e1effab6e3f54dbe9c4cef", size = 395903, upload-time = "2026-07-20T07:47:19.839Z" },
 ]
 
 [[package]]
