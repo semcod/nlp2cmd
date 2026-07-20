@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import pytest
 
 from nlp2cmd.post_execution.checker import (
@@ -11,7 +13,6 @@ from nlp2cmd.post_execution.checker import (
     infer_post_check_spec,
     post_check_enabled,
 )
-from nlp2cmd_propact.runner import RunResult
 from pact_ir import ExecutionPlanIR, IntentIR, PlanStep, TargetKind
 
 
@@ -67,7 +68,7 @@ def test_explicit_metadata_post_check() -> None:
 def test_check_plan_outputs_with_execution_metadata() -> None:
     intent = IntentIR(query="q", intent="find", target_kind=TargetKind.SHELL, confidence=0.9)
     plan = ExecutionPlanIR.from_intent(intent, steps=[_find_step()], source="rule_shell")
-    execution = RunResult(
+    execution = SimpleNamespace(
         success=True,
         markdown="",
         stdout="src/a.py\n",
@@ -92,7 +93,7 @@ def test_post_check_violation_raises_in_strict_mode(monkeypatch) -> None:
     monkeypatch.setenv("NLP2CMD_POST_CHECK_STRICT", "1")
     intent = IntentIR(query="q", intent="find", target_kind=TargetKind.SHELL, confidence=0.9)
     plan = ExecutionPlanIR.from_intent(intent, steps=[_find_step()], source="rule_shell")
-    execution = RunResult(
+    execution = SimpleNamespace(
         success=True,
         markdown="",
         stdout="src/a.txt\n",
